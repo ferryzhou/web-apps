@@ -1375,39 +1375,9 @@
 
         // Initialize when API loads
         window.initMap = initMap;
-
-        // Load Google Maps API dynamically from config
-        function loadGoogleMapsAPI() {
-            if (typeof CONFIG !== 'undefined' && CONFIG.GOOGLE_MAPS_API_KEY && CONFIG.GOOGLE_MAPS_API_KEY !== 'YOUR_API_KEY_HERE') {
-                const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.GOOGLE_MAPS_API_KEY}&callback=initMap`;
-                script.async = true;
-                script.defer = true;
-                document.head.appendChild(script);
-            } else {
-                showConfigError();
-            }
-        }
-
-        function showConfigError() {
-            document.getElementById('map').innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #ff6b6b; text-align: center; padding: 40px;">
-                    <div>
-                        <h3 style="margin-bottom: 15px;">Google Maps API Key Required</h3>
-                        <p style="color: #aaa; line-height: 1.6;">
-                            To use this app:<br><br>
-                            1. Copy <code style="background: #333; padding: 2px 8px; border-radius: 4px;">config.example.js</code> to <code style="background: #333; padding: 2px 8px; border-radius: 4px;">config.js</code><br>
-                            2. Add your Google Maps API key to config.js<br><br>
-                            Get a key at: <a href="https://console.cloud.google.com/google/maps-apis" target="_blank" style="color: #ffd700;">Google Cloud Console</a>
-                        </p>
-                    </div>
-                </div>
-            `;
-        }
     </script>
 
-    <!-- Load config file (gitignored, contains API key) -->
-    <script src="config.js" onerror="showConfigError()"></script>
-    <script>loadGoogleMapsAPI();</script>
+    <!-- Google Maps API -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBunqBMTUS4mACCzpkAokrbCs_O2H5896c&callback=initMap"></script>
 </body>
 </html>
