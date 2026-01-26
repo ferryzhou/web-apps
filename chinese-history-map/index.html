@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Historical Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+        }
+
+        .period-display {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin: 10px 0;
+        }
+
+        .period-years {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        /* Timeline Styles */
+        .timeline-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .timeline-wrapper {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-track {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ffd700);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .timeline-slider {
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            -webkit-appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .timeline-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(255,215,0,0.5);
+            transition: transform 0.2s;
+        }
+
+        .timeline-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .timeline-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 10px rgba(255,215,0,0.5);
+        }
+
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .timeline-label {
+            text-align: center;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .timeline-label:hover {
+            background: rgba(255,255,255,0.1);
+            color: #ffd700;
+        }
+
+        .timeline-label.active {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* Map Styles */
+        .map-container {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #china-map {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .kingdom {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .kingdom:hover {
+            filter: brightness(1.2);
+            stroke: #ffd700;
+            stroke-width: 3;
+        }
+
+        .kingdom.selected {
+            stroke: #ffd700;
+            stroke-width: 4;
+            filter: brightness(1.3);
+        }
+
+        .kingdom-label {
+            font-size: 14px;
+            font-weight: bold;
+            fill: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            pointer-events: none;
+            text-anchor: middle;
+        }
+
+        .map-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .legend-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .legend-name {
+            font-size: 0.9rem;
+        }
+
+        /* Info Panel Styles */
+        .info-panel {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255,215,0,0.3);
+        }
+
+        .kingdom-name {
+            font-size: 2rem;
+            color: #ffd700;
+        }
+
+        .kingdom-name-chinese {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+        }
+
+        .kingdom-duration {
+            font-size: 1rem;
+            color: #aaa;
+        }
+
+        .info-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-section {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .info-section h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 2px;
+        }
+
+        .description {
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .events-list, .characters-list {
+            list-style: none;
+        }
+
+        .events-list li, .characters-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .events-list li:last-child, .characters-list li:last-child {
+            border-bottom: none;
+        }
+
+        .event-year {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .character-name {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .character-title {
+            color: #888;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .character-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .placeholder-message {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h1 span {
+                font-size: 1.2rem;
+            }
+
+            .period-display {
+                font-size: 1.4rem;
+            }
+
+            .timeline-labels {
+                font-size: 0.6rem;
+            }
+
+            .info-content {
+                grid-template-columns: 1fr;
+            }
+
+            .kingdom-name {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Instructions */
+        .instructions {
+            text-align: center;
+            padding: 10px;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Chinese Historical Map <span>中国历史地图</span></h1>
+            <div class="period-display" id="period-name">Select a Period</div>
+            <div class="period-years" id="period-years"></div>
+        </header>
+
+        <div class="timeline-container">
+            <div class="instructions">Drag the slider or click a dynasty name to explore different periods</div>
+            <div class="timeline-wrapper">
+                <div class="timeline-track">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                </div>
+                <input type="range" class="timeline-slider" id="timeline-slider" min="0" max="8" value="0" step="1">
+            </div>
+            <div class="timeline-labels" id="timeline-labels"></div>
+        </div>
+
+        <div class="map-container">
+            <div class="map-wrapper">
+                <svg id="china-map" viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Map will be dynamically generated -->
+                </svg>
+            </div>
+            <div class="map-legend" id="map-legend"></div>
+        </div>
+
+        <div class="info-panel" id="info-panel">
+            <div class="placeholder-message">
+                Click on a kingdom on the map to see detailed information
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Historical Data
+        const historicalData = {
+            periods: [
+                {
+                    id: 'warring-states',
+                    name: 'Warring States',
+                    chinese: '战国',
+                    years: '475 - 221 BC',
+                    startYear: -475,
+                    endYear: -221,
+                    kingdoms: [
+                        {
+                            id: 'qin',
+                            name: 'Qin',
+                            chinese: '秦',
+                            color: '#8B0000',
+                            path: 'M200,280 L280,250 L320,300 L300,380 L220,400 L180,350 Z',
+                            labelX: 250,
+                            labelY: 320,
+                            description: 'The state of Qin was located in the northwest. Known for its military prowess and legalist reforms under Shang Yang, Qin would eventually conquer all other states to form the first unified Chinese empire.',
+                            events: [
+                                { year: '356 BC', text: 'Shang Yang begins legalist reforms' },
+                                { year: '316 BC', text: 'Qin conquers Shu and Ba (Sichuan)' },
+                                { year: '260 BC', text: 'Battle of Changping - decisive victory over Zhao' },
+                                { year: '230-221 BC', text: 'Qin conquers the six states, unifying China' }
+                            ],
+                            characters: [
+                                { name: 'Ying Zheng (嬴政)', title: 'King of Qin', desc: 'Later became Qin Shi Huang, first emperor of unified China' },
+                                { name: 'Shang Yang (商鞅)', title: 'Chancellor', desc: 'Implemented legalist reforms that strengthened Qin' },
+                                { name: 'Bai Qi (白起)', title: 'General', desc: 'Legendary military commander, victor of Changping' }
+                            ]
+                        },
+                        {
+                            id: 'chu',
+                            name: 'Chu',
+                            chinese: '楚',
+                            color: '#228B22',
+                            path: 'M280,400 L400,380 L500,420 L520,500 L400,550 L280,520 L220,450 Z',
+                            labelX: 380,
+                            labelY: 470,
+                            description: 'The state of Chu was the largest of the Warring States, covering much of southern China. Known for its distinct culture, poetry, and shamanic traditions.',
+                            events: [
+                                { year: '340 BC', text: 'Chu reaches peak territorial extent' },
+                                { year: '299 BC', text: 'King Huai tricked and captured by Qin' },
+                                { year: '278 BC', text: 'Qin captures Ying, the Chu capital' },
+                                { year: '223 BC', text: 'Chu finally conquered by Qin' }
+                            ],
+                            characters: [
+                                { name: 'Qu Yuan (屈原)', title: 'Poet & Minister', desc: 'Patriotic poet who wrote "Li Sao", drowned himself in Miluo River' },
+                                { name: 'King Huai (楚怀王)', title: 'King', desc: 'Ruled during Chu\'s decline, died in Qin captivity' },
+                                { name: 'Xiang Yu (项羽)', title: 'General', desc: 'From Chu nobility, later challenged Han dynasty founding' }
+                            ]
+                        },
+                        {
+                            id: 'zhao',
+                            name: 'Zhao',
+                            chinese: '赵',
+                            color: '#4169E1',
+                            path: 'M350,180 L450,150 L500,200 L480,280 L400,320 L320,280 Z',
+                            labelX: 400,
+                            labelY: 230,
+                            description: 'The state of Zhao was known for its cavalry and military reforms. Located in northern China, it was one of the strongest states until defeated at Changping.',
+                            events: [
+                                { year: '307 BC', text: 'King Wuling adopts "Hu" cavalry tactics' },
+                                { year: '295 BC', text: 'Zhao defeats Zhongshan' },
+                                { year: '260 BC', text: 'Catastrophic defeat at Battle of Changping' },
+                                { year: '228 BC', text: 'Zhao conquered by Qin' }
+                            ],
+                            characters: [
+                                { name: 'King Wuling (赵武灵王)', title: 'King', desc: 'Revolutionary ruler who modernized Zhao\'s military' },
+                                { name: 'Lian Po (廉颇)', title: 'General', desc: 'Famous general known for defensive strategies' },
+                                { name: 'Lin Xiangru (蔺相如)', title: 'Diplomat', desc: 'Skilled negotiator, preserved the He Shi Bi jade' }
+                            ]
+                        },
+                        {
+                            id: 'wei',
+                            name: 'Wei',
+                            chinese: '魏',
+                            color: '#9932CC',
+                            path: 'M350,280 L400,260 L450,300 L430,370 L360,380 L320,340 Z',
+                            labelX: 380,
+                            labelY: 320,
+                            description: 'The state of Wei was centrally located and initially the strongest state after dividing from Jin. It was a center of learning and culture.',
+                            events: [
+                                { year: '445 BC', text: 'Wei, Zhao, Han divide Jin' },
+                                { year: '361 BC', text: 'Shang Yang flees Wei for Qin' },
+                                { year: '341 BC', text: 'Defeat at Battle of Maling' },
+                                { year: '225 BC', text: 'Wei conquered by Qin' }
+                            ],
+                            characters: [
+                                { name: 'King Hui (魏惠王)', title: 'King', desc: 'Patron of scholars, host to Mencius' },
+                                { name: 'Pang Juan (庞涓)', title: 'General', desc: 'Famous commander, rival of Sun Bin' },
+                                { name: 'Wei Wuji (魏无忌)', title: 'Prince', desc: 'Lord Xinling, one of the Four Lords of Warring States' }
+                            ]
+                        },
+                        {
+                            id: 'qi',
+                            name: 'Qi',
+                            chinese: '齐',
+                            color: '#FF8C00',
+                            path: 'M500,200 L600,180 L650,250 L620,320 L530,340 L480,280 Z',
+                            labelX: 560,
+                            labelY: 260,
+                            description: 'The state of Qi was located in eastern China (modern Shandong). A wealthy state known for trade, scholarship, and the Jixia Academy.',
+                            events: [
+                                { year: '386 BC', text: 'Tian clan replaces Jiang rulers' },
+                                { year: '334 BC', text: 'King Wei declares himself king' },
+                                { year: '284 BC', text: 'Five-state alliance attacks Qi' },
+                                { year: '221 BC', text: 'Qi surrenders to Qin without battle' }
+                            ],
+                            characters: [
+                                { name: 'King Wei (齐威王)', title: 'King', desc: 'Transformed Qi into a major power' },
+                                { name: 'Sun Bin (孙膑)', title: 'Strategist', desc: 'Military genius, wrote "Art of War" commentary' },
+                                { name: 'Tian Dan (田单)', title: 'General', desc: 'Recovered Qi with the Fire Ox strategy' }
+                            ]
+                        },
+                        {
+                            id: 'han',
+                            name: 'Han',
+                            chinese: '韩',
+                            color: '#20B2AA',
+                            path: 'M320,340 L380,320 L420,360 L400,420 L340,420 L300,380 Z',
+                            labelX: 360,
+                            labelY: 370,
+                            description: 'The smallest of the seven major states, Han was located in central China. Known for its crossbow technology and weapon manufacturing.',
+                            events: [
+                                { year: '403 BC', text: 'Han officially recognized as state' },
+                                { year: '375 BC', text: 'Han conquers Zheng' },
+                                { year: '293 BC', text: 'Defeats at Yique by Qin' },
+                                { year: '230 BC', text: 'First state conquered by Qin' }
+                            ],
+                            characters: [
+                                { name: 'Han Fei (韩非)', title: 'Philosopher', desc: 'Founder of Legalism, wrote "Han Feizi"' },
+                                { name: 'King An (韩安王)', title: 'Last King', desc: 'Surrendered Han to Qin' },
+                                { name: 'Zhang Liang (张良)', title: 'Nobleman', desc: 'Later became key advisor to Han dynasty founder' }
+                            ]
+                        },
+                        {
+                            id: 'yan',
+                            name: 'Yan',
+                            chinese: '燕',
+                            color: '#708090',
+                            path: 'M450,80 L580,60 L620,120 L600,180 L500,200 L440,160 Z',
+                            labelX: 530,
+                            labelY: 130,
+                            description: 'The state of Yan was the northernmost state, located in modern Beijing and Hebei. Known for sending Jing Ke to assassinate the King of Qin.',
+                            events: [
+                                { year: '314 BC', text: 'Qi briefly conquers Yan' },
+                                { year: '284 BC', text: 'Yan leads alliance against Qi' },
+                                { year: '227 BC', text: 'Jing Ke fails to assassinate Qin king' },
+                                { year: '222 BC', text: 'Yan conquered by Qin' }
+                            ],
+                            characters: [
+                                { name: 'King Zhao (燕昭王)', title: 'King', desc: 'Restored Yan to prominence' },
+                                { name: 'Yue Yi (乐毅)', title: 'General', desc: 'Led successful campaign against Qi' },
+                                { name: 'Jing Ke (荆轲)', title: 'Assassin', desc: 'Attempted to assassinate the King of Qin' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'qin-dynasty',
+                    name: 'Qin Dynasty',
+                    chinese: '秦朝',
+                    years: '221 - 206 BC',
+                    startYear: -221,
+                    endYear: -206,
+                    kingdoms: [
+                        {
+                            id: 'qin-empire',
+                            name: 'Qin Empire',
+                            chinese: '秦',
+                            color: '#8B0000',
+                            path: 'M150,150 L600,120 L680,300 L650,500 L400,600 L200,550 L120,400 Z',
+                            labelX: 400,
+                            labelY: 350,
+                            description: 'The Qin Dynasty was the first unified Chinese empire. Though short-lived, it standardized weights, measures, currency, and writing, built the Great Wall, and established the imperial system that lasted over 2000 years.',
+                            events: [
+                                { year: '221 BC', text: 'Qin Shi Huang unifies China, becomes first emperor' },
+                                { year: '220 BC', text: 'Standardization of writing, currency, weights and measures' },
+                                { year: '214 BC', text: 'Construction of the Great Wall begins' },
+                                { year: '213 BC', text: 'Burning of books and burying of scholars' },
+                                { year: '210 BC', text: 'Death of Qin Shi Huang' },
+                                { year: '206 BC', text: 'Fall of Qin Dynasty' }
+                            ],
+                            characters: [
+                                { name: 'Qin Shi Huang (秦始皇)', title: 'First Emperor', desc: 'United China, built the Great Wall and Terracotta Army' },
+                                { name: 'Li Si (李斯)', title: 'Chancellor', desc: 'Chief advisor, implemented legalist policies' },
+                                { name: 'Meng Tian (蒙恬)', title: 'General', desc: 'Defended northern frontier, oversaw Great Wall construction' },
+                                { name: 'Zhao Gao (赵高)', title: 'Eunuch', desc: 'Manipulated succession, contributed to Qin\'s fall' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'han-dynasty',
+                    name: 'Han Dynasty',
+                    chinese: '汉朝',
+                    years: '206 BC - 220 AD',
+                    startYear: -206,
+                    endYear: 220,
+                    kingdoms: [
+                        {
+                            id: 'han-empire',
+                            name: 'Han Empire',
+                            chinese: '汉',
+                            color: '#DC143C',
+                            path: 'M120,120 L620,100 L700,280 L680,520 L450,620 L180,580 L100,380 Z',
+                            labelX: 400,
+                            labelY: 350,
+                            description: 'The Han Dynasty is considered a golden age in Chinese history. It expanded Chinese territory, established the Silk Road, developed Confucianism as state ideology, and made advances in science, technology, and art.',
+                            events: [
+                                { year: '202 BC', text: 'Liu Bang defeats Xiang Yu, establishes Han' },
+                                { year: '141 BC', text: 'Emperor Wu begins reign, great expansion' },
+                                { year: '138 BC', text: 'Zhang Qian opens the Silk Road' },
+                                { year: '9 AD', text: 'Wang Mang usurps throne, Xin Dynasty' },
+                                { year: '25 AD', text: 'Liu Xiu restores Han (Eastern Han)' },
+                                { year: '184 AD', text: 'Yellow Turban Rebellion' },
+                                { year: '220 AD', text: 'End of Han Dynasty' }
+                            ],
+                            characters: [
+                                { name: 'Liu Bang (刘邦)', title: 'Emperor Gaozu', desc: 'Founder of Han Dynasty, rose from peasant origins' },
+                                { name: 'Emperor Wu (汉武帝)', title: 'Emperor', desc: 'Expanded Han territory, established Confucianism' },
+                                { name: 'Zhang Qian (张骞)', title: 'Explorer', desc: 'Pioneer of the Silk Road' },
+                                { name: 'Sima Qian (司马迁)', title: 'Historian', desc: 'Wrote "Records of the Grand Historian"' },
+                                { name: 'Ban Chao (班超)', title: 'General', desc: 'Pacified Western Regions' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'three-kingdoms',
+                    name: 'Three Kingdoms',
+                    chinese: '三国',
+                    years: '220 - 280 AD',
+                    startYear: 220,
+                    endYear: 280,
+                    kingdoms: [
+                        {
+                            id: 'wei',
+                            name: 'Cao Wei',
+                            chinese: '魏',
+                            color: '#4169E1',
+                            path: 'M280,100 L550,80 L620,180 L580,320 L450,380 L300,350 L250,250 Z',
+                            labelX: 420,
+                            labelY: 220,
+                            description: 'Cao Wei was the strongest of the Three Kingdoms, controlling northern China. Founded by Cao Cao\'s son Cao Pi, it was known for its military strength and administrative efficiency.',
+                            events: [
+                                { year: '220 AD', text: 'Cao Pi forces Han emperor to abdicate, founds Wei' },
+                                { year: '228 AD', text: 'Zhuge Liang\'s Northern Expeditions begin' },
+                                { year: '249 AD', text: 'Sima Yi seizes power in coup' },
+                                { year: '263 AD', text: 'Wei conquers Shu' },
+                                { year: '265 AD', text: 'Sima Yan usurps Wei, founds Jin' }
+                            ],
+                            characters: [
+                                { name: 'Cao Cao (曹操)', title: 'Founder', desc: 'Legendary strategist and poet, laid foundation for Wei' },
+                                { name: 'Cao Pi (曹丕)', title: 'First Emperor', desc: 'Formally established Wei dynasty' },
+                                { name: 'Sima Yi (司马懿)', title: 'Regent', desc: 'Brilliant strategist, ancestor of Jin dynasty' },
+                                { name: 'Xiahou Dun (夏侯惇)', title: 'General', desc: 'One-eyed warrior, cousin of Cao Cao' }
+                            ]
+                        },
+                        {
+                            id: 'shu',
+                            name: 'Shu Han',
+                            chinese: '蜀',
+                            color: '#228B22',
+                            path: 'M180,320 L300,280 L350,340 L340,450 L250,520 L150,480 L140,380 Z',
+                            labelX: 250,
+                            labelY: 400,
+                            description: 'Shu Han was founded by Liu Bei, who claimed descent from Han royalty. Located in Sichuan, it was defended by the genius strategist Zhuge Liang and the legendary warriors Guan Yu and Zhang Fei.',
+                            events: [
+                                { year: '221 AD', text: 'Liu Bei proclaims himself emperor of Shu Han' },
+                                { year: '222 AD', text: 'Battle of Yiling - Liu Bei defeated by Wu' },
+                                { year: '223 AD', text: 'Liu Bei dies, Zhuge Liang becomes regent' },
+                                { year: '228-234 AD', text: 'Zhuge Liang\'s Northern Expeditions' },
+                                { year: '234 AD', text: 'Zhuge Liang dies at Wuzhang Plains' },
+                                { year: '263 AD', text: 'Shu surrenders to Wei' }
+                            ],
+                            characters: [
+                                { name: 'Liu Bei (刘备)', title: 'Emperor', desc: 'Benevolent ruler, claimed Han dynasty descent' },
+                                { name: 'Zhuge Liang (诸葛亮)', title: 'Prime Minister', desc: 'Legendary strategist, "Sleeping Dragon"' },
+                                { name: 'Guan Yu (关羽)', title: 'General', desc: 'God of War, symbol of loyalty' },
+                                { name: 'Zhang Fei (张飞)', title: 'General', desc: 'Fierce warrior, oath brother of Liu Bei' },
+                                { name: 'Zhao Yun (赵云)', title: 'General', desc: 'Brave general who saved Liu Bei\'s son' }
+                            ]
+                        },
+                        {
+                            id: 'wu',
+                            name: 'Eastern Wu',
+                            chinese: '吴',
+                            color: '#FF8C00',
+                            path: 'M450,380 L600,340 L680,420 L660,550 L520,600 L380,560 L360,450 Z',
+                            labelX: 520,
+                            labelY: 470,
+                            description: 'Eastern Wu controlled southeastern China, based around the Yangtze River. Founded by Sun Quan, it was known for its naval power and economic prosperity.',
+                            events: [
+                                { year: '208 AD', text: 'Battle of Red Cliffs - defeats Cao Cao' },
+                                { year: '219 AD', text: 'Wu captures Jing Province, kills Guan Yu' },
+                                { year: '222 AD', text: 'Sun Quan proclaimed King of Wu' },
+                                { year: '229 AD', text: 'Sun Quan becomes Emperor' },
+                                { year: '252 AD', text: 'Sun Quan dies' },
+                                { year: '280 AD', text: 'Wu conquered by Jin, Three Kingdoms end' }
+                            ],
+                            characters: [
+                                { name: 'Sun Quan (孙权)', title: 'Emperor', desc: 'Founder and longest-reigning ruler of Wu' },
+                                { name: 'Zhou Yu (周瑜)', title: 'General', desc: 'Hero of Red Cliffs, brilliant strategist' },
+                                { name: 'Lu Xun (陆逊)', title: 'General', desc: 'Defeated Liu Bei at Yiling' },
+                                { name: 'Sun Ce (孙策)', title: 'Founder', desc: 'Sun Quan\'s brother, conquered the Southlands' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'tang-dynasty',
+                    name: 'Tang Dynasty',
+                    chinese: '唐朝',
+                    years: '618 - 907 AD',
+                    startYear: 618,
+                    endYear: 907,
+                    kingdoms: [
+                        {
+                            id: 'tang-empire',
+                            name: 'Tang Empire',
+                            chinese: '唐',
+                            color: '#FFD700',
+                            path: 'M80,80 L650,50 L750,250 L720,500 L500,650 L150,600 L50,350 Z',
+                            labelX: 400,
+                            labelY: 320,
+                            description: 'The Tang Dynasty is considered the golden age of Chinese civilization. It was a cosmopolitan empire that embraced foreign cultures, saw flourishing poetry and art, and extended Chinese influence across Asia through the Silk Road.',
+                            events: [
+                                { year: '618 AD', text: 'Li Yuan founds Tang Dynasty' },
+                                { year: '626 AD', text: 'Li Shimin becomes Emperor Taizong' },
+                                { year: '690 AD', text: 'Wu Zetian becomes China\'s only female emperor' },
+                                { year: '712 AD', text: 'Emperor Xuanzong begins reign, cultural peak' },
+                                { year: '755 AD', text: 'An Lushan Rebellion begins' },
+                                { year: '907 AD', text: 'Tang Dynasty ends' }
+                            ],
+                            characters: [
+                                { name: 'Emperor Taizong (唐太宗)', title: 'Emperor', desc: 'Model ruler, established Tang\'s greatness' },
+                                { name: 'Wu Zetian (武则天)', title: 'Empress', desc: 'Only female emperor in Chinese history' },
+                                { name: 'Li Bai (李白)', title: 'Poet', desc: '"Immortal Poet", greatest Tang poet' },
+                                { name: 'Du Fu (杜甫)', title: 'Poet', desc: '"Poet Sage", chronicled An Lushan Rebellion' },
+                                { name: 'Xuanzang (玄奘)', title: 'Monk', desc: 'Journey to India, brought back Buddhist texts' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'song-dynasty',
+                    name: 'Song Dynasty',
+                    chinese: '宋朝',
+                    years: '960 - 1279 AD',
+                    startYear: 960,
+                    endYear: 1279,
+                    kingdoms: [
+                        {
+                            id: 'song-empire',
+                            name: 'Song Empire',
+                            chinese: '宋',
+                            color: '#32CD32',
+                            path: 'M250,250 L550,230 L620,350 L600,520 L400,600 L220,550 L180,380 Z',
+                            labelX: 400,
+                            labelY: 400,
+                            description: 'The Song Dynasty was an era of economic and technological innovation. Despite military weakness, it saw advances in printing, gunpowder weapons, compass navigation, and commerce. It was the first government to issue paper money.',
+                            events: [
+                                { year: '960 AD', text: 'Zhao Kuangyin founds Song Dynasty' },
+                                { year: '1004 AD', text: 'Treaty of Chanyuan with Liao' },
+                                { year: '1069 AD', text: 'Wang Anshi\'s reforms begin' },
+                                { year: '1127 AD', text: 'Jurchens capture Kaifeng, Song moves south' },
+                                { year: '1142 AD', text: 'Yue Fei executed, peace with Jin' },
+                                { year: '1279 AD', text: 'Mongols conquer Southern Song' }
+                            ],
+                            characters: [
+                                { name: 'Zhao Kuangyin (赵匡胤)', title: 'Emperor Taizu', desc: 'Founder of Song Dynasty' },
+                                { name: 'Wang Anshi (王安石)', title: 'Reformer', desc: 'Implemented major economic reforms' },
+                                { name: 'Su Shi (苏轼)', title: 'Poet', desc: 'Great literary figure, poet and statesman' },
+                                { name: 'Yue Fei (岳飞)', title: 'General', desc: 'National hero, fought against Jurchen invasion' },
+                                { name: 'Shen Kuo (沈括)', title: 'Scholar', desc: 'Polymath, wrote "Dream Pool Essays"' }
+                            ]
+                        },
+                        {
+                            id: 'liao',
+                            name: 'Liao (Khitan)',
+                            chinese: '辽',
+                            color: '#708090',
+                            path: 'M300,80 L580,60 L650,150 L620,230 L450,260 L280,220 L250,140 Z',
+                            labelX: 450,
+                            labelY: 150,
+                            description: 'The Liao Dynasty was founded by the Khitan people in northern China. They controlled Manchuria and parts of Mongolia, and coexisted with Song through the Treaty of Chanyuan.',
+                            events: [
+                                { year: '907 AD', text: 'Khitan state founded' },
+                                { year: '947 AD', text: 'Liao dynasty formally established' },
+                                { year: '1004 AD', text: 'Treaty of Chanyuan with Song' },
+                                { year: '1125 AD', text: 'Liao conquered by Jurchen Jin' }
+                            ],
+                            characters: [
+                                { name: 'Abaoji (耶律阿保机)', title: 'Founder', desc: 'United Khitan tribes, founded Liao' },
+                                { name: 'Empress Dowager Xiao', title: 'Regent', desc: 'Powerful regent, negotiated Chanyuan treaty' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'yuan-dynasty',
+                    name: 'Yuan Dynasty',
+                    chinese: '元朝',
+                    years: '1271 - 1368 AD',
+                    startYear: 1271,
+                    endYear: 1368,
+                    kingdoms: [
+                        {
+                            id: 'yuan-empire',
+                            name: 'Yuan Empire',
+                            chinese: '元',
+                            color: '#4682B4',
+                            path: 'M50,30 L700,20 L780,300 L750,550 L450,680 L100,620 L30,350 Z',
+                            labelX: 400,
+                            labelY: 300,
+                            description: 'The Yuan Dynasty was founded by Kublai Khan, grandson of Genghis Khan. As part of the Mongol Empire, it was the first foreign dynasty to rule all of China. It promoted trade along the Silk Road and was visited by Marco Polo.',
+                            events: [
+                                { year: '1271 AD', text: 'Kublai Khan proclaims Yuan Dynasty' },
+                                { year: '1279 AD', text: 'Yuan conquers Southern Song' },
+                                { year: '1274, 1281 AD', text: 'Failed invasions of Japan' },
+                                { year: '1275-1292 AD', text: 'Marco Polo visits China' },
+                                { year: '1351 AD', text: 'Red Turban Rebellion begins' },
+                                { year: '1368 AD', text: 'Yuan expelled by Ming' }
+                            ],
+                            characters: [
+                                { name: 'Kublai Khan (忽必烈)', title: 'Emperor', desc: 'Founder of Yuan, grandson of Genghis Khan' },
+                                { name: 'Marco Polo', title: 'Explorer', desc: 'Venetian traveler who served Kublai Khan' },
+                                { name: 'Guan Hanqing (关汉卿)', title: 'Playwright', desc: 'Father of Chinese opera' },
+                                { name: 'Zhao Mengfu (赵孟頫)', title: 'Artist', desc: 'Master calligrapher and painter' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'ming-dynasty',
+                    name: 'Ming Dynasty',
+                    chinese: '明朝',
+                    years: '1368 - 1644 AD',
+                    startYear: 1368,
+                    endYear: 1644,
+                    kingdoms: [
+                        {
+                            id: 'ming-empire',
+                            name: 'Ming Empire',
+                            chinese: '明',
+                            color: '#B22222',
+                            path: 'M100,100 L620,80 L700,280 L680,520 L450,640 L150,590 L80,380 Z',
+                            labelX: 400,
+                            labelY: 340,
+                            description: 'The Ming Dynasty restored Han Chinese rule after the Mongol Yuan. It was known for building the Forbidden City, constructing the Ming Great Wall, Zheng He\'s maritime expeditions, and the production of blue-and-white porcelain.',
+                            events: [
+                                { year: '1368 AD', text: 'Zhu Yuanzhang founds Ming Dynasty' },
+                                { year: '1405-1433 AD', text: 'Zheng He\'s maritime voyages' },
+                                { year: '1421 AD', text: 'Capital moved to Beijing' },
+                                { year: '1449 AD', text: 'Tumu Crisis - emperor captured by Mongols' },
+                                { year: '1644 AD', text: 'Li Zicheng captures Beijing, Ming falls' }
+                            ],
+                            characters: [
+                                { name: 'Zhu Yuanzhang (朱元璋)', title: 'Hongwu Emperor', desc: 'Founder, rose from peasant to emperor' },
+                                { name: 'Yongle Emperor (永乐帝)', title: 'Emperor', desc: 'Built Forbidden City, sponsored Zheng He' },
+                                { name: 'Zheng He (郑和)', title: 'Admiral', desc: 'Led great maritime expeditions' },
+                                { name: 'Wang Yangming (王阳明)', title: 'Philosopher', desc: 'Neo-Confucian thinker' },
+                                { name: 'Qi Jiguang (戚继光)', title: 'General', desc: 'Defended coast against Japanese pirates' }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    id: 'qing-dynasty',
+                    name: 'Qing Dynasty',
+                    chinese: '清朝',
+                    years: '1644 - 1912 AD',
+                    startYear: 1644,
+                    endYear: 1912,
+                    kingdoms: [
+                        {
+                            id: 'qing-empire',
+                            name: 'Qing Empire',
+                            chinese: '清',
+                            color: '#FFD700',
+                            path: 'M30,30 L680,20 L780,200 L760,450 L650,600 L350,680 L100,620 L20,400 Z',
+                            labelX: 400,
+                            labelY: 300,
+                            description: 'The Qing Dynasty was founded by the Manchu people and was China\'s last imperial dynasty. At its height, it ruled over the largest territory in Chinese history, including Tibet, Mongolia, and Xinjiang. It ended with the 1911 Revolution.',
+                            events: [
+                                { year: '1644 AD', text: 'Manchus enter Beijing, establish Qing' },
+                                { year: '1661-1722 AD', text: 'Kangxi Emperor\'s reign' },
+                                { year: '1735-1796 AD', text: 'Qianlong Emperor\'s reign, territorial peak' },
+                                { year: '1839-1842 AD', text: 'First Opium War' },
+                                { year: '1850-1864 AD', text: 'Taiping Rebellion' },
+                                { year: '1894-1895 AD', text: 'First Sino-Japanese War' },
+                                { year: '1911 AD', text: 'Xinhai Revolution' },
+                                { year: '1912 AD', text: 'Puyi abdicates, Qing ends' }
+                            ],
+                            characters: [
+                                { name: 'Kangxi Emperor (康熙帝)', title: 'Emperor', desc: 'Longest-reigning emperor, consolidated Qing rule' },
+                                { name: 'Qianlong Emperor (乾隆帝)', title: 'Emperor', desc: 'Expanded empire to greatest extent' },
+                                { name: 'Empress Dowager Cixi (慈禧太后)', title: 'Regent', desc: 'Powerful regent in late Qing' },
+                                { name: 'Lin Zexu (林则徐)', title: 'Official', desc: 'Anti-opium commissioner' },
+                                { name: 'Sun Yat-sen (孙中山)', title: 'Revolutionary', desc: 'Father of Modern China, founded Republic' }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Application State
+        let currentPeriodIndex = 0;
+        let selectedKingdom = null;
+
+        // DOM Elements
+        const periodNameEl = document.getElementById('period-name');
+        const periodYearsEl = document.getElementById('period-years');
+        const timelineSlider = document.getElementById('timeline-slider');
+        const timelineProgress = document.getElementById('timeline-progress');
+        const timelineLabels = document.getElementById('timeline-labels');
+        const chinaMap = document.getElementById('china-map');
+        const mapLegend = document.getElementById('map-legend');
+        const infoPanel = document.getElementById('info-panel');
+
+        // Initialize Timeline Labels
+        function initTimelineLabels() {
+            timelineLabels.innerHTML = '';
+            historicalData.periods.forEach((period, index) => {
+                const label = document.createElement('div');
+                label.className = 'timeline-label' + (index === currentPeriodIndex ? ' active' : '');
+                label.innerHTML = `<div>${period.chinese}</div><div>${period.name}</div>`;
+                label.addEventListener('click', () => {
+                    currentPeriodIndex = index;
+                    timelineSlider.value = index;
+                    updatePeriod();
+                });
+                timelineLabels.appendChild(label);
+            });
+        }
+
+        // Update Period Display
+        function updatePeriod() {
+            const period = historicalData.periods[currentPeriodIndex];
+
+            // Update header
+            periodNameEl.textContent = `${period.name} ${period.chinese}`;
+            periodYearsEl.textContent = period.years;
+
+            // Update timeline
+            const progress = (currentPeriodIndex / (historicalData.periods.length - 1)) * 100;
+            timelineProgress.style.width = `${progress}%`;
+
+            // Update timeline labels
+            document.querySelectorAll('.timeline-label').forEach((label, index) => {
+                label.classList.toggle('active', index === currentPeriodIndex);
+            });
+
+            // Clear selection
+            selectedKingdom = null;
+
+            // Update map
+            renderMap();
+
+            // Update info panel
+            updateInfoPanel();
+        }
+
+        // Render Map
+        function renderMap() {
+            const period = historicalData.periods[currentPeriodIndex];
+
+            // Create SVG content
+            let svgContent = `
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                    <pattern id="water" patternUnits="userSpaceOnUse" width="10" height="10">
+                        <rect width="10" height="10" fill="#1a3a5c"/>
+                        <circle cx="5" cy="5" r="1" fill="#2a4a6c"/>
+                    </pattern>
+                </defs>
+
+                <!-- Background -->
+                <rect width="800" height="700" fill="url(#water)"/>
+
+                <!-- China outline (simplified) -->
+                <path d="M100,50 L650,30 L750,200 L730,450 L600,620 L350,680 L120,600 L50,400 L80,200 Z"
+                      fill="#2d2d2d" stroke="#444" stroke-width="2"/>
+            `;
+
+            // Add kingdoms
+            period.kingdoms.forEach(kingdom => {
+                const isSelected = selectedKingdom === kingdom.id;
+                svgContent += `
+                    <path class="kingdom ${isSelected ? 'selected' : ''}"
+                          d="${kingdom.path}"
+                          fill="${kingdom.color}"
+                          data-kingdom="${kingdom.id}"
+                          opacity="0.85"/>
+                    <text class="kingdom-label" x="${kingdom.labelX}" y="${kingdom.labelY}">
+                        ${kingdom.chinese}
+                    </text>
+                `;
+            });
+
+            chinaMap.innerHTML = svgContent;
+
+            // Add click handlers
+            document.querySelectorAll('.kingdom').forEach(path => {
+                path.addEventListener('click', (e) => {
+                    const kingdomId = e.target.dataset.kingdom;
+                    selectKingdom(kingdomId);
+                });
+            });
+
+            // Update legend
+            renderLegend();
+        }
+
+        // Render Legend
+        function renderLegend() {
+            const period = historicalData.periods[currentPeriodIndex];
+
+            mapLegend.innerHTML = '';
+            period.kingdoms.forEach(kingdom => {
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+                item.innerHTML = `
+                    <div class="legend-color" style="background-color: ${kingdom.color}"></div>
+                    <span class="legend-name">${kingdom.name} (${kingdom.chinese})</span>
+                `;
+                item.addEventListener('click', () => selectKingdom(kingdom.id));
+                mapLegend.appendChild(item);
+            });
+        }
+
+        // Select Kingdom
+        function selectKingdom(kingdomId) {
+            selectedKingdom = kingdomId;
+
+            // Update map selection
+            document.querySelectorAll('.kingdom').forEach(path => {
+                path.classList.toggle('selected', path.dataset.kingdom === kingdomId);
+            });
+
+            updateInfoPanel();
+        }
+
+        // Update Info Panel
+        function updateInfoPanel() {
+            const period = historicalData.periods[currentPeriodIndex];
+
+            if (!selectedKingdom) {
+                infoPanel.innerHTML = `
+                    <div class="placeholder-message">
+                        Click on a kingdom on the map to see detailed information
+                    </div>
+                `;
+                return;
+            }
+
+            const kingdom = period.kingdoms.find(k => k.id === selectedKingdom);
+            if (!kingdom) return;
+
+            infoPanel.innerHTML = `
+                <div class="info-header fade-in">
+                    <div>
+                        <div class="kingdom-name">${kingdom.name}</div>
+                        <div class="kingdom-name-chinese">${kingdom.chinese}</div>
+                    </div>
+                    <div class="kingdom-duration">${period.years}</div>
+                </div>
+
+                <div class="info-content fade-in">
+                    <div class="info-section">
+                        <h3>Overview</h3>
+                        <p class="description">${kingdom.description}</p>
+                    </div>
+
+                    <div class="info-section">
+                        <h3>Key Events</h3>
+                        <ul class="events-list">
+                            ${kingdom.events.map(event => `
+                                <li>
+                                    <span class="event-year">${event.year}</span>
+                                    ${event.text}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="info-section">
+                        <h3>Notable Figures</h3>
+                        <ul class="characters-list">
+                            ${kingdom.characters.map(char => `
+                                <li>
+                                    <div>
+                                        <span class="character-name">${char.name}</span>
+                                        <span class="character-title">${char.title}</span>
+                                    </div>
+                                    <div class="character-desc">${char.desc}</div>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Event Listeners
+        timelineSlider.addEventListener('input', (e) => {
+            currentPeriodIndex = parseInt(e.target.value);
+            updatePeriod();
+        });
+
+        // Initialize
+        function init() {
+            timelineSlider.max = historicalData.periods.length - 1;
+            initTimelineLabels();
+            updatePeriod();
+        }
+
+        init();
+    </script>
+</body>
+</html>
