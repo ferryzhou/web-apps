@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桓温第三次北伐 (369年) · 枋头之战</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+  :root{
+    --ink:#2b2520; --paper:#f4ecd8; --gold:#b8860b;
+    --advance:#c0392b; --retreat:#34495e; --canal:#1f6f8b;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;font-family:"Songti SC","STSong","Noto Serif SC",serif;color:var(--ink);}
+  #app{display:flex;height:100%;}
+  #map{flex:1;height:100%;}
+  #panel{
+    width:340px;background:var(--paper);overflow-y:auto;
+    border-left:3px double var(--gold);padding:18px 20px;
+    box-shadow:inset 4px 0 12px rgba(0,0,0,.06);
+  }
+  #panel h1{font-size:21px;margin:0 0 2px;letter-spacing:2px;}
+  #panel .sub{font-size:12px;color:#7a6a55;margin:0 0 14px;letter-spacing:1px;}
+  .legend{font-size:12.5px;line-height:1.9;margin:10px 0 16px;border-top:1px solid #d8c8a8;border-bottom:1px solid #d8c8a8;padding:10px 0;}
+  .legend .ln{display:inline-block;width:26px;height:0;vertical-align:middle;margin-right:8px;}
+  .adv{border-top:3px solid var(--advance);}
+  .ret{border-top:3px dashed var(--retreat);}
+  .can{border-top:3px dotted var(--canal);}
+  .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:middle;border:1.5px solid #fff;box-shadow:0 0 0 1px #999;}
+  .step{padding:9px 4px;border-bottom:1px dashed #d8c8a8;cursor:pointer;transition:background .15s;}
+  .step:hover{background:#ece0c4;}
+  .step .t{font-weight:600;font-size:14.5px;}
+  .step .t .num{color:var(--gold);margin-right:6px;}
+  .step .d{font-size:12px;color:#6b5d49;margin-top:3px;line-height:1.6;}
+  .leaflet-popup-content{font-family:"Songti SC","Noto Serif SC",serif;}
+  .pop-t{font-size:15px;font-weight:700;margin-bottom:3px;}
+  .pop-m{font-size:11px;color:#888;margin-bottom:5px;}
+  .pop-d{font-size:12.5px;line-height:1.6;}
+  .foot{font-size:11px;color:#9a8b73;margin-top:14px;line-height:1.6;}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="map"></div>
+  <div id="panel">
+    <h1>桓温第三次北伐</h1>
+    <p class="sub">东晋 · 太和四年(公元369年)· 伐前燕 · 枋头之战</p>
+    <div class="legend">
+      <div><span class="ln adv"></span>进军路线(北上)</div>
+      <div><span class="ln can"></span>桓公渎 · 凿渠通运</div>
+      <div><span class="ln ret"></span>溃退路线(南归)</div>
+      <div style="margin-top:6px;">
+        <span class="dot" style="background:#c0392b"></span>晋军据点
+        <span class="dot" style="background:#b8860b;margin-left:8px"></span>战役
+        <span class="dot" style="background:#2c3e50;margin-left:8px"></span>前燕都城
+      </div>
+    </div>
+    <div id="steps"></div>
+    <p class="foot">底图:OpenStreetMap。古地名按今址近似定位,路线为示意,非精确史地考证。点击左侧条目或地图标记查看详情。</p>
+  </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// 节点数据 [名称, 纬度, 经度, 今址, 类型, 说明, 序号]
+const nodes = [
+  {n:"姑孰", lat:31.57, lng:118.50, now:"今安徽当涂", type:"base", num:1,
+   d:"太和四年四月,桓温率步骑五万自姑孰出发,溯水北上,大举伐燕。"},
+  {n:"山阳", lat:33.50, lng:119.02, now:"今江苏淮安", type:"base", num:2,
+   d:"晋军循邗沟、泗水一线北进,经山阳入淮、泗水道。"},
+  {n:"金乡(湖陆)", lat:35.07, lng:116.31, now:"今山东金乡", type:"base", num:3,
+   d:"七月,军至金乡。时值天旱,水道枯竭,舟师不得进。"},
+  {n:"巨野泽 · 桓公渎", lat:35.40, lng:116.05, now:"今山东巨野一带", type:"canal", num:4,
+   d:"桓温命毛穆之凿钜野三百里渠,引汶水会清水,以通漕运,北注黄河。世称『桓公渎』。"},
+  {n:"枋头", lat:35.55, lng:114.42, now:"今河南浚县西南淇门", type:"battle", num:5,
+   d:"晋军沿清水入黄河,舟师顺流抵枋头,距燕都仅二百余里,前燕大震,此为北伐最远点。"},
+  {n:"邺城", lat:36.30, lng:114.62, now:"今河北临漳", type:"capital", num:6,
+   d:"前燕国都。燕主慕容暐恐惧欲北逃,慕容垂请战自守;并以割虎牢以西之地求救于前秦。"},
+  {n:"襄邑 · 决战", lat:34.45, lng:115.07, now:"今河南睢县", type:"battle", num:7,
+   d:"九月,粮道被断、秦援将至,桓温焚舟弃辎重自陆路南撤。慕容垂率八千骑尾追,与慕容德伏兵会于襄邑,大破晋军,斩首三万。"},
+  {n:"谯郡", lat:33.85, lng:115.78, now:"今安徽亳州", type:"base", num:8,
+   d:"晋军余众又遭前秦苟池邀击于谯,死者复以万计。桓温收散卒退屯山阳,北伐遂败。"}
+];
+
+// 路线分段
+const advance = [[31.57,118.50],[33.50,119.02],[35.07,116.31]];
+const canal   = [[35.07,116.31],[35.40,116.05],[35.55,114.42]];
+const retreat = [[35.55,114.42],[34.45,115.07],[33.85,115.78],[33.50,119.02]];
+
+const map = L.map('map',{zoomControl:true}).setView([34.6,116.3],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  attribution:'© OpenStreetMap', maxZoom:12, minZoom:4
+}).addTo(map);
+
+function poly(pts,opts){return L.polyline(pts,opts).addTo(map);}
+poly(advance,{color:'#c0392b',weight:4,opacity:.85});
+poly(canal,{color:'#1f6f8b',weight:4,opacity:.85,dashArray:'2 7'});
+poly(retreat,{color:'#34495e',weight:3.5,opacity:.8,dashArray:'9 8'});
+
+const colors={base:'#c0392b',canal:'#1f6f8b',battle:'#b8860b',capital:'#2c3e50'};
+const markers={};
+nodes.forEach(o=>{
+  const m=L.circleMarker([o.lat,o.lng],{
+    radius:o.type==='capital'?9:8, color:'#fff', weight:2,
+    fillColor:colors[o.type], fillOpacity:1
+  }).addTo(map);
+  m.bindTooltip(o.num+'. '+o.n,{permanent:true,direction:'top',offset:[0,-6],className:'lbl'});
+  m.bindPopup(`<div class="pop-t">${o.num}. ${o.n}</div><div class="pop-m">${o.now} · ${typeLabel(o.type)}</div><div class="pop-d">${o.d}</div>`);
+  markers[o.num]=m;
+});
+function typeLabel(t){return {base:'晋军据点',canal:'凿渠通运',battle:'战役',capital:'前燕都城'}[t];}
+
+// 侧栏时间轴
+const steps=document.getElementById('steps');
+nodes.forEach(o=>{
+  const el=document.createElement('div');
+  el.className='step';
+  el.innerHTML=`<div class="t"><span class="num">${o.num}</span>${o.n}　<span style="font-size:11px;color:#9a8b73;font-weight:400">${o.now}</span></div><div class="d">${o.d}</div>`;
+  el.onclick=()=>{map.setView([o.lat,o.lng],7,{animate:true});markers[o.num].openPopup();};
+  steps.appendChild(el);
+});
+</script>
+<style>.lbl{background:rgba(244,236,216,.85);border:1px solid #c8b890;border-radius:3px;font-family:"Songti SC",serif;font-size:12px;padding:1px 5px;color:#2b2520;box-shadow:none;}.lbl::before{display:none;}</style>
+</body>
+</html>
