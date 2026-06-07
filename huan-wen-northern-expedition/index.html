@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>桓温第三次北伐 (369年) · 枋头之战</title>
+<title>桓温第三次北伐 · 枋头之战(369年)| Huan Wen's Third Northern Expedition</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
   :root{
     --ink:#2b2520; --paper:#f4ecd8; --gold:#b8860b;
-    --advance:#c0392b; --retreat:#34495e; --canal:#1f6f8b;
+    --advance:#c0392b; --retreat:#34495e; --canal:#1f6f8b; --qin:#7d3c98;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;height:100%;font-family:"Songti SC","STSong","Noto Serif SC",serif;color:var(--ink);}
@@ -20,18 +20,23 @@
     box-shadow:inset 4px 0 12px rgba(0,0,0,.06);
   }
   #panel h1{font-size:21px;margin:0 0 2px;letter-spacing:2px;}
-  #panel .sub{font-size:12px;color:#7a6a55;margin:0 0 14px;letter-spacing:1px;}
+  #panel .sub{font-size:12px;color:#7a6a55;margin:0 0 14px;letter-spacing:1px;line-height:1.7;}
+  #panel .sub .en{display:block;font-size:10.5px;color:#9a8b73;letter-spacing:.3px;font-style:italic;margin-top:2px;}
   .legend{font-size:12.5px;line-height:1.9;margin:10px 0 16px;border-top:1px solid #d8c8a8;border-bottom:1px solid #d8c8a8;padding:10px 0;}
   .legend .ln{display:inline-block;width:26px;height:0;vertical-align:middle;margin-right:8px;}
   .adv{border-top:3px solid var(--advance);}
   .ret{border-top:3px dashed var(--retreat);}
   .can{border-top:3px dotted var(--canal);}
+  .qin{border-top:3px dashed var(--qin);}
   .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:middle;border:1.5px solid #fff;box-shadow:0 0 0 1px #999;}
   .step{padding:9px 4px;border-bottom:1px dashed #d8c8a8;cursor:pointer;transition:background .15s;}
   .step:hover{background:#ece0c4;}
   .step .t{font-weight:600;font-size:14.5px;}
   .step .t .num{color:var(--gold);margin-right:6px;}
   .step .d{font-size:12px;color:#6b5d49;margin-top:3px;line-height:1.6;}
+  .step-qin{background:rgba(125,60,152,.04);}
+  .step-qin:hover{background:rgba(125,60,152,.1);}
+  .subhead{margin:14px 0 2px;font-size:12px;font-weight:700;color:#7d3c98;letter-spacing:2px;border-bottom:1.5px solid #d8c8e0;padding-bottom:3px;}
   .leaflet-popup-content{font-family:"Songti SC","Noto Serif SC",serif;}
   .pop-t{font-size:15px;font-weight:700;margin-bottom:3px;}
   .pop-m{font-size:11px;color:#888;margin-bottom:5px;}
@@ -44,15 +49,18 @@
   <div id="map"></div>
   <div id="panel">
     <h1>桓温第三次北伐</h1>
-    <p class="sub">东晋 · 太和四年(公元369年)· 伐前燕 · 枋头之战</p>
+    <p class="sub">东晋太和四年(公元369年)· 伐前燕 · 枋头惨败,慕容垂大破晋师
+      <span class="en">Huan Wen's Third Northern Expedition · The Rout at Fangtou, 369 CE</span></p>
     <div class="legend">
       <div><span class="ln adv"></span>进军路线(北上)</div>
       <div><span class="ln can"></span>桓公渎 · 凿渠通运</div>
       <div><span class="ln ret"></span>溃退路线(南归)</div>
+      <div><span class="ln qin"></span>前秦援军(救燕)</div>
       <div style="margin-top:6px;">
         <span class="dot" style="background:#c0392b"></span>晋军据点
         <span class="dot" style="background:#b8860b;margin-left:8px"></span>战役
         <span class="dot" style="background:#2c3e50;margin-left:8px"></span>前燕都城
+        <span class="dot" style="background:#7d3c98;margin-left:8px"></span>前秦援军
       </div>
     </div>
     <div id="steps"></div>
@@ -81,12 +89,21 @@ const nodes = [
    d:"晋军余众又遭前秦苟池邀击于谯,死者复以万计。桓温收散卒退屯山阳,北伐遂败。"}
 ];
 
+// 前秦援军节点(救燕)。苻坚遣苟池、邓羌自洛阳东出,屯颍川,后邀击晋军于谯。
+const qinNodes = [
+  {n:"洛阳", lat:34.62, lng:112.45, now:"今河南洛阳", type:"qin", tag:"前秦援军 · 起兵",
+   d:"前秦主苻坚纳燕求救,遣将苟池、邓羌率步骑二万,自洛阳东出救燕。前燕许割虎牢以西之地为酬。"},
+  {n:"颍川", lat:34.03, lng:113.85, now:"今河南许昌一带", type:"qin", tag:"前秦援军 · 进屯",
+   d:"秦援军东进屯于颍川,为前燕声援,伺机截击南撤的晋军,与燕军成夹击之势。"}
+];
+
 // 路线分段
 const advance = [[31.57,118.50],[33.50,119.02],[35.07,116.31]];
 const canal   = [[35.07,116.31],[35.40,116.05],[35.55,114.42]];
 const retreat = [[35.55,114.42],[34.45,115.07],[33.85,115.78],[33.50,119.02]];
+const qin     = [[34.62,112.45],[34.03,113.85],[33.85,115.78]]; // 洛阳→颍川→谯(邀击)
 
-const map = L.map('map',{zoomControl:true}).setView([34.6,116.3],6);
+const map = L.map('map',{zoomControl:true}).setView([34.7,115.2],6);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap', maxZoom:12, minZoom:4
 }).addTo(map);
@@ -95,8 +112,9 @@ function poly(pts,opts){return L.polyline(pts,opts).addTo(map);}
 poly(advance,{color:'#c0392b',weight:4,opacity:.85});
 poly(canal,{color:'#1f6f8b',weight:4,opacity:.85,dashArray:'2 7'});
 poly(retreat,{color:'#34495e',weight:3.5,opacity:.8,dashArray:'9 8'});
+poly(qin,{color:'#7d3c98',weight:3.5,opacity:.85,dashArray:'10 6 2 6'});
 
-const colors={base:'#c0392b',canal:'#1f6f8b',battle:'#b8860b',capital:'#2c3e50'};
+const colors={base:'#c0392b',canal:'#1f6f8b',battle:'#b8860b',capital:'#2c3e50',qin:'#7d3c98'};
 const markers={};
 nodes.forEach(o=>{
   const m=L.circleMarker([o.lat,o.lng],{
@@ -107,7 +125,18 @@ nodes.forEach(o=>{
   m.bindPopup(`<div class="pop-t">${o.num}. ${o.n}</div><div class="pop-m">${o.now} · ${typeLabel(o.type)}</div><div class="pop-d">${o.d}</div>`);
   markers[o.num]=m;
 });
-function typeLabel(t){return {base:'晋军据点',canal:'凿渠通运',battle:'战役',capital:'前燕都城'}[t];}
+function typeLabel(t){return {base:'晋军据点',canal:'凿渠通运',battle:'战役',capital:'前燕都城',qin:'前秦援军'}[t];}
+
+// 前秦援军标记(以紫色方形区分于晋军路线)
+const qinMarkers={};
+qinNodes.forEach((o,i)=>{
+  const m=L.circleMarker([o.lat,o.lng],{
+    radius:7, color:'#fff', weight:2, fillColor:colors.qin, fillOpacity:1
+  }).addTo(map);
+  m.bindTooltip('秦 · '+o.n,{permanent:true,direction:'bottom',offset:[0,6],className:'lbl lbl-qin'});
+  m.bindPopup(`<div class="pop-t">${o.n}</div><div class="pop-m">${o.now} · ${o.tag}</div><div class="pop-d">${o.d}</div>`);
+  qinMarkers[i]=m;
+});
 
 // 侧栏时间轴
 const steps=document.getElementById('steps');
@@ -118,7 +147,20 @@ nodes.forEach(o=>{
   el.onclick=()=>{map.setView([o.lat,o.lng],7,{animate:true});markers[o.num].openPopup();};
   steps.appendChild(el);
 });
+
+// 前秦援军一线
+const qh=document.createElement('div');
+qh.className='subhead';
+qh.innerHTML='前秦援军 · 救燕';
+steps.appendChild(qh);
+qinNodes.forEach((o,i)=>{
+  const el=document.createElement('div');
+  el.className='step step-qin';
+  el.innerHTML=`<div class="t"><span class="num" style="color:#7d3c98">秦</span>${o.n}　<span style="font-size:11px;color:#9a8b73;font-weight:400">${o.now}</span></div><div class="d">${o.d}</div>`;
+  el.onclick=()=>{map.setView([o.lat,o.lng],7,{animate:true});qinMarkers[i].openPopup();};
+  steps.appendChild(el);
+});
 </script>
-<style>.lbl{background:rgba(244,236,216,.85);border:1px solid #c8b890;border-radius:3px;font-family:"Songti SC",serif;font-size:12px;padding:1px 5px;color:#2b2520;box-shadow:none;}.lbl::before{display:none;}</style>
+<style>.lbl{background:rgba(244,236,216,.85);border:1px solid #c8b890;border-radius:3px;font-family:"Songti SC",serif;font-size:12px;padding:1px 5px;color:#2b2520;box-shadow:none;}.lbl::before{display:none;}.lbl-qin{background:rgba(243,232,248,.9);border-color:#c9a8d8;color:#5b2c6f;}</style>
 </body>
 </html>
