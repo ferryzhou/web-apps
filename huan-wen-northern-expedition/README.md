@@ -10,8 +10,9 @@ A single-file, interactive Leaflet map of **Huan Wen's (桓温) third northern e
 - 🔵 **桓公渎 (Huangong Canal)** — the ~300-li canal dug from the Juye Marsh to the Qing River to float the fleet into the Yellow River.
 - ⚫ **溃退路线 (Retreat)** — the rout south after the supply line was cut, ambushed at Xiangyi.
 - 🟣 **前秦援军 (Former Qin reinforcements)** — Fu Jian's relief force under Gou Chi & Deng Qiang from Luoyang via Yingchuan, which later harried the retreating Jin army at Qiao.
+- 🟢 **前燕追击 (Former Yan pursuit)** — Murong Chui's 8,000 cavalry shadowing the retreat, converging with Murong De's 4,000-rider ambush at Xiangyi for the kill (30,000 Jin slain).
 
-A clickable bilingual timeline panel on the right flies the map to each location and opens its details.
+Every route carries **directional arrowheads** showing the line of march. A clickable bilingual timeline panel on the right flies the map to each location — including the generals' positions — and opens its details.
 
 ## Key locations
 
@@ -25,7 +26,8 @@ A clickable bilingual timeline panel on the right flies the map to each location
 | 6 | 邺城 | Linzhang, Hebei | Former Yan capital |
 | 7 | 襄邑 | Sui County, Henan | **Decisive defeat** |
 | 8 | 谯郡 | Bozhou, Anhui | Qin intercepts the retreat |
-| 秦 | 洛阳 / 颍川 | Luoyang / Xuchang, Henan | Former Qin relief force |
+| 秦 | 洛阳 / 颍川 | Luoyang / Xuchang, Henan | Former Qin relief force (Gou Chi, Deng Qiang) |
+| 燕 | 慕容垂 / 慕容德 | pursuit → Xiangyi ambush | Former Yan generals: 8,000 + 4,000 cavalry |
 
 ## Usage
 
