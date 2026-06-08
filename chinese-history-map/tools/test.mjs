@@ -28,12 +28,16 @@ const eq = (name, got, want) => {
 eq("statesAt(-260) 返回战国七雄",
   data.statesAt(-260).map((s) => s.id).sort(),
   ["chu", "han-state", "qi", "qin", "wei", "yan", "zhao"]);
-eq("statesAt(-100) 战国均已亡，无政权", data.statesAt(-100).length, 0);
+eq("statesAt(-205) 楚汉相争：西楚与汉并立",
+  data.statesAt(-205).map((s) => s.id).sort(),
+  ["western-chu", "western-han"]);
+eq("statesAt(-100) 仅西汉存续", data.statesAt(-100).map((s) => s.id), ["western-han"]);
 
 // —— 疆域快照：取 as_of <= year 中最大者 ——
 const qin = data.get("state", "qin");
 eq("territorySnapshotAt(qin,-300) -> -350 快照", data.territorySnapshotAt(qin, -300).as_of, -350);
 eq("territorySnapshotAt(qin,-240) -> -250 快照", data.territorySnapshotAt(qin, -240).as_of, -250);
+eq("territorySnapshotAt(qin,-210) -> -221 统一快照", data.territorySnapshotAt(qin, -210).as_of, -221);
 eq("territorySnapshotAt(qin,-400) -> 早于首个快照返回 null", data.territorySnapshotAt(qin, -400), null);
 
 // —— 事件：按日期区间激活 ——
@@ -41,16 +45,19 @@ eq("eventsAt(-260) 含长平之战", data.eventsAt(-260).map((e) => e.id), ["cha
 eq("eventsAt(-227) 含荆轲刺秦且统一进行中",
   data.eventsAt(-227).map((e) => e.id).sort(),
   ["jingke-assassination", "qin-unification"]);
+eq("eventsAt(-202) 含垓下之战与西汉建立",
+  data.eventsAt(-202).map((e) => e.id).sort(),
+  ["gaixia", "han-founding"]);
 
 // —— 全局年份范围（所有时期 span 的并集）——
 eq("yearRange 覆盖战国到西汉末", data.yearRange(), { min: -475, max: 8 });
 
 // —— 集合的实时绑定：loadAll 后 data.* 应已填充（timeline.js / detail.js 依赖）——
-eq("data.periods 已加载", data.periods.length, 3);
-eq("data.states 已加载", data.states.length, 7);
-eq("data.events 已加载", data.events.length, 7);
-eq("data.people 已加载", data.people.length, 21);
-eq("data.places 已加载", data.places.length, 9);
+eq("data.periods 已加载", data.periods.length, 4);
+eq("data.states 已加载", data.states.length, 9);
+eq("data.events 已加载", data.events.length, 14);
+eq("data.people 已加载", data.people.length, 30);
+eq("data.places 已加载", data.places.length, 14);
 
 // —— 索引与引用 ——
 eq("get 按 id 取实体", data.get("person", "baiqi")?.name, "白起");
