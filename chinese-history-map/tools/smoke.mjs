@@ -54,11 +54,17 @@ page.on("pageerror", (e) => jsErrors.push(e.message));
 const fails = [];
 try {
   await page.goto(base, { waitUntil: "domcontentloaded" });
-  await page.waitForFunction(() => document.querySelectorAll("#map svg path").length > 0, { timeout: 8000 })
-    .catch(() => {});
+  // 疆域多边形异步加载，等渲染数量稳定（连续两次采样相同）再断言，避免竞态
+  const countPaths = () => page.locator("#map svg path").count();
+  let paths = 0;
+  for (let i = 0; i < 30; i++) {
+    await page.waitForTimeout(200);
+    const n = await countPaths();
+    if (n > 0 && n === paths) break;
+    paths = n;
+  }
 
   const year = (await page.textContent("#year")) || "";
-  const paths = await page.locator("#map svg path").count();
   if (!year) fails.push("时间轴年份未显示（#year 为空）");
   if (paths === 0) fails.push("地图未渲染任何疆域多边形");
 

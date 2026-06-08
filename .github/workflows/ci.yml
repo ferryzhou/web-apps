@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  chinese-history-map:
+    name: chinese-history-map data & logic
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: chinese-history-map
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate data (id uniqueness, references, time ranges)
+        run: node tools/validate.mjs
+      - name: Unit tests (time queries, snapshots, formatting)
+        run: node tools/test.mjs
