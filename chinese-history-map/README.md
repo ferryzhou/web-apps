@@ -24,7 +24,8 @@ python3 -m http.server 8000
 # 浏览器打开 http://localhost:8000
 ```
 
-> 地图库 Leaflet 通过 CDN 加载，运行时需联网。
+> **Leaflet 已内置**在 `vendor/leaflet/`，无需 CDN，离线即可运行。
+> 底图瓦片来自 CARTO（联网时显示）；瓦片加载失败时地图仍可用，只是没有底图背景。
 
 ## 项目结构
 
@@ -41,7 +42,22 @@ js/
 data/                 规范化数据（见 DESIGN.md 第 3 节）
   periods/states/people/places/events.json
   territories/        各政权疆域 GeoJSON（按年份快照）
-tools/validate.mjs    数据校验（id 唯一、引用完整、时间合法）
+vendor/leaflet/       内置的 Leaflet 库（js/css/images，MIT）
+tools/
+  validate.mjs        数据校验（id 唯一、引用完整、时间合法）
+  test.mjs            单元测试（时间查询/疆域快照/格式化，纯 Node）
+  smoke.mjs           浏览器冒烟测试（可选，需 Playwright）
+```
+
+## 测试
+
+```bash
+node tools/validate.mjs   # 数据完整性
+node tools/test.mjs       # 逻辑单元测试（零依赖）
+
+# 可选：真实浏览器冒烟测试（需先装 Playwright）
+npm i -D playwright && npx playwright install chromium
+node tools/smoke.mjs
 ```
 
 ## 数据与贡献
@@ -49,10 +65,10 @@ tools/validate.mjs    数据校验（id 唯一、引用完整、时间合法）
 - 数据模型与设计：见 [DESIGN.md](./DESIGN.md)
 - 开发计划与路线：见 [ROADMAP.md](./ROADMAP.md)
 - 新增/修改内容只需编辑 `data/*.json`，疆域多边形可用 [geojson.io](https://geojson.io) 手绘。
-- 提交前请运行校验：
+- 提交前请运行校验与测试：
 
 ```bash
-node tools/validate.mjs
+node tools/validate.mjs && node tools/test.mjs
 ```
 
 > 当前内容覆盖**战国七雄**（约公元前 350–221 年）；疆域边界为近似示意，仍在逐步精修。
