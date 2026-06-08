@@ -1,0 +1,138 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #1a1a2e;
+  --bg2: #16213e;
+  --panel: rgba(255, 255, 255, 0.06);
+  --gold: #ffd700;
+  --text: #e6e6e6;
+  --muted: #9aa0b0;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background: linear-gradient(135deg, var(--bg), var(--bg2));
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 10px;
+  flex: 0 0 auto;
+}
+header h1 { font-size: 1.5rem; color: var(--gold); }
+header h1 .en { font-size: 0.9rem; color: var(--muted); font-weight: 400; }
+
+/* 时间轴 */
+.timeline {
+  flex: 0 0 auto;
+  padding: 6px 18px 14px;
+}
+.timeline-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+#year { font-size: 1.2rem; color: #ff6b6b; min-width: 9em; }
+#play {
+  background: var(--gold);
+  color: #222;
+  border: 0;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+#slider { width: 100%; cursor: pointer; accent-color: var(--gold); }
+.ticks { position: relative; height: 1.4em; margin-top: 2px; }
+.tick {
+  position: absolute;
+  transform: translateX(-50%);
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tick:hover { color: var(--gold); }
+
+/* 地图 + 详情 */
+.stage { position: relative; flex: 1 1 auto; min-height: 0; }
+#map { position: absolute; inset: 0; background: #0c1020; }
+.error { color: #ff6b6b; padding: 20px; }
+
+#detail {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 320px;
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
+  overflow-y: auto;
+  background: rgba(20, 24, 44, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 16px;
+  z-index: 1000;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+#detail[hidden] { display: none; }
+#detail .kind {
+  display: inline-block;
+  background: var(--gold);
+  color: #222;
+  font-size: 0.7rem;
+  padding: 1px 8px;
+  border-radius: 10px;
+}
+#detail h2 { margin: 6px 0 10px; font-size: 1.25rem; }
+#detail h2 .en { font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+#detail .sec { margin-top: 10px; }
+#detail .sec h3 { font-size: 0.8rem; color: var(--gold); margin-bottom: 4px; }
+#detail p { margin: 6px 0; line-height: 1.5; font-size: 0.9rem; }
+.muted { color: var(--muted); font-size: 0.82rem; }
+.close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.chip {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 2px 8px;
+  margin: 2px 2px 0 0;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.chip:hover { background: var(--gold); color: #222; }
+
+/* 移动端：详情面板改为底部抽屉 */
+@media (max-width: 640px) {
+  #detail {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 55%;
+    border-radius: 12px 12px 0 0;
+  }
+}
