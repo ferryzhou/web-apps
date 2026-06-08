@@ -78,6 +78,17 @@ try {
     if (!title.trim()) fails.push("详情面板标题为空");
   }
 
+  // 离散时间点：应有多个点，点击末点后年份显示应改变
+  const numPoints = await page.locator("#points .point").count();
+  if (numPoints < 2) fails.push(`离散时间点过少（${numPoints}）`);
+  if (numPoints >= 2) {
+    await page.locator("#points .point").last().click();
+    await page.waitForTimeout(300);
+    const year2 = (await page.textContent("#year")) || "";
+    if (year2 === year) fails.push("点击时间点后年份显示未改变");
+    console.log(`  时间点数=${numPoints} 切换后年份=${JSON.stringify(year2)}`);
+  }
+
   if (jsErrors.length) fails.push("页面 JS 报错：\n      " + jsErrors.join("\n      "));
   console.log(`  年份=${JSON.stringify(year)} 疆域多边形=${paths}`);
 } finally {

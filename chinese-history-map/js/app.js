@@ -38,7 +38,7 @@ async function main() {
   const mapView = initMap("map", { onSelect: (kind, id) => select(kind, id) });
 
   const timeline = initTimeline(
-    { slider: $("#slider"), display: $("#year"), playBtn: $("#play"), ticks: $("#ticks") },
+    { points: $("#points"), display: $("#year"), playBtn: $("#play") },
     (year) => {
       currentYear = year;
       mapView.render(year);

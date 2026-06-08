@@ -73,3 +73,25 @@ export function yearRange() {
   const ends = periods.map((p) => p.span.end);
   return { min: Math.min(...starts), max: Math.max(...ends) };
 }
+
+// 某年的标签：优先取当年开始的事件名，其次取当年开始的时期名，最后取覆盖该年的时期名
+function labelForYear(year) {
+  const ev = events.find((e) => e.date.start === year);
+  if (ev) return ev.name;
+  const periodStart = periods.find((p) => p.span.start === year);
+  if (periodStart) return periodStart.name;
+  const period = periods.find((p) => covers(p.span, year));
+  return period ? period.name : "";
+}
+
+// 离散时间点：取「疆域快照年份」∪「事件起始年份」，并只保留至少能渲染一块疆域的年份。
+// 时间轴以这些离散点取代连续滑块。
+export function timePoints() {
+  const years = new Set();
+  for (const s of states) for (const t of s.territories || []) years.add(t.as_of);
+  for (const e of events) years.add(e.date.start);
+  return [...years]
+    .sort((a, b) => a - b)
+    .filter((y) => statesAt(y).some((s) => territorySnapshotAt(s, y)))
+    .map((year) => ({ year, label: labelForYear(year) }));
+}
