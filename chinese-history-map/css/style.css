@@ -50,19 +50,48 @@ header h1 .en { font-size: 0.9rem; color: var(--muted); font-weight: 400; }
   cursor: pointer;
   font-size: 0.85rem;
 }
-#slider { width: 100%; cursor: pointer; accent-color: var(--gold); }
-.ticks { position: relative; height: 1.4em; margin-top: 2px; }
-.tick {
-  position: absolute;
-  transform: translateX(-50%);
-  background: none;
-  border: 0;
-  color: var(--muted);
-  font-size: 0.7rem;
-  cursor: pointer;
-  white-space: nowrap;
+/* 离散时间点 */
+.points {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 2px 10px;
+  scrollbar-width: thin;
 }
-.tick:hover { color: var(--gold); }
+.points:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 8px; }
+.point {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 64px;
+  padding: 6px 10px;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+}
+.point::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+.point:hover { border-color: var(--gold); }
+.point.active {
+  background: rgba(255, 215, 0, 0.16);
+  border-color: var(--gold);
+}
+.point.active::before { background: var(--gold); }
+.point-year { font-size: 0.8rem; color: var(--gold); white-space: nowrap; }
+.point-label { font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+.point.active .point-label { color: var(--text); }
 
 /* 地图 + 详情 */
 .stage { position: relative; flex: 1 1 auto; min-height: 0; }

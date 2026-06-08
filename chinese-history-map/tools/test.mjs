@@ -52,6 +52,17 @@ eq("eventsAt(-202) 含垓下之战与西汉建立",
 // —— 全局年份范围（所有时期 span 的并集）——
 eq("yearRange 覆盖战国到西汉末", data.yearRange(), { min: -475, max: 8 });
 
+// —— 离散时间点 ——
+const tp = data.timePoints();
+eq("timePoints 共 14 个", tp.length, 14);
+eq("timePoints 首点 = 商鞅变法(-350)", tp[0], { year: -350, label: "商鞅变法" });
+eq("timePoints 末点 = 张骞通西域(-138)", tp[tp.length - 1], { year: -138, label: "张骞通西域" });
+eq("timePoints 年份递增", tp.map((p) => p.year), [...tp.map((p) => p.year)].sort((a, b) => a - b));
+eq("timePoints -221 标签为「秦」", tp.find((p) => p.year === -221)?.label, "秦");
+eq("timePoints 每点都能渲染至少一块疆域",
+  tp.every((p) => data.statesAt(p.year).some((s) => data.territorySnapshotAt(s, p.year))), true);
+eq("timePoints 丢弃无疆域可渲染的早期年份(-453)", tp.some((p) => p.year === -453), false);
+
 // —— 集合的实时绑定：loadAll 后 data.* 应已填充（timeline.js / detail.js 依赖）——
 eq("data.periods 已加载", data.periods.length, 4);
 eq("data.states 已加载", data.states.length, 9);
