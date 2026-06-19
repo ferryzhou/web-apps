@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王敦之乱 · 永昌元年(322)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.4}.realm.j{fill:var(--advance);opacity:.4}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:760;stroke-dashoffset:760;animation:draw 1.6s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>王</span><span>敦</span><span>之</span><span>乱</span></div>
+  <header>
+    <h1>王敦之乱</h1>
+    <div class="sub">晋永昌元年至太宁二年(322–324)　　<b>权臣 王敦</b> 对 <i>东晋朝廷 元帝·明帝</i></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 武昌起兵</button>
+    <button data-p="1">攻陷石头</button>
+    <button data-p="2">明帝反击</button>
+    <button data-p="3">越城平乱</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="王敦之乱形势图,含东晋朝廷与王敦势力、长江秦淮与武昌建康石头城等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 势力:王敦据上游荆江(西),朝廷据建康(东) -->
+    <path d="M 0,260 C 100,266 200,272 300,282 C 380,290 430,310 470,330 L 470,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,330 C 520,312 580,300 640,300 C 760,300 880,306 1000,302 L 1000,640 L 470,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,640 C 466,500 466,420 470,330"/>
+    <text class="realm q" x="120" y="210" font-size="28">王敦(荆江)</text>
+    <text class="realm j" x="720" y="210" font-size="28">朝廷·建康</text>
+
+    <!-- 长江:武昌(西)东下建康 -->
+    <path class="river" stroke-width="5.5" d="M 80,360 C 200,372 300,388 360,386 C 440,382 500,392 540,396 C 620,404 680,360 760,348 C 840,336 920,340 1000,346"/>
+    <!-- 秦淮河 -->
+    <path class="river" stroke-width="2.2" d="M 720,398 C 712,376 706,358 700,344"/>
+    <text class="rname" x="200" y="392" style="font-size:13px">长 江</text>
+    <text class="rname" x="724" y="380" transform="rotate(74 724 380)" style="font-size:10px">秦淮河</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="wuchang"><circle cx="100" cy="356" r="6"/><text class="cname" x="60" y="352">武昌<tspan class="cname s" dx="2">(王敦)</tspan></text></g>
+      <g class="city" data-city="pengze"><circle cx="320" cy="386" r="3.5"/><text class="cname s" x="282" y="404">彭泽湖口</text></g>
+      <g class="city" data-city="wuhu"><circle cx="540" cy="398" r="4.5"/><text class="cname s" x="502" y="416">芜湖</text></g>
+      <g class="city" data-city="gushu"><circle cx="600" cy="402" r="4"/><text class="cname s" x="580" y="420">姑孰</text></g>
+      <g class="city" data-city="jiangning"><circle cx="668" cy="400" r="4"/><text class="cname s" x="648" y="418">江宁</text></g>
+      <g class="city" data-city="shitou"><circle cx="678" cy="368" r="5"/><text class="cname" x="636" y="362">石头城</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="712" cy="350" r="6"/><text class="cname" x="722" y="346">建康<tspan class="cname s" dx="2">(台城)</tspan></text></g>
+      <g class="city" data-city="yuecheng"><circle cx="724" cy="372" r="3.5"/><text class="cname s" x="732" y="388">越城</text></g>
+      <g class="city" data-city="jiangcheng"><circle cx="772" cy="330" r="3.5"/><text class="cname s" x="780" y="326">江乘</text></g>
+      <g class="city" data-city="huaiyin"><circle cx="852" cy="252" r="4"/><text class="cname s" x="824" y="244">淮阴</text></g>
+      <g class="city" data-city="wuxing"><circle cx="800" cy="470" r="4"/><text class="cname s" x="760" y="486">吴兴(沈充)</text></g>
+    </g>
+
+    <!-- 全图 · 武昌起兵 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 110,360 C 240,392 380,398 530,398"/>
+      <text class="mlabel q" x="220" y="378">永昌元年,王敦以诛刘隗为名东下</text>
+      <path class="march q" marker-end="url(#aq)" d="M 794,464 C 760,430 730,400 716,360"/>
+      <text class="mlabel q" x="760" y="452">沈充吴兴起兵响应</text>
+      <text class="mlabel j" x="640" y="320">元帝命刘隗守金城,周本守石头</text>
+      <text class="anno" x="540" y="430">至芜湖,奏列刁协罪状</text>
+    </g>
+
+    <!-- 阶段一:攻陷石头 -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 548,394 C 600,388 640,380 672,372"/>
+      <text class="mlabel q" x="560" y="372">舍刘隗先攻石头城</text>
+      <circle class="star" cx="678" cy="368" r="8"/>
+      <text class="anno" x="600" y="392">周札开城降,敦据石头</text>
+      <path class="march j" marker-end="url(#aj)" d="M 706,356 C 700,362 692,366 686,368"/>
+      <text class="mlabel j" x="700" y="338">诸军反攻石头皆败</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 716,346 C 740,338 760,334 768,332"/>
+      <text class="mlabel r" x="730" y="320">刁协走江乙被杀,隗北奔</text>
+      <text class="anno" x="120" y="320">敦专朝政,旋还武昌遥控</text>
+    </g>
+
+    <!-- 阶段二:明帝反击 -->
+    <g id="ph2" class="ph">
+      <text class="anno" x="120" y="320">太宁二年,敦病;明帝微服观芜湖营垒</text>
+      <text class="mlabel j" x="640" y="320">明帝诈称敦死,下诏讨之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 548,398 C 600,398 640,392 660,388"/>
+      <text class="mlabel q" x="540" y="382">王含、钱凤五万至江宁南岸</text>
+      <path class="march j" marker-end="url(#aj)" d="M 706,358 C 700,372 700,386 704,396"/>
+      <text class="mlabel j" x="690" y="416">温峤移屯北岸,烧朱雀桁拒之</text>
+    </g>
+
+    <!-- 阶段三:越城平乱 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 712,358 C 718,364 722,368 724,370"/>
+      <circle class="star" cx="724" cy="372" r="8"/>
+      <text class="mlabel j" x="690" y="396">段秀夜渡秦淮,越城大破王含</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 660,392 C 600,398 540,398 548,398"/>
+      <text class="mlabel r" x="540" y="416">王含等溃逃</text>
+      <text class="mlabel q" x="120" y="340">王敦病死姑孰</text>
+      <text class="anno" x="360" y="320">钱凤、沈充直继被杀;太宁二年乱平</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>朝廷军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>王敦军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退/北奔</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战/克城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>王敦</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>朝廷</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷九二、九三、《晋书·王敦传》约略绘出。武昌今湖北鄂州,建康今南京,石头城在今南京清凉山,姑孰今安徽当涂,江乘今句容、格霞间,越城在今南京城南。水道经简化。</p>
+    <p><span class="n">注二</span>晕染为永昌、太宁间形势示意:王敦都督江、荆等上游诸州,据武昌;建康以西大体为其都督区。点划界为约略形势,非画界分明。</p>
+    <p><span class="n">注三</span>本乱两起:322年王敦以诛刘隗为名得志,据石头、专朝政,元帝忧愤而崩;324年明帝乘其病而诈称敦死,以王导发丧鼓士气,越城一战破王含,敦适病亡,乱遂平。东晋"王与马共天下"之局,自此而变。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"武昌起兵",d:"永昌元年(322)正月",p:["东晋初,王与马共天下。元帝不甘君弱臣强,亲信刘隗、刁协以裁抑琅琊王氏,握上游重兵的王敦深为不满。","永昌元年正月,王敦以诛刘隗为名,自武昌起兵东下;党羽沈充于吴兴举兵响应。元帝大怒,定敦为大逆,急召刘隗、戴渊入卫,命刘隗守金城、周札守石头。"]},
+  "1":{t:"攻陷石头",d:"永昌元年",p:["王敦兵至,部将杜弘议舍刘隗而先攻石头:谓周札少恩、士不为用,城破则隗自走。敦从之,周札开城出降,敦遂据石头城。","元帝命刘隗、戴渊等反攻石头,皆为敦军所败。刁协走江乙被杀,刘隗北奔后赵。敦拥兵石头,纵掠建康,专制朝政,旋还武昌遥控。是年冬,元帝忧愤而崩,明帝立。"]},
+  "2":{t:"明帝反击",d:"太宁二年(324)",p:["王敦病日重,矫诏自树党羽,谋图夺位;表温峤为为阳尹以伺朝廷,温峤反以其谋告明帝,并与庾亮共画讨敦之计。","明帝微服至芜湖观敦营垒,定计讨之,诈称王敦已死以振士气。敦命兄王含与钱凤等率五万兵至江宁南岘逼建康。温峤移屯秦淮北岘,烧朱雀桁,使叛军不得渡。"]},
+  "3":{t:"越城平乱",d:"太宁二年七月",p:["明帝出屯南皇堂,夜募壮士,遣段秀、曹浑等率千兵渡秦淮掩袭,清晨战于越城,大破王含,斩其前锋何康。","王敦闻败欲强起督战而不能,旋病死姑孰。叛军军心涣散,王含等连夜烧营溃逃,钱凤、沈充相继被杀,首级传京师。太宁二年七月,王敦之乙遂平。"]}
+};
+const CITY={
+  wuchang:{t:"武昌",d:"今湖北鄂州",p:["王敦上游根本之地。两度自此东下逼建康,得志后亦还此遥控朝政。"]},
+  shitou:{t:"石头城",d:"今南京清凉山",p:["建康西面江防要塞。322年周札开城降,王敦据之以制朝廷。"]},
+  jiankang:{t:"建康",d:"东晋都城,今南京",p:["王敦两次兵锋所指。第一次入据专政,第二次为明帝所拒于秦淮之外。"]},
+  jiangning:{t:"江宁",d:"建康西南",p:["324年王含、钱凤五万之众屯于此南岸,逼近建康。"]},
+  yuecheng:{t:"越城",d:"今南京城南",p:["决胜之地。段秀等夜渡秦淮,于此大破王含,奠定平乱之局。"]},
+  gushu:{t:"姑孰",d:"今安徽当涂",p:["王敦后期移镇、逼建康之地。太宁二年敦病死于此。"]},
+  jiangcheng:{t:"江乙",d:"今句容、栖霞间",p:["刁协北逃至此被随从所杀,首级送王敦。"]},
+  wuxing:{t:"吴兴",d:"今浙江湖州",p:["王敦党羽沈充起兵响应之地,后亦被平。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
