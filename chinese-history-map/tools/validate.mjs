@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// 数据校验：id 唯一、引用完整、时间合法、geojson 文件存在。
+// 数据校验：id 唯一、引用完整、时间合法、geojson 几何有效。
 // 用法：node tools/validate.mjs   （在 chinese-history-map/ 目录下运行）
-import { readFile, access } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -10,7 +10,26 @@ const errors = [];
 const err = (msg) => errors.push(msg);
 
 const load = async (rel) => JSON.parse(await readFile(join(root, "data", rel), "utf8"));
-const exists = async (rel) => access(join(root, "data", rel)).then(() => true).catch(() => false);
+
+// 几何校验：Polygon/MultiPolygon，环闭合、点数 >= 4、坐标落在中国范围内
+const inChina = ([lng, lat]) => lng >= 70 && lng <= 140 && lat >= 15 && lat <= 55;
+async function checkGeometry(rel, where) {
+  let geo;
+  try { geo = await load(rel); } catch { return err(`${where}: 无法读取/解析几何 ${rel}`); }
+  if (geo.type !== "Feature" || !geo.geometry) return err(`${where}: ${rel} 不是 Feature`);
+  const g = geo.geometry;
+  if (g.type !== "Polygon" && g.type !== "MultiPolygon")
+    return err(`${where}: ${rel} 几何类型应为 Polygon/MultiPolygon`);
+  const polys = g.type === "Polygon" ? [g.coordinates] : g.coordinates;
+  for (const poly of polys) {
+    for (const ring of poly) {
+      if (ring.length < 4) err(`${where}: ${rel} 环点数不足 (${ring.length})`);
+      const a = ring[0], b = ring[ring.length - 1];
+      if (a[0] !== b[0] || a[1] !== b[1]) err(`${where}: ${rel} 环未闭合（首尾不一致）`);
+      for (const pt of ring) if (!inChina(pt)) err(`${where}: ${rel} 坐标越界 ${JSON.stringify(pt)}`);
+    }
+  }
+}
 
 const [periods, states, people, places, events] = await Promise.all([
   load("periods.json"), load("states.json"), load("people.json"),
@@ -48,7 +67,7 @@ for (const s of states) {
   for (const t of s.territories || []) {
     if (typeof t.as_of !== "number") err(`state ${s.id}: territory.as_of 需为数字`);
     if (!t.geometry_ref) err(`state ${s.id}: territory 缺少 geometry_ref`);
-    else if (!(await exists(t.geometry_ref))) err(`state ${s.id}: 找不到几何文件 ${t.geometry_ref}`);
+    else await checkGeometry(t.geometry_ref, `state ${s.id}`);
   }
 }
 
