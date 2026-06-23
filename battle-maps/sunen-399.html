@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孙恩起义 · 隆安三年(399)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.18}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .isle{fill:var(--ink2);opacity:.5}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>孙</span><span>恩</span><span>之</span><span>乱</span></div>
+  <header>
+    <h1>孙恩起义</h1>
+    <div class="sub">晋隆安三年至元兴元年(399–402)　　<b>五斗米道 孙恩</b> 对 <i>东晋 刘牢之 · 刘裕</i></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 八郡俱起</button>
+    <button data-p="1">牢之渡江</button>
+    <button data-p="2">浮海北上</button>
+    <button data-p="3">投海而死</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="孙恩起义形势图,含东晋三吴浙东疆界、长江钱塘江东海与会稽建康海岛">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 东海 -->
+    <path class="sea" d="M 760,0 C 740,140 760,300 800,440 C 830,540 880,600 1000,640 L 1000,0 Z"/>
+    <text class="rname" x="860" y="320" transform="rotate(82 860 320)" style="opacity:.7">东 海</text>
+
+    <!-- 三吴八郡(东晋朝廷命脉),晕染一色即可 -->
+    <path d="M 120,120 C 260,120 420,140 540,200 C 640,250 700,330 720,420 C 700,470 640,500 560,510 C 420,524 280,500 160,470 C 100,452 60,440 40,420 L 40,160 C 60,138 90,124 120,120 Z" fill="url(#jinHatch)"/>
+    <text class="realm j" x="180" y="180" font-size="30">东 晋(三吴)</text>
+
+    <!-- 长江 -->
+    <path class="river" stroke-width="5" d="M 0,170 C 120,176 240,184 340,196 C 420,206 470,210 520,224 C 600,246 680,286 760,330"/>
+    <!-- 钱塘江/杭州湾 -->
+    <path class="river" stroke-width="3.6" d="M 360,380 C 420,392 470,400 520,410 C 600,424 680,448 776,470"/>
+    <text class="rname" x="120" y="190" style="font-size:13px">长 江</text>
+    <text class="rname" x="560" y="438" transform="rotate(16 560 438)">钱塘江</text>
+
+    <!-- 海岛(舟山) -->
+    <g class="isle"><ellipse cx="800" cy="500" rx="16" ry="9"/><ellipse cx="828" cy="486" rx="9" ry="6"/></g>
+    <text class="cname s" x="772" y="528">海岛(舟山)</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="jiankang"><circle cx="300" cy="196" r="6"/><text class="cname" x="246" y="192">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+      <g class="city" data-city="jingkou"><circle cx="392" cy="218" r="4.5"/><text class="cname s" x="400" y="214">京口</text></g>
+      <g class="city" data-city="guangling"><circle cx="430" cy="158" r="4"/><text class="cname s" x="438" y="154">广陵</text></g>
+      <g class="city" data-city="hudu"><circle cx="652" cy="320" r="4"/><text class="cname s" x="660" y="316">沪渎</text></g>
+      <g class="city" data-city="wujun"><circle cx="528" cy="288" r="4.5"/><text class="cname s" x="492" y="282">吴郡</text></g>
+      <g class="city" data-city="wuxing"><circle cx="466" cy="332" r="4"/><text class="cname s" x="428" y="328">吴兴</text></g>
+      <g class="city" data-city="yixing"><circle cx="400" cy="296" r="3.5"/><text class="cname s" x="360" y="292">义兴</text></g>
+      <g class="city cap" data-city="kuaiji"><circle cx="540" cy="452" r="6"/><text class="cname" x="500" y="472">会稽(山阴)</text></g>
+      <g class="city" data-city="shangyu"><circle cx="600" cy="460" r="4"/><text class="cname s" x="608" y="456">上虞</text></g>
+      <g class="city" data-city="jiakou"><circle cx="680" cy="476" r="4.5"/><text class="cname s" x="688" y="472">浃口(余姚)</text></g>
+      <g class="city" data-city="linhai"><circle cx="666" cy="556" r="4"/><text class="cname s" x="674" y="552">临海</text></g>
+      <g class="city" data-city="yongjia"><circle cx="636" cy="606" r="4"/><text class="cname s" x="644" y="602">永嘉</text></g>
+      <g class="city" data-city="dongyang"><circle cx="476" cy="552" r="4"/><text class="cname s" x="438" y="566">东阳</text></g>
+      <g class="city" data-city="yuzhou"><circle cx="556" cy="86" r="4"/><text class="cname s" x="564" y="82">郁洲</text></g>
+    </g>
+
+    <!-- 全图 · 八郡俱起 -->
+    <g id="phAll" class="ph">
+      <path class="march sea" marker-end="url(#aq)" d="M 798,496 C 720,490 640,476 606,464"/>
+      <text class="mlabel q" x="700" y="452">孙恩自海岛登陆</text>
+      <path class="march q" marker-end="url(#aq)" d="M 594,460 C 570,458 556,456 548,456"/>
+      <text class="mlabel q" x="500" y="500">攻上虞,破会稽,杀内史王凝之</text>
+      <text class="anno" x="380" y="540">会稽、吴郡、吴兴、义兴、临海、水嘉、东阳、新安八郡俱起,众数十万</text>
+      <text class="mlabel q" x="450" y="420">自称征东将军,号"长生人"</text>
+    </g>
+
+    <!-- 阶段一:牢之渡江 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 392,224 C 440,300 480,360 514,432"/>
+      <text class="mlabel j" x="404" y="320">谢琰·刘牢之 率北府兵南讨</text>
+      <text class="anno" x="380" y="404">渡钱塘江,孙恩望风东走</text>
+      <path class="march sea" marker-end="url(#ar)" d="M 548,452 C 640,470 720,486 786,498"/>
+      <text class="mlabel r" x="600" y="436">孙恩率二十万退入海岛</text>
+      <path class="march q" marker-end="url(#aq)" d="M 786,500 C 700,488 640,472 608,464"/>
+      <circle class="star" cx="556" cy="470" r="7"/>
+      <text class="anno" x="430" y="492">四〇〇年复登陆,邢浦斩谢琰父子</text>
+    </g>
+
+    <!-- 阶段二:浮海北上 -->
+    <g id="ph2" class="ph">
+      <path class="march sea" marker-end="url(#aq)" d="M 700,470 C 720,420 700,370 664,332"/>
+      <text class="mlabel q" x="690" y="408">四〇一年浮海北上</text>
+      <circle class="star" cx="652" cy="320" r="7"/>
+      <text class="mlabel q" x="556" y="306">克沪渎垒,杀袁山松</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 644,316 C 560,280 460,244 408,224"/>
+      <text class="mlabel q" x="430" y="250">十余万众、舟二千,进逼建康</text>
+      <path class="march j" marker-end="url(#aj)" d="M 312,208 C 340,210 366,214 384,218"/>
+      <text class="mlabel j" x="240" y="246">刘裕拒战于京口,孙恩大败</text>
+      <path class="march sea" marker-end="url(#ar)" d="M 398,212 C 440,170 500,120 548,94"/>
+      <text class="mlabel r" x="430" y="150">退保郁洲、广陵</text>
+    </g>
+
+    <!-- 阶段三:投海而死 -->
+    <g id="ph3" class="ph">
+      <path class="march sea" marker-end="url(#aq)" d="M 560,96 C 600,200 640,360 660,540"/>
+      <text class="mlabel q" x="600" y="300">屡为刘裕所败,损折甚众</text>
+      <path class="march q" marker-end="url(#aq)" d="M 676,548 C 672,552 670,554 668,556"/>
+      <circle class="star" cx="666" cy="556" r="7"/>
+      <text class="mlabel q" x="540" y="582">元兴元年攻临海,败</text>
+      <text class="mlabel r" x="680" y="588">孙恩投海死</text>
+      <text class="anno" x="440" y="606">余众推妹夫卢循为主,转战岭南</text>
+    </g>
+
+    <g class="compass" transform="translate(110,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋官养</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>孙恩义军(陆)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>浮海</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>退入海岛</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 / 陷城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋三吴</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一一一至一一二、《晋书·孙恩传》约略绘出。会稽治山阴(今绍兴),浃口在今宁波东北,沪渎垒在今上海,郁洲即今连云港云台山,海岛指舟山群岛。海岸线、水道经简化。</p>
+    <p><span class="n">注二</span>三吴(吴郡、吴兴、会稽等)为东晋财赋命脉,故乱起而朝廷震动。孙恩以五斗米道聚众,三上三下、出没海上,前后历四年。</p>
+    <p><span class="n">注三</span>此乱中刘裕(寄奴)以北府下级军官崭露头角,守句章、破海盐、拒京口,屡挫孙恩——其崛起之始,即在此役。孙恩死后,妹夫卢循继之,为后来"卢循之乱"。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"八郡俱起",d:"隆安三年(399)十月",p:["司马元显发三吴“免奴为客者”充兵役,号“乐属”,浙东骚动。五斗米道首领孙恩乘怨,自海岛登陆,攻上虞、破会稽山阴,杀内史王凝之。","三吴少经战乱,郡县望风溃散。会稽、吴郡、吴兴、义兴、临海、永嘉、东阳、新安八郡同时举兵响应,旬日之中众数十万。孙恩自称征东将农,号其众为“长生人”。"]},
+  "1":{t:"牢之渡江",d:"隆安三年 — 四年",p:["朝廷以三吴为命脉,急遣卫将军谢琰、北府名将刘牢之率众讨之。两军并进,兵临钱塘江。","孙恩自度难抗,携二十万众东走入海岛,乘官军争掠所遗人货之隙脱身。四年五月复自浃口登陆,入余姚、破上虞,邢浦一战大败官军,于山阴阵斩谢琰及其二子。"]},
+  "2":{t:"浮海北上",d:"隆安五年(401)",p:["孙恩第三次自浃口登陆,五月克沪渎垒,杀吴国内史袁山松。继以十余万众、舟二千余舘浮海北上,进逼建康。","建康有备,孙恩不能克;又为刘裕邀击于京口,大败。乃北破郁洲、广陵,旋退保海岛。其势自此渐衰。"]},
+  "3":{t:"投海而死",d:"元兴元年(402)",p:["孙恩屡与刘裕交战,所失甚众。元兴元年三月最后一次登陆,攻临海不克,兵败。","孙恩自度穷蹙,遂投海而死,其党及妓妾随之赴海者百数。余众推其妹夫卢循为主,浮海南转,后据番禺,埋下”卢循之乱”之火。"]}
+};
+const CITY={
+  kuaiji:{t:"会稽(山阴)",d:"今浙江绍兴",p:["三吴重镇,孙恩起兵首取之地。破城杀内史王凝之(王羲之子),八郡由是俱起。"]},
+  shangyu:{t:"上虞",d:"今浙江上虞",p:["孙恩登陆首攻之县,三上三下屡次出入于此。"]},
+  jiakou:{t:"浃口(余姚)",d:"今宁波东北",p:["孙恩浮海登陆之口。四〇〇、四〇一年两度自此登岸,转入余姚、上虞。"]},
+  hudu:{t:"沪渎垒",d:"今上海",p:["吴淞江口戍垒。四〇一年孙恩浮海北上克之,杀吴国内史袁山松,遂逼建康。"]},
+  jiankang:{t:"建康",d:"东晋都城,今南京",p:["孙恩浮海十余万众所指。建康有备,卒不能下;乱平赖刘牢之、刘裕之力。"]},
+  jingkou:{t:"京口",d:"今江苏镇江",p:["北府兵根本之地。刘裕邀击孙恩于此,大败之,声名渐起。"]},
+  yuzhou:{t:"郁洲",d:"今连云港云台山",p:["孙恩逼建康不克,北破广陵后退保之海中据点。"]},
+  linhai:{t:"临海",d:"今浙江台州",p:["孙恩最后登陆攻战之地。兵败,遂投海而死。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
