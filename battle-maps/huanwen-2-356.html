@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桓温第二次北伐·伊水 · 永和十二年(356)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:19px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5vw,44px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.feint{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:8 5;opacity:.8}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:820;stroke-dashoffset:820;animation:draw 1.6s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>收</span><span>复</span><span>洛</span><span>阳</span></div>
+  <header>
+    <h1>桓温第二次北伐·伊水</h1>
+    <div class="sub">晋永和十二年(356)　　<i>东晋 桓温</i> 破 <b>姚襄</b>(羌)　·　克复故都洛阳</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 北趋洛阳</button>
+    <button data-p="1">兵临伊阙</button>
+    <button data-p="2">伊水破襄</button>
+    <button data-p="3">谒陵复洛</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="桓温第二次北伐伊水之战形势图,含东晋与姚襄势力、江淮泗伊诸水及江陵洛阳伊阙等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:中原洛阳一带(西北)群雄割据,东晋据江汉荆襄(东南) -->
+    <path d="M 0,300 C 140,296 300,300 420,330 C 520,356 600,400 660,448 C 600,478 540,508 530,548 C 660,566 820,564 1000,564 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 660,448 C 720,476 800,506 1000,524 L 1000,640 L 530,640 C 540,548 600,478 660,448 Z" fill="url(#jinHatch)"/>
+    <text class="realm q" x="120" y="120" font-size="30">中 原(河南)</text>
+    <text class="realm j" x="730" y="606" font-size="28">东 晋(江汉)</text>
+
+    <!-- 洛水:经洛阳 W-E -->
+    <path class="river" stroke-width="4" d="M 150,170 C 230,176 300,184 360,196 C 410,206 450,214 480,224"/>
+    <!-- 伊水:自南(伊阙)北上入洛水 -->
+    <path class="river" stroke-width="3" d="M 392,360 C 388,316 384,272 388,236 C 392,214 410,206 446,212"/>
+    <!-- 淮水:中原东南横亘 W-E -->
+    <path class="river" stroke-width="3.4" d="M 360,410 C 470,418 580,420 700,440 C 800,456 900,470 1000,486"/>
+    <!-- 泗水:自东北南下入淮 -->
+    <path class="river" stroke-width="2.6" d="M 760,300 C 740,346 720,392 700,440"/>
+    <!-- 江水(长江):南境 W-E,江陵在上 -->
+    <path class="river" stroke-width="4.4" d="M 740,560 C 820,556 900,556 1000,558"/>
+    <text class="rname" x="220" y="170" style="font-size:12px">洛 水</text>
+    <text class="rname" x="356" y="306" transform="rotate(-82 356 306)" style="font-size:10.5px">伊 水</text>
+    <text class="rname" x="520" y="436" style="font-size:12px">淮 水</text>
+    <text class="rname" x="744" y="356" transform="rotate(66 744 356)" style="font-size:10.5px">泗 水</text>
+    <text class="rname" x="860" y="552" style="font-size:11px">江 水</text>
+
+    <!-- 嵩山/伊阙诸山 -->
+    <g class="mtn"><path d="M 340,300 l 10,-15 l 10,15 M 360,294 l 10,-15 l 10,15 M 380,300 l 10,-15 l 10,15"/></g>
+    <text class="cname s" x="350" y="320">嵩　高</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="luoyang"><circle cx="392" cy="222" r="6.5"/><text class="cname" x="402" y="218">洛阳<tspan class="cname s" dx="2">(故都)</tspan></text></g>
+      <g class="city" data-city="jinyong"><circle cx="362" cy="200" r="4"/><text class="cname s" x="296" y="194">金墉城</text></g>
+      <g class="city" data-city="yique"><circle cx="392" cy="360" r="5"/><text class="cname" x="402" y="364">伊阙</text></g>
+      <g class="city" data-city="yishui"><circle cx="392" cy="290" r="3.5"/><text class="cname s" x="402" y="286">伊水之北</text></g>
+      <g class="city" data-city="xuchang"><circle cx="540" cy="382" r="4.5"/><text class="cname" x="500" y="400">许昌</text></g>
+      <g class="city" data-city="pingyang"><circle cx="190" cy="150" r="4"/><text class="cname s" x="150" y="146">平阳</text></g>
+      <g class="city cap" data-city="jiangling"><circle cx="780" cy="556" r="5.5"/><text class="cname" x="736" y="552">江陵</text></g>
+    </g>
+
+    <!-- 全图 · 北趋洛阳 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 772,548 C 700,500 640,460 612,448"/>
+      <path class="march j" marker-end="url(#aj)" d="M 600,442 C 520,422 460,412 402,372"/>
+      <path class="march j" marker-end="url(#aj)" d="M 396,352 C 394,326 394,308 394,300"/>
+      <text class="mlabel j" x="560" y="478">桓温自江陵率众,水陆并进北上</text>
+      <text class="anno" x="430" y="404">溯江入淮、泗,转伊水北趋洛阳</text>
+      <circle class="siege" cx="392" cy="222" r="22"/>
+      <text class="mlabel q" x="180" y="190">姚襄方围逼洛阳,周成据城拒守</text>
+    </g>
+
+    <!-- 阶段一:兵临伊阙 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 420,420 C 410,400 400,382 396,368"/>
+      <text class="mlabel j" x="408" y="430">温溯淮泗、转伊水北上</text>
+      <text class="anno" x="320" y="392">进至伊阙、故太尉陵</text>
+      <path class="march q" marker-end="url(#aq)" d="M 386,232 C 384,256 386,276 390,288"/>
+      <text class="mlabel q" x="240" y="252">姚襄解洛阳之围,匿精锐于林中</text>
+      <rect class="camp" x="388" y="286" width="9" height="9" transform="rotate(45 392 290)"/>
+      <text class="anno" x="408" y="278">逆战桓温于伊水之北</text>
+    </g>
+
+    <!-- 阶段二:伊水破襄 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 392,348 C 392,330 392,312 392,300"/>
+      <circle class="star" cx="392" cy="290" r="9"/>
+      <text class="mlabel j" x="404" y="306">温被甲结阵亲督,晋军奋击</text>
+      <text class="anno" x="280" y="318">大破姚襄于伊水之北,斩获数千</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 384,288 C 320,272 256,236 206,170"/>
+      <text class="mlabel r" x="220" y="232">姚襄帅数千骑西走,余众多降</text>
+      <text class="anno" x="120" y="170">后西入关中,为前秦所败杀</text>
+    </g>
+
+    <!-- 阶段三:谒陵复洛 -->
+    <g id="ph3" class="ph">
+      <path d="M 392,222 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="404" y="218">周成出降,温入洛阳,谒拜诸帝陵</text>
+      <text class="anno" x="280" y="244">修复被毁之陵,置陵令以守</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 384,234 C 540,330 660,440 766,544"/>
+      <text class="mlabel r" x="560" y="396">徙降民三千余家于江、汉之间</text>
+      <text class="anno" x="300" y="180">留毛穆之、陈午等戍洛阳,旋班师南还</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(桓温)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>姚襄军(羌)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>姚襄西走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>中原</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一〇〇、《晋书·桓温传》《姚襄载记》约略绘出。洛阳在伊、洛之间,伊阙在其南,金墉城在洛阳西北隅。江、淮、泗、伊诸水及路线经简化,位置相对示意。</p>
+    <p><span class="n">注二</span>此为桓温三次北伐中战果最著者:破姚襄、复洛阳、谒修晋陵,北伐声望由是大振。桓温因请迁都洛阳、修复园陵,然朝廷惮其威权,终不能行。</p>
+    <p><span class="n">注三</span>晋虽复洛阳,而兵力不能久守;桓温南还后,留戍孤危,数年间洛阳及河南诸城复相继沦于前燕。克复之功,旋成泡影。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"北趋洛阳",d:"永和十二年(356)夏 — 八月",p:["永和十二年,桓温自江陵率众北伐。先是,殷浩北伐时降将羌帅姚襄叛去,据许、洛之间,招纳流亡,渐成大患;是时方引兵围逼洛阳,守将周成婴城自固。","桓温乃水陆并进,溯江入淮、泗,转伊水北上,长途趋洛阳。其势由荆襄千里北指,正与围城之姚襄相向——一收复故都之机,系于此举。"]},
+  "1":{t:"兵临伊阙",d:"永和十二年八月",p:["桓温自江陵发,水军溯淮、泗,转伊水北上,进至伊阙(洛阳之南),次于故太尉陵。中原士民闻晋师至,多有响应。","姚襄闻温至,解洛阳之围,潜匿精锐于林木之间,自帅众逆战桓温于伊水之北,以邀其锋。两军遂相持于伊水南北之地。"]},
+  "2":{t:"伊水破襄",d:"永和十二年八月",p:["桓温结阵而前,亲被甲督战于阵后。晋军奋击,士卒用命,大破姚襄于伊水之北,斩获数千级,襄军溃乱。","姚襄帅麾下数千骑西走,余众多降于温。襄后西入关中,为前秦苻生、苻坚所败,身死;其弟姚苌率众降秦——羌姚之祸,至是暂息。"]},
+  "3":{t:"谒陵复洛",d:"永和十二年八月以后",p:["姚襄既败,守将周成出城请降,桓温遂入洛阳。温躬谒先帝诸陵,凡陵之被毁者修复之,各置陵令以守卫,故都典礼,粗复旧观。","乃徙降民三千余家于江、汉之间,留颍川太守毛穆之、督护陈午等戍守洛阳,旋即班师南还。桓温因上表请迁都洛阳、移晋陵于此,朝廷惮其威而不能行;洛阳后复为燕、秦所有,克复之功旋成泡影。"]}
+};
+const CITY={
+  luoyang:{t:"洛阳",d:"晋之故都,在伊洛之间",p:["姚襄方围逼之,周成据城。桓温破襄后入城,谒拜先帝诸陵,修复被毁者,置陵令守卫。"]},
+  jinyong:{t:"金墉城",d:"洛阳西北隅城堡",p:["洛阳城西北角之要塞,历为控扼都城之戍守要点。复洛之后,为晋军屯戍所凭。"]},
+  yique:{t:"伊阙",d:"洛阳之南,伊水所出之险",p:["两山夹伊水如阙,故名。桓温水军溯伊水北上,先进至此,次于故太尉陵。"]},
+  yishui:{t:"伊水(之北)",d:"决战之地",p:["姚襄逆战桓温于伊水之北。温被甲结阵亲督,晋军奋击,大破之,斩获数千。"]},
+  xuchang:{t:"许昌",d:"中原要冲,今河南许昌",p:["姚襄北伐败后据许、洛间招纳流亡之地,为其根本;此役败走,势遂瓦解。"]},
+  pingyang:{t:"平阳",d:"河东要地,今山西临汾",p:["姚襄败后西走关中之途所向。襄终入关中,为前秦所败杀。"]},
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["桓温镇荆州出兵之地。是役自此率众,水陆并进北趋洛阳。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

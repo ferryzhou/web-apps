@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>淝水之战 · 太元八年(383)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>淝</span><span>水</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>淝水之战</h1>
+    <div class="sub">晋太元八年(383)　　<i>东晋 谢石·谢玄</i>(八万) 破 <b>前秦 苻坚</b>(号百万) · 以寡胜众</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 大军压境</button>
+    <button data-p="1">洛涧夜捷</button>
+    <button data-p="2">八公山下</button>
+    <button data-p="3">淝水奔溃</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="淝水之战形势图,含东晋前秦疆界、淮水淝水洛涧八公山与寿阳建康项城等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:前秦据淮北中原(北),东晋据江左(南),约以淮水为界 -->
+    <path d="M 0,250 C 120,236 260,244 400,232 C 560,218 720,236 880,222 C 930,217 970,222 1000,224 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,250 C 120,236 260,244 400,232 C 560,218 720,236 880,222 C 930,217 970,222 1000,224 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,250 C 120,236 260,244 400,232 C 560,218 720,236 880,222 C 930,217 970,222 1000,224"/>
+    <text class="realm q" x="120" y="90" font-size="34">前 秦(淮北·中原)</text>
+    <text class="realm j" x="640" y="600" font-size="30">东 晋(江 左)</text>
+
+    <!-- 淮水:自西北贯流东南,横亘上方 -->
+    <path class="river" stroke-width="5.5" d="M 60,150 C 200,176 320,210 420,240 C 520,270 600,290 690,300 C 780,310 880,322 1000,360"/>
+    <!-- 淝水(肥水):自寿阳南侧,自南而北汇入淮 -->
+    <path class="river" stroke-width="3" d="M 470,470 C 462,420 452,372 448,330 C 446,300 442,278 438,258"/>
+    <!-- 洛涧:寿阳之东,一小水南北流入淮 -->
+    <path class="river" stroke-width="2.4" d="M 600,460 C 596,420 592,376 588,332 C 586,312 582,296 578,288"/>
+    <text class="rname" x="180" y="186" transform="rotate(11 180 186)">淮 水</text>
+    <text class="rname" x="478" y="430" transform="rotate(82 478 430)" style="font-size:11.5px">淝水·肥水</text>
+    <text class="rname" x="608" y="430" transform="rotate(84 608 430)" style="font-size:10.5px">洛涧</text>
+
+    <!-- 八公山:寿阳之北,"草木皆兵"之山 -->
+    <g class="mtn"><path d="M 392,206 l 12,-20 l 12,20 M 414,200 l 11,-18 l 11,18 M 436,206 l 10,-17 l 10,17"/></g>
+    <text class="cname s" x="392" y="226">八公山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="shouyang"><circle cx="440" cy="262" r="6"/><text class="cname" x="452" y="258">寿阳<tspan class="cname s" dx="2">(寿春)</tspan></text></g>
+      <g class="city" data-city="bagong"><circle cx="424" cy="200" r="3.5"/><text class="cname s" x="392" y="226">八公山</text></g>
+      <g class="city" data-city="luojian"><circle cx="588" cy="320" r="4"/><text class="cname s" x="600" y="316">洛涧</text></g>
+      <g class="city" data-city="xiashi"><circle cx="540" cy="278" r="3.5"/><text class="cname s" x="528" y="270">硖石</text></g>
+      <g class="city" data-city="feishui"><circle cx="468" cy="320" r="3"/><text class="cname s" x="392" y="338">淝水(决战)</text></g>
+      <g class="city" data-city="xiangcheng"><circle cx="150" cy="120" r="5"/><text class="cname" x="100" y="116">项城</text></g>
+      <g class="city" data-city="pengcheng"><circle cx="780" cy="150" r="4.5"/><text class="cname" x="792" y="146">彭城</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="880" cy="540" r="6"/><text class="cname" x="788" y="536">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 大军压境 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 162,128 C 250,150 330,196 420,250"/>
+      <text class="mlabel q" x="180" y="160">苻坚自项城趋寿阳,旗鼓相望,号称百万</text>
+      <rect class="camp" x="436" y="258" width="9" height="9" transform="rotate(45 440 262)"/>
+      <text class="anno" x="452" y="288">苻融前锋克寿阳,东西万里</text>
+      <path class="march j" marker-end="url(#aj)" d="M 868,534 C 720,470 580,400 488,330"/>
+      <text class="mlabel j" x="560" y="470">谢石谢玄率北府兵八万,自建康溯江西上</text>
+      <text class="anno" x="540" y="392">夹淮拒守,以八万当百万</text>
+    </g>
+
+    <!-- 阶段一:洛涧夜捷 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="584" y="312" width="8" height="8" transform="rotate(45 588 316)"/>
+      <text class="mlabel q" x="600" y="346">梁成栅淮于洛涧,以遏东军</text>
+      <path class="march q" marker-end="url(#aq)" d="M 556,272 C 568,288 580,304 586,316"/>
+      <circle class="siege" cx="540" cy="278" r="11"/>
+      <text class="anno" x="500" y="262">胡彬粮尽,困守硖石</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,380 C 660,356 624,338 596,322"/>
+      <text class="mlabel j" x="618" y="378">刘牢之率精兵五千,夜趋洛涧</text>
+      <circle class="star" cx="588" cy="320" r="8"/>
+      <text class="anno" x="560" y="358">直渡奋击,斩梁成等十将,杀获万五千</text>
+    </g>
+
+    <!-- 阶段二:八公山下 -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aj)" d="M 446,256 C 438,238 432,222 428,206"/>
+      <text class="mlabel q" x="438" y="238">苻坚苻融登寿阳城望晋军</text>
+      <text class="anno" x="356" y="180">北望八公山草木,皆以为兵</text>
+      <text class="mlabel q" x="356" y="160">"此亦劲敌,何谓弱也"——怃然有惧色</text>
+      <path class="march j" marker-end="url(#aj)" d="M 690,500 C 600,440 530,388 480,344"/>
+      <text class="mlabel j" x="510" y="430">秦晋夹淝水而陈,秦逼水列,晋不得渡</text>
+    </g>
+
+    <!-- 阶段三:淝水奔溃 -->
+    <g id="ph3" class="ph">
+      <circle class="star" cx="468" cy="320" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 504,360 C 492,346 482,334 474,326"/>
+      <text class="mlabel j" x="478" y="372">晋军抢渡淝水,乘势猛攻</text>
+      <text class="anno" x="380" y="360">朱序阵后大呼"秦兵败矣"</text>
+      <path d="M 440,262 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="380" y="248">苻融驰陈止退,马倒被杀</text>
+      <!-- 大溃:多路褐色退箭,自淝水向西北方散逃,过八公山趋项城淮北 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 432,268 C 360,250 280,210 180,150"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 448,300 C 380,290 300,256 210,196"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 460,320 C 400,322 320,300 232,236"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 470,338 C 410,360 330,348 260,290"/>
+      <text class="mlabel r" x="250" y="180">秦众大奔,自相蹈藉,死者蔽野</text>
+      <text class="anno" x="296" y="232">风声鹤唳,草木皆以为王师;投水死者不可胜计</text>
+      <text class="anno" x="120" y="150">苻坚中流矢,单骑遁还淮北</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(北府兵)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前秦军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>秦军溃逃</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>前秦</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一〇五、《晋书·谢玄传》《苻坚载记》约略绘出。寿阳即寿春,今安徽寿县;八公山在其北,淝水(肥水)经寿阳入淮,洛涧在寿阳东。淮水、淝水及城邑经简化,位置相对示意。</p>
+    <p><span class="n">注二</span>"投鞭断流""草木皆兵""风声鹤唳""东山再起(谢安)"诸成语皆出此役。苻坚恃众轻进,战线万里而号令不一;晋以北府精兵八万,临机决于一退之间——胜负之势,转于俄顷。</p>
+    <p><span class="n">注三</span>淝水既败,前秦瓦解,慕容垂、姚苌等纷纷自立,北方复分裂数十年;东晋藉此保江左、复河南,谢氏功业、北府兵威皆臻其极。此战为中国史上以少胜多之最著者。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"大军压境",d:"晋太元八年(383)秋八月 — 十月",p:["前秦苻坚发倾国之众——步兵六十余万,骑二十七万,旗鼓相望,号称百万——大举南伐,东西万里。以阳平公苻融为前锋,自项城趋寿阳;融克寿阳,获晋将徐元喜。东晋以尚书仆射谢石为征讨大都督,以谢玄、谢琰、桓伊等将率北府精兵八万拒之。","北府兵者,谢玄镇广陵所募江淮劲卒,屡练而成劲旅。晋军自建康溯江西上,夹淮拒守。是役也,秦军东西万里、晋军以八万当百万,众寡之悬,古今所罕。"]},
+  "1":{t:"洛涧夜捷",d:"太元八年十月",p:["苻融既克寿阳,遣卫将军梁成等帅众五万栅淮于洛涧,以遏东军;晋将胡彬粮尽,退守硖石,潜遣使告急,而书为秦人所获,军中危惧。谢石闻苻坚已在寿阳,欲不战以老秦师。","谢玄遣广陵相刘牢之帅精兵五千夜趋洛涧。未至十里,梁成阻涧为陈以待之;牢之直渡奋击,大破之,斩梁成及弋阳太守王显等十将,杀获秦兵万五千,秦前锋夺气。晋军水陆继进,声势大振。"]},
+  "2":{t:"八公山下",d:"太元八年十一月",p:["苻坚与苻融登寿阳城而望晋军,见部阵齐整,将士精锐;又北望八公山上草木,皆以为晋兵。顾谓融曰:'此亦劲敌也,何谓弱也!'怃然始有惧色。是即'草木皆兵'之所由来。","两军夹淝水而陈,秦军逼水而列,晋军不得渡。相持既久,谢玄乃遣使谓苻融,请秦军稍退,俾晋得渡而后决战——一退一渡之间,百万之众安危所系,而苻坚不察也。"]},
+  "3":{t:"淝水奔溃",d:"太元八年十一月",p:["苻坚欲乘晋军半渡而击之,许其请,麾军使却;秦众一退而不可复止。先是襄阳降将朱序在秦军中,阴与晋通,乃于阵后大呼曰:'秦兵败矣!'众遂大奔。晋军乘势抢渡猛攻,苻融驰骑掠陈欲止退者,马倒,为晋兵所杀,秦军大溃。","自相蹈藉,投水死者不可胜计,淝水为之不流;余众弃甲宵遁,闻风声鹤唳,皆以为王师将至,草行露宿,重以饥冻,死者十七八。苻坚中流矢,单骑遁还淮北。前秦自是土崩,北方复乱;东晋转危为安,南北分立之局遂定。"]}
+};
+const CITY={
+  shouyang:{t:"寿阳(寿春)",d:"今安徽寿县,淮南重镇",p:["苻融前锋所克之地,获晋将徐元喜。苻坚、苻融尝登寿阳城而望晋军、北顾八公山草木皆兵。淝水之战环此而展。"]},
+  bagong:{t:"八公山",d:"寿阳之北",p:["苻坚登城北望,见山上草木皆以为晋兵,怃然有惧色——'草木皆兵'之所由出。秦军大溃后,败兵亦经此而北遁。"]},
+  luojian:{t:"洛涧",d:"寿阳之东,一水入淮",p:["梁成栅淮于此以遏东军。谢玄遣刘牢之夜趋,直渡奋击,斩梁成等十将,杀获万五千,秦前锋夺气——此役之首捷。"]},
+  xiashi:{t:"硖石",d:"淮水之上,近寿阳",p:["晋将胡彬粮尽,退守硖石,潜使告急而书为秦获,军中危惧。洛涧既捷,围解。"]},
+  feishui:{t:"淝水(肥水)",d:"经寿阳入淮之水",p:["秦晋夹水而陈、晋军抢渡决战之地。苻坚麾军使却,一退不可止;晋军乘势渡水猛攻,大破秦军,水为之不流。"]},
+  xiangcheng:{t:"项城",d:"今河南沈丘一带",p:["苻坚大军所自来,'苻坚自项城至寿阳'。淝水既败,溃众弃甲北奔,多取道淮北复集于此一带。"]},
+  pengcheng:{t:"彭城",d:"今江苏徐州",p:["淮北重镇,前秦东境屏障。淝水战后秦势瓦解,徐兖之地复为晋有。"]},
+  jiankang:{t:"建康",d:"东晋都城,今南京",p:["谢安坐镇之地。谢石、谢玄率北府兵自此西上拒秦。捷报至,谢安方与客围棋,了无喜色——既罢,过户限而不觉屐齿之折。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
