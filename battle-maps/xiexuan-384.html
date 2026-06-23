@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>谢玄北伐 · 太元九年至十年(384–385)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>谢</span><span>玄</span><span>北</span><span>伐</span></div>
+  <header>
+    <h1>谢玄北伐</h1>
+    <div class="sub">晋太元九年至十年(384–385)　　<i>东晋 谢玄</i>(北府兵·刘牢之) 乘淝水之胜北伐 · 止于河上</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 乘胜北伐</button>
+    <button data-p="1">收复河南</button>
+    <button data-p="2">进救邺城</button>
+    <button data-p="3">五桥之挫</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="谢玄北伐形势图,含东晋与前秦残部后燕、黄河淮水泗水与广陵彭城邺城等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:北方前秦瓦解、群雄并起(上),东晋乘势北伐河南(下);约以黄河为界 -->
+    <path d="M 0,250 C 160,232 320,238 480,234 C 640,230 820,242 1000,232 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,250 C 160,232 320,238 480,234 C 640,230 820,242 1000,232 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,250 C 160,232 320,238 480,234 C 640,230 820,242 1000,232"/>
+    <text class="realm q" x="120" y="120" font-size="32">前秦残部 · 河北大乱</text>
+    <text class="realm j" x="120" y="560" font-size="32">东 晋 · 北府乘胜</text>
+
+    <!-- 黄河:自西北而东,横亘上中部 -->
+    <path class="river" stroke-width="5.5" d="M 0,238 C 130,256 250,252 360,266 C 470,280 560,300 660,302 C 760,304 860,296 1000,308"/>
+    <!-- 泗水:自黄河南岸(彭城、下邳一线)南下入淮 -->
+    <path class="river" stroke-width="2.8" d="M 470,288 C 470,360 466,430 470,500"/>
+    <!-- 淮水:下方自西而东 -->
+    <path class="river" stroke-width="3.6" d="M 220,470 C 330,492 420,500 520,498 C 620,496 700,486 800,492"/>
+    <!-- 长江:最下方,广陵临江 -->
+    <path class="river" stroke-width="3.4" d="M 420,600 C 520,592 600,600 700,598 C 780,596 850,602 1000,600"/>
+    <text class="rname" x="150" y="232" transform="rotate(6 150 232)" style="font-size:14px">黄 河</text>
+    <text class="rname" x="478" y="400" transform="rotate(88 478 400)" style="font-size:11px">泗 水</text>
+    <text class="rname" x="330" y="486" style="font-size:12px">淮 水</text>
+    <text class="rname" x="560" y="592" style="font-size:11px">大 江</text>
+
+    <!-- 黎阳津处的渡口示意 -->
+    <g class="mtn"><path d="M 430,270 l 6,-10 l 6,10 M 444,266 l 6,-10 l 6,10"/></g>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="guangling"><circle cx="560" cy="560" r="6"/><text class="cname" x="572" y="556">广陵<tspan class="cname s" dx="2">(北伐基地)</tspan></text></g>
+      <g class="city cap" data-city="pengcheng"><circle cx="470" cy="420" r="6"/><text class="cname" x="416" y="412">彭城</text></g>
+      <g class="city" data-city="xiapi"><circle cx="540" cy="468" r="4"/><text class="cname s" x="552" y="466">下邳</text></g>
+      <g class="city" data-city="liyang"><circle cx="438" cy="300" r="5"/><text class="cname" x="364" y="318">黎阳<tspan class="cname s" dx="2">(临河)</tspan></text></g>
+      <g class="city" data-city="huatai"><circle cx="560" cy="318" r="4"/><text class="cname s" x="572" y="322">鄄城·滑台(兖州)</text></g>
+      <g class="city" data-city="ye"><circle cx="600" cy="170" r="5"/><text class="cname" x="612" y="166">邺</text></g>
+      <g class="city" data-city="wuqiao"><circle cx="558" cy="208" r="4"/><text class="cname s" x="470" y="206">五桥泽</text></g>
+      <g class="city" data-city="guanggu"><circle cx="800" cy="380" r="5"/><text class="cname" x="744" y="372">青州·广固</text></g>
+    </g>
+
+    <!-- 全图 · 乘胜北伐 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 558,552 C 540,500 500,460 474,428"/>
+      <path class="march j" marker-end="url(#aj)" d="M 466,412 C 458,372 448,330 440,310"/>
+      <path class="march j" marker-end="url(#aj)" d="M 480,418 C 520,388 548,350 558,328"/>
+      <text class="mlabel j" x="500" y="490">谢玄自广陵遣诸将渡淮泗北上</text>
+      <text class="anno" x="520" y="350">收兖、青、司、豫,前锋抵黄河</text>
+      <text class="mlabel q" x="120" y="150">淝水既败,前秦土崩,北方群雄并起</text>
+      <text class="anno" x="610" y="200">慕容垂据河北,围苻丕于邺</text>
+    </g>
+
+    <!-- 阶段一:收复河南 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 558,552 C 538,512 506,470 476,430"/>
+      <text class="mlabel j" x="500" y="520">渡淮泗,克彭城、下邳</text>
+      <path class="march j" marker-end="url(#aj)" d="M 466,412 C 456,370 446,332 440,310"/>
+      <text class="mlabel j" x="360" y="360">刘牢之进据黎阳,前锋临河</text>
+      <path class="march j" marker-end="url(#aj)" d="M 482,420 C 524,392 548,352 558,330"/>
+      <text class="anno" x="566" y="346">兖州鄄城、滑台来归</text>
+      <path class="march j" marker-end="url(#aj)" d="M 488,440 C 600,428 720,410 794,388"/>
+      <text class="anno" x="640" y="430">青、司、豫诸郡相继复为晋有</text>
+    </g>
+
+    <!-- 阶段二:进救邺城 -->
+    <g id="ph2" class="ph">
+      <g class="siege"><circle cx="600" cy="170" r="20"/></g>
+      <text class="mlabel q" x="616" y="138">慕容垂围苻丕于邺</text>
+      <text class="anno" x="612" y="200">苻丕窘急,求救于晋</text>
+      <path class="march j" marker-end="url(#aj)" d="M 440,306 C 470,260 540,210 588,182"/>
+      <text class="mlabel j" x="430" y="248">刘牢之将二万北救之</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 590,176 C 560,196 540,210 528,222"/>
+      <text class="anno" x="430" y="232">慕容垂敛兵佯退,牢之逐北进邺南</text>
+    </g>
+
+    <!-- 阶段三:五桥之挫 -->
+    <g id="ph3" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 596,178 C 580,188 568,196 562,202"/>
+      <text class="mlabel q" x="600" y="156">慕容垂诱牢之至五桥泽</text>
+      <text class="anno" x="430" y="180">弃辎重以饵晋军,晋军竞掠资粮</text>
+      <circle class="star" cx="558" cy="208" r="8"/>
+      <path d="M 558,208 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="430" y="228">慕容垂回军奋击,大破晋军</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 552,212 C 520,266 490,330 470,408"/>
+      <text class="mlabel r" x="478" y="300">刘牢之弃军单骑而走</text>
+      <text class="anno" x="478" y="316">赖苻丕开门接应得免;北伐遂顿于河上</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋北府军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前秦残部 / 后燕</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>北方群雄</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>示意图,依《资治通鉴》卷一〇五至一〇六、《晋书·谢玄传》《刘牢之传》约略绘出。黎阳在黄河南岸(今河南浚县),邺在今河北临漳,五桥泽在邺旁。黄河、淮、泗及城邑经简化,位置相对示意。</p>
+    <p><span class="n">注二</span>谢玄乘淝水之威,收复河南诸州,东晋疆土一度北抵黄河,为东晋开国以来未有之盛;然根本浅薄、馈运不继,终难固守。</p>
+    <p><span class="n">注三</span>五桥之败,刘牢之单骑走免,北伐之锐遂折;谢玄寻以疾解任(明年卒),朝中主战之谢氏退,司马道子用事。河南、河北旋为后燕、北魏所有,东晋复退守淮汉。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"乘胜北伐",d:"晋太元九年 — 十年(384–385)",p:["淝水既捷,前秦土崩,北方大乱,慕容垂、姚苌等各据州郡。谢玄都督徐、兖、青、司、冀、幽、并七州军事,乘胜自广陵遣刘牢之、刘袭等渡淮泗北上,经略河南、河北。","晋军一时锋锐无前,收复兖、青、司、豫诸州,前锋抵于黄河,临河津而望河北。此图总览北府乘势恢复河南、进逼河北之形势。"]},
+  "1":{t:"收复河南",d:"太元九年(384)",p:["谢玄遣诸将渡淮泗北上,克彭城、下邳,徐、兖以定;刘牢之等进据黎阳,前锋临河,与河北相望。","青州、司州、豫州相继来归,河南郡县多复为晋有。北府之锋一时无前,东晋疆土自渡江以来,北抵黄河，未之有也。"]},
+  "2":{t:"进救邺城",d:"太元十年(385)",p:["是时后燕慕容垂围前秦长乐公苻丕于邺,城中窘急,苻丕求救于晋。谢玄命刘牢之率精兵二万北救之。","牢之进逼邺城,慕容垂敛兵佯退;牢之恃锐逐北,直进邺南,孤军深入,不虞其诈。"]},
+  "3":{t:"五桥之挫",d:"太元十年(385)",p:["慕容垂诱刘牢之至五桥泽,弃辎重资粮以为饵。晋军贪利,竞相剽掠,行伍大乱,首尾不属。","慕容垂回军奋击,大破之,晋军死者甚众。刘牢之弃军单骑而走,赖苻丕开门接应得免。北伐遂顿于河上;寻谢玄以疾求解,征还,河南旋复沦没于燕、魏。"]}
+};
+const CITY={
+  guangling:{t:"广陵",d:"北伐基地,今江苏扬州",p:["谢玄镇守、北伐发兵之地。淝水战后,自此遣诸将渡淮泗北上经略中原。"]},
+  pengcheng:{t:"彭城",d:"徐州重镇,今江苏徐州",p:["北伐首复之地。晋军渡淮泗克之,徐州遂定,为进取河南之根本。"]},
+  xiapi:{t:"下邳",d:"泗水之滨,今江苏睢宁北",p:["晋军与彭城相次而下,徐方略定,北伐之途遂通于河上。"]},
+  liyang:{t:"黎阳",d:"黄河南岸,今河南浚县",p:["刘牢之进据之地,前锋临河。晋军至此而北望河北,为北伐所抵之极。"]},
+  huatai:{t:"鄄城·滑台",d:"兖州,黄河南北之冲",p:["兖州来归之地。河南郡县相继复为晋有,北府之声一时大震。"]},
+  ye:{t:"邺",d:"今河北临漳",p:["后燕慕容垂围前秦苻丕之地。苻丕求救于晋,刘牢之往救,遂深入河北。"]},
+  wuqiao:{t:"五桥泽",d:"邺旁,慕容垂诱败之地",p:["慕容垂弃辎重以饵晋军,回军奋击,大破刘牢之。牢之单骑走免,北伐之锐遂折。"]},
+  guanggu:{t:"青州·广固",d:"今山东青州一带",p:["乘胜来归之地。北伐之初,青州诸郡望风归晋,河南、海岱一时尽入版图。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘裕灭南燕 · 义熙五年至六年(409–410)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>平</span><span>南</span><span>燕</span><span>役</span></div>
+  <header>
+    <h1>刘裕灭南燕</h1>
+    <div class="sub">晋义熙五年至六年(409–410)　　<i>东晋 刘裕</i> 灭 <b>南燕 慕容超</b> · 克广固</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 越岘伐燕</button>
+    <button data-p="1">越大岘</button>
+    <button data-p="2">临朐大捷</button>
+    <button data-p="3">围克广固</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="刘裕灭南燕之战形势图,含东晋南燕疆界、淮泗大岘山与临朐广固等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:南燕据青齐(东北),东晋据淮南(西南),约以大岘为险 -->
+    <path d="M 1000,170 C 880,200 760,250 640,320 C 540,376 460,440 400,520 C 360,572 340,610 330,640 L 1000,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 1000,170 C 880,200 760,250 640,320 C 540,376 460,440 400,520 C 360,572 340,610 330,640 L 0,640 L 0,0 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 1000,170 C 880,200 760,250 640,320 C 540,376 460,440 400,520 C 360,572 340,610 330,640"/>
+    <text class="realm q" x="720" y="150" font-size="32">南 燕(青齐)</text>
+    <text class="realm j" x="150" y="500" font-size="30">东 晋(淮南)</text>
+
+    <!-- 淮水:自西向东,经下邳东注于海 -->
+    <path class="river" stroke-width="5" d="M 60,560 C 160,548 260,540 340,538 C 410,536 470,548 540,560"/>
+    <!-- 泗水:自西北南下,会淮于下邳 -->
+    <path class="river" stroke-width="3" d="M 250,420 C 268,470 286,508 312,538"/>
+    <!-- 巨蔑水:临朐战场所傍之水 -->
+    <path class="river" stroke-width="2.4" d="M 700,150 C 706,210 712,258 720,300"/>
+    <text class="rname" x="180" y="528" style="font-size:13px">淮　水</text>
+    <text class="rname" x="248" y="468" transform="rotate(64 248 468)" style="font-size:11px">泗 水</text>
+    <text class="rname" x="724" y="248" transform="rotate(82 724 248)" style="font-size:10.5px">巨蔑水</text>
+
+    <!-- 大岘山(穆陵关):青齐天险,横亘于淮泗之北 -->
+    <g class="mtn"><path d="M 470,378 l 12,-20 l 12,20 M 494,372 l 12,-20 l 12,20 M 518,378 l 12,-20 l 12,20 M 542,378 l 11,-18 l 11,18"/></g>
+    <text class="cname s" x="468" y="398">大岘山·穆陵关</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="jiankang"><circle cx="70" cy="558" r="6"/><text class="cname" x="40" y="552">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+      <g class="city" data-city="xiapi"><circle cx="312" cy="540" r="5"/><text class="cname" x="262" y="560">下邳</text></g>
+      <g class="city" data-city="daxian"><circle cx="520" cy="356" r="4"/><text class="cname s" x="528" y="350">东莞</text></g>
+      <g class="city" data-city="linqu"><circle cx="700" cy="300" r="5"/><text class="cname" x="712" y="296">临朐</text></g>
+      <g class="city cap" data-city="guanggu"><circle cx="760" cy="210" r="6"/><text class="cname" x="772" y="206">广固<tspan class="cname s" dx="2">(燕都)</tspan></text></g>
+      <g class="city" data-city="jucheng"><circle cx="600" cy="430" r="4"/><text class="cname s" x="610" y="446">莒城</text></g>
+      <g class="city" data-city="liangfu"><circle cx="540" cy="280" r="3.5"/><text class="cname s" x="476" y="276">梁父</text></g>
+    </g>
+
+    <!-- 全图 · 越岘伐燕 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 80,552 C 200,536 280,532 312,536 C 380,524 440,440 510,372"/>
+      <text class="mlabel j" x="120" y="520">刘裕泝淮入泗,至下邳舍舟陆进</text>
+      <path class="march j" marker-end="url(#aj)" d="M 528,350 C 600,300 680,250 752,216"/>
+      <text class="mlabel j" x="560" y="320">越大岘天险,直指燕都广固</text>
+      <text class="mlabel q" x="700" y="180">慕容超不守险,纵晋军逾岘而入</text>
+      <text class="anno" x="540" y="368">禾苗弥望,燕不清野</text>
+    </g>
+
+    <!-- 阶段一:越大岘 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 322,536 C 400,516 460,440 512,374"/>
+      <text class="mlabel j" x="350" y="500">刘裕至东莞,引兵越大岘</text>
+      <path class="march j" marker-end="url(#aj)" d="M 530,348 C 580,318 640,300 692,302"/>
+      <text class="mlabel j" x="560" y="338">逾穆陵关而入青齐平地</text>
+      <rect class="camp" x="696" y="290" width="9" height="9" transform="rotate(45 700 294)"/>
+      <text class="mlabel q" x="700" y="280">慕容超出临朐迎战</text>
+      <text class="anno" x="430" y="356">"虏已入吾掌中矣!"</text>
+    </g>
+
+    <!-- 阶段二:临朐大捷 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="696" y="296" width="9" height="9" transform="rotate(45 700 300)"/>
+      <text class="mlabel q" x="640" y="338">两军战于临朐南,自旦至晡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 660,330 C 680,316 695,308 706,304"/>
+      <circle class="star" cx="700" cy="300" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 640,344 C 670,360 700,346 712,312"/>
+      <text class="anno" x="600" y="372">胡藩奇兵自间道袭取临朐城</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 700,290 C 720,262 738,238 754,220"/>
+      <text class="mlabel r" x="704" y="250">超单马走还广固</text>
+    </g>
+
+    <!-- 阶段三:围克广固 -->
+    <g id="ph3" class="ph">
+      <circle class="siege" cx="760" cy="210" r="26"/>
+      <circle class="siege" cx="760" cy="210" r="33"/>
+      <circle class="siege" cx="760" cy="210" r="40"/>
+      <text class="mlabel j" x="600" y="170">刘裕进围广固,筑长围三重</text>
+      <text class="anno" x="640" y="186">起土山、列楼橹,绝其内外</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 770,242 C 800,300 830,360 850,400"/>
+      <text class="anno" x="800" y="330">后秦声言救燕,救兵竟不至</text>
+      <path d="M 760,210 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="600" y="142">义熙六年二月,晋军拔广固</text>
+      <text class="anno" x="560" y="225">超突围被擒,南燕亡,青齐入晋</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南燕军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南燕</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一一五、《晋书·慕容超载记》《宋书·武帝纪》约略绘出。大岘即今沂山穆陵关,临朐、广固在今潍坊青州一带。淮、泗及城邑经简化,位置相对示意。</p>
+    <p><span class="n">注二</span>公孙五楼为慕容超谋,请据大岘、清野以困晋军,为上策;焚粮守城为中策;纵其入平地、出城逆战为下策。慕容超偏取下策,自蹈危亡——刘裕越岘而喜,正以此也。</p>
+    <p><span class="n">注三</span>此为刘裕北伐之首功:灭南燕、收青齐,威名大震,为其后平卢循、灭谯蜀、灭后秦、终至代晋之始基。围广固凡半年余,城破纵兵,坑斩颇众,亦其用兵之酷处。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"越岘伐燕",d:"晋义熙五年四月 — 六年二月",p:["南燕主慕容超数遣兵寇晋淮北,掠民为奴。刘裕请伐之,义熙五年四月自建康率舟师北上,泝淮入泗,至下邳留船步进。","晋军越大岘天险入青齐,直指燕都广固。此图总览晋军北越大岘、燕都广固悬于其北的形势:大岘为青齐门户,慕容超既不据险、不清野,坐令晋师长驱,胜负之机已隐然先定。"]},
+  "1":{t:"越大岘",d:"义熙五年六月",p:["刘裕至东莞,引兵越大岘(穆陵关)。慕容超不用公孙五楼据险、清野、坚壁之策,纵晋军逾岘而入,出临朐迎战。","刘裕过岘,见禾苗弥望、燕不守险,举手指天喜曰:“虏已入吾掌中矣!”——盖深险既越,粮秣可因于敌,胜势遂归于晋。"]},
+  "2":{t:"临朐大捷",d:"义熙五年六月",p:["两军战于临朐南,自旦至晡未决。刘裕用参军胡藩之计,潜遣奇兵自间道袭取临朐城——燕之辎重所在也。","城既见袭,燕军震骇,遂大溃,斩段晖等大将十余人;慕容超单马走还广固,退保内城。一战而青齐之势倾矣。"]},
+  "3":{t:"围克广固",d:"义熙五年七月 — 六年二月",p:["刘裕进围广固,筑长围三重,起土山、列楼橹,绝其内外,以待其困。后秦虽遣使声言救燕,刘裕叱遣之,救兵竟不至。","相持至义熙六年二月,晋军拔广固,慕容超突围被擒,送建康斩于市,南燕亡,青、齐之地尽入于晋。刘裕以此首功威名大震。"]}
+};
+const CITY={
+  jiankang:{t:"建康",d:"晋都,今江苏南京",p:["北伐所自发。义熙五年四月,刘裕率舟师自此北上,泝淮入泗。"]},
+  xiapi:{t:"下邳",d:"今江苏睢宁西北",p:["刘裕舍舟陆进之地。泝淮泗至此,留船步进,轻装北越大岘。"]},
+  daxian:{t:"大岘山(穆陵关)",d:"青齐天险,今沂山一带",p:["青齐门户。燕不守险而晋得越,刘裕逾岘见禾苗弥望,喜曰虏已入掌中。"]},
+  linqu:{t:"临朐",d:"今山东临朐",p:["野战大捷之地。两军战于城南,胡藩奇兵袭取其城,燕辎重失而大溃。"]},
+  guanggu:{t:"广固",d:"南燕都城,今山东青州",p:["长围久攻而克。慕容超退保内城,相持半年余,城破被擒,南燕灭亡。"]},
+  jucheng:{t:"莒城",d:"南燕南境,今山东莒县",p:["燕之南境城邑。晋师北上,沿途州郡多望风款附。"]},
+  liangfu:{t:"梁父",d:"今山东泰安东南",p:["南燕西南境地,泰山之阳。慕容超失大岘之险,境内城邑遂无所恃。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
