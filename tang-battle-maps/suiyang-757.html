@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>睢阳之战 · 至德二载(757)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>睢</span><span>阳</span><span>死</span><span>守</span></div>
+  <header>
+    <h1>睢阳之战</h1>
+    <div class="sub">唐至德二载(757)　　<i>唐 张巡 · 许远</i> 死守 · <b>燕 尹子奇</b>(十三万)围睢阳</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 孤城当冲</button>
+    <button data-p="1">婴城拒守</button>
+    <button data-p="2">苦战乞师</button>
+    <button data-p="3">城陷殉国</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="睢阳之战形势图,含燕叛军与唐江淮疆界、汴水与睢阳临淮彭城等城邑及围城示意">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:燕叛军据河南之北,唐江淮在南,约以睢阳一线为冲 -->
+    <path d="M 0,232 C 160,224 320,238 470,246 C 620,254 780,244 1000,236 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,232 C 160,224 320,238 470,246 C 620,254 780,244 1000,236 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,232 C 160,224 320,238 470,246 C 620,254 780,244 1000,236"/>
+    <text class="realm q" x="150" y="120" font-size="34">燕(叛军)</text>
+    <text class="realm j" x="640" y="560" font-size="32">唐(江淮)</text>
+    <text class="realm j" x="150" y="600" font-size="26" style="opacity:.34">江 淮 财 赋</text>
+
+    <!-- 汴水:自西北经睢阳而东南,通江淮漕运 -->
+    <path class="river" stroke-width="5" d="M 120,150 C 250,180 360,220 470,270 C 560,310 640,338 740,352 C 830,364 920,368 1000,364"/>
+    <text class="rname" x="230" y="196" transform="rotate(20 230 196)">汴 水</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="suiyang"><circle cx="470" cy="322" r="7"/><text class="cname" x="482" y="318">睢阳<tspan class="cname s" dx="2">(宋州·孤城)</tspan></text></g>
+      <g class="city" data-city="ningling"><circle cx="330" cy="300" r="4.5"/><text class="cname" x="270" y="296">宁陵</text></g>
+      <g class="city" data-city="linhuai"><circle cx="560" cy="500" r="5"/><text class="cname" x="572" y="504">临淮<tspan class="cname s" dx="2">(贺兰进明屯)</tspan></text></g>
+      <g class="city" data-city="pengcheng"><circle cx="700" cy="250" r="5"/><text class="cname" x="712" y="246">彭城</text></g>
+      <g class="city" data-city="qiaojun"><circle cx="600" cy="380" r="4"/><text class="cname s" x="612" y="384">谯郡</text></g>
+      <g class="city" data-city="jianghuai"><circle cx="620" cy="580" r="4"/><text class="cname" x="632" y="584">江淮<tspan class="cname s" dx="2">(财赋区)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 孤城当冲:围城示意 -->
+    <g id="phAll" class="ph">
+      <circle class="siege" cx="470" cy="322" r="30"/>
+      <circle class="siege" cx="470" cy="322" r="42"/>
+      <path class="march q" marker-end="url(#aq)" d="M 300,150 C 360,200 410,250 452,300"/>
+      <text class="mlabel q" x="200" y="170">尹子奇将兵十三万,南下围睢阳</text>
+      <path class="march j" marker-end="url(#aj)" d="M 336,296 C 372,300 410,308 448,316"/>
+      <text class="mlabel j" x="256" y="284">张巡自宁陵引兵入睢阳</text>
+      <text class="anno" x="352" y="352">与许远合,兵共不满七千,婴城死守</text>
+      <text class="anno" x="470" y="440">睢阳扼汴,蔽遮江淮之冲</text>
+    </g>
+
+    <!-- 阶段一:婴城拒守 -->
+    <g id="ph1" class="ph">
+      <circle class="siege" cx="470" cy="322" r="30"/>
+      <rect class="camp" x="424" y="286" width="9" height="9" transform="rotate(45 428 290)"/>
+      <rect class="camp" x="506" y="290" width="9" height="9" transform="rotate(45 510 294)"/>
+      <rect class="camp" x="460" y="358" width="9" height="9" transform="rotate(45 464 362)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 336,296 C 380,300 420,308 448,314"/>
+      <text class="mlabel j" x="250" y="286">巡自宁陵引兵合许远,众不满七千</text>
+      <text class="mlabel q" x="360" y="238">尹子奇十三万环攻</text>
+      <text class="anno" x="360" y="384">夜缒擂鼓佯出以疲敌,昼伏精兵突击</text>
+      <text class="anno" x="360" y="400">草人赚箭数十万,飞矢中尹子奇左目</text>
+    </g>
+
+    <!-- 阶段二:苦战乞师 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="470" cy="322" r="30"/>
+      <circle class="siege" cx="470" cy="322" r="42"/>
+      <text class="mlabel q" x="330" y="260">相持累月,杀伤燕兵十余万</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 486,340 C 512,400 536,450 556,486"/>
+      <text class="mlabel r" x="512" y="400">南霁云突围乞师</text>
+      <text class="anno" x="530" y="474">临淮贺兰进明忌其功,不出兵</text>
+      <text class="anno" x="440" y="360">城中粮尽,罗雀掘鼠、煮铠弩、继食妇孺</text>
+      <text class="anno" x="562" y="520">霁云断指、射浮图塔明志而还</text>
+    </g>
+
+    <!-- 阶段三:城陷殉国 -->
+    <g id="ph3" class="ph">
+      <circle class="siege" cx="470" cy="322" r="24"/>
+      <path d="M 470,304 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="360" y="286">十月城陷,余卒才四百</text>
+      <text class="mlabel j" x="360" y="360">巡、远、霁云、雷万春等三十六人骂贼不屈死</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,400 C 520,470 560,520 600,566"/>
+      <text class="mlabel j" x="490" y="452">守十月,蔽遮江淮,唐赖以全财赋</text>
+      <text class="anno" x="470" y="416">旬日后官军即复睢阳</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(张巡·许远)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>燕军(尹子奇)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>突围乞师</span>
+    <span class="item"><svg width="30" height="16"><circle cx="15" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>燕(叛军)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐(江淮)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二一九至二二〇、《旧唐书·张巡传》《忠义传》及韩愈《张中丞传后叙》约略绘出。疆界、水道经简化,睢阳围城以点线虚示,非实测方位。</p>
+    <p><span class="n">注二</span>睢阳即今河南商丘。守城食人事载于正史,论者或讥或恕;然其蔽遮江淮、再造唐室之功,史多与之,故列“城陷·殉国”。</p>
+    <p><span class="n">注三</span>睢阳一日不下,则叛军不能全力南向江淮;唐之财赋、中兴根本赖此以全。守之十月,大小四百余战,杀伤燕兵累十余万,可谓以孤城蔽天下。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"孤城当冲",d:"唐至德二载 正月",p:["安庆绪遣尹子奇将兵十三万南攻睢阳。张巡自宁陵引兵入城,与太守许远合,兵共不满七千。睢阳当汴水之冲,扼江淮咽喉,一城系天下之安危。","巡、远以七千之众婴城死守,内无粮援、外无救兵,而当十三万之围。自正月至十月,大小四百余战,屡出奇制胜,遂使叛军顿兵坚城之下,不得全力南向。"]},
+  "1":{t:"婴城拒守",d:"至德二载 正月—夏",p:["张巡自宁陵引兵入睢阳,与许远合,众不满七千。尹子奇十三万环城而攻,巡设奇拒之:夜缒擂鼓佯出以疲敌,昼则伏精兵突击,敌不能测。","又束草为人千余,夜缒城下,叛军竞射之,得箭数十万;复以真兵缒下,趁其不备突营。南霁云一箭射中尹子奇左目,雷万春面中六矢而不动。大小数十战,屡挫其锋。"]},
+  "2":{t:"苦战乞师",d:"至德二载 夏—秋",p:["相持累月,杀伤燕兵十余万,而城中粮且尽。南霁云突围乞师于临淮,贺兰进明忌张巡之功、又惧敌,不肯出兵;为留霁云,大飨之。","霁云慷慨陈词,拔佩刀断一指以示之,一座皆泣;去时射浮图塔以志愤,誓灭贺兰而还。城中粮尽,罗雀掘鼠、煮铠弩以食,继以妇孺老弱,而众心不离,无一叛者。"]},
+  "3":{t:"城陷殉国",d:"至德二载 十月",p:["至十月,城中余卒才四百,饥病不能执兵,睢阳遂陷。张巡、许远、南霁云、雷万春等三十六人皆被执,巡骂贼不屈,慷慨就死,远亦不降。","然睢阳坚守十月,大小四百余战,蔽遮江淮,使唐之财赋根本得全,朝廷赖以再造。城陷旬日,张镐等即率官军收复睢阳——守者之功,岂在克敌之下。"]}
+};
+const CITY={
+  suiyang:{t:"睢阳",d:"宋州治,今河南商丘",p:["安史之乱中唐军死守之孤城,当汴水之冲、江淮之咽喉。张巡、许远以不满七千之众婴城十月,大小四百余战,终以粮尽城陷。"]},
+  ningling:{t:"宁陵",d:"睢阳以西",p:["张巡先守之地。至德二载引兵自此东入睢阳,与许远合军拒尹子奇。"]},
+  linhuai:{t:"临淮",d:"睢阳以南,今江苏盱眙一带",p:["御史大夫贺兰进明屯兵于此。南霁云突围至此乞师,进明忌张巡之功、又惧敌锋,不肯出一卒。"]},
+  pengcheng:{t:"彭城",d:"今江苏徐州",p:["睢阳东北要镇,汴泗交会。睢阳若失,叛军可东略淮泗、南下江淮,故睢阳之守所以蔽此。"]},
+  qiaojun:{t:"谯郡",d:"今安徽亳州一带",p:["睢阳东南邻郡。睢阳既为江淮屏障,谯、宋一线亦赖以不陷于叛军。"]},
+  jianghuai:{t:"江淮",d:"唐之财赋根本区",p:["安史乱后唐廷军资所仰。睢阳一日不下,叛军即不能全力南侵;守睢阳十月,蔽遮江淮,唐赖以再造。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
