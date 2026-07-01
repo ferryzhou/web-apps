@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>郾城·颍昌之战 · 绍兴十年(1140)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回两宋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>郾</span><span>城</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>郾城·颍昌之战</h1>
+    <div class="sub">宋绍兴十年(1140)　　<i>南宋 岳飞</i> 破 <b>金 兀术</b> · 十二金牌促还</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 大举北伐</button>
+    <button data-p="1">郾城破阵</button>
+    <button data-p="2">颍昌 · 小商河</button>
+    <button data-p="3">朱仙班师</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="郾城颍昌之战形势图,含金宋疆界、黄河颍河与郾城颍昌朱仙镇汴京等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:金据河北中原(北),南宋据江淮(南),约以黄河、淮泗一线为界 -->
+    <path d="M 0,300 C 140,286 300,272 440,262 C 600,250 760,246 1000,240 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 140,286 300,272 440,262 C 600,250 760,246 1000,240 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 140,286 300,272 440,262 C 600,250 760,246 1000,240"/>
+    <text class="realm q" x="120" y="150" font-size="32">金 · 据 汴</text>
+    <text class="realm j" x="120" y="600" font-size="30">南 宋 · 江 淮</text>
+
+    <!-- 黄河:自西北横贯,汴京之北 -->
+    <path class="river" stroke-width="5" d="M 40,120 C 220,150 400,150 560,130 C 700,114 840,110 980,120"/>
+    <!-- 颍河:自西北经颍昌、临颍、郾城南下入淮 -->
+    <path class="river" stroke-width="3" d="M 470,170 C 520,230 540,300 500,370 C 470,430 520,490 560,540"/>
+    <text class="rname" x="720" y="104">黄 河</text>
+    <text class="rname" x="452" y="250" transform="rotate(70 452 250)" style="font-size:11px">颍 河</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="bianjing"><circle cx="620" cy="182" r="6"/><text class="cname" x="632" y="178">汴京·东京<tspan class="cname s" dx="2">(金据)</tspan></text></g>
+      <g class="city" data-city="zhuxian"><circle cx="600" cy="248" r="5"/><text class="cname" x="612" y="244">朱仙镇</text></g>
+      <g class="city" data-city="yingchang"><circle cx="548" cy="322" r="5.5"/><text class="cname" x="560" y="318">颍昌</text></g>
+      <g class="city" data-city="linying"><circle cx="484" cy="368" r="4"/><text class="cname s" x="392" y="364">临颍·小商河</text></g>
+      <g class="city" data-city="yancheng"><circle cx="500" cy="418" r="6"/><text class="cname" x="512" y="422">郾城</text></g>
+      <g class="city" data-city="zhengzhou"><circle cx="470" cy="200" r="3.5"/><text class="cname s" x="416" y="196">郑州</text></g>
+      <g class="city" data-city="caizhou"><circle cx="540" cy="512" r="4"/><text class="cname s" x="552" y="516">蔡州</text></g>
+      <g class="city cap" data-city="linan"><circle cx="862" cy="600" r="6"/><text class="cname" x="796" y="596">临安<tspan class="cname s" dx="2">(宋都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 大举北伐 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 616,196 C 604,214 596,228 592,240"/>
+      <text class="mlabel q" x="628" y="222">兀术败盟南侵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 510,410 C 520,380 528,350 540,332"/>
+      <path class="march j" marker-end="url(#aj)" d="M 505,412 C 490,392 486,382 484,376"/>
+      <path class="march j" marker-end="url(#aj)" d="M 512,414 C 560,384 590,300 596,258"/>
+      <text class="mlabel j" x="560" y="470">岳飞大举北伐,连复陈蔡郑洛</text>
+      <text class="anno" x="120" y="330">两河豪杰以「岳」旗相应</text>
+      <text class="anno" x="150" y="230">合龙虎、盖天大王之众十五万,逼郾城</text>
+    </g>
+
+    <!-- 阶段一:郾城破阵 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="520" y="360" width="9" height="9" transform="rotate(45 524 364)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 524,368 C 516,384 510,398 506,410"/>
+      <text class="mlabel q" x="536" y="360">铁浮图重甲当前,两翼拐子马</text>
+      <path class="march j" marker-end="url(#aj)" d="M 496,410 C 502,398 508,388 514,378"/>
+      <circle class="star" cx="500" cy="418" r="8"/>
+      <text class="mlabel j" x="300" y="440">岳飞以背嵬、游奕精骑迎战</text>
+      <text class="anno" x="320" y="458">命岳云先入阵,戒「不胜先斩汝」</text>
+      <text class="anno" x="300" y="476">麻扎刀、提刀专斫马足,铁浮图相牵而仆</text>
+      <text class="mlabel j" x="380" y="494">大破之</text>
+    </g>
+
+    <!-- 阶段二:颍昌·小商河 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="574" y="298" width="9" height="9" transform="rotate(45 578 302)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 580,306 C 568,314 560,318 556,320"/>
+      <text class="mlabel q" x="592" y="296">兀术复大军攻颍昌</text>
+      <path class="march j" marker-end="url(#aj)" d="M 508,412 C 524,384 534,352 544,330"/>
+      <circle class="star" cx="548" cy="322" r="8"/>
+      <text class="mlabel j" x="556" y="352">岳云往返冲杀十数合</text>
+      <text class="anno" x="556" y="368">人为血人,马为血马;兀术大溃</text>
+      <text class="anno" x="120" y="300">兀术叹「撼山易,撼岳家军难」</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 494,360 C 486,364 480,366 476,368"/>
+      <circle class="star" cx="484" cy="368" r="6"/>
+      <text class="mlabel r" x="300" y="392">杨再兴三百骑死小商河</text>
+      <text class="anno" x="330" y="410">力战死,获箭镞二升</text>
+    </g>
+
+    <!-- 阶段三:朱仙班师 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 508,410 C 540,350 580,290 598,258"/>
+      <circle class="star" cx="600" cy="248" r="8"/>
+      <text class="mlabel j" x="612" y="272">进军朱仙镇,距汴京四十五里</text>
+      <text class="anno" x="612" y="290">两河豪杰以「岳」旗相应,方谋渡河</text>
+      <text class="anno" x="560" y="222">直捣黄龙</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 596,254 C 558,320 528,390 512,412"/>
+      <text class="mlabel r" x="360" y="330">一日降十二道金牌趣班师</text>
+      <text class="anno" x="360" y="348">飞东望再拜,愤惋「十年之功,废于一旦」</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 512,424 C 620,470 740,540 850,592"/>
+      <text class="anno" x="600" y="560">军还,所复州郡旋没于金,恢复之望遂绝</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(岳家军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(兀术)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>班师·州郡旋失</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>南宋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《宋史·岳飞传》《金史·宗弼传》《建炎以来系年要录》卷一三六至一三七、《鄂国金佗稡编》约略绘出。郾城、颍昌在今河南漯河、许昌,朱仙镇在开封南,临颍·小商河在临颍境。疆界、黄河、颍河诸水道经简化,非实有画界。</p>
+    <p><span class="n">注二</span>晕染疆界为绍兴十年中原形势示意:金败盟南侵、据汴京中原(北),南宋守江淮(南);金牌、班师、州郡旋没皆以褐标之,总目列褐。岳云再战颍昌、杨再兴死小商河,史所艳称,以金环志会战之地。</p>
+    <p><span class="n">注三</span>岳飞大破铁浮图、拐子马,逼汴京,而十二金牌促还、功败垂成,寻以「莫须有」冤死;「撼山易,撼岳家军难」传为千古。本图以宋为本方(青),先胜后挫、班师用褐——一图之中,胜负之外,更见忠愤。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"大举北伐",d:"绍兴十年(1140)五月—闰六月",p:["绍兴十年,金兀术败盟南侵,岳飞乘时大举北伐,遣将连复颍昌、陈、蔡、郑、洛;两河豪杰纷起,皆以「岳」旗相应,声势震河朔。","兀术知不可以偏师当岳家军,乃合龙虎大王、盖天大王之众,及所恃「铁浮图」重甲、两翼「拐子马」凡十五万,南逼郾城,欲一举摧岳飞之锋——郾城、颍昌之大战由是而开。"]},
+  "1":{t:"郾城破阵",d:"绍兴十年七月",p:["兀术以「铁浮图」重甲铁骑当其前、两翼列「拐子马」,众号十五万,直逼郾城。岳飞以背嵬、游奕精骑迎战,命子岳云先入阵,戒之曰「不胜,先斩汝」。","宋军持麻扎刀、提刀入阵,不仰视,专斫马足;铁浮图三马联络,一马仆则二马不能行,拐子马相牵而踬,金军大溃。自午至暮,遂大破之——金人所恃百战之具,一日而废。"]},
+  "2":{t:"颍昌·小商河",d:"绍兴十年七月",p:["兀术败于郾城,不甘,复并大军攻颍昌。岳云以背嵬骑往返冲杀数十合,人为血人、马为血马;宋军步骑夹击,金军大溃,兀术婿夏金吾等皆死于阵,兀术叹曰「撼山易,撼岳家军难」。","当是时,统制杨再兴以三百骑巡逻,猝遇金军于临颍小商河,鏖战力竭而死,身被数十创;金人焚其尸,得箭镞二升——岳家军之锐,金人夺气。"]},
+  "3":{t:"朱仙班师",d:"绍兴十年闰六月—七月",p:["岳飞乘胜进军朱仙镇,距汴京四十五里,两河忠义之士以「岳」旗相应,河北响震;飞方谋渡河,慨然与诸将约「直捣黄龙府,与诸君痛饮」。","而高宗、秦桧决意和议,恐诸军深入、大功难制,一日降十二道金牌趣飞班师。飞东望再拜,愤惋曰「十年之功,废于一旦」。军还,百姓遮道号泣;所复州郡旋没于金,中原恢复之望遂绝——先胜后挫,功败垂成。"]}
+};
+const CITY={
+  yancheng:{t:"郾城",d:"今河南漯河,颍河南岸",p:["破铁浮图处。兀术以十五万逼此,岳飞以背嵬、游奕精骑迎战,命岳云入阵,以麻扎刀专斫马足,大破铁浮图、拐子马。"]},
+  yingchang:{t:"颍昌",d:"今河南许昌",p:["岳云再战处。兀术复大军来攻,岳云往返冲杀十数合,人为血人、马为血马;金军大溃,兀术叹「撼山易,撼岳家军难」。"]},
+  zhuxian:{t:"朱仙镇",d:"今开封南四十五里",p:["岳飞进抵之地,距汴京四十五里。两河豪杰以「岳」旗相应,方图渡河、直捣黄龙;而十二金牌促还,遂止于此。"]},
+  bianjing:{t:"汴京·东京",d:"今河南开封,时为金据",p:["北宋故都,时为金人所据,岳飞北伐所指之目标。朱仙镇距此仅四十五里,恢复在望而功亏一篑。"]},
+  linying:{t:"临颍·小商河",d:"今河南临颍境",p:["杨再兴死处。再兴以三百骑巡逻,猝遇金大军,力战死,身被数十创;金人焚尸,得箭镞二升,岳家军之烈可见。"]},
+  caizhou:{t:"蔡州",d:"今河南汝南",p:["岳飞北伐先复之州。绍兴十年岳家军连复陈、蔡、郑、洛,两河响应;班师后诸州旋没于金。"]},
+  zhengzhou:{t:"郑州",d:"今河南郑州",p:["岳家军北伐所复州郡之一,近汴京西南。十二金牌促还后,与陈、蔡、洛诸州同旋没于金。"]},
+  linan:{t:"临安",d:"南宋行在,今浙江杭州",p:["高宗、秦桧驻跸之地。二人决意和议,惧岳飞成功难制,一日降十二道金牌趣其班师;后以「莫须有」冤杀岳飞于此。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
