@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>澶州之战 · 澶渊之盟 · 景德元年(1004)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回两宋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>澶</span><span>渊</span><span>之</span><span>盟</span></div>
+  <header>
+    <h1>澶州之战 · 澶渊之盟</h1>
+    <div class="sub">宋景德元年(1004)　　<i>北宋 真宗 · 寇准</i> 御 <b>辽 萧太后</b> · 遂订澶渊之盟</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 辽师深入</button>
+    <button data-p="1">深入抵澶</button>
+    <button data-p="2">射杀挞凛</button>
+    <button data-p="3">澶渊定盟</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="澶州之战形势图,含辽宋疆界、黄河水道与幽州瀛州澶州东京等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:辽据河北之北(上),宋据中原(下),战后以白沟河为界;此处以辽师深入之势晕染 -->
+    <path d="M 0,0 L 1000,0 L 1000,150 C 860,168 720,150 600,182 C 520,204 470,238 470,290 C 470,240 400,232 340,236 C 220,244 110,220 0,208 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,208 C 110,220 220,244 340,236 C 400,232 470,240 470,290 C 470,238 520,204 600,182 C 720,150 860,168 1000,150 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,208 C 110,220 220,244 340,236 C 400,232 470,240 470,290 C 470,238 520,204 600,182 C 720,150 860,168 1000,150"/>
+    <text class="realm q" x="120" y="90" font-size="32">辽(契丹)</text>
+    <text class="realm j" x="700" y="470" font-size="32">北 宋</text>
+
+    <!-- 黄河:自西向东,横贯澶州,澶州跨河南北二城 -->
+    <path class="river" stroke-width="5.5" d="M 0,352 C 130,346 260,356 380,372 C 470,384 540,394 610,392 C 700,390 800,374 900,378 C 950,380 980,382 1000,384"/>
+    <!-- 白沟河:宋辽新界,近幽州之南 -->
+    <path class="river" stroke-width="2.4" d="M 470,146 C 560,132 660,138 760,128"/>
+    <text class="rname" x="220" y="342" style="font-size:14px">黄 河</text>
+    <text class="rname" x="540" y="120" style="font-size:10.5px;letter-spacing:.12em">白沟河</text>
+
+    <!-- 太行山:河北之西 -->
+    <g class="mtn"><path d="M 120,300 l 8,-13 l 8,13 M 136,294 l 8,-13 l 8,13 M 152,300 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="118" y="322">太行</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="youzhou"><circle cx="620" cy="70" r="6"/><text class="cname" x="632" y="66">幽州<tspan class="cname s" dx="2">(辽南京)</tspan></text></g>
+      <g class="city" data-city="yingzhou"><circle cx="520" cy="210" r="5"/><text class="cname" x="532" y="206">瀛州</text></g>
+      <g class="city" data-city="daming"><circle cx="300" cy="404" r="5"/><text class="cname" x="228" y="400">大名府<tspan class="cname s" dx="2">(北京)</tspan></text></g>
+      <g class="city" data-city="chanzhou"><circle cx="600" cy="392" r="6.5"/><text class="cname" x="612" y="374">澶州<tspan class="cname s" dx="2">(跨河南北城)</tspan></text></g>
+      <g class="city cap" data-city="dongjing"><circle cx="560" cy="520" r="6.5"/><text class="cname" x="572" y="516">东京·汴京<tspan class="cname s" dx="2">(宋都)</tspan></text></g>
+      <g class="city" data-city="baigou"><circle cx="700" cy="132" r="3.5"/><text class="cname s" x="712" y="128">白沟河(新界)</text></g>
+    </g>
+
+    <!-- 全图 · 辽师深入 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 616,80 C 590,120 560,160 528,200"/>
+      <path class="march q" marker-end="url(#aq)" d="M 516,220 C 500,280 540,340 592,382"/>
+      <text class="mlabel q" x="360" y="180">辽萧太后、圣宗大举南下,越诸城直抵澶州</text>
+      <text class="anno" x="470" y="256">攻瀛州不下,乃绕坚城纵兵南掠</text>
+      <text class="mlabel j" x="360" y="470">寇准力排南迁之议,请真宗亲征</text>
+      <path class="march j" marker-end="url(#aj)" d="M 566,510 C 580,470 590,440 596,406"/>
+      <text class="anno" x="440" y="500">王钦若请幸金陵、陈尧叟请幸成都,准叱之</text>
+    </g>
+
+    <!-- 阶段一:深入抵澶 -->
+    <g id="ph1" class="ph">
+      <g class="siege"><circle cx="520" cy="210" r="16"/></g>
+      <text class="mlabel q" x="440" y="188">攻瀛州二十日不克</text>
+      <path class="march q" marker-end="url(#aq)" d="M 524,224 C 512,290 548,346 590,382"/>
+      <text class="mlabel q" x="556" y="300">纵兵南掠,绕坚城而进</text>
+      <text class="anno" x="470" y="332">前锋直抵澶州北城,距东京不过数驿</text>
+      <rect class="camp" x="618" y="356" width="9" height="9" transform="rotate(45 622 360)"/>
+      <text class="mlabel r" x="636" y="352">辽军营</text>
+      <text class="anno" x="360" y="548">中外震骇,或请幸金陵、成都,寇准固请帝亲征</text>
+    </g>
+
+    <!-- 阶段二:射杀挞凛 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 562,512 C 574,472 584,436 592,404"/>
+      <text class="mlabel j" x="440" y="474">真宗至澶州,寇准请渡河登北城</text>
+      <text class="anno" x="440" y="492">张黄龙旗,诸军望御盖,踊跃呼万岁,声闻数十里</text>
+      <rect class="camp" x="620" y="356" width="9" height="9" transform="rotate(45 624 360)"/>
+      <circle class="star" cx="612" cy="378" r="8"/>
+      <path d="M 612,367 l 3,-7 l 2,5 l 6,-3 l -3,6 l 7,2 l -7,3 l 3,6 l -6,-3 l -2,5 l -3,-7 l -6,3 l 3,-6 l -7,-2 l 7,-3 l -3,-6 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".7"/>
+      <text class="mlabel j" x="628" y="392">床子弩伏发,一矢中挞凛额</text>
+      <text class="anno" x="628" y="410">辽统军萧挞凛督战,威虎军头张瓌射杀之,辽军夺气</text>
+    </g>
+
+    <!-- 阶段三:澶渊定盟 -->
+    <g id="ph3" class="ph">
+      <circle class="star" cx="600" cy="392" r="11"/>
+      <text class="mlabel j" x="500" y="420">十二月成盟于澶州</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 606,380 C 580,300 540,240 520,222"/>
+      <text class="mlabel r" x="540" y="272">辽以孤军深入、挞凛死,遣使议和北还</text>
+      <text class="anno" x="460" y="200">约为兄弟之国;宋岁遗绢二十万匹、银十万两</text>
+      <text class="anno" x="470" y="160">以白沟河为界,罢兵通好,百二十年不战</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>辽军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>辽军北还</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>射杀挞凛·定盟</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>辽</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《宋史·真宗纪》《寇准传》《辽史·圣宗纪》《续资治通鉴长编》卷五八约略绘出。疆界、水道经简化,「白沟河」新界及黄河河道皆取其概势,非实测画界。</p>
+    <p><span class="n">注二</span>澶州在今河南濮阳,跨黄河有南北二城;真宗所登者为北城。瀛州今河北河间,大名府今河北大名东,幽州即辽南京,今北京。</p>
+    <p><span class="n">注三</span>挞凛之死、真宗登城为和议之关键;澶渊之盟以岁币易百年之安,褒贬不一,然南北息兵、生民得养亦其效。本图以宋为本方(青),守成和议,总目列金色。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"全图 · 辽师深入",d:"景德元年闰九月 — 十一月",p:["辽萧太后、圣宗率大军深入,攻瀛州不克,绕道南下,越诸城而进,直抵澶州(黄河北岸),逼近东京。朝廷震恐,王钦若请幸金陵,陈尧叟请幸成都,人心汹汹。","寇准独排南迁之议,叱其说而固请真宗亲征。帝乃北幸澶州,与辽师隔河相持——南北之势,决于此一渡。"]},
+  "1":{t:"深入抵澶",d:"景德元年闰九月至十一月",p:["辽军攻瀛州二十日不下,城坚兵劲,乃纵兵南掠、绕坚城而进,不复顿兵坚城之下。前锋长驱,直抵澶州北城,距东京不过数驿。","中外震骇,或请幸金陵,或请幸成都。寇准叱之曰:「谁为陛下画此策者,罪可斩也!」固请帝亲征,以系天下之望。"]},
+  "2":{t:"射杀挞凛",d:"景德元年十一月",p:["真宗至澶州,寇准请渡河登北城,张黄龙旗。诸军望见御盖,踊跃呼万岁,声闻数十里,气势百倍。","辽统军萧挞凛(挞览)恃勇出阵督战,宋威虎军头张瓌以床子弩伏发,一矢中其额,挞凛死。辽军主将既殒,锐气顿夺。"]},
+  "3":{t:"澶渊定盟",d:"景德元年十二月",p:["辽以孤军深入、挞凛死、锐气已挫,又惧宋断其归路,遣使议和;宋亦厌兵,真宗许之。","十二月成盟:约为兄弟之国,宋岁遗辽绢二十万匹、银十万两,以白沟河为界。自是宋辽通好百二十年,兵革不试,史称「澶渊之盟」。"]}
+};
+const CITY={
+  chanzhou:{t:"澶州",d:"今河南濮阳,跨黄河有南北二城",p:["真宗亲征所至。寇准请渡河登北城,张黄龙旗,诸军呼万岁,声闻数十里。辽将萧挞凛督战城下,为宋床子弩射杀于此,遂成和议之地。"]},
+  daming:{t:"大名府",d:"今河北大名东,时为北京",p:["河北宋军后方重镇,王钦若尝守之。辽师南下时朝议欲幸金陵、成都,寇准以为不可弃河北而南。"]},
+  yingzhou:{t:"瀛州",d:"今河北河间",p:["辽军南下所攻。守将李延渥拒守,辽攻二十日不克,乃舍之南掠,绕坚城而趋澶州——辽师虽深入而后路可虞,伏此败机。"]},
+  dongjing:{t:"东京·汴京",d:"北宋都城,今河南开封",p:["辽前锋抵澶州,距东京不过数驿,中外震恐。王钦若请幸金陵、陈尧叟请幸成都,寇准叱其议,固请真宗北幸亲征。"]},
+  youzhou:{t:"幽州",d:"辽南京,今北京",p:["辽之南京、南伐之根本。萧太后、圣宗自此发兵深入;和议既成,辽师亦由此路北还。"]},
+  baigou:{t:"白沟河",d:"宋辽新界,今河北境",p:["澶渊之盟所定疆界。约为兄弟之国,以白沟河为界,罢兵通好,自是百二十年南北不交兵。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
