@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白藤江之战 · 元三征安南(1288)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.18}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--advance);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>白</span><span>藤</span><span>江</span><span>役</span></div>
+  <header>
+    <h1>白藤江之战</h1>
+    <div class="sub">元至元二十五年 · 陈朝重兴四年(1288)　　<i>元 脱欢 · 乌马儿</i> 舟胶木桩 · <b>安南 陈兴道</b> 火攻尽覆元水师</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 三征安南</button>
+    <button data-p="1">元军入据 · 久顿思归</button>
+    <button data-p="2">陈兴道植桩设伏</button>
+    <button data-p="3">舟胶木桩 · 火攻尽覆</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白藤江之战形势图,含元与安南陈朝疆界、红河三角洲白藤江下龙湾与升龙万劫等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:元自北(广西)入,安南陈朝据南(红河三角洲) -->
+    <path d="M 0,214 C 140,196 300,206 430,236 C 560,266 640,300 700,340 L 1000,300 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,214 C 140,196 300,206 430,236 C 560,266 640,300 700,340 L 1000,300 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,214 C 140,196 300,206 430,236 C 560,266 640,300 700,340"/>
+    <text class="realm q" x="120" y="110" font-size="30">元(自广西入)</text>
+    <text class="realm j" x="150" y="470" font-size="30">安南 · 陈朝</text>
+
+    <!-- 下龙湾 · 海口(东海) -->
+    <path class="sea" d="M 780,180 C 830,240 860,340 870,440 C 880,540 900,600 1000,640 L 1000,120 C 940,140 850,150 780,180 Z"/>
+    <text class="rname" x="905" y="360" transform="rotate(80 905 360)" style="opacity:.7">下 龙 湾</text>
+    <text class="cname s" x="812" y="250">海 口</text>
+
+    <!-- 红河:自西北下龙编三角洲入海 -->
+    <path class="river" stroke-width="5" d="M 210,300 C 300,340 400,392 500,430 C 600,468 700,486 800,500"/>
+    <!-- 白藤江:红河三角洲东北,注入下龙湾海口 -->
+    <path class="river" stroke-width="4" d="M 560,420 C 630,410 700,394 760,360 C 800,336 820,300 812,262"/>
+    <text class="rname" x="300" y="336" transform="rotate(24 300 336)">红 河</text>
+    <text class="rname" x="678" y="372" transform="rotate(-26 678 372)">白 藤 江</text>
+
+    <!-- 群山:安南北境险阻 -->
+    <g class="mtn"><path d="M 360,150 l 8,-13 l 8,13 M 376,144 l 8,-13 l 8,13 M 392,150 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="360" y="176">群山(北境险阻)</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="baiteng"><circle cx="760" cy="330" r="6"/><text class="cname" x="676" y="326">白藤江口<tspan class="cname s" dx="2">(木桩伏歼)</tspan></text></g>
+      <g class="city cap" data-city="shenglong"><circle cx="360" cy="356" r="6"/><text class="cname" x="286" y="352">升龙 · 河内<tspan class="cname s" dx="2">(安南都)</tspan></text></g>
+      <g class="city" data-city="wanjie"><circle cx="536" cy="360" r="5"/><text class="cname" x="500" y="344">万劫</text></g>
+      <g class="city" data-city="liangshan"><circle cx="330" cy="176" r="4.5"/><text class="cname s" x="338" y="172">谅山 · 思明</text></g>
+      <g class="city" data-city="yuntun"><circle cx="852" cy="420" r="4"/><text class="cname s" x="800" y="440">云屯</text></g>
+      <g class="city" data-city="neibang"><circle cx="700" cy="266" r="4"/><text class="cname s" x="708" y="262">内傍 · 安邦</text></g>
+    </g>
+
+    <!-- 全图 · 三征安南 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 330,184 C 342,240 350,300 356,346"/>
+      <text class="mlabel q" x="220" y="250">脱欢陆路自谅山入</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 852,412 C 830,380 800,356 770,338"/>
+      <text class="mlabel q" x="800" y="392">乌马儿 · 樊楫由海道运粮继</text>
+      <rect class="camp" x="356" y="352" width="8" height="8" transform="rotate(45 360 356)"/>
+      <text class="anno" x="240" y="380">一度攻入升龙,而陈朝坚壁清野</text>
+      <text class="mlabel j" x="150" y="440">元军久顿,粮匮疫作,暑湿难堪,乃议退师</text>
+    </g>
+
+    <!-- 阶段一:元军入据 · 久顿思归 -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 330,184 C 340,236 346,292 354,346"/>
+      <text class="mlabel q" x="220" y="256">陆路自谅山、思明入</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 852,414 C 720,470 560,458 372,362"/>
+      <text class="mlabel q" x="560" y="470">水军由海道运粮继之</text>
+      <rect class="camp" x="356" y="352" width="9" height="9" transform="rotate(45 360 356)"/>
+      <text class="mlabel q" x="264" y="336">攻入升龙</text>
+      <rect class="camp" x="532" y="356" width="8" height="8" transform="rotate(45 536 360)"/>
+      <text class="anno" x="440" y="384">水陆大营驻万劫</text>
+      <text class="mlabel j" x="150" y="500">安南避战不出;元顿兵暑湿、粮匮疫作,乃议退</text>
+    </g>
+
+    <!-- 阶段二:陈兴道植桩设伏 -->
+    <g id="ph2" class="ph">
+      <text class="mlabel j" x="150" y="430">陈兴道料元水军必循白藤江退归海口</text>
+      <path class="march j" marker-end="url(#aj)" d="M 420,430 C 520,430 620,412 700,372"/>
+      <text class="mlabel j" x="470" y="452">预植削尖木桩于江口,覆以潮水</text>
+      <g class="mtn" stroke="var(--advance)"><path d="M 742,346 l 0,-14 M 752,344 l 0,-14 M 762,346 l 0,-14 M 772,344 l 0,-14 M 782,346 l 0,-14"/></g>
+      <text class="mlabel j" x="700" y="320">江口密植木桩</text>
+      <path class="siege" d="M 726,352 C 740,360 786,342 800,320"/>
+      <text class="anno" x="640" y="404">伏兵、火筏匿于两岸芦苇间</text>
+    </g>
+
+    <!-- 阶段三:舟胶木桩 · 火攻尽覆 -->
+    <g id="ph3" class="ph">
+      <path class="march sea" marker-end="url(#aq)" d="M 540,368 C 620,384 690,384 748,352"/>
+      <text class="mlabel q" x="540" y="404">元水师乘潮退师入白藤江</text>
+      <path class="march j" marker-end="url(#aj)" d="M 800,320 C 786,336 770,346 756,350"/>
+      <text class="mlabel j" x="782" y="304">轻舟佯退诱敌</text>
+      <path d="M 760,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="760" cy="330" r="12"/>
+      <text class="mlabel j" x="616" y="330">潮落舟胶于桩 · 伏发火攻</text>
+      <text class="anno" x="628" y="348">元水师焚溺殆尽,乌马儿、樊楫被擒</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 528,352 C 440,300 360,244 336,190"/>
+      <text class="mlabel r" x="360" y="248">脱欢弃辎重陆遁</text>
+      <text class="anno" x="230" y="214">道遇伏击,仅以身免;三征遂败</text>
+    </g>
+
+    <g class="compass" transform="translate(110,568)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>安南 · 陈朝(陆)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>元军(陆)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>元水师(海道)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>元军溃遁</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>木桩伏歼</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>元</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>安南</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《元史·安南传》《元史·世祖本纪》《大越史记全书》约略绘出。白藤江在今越南海防、广宁一带,升龙即今河内,城邑水道为相对示意。红河三角洲海岸线、水道经简化。</p>
+    <p><span class="n">注二</span>晕染疆界为元与安南陈朝形势示意:元自北境广西入,安南据红河三角洲以南;二境以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>陈兴道(兴道王陈国峻)仿昔吴权破南汉、黎桓拒宋之故智,预植木桩于白藤江口,佯退诱敌乘潮而进,潮落舟胶,火攻尽覆元水师——一役而元三征安南遂败。忽必烈欲四征,会崩而止。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"全图 · 三征安南",d:"元至元二十四年 — 二十五年(1287–1288)",p:["元既灭宋,忽必烈屡征安南(大越陈朝)以其不臣。至元二十四年,以皇子镇南王脱欢率大军三征安南,水陆并进:陆路自广西谅山、思明入,水军乌马儿、樊楫由海道运粮继之。","元军一度攻入安南都城升龙(河内),然陈朝坚壁清野、避其锋。元军久顿,粮匮、疫作,暑湿难堪,乃议退师——是役之败机,已伏于此。"]},
+  "1":{t:"元军入据 · 久顿思归",d:"至元二十四年冬 — 二十五年春",p:["元陆路自谅山、思明入安南,水军由海道继运粮饷。军锋一度攻入升龙,水陆大营驻于万劫,脱欢坐镇。","然陈朝避战不出、清野以困之。元军顿兵红河三角洲，暑湿疫作、粮道不继,士马疲敝,乃议退师归国。安南名将陈兴道料其必循白藤江退归海口。"]},
+  "2":{t:"陈兴道植桩设伏",d:"至元二十五年三月",p:["陈兴道(兴道王陈国峻)料元水军退归必由白藤江入海,乃仿昔吴权破南汉、黎桓拒宋之故智,预于白藤江口密植削尖之木桩,上覆以潮水,涨则没、退则出。","又设伏兵、火筏于两岸芦苇之间,俟潮而发。江口水道遂成陷阱,专待元舰之至。"]},
+  "3":{t:"舟胶木桩 · 火攻尽覆",d:"至元二十五年三月",p:["元水军乌马儿部退至白藤江,陈兴道遣轻舟乘涨潮挑战、佯退诱之;元舰乘潮追进,尽过木桩之上。俟潮退,元舰胶阁于桩,进退不得,自相撞击。","安南伏兵四起,火筏顺流纵烧,矢石俱下。元水师大乱,战船焚溺殆尽,乌马儿、樊楫被擒。脱欢闻水军覆没,弃辎重由陆路仓皇北遁,道遇伏击,仅以身免。元三征安南遂败,安南终保国称藩。"]}
+};
+const CITY={
+  baiteng:{t:"白藤江口",d:"入海口,今越南海防、广宁一带",p:["陈兴道预植削尖木桩、覆以潮水之处。元水师乘潮追进,潮落舟胶于桩,伏发火攻,焚溺殆尽,乌马儿、樊楫被擒。"]},
+  shenglong:{t:"升龙 · 河内",d:"安南陈朝都城,今越南河内",p:["元军一度攻入据之,而陈朝坚壁清野、避战。元顿兵暑湿,终不能守,乃弃城议退。"]},
+  wanjie:{t:"万劫",d:"红河三角洲要地",p:["元军水陆大营,脱欢驻此。控扼红河、白藤诸水道,退师之枢。"]},
+  liangshan:{t:"谅山 · 思明",d:"元军自广西入安南之陆路要隘",p:["脱欢陆路大军自此入安南北境。及水军覆没,脱欢弃辎重由此道仓皇北遁,道遇伏击。"]},
+  yuntun:{t:"云屯",d:"东境海滨,今越南广宁云屯",p:["海道要冲。元粮船尝为安南所劫于此,水军补给益艰,为元军久顿粮匮之一因。"]},
+  neibang:{t:"内傍 · 安邦",d:"东境,今越南广宁安邦一带",p:["元军退师白藤所经之地。近下龙湾海口,为元水师循江归海之途。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
