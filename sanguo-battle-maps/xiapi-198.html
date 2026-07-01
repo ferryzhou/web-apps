@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下邳之战 · 建安三年(198)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>下</span><span>邳</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>下邳之战</h1>
+    <div class="sub">汉建安三年(198)　　<i>曹操</i> 擒 <b>吕布</b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 东征吕布</button>
+    <button data-p="1">先拔彭城</button>
+    <button data-p="2">决水灌城</button>
+    <button data-p="3">白门就擒</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="下邳之战形势图,含吕布徐州与曹操自西来之疆界、泗水沂水交汇下邳,及彭城小沛广陵等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:吕布据徐州(东),曹操自西来(西),约以泗上为界 -->
+    <path d="M 300,0 C 320,120 300,220 288,320 C 278,420 300,530 320,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 300,0 C 320,120 300,220 288,320 C 278,420 300,530 320,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 300,0 C 320,120 300,220 288,320 C 278,420 300,530 320,640"/>
+    <text class="realm q" x="640" y="120" font-size="34">吕 布(徐州)</text>
+    <text class="realm j" x="70" y="560" font-size="30">曹 操(自西来)</text>
+
+    <!-- 泗水:自西北南下,经彭城、下邳 -->
+    <path class="river" stroke-width="4.5" d="M 360,70 C 400,150 440,230 500,300 C 540,346 570,382 600,410"/>
+    <!-- 沂水:自东北南下,会于下邳 -->
+    <path class="river" stroke-width="3.4" d="M 720,90 C 700,180 660,270 620,340 C 610,362 604,390 600,410"/>
+    <!-- 泗沂合流南入淮,东南至广陵 -->
+    <path class="river" stroke-width="4.8" d="M 600,410 C 640,470 700,520 760,558 C 820,590 880,600 940,604"/>
+    <text class="rname" x="410" y="200" transform="rotate(58 410 200)">泗 水</text>
+    <text class="rname" x="704" y="200" transform="rotate(-64 704 200)">沂 水</text>
+    <text class="rname" x="770" y="540" style="font-size:11px">泗沂合流入淮</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="xiapi"><circle cx="600" cy="410" r="6.5"/><text class="cname" x="612" y="406">下邳<tspan class="cname s" dx="2">(吕布都·白门楼)</tspan></text></g>
+      <g class="city" data-city="pengcheng"><circle cx="410" cy="196" r="5.5"/><text class="cname" x="352" y="192">彭城</text></g>
+      <g class="city" data-city="xiaopei"><circle cx="356" cy="300" r="4.5"/><text class="cname" x="298" y="298">小沛</text></g>
+      <g class="city" data-city="xiaoguan"><circle cx="470" cy="384" r="3.5"/><text class="cname s" x="426" y="404">萧关</text></g>
+      <g class="city" data-city="guangling"><circle cx="820" cy="562" r="5"/><text class="cname" x="760" y="558">广陵</text></g>
+    </g>
+
+    <!-- 全图 · 东征吕布 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 60,470 C 160,420 240,320 356,300"/>
+      <path class="march j" marker-end="url(#aj)" d="M 366,296 C 390,260 400,228 408,206"/>
+      <text class="mlabel j" x="90" y="440">曹操自将东征,连拔诸城</text>
+      <text class="anno" x="330" y="252">乘胜进逼下邳</text>
+      <text class="mlabel q" x="640" y="200">吕布反覆,夺徐州、结袁术、攻刘备</text>
+      <path class="march q" marker-end="url(#aq)" d="M 620,150 C 616,240 610,320 600,398"/>
+      <text class="anno" x="606" y="300">布众屯守,恃泗沂之险</text>
+    </g>
+
+    <!-- 阶段一:先拔彭城 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 360,296 C 380,262 394,230 404,206"/>
+      <circle class="star" cx="410" cy="196" r="8"/>
+      <text class="mlabel j" x="330" y="168">操破布于彭城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 418,206 C 470,270 530,340 592,402"/>
+      <text class="mlabel j" x="470" y="300">乘胜逼下邳</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 560,380 C 540,360 520,340 500,322"/>
+      <text class="mlabel q" x="440" y="332">布出战屡败,闭城固守</text>
+      <text class="anno" x="470" y="440">陈宫劝布出屯泗上,成犄角;布惑妻言不用</text>
+    </g>
+
+    <!-- 阶段二:决水灌城 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="600" cy="410" r="30"/>
+      <circle class="siege" cx="600" cy="410" r="42"/>
+      <text class="mlabel j" x="500" y="360">操围下邳月余,起攻未拔</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,300 C 540,338 570,372 592,398"/>
+      <text class="mlabel j" x="404" y="288">用荀攸、郭嘉计</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,340 C 660,362 630,384 610,402"/>
+      <text class="mlabel j" x="666" y="322">决泗、沂之水灌城</text>
+      <text class="anno" x="470" y="470">城中水浸粮尽,人马疲病,布左右离心</text>
+    </g>
+
+    <!-- 阶段三:白门就擒 -->
+    <g id="ph3" class="ph">
+      <path d="M 600,410 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="470" y="358">侯成、宋宪、魏续反,缚陈宫、高顺</text>
+      <path class="march j" marker-end="url(#aj)" d="M 520,440 C 552,428 576,420 592,414"/>
+      <text class="mlabel j" x="440" y="456">开门纳操军</text>
+      <text class="mlabel r" x="612" y="440">布登白门楼请降</text>
+      <text class="anno" x="466" y="490">操缢杀吕布,斩陈宫、高顺,徐州遂定</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>吕布军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退·被擒</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="30" height="14"><circle cx="15" cy="7" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>吕布</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《吕布传》《荀攸传》约略绘出;疆界、水道经简化,泗、沂二水走向及诸城相对方位仅取其略。</p>
+    <p><span class="n">注二</span>下邳在今江苏睢宁北,泗水、沂水于此交汇。彭城即今江苏徐州,处下邳西北;小沛(沛县)在西,广陵在南濒淮。</p>
+    <p><span class="n">注三</span>决水灌城为曹操攻坚之惯技(前有下邳,后有邺城)。吕布骁勇而寡谋,不能用陈宫犄角之策,遂困守孤城以亡——胜败之机,系于用谋。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"东征吕布",d:"汉建安三年(198)",p:["吕布反覆无常,乘衅夺据徐州,复外结袁术、内攻刘备,遂为中原东南之患。曹操既定豫、兖,乃自将东征,以除肘腋之忧。","操军连拔诸城,进逼下邳。吕布恃泗、沂交汇之险,聚众守城,曹操大军压境,东征之势已成。"]},
+  "1":{t:"先拔彭城",d:"建安三年 · 进军",p:["曹操进军,先破吕布于彭城,乘胜直逼下邳。吕布屡出城野战,皆为操所败,乃闭城固守,不复轻出。","陈宫为布画策:请布将骑出屯泗上,己与高顺守城,内外为犄角之势,操远来粮乏,可相持而困之。布初然其计,既而惑于妻言,狐疑不决,终不能用,坐守孤城。"]},
+  "2":{t:"决水灌城",d:"建安三年 · 围城",p:["曹操围下邳月余,数起攻而城坚未拔,士卒疲敝,操意欲还。荀攸、郭嘉进言:吕布勇而无谋,今三战皆北,锐气已堕,宜急攻之,以水灌城。","操从其计,决泗水、沂水以灌下邳。城中水浸,粮储渐尽,人马疲病,守御日懈;吕布左右离心,大势已去。"]},
+  "3":{t:"白门就擒",d:"建安三年 · 城破",p:["吕布将侯成、宋宪、魏续叛,执缚陈宫、高顺以降,开城门纳曹操之军。布势穷力蹙,与麾下数人登白门楼,四顾无援,乃自请降。","曹操缢杀吕布,斩陈宫、高顺;徐州遂平。操既除东南之患,后顾无忧,乃得专意于河北,以图袁绍。"]}
+};
+const CITY={
+  xiapi:{t:"下邳",d:"吕布都城,今江苏睢宁北",p:["吕布据以为都,泗水、沂水于此交汇,城枕水险。曹操围而灌之,城破,布登白门楼请降,遂就缢于此。"]},
+  pengcheng:{t:"彭城",d:"今江苏徐州",p:["下邳之西北门户。曹操东征,先破吕布于彭城,乘胜进逼下邳,布野战屡败而退守。"]},
+  xiaopei:{t:"小沛",d:"沛县,下邳之西",p:["徐州西面重镇,刘备尝屯于此为羽翼。吕布夺徐州、攻刘备,反覆之迹皆系于沛下,遂启曹操东征之衅。"]},
+  xiaoguan:{t:"萧关",d:"下邳外围隘口",p:["下邳城外要隘,曹军围城时藉以扼守,断吕布出入之道,使孤城益困。"]},
+  guangling:{t:"广陵",d:"今江苏扬州一带,下邳之南濒淮",p:["徐州南境滨淮之地,泗、沂合流南下入淮所经。吕布败亡后,徐州南北皆入曹操之手。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

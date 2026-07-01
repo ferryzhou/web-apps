@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>夷陵之战 · 蜀汉章武元年至二年(221–222)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>夷</span><span>陵</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>夷陵之战</h1>
+    <div class="sub">蜀汉章武元年至二年·吴黄武元年(221–222)　　<i>孙吴 陆逊</i> 大破 <b>蜀汉 刘备</b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 东征伐吴</button>
+    <button data-p="1">备军深入</button>
+    <button data-p="2">逊守待敝</button>
+    <button data-p="3">火烧连营</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="夷陵之战形势图,含蜀汉孙吴疆界、长江三峡与白帝城秭归猇亭夷陵江陵等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:蜀汉据益州(西),孙吴据荆州(东),约以三峡为界 -->
+    <path d="M 470,0 C 476,90 480,170 486,250 C 492,320 500,380 508,440 C 514,520 520,580 528,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 476,90 480,170 486,250 C 492,320 500,380 508,440 C 514,520 520,580 528,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 476,90 480,170 486,250 C 492,320 500,380 508,440 C 514,520 520,580 528,640"/>
+    <text class="realm q" x="120" y="130" font-size="34">蜀 汉(益州)</text>
+    <text class="realm j" x="720" y="560" font-size="32">孙 吴(荆州)</text>
+
+    <!-- 长江:自益州(西)经三峡三峡东下江陵 -->
+    <path class="river" stroke-width="5.5" d="M 60,300 C 130,318 200,332 268,344 C 340,356 400,372 470,376 C 560,382 640,376 720,378 C 820,380 920,384 1000,388"/>
+    <text class="rname" x="150" y="286" style="font-size:13px">长 江</text>
+    <text class="rname" x="760" y="366" style="font-size:13px">大 江</text>
+
+    <!-- 三峡:自西向东,峡窄山峙 -->
+    <g class="mtn">
+      <path d="M 300,338 l 9,-16 l 9,16 M 316,332 l 9,-15 l 9,15 M 332,338 l 8,-14 l 8,14"/>
+      <path d="M 300,382 l 9,16 l 9,-16 M 316,388 l 9,15 l 9,-15 M 332,382 l 8,14 l 8,-14"/>
+      <path d="M 380,336 l 9,-16 l 9,16 M 396,330 l 9,-15 l 9,15"/>
+      <path d="M 380,384 l 9,16 l 9,-16 M 396,390 l 9,15 l 9,-15"/>
+    </g>
+    <text class="cname s" x="322" y="322">三峡·巫峡</text>
+
+    <!-- 城邑(自西向东) -->
+    <g id="cities">
+      <g class="city cap" data-city="baidi"><circle cx="120" cy="344" r="6"/><text class="cname" x="132" y="340">白帝城<tspan class="cname s" dx="2">·永安</tspan></text></g>
+      <g class="city" data-city="zigui"><circle cx="278" cy="344" r="4.5"/><text class="cname s" x="252" y="332">秭归</text></g>
+      <g class="city" data-city="xiaoting"><circle cx="560" cy="380" r="5"/><text class="cname" x="540" y="368">猇亭</text></g>
+      <g class="city" data-city="yiling"><circle cx="640" cy="376" r="5"/><text class="cname" x="648" y="372">夷陵</text></g>
+      <g class="city" data-city="maanshan"><circle cx="470" cy="418" r="4"/><text class="cname s" x="446" y="440">马鞍山</text></g>
+      <g class="city" data-city="jiangling"><circle cx="880" cy="384" r="6"/><text class="cname" x="828" y="380">江陵<tspan class="cname s" dx="2">(荆州治)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 东征伐吴 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 128,348 C 220,356 340,364 460,376 C 500,380 530,382 552,382"/>
+      <text class="mlabel q" x="180" y="368">刘备为关羽复仇、图复荆州,率大军东下</text>
+      <text class="anno" x="150" y="392">兵锋甚锐,破吴军于巫、秭归</text>
+      <text class="mlabel j" x="640" y="356">陆逊为吴大都督,敛兵拒守夷陵,避锋待敝</text>
+      <circle class="star" cx="560" cy="380" r="9"/>
+      <text class="anno" x="600" y="404">相持自春徂夏,终以火攻决于猇亭</text>
+    </g>
+
+    <!-- 阶段一:备军深入 -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 128,346 C 200,352 250,354 272,350"/>
+      <text class="mlabel q" x="150" y="330">备率诸军东下,破吴军于巫、秭归</text>
+      <path class="march q" marker-end="url(#aq)" d="M 286,348 C 380,362 460,372 552,380"/>
+      <text class="mlabel q" x="330" y="404">进至夷陵、猇亭,兵锋甚锐</text>
+      <rect class="camp" x="316" y="358" width="7" height="7" transform="rotate(45 319 361)"/>
+      <rect class="camp" x="366" y="360" width="7" height="7" transform="rotate(45 369 363)"/>
+      <rect class="camp" x="416" y="362" width="7" height="7" transform="rotate(45 419 365)"/>
+      <rect class="camp" x="466" y="366" width="7" height="7" transform="rotate(45 469 369)"/>
+      <rect class="camp" x="516" y="370" width="7" height="7" transform="rotate(45 519 373)"/>
+      <text class="anno" x="300" y="356">缘山险、树栅连营七百余里,自巫峡至夷陵数十屯</text>
+      <text class="anno" x="330" y="424">舍船就步,分据要害</text>
+    </g>
+
+    <!-- 阶段二:逊守待敝 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="316" y="358" width="7" height="7" transform="rotate(45 319 361)"/>
+      <rect class="camp" x="366" y="360" width="7" height="7" transform="rotate(45 369 363)"/>
+      <rect class="camp" x="416" y="362" width="7" height="7" transform="rotate(45 419 365)"/>
+      <rect class="camp" x="466" y="366" width="7" height="7" transform="rotate(45 469 369)"/>
+      <rect class="camp" x="516" y="370" width="7" height="7" transform="rotate(45 519 373)"/>
+      <path class="siege" d="M 600,360 C 592,372 588,388 596,402"/>
+      <text class="mlabel j" x="600" y="352">陆逊敛兵拒守、不与争锋</text>
+      <text class="anno" x="560" y="418">"备乘高守险,难与争锋,宜养威观衅,待其疲弊"</text>
+      <text class="mlabel q" x="330" y="342">蜀军师老兵疲、暑气蒸郁,移营林木间以避暑</text>
+      <text class="anno" x="200" y="410">相持自春徂夏</text>
+    </g>
+
+    <!-- 阶段三:火烧连营 -->
+    <g id="ph3" class="ph">
+      <path d="M 319,361 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <path d="M 419,365 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <path d="M 519,373 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="560" cy="380" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 548,382 C 520,378 460,374 350,368"/>
+      <text class="mlabel j" x="470" y="352">逊令各持茅一把,乘夜顺风纵火;吴诸军并进</text>
+      <text class="mlabel q" x="300" y="392">蜀军四十余营一时俱焚,土崩,舟甲器械略尽</text>
+      <text class="anno" x="330" y="410">斩张南、冯习及蛮王沙摩柯</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 456,412 C 340,392 220,362 132,348"/>
+      <text class="mlabel r" x="200" y="336">备夜遁,凭马鞍山阻火乃脱</text>
+      <text class="anno" x="140" y="424">仅以身走白帝城,叹"吾乃为逊所折辱,岂非天邪"</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>孙吴军(陆逊)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>蜀汉军(刘备)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>火溃败走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>火攻决战</span>
+    <span class="item"><svg width="16" height="12"><rect x="4" y="2" width="7" height="7" fill="#9a2b1e" transform="rotate(45 7.5 6)"/></svg>蜀军连营</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>蜀汉</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>孙吴</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·陆逊传》《先主传》《吴主传》及《资治通鉴》卷六九约略绘出。疆界、水道经简化,连营屯戍之位次仅示其自西而东、缘江缘山之势,非实测。</p>
+    <p><span class="n">注二</span>猇亭在今湖北宜都北,夷陵今湖北宜昌,秭归今湖北秭归,白帝城·永安今重庆奉节,江陵今湖北荆州。三峡即瞿塘、巫、西陵诸峡之通称。</p>
+    <p><span class="n">注三</span>备连营为逊所乘、火攻而溃,蜀元气大伤,精锐舟甲一朝俱尽。次年备殂于白帝,托孤诸葛;吴蜀旋复通好,遂罢兵修睦,三分之界自此大定。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"东征伐吴",d:"章武元年至二年(221–222)",p:["蜀汉章武元年,刘备为关羽复仇、图复荆州,亲率大军东征孙吴,舟师陆卒,顺江而下,声势甚盛。吴主孙权求和不得,遣陆逊为大都督,督朱然、潘璋等拒之。","逊料备兵新集、锐气方盛,乃敛兵拒守夷陵,避其锋而待其敝。备连破吴军于巫、秭归,进至夷陵、猇亭,然逊坚壁不出;两军相持自春徂夏,胜负未分,而蜀军之势渐由锐而钝。"]},
+  "1":{t:"备军深入",d:"章武二年正月至闰月",p:["备率诸军东下,破吴军于巫、秭归,兵锋甚锐,遂进至夷陵、猇亭,直逼吴军防线。吴将请战,逊皆不许,曰当徐观其变。","备缘山险、树栅连营七百余里,自巫峡、建平至夷陵界立数十屯,分据要害,又舍船就步、依林木而营。魏文帝闻之曰:'备不晓兵,岂有七百里连营可以拒敌者乎!'兵法所忌,备实犯之。"]},
+  "2":{t:"逊守待敝",d:"章武二年春夏之交",p:["诸将屡欲进击,陆逊按兵不动,曰:'备乘高守险,锐气始盛,难与争锋。宜养威观衅,徐观其弊。'吴军坚壁自守,任蜀军百般挑战而不应。","相持既久,自春徂夏,蜀军师老兵疲,暑气蒸郁,士卒疲乏。备移营于深山林木之间以避酷暑,舍水就陆,首尾难顾——逊察其可乘之隙已成,乃定火攻之计。"]},
+  "3":{t:"火烧连营",d:"章武二年闰六月",p:["逊令士卒各持茅一把,乘夜顺风纵火。火烈风猛,蜀军四十余营一时俱焚,烟焰蔽江;吴诸军并进,水陆俱下,斩张南、冯习及蛮王沙摩柯,破其四十余营,蜀军土崩,舟甲器械略尽。","备夜遁,道路阻绝,乃凭马鞍山、驿站聚兵自绕;逊督诸军四面蹙之,土崩瓦解,死者万数。备乘夜突围,烧铠断道乃得脱,仅以身走白帝城,叹曰:'吾乃为逊所折辱,岂非天邪!'一战而蜀之东征全军尽没。"]}
+};
+const CITY={
+  baidi:{t:"白帝城·永安",d:"今重庆奉节,益州东门",p:["三峡西口要地,蜀之东门。备兵败,退保于此,改鱼复曰永安。次年殂于永安宫,托孤诸葛亮、李严。"]},
+  zigui:{t:"秭归",d:"今湖北秭归",p:["备前军所据。东征之初,吴班、陈式水军屯此;备破吴军于巫、秭归,由此东进夷陵、猇亭。"]},
+  xiaoting:{t:"猇亭",d:"今湖北宜都北",p:["陆逊火攻决战之处。蜀军连营至此,逊纵火猛攻,四十余营俱焚,张南、冯习、沙摩柯皆死于是役。"]},
+  yiling:{t:"夷陵",d:"今湖北宜昌",p:["吴军防线所在,扼三峡东口。陆逊敛兵拒守于此,避锋待敝,遂成相持之局。"]},
+  maanshan:{t:"马鞍山",d:"夷陵之南山",p:["备退守被围之处。军溃后凭山聚众自绕,逊四面蹙之,一日死者万数;备烧铠断道,夜突围乃脱。"]},
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["孙吴后方重镇,荆州治所。吕蒙袭杀关羽后吴据之;陆逊御蜀之师,以此为根本之地。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

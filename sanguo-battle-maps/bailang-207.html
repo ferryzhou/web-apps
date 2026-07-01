@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白狼山之战 · 建安十二年(207)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>白</span><span>狼</span><span>山</span><span>役</span></div>
+  <header>
+    <h1>白狼山之战</h1>
+    <div class="sub">汉建安十二年(207)　　<i>曹操</i> 破 <b>乌桓 蹋顿</b> · 张辽阵斩</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 北征乌桓</button>
+    <button data-p="1">卢龙间道</button>
+    <button data-p="2">白狼遇敌</button>
+    <button data-p="3">张辽斩蹋顿</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白狼山之战形势图,含曹操与乌桓袁氏疆界、燕山卢龙塞与蓟无终白狼山柳城辽东等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:曹操据幽州中原(西南),乌桓袁氏残据塞外辽西(北、东北),约以燕山卢龙塞为界 -->
+    <path d="M 0,220 C 180,250 340,270 500,290 C 640,308 780,300 1000,250 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,220 C 180,250 340,270 500,290 C 640,308 780,300 1000,250 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,220 C 180,250 340,270 500,290 C 640,308 780,300 1000,250"/>
+    <text class="realm q" x="620" y="120" font-size="30">乌桓·袁氏残(塞外辽西)</text>
+    <text class="realm j" x="120" y="560" font-size="30">曹 操(幽州·中原)</text>
+
+    <!-- 濡水:自燕山北出塞外东南下 -->
+    <path class="river" stroke-width="3.4" d="M 400,110 C 420,180 448,260 470,330 C 490,392 520,450 560,500"/>
+    <!-- 易水:幽州西南水道 -->
+    <path class="river" stroke-width="2.6" d="M 60,430 C 130,438 200,448 262,466"/>
+    <text class="rname" x="470" y="300" transform="rotate(70 470 300)" style="font-size:11px">濡 水</text>
+    <text class="rname" x="120" y="428" style="font-size:11px">易 水</text>
+
+    <!-- 燕山·卢龙塞:三峰 出塞险道 -->
+    <g class="mtn"><path d="M 340,352 l 12,-20 l 12,20 M 366,344 l 13,-22 l 13,22 M 396,352 l 12,-20 l 12,20"/></g>
+    <text class="cname s" x="336" y="378">燕山·卢龙塞</text>
+    <!-- 塞外群山 -->
+    <g class="mtn"><path d="M 620,232 l 9,-15 l 9,15 M 642,226 l 9,-15 l 9,15"/></g>
+
+    <!-- 城邑 (SW→NE) -->
+    <g id="cities">
+      <g class="city cap" data-city="ji"><circle cx="150" cy="480" r="6"/><text class="cname" x="94" y="476">蓟<tspan class="cname s" dx="2">(幽州治)</tspan></text></g>
+      <g class="city" data-city="wuzhong"><circle cx="288" cy="440" r="5"/><text class="cname" x="252" y="462">无终</text></g>
+      <g class="city" data-city="lulong"><circle cx="410" cy="360" r="4.5"/><text class="cname s" x="418" y="356">卢龙塞</text></g>
+      <g class="city" data-city="bailang"><circle cx="600" cy="272" r="5.5"/><text class="cname" x="612" y="268">白狼山<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="liucheng"><circle cx="762" cy="182" r="6"/><text class="cname" x="716" y="176">柳城<tspan class="cname s" dx="2">(乌桓王庭)</tspan></text></g>
+      <g class="city" data-city="liaodong"><circle cx="884" cy="128" r="5"/><text class="cname" x="838" y="122">辽东</text></g>
+    </g>
+
+    <!-- 全图 · 北征乌桓 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 156,474 C 210,462 250,454 282,446"/>
+      <text class="mlabel j" x="120" y="504">曹操自蓟发,以田畴为乡导</text>
+      <path class="march j" marker-end="url(#aj)" d="M 294,436 C 380,400 500,320 592,278"/>
+      <text class="mlabel j" x="360" y="330">纳郭嘉策,轻兵远袭,直捣柳城</text>
+      <rect class="camp" x="756" y="176" width="9" height="9" transform="rotate(45 760 180)"/>
+      <text class="mlabel q" x="620" y="150">袁尚、袁熙奔蹋顿,数入塞为寇</text>
+      <text class="anno" x="470" y="230">时方夏秋,滨海道潦不通</text>
+    </g>
+
+    <!-- 阶段一:卢龙间道 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 294,436 C 330,410 372,384 404,366"/>
+      <text class="mlabel j" x="252" y="418">自无终出卢龙塞</text>
+      <path class="march j" marker-end="url(#aj)" d="M 416,354 C 470,318 540,290 594,276"/>
+      <text class="mlabel j" x="420" y="336">堑山堙谷五百里</text>
+      <text class="anno" x="440" y="392">傍白檀、历平冈,凿险傍绝而进</text>
+      <text class="anno" x="470" y="252">出敌不意,虏不虞其至</text>
+    </g>
+
+    <!-- 阶段二:白狼遇敌 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 470,320 C 520,300 560,286 590,276"/>
+      <text class="mlabel j" x="440" y="316">军次白狼山</text>
+      <path class="march q" marker-end="url(#aq)" d="M 750,190 C 700,214 650,246 612,268"/>
+      <text class="mlabel q" x="640" y="228">蹋顿及袁尚数万骑猝至</text>
+      <circle class="star" cx="600" cy="272" r="9"/>
+      <text class="anno" x="470" y="300">操军辎重在后,披甲者少,众心惧</text>
+      <text class="anno" x="470" y="316">操登高望虏阵不整,决意击之</text>
+    </g>
+
+    <!-- 阶段三:张辽斩蹋顿 -->
+    <g id="ph3" class="ph">
+      <path d="M 600,272 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 560,290 C 578,284 592,278 596,274"/>
+      <text class="mlabel j" x="470" y="300">操假张辽麾,辽为前锋先登陷阵</text>
+      <text class="anno" x="470" y="316">阵斩蹋顿及名王以下,胡汉降者二十余万</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 620,262 C 700,222 800,168 872,132"/>
+      <text class="mlabel r" x="700" y="200">袁尚、袁熙走辽东</text>
+      <text class="anno" x="800" y="150">公孙康斩之,函首送操,北边遂定</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>乌桓·袁氏</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>乌桓·袁氏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《张辽传》《郭嘉传》《田畴传》约略绘出。疆界、水道经简化;塞外辽西乌桓与曹操幽州之界以点划"约界"标之,非实有画界。</p>
+    <p><span class="n">注二</span>白狼山在今辽宁喀左,柳城在今辽宁朝阳。卢龙塞为出塞险道,今喜峰口一带;濡水即今滦河,易水在今河北易县。</p>
+    <p><span class="n">注三</span>堑山堙谷、轻兵远袭,乃奇险之胜。操归途艰苦,几乏水粮,凿地三十余丈方得水;既还,乃厚赏前谏止征者,曰"孤前行乘危以徼幸,虽得之,天所佐也"。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"北征乌桓",d:"汉建安十二年(207)",p:["官渡既败,袁尚、袁熙北奔辽西乌桓,依大人蹋顿。蹋顿骁武,数入塞为寇,杀略吏民,幽、冀不宁。曹操欲北征以绝后患,诸将多虑刘表袭许,独郭嘉料表必不能用刘备,劝操兼弱攻昧,轻兵远袭,直捣柳城。","操自蓟北进,以右北平田畴为乡导。时方夏秋,霖雨积潦,滨海道不通,乃回军别取间道,凿险傍绝,出敌不意——一举而虏其王庭。"]},
+  "1":{t:"卢龙间道",d:"建安十二年 秋七月",p:["滨海道潦水弥漫,车骑不通,操几欲还师。田畴进言:旧北平郡治在平冈,道出卢龙,达于柳城;自建武以来陷坏断绝二百载,然有微径可寻。","操乃令堑山堙谷五百里,自无终出卢龙塞,傍白檀、历平冈,凿险傍绝而进。堑山填谷,昼夜兼行,虏不虞王师之至,竟未设备。"]},
+  "2":{t:"白狼遇敌",d:"建安十二年 八月",p:["军次白狼山,去柳城二百余里,卒与蹋顿及袁尚、袁熙数万骑相遇。操军轻装疾进,辎重在后,被甲者少,左右皆惧。","操登高望之,见虏众虽盛而阵势不整,乃知可击。众心方摇,操意已决——纵兵急击,不容其成列。"]},
+  "3":{t:"张辽斩蹋顿",d:"建安十二年 八月",p:["操假张辽以己之麾旌,辽劝乘其未整急击,气甚奋厉。张辽为前锋先登陷阵,大破之,阵斩蹋顿及名王以下,胡、汉降者二十余万口。","袁尚、袁熙率数千骑走辽东,依公孙康。康素惮袁氏,又幸操不来,乃斩尚、熙,函其首送于操。北边遂定,三郡乌桓由是衰息。"]}
+};
+const CITY={
+  ji:{t:"蓟",d:"幽州治,今北京西南",p:["曹操北征乌桓的发兵地。大军自此出,循无终东趋卢龙塞。"]},
+  wuzhong:{t:"无终",d:"今天津蓟州",p:["滨海道潦不通,操驻此进退维谷;田畴议轻兵出卢龙间道,遂由此弃大道而入险。"]},
+  lulong:{t:"卢龙塞",d:"今河北喜峰口一带",p:["燕山出塞险道,汉末陷坏断绝二百载。操堑山堙谷五百里,傍白檀、历平冈,凿险而出。"]},
+  bailang:{t:"白狼山",d:"今辽宁喀左",p:["决战之地。操军卒与蹋顿数万骑遇,登高见虏阵不整,纵兵急击;张辽先登陷阵,阵斩蹋顿。"]},
+  liucheng:{t:"柳城",d:"乌桓王庭,今辽宁朝阳",p:["三郡乌桓蹋顿之王庭,袁尚、袁熙所依。操北征之所指;白狼既破,王庭遂溃。"]},
+  liaodong:{t:"辽东",d:"公孙康所据,今辽宁辽阳",p:["蹋顿败死,袁尚、袁熙北奔于此。公孙康斩之,函首送操,不劳而定辽东。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

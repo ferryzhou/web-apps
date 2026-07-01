@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卤城·木门之战 · 建兴九年(231)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>木</span><span>门</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>卤城·木门之战</h1>
+    <div class="sub">蜀汉建兴九年·魏太和五年(231)　　<i>蜀汉 诸葛亮</i> 卤城破 <b>司马懿</b> · 射杀张郃</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 四出祁山</button>
+    <button data-p="1">上邽芟麦</button>
+    <button data-p="2">卤城破懿</button>
+    <button data-p="3">木门殪郃</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="卤城木门之战形势图,含蜀汉曹魏疆界、渭水陇山与祁山上邽卤城木门等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:曹魏据关中陇东(东),蜀汉据汉中祁山(西南),约以陇山为界 -->
+    <path d="M 470,0 C 480,110 500,190 540,270 C 580,350 630,410 660,500 C 680,560 690,600 700,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 480,110 500,190 540,270 C 580,350 630,410 660,500 C 680,560 690,600 700,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 480,110 500,190 540,270 C 580,350 630,410 660,500 C 680,560 690,600 700,640"/>
+    <text class="realm q" x="760" y="150" font-size="32">曹 魏(关中·陇东)</text>
+    <text class="realm j" x="70" y="540" font-size="30">蜀 汉(汉中·祁山)</text>
+
+    <!-- 渭水:自西而东,横贯陇右 -->
+    <path class="river" stroke-width="5" d="M 150,220 C 260,232 360,244 460,250 C 560,256 680,260 800,264 C 880,266 940,268 1000,270"/>
+    <!-- 藉水/小水:自西南汇入渭水 -->
+    <path class="river" stroke-width="2.4" d="M 250,410 C 300,360 350,320 420,296 C 460,282 500,270 540,258"/>
+    <text class="rname" x="700" y="252">渭 水</text>
+
+    <!-- 陇山:魏蜀天然之界(东) -->
+    <g class="mtn"><path d="M 636,300 l 9,-14 l 9,14 M 654,294 l 9,-14 l 9,14 M 672,300 l 8,-13 l 8,13"/></g>
+    <text class="cname s" x="636" y="322">陇山</text>
+    <!-- 祁山:亮所围(西南) -->
+    <g class="mtn"><path d="M 150,470 l 9,-14 l 9,14 M 168,464 l 9,-14 l 9,14 M 186,470 l 8,-13 l 8,13"/></g>
+    <text class="cname s" x="150" y="492">祁山险阻</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="qishan"><circle cx="200" cy="440" r="6"/><text class="cname" x="212" y="436">祁山<tspan class="cname s" dx="2">(亮四出所围)</tspan></text></g>
+      <g class="city cap" data-city="lucheng"><circle cx="360" cy="366" r="6"/><text class="cname" x="372" y="362">卤城<tspan class="cname s" dx="2">(破懿处)</tspan></text></g>
+      <g class="city" data-city="shanggui"><circle cx="440" cy="290" r="5.5"/><text class="cname" x="452" y="286">上邽<tspan class="cname s" dx="2">(懿屯·芟麦)</tspan></text></g>
+      <g class="city" data-city="mumen"><circle cx="286" cy="464" r="5"/><text class="cname" x="200" y="486">木门道</text></g>
+      <g class="city" data-city="tianshui"><circle cx="470" cy="380" r="4"/><text class="cname s" x="482" y="384">天水(冀)</text></g>
+      <g class="city" data-city="hanzhong"><circle cx="330" cy="600" r="5.5"/><text class="cname" x="342" y="604">汉中<tspan class="cname s" dx="2">(蜀后方)</tspan></text></g>
+      <g class="city" data-city="changan"><circle cx="870" cy="330" r="6"/><text class="cname" x="812" y="326">长安<tspan class="cname s" dx="2">(魏)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 四出祁山 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 330,588 C 300,540 250,500 208,452"/>
+      <text class="mlabel j" x="150" y="560">亮四出祁山,以木牛运粮</text>
+      <path class="march q" marker-end="url(#aq)" d="M 858,336 C 700,320 580,306 452,294"/>
+      <text class="mlabel q" x="640" y="316">司马懿都督雍凉,西赴拒亮</text>
+      <text class="anno" x="500" y="342">懿敛军依险,不肯轻战</text>
+      <text class="anno" x="150" y="416">木牛运粮,转饷祁山</text>
+    </g>
+
+    <!-- 阶段一:上邽芟麦 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 214,436 C 290,404 360,354 430,300"/>
+      <text class="mlabel j" x="248" y="366">亮分兵就上邽芟魏之麦</text>
+      <rect class="camp" x="436" y="278" width="9" height="9" transform="rotate(45 440 282)"/>
+      <text class="mlabel q" x="452" y="270">懿引兵救之,循险不战</text>
+      <path class="march j rout" marker-end="url(#aj)" d="M 430,296 C 400,320 380,340 366,360"/>
+      <text class="mlabel j" x="300" y="326">亮引军还卤城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 448,296 C 420,326 396,346 372,362"/>
+      <text class="anno" x="392" y="404">懿蹑亮之后,登山掘营,不肯交锋</text>
+    </g>
+
+    <!-- 阶段二:卤城破懿 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="426" y="316" width="10" height="10" transform="rotate(45 431 321)"/>
+      <text class="mlabel q" x="410" y="308">懿为诸将所激,使张郃攻南围</text>
+      <path class="march q" marker-end="url(#aq)" d="M 426,324 C 400,342 384,352 372,362"/>
+      <text class="anno" x="330" y="392">郃攻南围王平,懿自将中军攻亮</text>
+      <path class="march j" marker-end="url(#aj)" d="M 366,360 C 388,346 404,336 418,326"/>
+      <circle class="star" cx="392" cy="344" r="8"/>
+      <text class="mlabel j" x="180" y="352">亮遣魏延、高翔、吴班逆战,大破之</text>
+      <text class="anno" x="180" y="370">获甲首三千级、玄铠五千、角弩三千一百张</text>
+    </g>
+
+    <!-- 阶段三:木门殪郃 -->
+    <g id="ph3" class="ph">
+      <path class="march rout" marker-end="url(#ar)" d="M 352,372 C 330,410 310,440 292,458"/>
+      <text class="mlabel r" x="300" y="428">李严诡报粮尽,亮乃退军</text>
+      <path class="march q" marker-end="url(#aq)" d="M 420,330 C 380,390 330,440 300,462"/>
+      <text class="mlabel q" x="380" y="450">懿使张郃追之</text>
+      <path d="M 286,464 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="120" y="452">蜀军乘高布伏,弓弩乱发</text>
+      <text class="anno" x="120" y="510">道狭,飞矢中郃右膝,张郃中弩而死</text>
+      <text class="anno" x="120" y="528">魏失名将,亮以粮尽全师而还</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蜀汉军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>曹魏军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>蜀军退军</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>曹魏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蜀汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·诸葛亮传》《张郃传》、《晋书·宣帝纪》、《汉晋春秋》、《资治通鉴》卷七二约略绘出。疆界、水道经简化,陇山、渭水诸形皆取其大势,非实测画界。</p>
+    <p><span class="n">注二</span>卤城在今甘肃天水南,木门在其西南;上邽即今天水,祁山在西汉水上游、今甘肃礼县东。渭水自西而东,横贯陇右,故图以渭水为纲。</p>
+    <p><span class="n">注三</span>此役蜀军野战破魏、射杀张郃,而以李严误报粮尽退军,功败垂成。“甲首三千”见《汉晋春秋》,《晋书·宣帝纪》所记与之互异,谓懿破亮、亮宵遁——两说抵牾,姑并存之以待考。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"四出祁山",d:"蜀汉建兴九年·魏太和五年(231)",p:["诸葛亮四出祁山,以木牛运粮,转饷不绝,规取陇右。时曹真病笃,魏明帝乃诏司马懿西镇长安,都督雍、凉诸军以拒亮。","懿引张郃、费曜、戴陵、郭淮等赴敌,而敛军依险,不肯轻战。诸将屡以为怯,懿犹持重相持,蜀魏对垒于陇上。"]},
+  "1":{t:"上邽芟麦",d:"建兴九年·夏",p:["亮围祁山,乃分兵留攻,自将精锐就上邽,芟刈魏之麦以资军食。郭淮、费曜逆战不利,亮遂大芟其麦。","司马懿引兵还救,循山掘营,敛众依险,终不肯战。亮引军而还,懿蹑亮之后,登山列营,坚壁不出;贾栩、魏平数请战,懿不许,军中皆以“畏蜀如虎”讥之。"]},
+  "2":{t:"卤城破懿",d:"建兴九年·五月",p:["懿为诸将所激,乃分军:使张郃攻南围王平,自将中军当亮。亮料其必战,遣魏延、高翔、吴班分道逆击。","魏军大败,汉军乘胜掩杀,获甲首三千级、玄铠五千领、角弩三千一百张。懿敛军还保营垒,不复出战——一战而陇上震动,魏师夺气。"]},
+  "3":{t:"木门殪郃",d:"建兴九年·六月",p:["会成都留府李严诡报军粮不继,矫诏召亮还;亮不得已,乃引军退。司马懿使张郃追蹑之。","郃追至木门,道险而狭,蜀军乘高布伏,弓弩乱发,飞矢中郃右膝,郃遂死于木门道中。魏失一时名将,而亮以粮尽,全师而还——虽野战获捷,竟无尺寸之土。"]}
+};
+const CITY={
+  qishan:{t:"祁山",d:"今甘肃礼县东,西汉水上游",p:["诸葛亮北伐屡出之要冲,此为“四出祁山”。亮围其城,以为进取陇右之基。"]},
+  lucheng:{t:"卤城",d:"今甘肃天水南",p:["亮引军所还、与懿相持之地。懿使张郃攻南围,自将攻亮;亮遣魏延等逆战,大破之于此。"]},
+  shanggui:{t:"上邽",d:"今甘肃天水",p:["司马懿屯兵之处，亦魏麦所在。亮分兵就此芟刈其麦以资军，郭淮、费曜逆战不利。"]},
+  mumen:{t:"木门道",d:"卤城西南之险道",p:["蜀军退军所经险隘。张郃追至此，道狭，蜀军乘高布伏，飞矢中郃右膝，郃中弩而死。"]},
+  tianshui:{t:"天水(冀县)",d:"今甘肃甘谷东",p:["陇右重郡,魏之屏障。亮北伐每以陇右为图,天水首当其冲。"]},
+  hanzhong:{t:"汉中",d:"今陕西汉中,蜀之后方",p:["诸葛亮出师之根本,粮械所资。李严督运军粮于此,后诡报粮尽,亮乃退军。"]},
+  changan:{t:"长安",d:"今陕西西安,魏之西京",p:["曹魏关中重镇。曹真病，明帝诏司马懿自此西出，都督雍凉以拒亮。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

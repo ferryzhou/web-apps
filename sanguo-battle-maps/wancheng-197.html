@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宛城之战 · 建安二年(197)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>宛</span><span>城</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>宛城之战</h1>
+    <div class="sub">汉建安二年(197)　　<i>曹操</i> 败于 <b>张绣</b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 南征张绣</button>
+    <button data-p="1">绣降复叛</button>
+    <button data-p="2">夜袭中军</button>
+    <button data-p="3">典韦死殿</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宛城之战形势图,含张绣刘表荆州与曹操许都疆界、淯水白河及宛城舞阴襄阳等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:张绣、刘表据荆州(南),曹操据许都方向(北/东),约以南阳北界为限 -->
+    <path d="M 1000,232 C 850,220 700,236 560,270 C 420,304 300,326 0,318 L 0,640 L 1000,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 1000,232 C 850,220 700,236 560,270 C 420,304 300,326 0,318 L 0,0 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 1000,232 C 850,220 700,236 560,270 C 420,304 300,326 0,318"/>
+    <text class="realm q" x="120" y="470" font-size="30">张绣·刘表(荆州)</text>
+    <text class="realm j" x="640" y="120" font-size="32">曹 操(许都)</text>
+
+    <!-- 淯水(白河):自西北南下,经宛城,东南入汉 -->
+    <path class="river" stroke-width="4.5" d="M 400,150 C 430,220 452,290 470,352 C 486,410 504,470 540,540"/>
+    <!-- 育水支流 -->
+    <path class="river" stroke-width="2.2" d="M 560,300 C 528,330 500,352 470,352"/>
+    <!-- 汉水:荆州南界大川 -->
+    <path class="river" stroke-width="5" d="M 300,540 C 400,556 500,560 600,548 C 680,538 740,522 820,536"/>
+    <text class="rname" x="474" y="330" transform="rotate(72 474 330)">淯 水</text>
+    <text class="rname" x="430" y="360" style="font-size:10px">(白河)</text>
+    <text class="rname" x="640" y="540" style="font-size:13px">汉 水</text>
+
+    <!-- 伏牛山:南阳西北 -->
+    <g class="mtn"><path d="M 330,190 l 8,-13 l 8,13 M 346,184 l 8,-13 l 8,13 M 362,190 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="330" y="210">伏牛山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="wancheng"><circle cx="470" cy="352" r="6"/><text class="cname" x="482" y="348">宛城<tspan class="cname s" dx="2">(张绣据·南阳)</tspan></text></g>
+      <g class="city" data-city="wuyin"><circle cx="640" cy="248" r="5"/><text class="cname" x="652" y="244">舞阴<tspan class="cname s" dx="2">(操退保)</tspan></text></g>
+      <g class="city" data-city="yushui"><circle cx="470" cy="352" r="0"/><text class="cname s" x="392" y="372">淯水·白河</text></g>
+      <g class="city" data-city="yuyang"><circle cx="524" cy="410" r="3.5"/><text class="cname s" x="534" y="414">育阳</text></g>
+      <g class="city" data-city="rang"><circle cx="332" cy="440" r="4"/><text class="cname s" x="270" y="444">穰</text></g>
+      <g class="city" data-city="xu"><circle cx="820" cy="150" r="6"/><text class="cname" x="760" y="146">许<tspan class="cname s" dx="2">(操自此来)</tspan></text></g>
+      <g class="city" data-city="xiangyang"><circle cx="520" cy="562" r="5"/><text class="cname" x="470" y="586">襄阳<tspan class="cname s" dx="2">(刘表)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 南征张绣 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 812,158 C 720,200 600,264 500,332"/>
+      <text class="mlabel j" x="600" y="228">曹操自许南征,军于宛城</text>
+      <rect class="camp" x="466" y="336" width="8" height="8" transform="rotate(45 470 340)"/>
+      <text class="anno" x="392" y="300">张绣举众降,操纳张济之妻、赂胡车儿</text>
+      <text class="mlabel q" x="150" y="500">绣怨而复叛,用贾诩计,阴谋夜袭</text>
+      <text class="anno" x="470" y="600">刘表据荆州,为绣声援</text>
+    </g>
+
+    <!-- 阶段一:绣降复叛 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="466" y="336" width="9" height="9" transform="rotate(45 470 340)"/>
+      <text class="mlabel q" x="486" y="322">张绣据宛降操</text>
+      <path class="march q" marker-end="url(#aq)" d="M 452,362 C 428,378 408,392 392,404"/>
+      <text class="mlabel q" x="300" y="420">绣徙军就高道,请以辎重过操营</text>
+      <text class="anno" x="330" y="392">操私纳张济之妻,又欲收胡车儿,绣不自安</text>
+      <text class="anno" x="360" y="330">用贾诩计,潜勒兵为备</text>
+    </g>
+
+    <!-- 阶段二:夜袭中军 -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 400,406 C 424,388 444,372 460,360"/>
+      <text class="mlabel q" x="300" y="428">绣众夜突操营</text>
+      <circle class="star" cx="470" cy="352" r="9"/>
+      <text class="anno" x="380" y="322">操仓卒失备,军中大乱,操中流矢</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 480,344 C 540,300 590,272 628,254"/>
+      <text class="mlabel r" x="520" y="300">操乘曹昂之马溃围</text>
+      <text class="anno" x="470" y="332">骏马"绝影"被创不能骋,昂以己马授操</text>
+    </g>
+
+    <!-- 阶段三:典韦死殿 -->
+    <g id="ph3" class="ph">
+      <path d="M 470,352 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="360" y="336">典韦守辕门,力战死殿</text>
+      <text class="anno" x="330" y="378">一叉十余矛俱摧,身被重创,瞋目大骂而死</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 486,342 C 550,300 596,272 632,252"/>
+      <text class="mlabel r" x="540" y="298">操退保舞阴,收合散卒</text>
+      <text class="anno" x="470" y="322">昂、安民俱没于阵;军复振</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>张绣军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>曹操夜遁</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>夜袭中军</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>张绣·刘表</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《张绣传》《典韦传》《贾诩传》约略绘出。宛城即今河南南阳,舞阴今河南泌阳西北,穰今河南邓州,育阳今河南新野北,许今河南许昌东,襄阳今湖北襄阳。疆界、水道经简化。</p>
+    <p><span class="n">注二</span>宛城即今河南南阳,淯水即今白河,自西北南下经城旁,东南注于汉水。晕染疆界为建安初南阳形势示意:张绣屯宛、刘表据荆州为其援,曹操自许南下;以点划"约界"标之,非实有画界。</p>
+    <p><span class="n">注三</span>此为曹操生平大挫,典韦、曹昂、曹安民俱死;操后每追念,叹曰"吾失典韦而不哭,独哭昂与韦耳"。本图从曹操(青)而其败衄,溃退用褐,不以胜负易主角。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"南征张绣",d:"汉建安二年(197)正月",p:["曹操南征张绣,军于宛城。绣举众降,操受之,置酒高会。既而操纳绣从叔张济之妻,绣闻而恨之;操又闻绣骁将胡车儿之勇,赂以金,绣益疑惧,以为图己。","绣阴怀怨望,用谋士贾诩之计,徙军就高道、请以辎重过操营,潜为之备。刘表据荆州,为绣之声援;宛城一隅,遂伏杀机。"]},
+  "1":{t:"绣降复叛",d:"建安二年正月",p:["操军宛城,张绣举众而降。既而操私纳张济之妻,绣恨之;操又欲阴收胡车儿,绣觉而不自安,乃与贾诩谋叛。","诩为之画计:请徙军就高道,以辎重车重多、须从操营中过,操许之。绣因是得潜勒兵甲,阳言过营,实为夜袭之备——降者一夕而成劲敌。"]},
+  "2":{t:"夜袭中军",d:"建安二年正月",p:["绣众夜突操营,操仓卒失备,军中大乱。操中流矢,所乘骏马“绝影”被创,不能驰骋,危甚。","长子曹昂以己马授操,操乘之乃得溃围而出;昂徒行,遂殁于阵。侄安民亦死。一夕之变,操几不免。"]},
+  "3":{t:"典韦死殿",d:"建安二年正月",p:["校尉典韦守辕门,以长戟左右奋击,一叉而十余矛俱摧;绣兵前后至者益众,韦身被数十创,短兵接战,犹瞋目大骂而死,贼不敢近其尸而后取之。","操赖韦、昂死殿,得脱走。退保舞阴,收合散卒,军复振。昂、安民俱没,操哀之;后每祭韦,辄流涕曰:“吾失典韦而不哭,独哭昂与韦耳。”"]}
+};
+const CITY={
+  wancheng:{t:"宛城",d:"张绣据,南阳郡治,今河南南阳",p:["张绣屯据之地。绣先降操,复用贾诩计夜袭之,操大败于此,长子昂、侄安民及典韦皆死。"]},
+  wuyin:{t:"舞阴",d:"今河南泌阳西北",p:["操夜溃后退保之处。收合散卒,军势复振,与绣相持;绣退,操引军还许。"]},
+  yushui:{t:"淯水(白河)",d:"经宛城旁,今白河",p:["自西北南下,绕宛城而过,东南注汉水。操军营垒依水而列,夜袭即起于此。"]},
+  xu:{t:"许",d:"今河南许昌东,操之都",p:["建安元年操迎汉献帝都许。此役操自许南下征绣,败后亦还于许。"]},
+  yuyang:{t:"育阳",d:"今河南新野北",p:["宛城东南、淯水之滨小邑。当操南下与还师之途,处宛、襄之间。"]},
+  rang:{t:"穰",d:"今河南邓州",p:["南阳西南要邑。张绣、刘表连兵所据,后操再征绣屡战于其间。"]},
+  xiangyang:{t:"襄阳",d:"刘表治,今湖北襄阳",p:["荆州牧刘表镇此。表与张绣为掎角,为绣之声援;操北还,表、绣合兵尝议追之。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
