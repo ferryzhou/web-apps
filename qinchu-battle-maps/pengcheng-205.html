@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>彭城之战 · 汉二年(前205)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回秦楚之际征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>彭</span><span>城</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>彭城之战</h1>
+    <div class="sub">汉二年(前205)　　<b>楚 项羽</b>(三万) 大破 <i>汉 刘邦</i>(五十六万)</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 汉袭彭城</button>
+    <button data-p="1">汉入彭城</button>
+    <button data-p="2">睢水大溃</button>
+    <button data-p="3">大风脱围</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="彭城之战形势图,含楚汉诸侯疆界、睢水泗水谷水与彭城萧灵璧下邑荥阳等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:楚据东南(彭城为都),汉·诸侯据西北,约以泗水淮北一线为界 -->
+    <path d="M 560,0 C 540,90 560,180 590,260 C 620,340 660,420 690,500 C 710,560 720,600 730,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 560,0 C 540,90 560,180 590,260 C 620,340 660,420 690,500 C 710,560 720,600 730,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 560,0 C 540,90 560,180 590,260 C 620,340 660,420 690,500 C 710,560 720,600 730,640"/>
+    <text class="realm q" x="800" y="130" font-size="32">楚(东·南)</text>
+    <text class="realm j" x="90" y="140" font-size="30">汉·诸侯(西·北)</text>
+
+    <!-- 泗水:自西北南下经彭城 -->
+    <path class="river" stroke-width="4.5" d="M 470,70 C 500,150 540,230 570,300 C 600,368 620,430 636,520"/>
+    <!-- 睢水:自彭城西南分流,汉军溺死处 -->
+    <path class="river" stroke-width="3.4" d="M 566,296 C 540,340 500,378 452,410 C 400,444 340,468 288,500"/>
+    <!-- 谷水:彭城之北,汉卒争入处 -->
+    <path class="river" stroke-width="2.4" d="M 600,150 C 570,190 548,230 552,272"/>
+    <text class="rname" x="600" y="440" transform="rotate(72 600 440)">泗 水</text>
+    <text class="rname" x="430" y="440" transform="rotate(-28 430 440)">睢 水</text>
+    <text class="rname" x="560" y="200" transform="rotate(58 560 200)" style="font-size:10.5px">谷 水</text>
+
+    <!-- 芒砀山:彭城西北 -->
+    <g class="mtn"><path d="M 300,220 l 8,-13 l 8,13 M 316,214 l 8,-13 l 8,13 M 332,220 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="298" y="240">芒砀山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="pengcheng"><circle cx="566" cy="296" r="6.5"/><text class="cname" x="580" y="292">彭城<tspan class="cname s" dx="2">(楚都·汉袭据)</tspan></text></g>
+      <g class="city" data-city="suishui"><circle cx="452" cy="410" r="4"/><text class="cname s" x="416" y="430">睢水(溺死处)</text></g>
+      <g class="city" data-city="xiao"><circle cx="452" cy="288" r="4.5"/><text class="cname" x="396" y="284">萧</text></g>
+      <g class="city" data-city="lingbi"><circle cx="640" cy="380" r="4"/><text class="cname s" x="652" y="384">灵璧(被围)</text></g>
+      <g class="city" data-city="xiayi"><circle cx="392" cy="352" r="4"/><text class="cname s" x="326" y="356">下邑(收兵)</text></g>
+      <g class="city" data-city="xingyang"><circle cx="120" cy="330" r="5.5"/><text class="cname" x="132" y="326">荥阳<tspan class="cname s" dx="2">(西退据守)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 汉袭彭城 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 128,336 C 260,360 400,360 500,320 C 530,308 548,302 556,298"/>
+      <text class="mlabel j" x="240" y="352">汉王合五诸侯兵五十六万东伐楚,入彭城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 800,120 C 720,150 640,210 590,270"/>
+      <text class="mlabel q" x="700" y="176">项羽方北击齐(田荣)</text>
+      <text class="anno" x="600" y="250">自将精骑三万,间道南还赴救</text>
+    </g>
+
+    <!-- 阶段一:汉入彭城 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="562" y="292" width="9" height="9" transform="rotate(45 566 296)"/>
+      <text class="mlabel j" x="580" y="316">汉王入城,收货宝美人,日置酒高会</text>
+      <text class="anno" x="500" y="336">军无斗志,部伍不整</text>
+      <path class="march q" marker-end="url(#aq)" d="M 452,282 C 490,278 528,282 556,290"/>
+      <text class="mlabel q" x="380" y="262">项羽以精兵三万,晨自萧县西薄汉军</text>
+      <text class="anno" x="386" y="304">间道南下,留诸将击齐</text>
+    </g>
+
+    <!-- 阶段二:睢水大溃 -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 458,286 C 500,290 536,294 558,296"/>
+      <text class="mlabel q" x="400" y="272">项羽晨击汉军而东,日中大破之</text>
+      <circle class="star" cx="566" cy="296" r="9"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 560,302 C 520,340 470,376 430,398"/>
+      <text class="mlabel r" x="440" y="424">汉军却入睢水,睢水为之不流</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 572,290 C 580,240 588,200 596,166"/>
+      <text class="mlabel r" x="600" y="220">争入谷·泗水,死者十余万</text>
+      <circle class="siege" cx="566" cy="296" r="18"/>
+      <text class="anno" x="590" y="330">楚骑围汉王三匝</text>
+    </g>
+
+    <!-- 阶段三:大风脱围 -->
+    <g id="ph3" class="ph">
+      <path class="mtn" stroke="var(--ret)" stroke-width="1.6" d="M 660,150 C 630,190 600,240 580,286" marker-end="url(#ar)"/>
+      <text class="mlabel r" x="600" y="150">大风从西北起,折木发屋,昼晦,楚军大乱</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 558,298 C 460,320 320,320 200,332"/>
+      <text class="mlabel r" x="300" y="308">汉王与数十骑遁去</text>
+      <text class="anno" x="330" y="372">道逢孝惠·鲁元,楚追急,推堕者三,赖夏侯婴收载得脱</text>
+      <path d="M 120,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="132" y="360">西收兵军荥阳,楚汉相持之局始成</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(诸侯)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚军(项羽)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军大溃</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉·诸侯</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·项羽本纪》《高祖本纪》及《资治通鉴》卷九约略绘出。彭城即今江苏徐州,萧县在其西,睢水经灵璧东南下,下邑今安徽砀山,荥阳在今河南荥阳东北。疆界、水道经简化,以点划"约界"标之,非实有画界。</p>
+    <p><span class="n">注二</span>彭城,楚都也,汉乘项羽北伐田荣之虚而袭据之;睢水自彭城西南分流,东经灵璧而下,即汉军溺死为之不流处。萧县乃项羽晨击汉军所自出。</p>
+    <p><span class="n">注三</span>项羽以三万破五十六万,古今以少胜多之极也。然不追穷寇,纵汉王遁去,楚汉遂成相持之局。本图从汉(青),而汉军之大溃、溃退皆用褐,以志睢水之惨。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"汉袭彭城",d:"汉二年(前205)三月 — 四月",p:["项羽方北击齐,以田荣叛楚,自将兵北伐,连战城阳,兵久留而未下。汉王刘邦乘其虚,合塞、翟、魏、殷及常山等五诸侯之兵,凡五十六万,东伐楚。","三月,汉军长驱而东,直入楚都彭城。项羽闻之,乃留诸将击齐,自以精兵三万,间道南还赴救——五十六万之众与三万之骑,遂相值于彭城之下。"]},
+  "1":{t:"汉入彭城",d:"汉二年三月",p:["汉王既入彭城,收其货宝美人,日置酒高会,恃众而骄,军无斗志,部伍不整——五十六万之师,徒拥其数而已。","项羽留诸将击齐,自以精兵三万,间道南下,晨自萧县之西薄汉军而东。楚以哀愤之锐师,乘汉之骄堕;胜负之势,已判于未战之先。"]},
+  "2":{t:"睢水大溃",d:"汉二年三月·日中",p:["项羽晨击汉军而东,至彭城,日中大破之。汉卒骇溃,争走相蹂,相随入谷、泗水,死者十余万人;楚追至灵璧东,汉军却入睢水,士卒溺死者又十余万,睢水为之不流。","楚骑纵横,围汉王三匝。以三万之骑,裂五十六万之众如摧枯朽——古今以少胜多,未有酷于此者。"]},
+  "3":{t:"大风脱围",d:"汉二年三月",p:["方汉王危急,会大风从西北起,折木发屋、扬沙石,白昼晦冥,楚军大乱、分披。汉王乃得与数十骑遁去,天意若为之开一线也。","道逢孝惠、鲁元,载之以行;楚骑追急,汉王急,推堕二子于车者三,赖夏侯婴每收而载之,得脱。诸侯见汉败,皆背汉复与楚;汉王西收散兵,军于荥阳,楚汉相持之局始成。"]}
+};
+const CITY={
+  pengcheng:{t:"彭城",d:"楚都,今江苏徐州",p:["项羽之都。汉乘其北伐田荣之虚而袭据,日置酒高会;项羽自将三万南还,日中而复破汉,汉王仅以身免。"]},
+  suishui:{t:"睢水",d:"汉军溺死处,经灵璧",p:["汉军为楚所逼,却入睢水,士卒溺死十余万,睢水为之不流——彭城之惨,尽在此水。"]},
+  xiao:{t:"萧",d:"萧县,彭城之西",p:["项羽晨击汉军所自出。以三万精骑,自萧西薄汉军而东,日中至彭城,大破之。"]},
+  lingbi:{t:"灵璧",d:"睢水东,汉军被围处",p:["楚追汉军至灵璧东,逼之睢水而围。汉军丧师十余万于此,睢水不流。"]},
+  xiayi:{t:"下邑",d:"今安徽砀山,刘邦收兵处",p:["汉王脱围西走,尝至下邑收兵。张良为陈「下邑之谋」,劝结黥布、彭越、韩信以图楚。"]},
+  xingyang:{t:"荥阳",d:"刘邦西退据守,今河南荥阳东北",p:["汉王西收散兵,军于荥阳,阻敖仓之粟,据成皋之险,楚汉相持之局自此始。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

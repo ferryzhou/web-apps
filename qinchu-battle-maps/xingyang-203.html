@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荥阳成皋对峙 · 鸿沟划界(前205–前203)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回秦楚之际征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>荥</span><span>成</span><span>相</span><span>持</span></div>
+  <header>
+    <h1>荥阳成皋对峙 · 鸿沟划界</h1>
+    <div class="sub">汉二年至四年(前205–前203)　　<i>汉 刘邦</i> 与 <b>楚 项羽</b> 相持荥成 · 鸿沟划界</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 荥成拉锯</button>
+    <button data-p="1">纪信诳楚</button>
+    <button data-p="2">迭据成皋</button>
+    <button data-p="3">鸿沟划界</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="荥阳成皋对峙形势图,含楚汉疆界、黄河鸿沟与荥阳成皋敖仓广武彭城等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:楚据东,汉据西,约以鸿沟为界 -->
+    <path d="M 520,0 C 526,90 516,170 512,250 C 508,330 516,410 522,490 C 526,560 520,600 516,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 520,0 C 526,90 516,170 512,250 C 508,330 516,410 522,490 C 526,560 520,600 516,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 520,0 C 526,90 516,170 512,250 C 508,330 516,410 522,490 C 526,560 520,600 516,640"/>
+    <text class="realm j" x="120" y="130" font-size="32">汉(关中·河内)</text>
+    <text class="realm q" x="700" y="150" font-size="34">楚(梁·彭城)</text>
+
+    <!-- 黄河:自西北经荥阳北东流 -->
+    <path class="river" stroke-width="5.5" d="M 40,150 C 150,180 260,200 360,214 C 440,226 520,236 600,238 C 720,240 860,236 1000,240"/>
+    <!-- 鸿沟(运河):自荥阳引河南下,分楚汉之界 -->
+    <path class="river" stroke-width="3" d="M 452,236 C 470,300 500,370 512,440 C 522,500 520,560 516,630"/>
+    <!-- 济水 -->
+    <path class="river" stroke-width="2.2" d="M 600,238 C 640,300 680,360 720,430"/>
+    <text class="rname" x="150" y="176" style="font-size:13px">黄 河</text>
+    <text class="rname" x="470" y="360" transform="rotate(80 470 360)" style="font-size:11px">鸿沟(运河)</text>
+    <text class="rname" x="648" y="330" transform="rotate(58 648 330)" style="font-size:10.5px">济水</text>
+
+    <!-- 广武山:两城隔涧对峙 -->
+    <g class="mtn"><path d="M 400,262 l 8,-13 l 8,13 M 416,256 l 8,-13 l 8,13 M 432,262 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="392" y="284">广武山·鸿沟涧</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="xingyang"><circle cx="452" cy="300" r="6"/><text class="cname" x="464" y="296">荥阳<tspan class="cname s" dx="2">(汉守)</tspan></text></g>
+      <g class="city" data-city="chenggao"><circle cx="392" cy="320" r="5.5"/><text class="cname" x="316" y="340">成皋<tspan class="cname s" dx="2">(迭据)</tspan></text></g>
+      <g class="city" data-city="aocang"><circle cx="474" cy="262" r="4"/><text class="cname s" x="486" y="258">敖仓(粮)</text></g>
+      <g class="city" data-city="guangwu"><circle cx="424" cy="266" r="4"/><text class="cname s" x="388" y="252">广武·鸿沟</text></g>
+      <g class="city" data-city="gongluoyang"><circle cx="270" cy="336" r="4.5"/><text class="cname s" x="200" y="332">巩·洛阳</text></g>
+      <g class="city cap" data-city="pengcheng"><circle cx="820" cy="420" r="6"/><text class="cname" x="832" y="416">彭城<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
+      <g class="city" data-city="xiuwu"><circle cx="470" cy="150" r="3.5"/><text class="cname s" x="480" y="146">修武(河内)</text></g>
+      <g class="city" data-city="liangdi"><circle cx="660" cy="330" r="3.5"/><text class="cname s" x="620" y="322">梁地·外黄</text></g>
+    </g>
+
+    <!-- 全图 · 荥成拉锯 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 260,336 C 300,326 340,318 386,318"/>
+      <text class="mlabel j" x="210" y="356">刘邦收兵守荥阳、成皋,恃敖仓之粟</text>
+      <path class="march q" marker-end="url(#aq)" d="M 806,414 C 700,388 580,340 468,306"/>
+      <text class="mlabel q" x="600" y="392">项羽自彭城引兵西向,急攻荥成</text>
+      <ellipse class="siege" cx="452" cy="300" rx="34" ry="26"/>
+      <path class="march j" marker-end="url(#aj)" d="M 468,158 C 490,200 500,240 486,262"/>
+      <text class="mlabel j" x="490" y="200">韩信北定魏赵齐,分楚势</text>
+      <path class="march j" marker-end="url(#aj)" d="M 636,330 C 600,318 560,310 480,300"/>
+      <text class="mlabel j" x="560" y="348">彭越挠楚粮道于梁地</text>
+    </g>
+
+    <!-- 阶段一:纪信诳楚 -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 700,400 C 620,372 540,336 470,306"/>
+      <ellipse class="siege" cx="452" cy="300" rx="40" ry="30"/>
+      <ellipse class="siege" cx="452" cy="300" rx="52" ry="40"/>
+      <text class="mlabel q" x="500" y="360">项羽围荥阳数重,绝汉甬道,食尽</text>
+      <rect class="camp" x="502" y="298" width="8" height="8" transform="rotate(45 506 302)"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 476,308 C 460,320 440,330 410,322"/>
+      <text class="mlabel r" x="410" y="340">纪信乘王驾诈降,诳楚代死</text>
+      <path class="march j" marker-end="url(#aj)" d="M 444,306 C 424,314 410,318 400,320"/>
+      <text class="mlabel j" x="330" y="308">刘邦从西门出走成皋</text>
+      <text class="anno" x="410" y="284">夜出妇女二千于东门以疑楚</text>
+    </g>
+
+    <!-- 阶段二:迭据成皋 -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 468,306 C 440,314 418,318 404,320"/>
+      <text class="mlabel q" x="420" y="336">楚复取荥阳、成皋</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 388,314 C 400,260 430,200 462,160"/>
+      <text class="mlabel r" x="404" y="220">刘邦北走修武,夺韩信军</text>
+      <rect class="camp" x="470" y="258" width="8" height="8" transform="rotate(45 474 262)"/>
+      <text class="anno" x="486" y="240">用郦食其守敖仓,深沟高垒勿战</text>
+      <path class="march j" marker-end="url(#aj)" d="M 636,326 C 660,300 680,270 690,240"/>
+      <text class="mlabel j" x="640" y="286">彭越渡睢,绝楚粮于梁</text>
+      <path class="march q" marker-end="url(#aq)" d="M 480,300 C 560,314 620,322 646,328"/>
+      <text class="mlabel q" x="520" y="380">项羽东西奔命,不得专攻</text>
+    </g>
+
+    <!-- 阶段三:鸿沟划界 -->
+    <g id="ph3" class="ph">
+      <path class="border" style="stroke:var(--gold);stroke-width:2.4;opacity:.9" d="M 452,236 C 470,300 500,370 512,440 C 522,500 520,560 516,630"/>
+      <text class="mlabel q" x="530" y="470">割鸿沟以东为楚</text>
+      <text class="mlabel j" x="360" y="470">鸿沟以西为汉</text>
+      <path class="march j" marker-end="url(#aj)" d="M 460,290 C 490,286 520,282 540,280"/>
+      <text class="anno" x="470" y="272">汉遣侯公说楚,约中分天下</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 470,306 C 560,344 680,388 800,414"/>
+      <text class="mlabel q" x="560" y="420">项羽引兵解而东归,归太公、吕后</text>
+      <path class="march j" marker-end="url(#aj)" d="M 490,314 C 580,352 690,394 796,424"/>
+      <text class="anno" x="600" y="452">张良、陈平劝汉乘敝追之,遂启垓下</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(刘邦)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚军(项羽)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>弃城·东归</span>
+    <span class="item"><svg width="30" height="16"><ellipse cx="15" cy="8" rx="12" ry="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>楚围荥阳</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·项羽本纪》《高祖本纪》《陈丞相世家》及《资治通鉴》卷九至十约略绘出。疆界、水道经简化,点划"约界"标鸿沟分野,非实有画界。</p>
+    <p><span class="n">注二</span>荥阳、成皋在今河南荥阳、汜水一带,敖仓临河为秦所积粟,汉恃之;广武二城隔鸿沟涧对峙,鸿沟为古运河,自荥阳引黄河水东南入淮泗。</p>
+    <p><span class="n">注三</span>「楚河汉界」之名本此,即今象棋界河所自。汉楚相持数岁,汉恃敖仓之粟与韩信、彭越之势,楚渐困而汉渐盛;鸿沟之约旋为汉所背,遂有垓下之围。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"荥成拉锯",d:"汉二年 — 四年(前205–前203)",p:["彭城败后,刘邦收散兵西守荥阳、成皋,筑甬道属河以取敖仓之粟,与项羽相持于荥、成之间。楚兵锐而汉据险,一进一退,凡数岁不决。","当此之际,韩信北举而定魏、赵、齐,彭越出没梁地、屡绝楚之粮道,楚势为之东西分。项羽虽屡挫汉军,而不能拔关西、专攻荥阳,拉锯之局遂成。"]},
+  "1":{t:"纪信诳楚",d:"汉三年(前204)",p:["项羽急攻荥阳,围之数重,又数绝汉甬道,城中食尽,危甚。汉王用陈平之计,夜出妇女二千人于东门,被甲以疑楚兵。","将军纪信乃乘王之车驾、张黄屋左纛,诈称汉王出降,楚皆呼万岁、聚观于城东。刘邦因得与数十骑从西门出,走保成皋。项羽既觉见诳,怒烧杀纪信。"]},
+  "2":{t:"迭据成皋",d:"汉三年至四年(前204–前203)",p:["刘邦数失荥阳、成皋,尝北渡河走修武,晨入韩信、张耳壁,夺其军以自益;又立郦食其之策,深沟高垒、坚壁勿与楚战,而遣兵守敖仓之粟。","同时使彭越渡睢水,数绝楚军粮于梁地、下睢阳外黄十七城。项羽腹背受挠,东击彭越、西拒汉王,东西奔命,不得专力于荥成,故荥、成迭为楚汉所据。"]},
+  "3":{t:"鸿沟划界",d:"汉四年(前203)",p:["久相持,楚兵疲、食益乏。项羽尝置太公、吕后于军中为质,欲要挟汉王,汉不为动。汉遣侯公往说项羽,乃约中分天下:割鸿沟以西者为汉、以东者为楚,归汉太公、吕后。","项羽既约,引兵解围而东归。张良、陈平进曰:汉有天下太半,而楚兵罢食尽,此天亡之时,不如因其敝而取之。刘邦从之,遂背约追楚,启垓下之役。"]}
+};
+const CITY={
+  xingyang:{t:"荥阳",d:"汉守,依敖仓,今河南荥阳",p:["楚汉相持之枢。刘邦据以拒楚,筑甬道取敖仓粟;项羽围之数重,纪信代死于此,刘邦得脱走成皋。"]},
+  chenggao:{t:"成皋",d:"汉楚迭据,今河南汜水一带",p:["西控巩、洛之险要。荥阳既失,刘邦退保成皋;成皋复失,则北走修武。荥、成两城数易其手。"]},
+  aocang:{t:"敖仓",d:"临河积粟,汉所恃",p:["秦时积粟之仓,临黄河南岸敖山。汉筑甬道属河以取其粟,郦食其言「据敖仓之粟」乃王业之本,汉赖以久持。"]},
+  guangwu:{t:"广武·鸿沟",d:"隔涧对语、划界处",p:["广武二城夹鸿沟涧而峙,楚汉各据其一,相守对语。汉四年中分天下之约,即以此鸿沟为界。"]},
+  gongluoyang:{t:"巩·洛阳",d:"汉后方,今河南巩义、洛阳",p:["荥、成之西屏障,通关中之孔道。汉据之则粮械可西输、败可西保,为刘邦持久之资。"]},
+  pengcheng:{t:"彭城",d:"楚都,今江苏徐州",p:["项羽都城。汉二年刘邦尝乘虚陷之,复为项羽以三万骑大破;此后项羽自此西向,与汉争荥、成。"]},
+  xiuwu:{t:"修武(河内)",d:"今河南获嘉一带",p:["黄河以北要地。刘邦尝夜渡河驰入韩信、张耳军壁,晨自称使者夺其军,复振以拒楚。"]},
+  liangdi:{t:"梁地·外黄",d:"今河南商丘、民权一带",p:["楚都彭城与荥成之间的粮运通道。彭越出没于此,数绝楚粮、下十七城,楚为之东西奔命。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

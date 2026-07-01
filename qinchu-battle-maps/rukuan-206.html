@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沛公入关 · 秦亡(前207–前206)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回秦楚之际征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>沛</span><span>公</span><span>入</span><span>关</span></div>
+  <header>
+    <h1>沛公入关 · 秦亡</h1>
+    <div class="sub">秦二世三年至汉元年(前207–前206)　　<i>沛公 刘邦</i> 先入关中 · <b>秦</b>亡</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 西略入关</button>
+    <button data-p="1">取宛入武关</button>
+    <button data-p="2">峣关 · 蓝田</button>
+    <button data-p="3">子婴降 · 约法三章</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="沛公刘邦西略入关灭秦形势图,含秦关中与楚汉疆界、黄河丹水武关道及砀宛武关峣关蓝田霸上咸阳函谷关等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:秦据关中(西),楚·汉据关东(东),约以函谷、武关一线为界 -->
+    <path d="M 460,0 C 470,90 480,150 470,230 C 462,300 440,360 440,430 C 440,520 460,580 470,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 460,0 C 470,90 480,150 470,230 C 462,300 440,360 440,430 C 440,520 460,580 470,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 460,0 C 470,90 480,150 470,230 C 462,300 440,360 440,430 C 440,520 460,580 470,640"/>
+    <text class="realm q" x="150" y="120" font-size="34">秦(关中)</text>
+    <text class="realm j" x="700" y="560" font-size="32">楚 · 汉(关东)</text>
+
+    <!-- 黄河:自西北经关中北缘东折而下 -->
+    <path class="river" stroke-width="5.5" d="M 150,120 C 220,150 300,168 360,168 C 430,168 470,150 500,120 C 528,92 560,120 590,150 C 650,208 720,250 820,266"/>
+    <!-- 丹水·武关道:自武关西北经蓝田趋咸阳(入关孔道) -->
+    <path class="river" stroke-width="2.4" d="M 540,332 C 490,344 440,352 400,350 C 350,348 310,338 278,320"/>
+    <!-- 渭水:横贯关中,咸阳霸上濒之 -->
+    <path class="river" stroke-width="3" d="M 150,286 C 200,296 240,300 290,300 C 350,300 400,296 440,284"/>
+    <text class="rname" x="600" y="196" transform="rotate(24 600 196)">黄 河</text>
+    <text class="rname" x="440" y="368" transform="rotate(-6 440 368)" style="font-size:10.5px">丹水·武关道</text>
+    <text class="rname" x="200" y="278" style="font-size:11px">渭 水</text>
+
+    <!-- 秦岭·峣关武关间山险 -->
+    <g class="mtn"><path d="M 470,410 l 8,-13 l 8,13 M 486,404 l 8,-13 l 8,13 M 502,410 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="470" y="430">秦岭·峣崤之险</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="dang"><circle cx="880" cy="240" r="6"/><text class="cname" x="828" y="236">砀<tspan class="cname s" dx="2">(起兵地)</tspan></text></g>
+      <g class="city" data-city="hanguguan"><circle cx="760" cy="180" r="4"/><text class="cname s" x="730" y="168">函谷关</text></g>
+      <g class="city" data-city="wan"><circle cx="660" cy="440" r="5"/><text class="cname" x="612" y="460">宛<tspan class="cname s" dx="2">(南阳)</tspan></text></g>
+      <g class="city" data-city="wuguan"><circle cx="548" cy="336" r="5"/><text class="cname" x="556" y="332">武关<tspan class="cname s" dx="2">(南口)</tspan></text></g>
+      <g class="city" data-city="yaoguan"><circle cx="430" cy="342" r="5"/><text class="cname s" x="400" y="360">峣关</text></g>
+      <g class="city" data-city="lantian"><circle cx="352" cy="316" r="4"/><text class="cname s" x="320" y="304">蓝田</text></g>
+      <g class="city cap" data-city="xianyang"><circle cx="252" cy="296" r="6"/><text class="cname" x="180" y="292">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
+      <g class="city" data-city="bashang"><circle cx="290" cy="312" r="4"/><text class="cname s" x="278" y="332">霸上·轵道</text></g>
+    </g>
+
+    <!-- 全图 · 西略入关 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 872,246 C 780,300 700,360 668,420"/>
+      <path class="march j" marker-end="url(#aj)" d="M 654,430 C 600,400 560,368 552,344"/>
+      <path class="march j" marker-end="url(#aj)" d="M 540,338 C 460,336 380,320 300,306"/>
+      <text class="mlabel j" x="700" y="336">刘邦独将兵西略,取道南阳,入武关趋咸阳</text>
+      <text class="anno" x="720" y="352">怀王约:先入关中者王之</text>
+      <text class="mlabel q" x="150" y="220">秦拒河守关,子婴新立,人心已离</text>
+      <text class="anno" x="770" y="150">项羽方北救赵,鏖战河北</text>
+    </g>
+
+    <!-- 阶段一:取宛入武关 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 872,248 C 800,300 730,380 674,430"/>
+      <text class="mlabel j" x="770" y="300">郦食其说下陈留,得积粟</text>
+      <path class="march j" marker-end="url(#aj)" d="M 662,432 C 630,400 596,368 556,346"/>
+      <text class="mlabel j" x="600" y="418">绕攻宛城,南阳守齮降;秋毫无犯</text>
+      <text class="anno" x="612" y="474">秦民悦附,郡县多望风而下</text>
+      <circle class="star" cx="660" cy="440" r="8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 540,338 C 510,338 480,340 448,342"/>
+      <text class="mlabel j" x="480" y="322">遂西入武关</text>
+    </g>
+
+    <!-- 阶段二:峣关 · 蓝田 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="426" y="338" width="9" height="9" transform="rotate(45 430 342)"/>
+      <text class="mlabel q" x="400" y="380">秦发兵拒峣关</text>
+      <path class="march j" marker-end="url(#aj)" d="M 540,338 C 500,340 470,342 442,342"/>
+      <text class="mlabel j" x="470" y="392">益张旗帜为疑兵,啖秦将以利</text>
+      <circle class="star" cx="430" cy="342" r="8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 420,346 C 400,342 380,332 362,320"/>
+      <circle class="star" cx="352" cy="316" r="8"/>
+      <text class="mlabel j" x="300" y="288">大破秦军于蓝田南,又战其北</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 344,320 C 320,318 296,314 268,306"/>
+      <text class="mlabel r" x="256" y="292">秦军遂溃</text>
+    </g>
+
+    <!-- 阶段三:子婴降 · 约法三章 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 344,318 C 320,316 306,314 296,312"/>
+      <text class="mlabel j" x="230" y="352">汉元年十月,军至霸上</text>
+      <path d="M 252,296 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="150" y="264">秦王子婴素车白马,系颈以组,奉玺符降</text>
+      <text class="anno" x="150" y="280">降于轵道旁,秦亡</text>
+      <text class="mlabel j" x="150" y="330">还军霸上,约法三章,秦民大悦</text>
+      <path class="march q" marker-end="url(#aq)" d="M 872,240 C 830,220 800,200 772,186"/>
+      <text class="mlabel q" x="740" y="150">项羽引诸侯兵入函谷,至鸿门,势相逼</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>刘邦军(沛公)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>秦军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退·秦亡</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>破秦</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>楚·汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·高祖本纪》《留侯世家》及《资治通鉴》卷九约略绘出。疆界、水道经简化;砀今河南夏邑东,宛今河南南阳,峣关在蓝田东南,咸阳今西安西北。黄河、丹水诸道仅示大势,非实测。</p>
+    <p><span class="n">注二</span>武关在今陕西丹凤东南,为关中东南门户;峣关在蓝田东南,当武关道入关之隘;霸上在今西安东。晕染疆界示前二〇六年前后秦与关东形势:秦据关中,楚·汉之众自东南入,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>刘邦以宽入关、秋毫无犯,约法三章「杀人者死,伤人及盗抵罪」,尽除秦苛法,遂得秦民之心,为日后帝业之始;然项羽引四十万众入函谷、至鸿门,兵势相逼,鸿门之危亦已伏于此。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"西略入关",d:"秦二世三年 — 汉元年(前207–前206)",p:["楚怀王与诸将约:「先入关中者王之。」时项羽方北救赵,鏖战河北;刘邦独将一军,西略秦地。秦二世末,赵高弑逆,子婴新立为秦王,内外离心,关中之守已虚。","刘邦自砀西行,取道南阳,绕攻宛城而降之,秋毫无犯,秦民悦附;郡县多望风而下。遂西趋武关,循武关道经峣关、蓝田而指咸阳——此入关灭秦之全势也。"]},
+  "1":{t:"取宛入武关",d:"秦二世三年 秋",p:["刘邦西行,郦食其说下陈留,得秦积粟,军资以充。既而略地南阳,南阳守齮欲坚守,刘邦用陈恢之谋,绕城而困之,示以不诛,齮乃降,封为殷侯——一城不屠而秦民附。","军行秋毫无犯,所过郡县多望风款附。遂西入武关,秦地郡县多下,入关之途既辟,咸阳门户为之洞开。"]},
+  "2":{t:"峣关·蓝田",d:"秦二世三年 冬",p:["秦发兵拒守峣关,当武关道入关之隘。刘邦欲以二万人击之,张良谏曰:秦兵尚强,未可轻;宜益张旗帜于山上为疑兵,而遣郦食其、陆贾啖秦将以利。","秦将果欲连和,刘邦乘其懈而击之,大破秦军于蓝田之南;又追战于蓝田之北,秦军再败,遂溃。关中震恐,咸阳无可复守。"]},
+  "3":{t:"子婴降·约法三章",d:"汉元年 十月",p:["汉元年十月,刘邦军至霸上。秦王子婴素车白马,系颈以组,奉皇帝玺符,降于轵道旁——秦遂亡。刘邦入咸阳,诸将争取府库财物,独萧何先收秦图籍。","刘邦欲留宫中,樊哙、张良谏,乃封府库,还军霸上。召诸县父老,除秦苛法,与之约法三章:「杀人者死,伤人及盗抵罪。」秦民大悦,争持牛羊酒食献军。既而项羽引诸侯兵入函谷,至鸿门,势相逼——霸业之危,伏于宽入之后。"]}
+};
+const CITY={
+  dang:{t:"砀",d:"今河南夏邑东,刘邦东方起兵地",p:["刘邦为砀郡长、封武安侯,将砀郡兵。西略入关之师,即自此东方发。"]},
+  hanguguan:{t:"函谷关",d:"关中东正门,今河南灵宝",p:["刘邦入关后遣兵守之。项羽破关而入,至鸿门,与刘邦势相逼,鸿门之会由此起。"]},
+  wan:{t:"宛·南阳",d:"今河南南阳",p:["南阳守齮欲拒守。刘邦用陈恢计,绕而降之,秋毫无犯;秦民悦附,郡县望风而下。"]},
+  wuguan:{t:"武关",d:"今陕西丹凤东南,入关南口",p:["关中东南门户。刘邦破之而入,循武关道西趋峣关、蓝田,以指咸阳。"]},
+  yaoguan:{t:"峣关",d:"蓝田东南,武关道入关之隘",p:["秦发兵拒守于此。刘邦用张良计,张疑兵、啖秦将,乘懈而破之。"]},
+  lantian:{t:"蓝田",d:"今陕西蓝田",p:["刘邦大破秦军于蓝田南,又战其北,秦军再败遂溃,关中门户尽失。"]},
+  xianyang:{t:"咸阳",d:"秦都,今西安西北",p:["刘邦入咸阳,萧何独收秦图籍。旋封府库、还军霸上,秋毫无犯。"]},
+  bashang:{t:"霸上·轵道",d:"今西安东",p:["刘邦军次霸上。秦王子婴系颈以组,降于轵道旁,奉玺符,秦亡;后约法三章于此。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
