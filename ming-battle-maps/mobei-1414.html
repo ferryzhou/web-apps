@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>忽兰忽失温之战 · 永乐十二年(1414)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>忽</span><span>兰</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>忽兰忽失温之战</h1>
+    <div class="sub">永乐十二年(1414)　　<i>明成祖 朱棣</i> 神机破敌 · <b>瓦剌 马哈木</b>忽兰忽失温大败</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 成祖亲征漠北</button>
+    <button data-p="1">瓦剌据高列阵</button>
+    <button data-p="2">神机铳炮当锋</button>
+    <button data-p="3">铁骑夹击 · 追奔百里</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="忽兰忽失温之战形势图,含瓦剌漠北与明长城内疆界、饮马河土拉河诸水及北京开平和林等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:瓦剌据漠北(北),明据长城之内(南),约以大漠为界 -->
+    <path d="M 0,300 C 140,286 300,320 460,300 C 620,280 780,314 1000,296 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 140,286 300,320 460,300 C 620,280 780,314 1000,296 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 140,286 300,320 460,300 C 620,280 780,314 1000,296"/>
+    <text class="realm q" x="120" y="90" font-size="32">瓦 剌 · 漠 北</text>
+    <text class="realm j" x="600" y="588" font-size="30">大 明(长城之内)</text>
+
+    <!-- 大漠:南北之间瀚海 -->
+    <g class="mtn" opacity=".6">
+      <path d="M 300,338 q 10,-9 20,0 q 10,-9 20,0 M 360,346 q 10,-9 20,0 q 10,-9 20,0 M 640,332 q 10,-9 20,0 q 10,-9 20,0 M 700,340 q 10,-9 20,0 q 10,-9 20,0"/>
+    </g>
+    <text class="cname s" x="470" y="352" style="letter-spacing:.3em">大　漠 · 瀚 海</text>
+
+    <!-- 长城:明之北界 -->
+    <path class="mtn" style="stroke-width:1.6;stroke-dasharray:5 4" d="M 60,470 C 260,452 480,462 700,448 C 820,440 900,442 960,438"/>
+    <text class="cname s" x="120" y="464">长　城</text>
+
+    <!-- 克鲁伦河/饮马河:漠北自西向东 -->
+    <path class="river" stroke-width="3.4" d="M 250,150 C 350,168 460,186 560,178 C 660,170 740,158 860,150"/>
+    <!-- 土拉河:和林、忽兰忽失温一带 -->
+    <path class="river" stroke-width="2.6" d="M 300,110 C 360,140 420,168 470,196 C 500,214 520,236 528,262"/>
+    <text class="rname" x="600" y="200">饮马河 · 克鲁伦河</text>
+    <text class="rname" x="332" y="140" transform="rotate(36 332 140)" style="font-size:10.5px">土 拉 河</text>
+
+    <!-- 山高:忽兰忽失温瓦剌所据 -->
+    <g class="mtn"><path d="M 470,236 l 10,-16 l 10,16 M 490,230 l 10,-16 l 10,16 M 510,236 l 9,-15 l 9,15"/></g>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="helin"><circle cx="300" cy="196" r="4"/><text class="cname s" x="230" y="192">和林(瓦剌活动区)</text></g>
+      <g class="city" data-city="hulan"><circle cx="500" cy="248" r="6"/><text class="cname" x="512" y="244">忽兰忽失温<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="sanxia"><circle cx="612" cy="216" r="3.5"/><text class="cname s" x="624" y="212">三峡口·撒里怯儿</text></g>
+      <g class="city" data-city="yinma"><circle cx="560" cy="178" r="4"/><text class="cname s" x="500" y="164">饮马河(成祖驻跸)</text></g>
+      <g class="city" data-city="kaiping"><circle cx="620" cy="408" r="5"/><text class="cname" x="632" y="404">开平<tspan class="cname s" dx="2">(出塞基)</tspan></text></g>
+      <g class="city cap" data-city="beijing"><circle cx="700" cy="540" r="6"/><text class="cname" x="712" y="536">北京<tspan class="cname s" dx="2">(成祖亲征所自)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 成祖亲征漠北 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 700,532 C 668,478 640,448 624,418"/>
+      <text class="mlabel j" x="712" y="486">成祖率大军自北京北出</text>
+      <path class="march j" marker-end="url(#aj)" d="M 616,400 C 588,340 548,290 508,258"/>
+      <text class="mlabel j" x="560" y="320">出开平,深入漠北,趋忽兰忽失温</text>
+      <text class="mlabel q" x="120" y="150">瓦剌马哈木部势张,拒命扣使</text>
+      <text class="anno" x="330" y="230">太平、把秃孛罗诸部众三万余以待</text>
+    </g>
+
+    <!-- 阶段一:瓦剌据高列阵 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="474" y="216" width="9" height="9" transform="rotate(45 478 220)"/>
+      <text class="mlabel q" x="330" y="212">瓦剌三部三万余众据山高列阵</text>
+      <path class="march q" marker-end="url(#aq)" d="M 300,200 C 360,214 420,224 476,232"/>
+      <text class="anno" x="310" y="256">凭高之势,以逸待劳</text>
+      <path class="march j" marker-end="url(#aj)" d="M 560,300 C 540,286 522,272 512,258"/>
+      <text class="mlabel j" x="540" y="316">明军进抵山下</text>
+    </g>
+
+    <!-- 阶段二:神机铳炮当锋 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="490" y="222" width="9" height="9" transform="rotate(45 494 226)"/>
+      <text class="mlabel q" x="420" y="212">瓦剌凭高冲下</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 496,236 C 508,258 516,278 520,298"/>
+      <path class="march j" marker-end="url(#aj)" d="M 540,320 C 528,300 518,282 512,266"/>
+      <text class="mlabel j" x="540" y="342">柳升发神机铳炮当其冲</text>
+      <text class="anno" x="380" y="300">炮铳齐发,先挫瓦剌下冲之锐</text>
+      <circle class="star" cx="500" cy="248" r="9"/>
+    </g>
+
+    <!-- 阶段三:铁骑夹击 · 追奔百里 -->
+    <g id="ph3" class="ph">
+      <path d="M 500,248 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 470,300 C 462,282 468,262 486,250"/>
+      <path class="march j" marker-end="url(#aj)" d="M 560,296 C 566,278 552,260 514,250"/>
+      <text class="mlabel j" x="380" y="330">铁骑左右翼夹击</text>
+      <text class="anno" x="520" y="322">自午至暮,大破之,斩获数千</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 490,238 C 420,210 350,196 306,198"/>
+      <text class="mlabel r" x="360" y="184">马哈木宵遁远走</text>
+      <text class="anno" x="560" y="230">追奔百余里,斩王子十余人</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(神机·铁骑)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>瓦剌军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>瓦剌·漠北</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大明</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《明史·成祖本纪》《明太宗实录》约略绘出。忽兰忽失温在今蒙古乌兰巴托东南,和林(哈剌和林)在其西北,饮马河即克鲁伦河、土拉河为漠北大川;漠北城邑水道为相对示意,非实测画界。</p>
+    <p><span class="n">注二</span>晕染疆界为永乐间形势示意:瓦剌马哈木部据漠北,明成祖出长城、开平以亲征;大漠瀚海为南北之限,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>此役明军以神机营火器(铳炮)当骑兵之冲,先以火器齐发挫其锋,继以铁骑左右翼夹击,为明军大规模用火器野战破骑之著例。终成祖之世凡五出塞、亲征漠北,北疆暂靖;惟劳师糜饷,晚年国力亦耗。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"成祖亲征漠北",d:"永乐十二年(1414)",p:["鞑靼既破于永乐八年首征,瓦剌马哈木部势张,拒命扣使,渐成北边之患。永乐十二年,成祖朱棣率大军亲征漠北,自北京北出,历开平而深入瀚海,趋忽兰忽失温。","瓦剌马哈木与太平、把秃孛罗三部,众三万余,据高列阵以待。成祖以神机营火器当先、铁骑继之,遂有忽兰忽失温之决战。"]},
+  "1":{t:"瓦剌据高列阵",d:"永乐十二年六月",p:["瓦剌马哈木、太平、把秃孛罗三部众三万余,据山之高处列阵以待,凭高之势,以逸待劳,欲乘明军仰攻而挫之。","明军进抵山下,遥望敌阵之峻。成祖不轻与角力于坡,而先以神机营列阵于前,议以火器破其凭高之势。"]},
+  "2":{t:"神机铳炮当锋",d:"永乐十二年六月",p:["瓦剌凭高冲下,其势甚锐。成祖以神机营火器当其冲,都督柳升发神机铳炮,炮铳齐发,先挫瓦剌下冲之锋。","火器所及,人马辟易,敌锐既折。此明军以火器野战当骑兵之冲,遏其凭高之势者也。"]},
+  "3":{t:"铁骑夹击 · 追奔百里",d:"永乐十二年六月",p:["火器既挫其锋,成祖以铁骑分左右翼夹击。瓦剌凭高冲下,战甚烈,明军柳升发神机炮毙其众,自午至暮,大破之。","追奔百余里,斩王子十余人、部众数千。瓦剌宵遁,马哈木远走。是役,明军大规模用火器破骑,北疆暂靖。"]}
+};
+const CITY={
+  hulan:{t:"忽兰忽失温",d:"今蒙古乌兰巴托东南",p:["永乐十二年决战之地。瓦剌三部据高列阵,成祖以神机火器当锋、铁骑夹击,大破之,追奔百余里。"]},
+  yinma:{t:"饮马河·克鲁伦河",d:"漠北大川",p:["成祖亲征驻跸之地,大军循河北进。饮马河即克鲁伦河,与土拉河同为漠北要川。"]},
+  kaiping:{t:"开平",d:"今内蒙古正蓝旗一带",p:["明军出塞之基。成祖自北京北出,历开平而深入漠北,趋忽兰忽失温。"]},
+  beijing:{t:"北京",d:"成祖亲征所自",p:["永乐十二年,成祖率大军自北京北出亲征漠北。终成祖之世凡五出塞,皆以此为本。"]},
+  helin:{t:"和林",d:"哈剌和林,今蒙古前杭爱省",p:["瓦剌活动区,漠北旧都。忽兰忽失温既败,马哈木远走其西北。"]},
+  sanxia:{t:"三峡口·撒里怯儿",d:"漠北追击处",p:["瓦剌宵遁,明军追奔百余里,至此而还。斩王子十余人、部众数千。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

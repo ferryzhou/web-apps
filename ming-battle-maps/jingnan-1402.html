@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靖难之役 · 建文元年至四年(1399–1402)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>靖</span><span>难</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>靖难之役</h1>
+    <div class="sub">建文元年至四年(1399–1402)　　<i>燕王 朱棣</i> 清君侧·入京师 · <b>建文帝</b>不知所终</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 燕王起兵</button>
+    <button data-p="1">白沟河大捷</button>
+    <button data-p="2">顿于济南</button>
+    <button data-p="3">渡江入京</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="靖难之役形势图,含燕与建文南军疆界、黄河淮河长江大运河与北平济南南京等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:燕据北平(北),建文南军据中原、京师(南),约以黄河一线为争地 -->
+    <path d="M 0,250 C 160,236 340,244 500,232 C 660,220 820,236 1000,224 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,250 C 160,236 340,244 500,232 C 660,220 820,236 1000,224 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,250 C 160,236 340,244 500,232 C 660,220 820,236 1000,224"/>
+    <text class="realm j" x="90" y="140" font-size="32">燕(北平)</text>
+    <text class="realm q" x="560" y="560" font-size="32">建文·南军(京师)</text>
+
+    <!-- 黄河:自西横贯华北 -->
+    <path class="river" stroke-width="4.5" d="M 0,300 C 140,314 280,320 400,326 C 520,332 640,318 760,306 C 850,298 930,296 1000,300"/>
+    <!-- 淮河:中部东流入海 -->
+    <path class="river" stroke-width="3.4" d="M 300,440 C 420,452 540,458 660,452 C 780,446 880,442 1000,446"/>
+    <!-- 长江:南部东流 -->
+    <path class="river" stroke-width="5" d="M 260,540 C 400,556 540,560 660,552 C 780,544 900,540 1000,544"/>
+    <!-- 大运河:自北平南下经济南、扬州达江 -->
+    <path class="river" stroke-width="2.6" d="M 216,150 C 240,240 300,330 360,410 C 410,478 470,520 560,548"/>
+    <text class="rname" x="120" y="316">黄 河</text>
+    <text class="rname" x="470" y="474" style="font-size:12px">淮 河</text>
+    <text class="rname" x="470" y="576">长 江</text>
+    <text class="rname" x="300" y="360" transform="rotate(58 300 360)" style="font-size:10.5px">大 运 河</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="beiping"><circle cx="216" cy="150" r="6"/><text class="cname" x="228" y="146">北平<tspan class="cname s" dx="2">(燕起兵基)</tspan></text></g>
+      <g class="city" data-city="baigou"><circle cx="288" cy="262" r="5"/><text class="cname" x="300" y="258">白沟河</text></g>
+      <g class="city" data-city="dongchang"><circle cx="360" cy="356" r="4"/><text class="cname s" x="372" y="352">东昌</text></g>
+      <g class="city" data-city="jinan"><circle cx="440" cy="392" r="5.5"/><text class="cname" x="452" y="388">济南<tspan class="cname s" dx="2">(铁铉守)</tspan></text></g>
+      <g class="city" data-city="lingbi"><circle cx="470" cy="470" r="5"/><text class="cname" x="482" y="466">灵璧</text></g>
+      <g class="city" data-city="yangzhou"><circle cx="560" cy="518" r="4.5"/><text class="cname" x="474" y="514">扬州·瓜洲</text></g>
+      <g class="city cap" data-city="nanjing"><circle cx="592" cy="556" r="6"/><text class="cname" x="604" y="572">南京<tspan class="cname s" dx="2">(应天·京师)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 燕王起兵 -->
+    <g id="phAll" class="ph">
+      <rect class="camp" x="330" y="336" width="9" height="9" transform="rotate(45 334 340)"/>
+      <text class="mlabel j" x="130" y="196">建文削藩,燕王朱棣以「清君侧、靖国难」于北平起兵</text>
+      <text class="anno" x="150" y="216">初取通州、蓟州、居庸,据北平以抗南师</text>
+      <path class="march q" marker-end="url(#aq)" d="M 560,540 C 500,470 420,380 320,290"/>
+      <text class="mlabel q" x="430" y="410">建文遣耿炳文、李景隆率大军北讨</text>
+      <text class="anno" x="560" y="470">南军号五十万,营于河北</text>
+    </g>
+
+    <!-- 阶段一:白沟河大捷 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="300" y="288" width="9" height="9" transform="rotate(45 304 292)"/>
+      <text class="mlabel q" x="316" y="300">李景隆大营</text>
+      <path class="march j" marker-end="url(#aj)" d="M 222,158 C 240,196 262,228 282,254"/>
+      <text class="mlabel j" x="140" y="240">燕军南出郑村坝、白沟河</text>
+      <circle class="star" cx="288" cy="262" r="8"/>
+      <path class="march q rout" marker-end="url(#ar)" d="M 296,270 C 360,320 410,360 434,386"/>
+      <text class="mlabel r" x="330" y="342">南军尽溃,南奔济南</text>
+      <text class="anno" x="150" y="286">两破李景隆五十万众,尽获其辎重</text>
+    </g>
+
+    <!-- 阶段二:顿于济南·东昌受挫 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 294,270 C 340,310 390,350 432,384"/>
+      <text class="mlabel j" x="300" y="322">燕军乘胜南追,围济南</text>
+      <circle class="siege" cx="440" cy="392" r="11"/>
+      <text class="mlabel q" x="452" y="416">铁铉、盛庸坚守,燕不能下</text>
+      <rect class="camp" x="352" y="348" width="8" height="8" transform="rotate(45 356 352)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 430,384 C 404,372 384,364 368,360"/>
+      <text class="mlabel q" x="330" y="378">盛庸邀战于东昌</text>
+      <text class="anno" x="150" y="356">东昌一战,燕大将张玉战死,燕军顿于坚城</text>
+      <path class="march j rout" marker-end="url(#ar)" d="M 350,352 C 300,300 260,220 226,164"/>
+      <text class="mlabel r" x="150" y="230">燕军敛兵北还</text>
+    </g>
+
+    <!-- 阶段三:避实趋虚·渡江入京 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 226,166 C 300,260 360,340 400,404 C 430,452 448,470 462,470"/>
+      <text class="mlabel j" x="150" y="270">朱棣变计,以精骑避实趋虚,直捣京师</text>
+      <circle class="star" cx="470" cy="470" r="8"/>
+      <text class="mlabel j" x="482" y="450">灵璧破南军,擒平安等诸将</text>
+      <path class="march j" marker-end="url(#aj)" d="M 476,476 C 510,500 534,512 552,516"/>
+      <circle class="star" cx="592" cy="556" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 562,524 C 574,536 582,544 588,550"/>
+      <text class="mlabel j" x="470" y="540">瓜洲渡江,盛庸江防溃</text>
+      <text class="anno" x="560" y="590">金川门开,燕军入南京;宫中火起,建文失踪</text>
+      <text class="anno" x="150" y="300">棣即皇帝位,是为成祖,改元永乐</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>燕军(靖难)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>建文·南军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>坚守</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>燕</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南军</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《明史·成祖本纪/恭闵帝纪/盛庸铁铉传》《明史纪事本末》约略绘出。北平今北京,白沟河在今河北高碑店一带,东昌今山东聊城,济南、灵璧、扬州·瓜洲、南京(应天)方位为相对示意;黄河、淮河、长江、大运河水道经简化。</p>
+    <p><span class="n">注二</span>晕染疆界为建文年间形势示意:燕据北平以抗南师,建文南军据中原、京师;南北反复拉锯,并无定界,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>燕军初于郑村坝、白沟河两破李景隆,然山东铁铉、盛庸坚守济南、东昌屡挫燕师,张玉战死,燕军三年顿于坚城。朱棣乃弃攻城略地之策,以精骑避实趋虚、直捣京师——转败为功,系于一变。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"燕王起兵",d:"建文元年(1399)",p:["太祖崩,皇太孙建文帝立,用齐泰、黄子澄谋削藩,周、齐、湘、代、岷诸王相继得罪。燕王朱棣拥重兵居北平,遂以「清君侧、靖国难」为名起兵,初取通州、蓟州、居庸关,据北平以抗南师。","建文遣老将耿炳文率师北讨,败于真定;继以曹国公李景隆代之,合军号五十万,进营河北,与燕相持。南北之争由是大起。"]},
+  "1":{t:"白沟河大捷·两败景隆",d:"建文二年(1400)",p:["燕王先破李景隆于郑村坝,尽焚其营;明年复战于白沟河。两军数十万列阵夹河,鏖战竟日,会旋风折景隆帅旗,燕军乘之奋击,南军大溃。","白沟河一役,南军五十万众尽丧,辎重器械山积,李景隆南奔济南。燕军主力既破,南师锐气为之一挫。"]},
+  "2":{t:"顿于济南·东昌受挫",d:"建文二年至三年(1400–1401)",p:["燕军乘胜南追,围济南三月。参政铁铉、都督盛庸婴城固守,诈降诱敌、以计败之,燕竟不能下,敛兵北还。","盛庸继邀战于东昌,大破燕师,燕之骁将张玉力战而死,朱棣仅以身免。燕军顿于坚城,南征之势为之一顿。"]},
+  "3":{t:"避实趋虚·渡江入京",d:"建文四年(1402)",p:["朱棣乃变计:不复攻城略地,而以精骑绕坚城、避实趋虚,直捣京师。四年,燕军自馆陶渡河,连败南军于淝河、灵璧,擒平安等诸将,继破泗州、扬州。","燕军至瓜洲渡江,盛庸江防溃。谷王橞、李景隆开金川门迎降,燕军入南京;宫中火起,建文帝不知所终。朱棣即皇帝位,是为成祖,改元永乐,后迁都北京。"]}
+};
+const CITY={
+  beiping:{t:"北平",d:"燕王封国,今北京",p:["燕王朱棣封国、起兵之基。既起,先取通州、蓟州、居庸关,据此以抗南师,为靖难全役之根本。"]},
+  baigou:{t:"白沟河",d:"今河北高碑店一带",p:["建文二年,燕王与李景隆决战于此。会旋风折南军帅旗,燕乘势奋击,五十万众尽溃——靖难第一大捷。"]},
+  dongchang:{t:"东昌",d:"今山东聊城",p:["盛庸邀战之地。燕军为南军所大破,骁将张玉战死,朱棣仅以身免。燕之南征至此一顿。"]},
+  jinan:{t:"济南",d:"今山东济南",p:["参政铁铉、都督盛庸坚守三月,以计屡挫燕师,燕竟不能下,敛兵北还。铁铉之守,靖难南军之壮者。"]},
+  lingbi:{t:"灵璧",d:"今安徽灵璧",p:["建文四年,燕军直捣京师途中大破南军于此,擒平安等诸将,南军精锐尽丧,京师门户遂开。"]},
+  yangzhou:{t:"扬州·瓜洲",d:"今江苏扬州、瓜洲渡",p:["燕军破扬州,进至瓜洲渡江。盛庸江防既溃,大江天险不复能守,应天在望。"]},
+  nanjing:{t:"南京(应天)",d:"明京师,今江苏南京",p:["谷王橞、李景隆开金川门迎降,燕军入城;宫中火起,建文帝不知所终。朱棣即位,是为成祖。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
