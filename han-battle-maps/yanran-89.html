@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>稽落山之战 · 燕然勒功(89)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>燕</span><span>然</span><span>勒</span><span>功</span></div>
+  <header>
+    <h1>稽落山之战 · 燕然勒功</h1>
+    <div class="sub">汉和帝永元元年(89)　　<i>汉 窦宪·耿秉</i> 稽落大捷 · 登<b>燕然</b>刻石 · <b>北单于</b>遁走</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 三道北伐</button>
+    <button data-p="1">出塞会师 · 涿邪山</button>
+    <button data-p="2">稽落大破北单于</button>
+    <button data-p="3">登燕然 · 刻石勒功</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="稽落山之战燕然勒功形势图,含汉与北匈奴疆界、大漠燕然山稽落山私渠比鞮海与鸡鹿塞满夷谷等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:北匈奴据漠北(北),汉据长城内(南),约以阴山长城为界 -->
+    <path d="M 0,320 C 160,300 320,316 480,306 C 640,296 820,310 1000,298 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,320 C 160,300 320,316 480,306 C 640,296 820,310 1000,298 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,320 C 160,300 320,316 480,306 C 640,296 820,310 1000,298"/>
+    <text class="realm q" x="110" y="90" font-size="34">北匈奴(漠北)</text>
+    <text class="realm j" x="640" y="600" font-size="32">汉(长城内)</text>
+
+    <!-- 大漠·瀚海(沙碛) -->
+    <path d="M 120,350 C 260,320 420,338 600,328 C 740,320 860,334 940,328 C 900,380 760,408 560,412 C 360,416 200,402 130,380 Z" fill="rgba(180,150,90,.22)" stroke="rgba(156,122,44,.32)" stroke-width="1" stroke-dasharray="4 5"/>
+    <text class="rname" x="470" y="376" style="fill:#9c7a2c;letter-spacing:.32em;font-size:14px">大 漠</text>
+
+    <!-- 河水(黄河)自阴山南折 -->
+    <path class="river" stroke-width="4.5" d="M 300,490 C 380,520 470,536 560,530 C 660,524 740,506 820,520"/>
+    <text class="rname" x="560" y="556" style="font-size:12px">河 水</text>
+
+    <!-- 燕然山(勒石处,北)·姑衍余脉 -->
+    <g class="mtn"><path d="M 512,150 l 12,-22 l 12,22 M 532,140 l 13,-24 l 13,24 M 556,150 l 11,-20 l 11,20 M 578,150 l 10,-18 l 10,18"/></g>
+    <text class="cname s" x="500" y="108" style="font-size:12.5px">燕 然 山</text>
+
+    <!-- 稽落山(会战处,中北) -->
+    <g class="mtn"><path d="M 360,208 l 11,-19 l 11,19 M 376,200 l 11,-19 l 11,19"/></g>
+
+    <!-- 私渠比鞮海(湖,北,追奔所至) -->
+    <path class="river" style="fill:rgba(95,127,136,.30);stroke:var(--water);stroke-width:1.2;opacity:.8" d="M 748,158 C 780,150 812,156 820,172 C 826,186 806,198 776,196 C 750,194 736,178 748,158 Z"/>
+
+    <!-- 长城 -->
+    <path d="M 60,316 L 160,308 L 300,320 L 460,310 L 640,316 L 820,312 L 960,306" fill="none" stroke="#6e5d3c" stroke-width="2.4" stroke-dasharray="7 3" opacity=".7"/>
+    <text class="cname s" x="60" y="304">长　城</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="jiluo"><circle cx="386" cy="228" r="6"/><text class="cname" x="398" y="224">稽落山<tspan class="cname s" dx="2">(大破北单于)</tspan></text></g>
+      <g class="city cap" data-city="yanran"><circle cx="548" cy="158" r="6"/><text class="cname" x="560" y="154">燕然山<tspan class="cname s" dx="2">(刻石勒功)</tspan></text></g>
+      <g class="city" data-city="siqu"><circle cx="784" cy="176" r="5"/><text class="cname s" x="796" y="172">私渠比鞮海</text></g>
+      <g class="city" data-city="zhuoye"><circle cx="470" cy="288" r="5"/><text class="cname" x="482" y="308">涿邪山<tspan class="cname s" dx="2">(三路会师)</tspan></text></g>
+      <g class="city" data-city="jilu"><circle cx="300" cy="452" r="5"/><text class="cname" x="256" y="474">鸡鹿塞</text></g>
+      <g class="city" data-city="manyi"><circle cx="620" cy="446" r="5"/><text class="cname" x="632" y="442">满夷谷</text></g>
+    </g>
+
+    <!-- 全图 · 三道北伐 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 300,446 C 320,410 380,330 456,296"/>
+      <text class="mlabel j" x="150" y="392">窦宪·耿秉将四千骑,出鸡鹿塞</text>
+      <path class="march j" marker-end="url(#aj)" d="M 618,440 C 600,404 540,336 482,298"/>
+      <text class="mlabel j" x="636" y="392">南单于将万余骑,出满夷谷</text>
+      <text class="anno" x="150" y="428">南匈奴单于请兵北伐,汉发汉军及南匈奴、羌胡之众</text>
+      <text class="mlabel q" x="360" y="170">北单于本部远处漠北,恃大漠为固</text>
+      <text class="anno" x="470" y="330">度辽将军邓鸿等出稠阳塞,三道皆会涿邪山</text>
+    </g>
+
+    <!-- 阶段一:出塞会师 · 涿邪山 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 302,446 C 322,412 388,336 462,294"/>
+      <text class="mlabel j" x="150" y="404">宪·秉与南左谷蠡王出鸡鹿塞</text>
+      <path class="march j" marker-end="url(#aj)" d="M 616,440 C 596,406 536,338 480,296"/>
+      <text class="mlabel j" x="636" y="404">南单于出满夷谷,邓鸿出稠阳塞</text>
+      <circle class="siege" cx="470" cy="288" r="20" style="stroke:var(--advance)"/>
+      <text class="mlabel j" x="480" y="272">三道并进,会师涿邪山</text>
+      <text class="anno" x="150" y="446">诸军分道,克期毕会,合势北向</text>
+    </g>
+
+    <!-- 阶段二:稽落大破北单于 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 466,282 C 440,262 414,246 396,236"/>
+      <text class="mlabel j" x="330" y="272">遣精骑万余,与北单于战于稽落山</text>
+      <rect class="camp" x="380" y="220" width="10" height="10" transform="rotate(45 386 226)"/>
+      <circle class="star" cx="386" cy="228" r="9"/>
+      <text class="anno" x="176" y="252">副校尉阎盘、司马耿夔、耿谭将左谷蠡王等锐骑</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 378,220 C 440,180 540,150 636,138"/>
+      <text class="mlabel r" x="500" y="128">北单于大败遁走</text>
+      <text class="anno" x="230" y="286">追奔逐北,斩名王以下万三千级,降者二十余万人</text>
+    </g>
+
+    <!-- 阶段三:登燕然 · 刻石勒功 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 396,224 C 450,196 500,176 538,164"/>
+      <text class="mlabel j" x="400" y="200">宪·秉追奔,越大漠而北</text>
+      <path class="march j" marker-end="url(#aj)" d="M 560,158 C 640,158 720,164 770,172"/>
+      <text class="anno" x="600" y="150">前后至私渠比鞮海,穷追而还</text>
+      <path d="M 548,158 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="440" y="130">登燕然山,去塞三千余里,刻石勒功</text>
+      <text class="anno" x="440" y="112">纪汉威德,令中护军班固作铭</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 640,140 C 700,120 760,104 820,96"/>
+      <text class="mlabel r" x="700" y="88">北匈奴自是不能复振,渐西迁远遁</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军·南匈奴</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>北匈奴</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>遁走·西迁</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·勒石</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>北匈奴</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《后汉书·窦融列传(窦宪)》《后汉书·南匈奴列传》及《封燕然山铭》约略绘出。燕然山即今蒙古杭爱山,稽落山、涿邪山、私渠比鞮海及鸡鹿塞、满夷谷地望皆为相对示意,漠北方位非实测;大漠、河水、长城经简化。</p>
+    <p><span class="n">注二</span>晕染疆界为永元初形势示意:北匈奴单于本部在漠北,汉据长城以内,南匈奴附汉居塞。二者以阴山长城为约界,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>章和二年,南单于请兵北伐,会窦太后临朝,窦宪以罪欲立功自赎,遂拜车骑将军将兵北征。三道出塞、会师涿邪,精骑万余破北单于于稽落,追至私渠比鞮海,登燕然去塞三千余里,刻石勒功,班固作铭——武功之盛,冠于东汉。然宪以外戚专权,骄纵不法,后卒伏诛;北匈奴西遁,亦启鲜卑代兴之局。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"三道北伐",d:"汉和帝永元元年 · 89年",p:["章和二年,南匈奴单于上书请兵北伐;会窦太后临朝,车骑将军窦宪以擅杀之罪欲立功自赎,乃与执金吾耿秉将汉军及南匈奴、羌胡之众北征北匈奴。","永元元年,大军分三道出塞:窦宪、耿秉各将四千骑,与南匈奴左谷蠡王万骑出鸡鹿塞;南单于将万余骑出满夷谷;度辽将军邓鸿等出稠阳塞——诸道克期,皆会师涿邪山,合势北向。"]},
+  "1":{t:"出塞会师 · 涿邪山",d:"永元元年",p:["窦宪、耿秉与南匈奴左谷蠡王师子等出鸡鹿塞;南单于屯屠何将万余骑出满夷谷;度辽将军邓鸿及缘边义从、羌胡诸部出稠阳塞。","三道并进,分行而北,克期毕会于涿邪山。既合,乃勒兵进讨,直指漠北北单于王庭。"]},
+  "2":{t:"稽落大破北单于",d:"永元元年",p:["宪、秉既会,遣副校尉阎盘、司马耿夔、耿谭将南匈奴左谷蠡王师子等精骑万余,与北单于战于稽落山,大破之——北单于遁走。","汉军追奔逐北,斩名王以下万三千级,俘获甚众;北匈奴诸部前后来降者二十余万人。北虏震恐,王庭瓦解。"]},
+  "3":{t:"登燕然 · 刻石勒功",d:"永元元年",p:["窦宪、耿秉遂乘胜追奔,越大漠而北,前后至私渠比鞮海,穷追而还。乃登燕然山,去塞三千余里,刻石勒功,纪汉威德,令中护军班固作铭。","「铄王师兮征荒裔,剿凶虐兮截海外」——燕然勒石,遂为万世武功之极。北匈奴自是不能复振,渐西迁远遁;然窦宪以外戚专权骄纵,后竟以罪伏诛。"]}
+};
+const CITY={
+  jiluo:{t:"稽落山",d:"漠北,约当今蒙古境内(示意)",p:["会战之地。汉遣精骑万余与北单于战于此,大破之,北单于遁走,斩名王以下万三千级,降者二十余万人。"]},
+  yanran:{t:"燕然山",d:"即今蒙古杭爱山",p:["窦宪、耿秉追奔既还,登燕然山,去塞三千余里,刻石勒功,纪汉威德,令中护军班固作《封燕然山铭》。「燕然勒功」自此为武功极盛之典。"]},
+  siqu:{t:"私渠比鞮海",d:"漠北大泽(示意)",p:["汉军追奔北单于所至最远处。前后穷追至此而还,兵锋所极,乃回师登燕然勒石。"]},
+  zhuoye:{t:"涿邪山",d:"塞外要地(示意)",p:["三道大军克期会师之地。窦宪出鸡鹿塞、南单于出满夷谷、邓鸿出稠阳塞,皆会于此,合势北进。"]},
+  jilu:{t:"鸡鹿塞",d:"阴山西段要塞",p:["窦宪、耿秉与南匈奴左谷蠡王出塞之口。汉军主力自此绝漠北向,与诸道会于涿邪山。"]},
+  manyi:{t:"满夷谷",d:"塞外谷道(示意)",p:["南匈奴单于将万余骑出塞之道。与窦宪、邓鸿诸军分道并进,会师涿邪山。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

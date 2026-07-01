@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赵充国平西羌 · 神爵元年(前61)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>平</span><span>羌</span><span>屯</span><span>田</span></div>
+  <header>
+    <h1>赵充国平西羌</h1>
+    <div class="sub">汉宣帝神爵元年(前61)　　<i>汉 赵充国</i> 屯田制羌 · <b>先零羌</b>坐困而降</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 诸羌犯边</button>
+    <button data-p="1">审形势 · 分化诸羌</button>
+    <button data-p="2">上屯田奏 · 且耕且守</button>
+    <button data-p="3">坐困归降 · 西陲遂安</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="赵充国平西羌形势图,含汉与诸羌疆界、湟水黄河河湟谷地与金城令居等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:诸羌据河湟山地(西南),汉据陇右内地(东),约以河关山为界 -->
+    <path d="M 560,0 C 540,90 520,180 500,270 C 484,340 470,410 480,490 C 488,560 500,600 510,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 560,0 C 540,90 520,180 500,270 C 484,340 470,410 480,490 C 488,560 500,600 510,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 560,0 C 540,90 520,180 500,270 C 484,340 470,410 480,490 C 488,560 500,600 510,640"/>
+    <text class="realm q" x="130" y="130" font-size="32">诸 羌(河湟)</text>
+    <text class="realm j" x="690" y="560" font-size="30">大 汉(陇右)</text>
+
+    <!-- 黄河:自西北经河关折而东北 -->
+    <path class="river" stroke-width="5" d="M 150,120 C 210,170 270,220 320,270 C 380,330 440,378 520,398 C 610,420 700,412 790,408 C 870,404 940,406 1000,404"/>
+    <!-- 湟水:自西河湟上游东流,会于金城入河 -->
+    <path class="river" stroke-width="3.2" d="M 210,300 C 290,320 370,340 440,360 C 490,374 520,388 552,398"/>
+    <text class="rname" x="700" y="392" style="font-size:13px">黄 河</text>
+    <text class="rname" x="330" y="330" transform="rotate(15 330 330)" style="font-size:11px">湟 水</text>
+
+    <!-- 河湟谷地 -->
+    <text class="cname s" x="360" y="380">河湟谷地</text>
+
+    <!-- 祁连·河关山 -->
+    <g class="mtn"><path d="M 470,470 l 9,-15 l 9,15 M 488,462 l 9,-15 l 9,15 M 506,470 l 8,-14 l 8,14"/></g>
+    <text class="cname s" x="470" y="492">河关山</text>
+    <g class="mtn"><path d="M 210,220 l 9,-15 l 9,15 M 228,212 l 9,-15 l 9,15 M 246,220 l 8,-14 l 8,14"/></g>
+    <text class="cname s" x="212" y="242">祁连山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="jincheng"><circle cx="556" cy="398" r="6"/><text class="cname" x="568" y="394">金城<tspan class="cname s" dx="2">(驻节·渡河处)</tspan></text></g>
+      <g class="city" data-city="huangshui"><circle cx="400" cy="352" r="5"/><text class="cname" x="356" y="342">湟水谷地<tspan class="cname s" dx="2">(屯田)</tspan></text></g>
+      <g class="city" data-city="xianling"><circle cx="230" cy="300" r="5"/><text class="cname" x="160" y="296">先零羌大营</text></g>
+      <g class="city" data-city="hankai"><circle cx="280" cy="430" r="4"/><text class="cname s" x="216" y="450">罕开·诸羌</text></g>
+      <g class="city" data-city="lingju"><circle cx="640" cy="330" r="4"/><text class="cname s" x="650" y="326">令居(屯戍)</text></g>
+      <g class="city" data-city="tianshui"><circle cx="820" cy="470" r="4"/><text class="cname s" x="756" y="490">陇西·天水</text></g>
+    </g>
+
+    <!-- 全图 · 诸羌犯边 -->
+    <g id="phAll" class="ph">
+      <rect class="camp" x="226" y="296" width="9" height="9" transform="rotate(45 230 300)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 240,306 C 320,332 400,360 470,378"/>
+      <text class="mlabel q" x="300" y="300">先零与诸羌解仇结盟,渡湟犯边</text>
+      <path class="march j" marker-end="url(#aj)" d="M 810,462 C 720,430 650,412 566,402"/>
+      <text class="mlabel j" x="640" y="452">老将赵充国年逾七十,自请行</text>
+      <text class="anno" x="560" y="420">驰至金城,图上方略</text>
+    </g>
+
+    <!-- 阶段一:审形势 · 分化诸羌 -->
+    <g id="ph1" class="ph">
+      <circle class="star" cx="556" cy="398" r="9"/>
+      <text class="mlabel j" x="500" y="428">充国审察形势,不为速战之请所动</text>
+      <path class="march j" marker-end="url(#aj)" d="M 548,392 C 460,378 380,392 300,420"/>
+      <text class="mlabel j" x="300" y="446">谕告罕开等种:专诛先零,不及胁从</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 288,424 C 340,432 400,436 460,440"/>
+      <text class="mlabel r" x="330" y="472">诸羌离散,罕开不敢与先零合</text>
+      <text class="anno" x="150" y="320">先零为首恶,孤立无援</text>
+    </g>
+
+    <!-- 阶段二:上屯田奏 · 且耕且守 -->
+    <g id="ph2" class="ph">
+      <text class="mlabel j" x="440" y="326">上「屯田奏」:罢骑兵,留步士万人</text>
+      <path class="march j" marker-end="url(#aj)" d="M 548,394 C 500,384 460,372 412,360"/>
+      <rect class="camp" x="396" y="348" width="8" height="8" transform="rotate(45 400 352)" style="fill:#1f4e54"/>
+      <text class="mlabel j" x="330" y="392">分屯要害,且耕且守,示无还心</text>
+      <path class="march j" marker-end="url(#aj)" d="M 406,356 C 360,348 320,344 286,340"/>
+      <text class="anno" x="300" y="320">省大费,待羌之自敝</text>
+      <text class="mlabel q" x="150" y="278">先零徘徊河湟上游,粮械渐匮</text>
+    </g>
+
+    <!-- 阶段三:坐困归降 · 西陲遂安 -->
+    <g id="ph3" class="ph">
+      <text class="mlabel q" x="160" y="278">岁余,先零坐困离析</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 244,306 C 330,338 420,368 500,388"/>
+      <text class="mlabel r" x="330" y="340">种人相率降者以万数</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 226,296 C 180,250 150,200 138,150"/>
+      <text class="mlabel r" x="120" y="200">余众远徙</text>
+      <path d="M 400,352 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="anno" x="360" y="392">屯田制羌,河湟遂安</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(赵充国)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>先零羌</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>瓦解归降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>屯田制羌处</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>诸羌</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《汉书·赵充国辛庆忌传》约略绘出。河湟在今青海东、甘肃西,金城约今兰州西,令居约今永登,湟水、黄河及诸城邑水道为相对示意,非实测地理。</p>
+    <p><span class="n">注二</span>晕染疆界为宣帝时河湟形势示意:诸羌散居河湟山地,汉据陇右内地;羌汉杂处,本无实界,故以点划「约界」标之。</p>
+    <p><span class="n">注三</span>充国自请行,曰「百闻不如一见,兵难隃度,臣愿驰至金城,图上方略」。其平羌不求速战,主分化诸羌、以兵屯田、且耕且守,坐待羌敝——遂为后世经略边疆之典范。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"诸羌犯边",d:"宣帝神爵元年 · 前61",p:["宣帝时,先零羌与诸羌种解仇结盟,渡湟水、犯汉边塞,河湟骚动。","老将赵充国年逾七十,自请行,曰「百闻不如一见,兵难隃度,臣愿驰至金城,图上方略」。驰至金城,审察形势,不为诸将速战之请所动。"]},
+  "1":{t:"审形势·分化诸羌",d:"神爵元年",p:["羌人本乌合,充国主分化之策:先零为首恶,罕、开等种胁从耳。","乃谕告罕开:不诛胁从,专击先零。诸羌闻之离散,罕开不敢与先零合,先零遂孤立无援——不战而先弱其势。"]},
+  "2":{t:"上屯田奏·且耕且守",d:"神爵元年",p:["充国上「屯田奏」,请罢骑兵、留步士万人,分屯要害之地,就地屯田,且耕且守。","如此省大费、示无还心,以待羌之自敝。宣帝虽初疑,与群臣数难之,卒从其计。"]},
+  "3":{t:"坐困归降·西陲遂安",d:"神爵元年—二年",p:["岁余,先零羌坐困,粮械两匮,内部离析,种人相率降者以万数,余众远徙。","河湟遂安,西陲宁息。充国屯田制羌,以攻心代速战,遂为后世经略边疆之典范。"]}
+};
+const CITY={
+  jincheng:{t:"金城",d:"赵充国驻节·渡河处,约今兰州西",p:["充国驰至金城,图上方略,以此为平羌根本。渡河、屯田、制羌之令皆出于此。"]},
+  huangshui:{t:"湟水谷地",d:"屯田处,河湟腹地",p:["充国留步士就地屯田于此要害,且耕且守,省费示无还心,坐待羌敝。"]},
+  xianling:{t:"先零羌大营",d:"河湟上游,西",p:["先零为诸羌首恶,解仇结盟、渡湟犯边。既遭分化孤立,岁余坐困,种人相率来降。"]},
+  hankai:{t:"罕开·诸羌",d:"被分化者,西南",p:["罕、开等种本胁从。充国谕以专诛先零、不及胁从,遂离散不敢与先零合。"]},
+  lingju:{t:"令居",d:"汉军屯戍,约今永登",p:["汉边屯戍要地,当河湟入陇之口。充国经略河西通道,以卫内地。"]},
+  tianshui:{t:"陇西·天水",d:"汉后方,东",p:["陇右内郡,汉军粮饷之所出。屯田之策正为省此转输大费而设。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
