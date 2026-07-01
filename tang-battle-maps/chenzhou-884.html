@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陈州·王满渡之战 · 中和三年至四年(883–884)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>陈</span><span>州</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>陈州·王满渡之战</h1>
+    <div class="sub">唐中和三年至四年(883–884)　　<i>唐 李克用 · 官军</i> 破 <b>黄巢</b> · 巢败亡狼虎谷</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 围陈三百日</button>
+    <button data-p="1">舂磨围陈</button>
+    <button data-p="2">沙陀南下</button>
+    <button data-p="3">王满渡溃 · 狼虎谷亡</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="陈州王满渡之战形势图,含黄巢义军与唐官军疆界、汴水溵水与长安陈州汴州狼虎谷等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:黄巢义军流动中原(西南),唐官军藩镇环峙(东北),约以溵、汴水为界示意 -->
+    <path d="M 520,0 C 500,110 470,190 440,270 C 420,330 420,400 450,470 C 480,540 500,590 520,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 520,0 C 500,110 470,190 440,270 C 420,330 420,400 450,470 C 480,540 500,590 520,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 520,0 C 500,110 470,190 440,270 C 420,330 420,400 450,470 C 480,540 500,590 520,640"/>
+    <text class="realm q" x="120" y="130" font-size="30">黄 巢(中原流动)</text>
+    <text class="realm j" x="660" y="120" font-size="30">唐 · 官 军</text>
+
+    <!-- 汴水:自西北汴州东南下,连江淮 -->
+    <path class="river" stroke-width="4.5" d="M 560,140 C 600,190 650,230 700,260 C 760,296 820,330 900,362"/>
+    <!-- 溵水:陈州之北,巢立舂磨寨据之 -->
+    <path class="river" stroke-width="3" d="M 360,300 C 420,320 480,336 540,352 C 600,368 660,388 720,410"/>
+    <text class="rname" x="700" y="250" transform="rotate(34 700 250)">汴 水</text>
+    <text class="rname" x="430" y="316" transform="rotate(14 430 316)" style="font-size:11px">溵 水</text>
+
+    <!-- 泰山 -->
+    <g class="mtn"><path d="M 856,470 l 9,-15 l 9,15 M 874,463 l 9,-15 l 9,15 M 892,470 l 8,-14 l 8,14"/></g>
+    <text class="cname s" x="856" y="492">泰山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="changan"><circle cx="90" cy="330" r="6"/><text class="cname" x="102" y="326">长安<tspan class="cname s" dx="2">(巢退出)</tspan></text></g>
+      <g class="city" data-city="chenzhou"><circle cx="470" cy="360" r="6"/><text class="cname" x="426" y="392">陈州<tspan class="cname s" dx="2">(赵犨守)</tspan></text></g>
+      <g class="city" data-city="taikang"><circle cx="560" cy="316" r="5"/><text class="cname s" x="516" y="304">太康·西华</text></g>
+      <g class="city" data-city="wangmandu"><circle cx="662" cy="300" r="5"/><text class="cname" x="626" y="286">王满渡</text></g>
+      <g class="city" data-city="bianzhou"><circle cx="600" cy="176" r="6"/><text class="cname" x="612" y="172">汴州<tspan class="cname s" dx="2">(朱温镇)</tspan></text></g>
+      <g class="city" data-city="langhugu"><circle cx="878" cy="452" r="5"/><text class="cname s" x="838" y="440">狼虎谷</text></g>
+    </g>
+
+    <!-- 全图 · 围陈三百日 -->
+    <g id="phAll" class="ph">
+      <circle class="siege" cx="470" cy="360" r="26"/>
+      <circle class="siege" cx="470" cy="360" r="34"/>
+      <text class="mlabel q" x="120" y="200">黄巢为沙陀所败,退出长安,东走围陈州</text>
+      <path class="march q" marker-end="url(#aq)" d="M 106,336 C 220,352 340,356 440,358"/>
+      <text class="anno" x="240" y="376">恨刺史赵犨拒命,悉众围陈,三百日不下</text>
+      <path class="march j" marker-end="url(#aj)" d="M 590,186 C 560,240 530,300 500,346"/>
+      <text class="mlabel j" x="600" y="220">唐发李克用、朱温、时溥等会兵救陈</text>
+    </g>
+
+    <!-- 阶段一:舂磨围陈 -->
+    <g id="ph1" class="ph">
+      <circle class="siege" cx="470" cy="360" r="26"/>
+      <circle class="siege" cx="470" cy="360" r="34"/>
+      <rect class="camp" x="462" y="322" width="9" height="9" transform="rotate(45 466 326)"/>
+      <text class="mlabel q" x="360" y="316">立宫室百司于州北,据溵水为"舂磨寨"</text>
+      <path class="march q" marker-end="url(#aq)" d="M 466,332 C 468,342 469,350 470,356"/>
+      <text class="mlabel q" x="360" y="416">纵兵四掠,捕人为粮,围陈三百日</text>
+      <text class="anno" x="470" y="434">赵犨婴城固守,关东大震</text>
+    </g>
+
+    <!-- 阶段二:沙陀南下 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="470" cy="360" r="26"/>
+      <path class="march j" marker-end="url(#aj)" d="M 300,120 C 380,180 460,250 528,306"/>
+      <text class="mlabel j" x="300" y="150">李克用率沙陀劲骑自河中南下</text>
+      <circle class="star" cx="560" cy="316" r="8"/>
+      <text class="anno" x="500" y="298">连破巢众于太康、西华</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 476,344 C 520,320 560,296 592,244"/>
+      <text class="mlabel r" x="500" y="352">巢党屡败,解陈围北趋汴州</text>
+    </g>
+
+    <!-- 阶段三:王满渡溃 · 狼虎谷亡 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 500,352 C 560,336 610,320 650,308"/>
+      <text class="mlabel j" x="490" y="336">李克用蹑其后</text>
+      <circle class="star" cx="662" cy="300" r="9"/>
+      <text class="mlabel j" x="600" y="270">王满渡一战大破巢军,尚让等降</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 674,306 C 740,340 800,390 862,442"/>
+      <text class="mlabel r" x="700" y="360">巢以余众东走兖郓,众稍散</text>
+      <path d="M 878,452 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="770" y="474">至狼虎谷,为甥林言所杀</text>
+      <text class="anno" x="700" y="492">传首行在,十年巢乱遂平</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐官军·李克用</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>黄巢义军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>巢军败走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="20" height="16"><circle cx="10" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>黄巢</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐官军</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二五五至二五六、《旧唐书·黄巢传》《新唐书·逆臣传》《李克用传》约略绘出。疆界、水道经简化;巢军流动无常土,晕染疆界仅示官军藩镇与巢众攻守之势,非实有画界。</p>
+    <p><span class="n">注二</span>陈州即今河南淮阳,溵水绕其北;太康、西华皆在陈、汴之间;王满渡为汴河渡口;汴州即今河南开封,朱温时已降唐为宣武节度使镇之;狼虎谷在今山东莱芜,泰山之下。</p>
+    <p><span class="n">注三</span>巢乱虽平,而朱温、李克用等藩镇由是坐大,唐遂以之亡,二十余年而禅于朱梁。本图以官军为本方(青),黄巢为对手(赭),巢军覆亡之路用褐;赵犨守陈三百日,关东以完,实转危之枢。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"围陈三百日",d:"唐中和三年 — 四年(883–884)",p:["黄巢为李克用沙陀兵败于梁田陂、零口,退出长安东走。恨陈州刺史赵犨拒命不附,悉众围之,立宫室百司于州北,据溵水为“舂磨寨”,纵兵四掠、捕人为粮,围陈三百日不下,关东大震。","唐廷发河东李克用、宣武朱温(时已降唐)、感化时溥等会师救陈州。诸军云集,巢众虽盛而困于坚城之下,攻守之势渐移。"]},
+  "1":{t:"舂磨围陈",d:"中和三年(883)",p:["黄巢东出,恨陈州刺史赵犨先拒其命,悉举众围之。立宫室百司于陈州之北,俨然建号,据溵水为“舂磨寨”,以为久驻之计。","巢军乏食,纵兵四掠数十州,捕人为粮,号“舂磨寨”,以巨碓碎人而食,惨酷冠于一时。围陈三百日不能下,赵犨兄弟婴城血战,关东为之大震。"]},
+  "2":{t:"沙陀南下",d:"中和四年(884)春",p:["李克用率沙陀劲骑自河中南下,与朱温、时溥诸军会。沙陀骑兵剽悍,连破巢众于太康、西华,巢党屡战屡北。","巢知不能支,遂解陈州之围,悉众北趋汴州,欲取朱温。三百日之围一朝而释,陈人得全,而巢势自此转衰。"]},
+  "3":{t:"王满渡溃 · 狼虎谷亡",d:"中和四年(884)夏",p:["李克用蹑巢之后,及于汴河渡口王满渡。一战大破巢军,斩获甚众,巢将尚让等率所部万余人来降,巢势遂崩。","巢以余众东走兖、郓,众稍散亡。至泰山下狼虎谷(今山东莱芜),穷蹙,为其甥林言所杀(一说自刎),传首行在。十年巢乱遂平——然朱温、李克用之势成,藩镇坐大,唐室名存而已。"]}
+};
+const CITY={
+  chenzhou:{t:"陈州",d:"今河南淮阳",p:["刺史赵犨拒巢命,悉城固守。巢立舂磨寨围之三百日不下,为关东存亡之枢。"]},
+  taikang:{t:"太康·西华",d:"今河南太康、西华",p:["陈、汴之间要地。李克用沙陀骑连破巢众于此,巢党屡败,遂解陈围。"]},
+  wangmandu:{t:"王满渡",d:"汴河渡口,陈汴之东",p:["决战之地。李克用蹑巢至此,一战大破之,尚让等万余众来降,巢势遂崩。"]},
+  bianzhou:{t:"汴州",d:"今河南开封,宣武军治",p:["朱温时已降唐为宣武节度使镇此。巢解陈围北趋汴州,反为官军所蹑而溃于王满渡。"]},
+  langhugu:{t:"狼虎谷",d:"今山东莱芜,泰山之下",p:["巢东走兖郓,众散,穷蹙至此,为甥林言所杀,传首行在。十年巢乱遂平。"]},
+  changan:{t:"长安",d:"唐京师",p:["巢僭号“大齐”据长安。为李克用沙陀兵所破,退出东走,遂有围陈之役。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

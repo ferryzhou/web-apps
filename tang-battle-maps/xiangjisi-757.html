@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>香积寺之战 · 收两京(757)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>香</span><span>积</span><span>寺</span><span>役</span></div>
+  <header>
+    <h1>香积寺之战 · 收两京</h1>
+    <div class="sub">唐至德二载(757)　　<i>唐 郭子仪 · 李嗣业 · 回纥</i> 大破 <b>燕 安守忠 · 李归仁</b> · 收复长安</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 东讨复京</button>
+    <button data-p="1">香积列阵</button>
+    <button data-p="2">陌刀陷阵</button>
+    <button data-p="3">新店复洛</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="香积寺之战收复两京形势图,含唐燕疆界、渭水沣水终南山与凤翔长安洛阳等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:叛军(燕)据两京之地(东),唐行在凤翔(西),约以战线为界 -->
+    <path d="M 404,0 C 400,90 410,170 430,250 C 448,310 460,370 460,430 C 460,520 448,580 440,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 404,0 C 400,90 410,170 430,250 C 448,310 460,370 460,430 C 460,520 448,580 440,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 404,0 C 400,90 410,170 430,250 C 448,310 460,370 460,430 C 460,520 448,580 440,640"/>
+    <text class="realm q" x="720" y="130" font-size="32">燕(叛军 · 两京)</text>
+    <text class="realm j" x="70" y="560" font-size="32">唐(行在 · 凤翔)</text>
+
+    <!-- 渭水:自西向东贯关中,经长安北 -->
+    <path class="river" stroke-width="5" d="M 60,236 C 200,244 360,250 500,244 C 640,238 760,232 900,240 C 940,242 972,244 1000,246"/>
+    <!-- 沣水:南山北下,经长安西南,注渭 -->
+    <path class="river" stroke-width="2.6" d="M 512,410 C 516,360 520,320 522,290 C 524,268 528,254 534,244"/>
+    <text class="rname" x="300" y="234" style="font-size:13px">渭 水</text>
+    <text class="rname" x="490" y="370" transform="rotate(84 490 370)" style="font-size:10.5px">沣 水</text>
+
+    <!-- 终南山:关中之南,三峰 -->
+    <g class="mtn"><path d="M 470,470 l 10,-16 l 10,16 M 490,462 l 10,-16 l 10,16 M 510,470 l 9,-15 l 9,15"/></g>
+    <text class="cname s" x="474" y="492">终南山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="fengxiang"><circle cx="120" cy="290" r="6"/><text class="cname" x="60" y="286">凤翔<tspan class="cname s" dx="2">(唐行在)</tspan></text></g>
+      <g class="city cap" data-city="changan"><circle cx="540" cy="252" r="6"/><text class="cname" x="552" y="248">长安<tspan class="cname s" dx="2">(西京)</tspan></text></g>
+      <g class="city" data-city="xiangjisi"><circle cx="524" cy="312" r="5"/><text class="cname" x="536" y="330">香积寺</text></g>
+      <g class="city" data-city="tongguan"><circle cx="690" cy="300" r="4.5"/><text class="cname s" x="672" y="320">潼关</text></g>
+      <g class="city" data-city="xindian"><circle cx="800" cy="300" r="5"/><text class="cname" x="758" y="288">陕郡<tspan class="cname s" dx="2">·新店</tspan></text></g>
+      <g class="city cap" data-city="luoyang"><circle cx="912" cy="330" r="6"/><text class="cname" x="858" y="352">洛阳<tspan class="cname s" dx="2">(东京)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 东讨复京 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 132,292 C 240,300 360,306 460,308 C 490,308 508,310 518,312"/>
+      <text class="mlabel j" x="180" y="330">广平王李俶为元帅,郭子仪副之,统唐及回纥之师十五万东出</text>
+      <rect class="camp" x="504" y="296" width="9" height="9" transform="rotate(45 508 300)"/>
+      <text class="mlabel q" x="560" y="300">叛军安守忠、李归仁十万陈于香积寺北</text>
+      <text class="anno" x="620" y="150">安庆绪据两京,骄兵内溃</text>
+    </g>
+
+    <!-- 阶段一:香积列阵 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 240,296 C 340,304 430,308 500,310"/>
+      <text class="mlabel j" x="250" y="290">唐军进至香积寺北、沣水之东,列阵亘数十里</text>
+      <rect class="camp" x="504" y="292" width="10" height="10" transform="rotate(45 509 297)"/>
+      <text class="mlabel q" x="530" y="284">叛军十万拒守</text>
+      <text class="anno" x="360" y="352">李嗣业前军 · 郭子仪中军 · 王思礼后军</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,326 C 520,368 540,410 512,452"/>
+      <text class="mlabel j" x="540" y="416">回纥叶护以精骑潜趋阵后南山</text>
+    </g>
+
+    <!-- 阶段二:陌刀陷阵 -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 522,306 C 512,308 502,310 494,312"/>
+      <text class="mlabel q" x="470" y="298">李归仁纵铁骑冲唐前阵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,318 C 486,314 502,310 514,308"/>
+      <text class="mlabel j" x="360" y="336">李嗣业袒裼持陌刀,如墙而进,所向辟易</text>
+      <circle class="star" cx="524" cy="312" r="8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 512,448 C 528,410 526,370 522,332"/>
+      <text class="mlabel j" x="536" y="400">回纥自南山绕出阵后,夹击</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 534,306 C 600,296 660,296 686,298"/>
+      <text class="mlabel r" x="560" y="322">自午及酉,斩首六万,宵遁</text>
+    </g>
+
+    <!-- 阶段三:新店复洛 -->
+    <g id="ph3" class="ph">
+      <path d="M 540,252 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="480" y="238">次日唐军入长安</text>
+      <path class="march j" marker-end="url(#aj)" d="M 552,266 C 640,290 720,300 786,300"/>
+      <text class="mlabel j" x="600" y="286">乘胜东进</text>
+      <rect class="camp" x="794" y="294" width="9" height="9" transform="rotate(45 798 298)"/>
+      <text class="mlabel q" x="740" y="332">严庄、张通儒屯陕郡新店拒守</text>
+      <circle class="star" cx="800" cy="300" r="8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 812,304 C 860,318 890,324 908,328"/>
+      <text class="anno" x="820" y="350">回纥逾山出其背,大破之</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 918,322 C 940,290 950,240 946,190"/>
+      <text class="mlabel r" x="922" y="240">安庆绪弃洛阳走河北</text>
+      <text class="anno" x="700" y="150">东京以复,两京遂平</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军·回纥</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>叛军(燕)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>叛军</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二二〇、《旧唐书·郭子仪传》《李嗣业传》《回纥传》约略绘出。疆界、水道及军阵位置经简化,叛军与唐之界以点划"约界"标之,非实有画界。</p>
+    <p><span class="n">注二</span>香积寺在今西安长安区,沣水东;凤翔今陕西宝鸡凤翔,时为肃宗行在;新店在陕郡(今河南三门峡)界。渭、沣二水走向经约略示之。</p>
+    <p><span class="n">注三</span>李嗣业之陌刀、回纥之铁骑为破阵之关键;然唐廷借兵回纥、许其入城掳掠,亦伏中晚唐藩镇之患与回纥骄横之端——功成之下,隐忧已萌。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"东讨复京",d:"至德二载(757)九月",p:["安史乱起,两京沦陷,玄宗幸蜀,肃宗即位灵武,寻移行在于凤翔。至德二载九月,广平王李俶(后之代宗)为天下兵马元帅,郭子仪副之,统朔方及回纥、西域之兵十五万,号二十万,自凤翔东进,趋长安。","叛军安守忠、李归仁等十万,陈于香积寺北、沣水之东,拒唐师于西京门户之外。两军相望,一战之间,系两京之得失、中兴之成败。"]},
+  "1":{t:"香积列阵",d:"至德二载九月",p:["唐军进至香积寺北、沣水之东,列阵亘数十里:李嗣业为前军,郭子仪自将中军,王思礼将后军,阵势严整。","回纥叶护受约,以精骑潜趋叛军阵后之南山,期以夹击。唐军之谋,不在正面之力,而在腹背之势——一击之奇,伏于列阵之初。"]},
+  "2":{t:"陌刀陷阵",d:"至德二载九月",p:["叛骁将李归仁出挑战,纵铁骑冲唐前阵,唐军一度却而扰动。李嗣业袒裼持陌刀,立于阵前大呼死战,身先士卒,如墙而进,所向辟易,唐军气复振。","回纥自阵后南山掩击,叛军腹背受敌,自午及酉,斩首六万,填沟壑死者甚众,余众宵遁。次日唐军入长安,西京遂复。"]},
+  "3":{t:"新店复洛",d:"至德二载十月",p:["唐军乘胜东进,叛军严庄、张通儒悉众屯陕郡新店,据险拒守,以蔽东京。","回纥逾山出其背,唐军奋击,大破之。安庆绪弃洛阳走河北,东京以复,两京遂平。中兴之业,自此奠其大略。"]}
+};
+const CITY={
+  fengxiang:{t:"凤翔",d:"唐行在,今陕西宝鸡凤翔",p:["肃宗行在所在。至德二载九月,广平王、郭子仪自此统唐及回纥之师十五万东出,趋长安。"]},
+  changan:{t:"长安",d:"西京,今陕西西安",p:["安史叛军所据。香积寺一战大破叛军之次日,唐军入城,西京遂复。"]},
+  xiangjisi:{t:"香积寺",d:"长安西南,沣水东",p:["会战之地。唐军列阵于寺北、沣水之东;李嗣业陌刀陷阵、回纥绕出阵后夹击,斩首六万,叛军大溃。"]},
+  tongguan:{t:"潼关",d:"关中东门,今陕西潼关",p:["西京与东京之间的锁钥。复长安后,唐军东出过此,进讨陕、洛之叛军。"]},
+  xindian:{t:"陕郡·新店",d:"今河南三门峡界",p:["严庄、张通儒悉众屯此拒守。回纥逾山出其背,唐军奋击大破之,东京之门户遂开。"]},
+  luoyang:{t:"洛阳",d:"东京,今河南洛阳",p:["安庆绪据以自守。新店败后,庆绪弃城走河北,东京以复,两京遂平。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

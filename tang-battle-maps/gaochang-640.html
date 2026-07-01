@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灭高昌之战 · 贞观十四年(640)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .desert{fill:none;stroke:var(--ret);stroke-width:1;opacity:.5}
+  .dname{fill:var(--ret);font-size:12.5px;letter-spacing:.2em;font-weight:500;opacity:.8}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>平</span><span>高</span><span>昌</span><span>役</span></div>
+  <header>
+    <h1>灭高昌之战</h1>
+    <div class="sub">唐贞观十四年(640)　　<i>唐 侯君集 · 薛万均</i> 灭 <b>高昌 麹文泰</b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 冒碛西征</button>
+    <button data-p="1">度碛兵临</button>
+    <button data-p="2">拔田地 · 围都城</button>
+    <button data-p="3">智盛出降 · 置西州</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="唐灭高昌之战形势图,含唐与高昌疆界、莫贺延碛大漠、天山与凉州伊吾交河等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="sandStipple" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="rgba(122,90,35,.05)"/><circle cx="3" cy="3" r="1" fill="rgba(122,90,35,.35)"/><circle cx="10" cy="8" r="1" fill="rgba(122,90,35,.3)"/><circle cx="6" cy="12" r="1" fill="rgba(122,90,35,.28)"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:高昌据西域(西),唐据伊西陇右(东),约以莫贺延碛为界 -->
+    <path d="M 470,0 C 456,110 452,190 448,270 C 444,360 452,450 470,530 C 480,580 484,610 486,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 456,110 452,190 448,270 C 444,360 452,450 470,530 C 480,580 484,610 486,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 456,110 452,190 448,270 C 444,360 452,450 470,530 C 480,580 484,610 486,640"/>
+    <text class="realm q" x="90" y="130" font-size="30">高 昌(西域)</text>
+    <text class="realm j" x="700" y="560" font-size="30">唐(伊西·陇右)</text>
+
+    <!-- 莫贺延碛:横亘唐、高昌之间的七百里大漠 -->
+    <path d="M 500,120 C 560,150 600,210 610,300 C 618,380 596,450 540,510 L 640,540 C 700,470 720,380 710,290 C 698,190 650,130 596,110 Z" fill="url(#sandStipple)" stroke="rgba(122,90,35,.4)" stroke-width="1" stroke-dasharray="4 5"/>
+    <text class="dname" x="560" y="300" transform="rotate(74 560 300)">莫贺延碛 · 七百里大漠</text>
+
+    <!-- 天山:北界三峰 -->
+    <g class="mtn"><path d="M 150,90 l 12,-20 l 12,20 M 174,82 l 12,-20 l 12,20 M 198,90 l 11,-18 l 11,18 M 240,88 l 12,-20 l 12,20"/></g>
+    <text class="rname" x="200" y="60" style="fill:var(--ink2);letter-spacing:.3em">天　山</text>
+
+    <!-- 疏勒河/流沙水道:凉州—玉门 -->
+    <path class="river" stroke-width="2.6" d="M 940,470 C 890,455 850,450 812,452 C 790,453 770,458 748,462"/>
+    <text class="rname" x="840" y="490" style="font-size:11px">疏勒河</text>
+
+    <!-- 城邑:自东(凉州)向西(交河)排布 -->
+    <g id="cities">
+      <g class="city cap" data-city="liangzhou"><circle cx="940" cy="470" r="6"/><text class="cname" x="890" y="466">凉州<tspan class="cname s" dx="2">(河西)</tspan></text></g>
+      <g class="city" data-city="yumen"><circle cx="748" cy="462" r="5"/><text class="cname s" x="712" y="482">玉门关(敦煌)</text></g>
+      <g class="city" data-city="yiwu"><circle cx="420" cy="230" r="5"/><text class="cname s" x="356" y="226">伊吾(哈密)</text></g>
+      <g class="city cap" data-city="jiaohe"><circle cx="238" cy="286" r="6.5"/><text class="cname" x="150" y="282">交河·高昌都城</text><text class="cname s" x="158" y="300">(吐鲁番)</text></g>
+      <g class="city" data-city="tiandi"><circle cx="316" cy="330" r="4.5"/><text class="cname s" x="322" y="348">田地城</text></g>
+      <g class="city" data-city="futu"><circle cx="196" cy="180" r="4.5"/><text class="cname s" x="120" y="176">可汗浮图城</text></g>
+      <g class="city" data-city="mohe"><circle cx="590" cy="320" r="3.5"/><text class="cname s" x="600" y="316" style="fill:var(--ret)">莫贺延碛</text></g>
+    </g>
+
+    <!-- 全图 · 冒碛西征 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 934,464 C 860,448 800,458 752,458 C 660,460 560,410 460,320 C 380,300 300,296 246,290"/>
+      <text class="mlabel j" x="560" y="238">侯君集为交河道行军大总管,率步骑数万冒碛西讨</text>
+      <text class="anno" x="640" y="418">薛万均、契苾何力等从征,涉碛卤七百里</text>
+      <text class="mlabel q" x="90" y="200">麹文泰恃碛险、结西突厥,绝贡道、扣唐使</text>
+      <text class="anno" x="150" y="350">谓"唐兵必不能至",不设备</text>
+    </g>
+
+    <!-- 阶段一:度碛兵临 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 744,458 C 660,458 590,440 500,380 C 460,352 420,320 380,300"/>
+      <text class="mlabel j" x="520" y="345">唐军出敦煌,涉莫贺延碛而西</text>
+      <path class="march j" marker-end="url(#aj)" d="M 414,228 C 380,250 340,270 300,290"/>
+      <text class="anno" x="360" y="255">过伊吾,兵锋直逼高昌</text>
+      <rect class="camp" x="234" y="282" width="8" height="8" transform="rotate(45 238 286)"/>
+      <text class="mlabel q" x="120" y="240">文泰闻唐军已度碛,忧惧发病而卒</text>
+      <text class="anno" x="150" y="322">子智盛嗣立,仓皇拒守</text>
+    </g>
+
+    <!-- 阶段二:拔田地 · 围都城 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 470,318 C 420,326 370,330 326,332"/>
+      <path d="M 316,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="316" y="368">侯君集先拔田地城,俘男女七千</text>
+      <path class="march j" marker-end="url(#aj)" d="M 308,326 C 288,316 268,304 250,294"/>
+      <circle class="star" cx="238" cy="286" r="10"/>
+      <circle class="siege" cx="238" cy="286" r="16"/>
+      <text class="mlabel j" x="120" y="266">进围都城,作抛车飞石、巢车瞰城</text>
+      <text class="anno" x="150" y="248">昼夜攻之,城中震恐</text>
+    </g>
+
+    <!-- 阶段三:智盛出降 · 置西州 -->
+    <g id="ph3" class="ph">
+      <rect class="camp" x="192" y="176" width="9" height="9" transform="rotate(45 196 180)"/>
+      <text class="mlabel q" x="70" y="158">西突厥援军屯可汗浮图城</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 200,186 C 210,210 220,240 230,270"/>
+      <text class="mlabel r" x="130" y="230">惧而降,外援遂绝</text>
+      <path d="M 238,286 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="150" y="266">麹智盛开门出降,高昌亡</text>
+      <text class="anno" x="150" y="322">唐以其地为西州,置安西都护府于交河</text>
+      <text class="anno" x="360" y="360">西域门户自此入唐</text>
+    </g>
+
+    <g class="compass" transform="translate(944,600)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>高昌·西突厥</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>降走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>攻城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#sandStipple)"/></svg>莫贺延碛</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>高昌</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一九五、《旧唐书·高昌传》《侯君集传》约略绘出。疆界、水道、碛境经简化,城邑方位取其大略,非实测地图。</p>
+    <p><span class="n">注二</span>高昌都城、交河故城在今新疆吐鲁番,莫贺延碛即今哈顺戈壁(伊州以东大漠);伊吾即今哈密,可汗浮图城在今吉木萨尔一带,为西突厥所遣援军所屯。</p>
+    <p><span class="n">注三</span>灭高昌、置西州与安西都护府,为唐直辖西域、经营丝路之始;然侯君集私取宝物、纵兵掠夺,归而下狱,亦伏后日谋反之衅。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"冒碛西征",d:"唐贞观十三年 — 十四年(639–640)",p:["高昌王麹文泰恃碛卤之险、结西突厥为援,绝西域贡道、扣留唐使、遏绝商旅。贞观十三年,太宗命侯君集为交河道行军大总管,薛万均、契苾何力等副之,率步骑数万,冒碛西讨高昌。","碛卤广七百里,水草乏绝,人马艰行。文泰恃唐军不能远涉,谓左右曰:“唐去我七千里,沙碛阔二千里,地无水草,寒风如刀,热风如烧,安能致大兵乎?”故不为之备。及闻唐军已度碛,惶骇无策。"]},
+  "1":{t:"度碛兵临",d:"贞观十四年(640)",p:["唐军出敦煌、玉门,涉莫贺延碛而西,历伊吾进逼高昌。碛中风沙酷烈,君集勒兵疾行,竟越七百里之绝地而至。","文泰本谓唐兵必不能至,不设守备;闻唐军已度碛,忧惧交并,发病而卒(一说病死),子智盛仓皇嗣立,始敛兵拒守,而众心已摇。"]},
+  "2":{t:"拔田地·围都城",d:"贞观十四年(640)",p:["侯君集进军,先拔田地城,俘获男女七千,高昌屏障尽失。乃移兵进围都城,列营环之。","唐军作抛车飞石,巢车高十丈以瞰城中,矢石雨下,又以撞车毁其堞。昼夜攻之,城中人物皆震恐,高昌上下夺气。"]},
+  "3":{t:"智盛出降·置西州",d:"贞观十四年(640)",p:["西突厥可汗先遣兵屯可汗浮图城以为声援,及见唐军威盛,惧而请降,高昌外援遂绝,孤城无所恃。","麹智盛计穷,开门出降,高昌遂亡,凡三郡、五县、二十二城入唐。太宗以其地置西州,又置安西都护府于交河——中原经营西域、控扼丝路之门户,自此而开。"]}
+};
+const CITY={
+  jiaohe:{t:"交河·高昌都城",d:"今新疆吐鲁番",p:["麹氏高昌之都,亦置交河城。侯君集围之,作抛车、巢车昼夜攻击;麹智盛开门出降。唐后置安西都护府于交河。"]},
+  tiandi:{t:"田地城",d:"高昌东境要邑",p:["高昌都城之东屏。侯君集进军先拔此城,俘男女七千,高昌门户遂洞开。"]},
+  yiwu:{t:"伊吾",d:"今新疆哈密",p:["西域东端要地,唐军度碛西进所经。贞观四年伊吾已内附置西伊州,为唐军西向之前进跳板。"]},
+  futu:{t:"可汗浮图城",d:"西突厥援军所屯,今吉木萨尔一带",p:["西突厥可汗遣兵屯此以援高昌。及睹唐军威盛,惧而降,高昌外援遂绝,孤危无恃。"]},
+  mohe:{t:"莫贺延碛",d:"七百里大漠,今哈顺戈壁",p:["横亘唐与高昌之间的绝碛,广七百里,无水草,寒热风如刀如烧。文泰恃此以为唐兵必不能至;君集竟冒碛而度,遂出其不意。"]},
+  yumen:{t:"玉门关",d:"今甘肃敦煌西",p:["河西通西域之关隘。唐军出敦煌、越玉门,由此入碛西征,为度碛前之最后重镇。"]},
+  liangzhou:{t:"凉州",d:"河西重镇,今甘肃武威",p:["河西节度所资、军兴转输之地。唐军西征,粮械多取给于河西诸州,凉州为其枢要。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

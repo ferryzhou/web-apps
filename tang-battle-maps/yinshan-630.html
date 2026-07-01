@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阴山之战 · 灭东突厥(629–630)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>阴</span><span>山</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>阴山之战 · 灭东突厥</h1>
+    <div class="sub">唐贞观三年至四年(629–630)　　<i>唐 李靖 · 李勣</i> 灭 <b>东突厥 颉利可汗</b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 分道出塞</button>
+    <button data-p="1">夜袭定襄</button>
+    <button data-p="2">伪和缓师</button>
+    <button data-p="3">阴山奇袭</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="阴山之战灭东突厥形势图,含东突厥漠南与唐关内河东疆界、黄河几字弯、阴山与定襄白道碛口长安等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:东突厥据漠南草原(北),唐据关内河东(南),约以阴山、黄河为限 -->
+    <path d="M 0,300 C 150,290 320,270 470,258 C 620,246 780,262 1000,250 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 150,290 320,270 470,258 C 620,246 780,262 1000,250 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 150,290 320,270 470,258 C 620,246 780,262 1000,250"/>
+    <text class="realm q" x="120" y="130" font-size="32">东 突 厥(漠南)</text>
+    <text class="realm j" x="640" y="560" font-size="30">唐(关内·河东)</text>
+
+    <!-- 阴山:东西横亘漠南之南(即大青山),三峰连绵 -->
+    <g class="mtn" stroke-width="1.4">
+      <path d="M 180,232 l 12,-20 l 12,20 M 208,232 l 12,-20 l 12,20 M 236,232 l 11,-19 l 11,19"/>
+      <path d="M 300,238 l 12,-20 l 12,20 M 328,238 l 12,-20 l 12,20 M 356,238 l 11,-19 l 11,19"/>
+      <path d="M 430,240 l 12,-20 l 12,20 M 458,240 l 12,-20 l 12,20 M 486,240 l 11,-19 l 11,19"/>
+    </g>
+    <text class="rname" x="330" y="212" style="fill:var(--ink2);letter-spacing:.4em;font-size:14px;opacity:.8">阴　山</text>
+
+    <!-- 黄河:几字弯,西来北折,东出复南下 -->
+    <path class="river" stroke-width="5" d="M 60,470 C 150,430 210,382 250,320 C 285,270 320,258 400,258 C 500,258 600,262 660,290 C 720,318 748,380 760,460 C 768,520 780,580 800,640"/>
+    <text class="rname" x="250" y="300" transform="rotate(-40 250 300)">黄 河</text>
+    <text class="rname" x="740" y="420" transform="rotate(72 740 420)" style="font-size:10.5px">几字弯</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="qikou"><circle cx="470" cy="70" r="4"/><text class="cname" x="482" y="66">碛口<tspan class="cname s" dx="2">(颉利就擒)</tspan></text></g>
+      <g class="city" data-city="tieshan"><circle cx="360" cy="180" r="5"/><text class="cname" x="300" y="170">铁山</text></g>
+      <g class="city" data-city="dingxiang"><circle cx="430" cy="300" r="6"/><text class="cname" x="444" y="296">定襄<tspan class="cname s" dx="2">(李靖夜袭)</tspan></text></g>
+      <g class="city" data-city="baidao"><circle cx="360" cy="270" r="4.5"/><text class="cname s" x="284" y="266">白道(会师)</text></g>
+      <g class="city" data-city="shuozhou"><circle cx="520" cy="378" r="5"/><text class="cname" x="534" y="374">朔州·马邑<tspan class="cname s" dx="2">(出塞地)</tspan></text></g>
+      <g class="city cap" data-city="changan"><circle cx="560" cy="580" r="6.5"/><text class="cname" x="574" y="576">长安<tspan class="cname s" dx="2">(唐都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 分道出塞 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 556,566 C 545,490 535,430 524,392"/>
+      <text class="mlabel j" x="566" y="470">太宗命李靖、李勣等十余万,分道北伐</text>
+      <path class="march j" marker-end="url(#aj)" d="M 520,372 C 494,346 462,320 438,306"/>
+      <text class="anno" x="474" y="352">李靖出定襄道,李勣出通漠道</text>
+      <text class="mlabel q" x="120" y="170">颉利败盟扰边,会其国乱、雪灾、诸部离散</text>
+      <rect class="camp" x="356" y="176" width="9" height="9" transform="rotate(45 360 180)"/>
+      <text class="anno" x="240" y="200">颉利牙帐初在阴山南</text>
+    </g>
+
+    <!-- 阶段一:夜袭定襄 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 470,368 C 458,346 446,324 436,308"/>
+      <text class="mlabel j" x="480" y="352">李靖率骁骑三千,冒寒夜进</text>
+      <circle class="star" cx="430" cy="300" r="9"/>
+      <text class="anno" x="330" y="330">乘夜猝袭,颉利一夕数惊</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 424,294 C 460,220 470,140 470,84"/>
+      <text class="mlabel q" x="484" y="180">颉利弃牙帐北走碛口</text>
+      <text class="anno" x="330" y="132">唐威震北荒,颉利始惧而请降</text>
+    </g>
+
+    <!-- 阶段二:伪和缓师 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="356" y="176" width="10" height="10" transform="rotate(45 360 180)"/>
+      <text class="mlabel q" x="230" y="164">颉利屯铁山,余众数万</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 366,182 C 400,150 440,110 466,86"/>
+      <text class="anno" x="380" y="128">遣使请降,实俟草青马肥而遁漠北</text>
+      <path class="march j" marker-end="url(#aj)" d="M 430,296 C 405,288 382,280 366,274"/>
+      <text class="mlabel j" x="256" y="252">李靖与李勣会于白道</text>
+      <path class="march j" marker-end="url(#aj)" d="M 356,266 C 348,246 350,224 356,206"/>
+      <text class="anno" x="240" y="228">简精骑万人,赍二十日粮,衔枚夜趋阴山</text>
+    </g>
+
+    <!-- 阶段三:阴山奇袭 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 358,262 C 356,236 356,214 359,190"/>
+      <text class="mlabel j" x="240" y="216">苏定方为前锋,乘大雾直抵牙帐</text>
+      <path d="M 360,180 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="230" y="146">纵兵掩击,斩万余级,俘十余万</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 352,178 C 300,150 250,120 210,100"/>
+      <text class="mlabel r" x="210" y="128">颉利乘千里马西奔</text>
+      <text class="anno" x="70" y="94">为张宝相擒送京师;东突厥亡</text>
+      <path class="march r" marker-end="url(#ar)" d="M 200,102 C 320,180 460,420 552,566" style="stroke:var(--ret);stroke-width:2.4;stroke-dasharray:3 7;fill:none;stroke-linecap:round"/>
+      <text class="anno" x="520" y="520">槛送长安,四夷尊帝为天可汗</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>东突厥军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>颉利溃遁</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>夜袭会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>东突厥</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一九三、《旧唐书·李靖传》《突厥传》约略绘出。疆界、水道经简化:阴山、黄河几字弯及漠南草原皆取其大势,非实测画界。</p>
+    <p><span class="n">注二</span>定襄在今内蒙古和林格尔,阴山即大青山;白道为阴山南麓要隘,李靖、李勣会师于此。苏定方为李靖前锋,雾中直抵颉利牙帐七里乃觉,遂破之。碛口在漠南之北,颉利北遁就擒之地。</p>
+    <p><span class="n">注三</span>此役一举灭东突厥,雪武德九年渭水之耻;颉利槛送长安,漠南悉为唐有,诸蕃君长共尊太宗为"天可汗"。唐之北疆与威望由是大开,天可汗之制自此始。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"分道出塞",d:"贞观三年冬(629)",p:["东突厥颉利可汗连年寇边,然其国内政乱,又遇大雪、羊马多死,薛延陀叛离,诸部离散,国势大衰。贞观三年冬,太宗以为可乘,命李靖为定襄道行军总管,李勣、柴绍、李道宗、卫孝节、薛万彻等,总十余万众,分道并进,北伐颉利。","诸军皆受李靖节度。李靖出定襄道,李勣出通漠道,东西并举,直指漠南牙帐。颉利屯兵阴山之南,未虞唐师之骤至。"]},
+  "1":{t:"夜袭定襄",d:"贞观四年正月(630)",p:["李靖率骁骑三千,自马邑出,乘夜冒寒进袭定襄。颉利不意唐兵猝至,谓唐尽发国中兵而来,一夕数惊,不能自安。","唐军夜破定襄,颉利仓皇弃牙帐北走碛口。李靖威震北荒,西破隋萧后、杨政道以献。颉利始惧,遣使入朝谢罪,请举国内附。"]},
+  "2":{t:"伪和缓师",d:"贞观四年二月(630)",p:["颉利虽请降,而其众尚数万,屯于铁山。所以请和者,实欲俟草青马肥,伺间遁归漠北,别图后举。太宗遣鸿胪卿唐俭、将军安修仁往抚之,颉利意稍安。","李靖引兵与李勣会于白道,谋曰:'诏使在彼,虏必自宽。若选精骑赍粮掩袭,不战可擒。'李勣然之。乃简精骑万人,赍二十日粮,衔枚夜趋阴山。"]},
+  "3":{t:"阴山奇袭",d:"贞观四年二月(630)",p:["前锋苏定方率二百骑,乘大雾疾进,直抵颉利牙帐七里,虏乃觉。定方纵兵驰击,李靖大军继至,唐军掩杀,斩万余级,俘男女十余万,杂畜数十万,获隋义成公主,杀之。","颉利乘千里马西奔,为大同道行军总管张宝相所擒,槛送京师。东突厥亡,漠南之地悉为唐有。四夷君长诣阙请上尊号曰'天可汗',天可汗之制自此始。"]}
+};
+const CITY={
+  dingxiang:{t:"定襄",d:"今内蒙古和林格尔",p:["颉利牙帐所在。李靖率骁骑三千夜袭之,颉利一夕数惊,弃帐北走碛口——此役开唐灭突厥之端。"]},
+  baidao:{t:"白道",d:"阴山南麓要隘",p:["李靖与李勣会师之地。二将谋定,简精骑万人、赍二十日粮,自此衔枚夜趋阴山奇袭。"]},
+  tieshan:{t:"铁山",d:"阴山之南",p:["颉利败走后退保之地,余众尚数万。伪遣使请降,实欲俟草青马肥而遁漠北,遂为唐军所袭。"]},
+  qikou:{t:"碛口",d:"漠南之北,近大碛",p:["颉利弃定襄牙帐后北遁之处。阴山奇袭既败,西奔亦不得脱,终为张宝相擒送长安。"]},
+  shuozhou:{t:"朔州·马邑",d:"今山西朔州",p:["唐军出塞之地。李靖自马邑发骁骑三千,乘夜出塞袭定襄,为北伐之锋。"]},
+  changan:{t:"长安",d:"唐都",p:["颉利槛送至此。东突厥既亡,四夷共尊太宗为'天可汗',雪渭水之耻,唐威由是大振。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

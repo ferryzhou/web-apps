@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>洺水之战 · 武德五年至六年(622–623)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .flood{fill:none;stroke:var(--water);stroke-width:2.4;opacity:.9}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>洺</span><span>水</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>洺水之战</h1>
+    <div class="sub">唐武德五年至六年(622–623)　　<i>唐 秦王李世民 · 太子建成</i> 平 <b>汉东 刘黑闼</b>(突厥助之)</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 黑闼复起</button>
+    <button data-p="1">洺水相持</button>
+    <button data-p="2">决堰灌水</button>
+    <button data-p="3">再起就擒</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="洺水之战形势图,含唐与汉东刘黑闼疆界、洺水漳水与洺州馆陶魏州相州长安等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:刘黑闼据河北(东/北),唐自西/南进,约界在河北南缘 -->
+    <path d="M 0,300 C 120,286 260,290 380,270 C 500,250 600,210 720,180 C 840,150 940,140 1000,138 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 120,286 260,290 380,270 C 500,250 600,210 720,180 C 840,150 940,140 1000,138 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 120,286 260,290 380,270 C 500,250 600,210 720,180 C 840,150 940,140 1000,138"/>
+    <text class="realm q" x="640" y="88" font-size="32">汉 东(河北)</text>
+    <text class="realm j" x="120" y="560" font-size="30">唐(关中·山东)</text>
+
+    <!-- 洺水:自西而东横贯战场(今南洺河) -->
+    <path class="river" stroke-width="5" d="M 250,352 C 360,360 470,356 560,362 C 660,368 760,372 860,368 C 920,366 970,364 1000,362"/>
+    <!-- 漳水:自西北南下,黑闼起兵之漳南在其滨 -->
+    <path class="river" stroke-width="3" d="M 560,140 C 600,220 660,300 730,380 C 780,436 830,470 880,500"/>
+    <!-- 黄河:远南,横贯山东 -->
+    <path class="river" stroke-width="3.2" d="M 0,600 C 200,596 420,592 620,588 C 780,584 900,584 1000,586"/>
+    <text class="rname" x="470" y="346">洺 水</text>
+    <text class="rname" x="700" y="330" transform="rotate(52 700 330)" style="font-size:11px">漳 水</text>
+    <text class="rname" x="360" y="612" style="font-size:12px">黄 河</text>
+
+    <!-- 太行山:西缘 -->
+    <g class="mtn"><path d="M 96,220 l 9,-15 l 9,15 M 114,214 l 9,-15 l 9,15 M 132,220 l 8,-14 l 8,14"/></g>
+    <text class="cname s" x="96" y="242">太行山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="mingzhou"><circle cx="520" cy="330" r="6"/><text class="cname" x="532" y="326">洺州<tspan class="cname s" dx="2">(汉东都)</tspan></text></g>
+      <g class="city" data-city="mingshui"><circle cx="470" cy="362" r="4"/><text class="cname s" x="404" y="382">洺水(决堰灌阵)</text></g>
+      <g class="city" data-city="zhangnan"><circle cx="700" cy="360" r="4.5"/><text class="cname" x="712" y="356">漳南<tspan class="cname s" dx="2">(起兵地)</tspan></text></g>
+      <g class="city" data-city="guantao"><circle cx="720" cy="500" r="4.5"/><text class="cname" x="732" y="496">馆陶<tspan class="cname s" dx="2">(就擒处)</tspan></text></g>
+      <g class="city" data-city="weizhou"><circle cx="600" cy="460" r="4"/><text class="cname s" x="558" y="480">魏州</text></g>
+      <g class="city" data-city="xiangzhou"><circle cx="470" cy="420" r="4"/><text class="cname s" x="428" y="440">相州</text></g>
+      <g class="city" data-city="changan"><circle cx="70" cy="470" r="5.5"/><text class="cname" x="82" y="466">长安<tspan class="cname s" dx="2">(唐都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 黑闼复起 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 700,354 C 660,340 600,336 528,332"/>
+      <text class="mlabel q" x="560" y="316">黑闼自漳南起兵,半岁尽复建德故地</text>
+      <text class="anno" x="600" y="300">借突厥兵,称汉东王,都洺州</text>
+      <path class="march j" marker-end="url(#aj)" d="M 84,466 C 220,440 360,400 462,360"/>
+      <text class="mlabel j" x="150" y="428">秦王世民引兵东讨</text>
+      <text class="anno" x="220" y="446">太子建成、齐王元吉后继东出</text>
+    </g>
+
+    <!-- 阶段一:洺水相持 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="516" y="326" width="8" height="8" transform="rotate(45 520 330)"/>
+      <text class="mlabel q" x="470" y="316">黑闼军洺水之北</text>
+      <path class="march j" marker-end="url(#aj)" d="M 486,372 C 500,368 508,362 514,352"/>
+      <text class="mlabel j" x="360" y="392">世民军洺水之南,夹水相持六十余日</text>
+      <path class="march j" marker-end="url(#aj)" d="M 460,368 C 400,388 330,410 268,428"/>
+      <text class="anno" x="300" y="446">遣奇兵绝其粮道,黑闼食尽,急欲决战</text>
+    </g>
+
+    <!-- 阶段二:决堰灌水 -->
+    <g id="ph2" class="ph">
+      <!-- 上游壅堰 -->
+      <path class="flood" d="M 236,338 l 0,28 M 246,336 l 0,32" stroke-dasharray="2 3"/>
+      <text class="anno" x="150" y="330">上游壅堰蓄水,约"战急乃决之"</text>
+      <path class="march q" marker-end="url(#aq)" d="M 516,336 C 500,346 486,354 476,360"/>
+      <text class="mlabel q" x="486" y="332">黑闼引兵半渡洺水</text>
+      <circle class="star" cx="470" cy="362" r="8"/>
+      <path class="flood" marker-end="url(#aj)" d="M 250,356 C 330,362 400,362 456,362"/>
+      <text class="mlabel j" x="270" y="352">壅水忽决,洪流暴至,水深丈余</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 476,356 C 540,336 620,320 700,344"/>
+      <text class="mlabel r" x="560" y="352">溺死、断归路者数千,大破之</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 528,326 C 560,270 580,210 600,150"/>
+      <text class="mlabel r" x="600" y="240">黑闼以数百骑北走突厥</text>
+    </g>
+
+    <!-- 阶段三:再起就擒 -->
+    <g id="ph3" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 600,150 C 580,220 560,290 532,326"/>
+      <text class="mlabel q" x="560" y="180">黑闼借突厥复入山东</text>
+      <path class="march j" marker-end="url(#aj)" d="M 84,466 C 240,450 400,446 512,336"/>
+      <text class="mlabel j" x="200" y="486">建成、元吉东讨,用魏徵"释俘携党"之策</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 516,338 C 560,392 640,452 706,492"/>
+      <text class="mlabel r" x="540" y="420">黑闼众离散,走馆陶</text>
+      <path d="M 720,500 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="anno" x="620" y="524">为其下所擒斩,河北悉平</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>汉东·突厥军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>汉东</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一九〇、《旧唐书·刘黑闼传》《太宗纪》《隐太子建成传》约略绘出。洺州今河北永年,洺水即今南洺河;漳南在今河北故城一带,馆陶今河北馆陶。疆界、水道经简化,非实有画界。</p>
+    <p><span class="n">注二</span>窦建德败死后,其将刘黑闼据漳南起兵复仇,借突厥兵,半岁尽复建德故地,称汉东王,都洺州。世民夹洺水相持六十余日,先于上游壅堰蓄水,约决战日决之;两军战酣,黑闼半渡而壅水暴决,洺水陡涨丈余,溺死断归路者数千——决水灌阵为此役制胜之诀。</p>
+    <p><span class="n">注三</span>黑闼北走突厥,寻借兵复入山东。太子建成、齐王元吉东讨,用魏徵"释俘以携其党"之谋,纵所俘以散其众;黑闼众离,走馆陶为其下所擒斩,河北遂定——不专于兵,而系于攻心。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"黑闼复起",d:"唐武德五年正月 — 六年正月",p:["窦建德败死于武德四年,河北新附而未安。建德旧将刘黑闼据漳南起兵复仇,借突厥之兵,不半岁尽复建德故地,自称汉东王,建元天造,都洺州,声势复振,山东为之骚动。","唐高祖以河北未平,遣秦王李世民引兵东讨。世民察黑闼恃突厥、恃锐气,乃引军至洺水,凭水立营,不与速战——欲以持久困之,俟其粮尽气衰而后决。"]},
+  "1":{t:"洺水相持",d:"武德五年二月至三月",p:["世民军洺水之南,黑闼军洺水之北,两军夹水相持六十余日。黑闼屡挑战,世民坚壁不出,阴使奇兵绝其粮道,断其转输。","日久,黑闼军中食尽,士卒疲敝,进退皆窘。黑闼度不能持,遂急欲与唐军决战于洺水之上——正堕世民持久之算。"]},
+  "2":{t:"决堰灌水",d:"武德五年三月",p:["世民先令于洺水上游壅堰蓄水,谓守吏曰:'待我与贼战,乃决之。'既而黑闼引兵渡水来攻,两军战酣,黑闼众方半渡。","世民急遣决堰,壅水暴至,洺水陡涨丈余,贼众溺死及断归路者数千人,前后不相救,遂大溃。黑闼势穷,以麾下数百骑北走突厥,汉东旧地一朝复入于唐。"]},
+  "3":{t:"再起就擒",d:"武德五年六月 — 六年正月",p:["黑闼北依突厥,寻复借兵南下,再入山东,河北复扰。高祖乃遣太子建成、齐王元吉东讨。","建成用洗马魏徵之策:前此唐军俘获辄杀,故贼党死斗;今悉纵所俘,使归相告,以携其党。黑闼众闻之离散,莫肯效死,遂败走馆陶,为其部下诸葛德威所擒,械送就斩,河北悉平。可见平乱之要,不专于兵,而系于攻心。"]}
+};
+const CITY={
+  mingzhou:{t:"洺州",d:"汉东都城,今河北永年",p:["刘黑闼复起后所都,汉东王政权中枢。洺水之战即在其城下洺水之滨。"]},
+  mingshui:{t:"洺水",d:"即今南洺河,决堰灌阵处",p:["世民夹水相持之地。上游壅堰蓄水,俟黑闼半渡而暴决,水涨丈余,贼众溺死数千——此役制胜之诀。"]},
+  zhangnan:{t:"漳南",d:"今河北故城一带,漳水之滨",p:["刘黑闼起兵复仇之地。借突厥兵,半岁尽复建德故地,声势复振。"]},
+  guantao:{t:"馆陶",d:"今河北馆陶",p:["黑闼再起兵败后走投之地。众离散,为其下诸葛德威所擒斩,河北遂定。"]},
+  weizhou:{t:"魏州",d:"今河北大名东北",p:["河北要冲,唐与汉东争夺之地。太子建成东讨,以此为进取之资。"]},
+  xiangzhou:{t:"相州",d:"今河南安阳",p:["洺州之南门户,唐军自山东北进之途要。控此则可扼漳、洺之间。"]},
+  changan:{t:"长安",d:"唐都城",p:["唐廷所在,东讨诸军奉命之本。世民、建成先后自此引兵东出,以平河北。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
