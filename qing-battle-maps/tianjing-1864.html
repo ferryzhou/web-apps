@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>太平天国·天京陷落 · 咸丰元年至同治三年(1851–1864)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>平</span><span>定</span><span>洪</span><span>杨</span></div>
+  <header>
+    <h1>太平天国·天京陷落</h1>
+    <div class="sub">清咸丰元年至同治三年(1851–1864)　　<i>清 曾国藩·曾国荃</i> 掘壕破天京 · <b>太平天国 洪秀全</b>亡·东南残破</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 洪杨据东南</button>
+    <button data-p="1">湘军兴 · 争上游克安庆</button>
+    <button data-p="2">淮浙并进 · 断其财赋</button>
+    <button data-p="3">合围雨花台 · 破天京</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="太平天国天京陷落形势图,含太平天国清湘军疆界、长江大运河太湖与天京安庆苏州等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:太平天国据东南江浙皖(东),清·湘军自上游四方来(西/北) -->
+    <path d="M 470,0 C 500,110 520,200 540,300 C 556,380 560,470 540,560 C 532,600 524,620 520,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 500,110 520,200 540,300 C 556,380 560,470 540,560 C 532,600 524,620 520,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 500,110 520,200 540,300 C 556,380 560,470 540,560 C 532,600 524,620 520,640"/>
+    <text class="realm q" x="700" y="130" font-size="30">太平天国(据东南)</text>
+    <text class="realm j" x="120" y="130" font-size="30">清 · 湘军(自上游)</text>
+
+    <!-- 长江:自上游(西·武昌安庆)东下天京入海 -->
+    <path class="river" stroke-width="5.5" d="M 90,300 C 200,320 300,352 420,378 C 540,404 640,404 720,394 C 800,384 880,378 970,392"/>
+    <!-- 大运河:纵贯南北,天京之东 -->
+    <path class="river" stroke-width="2.6" d="M 770,80 C 760,180 758,300 762,394 C 766,470 780,540 800,620"/>
+    <!-- 太湖 -->
+    <path class="river" stroke-width="1.4" d="M 840,470 C 812,462 796,478 800,502 C 804,528 830,538 856,528 C 880,518 884,486 864,472 C 856,466 848,468 840,470 Z" fill="rgba(95,127,136,.30)"/>
+    <text class="rname" x="300" y="342" transform="rotate(9 300 342)">长 江</text>
+    <text class="rname" x="726" y="230" transform="rotate(86 726 230)" style="font-size:11px">大运河</text>
+    <text class="rname" x="828" y="504" style="font-size:10.5px">太湖</text>
+
+    <!-- 钟山(天京东) -->
+    <g class="mtn"><path d="M 668,400 l 8,-13 l 8,13 M 684,394 l 8,-13 l 8,13"/></g>
+    <text class="cname s" x="668" y="420">钟山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="tianjing"><circle cx="640" cy="382" r="6.5"/><text class="cname" x="600" y="372">天京<tspan class="cname s" dx="2">(南京·太平天国都)</tspan></text></g>
+      <g class="city" data-city="yuhuatai"><circle cx="628" cy="418" r="4"/><text class="cname s" x="556" y="436">雨花台(曾国荃大营)</text></g>
+      <g class="city" data-city="anqing"><circle cx="430" cy="380" r="6"/><text class="cname" x="386" y="374">安庆<tspan class="cname s" dx="2">(上游屏障)</tspan></text></g>
+      <g class="city" data-city="wuchang"><circle cx="120" cy="304" r="5.5"/><text class="cname" x="132" y="300">武昌<tspan class="cname s" dx="2">(上游争夺)</tspan></text></g>
+      <g class="city" data-city="suzhou"><circle cx="808" cy="428" r="5"/><text class="cname" x="820" y="424">苏州<tspan class="cname s" dx="2">(李秀成据)</tspan></text></g>
+      <g class="city" data-city="hangzhou"><circle cx="838" cy="560" r="5"/><text class="cname" x="850" y="556">杭州<tspan class="cname s" dx="2">(左宗棠克)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 洪杨据东南 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 480,392 C 560,404 600,398 632,388"/>
+      <text class="mlabel q" x="470" y="418">咸丰三年顺江东下,克江宁为天京</text>
+      <path class="march q" marker-end="url(#aq)" d="M 636,374 C 660,300 700,220 748,150"/>
+      <text class="mlabel q" x="656" y="250">北伐逼天津</text>
+      <path class="march q" marker-end="url(#aq)" d="M 632,384 C 540,378 380,372 180,332"/>
+      <text class="mlabel q" x="200" y="360">西征争上游·屡陷武昌</text>
+      <text class="anno" x="620" y="470">据东南半壁,与清相持,财赋之区糜烂</text>
+    </g>
+
+    <!-- 阶段一:湘军兴·争上游克安庆 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 96,312 C 200,340 300,368 416,378"/>
+      <text class="mlabel j" x="150" y="360">曾国荃湘军步步东下</text>
+      <text class="anno" x="120" y="286">曾国藩创湘军·水陆并练·以营制严</text>
+      <rect class="camp" x="424" y="392" width="8" height="8" transform="rotate(45 428 396)" fill="#1f4e54"/>
+      <circle class="star" cx="430" cy="380" r="9"/>
+      <text class="mlabel j" x="360" y="358">咸丰十一年克安庆</text>
+      <text class="anno" x="452" y="410">天京上游门户遂失·天京危</text>
+      <path class="march j" marker-end="url(#aj)" d="M 442,382 C 500,384 560,384 620,384"/>
+      <text class="mlabel j" x="470" y="374">定争上游扼天京之策</text>
+    </g>
+
+    <!-- 阶段二:淮浙并进·断其财赋 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 640,398 C 700,414 750,424 796,428"/>
+      <text class="mlabel j" x="642" y="452">李鸿章淮军·得洋枪队助</text>
+      <circle class="star" cx="808" cy="428" r="8"/>
+      <text class="mlabel j" x="812" y="446">取苏常</text>
+      <path class="march j" marker-end="url(#aj)" d="M 646,392 C 720,440 780,500 828,552"/>
+      <text class="mlabel j" x="700" y="514">左宗棠军入浙</text>
+      <circle class="star" cx="838" cy="560" r="8"/>
+      <text class="mlabel j" x="842" y="580">克杭州</text>
+      <text class="anno" x="560" y="486">断太平军东南财赋之源·曾国荃进逼天京</text>
+    </g>
+
+    <!-- 阶段三:合围雨花台·掘壕破天京 -->
+    <g id="ph3" class="ph">
+      <circle class="siege" cx="640" cy="388" r="46"/>
+      <rect class="camp" x="624" y="414" width="9" height="9" transform="rotate(45 628 418)" fill="#1f4e54"/>
+      <text class="mlabel j" x="530" y="452">曾国荃筑长壕合围于雨花台</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 786,432 C 740,420 700,410 668,398"/>
+      <text class="mlabel q" x="700" y="418">李秀成数十万来解围·屡挫</text>
+      <path d="M 640,382 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="640" cy="382" r="11"/>
+      <text class="mlabel j" x="560" y="360">同治三年六月·掘地道轰城入</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 648,376 C 700,340 750,300 788,260"/>
+      <text class="mlabel r" x="700" y="308">幼天王突围·旋被俘</text>
+      <text class="anno" x="470" y="336">洪秀全先病死·天京陷·太平天国凡十四年而亡</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清·湘淮军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>太平天国军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃亡</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·城破</span>
+    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>合围</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>太平天国</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·湘军</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·曾国藩传》《平定粤匪方略》及《李秀成自述》约略绘出。天京即今江苏南京,安庆今安徽安庆,苏州今江苏苏州,杭州今浙江杭州,武昌今湖北武汉。城邑水道为相对示意,长江、大运河、太湖经简化。</p>
+    <p><span class="n">注二</span>晕染疆界为太平天国全盛时形势示意:太平军据东南江浙皖,清·湘淮军自长江上游及四方来会;界线以点划"约界"标之,非实有画界,且随战局迭有进退。</p>
+    <p><span class="n">注三</span>曾国藩定"先剪枝叶、后拔本根""争上游、扼天京"之策:克安庆而天京上游门户失,取苏杭而东南财赋绝。同治三年四月洪秀全病死(一说服毒),六月曾国荃军掘地道轰塌太平门城墙数十丈,湘军蜂拥入城。太平天国虽亡,而东南残破、督抚坐大,为清季外重内轻之渐。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"洪杨据东南",d:"清咸丰元年 — 三年(1851–1853)",p:["洪秀全倡「拜上帝会」,咸丰元年金田起事,建号太平天国,永安建制,继而北出湘鄂、克武昌,顺江东下。咸丰三年攻占江宁,改为天京,建都于此,与清相持。","太平军兵锋一度北伐逼天津、西征争上游,东南半壁糜烂。清廷绿营、八旗不堪用;曾国藩以在籍侍郎办团练,创湘军以图之。"]},
+  "1":{t:"湘军兴·争上游克安庆",d:"咸丰四年 — 十一年(1854–1861)",p:["曾国藩创湘军,水陆并练、以营制严,与太平军血战十余年。太平天国内部又有「天京事变」(1856,杨韦内讧、石达开出走)自戕元气。","曾国藩定「先剪枝叶、后拔本根」「争上游、扼天京」之策,其弟曾国荃军步步东下。咸丰十一年克安庆——天京上游门户遂失,天京大危。"]},
+  "2":{t:"淮浙并进·断其财赋",d:"同治元年 — 三年(1862–1864)",p:["李鸿章练淮军,得洋枪队助,东取苏常;李秀成所据苏州遂失。左宗棠军入浙,克杭州,断太平军东南财赋之源。","财赋之区既绝,天京孤悬。曾国荃军进逼天京,筑长壕于雨花台,合围之势渐成。"]},
+  "3":{t:"合围雨花台·掘壕破天京",d:"同治二年 — 三年(1863–1864)",p:["曾国荃筑长壕合围天京于雨花台,屡挫李秀成数十万之解围。同治三年四月,洪秀全病死(一说服毒)。","六月,曾国荃军掘地道、轰塌太平门城墙数十丈,湘军蜂拥入城,天京陷。太平军巷战死者甚众,幼天王突围后被俘,李秀成被擒。太平天国凡十四年而亡;然东南残破,生民涂炭以千万计。"]}
+};
+const CITY={
+  tianjing:{t:"天京(南京)",d:"太平天国都,今江苏南京",p:["咸丰三年洪秀全克江宁,改称天京,建都于此。同治三年六月曾国荃军掘地道轰城而入,天京陷,太平天国亡。"]},
+  yuhuatai:{t:"雨花台",d:"天京城南,今南京雨花台",p:["曾国荃湘军大营所在。筑长壕合围天京,屡挫李秀成数十万之解围;为掘壕破城之枢。"]},
+  anqing:{t:"安庆",d:"今安徽安庆",p:["天京上游门户屏障。曾国荃军咸丰十一年克之,天京遂失上游之险,湘军得以顺流东逼。"]},
+  wuchang:{t:"武昌",d:"今湖北武汉",p:["太平军西征所争之上游重镇,屡陷屡复。曾国藩争上游之策,首在扼此以断太平军西援。"]},
+  suzhou:{t:"苏州",d:"今江苏苏州",p:["李秀成据以为东南根本。同治二年李鸿章淮军得洋枪队助克之,太平军东南财赋顿绝。"]},
+  hangzhou:{t:"杭州",d:"今浙江杭州",p:["同治三年左宗棠军克之,浙江遂平。苏杭并失,太平军东南财赋之源尽断,天京孤悬待毙。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>澎湖海战 · 康熙二十二年(1683)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.18}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .isle{fill:var(--ink2);opacity:.5}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>澎</span><span>湖</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>澎湖海战 · 平台湾</h1>
+    <div class="sub">清康熙二十二年(1683)　　<i>清 施琅</i> 梅花阵歼郑师 · <b>明郑 刘国轩</b> 澎湖大败 · 台湾降</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 施琅东征</button>
+    <button data-p="1">郑军列阵 · 首战受挫</button>
+    <button data-p="2">五点梅花阵 · 围歼焚舰</button>
+    <button data-p="3">郑师大败 · 台湾降</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="澎湖海战形势图,含明郑台湾与清福建疆界、台湾海峡澎湖列岛娘妈宫湾及安平铜山八罩诸岛">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 台湾海峡:通图皆海 -->
+    <rect class="sea" x="0" y="0" width="1000" height="640"/>
+    <path class="sea" style="opacity:.28" d="M 380,120 C 460,140 560,220 600,340 C 620,420 600,500 540,560 C 460,540 400,440 380,340 C 366,260 366,180 380,120 Z"/>
+    <text class="rname" x="470" y="300" style="font-size:15px;letter-spacing:.3em;opacity:.6">台 湾 海 峡</text>
+
+    <!-- 疆界:明郑据台澎(东),清自福建来(西),约以海峡中线为界 -->
+    <path d="M 780,0 C 800,120 810,260 820,400 C 826,500 840,570 860,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 190,0 C 170,120 160,260 150,400 C 144,500 130,570 110,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 500,0 C 500,120 496,300 496,420 C 496,520 500,580 504,640"/>
+    <text class="realm q" x="812" y="150" font-size="30">明 郑(台湾)</text>
+    <text class="realm j" x="40" y="150" font-size="30">清(福建)</text>
+
+    <!-- 福建海岸(西) -->
+    <path class="river" stroke-width="4.5" d="M 40,60 C 90,140 120,240 130,340 C 138,430 120,520 80,600"/>
+    <text class="rname" x="46" y="420" transform="rotate(80 46 420)" style="font-size:12px;opacity:.8">福 建 岸</text>
+
+    <!-- 台湾岛西岸(东) -->
+    <path class="river" stroke-width="5" d="M 940,50 C 900,150 880,260 878,360 C 876,460 896,540 930,610"/>
+    <text class="rname" x="946" y="430" transform="rotate(84 946 430)" style="font-size:12px;opacity:.8">台湾岛西岸</text>
+
+    <!-- 澎湖列岛(中):娘妈宫湾诸岛 -->
+    <g class="isle">
+      <ellipse cx="470" cy="300" rx="30" ry="20"/>
+      <ellipse cx="440" cy="336" rx="12" ry="8"/>
+      <ellipse cx="502" cy="266" rx="10" ry="7"/>
+      <ellipse cx="452" cy="392" rx="9" ry="6"/>
+      <ellipse cx="486" cy="420" rx="7" ry="5"/>
+    </g>
+    <text class="cname s" x="404" y="252" style="opacity:.9">澎湖列岛</text>
+    <!-- 娘妈宫湾(凹口) -->
+    <path class="mtn" d="M 452,296 q 18,-8 34,4"/>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="magong"><circle cx="470" cy="300" r="6.5"/><text class="cname" x="480" y="296">娘妈宫<tspan class="cname s" dx="2">(澎湖主战场)</tspan></text></g>
+      <g class="city" data-city="bazhao"><circle cx="452" cy="392" r="4"/><text class="cname s" x="386" y="408">八罩岛</text></g>
+      <g class="city" data-city="hujing"><circle cx="440" cy="336" r="3.5"/><text class="cname s" x="374" y="332">虎井·桶盘</text></g>
+      <g class="city" data-city="tongshan"><circle cx="120" cy="352" r="5.5"/><text class="cname" x="60" y="372">铜山·厦门</text></g>
+      <g class="city cap" data-city="anping"><circle cx="884" cy="358" r="6"/><text class="cname" x="794" y="354">台湾·安平</text></g>
+      <g class="city" data-city="luermen"><circle cx="888" cy="318" r="4"/><text class="cname s" x="826" y="312">鹿耳门</text></g>
+    </g>
+
+    <!-- 全图 · 施琅东征 -->
+    <g id="phAll" class="ph">
+      <path class="march sea" marker-end="url(#aj)" d="M 132,350 C 240,336 360,320 442,308"/>
+      <text class="mlabel j" x="180" y="330">施琅率战船三百余、水师二万</text>
+      <text class="anno" x="176" y="386">六月自铜山出发,乘西南季风(南风)东进</text>
+      <text class="mlabel q" x="560" y="380">刘国轩率主力守澎湖,列炮台巨舰待</text>
+      <text class="anno" x="700" y="180">郑克塽据台湾,奉明正朔</text>
+    </g>
+
+    <!-- 阶段一:郑军列阵·首战受挫 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="466" y="296" width="9" height="9" transform="rotate(45 470 300)"/>
+      <text class="mlabel q" x="480" y="278">刘国轩列炮台巨舰,严阵以待</text>
+      <path class="march j" marker-end="url(#aj)" d="M 428,320 C 444,314 456,308 464,304"/>
+      <text class="mlabel j" x="330" y="336">清军首战不利,施琅中矢负伤</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 460,312 C 456,340 454,364 454,384"/>
+      <text class="mlabel r" x="460" y="368">退泊八罩岛,俟风整军</text>
+      <circle class="star" cx="470" cy="300" r="9"/>
+    </g>
+
+    <!-- 阶段二:五点梅花阵·围歼焚舰 -->
+    <g id="ph2" class="ph">
+      <path class="march sea" marker-end="url(#aj)" d="M 456,384 C 462,356 466,332 468,314"/>
+      <text class="mlabel j" x="360" y="360">旬余,施琅乘南风大举</text>
+      <!-- 五点梅花阵:五船围一 -->
+      <circle class="star" cx="470" cy="300" r="14"/>
+      <circle cx="470" cy="284" r="3" fill="#1f4e54"/>
+      <circle cx="485" cy="295" r="3" fill="#1f4e54"/>
+      <circle cx="479" cy="313" r="3" fill="#1f4e54"/>
+      <circle cx="461" cy="313" r="3" fill="#1f4e54"/>
+      <circle cx="455" cy="295" r="3" fill="#1f4e54"/>
+      <rect class="camp" x="467" y="297" width="6" height="6"/>
+      <text class="mlabel j" x="500" y="290">「五点梅花阵」五船围一</text>
+      <path class="march j" marker-end="url(#aj)" d="M 512,272 C 500,282 490,290 482,296"/>
+      <path class="march j" marker-end="url(#aj)" d="M 512,332 C 500,322 490,314 482,306"/>
+      <text class="mlabel j" x="510" y="336">两翼包抄,乘上风纵火攻</text>
+      <text class="anno" x="520" y="352">集中兵力,以众击寡</text>
+    </g>
+
+    <!-- 阶段三:郑师大败·台湾降 -->
+    <g id="ph3" class="ph">
+      <path d="M 470,300 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="430" y="278">鏖战竟日,郑巨舰多被焚毁</text>
+      <text class="anno" x="440" y="322">郑军死伤万余</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 486,306 C 620,340 760,352 872,356"/>
+      <text class="mlabel r" x="620" y="332">刘国轩败走台湾</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 878,352 C 882,342 884,334 886,326"/>
+      <text class="mlabel r" x="800" y="390">澎湖既失,郑克塽奉表归降</text>
+      <text class="anno" x="720" y="410">清置台湾府,隶福建</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清水师(施琅)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>清水师航路</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>明郑军(刘国轩)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>郑军焚溃 / 归降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>梅花阵围歼</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>明郑·台湾</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·福建</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·施琅传》《靖海纪事》约略绘出。澎湖在今台湾海峡中,娘妈宫即今马公,八罩岛即今望安,铜山今福建东山,安平、鹿耳门在今台南。海域城邑水道为相对示意,非按实测。</p>
+    <p><span class="n">注二</span>晕染疆界为康熙二十二年海疆形势示意:明郑据台澎,清据福建,海峡为险,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>施琅乘夏至前后西南季风(南风)东进,首战失利、目中流矢负伤,退泊八罩俟风。旬余复举,创「五点梅花阵」以五船环攻一巨舰、集中兵力,又乘上风纵火,郑巨舰多焚——胜负之机,系于风与火。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"施琅东征",d:"康熙二十二年(1683)六月",p:["郑成功收台湾后,子郑经、孙郑克塽据台澎,奉明正朔,与清相持。康熙二十年三藩既平,康熙用曾为郑氏部将、后降清之施琅为福建水师提督,专征台湾。","二十二年六月,施琅率战船三百余艘、水师二万余,自铜山出发,乘夏至前后西南季风(南风)东进澎湖。明郑大将刘国轩率主力守澎湖,于娘妈宫、各港口列炮台、置巨舰,严阵以待。"]},
+  "1":{t:"郑军列阵·首战受挫",d:"康熙二十二年六月",p:["刘国轩守澎湖,于娘妈宫及诸港口列炮台、置巨舰,环列水寨,严阵以待。清军初至,首战不利,施琅目中流矢负伤,舟师受挫。","施琅不敢轻进,乃退泊八罩岛,俟风整军,补葺舟械,以待再举。旬余之间,养锐观风,谋出万全。"]},
+  "2":{t:"五点梅花阵·围歼焚舰",d:"康熙二十二年六月",p:["旬余,施琅乘西南季风(南风)大举东进,分兵为数股:以主力正面猛攻,别遣两翼包抄。","创「五点梅花阵」——以五船为一队,环攻郑之一巨舰,集中兵力、以众击寡;又乘上风纵火攻之,专焚郑军巨舰。海面火起,郑师阵脚渐乱。"]},
+  "3":{t:"郑师大败·台湾降",d:"康熙二十二年六月至八月",p:["鏖战竟日,郑军巨舰多被焚毁,死伤万余,刘国轩败走台湾。澎湖既失,台湾门户洞开。","郑克塽势穷,遂奉表归降。清置台湾府,隶福建,东南海疆遂定,台湾正式入版图。"]}
+};
+const CITY={
+  magong:{t:"娘妈宫",d:"澎湖主战场,今澎湖马公",p:["刘国轩于此及诸港口列炮台、置巨舰,环列水寨。施琅以「五点梅花阵」五船围一,围歼焚舰,遂为海战决胜之地。"]},
+  bazhao:{t:"八罩岛",d:"今澎湖望安",p:["首战受挫、施琅中矢负伤后退泊避风、整军之处。旬余俟南风复举,再攻澎湖。"]},
+  hujing:{t:"虎井·桶盘",d:"澎湖战区岛屿",p:["娘妈宫湾外要冲小岛,澎湖海战两军往来鏖战之区。"]},
+  tongshan:{t:"铜山·厦门",d:"今福建东山、厦门一带",p:["施琅水师出发基地。六月自此乘西南季风(南风)东进,直指澎湖。"]},
+  anping:{t:"台湾·安平",d:"郑克塽据,今台南安平",p:["明郑政权所在。澎湖既失、刘国轩败走,郑克塽势穷,遂自此奉表归降。"]},
+  luermen:{t:"鹿耳门",d:"郑氏门户,台湾入口,今台南",p:["台江入口要害,郑氏门户。澎湖一失,鹿耳门洞开,台湾无险可守。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

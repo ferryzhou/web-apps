@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>清平回部大小和卓之战 · 乾隆二十三至二十四年(1758–1759)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>平</span><span>定</span><span>回</span><span>疆</span></div>
+  <header>
+    <h1>清平回部大小和卓之战</h1>
+    <div class="sub">清乾隆二十三至二十四年(1758–1759)　　<i>清 兆惠</i> 黑水苦守·追歼和卓 · <b>回部 大小和卓</b>西奔巴达克山被杀</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 大小和卓叛</button>
+    <button data-p="1">深入围叶尔羌·陷黑水营</button>
+    <button data-p="2">掘壕苦守·三月待援</button>
+    <button data-p="3">追歼和卓·回疆遂平</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="清平回部大小和卓之战形势图,含清与回部疆界、天山葱岭塔克拉玛干沙漠、叶尔羌喀什噶尔黑水营等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:回部据天山南路塔里木(西南),清自伊犁北来(东北),约以天山葱岭为界 -->
+    <path d="M 1000,120 C 880,150 760,200 640,270 C 520,340 400,420 300,520 C 240,580 200,610 160,640 L 0,640 L 0,0 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 1000,120 C 880,150 760,200 640,270 C 520,340 400,420 300,520 C 240,580 200,610 160,640 L 1000,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 1000,120 C 880,150 760,200 640,270 C 520,340 400,420 300,520 C 240,580 200,610 160,640"/>
+    <text class="realm q" x="440" y="560" font-size="30">回 部(天山南路·塔里木)</text>
+    <text class="realm j" x="560" y="90" font-size="30">清(北·自伊犁来)</text>
+
+    <!-- 天山·葱岭 -->
+    <g class="mtn"><path d="M 660,250 l 9,-15 l 9,15 M 678,244 l 9,-15 l 9,15 M 696,250 l 8,-14 l 8,14 M 786,208 l 9,-15 l 9,15 M 804,202 l 9,-15 l 9,15"/></g>
+    <text class="cname s" x="700" y="234">天　山</text>
+    <g class="mtn"><path d="M 150,430 l 8,-14 l 8,14 M 166,424 l 8,-14 l 8,14 M 182,430 l 7,-13 l 7,13"/></g>
+    <text class="cname s" x="120" y="452">葱　岭</text>
+
+    <!-- 塔克拉玛干沙漠 -->
+    <text class="realm q" x="600" y="440" font-size="18" style="letter-spacing:.2em">塔克拉玛干沙漠</text>
+    <g class="mtn" style="opacity:.4"><path d="M 560,470 q 14,-10 28,0 M 596,470 q 14,-10 28,0 M 632,470 q 14,-10 28,0 M 578,486 q 14,-10 28,0 M 614,486 q 14,-10 28,0"/></g>
+
+    <!-- 叶尔羌河(黑水河):自葱岭东流经叶尔羌 -->
+    <path class="river" stroke-width="4.5" d="M 200,470 C 280,460 350,450 410,452 C 470,454 520,470 560,500"/>
+    <!-- 喀什噶尔河:自西北来 -->
+    <path class="river" stroke-width="3" d="M 210,360 C 280,378 340,400 390,430 C 420,448 440,466 456,488"/>
+    <text class="rname" x="290" y="446" style="font-size:11.5px">叶尔羌河(黑水)</text>
+    <text class="rname" x="240" y="380" transform="rotate(20 240 380)" style="font-size:10.5px">喀什噶尔河</text>
+
+    <!-- 南疆绿洲 -->
+    <text class="cname s" x="500" y="360" style="opacity:.7">南疆绿洲</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="aksu"><circle cx="720" cy="330" r="5"/><text class="cname" x="732" y="326">阿克苏<tspan class="cname s" dx="2">(清进兵基)</tspan></text></g>
+      <g class="city cap" data-city="yarkand"><circle cx="410" cy="452" r="6"/><text class="cname" x="330" y="448">叶尔羌·莎车</text></g>
+      <g class="city" data-city="heishui"><circle cx="452" cy="486" r="5"/><text class="cname" x="462" y="504">黑水营</text></g>
+      <g class="city" data-city="kashgar"><circle cx="250" cy="404" r="5"/><text class="cname" x="180" y="400">喀什噶尔</text></g>
+      <g class="city" data-city="hesikuluke"><circle cx="230" cy="540" r="4"/><text class="cname s" x="150" y="536">霍斯库鲁克·阿尔楚尔</text></g>
+      <g class="city" data-city="badakshan"><circle cx="110" cy="500" r="4.5"/><text class="cname" x="70" y="490">巴达克山</text></g>
+    </g>
+
+    <!-- 全图 · 大小和卓叛 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 720,340 C 620,380 520,410 468,448"/>
+      <text class="mlabel j" x="560" y="376">兆惠奉命自伊犁南下讨叛</text>
+      <text class="anno" x="600" y="356">定边将军兆惠率师往南疆</text>
+      <text class="mlabel q" x="270" y="430">波罗尼都(大和卓)据喀什噶尔</text>
+      <text class="mlabel q" x="330" y="472">霍集占(小和卓)据叶尔羌,反叛</text>
+      <text class="anno" x="340" y="490">清释二和卓归南疆,反据诸城叛清</text>
+    </g>
+
+    <!-- 阶段一:深入围叶尔羌·陷黑水营 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 700,338 C 600,378 500,406 424,446"/>
+      <text class="mlabel j" x="540" y="392">兆惠轻骑深入,进围叶尔羌</text>
+      <rect class="camp" x="418" y="440" width="9" height="9" transform="rotate(45 422 444)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 410,460 C 424,470 440,478 448,482"/>
+      <text class="anno" x="360" y="428">霍集占坚壁清野,以骑断其后</text>
+      <text class="mlabel j" x="360" y="524">渡叶尔羌河(黑水)桥断</text>
+      <circle class="siege" cx="452" cy="486" r="20"/>
+      <text class="mlabel q" x="470" y="524">陷回部重围于黑水营,众寡悬绝</text>
+    </g>
+
+    <!-- 阶段二:掘壕苦守·三月待援 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="452" cy="486" r="20"/>
+      <circle class="star" cx="452" cy="486" r="9"/>
+      <rect class="camp" x="484" y="466" width="8" height="8" transform="rotate(45 488 470)"/>
+      <rect class="camp" x="420" y="508" width="8" height="8" transform="rotate(45 424 512)"/>
+      <text class="mlabel j" x="360" y="540">兆惠掘壕筑垒,据守待援凡三月</text>
+      <text class="anno" x="380" y="556">粮尽马乏,掘鼠罗雀以食,昼夜苦战</text>
+      <path class="march j" marker-end="url(#aj)" d="M 720,340 C 630,390 540,440 480,478"/>
+      <text class="mlabel j" x="600" y="418">富德率援军至,内外夹击解围</text>
+    </g>
+
+    <!-- 阶段三:追歼和卓·回疆遂平 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 440,490 C 360,510 300,524 244,536"/>
+      <text class="mlabel j" x="280" y="512">清军合兵大举追击</text>
+      <circle class="star" cx="230" cy="540" r="9"/>
+      <text class="anno" x="150" y="562">战霍斯库鲁克·阿尔楚尔,大破回众</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 218,540 C 180,528 150,514 122,506"/>
+      <text class="mlabel r" x="130" y="480">大小和卓西奔巴达克山</text>
+      <path d="M 110,500 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="anno" x="70" y="524">其酋素勒坦沙执二和卓杀之,献首</text>
+      <text class="mlabel j" x="400" y="600">天山南路悉平·合南北为新疆</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(兆惠·富德)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>回部(大小和卓)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>西奔溃走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>被围</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>回部</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·高宗本纪/兆惠传》《平定回疆方略》约略绘出。叶尔羌、喀什噶尔在今新疆,黑水营在叶尔羌城外叶尔羌河(黑水河)畔,巴达克山在今阿富汗东北。城邑水道为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为乾隆二十三年南疆形势示意:清方灭准噶尔后,自伊犁南下经营天山南路;回部大小和卓据塔里木诸绿洲城邑叛清。天山葱岭为界,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>兆惠轻骑深入,渡黑水河桥断,陷回部重围于河畔,掘壕死守凡三月,粮尽掘鼠罗雀以食——众寡悬绝而不溃,赖富德援军至乃内外夹击解围。既解围复大举追击,大小和卓弃城西奔巴达克山被杀,回疆遂平,清合天山南北为新疆,置伊犁将军总统之,是为「十全武功」之一。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"大小和卓叛",d:"清乾隆二十三年(1758)",p:["清灭准噶尔,释准部所囚回部首领大和卓波罗尼都、小和卓霍集占兄弟归南疆。二人不感恩,反据天山南路诸城叛清:波罗尼都据喀什噶尔,霍集占据叶尔羌,聚众拒命。","乾隆二十三年,命定边将军兆惠率师往讨。回疆地广城坚、绿洲相望,清师自伊犁南下,道里悬远,粮运艰难——南路之役,遂系于孤军深入之一掷。"]},
+  "1":{t:"深入围叶尔羌·陷黑水营",d:"乾隆二十三年冬",p:["兆惠轻骑深入,进围叶尔羌。霍集占坚壁清野,不与野战,而以回部骑兵抄断清军后路粮道,欲困之。","兆惠渡叶尔羌河(黑水河)以图截敌,桥忽断,人马陷于河畔,遂为回部重围于黑水营。众寡悬绝,外无援兵,内乏粮秣,形势岌岌。"]},
+  "2":{t:"掘壕苦守·三月待援",d:"乾隆二十三年冬至二十四年春",p:["兆惠据河筑垒,掘壕环卫,昼夜拒战。粮尽马乏,掘鼠罗雀以食,士卒饥疲而营垒不动,凡守三月,屹然不溃。","次年,副将军富德率援军驰至。内外夹击,回部之围乃解。兆惠、富德合兵一处,黑水之厄既纾,遂转守为攻。"]},
+  "3":{t:"追歼和卓·回疆遂平",d:"乾隆二十四年(1759)",p:["兆惠、富德合兵大举追击,战于霍斯库鲁克、阿尔楚尔、伊西洱库尔诸处,大破回部之众,降者以万计。大小和卓弃城西奔巴达克山。","巴达克山酋素勒坦沙执二和卓杀之,献首于清。天山南路悉平。清乃合天山南北为新疆,置伊犁将军总统之,回疆入版图,是为乾隆「十全武功」之一。"]}
+};
+const CITY={
+  aksu:{t:"阿克苏",d:"天山南路东北,今新疆阿克苏",p:["清军进兵天山南路之基地与后勤枢纽。兆惠、富德之师皆由此西向诸城。"]},
+  yarkand:{t:"叶尔羌·莎车",d:"今新疆莎车",p:["小和卓霍集占所据。兆惠轻骑深入围之;霍集占坚壁清野、断其粮道,清军久攻不下。"]},
+  heishui:{t:"黑水营",d:"叶尔羌城外叶尔羌河(黑水)畔",p:["兆惠渡河桥断,陷回部重围于此。掘壕筑垒、力守待援凡三月,粮尽掘鼠罗雀以食,卒待富德援至解围。"]},
+  kashgar:{t:"喀什噶尔",d:"天山南路西陲,今新疆喀什",p:["大和卓波罗尼都所据。与叶尔羌为回部两大巢穴,互为犄角,同叛清师。"]},
+  hesikuluke:{t:"霍斯库鲁克·阿尔楚尔",d:"帕米尔东麓一带",p:["解围后清军大举追击、大破回众之地。战伊西洱库尔诸处,降者万计,和卓势遂穷。"]},
+  badakshan:{t:"巴达克山",d:"今阿富汗东北巴达赫尚",p:["大小和卓西奔投此。其酋素勒坦沙执二和卓杀之,献首于清,天山南路悉平。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>平定三藩之乱 · 康熙十二至二十年(1673–1681)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>平</span><span>定</span><span>三</span><span>藩</span></div>
+  <header>
+    <h1>平定三藩之乱</h1>
+    <div class="sub">清康熙十二至二十年(1673–1681)　　<i>清康熙帝</i> 坚意撤藩 · <b>平西王吴三桂</b>据滇叛·终败</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 三藩举兵</button>
+    <button data-p="1">分化诸叛</button>
+    <button data-p="2">相持岳州</button>
+    <button data-p="3">三路入滇</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="平定三藩之乱形势图,含清廷与三藩疆界、长江洞庭湖湘江乌江与昆明岳州长沙福州广州平凉等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:三藩据南(吴据云贵湖广),清自中原来(北),约以长江一线为界 -->
+    <path d="M 0,300 C 130,296 260,320 400,326 C 540,332 660,330 800,352 C 880,364 940,378 1000,384 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 130,296 260,320 400,326 C 540,332 660,330 800,352 C 880,364 940,378 1000,384 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 130,296 260,320 400,326 C 540,332 660,330 800,352 C 880,364 940,378 1000,384"/>
+    <text class="realm j" x="600" y="120" font-size="32">清 廷(中原)</text>
+    <text class="realm q" x="120" y="560" font-size="32">三 藩(南疆)</text>
+
+    <!-- 长江:自西蜀东下,经洞庭口出海 -->
+    <path class="river" stroke-width="5" d="M 60,378 C 200,392 340,400 460,404 C 580,408 700,400 820,392 C 900,386 960,384 1000,384"/>
+    <!-- 洞庭湖 -->
+    <path class="river" style="fill:var(--water);opacity:.5;stroke:none" d="M 452,404 C 470,420 486,444 480,470 C 474,492 452,500 434,488 C 418,478 414,452 422,430 C 428,414 440,404 452,404 Z"/>
+    <!-- 湘江:自衡州北经长沙入洞庭 -->
+    <path class="river" stroke-width="2.6" d="M 440,568 C 448,528 452,494 452,462 C 452,440 450,422 448,410"/>
+    <!-- 乌江:自云贵北下入长江 -->
+    <path class="river" stroke-width="2.4" d="M 210,536 C 226,470 248,414 268,392"/>
+    <text class="rname" x="640" y="382" style="font-size:13px">长 江</text>
+    <text class="rname" x="486" y="452" style="font-size:10.5px">洞庭湖</text>
+    <text class="rname" x="458" y="512" transform="rotate(84 458 512)" style="font-size:10.5px">湘 江</text>
+    <text class="rname" x="214" y="472" transform="rotate(72 214 472)" style="font-size:10.5px">乌 江</text>
+
+    <!-- 群山:云贵高原 -->
+    <g class="mtn"><path d="M 150,470 l 8,-13 l 8,13 M 166,464 l 8,-13 l 8,13 M 182,470 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="150" y="490">云贵群山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="kunming"><circle cx="160" cy="520" r="6"/><text class="cname" x="94" y="516">昆明<tspan class="cname s" dx="2">(吴巢)</tspan></text></g>
+      <g class="city" data-city="yuezhou"><circle cx="448" cy="422" r="5"/><text class="cname" x="460" y="418">岳州</text></g>
+      <g class="city" data-city="hengzhou"><circle cx="432" cy="560" r="5"/><text class="cname" x="444" y="564">衡州<tspan class="cname s" dx="2">(吴称帝)</tspan></text></g>
+      <g class="city" data-city="changsha"><circle cx="452" cy="490" r="4.5"/><text class="cname" x="464" y="486">长沙</text></g>
+      <g class="city" data-city="fuzhou"><circle cx="852" cy="486" r="5"/><text class="cname" x="800" y="482">福州<tspan class="cname s" dx="2">(耿)</tspan></text></g>
+      <g class="city" data-city="guangzhou"><circle cx="700" cy="576" r="5"/><text class="cname" x="712" y="580">广州<tspan class="cname s" dx="2">(尚)</tspan></text></g>
+      <g class="city" data-city="pingliang"><circle cx="330" cy="130" r="5"/><text class="cname" x="342" y="126">平凉<tspan class="cname s" dx="2">(王辅臣)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 三藩举兵 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 168,514 C 240,470 320,436 432,424"/>
+      <text class="mlabel q" x="200" y="450">吴三桂据云贵反,以「兴明讨虏」为号</text>
+      <path class="march q" marker-end="url(#aq)" d="M 456,486 C 456,470 454,448 452,432"/>
+      <text class="mlabel q" x="360" y="618">兵抵长江,一时连陷数省</text>
+      <path class="march q" marker-end="url(#aq)" d="M 840,482 C 760,470 680,430 560,404"/>
+      <text class="mlabel q" x="640" y="512">耿精忠据福建响应</text>
+      <path class="march q" marker-end="url(#aq)" d="M 692,570 C 640,540 580,480 500,428"/>
+      <text class="mlabel q" x="560" y="560">尚之信据广东应</text>
+      <path class="march q" marker-end="url(#aq)" d="M 340,146 C 350,220 400,320 434,410"/>
+      <text class="mlabel q" x="356" y="228">王辅臣叛于陕西</text>
+    </g>
+
+    <!-- 阶段一:分化诸叛·断其羽翼 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 620,110 C 500,110 400,116 344,124"/>
+      <text class="mlabel j" x="470" y="98">图海西征,抚定王辅臣于平凉</text>
+      <circle class="star" cx="330" cy="130" r="8"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 342,140 C 380,240 420,340 442,414"/>
+      <text class="mlabel r" x="380" y="300">断吴三桂西北之援</text>
+      <path class="march j" marker-end="url(#aj)" d="M 640,190 C 720,300 800,420 848,478"/>
+      <text class="mlabel j" x="700" y="360">招降耿精忠(福建)</text>
+      <path class="march j" marker-end="url(#aj)" d="M 660,210 C 700,360 700,500 702,568"/>
+      <text class="mlabel j" x="716" y="360">招降尚之信(广东)</text>
+    </g>
+
+    <!-- 阶段二:相持岳州·吴顿不进 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 700,180 C 600,260 520,340 464,414"/>
+      <text class="mlabel j" x="560" y="300">岳乐等出江西湖广</text>
+      <rect class="camp" x="444" y="418" width="9" height="9" transform="rotate(45 448 422)"/>
+      <circle class="star" cx="448" cy="422" r="8"/>
+      <text class="mlabel q" x="352" y="404">吴军顿兵,不得渡江北进</text>
+      <path class="march q" marker-end="url(#aq)" d="M 452,486 C 452,466 450,448 450,434"/>
+      <text class="anno" x="464" y="504">与官军相持岳州长沙一线</text>
+      <circle class="star" cx="432" cy="560" r="8"/>
+      <text class="mlabel r" x="356" y="588">康熙十七年称帝衡州,旋忧愤病死</text>
+    </g>
+
+    <!-- 阶段三:三路入滇·昆明破 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 440,428 C 380,460 280,490 190,510"/>
+      <text class="mlabel j" x="280" y="472">清军三路进逼云南</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,150 C 260,300 210,430 176,506"/>
+      <text class="mlabel j" x="230" y="380">赵良栋等入云南</text>
+      <circle class="siege" cx="160" cy="520" r="15"/>
+      <path d="M 160,520 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="160" cy="520" r="9"/>
+      <text class="mlabel j" x="70" y="560">康熙二十年,昆明破</text>
+      <text class="anno" x="70" y="576">吴世璠自杀,三藩之乱遂平</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清官军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>三藩军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败亡·招抚</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·要地</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>三藩</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清廷</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·圣祖本纪》《清史稿·吴三桂传》《平定三逆方略》约略绘出。昆明今云南昆明,岳州今湖南岳阳,衡州今湖南衡阳,平凉今甘肃平凉。长江、洞庭、湘、乌诸水道及城邑位置为相对示意。</p>
+    <p><span class="n">注二</span>晕染疆界为康熙初三藩形势示意:吴三桂据云贵、渐扩湖广,清廷自中原南下;界以长江一线为约,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>康熙帝论撤藩曰「撤亦反,不撤亦反,不若先发」,遂决意撤之。乱起,东南、西南、西北并举,兵锋北抵长江;而帝坚意不许和、分化诸叛,先抚王辅臣、招耿尚,断吴之援。吴三桂顿兵岳州不得渡江,进退失据,称帝衡州旋死;清军三路入滇,昆明既破,三藩遂平。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"三藩举兵",d:"康熙十二年 · 1673",p:["清初封吴三桂为平西王镇云贵、尚可喜为平南王镇广东、耿精忠为靖南王镇福建,是为三藩。三藩拥兵自重,岁糜巨饷,俨然割据。康熙帝决意撤藩,曰「撤亦反,不撤亦反,不若先发」。","康熙十二年,吴三桂杀云南巡抚朱国治,以「兴明讨虏」为号举兵反。耿精忠、尚之信及陕西王辅臣、广西孙延龄相继响应,东南、西南、西北并乱,一时连陷数省,兵锋北抵长江。"]},
+  "1":{t:"分化诸叛·断其羽翼",d:"康熙十三至十五年",p:["康熙沉着应之,坚意不许和,而分化诸叛。西北王辅臣叛应吴,据平凉;帝遣图海西征,抚定之,断吴三桂西北之援。","东南则招降耿精忠、尚之信,收其兵为用。三藩既相继离散,吴三桂遂孤,羽翼尽剪,不复能相为唇齿。"]},
+  "2":{t:"相持岳州·吴顿不进",d:"康熙十四至十七年",p:["帝以安亲王岳乐等出江西、湖广,与吴军相持于岳州、长沙一线。吴三桂顿兵岳州,不得渡江北进,进退失据。","康熙十七年,吴三桂称帝于衡州,国号周,旋忧愤病死。其孙吴世璠嗣,退守云南,叛势自此日蹙。"]},
+  "3":{t:"三路入滇·昆明破",d:"康熙十九至二十年",p:["吴三桂既死,清军三路进逼云南。赵良栋等诸军并进,克贵阳、下云南,合围昆明,昼夜攻之。","康熙二十年,昆明城破,吴世璠自杀,三藩之乱遂平。清之中央集权由是巩固,南方尽入版图。"]}
+};
+const CITY={
+  kunming:{t:"昆明",d:"吴三桂老巢,今云南昆明",p:["吴三桂镇云贵之根本,举兵之地。吴世璠退守于此,清军三路合围,康熙二十年城破,世璠自杀,三藩遂平。"]},
+  yuezhou:{t:"岳州",d:"今湖南岳阳,洞庭湖口",p:["吴军北犯与官军相持之要冲。吴三桂顿兵于此,不得渡江北进,坐失战机,进退失据。"]},
+  hengzhou:{t:"衡州",d:"今湖南衡阳",p:["康熙十七年吴三桂称帝于此,国号周;旋忧愤病死,叛势自此日蹙。"]},
+  changsha:{t:"长沙",d:"今湖南长沙,湘江之滨",p:["吴军北犯之极点,与岳州同为清吴相持之线。官军扼此,吴不得逾湘北上。"]},
+  fuzhou:{t:"福州",d:"今福建福州",p:["靖南王耿精忠据此响应吴三桂,后为清军所迫,受招而降,东南之乱遂息。"]},
+  guangzhou:{t:"广州",d:"今广东广州",p:["平南王尚可喜子尚之信据此应吴,后复归清受降,断吴东南之援。"]},
+  pingliang:{t:"平凉",d:"今甘肃平凉",p:["陕西提督王辅臣叛应吴,据平凉。康熙帝遣图海西征,抚定之,断吴西北之羽翼。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
