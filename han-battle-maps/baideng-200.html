@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白登之围 · 汉高帝七年(前200)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>白</span><span>登</span><span>之</span><span>围</span></div>
+  <header>
+    <h1>白登之围</h1>
+    <div class="sub">汉高帝七年(前200)　　<i>汉高帝 刘邦</i> 轻敌被围 · <b>匈奴 冒顿</b>七日困白登</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 高帝北征</button>
+    <button data-p="1">示弱诱敌 · 轻骑冒进</button>
+    <button data-p="2">白登被围 · 七日不通</button>
+    <button data-p="3">密计解围 · 结和亲</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白登之围形势图,含匈奴与汉疆界、长城桑干河句注山与白登平城晋阳等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:匈奴据漠南(北),汉据内地(南),约以长城为界 -->
+    <path d="M 0,232 C 140,214 300,204 460,214 C 600,222 740,206 1000,196 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,232 C 140,214 300,204 460,214 C 600,222 740,206 1000,196 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,232 C 140,214 300,204 460,214 C 600,222 740,206 1000,196"/>
+    <text class="realm q" x="120" y="110" font-size="34">匈 奴(漠南)</text>
+    <text class="realm j" x="640" y="560" font-size="32">汉(内地)</text>
+
+    <!-- 长城:沿疆界东西横亘 -->
+    <g class="mtn"><path d="M 0,250 C 150,232 320,222 470,232 C 620,240 760,224 1000,214" stroke-width="1.6" stroke-dasharray="6 4"/></g>
+    <text class="cname s" x="60" y="244" style="fill:var(--ink2)">长　城</text>
+
+    <!-- 桑干河:自西南句注一带东北流经平城、白登 -->
+    <path class="river" stroke-width="4" d="M 220,470 C 340,440 430,410 500,378 C 560,352 620,336 700,326 C 780,318 850,320 940,318"/>
+    <text class="rname" x="720" y="348">桑 干 河</text>
+
+    <!-- 句注山(雁门):西南险塞 -->
+    <g class="mtn"><path d="M 210,520 l 10,-16 l 10,16 M 228,514 l 10,-16 l 10,16 M 246,520 l 9,-15 l 9,15"/></g>
+    <text class="cname s" x="196" y="540">句注山(雁门)</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="baideng"><circle cx="560" cy="298" r="6"/><text class="cname" x="572" y="294">白登山<tspan class="cname s" dx="2">(被围)</tspan></text></g>
+      <g class="city cap" data-city="pingcheng"><circle cx="500" cy="330" r="5.5"/><text class="cname" x="446" y="352">平城<tspan class="cname s" dx="2">(大同)</tspan></text></g>
+      <g class="city" data-city="jinyang"><circle cx="470" cy="560" r="5"/><text class="cname" x="482" y="556">晋阳</text></g>
+      <g class="city" data-city="mayi"><circle cx="330" cy="360" r="4.5"/><text class="cname s" x="278" y="356">马邑</text></g>
+      <g class="city" data-city="juzhu"><circle cx="360" cy="500" r="4"/><text class="cname s" x="290" y="496">句注·雁门</text></g>
+      <g class="city" data-city="guangwu"><circle cx="410" cy="452" r="4"/><text class="cname s" x="420" y="448">广武</text></g>
+    </g>
+
+    <!-- 全图 · 高帝北征 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 470,552 C 462,510 452,470 442,442 C 430,410 470,368 494,336"/>
+      <text class="mlabel j" x="380" y="512">高帝率三十二万北征</text>
+      <text class="anno" x="360" y="530">连破匈奴于铜鞮、晋阳</text>
+      <path class="march q" marker-end="url(#aq)" d="M 340,352 C 400,346 450,340 490,332"/>
+      <text class="mlabel q" x="270" y="332">韩王信以马邑降匈奴,连兵南犯</text>
+      <text class="anno" x="150" y="180">时值隆冬大寒,士卒堕指者什二三</text>
+    </g>
+
+    <!-- 阶段一:示弱诱敌 · 轻骑冒进 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="596" y="256" width="9" height="9" transform="rotate(45 600 260)"/>
+      <rect class="camp" x="628" y="292" width="8" height="8" transform="rotate(45 632 296)"/>
+      <rect class="camp" x="600" y="336" width="8" height="8" transform="rotate(45 604 340)"/>
+      <text class="mlabel q" x="600" y="240">冒顿匿精壮,示以老弱羸畜以诱汉</text>
+      <path class="march j rout" marker-end="url(#ar)" d="M 414,446 C 440,420 470,384 512,340"/>
+      <text class="mlabel r" x="424" y="424">刘敬谏有伏,帝怒系之广武</text>
+      <path class="march j" marker-end="url(#aj)" d="M 508,332 C 528,320 544,310 552,304"/>
+      <text class="mlabel j" x="500" y="300">帝自将轻骑先趋白登</text>
+    </g>
+
+    <!-- 阶段二:白登被围 · 七日不通 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="560" cy="298" r="34"/>
+      <circle class="star" cx="560" cy="298" r="9"/>
+      <path class="march q" marker-end="url(#aq)" d="M 618,258 C 600,270 588,278 578,286"/>
+      <path class="march q" marker-end="url(#aq)" d="M 620,340 C 604,326 592,318 582,310"/>
+      <path class="march q" marker-end="url(#aq)" d="M 508,262 C 526,274 538,282 546,288"/>
+      <path class="march q" marker-end="url(#aq)" d="M 506,338 C 524,326 536,318 546,310"/>
+      <text class="mlabel q" x="600" y="216">冒顿纵四十万骑,四面围白登山</text>
+      <text class="anno" x="590" y="360">七日七夜,内外不得相救饷</text>
+      <text class="anno" x="400" y="270">天寒,汉军士卒堕指</text>
+    </g>
+
+    <!-- 阶段三:密计解围 · 结和亲 -->
+    <g id="ph3" class="ph">
+      <circle class="star" cx="560" cy="298" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 552,306 C 528,326 508,340 494,338"/>
+      <text class="mlabel j" x="470" y="288">陈平密赂阏氏,说单于开围一角</text>
+      <text class="anno" x="440" y="306">会天大雾,汉军张弩徐出,得脱</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 578,286 C 620,254 660,232 700,214"/>
+      <text class="mlabel r" x="608" y="248">冒顿引兵去</text>
+      <path class="march j" marker-end="url(#aj)" d="M 486,340 C 456,384 428,424 414,446"/>
+      <text class="anno" x="330" y="472">帝至广武,赦刘敬;遂与匈奴结和亲</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军冒进·脱困</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>被围</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·匈奴列传》《史记·高祖本纪》《史记·陈丞相世家》及《汉书》约略绘出。白登山在今山西大同东,平城即大同,晋阳今太原,句注山即雁门。长城、桑干河及诸城邑水道为相对示意,非实测方位。</p>
+    <p><span class="n">注二</span>晕染疆界为高帝七年形势示意:匈奴据漠南,汉据内地,约以长城为界;故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>冒顿匿其精壮、示以老弱羸畜以诱汉,汉使十辈皆言可击,独刘敬(娄敬)谏曰匈奴必有伏、不可击;帝怒械系之,轻敌深入,遂困白登七日——诱敌骄兵,险胜一发。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"高帝北征",d:"汉高帝七年(前200)冬",p:["韩王信王代地,都马邑,数为匈奴所苦;匈奴大攻马邑,信降之,以马邑连兵南犯,略太原,至晋阳。","高帝自将三十二万众往击之,连破其兵于铜鞮、晋阳。时值隆冬大寒雨雪,士卒堕指者什二三——胜势方张,而危机已伏。"]},
+  "1":{t:"示弱诱敌 · 轻骑冒进",d:"前200年冬",p:["冒顿单于匿其精壮士马,但见老弱羸畜以诱汉。汉使十辈往,皆言匈奴可击。","独刘敬(娄敬)使还,谏曰:两国相击,宜矜夸见所长;今徒见羸瘠老弱,此必匿奇兵以争利,不可击也。帝怒,骂而械系之广武,乃自将轻骑先至平城,进登白登。"]},
+  "2":{t:"白登被围 · 七日不通",d:"前200年冬",p:["冒顿纵精骑四十万,四面围帝于白登山:西方尽白马,东方尽青駹马,北方尽乌骊马,南方尽騂马。","围凡七日七夜,汉军内外不得相救饷。天寒大雪,士卒冻馁堕指,危在旦夕。"]},
+  "3":{t:"密计解围 · 结和亲",d:"前200年冬 — 其后数十年",p:["陈平出密计,使人间厚遗阏氏(单于妻)。阏氏乃说冒顿曰:两主不相困;今得汉地,单于终非能居之。又疑汉救兵将至,乃解围之一角。","会天大雾,汉军张弩持满外向,徐引兵而出,得与大军合;冒顿引兵去。帝至广武,赦刘敬、封二千户。自是汉与匈奴结和亲,以宗女、缯絮岁遗单于,数十年不复大举兵。"]}
+};
+const CITY={
+  baideng:{t:"白登山",d:"今山西大同东",p:["高帝轻骑先登之处。冒顿纵四十万骑四面围之,七日七夜,内外不得相救饷,汉军险困于此。"]},
+  pingcheng:{t:"平城",d:"今山西大同",p:["汉军所趋之城,近白登山。帝自将轻骑先至平城,进登白登,遂陷重围。"]},
+  jinyang:{t:"晋阳",d:"今山西太原",p:["高帝北征进兵之基。连破匈奴、韩王信之兵于铜鞮、晋阳,乘胜北趋。"]},
+  mayi:{t:"马邑",d:"今山西朔州",p:["韩王信封代都马邑,匈奴大攻之,信遂以马邑降匈奴,连兵南犯,兵祸由此起。"]},
+  juzhu:{t:"句注·雁门",d:"句注山即雁门,今代县北",p:["汉军出塞所经之险塞。逾此而北,则入匈奴大寒之地。"]},
+  guangwu:{t:"广武",d:"今山西代县西",p:["刘敬谏止不可击,帝怒械系之于此。解围后,帝还至广武,赦刘敬而封之。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

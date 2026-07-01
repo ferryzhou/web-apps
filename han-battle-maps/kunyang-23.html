@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>昆阳之战 · 更始元年·地皇四年(23)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>昆</span><span>阳</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>昆阳之战</h1>
+    <div class="sub">更始元年·地皇四年(23)　　<i>汉 刘秀</i> 敢死冲坚 · <b>新莽 王邑王寻</b>四十二万土崩</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 莽军压昆阳</button>
+    <button data-p="1">突围乞援</button>
+    <button data-p="2">敢死冲坚</button>
+    <button data-p="3">风雨滍水</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="昆阳之战形势图,含新莽汉军疆界、滍水颍水与昆阳宛城郾定陵洛阳等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:新莽据河洛长安(北·西),更始汉军据宛·南阳(南),约以颍汝之间为形势界 -->
+    <path d="M 0,300 C 140,286 300,268 460,250 C 600,236 760,236 1000,214 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 140,286 300,268 460,250 C 600,236 760,236 1000,214 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 140,286 300,268 460,250 C 600,236 760,236 1000,214"/>
+    <text class="realm q" x="120" y="130" font-size="32">新 莽(河洛)</text>
+    <text class="realm j" x="640" y="560" font-size="30">汉(南阳)</text>
+
+    <!-- 滍水:昆阳城南,关键·暴涨溺莽军;自西向东流 -->
+    <path class="river" stroke-width="4.5" d="M 150,430 C 280,438 400,452 480,468 C 560,484 660,486 780,472 C 860,462 940,458 1000,456"/>
+    <!-- 颍水:东北向 -->
+    <path class="river" stroke-width="3.4" d="M 640,300 C 700,346 760,388 820,420 C 880,452 940,470 1000,486"/>
+    <text class="rname" x="330" y="446" style="font-size:13px">滍 水</text>
+    <text class="rname" x="726" y="372" transform="rotate(34 726 372)" style="font-size:11px">颍 水</text>
+
+    <!-- 昆阳城:方城示意 -->
+    <g class="mtn"><rect x="452" y="388" width="56" height="40" rx="2"/></g>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="kunyang"><circle cx="480" cy="408" r="6"/><text class="cname" x="492" y="404">昆阳<tspan class="cname s" dx="2">(围城·决战)</tspan></text></g>
+      <g class="city" data-city="zhishui"><circle cx="470" cy="466" r="3.5"/><text class="cname s" x="404" y="484">滍水(溺莽处)</text></g>
+      <g class="city" data-city="wan"><circle cx="330" cy="558" r="6"/><text class="cname" x="342" y="562">宛城<tspan class="cname s" dx="2">(更始围攻)</tspan></text></g>
+      <g class="city" data-city="yandingling"><circle cx="726" cy="452" r="5"/><text class="cname" x="738" y="448">郾·定陵<tspan class="cname s" dx="2">(调援处)</tspan></text></g>
+      <g class="city" data-city="luoyang"><circle cx="360" cy="120" r="6"/><text class="cname" x="372" y="116">洛阳<tspan class="cname s" dx="2">(莽军所自)</tspan></text></g>
+      <g class="city" data-city="yangguan"><circle cx="560" cy="336" r="3.5"/><text class="cname s" x="572" y="332">阳关(前锋所至)</text></g>
+    </g>
+
+    <!-- 全图 · 莽军压昆阳 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 372,132 C 430,200 500,270 552,330"/>
+      <text class="mlabel q" x="220" y="176">王邑王寻发四十二万众,号百万,自河洛南趋</text>
+      <path class="march q" marker-end="url(#aq)" d="M 558,342 C 540,360 512,384 494,398"/>
+      <circle class="siege" cx="480" cy="408" r="30"/>
+      <text class="mlabel q" x="524" y="356">围昆阳数十重,列营百数</text>
+      <rect class="camp" x="546" y="330" width="9" height="9" transform="rotate(45 550 334)"/>
+      <text class="mlabel j" x="360" y="536">更始主力方围宛城,刘秀待其下</text>
+      <text class="anno" x="500" y="432">城中汉军仅八九千,众欲散归,刘秀独主固守求援</text>
+    </g>
+
+    <!-- 阶段一:突围乞援 -->
+    <g id="ph1" class="ph">
+      <circle class="siege" cx="480" cy="408" r="30"/>
+      <text class="mlabel q" x="384" y="386">莽军云车临城·穴地道·矢下如雨</text>
+      <text class="mlabel j" x="386" y="440">留王凤、王常守城,乞降不许</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,414 C 580,428 660,440 714,450"/>
+      <text class="mlabel j" x="540" y="470">刘秀与十三骑夜出南门</text>
+      <text class="anno" x="640" y="436">驰郾、定陵调集援兵</text>
+    </g>
+
+    <!-- 阶段二:敢死冲坚·斩王寻 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="480" cy="408" r="30"/>
+      <rect class="camp" x="546" y="330" width="9" height="9" transform="rotate(45 550 334)"/>
+      <text class="mlabel q" x="512" y="348">王邑王寻轻敌,自将万人当之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 714,448 C 640,436 580,420 524,404"/>
+      <text class="mlabel j" x="560" y="486">刘秀率援兵还,以敢死三千冲中坚</text>
+      <circle class="star" cx="530" cy="384" r="8"/>
+      <text class="anno" x="546" y="376">汉军殊死斩王寻,中坚溃乱</text>
+    </g>
+
+    <!-- 阶段三:风雨滍水·莽军土崩 -->
+    <g id="ph3" class="ph">
+      <path d="M 530,384 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="464" y="360">会大风飞瓦·暴雨如注</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 524,398 C 508,428 490,450 476,462"/>
+      <path class="march q rout" marker-end="url(#aq)" d="M 552,392 C 560,428 540,452 496,466"/>
+      <text class="mlabel r" x="382" y="502">滍水暴涨,莽军大溃,溺死者万数,水为不流</text>
+      <text class="anno" x="360" y="524">王邑等以身免;新室主力尽丧,天下并起亡莽</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(刘秀)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>新莽军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃溺</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战·斩王寻</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>新莽</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《后汉书·光武帝纪》《后汉书·王常传》《汉书·王莽传》约略绘出。昆阳即今河南叶县,滍水即今沙河,颍水在其东北;宛城今南阳,郾·定陵在昆阳东,洛阳为莽军出兵基。城邑水道皆相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为地皇四年形势示意:新莽据河洛长安,更始汉军起南阳、方围宛城;两间无实界,故以点划「约界」标之。</p>
+    <p><span class="n">注三</span>王邑骄慢,不听严尤「围城必阙、勿顿兵坚城」之谏,顿四十二万众于孤城之下。刘秀以敢死三千冲其中坚,会天变滍水暴涨——莽军精锐一战尽丧,数月而新室灭,胜负之几,间不容发。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"莽军压昆阳",d:"地皇四年五月",p:["绿林军拥立刘玄为更始帝,复汉号,进围宛城。王莽大惧,发天下精兵四十二万,号百万,使大司空王邑、大司徒王寻率之,旌旗辎重千里不绝,又驱虎豹犀象以助威,直趋昆阳。","时昆阳汉军仅八九千,诸将见莽军之盛,欲散归诸城。刘秀独排众议,主张固守昆阳、外求救兵,以为内外夹击之计。莽军围城数十重,列营百数,云车临城,地道穴城,矢下如雨。"]},
+  "1":{t:"突围乞援·留守昆阳",d:"地皇四年五月",p:["刘秀留王凤、王常固守昆阳,自与十三骑夜出南门,驰赴郾、定陵调集援兵。","城中窘迫,乞降不许;王邑骄慢自恃,不听严尤「围城必阙、勿顿坚城」之谏,一意猛攻,而昆阳终不下。"]},
+  "2":{t:"敢死冲坚·斩王寻",d:"地皇四年五月",p:["刘秀率援兵还,先以步骑千余为前锋,继以敢死三千人,径冲莽军中坚。","王邑、王寻轻敌,自将万人当之,而约束余部不得擅动;汉军殊死力战,遂斩王寻,莽军中坚溃乱,诸营顾望不敢相救。"]},
+  "3":{t:"风雨滍水·莽军土崩",d:"地皇四年五月",p:["会大风飞瓦、暴雨如注,滍水暴涨;莽军大溃,士卒奔走相腾践,溺死滍水者以万数,水为之不流。王邑等以身免。","莽军精锐一战尽丧,天下豪杰遂并起亡莽,数月而新室灭。昆阳一役,刘秀之名震于海内。"]}
+};
+const CITY={
+  kunyang:{t:"昆阳",d:"今河南叶县,决战之城",p:["莽军围之数十重,列营百数。刘秀主固守求援,以敢死三千冲中坚,城下斩王寻,遂成大胜。"]},
+  zhishui:{t:"滍水",d:"昆阳城南,今沙河",p:["莽军溃走,值暴雨滍水暴涨,溺死者以万数,水为不流——一战定亡莽之势。"]},
+  wan:{t:"宛城",d:"今河南南阳,更始所围",p:["更始帝主力方围攻宛城,刘秀在昆阳待其下。宛降在即,故王莽发大军急救、直趋昆阳。"]},
+  yandingling:{t:"郾·定陵",d:"昆阳之东,调援处",p:["刘秀夜出昆阳南门,驰赴郾、定陵,调发诸营援兵,还救昆阳,内外夹击莽军。"]},
+  luoyang:{t:"洛阳",d:"莽军所自,王邑出兵基",p:["王莽以河洛长安为本,遣王邑、王寻率四十二万众自此南下,旌旗辎重千里不绝。"]},
+  yangguan:{t:"阳关",d:"近昆阳,莽军前锋所至",p:["莽军前锋进至阳关,严尤、陈茂之众已为汉军所摧,遂并力围顿昆阳坚城之下。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

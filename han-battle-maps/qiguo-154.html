@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>周亚夫平七国之乱 · 汉景帝三年(前154)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>平</span><span>七</span><span>国</span><span>乱</span></div>
+  <header>
+    <h1>周亚夫平七国之乱</h1>
+    <div class="sub">汉景帝三年(前154)　　<i>汉 周亚夫</i> 绝粮制胜 · <b>吴王刘濞</b>三月败亡</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 七国举兵</button>
+    <button data-p="1">委梁 · 坚壁昌邑</button>
+    <button data-p="2">睢阳苦守 · 绝其粮道</button>
+    <button data-p="3">粮尽兵溃 · 三月定乱</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="周亚夫平七国之乱形势图,含汉与吴楚七国疆界、淮泗睢水与睢阳昌邑长安等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:汉朝廷据关中关东(西),吴楚七国据东南(东),约以梁地为界 -->
+    <path d="M 470,0 C 500,110 540,190 560,280 C 574,350 590,430 640,510 C 680,570 720,610 760,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 500,110 540,190 560,280 C 574,350 590,430 640,510 C 680,570 720,610 760,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 500,110 540,190 560,280 C 574,350 590,430 640,510 C 680,570 720,610 760,640"/>
+    <text class="realm j" x="120" y="120" font-size="30">汉 朝廷(关中)</text>
+    <text class="realm q" x="740" y="180" font-size="30">吴楚 七国</text>
+
+    <!-- 大河(黄河):北境自西向东 -->
+    <path class="river" stroke-width="5" d="M 120,120 C 260,140 400,150 520,168 C 640,186 760,196 900,190"/>
+    <!-- 睢水:自梁地东南流 -->
+    <path class="river" stroke-width="2.6" d="M 500,300 C 560,330 620,360 690,392 C 740,414 790,428 850,436"/>
+    <!-- 泗水:自北南下,会淮 -->
+    <path class="river" stroke-width="3" d="M 690,240 C 700,300 712,360 730,418 C 748,472 768,510 792,540"/>
+    <!-- 淮水:东南横流入海 -->
+    <path class="river" stroke-width="4.2" d="M 600,470 C 680,500 760,524 830,536 C 890,546 950,548 1000,546"/>
+    <text class="rname" x="300" y="132" style="font-size:13px">大 河</text>
+    <text class="rname" x="590" y="352" transform="rotate(24 590 352)" style="font-size:11px">睢 水</text>
+    <text class="rname" x="700" y="330" transform="rotate(78 700 330)" style="font-size:11px">泗 水</text>
+    <text class="rname" x="700" y="500">淮 水</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="changan"><circle cx="110" cy="250" r="6"/><text class="cname" x="122" y="246">长安<tspan class="cname s" dx="2">(汉都)</tspan></text></g>
+      <g class="city" data-city="changyi"><circle cx="520" cy="240" r="5"/><text class="cname" x="532" y="236">昌邑<tspan class="cname s" dx="2">(周亚夫坚壁)</tspan></text></g>
+      <g class="city cap" data-city="suiyang"><circle cx="500" cy="300" r="6.5"/><text class="cname" x="410" y="300">睢阳<tspan class="cname s" dx="2">(梁都)</tspan></text></g>
+      <g class="city" data-city="xiayi"><circle cx="600" cy="330" r="5"/><text class="cname" x="612" y="326">下邑</text></g>
+      <g class="city" data-city="huaisikou"><circle cx="730" cy="418" r="5"/><text class="cname" x="742" y="416">淮泗口<tspan class="cname s" dx="2">(绝粮道)</tspan></text></g>
+      <g class="city cap" data-city="guangling"><circle cx="860" cy="520" r="6"/><text class="cname" x="762" y="516">广陵<tspan class="cname s" dx="2">(吴都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 七国举兵 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 852,514 C 760,470 660,420 590,360 C 555,332 528,318 512,308"/>
+      <text class="mlabel q" x="640" y="410">刘濞连七国,拥兵数十万,以「清君侧」西向</text>
+      <path class="march j" marker-end="url(#aj)" d="M 122,254 C 240,258 360,254 470,246"/>
+      <text class="mlabel j" x="200" y="240">景帝以周亚夫为太尉,率军东讨</text>
+      <text class="anno" x="410" y="330">吴楚锐甚,直趋梁地</text>
+    </g>
+
+    <!-- 阶段一:委梁 · 坚壁昌邑 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 200,252 C 320,258 420,254 508,244"/>
+      <text class="mlabel j" x="230" y="272">亚夫引军会昌邑,深壁高垒,坚守不战</text>
+      <rect class="camp" x="516" y="236" width="8" height="8" transform="rotate(45 520 240)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 850,516 C 740,470 640,420 570,360 C 540,334 520,318 508,306"/>
+      <text class="mlabel q" x="600" y="390">吴楚倾兵急攻梁</text>
+      <text class="anno" x="380" y="332">亚夫以吴楚兵锐,请委梁以饵敌</text>
+    </g>
+
+    <!-- 阶段二:睢阳苦守 · 绝其粮道 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="500" cy="300" r="20"/>
+      <rect class="camp" x="536" y="316" width="9" height="9" transform="rotate(45 540 320)"/>
+      <text class="mlabel q" x="440" y="270">吴楚急攻睢阳,梁王固守告急</text>
+      <path class="march j" marker-end="url(#aj)" d="M 526,248 C 600,300 660,360 718,410"/>
+      <text class="mlabel j" x="560" y="336">亚夫坚卧不救,阴遣轻骑</text>
+      <path class="march j" marker-end="url(#aj)" d="M 724,424 C 700,470 660,504 616,528"/>
+      <text class="mlabel j" x="640" y="470">出淮泗口,断吴楚军后粮道</text>
+      <text class="anno" x="410" y="340">梁数使请救,亚夫终不出</text>
+    </g>
+
+    <!-- 阶段三:粮尽兵溃 · 三月定乱 -->
+    <g id="ph3" class="ph">
+      <circle class="star" cx="600" cy="330" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 528,246 C 560,280 578,304 592,322"/>
+      <text class="mlabel j" x="510" y="228">吴楚兵疲欲退,亚夫出精兵击破之</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 608,338 C 680,400 760,470 848,514"/>
+      <text class="mlabel r" x="660" y="430">吴楚溃走</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 856,524 C 900,560 940,590 960,610"/>
+      <text class="mlabel r" x="860" y="580">刘濞弃军走江南,为东越所杀</text>
+      <text class="anno" x="450" y="352">楚王自杀,七国悉平,三月而乱定</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉官军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>吴楚七国</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>兵溃败走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>七国</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·吴王濞列传》《史记·绛侯周勃世家》及《汉书》约略绘出。睢阳即今河南商丘,昌邑在今山东巨野南,广陵即今江苏扬州,淮泗口为泗水入淮之口(约今江苏淮安北),城邑水道为相对示意,非实测画界。</p>
+    <p><span class="n">注二</span>晕染疆界为景帝三年形势示意:汉朝廷据关中、关东,吴楚七国起于东南。梁国当吴楚西向之冲,以点划「约界」标之,示强藩与朝廷相持之势,非实有画界。</p>
+    <p><span class="n">注三</span>亚夫定策之要,在「以梁委吴楚而己得绝其粮道以制之」。故坚壁昌邑、坚卧不救睢阳,而阴遣轻骑出淮泗口断其后。吴楚攻梁不下、乏食兵疲,亚夫乃出精兵一战破之——胜败之机,系于绝粮不战。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"七国举兵",d:"汉景帝三年(前154)正月",p:["景帝用晁错「削藩策」,削夺诸侯支郡。吴王刘濞恃富强、蓄谋已久,遂连楚、赵、胶西、胶东、菑川、济南凡七国,以「诛晁错、清君侧」为名反,拥兵数十万西向。","景帝斩晁错以谢七国,而濞不退,乃以周亚夫为太尉率军讨之。吴楚兵锐,直趋梁地,声势甚张。"]},
+  "1":{t:"委梁 · 坚壁昌邑",d:"前154年 正月—二月",p:["亚夫定策:吴楚兵锐、难与争锋,请以梁王委吴楚,而己得绝其粮道以制之。景帝许之。","亚夫引兵会昌邑,深壁高垒,坚守不战,养锐以待其敝。吴楚倾兵急攻梁,而汉军按甲不动。"]},
+  "2":{t:"睢阳苦守 · 绝其粮道",d:"前154年 二月",p:["吴楚急攻梁都睢阳,梁孝王刘武固守告急,数遣使请救于亚夫;亚夫坚卧不救,梁王上书言于景帝,帝诏亚夫救梁,亚夫终不奉诏出战。","而亚夫阴遣轻骑出淮泗口,断绝吴楚军后之粮道。吴楚顿兵坚城之下,后路已绝,粮道日蹙。"]},
+  "3":{t:"粮尽兵溃 · 三月定乱",d:"前154年 二月—三月",p:["吴楚攻睢阳不下,又乏食,士卒饥,数挑战亚夫终不出。吴楚兵疲欲退,亚夫出精兵击之,大破吴楚于下邑。","刘濞弃军走江南,为东越所杀;楚王刘戊自杀,余国皆平。三月而乱定,诸侯强藩之势自是削弱,中央集权遂固。"]}
+};
+const CITY={
+  suiyang:{t:"睢阳",d:"梁国都,今河南商丘",p:["吴楚西向必争之冲。梁孝王刘武死守于此,数请救而亚夫不出;吴楚顿兵坚城之下,遂为绝粮所敝。"]},
+  changyi:{t:"昌邑",d:"今山东巨野南",p:["周亚夫会军之地。深壁高垒,坚守不战,以饵敌委梁、绝粮制胜之策,皆本于此。"]},
+  huaisikou:{t:"淮泗口",d:"泗水入淮之口,约今江苏淮安北",p:["亚夫阴遣轻骑出此,断吴楚军后粮道。吴楚乏食兵疲,乱之所以速定,实系于此一著。"]},
+  guangling:{t:"广陵",d:"吴国都,今江苏扬州",p:["吴王刘濞起兵之基。濞恃富强蓄谋已久,连七国而反;兵败弃军走江南,为东越所杀。"]},
+  changan:{t:"长安",d:"汉都,今陕西西安",p:["景帝用晁错削藩,七国因以为名而反。帝斩晁错以谢七国而濞不退,乃遣周亚夫为太尉东讨。"]},
+  xiayi:{t:"下邑",d:"今安徽砀山",p:["吴楚粮尽兵疲、欲退之际,亚夫出精兵击破之于此,一战而乱势尽溃。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
