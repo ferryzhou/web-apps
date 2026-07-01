@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>逍遥津之战 · 建安二十年(215)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>逍</span><span>遥</span><span>津</span><span>役</span></div>
+  <header>
+    <h1>逍遥津之战</h1>
+    <div class="sub">汉建安二十年(215)　　<i>曹魏 张辽 · 李典 · 乐进</i> 破 <b>孙权</b>(十万)于合肥</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 十万围合肥</button>
+    <button data-p="1">八百陷阵</button>
+    <button data-p="2">相持退兵</button>
+    <button data-p="3">逍遥津追</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="逍遥津之战形势图,含曹魏淮南与孙吴江东疆界、施水肥水巢湖与合肥逍遥津濡须寿春建业等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:曹魏据淮南(北),孙吴据江东(南),约以巢湖濡须一线为界 -->
+    <path d="M 0,300 C 160,286 340,300 500,320 C 660,340 840,352 1000,346 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 160,286 340,300 500,320 C 660,340 840,352 1000,346 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 160,286 340,300 500,320 C 660,340 840,352 1000,346"/>
+    <text class="realm j" x="120" y="120" font-size="32">曹 魏(淮南)</text>
+    <text class="realm q" x="700" y="580" font-size="32">孙 吴(江东)</text>
+
+    <!-- 施水(肥水):北自寿春方向南下经合肥,注入巢湖;逍遥津为其渡口 -->
+    <path class="river" stroke-width="4" d="M 540,120 C 520,175 508,205 500,240 C 494,268 490,290 484,320 C 476,360 452,420 440,452"/>
+    <!-- 巢湖:南方大泽 -->
+    <path class="river" stroke-width="1.5" d="M 360,452 C 388,430 430,424 470,432 C 520,442 548,472 540,510 C 532,548 480,566 420,560 C 366,554 336,522 344,486 C 348,470 352,460 360,452 Z" fill="rgba(95,127,136,.35)"/>
+    <!-- 濡须水:巢湖南下入江 -->
+    <path class="river" stroke-width="2.6" d="M 470,558 C 476,585 480,606 484,628"/>
+    <!-- 长江:东南 -->
+    <path class="river" stroke-width="5" d="M 300,630 C 420,626 560,624 700,608 C 780,598 860,580 1000,556"/>
+    <text class="rname" x="500" y="210" transform="rotate(72 500 210)" style="font-size:11px">施水(肥水)</text>
+    <text class="rname" x="428" y="500" style="font-size:12px">巢 湖</text>
+    <text class="rname" x="486" y="606" transform="rotate(80 486 606)" style="font-size:10.5px">濡须水</text>
+    <text class="rname" x="760" y="586">长 江</text>
+
+    <!-- 逍遥津渡口标记 -->
+    <text class="cname s" x="512" y="238">施水渡口</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="hefei"><circle cx="500" cy="300" r="6"/><text class="cname" x="514" y="304">合肥<tspan class="cname s" dx="2">(张辽守·决战城)</tspan></text></g>
+      <g class="city" data-city="xiaoyaojin"><circle cx="500" cy="248" r="5"/><text class="cname" x="380" y="252">逍遥津</text></g>
+      <g class="city" data-city="ruxu"><circle cx="470" cy="530" r="5"/><text class="cname" x="484" y="534">濡须<tspan class="cname s" dx="2">(吴军来路)</tspan></text></g>
+      <g class="city" data-city="chaohu"><circle cx="430" cy="470" r="3.5"/><text class="cname s" x="392" y="462">巢湖口</text></g>
+      <g class="city" data-city="shouchun"><circle cx="560" cy="92" r="6"/><text class="cname" x="574" y="96">寿春<tspan class="cname s" dx="2">(曹魏北援)</tspan></text></g>
+      <g class="city cap" data-city="jianye"><circle cx="850" cy="486" r="6"/><text class="cname" x="742" y="482">建业<tspan class="cname s" dx="2">(孙权本)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 十万围合肥 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 476,516 C 486,450 494,390 498,318"/>
+      <text class="mlabel q" x="512" y="440">孙权乘操西征,以十万众自濡须北上围合肥</text>
+      <circle class="siege" cx="500" cy="300" r="30"/>
+      <text class="mlabel j" x="150" y="200">操西征张鲁,留张辽·乐进·李典守合肥,兵才七千</text>
+      <text class="anno" x="150" y="222">先付护军薛悌函教,题"贼至乃发"</text>
+      <path class="march j rout" marker-end="url(#aj)" d="M 556,104 C 548,150 540,200 524,244" opacity=".5"/>
+      <text class="anno" x="566" y="164">寿春为魏淮南根本,援军所出</text>
+    </g>
+
+    <!-- 阶段一:八百陷阵 -->
+    <g id="ph1" class="ph">
+      <circle class="siege" cx="500" cy="300" r="30"/>
+      <rect class="camp" x="452" y="336" width="9" height="9" transform="rotate(45 456 340)"/>
+      <text class="mlabel q" x="360" y="360">权军初至,列营城南</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,290 C 494,320 482,344 468,352"/>
+      <circle class="star" cx="470" cy="352" r="8"/>
+      <text class="mlabel j" x="516" y="288">辽夜募敢死八百,椎牛飨士</text>
+      <text class="anno" x="150" y="300">平旦被甲持戟,先登陷阵,直冲权麾下,叱权</text>
+      <text class="mlabel q" x="380" y="336">权惊走登高冢,以长戟自守</text>
+      <text class="anno" x="150" y="322">辽驰突数四,自旦至日中,吴人夺气,辽还修备</text>
+    </g>
+
+    <!-- 阶段二:相持退兵 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="500" cy="300" r="30"/>
+      <text class="mlabel q" x="360" y="352">权攻合肥十余日,城不可拔;会军中大疫</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 496,314 C 490,344 486,388 480,428"/>
+      <text class="mlabel q" x="500" y="392">乃引军还,诸军先发</text>
+      <path class="march q" marker-end="url(#aq)" d="M 500,296 C 500,270 500,260 500,254"/>
+      <text class="mlabel q" x="380" y="228">权与吕蒙·甘宁·凌统等千余人殿后,次逍遥津北</text>
+    </g>
+
+    <!-- 阶段三:逍遥津追 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 500,294 C 500,278 500,268 500,258"/>
+      <text class="mlabel j" x="300" y="286">辽觇知权还,率步骑掩击津北</text>
+      <path d="M 500,248 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="500" cy="248" r="10"/>
+      <text class="mlabel q" x="300" y="230">吴军猝乱,甘宁厉声·凌统扞卫死战</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 494,254 C 490,244 494,238 502,234 C 512,229 522,232 528,240"/>
+      <text class="mlabel r" x="540" y="234">权乘骏马腾跃过津桥</text>
+      <text class="anno" x="380" y="252">桥南已撤板丈余</text>
+      <text class="anno" x="300" y="212">凌统还战身被创,左右皆没;江东夺气,"张辽止啼"</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹魏军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>孙吴军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>陷阵·追击</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>吴军围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹魏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>孙吴</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·张辽传》《吴主传》《甘宁传》《凌统传》及《资治通鉴》约略绘出。疆界、施水肥水与巢湖濡须诸水道经简化,点划"约界"非实有画界。</p>
+    <p><span class="n">注二</span>合肥在今安徽合肥,逍遥津在其城北施水渡口;濡须在巢湖入江之口,寿春在北为曹魏淮南根本,建业(今南京)为孙权治所。</p>
+    <p><span class="n">注三</span>张辽以七千破十万、几擒孙权,威震江东,吴人闻其名而止小儿夜啼。合肥自此为魏吴必争之地,孙权屡攻不能下,魏之淮南遂固。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"十万围合肥",d:"汉建安二十年(215)八月",p:["建安二十年,曹操西征张鲁,淮南空虚。孙权乘虚,亲率大众十万,自濡须北上,进围合肥。时守将张辽、乐进、李典兵才七千,众寡悬绝。","操未行,先以函教付护军薛悌,题其函曰“贼至乃发”。及权至,发之,教曰:“若孙权至者,张、李将军出战,乐将军守,护军勿得与战。”诸将疑之,张辽独慨然请依教出击,以折其锋。"]},
+  "1":{t:"八百陷阵",d:"建安二十年八月",p:["权军初至,列营合肥城下。张辽夜募敢死之士八百人,椎牛飨士,以待旦。平旦,辽被甲持戟,先登陷阵,大呼己名,冲垒入,直至权麾下,叱之。","权大惊,不知所为,走登高冢,以长戟自守。辽叱权下战,权不敢动;辽麾左右突围,复还救余众,驰突数四,自旦至日中,吴人夺气。辽乃还城修守备,众心始安。"]},
+  "2":{t:"相持退兵",d:"建安二十年八月",p:["张辽既挫其锐,吴军气沮。权攻合肥十余日,城坚不可拔,又会军中大疫,乃议引军还。","诸军以次先发,孙权与吕蒙、甘宁、凌统及诸将亲兵千余人为殿后,次于逍遥津之北,将济施水而南。"]},
+  "3":{t:"逍遥津追",d:"建安二十年八月",p:["张辽觇望,知权军已还而殿后兵少,乃率步骑掩击津北。吴军猝不及防,遂大乱。甘宁厉声问鼓吹何以不作,壮气毅然;凌统率亲近扞卫,与魏兵死战。","权乘骏马上津桥,桥南已撤板丈余,谷利著鞭,权乃腾跃而过得免。凌统还身还战,左右尽没,统被创,仅以身还。江东为之夺气,自是魏人以“张辽”之名止小儿夜啼。"]}
+};
+const CITY={
+  hefei:{t:"合肥",d:"曹魏扬州治,今安徽合肥",p:["魏淮南要冲,张辽、乐进、李典以七千守之,为决战之城。孙权以十万围攻十余日不能下。"]},
+  xiaoyaojin:{t:"逍遥津",d:"合肥城北施水渡口",p:["孙权殿后处,几为张辽所擒。权乘骏马腾跃过津桥而免,桥南板已撤丈余,江东夺气之地。"]},
+  ruxu:{t:"濡须",d:"巢湖入江之口,今安徽无为东北",p:["孙吴北出淮南之来路。权自此溯濡须、经巢湖北上围合肥,兵败亦由此退。"]},
+  chaohu:{t:"巢湖",d:"合肥南之大泽",p:["施水肥水所注,吴军水陆经巢湖趋合肥。巢湖濡须一线为魏吴之界。"]},
+  shouchun:{t:"寿春",d:"今安徽寿县",p:["曹魏淮南根本,北援之基地。合肥受围时,援军自寿春方面赴之。"]},
+  jianye:{t:"建业",d:"今江苏南京",p:["孙权治所,江东之本。围合肥之师自此发,逍遥津败还亦归于此。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>官渡之战 · 建安五年(200)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>官</span><span>渡</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>官渡之战</h1>
+    <div class="sub">汉建安五年(200)　　<i>曹操</i> 大破 <b>袁绍</b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 绍南操北</button>
+    <button data-p="1">白马 · 延津</button>
+    <button data-p="2">官渡相持</button>
+    <button data-p="3">火烧乌巢</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="官渡之战形势图,含袁绍河北与曹操许都疆界、黄河与邺黎阳白马延津乌巢官渡许等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:袁绍据河北(北),曹操据许都(南),约以黄河为界 -->
+    <path d="M 0,300 C 140,286 300,276 440,270 C 600,262 760,266 1000,278 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 140,286 300,276 440,270 C 600,262 760,266 1000,278 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 140,286 300,276 440,270 C 600,262 760,266 1000,278"/>
+    <text class="realm q" x="120" y="120" font-size="34">袁 绍(河北)</text>
+    <text class="realm j" x="640" y="590" font-size="32">曹 操(许都)</text>
+
+    <!-- 黄河:自西向东横贯上方,为两军相持之前线 -->
+    <path class="river" stroke-width="6" d="M 0,246 C 160,262 300,278 430,286 C 560,294 700,290 830,300 C 900,306 960,312 1000,320"/>
+    <text class="rname" x="150" y="240" style="font-size:14px">黄 　 河</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="ye"><circle cx="620" cy="90" r="6"/><text class="cname" x="632" y="86">邺<tspan class="cname s" dx="2">(袁绍本)</tspan></text></g>
+      <g class="city" data-city="liyang"><circle cx="560" cy="220" r="5"/><text class="cname" x="500" y="212">黎阳<tspan class="cname s" dx="2">(渡河基地)</tspan></text></g>
+      <g class="city" data-city="baima"><circle cx="620" cy="330" r="5"/><text class="cname" x="632" y="326">白马</text></g>
+      <g class="city" data-city="yanjin"><circle cx="470" cy="316" r="5"/><text class="cname" x="406" y="312">延津</text></g>
+      <g class="city" data-city="wuchao"><circle cx="560" cy="404" r="5"/><text class="cname" x="574" y="400">乌巢<tspan class="cname s" dx="2">(屯粮)</tspan></text></g>
+      <g class="city" data-city="yangwu"><circle cx="470" cy="420" r="4"/><text class="cname s" x="410" y="416">阳武</text></g>
+      <g class="city" data-city="guandu"><circle cx="500" cy="470" r="6"/><text class="cname" x="512" y="466">官渡<tspan class="cname s" dx="2">(相持决战)</tspan></text></g>
+      <g class="city cap" data-city="xu"><circle cx="486" cy="590" r="6"/><text class="cname" x="498" y="586">许<tspan class="cname s" dx="2">(曹操本)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 绍南操北 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 616,102 C 600,140 580,178 566,208"/>
+      <text class="mlabel q" x="628" y="150">袁绍拥河北四州之众十万南下</text>
+      <path class="march j" marker-end="url(#aj)" d="M 490,578 C 496,540 500,510 500,484"/>
+      <text class="mlabel j" x="512" y="536">曹操以数万拒之,进屯官渡</text>
+      <text class="anno" x="140" y="330">夹黄河相持,前线在白马、延津、官渡之间</text>
+      <circle class="star" cx="620" cy="330" r="7"/>
+      <circle class="star" cx="470" cy="316" r="7"/>
+    </g>
+
+    <!-- 阶段一:白马 · 延津 -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 566,232 C 580,270 600,300 616,320"/>
+      <text class="mlabel q" x="576" y="266">颜良渡河攻白马</text>
+      <path class="march j" marker-end="url(#aj)" d="M 486,478 C 500,428 520,384 560,352 C 580,338 600,334 612,332"/>
+      <text class="mlabel j" x="452" y="430">操用荀攸计,声东击西,轻兵掩至</text>
+      <circle class="star" cx="620" cy="330" r="8"/>
+      <text class="anno" x="632" y="348">关羽策马斩颜良于万众中</text>
+      <path class="march j rout" marker-end="url(#aj)" d="M 610,338 C 560,336 520,330 480,322"/>
+      <text class="anno" x="470" y="298">操徙白马民循河西行,以辎重饵敌</text>
+      <circle class="star" cx="470" cy="316" r="8"/>
+      <text class="mlabel j" x="378" y="336">伏兵斩文丑于延津</text>
+      <text class="anno" x="150" y="360">二将既死,绍军夺气</text>
+    </g>
+
+    <!-- 阶段二:官渡相持 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="466" y="356" width="10" height="10" transform="rotate(45 471 361)"/>
+      <text class="mlabel q" x="356" y="352">袁绍进营阳武,连营向官渡</text>
+      <path class="march q" marker-end="url(#aq)" d="M 474,428 C 484,442 490,452 496,462"/>
+      <path class="march j" marker-end="url(#aj)" d="M 494,486 C 492,478 490,472 490,466"/>
+      <rect class="camp" x="496" y="464" width="8" height="8" transform="rotate(45 500 468)" fill="#1f4e54"/>
+      <text class="mlabel j" x="512" y="486">操退守官渡,与绍夹营相持数月</text>
+      <text class="anno" x="356" y="440">绍起土山、地道以瞰营中</text>
+      <text class="anno" x="512" y="502">操作发石车(霹雳车)、掘长堑以拒之</text>
+      <text class="anno" x="356" y="560">操兵少食尽,书与荀彧议退;彧劝坚守待变</text>
+    </g>
+
+    <!-- 阶段三:火烧乌巢 -->
+    <g id="ph3" class="ph">
+      <rect class="camp" x="554" y="398" width="11" height="11" transform="rotate(45 560 404)"/>
+      <text class="mlabel q" x="574" y="392">绍粮屯乌巢,备虚</text>
+      <text class="anno" x="512" y="524">许攸来奔,言其虚实</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,462 C 508,436 524,414 546,404"/>
+      <text class="mlabel j" x="410" y="440">操自将步骑五千,夜衔枚缚口,诈为绍军</text>
+      <path d="M 560,404 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="596" y="418">间道袭乌巢,纵火尽焚其粮</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 504,472 C 540,460 560,440 566,416"/>
+      <text class="anno" x="512" y="452">张郃、高览攻操营不下,闻乌巢败,遂降</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 494,462 C 500,410 520,340 556,296 C 580,266 600,240 616,104"/>
+      <text class="mlabel r" x="588" y="240">绍父子北渡河,仅以八百骑遁走</text>
+      <text class="anno" x="356" y="576">操纵兵追击,斩获七万余;北方定势自此始</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>袁绍军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退(北渡河)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>袁绍</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《袁绍传》《荀彧传》《贾诩传》及《资治通鉴》卷六三约略绘出。疆界、水道经简化,黄河故道与今不同,点划"约界"非实有画界。</p>
+    <p><span class="n">注二</span>官渡在今河南中牟东北,乌巢在其东北;白马在今河南滑县东,延津即古之延津渡,黎阳在河北岸(今河南浚县),邺为袁绍霸府(今河北临漳西南),许即许都(今河南许昌东)。</p>
+    <p><span class="n">注三</span>以寡胜众、奇兵烧粮,为古今名战。绍多谋而少决、内不能和:沮授谏缓进而见疏,田丰以直谏下狱见杀,许攸以谮见逼而奔操——绍之败,不独在兵,亦在人和。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"绍南操北",d:"汉建安五年(200)春",p:["袁绍既并公孙瓒,拥青、冀、幽、并河北四州之众,简精卒十万、骑万匹,南向以争天下,声势震动。曹操挟天子都许,地狭兵寡,乃引兵北屯官渡,夹黄河而拒之。","议者多谓绍强不可敌,唯荀彧、郭嘉以“十胜十败”之论坚操之志。两军隔河对峙,前线在白马、延津、官渡一线,天下之势系于此一隅。"]},
+  "1":{t:"白马 · 延津",d:"建安五年二月至四月",p:["绍遣大将颜良渡河围东郡太守刘延于白马。操用荀攸声东击西之计,声言渡河袭绍后,绍分兵西应;操乃轻兵间道掩至白马,关羽望见颜良麾盖,策马刺之于万众之中,斩其首而还,白马围解。","操徙白马吏民循河西行。绍渡兵追之,操以辎重委道饵敌,绍骑争取,行伍乱;操纵兵击之,斩大将文丑于延津。颜良、文丑者,绍之名将,一战而俱殁,绍军夺气。"]},
+  "2":{t:"官渡相持",d:"建安五年八月至九月",p:["操引军还守官渡,绍进军逼之,起土山、地道,临营射矢如雨,操众蒙盾而行。操作发石车击其楼橹,号“霹雳车”;又掘长堑以拒地道,相攻连月不决。","时操兵不满万,粮且尽,士卒疲乏,乃作书与荀彧谋欲还许。彧报书曰:绍悉众聚官渡,欲与公决胜败,公以至弱当至强,若不能制,必为所乘,此天下之大机也;愿公坚守,情见势竭,必将有变。操从之。"]},
+  "3":{t:"火烧乌巢",d:"建安五年十月",p:["会绍谋士许攸以家犯法、见疑而来奔,言绍屯粮尽在乌巢,守将淳于琼备御疏略。操大喜,留曹洪、荀攸守营,自将步骑五千,人衔枚、马缚口,夜从间道，人抱束薪，托为绍军过守者，径趋乌巢，围屯纵火，烟炎张天。","绍闻之,遣张郃、高览攻操大营,而遣轻骑救乌巢。操左右告贼骑稍近,操怒曰“贼在背后,乃白!”，士卒殊死战,尽焚绍粮谷,斩淳于琼等。郃、览攻营不下,闻乌巢已破，遂焚攻具来降；绍军惊乱崩溃。操纵兵追击，斩首及降者七万余,绍与谭父子北渡河,仅以八百骑遁走。北方定势自此始。"]}
+};
+const CITY={
+  guandu:{t:"官渡",d:"今河南中牟东北",p:["曹操退守之地,与袁绍夹营相持数月。土山、地道、发石车、长堑，攻守之技尽出于此，为一役之枢。"]},
+  baima:{t:"白马",d:"今河南滑县东",p:["绍将颜良渡河来围。操声东击西轻兵掩至,关羽策马于万众中斩颜良,解白马之围。"]},
+  yanjin:{t:"延津",d:"古延津渡,今河南延津一带",p:["操徙白马民西行,以辎重委道饵敌;绍骑争取而阵乱，操纵兵斩文丑于此。二将既死，绍军夺气。"]},
+  wuchao:{t:"乌巢",d:"官渡东北,今河南延津东南",p:["袁绍屯粮之所,守将淳于琼。操自将五千夜袭,纵火尽焚其粮谷——一炬而胜负分。"]},
+  yangwu:{t:"阳武",d:"今河南原阳东南",p:["袁绍前进立营之地，连营渐逼官渡。沮授尝谏缓进以持久，绍不能用。"]},
+  xu:{t:"许",d:"许都,今河南许昌东",p:["曹操挟天子所都,官渡战守之根本。荀彧居守，书劝坚守待变，为操定计。"]},
+  ye:{t:"邺",d:"今河北临漳西南",p:["袁绍霸府所在,河北之本。官渡既败，绍收散卒还邺，未几呕血而卒。"]},
+  liyang:{t:"黎阳",d:"河北岸,今河南浚县东",p:["袁绍渡河南下之基地。颜良自此渡河攻白马；绍军进退，皆以黎阳为津要。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

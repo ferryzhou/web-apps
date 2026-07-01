@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邺城之战 · 建安九年(204)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>邺</span><span>城</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>邺城之战</h1>
+    <div class="sub">汉建安九年(204)　　<i>曹操</i> 克 <b>邺城</b> · 破袁尚</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 乘衅围邺</button>
+    <button data-p="1">进围邺城</button>
+    <button data-p="2">阳平却尚</button>
+    <button data-p="3">城破入邺</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邺城之战形势图,含袁氏河北与曹操疆界、漳水洹水黄河与邺城黎阳平原中山等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:袁氏据河北(北),曹操自黎阳渡河北上(南),约以黄河为界 -->
+    <path d="M 0,470 C 140,455 300,450 440,458 C 560,464 700,468 1000,452 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,470 C 140,455 300,450 440,458 C 560,464 700,468 1000,452 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,470 C 140,455 300,450 440,458 C 560,464 700,468 1000,452"/>
+    <text class="realm q" x="120" y="150" font-size="34">袁 氏(河北)</text>
+    <text class="realm j" x="620" y="590" font-size="30">曹 操(自黎阳渡河来)</text>
+
+    <!-- 黄河:河北与河南之界,黎阳渡在其南岸 -->
+    <path class="river" stroke-width="5.5" d="M 0,500 C 160,486 320,482 470,490 C 610,498 760,500 1000,486"/>
+    <!-- 漳水:环邺而南,自太行东出 -->
+    <path class="river" stroke-width="3.4" d="M 250,230 C 340,250 420,272 470,300 C 520,328 540,360 560,398 C 578,432 640,452 720,448"/>
+    <!-- 洹水:邺北,自西山东流 -->
+    <path class="river" stroke-width="2.4" d="M 300,180 C 380,196 450,214 520,232 C 590,250 660,262 740,258"/>
+    <text class="rname" x="180" y="518" style="font-size:13px">黄 河</text>
+    <text class="rname" x="600" y="418" transform="rotate(10 600 418)">漳 水</text>
+    <text class="rname" x="640" y="248" transform="rotate(-4 640 248)" style="font-size:11px">洹 水</text>
+
+    <!-- 西山(太行):尚循西山而下 -->
+    <g class="mtn"><path d="M 250,120 l 8,-13 l 8,13 M 266,114 l 8,-13 l 8,13 M 282,120 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="248" y="140">西山(太行)</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="ye"><circle cx="500" cy="300" r="7"/><text class="cname" x="512" y="296">邺城<tspan class="cname s" dx="2">(袁氏根本)</tspan></text></g>
+      <g class="city" data-city="liyang"><circle cx="540" cy="512" r="5"/><text class="cname" x="552" y="522">黎阳<tspan class="cname s" dx="2">(渡河处)</tspan></text></g>
+      <g class="city" data-city="yangping"><circle cx="410" cy="374" r="4"/><text class="cname s" x="330" y="392">阳平亭</text></g>
+      <g class="city" data-city="pingyuan"><circle cx="830" cy="316" r="5"/><text class="cname" x="760" y="312">平原</text></g>
+      <g class="city" data-city="zhongshan"><circle cx="430" cy="96" r="5"/><text class="cname" x="442" y="92">中山</text></g>
+    </g>
+
+    <!-- 全图 · 乘衅围邺 -->
+    <g id="phAll" class="ph">
+      <circle class="siege" cx="500" cy="300" r="34"/>
+      <path class="march j" marker-end="url(#aj)" d="M 540,504 C 528,440 516,380 504,336"/>
+      <text class="mlabel j" x="556" y="446">操自黎阳渡河北上,进围邺城</text>
+      <text class="mlabel q" x="140" y="210">袁谭、袁尚兄弟阋墙,河北自弊</text>
+      <path class="march q" marker-end="url(#aq)" d="M 812,318 C 700,320 600,318 540,308"/>
+      <text class="anno" x="600" y="300">袁尚闻邺急,自平原回师来救</text>
+    </g>
+
+    <!-- 阶段一:进围邺城 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 540,504 C 528,440 516,380 506,338"/>
+      <text class="mlabel j" x="552" y="440">操渡河破尚将,抵邺下</text>
+      <circle class="siege" cx="500" cy="300" r="34"/>
+      <text class="mlabel q" x="470" y="256">审配坚守,土山地道攻之不拔</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,300 C 500,320 528,350 552,392" opacity=".9"/>
+      <text class="mlabel j" x="450" y="352">乃筑长堑,周四十里</text>
+      <text class="anno" x="520" y="416">决漳水以灌之,城中饿死者过半</text>
+    </g>
+
+    <!-- 阶段二:阳平却尚 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="500" cy="300" r="34"/>
+      <rect class="camp" x="796" y="308" width="9" height="9" transform="rotate(45 800 312)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 812,314 C 660,306 520,320 424,364"/>
+      <text class="mlabel q" x="560" y="336">尚自平原回救,循西山而下</text>
+      <text class="anno" x="470" y="350">夜举火为应,城中亦举火相应</text>
+      <path class="march j" marker-end="url(#aj)" d="M 468,308 C 448,326 428,348 416,366"/>
+      <circle class="star" cx="410" cy="374" r="8"/>
+      <text class="mlabel j" x="290" y="410">操逆击于阳平亭,大破尚军</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 400,378 C 340,340 300,280 320,200 C 336,150 380,120 424,102"/>
+      <text class="mlabel r" x="288" y="230">尚夜遁蓝口,弃辎重印绶奔中山</text>
+    </g>
+
+    <!-- 阶段三:城破入邺 -->
+    <g id="ph3" class="ph">
+      <path d="M 500,300 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="510" y="256">审配犹督死守</text>
+      <text class="anno" x="470" y="342">其侄审荣夜开东门纳操军</text>
+      <text class="mlabel j" x="430" y="400">巷战力尽,配被执,不屈而死</text>
+      <text class="anno" x="140" y="220">操入邺,祭绍墓、抚其家,自领冀州牧</text>
+      <text class="anno" x="600" y="470">收河北户籍,冀州遂定</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>袁尚军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>袁氏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《袁绍传》《审配传》约略绘出。疆界、水道经简化,以点划"约界"标之,非实有画界。</p>
+    <p><span class="n">注二</span>邺在今河北临漳西南,漳水绕其南而东出;黎阳在今河南浚县东,当黄河北渡之要津。平原在今山东平原南,中山在今河北定州一带。</p>
+    <p><span class="n">注三</span>决漳水灌邺,与前决泗、沂灌下邳同为曹操攻城之法,皆恃水以困城。袁氏方强而以内争自亡,操乘衅取之,遂并河北,基业自此始厚。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"乘衅围邺",d:"汉建安九年(204)",p:["袁绍既死,子谭、尚兄弟阋墙,争冀州相攻,河北自弊。曹操乘其内乱北上,自黎阳渡黄河而进,击破袁尚诸将,遂进围邺城。","审配为尚坚守邺城,操环而攻之。袁尚时在平原攻其兄谭,闻邺围急,乃引军回师来救——一城之围,牵动河北全局。"]},
+  "1":{t:"进围邺城",d:"建安九年 二月—五月",p:["操自黎阳渡河,连破袁尚守将,长驱抵于邺下。审配据城坚守,操起土山、穿地道以攻之,配辄于城内应之,攻之不拔。","乃改筑长堑,周四十里,初令浅,示若可越;一夕广深之,决漳水以灌城。自五月至八月,城中饿死者过半,而配守志不衰。"]},
+  "2":{t:"阳平却尚",d:"建安九年 七月—八月",p:["袁尚自平原回师救邺,循西山而下,进屯阳平亭,去邺十七里,临滏水为营,夜举火为应,城中亦举火相应,欲内外夹击。","操逆击之于阳平亭,大破尚军。尚惧,夜遁蓝口,遣使请降,操不许;尚众溃散,弃辎重、印绶、节钺北奔中山,余部悉降于操。"]},
+  "3":{t:"城破入邺",d:"建安九年 八月",p:["尚军既破,审配犹督众死守。其侄审荣夜开东门纳操军入城,配巷战力尽,为操所执,辞气不屈,遂见杀。邺城陷。","操入邺,亲临袁绍墓致祭,哭之流涕,抚绍妻及家人,免河北租赋一年。收河北户籍,自领冀州牧,河北渐定,王业之基自此始。"]}
+};
+const CITY={
+  ye:{t:"邺城",d:"袁氏根本,今河北临漳西南",p:["袁氏都会,冀州治所。审配坚守,操决漳水灌之,城中饿死过半;终以审荣夜开东门而陷。操入领冀州牧,遂为其霸府所在。"]},
+  liyang:{t:"黎阳",d:"操渡河处,今河南浚县东",p:["黄河北渡之要津。操自此渡河北上,破尚将而抵邺下,为伐河北之门户。"]},
+  yangping:{t:"阳平亭",d:"去邺十七里,滏水之侧",p:["袁尚回救,循西山而下屯此,夜举火与城中相应。操逆击之,大破尚军——救邺之师折于此。"]},
+  pingyuan:{t:"平原",d:"今山东平原南",p:["袁尚方在平原攻其兄谭,闻邺急乃自此回师来救。兄弟阋墙、分兵两地,遂授操以隙。"]},
+  zhongshan:{t:"中山",d:"今河北定州一带",p:["尚军既败,弃辎重印绶北奔于此。河北未定,尚犹依中山、故安为患,终为操所逐。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
