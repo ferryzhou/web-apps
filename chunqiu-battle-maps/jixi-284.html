@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>济西之战 · 乐毅破齐(前284)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../chunqiu-battle-maps/index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>济</span><span>西</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>济西之战 · 乐毅破齐</h1>
+    <div class="sub">周赧王三十一年(前284)　　<i>燕 乐毅</i> 合五国破齐 · <b>齐 湣王</b>济西丧师·奔莒</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 五国伐齐</button>
+    <button data-p="1">济西决战</button>
+    <button data-p="2">长驱入临淄</button>
+    <button data-p="3">下七十余城</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="济西之战形势图,含齐燕联军疆界、济水河水与临淄莒即墨等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:齐据东方(临淄、莒、即墨),燕及五国联军自西北来,约以济水为界 -->
+    <path d="M 470,0 C 486,110 502,200 512,290 C 522,380 528,470 520,560 C 516,600 512,624 508,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 486,110 502,200 512,290 C 522,380 528,470 520,560 C 516,600 512,624 508,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 486,110 502,200 512,290 C 522,380 528,470 520,560 C 516,600 512,624 508,640"/>
+    <text class="realm q" x="760" y="150" font-size="34">齐(东)</text>
+    <text class="realm j" x="120" y="180" font-size="32">燕 · 五国(西北)</text>
+
+    <!-- 济水:自西南斜贯,决战名所所自 -->
+    <path class="river" stroke-width="4.5" d="M 300,600 C 360,540 420,490 470,440 C 520,392 560,352 600,320 C 660,272 720,240 800,214"/>
+    <!-- 河水(黄河):北境东流入海 -->
+    <path class="river" stroke-width="5" d="M 180,120 C 300,140 420,150 540,150 C 660,150 760,138 880,110"/>
+    <text class="rname" x="452" y="474" transform="rotate(-38 452 474)">济 水</text>
+    <text class="rname" x="640" y="140" style="font-size:13px">河 水</text>
+
+    <!-- 泰山山地(齐鲁之间) -->
+    <g class="mtn"><path d="M 560,440 l 9,-14 l 9,14 M 578,432 l 9,-14 l 9,14 M 596,440 l 8,-13 l 8,13"/></g>
+    <text class="cname s" x="562" y="462">泰山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="jixi"><circle cx="470" cy="430" r="6"/><text class="cname" x="392" y="426">济西<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city cap" data-city="linzi"><circle cx="720" cy="320" r="6"/><text class="cname" x="732" y="316">临淄<tspan class="cname s" dx="2">(齐都)</tspan></text></g>
+      <g class="city" data-city="ju"><circle cx="760" cy="470" r="5"/><text class="cname" x="772" y="474">莒</text></g>
+      <g class="city" data-city="jimo"><circle cx="838" cy="380" r="5"/><text class="cname" x="850" y="376">即墨</text></g>
+      <g class="city" data-city="lingqiu"><circle cx="180" cy="200" r="4.5"/><text class="cname s" x="150" y="186">灵丘(燕南境)</text></g>
+      <g class="city" data-city="huishi"><circle cx="300" cy="330" r="4"/><text class="cname s" x="220" y="326">五国会师处</text></g>
+    </g>
+
+    <!-- 全图 · 五国伐齐 · 会于济西 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 190,210 C 240,262 268,296 296,326"/>
+      <path class="march j" marker-end="url(#aj)" d="M 308,336 C 360,372 412,404 456,424"/>
+      <text class="mlabel j" x="150" y="256">燕昭王遣乐毅合赵楚韩魏五国之兵</text>
+      <text class="anno" x="236" y="356">诸军会师,并力南向</text>
+      <path class="march q" marker-end="url(#aq)" d="M 708,332 C 640,370 560,404 490,424"/>
+      <text class="mlabel q" x="560" y="360">齐湣王悉起全国之兵拒于济西</text>
+      <rect class="camp" x="484" y="440" width="9" height="9" transform="rotate(45 488 444)"/>
+      <text class="anno" x="430" y="470">齐军大营</text>
+    </g>
+
+    <!-- 阶段一:济西决战 · 大破齐主力 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 330,340 C 380,372 420,398 452,420"/>
+      <text class="mlabel j" x="300" y="356">五国联军战于济西</text>
+      <circle class="star" cx="470" cy="430" r="9"/>
+      <rect class="camp" x="484" y="440" width="9" height="9" transform="rotate(45 488 444)"/>
+      <text class="mlabel j" x="360" y="400">大破齐军,齐之主力一战而尽</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 486,432 C 540,410 600,384 660,352"/>
+      <text class="mlabel r" x="546" y="424">齐师济西大溃,东走</text>
+      <text class="anno" x="404" y="452">触子鸣金先遁,达子力战阵亡</text>
+    </g>
+
+    <!-- 阶段二:乐毅独进 · 长驱入临淄 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 480,424 C 560,388 640,352 708,326"/>
+      <text class="mlabel j" x="480" y="392">乐毅遣还诸国之师,独将燕军乘胜直入</text>
+      <path d="M 720,320 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="600" y="304">燕军入临淄,尽取宝器</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 716,332 C 736,378 748,420 758,458"/>
+      <text class="mlabel r" x="740" y="410">湣王出奔,先走卫邹鲁,终奔莒</text>
+      <text class="anno" x="600" y="490">寻为楚将淖齿所杀</text>
+    </g>
+
+    <!-- 阶段三:下七十余城 · 唯莒即墨不下 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 726,328 C 748,362 756,404 758,448"/>
+      <path class="march j" marker-end="url(#aj)" d="M 730,322 C 770,340 810,358 832,374"/>
+      <text class="mlabel j" x="590" y="352">乐毅徇齐,下七十余城以属燕</text>
+      <circle class="siege" cx="760" cy="470" r="16"/>
+      <circle class="siege" cx="838" cy="380" r="16"/>
+      <text class="mlabel q" x="700" y="512">独莒、即墨坚守</text>
+      <text class="anno" x="760" y="530">数年不能拔</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>燕·五国联军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>齐军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退·出奔</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城不下</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>齐</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>燕·联军</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·乐毅列传/田单列传/燕召公世家/田敬仲完世家》约略绘出。济西在今山东聊城、高唐一带济水之西;临淄今山东淄博东,莒今山东莒县,即墨今山东平度东南。城邑水道为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为战前形势示意:齐据东方富强之地,燕合赵、楚、韩、魏五国之师自西北来伐,约以济水为界,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>齐湣王强盛,南败楚、西摧三晋、灭宋而骄暴,诸侯畏忌;燕昭王卑身厚币以招贤,得乐毅,誓报齐破燕之仇。及济西一战主力尽丧,遂启燕军长驱之势——盛衰之判,系于一役。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"五国伐齐·会于济西",d:"周赧王三十一年(前284)",p:["齐湣王强盛,南败楚、西摧三晋、灭宋而骄暴,诸侯畏忌。燕昭王卑身厚币以招贤,得乐毅,誓报齐破燕之仇。乃以乐毅为上将军,合燕、赵、楚、韩、魏五国之兵伐齐。","联军自燕南境南下,会师并进。齐湣王悉起全国之兵,拒于济水之西,列大营以待。两军相持于济西,决战之势已成。"]},
+  "1":{t:"济西决战·大破齐主力",d:"前284年",p:["五国联军战于济西。乐毅亲当矢石,率诸国之众并力奋击,大破齐军;齐之主力一战而尽,济西之野尸横遍地。","齐将触子鸣金先遁,达子收余卒力战而死。齐师济西大溃,东走临淄。自是齐无以拒燕,门户洞开。"]},
+  "2":{t:"乐毅独进·长驱入临淄",d:"前284年",p:["乐毅乃遣还赵、楚、韩、魏诸国之师,独率燕军乘胜长驱,直取齐都临淄。入城,尽取齐之宝器、祭器,运归于燕。","湣王出奔,先走卫、邹、鲁,皆不见容,终奔莒。寻为楚将淖齿所杀。齐失其君,国势倾颓。"]},
+  "3":{t:"下七十余城·唯莒即墨不下",d:"前284–前279年",p:["乐毅留徇齐地,五年之间下齐七十余城,皆为郡县以属燕;宽刑薄赋,收齐民之心。齐之亡,仅在旦夕。","独莒、即墨二城坚守不下,数年不能拔。后燕昭王卒,惠王立,中田单反间之计,以骑劫代乐毅;乐毅奔赵,遂启即墨复国之机。"]}
+};
+const CITY={
+  jixi:{t:"济西",d:"济水以西,今山东聊城、高唐一带",p:["五国联军与齐主力决战之地。齐湣王悉师拒此,一战而溃,齐师尽丧于济西之野。"]},
+  linzi:{t:"临淄",d:"齐都,今山东淄博东",p:["乐毅遣还诸国之师后,独率燕军长驱直入取之。尽取齐之宝器祭器归燕,湣王出奔。"]},
+  ju:{t:"莒",d:"齐残守之城,今山东莒县",p:["湣王奔此,为楚将淖齿所杀。后齐人立襄王于莒,坚守不下,乐毅围之数年不能拔。"]},
+  jimo:{t:"即墨",d:"齐残守之城,今山东平度东南",p:["乐毅久攻不下之二城之一。田单据此,后以反间去乐毅、火牛破骑劫,遂成复国之基。"]},
+  lingqiu:{t:"灵丘(燕南境)",d:"燕之南境,联军所出",p:["燕军自南境发,合五国之师南下伐齐。为联军进兵之起点。"]},
+  huishi:{t:"五国会师处",d:"燕赵楚韩魏诸军会合之地",p:["五国之兵会师并进,乐毅总统其众,南向以趋济西。会师而后大举。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

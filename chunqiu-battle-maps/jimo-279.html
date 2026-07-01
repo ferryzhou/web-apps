@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>即墨之战 · 火牛阵 · 周赧王三十六年(前279)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../chunqiu-battle-maps/index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>即</span><span>墨</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>即墨之战 · 火牛阵</h1>
+    <div class="sub">周赧王三十六年(前279)　　<i>齐 田单</i> 火牛破燕 · <b>燕 骑劫</b>殒于即墨</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 燕围即墨</button>
+    <button data-p="1">反间去乐毅</button>
+    <button data-p="2">示弱骄燕</button>
+    <button data-p="3">火牛破燕 · 复国</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="即墨之战火牛阵形势图,含燕所占齐地与即墨孤城疆界、海淄胶诸水与即墨莒临淄等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:燕破齐,尽占齐地(外围/北),唯即墨孤城(内)未下 -->
+    <path d="M 0,0 L 1000,0 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 560,300 C 620,300 700,340 700,410 C 700,480 630,530 545,530 C 460,530 395,478 395,410 C 395,342 470,300 560,300 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 560,300 C 620,300 700,340 700,410 C 700,480 630,530 545,530 C 460,530 395,478 395,410 C 395,342 470,300 560,300 Z"/>
+    <text class="realm q" x="120" y="120" font-size="30">燕 据 齐 地</text>
+    <text class="realm j" x="470" y="418" font-size="20">即墨孤城</text>
+
+    <!-- 海:东,即墨近海(渤海/胶州湾) -->
+    <path d="M 840,80 C 800,180 790,300 800,420 C 808,510 830,580 880,640 L 1000,640 L 1000,80 Z" fill="rgba(95,127,136,.28)" stroke="rgba(95,127,136,.5)" stroke-width="1"/>
+    <text class="rname" x="890" y="330" transform="rotate(84 890 330)" style="font-size:15px;letter-spacing:.3em">海</text>
+
+    <!-- 淄水:自西南流向北,经临淄 -->
+    <path class="river" stroke-width="3" d="M 210,470 C 240,400 268,320 290,240 C 302,196 316,150 336,110"/>
+    <text class="rname" x="300" y="230" transform="rotate(-68 300 230)" style="font-size:11px">淄 水</text>
+    <!-- 胶水:自南向北,近即墨东 -->
+    <path class="river" stroke-width="2.4" d="M 700,560 C 712,470 720,380 726,290 C 730,230 736,170 748,120"/>
+    <text class="rname" x="742" y="250" transform="rotate(-82 742 250)" style="font-size:11px">胶 水</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="jimo"><circle cx="560" cy="412" r="6.5"/><text class="cname" x="572" y="408">即墨<tspan class="cname s" dx="2">(田单守·火牛复国基)</tspan></text></g>
+      <g class="city" data-city="ju"><circle cx="500" cy="576" r="5"/><text class="cname" x="512" y="580">莒<tspan class="cname s" dx="2">(齐未下城)</tspan></text></g>
+      <g class="city cap" data-city="linzi"><circle cx="290" cy="332" r="5.5"/><text class="cname" x="200" y="328">临淄<tspan class="cname s" dx="2">(齐旧都)</tspan></text></g>
+      <g class="city" data-city="yancamp"><circle cx="640" cy="356" r="4"/><text class="cname s" x="618" y="344">燕军大营</text></g>
+      <g class="city" data-city="ji"><circle cx="150" cy="90" r="5"/><text class="cname" x="162" y="86">蓟<tspan class="cname s" dx="2">(燕本土)</tspan></text></g>
+      <g class="city" data-city="qishi"><circle cx="230" cy="180" r="3.5"/><text class="cname s" x="242" y="176">齐七十余城(燕所占)</text></g>
+    </g>
+
+    <!-- 全图 · 燕围即墨 · 田单守 -->
+    <g id="phAll" class="ph">
+      <circle class="siege" cx="560" cy="412" r="30"/>
+      <rect class="camp" x="636" y="352" width="8" height="8" transform="rotate(45 640 356)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 250,200 C 360,260 460,320 620,352"/>
+      <text class="mlabel q" x="300" y="252">乐毅破齐,尽取七十余城</text>
+      <text class="anno" x="470" y="470">唯莒、即墨不下;即墨大夫战死,城中共立田单为将</text>
+      <text class="mlabel j" x="470" y="392">田单坚守孤城,数年不拔</text>
+    </g>
+
+    <!-- 阶段一:反间去乐毅 · 骑劫代之 -->
+    <g id="ph1" class="ph">
+      <circle class="siege" cx="560" cy="412" r="30"/>
+      <path class="march j" marker-end="url(#aj)" d="M 540,398 C 420,300 280,200 168,108"/>
+      <text class="mlabel j" x="300" y="180">田单纵反间于燕:言乐毅欲连齐自王</text>
+      <text class="anno" x="180" y="132">燕昭王卒,惠王立,素与乐毅有隙</text>
+      <path class="march r" marker-end="url(#ar)" d="M 200,120 C 150,180 120,260 110,340"/>
+      <text class="mlabel r" x="60" y="300">惠王以骑劫代乐毅,乐毅奔赵</text>
+      <rect class="camp" x="636" y="352" width="8" height="8" transform="rotate(45 640 356)"/>
+    </g>
+
+    <!-- 阶段二:示弱励士 · 骄惑燕军 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="560" cy="412" r="30"/>
+      <rect class="camp" x="636" y="352" width="9" height="9" transform="rotate(45 640 356)"/>
+      <text class="mlabel j" x="450" y="360">田单托神师·祭先祖以致鸟</text>
+      <path class="march q" marker-end="url(#aq)" d="M 636,368 C 610,392 588,404 578,410"/>
+      <text class="mlabel q" x="600" y="430">燕军劓降卒·掘城外冢墓</text>
+      <text class="anno" x="470" y="452">齐人益怒益固,人思一战</text>
+      <text class="mlabel j" x="470" y="490">既而示弱请降,燕军懈备</text>
+    </g>
+
+    <!-- 阶段三:火牛夜出 · 大破燕军 · 复国 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 570,398 C 596,384 616,372 632,362"/>
+      <text class="mlabel j" x="560" y="380">夜纵千牛,角刃尾火,直冲燕营</text>
+      <circle class="star" cx="640" cy="356" r="9"/>
+      <path class="march q rout" marker-end="url(#aq)" d="M 648,352 C 720,300 780,240 820,180"/>
+      <text class="mlabel r" x="700" y="250">燕军夜溃,骑劫死于乱军</text>
+      <path class="march j" marker-end="url(#aj)" d="M 620,368 C 480,420 360,400 300,346"/>
+      <text class="mlabel j" x="360" y="440">追亡逐北,城邑皆叛燕归田单</text>
+      <path class="march j" marker-end="url(#aj)" d="M 520,540 C 480,500 400,440 300,346"/>
+      <text class="anno" x="360" y="530">迎襄王于莒,遂复七十余城,还都临淄</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>齐军(田单)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>燕军(骑劫)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(火牛破燕)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>燕久围</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>燕据齐地</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>即墨</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·田单列传》《史记·乐毅列传》约略绘出。即墨在今山东平度东南,莒在今莒县,临淄在今淄博东北,蓟为燕都在今北京西南。海、淄水、胶水及城邑方位皆为相对示意,非实测画界。</p>
+    <p><span class="n">注二</span>晕染疆界示乐毅破齐后之形势:燕尽取齐七十余城,故以斜纹满染;唯莒与即墨二城不下,此图独绘即墨孤城以另纹标之。虚线红环示燕军久围之势,红菱为燕军大营。</p>
+    <p><span class="n">注三</span>田单之胜,不专恃火牛:先以反间去乐毅,继以神师、劓卒、掘冢骄燕而励齐,终乃示弱请降以懈其备——诡道备具,而后一夕破之。骑劫代将,燕之所以败也。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"燕围即墨 · 田单守",d:"周赧王三十二年—三十六年(前284—前279)",p:["燕昭王用乐毅,合五国之兵伐齐,大破之。乐毅长驱入齐,下七十余城,尽为郡县以属燕,唯莒、即墨二城不下。","燕师围即墨,即墨大夫出战而死。城中相与推田单为将,曰:「安平之战,田单宗人以铁笼得全,是善为兵。」田单既将,坚守孤城,数年不拔。"]},
+  "1":{t:"反间去乐毅 · 骑劫代之",d:"前279 · 燕惠王初立",p:["会燕昭王卒,子惠王立。惠王为太子时,尝与乐毅有隙。田单闻之,乃纵反间于燕,曰:「乐毅与燕新王有隙,畏诛而不敢归,以伐齐为名,实欲连兵南面而王齐耳。齐人所惧,唯恐他将之来。」","惠王固已疑乐毅,得反间之言,乃使骑劫代将,而召乐毅。乐毅惧诛,遂西奔赵,赵封之以观津。燕将士由是愤惋不和——齐之转机始此。"]},
+  "2":{t:"示弱励士 · 骄惑燕军",d:"前279 · 骑劫围城",p:["田单乃令城中人食必祭其先祖于庭,飞鸟悉翔舞下食;因伪托有神师下教,以坚众心。又扬言:「吾唯惧燕人劓所得齐卒置之前行,又惧其掘吾城外冢墓、僇先人。」燕人闻之,如其言而行,城中人尽怒,人思一战,怒自十倍。","田单知士卒之可用,身操版插,与士卒分功,妻妾编于行伍之间,尽散饮食飨士。既而使老弱女子乘城,遣使约降于燕,燕军皆呼万岁;又收民金,使即墨富豪遗燕将,愿降时勿掠。燕军由是益懈而怠。"]},
+  "3":{t:"火牛夜出 · 大破燕军 · 复国",d:"前279 · 一夕决胜",p:["田单乃收城中得千余牛,为绛缯衣,画以五彩龙文,束兵刃于其角,而灌脂束苇于尾,烧其端。夜凿城数十穴,燃牛尾而纵之,壮士五千人随其后。牛尾热,怒而奔燕军。燕军夜大惊,牛所触尽死伤,五千人因衔枚击之,城上鼓噪,老弱皆击铜器为声,声动天地。","燕军大骇,败走,齐人遂杀其将骑劫。齐人追亡逐北,所过城邑皆叛燕而归田单,兵日益多,乘胜。燕日败亡,走至河上,而齐七十余城皆复为齐。乃迎襄王于莒,入临淄而听政,田单以功封安平君。"]}
+};
+const CITY={
+  jimo:{t:"即墨",d:"今山东平度东南",p:["齐东境大邑。乐毅破齐,唯此城与莒不下。即墨大夫战死,城中推田单为将,坚守数年,终以火牛夜破燕军,为复国之基。"]},
+  ju:{t:"莒",d:"今山东莒县",p:["与即墨并为燕师所不能下之二城。齐襄王(法章)避难于此。田单复国后,迎襄王于莒,还都临淄。"]},
+  linzi:{t:"临淄",d:"齐旧都,今淄博东北",p:["齐之故都,燕破齐时陷没。田单破燕、尽复失地,乃迎襄王入临淄而听政,齐社稷复安。"]},
+  yancamp:{t:"燕军大营",d:"围即墨之燕师屯所",p:["骑劫代乐毅后,燕师围即墨城下。田单示弱骄之,燕军懈备;火牛夜冲此营,燕军惊溃,骑劫死于乱军之中。"]},
+  ji:{t:"蓟 · 燕",d:"燕都,今北京西南",p:["燕之本土。昭王卒,惠王立于此。惠王中反间,以骑劫代乐毅,遂启败亡之机;乐毅惧诛,不归而奔赵。"]},
+  qishi:{t:"齐七十余城",d:"燕所占齐地,待复",p:["乐毅长驱,下齐七十余城,皆为郡县属燕。田单破燕之后,追亡逐北,所过城邑皆叛燕归齐,七十余城复为齐有。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

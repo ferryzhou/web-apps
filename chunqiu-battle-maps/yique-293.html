@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊阙之战 · 周赧王二十二年(前293)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../chunqiu-battle-maps/index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>伊</span><span>阙</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>伊阙之战</h1>
+    <div class="sub">周赧王二十二年(前293)　　<i>秦 白起</i> 夹击破敌 · <b>韩魏</b>伊阙丧师二十四万</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 韩魏合军拒秦</button>
+    <button data-p="1">白起察其互观望</button>
+    <button data-p="2">疑兵缀韩 · 奇袭破魏</button>
+    <button data-p="3">回击韩师 · 夹击斩首</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="伊阙之战形势图,含秦韩魏周疆界、伊水洛水河水与伊阙龙门香山之险及洛阳宜阳新郑大梁咸阳等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:秦据关中河西(西),韩魏据河南(东),约以崤函之东为界 -->
+    <path d="M 470,0 C 480,110 500,190 500,270 C 500,360 486,430 490,520 C 492,580 494,610 496,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 480,110 500,190 500,270 C 500,360 486,430 490,520 C 492,580 494,610 496,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 480,110 500,190 500,270 C 500,360 486,430 490,520 C 492,580 494,610 496,640"/>
+    <text class="realm j" x="130" y="130" font-size="34">秦</text>
+    <text class="realm q" x="800" y="150" font-size="30">韩</text>
+    <text class="realm q" x="860" y="470" font-size="30">魏</text>
+    <text class="realm q" x="600" y="110" font-size="24" style="opacity:.36">周</text>
+
+    <!-- 河水(黄河):自西北曲折东流 -->
+    <path class="river" stroke-width="5" d="M 120,90 C 260,120 380,150 470,150 C 560,150 640,140 720,120 C 800,102 880,96 1000,100"/>
+    <!-- 洛水:自西南向东北会河水 -->
+    <path class="river" stroke-width="2.8" d="M 250,430 C 330,400 420,360 500,320 C 580,282 640,236 700,200"/>
+    <!-- 伊水:自南穿伊阙(两山间)北出,会洛水 -->
+    <path class="river" stroke-width="2.6" d="M 470,560 C 476,500 486,452 500,412 C 512,378 528,352 552,330"/>
+    <text class="rname" x="300" y="140">河 水</text>
+    <text class="rname" x="360" y="360" transform="rotate(-28 360 360)" style="font-size:11px">洛 水</text>
+    <text class="rname" x="452" y="500" transform="rotate(78 452 500)" style="font-size:11px">伊 水</text>
+
+    <!-- 伊阙:两山夹伊水之险(龙门山西·香山东) -->
+    <g class="mtn"><path d="M 452,430 l 9,-16 l 9,16 M 468,424 l 9,-16 l 9,16"/></g>
+    <g class="mtn"><path d="M 512,430 l 9,-16 l 9,16 M 528,424 l 9,-16 l 9,16"/></g>
+    <text class="cname s" x="404" y="452" style="font-size:10.5px">龙门山</text>
+    <text class="cname s" x="522" y="452" style="font-size:10.5px">香山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="yique"><circle cx="494" cy="412" r="6"/><text class="cname" x="440" y="404">伊阙<tspan class="cname s" dx="2">(两山夹水)</tspan></text></g>
+      <g class="city" data-city="luoyang"><circle cx="560" cy="300" r="5"/><text class="cname" x="572" y="296">洛阳<tspan class="cname s" dx="2">(周)</tspan></text></g>
+      <g class="city" data-city="yiyang"><circle cx="360" cy="380" r="4"/><text class="cname s" x="300" y="378">宜阳(韩)</text></g>
+      <g class="city cap" data-city="xinzheng"><circle cx="740" cy="420" r="5.5"/><text class="cname" x="752" y="416">新郑<tspan class="cname s" dx="2">(韩都)</tspan></text></g>
+      <g class="city cap" data-city="daliang"><circle cx="850" cy="300" r="5.5"/><text class="cname" x="862" y="296">大梁<tspan class="cname s" dx="2">(魏都)</tspan></text></g>
+      <g class="city cap" data-city="xianyang"><circle cx="150" cy="230" r="6"/><text class="cname" x="162" y="226">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 韩魏合军拒秦 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 168,236 C 260,268 340,320 420,378 C 440,392 456,400 470,406"/>
+      <text class="mlabel j" x="240" y="300">秦左更白起东出,趋伊阙</text>
+      <rect class="camp" x="512" y="404" width="9" height="9" transform="rotate(45 516 408)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 732,414 C 660,410 600,410 540,412"/>
+      <text class="mlabel q" x="600" y="440">韩魏合军二十四万拒秦于险</text>
+      <text class="anno" x="560" y="472">联军虽众,而各存观望</text>
+    </g>
+
+    <!-- 阶段一:白起察其互观望 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="470" y="418" width="8" height="8" transform="rotate(45 474 422)"/>
+      <text class="mlabel q" x="360" y="510">韩军居前,恃魏为援</text>
+      <rect class="camp" x="536" y="386" width="9" height="9" transform="rotate(45 540 390)"/>
+      <text class="mlabel q" x="556" y="372">魏军处后,望韩先当秦锋</text>
+      <path class="march q rout" d="M 486,430 C 500,412 516,398 532,392"/>
+      <text class="anno" x="420" y="540">两军心志不齐,阵势脱节</text>
+      <text class="mlabel j" x="230" y="330">白起相敌,知隙可乘</text>
+    </g>
+
+    <!-- 阶段二:疑兵缀韩 · 奇袭破魏 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 452,410 C 462,418 470,424 476,428"/>
+      <text class="mlabel j" x="360" y="470">秦以疑兵缀韩军之众</text>
+      <path class="march j" marker-end="url(#aj)" d="M 452,408 C 440,368 460,332 500,336 C 528,340 536,368 540,388"/>
+      <text class="mlabel j" x="300" y="356">主力潜绕,突袭魏军不意</text>
+      <rect class="camp" x="536" y="386" width="9" height="9" transform="rotate(45 540 390)"/>
+      <circle class="star" cx="540" cy="390" r="8"/>
+      <path class="march q rout" marker-end="url(#ar)" d="M 548,388 C 620,380 690,400 728,414"/>
+      <text class="mlabel r" x="600" y="404">魏军猝溃</text>
+    </g>
+
+    <!-- 阶段三:回击韩师 · 夹击斩首 -->
+    <g id="ph3" class="ph">
+      <path d="M 494,412 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 546,396 C 528,404 512,408 500,410"/>
+      <text class="mlabel j" x="556" y="360">秦回师夹击韩军侧翼</text>
+      <path class="march j" marker-end="url(#aj)" d="M 468,428 C 476,424 484,420 490,416"/>
+      <path class="march q rout" marker-end="url(#ar)" d="M 480,428 C 440,470 400,500 366,504"/>
+      <text class="mlabel r" x="360" y="486">韩师军心遂乱,溃走</text>
+      <text class="mlabel j" x="360" y="560">大破联军,斩首二十四万,虏公孙喜</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>秦军(白起)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>韩魏联军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>韩魏</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·白起王翦列传/秦本纪/韩世家》约略绘出。伊阙即今河南洛阳南龙门,两山对峙(西龙门山、东香山),伊水流其间,为洛阳之南险。城邑水道为相对示意,非精确地理。</p>
+    <p><span class="n">注二</span>晕染疆界为战国中期形势示意:秦据关中西出,韩魏据河南拒之;伊阙为险,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>韩魏联军兵力多于秦,然二国各存观望、互相推诿,不肯先战,阵势脱节。白起察韩前恃魏、魏后望韩,乃设疑兵缀韩,而以精锐奇袭魏军之不意,回师夹击,一战斩首二十四万,白起由此显名。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"韩魏合军拒秦",d:"周赧王二十二年 · 前293",p:["秦欲东出争天下,韩魏合军拒秦于伊阙。伊阙两山对峙、伊水流其间,为洛阳之南险。","韩魏联军兵力多于秦,然二国各存观望,秦左更白起自西趋伊阙,两军相持于险。"]},
+  "1":{t:"白起察其互观望",d:"前293 · 相敌",p:["白起相敌:韩军居前而恃魏为援,魏军处后而望韩先当秦锋,两军心志不齐,不相为用。","联军虽众而阵势脱节。白起察其隙,知可乘之而破。"]},
+  "2":{t:"疑兵缀韩 · 奇袭破魏",d:"前293 · 分击",p:["白起乃设疑兵以缀韩军之众,牵制其前;而潜以主力精锐绕出,突袭魏军之不意。","魏军猝不及防,一击而溃,联军之后阵先崩。"]},
+  "3":{t:"回击韩师 · 夹击斩首",d:"前293 · 大捷",p:["魏军既败,韩军侧翼既失,军心遂乱;秦回师夹击,大破之。","斩首二十四万,虏其将公孙喜,尽取韩魏精锐。伊阙一战,韩魏元气俱丧,白起由此显名,秦东出之势成。"]}
+};
+const CITY={
+  yique:{t:"伊阙",d:"两山夹水之险 · 今洛阳南龙门",p:["西龙门山、东香山对峙,伊水流其间,为洛阳之南险。韩魏合军拒秦、秦韩魏决战之地。"]},
+  luoyang:{t:"洛阳",d:"周王城,近伊阙之北",p:["周天子所居。伊阙为其南面门户,故两山伊水之险为洛阳所倚。"]},
+  yiyang:{t:"宜阳",d:"韩地,伊阙之西",p:["韩之西境重邑,秦昭王前时已尝拔之。伊阙之败,韩西门户益虚。"]},
+  xinzheng:{t:"新郑",d:"韩都",p:["韩之国都。伊阙丧师二十四万,韩精锐尽失,元气大伤。"]},
+  daliang:{t:"大梁",d:"魏都",p:["魏之国都。魏军为白起奇袭先溃,遂致联军崩坏,魏亦元气俱丧。"]},
+  xianyang:{t:"咸阳",d:"秦都",p:["秦之国都。白起自秦西出趋伊阙,一战成名,秦东出争天下之势由此而成。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

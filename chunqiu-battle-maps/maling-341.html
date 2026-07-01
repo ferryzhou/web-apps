@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>马陵之战 · 周显王二十八年(前341)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../chunqiu-battle-maps/index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>马</span><span>陵</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>马陵之战</h1>
+    <div class="sub">周显王二十八年(前341)　　<i>齐 田忌 · 孙膑</i> 减灶诱敌 · <b>魏 庞涓</b>自刭马陵</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 魏伐韩·齐救</button>
+    <button data-p="1">直走大梁 · 减灶诱敌</button>
+    <button data-p="2">庞涓弃步 · 轻锐兼程</button>
+    <button data-p="3">马陵道 · 万弩俱发</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="马陵之战形势图,含齐魏韩疆界、河水、马陵道山险与大梁临淄新郑等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:魏据西·中(大梁),齐据东,韩在南 -->
+    <path d="M 470,0 C 476,110 468,210 452,300 C 440,380 448,470 470,560 C 476,600 480,620 484,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 476,110 468,210 452,300 C 440,380 448,470 470,560 C 476,600 480,620 484,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 476,110 468,210 452,300 C 440,380 448,470 470,560 C 476,600 480,620 484,640"/>
+    <!-- 韩在南方边缘 -->
+    <path class="border" d="M 250,560 C 330,540 400,548 452,560"/>
+    <text class="realm q" x="150" y="140" font-size="34">魏</text>
+    <text class="realm j" x="800" y="180" font-size="34">齐</text>
+    <text class="realm q" x="300" y="612" font-size="26" opacity=".34">韩</text>
+
+    <!-- 河水:自西北经大梁之北东流入海 -->
+    <path class="river" stroke-width="5" d="M 120,120 C 220,150 320,168 420,180 C 540,196 660,206 780,214 C 870,220 940,224 1000,226"/>
+    <text class="rname" x="640" y="196">河 水</text>
+
+    <!-- 马陵道山险:齐魏之间狭道旁多阻隘 -->
+    <g class="mtn"><path d="M 636,300 l 9,-15 l 9,15 M 654,294 l 9,-15 l 9,15 M 672,300 l 8,-14 l 8,14"/></g>
+    <g class="mtn"><path d="M 636,344 l 9,-14 l 9,14 M 654,338 l 9,-14 l 9,14 M 672,344 l 8,-13 l 8,13"/></g>
+    <text class="cname s" x="694" y="326">马陵道山险</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="maling"><circle cx="662" cy="322" r="6"/><text class="cname" x="620" y="316">马陵<tspan class="cname s" dx="2">(道险)</tspan></text></g>
+      <g class="city cap" data-city="daliang"><circle cx="336" cy="330" r="6"/><text class="cname" x="256" y="326">大梁<tspan class="cname s" dx="2">(魏都)</tspan></text></g>
+      <g class="city" data-city="xinzheng"><circle cx="300" cy="540" r="5"/><text class="cname" x="230" y="536">新郑<tspan class="cname s" dx="2">(韩)</tspan></text></g>
+      <g class="city cap" data-city="linzi"><circle cx="880" cy="150" r="6"/><text class="cname" x="808" y="146">临淄<tspan class="cname s" dx="2">(齐都)</tspan></text></g>
+      <g class="city" data-city="jianzao"><circle cx="512" cy="336" r="4"/><text class="cname s" x="476" y="356">减灶三宿处</text></g>
+      <g class="city" data-city="qixi"><circle cx="740" cy="230" r="4"/><text class="cname s" x="748" y="226">齐西境</text></g>
+    </g>
+
+    <!-- 全图 · 魏伐韩·齐救 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 336,342 C 328,406 316,478 306,528"/>
+      <text class="mlabel q" x="340" y="452">魏伐韩,韩五战不胜</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 300,528 C 400,510 560,440 720,242"/>
+      <text class="mlabel r" x="470" y="480">韩告急,五求救于齐</text>
+      <path class="march j" marker-end="url(#aj)" d="M 862,158 C 820,188 780,214 750,228"/>
+      <text class="mlabel j" x="760" y="176">齐晚救以敝魏</text>
+      <text class="anno" x="560" y="560">齐威王用孙膑谋:阴许韩救而缓其师,韩恃齐而力战,魏韩俱疲乃出</text>
+    </g>
+
+    <!-- 阶段一:直走大梁·减灶诱敌 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 728,232 C 620,290 480,320 360,330"/>
+      <text class="mlabel j" x="470" y="308">田忌、孙膑复用围魏救赵之智,直捣大梁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 356,338 C 420,340 470,338 508,338"/>
+      <text class="mlabel j" x="430" y="376">既入魏地,孙膑为减灶之计</text>
+      <text class="anno" x="440" y="392">日为十万灶,明日五万,又明日三万</text>
+      <text class="anno" x="440" y="408">伪示齐卒亡者过半,以骄魏军</text>
+    </g>
+
+    <!-- 阶段二:庞涓弃步·轻锐兼程 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="332" y="326" width="9" height="9" transform="rotate(45 336 330)"/>
+      <text class="mlabel q" x="256" y="366">庞涓自韩回师,信齐军怯</text>
+      <path class="march q" marker-end="url(#aq)" d="M 360,332 C 460,318 560,300 636,290"/>
+      <text class="mlabel q" x="440" y="278">弃其步军,以轻锐倍道兼行急追</text>
+      <text class="anno" x="360" y="440">「我固知齐军怯,入吾地三日,士卒亡者过半矣」</text>
+    </g>
+
+    <!-- 阶段三:马陵道·万弩俱发 -->
+    <g id="ph3" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 560,300 C 600,306 630,312 650,318"/>
+      <text class="mlabel q" x="500" y="288">庞涓夜至马陵,钻火读木书</text>
+      <circle class="star" cx="662" cy="322" r="9"/>
+      <text class="anno" x="560" y="352">孙膑斫大树白之:「庞涓死于此树之下」</text>
+      <text class="mlabel j" x="560" y="380">伏万弩夹道,见火举而俱发,魏军大乱相失</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 656,332 C 620,376 560,400 500,410"/>
+      <text class="mlabel r" x="500" y="428">庞涓自刭:「遂成竖子之名」</text>
+      <text class="anno" x="560" y="446">齐因乘胜大破魏军,虏太子申</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>齐军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>魏军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>覆没·溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>伏歼会战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>魏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>齐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·孙子吴起列传》《史记·魏世家》《史记·田敬仲完世家》约略绘出。马陵地望有元城(今河北大名东南)、郯城(今山东郯城)诸说,此从齐魏之间说取象;城邑、河水皆相对示意,晕染疆界为战国中期形势约标,非实有画界。</p>
+    <p><span class="n">注二</span>减灶之计:齐师入魏地,首日为十万灶,次日五万,又次日三万,伪示齐卒大量逃亡以骄敌。庞涓弃步军而以轻锐倍道兼行,遂中孙膑「因势利导」之谋。</p>
+    <p><span class="n">注三</span>马陵之役,魏由盛转衰:元气大伤,霸业中衰,自此魏不复能独制中原,而齐威业渐隆。此战与桂陵之战并称,皆孙膑运「围魏救赵」之智。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"魏伐韩·齐救",d:"周显王二十七至二十八年(前342—前341)",p:["魏伐韩,韩五战不胜,告急于齐。齐威王用孙膑谋:阴许韩救而晚出其师,使韩恃齐而力战、魏韩俱敝,然后乘弊以救,则既亲韩之谊,又收敝魏之利。","既而以田忌为将、孙膑为师往救。田忌欲径趋韩地,孙膑不可,复用「围魏救赵」之故智,不救韩而直趋魏都大梁,使魏师自韩回顾。"]},
+  "1":{t:"直走大梁·减灶诱敌",d:"周显王二十八年(前341)",p:["齐师直捣大梁,魏以太子申为上将、庞涓为将,弃韩回师击齐。孙膑度魏卒素悍勇而轻齐,齐号为怯,善战者当因势而利导之。","乃为减灶之计:入魏地为十万灶,明日为五万灶,又明日为三万灶,伪示齐卒逃亡过半,以骄魏军而诱其轻进。"]},
+  "2":{t:"庞涓弃步·轻锐兼程",d:"周显王二十八年(前341)",p:["庞涓行三日,见齐灶日减,大喜曰:「我固知齐军怯,入吾地三日,士卒亡者过半矣。」","乃弃其步军辎重,独以轻锐倍道兼行逐之。齐师佯退,徐引魏军入于险地。"]},
+  "3":{t:"马陵道·万弩俱发",d:"周显王二十八年(前341)",p:["孙膑度其行,暮当至马陵——道狭而旁多阻隘,可伏兵。乃斫大树白而书之曰「庞涓死于此树之下」,伏善射者万弩夹道,约:暮见火举而俱发。","庞涓果夜至,钻火读木书,读未毕,齐军万弩俱发,魏军大乱相失。庞涓自知智穷兵败,乃自刭,曰「遂成竖子之名」。齐因乘胜尽破其军,虏魏太子申以归。魏自是元气大伤,霸业中衰。"]}
+};
+const CITY={
+  maling:{t:"马陵",d:"道险,万弩伏歼处",p:["其道狭隘,旁多阻隘,可伏兵。孙膑斫大树白之,书「庞涓死于此树之下」,伏万弩,见火举而俱发,魏军覆没,庞涓自刭。"]},
+  daliang:{t:"大梁",d:"魏都,齐师直趋",p:["魏惠王徙都于此。齐不救韩而直走大梁,魏乃以太子申、庞涓弃韩回师救,遂堕孙膑之计。"]},
+  xinzheng:{t:"新郑·韩",d:"被魏伐、五求救于齐",p:["魏伐韩,韩五战不胜,五求救于齐。齐晚救以敝魏、亲韩,韩恃齐力战,魏韩俱疲,齐乃出师。"]},
+  linzi:{t:"临淄",d:"齐都",p:["齐威王用孙膑谋于此。以田忌为将、孙膑为师,复用围魏救赵之智,遂成马陵之功。"]},
+  jianzao:{t:"减灶三宿处",d:"诱敌之路,魏地",p:["齐师入魏地,日为十万灶,明日五万,又明日三万,伪示逃亡过半。庞涓喜而弃步军轻追,遂中因势利导之谋。"]},
+  qixi:{t:"齐西境",d:"田忌、孙膑出师处",p:["齐师自西境出,循「围魏救赵」故智西趋大梁,而后减灶诱敌、退伏马陵。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

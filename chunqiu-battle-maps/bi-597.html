@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邲之战 · 周定王十年(前597)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../chunqiu-battle-maps/index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>邲</span><span>之</span><span>役</span><span>楚</span></div>
+  <header>
+    <h1>邲之战</h1>
+    <div class="sub">周定王十年(前597)　　<i>楚 庄王 · 孙叔敖</i> 大破晋师 · <b>晋 荀林父</b>争舟而溃</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 楚围郑·晋救</button>
+    <button data-p="1">郑降·晋渡河不和</button>
+    <button data-p="2">楚乘乱击晋于邲</button>
+    <button data-p="3">晋争舟而溃·楚霸</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邲之战形势图,含楚晋疆界、黄河河水与邲新郑晋绛楚郢等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:晋据河北(北),楚据河南方城以南(南),约以黄河、中原相持 -->
+    <path d="M 0,300 C 160,286 340,282 520,296 C 680,308 840,300 1000,286 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 160,286 340,282 520,296 C 680,308 840,300 1000,286 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 160,286 340,282 520,296 C 680,308 840,300 1000,286"/>
+    <text class="realm j" x="120" y="90" font-size="34">晋(河北)</text>
+    <text class="realm q" x="640" y="600" font-size="32">楚(方城以南)</text>
+
+    <!-- 黄河(河水):自西而东横贯中原 -->
+    <path class="river" stroke-width="6" d="M 0,238 C 160,250 300,262 430,268 C 560,274 700,268 830,250 C 900,240 960,232 1000,230"/>
+    <text class="rname" x="150" y="236" style="font-size:14px">河 水(黄 河)</text>
+    <!-- 济水支流示意 -->
+    <path class="river" stroke-width="2.4" d="M 560,272 C 600,320 640,360 700,392"/>
+    <text class="rname" x="636" y="352" transform="rotate(52 636 352)" style="font-size:10.5px">济 水</text>
+
+    <!-- 敖山之丘 -->
+    <g class="mtn"><path d="M 470,310 l 8,-13 l 8,13 M 486,304 l 8,-13 l 8,13"/></g>
+    <text class="cname s" x="454" y="332">敖 山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="jiangjiang"><circle cx="180" cy="120" r="6"/><text class="cname" x="120" y="116">晋绛<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+      <g class="city" data-city="dukou"><circle cx="470" cy="238" r="4.5"/><text class="cname s" x="436" y="222">黄河渡口</text></g>
+      <g class="city" data-city="aogao"><circle cx="486" cy="300" r="4"/><text class="cname s" x="500" y="296">敖鄗之间</text></g>
+      <g class="city cap" data-city="bi"><circle cx="516" cy="330" r="6.5"/><text class="cname" x="530" y="346">邲<tspan class="cname s" dx="2">(郑地·决战)</tspan></text></g>
+      <g class="city cap" data-city="xinzheng"><circle cx="560" cy="420" r="6"/><text class="cname" x="574" y="416">新郑<tspan class="cname s" dx="2">(郑都)</tspan></text></g>
+      <g class="city cap" data-city="ying"><circle cx="600" cy="592" r="6"/><text class="cname" x="614" y="588">楚郢<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 楚围郑·晋救 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 596,578 C 590,520 578,470 566,432"/>
+      <text class="mlabel q" x="606" y="500">楚庄王北上围郑</text>
+      <circle class="siege" cx="560" cy="420" r="24"/>
+      <text class="anno" x="590" y="452">围郑三月,郑襄公肉袒牵羊以降,楚许平</text>
+      <path class="march j" marker-end="url(#aj)" d="M 190,130 C 280,170 380,208 458,232"/>
+      <text class="mlabel j" x="250" y="176">晋师救郑,荀林父将中军而南</text>
+      <text class="anno" x="360" y="252">至河闻郑已降</text>
+    </g>
+
+    <!-- 阶段一:郑降·晋渡河不和 -->
+    <g id="ph1" class="ph">
+      <text class="mlabel j" x="360" y="216">闻郑降,荀林父欲还</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,246 C 476,266 480,284 484,296"/>
+      <text class="mlabel j" x="490" y="270">先縠刚愎,擅率所部渡河</text>
+      <rect class="camp" x="480" y="292" width="9" height="9" transform="rotate(45 484 296)" style="fill:var(--advance)"/>
+      <text class="anno" x="500" y="318">晋师被动尽渡,驻敖鄗之间</text>
+      <text class="anno" x="200" y="300">将帅异志,号令不一,进退无度</text>
+    </g>
+
+    <!-- 阶段二:楚乘乱击晋于邲 -->
+    <g id="ph2" class="ph">
+      <text class="mlabel q" x="560" y="392">孙叔敖曰「宁我薄人,无人薄我」</text>
+      <path class="march q" marker-end="url(#aq)" d="M 548,410 C 536,390 524,368 518,344"/>
+      <text class="mlabel q" x="530" y="378">楚军进逼晋营,突袭</text>
+      <rect class="camp" x="482" y="296" width="9" height="9" transform="rotate(45 486 300)" style="fill:var(--advance)"/>
+      <text class="anno" x="360" y="326">晋不及整阵,一触即溃</text>
+    </g>
+
+    <!-- 阶段三:晋争舟而溃·楚霸中原 -->
+    <g id="ph3" class="ph">
+      <path d="M 516,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="516" cy="330" r="14"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 500,318 C 486,296 478,272 472,248"/>
+      <text class="mlabel r" x="378" y="290">晋众争舟渡河</text>
+      <text class="anno" x="382" y="228">先上船者断攀舷之指,「舟中之指可掬」</text>
+      <path class="march j" marker-end="url(#aj)" d="M 540,336 C 560,320 566,296 560,272"/>
+      <text class="mlabel j" x="566" y="312">士会以殿仅全</text>
+      <path class="march q" marker-end="url(#aq)" d="M 528,336 C 510,300 496,272 490,250"/>
+      <text class="mlabel q" x="520" y="238">楚陈兵饮马黄河,庄王遂霸中原</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>楚军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>晋军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>晋军溃渡</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>晋</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《左传·宣公十二年》《史记·楚世家》约略绘出。邲在今河南荥阳北,近黄河南岸敖、鄗之间;晋绛在今山西侯马,新郑为郑都,楚郢在今湖北荆州。城邑水道为相对示意,黄河河道经简化,非实有画界。</p>
+    <p><span class="n">注二</span>晕染疆界为春秋中期形势示意:晋据河北,楚自方城以北争郑;二强相持于中原,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>楚庄王本欲和,以晋帅异志、号令不一而决战。孙叔敖曰「宁我薄人,无人薄我」,进逼晋营。晋师仓皇争舟,「舟中之指可掬」;唯士会所部有备,以殿得全。楚遂饮马黄河,庄王为春秋一霸。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"楚围郑·晋救",d:"周定王十年(前597)春夏",p:["楚庄王北上围郑,历三月而克之。郑襄公肉袒牵羊以迎,楚庄王许其成而退舍。郑既服楚,中原之势遂危。","晋以救郑之名大发三军,荀林父将中军而南。比至黄河,则郑已降楚——救援失其所救,晋师进退之机,已伏乱萌于河上。"]},
+  "1":{t:"郑降·晋渡河不和",d:"前597·晋师临河",p:["晋闻郑已降,中军将荀林父欲还师,以为救之无及、劳师无功;而中军佐先縠刚愎不从,曰「成师以出,闻敌强而退,非夫也」,擅率所部渡河。","诸将惧其孤没,晋师遂被动尽渡,进驻敖、鄗之间。三军将帅异志,进退无度,号令不一——败形已具于未战之先。"]},
+  "2":{t:"楚乘乱击晋于邲",d:"前597·邲",p:["楚少宰、许伯屡至晋营挑战。楚庄王本欲和,睹晋帅异志、行伍不整,乃决意决战。孙叔敖曰「宁我薄人,无人薄我」,进逼晋营。","楚军猝发突袭,鼓行而进。晋师仓皇,不及成列整阵,一触即溃——中军、下军先乱,全军披靡。"]},
+  "3":{t:"晋争舟而溃·楚霸中原",d:"前597·黄河南岸",p:["晋众溃奔黄河,争舟以渡。先上船者以刀断攀舷之指,舟中断指可掬。唯上军将士会预有备御,以殿军得全,晋师赖以不尽殁。","楚遂陈兵、饮马于黄河。庄王观兵而还,不筑京观,曰「武」有七德。自是楚庄王为春秋一霸,晋之霸业中衰。"]}
+};
+const CITY={
+  bi:{t:"邲",d:"郑地,今河南荥阳北",p:["黄河南岸、敖鄗之间的决战之地。楚庄王大破晋师于此,遂饮马黄河而霸中原。"]},
+  xinzheng:{t:"新郑",d:"郑国都城",p:["楚庄王围之三月而下,郑襄公肉袒牵羊以降,楚许平。郑之附楚,乃邲战之由。"]},
+  jiangjiang:{t:"晋绛",d:"晋国都城,今山西侯马",p:["晋以救郑之名自绛发三军而南,荀林父将中军。及河而郑已降,救之无及。"]},
+  ying:{t:"楚郢",d:"楚国都城,今湖北荆州",p:["楚庄王自郢北上围郑、破晋。邲之捷成,楚遂问鼎中原,庄王为春秋五霸之一。"]},
+  dukou:{t:"黄河渡口",d:"晋军溃渡处,河南岸",p:["先縠擅渡处,晋师亦由此被动尽渡。战败之日,晋众复争此舟以北渡,「舟中之指可掬」。"]},
+  aogao:{t:"敖鄗之间",d:"晋军驻地,邲近处",p:["晋师渡河后进驻之地。将帅异志,号令不一,楚军自此突袭而入,晋不及整阵。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
