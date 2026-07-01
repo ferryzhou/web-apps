@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>临安之降 · 至元十三年(1276)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>临</span><span>安</span><span>之</span><span>降</span></div>
+  <header>
+    <h1>临安之降</h1>
+    <div class="sub">元至元十三年·宋德祐二年(1276)　　<i>元 伯颜</i> 三道趋临安 · <b>宋谢太后</b>奉玺出降·社稷遂亡</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 三道趋临安</button>
+    <button data-p="1">三道并进 · 会于近郊</button>
+    <button data-p="2">皋亭逼城 · 遣使乞和</button>
+    <button data-p="3">奉玺出降 · 二王南走</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="临安之降形势图,含宋元疆界、长江钱塘江大运河东海与临安建康诸城邑及元军三道进兵路线">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:元自江东、江淮而来(北·西),宋残据两浙(东南),约以钱塘江下游一带为势界 -->
+    <path d="M 0,0 L 1000,0 L 1000,150 C 820,190 660,230 560,320 C 500,376 470,470 480,560 C 484,600 490,620 500,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 1000,150 C 820,190 660,230 560,320 C 500,376 470,470 480,560 C 484,600 490,620 500,640 L 1000,640 L 1000,150 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 1000,150 C 820,190 660,230 560,320 C 500,376 470,470 480,560 C 484,600 490,620 500,640"/>
+    <text class="realm j" x="120" y="150" font-size="32">元(自江东来)</text>
+    <text class="realm q" x="720" y="470" font-size="32">宋(两浙)</text>
+
+    <!-- 长江:自建康(西北)东下入海 -->
+    <path class="river" stroke-width="5.5" d="M 150,120 C 260,150 360,178 452,196 C 560,218 660,236 760,250 C 850,262 930,270 1000,272"/>
+    <!-- 钱塘江:自西南来,经临安北,东北入东海(杭州湾) -->
+    <path class="river" stroke-width="4" d="M 470,560 C 540,520 600,486 660,468 C 740,444 820,436 900,438"/>
+    <!-- 大运河:纵贯,自江南运河联嘉兴平江北达长江 -->
+    <path class="river" stroke-width="2.6" d="M 560,470 C 600,410 640,340 700,270 C 728,238 760,214 800,200"/>
+    <text class="rname" x="470" y="184" transform="rotate(11 470 184)">长 江</text>
+    <text class="rname" x="600" y="500" transform="rotate(-16 600 500)" style="font-size:12px">钱 塘 江</text>
+    <text class="rname" x="672" y="360" transform="rotate(-56 672 360)" style="font-size:10.5px">大运河</text>
+    <text class="rname" x="905" y="360" style="font-size:13px">东</text>
+    <text class="rname" x="905" y="378" style="font-size:13px">海</text>
+
+    <!-- 皋亭山:临安东北屏障 -->
+    <g class="mtn"><path d="M 560,432 l 8,-13 l 8,13 M 576,426 l 8,-13 l 8,13 M 592,432 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="556" y="452">皋亭山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="jiankang"><circle cx="150" cy="120" r="5"/><text class="cname" x="98" y="116">建康<tspan class="cname s" dx="2">(元东下基)</tspan></text></g>
+      <g class="city" data-city="dusongguan"><circle cx="360" cy="420" r="4"/><text class="cname s" x="320" y="440">独松关</text></g>
+      <g class="city" data-city="jiaxing"><circle cx="618" cy="308" r="4.5"/><text class="cname" x="628" y="304">嘉兴·平江</text></g>
+      <g class="city cap" data-city="linan"><circle cx="520" cy="484" r="6.5"/><text class="cname" x="428" y="480">临安<tspan class="cname s" dx="2">(宋都)</tspan></text></g>
+      <g class="city" data-city="gaoting"><circle cx="576" cy="428" r="4"/><text class="cname s" x="586" y="420">皋亭山驻军</text></g>
+      <g class="city" data-city="wenzhou"><circle cx="720" cy="600" r="4.5"/><text class="cname" x="660" y="616">温州·福州</text></g>
+    </g>
+
+    <!-- 全图 · 三道趋临安 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 158,132 C 260,220 360,340 470,440 C 490,458 502,468 512,476"/>
+      <text class="mlabel j" x="240" y="300">伯颜自建康分三道并进</text>
+      <text class="anno" x="300" y="386">丁家洲既溃,建康、镇江、常州相继下</text>
+      <text class="mlabel q" x="700" y="540">宋残据两浙,谢太后诏天下勤王</text>
+      <text class="anno" x="700" y="558">应者寥寥,朝议守战迁都不决</text>
+      <circle class="siege" cx="520" cy="484" r="16"/>
+    </g>
+
+    <!-- 阶段一:三道并进 · 会于近郊 -->
+    <g id="ph1" class="ph">
+      <!-- 中道:伯颜自将,经平江嘉兴而进 -->
+      <path class="march j" marker-end="url(#aj)" d="M 158,128 C 320,180 480,250 610,306 C 570,360 545,420 528,472"/>
+      <text class="mlabel j" x="380" y="230">中道 伯颜自将 · 经平江</text>
+      <!-- 右道:阿剌罕出广德、独松关 -->
+      <path class="march j" marker-end="url(#aj)" d="M 152,138 C 230,240 300,340 356,414 C 400,440 460,462 510,478"/>
+      <text class="mlabel j" x="200" y="400">右道 阿剌罕 · 出独松关</text>
+      <!-- 左道:董文炳水师循海道趋澉浦华亭 -->
+      <path class="march j" marker-end="url(#aj)" d="M 900,300 C 880,380 800,430 700,458 C 640,474 580,482 534,486"/>
+      <text class="mlabel j" x="740" y="320">左道 董文炳水师 · 循海道</text>
+      <text class="anno" x="620" y="440">趋澉浦、华亭</text>
+      <text class="anno" x="416" y="512">三道会于临安近郊</text>
+    </g>
+
+    <!-- 阶段二:皋亭逼城 · 遣使乞和 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="571" y="423" width="10" height="10" transform="rotate(45 576 428)"/>
+      <text class="mlabel j" x="588" y="410">元军驻皋亭山,逼临安</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 528,478 C 548,462 562,450 572,438"/>
+      <text class="mlabel q" x="440" y="512">宋屡遣使乞和,称侄称臣</text>
+      <text class="anno" x="440" y="530">文天祥使元军请缓师,伯颜拘之</text>
+      <text class="anno" x="588" y="392">伯颜不许,必欲得其降</text>
+      <circle class="siege" cx="520" cy="484" r="16"/>
+    </g>
+
+    <!-- 阶段三:奉玺出降 · 二王南走 -->
+    <g id="ph3" class="ph">
+      <circle class="star" cx="520" cy="484" r="12"/>
+      <path d="M 520,472 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8" transform="translate(0,12)"/>
+      <text class="mlabel q" x="380" y="464">谢太后奉传国玺,率恭帝出降</text>
+      <!-- 帝后北去大都 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 512,478 C 400,380 280,240 168,132"/>
+      <text class="mlabel r" x="240" y="250">恭帝、全太后北去大都,宋亡</text>
+      <!-- 二王南走温州福州 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 530,492 C 600,530 668,566 710,592"/>
+      <text class="mlabel r" x="560" y="556">二王南走温州、福州,立行朝图存</text>
+      <text class="anno" x="640" y="612">转战闽广,终崖山陆沉(1279)</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>元军(三道)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>宋军·守议</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>帝后北去·二王南走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>宋降·奉玺</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>元三道逼城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>元</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>宋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《元史·伯颜传/世祖本纪》《宋史·瀛国公纪/文天祥传》约略绘出。临安即今浙江杭州;建康即今南京,独松关在今浙江安吉南、余杭西北,澉浦、华亭在今浙江海盐、上海一带。城邑水道为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为德祐末形势示意:丁家洲既溃,元军连下建康、镇江、常州,宋仅存两浙一隅;故以点划「约界」标之,非实有画界。三道并进之路线亦经简化。</p>
+    <p><span class="n">注三</span>宋恭帝出降,社稷实亡于此。然益王、广王二王南走,张世杰、陆秀夫、文天祥拥立行朝,转战闽广三年,终于崖山陆沉(1279),宋祚乃绝——事见《两宋图录》。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"三道趋临安",d:"元至元十三年·宋德祐二年(1276)",p:["丁家洲既溃,元军势如破竹,建康、镇江、常州(苦守而屠)相继下。伯颜遂分三道并进,直趋宋都临安:自将中道由建康经镇江、常州、平江而进;阿剌罕将右道出广德、独松关;董文炳将左道水师循海道趋澉浦、华亭。","宋廷震恐,谢太后诏天下勤王,应者寥寥;文天祥、张世杰倡议死守或迁都再战,陈宜中主和,议久不决。宋仅存两浙一隅,坐待三道之会。"]},
+  "1":{t:"三道并进·会于近郊",d:"德祐二年正月",p:["伯颜中道自建康东下,经镇江、常州、平江(苏州)而进;阿剌罕右道自广德出独松关,破关而入;董文炳左道率水师循海道趋澉浦、华亭,自海上逼两浙。","三道并进,如三箭齐发,会于临安近郊。宋之屏障尽失,独松关既破,临安西北门户洞开,都城危在旦夕。"]},
+  "2":{t:"皋亭逼城·遣使乞和",d:"德祐二年正月",p:["至元十三年正月,元军进驻皋亭山,逼临安。宋廷惶惧,屡遣使乞和,称侄、称侄孙、称臣以求存;伯颜不许,必欲得其降。","宋遣文天祥使元军请缓师,伯颜拘之(天祥后脱走,间道南归)。乞和之路既绝,谢太后乃决意奉表出降。"]},
+  "3":{t:"奉玺出降·二王南走",d:"德祐二年正月至三月",p:["谢太后遣使奉传国玺及降表,率宋恭帝(年五岁)出降。三月,伯颜入临安;恭帝、全太后等被俘北去大都。宋之社稷实亡于此。","然益王、广王二王在张世杰、陆秀夫、文天祥拥戴下南走温州、福州,立行朝以图存,转战闽广三年,终于崖山陆沉(1279),宋祚乃绝。"]}
+};
+const CITY={
+  jiankang:{t:"建康",d:"今江苏南京",p:["丁家洲既溃,元军入建康,遂为东下之基。伯颜自此分三道并进,直趋临安。"]},
+  dusongguan:{t:"独松关",d:"临安西北屏障,今浙江安吉、余杭间",p:["临安西北之险要。阿剌罕右道出广德,破独松关而入,都城门户遂开。"]},
+  jiaxing:{t:"嘉兴·平江",d:"平江即今苏州,嘉兴今浙江嘉兴",p:["元中道所经。伯颜自将由镇江、常州、平江而进,联江南运河南下,直逼临安。"]},
+  linan:{t:"临安",d:"宋行都,今浙江杭州",p:["宋都,居钱塘江畔。三道逼之,谢太后奉传国玺率恭帝出降,社稷遂亡。"]},
+  gaoting:{t:"皋亭山",d:"临安东北,今杭州东北郊",p:["伯颜驻军处,亦宋遣使乞和之所。元军驻此逼城,宋文天祥使元于此被拘。"]},
+  wenzhou:{t:"温州·福州",d:"今浙江温州、福建福州",p:["二王南走图存之处。张世杰、陆秀夫、文天祥拥立行朝,转战闽广,以延宋祚。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

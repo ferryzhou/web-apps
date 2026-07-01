@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元日战争 · 文永弘安之役(1274·1281)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.18}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .isle{fill:var(--ink2);opacity:.5}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--advance);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>东</span><span>征</span><span>日</span><span>本</span></div>
+  <header>
+    <h1>元日战争</h1>
+    <div class="sub">元至元十一·十八年(1274·1281)　　<i>元 忻都·范文虎</i> 顿兵海上 · <b>日本</b>神风骤起·舟覆师没</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 两征日本</button>
+    <button data-p="1">文永·登博多遇暴风</button>
+    <button data-p="2">弘安·两军会鹰岛</button>
+    <button data-p="3">神风骤起·舟覆师没</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="元日战争形势图,含元高丽大陆与日本九州疆界、玄界滩博多湾伊万里湾海域及对马壹岐鹰岛博多合浦庆元等地">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 海域:玄界滩·博多湾,东征之海,占据图幅中部 -->
+    <path class="sea" d="M 300,0 C 320,120 300,260 340,380 C 380,500 460,580 520,640 L 900,640 C 840,500 820,360 840,220 C 852,130 850,60 860,0 Z"/>
+    <text class="rname" x="520" y="230" transform="rotate(20 520 230)" style="opacity:.75">玄 界 滩</text>
+    <text class="rname" x="600" y="430" style="font-size:11px;opacity:.7">博多湾</text>
+
+    <!-- 疆界:元·高丽据大陆(西),日本据九州(东),约以海为界 -->
+    <path d="M 300,0 C 320,120 300,260 340,380 C 380,500 460,580 520,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 860,0 C 850,120 852,260 840,380 C 828,490 830,560 860,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 300,0 C 320,120 300,260 340,380 C 380,500 460,580 520,640"/>
+    <text class="realm j" x="70" y="150" font-size="30">元 · 高 丽(大陆)</text>
+    <text class="realm q" x="880" y="480" font-size="26" transform="rotate(90 880 480)">日 本(九州)</text>
+
+    <!-- 九州北岸 -->
+    <path class="river" stroke-width="2.6" d="M 838,300 C 812,320 786,340 760,352 C 720,368 700,392 700,420"/>
+    <!-- 伊万里湾内湾水岸 -->
+    <path class="river" stroke-width="2" d="M 560,300 C 600,312 636,320 660,340"/>
+    <text class="rname" x="470" y="330" style="font-size:10.5px">伊万里湾</text>
+
+    <!-- 对马·壹岐 二岛 -->
+    <g class="isle"><ellipse cx="452" cy="212" rx="10" ry="18" transform="rotate(20 452 212)"/></g>
+    <g class="isle"><ellipse cx="520" cy="288" rx="8" ry="7"/></g>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="yingdao"><circle cx="560" cy="330" r="6"/><text class="cname" x="470" y="326">鹰岛<tspan class="cname s" dx="2">(伊万里湾)</tspan></text></g>
+      <g class="city cap" data-city="hakata"><circle cx="720" cy="410" r="6"/><text class="cname" x="656" y="432">博多·大宰府</text></g>
+      <g class="city" data-city="shiga"><circle cx="750" cy="366" r="4"/><text class="cname s" x="758" y="362">志贺岛</text></g>
+      <g class="city" data-city="tsushima"><circle cx="452" cy="212" r="4.5"/><text class="cname s" x="392" y="200">对马·壹岐</text></g>
+      <g class="city" data-city="hepu"><circle cx="200" cy="150" r="5"/><text class="cname" x="150" y="146">合浦</text></g>
+      <g class="city" data-city="qingyuan"><circle cx="140" cy="500" r="5"/><text class="cname" x="150" y="504">庆元·宁波</text></g>
+    </g>
+
+    <!-- 全图 · 两征日本 -->
+    <g id="phAll" class="ph">
+      <path class="march sea" marker-end="url(#aj)" d="M 210,162 C 320,220 400,240 442,204"/>
+      <text class="mlabel j" x="250" y="196">东路军自高丽合浦浮海</text>
+      <path class="march sea" marker-end="url(#aj)" d="M 152,486 C 300,420 420,360 552,336"/>
+      <text class="mlabel j" x="240" y="440">江南军自庆元(宁波)浮海</text>
+      <text class="mlabel q" x="720" y="470">日本镰仓幕府拒贡斩使,御家人守九州</text>
+      <text class="anno" x="470" y="360">两役皆自合浦、庆元浮海东趋博多</text>
+    </g>
+
+    <!-- 阶段一:文永之役·登博多遇暴风(1274) -->
+    <g id="ph1" class="ph">
+      <path class="march sea" marker-end="url(#aj)" d="M 210,162 C 300,196 380,214 442,214"/>
+      <text class="mlabel j" x="240" y="184">忻都·洪茶丘率二万五千,战船九百</text>
+      <path class="march j" marker-end="url(#aj)" d="M 462,220 C 540,278 620,340 706,398"/>
+      <text class="mlabel j" x="500" y="278">先陷对马·壹岐,登博多湾</text>
+      <circle class="star" cx="720" cy="410" r="7"/>
+      <text class="anno" x="600" y="440">集团战法·火器震天雷·毒箭,日军初不能敌</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 710,404 C 620,352 480,270 220,168"/>
+      <text class="mlabel r" x="440" y="260">矢尽兵疲,会夜暴风,战船多没,引还</text>
+    </g>
+
+    <!-- 阶段二:弘安之役·两军会鹰岛(1281) -->
+    <g id="ph2" class="ph">
+      <path class="march sea" marker-end="url(#aj)" d="M 210,160 C 320,210 400,222 448,216"/>
+      <text class="mlabel j" x="240" y="180">东路军忻都·洪茶丘四万,自合浦</text>
+      <path class="march sea" marker-end="url(#aj)" d="M 152,486 C 300,430 440,376 566,340"/>
+      <text class="mlabel j" x="250" y="452">江南军范文虎·李庭十万,自庆元</text>
+      <rect class="camp" x="554" y="324" width="10" height="10" transform="rotate(45 559 329)"/>
+      <text class="mlabel j" x="470" y="308">舰四千,两军会于鹰岛(伊万里湾)</text>
+      <path class="siege" d="M 700,388 C 716,398 724,404 730,414"/>
+      <text class="mlabel q" x="700" y="450">日凭博多石垒(元寇防垒)死守</text>
+      <text class="anno" x="470" y="380">元攻之不克,不服水土疫病流行,顿兵海上月余</text>
+    </g>
+
+    <!-- 阶段三:神风骤起·舟覆师没(1281) -->
+    <g id="ph3" class="ph">
+      <rect class="camp" x="554" y="324" width="10" height="10" transform="rotate(45 559 329)"/>
+      <circle class="star" cx="560" cy="330" r="8"/>
+      <path d="M 560,330 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="440" y="300">八月大台风骤至,元舰相撞樯摧</text>
+      <text class="anno" x="440" y="356">舟毁人溺,十丧七八,浮尸蔽海;日本谓之「神风」</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 552,336 C 400,400 280,450 156,494"/>
+      <text class="mlabel r" x="300" y="440">范文虎择坚舰先遁</text>
+      <text class="anno" x="470" y="316">遗弃士卒十余万于鹰岛,为日军所歼俘,东征遂绝</text>
+    </g>
+
+    <g class="compass" transform="translate(110,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>元军(陆)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>元军跨海远征</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>台风覆没·引还</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>博多石垒</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 / 覆没</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>元·高丽</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>日本</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《元史·世祖本纪》《元史·日本传》《元史·范文虎传》《高丽史》及日本《八幡愚童训》约略绘出。博多在今日本福冈,鹰岛在长崎伊万里湾,合浦在今韩国镇海(马山)一带,庆元即今浙江宁波。玄界滩、博多湾、伊万里湾及对马、壹岐诸岛之地望为相对示意,海岸经简化。</p>
+    <p><span class="n">注二</span>晕染疆界为元、日之间海陆形势示意:西为元及所役属之高丽,东为日本九州;两役皆跨玄界滩东征,故以点划「约界」标海路之限,非实有画界。博多石垒(元寇防垒)乃文永之役后日本沿博多湾所筑,以拒再来。</p>
+    <p><span class="n">注三</span>两役之败,史多归于飓风:文永之役登博多遇夜暴风而退,弘安之役顿兵鹰岛遇八月大台风而尽覆,十丧七八。然元军孤悬海外、不谙水土、久顿师老,亦致败之由;台风特为其覆师之最后一击。日本两度获救于风,遂称之「神风」,东征自此遂绝。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"两征日本",d:"元至元十一·十八年(1274·1281)",p:["忽必烈既定江南,遣使谕日本入贡,日本镰仓幕府执政北条时宗拒之、斩其使。世祖怒,乃议东征,两遣大军浮海趋九州。","两役皆自高丽合浦、江南庆元(宁波)渡海,越对马、壹岐,指博多湾。日本御家人凭九州以御,后又筑石垒于博多湾以拒之。海道险远,胜负遂系于天时。"]},
+  "1":{t:"文永之役·登博多遇暴风",d:"至元十一年(1274)十月",p:["元以忻都、洪茶丘率蒙汉军及高丽军二万五千,战船九百,自合浦渡海,先陷对马、壹岐,登博多湾。元军以集团战法、火器(震天雷)、毒箭,日军初不能敌。","然元军孤军深入,矢尽兵疲。会当夜暴风骤起,战船多触礁沉没,乃引还,损失惨重。日本乃于博多湾筑石垒(元寇防垒),以备再来。"]},
+  "2":{t:"弘安之役·两军会鹰岛",d:"至元十八年(1281)夏",p:["元大举东征:东路军(忻都、洪茶丘)四万自合浦,江南军(范文虎、李庭)十万自庆元渡海,舰四千,期会于壹岐。江南军后期,两军后会于鹰岛(伊万里湾)。","日军凭博多石垒死守,元军攻之不克;又不善水土,疫病流行,顿兵海上月余。士卒久疲,舟师相聚于伊万里湾,危机已伏。"]},
+  "3":{t:"神风骤起·舟覆师没",d:"至元十八年(1281)八月",p:["会八月大台风(飓风)骤至,元舰缆断相撞,樯倾楫摧,舟毁人溺,十丧七八,士卒浮尸蔽海。日本谓两度获救于飓风,称之「神风」。","范文虎等择坚舰先遁,遗弃士卒十余万于鹰岛,为日军所歼俘。两役皆败,元之东征遂绝。"]}
+};
+const CITY={
+  yingdao:{t:"鹰岛(伊万里湾)",d:"今日本长崎县松浦市鹰岛",p:["弘安之役东路、江南两军会泊之处。八月大台风骤起,元舰于此相撞尽覆,十丧七八;范文虎遁去,遗十余万众于岛,为日军所歼俘。江南军覆没之地。"]},
+  hakata:{t:"博多·大宰府",d:"今日本福冈",p:["九州重镇,元军两役主攻之地。文永之役元军尝登此;弘安之役日本凭博多湾石垒(元寇防垒)死守,元军攻之不克,遂顿兵海上。"]},
+  shiga:{t:"志贺岛",d:"博多湾口小岛",p:["博多湾要害。元军登陆与御家人苦战于此,日军以小舟夜袭元舰,元军不得志。"]},
+  tsushima:{t:"对马·壹岐",d:"玄界滩中二岛",p:["元军自合浦渡海先陷之岛。两役皆先破对马、壹岐守军,乃进指博多。"]},
+  hepu:{t:"合浦",d:"今韩国镇海(马山)一带",p:["高丽南岸军港,东路军渡海之基。两役蒙汉高丽之师皆自此浮海东征,期会于壹岐、鹰岛。"]},
+  qingyuan:{t:"庆元·宁波",d:"今浙江宁波",p:["江南军渡海之基。弘安之役范文虎、李庭率十万众、舰众自此浮海,后会东路军于鹰岛。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>襄樊之战 · 元至元四至十年(1267–1273)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.18}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--advance);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>襄</span><span>樊</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>襄樊之战</h1>
+    <div class="sub">元至元四至十年 · 宋咸淳(1267–1273)　　<i>元 阿术 · 刘整 · 阿里海牙</i> 回回炮破樊城 · <b>宋 吕文焕</b>力尽降元</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 长围襄樊</button>
+    <button data-p="1">筑堡断援 · 长围绝粮</button>
+    <button data-p="2">回回炮碎樊城</button>
+    <button data-p="3">移炮攻襄 · 吕文焕降</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="襄樊之战形势图,含宋元疆界、汉水白河长江与襄阳樊城鹿门万山等城邑堡砦">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:蒙元据中原(北),宋据江汉(南),约以汉水一线相持 -->
+    <path d="M 0,300 C 140,286 300,278 460,300 C 600,318 720,300 820,268 C 900,242 960,236 1000,240 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,300 C 140,286 300,278 460,300 C 600,318 720,300 820,268 C 900,242 960,236 1000,240 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,300 C 140,286 300,278 460,300 C 600,318 720,300 820,268 C 900,242 960,236 1000,240"/>
+    <text class="realm j" x="120" y="110" font-size="32">蒙 元(中原)</text>
+    <text class="realm q" x="620" y="580" font-size="32">宋(江汉)</text>
+
+    <!-- 汉水:自西北流经樊北襄南,东南入江 -->
+    <path class="river" stroke-width="5" d="M 60,240 C 200,268 340,300 430,330 C 520,360 600,404 700,452 C 780,490 860,520 960,548"/>
+    <!-- 白河:自东北南下入汉水 -->
+    <path class="river" stroke-width="2.6" d="M 720,120 C 700,200 660,300 560,360"/>
+    <!-- 长江:南境,西向东 -->
+    <path class="river" stroke-width="4.4" d="M 40,600 C 220,590 420,596 600,606 C 740,614 860,616 1000,612"/>
+    <text class="rname" x="300" y="298" transform="rotate(16 300 298)" style="font-size:14px">汉 水</text>
+    <text class="rname" x="704" y="180" transform="rotate(72 704 180)" style="font-size:11px">白 河</text>
+    <text class="rname" x="440" y="602" style="font-size:13px">长 江</text>
+
+    <!-- 岘山/万山(襄阳西南诸山) -->
+    <g class="mtn"><path d="M 250,392 l 8,-13 l 8,13 M 266,386 l 8,-13 l 8,13"/></g>
+    <text class="cname s" x="238" y="418">岘山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="xiangyang"><circle cx="452" cy="372" r="6.5"/><text class="cname" x="410" y="392">襄阳<tspan class="cname s" dx="2">(吕文焕守)</tspan></text></g>
+      <g class="city" data-city="fancheng"><circle cx="452" cy="308" r="6"/><text class="cname" x="464" y="304">樊城</text></g>
+      <g class="city" data-city="fuqiao"><circle cx="452" cy="340" r="3.5"/><text class="cname s" x="466" y="336">汉水浮桥</text></g>
+      <g class="city" data-city="lumen"><circle cx="600" cy="392" r="4.5"/><text class="cname s" x="612" y="388">鹿门 · 白河口</text></g>
+      <g class="city" data-city="wanshan"><circle cx="292" cy="356" r="4.5"/><text class="cname s" x="212" y="352">万山 · 一字城</text></g>
+      <g class="city" data-city="yingzhou"><circle cx="640" cy="560" r="4.5"/><text class="cname s" x="652" y="556">郢州 · 新郢</text></g>
+    </g>
+
+    <!-- 全图 · 长围襄樊 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 300,120 C 340,200 380,270 430,300"/>
+      <text class="mlabel j" x="230" y="150">刘整降元,献「先取襄阳、浮汉入江」之策</text>
+      <path class="march j" marker-end="url(#aj)" d="M 560,150 C 560,230 540,300 508,352"/>
+      <text class="mlabel j" x="560" y="200">阿术 · 阿里海牙 长围久困</text>
+      <rect class="camp" x="596" y="388" width="8" height="8" transform="rotate(45 600 392)"/>
+      <rect class="camp" x="288" y="352" width="8" height="8" transform="rotate(45 292 356)"/>
+      <circle class="siege" cx="452" cy="372" r="26"/>
+      <circle class="siege" cx="452" cy="308" r="22"/>
+      <text class="anno" x="470" y="440">筑鹿门万山诸堡,断汉水浮桥,绝襄樊内外之援</text>
+      <text class="mlabel q" x="360" y="430">襄阳城坚,吕文焕恃汉水而守</text>
+    </g>
+
+    <!-- 阶段一:筑堡断援 · 长围绝粮 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="596" y="388" width="9" height="9" transform="rotate(45 600 392)"/>
+      <rect class="camp" x="288" y="352" width="9" height="9" transform="rotate(45 292 356)"/>
+      <circle class="siege" cx="452" cy="372" r="26"/>
+      <circle class="siege" cx="452" cy="308" r="22"/>
+      <text class="mlabel j" x="600" y="378">元筑鹿门 · 白河口堡,断东援</text>
+      <text class="mlabel j" x="150" y="342">立万山 · 一字城,长围数十里</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,332 C 468,338 460,340 458,340"/>
+      <text class="mlabel j" x="474" y="356">断汉水浮桥,隔绝二城</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 700,452 C 600,414 520,392 470,378"/>
+      <text class="mlabel q" x="560" y="446">张顺张贵冒死溯汉水运粮</text>
+      <text class="anno" x="470" y="410">顺战死,贵被执死;范文虎援军皆却</text>
+    </g>
+
+    <!-- 阶段二:回回炮碎樊城 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="452" cy="308" r="22"/>
+      <path class="march j" marker-end="url(#aj)" d="M 520,300 C 500,302 480,304 470,306"/>
+      <text class="mlabel j" x="500" y="286">元得回回巨砲(襄阳炮)</text>
+      <circle class="star" cx="452" cy="308" r="8"/>
+      <text class="mlabel j" x="300" y="270">飞石百五十斤,先碎樊城谯楼</text>
+      <text class="anno" x="470" y="330">樊城遂破,守将范天顺 · 牛富死之</text>
+    </g>
+
+    <!-- 阶段三:移炮攻襄 · 吕文焕降 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 452,320 C 452,336 452,350 452,360"/>
+      <text class="mlabel j" x="464" y="344">既破樊,移砲攻襄阳</text>
+      <circle class="star" cx="452" cy="372" r="8"/>
+      <text class="mlabel j" x="300" y="410">砲声所及,城中汹汹</text>
+      <text class="anno" x="470" y="392">阿里海牙许以不杀,招吕文焕降</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 456,382 C 520,440 580,500 632,548"/>
+      <text class="mlabel r" x="510" y="470">文焕势穷援绝,以襄阳降元</text>
+      <text class="anno" x="470" y="520">宋失襄樊,长江上流门户洞开</text>
+    </g>
+
+    <g class="compass" transform="translate(944,110)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙元围城军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>宋守军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>宋汉水运粮</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>吕文焕降元</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>回回炮破城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>元长围</span>
+    <span class="item"><svg width="14" height="14"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="#1f4e54"/></svg>元军堡砦</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蒙元</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>宋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《元史·世祖本纪》《元史·阿术传》《元史·阿里海牙传》《宋史·吕文焕传》约略绘出。襄阳、樊城在今湖北襄阳,隔汉水相望;鹿门在襄阳东南,万山在城西,郢州在今钟祥。城邑水道为相对示意,非实测画界;晕染疆界示宋元沿汉水相持之势,非实有画界。</p>
+    <p><span class="n">注二</span>回回炮(襄阳炮)乃元世祖征回回巧匠亦思马因、阿老瓦丁所造巨石砲,飞石重百五十斤,声震天地。先碎樊城谯楼,樊破;移攻襄阳,城中汹汹,遂成招降之势。</p>
+    <p><span class="n">注三</span>此图以蒙元视角另绘:围城之元军为主角(青),守城之宋军为敌(红),吕文焕以襄阳降元一线以褐示之。守方视角另见《两宋图录》。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"长围襄樊",d:"元至元四年(1267)始",p:["刘整降元,献「先取襄阳、浮汉入江」之策——襄樊为宋之上流门户,得之则长江防线可破。至元四年,阿术、刘整策攻襄阳。","以襄阳城坚、汉水为恃,乃行长围久困之计:筑鹿门、白河口诸堡,立万山、一字城,断襄阳、樊城汉水浮桥,绝其内外之援。"]},
+  "1":{t:"筑堡断援 · 长围绝粮",d:"至元五年 — 九年",p:["元筑鹿门、白河口诸堡,立万山、一字城,长围数十里;又断汉水浮桥,隔绝襄阳、樊城,使二城不能相援。","宋以张顺、张贵冒死驾轻舟溯汉水运粮入城,顺战死,贵亦被执死。宋将范文虎数率援军,皆为元军所却。围凡六年不下。"]},
+  "2":{t:"回回炮碎樊城",d:"至元十年(1273)正月",p:["至元十年,元得回回巧匠亦思马因、阿老瓦丁造巨石砲(回回炮、襄阳炮),飞石重百五十斤,声震天地。","元以巨砲先碎樊城谯楼,城中大骇,樊城遂破。守将范天顺自缢,牛富巷战力尽赴火死之——樊既破,襄阳孤悬。"]},
+  "3":{t:"移炮攻襄 · 吕文焕降",d:"至元十年(1273)二月",p:["既破樊城,元移砲攻襄阳,砲声所及,城中汹汹。元主帅阿里海牙许以不杀,招吕文焕降。","文焕守襄阳凡六年,势穷援绝,遂以襄阳降元。宋失襄樊,长江上流门户洞开,元师顺流东下之势遂成。"]}
+};
+const CITY={
+  xiangyang:{t:"襄阳",d:"今湖北襄阳,汉水南岸",p:["宋之上流门户,吕文焕死守凡六年。樊破炮移,势穷援绝,终以城降元。"]},
+  fancheng:{t:"樊城",d:"今襄阳樊城区,汉水北岸",p:["与襄阳隔汉水相望。至元十年回回炮先碎其谯楼,城破,范天顺、牛富死之。"]},
+  fuqiao:{t:"汉水浮桥",d:"襄阳、樊城间汉水上",p:["宋恃以联络二城、济师运粮。元断之,襄樊遂隔绝,不能相援。"]},
+  lumen:{t:"鹿门 · 白河口",d:"襄阳东南,白河入汉处",p:["元于此筑堡,扼白河、汉水,断襄樊东面之援与宋军水道。"]},
+  wanshan:{t:"万山 · 一字城",d:"襄阳城西汉水滨",p:["元筑一字城、立堡砦,连缀长围,西断襄阳出路,合围之势乃成。"]},
+  yingzhou:{t:"郢州 · 新郢",d:"今湖北钟祥一带",p:["宋援军范文虎所出之地。数率舟师北援襄樊,皆为元军邀击而却。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
