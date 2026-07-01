@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长勺之战 · 鲁庄公十年(前684)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>长</span><span>勺</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>长勺之战</h1>
+    <div class="sub">鲁庄公十年(前684)　　<i>鲁 庄公 · 曹刿</i> 一鼓作气 · <b>齐 桓公</b>三鼓而竭</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 齐师压境</button>
+    <button data-p="1">齐三鼓 · 鲁按兵</button>
+    <button data-p="2">彼竭我盈 · 一鼓破齐</button>
+    <button data-p="3">察辙望旗 · 纵兵逐北</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="长勺之战形势图,含齐鲁疆界、汶水与长勺曲阜临淄乾时遂邑等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:齐据北东,鲁据南西,约以汶水为界 -->
+    <path d="M 0,236 C 160,224 320,206 470,232 C 600,254 720,240 840,196 C 910,170 960,150 1000,140 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,236 C 160,224 320,206 470,232 C 600,254 720,240 840,196 C 910,170 960,150 1000,140 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,236 C 160,224 320,206 470,232 C 600,254 720,240 840,196 C 910,170 960,150 1000,140"/>
+    <text class="realm q" x="700" y="110" font-size="36">齐(北·东)</text>
+    <text class="realm j" x="150" y="520" font-size="34">鲁(南·西)</text>
+
+    <!-- 汶水:齐鲁之间界河,自东北向西南 -->
+    <path class="river" stroke-width="4.5" d="M 900,180 C 800,220 700,250 600,262 C 500,274 400,278 300,296 C 240,308 190,326 150,352"/>
+    <text class="rname" x="470" y="256" transform="rotate(4 470 256)">汶 水</text>
+
+    <!-- 泰山余脉:齐鲁之间 -->
+    <g class="mtn"><path d="M 560,300 l 10,-16 l 10,16 M 580,292 l 10,-16 l 10,16 M 600,300 l 9,-14 l 9,14"/></g>
+    <text class="cname s" x="558" y="322">泰山余脉</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="linzi"><circle cx="820" cy="150" r="6"/><text class="cname" x="832" y="146">临淄<tspan class="cname s" dx="2">(齐都)</tspan></text></g>
+      <g class="city" data-city="qianshi"><circle cx="640" cy="200" r="4"/><text class="cname s" x="650" y="196">乾时(前役齐胜鲁)</text></g>
+      <g class="city" data-city="suiyi"><circle cx="430" cy="330" r="4"/><text class="cname s" x="356" y="326">遂邑(齐所灭)</text></g>
+      <g class="city" data-city="changshao"><circle cx="470" cy="400" r="6"/><text class="cname" x="482" y="396">长勺<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city cap" data-city="qufu"><circle cx="330" cy="500" r="6"/><text class="cname" x="256" y="496">曲阜<tspan class="cname s" dx="2">(鲁都)</tspan></text></g>
+      <g class="city" data-city="wenshui"><circle cx="300" cy="296" r="3.5"/><text class="cname s" x="248" y="290">汶上(界)</text></g>
+    </g>
+
+    <!-- 全图 · 齐师压境 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 810,158 C 720,200 620,250 540,310 C 512,332 494,360 480,386"/>
+      <text class="mlabel q" x="600" y="230">齐桓公以鲁尝助纠,兴师伐鲁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 342,492 C 380,462 420,436 458,410"/>
+      <text class="mlabel j" x="330" y="470">鲁庄公率师御于长勺,曹刿从战</text>
+      <text class="anno" x="360" y="376">刿曰「肉食者鄙,未能远谋」</text>
+    </g>
+
+    <!-- 阶段一:齐三鼓 · 鲁按兵 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="512" y="352" width="9" height="9" transform="rotate(45 516 356)"/>
+      <text class="mlabel q" x="524" y="352">齐军大营 · 恃强先鼓</text>
+      <path class="march q" marker-end="url(#aq)" d="M 512,360 C 500,372 490,382 482,392"/>
+      <text class="anno" x="500" y="392">再鼓 · 三鼓,连求速战</text>
+      <text class="mlabel j" x="352" y="418">鲁军坚阵不动,养其锐气</text>
+      <text class="anno" x="380" y="436">公将鼓,刿曰「未可」</text>
+    </g>
+
+    <!-- 阶段二:彼竭我盈 · 一鼓破齐 -->
+    <g id="ph2" class="ph">
+      <text class="anno" x="470" y="362">齐三鼓气衰</text>
+      <path class="march j" marker-end="url(#aj)" d="M 462,394 C 476,384 490,376 504,368"/>
+      <circle class="star" cx="490" cy="376" r="8"/>
+      <text class="mlabel j" x="330" y="410">鲁一鼓而进,士气如虹「可矣」</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 512,362 C 560,330 620,296 690,262"/>
+      <text class="mlabel q" x="560" y="300">齐师大败</text>
+    </g>
+
+    <!-- 阶段三:察辙望旗 · 纵兵逐北 -->
+    <g id="ph3" class="ph">
+      <text class="anno" x="430" y="388">刿下视其辙 · 登轼望旗</text>
+      <text class="mlabel j" x="430" y="404">曰「辙乱旗靡」乃可逐</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 506,368 C 580,318 660,262 760,208"/>
+      <text class="mlabel r" x="600" y="256">齐师败出鲁境</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,392 C 552,344 630,290 720,236"/>
+      <text class="mlabel j" x="470" y="440">鲁纵兵逐北,遂逐齐师出境</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>鲁军(庄公·曹刿)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>齐军(桓公)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>齐师败退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>齐</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>鲁</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《左传·庄公十年》《史记·鲁周公世家》约略绘出。长勺在今山东莱芜(一说曲阜北),城邑水道为相对示意,非精确坐标。</p>
+    <p><span class="n">注二</span>晕染疆界为齐鲁形势示意:齐居北东、鲁居南西,约以汶水为间;点划「约界」非实有画界。曹刿论战之语,并录《左传》原文,以见「一鼓作气」「彼竭我盈」「辙乱旗靡」之所本。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"齐师压境",d:"鲁庄公十年(前684)春",p:["齐桓公新即位,以鲁尝助公子纠与己争位,衔怨兴师伐鲁。前此鲁师已败于乾时,气势颇沮;今齐复大举压境,鲁人震恐。","鲁庄公将战,曹刿请见。其乡人曰「肉食者谋之,又何间焉」,刿曰「肉食者鄙,未能远谋」,遂入见。问何以战,公历数衣食之惠、牺牲之信,刿皆以为未孚;及公言「小大之狱,必以情」,刿曰「忠之属也,可以一战」,乃从公御齐师于长勺。"]},
+  "1":{t:"齐三鼓 · 鲁按兵",d:"战于长勺 · 相持",p:["两军既陈于长勺,齐恃强而求速战。齐人先鼓进兵,公将鼓以应之,曹刿止之曰「未可」。","齐再鼓、三鼓,连番挑战,声势愈盛;而鲁军坚阵不动,凝然养锐,任齐三鼓求战而按兵不出。刿之意,正欲俟齐锐气三竭而后发。"]},
+  "2":{t:"彼竭我盈 · 一鼓破齐",d:"战于长勺 · 决胜",p:["齐三鼓既毕,士气已衰。曹刿曰「可矣」,鲁始一鼓而进——彼竭我盈,士气如虹,一举大破齐师。","既克,公问其故。刿对曰「夫战,勇气也。一鼓作气,再而衰,三而竭。彼竭我盈,故克之」。以逸待劳、后发制人之理,尽在于此。"]},
+  "3":{t:"察辙望旗 · 纵兵逐北",d:"战于长勺 · 逐北",p:["齐师既败,公将驰车逐之,刿又止曰「未可」。乃下车视其车辙,登轼而望其旌旗,曰「辙乱旗靡」,知非伪遁,乃曰「可矣」,遂纵兵追逐。","刿释其所以持重:「夫大国难测,惧有伏焉。吾视其辙乱,望其旗靡,故逐之。」鲁遂逐齐师出境。长勺一役,以弱鲁却强齐,后世传为以逸待劳、后发制人之典。"]}
+};
+const CITY={
+  changshao:{t:"长勺",d:"鲁地,今山东莱芜(一说曲阜北)",p:["齐鲁决战之处。齐三鼓而气竭,鲁一鼓而气盈,曹刿谏庄公后发制人,大败齐师于此。"]},
+  qufu:{t:"曲阜",d:"鲁国都城",p:["鲁庄公自此率师北御齐军。曹刿请见庄公,论「小大之狱,必以情」为可战之本,乃从战长勺。"]},
+  linzi:{t:"临淄",d:"齐国都城",p:["齐桓公自此兴师伐鲁。公新即位,以鲁尝助公子纠争位,衔怨来伐,不意反败于长勺。"]},
+  wenshui:{t:"汶水",d:"齐鲁之间界河",p:["汶水横亘齐鲁之间,大致为两国之界。齐师南越其地而压鲁境,鲁御之于长勺。"]},
+  qianshi:{t:"乾时",d:"齐地,前役齐胜鲁处",p:["长勺之战前,鲁师已尝败于乾时,鲁气颇沮。故长勺之捷,尤见曹刿持重待时之效。"]},
+  suiyi:{t:"遂邑",d:"近鲁小国,齐所灭",p:["遂为鲁之附庸小邦,近鲁而当齐冲。齐桓公伐鲁之际,并灭遂以张其势,鲁益迫矣。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
