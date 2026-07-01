@@ -53,17 +53,17 @@
     <h1>华夏历代征战图录</h1>
     <div class="sub">Chinese Dynastic Battle Atlas　·　一套同风格的交互战史地图集，按朝代汇编，陆续增补</div>
   </header>
-  <div class="intro">此为各代"征战图录"之总入口。每一朝代自成一录，收其主要战事，皆为羊皮卷风格之独立交互地图：分阶段切换、点城邑察其原委，配色以"角色"为准——所从之方青、对手赭、溃退褐。下列图录已成，点击即入；更多朝代正陆续绘补。</div>
+  <div class="intro">此为各代"征战图录"之总入口。每一朝代自成一录，收其主要战事，皆为羊皮卷风格之独立交互地图：分阶段切换、点城邑察其原委，配色以"角色"为准——所从之方青、对手赭、溃退褐。下列图录已成，点击即入；自春秋战国以迄清季，诸录相接，华夏历代主要战事略备于此。</div>
 
   <div class="secttl">已成图录<span class="note">按年代先后</span></div>
   <div class="grid" id="live"></div>
 
-  <div class="secttl">陆续增补<span class="note">规划中 · 待绘</span></div>
+  <div class="secttl" id="plannedttl">陆续增补<span class="note">规划中 · 待绘</span></div>
   <div class="grid" id="planned"></div>
 
   <div class="notes">
     <p><span class="n">注一</span>各图录均为示意图，依《三国志》《晋书》《旧唐书》《新唐书》《资治通鉴》等约略绘出，疆界、水道经简化，城邑位置为相对示意而非精确坐标。</p>
-    <p><span class="n">注二</span>春秋战国、三国无单一"本朝"，其总目之点色以"得胜方阵营"为准(春秋战国:青晋·三晋、金齐楚吴越燕列国、赭秦东出;三国:青曹魏、赭蜀汉、金孙吴、褐群雄·归晋);两汉、东晋、唐、两宋、蒙元、明则以本朝视角编次。凡图内进军之色，皆以"角色"论——所从之方青、对手赭、溃退褐，不以阵营论。</p>
+    <p><span class="n">注二</span>春秋战国、三国无单一"本朝"，其总目之点色以"得胜方阵营"为准(春秋战国:青晋·三晋、金齐楚吴越燕列国、赭秦东出;三国:青曹魏、赭蜀汉、金孙吴、褐群雄·归晋);两汉、东晋、唐、两宋、蒙元、明、清则以本朝视角编次。凡图内进军之色，皆以"角色"论——所从之方青、对手赭、溃退褐，不以阵营论。</p>
   </div>
   <footer>华夏战图 · 历代汇编　|　<a href="../index.html">← 返回 Web Apps</a>　·　<a href="https://github.com/ferryzhou/web-apps">GitHub</a></footer>
 </div>
@@ -95,11 +95,12 @@ const LIVE=[
    chips:["野狐岭","西征·巴格达","襄樊","神风·白藤江"]},
   {per:"明",yr:"1368–1644",n:15,href:"../ming-battle-maps/index.html",t:"明朝征战图录",
    d:"太祖鄱阳破陈友谅、徐达北伐驱元开基;成祖靖难夺位、五征漠北。土木蒙尘赖于谦守京师,戚继光荡倭、万历三大征皆捷而国力渐耗;终以萨尔浒、松锦丧师,甲申之变,思宗殉国,明祚遂亡。",
-   chips:["鄱阳湖","土木·京师","露梁海战","萨尔浒"]}
+   chips:["鄱阳湖","土木·京师","露梁海战","萨尔浒"]},
+  {per:"清",yr:"1616–1912",n:16,href:"../qing-battle-maps/index.html",t:"清朝征战图录",
+   d:"萨尔浒破明、山海关入关而定鼎;康熙撤三藩、下台湾、拒俄雅克萨、亲征噶尔丹,乾隆平准回、定金川、逾喜马拉雅破廓尔喀,号「十全武功」,幅员极盛。然盛极而衰:鸦片破虎门、洪杨乱东南、甲午覆北洋、庚子联军入京,国势遂江河日下。",
+   chips:["山海关","雅克萨","平准回","甲午·庚子"]}
 ];
-const PLANNED=[
-  {per:"清",yr:"1636–1912",t:"清朝征战图录",d:"入关定鼎、三藩之乱、平准噶尔、鸦片之衅…",chips:["山海关","三藩","平准"]}
-];
+const PLANNED=[];
 function card(a,live){
   const chips=(a.chips||[]).map(c=>'<span>'+c+'</span>').join('');
   const inner='<div class="atop"><span class="per">'+a.per+'</span><span class="yr">'+a.yr+'</span><span class="cnt">'+(live?a.n+' 图':'待绘')+'</span></div>'
@@ -109,7 +110,13 @@ function card(a,live){
   return live?'<a class="atlas" href="'+a.href+'">'+inner+'</a>':'<div class="atlas pending">'+inner+'</div>';
 }
 document.getElementById('live').innerHTML=LIVE.map(a=>card(a,true)).join('');
-document.getElementById('planned').innerHTML=PLANNED.map(a=>card(a,false)).join('');
+if(PLANNED.length){
+  document.getElementById('planned').innerHTML=PLANNED.map(a=>card(a,false)).join('');
+}else{
+  const n=LIVE.reduce((s,a)=>s+a.n,0);
+  document.getElementById('plannedttl').innerHTML='全录已备<span class="note">春秋讫清 · 华夏通史</span>';
+  document.getElementById('planned').outerHTML='<div class="intro" style="margin-top:12px">自春秋战国以迄清季,凡'+LIVE.length+'录、'+n+'战,华夏历代主要战事略备于此。诸录相接,上下二千余年:争霸兼并、鼎革分合、拓疆御侮,尽在此一编。倘有阙略、或欲增绘专役,再当续补。</div>';
+}
 </script>
 </body>
 </html>

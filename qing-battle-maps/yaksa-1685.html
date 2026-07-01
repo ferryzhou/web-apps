@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雅克萨之战 · 康熙二十四至二十五年(1685–1686)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>雅</span><span>克</span><span>萨</span><span>役</span></div>
+  <header>
+    <h1>雅克萨之战</h1>
+    <div class="sub">清康熙二十四至二十五年(1685–1686)　　<i>清 彭春·萨布素</i> 水陆困城 · <b>沙俄</b>雅克萨乞降·订尼布楚约</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 沙俄东侵</button>
+    <button data-p="1">彭春首攻·俄军乞降</button>
+    <button data-p="2">俄背约·萨布素再围</button>
+    <button data-p="3">困城俄降·尼布楚约</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="雅克萨之战形势图,含清与沙俄疆界、黑龙江额尔古纳河精奇里江与雅克萨尼布楚瑷珲等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:沙俄据西伯利亚(北),清据黑龙江满洲(南),约以外兴安岭为界 -->
+    <path d="M 0,232 C 160,222 320,236 470,214 C 620,192 760,214 1000,196 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,232 C 160,222 320,236 470,214 C 620,192 760,214 1000,196 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,232 C 160,222 320,236 470,214 C 620,192 760,214 1000,196"/>
+    <text class="realm q" x="120" y="110" font-size="32">沙 俄(西伯利亚)</text>
+    <text class="realm j" x="560" y="580" font-size="32">大 清(黑龙江·满洲)</text>
+
+    <!-- 外兴安岭:横亘北界 -->
+    <g class="mtn"><path d="M 150,214 l 9,-15 l 9,15 M 168,208 l 9,-15 l 9,15 M 186,214 l 8,-14 l 8,14 M 470,200 l 9,-15 l 9,15 M 488,194 l 9,-15 l 9,15 M 506,200 l 8,-14 l 8,14 M 760,206 l 9,-15 l 9,15 M 778,200 l 9,-15 l 9,15"/></g>
+    <text class="rname" x="300" y="188" style="fill:var(--ink2);opacity:.85;letter-spacing:.28em">外 兴 安 岭</text>
+
+    <!-- 黑龙江(阿穆尔河):自西北额尔古纳合流,东南下经雅克萨 -->
+    <path class="river" stroke-width="5.5" d="M 120,300 C 220,320 330,340 420,352 C 520,366 620,392 720,430 C 800,462 880,486 1000,504"/>
+    <!-- 额尔古纳河:西南来,注入黑龙江上游(中俄界河) -->
+    <path class="river" stroke-width="2.6" d="M 70,470 C 90,410 108,356 120,300"/>
+    <!-- 精奇里江:自北南下,注黑龙江 -->
+    <path class="river" stroke-width="2.4" d="M 560,236 C 566,300 574,352 600,388"/>
+    <text class="rname" x="300" y="360" transform="rotate(9 300 360)" style="font-size:13px">黑 龙 江(阿穆尔河)</text>
+    <text class="rname" x="60" y="400" transform="rotate(-75 60 400)" style="font-size:10.5px">额尔古纳河</text>
+    <text class="rname" x="566" y="316" transform="rotate(80 566 316)" style="font-size:10.5px">精奇里江</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="yaksa"><circle cx="420" cy="352" r="6"/><text class="cname" x="380" y="336">雅克萨<tspan class="cname s" dx="2">(俄据·清围)</tspan></text></g>
+      <g class="city" data-city="nerchinsk"><circle cx="150" cy="360" r="5"/><text class="cname" x="86" y="356">尼布楚<tspan class="cname s" dx="2">(约地)</tspan></text></g>
+      <g class="city" data-city="aihui"><circle cx="700" cy="430" r="5"/><text class="cname" x="710" y="426">瑷珲<tspan class="cname s" dx="2">(将军驻·进兵基)</tspan></text></g>
+      <g class="city" data-city="merghen"><circle cx="760" cy="478" r="4"/><text class="cname s" x="770" y="494">墨尔根·黑龙江城</text></g>
+      <g class="city" data-city="jingqili"><circle cx="600" cy="388" r="3.5"/><text class="cname s" x="606" y="380">精奇里江口</text></g>
+      <g class="city" data-city="ergun"><circle cx="70" cy="470" r="3.5"/><text class="cname s" x="12" y="486">额尔古纳河</text></g>
+    </g>
+
+    <!-- 全图 · 沙俄东侵 -->
+    <g id="phAll" class="ph">
+      <rect class="camp" x="416" y="348" width="9" height="9" transform="rotate(45 420 352)"/>
+      <text class="mlabel q" x="360" y="308">哥萨克越岭,据雅克萨(阿尔巴津)筑木城</text>
+      <text class="anno" x="120" y="150">沙俄东侵,窜入黑龙江流域,烧杀劫掠扰边</text>
+      <text class="mlabel j" x="560" y="540">康熙既定三藩、收台湾,乃图东北</text>
+      <text class="anno" x="600" y="452">议自瑷珲、墨尔根置驿屯田,为进兵之基</text>
+    </g>
+
+    <!-- 阶段一:彭春首攻·俄军乞降 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 694,428 C 640,414 560,394 500,378 C 470,370 448,362 432,356"/>
+      <text class="mlabel j" x="500" y="352">都统彭春率满汉军及藤牌兵,自瑷珲进</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,436 C 660,452 600,448 540,428 C 490,412 460,388 436,362"/>
+      <text class="mlabel j" x="470" y="424">水师顺黑龙江而下,水陆并进围城</text>
+      <circle class="siege" cx="420" cy="352" r="22"/>
+      <text class="anno" x="300" y="392">列红衣大炮环城轰击</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 402,346 C 320,338 240,344 168,356"/>
+      <text class="mlabel r" x="220" y="332">俄将托尔布津乞降,率众退尼布楚</text>
+    </g>
+
+    <!-- 阶段二:俄背约·萨布素再围 -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 168,356 C 240,346 320,340 402,348"/>
+      <text class="mlabel q" x="200" y="330">俄背约,复窜回雅克萨筑城据守</text>
+      <rect class="camp" x="416" y="348" width="9" height="9" transform="rotate(45 420 352)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 754,472 C 660,452 560,420 480,388 C 452,378 434,368 432,358"/>
+      <text class="mlabel j" x="470" y="470">黑龙江将军萨布素再率师围之</text>
+      <circle class="siege" cx="420" cy="352" r="26"/>
+      <text class="anno" x="286" y="404">掘长壕、筑土垒,列炮昼夜攻困,断其外援</text>
+    </g>
+
+    <!-- 阶段三:困城俄降·尼布楚约 -->
+    <g id="ph3" class="ph">
+      <circle class="siege" cx="420" cy="352" r="26"/>
+      <path d="M 420,352 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="420" cy="352" r="12"/>
+      <text class="mlabel j" x="300" y="316">俄困守孤城,粮尽疫作,托尔布津中炮死</text>
+      <text class="anno" x="330" y="392">余众数十待援不至,乞降</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 404,354 C 320,346 240,350 168,360"/>
+      <text class="mlabel r" x="180" y="380">残众撤归尼布楚</text>
+      <text class="anno" x="90" y="404">两国议界,以额尔古纳河、外兴安岭为界</text>
+      <text class="mlabel j" x="120" y="344">康熙二十八年订《尼布楚条约》定东段界</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>沙俄军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>俄军退·降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>围城·俄降</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>沙俄</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大清</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·圣祖本纪/萨布素传》《平定罗刹方略》及《尼布楚条约》约略绘出。雅克萨在今黑龙江上游(俄阿尔巴津),尼布楚今俄涅尔琴斯克,瑷珲今黑龙江黑河爱辉,地望为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为清初东北形势示意:沙俄自西伯利亚越外兴安岭南侵,清据黑龙江满洲;界线以点划「约界」标之,非当时实有画界。二十八年《尼布楚条约》始以额尔古纳河、格尔必齐河及外兴安岭定东段边界。</p>
+    <p><span class="n">注三</span>雅克萨凡两攻:二十四年彭春率军水陆并进,列红衣大炮环轰,俄将托尔布津乞降退尼布楚,清毁城而还;俄旋背约复据,二十五年萨布素再围,掘壕列炮困之,托尔布津中炮死,俄众待援不至乞降。此为中国与西方所订第一个平等条约。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"全图 · 沙俄东侵",d:"明末清初 — 康熙二十四年前",p:["明末清初,沙俄东侵,越外兴安岭,窜入黑龙江流域,据雅克萨(阿尔巴津)、尼布楚等地筑城,烧杀劫掠,扰我边民。","康熙帝平定三藩、收复台湾后,乃图东北。命于瑷珲、墨尔根置驿屯田、造船运粮,为进兵雅克萨之基。"]},
+  "1":{t:"彭春首攻·俄军乞降",d:"康熙二十四年(1685)五月",p:["都统彭春率满汉军及福建藤牌兵,自瑷珲水陆并进,水师顺黑龙江而下,合围雅克萨。清军列红衣大炮环城轰击,昼夜不息。","俄军守将托尔布津不支,乞降,率众退往尼布楚;清军毁其木城而还。首攻遂克,然未留守。"]},
+  "2":{t:"俄背约·萨布素再围",d:"康熙二十五年(1686)",p:["清军既还,俄军旋背约,复窜回雅克萨,重筑城据守。康熙帝命黑龙江将军萨布素再率师往征。","萨布素军至,掘长壕、筑土垒,列炮昼夜攻困,断其外援,使孤城不得出入。围而不攻,以困毙之。"]},
+  "3":{t:"困城俄降·尼布楚约",d:"康熙二十五年至二十八年(1686–1689)",p:["俄军困守孤城,粮尽疫作,伤亡殆尽,守将托尔布津中炮死,余众数十人待援不至,遂请降。会俄方遣使议界,康熙帝许罢兵。","二十八年,中俄订《尼布楚条约》,以额尔古纳河、格尔必齐河及外兴安岭为界,东北边境百余年获安。此为中国与西方国家所订第一个平等条约。"]}
+};
+const CITY={
+  yaksa:{t:"雅克萨(阿尔巴津)",d:"今黑龙江上游左岸",p:["沙俄东侵所据木城,清军两度进攻之的。二十四年彭春围而克之,俄乞降退尼布楚;俄背约复据,二十五年萨布素再围,掘壕列炮困之,俄众乞降。"]},
+  nerchinsk:{t:"尼布楚",d:"今俄涅尔琴斯克",p:["俄据要地。托尔布津两次乞降后退保之处;康熙二十八年中俄于此签订《尼布楚条约》,定东段边界。"]},
+  aihui:{t:"瑷珲",d:"今黑龙江黑河爱辉",p:["黑龙江将军驻地、清军进兵之基。彭春、萨布素两役皆自此水陆并进,溯黑龙江西攻雅克萨。"]},
+  merghen:{t:"墨尔根·黑龙江城",d:"今黑龙江嫩江一带",p:["清军后方重镇,置驿屯田、造船运粮以给前线。与瑷珲同为经略东北之依托。"]},
+  jingqili:{t:"精奇里江口",d:"精奇里江注黑龙江处",p:["清水师会师处。舟师自黑龙江下游逆流而上,于此合陆师,西趋雅克萨。"]},
+  ergun:{t:"额尔古纳河",d:"中俄界河",p:["黑龙江上游支源。《尼布楚条约》以额尔古纳河、格尔必齐河及外兴安岭为中俄东段之界。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

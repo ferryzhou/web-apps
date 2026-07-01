@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>江南之役 · 扬州 · 顺治二年(1645)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.18}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--advance);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>江</span><span>南</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>江南之役 · 扬州</h1>
+    <div class="sub">清顺治二年·南明弘光元年(1645)　　<i>清 多铎</i> 下江南 · <b>南明 史可法</b>死守扬州·城破殉国</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 多铎南下</button>
+    <button data-p="1">四镇溃降 · 退守扬州</button>
+    <button data-p="2">扬州死守 · 城破殉国</button>
+    <button data-p="3">渡江下南京 · 弘光降</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="江南之役扬州形势图,含清与南明疆界、长江大运河淮河与扬州南京瓜洲等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:清自中原南下(北),南明据江南(南),约以淮泗一带为界 -->
+    <path d="M 0,300 C 140,286 300,260 440,236 C 600,208 760,180 1000,164 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,300 C 140,286 300,260 440,236 C 600,208 760,180 1000,164 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,300 C 140,286 300,260 440,236 C 600,208 760,180 1000,164"/>
+    <text class="realm j" x="150" y="130" font-size="32">清(自中原南下)</text>
+    <text class="realm q" x="470" y="560" font-size="32">南 明(江南)</text>
+
+    <!-- 淮河:自西向东 -->
+    <path class="river" stroke-width="3.2" d="M 0,258 C 160,268 320,284 460,300 C 560,312 660,320 760,322"/>
+    <!-- 长江:自西南向东北,W→E -->
+    <path class="river" stroke-width="6" d="M 120,560 C 260,530 400,494 520,470 C 640,446 740,436 840,436 C 900,436 960,440 1000,442"/>
+    <!-- 大运河:纵贯,连淮安—扬州—瓜洲入江 -->
+    <path class="river" stroke-width="2.6" d="M 620,260 C 616,320 610,380 606,430 C 604,452 604,466 606,476"/>
+    <text class="rname" x="640" y="480" style="font-size:13px">长 江</text>
+    <text class="rname" x="200" y="278" transform="rotate(6 200 278)">淮 河</text>
+    <text class="rname" x="628" y="360" transform="rotate(86 628 360)" style="font-size:10.5px">大运河</text>
+    <text class="rname" x="612" y="512" style="font-size:10px">瓜洲渡</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="xuzhou"><circle cx="360" cy="120" r="4.5"/><text class="cname s" x="308" y="116">徐州</text></g>
+      <g class="city" data-city="huaian"><circle cx="640" cy="230" r="4.5"/><text class="cname s" x="648" y="226">淮安·泗州</text></g>
+      <g class="city" data-city="yangzhou"><circle cx="604" cy="384" r="6.5"/><text class="cname" x="616" y="380">扬州<tspan class="cname s" dx="2">(史可法死守)</tspan></text></g>
+      <g class="city" data-city="guazhou"><circle cx="606" cy="486" r="4.5"/><text class="cname s" x="614" y="500">瓜洲·镇江</text></g>
+      <g class="city cap" data-city="nanjing"><circle cx="470" cy="512" r="6.5"/><text class="cname" x="414" y="530">南京<tspan class="cname s" dx="2">(弘光都)</tspan></text></g>
+      <g class="city" data-city="wuhu"><circle cx="300" cy="546" r="4"/><text class="cname s" x="262" y="562">芜湖</text></g>
+    </g>
+
+    <!-- 全图 · 多铎南下 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 300,80 C 340,110 370,150 400,200 C 460,290 540,340 590,372"/>
+      <text class="mlabel j" x="360" y="180">清豫亲王多铎率八旗军南征弘光</text>
+      <text class="anno" x="430" y="264">红衣大炮随行,长驱而南</text>
+      <text class="mlabel q" x="470" y="590">南明弘光偏安江南,江北四镇跋扈</text>
+      <text class="anno" x="640" y="256">四镇分守淮扬,互相攻讦,可法节制不行</text>
+    </g>
+
+    <!-- 阶段一:四镇溃降 · 退守扬州 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 366,128 C 440,168 540,200 626,224"/>
+      <text class="mlabel j" x="380" y="150">清军南下经徐州,趋淮泗</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 634,236 C 628,290 618,340 610,372"/>
+      <text class="mlabel r" x="646" y="300">刘良佐·刘泽清望风降清</text>
+      <text class="anno" x="470" y="330">高杰先已死,四镇或降或溃,江北防线瓦解</text>
+      <path class="march q" marker-end="url(#aq)" d="M 470,506 C 520,470 566,430 596,392"/>
+      <text class="mlabel q" x="380" y="470">史可法收拾残兵,退守扬州</text>
+      <text class="anno" x="560" y="416">城孤援绝,誓与城存亡</text>
+    </g>
+
+    <!-- 阶段二:扬州死守 · 城破殉国 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 636,240 C 626,290 618,330 612,366"/>
+      <text class="mlabel j" x="640" y="316">多铎率大军围扬州</text>
+      <rect class="camp" x="656" y="352" width="9" height="9" transform="rotate(45 660 356)"/>
+      <rect class="camp" x="544" y="360" width="9" height="9" transform="rotate(45 548 364)"/>
+      <circle class="siege" cx="604" cy="384" r="22"/>
+      <text class="anno" x="470" y="330">以红衣大炮攻城,屡遣书招降,可法不启</text>
+      <circle class="star" cx="604" cy="384" r="9"/>
+      <text class="mlabel q" x="470" y="410">城破,可法被执,拒降殉国</text>
+      <text class="anno" x="470" y="428">纵兵屠掠十日,是为「扬州十日」</text>
+    </g>
+
+    <!-- 阶段三:渡江下南京 · 弘光降 -->
+    <g id="ph3" class="ph">
+      <path class="march sea" marker-end="url(#aj)" d="M 604,392 C 604,430 605,458 606,478"/>
+      <text class="mlabel j" x="612" y="440">清军自瓜洲渡江,下镇江</text>
+      <path class="march j" marker-end="url(#aj)" d="M 600,488 C 560,498 520,506 484,510"/>
+      <text class="mlabel j" x="500" y="524">直逼南京</text>
+      <path d="M 470,512 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 458,516 C 400,528 350,538 316,544"/>
+      <text class="mlabel r" x="330" y="530">弘光帝夜奔芜湖</text>
+      <text class="anno" x="240" y="576">依黄得功;得功战死,弘光被执送京死</text>
+      <circle class="star" cx="470" cy="512" r="9"/>
+      <text class="anno" x="470" y="490">弘光出降,江北尽崩,江南略定</text>
+    </g>
+
+    <g class="compass" transform="translate(944,90)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(八旗南下)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>渡江水军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南明·弘光</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃降 / 出奔</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>殉国 / 出降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>清军围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南明</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·多铎传》《明史·史可法传》《扬州十日记》约略绘出。扬州、南京在今江苏,瓜洲在扬州南濒江,芜湖在今安徽。长江、淮河、大运河及城邑水道为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为顺治二年南下之际形势示意:清自中原顺流而南,南明弘光偏安江南,约以淮泗一线为界,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>史可法督师江北,节制四镇而令不行;及城孤援绝,犹坚守扬州十日,作绝命书付母妻,城破拒降遇害。图以红线绘南明,而其忠烈自在人心——所谓「数点梅花亡国泪,二分明月故臣心」者也。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"多铎南下",d:"清顺治二年(1645)四月",p:["清既定北京,遣豫亲王多铎率八旗大军南征,以取南明弘光政权。军中携红衣大炮,长驱而南。","南明弘光偏安江南,江北四镇(高杰、黄得功、刘良佐、刘泽清)拥兵跋扈、互相攻讦,督师大学士史可法节制不行。清军压境,江北岌岌可危。"]},
+  "1":{t:"四镇溃降 · 退守扬州",d:"顺治二年四月",p:["清军自徐州而南,趋淮泗。江北四镇或降或溃:高杰先已为许定国所杀,刘良佐、刘泽清望风降清,江北防线瓦解。","史可法调度无及,收拾残兵,退守扬州。城孤援绝,而可法誓与城共存亡,分门死守,飞檄征援,应者寥寥。"]},
+  "2":{t:"扬州死守 · 城破殉国",d:"顺治二年四月",p:["多铎率大军围扬州,以红衣大炮昼夜攻城,又屡遣书招史可法降。可法不启其书,作绝命书付母妻,誓死不屈。","城破,可法被执,叱敌拒降,遂遇害。清军入城,纵兵屠掠十日,死者以数十万计,史称「扬州十日」，江北为之震骇。"]},
+  "3":{t:"渡江下南京 · 弘光降",d:"顺治二年五月",p:["扬州既下,清军自瓜洲渡江,取镇江,直逼南京。南京守臣献城,弘光帝朱由崧夜奔芜湖,依靖国公黄得功。","得功力战而死,弘光帝被执,槛送北京,寻死。南明江北防线尽崩,江南略定。旋剃发令下,江阴、嘉定继起抗清,东南残破,别有其事。"]}
+};
+const CITY={
+  xuzhou:{t:"徐州",d:"今江苏徐州",p:["清军南下所经要冲。八旗自中原顺流而南,由此趋淮泗,直指江北。"]},
+  huaian:{t:"淮安·泗州",d:"今江苏淮安、盱眙一带",p:["江北四镇分守之地。清军至,刘良佐、刘泽清望风降清,淮泗防线随之瓦解。"]},
+  yangzhou:{t:"扬州",d:"今江苏扬州",p:["史可法退守死战之城。多铎围之,以红衣炮攻城、屡招不降;城破十日,可法被执殉国,继以「扬州十日」之屠。"]},
+  guazhou:{t:"瓜洲·镇江",d:"扬州南濒江,今镇江对岸",p:["清军渡江之处。扬州既下,多铎自瓜洲渡长江,取镇江,遂逼南京。"]},
+  nanjing:{t:"南京",d:"弘光都,今江苏南京",p:["南明弘光政权之都。清军逼城,守臣献降,弘光帝夜奔芜湖;帝被执后,江南略定。"]},
+  wuhu:{t:"芜湖",d:"今安徽芜湖",p:["弘光帝出奔依黄得功之地。得功战死,弘光帝于此被执,槛送北京死。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>庚子·八国联军之役 · 光绪二十六年(1900)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>庚</span><span>子</span><span>之</span><span>变</span></div>
+  <header>
+    <h1>庚子·八国联军之役</h1>
+    <div class="sub">清光绪二十六年·庚子(1900)　　<i>清 聂士成</i> 八里台殉国 · <b>八国联军</b>入京·两宫西狩</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 团起·清廷宣战</button>
+    <button data-p="1">廊坊阻击·联军先挫</button>
+    <button data-p="2">大沽登陆·聂士成殉国</button>
+    <button data-p="3">联军入京·两宫西狩</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="庚子八国联军之役形势图,含清京畿与联军海上来路、渤海大沽海河京津铁路及北京天津大沽八里台廊坊西安等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:联军自海上·大沽方向来(东),清据京畿(西),约以海河下游为势界 -->
+    <path d="M 700,0 C 690,110 720,200 760,290 C 800,380 840,470 840,560 C 840,600 848,620 856,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 700,0 C 690,110 720,200 760,290 C 800,380 840,470 840,560 C 840,600 848,620 856,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 700,0 C 690,110 720,200 760,290 C 800,380 840,470 840,560 C 840,600 848,620 856,640"/>
+    <text class="realm j" x="120" y="120" font-size="30">清 · 京 畿</text>
+    <text class="realm q" x="880" y="300" font-size="24" transform="rotate(90 880 300)">联军·海上来</text>
+
+    <!-- 渤海 -->
+    <path class="river" stroke-width="0" d="M 900,80 L 1000,80"/>
+    <text class="rname" x="905" y="120" style="font-size:14px;letter-spacing:.3em">渤 海</text>
+    <!-- 海河:自天津东南入海(大沽口),联军溯河西进 -->
+    <path class="river" stroke-width="5" d="M 908,352 C 850,350 800,346 740,352 C 690,358 640,372 600,388"/>
+    <text class="rname" x="820" y="340" style="font-size:12px">海 河</text>
+    <!-- 运河/西犯水道:自天津西北向北京 -->
+    <path class="river" stroke-width="3" d="M 590,392 C 520,368 440,330 360,286 C 300,252 250,220 214,196"/>
+    <text class="rname" x="450" y="322" transform="rotate(-28 450 322)" style="font-size:10.5px">运河·北仓杨村</text>
+    <!-- 京津铁路:天津—北京(以点划意示) -->
+    <path class="river" stroke-width="1.6" stroke-dasharray="2 6" d="M 596,382 C 500,340 380,290 214,204"/>
+    <text class="rname" x="410" y="270" transform="rotate(-28 410 270)" style="font-size:10px">京津铁路</text>
+
+    <!-- 北京城:以小方框意示 -->
+    <g class="mtn"><path d="M 176,178 h 76 v 44 h -76 z"/></g>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="beijing"><circle cx="200" cy="200" r="6"/><text class="cname" x="118" y="176">北京<tspan class="cname s" dx="2">(京师)</tspan></text></g>
+      <g class="city" data-city="langfang"><circle cx="400" cy="298" r="4"/><text class="cname s" x="408" y="294">廊坊</text></g>
+      <g class="city" data-city="tianjin"><circle cx="596" cy="386" r="6"/><text class="cname" x="606" y="382">天津<tspan class="cname s" dx="2">(直隶)</tspan></text></g>
+      <g class="city" data-city="baliqiao"><circle cx="558" cy="418" r="4"/><text class="cname s" x="470" y="440">八里台(城南)</text></g>
+      <g class="city" data-city="dagu"><circle cx="908" cy="352" r="5"/><text class="cname" x="838" y="342">大沽口<tspan class="cname s" dx="2">(炮台)</tspan></text></g>
+      <g class="city" data-city="xian"><circle cx="70" cy="520" r="5"/><text class="cname" x="80" y="516">西安<tspan class="cname s" dx="2">(西狩)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 团起·清廷宣战 -->
+    <g id="phAll" class="ph">
+      <circle class="siege" cx="200" cy="200" r="20"/>
+      <text class="anno" x="118" y="238">义和团「扶清灭洋」围东交民巷使馆区</text>
+      <text class="mlabel j" x="118" y="150">慈禧倚团民,对英美法德俄日意奥八国宣战</text>
+      <path class="march q" marker-end="url(#aq)" d="M 906,360 C 850,378 760,398 660,398"/>
+      <text class="mlabel q" x="700" y="428">列强组联军,自天津·大沽方向来犯</text>
+      <text class="anno" x="905" y="150">渤海:各国军舰云集</text>
+    </g>
+
+    <!-- 阶段一:廊坊阻击·联军先挫 -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 588,380 C 520,344 460,318 414,302"/>
+      <text class="mlabel q" x="470" y="292">西摩尔率联军自天津驰援使馆</text>
+      <circle class="star" cx="400" cy="298" r="8"/>
+      <text class="mlabel j" x="240" y="322">义和团·清军阻之于廊坊、杨村</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 392,304 C 460,330 528,356 588,378"/>
+      <text class="mlabel r" x="440" y="358">联军先挫,败退天津</text>
+    </g>
+
+    <!-- 阶段二:大沽登陆·聂士成殉国 -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 906,354 C 800,354 720,358 664,376"/>
+      <rect class="camp" x="900" y="344" width="9" height="9" transform="rotate(45 904 348)"/>
+      <text class="mlabel q" x="700" y="330">联军大举登陆,先陷大沽炮台</text>
+      <path class="march q" marker-end="url(#aq)" d="M 648,382 C 630,392 616,400 608,406"/>
+      <text class="mlabel q" x="600" y="368">进攻天津</text>
+      <path class="march j" marker-end="url(#aj)" d="M 592,392 C 580,402 570,410 564,414"/>
+      <text class="mlabel j" x="360" y="404">聂士成率武卫前军力战城南八里台</text>
+      <circle class="star" cx="558" cy="418" r="8"/>
+      <text class="anno" x="330" y="458">腹背受敌,身被数创,肠出犹督战殉国</text>
+      <text class="mlabel r" x="500" y="478">天津陷</text>
+    </g>
+
+    <!-- 阶段三:联军入京·两宫西狩 -->
+    <g id="ph3" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 588,388 C 500,350 380,296 220,206"/>
+      <text class="mlabel q" x="360" y="252">联军二万沿运河铁路西犯,连破北仓杨村</text>
+      <path d="M 200,200 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="120" y="240">八月,北京陷·纵兵劫掠</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 186,208 C 140,300 100,420 78,506"/>
+      <text class="mlabel r" x="90" y="360" transform="rotate(78 90 360)">慈禧挟光绪出德胜门西走</text>
+      <text class="anno" x="80" y="540">经太原奔西安「西狩」;次年订《辛丑条约》</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(聂士成·武卫军及义和团)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>八国联军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>清败·西狩</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·殉国</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>围攻使馆</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·京畿</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>联军·海上来</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·德宗本纪》《清史稿·聂士成传》及《辛丑条约》(《辛丑各国和约》)约略绘出。北京、天津、大沽在今京津一带,八里台在天津城南,廊坊在京津之间;渤海海河、京津铁路、运河诸水道及北京城邑为相对示意,非按实测比例。</p>
+    <p><span class="n">注二</span>晕染疆界为庚子形势示意:清据京畿(西),八国联军自海上·大沽方向来犯(东),以海河下游为势界;此为兵势约界,点划标之,非实有画界。</p>
+    <p><span class="n">注三</span>聂士成为直隶提督,前拒联军、后为团民所扰,腹背受敌,身被数创,肠出犹督战,壮烈殉国于八里台。清廷倚义和团宣战八国,终致京师陷、两宫西狩,次年《辛丑条约》赔款四亿五千万两、许各国驻兵、划东交民巷使馆界,国势遂江河日下。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"团起·清廷宣战",d:"光绪二十六年五月(1900)",p:["甲午之后,列强瓜分之祸日亟。义和团以「扶清灭洋」起于山东、直隶,焚教堂、拆铁路、攻使馆。慈禧太后倚之以拒外侮,五月对英美法德俄日意奥八国宣战,围攻北京东交民巷使馆区、西什库教堂。","列强震动,组八国联军,以西摩尔先率军自天津驰援使馆;各国军舰云集渤海,大兵自大沽方向来犯,京畿告急。"]},
+  "1":{t:"廊坊阻击·联军先挫",d:"光绪二十六年五月",p:["西摩尔率联军二千余,先自天津乘火车驰援使馆。义和团、清军毁铁路以阻之,战于廊坊、杨村。","联军进退失据,粮械俱乏,伤亡颇重,不得已折返天津。此联军之先挫,亦清方一时之振——然大局未可挽也。"]},
+  "2":{t:"大沽登陆·聂士成殉国",d:"光绪二十六年六月",p:["联军乃大举:自大沽口登陆,先以舰炮陷大沽炮台,沿海河进攻天津。直隶提督聂士成率武卫前军力战于天津城南八里台。","聂公腹背受敌:前拒联军之炮火,后为团民所扰疑。身被数创,肠出犹裹创督战,壮烈殉国。天津遂陷,京师门户洞开。"]},
+  "3":{t:"联军入京·两宫西狩",d:"光绪二十六年七至八月",p:["联军二万余自天津沿运河、铁路西犯,连破北仓、杨村,直逼北京。八月,联军攻陷京师,纵兵劫掠,宫阙府库荡然。","慈禧挟光绪帝仓皇出德胜门西走,经太原奔西安「西狩」。次年辛丑(1901)订《辛丑条约》:赔款四亿五千万两、拆大沽炮台、许各国驻兵、划东交民巷使馆界、惩首祸。清廷威信扫地、财政枯竭,国势遂尽,十年后而亡。"]}
+};
+const CITY={
+  beijing:{t:"北京(京师)",d:"清都·顺天府",p:["义和团围攻东交民巷使馆区、西什库教堂;清廷倚之对八国宣战。八月联军陷城,纵兵劫掠,两宫仓皇西狩。"]},
+  tianjin:{t:"天津",d:"直隶要冲,今天津",p:["联军自大沽溯海河来攻。聂士成守城南八里台,腹背受敌殉国。天津陷,联军由此西犯京师。"]},
+  dagu:{t:"大沽口",d:"海河入海口,今天津滨海",p:["渤海门户。联军以舰炮陷大沽炮台而登陆,遂启攻津逼京之势。《辛丑条约》后炮台见拆。"]},
+  baliqiao:{t:"八里台",d:"天津城南,聂士成殉国处",p:["直隶提督聂士成率武卫前军力战于此。前拒联军、后为团民所扰,身被数创,肠出犹督战,壮烈殉国。"]},
+  langfang:{t:"廊坊",d:"京津之间,今河北廊坊",p:["西摩尔率联军自天津驰援使馆,为义和团、清军阻于此及杨村,进退失据,败退天津——联军先挫之地。"]},
+  xian:{t:"西安",d:"两宫西狩驻跸处,今陕西西安",p:["京师陷后,慈禧挟光绪出德胜门西走,经太原奔西安「西狩」。次年《辛丑条约》成,乃议回銮。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

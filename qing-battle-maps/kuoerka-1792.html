@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>廓尔喀之役 · 乾隆五十三至五十七年(1788–1792)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>逾</span><span>山</span><span>破</span><span>廓</span></div>
+  <header>
+    <h1>廓尔喀之役</h1>
+    <div class="sub">清乾隆五十三至五十七年(1788–1792)　　<i>清 福康安·海兰察</i> 逾喜马拉雅破廓 · <b>廓尔喀</b>乞降纳贡·十全之殿</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 廓尔喀犯藏</button>
+    <button data-p="1">逾雪山 · 长驱入廓</button>
+    <button data-p="2">连破诸隘 · 渡铁索桥</button>
+    <button data-p="3">逼阳布 · 廓尔喀乞降</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="廓尔喀之役形势图,含清藏与廓尔喀疆界、喜马拉雅雪山雅鲁藏布江与拉萨阳布等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:清·西藏据北,廓尔喀据南(喜马拉雅南麓),约以雪山分脊为界 -->
+    <path d="M 0,300 C 140,318 300,332 460,352 C 600,370 760,384 1000,398 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 140,318 300,332 460,352 C 600,370 760,384 1000,398 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 140,318 300,332 460,352 C 600,370 760,384 1000,398"/>
+    <text class="realm j" x="560" y="150" font-size="32">清 · 西 藏</text>
+    <text class="realm q" x="150" y="560" font-size="34">廓 尔 喀(尼泊尔)</text>
+
+    <!-- 雅鲁藏布江:自西向东流经后藏(北) -->
+    <path class="river" stroke-width="5" d="M 120,180 C 300,200 480,210 660,196 C 780,186 880,180 1000,178"/>
+    <!-- 吉隆藏布:自后藏南下越隘入廓境 -->
+    <path class="river" stroke-width="2.6" d="M 430,206 C 424,280 416,360 400,430 C 388,486 372,540 350,590"/>
+    <!-- 铁索桥·热索桥所跨之河(廓境北界之水) -->
+    <path class="river" stroke-width="2.2" d="M 240,470 C 340,480 460,486 560,472"/>
+    <text class="rname" x="640" y="180" style="font-size:13px">雅鲁藏布江</text>
+    <text class="rname" x="412" y="330" transform="rotate(80 412 330)" style="font-size:10.5px">吉隆藏布</text>
+
+    <!-- 喜马拉雅雪山:横亘藏廓之间,雪峰嵯峨 -->
+    <g class="mtn" stroke-width="1.5">
+      <path d="M 150,360 l 22,-40 l 22,40 M 190,360 l 26,-52 l 26,52 M 250,362 l 22,-42 l 22,42 M 300,364 l 28,-56 l 28,56 M 360,366 l 22,-40 l 22,40 M 410,368 l 26,-50 l 26,50 M 470,370 l 22,-42 l 22,42 M 520,372 l 28,-54 l 28,54 M 590,374 l 22,-40 l 22,40 M 640,376 l 26,-50 l 26,50 M 700,378 l 22,-40 l 22,40"/>
+    </g>
+    <!-- 雪峰积雪 -->
+    <g fill="rgba(255,255,255,.55)" stroke="none">
+      <path d="M 216,308 l 8,16 l -16,0 z"/><path d="M 328,308 l 9,18 l -18,0 z"/><path d="M 548,318 l 9,18 l -18,0 z"/><path d="M 666,326 l 8,16 l -16,0 z"/>
+    </g>
+    <text class="cname s" x="470" y="300" style="letter-spacing:.2em">喜 马 拉 雅 雪 山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="lasa"><circle cx="820" cy="150" r="6"/><text class="cname" x="700" y="146">拉萨<tspan class="cname s" dx="2">(驻藏大臣)</tspan></text></g>
+      <g class="city" data-city="rikaze"><circle cx="470" cy="188" r="5"/><text class="cname" x="428" y="176">日喀则<tspan class="cname s" dx="2">·扎什伦布</tspan></text></g>
+      <g class="city" data-city="camu"><circle cx="330" cy="410" r="4.5"/><text class="cname s" x="240" y="406">擦木·聂拉木</text></g>
+      <g class="city" data-city="jilong"><circle cx="430" cy="430" r="5"/><text class="cname" x="444" y="426">济咙<tspan class="cname s" dx="2">·吉隆</tspan></text></g>
+      <g class="city" data-city="resuo"><circle cx="380" cy="478" r="4"/><text class="cname s" x="392" y="494">热索桥·铁索桥</text></g>
+      <g class="city cap" data-city="yangbu"><circle cx="352" cy="590" r="6"/><text class="cname" x="364" y="588">阳布<tspan class="cname s" dx="2">(加德满都·廓都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 廓尔喀犯藏 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 360,560 C 380,500 420,440 452,392 C 466,340 472,260 472,206"/>
+      <text class="mlabel q" x="470" y="470">廓尔喀两犯后藏,凭商税银钱之争</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 460,200 C 480,204 500,196 490,190"/>
+      <text class="mlabel q" x="300" y="228">掠日喀则扎什伦布寺</text>
+      <path class="march j" marker-end="url(#aj)" d="M 810,158 C 700,182 600,196 490,192"/>
+      <text class="mlabel j" x="560" y="212">乾隆命福康安·海兰察率师入藏</text>
+      <text class="anno" x="600" y="140">巴图鲁侍卫及各路劲旅,自青海入藏</text>
+    </g>
+
+    <!-- 阶段一:逾雪山·长驱入廓 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 812,158 C 640,190 540,196 476,192"/>
+      <text class="mlabel j" x="560" y="176">福康安自西藏进兵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 468,196 C 450,270 436,340 424,404"/>
+      <text class="mlabel j" x="436" y="300">逾喜马拉雅雪山,冒风雪履冰川</text>
+      <text class="anno" x="150" y="340">长驱直入廓境,历世界屋脊之险</text>
+    </g>
+
+    <!-- 阶段二:连破诸隘·渡铁索桥 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="326" y="406" width="8" height="8" transform="rotate(45 330 410)"/>
+      <rect class="camp" x="426" y="426" width="9" height="9" transform="rotate(45 430 430)"/>
+      <text class="mlabel q" x="200" y="392">廓军扼擦木·济咙诸险,凭碉拒守</text>
+      <path class="march j" marker-end="url(#aj)" d="M 424,410 C 420,416 424,422 430,424"/>
+      <circle class="star" cx="430" cy="430" r="8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 334,414 C 340,420 340,424 336,428"/>
+      <circle class="star" cx="330" cy="410" r="8"/>
+      <text class="mlabel j" x="200" y="452">仰攻夜袭·绕道包抄,连破之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 426,436 C 410,452 396,466 386,472"/>
+      <circle class="star" cx="380" cy="478" r="8"/>
+      <text class="mlabel j" x="392" y="512">血战渡热索桥·铁索桥</text>
+    </g>
+
+    <!-- 阶段三:逼阳布·廓尔喀乞降 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 378,484 C 368,520 360,552 356,582"/>
+      <text class="mlabel j" x="366" y="546">深入六七百里,逼廓都阳布</text>
+      <path d="M 352,590 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path class="march q rout" marker-end="url(#ar)" d="M 344,584 C 320,556 306,524 300,496"/>
+      <text class="mlabel r" x="180" y="540">廓尔喀震恐,乞降纳贡</text>
+      <text class="anno" x="180" y="560">归所掠·缚献首恶·永为藩属,五年一贡</text>
+      <text class="anno" x="560" y="240">西藏遂安,为乾隆十全武功之殿</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(入藏军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>廓尔喀军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退·乞降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>破隘·血战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·西藏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>廓尔喀</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《清史稿·高宗本纪》《清史稿·福康安传》《廓尔喀纪略》约略绘出。阳布即今尼泊尔加德满都,济咙即吉隆,擦木、聂拉木、热索桥·铁索桥皆藏廓边界险隘;喜马拉雅雪山及雅鲁藏布、吉隆藏布诸水地望为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为清藏与廓尔喀形势示意:北为清·西藏(自拉萨、日喀则来),南为廓尔喀(沙阿王朝,据喜马拉雅南麓),二者约以雪山分脊为界;故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>福康安率师逾喜马拉雅,冒风雪、履冰川,长驱六七百里,连破擦木、玛噶尔辖尔甲、济咙、热索桥诸险,渡铁索桥,进逼廓都阳布百余里。会雨季山洪、粮运艰阻,廓尔喀乞降纳贡、永为藩属。此为乾隆「十全武功」之殿功,自诩「十全老人」;战后订《钦定藏内善后章程》,立驻藏大臣制、金瓶掣签制,以固西藏之治。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"廓尔喀犯藏",d:"乾隆五十三至五十六年(1788–1791)",p:["廓尔喀(今尼泊尔)沙阿王朝崛起,以商税、银钱之争两次入侵后藏,劫掠日喀则扎什伦布寺,后藏震动。","乾隆五十六年,命大将军福康安、参赞大臣海兰察率巴图鲁侍卫及各路劲旅,自青海、西藏进兵入藏征讨,以拉萨为进兵之基。"]},
+  "1":{t:"逾雪山·长驱入廓",d:"乾隆五十七年春(1792)",p:["福康安自西藏进兵,逾喜马拉雅雪山,冒风雪、履冰川,翻越世界屋脊之险,长驱直入廓境。","将士履冰雪、涉绝谷,粮运艰难而气不衰;自后藏南下,趋擦木、济咙诸隘,以捣廓军之守。"]},
+  "2":{t:"连破诸隘·渡铁索桥",d:"乾隆五十七年五至六月",p:["廓军扼擦木、玛噶尔辖尔甲、济咙、热索桥诸险隘,依山临水、凭碉拒守,恃险以抗。","福康安分兵仰攻、夜袭,绕道包抄,连破诸隘;血战渡热索桥、铁索桥,廓军险守尽失,门户洞开。"]},
+  "3":{t:"逼阳布·廓尔喀乞降",d:"乾隆五十七年秋(1792)",p:["清军深入廓境六七百里,进逼廓都阳布(加德满都)百余里;廓尔喀震恐,又值雨季山洪、粮运艰难。","廓尔喀乃遣使乞降,归还所掠、缚献首恶、永为藩属、五年一贡。福康安受降班师,西藏遂安,是役为乾隆「十全武功」之殿功。"]}
+};
+const CITY={
+  lasa:{t:"拉萨",d:"清·西藏,驻藏大臣驻地",p:["福康安进兵之基,亦驻藏大臣治所。战后订《钦定藏内善后章程》,确立驻藏大臣制、金瓶掣签制,以固西藏之治。"]},
+  rikaze:{t:"日喀则·扎什伦布",d:"后藏重镇",p:["班禅驻锡之扎什伦布寺所在。廓尔喀两犯后藏,前掠及此,寺遭劫掠,遂启乾隆征讨之师。"]},
+  camu:{t:"擦木·聂拉木",d:"廓军入藏门户",p:["廓军入藏之门户险隘,凭碉拒守。福康安仰攻夜袭克之,启入廓之途。"]},
+  jilong:{t:"济咙·吉隆",d:"廓军据守之险隘",p:["廓军据险凭碉之要隘。福康安绕道包抄,连破之,遂长驱南下。"]},
+  resuo:{t:"热索桥·铁索桥",d:"藏廓边界险隘·血战处",p:["跨河险桥,廓军扼守。清军血战强渡,破其天险,直逼廓境腹地。"]},
+  yangbu:{t:"阳布(加德满都)",d:"廓尔喀都城",p:["廓尔喀沙阿王朝之都。清军深入六七百里逼近其都百余里,廓尔喀震恐乞降,永为藩属、五年一贡。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
