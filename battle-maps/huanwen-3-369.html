@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -28,9 +29,23 @@
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .border.cede{stroke:var(--qin);stroke-dasharray:2 4;opacity:.6;stroke-width:1.3}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .marsh{fill:rgba(95,127,136,.16);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
+  /* 漕运·粮道:金色串珠动脉,叠于水道之上,示军粮所经 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +54,15 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -58,7 +73,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,148 +87,238 @@
   <div class="seal" aria-hidden="true"><span>枋</span><span>头</span><span>之</span><span>战</span></div>
   <header>
     <h1>桓温第三次北伐·枋头</h1>
-    <div class="sub">晋太和四年(369)　　<i>东晋 桓温</i> 伐 <b>前燕 慕容垂</b>(前秦救之)　·　枋头大败</div>
+    <div class="sub">晋太和四年(369)　　<i>东晋 桓温</i> 伐 <b>前燕 慕容垂</b>,<em>前秦</em>救之　·　舟师北上 · 漕绝而溃</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 长驱枋头</button>
-    <button data-p="1">凿渠北上</button>
-    <button data-p="2">燕秦合御</button>
-    <button data-p="3">枋头大溃</button>
+    <button data-p="1">凿渠北上(水路)</button>
+    <button data-p="2">燕秦合御 · 断粮道</button>
+    <button data-p="3">枋头大溃(陆路)</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="桓温第三次北伐枋头之战形势图,含东晋前燕疆界、黄河清水漕渠与枋头邺城寿春等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="桓温第三次北伐枋头之战形势图,含东晋前燕前秦三国疆界、黄河淮泗清水桓公渎汴渠诸水、舟师水路与陆路溃退,及枋头邺城石门谯襄邑等地">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:前燕据河北(北),东晋据江淮(南),约以黄河为界 -->
-    <path d="M 0,210 C 150,196 320,188 470,196 C 620,204 760,200 1000,196 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,210 C 150,196 320,188 470,196 C 620,204 760,200 1000,196 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,210 C 150,196 320,188 470,196 C 620,204 760,200 1000,196"/>
-    <text class="realm q" x="120" y="110" font-size="32">前 燕(河北)</text>
-    <text class="realm j" x="640" y="560" font-size="30">东 晋(江淮)</text>
+    <!-- ══ 三国疆界:前燕据河北中原(北),东晋据江淮(南),前秦据关中(西) ══ -->
+    <path d="M 0,30 L 1000,30 L 1000,412 C 850,432 650,458 400,468 C 260,474 130,472 0,470 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,470 C 130,472 260,474 400,468 C 650,458 850,432 1000,412 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,30 L 182,30 C 194,120 190,205 182,258 C 178,300 172,332 168,352 L 0,350 Z" fill="url(#fqinHatch)"/>
+    <!-- 燕晋约界(淮水一线) -->
+    <path class="border" d="M 0,470 C 130,472 260,474 400,468 C 650,458 850,432 1000,412"/>
+    <!-- 秦燕约界(崤函一线) -->
+    <path class="border" d="M 182,30 C 194,120 190,205 182,258 C 178,300 172,332 168,352"/>
+    <!-- 燕许割『虎牢以西』畀秦 -->
+    <path class="border cede" d="M 331,56 C 337,130 335,196 331,250 C 329,278 327,300 326,318"/>
+    <text class="realm f" x="46" y="150" font-size="24">前 秦</text>
+    <text class="cname s" x="40" y="172" style="fill:var(--qin);opacity:.7">(关中)</text>
+    <text class="realm q" x="150" y="428" font-size="27">前 燕(河北·中原)</text>
+    <text class="realm j" x="656" y="590" font-size="28">东 晋(江淮)</text>
+    <text class="cname s" x="338" y="300" style="fill:var(--qin);opacity:.75">割虎牢以西畀秦</text>
 
-    <!-- 黄河:横贯上方 W-E,枋头在南岸 -->
-    <path class="river" stroke-width="5.5" d="M 0,196 C 160,210 320,232 470,236 C 600,240 720,230 820,224 C 900,219 960,214 1000,210"/>
-    <!-- 清水/漕渠:自东南金乡北上入河 -->
-    <path class="river" stroke-width="2.8" d="M 470,540 C 462,470 458,400 462,330 C 464,290 466,262 470,238"/>
-    <!-- 汶水(引汶入清) -->
-    <path class="river" stroke-width="2.2" d="M 360,540 C 400,520 440,508 470,498"/>
-    <text class="rname" x="180" y="222" style="font-size:13px">黄 河</text>
-    <text class="rname" x="476" y="380" transform="rotate(86 476 380)" style="font-size:11px">清水·漕渠</text>
-    <text class="rname" x="384" y="528" transform="rotate(-22 384 528)" style="font-size:10.5px">汶水</text>
+    <!-- ══ 山脉 ══ -->
+    <path class="mtn fill" d="M 250,182 L 268,142 L 284,160 L 304,110 L 324,148 L 344,96 L 364,136 L 384,90 L 402,130 L 416,104 Z"/>
+    <path class="mtn" d="M 300,150 l 14,-20 l 12,14 l 16,-24 l 13,18 l 15,-22"/>
+    <text class="mname" x="300" y="112" transform="rotate(-22 300 112)">太 行 山</text>
+    <path class="mtn fill" d="M 686,152 L 706,118 L 722,136 L 742,100 L 762,130 L 784,106 L 804,142 Z"/>
+    <path class="mtn" d="M 716,134 l 12,-16 l 10,11 l 13,-18 l 11,14"/>
+    <text class="mname" x="720" y="170">泰山·鲁中</text>
+    <path class="mtn fill" d="M 148,302 L 164,280 L 178,294 L 196,272 L 214,292 L 232,276 L 246,296 Z"/>
+    <text class="mname" x="160" y="320" style="font-size:10px">崤 函</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西东流,荥阳(石门)南岸,东北趋濮阳,枋头在南岸 -->
+    <path class="river" stroke-width="5" d="M 0,206 C 120,214 240,220 344,208 C 392,200 424,176 449,144 C 494,150 512,132 560,116 C 640,90 720,64 800,48 L 1000,36"/>
+    <!-- 淮水:南境东西大川,寿春在其上 -->
+    <path class="river" stroke-width="3.6" d="M 0,476 C 240,468 470,464 694,462 C 820,460 920,446 1000,430"/>
+    <!-- 泗水:自济宁金乡东南入淮泗口 -->
+    <path class="river" stroke-width="2.6" d="M 662,200 C 722,246 822,314 918,354"/>
+    <!-- 邗沟:自广陵北通山阳入淮(江—淮) -->
+    <path class="river" stroke-width="2.2" d="M 952,488 C 938,450 930,406 926,368"/>
+    <!-- 桓公渎+清水:金乡凿钜野三百里,引汶会清入河(晋军舟师之道) -->
+    <path class="river" stroke-width="2.8" d="M 648,203 C 634,184 626,172 618,163 C 556,150 500,148 452,146"/>
+    <!-- 汶水:自泰山西引汶入渠 -->
+    <path class="river" stroke-width="2.2" d="M 806,150 C 742,152 680,157 622,162"/>
+    <!-- 汴渠(蒗荡渠):自荥阳石门分黄河,东南历襄邑趋淮(拟通之漕道) -->
+    <path class="river" stroke-width="2.4" style="opacity:.7" d="M 344,220 C 404,236 470,252 532,268 C 580,282 636,306 690,334"/>
+    <!-- 淇水:自太行东出,曹操堰之以通枋头白沟 -->
+    <path class="river" stroke-width="2" d="M 400,92 C 420,110 434,128 447,142"/>
+    <text class="rname" x="150" y="238" style="font-size:13px">黄 河</text>
+    <text class="rname" x="120" y="490" style="font-size:12px">淮 水</text>
+    <text class="rname" x="806" y="292" transform="rotate(34 806 292)" style="font-size:11px">泗水</text>
+    <text class="rname" x="944" y="440" transform="rotate(78 944 440)" style="font-size:10px">邗沟</text>
+    <text class="rname" x="640" y="196" style="font-size:10.5px">桓公渎</text>
+    <text class="rname" x="498" y="140" style="font-size:10.5px">清水·白沟</text>
+    <text class="rname" x="726" y="150" transform="rotate(-6 726 150)" style="font-size:10px">汶水</text>
+    <text class="rname" x="470" y="266" transform="rotate(20 470 266)" style="font-size:10px">汴渠(蒗荡渠)</text>
+    <text class="rname" x="404" y="98" transform="rotate(48 404 98)" style="font-size:9.5px">淇水</text>
 
     <!-- 钜野泽 -->
-    <g class="mtn"><path d="M 430,520 q 18,-10 36,0 q -18,10 -36,0" fill="none"/></g>
-    <text class="cname s" x="406" y="512">钜野泽</text>
+    <path class="marsh" d="M 588,150 C 570,156 566,172 580,182 C 598,194 640,192 660,180 C 674,170 670,154 652,150 C 628,144 606,144 588,150 Z"/>
+    <text class="cname s" x="600" y="170" style="opacity:.8">钜野泽</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 漕运·粮道:金色串珠动脉,叠于泗—桓公渎—清水,并汴渠一支,为北伐命脉 ══ -->
+    <path class="supply band" d="M 871,566 C 912,538 946,510 950,486 C 938,446 928,406 924,368 C 848,320 744,250 650,205 C 634,184 560,150 454,148"/>
+    <path class="supply band" d="M 344,222 C 404,238 470,254 532,270 C 580,284 636,308 690,336"/>
+    <path class="supply core" d="M 871,566 C 912,538 946,510 950,486 C 938,446 928,406 924,368 C 848,320 744,250 650,205 C 634,184 560,150 454,148"/>
+    <path class="supply core" d="M 344,222 C 404,238 470,254 532,270 C 580,284 636,308 690,336"/>
+    <g class="grain">
+      <rect x="945" y="496" width="7" height="7" transform="rotate(45 948.5 499.5)"/>
+      <rect x="920" y="404" width="7" height="7" transform="rotate(45 923.5 407.5)"/>
+      <rect x="826" y="304" width="7" height="7" transform="rotate(45 829.5 307.5)"/>
+      <rect x="688" y="222" width="7" height="7" transform="rotate(45 691.5 225.5)"/>
+      <rect x="548" y="152" width="7" height="7" transform="rotate(45 551.5 155.5)"/>
+      <rect x="470" y="250" width="7" height="7" transform="rotate(45 473.5 253.5)"/>
+    </g>
+    <text class="slabel" x="770" y="360">漕运 · 粮道</text>
+    <text class="slabel" x="770" y="374" style="font-size:9.5px;opacity:.8">舟运军食之命脉</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="gushu"><circle cx="600" cy="600" r="6"/><text class="cname" x="556" y="618">姑孰<tspan class="cname s" dx="2">(今当涂)</tspan></text></g>
-      <g class="city" data-city="shouchun"><circle cx="498" cy="556" r="5"/><text class="cname" x="448" y="552">寿春</text></g>
-      <g class="city" data-city="qiao"><circle cx="486" cy="470" r="3.5"/><text class="cname s" x="496" y="466">谯</text></g>
-      <g class="city" data-city="jinxiang"><circle cx="470" cy="498" r="4"/><text class="cname s" x="478" y="514">金乡·钜野泽</text></g>
-      <g class="city" data-city="xiangyi"><circle cx="540" cy="380" r="4.5"/><text class="cname" x="550" y="376">襄邑</text></g>
-      <g class="city" data-city="jincheng"><circle cx="466" cy="320" r="3.5"/><text class="cname s" x="402" y="316">金城(经过)</text></g>
-      <g class="city" data-city="fangtou"><circle cx="470" cy="252" r="6"/><text class="cname" x="478" y="272">枋头</text></g>
-      <g class="city" data-city="shimen"><circle cx="426" cy="262" r="3.5"/><text class="cname s" x="364" y="266">石门</text></g>
-      <g class="city cap" data-city="ye"><circle cx="556" cy="152" r="6.5"/><text class="cname" x="566" y="148">邺<tspan class="cname s" dx="2">(燕都)</tspan></text></g>
+      <g class="city" data-city="gushu"><circle cx="871" cy="571" r="6"/><text class="cname" x="828" y="589">姑孰<tspan class="cname s" dx="2">(今当涂)</tspan></text></g>
+      <g class="city" data-city="jincheng"><circle cx="944" cy="531" r="3.5"/><text class="cname s" x="900" y="524">金城</text></g>
+      <g class="city" data-city="shanyang"><circle cx="926" cy="368" r="4"/><text class="cname s" x="880" y="360">山阳</text></g>
+      <g class="city" data-city="jinxiang"><circle cx="648" cy="203" r="5"/><text class="cname" x="640" y="222">金乡<tspan class="cname s" dx="2">(湖陆)</tspan></text></g>
+      <g class="city" data-city="fangtou"><circle cx="449" cy="148" r="6.5"/><text class="cname" x="458" y="146">枋头</text></g>
+      <g class="city" data-city="huangxu"><circle cx="463" cy="229" r="3.5"/><text class="cname s" x="471" y="226">黄墟</text></g>
+      <g class="city" data-city="linzhu"><circle cx="390" cy="266" r="3.5"/><text class="cname s" x="348" y="278">林渚</text></g>
+      <g class="city" data-city="dongyan"><circle cx="437" cy="200" r="3"/><text class="cname s" x="392" y="196">东燕</text></g>
+      <g class="city" data-city="cangyuan"><circle cx="432" cy="222" r="3"/><text class="cname s" x="386" y="236">仓垣</text></g>
+      <g class="city" data-city="xiangyi"><circle cx="532" cy="266" r="4.5"/><text class="cname" x="542" y="262">襄邑</text></g>
+      <g class="city" data-city="qiao"><circle cx="590" cy="330" r="4.5"/><text class="cname" x="600" y="330">谯</text></g>
+      <g class="city" data-city="shouchun"><circle cx="694" cy="464" r="4.5"/><text class="cname" x="704" y="462">寿春</text></g>
+      <g class="city" data-city="shimen"><circle cx="344" cy="216" r="4.5"/><text class="cname" x="256" y="210">石门<tspan class="cname s" dx="2">(汴口)</tspan></text></g>
+      <g class="city" data-city="hulao"><circle cx="331" cy="250" r="3"/><text class="cname s" x="336" y="246">虎牢</text></g>
+      <g class="city" data-city="luoyang"><circle cx="245" cy="248" r="4"/><text class="cname" x="200" y="244">洛阳</text></g>
+      <g class="city" data-city="shancheng"><circle cx="110" cy="238" r="3.5"/><text class="cname s" x="60" y="234">陕城</text></g>
+      <g class="city cap" data-city="ye"><circle cx="427" cy="74" r="6.5"/><text class="cname" x="437" y="72">邺<tspan class="cname s" dx="2">(燕都)</tspan></text></g>
+    </g>
+
+    <!-- 长安(图外·西) -->
+    <g transform="translate(6,250)">
+      <path class="march qin" marker-end="url(#af)" d="M 4,0 L 30,0"/>
+      <text class="mlabel f" x="0" y="-8" style="font-size:10px">⟵ 长安·关中</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--qin);font-size:9.5px">前秦都(图外)</text>
     </g>
 
     <!-- 全图 · 长驱枋头 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 596,592 C 540,560 500,520 488,486 C 476,440 468,360 468,266"/>
-      <text class="mlabel j" x="500" y="430">桓温率五万,凿渠通舟,水陆并进,长驱枋头</text>
-      <text class="anno" x="490" y="300">前锋克湖陆,擒燕将慕容忠</text>
-      <text class="mlabel q" x="120" y="170">慕容暐惧,欲北走和龙;慕容垂请战拒之</text>
-      <path class="march q" marker-end="url(#aq)" d="M 552,160 C 530,200 510,228 484,248"/>
-      <text class="anno" x="480" y="200">燕割虎牢以西,求救于前秦</text>
+      <path class="march j" marker-end="url(#aj)" d="M 871,562 C 908,536 942,510 946,486 C 934,447 924,407 920,368 C 846,320 744,250 650,201 C 634,180 560,146 452,144"/>
+      <text class="mlabel j" x="726" y="286">舟师·水路,长驱枋头</text>
+      <circle class="star" cx="463" cy="229" r="6"/>
+      <circle class="star" cx="390" cy="266" r="6"/>
+      <text class="anno" x="300" y="252">黄墟破慕容厉,林渚破傅颜</text>
+      <text class="mlabel q" x="360" y="60">慕容暐惧,欲北走和龙;慕容垂请战拒之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 427,86 C 435,110 442,128 448,142"/>
+      <text class="anno" x="180" y="360">燕割虎牢以西,乞援于前秦</text>
     </g>
 
-    <!-- 阶段一:凿渠北上 -->
+    <!-- 阶段一:凿渠北上(水路) -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 596,592 C 548,562 512,528 500,496"/>
-      <text class="mlabel j" x="510" y="540">自姑孰发,经金乡</text>
-      <path class="march j" marker-end="url(#aj)" d="M 470,490 C 466,440 464,380 468,330"/>
-      <text class="anno" x="300" y="470">时旱,凿钜野泽三百里,引汶入清,以通漕运</text>
-      <text class="anno" x="220" y="340">途经金城,见昔种柳已十围:"木犹如此,人何以堪"</text>
-      <path class="march j" marker-end="url(#aj)" d="M 467,312 C 466,290 468,272 470,260"/>
-      <text class="mlabel j" x="476" y="296">前锋败燕军,克湖陆,进屯枋头</text>
-      <rect class="camp" x="466" y="248" width="9" height="9" transform="rotate(45 470 252)"/>
-      <text class="mlabel q" x="500" y="240">燕都大震</text>
+      <path class="march j" marker-end="url(#aj)" d="M 871,562 C 908,536 942,510 946,486 C 934,447 924,407 920,368 C 872,332 796,286 720,244"/>
+      <text class="mlabel j" x="828" y="430">自姑孰循邗沟入淮、泗</text>
+      <text class="anno" x="860" y="520">过金城,见手植柳已十围:『木犹如此,人何以堪』</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,232 C 660,214 650,208 650,205 C 632,184 560,150 456,148"/>
+      <text class="anno" x="560" y="196">时旱水涸,凿钜野三百里,引汶入清,舟师入河</text>
+      <text class="mlabel j" x="440" y="180">前锋克湖陆,进屯枋头</text>
+      <rect class="camp" x="445" y="144" width="9" height="9" transform="rotate(45 449 148)"/>
+      <text class="mlabel q" x="470" y="110">燕都大震</text>
     </g>
 
-    <!-- 阶段二:燕秦合御 -->
+    <!-- 阶段二:燕秦合御 · 断粮道 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="552" y="148" width="9" height="9" transform="rotate(45 556 152)"/>
-      <text class="mlabel q" x="500" y="130">慕容垂自督诸军拒温于枋头</text>
-      <path class="march q" marker-end="url(#aq)" d="M 552,162 C 520,200 490,222 446,256"/>
-      <text class="mlabel q" x="372" y="248">慕容德绝石门漕道</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 558,176 C 552,260 540,360 530,440"/>
-      <text class="anno" x="540" y="430">李邽断其陆运粮道</text>
-      <path class="march q" marker-end="url(#aq)" d="M 0,150 C 120,170 220,200 300,236"/>
-      <text class="mlabel q" x="20" y="140">苻坚遣苟池、邓羌将二万东出救燕</text>
+      <rect class="camp" x="423" y="70" width="9" height="9" transform="rotate(45 427 74)"/>
+      <text class="mlabel q" x="360" y="56">慕容垂自督诸军拒温于枋头</text>
+      <path class="march q" marker-end="url(#aq)" d="M 427,86 C 435,110 442,128 447,142"/>
+      <!-- 断汴口漕道:慕容德屯石门 -->
+      <path class="march q" marker-end="url(#aq)" d="M 424,84 C 400,130 372,178 350,210"/>
+      <g class="cut" transform="translate(344,216)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="196" y="200">慕容德屯石门,绝汴口漕道 ✕</text>
+      <!-- 断清水漕运 -->
+      <g class="cut" transform="translate(556,152)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="566" y="150">燕绝清水漕运 ✕</text>
+      <!-- 前秦自关中东出救燕 -->
+      <path class="march qin" marker-end="url(#af)" d="M 40,254 C 120,250 190,250 245,250 C 320,262 400,286 470,308"/>
+      <text class="mlabel f" x="150" y="278">苻坚遣苟池、邓羌步骑二万,自关中东出救燕</text>
     </g>
 
-    <!-- 阶段三:枋头大溃 -->
+    <!-- 阶段三:枋头大溃(陆路) -->
     <g id="ph3" class="ph">
-      <text class="mlabel j" x="478" y="240">漕运不继,军粮将尽,温焚舟弃辎重</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 470,260 C 472,310 480,350 516,376"/>
-      <circle class="star" cx="540" cy="380" r="8"/>
-      <text class="mlabel r" x="496" y="338">自陆道南撤七百里</text>
-      <text class="mlabel q" x="556" y="372">慕容垂八千骑蹑后,邀击襄邑,大破之,斩首三万</text>
-      <path class="march q" marker-end="url(#aq)" d="M 562,156 C 560,260 556,340 548,372"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 532,386 C 520,420 504,446 490,464"/>
-      <circle class="star" cx="486" cy="470" r="6"/>
-      <text class="mlabel q" x="396" y="490">苟池又邀之于谯,复死万余</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 484,476 C 492,510 496,532 498,548"/>
-      <text class="mlabel r" x="394" y="572">袁真愤而据寿春叛,降于前燕</text>
+      <text class="mlabel r" x="356" y="132">漕绝粮尽,温焚舟,弃辎重,自陆道还</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 449,158 C 442,180 438,192 437,200 C 434,208 432,214 432,220 C 458,236 500,252 528,264"/>
+      <text class="mlabel r" x="380" y="238">迂道东出,凿井而饮,七百余里</text>
+      <circle class="star" cx="532" cy="266" r="8"/>
+      <path class="march q" marker-end="url(#aq)" d="M 431,80 C 460,150 500,222 526,258"/>
+      <text class="mlabel q" x="540" y="262">慕容垂追及襄邑,慕容德伏东涧,夹击,斩首三万</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 538,272 C 560,294 576,310 586,326"/>
+      <circle class="star" cx="590" cy="330" r="6.5"/>
+      <path class="march qin" marker-end="url(#af)" d="M 60,256 C 220,258 420,300 582,326"/>
+      <text class="mlabel f" x="596" y="336">前秦苟池邀之于谯,复死万余</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 596,338 C 640,378 680,420 690,452"/>
+      <text class="mlabel r" x="606" y="470">袁真愤而据寿春叛,降于前燕</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(956,118)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(桓温)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前燕·前秦军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>晋军溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(舟师)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前燕军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>前秦援军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>晋军溃退(陆路)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>漕运·粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断粮道</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>邀击</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>前燕</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>前燕</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>前秦</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一〇二、《晋书·桓温传》《慕容垂载记》约略绘出。枋头在今河南浚县西南黄河故道,邺在今临漳,襄邑今睢县,寿春今寿县。黄河、清水、漕渠及城邑经简化,位置相对示意。</p>
-    <p><span class="n">注二</span>桓温恃前两次北伐之威,深入而无后继之谋;郗超尝谏宜速战或据河、漕,温不能用。慕容垂断粮、迟战、待秦援,而后蹑击于归途,尽得用兵之机。</p>
-    <p><span class="n">注三</span>枋头一败,丧师三万余,桓温积年威望大损;其归罪袁真,逼反寿春。桓温虽旋行废立(废海西公、立简文帝)以自重,然代晋之志终不得逞。慕容垂以此役名震当世,后建后燕。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度墨卡托投影定位,几何关系力求近实:枋头在北(黄河南岸),邺都在其西北,石门·荥阳在西南,金乡·钜野在东,谯在东南,前秦自西入。江河、疆界经简化描绘。枋头今河南浚县西南淇门,邺今河北临漳邺城遗址,石门即荥阳汴口,襄邑今睢县,谯今亳州,寿春今寿县,陕城今三门峡。</p>
+    <p><span class="n">注二</span>进军全恃舟师水运:自姑孰循邗沟入淮,溯泗水而北;至金乡水涸,凿钜野三百里为『桓公渎』,引汶会清,『引舟师自清水入河,舟舰相接数百里』(《资治通鉴》卷一〇二)。故行军路线与漕运粮道基本重合。及退,则『焚舟,弃辎重铠仗,自陆道还』——舟既自焚、漕又被绝,归途遂只得走陆路。</p>
+    <p><span class="n">注三</span>制胜之枢在『断粮』:桓温令袁真攻谯、梁而开石门(荥阳汴口),欲由汴渠通运,真取谯梁而石门竟不能开;慕容德帅万五千骑屯石门绝之,燕又断其清水漕道。郗超尝谏『道远汲艰,宜先据河、漕蓄粮,俟明夏乃进』,温不用。粮道两截(图中朱色 ✕),孤军悬河,败机遂伏。</p>
+    <p><span class="n">注四</span>三国相角:东晋(青)为主,前燕(赭)为敌,前秦(紫)为第三方。前燕以割『虎牢以西』乞援,秦主苻坚纳王猛谋,八月遣苟池、洛州刺史邓羌(镇陕城)将步骑二万,自关中(都长安,图外西)东出崤函救燕,后邀晋败军于谯。慕容垂以此役名震当世,数年后建后燕。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"长驱枋头",d:"晋太和四年(369)四 — 七月",p:["桓温欲立威以图禅代,太和四年率步骑五万,自姑孰北伐前燕。自兖州凿渠通舟,引汶水会清水入黄河,水陆并进,长驱直抵枋头,前逼燕都邺城。","前燕主慕容暐震恐,几欲弃邺北走和龙;赖吴王慕容垂请战拒之,又遣使割虎牢以西之地赂前秦求救。总览晋军北上深入、燕求救于秦之大势。"]},
-  "1":{t:"凿渠北上",d:"太和四年四 — 六月",p:["桓温自姑孰发,经金乡。时天旱水涸,乃凿钜野泽三百里,引汶水入清水以通漕运,自清水入河。途经金城,见少时所植之柳皆已十围,慨然曰“木犹如此,人何以堪”,攀枝执条,泫然流涕。","晋军前锋败燕军,克湖陆,擒燕将慕容忠,进屯枋头,直逼邺城之南——燕都大震,君臣失色。"]},
-  "2":{t:"燕秦合御",d:"太和四年七 — 八月",p:["前燕主慕容暐恐,欲弃邺北走和龙故都;吴王慕容垂独请战,自督诸军拒桓温于枋头。乃遣慕容德等绝晋军石门之漕道,使李邽断其陆运粮道——燕之御温,先断其粮。","前燕又许割虎牢以西之地赂前秦以求救。秦主苻坚纳王猛之谋,遣将军苟池、邓羌将步骑二万东出救燕。燕、秦合势,而晋军孤悬河上、漕道已绝。"]},
-  "3":{t:"枋头大溃",d:"太和四年九月",p:["桓温以漕运不继(豫州刺史袁真不能开石门以通水)、军粮将尽,又闻秦兵将至,遂焚舟、弃辎重铠仗,自陆道仓皇南撤七百里。仓卒之间,士无斗志。","慕容垂帅八千骑蹑其后,先纵兵于襄邑邀击,大破晋军,斩首三万;苟池又邀之于谯,复死万余。桓温威望大损,归罪于袁真;袁真愤而据寿春叛,降于前燕。北伐遂以惨败终。"]}
+  all:{t:"长驱枋头",d:"晋太和四年(369)四 — 七月",p:["桓温欲立威以图禅代,太和四年四月率步骑五万自姑孰北伐前燕。舟师自邗沟入淮,溯泗水而北;至金乡值天旱水涸,乃凿钜野三百里为『桓公渎』,引汶水会清水,舟舰相接数百里,自清水入黄河,长驱抵枋头,前逼燕都邺城。","沿途前锋于黄墟大破燕征讨大都督慕容厉,邓遐、朱序又败燕将傅颜于林渚。燕主慕容暐震恐,几欲弃邺北走和龙故都;赖吴王慕容垂请战拒之,并许割虎牢以西之地,乞援于西方之前秦。"]},
+  "1":{t:"凿渠北上(水路)",d:"太和四年四 — 六月",p:["北伐全恃舟师水运。桓温发姑孰,过金城,见昔为琅邪内史时手植之柳皆已十围,慨然曰『木犹如此,人何以堪』,攀枝执条,泫然流涕。军循邗沟入淮,溯泗水而北,至金乡水道遂绝。","乃令毛虎生凿钜野泽三百里,引汶水会于清水以通漕,自清水入河。前锋克湖陆(金乡),擒燕将慕容忠,进屯枋头——舟师载兵载粮,水陆之势始成,燕都大震。"]},
+  "2":{t:"燕秦合御 · 断粮道",d:"太和四年七 — 九月",p:["慕容垂自督诸军拒温于枋头,而制胜之要在断粮:遣慕容德、刘当帅骑万五千屯石门(荥阳汴口),阻晋豫州刺史袁真凿开石门、由汴渠通运;又绝其清水漕道。桓温所恃之水运,遂两端俱塞。","前燕许割虎牢以西赂前秦求救。秦主苻坚纳王猛之谋,八月遣将军苟池、洛州刺史邓羌(镇陕城)帅步骑二万,自关中东出崤函以救燕。郗超尝谏温『道远汲艰,宜据河、漕蓄粮,俟明夏乃进』,温不能用——今漕绝粮尽,孤军悬于河上矣。"]},
+  "3":{t:"枋头大溃(陆路)",d:"太和四年九月",p:["漕运不继、军粮将尽,又闻秦兵将至,桓温九月焚舟,弃辎重铠仗,自陆道南还。畏燕邀于石门,乃迂道东出,自东燕经仓垣,凿井而饮,仓皇七百余里,士无斗志。","慕容垂帅八千骑蹑其后,追及于襄邑;慕容德先以四千骑伏襄邑东涧,前后夹击,大破晋军,斩首三万。前秦苟池又邀之于谯,复死万余。桓温归罪袁真,真愤而据寿春叛降前燕。北伐以惨败终,温威望大损。"]}
 };
 const CITY={
-  gushu:{t:"姑孰",d:"桓温出兵地,今安徽当涂",p:["桓温镇所、出兵之地。太和四年率步骑五万自此北伐前燕。"]},
-  jinxiang:{t:"金乡·钜野泽",d:"今山东金乡一带",p:["桓温所经。时旱,凿钜野泽三百里,引汶水入清水以通漕,自清水入河。"]},
-  jincheng:{t:"金城",d:"晋军北上所经",p:["桓温见少时手植之柳已十围,慨然曰“木犹如此,人何以堪”,攀枝执条,泫然流涕。"]},
-  fangtou:{t:"枋头",d:"黄河南岸,今河南浚县西南",p:["晋军深入屯军、与燕对峙之地。漕道既绝、粮尽,桓温焚舟自此南撤,败局由是定。"]},
-  shimen:{t:"石门",d:"漕渠关键,近枋头",p:["开石门则漕渠通水。袁真受命而不能开,晋军漕运不继,军食遂困。"]},
-  ye:{t:"邺",d:"前燕都城,今河北临漳",p:["桓温前锋逼近,慕容暐几欲弃邺北走;赖慕容垂请战督军拒温于枋头,邺城乃安。"]},
-  xiangyi:{t:"襄邑",d:"今河南睢县",p:["晋军南撤途中,慕容垂以八千骑追及,纵兵邀击,大破晋军,斩首三万。"]},
-  shouchun:{t:"寿春",d:"今安徽寿县",p:["桓温归罪袁真,真愤而据寿春叛,降于前燕——枋头之败,余波及此。"]},
-  qiao:{t:"谯",d:"今安徽亳州",p:["晋军南撤经此,苟池又邀击之,复死万余——继襄邑之后再遭重创。"]}
+  gushu:{t:"姑孰",d:"晋军出兵地,今安徽当涂",p:["桓温镇所。太和四年率步骑五万自此北伐前燕,舟师由此循邗沟、淮、泗北上。"]},
+  jincheng:{t:"金城",d:"今江苏句容北,近建康",p:["桓温北上过此,见昔为琅邪内史时手植之柳已十围,慨然曰『木犹如此,人何以堪』,攀枝执条,泫然流涕。"]},
+  shanyang:{t:"山阳",d:"今江苏淮安 · 邗沟入淮",p:["舟师由邗沟自江入淮之枢。晋军循此北转泗水而上。"]},
+  jinxiang:{t:"金乡(湖陆)",d:"今山东金乡",p:["舟师溯泗至此,天旱水涸不得进。乃凿钜野三百里,引汶会清。前锋克湖陆,擒燕将慕容忠。"]},
+  huangxu:{t:"黄墟",d:"今河南开封东",p:["桓温前锋大破燕征讨大都督慕容厉之众——北伐初期连捷之一。"]},
+  linzhu:{t:"林渚",d:"今河南新郑东北",p:["晋将邓遐、朱序败燕将傅颜于此。自黄墟至林渚,燕军屡北,晋势方张。"]},
+  fangtou:{t:"枋头",d:"黄河南岸,今河南浚县西南淇门",p:["曹操堰淇水入白沟处。晋军舟师深入之极点,距邺仅二百余里。漕道既绝,桓温焚舟自此南撤。"]},
+  ye:{t:"邺",d:"前燕都城,今河北临漳邺城遗址",p:["桓温前锋逼近,慕容暐几欲弃邺北走和龙;赖慕容垂请战督军拒温于枋头,邺乃安。"]},
+  shimen:{t:"石门(汴口)",d:"今河南荥阳北,汴渠分黄河处",p:["桓温令袁真攻谯、梁而开石门,欲由汴渠通运;真取谯、梁而石门不能开。慕容德帅万五千骑屯此绝漕,晋军粮道遂断——此为胜负之枢。"]},
+  hulao:{t:"虎牢",d:"今河南荥阳汜水 · 成皋",p:["前燕许『割虎牢以西』之地赂前秦以求救。虎牢为洛阳东户,险要所系。"]},
+  luoyang:{t:"洛阳",d:"今河南洛阳 · 时属前燕",p:["前燕洛州刺史、武威王慕容筑守之。燕许割虎牢以西畀秦,秦援即经此走廊东出。"]},
+  shancheng:{t:"陕城",d:"今河南三门峡 · 前秦洛州治",p:["前秦洛州刺史邓羌镇此。太和四年八月,苟池、邓羌自关中东出救燕,以此为东出之基。"]},
+  xiangyi:{t:"襄邑",d:"今河南睢县",p:["晋军南撤,慕容垂八千骑追及,慕容德四千骑先伏于东涧,前后夹击,大破晋军,斩首三万。"]},
+  dongyan:{t:"东燕",d:"今河南延津东",p:["桓温畏燕邀击于石门,自枋头迂道东出,经此南撤。"]},
+  cangyuan:{t:"仓垣",d:"今河南开封西北",p:["晋军撤退所经。自东燕至仓垣,凿井而饮,行七百余里。"]},
+  qiao:{t:"谯",d:"今安徽亳州",p:["晋军南撤经此,前秦苟池、邓羌之援军邀击之,复死万余——继襄邑之后再遭重创。"]},
+  shouchun:{t:"寿春",d:"今安徽寿县",p:["桓温归罪豫州刺史袁真,真愤而据寿春叛,降于前燕——枋头之败,余波及此。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
