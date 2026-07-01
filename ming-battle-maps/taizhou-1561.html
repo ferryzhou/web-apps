@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台州之战 · 嘉靖四十年(1561)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.18}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>台</span><span>州</span><span>荡</span><span>倭</span></div>
+  <header>
+    <h1>台州之战 · 戚继光抗倭</h1>
+    <div class="sub">嘉靖四十年(1561)　　<i>明 戚继光</i> 鸳鸯阵荡倭 · <b>倭寇</b>台州九战九歼</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 倭犯浙东</button>
+    <button data-p="1">屯宁海 · 伺倭动止</button>
+    <button data-p="2">花街回师 · 一鼓破倭</button>
+    <button data-p="3">上峰白水 · 九战九捷</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="台州之战形势图,含明军浙东内陆与倭寇沿海登陆区疆界、东海灵江椒江与台州临海花街上峰岭白水洋等地">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 东海:自东南沿海泛入,倭自海上来 -->
+    <path class="sea" d="M 760,0 C 748,140 776,300 812,440 C 842,540 892,600 1000,640 L 1000,0 Z"/>
+    <text class="rname" x="880" y="300" transform="rotate(82 880 300)" style="opacity:.7">东 海</text>
+
+    <!-- 疆界:倭寇活动海域·登陆区(东,沿海),明浙东内陆(西);共岸线为界 -->
+    <path d="M 700,0 C 690,110 700,210 660,300 C 630,370 640,460 690,540 C 720,590 740,616 760,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 700,0 C 690,110 700,210 660,300 C 630,370 640,460 690,540 C 720,590 740,616 760,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 700,0 C 690,110 700,210 660,300 C 630,370 640,460 690,540 C 720,590 740,616 760,640"/>
+    <text class="realm j" x="120" y="150" font-size="30">明 · 浙 东</text>
+    <text class="realm q" x="820" y="150" font-size="26">倭 寇 · 海 域</text>
+
+    <!-- 灵江:自西括苍山东流经临海,下为椒江入海 -->
+    <path class="river" stroke-width="4.6" d="M 250,360 C 340,352 420,346 500,352 C 580,358 640,372 706,400"/>
+    <!-- 椒江:临海以下东入东海 -->
+    <path class="river" stroke-width="4" d="M 706,400 C 750,414 790,430 840,452"/>
+    <text class="rname" x="380" y="340" style="font-size:13px">灵 江</text>
+    <text class="rname" x="756" y="428" transform="rotate(24 756 428)">椒江</text>
+
+    <!-- 括苍山 -->
+    <g class="mtn"><path d="M 180,300 l 10,-16 l 10,16 M 200,292 l 10,-16 l 10,16 M 220,300 l 9,-15 l 9,15"/></g>
+    <text class="cname s" x="180" y="322">括苍山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="taizhou"><circle cx="500" cy="352" r="6"/><text class="cname" x="452" y="346">台州·临海<tspan class="cname s" dx="2">(戚军中枢)</tspan></text></g>
+      <g class="city" data-city="huajie"><circle cx="556" cy="330" r="4.5"/><text class="cname s" x="564" y="326">花街</text></g>
+      <g class="city" data-city="shangfeng"><circle cx="356" cy="300" r="4.5"/><text class="cname s" x="286" y="296">上峰岭</text></g>
+      <g class="city" data-city="baishui"><circle cx="288" cy="376" r="4.5"/><text class="cname s" x="216" y="380">白水洋·仙居</text></g>
+      <g class="city" data-city="ninghai"><circle cx="536" cy="196" r="5"/><text class="cname s" x="500" y="190">宁海</text></g>
+      <g class="city" data-city="taozhu"><circle cx="682" cy="298" r="4.5"/><text class="cname s" x="640" y="286">桃渚·健跳</text></g>
+    </g>
+
+    <!-- 全图 · 倭犯浙东 -->
+    <g id="phAll" class="ph">
+      <path class="march sea" marker-end="url(#aq)" d="M 872,340 C 800,320 730,308 690,302"/>
+      <text class="mlabel q" x="746" y="330">倭寇自海上大举来犯</text>
+      <path class="march q" marker-end="url(#aq)" d="M 676,292 C 620,262 570,228 548,206"/>
+      <text class="mlabel q" x="592" y="252">分道入宁海、桃渚、圻头诸处</text>
+      <text class="anno" x="620" y="316">巢穴据沿海卫所,舟众数千</text>
+      <text class="mlabel j" x="360" y="360">戚继光镇台州,料敌所向以待</text>
+      <text class="anno" x="380" y="378">戚家军行鸳鸯阵,号令必信</text>
+    </g>
+
+    <!-- 阶段一:屯宁海 · 伺倭动止 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 494,344 C 500,300 512,250 528,208"/>
+      <text class="mlabel j" x="540" y="248">戚军主力屯宁海,伺倭动止</text>
+      <rect class="camp" x="530" y="192" width="8" height="8" transform="rotate(45 534 196)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 668,296 C 620,318 570,336 512,346"/>
+      <text class="mlabel q" x="560" y="360">倭乘虚径趋台州府城</text>
+      <text class="anno" x="360" y="410">戚料倭必袭空城,回师之机在此</text>
+    </g>
+
+    <!-- 阶段二:花街回师 · 一鼓破倭 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 532,208 C 528,256 522,300 512,344"/>
+      <text class="mlabel j" x="536" y="286">戚军急回师趋府城</text>
+      <rect class="camp" x="552" y="326" width="9" height="9" transform="rotate(45 556 330)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 508,350 C 524,344 538,338 548,334"/>
+      <circle class="star" cx="556" cy="330" r="7"/>
+      <text class="mlabel j" x="470" y="392">鸳鸯阵一鼓破之</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 562,326 C 600,310 636,300 668,296"/>
+      <text class="mlabel r" x="588" y="352">倭溃走</text>
+      <text class="anno" x="440" y="410">狼筅长枪镗钯藤牌相济,倭大败</text>
+    </g>
+
+    <!-- 阶段三:上峰白水 · 九战九捷 -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 494,348 C 450,332 400,316 366,306"/>
+      <circle class="star" cx="356" cy="300" r="7"/>
+      <text class="mlabel j" x="300" y="278">上峰岭伏击尽歼</text>
+      <path class="march j" marker-end="url(#aj)" d="M 350,308 C 322,332 306,352 296,368"/>
+      <circle class="star" cx="288" cy="376" r="7"/>
+      <text class="mlabel j" x="216" y="400">白水洋复追歼之</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 670,304 C 730,326 790,352 852,392"/>
+      <text class="mlabel r" x="720" y="380">残倭下海遁</text>
+      <text class="anno" x="360" y="422">月余大小九战九捷,共歼倭数千</text>
+      <text class="anno" x="360" y="440">台州倭患遂平,戚家军几无损</text>
+    </g>
+
+    <g class="compass" transform="translate(110,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军·戚家军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>倭寇(陆)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>倭自海上登陆</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>倭溃退下海</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>九捷诸战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明·浙东</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>倭寇海域</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《明史·戚继光传》《纪效新书》约略绘出。台州诸战地在今浙江临海、仙居一带:临海为台州府城,花街近府城,上峰岭、白水洋在其西,宁海在北,桃渚、健跳为沿海卫所倭登陆处。城邑水道为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为倭患形势示意:倭寇自东海登陆,活动于沿海卫所;明军戚继光屯浙东内陆,凭鸳鸯阵御之。岸线以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>戚继光鉴于卫所兵不堪用,赴义乌募矿工农民,亲加训练而成「戚家军」;创「鸳鸯阵」,以长短兵相济,行伍严明。嘉靖四十年台州一月余九战九捷,尽歼来犯之倭;次年转战福建(横屿、平海卫),与俞大猷终荡东南之倭。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"倭犯浙东",d:"嘉靖四十年(1561)",p:["嘉靖间倭患炽于东南。倭寇大举犯浙东,自海上分道入宁海、桃渚、圻头诸处,舟众数千,据沿海卫所为巢。","戚继光受命镇守台州、金华、严州。既成「戚家军」,创「鸳鸯阵」,行伍严明,号令必信;乃料敌所向,屯军以待,伺倭动止而后发。"]},
+  "1":{t:"屯宁海·伺倭动止",d:"嘉靖四十年四月",p:["倭分道来犯,戚继光以主力屯宁海,当其一路,伺倭动止而未轻动。","倭寇窥台州府城守虚,乘间径趋之。戚料倭必袭空城,回师急救之机,正在此一发。"]},
+  "2":{t:"花街回师·一鼓破倭",d:"嘉靖四十年四月",p:["戚军自宁海急回师,趋台州府城。倭方逼城,遇之于花街。","鸳鸯阵长短兵相济,狼筅、长枪、镗钯、藤牌各当其用,一鼓破之。倭众大溃,弃甲而走。"]},
+  "3":{t:"上峰白水·九战九捷",d:"嘉靖四十年四—五月",p:["戚军乘胜追歼,伏击于上峰岭,尽歼来犯之倭;复追战于白水洋、长沙诸处,所向皆捷。","凡一月余,大小九战九捷,共歼倭数千,俘斩无算,而戚家军几无损。残倭下海遁去,台州倭患遂平,东南倭寇为之夺气。"]}
+};
+const CITY={
+  taizhou:{t:"台州·临海",d:"台州府城,今浙江临海",p:["戚继光镇守台州之中枢。倭乘虚趋之,戚军自宁海急回师,战于花街,一鼓破倭,遂拱府城。"]},
+  huajie:{t:"花街",d:"台州府城近郊",p:["台州九捷之一。戚军回师逢倭于此,鸳鸯阵一鼓破之,倭溃走,为诸战之首捷。"]},
+  shangfeng:{t:"上峰岭",d:"府城西,今临海西境",p:["戚军设伏之地。倭走上峰岭,伏兵尽歼之,九捷之一。"]},
+  baishui:{t:"白水洋·仙居",d:"今浙江仙居一带",p:["台州诸战捷处之一。戚军复追歼来犯之倭于白水洋、长沙诸处,尽荡之。"]},
+  ninghai:{t:"宁海",d:"台州府北,今宁波宁海",p:["倭所犯一路。戚军主力屯此伺倭动止;倭乘虚趋台州,戚遂回师急救。"]},
+  taozhu:{t:"桃渚·健跳",d:"台州沿海卫所",p:["沿海卫所、倭寇登陆处。倭自海上入犯,据此为巢;战败残倭复下海遁去。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

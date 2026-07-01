@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宁远之战 · 天启六年(1626)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>宁</span><span>远</span><span>之</span><span>役</span></div>
+  <header>
+    <h1>宁远之战</h1>
+    <div class="sub">天启六年(1626)　　<i>明 袁崇焕</i> 凭坚炮却敌 · <b>后金 努尔哈赤</b>宁远受创而退</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 努尔哈赤西攻</button>
+    <button data-p="1">缮城誓守</button>
+    <button data-p="2">红夷却敌</button>
+    <button data-p="3">攻城不克</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宁远之战形势图,含明关宁防线与后金辽沈疆界、渤海辽西走廊、宁远觉华岛山海关锦州等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:后金据辽东(东北,辽沈已陷),明据关宁(西南,山海关—宁远防线);约以辽河、大凌河一线为界 -->
+    <path d="M 470,0 C 500,80 540,150 590,230 C 640,310 700,380 760,440 C 810,490 870,540 940,600 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 500,80 540,150 590,230 C 640,310 700,380 760,440 C 810,490 870,540 940,600 L 1000,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 500,80 540,150 590,230 C 640,310 700,380 760,440 C 810,490 870,540 940,600"/>
+    <text class="realm q" x="720" y="150" font-size="30">后 金(辽东)</text>
+    <text class="realm j" x="120" y="520" font-size="28">明 · 关 宁</text>
+
+    <!-- 渤海:南 -->
+    <path class="river" stroke-width="0" d="M 0,560 L 1000,560"/>
+    <path d="M 0,540 C 200,560 460,566 620,548 C 760,532 880,530 1000,538 L 1000,640 L 0,640 Z" fill="rgba(95,127,136,.16)" stroke="none"/>
+    <path class="river" stroke-width="2.2" d="M 40,548 C 260,566 500,566 700,546 C 820,534 920,536 1000,542"/>
+    <text class="rname" x="360" y="600" style="font-size:14px;letter-spacing:.4em">渤　海</text>
+
+    <!-- 辽河:后金西攻所渡 -->
+    <path class="river" stroke-width="3" d="M 640,20 C 660,110 700,220 750,320 C 790,400 830,470 880,530"/>
+    <text class="rname" x="726" y="250" transform="rotate(66 726 250)" style="font-size:11px">辽　河</text>
+    <!-- 大凌河:右屯一线 -->
+    <path class="river" stroke-width="2.2" d="M 560,120 C 590,210 630,320 690,430"/>
+    <text class="rname" x="612" y="290" transform="rotate(62 612 290)" style="font-size:10.5px">大凌河</text>
+
+    <!-- 辽西走廊 -->
+    <text class="cname s" x="300" y="330" style="letter-spacing:.16em">辽 西 走 廊</text>
+
+    <!-- 首山:后金列营处,近宁远城 -->
+    <g class="mtn"><path d="M 386,236 l 9,-15 l 9,15 M 404,229 l 9,-15 l 9,15 M 422,236 l 8,-14 l 8,14"/></g>
+    <text class="cname s" x="392" y="256">首山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="ningyuan"><circle cx="360" cy="300" r="7"/><text class="cname" x="286" y="296">宁远<tspan class="cname s" dx="2">(死守)</tspan></text></g>
+      <g class="city" data-city="juehua"><circle cx="440" cy="470" r="4.5"/><text class="cname s" x="450" y="474">觉华岛</text></g>
+      <g class="city" data-city="shanhaiguan"><circle cx="150" cy="428" r="5"/><text class="cname" x="86" y="424">山海关</text></g>
+      <g class="city" data-city="jinzhou"><circle cx="560" cy="176" r="4.5"/><text class="cname" x="572" y="172">锦州</text></g>
+      <g class="city" data-city="youtun"><circle cx="660" cy="230" r="4"/><text class="cname s" x="672" y="226">右屯·大凌河</text></g>
+      <g class="city" data-city="shoushan"><circle cx="404" cy="238" r="3"/><text class="cname s" x="414" y="228">首山营</text></g>
+    </g>
+
+    <!-- 全图 · 努尔哈赤西攻 -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 700,120 C 640,150 560,190 480,238 C 440,262 410,282 386,296"/>
+      <text class="mlabel q" x="500" y="180">努尔哈赤号十三万,渡辽河西攻</text>
+      <text class="anno" x="470" y="220">正月,直逼宁远,连陷右屯、大凌河诸堡</text>
+      <text class="mlabel j" x="120" y="440">高第尽撤关外兵,独袁崇焕请守宁远</text>
+      <text class="anno" x="200" y="382">凭坚城、列红夷炮,坚壁清野以待</text>
+    </g>
+
+    <!-- 阶段一:缮城誓守·列炮清野 -->
+    <g id="ph1" class="ph">
+      <circle class="siege" cx="360" cy="300" r="34"/>
+      <text class="mlabel j" x="240" y="256">缮城储械,置红夷大炮十一门于城上</text>
+      <text class="anno" x="252" y="344">刺血为盟,偃旗死守,拒不出战</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 466,466 C 430,460 400,452 388,436"/>
+      <text class="anno" x="404" y="452">坚壁清野,徙近郊军民入城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 470,240 C 440,258 414,272 392,288"/>
+      <text class="mlabel q" x="430" y="230">后金列营首山,进逼城下</text>
+    </g>
+
+    <!-- 阶段二:红夷大炮却敌 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="360" cy="300" r="30"/>
+      <path class="march q" marker-end="url(#aq)" d="M 420,286 C 402,290 386,294 376,298"/>
+      <path class="march q" marker-end="url(#aq)" d="M 414,320 C 398,318 384,312 376,306"/>
+      <text class="mlabel q" x="416" y="276">后金冒死凿城,穿穴攻具</text>
+      <circle class="star" cx="360" cy="300" r="15"/>
+      <text class="mlabel j" x="200" y="298">红夷大炮列城上,循环轰击</text>
+      <text class="anno" x="200" y="330">炮过糜烂数里,后金死伤累累,凿城者被却</text>
+    </g>
+
+    <!-- 阶段三:攻城不克·退掠觉华 -->
+    <g id="ph3" class="ph">
+      <text class="mlabel j" x="250" y="288">相持数日,城终不拔</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 380,292 C 460,250 560,200 640,150"/>
+      <text class="mlabel r" x="470" y="222">努尔哈赤攻城不克,愤懑而退</text>
+      <path class="march q" marker-end="url(#aq)" d="M 384,308 C 410,360 430,420 440,458"/>
+      <text class="mlabel q" x="446" y="400">转掠觉华岛,屠军民、焚粮船</text>
+      <text class="anno" x="470" y="180">旋以创病殁,是年八月卒</text>
+    </g>
+
+    <g class="compass" transform="translate(944,120)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(袁崇焕)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后金军(八旗)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>受创而退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>炮却敌</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>后金围攻</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>后金</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《明史·袁崇焕传》《清太祖实录》约略绘出。宁远即今辽宁兴城,觉华岛(今菊花岛)在城东南海中,山海关在其西南,锦州、右屯·大凌河诸堡在其东北;渤海岸线、辽河、大凌河及城邑水道为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为天启六年辽东形势示意:广宁失守后辽沈尽入后金,明尽弃关外,独宁远一城孤悬,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>红夷大炮乃泛西洋葡制前装炮,袁崇焕置十一门于宁远城上,「凭坚城、用大炮」遂为关宁守御之法。努尔哈赤自二十五岁起兵四十余年未尝败绩,至宁远大挫,愤懑而退,是年八月病殁——此为明军对后金之首捷。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"努尔哈赤西攻",d:"天启六年正月",p:["广宁失守后,明尽弃关外,独袁崇焕请守宁远。崇焕缮城储械,置葡制红夷大炮十一门于城上,与将士刺血为盟、誓死守。","天启六年正月,努尔哈赤乘辽东经略高第尽撤关外兵之机,率大军号十三万渡辽河西攻,连陷右屯、大凌河诸堡,直逼宁远孤城。"]},
+  "1":{t:"缮城誓守·列炮清野",d:"天启六年正月",p:["崇焕缮城储械,列红夷大炮十一门于城上,分守四隅;与将士刺血为盟,偃旗息鼓,坚壁死守,拒不出战。","并行坚壁清野,尽徙城外军民、刍粮入城,焚其余积,使后金无所因粮。后金军进列营于首山,进逼宁远城下。"]},
+  "2":{t:"红夷大炮却敌",d:"天启六年正月廿四—廿五",p:["后金军蜂拥攻城,冒死凿城穿穴,楯车攻具迫于雉堞之下。崇焕亲登陴督战,发红夷大炮循环轰击。","炮过之处糜烂数里,后金死伤累累,凿城者亦被击退,城下积尸相枕。相持数日,坚城屹然不拔。"]},
+  "3":{t:"攻城不克·退掠觉华",d:"天启六年正月—八月",p:["努尔哈赤自二十五岁起兵,四十余年未尝败绩,至宁远攻城不克,大挫锐气,愤懑而退。转兵掠觉华岛,岛上明军水寨凭冰而阵,后金乘海冰破之,屠戮岛上军民、焚其粮船。","努尔哈赤旋以创发(一说愤郁成疾),是年八月病殁。此为明军对后金之首捷,「凭坚城、用大炮」遂定为关宁守御之法。"]}
+};
+const CITY={
+  ningyuan:{t:"宁远",d:"今辽宁兴城,时属关外孤城",p:["袁崇焕死守之地。缮城储械,列红夷大炮十一门于城上,凭坚拒守,炮却努尔哈赤,成明军对后金首捷。"]},
+  juehua:{t:"觉华岛",d:"今辽宁兴城东南海中(菊花岛)",p:["明军水寨、屯粮之所。努尔哈赤攻宁远不克,乘海冰破岛,屠戮岛上军民、焚其粮船。"]},
+  shanhaiguan:{t:"山海关",d:"关宁防线后盾,今河北秦皇岛",p:["天下第一关,京师门户。经略高第尽撤关外兵,退守于此;宁远既捷,遂为关宁防线之依托。"]},
+  jinzhou:{t:"锦州",d:"宁远之北屏,今辽宁锦州",p:["宁远以北之要冲。此役中已在后金锋镝之下;宁远捷后明复图修守,数年后有大凌河、松锦诸役。"]},
+  youtun:{t:"右屯·大凌河",d:"后金南下必经,今辽宁凌海一带",p:["高第撤兵时委弃粮械十余万石于此。努尔哈赤西攻,先取右屯、大凌河诸堡,乃逼宁远。"]},
+  shoushan:{t:"首山",d:"宁远城北近郊之山",p:["后金列营处。大军进逼,营于首山,自此环攻宁远,终不能拔。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

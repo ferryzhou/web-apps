@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>甲申之变 · 京师陷落(1644)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>甲</span><span>申</span><span>之</span><span>变</span></div>
+  <header>
+    <h1>甲申之变 · 京师陷落</h1>
+    <div class="sub">崇祯十七年 · 甲申(1644)　　<i>大顺 李自成</i> 东征破京 · <b>明思宗</b>自缢 · 社稷倾覆</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 大顺东征</button>
+    <button data-p="1">宁武死战 · 北边望降</button>
+    <button data-p="2">出居庸 · 长驱逼京</button>
+    <button data-p="3">京师陷 · 思宗殉国</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="甲申之变形势图,含大顺明疆界、黄河汾河长城大运河与西安宁武北京等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:大顺据关中山西(西),明据京畿直隶(东),约以太行为界 -->
+    <path d="M 560,0 C 566,110 548,210 520,300 C 500,370 500,440 520,510 C 536,570 552,610 560,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 560,0 C 566,110 548,210 520,300 C 500,370 500,440 520,510 C 536,570 552,610 560,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 560,0 C 566,110 548,210 520,300 C 500,370 500,440 520,510 C 536,570 552,610 560,640"/>
+    <text class="realm j" x="120" y="470" font-size="34">大 顺</text>
+    <text class="realm q" x="740" y="150" font-size="32">明(京畿)</text>
+
+    <!-- 黄河:自西北经河套折而南下,东出入海 -->
+    <path class="river" stroke-width="5" d="M 150,120 C 260,150 340,150 380,220 C 410,270 400,360 430,410 C 470,470 560,470 640,468 C 760,466 880,470 1000,466"/>
+    <!-- 汾河:自太原南下汾州入黄河 -->
+    <path class="river" stroke-width="2.6" d="M 448,180 C 452,240 448,300 440,360 C 434,392 430,408 430,410"/>
+    <!-- 大运河:自江淮北上抵通州 -->
+    <path class="river" stroke-width="3" d="M 760,620 C 790,540 800,460 820,380 C 838,320 860,270 880,236"/>
+    <text class="rname" x="300" y="146" style="font-size:13px">黄 河</text>
+    <text class="rname" x="452" y="270" transform="rotate(86 452 270)" style="font-size:10.5px">汾 河</text>
+    <text class="rname" x="808" y="420" transform="rotate(-70 808 420)" style="font-size:10.5px">大运河</text>
+
+    <!-- 长城:自西北大同宣府一线迤逦而东至山海关 -->
+    <g class="mtn"><path d="M 360,120 C 460,96 560,110 640,116 C 720,122 800,130 900,150" stroke-width="1.6" stroke-dasharray="6 4"/></g>
+    <text class="cname s" x="500" y="98">长 城</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="beijing"><circle cx="800" cy="230" r="6"/><text class="cname" x="812" y="226">北京<tspan class="cname s" dx="2">(京师)</tspan></text></g>
+      <g class="city" data-city="ningwu"><circle cx="430" cy="240" r="5"/><text class="cname" x="372" y="236">宁武关</text></g>
+      <g class="city" data-city="datong"><circle cx="520" cy="140" r="4.5"/><text class="cname s" x="530" y="136">大同·宣府</text></g>
+      <g class="city" data-city="juyong"><circle cx="720" cy="176" r="4"/><text class="cname s" x="654" y="172">居庸关</text></g>
+      <g class="city cap" data-city="xian"><circle cx="200" cy="420" r="6"/><text class="cname" x="150" y="444">西安·长安</text></g>
+      <g class="city" data-city="fenzhou"><circle cx="430" cy="360" r="3.5"/><text class="cname s" x="440" y="378">汾州</text></g>
+      <g class="city" data-city="shanhaiguan"><circle cx="920" cy="150" r="4.5"/><text class="cname s" x="866" y="140">山海关</text></g>
+    </g>
+
+    <!-- 全图 · 大顺东征 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 214,414 C 300,388 372,340 420,300 C 470,260 520,220 620,224 C 700,228 760,226 792,228"/>
+      <text class="mlabel j" x="240" y="360">李自成据西安称帝,国号大顺,建元永昌</text>
+      <text class="anno" x="300" y="340">崇祯十七年正月,渡黄河,大军东征入晋</text>
+      <text class="mlabel q" x="700" y="300">明思宗诏天下勤王,九边尽虚,莫能应</text>
+      <text class="anno" x="620" y="320">所过州县,或望风迎降,或稍拒即下</text>
+    </g>
+
+    <!-- 阶段一:宁武死战 · 北边望降 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 214,412 C 300,384 372,330 420,270"/>
+      <text class="mlabel j" x="230" y="300">顺军入晋,进逼宁武</text>
+      <circle class="star" cx="430" cy="240" r="8"/>
+      <rect class="camp" x="426" y="136" width="8" height="8" transform="rotate(45 520 140)"/>
+      <text class="mlabel q" x="360" y="264">周遇吉婴城力战,炮尽矢竭,阖门殉国</text>
+      <text class="anno" x="360" y="284">顺军死伤甚众——入京前唯一硬仗</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 448,236 C 480,200 500,168 516,148"/>
+      <text class="mlabel r" x="470" y="204">大同姜瓖、宣府王承胤开城迎降</text>
+      <text class="anno" x="470" y="164">明北边尽失</text>
+    </g>
+
+    <!-- 阶段二:出居庸 · 长驱逼京 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 448,232 C 540,200 620,182 704,178"/>
+      <text class="mlabel r" x="560" y="160">居庸守将唐通迎降</text>
+      <path class="march j" marker-end="url(#aj)" d="M 730,182 C 758,196 776,208 790,222"/>
+      <text class="mlabel j" x="600" y="216">顺军出居庸关,长驱直抵京师城下</text>
+      <circle class="siege" cx="800" cy="230" r="18"/>
+      <text class="mlabel q" x="720" y="272">三月十七日,大顺围北京</text>
+    </g>
+
+    <!-- 阶段三:京师陷 · 思宗殉国 -->
+    <g id="ph3" class="ph">
+      <path d="M 800,230 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="800" cy="230" r="12"/>
+      <text class="mlabel r" x="720" y="204">内应开彰义门,内城陷</text>
+      <text class="anno" x="700" y="256">崇祯夜登煤山,自缢于寿皇亭侧</text>
+      <text class="anno" x="700" y="272">书衣襟遗诏,明亡</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 812,222 C 852,196 884,172 912,156"/>
+      <text class="mlabel q" x="840" y="196">吴三桂据山海关,引清入关</text>
+      <text class="anno" x="820" y="128">一片石大败,天下易主</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>大顺军(李自成)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>明军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>望风降溃</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>死战·城陷</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大顺</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>明</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《明史·庄烈帝纪/流贼传》《明季北略》《甲申传信录》约略绘出,城邑关隘为相对示意。宁武今山西宁武,汾州今山西汾阳,居庸关在今北京昌平西北。山海关之战(一片石)为其后续,略示于图。黄河、汾河、长城、运河经简化。</p>
+    <p><span class="n">注二</span>晕染疆界为崇祯末形势示意:大顺据关中、山西(西),明据京畿、直隶(东),以太行、大河为势;点划「约界」为示意,非实有画界。</p>
+    <p><span class="n">注三</span>顺军东征,所过多望风迎降,唯宁武关周遇吉婴城死战、阖门殉国,为入京前唯一硬仗;既下,大同、宣府相继开门,明北边遂空。崇祯遗诏「任贼分裂朕尸,勿伤百姓一人」,书于衣襟,以发覆面而崩。有明二百七十六年遂亡。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"大顺东征",d:"崇祯十七年正月",p:["李自成据西安称帝,国号大顺,建元永昌。崇祯十七年正月,尽发大军东征,渡黄河,入山西,直指京师。","所过州县,或望风迎降,或稍拒即下。明思宗虽诏天下勤王,而九边久虚、饷竭兵疲,莫能赴援,大势已不可为。"]},
+  "1":{t:"宁武死战 · 北边望降",d:"崇祯十七年二至三月",p:["顺军入晋,长驱而进。唯宁武关总兵周遇吉婴城力战,炮尽矢竭犹与巷战,阖门殉国,顺军死伤甚众——然此为入京前唯一硬仗。","宁武既下,大同总兵姜瓖、宣府总兵王承胤皆开城迎降,明北边守将望风瓦解,九边重镇尽失,京师门户洞开。"]},
+  "2":{t:"出居庸 · 长驱逼京",d:"崇祯十七年三月",p:["顺军趋居庸关,守将唐通降,雄关不攻自开。大军遂出关而东,长驱直抵京师城下。","三月十七日,大顺合围北京。城中兵单饷绝,守陴者多老弱,内外声援俱绝,危在旦夕。"]},
+  "3":{t:"京师陷 · 思宗殉国",d:"崇祯十七年三月十八至十九日",p:["三月十八日,太监曹化淳等开彰义门(广宁门)纳降,内城遂陷。崇祯帝夜登煤山(万岁山),自缢于寿皇亭侧,以发覆面,书衣襟遗诏「任贼分裂朕尸,勿伤百姓一人」。有明二百七十六年遂亡。","未几,山海关总兵吴三桂以「借虏平寇」引清兵入关,李自成一片石大败西撤,天下遂归于清。"]}
+};
+const CITY={
+  beijing:{t:"北京(京师)",d:"明都,顺军东征所向",p:["三月十七日大顺围城,十八日内应开彰义门,内城陷。崇祯自缢于煤山(万岁山)寿皇亭侧,以发覆面,有明遂亡。"]},
+  ningwu:{t:"宁武关",d:"今山西宁武",p:["总兵周遇吉婴城力战,炮尽矢竭犹巷战,阖门殉国——顺军入京前唯一硬仗,死伤甚众。"]},
+  datong:{t:"大同 · 宣府",d:"明北边九边重镇",p:["宁武既下,大同姜瓖、宣府王承胤皆望风开城迎降,明北边尽失,京师门户洞开。"]},
+  juyong:{t:"居庸关",d:"今北京昌平西北",p:["京师西北门户。守将唐通迎降,雄关不攻自下,顺军遂出关长驱抵京。"]},
+  xian:{t:"西安 · 长安",d:"大顺都,东征所自",p:["李自成据此称帝,国号大顺,建元永昌。崇祯十七年正月自此东征,渡河入晋。"]},
+  fenzhou:{t:"汾州",d:"今山西汾阳",p:["顺军东征入晋所经,汾河之滨。州县多望风迎降,顺军得以速进。"]},
+  shanhaiguan:{t:"山海关",d:"今河北秦皇岛,长城东端",p:["总兵吴三桂据守。京师既陷,吴以「借虏平寇」引清兵入关,李自成一片石大败西撤,天下遂归于清——此为甲申之变之后续。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北京保卫战 · 正统十四年(1449)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>京</span><span>师</span><span>保</span><span>卫</span></div>
+  <header>
+    <h1>北京保卫战</h1>
+    <div class="sub">正统十四年(1449)　　<i>明 于谦</i> 背城却敌 · <b>瓦剌 也先</b>挟质无功而退</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 也先逼京</button>
+    <button data-p="1">议守 · 背城列阵</button>
+    <button data-p="2">德胜门设伏</button>
+    <button data-p="3">挟质北遁</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="北京保卫战形势图,含瓦剌与明京师疆界、北京九门护城河与卢沟永定河等">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:瓦剌据塞北(北,城外),明据京师(南),约以边墙关塞为界 -->
+    <path d="M 0,236 C 160,220 320,214 480,222 C 640,230 820,228 1000,214 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,236 C 160,220 320,214 480,222 C 640,230 820,228 1000,214 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,236 C 160,220 320,214 480,222 C 640,230 820,228 1000,214"/>
+    <text class="realm q" x="120" y="130" font-size="32">瓦 剌(塞北)</text>
+    <text class="realm j" x="640" y="600" font-size="30">明 · 京 师</text>
+
+    <!-- 卢沟·永定河:自西北山峡东南下 -->
+    <path class="river" stroke-width="5" d="M 150,150 C 210,220 250,290 288,346 C 330,406 372,458 430,500 C 500,548 600,566 700,566"/>
+    <!-- 护城河:环北京城 -->
+    <path class="river" stroke-width="2.2" d="M 512,344 C 560,338 604,352 620,398 C 632,442 616,486 570,502 C 522,516 470,504 452,458 C 438,414 460,360 512,344 Z"/>
+    <text class="rname" x="352" y="418" transform="rotate(38 352 418)" style="font-size:12px">永定河(卢沟)</text>
+
+    <!-- 山峡·关塞(西北) -->
+    <g class="mtn"><path d="M 180,196 l 8,-13 l 8,13 M 196,190 l 8,-13 l 8,13 M 212,196 l 7,-12 l 7,12"/></g>
+    <g class="mtn"><path d="M 320,204 l 7,-11 l 7,11 M 334,200 l 7,-11 l 7,11"/></g>
+
+    <!-- 北京城·九门(示意方城) -->
+    <rect x="472" y="368" width="128" height="112" fill="none" stroke="var(--ink2)" stroke-width="1.4" opacity=".8"/>
+    <!-- 九门门位标注 -->
+    <text class="cname s" x="486" y="362">德胜门</text>
+    <text class="cname s" x="556" y="362">安定门</text>
+    <text class="cname s" x="602" y="410" style="letter-spacing:0">朝阳门</text>
+    <text class="cname s" x="602" y="452" style="letter-spacing:0">东直门</text>
+    <text class="cname s" x="418" y="404">西直门</text>
+    <text class="cname s" x="418" y="470">彰义门</text>
+    <text class="cname s" x="500" y="502">正阳门</text>
+
+    <!-- 城邑·关口 -->
+    <g id="cities">
+      <g class="city" data-city="desheng"><circle cx="500" cy="368" r="5.5"/><text class="cname" x="472" y="352">德胜门</text></g>
+      <g class="city" data-city="xizhi"><circle cx="472" cy="404" r="4.5"/><text class="cname" x="426" y="392">西直门</text></g>
+      <g class="city" data-city="zhangyi"><circle cx="472" cy="464" r="4"/><text class="cname s" x="416" y="482">彰义门</text></g>
+      <g class="city" data-city="zijing"><circle cx="196" cy="330" r="4.5"/><text class="cname" x="130" y="326">紫荆关</text></g>
+      <g class="city cap" data-city="jingshi"><circle cx="536" cy="424" r="6.5"/><text class="cname" x="548" y="422">京师<tspan class="cname s" dx="2">(守御中枢)</tspan></text></g>
+      <g class="city" data-city="juyong"><circle cx="380" cy="220" r="4.5"/><text class="cname" x="360" y="210">居庸关</text></g>
+    </g>
+
+    <!-- 全图 · 也先逼京 -->
+    <g id="phAll" class="ph">
+      <rect class="camp" x="486" y="308" width="9" height="9" transform="rotate(45 490 312)"/>
+      <rect class="camp" x="440" y="330" width="9" height="9" transform="rotate(45 444 334)"/>
+      <text class="mlabel q" x="368" y="300">也先挟英宗,破紫荆关入犯</text>
+      <path class="march q" marker-end="url(#aq)" d="M 204,336 C 300,364 400,382 480,398"/>
+      <text class="anno" x="230" y="360">土木败后,乘胜长驱直逼京师</text>
+      <path class="siege" d="M 448,344 C 520,320 604,336 628,404 C 646,458 620,506 560,520 C 496,532 440,514 424,456 C 412,410 420,364 448,344"/>
+      <text class="anno" x="600" y="356">瓦剌逼九门</text>
+      <text class="mlabel j" x="560" y="560">于谦请固守,立景帝以绝要挟</text>
+    </g>
+
+    <!-- 阶段一:议守 · 背城列阵 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 540,410 C 528,394 516,382 504,374"/>
+      <path class="march j" marker-end="url(#aj)" d="M 528,414 C 516,410 500,408 480,406"/>
+      <path class="march j" marker-end="url(#aj)" d="M 532,432 C 520,444 502,456 480,462"/>
+      <text class="mlabel j" x="360" y="530">分遣诸将列阵九门之外,背城决战</text>
+      <text class="anno" x="380" y="548">于谦总督军务,急调两京、山东援军入卫</text>
+      <text class="anno" x="560" y="446">闭城门以示必死</text>
+      <text class="mlabel j" x="352" y="512">修城浚壕、造兵器、募民兵,人心稍定</text>
+    </g>
+
+    <!-- 阶段二:德胜门设伏 · 炮毙孛罗 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="486" y="316" width="9" height="9" transform="rotate(45 490 320)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 494,330 C 496,342 498,352 500,360"/>
+      <text class="mlabel q" x="440" y="316">也先攻德胜门</text>
+      <circle class="star" cx="500" cy="368" r="9"/>
+      <text class="mlabel j" x="352" y="352">于谦石亨设伏,以火器夹击</text>
+      <text class="anno" x="356" y="368">也先弟孛罗(平章)中炮死</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 494,360 C 486,378 478,392 474,400"/>
+      <text class="mlabel q" x="418" y="424">转攻西直门,孙镗力战</text>
+      <circle class="star" cx="472" cy="404" r="7.5"/>
+      <path class="march q rout" marker-end="url(#aq)" d="M 468,410 C 466,432 466,450 470,460"/>
+      <text class="mlabel r" x="392" y="490">彰义门亦却之</text>
+    </g>
+
+    <!-- 阶段三:挟质无功 · 瓦剌北遁 -->
+    <g id="ph3" class="ph">
+      <text class="mlabel j" x="440" y="540">相持五日,瓦剌攻掠无功</text>
+      <text class="anno" x="420" y="558">恐勤王师集、退路被断</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 480,398 C 400,378 300,360 208,340"/>
+      <text class="mlabel r" x="240" y="322">也先挟英宗北遁</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 200,326 C 210,290 240,254 300,226"/>
+      <text class="anno" x="200" y="272">经紫荆、居庸出塞</text>
+      <text class="mlabel j" x="560" y="576">京师围解,明祚得延</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(于谦)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>瓦剌(也先)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>攻门不克·北遁</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>大捷</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>瓦剌</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《明史·于谦传》《景帝纪》《瓦剌传》约略绘出。北京九门(德胜、安定、东直、朝阳、正阳、崇文、宣武、阜成、西直)位置为相对示意;彰义门乃元大都旧门(约当明代西南),紫荆关今河北易县西北,居庸关今北京昌平西北。护城河、永定(卢沟)河经简化。</p>
+    <p><span class="n">注二</span>晕染疆界为正统末年形势示意:瓦剌据塞北,乘土木之变南下逼京;边墙关塞为险,故以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注三</span>土木之变,英宗被俘,京师大震,朝议有主南迁者。于谦力排众议,曰「言南迁者可斩」,请固守;乃立郕王为帝(景帝),尊英宗为太上皇,以绝也先要挟之资。背城列阵、神机火器,遂成一代之功。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"也先逼京",d:"正统十四年八月 — 十月",p:["土木之变,英宗被俘,五十万京军覆没,京师大震,朝议汹汹,有主南迁者。兵部侍郎于谦力排众议,曰「言南迁者可斩」,请固守;乃立郕王为帝(景帝),尊英宗为太上皇,以绝也先要挟之资。","也先挟英宗,自大同南下,破紫荆关入犯,长驱直逼京师,分道逼九门。于谦总督军务,亟调两京、河南备操军、山东沿海备倭军入卫,人心稍定,一场都城决战遂张。"]},
+  "1":{t:"背城列阵",d:"正统十四年十月",p:["于谦总督军务,亟调援军入卫,修城浚壕、造兵器、募民兵,数日之间守具略备。乃分遣诸将列阵九门之外,背城决战:自与石亨阵于德胜门,以身督战。","下令「临阵将不顾军先退者斩其将,军不顾将先退者后队斩前队」,又尽闭城门以示必死。将士知无退路,人思效死,而援兵四集,气势复振。"]},
+  "2":{t:"德胜门设伏·炮毙孛罗",d:"正统十四年十月",p:["也先麾众攻德胜门。于谦预设伏兵于空舍,先以数骑诱敌;瓦剌万骑逐至,伏发,以神机火器夹击,大破之,也先弟孛罗(平章)、卯那孩中炮死。","也先转攻西直门,都督孙镗力战,毛福寿等来援,又却之;彰义门守军亦拒退瓦剌。三门皆挫,瓦剌攻掠无功。"]},
+  "3":{t:"挟质无功·瓦剌北遁",d:"正统十四年十月",p:["瓦剌逼城相持五日,攻掠无所得,士马疲弊;也先又恐各路勤王师大集、退路被断,挟质邀利之谋尽废。","乃挟英宗夜拔营北去,经紫荆、居庸出塞。诸将追击,复有斩获。京师之围遂解,明祚得延——于谦以社稷为重,功在一时。"]}
+};
+const CITY={
+  desheng:{t:"德胜门",d:"北京城北门",p:["主战场。于谦自与石亨阵于此,设伏空舍,以神机火器夹击也先大军,也先弟孛罗中炮死,瓦剌大败。"]},
+  xizhi:{t:"西直门",d:"北京城西门",p:["也先自德胜门败退后转攻此门,都督孙镗力战,毛福寿等来援,瓦剌复被却退。"]},
+  zhangyi:{t:"彰义门",d:"城西南(元大都旧门)",p:["初战之地。城西南要冲,明军于此拒退瓦剌进攻,九门之外背城列阵之一。"]},
+  zijing:{t:"紫荆关",d:"今河北易县西北",p:["瓦剌破关入犯之路。也先挟英宗自大同南下,破紫荆关,长驱直逼京师;北遁亦由此出塞。"]},
+  jingshi:{t:"北京·京师",d:"明京师,守御中枢",p:["于谦总督军务,坐镇调度;修城浚壕、募兵造器,分遣诸将列阵九门之外,闭门背城以决死战。"]},
+  juyong:{t:"居庸关",d:"今北京昌平西北",p:["瓦剌另路进犯之要塞,罗通守御,以水浇城结冰,坚不可拔;也先北遁亦道出此关。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

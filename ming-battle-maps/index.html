@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>明朝征战图录 · 1368–1644</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 8%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 12%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 12% 88%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 90px rgba(110,90,55,.25);padding:clamp(18px,3.4vw,40px);position:relative;}
+  .seal{position:absolute;top:clamp(16px,3vw,32px);right:clamp(16px,3vw,32px);width:66px;height:66px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1}
+  header{margin-bottom:6px;padding-right:80px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(34px,6.2vw,54px);letter-spacing:.06em;color:var(--ink);}
+  .sub{margin-top:6px;font-size:clamp(12.5px,1.8vw,15px);color:var(--ink2);letter-spacing:.08em;line-height:1.7}
+  .intro{margin:14px 0 6px;font-size:13.5px;line-height:1.95;color:var(--ink2);text-align:justify;border-top:1px solid rgba(110,93,60,.35);border-bottom:1px solid rgba(110,93,60,.35);padding:12px 2px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 2px 18px;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex:none}
+  .dot.win{background:var(--advance)}.dot.loss{background:var(--enemy)}.dot.civil{background:var(--gold)}.dot.mixed{background:var(--ret)}
+
+  .era{margin:26px 0 6px}
+  .era h2{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(20px,3vw,26px);color:var(--ink);letter-spacing:.1em;display:flex;align-items:baseline;gap:12px}
+  .era h2 .yr{font-family:"Noto Serif SC",serif;font-size:13px;color:var(--gold);letter-spacing:.14em}
+  .era .ed{font-size:12.5px;color:var(--faint);margin-top:2px;letter-spacing:.04em}
+
+  .tl{position:relative;margin:14px 0 4px;padding-left:30px}
+  .tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--border),rgba(110,93,60,.25));}
+  .row{position:relative;margin:0 0 11px}
+  .row::before{content:"";position:absolute;left:-25px;top:21px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--border);z-index:1}
+  .row.win::before{border-color:var(--advance)}.row.loss::before{border-color:var(--enemy)}.row.civil::before{border-color:var(--gold)}.row.mixed::before{border-color:var(--ret)}
+  a.card,div.card{display:block;text-decoration:none;color:inherit;background:rgba(255,250,235,.5);border:1px solid var(--border);border-left-width:4px;border-radius:3px;padding:11px 14px;transition:all .16s;}
+  a.card{cursor:pointer}
+  a.card:hover{background:rgba(255,250,235,.92);transform:translateX(3px);box-shadow:0 4px 14px rgba(0,0,0,.16)}
+  .card.win{border-left-color:var(--advance)}.card.loss{border-left-color:var(--enemy)}.card.civil{border-left-color:var(--gold)}.card.mixed{border-left-color:var(--ret)}
+  .card .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .card .yr{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.08em;flex:none}
+  .card .tt{font-size:16px;font-weight:700;letter-spacing:.04em}
+  .card .oc{font-size:11px;color:var(--faint);border:1px solid rgba(110,93,60,.45);border-radius:10px;padding:1px 8px;margin-left:auto;flex:none}
+  .card .ds{margin-top:5px;font-size:12.5px;line-height:1.7;color:var(--ink2);text-align:justify}
+  .arrow{font-size:12px;color:var(--faint);margin-left:6px}
+
+  .notes{margin-top:24px;border-top:1px solid rgba(110,93,60,.4);padding-top:12px}
+  .notes p{font-size:11.5px;line-height:1.8;color:var(--faint);text-align:justify}.notes p+p{margin-top:5px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  footer{margin-top:18px;text-align:center;font-size:11.5px;color:var(--faint);letter-spacing:.1em}
+  footer a{color:var(--gold);text-decoration:none}footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="seal" aria-hidden="true"><span>大</span><span>明</span><span>战</span><span>图</span></div>
+  <header>
+    <h1>明朝征战图录</h1>
+    <div class="sub">明太祖洪武元年 — 明思宗崇祯十七年 · 公元 1368–1644　　凡二百七十六年　　一座可点击的交互战史地图集</div>
+  </header>
+  <div class="intro">太祖起淮右,鄱阳一炬破陈友谅,遂遣徐达、常遇春北伐,驱元复华,开有明二百余年之基。成祖靖难夺位,五征漠北、威加朔方;而土木一变,英宗蒙尘,赖于谦力守京师而社稷得全。嘉靖以降,戚继光荡倭于东南;万历三大征——宁夏、朝鲜、播州——虽皆奏捷而国力渐耗。及辽东兴,萨尔浒四路丧师、松锦九边尽失,终以甲申之变,闯破燕京,思宗殉国,明祚遂亡。下列各役皆为独立交互地图,点击即入;每图分阶段切换,可点城邑察其原委。图内配色以「角色」为准——明军青、敌方赭、溃退褐;总目之点色则以本朝(明)胜负为准。</div>
+  <div class="legend">
+    <span class="item"><span class="dot win"></span>明胜 · 开拓 / 克复</span>
+    <span class="item"><span class="dot loss"></span>明败 · 失地 / 丧师</span>
+    <span class="item"><span class="dot mixed"></span>惨胜 · 先胜后挫</span>
+    <span class="item"><span class="dot civil"></span>内争 · 靖难</span>
+  </div>
+
+  <div id="timeline"></div>
+
+  <div class="notes">
+    <p><span class="n">注一</span>本图录所收为有明一代主要战事十五场,分五个时代编次。各图均为示意图,依《明史》《明实录》《国榷》《明史纪事本末》及朝鲜《宣祖实录》等约略绘出,疆界、水道经简化,城邑位置为相对示意而非精确坐标。</p>
+    <p><span class="n">注二</span>本录以本朝(明)视角编次,总目之点色以明之胜负为准:青为明胜或开拓,赭为明败或失地,褐为惨胜、先胜后挫,金为靖难内争。凡图内进军之色,则仍以「角色」论——明军(或所从之主帅)青、对手赭、溃退褐,不以敌我阵营论。</p>
+    <p><span class="n">注三</span>取舍以「关乎国运、史载详明」为准:鄱阳、北伐定开国,靖难易鼎,土木、京师系存亡,三大征见盛衰之交,萨尔浒、松锦、甲申乃倾覆之枢。馀如白沟河、忽兰忽失温别役、山海关之战等,或并入相关图、或限于篇幅暂未专收。</p>
+  </div>
+  <footer>大明战图 · 战图十五番　|　按年编次　·　<a href="../battle-atlas/index.html">← 历代图录总目</a></footer>
+</div>
+<script>
+const ERAS=[
+ {h:"开国·北伐",yr:"1363–1388",ed:"鄱阳破陈友谅,徐达北伐驱元,蓝玉犁庭捕鱼儿海",items:[
+   {y:"1363",t:"鄱阳湖之战",oc:"火焚汉舟",cls:"win",href:"poyang-1363.html",d:"朱元璋与陈友谅决于鄱阳湖;友谅巨舰联锁,元璋以小舟火攻,鏖战三十六日,友谅中矢死,汉军尽覆,江南底定,遂成开国之基。"},
+   {y:"1367–1368",t:"徐达北伐·灭元",oc:"驱胡复华",cls:"win",href:"beifa-1368.html",d:"太祖遣徐达、常遇春率师北伐,先取山东、河南,断潼关,继捣元都;顺帝北遁,克大都,元亡,遂建大明,复汉家衣冠。"},
+   {y:"1388",t:"捕鱼儿海之战",oc:"蓝玉犁庭",cls:"win",href:"buyuerhai-1388.html",d:"蓝玉将师十五万穷追北元,冒风沙夜袭捕鱼儿海(贝尔湖);北元主脱古思帖木儿仅以数十骑遁,俘其眷属官属数万,元室典章尽失,大漠震骇。"}
+ ]},
+ {h:"靖难·永乐",yr:"1399–1424",ed:"燕王起兵夺位,继而五征漠北,忽兰忽失温大破瓦剌",items:[
+   {y:"1399–1402",t:"靖难之役",oc:"燕王入京",cls:"civil",href:"jingnan-1402.html",d:"建文削藩,燕王朱棣以「清君侧」起兵;白沟河大捷、灵璧破南军,乃避坚趋虚、直捣京师,渡江入南京,建文不知所终,棣即位,是为成祖。"},
+   {y:"1414",t:"忽兰忽失温之战",oc:"五征漠北",cls:"win",href:"mobei-1414.html",d:"成祖亲征漠北,遇瓦剌马哈木于忽兰忽失温;以神机铳炮当其冲,骑兵继之,大破瓦剌。终成祖之世五出塞、三犁虏庭,北疆暂靖。"}
+ ]},
+ {h:"土木·京师",yr:"1449",ed:"英宗亲征陷于土木,于谦力守而北京得全",items:[
+   {y:"1449",t:"土木之变",oc:"英宗蒙尘",cls:"loss",href:"tumu-1449.html",d:"英宗信王振,亲征瓦剌也先;进退失据,回师至土木堡,乏水被围,五十万众崩溃,王振死于乱军,英宗被俘,勋臣宿将丧亡殆尽,京师震动。"},
+   {y:"1449",t:"北京保卫战",oc:"于谦却敌",cls:"win",href:"beijing-1449.html",d:"也先挟英宗逼京师;于谦立郕王为帝,尽出九门背城而阵,列神机火器,亲督战。也先攻德胜、西直诸门不克,挟质无功,乃引退,京师得全。"}
+ ]},
+ {h:"御倭·万历三大征",yr:"1561–1600",ed:"戚继光荡倭东南,宁夏、朝鲜、播州三征皆捷而国力渐耗",items:[
+   {y:"1561",t:"台州之战·戚继光抗倭",oc:"戚家军荡倭",cls:"win",href:"taizhou-1561.html",d:"倭寇犯浙东;戚继光练「戚家军」,创鸳鸯阵,九战九捷于台州花街、上峰岭诸处,尽歼来犯之倭,东南倭患渐平。"},
+   {y:"1592",t:"宁夏之役",oc:"平哱拜",cls:"win",href:"ningxia-1592.html",d:"宁夏副将哱拜父子据城叛,连结套虏;明以李如松总兵讨之,引黄河水灌宁夏城,城溃,哱拜自尽,三大征之首捷。"},
+   {y:"1592–1598",t:"露梁海战·抗日援朝",oc:"露梁歼倭",cls:"win",href:"luliang-1598.html",d:"日本丰臣秀吉两犯朝鲜;明遣师援之,平壤、稷山迭战。秀吉死,倭撤,中朝水师邀击于露梁海,焚倭舟数百,老将邓子龙、朝将李舜臣俱殁,倭乃尽去。"},
+   {y:"1599–1600",t:"播州之役",oc:"平播州",cls:"win",href:"bozhou-1600.html",d:"播州宣慰使杨应龙世据险叛;明发八路二十余万,李化龙总督军务,会攻海龙囤,拔其天险,应龙自缢,土司之乱平,三大征毕。"}
+ ]},
+ {h:"辽事·社稷倾覆",yr:"1619–1644",ed:"萨尔浒四路丧师,宁远暂挫奴酋,松锦九边尽失,甲申社稷倾覆",items:[
+   {y:"1619",t:"萨尔浒之战",oc:"四路丧师",cls:"loss",href:"saerhu-1619.html",d:"明以杨镐经略辽东,四路分进攻后金;努尔哈赤「凭尔几路来,我只一路去」,集兵各个击破,五日破三路,明军丧师数万,辽东攻守之势遂易。"},
+   {y:"1626",t:"宁远之战",oc:"炮挫奴酋",cls:"win",href:"ningyuan-1626.html",d:"努尔哈赤率大军攻宁远;袁崇焕凭坚城、列红夷大炮,昼夜拒守,炮毙后金众,努尔哈赤受创而退,未几病殁,明得一时之捷。"},
+   {y:"1640–1642",t:"松锦之战",oc:"九边尽丧",cls:"loss",href:"songjin-1642.html",d:"清围锦州,明以洪承畴率九边精锐十三万往援;清断其粮道于松山,明军夜溃,松山、锦州相继陷,洪承畴被俘降清,关外精锐尽丧,唯余山海一关。"},
+   {y:"1644",t:"甲申之变·京师陷",oc:"社稷倾覆",cls:"loss",href:"jiashen-1644.html",d:"李自成东出,破宁武、下大同宣府,径趋京师;三月城陷,思宗崇祯自缢于煤山,有明二百七十六年遂亡。继而吴三桂引清入关,天下易主。"}
+ ]}
+];
+const tl=document.getElementById('timeline');
+ERAS.forEach(era=>{
+  const e=document.createElement('div');e.className='era';
+  e.innerHTML='<h2>'+era.h+'<span class="yr">'+era.yr+'</span></h2><div class="ed">'+era.ed+'</div>';
+  const box=document.createElement('div');box.className='tl';
+  era.items.forEach(it=>{
+    const row=document.createElement('div');row.className='row '+it.cls;
+    const arrow='<span class="arrow">▸ 展开战图</span>';
+    const inner='<div class="top"><span class="yr">'+it.y+'</span><span class="tt">'+it.t+'</span><span class="oc">'+it.oc+'</span></div><div class="ds">'+it.d+arrow+'</div>';
+    row.innerHTML='<a class="card '+it.cls+'" href="'+it.href+'">'+inner+'</a>';
+    box.appendChild(row);
+  });
+  e.appendChild(box);tl.appendChild(e);
+});
+</script>
+</body>
+</html>
