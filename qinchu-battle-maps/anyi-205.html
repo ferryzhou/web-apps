@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>韩信破魏之战 · 汉二年(前205)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回秦楚之际征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>木</span><span>罂</span><span>渡</span><span>军</span></div>
+  <header>
+    <h1>韩信破魏之战</h1>
+    <div class="sub">汉二年(前205)　　<i>汉 韩信</i> 破 <b>魏王 豹</b> · 定河东</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 魏豹叛汉</button>
+    <button data-p="1">陈兵蒲坂</button>
+    <button data-p="2">木罂渡军</button>
+    <button data-p="3">虏豹定魏</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="韩信破魏之战形势图,含魏汉疆界、黄河汾水与蒲坂夏阳安邑东垣荥阳等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:魏据河东(黄河之东),汉自关中、荥阳来(河西、河南);约以黄河为界 -->
+    <path d="M 440,0 C 470,90 500,160 500,240 C 500,320 470,400 470,470 C 470,540 500,590 520,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 440,0 C 470,90 500,160 500,240 C 500,320 470,400 470,470 C 470,540 500,590 520,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 440,0 C 470,90 500,160 500,240 C 500,320 470,400 470,470 C 470,540 500,590 520,640"/>
+    <text class="realm q" x="700" y="150" font-size="34">魏(河东)</text>
+    <text class="realm j" x="90" y="520" font-size="30">汉(关中·荥阳)</text>
+
+    <!-- 黄河:自北南下(前线),折向东为河曲之势 -->
+    <path class="river" stroke-width="5.5" d="M 470,20 C 452,110 448,200 452,290 C 456,370 470,440 490,510 C 512,570 560,596 640,600 C 730,604 830,600 1000,596"/>
+    <!-- 汾水:自东北汇入黄河 -->
+    <path class="river" stroke-width="3" d="M 780,140 C 720,200 660,270 600,330 C 560,368 520,398 496,432"/>
+    <text class="rname" x="430" y="300" transform="rotate(84 430 300)">黄 河</text>
+    <text class="rname" x="668" y="256" transform="rotate(46 668 256)" style="font-size:11px">汾 水</text>
+
+    <!-- 河曲群山 -->
+    <g class="mtn"><path d="M 640,110 l 8,-13 l 8,13 M 656,104 l 8,-13 l 8,13 M 672,110 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="638" y="130">河东群山</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="pubanlinjinguan"><circle cx="452" cy="470" r="5"/><text class="cname" x="360" y="466">蒲坂·临晋关<tspan class="cname s" dx="2">(河东渡)</tspan></text></g>
+      <g class="city" data-city="xiayang"><circle cx="456" cy="230" r="5"/><text class="cname" x="366" y="226">夏阳<tspan class="cname s" dx="2">(木罂渡处)</tspan></text></g>
+      <g class="city cap" data-city="anyi"><circle cx="620" cy="330" r="6"/><text class="cname" x="632" y="326">安邑<tspan class="cname s" dx="2">(魏都)</tspan></text></g>
+      <g class="city" data-city="dongyuan"><circle cx="760" cy="250" r="4.5"/><text class="cname" x="772" y="246">东垣<tspan class="cname s" dx="2">(虏魏豹处)</tspan></text></g>
+      <g class="city cap" data-city="xingyang"><circle cx="210" cy="560" r="6"/><text class="cname" x="120" y="556">荥阳<tspan class="cname s" dx="2">(汉本)</tspan></text></g>
+      <g class="city" data-city="huanghe"><circle cx="482" cy="380" r="3"/><text class="cname s" x="492" y="378">黄河渡</text></g>
+    </g>
+
+    <!-- 全图 · 魏豹叛汉 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 224,548 C 300,500 380,470 442,462"/>
+      <text class="mlabel j" x="250" y="512">彭城败后,魏豹叛汉附楚,刘邦遣韩信将兵击之</text>
+      <text class="mlabel q" x="640" y="200">魏王豹塞临晋、绝河关以拒汉</text>
+      <text class="anno" x="360" y="440">郦食其往说不听,遂决于兵</text>
+    </g>
+
+    <!-- 阶段一:陈兵蒲坂 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="446" y="464" width="10" height="10" transform="rotate(45 452 470)"/>
+      <text class="mlabel q" x="356" y="500">魏豹盛兵蒲坂,塞临晋关(河东渡口)</text>
+      <path class="march q" marker-end="url(#aq)" d="M 616,344 C 560,388 510,430 460,462"/>
+      <text class="anno" x="470" y="418">以为汉军必由此渡,重设备焉</text>
+      <text class="mlabel j" x="150" y="560">韩信军自荥阳、关中西来,临河而止</text>
+    </g>
+
+    <!-- 阶段二:木罂渡军 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 435,478 C 448,474 458,470 462,466"/>
+      <text class="mlabel j" x="330" y="496">陈船临晋以示欲渡(疑兵)</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,430 C 360,340 420,270 448,238"/>
+      <text class="mlabel j" x="210" y="330">潜以木罂缶载兵,自夏阳上游偷渡黄河</text>
+      <path class="march j" marker-end="url(#aj)" d="M 464,236 C 520,270 570,300 608,326"/>
+      <circle class="star" cx="620" cy="330" r="9"/>
+      <text class="anno" x="520" y="300">袭安邑,出魏军不意</text>
+    </g>
+
+    <!-- 阶段三:虏豹定魏 -->
+    <g id="ph3" class="ph">
+      <path class="march q rout" marker-end="url(#aq)" d="M 460,464 C 500,420 540,378 596,340"/>
+      <text class="mlabel q" x="466" y="400">魏豹惊,引兵迎战</text>
+      <path class="march j" marker-end="url(#aj)" d="M 632,326 C 680,300 720,278 752,256"/>
+      <path d="M 760,250 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="640" y="230">击破之,进虏魏豹于东垣</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 748,258 C 600,340 420,470 240,552"/>
+      <text class="mlabel r" x="440" y="360">传送荥阳</text>
+      <text class="anno" x="600" y="360">尽定魏地,置河东、太原、上党郡</text>
+      <text class="anno" x="150" y="536">因请益兵北举燕赵、东击齐,南绝楚粮道</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(韩信)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>魏军(魏豹)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>被虏·传送</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>袭破</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>魏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·淮阴侯列传》《史记·高祖本纪》《资治通鉴》卷九约略绘出。疆界、水道经简化,以点划「约界」标黄河为魏汉之限,非实有画界。</p>
+    <p><span class="n">注二</span>临晋关在今陕西大荔东,蒲坂在其对岸(今山西永济);夏阳在今陕西韩城南;安邑在今山西夏县;东垣在今山西垣曲一带。</p>
+    <p><span class="n">注三</span>韩信声东击西、木罂渡军,一举定河东,遂开北举燕赵之局;其后有井陉背水、潍水囊沙之捷,汉之北伐由此张焉。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"魏豹叛汉",d:"汉二年(前205)",p:["彭城之败后,诸侯多背汉附楚。魏王豹谒归视亲疾,即绝河关,反为楚,塞临晋、绝河津以拒汉。刘邦遣郦食其往说之,豹不听,曰「人生一世间,如白驹过隙耳」,汉王乃以韩信为左丞相,将兵击魏。","魏据河东,恃黄河之险为固;汉自关中、荥阳而来,隔河相望。信问郦生「魏得毋用周叔为大将乎」,闻其将柏直,曰「竖子耳」,遂进兵临河,谋所以渡。"]},
+  "1":{t:"陈兵蒲坂",d:"汉二年·临河",p:["魏豹盛兵蒲坂,塞临晋关。临晋乃河东正渡,舟楫所会;豹以为汉军必由此渡,故重列兵备,壅塞津口,专候于此。","韩信军抵河西,临流而止。魏豹据险自恃,以为河防已固,不虞信之别有奇谋也。"]},
+  "2":{t:"木罂渡军",d:"汉二年·奇渡",p:["韩信乃多陈船于临晋,若将济者,以疑魏兵——是为疑兵。魏豹果聚重于蒲坂,守望正渡。","而信潜以木罂缶载兵,自夏阳上游偷渡黄河。夏阳在临晋之北,魏备所不及。军既济,径袭安邑,出魏军不意,魏都仓卒而破。"]},
+  "3":{t:"虏豹定魏",d:"汉二年·平河东",p:["魏豹闻安邑被袭,大惊,引兵还迎战。韩信击破之,乘胜进虏魏豹于东垣,械系传送荥阳,以献汉王。","于是尽定魏地,置河东、太原、上党三郡。信因请益兵三万,愿以北举燕、赵,东击齐,南绝楚之粮道,西与汉王会于荥阳——「北伐」之大略自此张焉。"]}
+};
+const CITY={
+  pubanlinjinguan:{t:"蒲坂·临晋关",d:"今山西永济、陕西大荔东隔河相对",p:["河东正渡、津口所会。魏豹陈重兵塞此,以为汉军必由此渡;韩信乃陈船以疑之,而别渡于夏阳。"]},
+  xiayang:{t:"夏阳",d:"今陕西韩城南",p:["临晋之北、黄河上游。魏备所不及。韩信潜以木罂缶载兵自此偷渡,径袭安邑,声东击西之枢也。"]},
+  anyi:{t:"安邑",d:"魏都,今山西夏县",p:["魏豹之都。韩信渡河即径袭之,出魏军不意,都城仓卒而破,河东全局遂动。"]},
+  dongyuan:{t:"东垣",d:"今山西垣曲一带",p:["魏豹引兵迎战被破后,韩信乘胜进虏魏豹于此,械系传送荥阳。"]},
+  xingyang:{t:"荥阳",d:"汉之本营,今河南荥阳东北",p:["刘邦拒楚之根本。韩信传送魏豹至此;既定河东,信请益兵,期与汉王会师于荥阳。"]},
+  huanghe:{t:"黄河",d:"魏汉之天堑",p:["魏据河东恃以为固,塞临晋、绝河关。韩信以疑兵临晋、奇兵夏阳,越此天堑而定魏。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

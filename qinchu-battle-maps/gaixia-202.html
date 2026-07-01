@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>垓下之战 · 汉五年(前202)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回秦楚之际征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>垓</span><span>下</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>垓下之战</h1>
+    <div class="sub">汉五年(前202)　　<i>汉 刘邦 · 韩信</i> 十面埋伏 · 灭 <b>西楚 项羽</b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 合围垓下</button>
+    <button data-p="1">固陵约诸侯</button>
+    <button data-p="2">四面楚歌</button>
+    <button data-p="3">乌江自刎</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="垓下之战形势图,含汉楚疆界、淮水长江与垓下彭城乌江等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:楚(残)据东南,汉与诸侯自四方围合;约以淮北为决战之地 -->
+    <path d="M 470,0 C 500,110 560,180 620,250 C 690,330 720,430 700,530 C 690,590 680,620 680,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 500,110 560,180 620,250 C 690,330 720,430 700,530 C 690,590 680,620 680,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 500,110 560,180 620,250 C 690,330 720,430 700,530 C 690,590 680,620 680,640"/>
+    <text class="realm q" x="770" y="130" font-size="30">西 楚(残)</text>
+    <text class="realm j" x="110" y="480" font-size="30">汉 · 诸侯</text>
+
+    <!-- 淮水:自西北向东南斜贯,项羽夜溃围南出渡此 -->
+    <path class="river" stroke-width="5" d="M 300,120 C 380,180 440,230 500,300 C 560,368 600,420 660,470 C 720,516 780,540 860,556"/>
+    <!-- 长江:横亘南境,乌江在其北岸 -->
+    <path class="river" stroke-width="5.5" d="M 60,600 C 200,584 360,576 500,584 C 620,590 740,596 880,586"/>
+    <!-- 泗水:自彭城南下入淮 -->
+    <path class="river" stroke-width="2.6" d="M 560,110 C 545,180 530,240 512,300"/>
+    <text class="rname" x="440" y="252" transform="rotate(38 440 252)">淮 水</text>
+    <text class="rname" x="200" y="592" style="font-size:13px">长 江</text>
+    <text class="rname" x="520" y="205" transform="rotate(76 520 205)" style="font-size:10.5px">泗 水</text>
+
+    <!-- 大泽:阴陵陷泽处 -->
+    <g class="mtn"><path d="M 402,470 q 10,-8 20,0 q 10,8 20,0" opacity=".7"/><path d="M 402,482 q 10,-8 20,0 q 10,8 20,0" opacity=".7"/></g>
+    <text class="cname s" x="400" y="500">大泽</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city cap" data-city="pengcheng"><circle cx="560" cy="104" r="6"/><text class="cname" x="572" y="100">彭城<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
+      <g class="city" data-city="guling"><circle cx="300" cy="238" r="5"/><text class="cname" x="216" y="234">固陵·陈下</text></g>
+      <g class="city" data-city="gaixia"><circle cx="512" cy="308" r="7"/><text class="cname" x="524" y="304">垓下<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="yinling"><circle cx="436" cy="452" r="4.5"/><text class="cname s" x="450" y="448">阴陵(迷道)</text></g>
+      <g class="city" data-city="dongcheng"><circle cx="486" cy="520" r="4.5"/><text class="cname s" x="500" y="516">东城(二十八骑)</text></g>
+      <g class="city" data-city="wujiang"><circle cx="520" cy="582" r="5"/><text class="cname" x="534" y="578">乌江<tspan class="cname s" dx="2">(自刎)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 合围垓下 -->
+    <g id="phAll" class="ph">
+      <circle class="siege" cx="512" cy="308" r="34"/>
+      <circle class="siege" cx="512" cy="308" r="48"/>
+      <circle class="siege" cx="512" cy="308" r="63"/>
+      <circle class="star" cx="512" cy="308" r="11"/>
+      <path class="march j" marker-end="url(#aj)" d="M 150,430 C 260,380 360,340 458,318"/>
+      <text class="mlabel j" x="150" y="420">汉 刘邦 · 韩信 · 彭越 · 英布 四方合围</text>
+      <path class="march q" marker-end="url(#aq)" d="M 620,150 C 590,210 560,260 528,298"/>
+      <text class="mlabel q" x="600" y="150">项羽 引兵壁垓下</text>
+      <text class="anno" x="300" y="290">鸿沟既约,汉背约追楚;裂地王韩、彭,诸侯毕会</text>
+    </g>
+
+    <!-- 阶段一:固陵约诸侯 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 200,420 C 240,350 270,290 296,248"/>
+      <text class="mlabel j" x="150" y="440">刘邦追楚至固陵</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 300,250 C 290,300 288,340 296,372"/>
+      <text class="mlabel q" x="230" y="330">韩彭不至,汉军大败,深堑自守</text>
+      <path class="march j" marker-end="url(#aj)" d="M 130,150 C 220,170 300,200 348,232"/>
+      <text class="mlabel j" x="120" y="140">用张良计,裂地王韩信、彭越</text>
+      <path class="march j" marker-end="url(#aj)" d="M 200,600 C 300,560 400,500 466,332"/>
+      <text class="mlabel j" x="180" y="590">刘贾、英布自南合</text>
+      <circle class="siege" cx="512" cy="308" r="30"/>
+      <text class="anno" x="360" y="356">二人乃引兵来,楚军遂被大围</text>
+    </g>
+
+    <!-- 阶段二:四面楚歌 -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="512" cy="308" r="30"/>
+      <circle class="siege" cx="512" cy="308" r="44"/>
+      <circle class="siege" cx="512" cy="308" r="58"/>
+      <circle class="siege" cx="512" cy="308" r="72"/>
+      <circle class="star" cx="512" cy="308" r="10"/>
+      <rect class="camp" x="507" y="303" width="10" height="10" transform="rotate(45 512 308)"/>
+      <text class="mlabel q" x="430" y="260">项羽壁垓下,兵少食尽</text>
+      <text class="mlabel j" x="600" y="300">夜闻汉军四面皆楚歌</text>
+      <text class="anno" x="560" y="320">「是何楚人之多也」</text>
+      <text class="anno" x="430" y="392">夜起饮帐中 · 别虞姬 · 泣数行下</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 508,336 C 500,370 490,400 470,430"/>
+      <text class="mlabel r" x="474" y="420">乃夜溃围南出</text>
+    </g>
+
+    <!-- 阶段三:乌江自刎 -->
+    <g id="ph3" class="ph">
+      <path class="march q rout" marker-end="url(#aq)" d="M 508,332 C 500,370 480,406 452,440"/>
+      <text class="mlabel r" x="514" y="392">渡淮,骑能属者百余人</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 434,458 C 448,478 466,496 480,510"/>
+      <text class="mlabel r" x="352" y="452">阴陵迷道陷泽</text>
+      <path class="march j" marker-end="url(#aj)" d="M 320,300 C 360,380 400,440 420,448"/>
+      <text class="mlabel j" x="300" y="300">汉追及之</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 490,528 C 500,548 508,562 516,574"/>
+      <text class="mlabel r" x="500" y="546">东城二十八骑,溃围斩将</text>
+      <path d="M 520,582 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="536" y="602">乌江自刎</text>
+      <text class="anno" x="360" y="620">「天之亡我,我何渡为」·「无面目见江东父老」</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉 · 诸侯军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚军(项羽)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>突围·溃走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 3"/></svg>十面埋伏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>西楚</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉·诸侯</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·项羽本纪》《高祖本纪》《资治通鉴》卷十一约略绘出。疆界、水道经简化,合围之势以叠环「十面埋伏」表意,非实测阵位。</p>
+    <p><span class="n">注二</span>垓下在今安徽灵璧南,乌江在今安徽和县;彭城今江苏徐州,固陵在今河南太康南,阴陵、东城并在今安徽定远境。</p>
+    <p><span class="n">注三</span>「四面楚歌」「霸王别姬」「无颜见江东父老」皆本此。项羽死,楚汉之争终,楚地悉定,刘邦即皇帝位,汉有天下。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"合围垓下",d:"汉五年(前202)十二月",p:["鸿沟既约,中分天下,项羽引兵东归;刘邦用张良、陈平之谋,背约追楚。初追至固陵,韩信、彭越期而不至,汉军反为楚所败。","乃从张良计,裂地以王韩信、彭越,许以固陵以东尽与之。二人乃引兵毕会,刘贾、英布亦自南合,诸侯之兵大集,合围项羽于垓下——楚少汉众,如铁桶焉。"]},
+  "1":{t:"固陵约诸侯",d:"汉五年十月 — 十二月",p:["刘邦追项羽至固陵,约韩信、彭越共击楚。二人不至,楚击汉军,大破之;汉王复入壁,深堑而自守。","张良曰:「君王能与共分天下,今可立致也。」乃裂睢阳以北至穀城予彭越,陈以东傅海予韩信。使者至,二人报曰「请今进兵」;韩信自齐、彭越自梁、刘贾英布自南,四面而合,楚军遂被大围于垓下。"]},
+  "2":{t:"四面楚歌",d:"汉五年十二月 夜",p:["项羽壁垓下,兵少食尽;汉与诸侯兵围之数重。夜闻汉军四面皆楚歌,项王乃大惊曰:「汉皆已得楚乎?是何楚人之多也!」","项王则夜起,饮帐中。有美人名虞,常幸从;骏马名骓,常骑之。于是慷慨悲歌,自为诗曰「力拔山兮气盖世,时不利兮骓不逝」。歌数阕,美人和之;项王泣数行下,左右皆泣,莫能仰视。乃夜率壮士八百余骑,溃围南出,驰走。"]},
+  "3":{t:"乌江自刎",d:"汉五年十二月",p:["平明,汉军乃觉,令骑将灌婴以五千骑追之。项王渡淮,骑能属者才百余人。至阴陵,迷失道,问一田父,田父绐曰「左」;左,乃陷大泽中,以故汉追及之。","至东城,乃有二十八骑。项王自度不得脱,谓其骑曰:「此天之亡我,非战之罪也。」乃溃围、斩将、刈旗,以示诸骑。至乌江,亭长舣船请渡,项王笑曰:「天之亡我,我何渡为!且籍与江东子弟八千人渡江而西,今无一人还,纵江东父兄怜而王我,我何面目见之?」乃下马步战,独杀汉军数百人,身亦被十余创,遂自刎而死。楚地悉定,汉遂一天下。"]}
+};
+const CITY={
+  gaixia:{t:"垓下",d:"今安徽灵璧南",p:["项羽壁此,兵少食尽,汉与诸侯围之数重。夜闻四面楚歌,悲歌别姬,乃溃围南出——「霸王别姬」之地。"]},
+  guling:{t:"固陵·陈下",d:"今河南太康南",p:["刘邦背约追楚,先败于此;韩信、彭越期而不至,汉军深堑自守。用张良计裂地王二人,乃转败为围。"]},
+  yinling:{t:"阴陵",d:"今安徽定远西北",p:["项羽渡淮后至此迷失道,问田父,田父绐以「左」,遂陷大泽,以故汉追及之。"]},
+  dongcheng:{t:"东城",d:"今安徽定远东南",p:["项羽突围至此,乃有二十八骑。自度不得脱,溃围斩将刈旗,以示「天亡我,非战之罪」。"]},
+  wujiang:{t:"乌江",d:"今安徽和县东北,长江北岸",p:["项羽自刎之地。亭长舣船请渡,羽笑「天之亡我,我何渡为」、「无面目见江东父老」,乃下马步战,身被十余创,自刎而死。"]},
+  pengcheng:{t:"彭城",d:"西楚都,今江苏徐州",p:["项羽自立西楚霸王,都彭城。垓下既败,楚地悉定;鲁最后为项王守节,闻其头乃降。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

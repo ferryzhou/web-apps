@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>井陉之战 · 背水一战(前204)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回秦楚之际征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>井</span><span>陉</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>井陉之战 · 背水一战</h1>
+    <div class="sub">汉三年(前204)　　<i>汉 韩信 · 张耳</i> 背水破 <b>赵 陈馀</b>(二十万)</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 下赵井陉</button>
+    <button data-p="1">陈馀拒险</button>
+    <button data-p="2">背水列阵</button>
+    <button data-p="3">拔帜易帜</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="井陉之战形势图,含汉赵疆界、太行井陉险道与绵蔓水泜水及井陉口赵壁襄国等城邑">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:赵据河北(东),汉自西下井陉,约以太行井陉险道为界 -->
+    <path d="M 470,0 C 466,120 476,220 448,320 C 428,400 424,500 452,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 466,120 476,220 448,320 C 428,400 424,500 452,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 466,120 476,220 448,320 C 428,400 424,500 452,640"/>
+    <text class="realm q" x="700" y="120" font-size="34">赵(河北)</text>
+    <text class="realm j" x="110" y="560" font-size="32">汉(自西下井陉)</text>
+
+    <!-- 绵蔓水:出井陉口西,韩信背水陈处 -->
+    <path class="river" stroke-width="3.4" d="M 300,150 C 330,240 360,320 386,398 C 402,448 410,500 414,560"/>
+    <!-- 泜水:井陉东南,陈馀败死处 -->
+    <path class="river" stroke-width="3" d="M 610,470 C 680,486 750,494 820,500 C 890,506 950,510 1000,512"/>
+    <text class="rname" x="356" y="330" transform="rotate(76 356 330)">绵 蔓 水</text>
+    <text class="rname" x="700" y="480">泜 水</text>
+
+    <!-- 太行·井陉险道:狭窄山口 -->
+    <g class="mtn"><path d="M 440,250 l 9,-15 l 9,15 M 456,244 l 9,-15 l 9,15 M 472,250 l 8,-14 l 8,14 M 440,330 l 9,-15 l 9,15 M 472,336 l 8,-14 l 8,14"/></g>
+    <path class="mtn" stroke-width="1.6" stroke-dasharray="4 4" d="M 470,270 C 505,286 545,296 590,300"/>
+    <text class="cname s" x="428" y="230">太行山</text>
+    <text class="cname s" x="500" y="330">井陉险道</text>
+
+    <!-- 城邑 -->
+    <g id="cities">
+      <g class="city" data-city="jingxingkou"><circle cx="560" cy="300" r="6"/><text class="cname" x="516" y="286">井陉口<tspan class="cname s" dx="2">(太行险道)</tspan></text></g>
+      <g class="city" data-city="mianman"><circle cx="410" cy="470" r="4"/><text class="cname s" x="330" y="474">绵蔓水(背水陈)</text></g>
+      <g class="city" data-city="zhaobi"><circle cx="640" cy="300" r="5"/><text class="cname" x="654" y="296">赵壁<tspan class="cname s" dx="2">(陈馀大营)</tspan></text></g>
+      <g class="city" data-city="bishan"><circle cx="520" cy="210" r="3.5"/><text class="cname s" x="484" y="200">萆山(奇兵伏)</text></g>
+      <g class="city" data-city="zhishui"><circle cx="700" cy="474" r="4"/><text class="cname s" x="710" y="470">泜水(陈馀死)</text></g>
+      <g class="city cap" data-city="xiangguo"><circle cx="852" cy="360" r="6"/><text class="cname" x="810" y="356">襄国<tspan class="cname s" dx="2">(赵都)</tspan></text></g>
+    </g>
+
+    <!-- 全图 · 下赵井陉 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 120,470 C 220,440 320,360 470,300 C 500,288 528,290 552,296"/>
+      <text class="mlabel j" x="160" y="430">韩信、张耳将兵数万,东下井陉击赵</text>
+      <text class="anno" x="220" y="452">已定魏、代,乘胜略赵</text>
+      <rect class="camp" x="634" y="294" width="9" height="9" transform="rotate(45 638 298)"/>
+      <text class="mlabel q" x="656" y="330">赵王歇、成安君陈馀聚兵二十万,壁井陉口</text>
+      <text class="anno" x="656" y="348">扼太行之险,以逸待劳</text>
+    </g>
+
+    <!-- 阶段一:陈馀拒险 -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="634" y="294" width="10" height="10" transform="rotate(45 639 299)"/>
+      <text class="mlabel q" x="600" y="270">陈馀壁井陉口,拒守太行险道</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 632,306 C 600,320 570,330 560,336"/>
+      <text class="mlabel r" x="470" y="360">广武君请以奇兵绝汉辎重于狭道</text>
+      <text class="anno" x="460" y="378">深沟高垒勿战,不十日可致信耳之头</text>
+      <text class="mlabel q" x="660" y="380">陈馀自恃义兵众多,曰「义兵不用诈谋」</text>
+      <text class="anno" x="700" y="398">不听,欲正面决战</text>
+    </g>
+
+    <!-- 阶段二:背水列阵 -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 552,308 C 500,360 450,420 414,462"/>
+      <text class="mlabel j" x="330" y="500">先令万人出,背绵蔓水而陈</text>
+      <text class="anno" x="336" y="518">赵军望见大笑其不知兵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 552,296 C 540,262 530,232 522,214"/>
+      <text class="mlabel j" x="380" y="180">夜遣轻骑二千,人持一赤帜,间道萆山望赵军</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,300 C 510,300 535,300 552,300"/>
+      <text class="mlabel j" x="470" y="290">平旦,信建大将旗鼓出井陉口</text>
+      <text class="mlabel q" x="600" y="260">赵开壁击之</text>
+    </g>
+
+    <!-- 阶段三:拔帜易帜 -->
+    <g id="ph3" class="ph">
+      <path class="march j rout" marker-end="url(#ar)" d="M 552,304 C 500,356 452,416 416,458"/>
+      <text class="mlabel r" x="330" y="446">信佯败弃鼓旗,走入水上军</text>
+      <path class="march q" marker-end="url(#aq)" d="M 636,306 C 580,340 500,400 430,452"/>
+      <text class="mlabel q" x="470" y="428">赵空壁逐利</text>
+      <path class="march j" marker-end="url(#aj)" d="M 524,206 C 560,232 600,268 632,294"/>
+      <path d="M 640,300 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="620" y="220">奇兵二千驰入赵壁,拔赵旗、立汉赤帜</text>
+      <circle class="star" cx="410" cy="470" r="9"/>
+      <text class="anno" x="330" y="536">汉军背水死战,赵不能胜</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 470,440 C 540,458 620,468 692,472"/>
+      <text class="mlabel r" x="520" y="500">还壁见皆汉赤帜,大惊乱走</text>
+      <text class="mlabel j" x="640" y="452">汉夹击大破之,斩陈馀泜水上,擒赵王歇</text>
+    </g>
+
+    <g class="compass" transform="translate(944,560)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>赵军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>佯败·溃走</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>赵</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,依《史记·淮阴侯列传》《资治通鉴》卷九至十约略绘出。疆界、水道经简化,井陉险道以点划约略示之,非实有画界。</p>
+    <p><span class="n">注二</span>井陉在今河北井陉,当太行八陉之一,山道险狭,车不得方轨、骑不得成列;泜水在其东南,襄国(赵都)今河北邢台。</p>
+    <p><span class="n">注三</span>「背水一战」「拔帜易帜」「置之死地而后生」皆本此。韩信以数万破二十万,兵法之奇;而战后礼待广武君李左车,问以燕齐之策,尤见其略。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"下赵井陉",d:"汉三年(前204)·冬",p:["汉既定魏、代,韩信、张耳将兵数万,东下井陉以击赵。井陉者,太行之险道,车不得方轨,骑不得成列,行数百里,其势援兵必在后。","赵王歇、成安君陈馀闻汉且袭,聚兵井陉口,号称二十万,壁而守之,扼险以逸待劳。汉军远来,粮道悬绝,形势至危。"]},
+  "1":{t:"陈馀拒险",d:"汉三年·临战",p:["广武君李左车说陈馀曰:韩信乘胜而来,锐不可当;然千里馈粮,士有饥色。井陉之道,车不得方轨。愿假臣奇兵三万,从间道绝其辎重;足下深沟高垒,坚营勿与战。彼前不得斗,退不得还,不至十日,而两将之头可致于麾下。","陈馀,儒者也,自恃为义兵,不用诈谋奇计,曰:「义兵不用诈谋。」以为汉兵少而疲,避而不击,则诸侯谓吾怯而轻来伐我。遂不听广武君策,欲会战于井陉口。"]},
+  "2":{t:"背水列阵",d:"汉三年·平旦前后",p:["韩信闻陈馀不用广武君策,大喜,乃敢引兵遂下。未至井陉口三十里,止舍。夜半,遣轻骑二千,人持一赤帜,从间道萆山而望赵军,诫曰:赵见我走,必空壁逐我,若疾入赵壁,拔赵帜,立汉赤帜。","又先令万人出,背绵蔓水而陈。赵军望见而大笑,以为汉将不知兵法——背水者,无所退也。平旦,信建大将之旗鼓,鼓行出井陉口;赵开壁击之,大战良久。"]},
+  "3":{t:"拔帜易帜",d:"汉三年·决战",p:["信、耳佯败,弃鼓旗,走入水上军。赵果空壁争汉鼓旗,逐信、耳。汉军背水,无所归,人自为战,赵不能败。信所出奇兵二千骑,共候赵空壁逐利,则驰入赵壁,皆拔赵旗,立汉赤帜二千。","赵军久战不胜,欲还归壁,壁皆汉赤帜,大惊,以为汉已尽得赵王将矣,遂乱,遁走。汉兵夹击,大破虏赵军,斩成安君泜水上,禽赵王歇。信乃厚待广武君,问以燕、齐之策——「置之死地而后生」,遂为兵家所法。"]}
+};
+const CITY={
+  jingxingkou:{t:"井陉口",d:"太行险道,今河北井陉",p:["太行八陉之一,山道险狭,车不得方轨、骑不得成列。陈馀壁其口,汉军自此鼓行而出,遂为决战之门户。"]},
+  mianman:{t:"绵蔓水",d:"井陉口西,韩信背水陈处",p:["韩信先令万人背此水而陈,赵望见大笑。及战,汉军无所退,人自为战,卒以背水死战破赵——「背水一战」由此。"]},
+  zhaobi:{t:"赵壁",d:"陈馀大营,井陉口外",p:["赵二十万之众所壁。赵空壁逐汉之利,汉奇兵二千乘虚驰入,拔赵旗、立汉赤帜二千,赵军还见而大惊乱走。"]},
+  bishan:{t:"萆山",d:"汉奇兵二千伏处,近井陉",p:["韩信夜遣轻骑二千,人持一赤帜,从间道隐蔽于此以望赵军,伺赵空壁而袭其营——拔帜易帜之伏所。"]},
+  zhishui:{t:"泜水",d:"陈馀败死处,井陉东南",p:["赵军乱走,汉夹击大破之。成安君陈馀被斩于此水之上,赵王歇被擒,赵地遂定。"]},
+  xiangguo:{t:"襄国",d:"赵都,今河北邢台",p:["赵王歇之都。井陉一败,赵王被擒,河北传檄而定;韩信进而谋燕、齐,汉之势愈张。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
