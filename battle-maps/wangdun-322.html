@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>王敦之乱 · 永昌元年(322)</title>
+<title>王敦之乱 · 永昌元年至太宁二年(322–324)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -27,6 +27,7 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.4}.realm.j{fill:var(--advance);opacity:.4}
   .city{cursor:pointer}
@@ -55,7 +56,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:760;stroke-dashoffset:760;animation:draw 1.6s ease forwards}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:1300;stroke-dashoffset:1300;animation:draw 1.8s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,16 +70,16 @@
   <div class="seal" aria-hidden="true"><span>王</span><span>敦</span><span>之</span><span>乱</span></div>
   <header>
     <h1>王敦之乱</h1>
-    <div class="sub">晋永昌元年至太宁二年(322–324)　　<b>权臣 王敦</b> 对 <i>东晋朝廷 元帝·明帝</i></div>
+    <div class="sub">晋永昌元年至太宁二年(322–324)　　<b>权臣 王敦</b>(荆江上游) 两犯 <i>东晋朝廷 元帝·明帝</i> · 自武昌顺流东下</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 武昌起兵</button>
-    <button data-p="1">攻陷石头</button>
-    <button data-p="2">明帝反击</button>
-    <button data-p="3">越城平乱</button>
+    <button class="on" data-p="all">全图 · 武昌顺流</button>
+    <button data-p="1">322·顺流犯阙·陷石头</button>
+    <button data-p="2">敦据建康而还镇</button>
+    <button data-p="3">324·再举·越城平乱</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="王敦之乱形势图,含东晋朝廷与王敦势力、长江秦淮与武昌建康石头城等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="王敦之乱形势图,含王敦所据荆江上游与东晋朝廷下游、长江秦淮河、及武昌寻阳芜湖姑孰石头城建康越城吴兴等城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -87,80 +88,94 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 势力:王敦据上游荆江(西),朝廷据建康(东) -->
-    <path d="M 0,260 C 100,266 200,272 300,282 C 380,290 430,310 470,330 L 470,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,330 C 520,312 580,300 640,300 C 760,300 880,306 1000,302 L 1000,640 L 470,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,640 C 466,500 466,420 470,330"/>
-    <text class="realm q" x="120" y="210" font-size="28">王敦(荆江)</text>
-    <text class="realm j" x="720" y="210" font-size="28">朝廷·建康</text>
+    <!-- ══ 势力示意:长江为轴,上游(西)王敦都督区,下游(东)朝廷畿辅 ══ -->
+    <path d="M 0,30 L 300,30 C 312,160 318,320 320,470 C 321,540 316,600 314,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 300,30 C 312,160 318,320 320,470 C 321,540 316,600 314,640 L 1000,640 L 1000,30 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 300,30 C 312,160 318,320 320,470 C 321,540 316,600 314,640"/>
+    <text class="realm q" x="60" y="180" font-size="30">荆 江</text>
+    <text class="cname s" x="60" y="204" style="fill:var(--enemy);opacity:.6">(王敦·上游都督区)</text>
+    <text class="realm j" x="770" y="150" font-size="30">扬 州</text>
+    <text class="cname s" x="770" y="174" style="fill:var(--advance);opacity:.6">(朝廷·下游畿辅)</text>
 
-    <!-- 长江:武昌(西)东下建康 -->
-    <path class="river" stroke-width="5.5" d="M 80,360 C 200,372 300,388 360,386 C 440,382 500,392 540,396 C 620,404 680,360 760,348 C 840,336 920,340 1000,346"/>
-    <!-- 秦淮河 -->
-    <path class="river" stroke-width="2.2" d="M 720,398 C 712,376 706,358 700,344"/>
-    <text class="rname" x="200" y="392" style="font-size:13px">长 江</text>
-    <text class="rname" x="724" y="380" transform="rotate(74 724 380)" style="font-size:10px">秦淮河</text>
+    <!-- ══ 长江:自西南巴荆而下,过寻阳折而东北,趋建康入海 ══ -->
+    <path class="river" stroke-width="5.5" d="M 0,448 C 55,454 90,458 128,470 C 172,492 206,526 250,532 C 322,544 384,496 444,428 C 502,362 548,352 578,330 C 596,310 600,294 606,284 C 650,258 760,232 1000,222"/>
+    <!-- 秦淮河:自东南入江,建康跨其上,越城在其南岸,朱雀桁渡其口 -->
+    <path class="river" stroke-width="2.2" d="M 678,324 C 652,312 630,298 612,288"/>
+    <text class="rname" x="140" y="470" transform="rotate(20 140 470)">长 江</text>
+    <text class="rname" x="330" y="500" transform="rotate(-30 330 500)" style="font-size:11px">顺流千里</text>
+    <text class="rname" x="640" y="316" transform="rotate(28 640 316)" style="font-size:10.5px">秦淮河</text>
+    <text class="rname" x="6" y="440" style="font-size:10px">↤ 巴荆(上游)</text>
+    <text class="rname" x="906" y="216" style="font-size:10px">京口·入海 ↦</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="wuchang"><circle cx="100" cy="356" r="6"/><text class="cname" x="60" y="352">武昌<tspan class="cname s" dx="2">(王敦)</tspan></text></g>
-      <g class="city" data-city="pengze"><circle cx="320" cy="386" r="3.5"/><text class="cname s" x="282" y="404">彭泽湖口</text></g>
-      <g class="city" data-city="wuhu"><circle cx="540" cy="398" r="4.5"/><text class="cname s" x="502" y="416">芜湖</text></g>
-      <g class="city" data-city="gushu"><circle cx="600" cy="402" r="4"/><text class="cname s" x="580" y="420">姑孰</text></g>
-      <g class="city" data-city="jiangning"><circle cx="668" cy="400" r="4"/><text class="cname s" x="648" y="418">江宁</text></g>
-      <g class="city" data-city="shitou"><circle cx="678" cy="368" r="5"/><text class="cname" x="636" y="362">石头城</text></g>
-      <g class="city cap" data-city="jiankang"><circle cx="712" cy="350" r="6"/><text class="cname" x="722" y="346">建康<tspan class="cname s" dx="2">(台城)</tspan></text></g>
-      <g class="city" data-city="yuecheng"><circle cx="724" cy="372" r="3.5"/><text class="cname s" x="732" y="388">越城</text></g>
-      <g class="city" data-city="jiangcheng"><circle cx="772" cy="330" r="3.5"/><text class="cname s" x="780" y="326">江乘</text></g>
-      <g class="city" data-city="huaiyin"><circle cx="852" cy="252" r="4"/><text class="cname s" x="824" y="244">淮阴</text></g>
-      <g class="city" data-city="wuxing"><circle cx="800" cy="470" r="4"/><text class="cname s" x="760" y="486">吴兴(沈充)</text></g>
+      <g class="city cap" data-city="wuchang"><circle cx="95" cy="461" r="6"/><text class="cname" x="104" y="457">武昌<tspan class="cname s" dx="2">(王敦本镇)</tspan></text></g>
+      <g class="city" data-city="xunyang"><circle cx="241" cy="540" r="4"/><text class="cname s" x="200" y="556">寻阳(九江)</text></g>
+      <g class="city" data-city="wuhu"><circle cx="555" cy="352" r="4.5"/><text class="cname s" x="512" y="368">芜湖</text></g>
+      <g class="city" data-city="gushu"><circle cx="570" cy="325" r="5"/><text class="cname s" x="528" y="320">姑孰</text></g>
+      <g class="city" data-city="jiangning"><circle cx="590" cy="282" r="4"/><text class="cname s" x="546" y="298">江宁</text></g>
+      <g class="city" data-city="shitou"><circle cx="602" cy="274" r="5"/><text class="cname" x="536" y="266">石头城</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="608" cy="270" r="6"/><text class="cname" x="616" y="264">建康<tspan class="cname s" dx="2">(台城)</tspan></text></g>
+      <g class="city" data-city="yuecheng"><circle cx="609" cy="278" r="3.5"/><text class="cname s" x="616" y="300">越城</text></g>
+      <g class="city" data-city="jiangcheng"><circle cx="631" cy="259" r="3.5"/><text class="cname s" x="638" y="250">江乘</text></g>
+      <g class="city" data-city="huaiyin"><circle cx="640" cy="94" r="4"/><text class="cname s" x="648" y="90">淮阴</text></g>
+      <g class="city" data-city="wuxing"><circle cx="781" cy="406" r="4"/><text class="cname s" x="730" y="424">吴兴(沈充)</text></g>
     </g>
 
-    <!-- 全图 · 武昌起兵 -->
+    <!-- ══ 全图 · 武昌顺流 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 110,360 C 240,392 380,398 530,398"/>
-      <text class="mlabel q" x="220" y="378">永昌元年,王敦以诛刘隗为名东下</text>
-      <path class="march q" marker-end="url(#aq)" d="M 794,464 C 760,430 730,400 716,360"/>
-      <text class="mlabel q" x="760" y="452">沈充吴兴起兵响应</text>
-      <text class="mlabel j" x="640" y="320">元帝命刘隗守金城,周本守石头</text>
-      <text class="anno" x="540" y="430">至芜湖,奏列刁协罪状</text>
+      <path class="march q" marker-end="url(#aq)" d="M 110,458 C 172,494 206,526 250,530 C 322,542 384,494 444,426 C 502,360 548,350 578,328 C 596,308 600,292 603,282"/>
+      <text class="mlabel q" x="120" y="443">永昌元年,王敦以诛刘隗为名,自武昌顺流犯阙</text>
+      <path class="march q" marker-end="url(#aq)" d="M 770,398 C 720,368 680,328 622,286"/>
+      <text class="mlabel q" x="686" y="392">沈充起吴兴响应</text>
+      <text class="mlabel j" x="500" y="248">元帝命刘隗守金城、周札守石头拒之</text>
+      <text class="anno" x="452" y="384">至芜湖,上表列刁协、刘隗之罪</text>
     </g>
 
-    <!-- 阶段一:攻陷石头 -->
+    <!-- ══ 阶段一:322·顺流犯阙·陷石头 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 548,394 C 600,388 640,380 672,372"/>
-      <text class="mlabel q" x="560" y="372">舍刘隗先攻石头城</text>
-      <circle class="star" cx="678" cy="368" r="8"/>
-      <text class="anno" x="600" y="392">周札开城降,敦据石头</text>
-      <path class="march j" marker-end="url(#aj)" d="M 706,356 C 700,362 692,366 686,368"/>
-      <text class="mlabel j" x="700" y="338">诸军反攻石头皆败</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 716,346 C 740,338 760,334 768,332"/>
-      <text class="mlabel r" x="730" y="320">刁协走江乙被杀,隗北奔</text>
-      <text class="anno" x="120" y="320">敦专朝政,旋还武昌遥控</text>
+      <path class="march q" marker-end="url(#aq)" d="M 566,330 C 586,312 594,298 601,284"/>
+      <text class="mlabel q" x="470" y="330">用杜弘计,舍刘隗先攻石头</text>
+      <circle class="star" cx="602" cy="274" r="8"/>
+      <text class="anno" x="470" y="346">周札开城出降,敦据石头</text>
+      <path class="march j" marker-end="url(#aj)" d="M 620,266 C 614,268 609,271 606,274"/>
+      <text class="mlabel j" x="448" y="234">刘隗、戴渊反攻石头,皆败</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 614,266 C 622,264 627,261 630,260"/>
+      <text class="mlabel r" x="648" y="212">刁协奔江乘,为人所杀</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 612,262 C 620,214 632,150 640,104"/>
+      <text class="mlabel r" x="646" y="150">刘隗北奔后赵</text>
+      <text class="anno" x="104" y="440">敦纵掠建康,专制朝政</text>
     </g>
 
-    <!-- 阶段二:明帝反击 -->
+    <!-- ══ 阶段二:敦据建康而还镇武昌 ══ -->
     <g id="ph2" class="ph">
-      <text class="anno" x="120" y="320">太宁二年,敦病;明帝微服观芜湖营垒</text>
-      <text class="mlabel j" x="640" y="320">明帝诈称敦死,下诏讨之</text>
-      <path class="march q" marker-end="url(#aq)" d="M 548,398 C 600,398 640,392 660,388"/>
-      <text class="mlabel q" x="540" y="382">王含、钱凤五万至江宁南岸</text>
-      <path class="march j" marker-end="url(#aj)" d="M 706,358 C 700,372 700,386 704,396"/>
-      <text class="mlabel j" x="690" y="416">温峤移屯北岸,烧朱雀桁拒之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 596,286 C 570,326 548,350 500,362 C 444,378 384,494 250,532 C 206,526 172,494 118,462"/>
+      <text class="mlabel q" x="300" y="452">敦入据建康、专朝政,旋还屯武昌遥制</text>
+      <text class="anno" x="104" y="440">元帝忧愤而崩,明帝立</text>
+      <text class="mlabel j" x="510" y="248">明帝与庾亮、温峤密画讨敦之计</text>
+      <text class="anno" x="330" y="382">温峤诈附敦而反以其谋告朝廷</text>
     </g>
 
-    <!-- 阶段三:越城平乱 -->
+    <!-- ══ 阶段三:324·再举·越城平乱 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 712,358 C 718,364 722,368 724,370"/>
-      <circle class="star" cx="724" cy="372" r="8"/>
-      <text class="mlabel j" x="690" y="396">段秀夜渡秦淮,越城大破王含</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 660,392 C 600,398 540,398 548,398"/>
-      <text class="mlabel r" x="540" y="416">王含等溃逃</text>
-      <text class="mlabel q" x="120" y="340">王敦病死姑孰</text>
-      <text class="anno" x="360" y="320">钱凤、沈充直继被杀;太宁二年乱平</text>
+      <path class="march q" marker-end="url(#aq)" d="M 300,505 C 400,470 480,410 560,332"/>
+      <text class="mlabel q" x="300" y="522">太宁二年,敦病笃,移镇姑孰</text>
+      <path class="march q" marker-end="url(#aq)" d="M 574,326 C 584,312 588,298 590,286"/>
+      <text class="mlabel q" x="424" y="378">王含、钱凤众五万趋江宁,逼建康</text>
+      <path class="march q" marker-end="url(#aq)" d="M 770,400 C 722,372 682,330 624,288"/>
+      <text class="mlabel q" x="690" y="404">沈充复以吴兴兵会之</text>
+      <g stroke="var(--advance)" stroke-width="2.6" stroke-linecap="round"><line x1="644" y1="298" x2="654" y2="308"/><line x1="654" y1="298" x2="644" y2="308"/></g>
+      <text class="mlabel j" x="620" y="332">温峤移屯北岸,烧朱雀桁以绝敌渡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 612,258 C 610,266 610,272 609,277"/>
+      <circle class="star" cx="609" cy="278" r="8"/>
+      <text class="mlabel j" x="470" y="252">段秀等夜渡秦淮,越城大破王含</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 586,286 C 548,352 500,364 444,428 C 400,486 340,522 268,530"/>
+      <text class="mlabel r" x="330" y="470">王含等连夜烧营溃走</text>
+      <text class="mlabel q" x="516" y="342">敦病死姑孰,乱遂平</text>
+      <text class="anno" x="690" y="424">钱凤、沈充相继伏诛</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(930,560)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -169,36 +184,40 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>朝廷军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>王敦军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退/北奔</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>朝廷军(王师)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>王敦叛军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃走/北奔</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战/克城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>王敦</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>朝廷</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>王敦(上游)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>朝廷(下游)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷九二、九三、《晋书·王敦传》约略绘出。武昌今湖北鄂州,建康今南京,石头城在今南京清凉山,姑孰今安徽当涂,江乘今句容、格霞间,越城在今南京城南。水道经简化。</p>
-    <p><span class="n">注二</span>晕染为永昌、太宁间形势示意:王敦都督江、荆等上游诸州,据武昌;建康以西大体为其都督区。点划界为约略形势,非画界分明。</p>
-    <p><span class="n">注三</span>本乱两起:322年王敦以诛刘隗为名得志,据石头、专朝政,元帝忧愤而崩;324年明帝乘其病而诈称敦死,以王导发丧鼓士气,越城一战破王含,敦适病亡,乱遂平。东晋"王与马共天下"之局,自此而变。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度线性投影定位(x=30+(经−114.4)×132,y=575−(纬−29.4)×115),东西略作展放以见顺流之势,几何方位力求近实:武昌居西上游,寻阳(九江)当中流,芜湖·姑孰在下游,石头城·建康·越城聚东偏北,吴兴在东南,淮阴在北。武昌今湖北鄂州,建康今南京,石头城在今南京清凉山,姑孰今安徽当涂,江乘今南京栖霞、句容间,越城在今南京中华门南,吴兴今浙江湖州。长江、秦淮及晕染疆界经简化描绘。</p>
+    <p><span class="n">注二</span>王敦都督江、扬、荆、湘、交、广六州诸军事,镇武昌,据长江上游之重;朝廷居下游建康。图中点划界仅示上下游势力所在,非画地为界。六朝所谓「上游制下游」之势,即王敦两度得以自武昌顺流举兵犯阙之由——舟师顺流,旬日可至石头,朝廷每失先着。</p>
+    <p><span class="n">注三</span>本乱两起:永昌元年(322)王敦以诛刘隗为名东下,克石头,王师(刘隗、戴渊、周札等)败,敦入建康专政、旋还武昌,元帝忧愤而崩,明帝立;太宁二年(324)明帝密谋讨之,敦病笃,使兄王含及钱凤、沈充举兵,王师于建康近郊越城大破叛军,敦适病死姑孰,钱凤、沈充相继伏诛,乱平。事据《资治通鉴》卷九十二(永昌元年)、卷九十三(太宁二年),参《晋书·王敦传》《明帝纪》。</p>
+    <p><span class="n">注四</span>各书兵数、人名小有出入:王含、钱凤之众,《通鉴》太宁二年作「五万」,他处或作三万;夜袭越城之将,《通鉴》记明帝遣将军段秀、中军司马曹浑等将千余人渡水掩袭,破王含前锋将何康。刁协北奔至江乘为随从(一说驿人)所杀,刘隗则出奔后赵石勒。「王与马共天下」之局,自此役后渐变。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"武昌起兵",d:"永昌元年(322)正月",p:["东晋初,王与马共天下。元帝不甘君弱臣强,亲信刘隗、刁协以裁抑琅琊王氏,握上游重兵的王敦深为不满。","永昌元年正月,王敦以诛刘隗为名,自武昌起兵东下;党羽沈充于吴兴举兵响应。元帝大怒,定敦为大逆,急召刘隗、戴渊入卫,命刘隗守金城、周札守石头。"]},
-  "1":{t:"攻陷石头",d:"永昌元年",p:["王敦兵至,部将杜弘议舍刘隗而先攻石头:谓周札少恩、士不为用,城破则隗自走。敦从之,周札开城出降,敦遂据石头城。","元帝命刘隗、戴渊等反攻石头,皆为敦军所败。刁协走江乙被杀,刘隗北奔后赵。敦拥兵石头,纵掠建康,专制朝政,旋还武昌遥控。是年冬,元帝忧愤而崩,明帝立。"]},
-  "2":{t:"明帝反击",d:"太宁二年(324)",p:["王敦病日重,矫诏自树党羽,谋图夺位;表温峤为为阳尹以伺朝廷,温峤反以其谋告明帝,并与庾亮共画讨敦之计。","明帝微服至芜湖观敦营垒,定计讨之,诈称王敦已死以振士气。敦命兄王含与钱凤等率五万兵至江宁南岘逼建康。温峤移屯秦淮北岘,烧朱雀桁,使叛军不得渡。"]},
-  "3":{t:"越城平乱",d:"太宁二年七月",p:["明帝出屯南皇堂,夜募壮士,遣段秀、曹浑等率千兵渡秦淮掩袭,清晨战于越城,大破王含,斩其前锋何康。","王敦闻败欲强起督战而不能,旋病死姑孰。叛军军心涣散,王含等连夜烧营溃逃,钱凤、沈充相继被杀,首级传京师。太宁二年七月,王敦之乙遂平。"]}
+  all:{t:"武昌顺流",d:"永昌元年(322)正月",p:["东晋初,王与马共天下。元帝不甘君弱臣强,亲信刘隗、刁协以裁抑琅琊王氏;握长江上游重兵、都督六州、镇于武昌的王敦深为不满。","永昌元年正月,王敦以诛刘隗为名,自武昌举兵,顺流而下犯阙;党羽沈充于吴兴举兵响应。元帝大怒,定敦为大逆,急召刘隗、戴渊入卫,命刘隗守金城、周札守石头。舟师顺流,旬日抵芜湖,上表列刁协、刘隗之罪。"]},
+  "1":{t:"322·顺流犯阙·陷石头",d:"永昌元年三月",p:["王敦兵至,部将杜弘议舍刘隗而先攻石头:谓周札少恩、士不为用,城破则隗自走。敦从之,周札开城出降,敦遂据石头城。","元帝命刘隗、戴渊等反攻石头,皆为敦军所败。刁协北奔,至江乘为人所杀;刘隗出奔后赵。敦拥兵石头,纵掠建康,专制朝政。是年,元帝忧愤而崩,明帝立。"]},
+  "2":{t:"敦据建康而还镇",d:"永昌元年—太宁二年",p:["王敦既得志,入据建康、总揽朝政,自领丞相、都督中外诸军,黜陟由己;既而还屯武昌,遥制朝廷。元帝忧愤,是年冬崩,太子绍立,是为明帝。","太宁二年,敦病日重,矫诏自树党羽,谋图夺位;表温峤为丹阳尹以伺朝廷,温峤反以其谋告明帝,并与庾亮共画讨敦之计。明帝乃阴为之备。"]},
+  "3":{t:"324·再举·越城平乱",d:"太宁二年七月",p:["太宁二年,敦病笃,移镇姑孰;使兄王含为元帅,与钱凤、沈充等率众五万,水陆并进,趋江宁南岸以逼建康。明帝诈称敦死以振士气,温峤移屯秦淮北岸,烧朱雀桁,使叛军不得渡。","明帝出屯南皇堂,夜募壮士,遣将军段秀、中军司马曹浑等率千余人渡秦淮掩袭,清晨战于越城,大破王含,斩其前锋何康。敦闻败,欲强起督战而不能,旋病死姑孰;军心涣散,王含等连夜烧营溃走,钱凤、沈充相继被杀,首级传京师。太宁二年七月,王敦之乱遂平。"]}
 };
 const CITY={
-  wuchang:{t:"武昌",d:"今湖北鄂州",p:["王敦上游根本之地。两度自此东下逼建康,得志后亦还此遥控朝政。"]},
-  shitou:{t:"石头城",d:"今南京清凉山",p:["建康西面江防要塞。322年周札开城降,王敦据之以制朝廷。"]},
-  jiankang:{t:"建康",d:"东晋都城,今南京",p:["王敦两次兵锋所指。第一次入据专政,第二次为明帝所拒于秦淮之外。"]},
-  jiangning:{t:"江宁",d:"建康西南",p:["324年王含、钱凤五万之众屯于此南岸,逼近建康。"]},
-  yuecheng:{t:"越城",d:"今南京城南",p:["决胜之地。段秀等夜渡秦淮,于此大破王含,奠定平乱之局。"]},
-  gushu:{t:"姑孰",d:"今安徽当涂",p:["王敦后期移镇、逼建康之地。太宁二年敦病死于此。"]},
-  jiangcheng:{t:"江乙",d:"今句容、栖霞间",p:["刁协北逃至此被随从所杀,首级送王敦。"]},
-  wuxing:{t:"吴兴",d:"今浙江湖州",p:["王敦党羽沈充起兵响应之地,后亦被平。"]}
+  wuchang:{t:"武昌",d:"今湖北鄂州",p:["王敦本镇,都督六州、握长江上游之重。两度自此顺流东下逼建康,得志后亦还此遥制朝政。"]},
+  xunyang:{t:"寻阳(九江)",d:"今江西九江",p:["长江中流之要,上下游之交。王敦舟师顺流所必经;湓口、彭泽皆在其侧,为江州锁钥。"]},
+  wuhu:{t:"芜湖",d:"今安徽芜湖",p:["322年王敦顺流至此,上表列刁协、刘隗之罪;明帝亦尝微服至此观敦营垒而定讨计。"]},
+  gushu:{t:"姑孰",d:"今安徽当涂",p:["建康上游门户。太宁二年王敦病笃移镇于此,使王含、钱凤东下;寻病死于此。"]},
+  jiangning:{t:"江宁",d:"建康西南,今南京江宁",p:["324年王含、钱凤五万之众趋此南岸,逼近建康。"]},
+  shitou:{t:"石头城",d:"今南京清凉山",p:["建康西面临江要塞。322年周札开城出降,王敦据之以制朝廷;下游存亡所系。"]},
+  jiankang:{t:"建康",d:"东晋都城,今南京",p:["王敦两次兵锋所指。第一次入据专政,第二次为王师拒于秦淮之外、破于越城。"]},
+  yuecheng:{t:"越城",d:"今南京中华门南",p:["决胜之地。段秀等夜渡秦淮,清晨于此大破王含、斩前锋何康,奠定平乱之局。"]},
+  jiangcheng:{t:"江乘",d:"今南京栖霞、句容间",p:["322年石头既陷,刁协北奔至此,为随从(一说驿人)所杀,首级送王敦。"]},
+  huaiyin:{t:"淮阴",d:"今江苏淮安",p:["淮南北奔之途。322年刘隗兵败,出奔后赵石勒,取道淮泗以北。"]},
+  wuxing:{t:"吴兴",d:"今浙江湖州",p:["王敦党羽沈充起兵响应之地。322、324两役皆自吴兴举兵会敦,乱平后被杀。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
