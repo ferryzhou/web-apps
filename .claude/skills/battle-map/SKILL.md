@@ -11,7 +11,7 @@ Produce a single self-contained `.html` file: an interactive SVG campaign map re
 
 ## Workflow
 
-1. **Deep research FIRST — build a research brief before drawing.** Follow `references/research-checklist.md`. Produce: (a) the phase breakdown; (b) a **coordinate table** of every city AND every river/lake with modern location + (lon, lat); (c) explicit answers to the **standard questions** — *was movement by water or land, and why did it change? what were the supply lines and where were they cut? how many powers, and where does each force (incl. reinforcements) enter from?* Anchor to primary sources (《资治通鉴》 + the relevant 正史), note discrepancies as footnotes. For any non-trivial campaign or significant redraw, **present the brief (or at least the coordinate table + answers) to the user before committing to the full build** — and use `AskUserQuestion` for scope calls (e.g. full reprojection vs. light touch-up, how to handle an off-map capital).
+1. **Deep research FIRST — build a research brief before drawing.** Follow `references/research-checklist.md`. Produce: (a) the phase breakdown; (b) a **coordinate table** of every city AND every river/lake with modern location + (lon, lat); (c) explicit answers to the **standard questions** — *was movement by water or land, and why did it change? what were the supply lines and where were they cut? how many powers, and where does each force (incl. reinforcements) enter from?* Anchor to primary sources (《资治通鉴》 + the relevant 正史), note discrepancies as footnotes. For any non-trivial campaign or significant redraw, **present the brief (or at least the coordinate table + answers) to the user before committing to the full build** — and use `AskUserQuestion` for scope calls (e.g. full reprojection vs. light touch-up, how to handle an off-map capital). *(Autonomous run with no interactive user: skip the present/ask gate, proceed on best judgment, and record any assumption in the footnotes.)*
 2. **Read the design skill** once: `view /mnt/skills/public/frontend-design/SKILL.md`.
 3. **Pick your starting file.** `references/template.html` is the minimal scaffold (2 realms, no logistics). `references/example-huanwen3-369.html` is the full exemplar (3 hatched realms, off-map edge arrow, gold 漕运/粮道 supply artery + ✕ cut-marks, 水路 vs 陆路 legs, and the 释要 explainer). **Start from the exemplar whenever the campaign has supply lines, 3+ powers, water-vs-land movement, or a decisive logistical mechanism.** Keep all CSS tokens; change only content.
 4. **Project by real coordinates** (see *Geo-projection*). Turn the coordinate table into a linear light-Mercator projection; far outliers become **edge arrows**, not squashed frames. Geometry must read true (correct who-is-N/S/E/W-of-whom), never a schematic vertical spine.
@@ -78,6 +78,51 @@ When one mechanism decides the campaign (a canal that had to be dug, a sluice th
 - `h3` title + `.lead` one-liner ("何以…之败,系于…").
 - A small `.schem` SVG — a **logic diagram**, not a second geographic map (e.g. two water basins + a watershed + the two canals, color-coded teal=运兵 / gold=运粮 / red ✕=断).
 - `.intro` sentence, a two-column `.cols` (`.c.a` teal / `.c.b` gold) explaining each element, and a `.kicker` that lands the verdict ("非战之罪,实漕运之败").
+
+## Markup recipes (advanced features)
+
+The optional CSS lives in the template's `<style>`; here is the SVG *markup* each feature needs, so you can build it from the minimal scaffold without the exemplar (the exemplar shows them all in situ).
+
+**Third realm** — add to `<defs>` a hatch with a distinct *direction* (horizontal, so three realms read apart) and a purple arrow-marker:
+
+```html
+<pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
+<marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+```
+
+**Supply artery (漕运·粮道)** — a faint wide band + a dashed core over the SAME path `d`, plus grain diamonds along it:
+
+```html
+<path class="supply band" d="M …"/>
+<path class="supply core" d="M …"/>
+<g class="grain"><rect x="X" y="Y" width="7" height="7" transform="rotate(45 X+3.5 Y+3.5)"/> … </g>
+```
+
+**Cut-mark (断粮道)** — circle + ✕ at the severed point, with a `.clabel`:
+
+```html
+<g class="cut" transform="translate(X,Y)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+```
+
+**Off-map edge arrow** (a force entering from beyond the frame) — anchor it at the map edge:
+
+```html
+<g transform="translate(6,250)"><path class="march qin" marker-end="url(#af)" d="M 4,0 L 30,0"/><text class="mlabel f" x="0" y="-8" style="font-size:10px">⟵ 长安·关中</text><text class="cname s" x="0" y="16" style="fill:var(--qin);font-size:9.5px">前秦都(图外)</text></g>
+```
+
+**释要 explainer** — after `.panel`, before `.notes`; the `.schem` is a **logic diagram, not a second geographic map**:
+
+```html
+<div class="explain">
+  <h3>…</h3><div class="lead">…</div>
+  <svg class="schem" viewBox="0 0 860 250"> … two basins + a dashed watershed + two color-coded connectors (teal=运兵, gold=运粮) each with a red ✕ … </svg>
+  <p class="intro">…<b>…</b>…</p>
+  <div class="cols"><div class="c a"><h4>…</h4><p>…</p></div><div class="c b"><h4>…</h4><p>…</p></div></div>
+  <p class="kicker">…<b>…</b>…</p>
+</div>
+```
+
+**Animation caveat:** the draw-on animation targets `.ph.show .march:not(.rout):not(.qin)` — dashed routes (`.rout`, `.qin`) are excluded so they keep their dash pattern (an un-excluded dashed route gets overridden to a solid 900-unit dash during/after the animation). If you add another dashed route class, exclude it too.
 
 ## Filling the template
 
