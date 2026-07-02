@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -31,6 +31,8 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,7 +41,7 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.feint{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:8 5;opacity:.8}
+  .march.water{stroke:var(--advance);stroke-width:3;stroke-dasharray:1.5 6}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
@@ -59,7 +61,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:820;stroke-dashoffset:820;animation:draw 1.6s ease forwards}
+  .ph.show .march:not(.rout):not(.water){stroke-dasharray:820;stroke-dashoffset:820;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -77,12 +79,12 @@
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 北趋洛阳</button>
-    <button data-p="1">兵临伊阙</button>
+    <button data-p="1">水陆北上</button>
     <button data-p="2">伊水破襄</button>
-    <button data-p="3">谒陵复洛</button>
+    <button data-p="3">入洛谒陵 · 置守而还</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="桓温第二次北伐伊水之战形势图,含东晋与姚襄势力、江淮泗伊诸水及江陵洛阳伊阙等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="桓温第二次北伐伊水之战形势图,含东晋荆襄与中原姚襄势力、汉洛伊黄诸水,及江陵襄阳鲁阳伊阙洛阳许昌等城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -91,87 +93,123 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:中原洛阳一带(西北)群雄割据,东晋据江汉荆襄(东南) -->
-    <path d="M 0,300 C 140,296 300,300 420,330 C 520,356 600,400 660,448 C 600,478 540,508 530,548 C 660,566 820,564 1000,564 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 660,448 C 720,476 800,506 1000,524 L 1000,640 L 530,640 C 540,548 600,478 660,448 Z" fill="url(#jinHatch)"/>
-    <text class="realm q" x="120" y="120" font-size="30">中 原(河南)</text>
-    <text class="realm j" x="730" y="606" font-size="28">东 晋(江汉)</text>
+    <!-- 疆界:中原·河南(姚襄据许昌、周成据洛阳)在北;东晋据荆襄江汉在南。约界为示意 -->
+    <path d="M 0,362 C 150,352 320,318 470,300 C 620,282 800,268 1000,258 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,362 C 150,352 320,318 470,300 C 620,282 800,268 1000,258 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,362 C 150,352 320,318 470,300 C 620,282 800,268 1000,258"/>
+    <text class="realm q" x="60" y="205" font-size="27">中 原(河南)</text>
+    <text class="cname s" x="66" y="228" style="fill:var(--enemy);opacity:.6">姚襄据许昌 · 周成据洛阳</text>
+    <text class="realm j" x="636" y="548" font-size="28">东 晋(荆·襄)</text>
+    <text class="cname s" x="648" y="570" style="fill:var(--advance);opacity:.6">江·汉·荆·襄</text>
 
-    <!-- 洛水:经洛阳 W-E -->
-    <path class="river" stroke-width="4" d="M 150,170 C 230,176 300,184 360,196 C 410,206 450,214 480,224"/>
-    <!-- 伊水:自南(伊阙)北上入洛水 -->
-    <path class="river" stroke-width="3" d="M 392,360 C 388,316 384,272 388,236 C 392,214 410,206 446,212"/>
-    <!-- 淮水:中原东南横亘 W-E -->
-    <path class="river" stroke-width="3.4" d="M 360,410 C 470,418 580,420 700,440 C 800,456 900,470 1000,486"/>
-    <!-- 泗水:自东北南下入淮 -->
-    <path class="river" stroke-width="2.6" d="M 760,300 C 740,346 720,392 700,440"/>
-    <!-- 江水(长江):南境 W-E,江陵在上 -->
-    <path class="river" stroke-width="4.4" d="M 740,560 C 820,556 900,556 1000,558"/>
-    <text class="rname" x="220" y="170" style="font-size:12px">洛 水</text>
-    <text class="rname" x="356" y="306" transform="rotate(-82 356 306)" style="font-size:10.5px">伊 水</text>
-    <text class="rname" x="520" y="436" style="font-size:12px">淮 水</text>
-    <text class="rname" x="744" y="356" transform="rotate(66 744 356)" style="font-size:10.5px">泗 水</text>
-    <text class="rname" x="860" y="552" style="font-size:11px">江 水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:洛阳之北,W-E;戴施屯河上 -->
+    <path class="river" stroke-width="5" d="M 40,86 C 200,74 360,70 520,74 C 660,78 800,86 968,96"/>
+    <!-- 洛水:经洛阳,W-E,东会于河 -->
+    <path class="river" stroke-width="3.4" d="M 150,150 C 236,140 300,132 346,126 C 420,118 500,116 566,124"/>
+    <!-- 伊水:自南(嵩县)北出伊阙,入洛水(洛阳南) -->
+    <path class="river" stroke-width="2.8" d="M 322,296 C 344,258 360,220 366,196 C 360,168 354,146 349,128"/>
+    <!-- 汉水:经襄阳,自西北趋东南(下汉口) -->
+    <path class="river" stroke-width="4.2" d="M 196,296 C 244,336 276,368 294,392 C 340,436 396,478 458,528"/>
+    <!-- 颍水:许昌东南,趋淮 -->
+    <path class="river" stroke-width="2.2" style="opacity:.7" d="M 566,182 C 616,228 676,286 742,346"/>
+    <text class="rname" x="96" y="80" style="font-size:13px">黄 河</text>
+    <text class="rname" x="196" y="142" style="font-size:11.5px">洛 水</text>
+    <text class="rname" x="336" y="252" transform="rotate(-74 336 252)" style="font-size:11px">伊 水</text>
+    <text class="rname" x="356" y="470" transform="rotate(38 356 470)" style="font-size:12px">汉 水</text>
+    <text class="rname" x="656" y="300" transform="rotate(42 656 300)" style="font-size:10px">颍水</text>
 
-    <!-- 嵩山/伊阙诸山 -->
-    <g class="mtn"><path d="M 340,300 l 10,-15 l 10,15 M 360,294 l 10,-15 l 10,15 M 380,300 l 10,-15 l 10,15"/></g>
-    <text class="cname s" x="350" y="320">嵩　高</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 伏牛·熊耳:南阳与洛阳之间,西障 -->
+    <path class="mtn fill" d="M 196,246 L 214,214 L 230,232 L 250,200 L 270,230 L 288,208 L 306,236 Z"/>
+    <path class="mtn" d="M 214,230 l 14,-18 l 12,13 l 15,-20 l 12,15"/>
+    <text class="mname" x="200" y="266" style="font-size:10px">伏牛 · 熊耳</text>
+    <!-- 嵩高:洛阳伊阙之东南 -->
+    <path class="mtn fill" d="M 446,182 L 462,156 L 476,174 L 494,150 L 512,176 Z"/>
+    <path class="mtn" d="M 460,172 l 12,-14 l 10,11 l 13,-16"/>
+    <text class="mname" x="450" y="200" style="font-size:10px">嵩　高</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="luoyang"><circle cx="392" cy="222" r="6.5"/><text class="cname" x="402" y="218">洛阳<tspan class="cname s" dx="2">(故都)</tspan></text></g>
-      <g class="city" data-city="jinyong"><circle cx="362" cy="200" r="4"/><text class="cname s" x="296" y="194">金墉城</text></g>
-      <g class="city" data-city="yique"><circle cx="392" cy="360" r="5"/><text class="cname" x="402" y="364">伊阙</text></g>
-      <g class="city" data-city="yishui"><circle cx="392" cy="290" r="3.5"/><text class="cname s" x="402" y="286">伊水之北</text></g>
-      <g class="city" data-city="xuchang"><circle cx="540" cy="382" r="4.5"/><text class="cname" x="500" y="400">许昌</text></g>
-      <g class="city" data-city="pingyang"><circle cx="190" cy="150" r="4"/><text class="cname s" x="150" y="146">平阳</text></g>
-      <g class="city cap" data-city="jiangling"><circle cx="780" cy="556" r="5.5"/><text class="cname" x="736" y="552">江陵</text></g>
+      <g class="city cap" data-city="luoyang"><circle cx="345" cy="120" r="6.5"/><text class="cname" x="355" y="116">洛阳<tspan class="cname s" dx="2">(故都)</tspan></text></g>
+      <g class="city" data-city="jinyong"><circle cx="330" cy="106" r="3.5"/><text class="cname s" x="266" y="102">金墉城</text></g>
+      <g class="city" data-city="yishui"><circle cx="350" cy="162" r="4"/><text class="cname s" x="360" y="158">伊水之北</text></g>
+      <g class="city" data-city="yique"><circle cx="360" cy="198" r="5"/><text class="cname" x="370" y="202">伊阙</text></g>
+      <g class="city" data-city="heshang"><circle cx="430" cy="82" r="3.5"/><text class="cname s" x="440" y="78">河上</text></g>
+      <g class="city" data-city="xuchang"><circle cx="550" cy="169" r="5"/><text class="cname" x="560" y="166">许昌</text></g>
+      <g class="city" data-city="luyang"><circle cx="409" cy="201" r="4.5"/><text class="cname" x="419" y="205">鲁阳</text></g>
+      <g class="city" data-city="nanyang"><circle cx="352" cy="282" r="4.5"/><text class="cname" x="362" y="286">宛<tspan class="cname s" dx="2">(南阳)</tspan></text></g>
+      <g class="city" data-city="xiangyang"><circle cx="294" cy="391" r="5"/><text class="cname" x="240" y="388">襄阳</text></g>
+      <g class="city cap" data-city="jiangling"><circle cx="301" cy="573" r="5.5"/><text class="cname" x="311" y="569">江陵</text></g>
+    </g>
+
+    <!-- 姚襄西走·关中(图外·西北) -->
+    <g transform="translate(60,64)">
+      <text class="mlabel r" x="0" y="0" style="font-size:10px">关中·三原 ⟶(图外西北)</text>
+      <text class="cname s" x="0" y="15" style="fill:var(--ret);font-size:9px">姚襄西走,明年败死于此</text>
+    </g>
+    <!-- 徐、豫援兵(图外·东,由淮泗入河) -->
+    <g transform="translate(986,300)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,0 L -30,-10"/>
+      <text class="mlabel j" x="-118" y="-16" style="font-size:10px">徐、豫兵 ⟵(图外东)</text>
+      <text class="cname s" x="-96" y="0" style="fill:var(--advance);font-size:9px">请其由淮、泗入河</text>
     </g>
 
     <!-- 全图 · 北趋洛阳 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 772,548 C 700,500 640,460 612,448"/>
-      <path class="march j" marker-end="url(#aj)" d="M 600,442 C 520,422 460,412 402,372"/>
-      <path class="march j" marker-end="url(#aj)" d="M 396,352 C 394,326 394,308 394,300"/>
-      <text class="mlabel j" x="560" y="478">桓温自江陵率众,水陆并进北上</text>
-      <text class="anno" x="430" y="404">溯江入淮、泗,转伊水北趋洛阳</text>
-      <circle class="siege" cx="392" cy="222" r="22"/>
-      <text class="mlabel q" x="180" y="190">姚襄方围逼洛阳,周成据城拒守</text>
+      <path class="march j" marker-end="url(#aj)" d="M 301,566 C 298,500 295,445 294,398 C 296,350 322,306 352,286 C 378,258 400,228 409,208 C 388,192 368,178 355,166"/>
+      <text class="mlabel j" x="150" y="470">桓温自江陵率众,水陆北上</text>
+      <text class="anno" x="176" y="330">经襄阳、宛、鲁阳,趋洛阳之南</text>
+      <circle class="siege" cx="345" cy="120" r="20"/>
+      <path class="march q" marker-end="url(#aq)" d="M 540,166 C 468,150 408,138 366,128"/>
+      <text class="mlabel q" x="426" y="238">姚襄自许昌围逼洛阳,周成据城</text>
     </g>
 
-    <!-- 阶段一:兵临伊阙 -->
+    <!-- 阶段一:水陆北上 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 420,420 C 410,400 400,382 396,368"/>
-      <text class="mlabel j" x="408" y="430">温溯淮泗、转伊水北上</text>
-      <text class="anno" x="320" y="392">进至伊阙、故太尉陵</text>
-      <path class="march q" marker-end="url(#aq)" d="M 386,232 C 384,256 386,276 390,288"/>
-      <text class="mlabel q" x="240" y="252">姚襄解洛阳之围,匿精锐于林中</text>
-      <rect class="camp" x="388" y="286" width="9" height="9" transform="rotate(45 392 290)"/>
-      <text class="anno" x="408" y="278">逆战桓温于伊水之北</text>
+      <!-- 水路:水军溯汉、沔进逼许洛 -->
+      <path class="march water" marker-end="url(#aj)" d="M 301,566 C 298,504 296,448 295,398"/>
+      <text class="mlabel j" x="120" y="500">水军溯汉、沔,进逼许、洛(水路)</text>
+      <!-- 陆路:步骑自襄阳经宛、鲁阳北上 -->
+      <path class="march j" marker-end="url(#aj)" d="M 296,384 C 316,344 338,308 352,286 C 378,258 400,228 408,206"/>
+      <text class="mlabel j" x="356" y="336">步骑自襄阳,经宛、鲁阳北上(陆路)</text>
+      <text class="anno" x="418" y="188">遣督护高武据鲁阳</text>
+      <text class="anno" x="440" y="98">辅国将军戴施屯河上</text>
+      <circle class="siege" cx="345" cy="120" r="20"/>
+      <rect class="camp" x="341" y="116" width="9" height="9" transform="rotate(45 345 120)"/>
+      <text class="mlabel q" x="188" y="150">姚襄方攻洛阳,久围不下</text>
     </g>
 
     <!-- 阶段二:伊水破襄 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 392,348 C 392,330 392,312 392,300"/>
-      <circle class="star" cx="392" cy="290" r="9"/>
-      <text class="mlabel j" x="404" y="306">温被甲结阵亲督,晋军奋击</text>
-      <text class="anno" x="280" y="318">大破姚襄于伊水之北,斩获数千</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 384,288 C 320,272 256,236 206,170"/>
-      <text class="mlabel r" x="220" y="232">姚襄帅数千骑西走,余众多降</text>
-      <text class="anno" x="120" y="170">后西入关中,为前秦所败杀</text>
+      <!-- 姚襄撤围南下逆战 -->
+      <path class="march q" marker-end="url(#aq)" d="M 350,132 C 349,142 349,150 350,156"/>
+      <text class="mlabel q" x="390" y="110">姚襄撤围,逆战伊水之北</text>
+      <rect class="camp" x="330" y="172" width="9" height="9" transform="rotate(45 334 176)"/>
+      <text class="anno" x="172" y="176">匿精锐于水北林中</text>
+      <!-- 桓温自南结阵而前 -->
+      <path class="march j" marker-end="url(#aj)" d="M 375,232 C 366,208 358,184 353,168"/>
+      <text class="mlabel j" x="386" y="250">温结陈而前,亲被甲督战</text>
+      <circle class="star" cx="350" cy="162" r="10"/>
+      <text class="anno" x="392" y="136">大破姚襄,斩获数千</text>
+      <!-- 姚襄西走 -->
+      <path class="march q rout" marker-end="url(#ar)" d="M 342,158 C 276,130 208,106 118,84"/>
+      <text class="mlabel r" x="146" y="100">襄帅数千骑奔洛阳北山,西走关中</text>
+      <text class="anno" x="196" y="252">余众多降于温</text>
     </g>
 
-    <!-- 阶段三:谒陵复洛 -->
+    <!-- 阶段三:入洛谒陵 · 置守而还 -->
     <g id="ph3" class="ph">
-      <path d="M 392,222 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="404" y="218">周成出降,温入洛阳,谒拜诸帝陵</text>
-      <text class="anno" x="280" y="244">修复被毁之陵,置陵令以守</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 384,234 C 540,330 660,440 766,544"/>
-      <text class="mlabel r" x="560" y="396">徙降民三千余家于江、汉之间</text>
-      <text class="anno" x="300" y="180">留毛穆之、陈午等戍洛阳,旋班师南还</text>
+      <path d="M 345,120 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="392" y="104">周成出降,温入洛阳,谒修先帝诸陵</text>
+      <text class="anno" x="392" y="128">留毛穆之、戴施、陈午等戍洛阳</text>
+      <!-- 徙民南还 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 340,134 C 328,250 316,400 306,544"/>
+      <text class="mlabel r" x="316" y="360">徙降民三千余家于江、汉之间,班师南还</text>
+      <text class="anno" x="120" y="300">数年后洛阳复没于燕、秦,克复之功旋成泡影</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,556)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -180,35 +218,41 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(桓温)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军·陆路(桓温)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3" stroke-dasharray="1.5 6"/></svg>东晋军·水路</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>姚襄军(羌)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>姚襄西走</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>姚襄西走 / 徙民南还</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>中原</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一〇〇、《晋书·桓温传》《姚襄载记》约略绘出。洛阳在伊、洛之间,伊阙在其南,金墉城在洛阳西北隅。江、淮、泗、伊诸水及路线经简化,位置相对示意。</p>
-    <p><span class="n">注二</span>此为桓温三次北伐中战果最著者:破姚襄、复洛阳、谒修晋陵,北伐声望由是大振。桓温因请迁都洛阳、修复园陵,然朝廷惮其威权,终不能行。</p>
-    <p><span class="n">注三</span>晋虽复洛阳,而兵力不能久守;桓温南还后,留戍孤危,数年间洛阳及河南诸城复相继沦于前燕。克复之功,旋成泡影。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影定位,几何力求近实:江陵在南(荆州),循汉水北出襄阳、宛、鲁阳,趋洛阳;洛阳、金墉在伊、洛之间,伊阙(龙门)在洛阳之南,许昌在东南,黄河横亘洛阳之北。投影取 x=175+(经度−111.35)×150、y=590−(纬度−30.2)×110。今地:江陵今湖北荆州,襄阳今湖北襄阳,宛今河南南阳,鲁阳今河南鲁山,伊阙今洛阳龙门,许昌今河南许昌,金墉城在汉魏洛阳城西北隅。江、汉、洛、伊诸水及疆界经简化描绘。</p>
+    <p><span class="n">注二</span>洛阳与伊阙实相距仅二十余里,若按真实比例几不可辨;为使伊水会战之地清晰,图中略夸大洛阳—伊阙一段之南北间距,其余位置仍依实投影。中原一带实为割据之局(姚襄据许昌,周成据洛阳),图以单色约界统示,非谓一国。</p>
+    <p><span class="n">注三</span>进军之势水陆并举:桓温自江陵起兵,以水军溯汉、沔进逼许、洛,遣督护高武据鲁阳(今鲁山)、辅国将军戴施屯河上,又请徐、豫二州之兵由淮、泗入河为援;步骑则自襄阳经宛、鲁阳陆行北上——故图别水路(青虚线)与陆路(青实线)。事依《资治通鉴》卷一〇〇永和十二年、《晋书·桓温传》《姚襄载记》约略绘出。</p>
+    <p><span class="n">注四</span>八月,温至伊水,姚襄撤洛阳之围,匿精锐于水北林中逆战;温结陈而前,亲被甲督战,大破之,斩获数千,姚襄帅数千骑奔洛阳北山,余众多降。此为桓温三次北伐战果最著者:破姚襄、复洛阳、谒修晋陵,北伐声望由是大振,因请迁都洛阳、修复园陵,朝廷惮其威权而不能行。姚襄西走关中,明年(升平元年,357)为前秦苻黄眉、苻坚败杀于三原。晋兵不能久守,留戍孤危,数年间洛阳及河南诸城复相继沦于前燕,克复之功旋成泡影。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"北趋洛阳",d:"永和十二年(356)夏 — 八月",p:["永和十二年,桓温自江陵率众北伐。先是,殷浩北伐时降将羌帅姚襄叛去,据许、洛之间,招纳流亡,渐成大患;是时方引兵围逼洛阳,守将周成婴城自固。","桓温乃水陆并进,溯江入淮、泗,转伊水北上,长途趋洛阳。其势由荆襄千里北指,正与围城之姚襄相向——一收复故都之机,系于此举。"]},
-  "1":{t:"兵临伊阙",d:"永和十二年八月",p:["桓温自江陵发,水军溯淮、泗,转伊水北上,进至伊阙(洛阳之南),次于故太尉陵。中原士民闻晋师至,多有响应。","姚襄闻温至,解洛阳之围,潜匿精锐于林木之间,自帅众逆战桓温于伊水之北,以邀其锋。两军遂相持于伊水南北之地。"]},
-  "2":{t:"伊水破襄",d:"永和十二年八月",p:["桓温结阵而前,亲被甲督战于阵后。晋军奋击,士卒用命,大破姚襄于伊水之北,斩获数千级,襄军溃乱。","姚襄帅麾下数千骑西走,余众多降于温。襄后西入关中,为前秦苻生、苻坚所败,身死;其弟姚苌率众降秦——羌姚之祸,至是暂息。"]},
-  "3":{t:"谒陵复洛",d:"永和十二年八月以后",p:["姚襄既败,守将周成出城请降,桓温遂入洛阳。温躬谒先帝诸陵,凡陵之被毁者修复之,各置陵令以守卫,故都典礼,粗复旧观。","乃徙降民三千余家于江、汉之间,留颍川太守毛穆之、督护陈午等戍守洛阳,旋即班师南还。桓温因上表请迁都洛阳、移晋陵于此,朝廷惮其威而不能行;洛阳后复为燕、秦所有,克复之功旋成泡影。"]}
+  all:{t:"北趋洛阳",d:"永和十二年(356)七 — 八月",p:["永和十二年,桓温屡表请迁都洛阳、修复园陵,不许;朝廷乃拜温征讨大都督,督司、冀二州诸军事。先是,殷浩北伐时降将羌帅姚襄叛去,据许、洛之间招纳流亡,渐成大患;是时方引兵围逼洛阳,守将周成婴城自固。","七月,桓温自江陵率众北伐。水军溯汉、沔进逼许、洛,遣督护高武据鲁阳、辅国将军戴施屯河上,又请徐、豫二州之兵由淮、泗入河为援;步骑则自襄阳经宛、鲁阳陆行北上。其势由荆襄千里北指,正与围城之姚襄相向——收复故都之机,系于此举。"]},
+  "1":{t:"水陆北上",d:"永和十二年七月",p:["北伐之势,水陆并举。桓温以水军溯汉水、沔口进逼许昌、洛阳,遣督护高武据鲁阳(今鲁山)为前进之基,辅国将军戴施屯于黄河之上以张形势,并请徐、豫二州发兵,由淮、泗入河相助。","温自将步骑,自襄阳北出,经宛(南阳)、鲁阳,长途趋洛阳之南。时姚襄方攻洛阳,久围不下;晋师奄至,中原士民闻之,多有响应。两军遂将会于伊、洛之间。"]},
+  "2":{t:"伊水破襄",d:"永和十二年八月",p:["八月,桓温进至伊水(洛阳之南)。姚襄闻温至,乃撤洛阳之围,潜匿精锐于伊水之北林木间,自帅众逆战,以邀晋锋;遣使请温少却,而温不许。","温结陈而前,亲被甲督战。晋军奋击,士卒用命,大破姚襄于伊水之北,斩获数千级,襄军溃乱。姚襄帅麾下数千骑奔于洛阳北山,遂西走关中,余众多降于温。襄明年(357)入关中,为前秦苻黄眉、苻坚败杀于三原,其弟姚苌率众降秦——羌姚之祸,至是暂息。"]},
+  "3":{t:"入洛谒陵 · 置守而还",d:"永和十二年八月以后",p:["姚襄既败,守将周成出城请降,桓温遂入洛阳,克复西晋故都。温躬谒先帝诸陵,凡陵之被毁者修复之,各置陵令以守卫,故都典礼,粗复旧观。","乃徙降民三千余家于江、汉之间,留颍川太守毛穆之、河南太守戴施、督护陈午等戍守洛阳,旋即班师南还。温因上表请迁都洛阳、移晋陵于此,朝廷惮其威而不能行;晋兵不能久守,留戍孤危,洛阳及河南诸城后复为燕、秦所有,克复之功旋成泡影。"]}
 };
 const CITY={
-  luoyang:{t:"洛阳",d:"晋之故都,在伊洛之间",p:["姚襄方围逼之,周成据城。桓温破襄后入城,谒拜先帝诸陵,修复被毁者,置陵令守卫。"]},
-  jinyong:{t:"金墉城",d:"洛阳西北隅城堡",p:["洛阳城西北角之要塞,历为控扼都城之戍守要点。复洛之后,为晋军屯戍所凭。"]},
-  yique:{t:"伊阙",d:"洛阳之南,伊水所出之险",p:["两山夹伊水如阙,故名。桓温水军溯伊水北上,先进至此,次于故太尉陵。"]},
-  yishui:{t:"伊水(之北)",d:"决战之地",p:["姚襄逆战桓温于伊水之北。温被甲结阵亲督,晋军奋击,大破之,斩获数千。"]},
-  xuchang:{t:"许昌",d:"中原要冲,今河南许昌",p:["姚襄北伐败后据许、洛间招纳流亡之地,为其根本;此役败走,势遂瓦解。"]},
-  pingyang:{t:"平阳",d:"河东要地,今山西临汾",p:["姚襄败后西走关中之途所向。襄终入关中,为前秦所败杀。"]},
-  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["桓温镇荆州出兵之地。是役自此率众,水陆并进北趋洛阳。"]}
+  luoyang:{t:"洛阳",d:"西晋故都,在伊、洛之间",p:["姚襄方围逼之,周成据城。桓温破襄后,周成出降,温入洛阳,谒拜先帝诸陵,修复被毁者,置陵令守卫,留毛穆之、戴施、陈午等戍守。"]},
+  jinyong:{t:"金墉城",d:"汉魏洛阳城西北隅之堡",p:["洛阳城西北角之要塞,历为控扼都城之戍守要点。复洛之后,为晋军屯戍所凭。"]},
+  yishui:{t:"伊水(之北)",d:"决战之地,洛阳之南",p:["姚襄撤洛阳之围,匿精锐于伊水之北林中逆战。温结陈而前,亲被甲督战,大破之,斩获数千。此役为桓温北伐战绩之最。"]},
+  yique:{t:"伊阙(龙门)",d:"洛阳之南,伊水所出之险,今龙门",p:["两山夹伊水如阙,故名。为洛阳南面门户;桓温自南北上,进至伊水,会战即在其北。"]},
+  heshang:{t:"河上(黄河)",d:"洛阳之北,黄河一线",p:["辅国将军戴施奉命屯于黄河之上,以张北伐声势、绝姚襄北援之路。复洛后戴施为河南太守,留戍洛阳。"]},
+  xuchang:{t:"许昌",d:"中原要冲,今河南许昌",p:["姚襄北伐败后据许、洛间招纳流亡之地,为其根本。是役自此引兵围洛,败走后势遂瓦解。"]},
+  luyang:{t:"鲁阳",d:"荆洛之间要道,今河南鲁山",p:["自南阳趋洛阳必经之地。桓温遣督护高武据此,以为北上前进之基。"]},
+  nanyang:{t:"宛(南阳)",d:"南阳盆地重镇,今河南南阳",p:["自襄阳北出、循南阳盆地趋洛阳之枢。桓温步骑经此、过鲁阳而北。"]},
+  xiangyang:{t:"襄阳",d:"汉水中游重镇,今湖北襄阳",p:["桓温荆州辖境北面重镇,汉水水路之要。水军溯汉、沔进逼许洛,步骑自此北出宛、鲁阳。"]},
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["桓温镇荆州出兵之地。永和十二年七月自此率众北伐,水陆并进北趋洛阳。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
