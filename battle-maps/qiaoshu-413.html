@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,7 +31,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +42,18 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.mid{stroke:var(--advance);stroke-width:2.4}
+  .march.decoy{stroke:var(--advance);stroke-width:2.3;stroke-dasharray:8 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.d{fill:var(--advance);opacity:.85;font-weight:500}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.5;stroke-dasharray:2 4}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +62,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.decoy){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,19 +90,19 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>平</span><span>谯</span><span>蜀</span><span>役</span></div>
+  <div class="seal" aria-hidden="true"><span>灭</span><span>谯</span><span>蜀</span><span>役</span></div>
   <header>
     <h1>刘裕灭谯蜀</h1>
-    <div class="sub">晋义熙九年(413)　<i>东晋 朱龄石</i>(刘裕遣) 灭 <b>谯蜀 谯纵</b> · 声东击西</div>
+    <div class="sub">晋义熙九年(413)　　<i>东晋 朱龄石</i>(刘裕遣) 灭 <b>谯蜀 谯纵</b>　·　三道分兵 · 声东击西</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 三道伐蜀</button>
-    <button data-p="1">白帝开函</button>
-    <button data-p="2">外水克模</button>
-    <button data-p="3">成都平蜀</button>
+    <button data-p="1">白帝开函 · 三道分兵</button>
+    <button data-p="2">外水克平模</button>
+    <button data-p="3">下成都 · 谯蜀亡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="刘裕灭谯蜀之战形势图,含东晋谯蜀疆界、长江三峡与外水内水中水三道及江陵成都等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="刘裕遣朱龄石灭谯蜀之战形势图,含东晋谯蜀疆界、长江三峡与外水岷江中水沱江内水涪江三道,及江陵白帝江州成都平模广汉涪城等地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,91 +111,113 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:谯蜀据益州(西),东晋据荆州(东),约以三峡为界 -->
-    <path d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640"/>
-    <text class="realm q" x="120" y="120" font-size="34">谯 蜀(益州)</text>
-    <text class="realm j" x="700" y="560" font-size="32">东 晋(荆州)</text>
+    <!-- ══ 疆界:谯蜀据益州(西),东晋据荆州(东),约以三峡巫山之险为界 ══ -->
+    <path d="M 700,0 C 692,110 672,220 662,320 C 654,395 656,470 666,555 C 670,600 670,620 668,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 700,0 C 692,110 672,220 662,320 C 654,395 656,470 666,555 C 670,600 670,620 668,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 700,0 C 692,110 672,220 662,320 C 654,395 656,470 666,555 C 670,600 670,620 668,640"/>
+    <text class="realm q" x="238" y="120" font-size="32">谯 蜀(益州)</text>
+    <text class="realm j" x="775" y="150" font-size="30">东 晋(荆州)</text>
 
-    <!-- 长江:自蜀中(西)经三峡东下江陵 -->
-    <path class="river" stroke-width="5.5" d="M 230,360 C 300,388 380,408 430,420 C 500,438 560,448 640,430 C 700,412 740,380 800,372 C 850,366 920,362 1000,360"/>
-    <!-- 外水(岷江):自北南下,经成都、平模、犍为入江 -->
-    <path class="river" stroke-width="3" d="M 236,140 C 240,200 246,260 252,320 C 258,372 270,398 300,418"/>
-    <!-- 内水(涪江):自东北南下,经涪城、广汉 -->
-    <path class="river" stroke-width="2.6" d="M 410,120 C 416,200 410,290 400,360 C 392,400 410,420 432,422"/>
-    <!-- 中水(沱江):资中、牛鞞 -->
-    <path class="river" stroke-width="2.2" d="M 470,180 C 466,260 470,340 480,400 C 486,420 500,428 512,430"/>
-    <text class="rname" x="640" y="466" style="font-size:13px">长 江</text>
-    <text class="rname" x="252" y="232" transform="rotate(85 252 232)">外水·岷江</text>
-    <text class="rname" x="416" y="210" transform="rotate(83 416 210)" style="font-size:10.5px">内水·涪江</text>
-    <text class="rname" x="476" y="262" transform="rotate(83 476 262)" style="font-size:10.5px">中水·沱江</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 长江(大江):自僰道东北经江州、三峡东下江陵 -->
+    <path class="river" stroke-width="5.5" d="M 219,561 C 280,545 340,510 392,478 C 470,432 560,375 645,335 C 665,326 720,342 800,368 C 845,384 878,392 901,397"/>
+    <!-- 外水·岷江:自成都南下,经平模、犍为至僰道入江 -->
+    <path class="river" stroke-width="3" d="M 168,362 C 158,388 152,400 152,416 C 150,452 154,486 160,510 C 172,540 194,554 219,559"/>
+    <!-- 内水·涪江:自涪城(北)南下,经黄虎、合川入江州 -->
+    <path class="river" stroke-width="2.4" d="M 224,281 C 246,306 258,320 272,342 C 305,392 350,424 372,436 C 382,452 388,468 392,476"/>
+    <!-- 中水·沱江:自广汉方向南下,经资中至泸州入江 -->
+    <path class="river" stroke-width="2.2" d="M 190,338 C 205,378 222,420 239,458 C 258,500 278,532 293,551"/>
+    <text class="rname" x="700" y="352" transform="rotate(-14 700 352)">长 江</text>
+    <text class="rname" x="150" y="456" transform="rotate(84 150 456)">外水·岷江</text>
+    <text class="rname" x="316" y="380" transform="rotate(52 316 380)" style="font-size:10.5px">内水·涪江</text>
+    <text class="rname" x="232" y="428" transform="rotate(80 232 428)" style="font-size:10.5px">中水·沱江</text>
 
-    <!-- 三峡 -->
-    <g class="mtn"><path d="M 600,408 l 8,-13 l 8,13 M 616,402 l 8,-13 l 8,13 M 632,408 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="600" y="428">三峡</text>
+    <!-- 三峡·巫山 -->
+    <g class="mtn"><path d="M 600,344 l 8,-13 l 8,13 M 616,338 l 8,-13 l 8,13 M 632,344 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="588" y="362">三峡·巫山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="jiangling"><circle cx="880" cy="372" r="6"/><text class="cname" x="828" y="368">江陵<tspan class="cname s" dx="2">(荆州治)</tspan></text></g>
-      <g class="city" data-city="baidi"><circle cx="640" cy="426" r="5"/><text class="cname s" x="600" y="448">白帝(三峡口·开函)</text></g>
-      <g class="city cap" data-city="chengdu"><circle cx="248" cy="298" r="6"/><text class="cname" x="180" y="294">成都<tspan class="cname s" dx="2">(谯蜀都)</tspan></text></g>
-      <g class="city" data-city="pengmo"><circle cx="262" cy="356" r="5"/><text class="cname" x="204" y="352">平模</text></g>
-      <g class="city" data-city="jianwei"><circle cx="288" cy="406" r="3.5"/><text class="cname s" x="296" y="416">犍为</text></g>
-      <g class="city" data-city="fucheng"><circle cx="400" cy="200" r="4.5"/><text class="cname" x="410" y="196">涪城</text></g>
-      <g class="city" data-city="guanghan"><circle cx="392" cy="320" r="4"/><text class="cname s" x="400" y="324">广汉</text></g>
-      <g class="city" data-city="zizhong"><circle cx="478" cy="332" r="3.5"/><text class="cname s" x="486" y="336">资中·牛鞞</text></g>
+      <g class="city" data-city="jiangling"><circle cx="901" cy="397" r="6"/><text class="cname" x="850" y="393">江陵<tspan class="cname s" dx="2">(荆州治)</tspan></text></g>
+      <g class="city" data-city="baidi"><circle cx="662" cy="328" r="5"/><text class="cname s" x="612" y="320">白帝(奉节)</text></g>
+      <g class="city" data-city="jiangzhou"><circle cx="392" cy="478" r="4.5"/><text class="cname s" x="400" y="494">江州(渝)</text></g>
+      <g class="city" data-city="yibin"><circle cx="219" cy="561" r="4"/><text class="cname s" x="228" y="574">僰道(宜宾)</text></g>
+      <g class="city" data-city="qianwei"><circle cx="160" cy="510" r="3.5"/><text class="cname s" x="96" y="512">犍为</text></g>
+      <g class="city" data-city="pengmo"><circle cx="152" cy="414" r="5.5"/><text class="cname" x="86" y="410">平模</text></g>
+      <g class="city cap" data-city="chengdu"><circle cx="168" cy="365" r="6"/><text class="cname" x="180" y="361">成都<tspan class="cname s" dx="2">(谯蜀都)</tspan></text></g>
+      <g class="city" data-city="guanghan"><circle cx="186" cy="332" r="4"/><text class="cname" x="196" y="328">广汉</text></g>
+      <g class="city" data-city="zizhong"><circle cx="239" cy="458" r="3.5"/><text class="cname s" x="248" y="462">资中</text></g>
+      <g class="city" data-city="fucheng"><circle cx="224" cy="281" r="4.5"/><text class="cname" x="234" y="277">涪城</text></g>
+      <g class="city" data-city="huanghu"><circle cx="272" cy="320" r="3"/><text class="cname s" x="280" y="316">黄虎</text></g>
+      <g class="city" data-city="hechuan"><circle cx="372" cy="436" r="3.5"/><text class="cname s" x="380" y="440">合川</text></g>
+      <g class="city" data-city="luzhou"><circle cx="293" cy="551" r="3.5"/><text class="cname s" x="301" y="555">泸州</text></g>
     </g>
 
-    <!-- 全图 · 三道伐蜀 -->
+    <!-- ══ 全图 · 三道伐蜀 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 872,376 C 760,408 660,430 640,428"/>
-      <text class="mlabel j" x="660" y="406">朱龄石率二万溯江,至白帝开刘裕密函</text>
-      <text class="anno" x="700" y="392">先期授策,题曰"至白帝乃开"</text>
-      <path class="march j" marker-end="url(#aj)" d="M 632,424 C 500,440 380,422 300,418"/>
-      <text class="mlabel j" x="380" y="448">大军出外水(岷江)取成都</text>
-      <path class="march j" marker-end="url(#aj)" d="M 628,420 C 540,400 460,340 408,210"/>
-      <text class="mlabel j" x="430" y="290">疑兵出内水向广汉</text>
-      <path class="march j" marker-end="url(#aj)" d="M 624,418 C 560,392 510,360 482,338"/>
-      <text class="mlabel q" x="120" y="200">谯纵据蜀称成都王,附后秦,屡为晋患</text>
+      <!-- 主力:自江陵溯大江,至白帝开函,出外水径取成都 -->
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1950;stroke-dashoffset:1950" d="M 895,399 C 830,388 745,350 665,332 C 640,336 600,358 545,388 C 470,430 430,456 392,478 C 355,500 322,528 293,549 C 262,556 235,560 219,561 C 190,548 166,520 158,500 C 151,468 150,440 152,418 C 156,398 162,378 167,368"/>
+      <text class="mlabel j" x="426" y="404">大军溯江,出外水径取成都</text>
+      <!-- 中水别军:泸州溯沱江取广汉 -->
+      <path class="march mid" marker-end="url(#aj)" d="M 291,545 C 262,510 248,480 239,458 C 222,415 202,362 189,338"/>
+      <text class="mlabel j" x="246" y="486" style="font-size:10.5px">臧熹出中水取广汉</text>
+      <!-- 内水疑兵:江州溯涪江向黄虎 -->
+      <path class="march decoy" marker-end="url(#aj)" d="M 394,472 C 384,455 376,446 372,436 C 348,398 302,352 268,324"/>
+      <text class="mlabel d" x="300" y="368">疑兵老弱高舰出内水向黄虎</text>
+      <!-- 谯蜀重兵备内水 -->
+      <rect class="camp" x="220" y="277" width="9" height="9" transform="rotate(45 224.5 281.5)"/>
+      <text class="mlabel q" x="234" y="262">谯纵遣谯道福重兵守涪城,专备内水</text>
+      <circle class="star" cx="152" cy="414" r="8"/>
+      <circle class="star" cx="168" cy="365" r="8"/>
+      <text class="anno" x="500" y="330">至白帝乃开密函,分军三道</text>
+      <text class="mlabel q" x="238" y="150">谯纵据蜀称成都王,附后秦,屡为晋患</text>
     </g>
 
-    <!-- 阶段一:白帝开函 -->
+    <!-- ══ 阶段一:白帝开函 · 三道分兵 ══ -->
     <g id="ph1" class="ph">
-      <circle class="star" cx="640" cy="426" r="9"/>
-      <text class="mlabel j" x="560" y="412">大军次白帝,启刘裕封策</text>
-      <text class="anno" x="540" y="468">"众军悉从外水取成都,刘钟等出中水取广汉"</text>
-      <path class="march j" marker-end="url(#aj)" d="M 632,424 C 500,440 380,422 300,418"/>
-      <text class="mlabel j" x="360" y="438">正兵出外水</text>
-      <path class="march j" marker-end="url(#aj)" d="M 628,420 C 540,398 460,338 410,214"/>
-      <text class="mlabel j" x="432" y="270">疑兵出内水(羸弱乘高舰向黄虎)</text>
-      <text class="anno" x="120" y="356">前刘敬宣由内水伐蜀而败,谯纵必谓晋复由内水</text>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1200;stroke-dashoffset:1200" d="M 895,399 C 820,386 730,348 665,332 C 640,336 560,375 480,415 C 440,436 415,458 392,478"/>
+      <circle class="star" cx="662" cy="328" r="9"/>
+      <text class="mlabel j" x="470" y="352">大军次白帝,启刘裕封策</text>
+      <text class="anno" x="418" y="512">『众军悉从外水取成都,臧熹从中水取广汉,老弱乘高舰自内水向黄虎』</text>
+      <!-- 三道自江州分流 -->
+      <path class="march j" marker-end="url(#aj)" d="M 388,482 C 340,510 300,536 262,556 C 240,556 228,559 220,560"/>
+      <text class="mlabel j" x="250" y="540" style="font-size:10.5px">正兵出外水</text>
+      <path class="march mid" marker-end="url(#aj)" d="M 388,480 C 350,514 320,538 296,550"/>
+      <path class="march decoy" marker-end="url(#aj)" d="M 394,472 C 380,448 360,410 300,352"/>
+      <text class="mlabel d" x="300" y="392">疑兵内水(羸弱高舰)向黄虎</text>
+      <!-- 谯纵料内水,重兵屯涪城 -->
+      <path class="march q" marker-end="url(#aq)" d="M 200,352 C 210,332 218,308 223,289"/>
+      <rect class="camp" x="220" y="277" width="9" height="9" transform="rotate(45 224.5 281.5)"/>
+      <text class="mlabel q" x="234" y="262">谯纵谓晋必复出内水,遣谯道福屯涪城</text>
+      <text class="anno" x="86" y="300">前刘敬宣出黄虎(内水)无功而反,敌益信内水</text>
     </g>
 
-    <!-- 阶段二:外水克模 -->
+    <!-- ══ 阶段二:外水克平模 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="396" y="196" width="9" height="9" transform="rotate(45 400 200)"/>
-      <text class="mlabel q" x="408" y="184">谯道福重兵守涪城,备内水</text>
-      <path class="march j" marker-end="url(#aj)" d="M 296,414 C 280,398 270,378 266,366"/>
-      <text class="mlabel j" x="160" y="396">朱龄石帅主力溯外水</text>
-      <rect class="camp" x="258" y="352" width="8" height="8" transform="rotate(45 262 356)"/>
-      <circle class="star" cx="262" cy="356" r="8"/>
-      <text class="mlabel q" x="270" y="372">侯晖、谯诜夹江立城拒守</text>
-      <text class="anno" x="120" y="378">仰攻鼓噪,一日拔城,斩侯晖、谯诜</text>
-      <path class="march j" marker-end="url(#aj)" d="M 260,348 C 254,332 252,316 250,306"/>
-      <text class="mlabel j" x="120" y="324">长驱进逼成都</text>
+      <path class="march j" marker-end="url(#aj)" d="M 219,556 C 192,546 168,520 160,500 C 152,470 150,442 152,420"/>
+      <text class="mlabel j" x="60" y="486">朱龄石帅主力溯外水而上</text>
+      <!-- 侯晖、谯诜夹江立南北二城 -->
+      <rect class="camp" x="148" y="410" width="8" height="8" transform="rotate(45 152 414)"/>
+      <path class="siege" d="M 138,404 C 130,414 130,426 140,434"/>
+      <circle class="star" cx="152" cy="414" r="8"/>
+      <text class="mlabel q" x="160" y="404">侯晖、谯诜夹江立城拒守</text>
+      <text class="anno" x="60" y="440">从刘钟计,先攻北城,鼓噪并进,一日拔之,斩侯晖、谯诜</text>
+      <path class="march j" marker-end="url(#aj)" d="M 156,406 C 160,394 164,380 167,371"/>
+      <text class="mlabel j" x="176" y="390">长驱进逼成都</text>
+      <rect class="camp" x="220" y="277" width="9" height="9" transform="rotate(45 224.5 281.5)"/>
+      <text class="anno" x="234" y="266">谯道福守涪城,徒备内水,主力空置</text>
     </g>
 
-    <!-- 阶段三:成都平蜀 -->
+    <!-- ══ 阶段三:下成都 · 谯蜀亡 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 258,348 C 254,332 252,316 252,306"/>
-      <path d="M 248,298 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="150" y="280">晋军逼成都,蜀众震溃</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 242,302 C 220,330 206,362 200,392"/>
-      <text class="mlabel r" x="120" y="346">谯纵出走,投祖墓自缢</text>
-      <text class="anno" x="120" y="408">首传建康;益州复归东晋</text>
-      <rect class="camp" x="396" y="196" width="9" height="9" transform="rotate(45 400 200)"/>
-      <text class="anno" x="408" y="190">谯道福守涪城,闻成都破,众散亦败亡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 152,410 C 156,396 162,380 166,370"/>
+      <path d="M 168,357 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="180" y="358">晋军逼成都,蜀众震溃</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 162,372 C 138,340 118,308 108,278"/>
+      <text class="mlabel r" x="40" y="264">谯纵出走,投祖墓自缢</text>
+      <text class="anno" x="40" y="298">首传建康,益州复归东晋</text>
+      <rect class="camp" x="220" y="277" width="9" height="9" transform="rotate(45 224.5 281.5)"/>
+      <text class="anno" x="234" y="266">谯道福闻成都破,掷剑责纵,众散亦败亡</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -186,36 +229,104 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(朱龄石)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军·外水(主力)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4"/></svg>中水别军(取广汉)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.3" stroke-dasharray="8 5"/></svg>内水疑兵(向黄虎)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>谯蜀军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>谯纵出走</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9a2b1e"/></svg>谯蜀屯守</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(平模)</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>谯蜀</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 三道之疑 · 外水之实</h3>
+    <div class="lead">何以二万之众能灭一国 —— 系于三道分兵、声东击西之一策</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="示意:自白帝分军三道,内水疑兵诱敌重兵空守涪城,中水别军取广汉,外水主力一战拔平模而径下成都">
+      <!-- 白帝·开函 起点 -->
+      <circle cx="72" cy="125" r="7" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="26" y="112" fill="#2b2418" font-size="12" font-weight="700">白帝·开函</text>
+      <text x="24" y="150" fill="#5c4f38" font-size="10">分军三道</text>
+      <!-- 分流线 -->
+      <path d="M 78,121 C 110,96 128,64 150,54" fill="none" stroke="#1f4e54" stroke-width="1.2" opacity=".5"/>
+      <path d="M 80,125 L 150,125" fill="none" stroke="#1f4e54" stroke-width="1.2" opacity=".5"/>
+      <path d="M 78,131 C 110,158 128,192 150,200" fill="none" stroke="#1f4e54" stroke-width="1.2" opacity=".5"/>
+      <!-- 内水·疑兵(上):虚线青,诱敌 -->
+      <path d="M 150,54 L 560,54" fill="none" stroke="#1f4e54" stroke-width="2.3" stroke-dasharray="8 5" opacity=".9"/>
+      <path d="M 542,54 L 560,54 L 552,49 M 560,54 L 552,59" fill="none" stroke="#1f4e54" stroke-width="2.3"/>
+      <text x="150" y="44" fill="#1f4e54" font-size="11.5" font-weight="700">内水(涪江)· 疑兵</text>
+      <text x="150" y="72" fill="#5c4f38" font-size="10">老弱乘高舰十余,示形向黄虎</text>
+      <circle cx="570" cy="54" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="580" y="50" fill="#2b2418" font-size="10.5" font-weight="700">黄虎</text>
+      <!-- 敌重兵空守涪城 -->
+      <rect x="646" y="47" width="12" height="12" transform="rotate(45 652 53)" fill="#9a2b1e" opacity=".9"/>
+      <g><circle cx="700" cy="53" r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="695" y1="48" x2="705" y2="58" stroke="#9a2b1e" stroke-width="2.4"/><line x1="695" y1="58" x2="705" y2="48" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <text x="640" y="34" fill="#9a2b1e" font-size="10.5" font-weight="700">谯道福重兵守涪城</text>
+      <text x="712" y="57" fill="#9a2b1e" font-size="10.5" font-weight="700">空守 ✕</text>
+      <!-- 中水·别军(中) -->
+      <path d="M 150,125 L 560,125" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <path d="M 542,125 L 560,125 L 552,120 M 560,125 L 552,130" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <text x="150" y="115" fill="#1f4e54" font-size="11.5" font-weight="700">中水(沱江)· 别军</text>
+      <text x="150" y="143" fill="#5c4f38" font-size="10">臧熹、刘钟溯沱江取广汉</text>
+      <circle cx="570" cy="125" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="580" y="121" fill="#2b2418" font-size="10.5" font-weight="700">广汉</text>
+      <!-- 外水·主力(下):粗青,实 -->
+      <path d="M 150,200 L 470,200" fill="none" stroke="#1f4e54" stroke-width="8" opacity=".26" stroke-linecap="round"/>
+      <path d="M 150,200 L 660,200" fill="none" stroke="#1f4e54" stroke-width="2.8"/>
+      <path d="M 642,200 L 660,200 L 652,195 M 660,200 L 652,205" fill="none" stroke="#1f4e54" stroke-width="2.8"/>
+      <text x="150" y="190" fill="#1f4e54" font-size="11.5" font-weight="700">外水(岷江)· 大众(实)</text>
+      <text x="150" y="218" fill="#5c4f38" font-size="10">朱龄石帅主力,出敌不意径趋成都</text>
+      <!-- 平模会战(金环)与成都 -->
+      <circle cx="470" cy="200" r="10" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <circle cx="470" cy="200" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="446" y="182" fill="#9c7a2c" font-size="10.5" font-weight="700">平模·一日拔城</text>
+      <circle cx="672" cy="200" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="684" y="196" fill="#2b2418" font-size="11" font-weight="700">成都(倾)</text>
+      <!-- 前车之鉴 -->
+      <text x="26" y="238" fill="#5c4f38" font-size="10" font-style="italic">前刘敬宣出内水而败 → 敌料晋必复由内水来</text>
+    </svg>
+    <p class="intro">谯蜀据成都、恃三峡与三江之险,以二万之众伐之,众皆难之。朱龄石之所以能一举而平,不在阵战之力,而在<b>刘裕缄授之一策</b>——曰三道分兵,曰声东击西。前次刘敬宣由内水(涪江)伐蜀而无功,谯纵遂坚信晋军必复由内水来,此可乘之隙也。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>外水之实 · 出敌不意</h4>
+        <p>入蜀有三道:外水即岷江(大江正道),中水即沱江,内水即涪江。刘裕料敌重内水而虚外水,乃令朱龄石帅大众自外水径捣成都,以正兵蹈其空虚。主力所指,正当敌之不备,故能长驱抵平模,一战而拔,成都遂无所恃。</p>
+      </div>
+      <div class="c b">
+        <h4>内水之疑 · 眩敌空守</h4>
+        <p>另遣臧熹别军出中水取广汉,又以羸弱乘高舰十余出内水向黄虎,张声势以眩敌。谯纵果堕其计,遣大将谯道福以重兵屯涪城专备内水——晋之主力方全出外水,而蜀之精锐乃空悬于内水,坐失成都之守。</p>
+      </div>
+    </div>
+    <p class="kicker">故谯蜀之亡,非以力克,实以谋胜:一疑一实,分敌之备而蹈敌之虚。及朱龄石<b>一日拔平模、斩侯晖谯诜</b>,而<b>谯道福重兵犹枕戈守涪城之内水</b>——待闻成都已破,大势已去,追悔无及。声东击西之效,于此役最为昭然。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一一六、《宋书·朱龄石传》《武帝纪》约略绘出。外水即岷江,内水即涪江,中水即沱江;平模即彭模,在今四川彭山一带,白帝在今重庆奉节。三峡水道及诸江、城邑经简化,位置相对示意。</p>
-    <p><span class="n">注二</span>刘裕鉴于前次刘敬宣由内水伐蜀而败,故缄策授朱龄石,正兵出外水、疑兵示内水,使谯纵重兵守涪城而成都虚——声东击西,一战而拔,用间之妙也。</p>
-    <p><span class="n">注三</span>平蜀之后,刘裕尽有荆、益,西顾无忧,遂得专意北图,二年后大举伐后秦。谯蜀之灭,亦其代晋大业之一阶。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑依今地经纬度线性投影定位(x=55+(经度−102.8)×90,y=600−(纬度−28.4)×104,与本录《桓温灭成汉》图同一坐标),几何力求近实:成都、平模在极西,江陵在极东;大江自西南僰道(宜宾)经江州、三峡东下江陵,外水(岷江)自成都南汇僰道,中水(沱江)经资中入泸州,内水(涪江)经黄虎、合川入江州。据《资治通鉴》卷一一六义熙九年,及《宋书·朱龄石传》《武帝纪》、《晋书·谯纵载记》参订。江河、疆界经简化描绘。</p>
+    <p><span class="n">注二</span>三道之名:外水即岷江—大江正道,中水即沱江,内水即涪江。刘裕缄封方略授朱龄石,题曰『至白帝乃开』;至白帝启函,其略曰『众军悉从外水取成都,臧熹从中水取广汉,使羸弱乘高舰十余从内水向黄虎』。盖前番刘敬宣伐蜀由内水出黄虎而败,谯纵必谓晋复由内水来,故刘裕以正兵出外水蹈其虚、以疑兵张内水眩其备——声东击西,先机操于庙堂(见上『释要』)。</p>
+    <p><span class="n">注三</span>谯纵果遣大将军谯道福以重兵屯涪城备内水,成都遂虚。朱龄石帅主力溯外水,进次平模(彭模,去成都二百里),蜀将侯晖、谯诜夹江立南北二城拒守。龄石从下邳太守刘钟之计,悉锐先攻北城,鼓噪仰攻,一日拔之,斩侯晖、谯诜,南城自溃。外水既通,长驱直逼成都。平模即彭模,今四川彭山;白帝今重庆奉节,涪城今四川绵阳、三台间,黄虎在涪江上游,广汉今四川广汉,僰道今宜宾,江陵今湖北荆州。</p>
+    <p><span class="n">注四</span>晋军逼成都,蜀众震溃,谯纵出走,投其祖墓自缢(《晋书》云为部下所杀,《通鉴》从自缢),首传建康;谯道福守涪城,闻成都破,掷剑责纵而众散亦亡。谯蜀灭,益州复归东晋。朱龄石以功封侯。自是刘裕尽有荆、益,西顾无忧,遂得专意北图,二年后大举伐后秦——平蜀亦其代晋大业之一阶。兵数《通鉴》《宋书》并作『二万』,姑从之。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"三道伐蜀",d:"晋义熙九年(413)",p:["谯纵据蜀称成都王,附后秦,屡为晋患。刘裕遣益州刺史朱龄石率众二万伐之,先期授以方略,缄封其策,题曰“至白帝乃开”。朱龄石溯江入蜀,众皆莫测其计。","至白帝乃开刘裕密函,依计分军三道——大军出外水(岷江)径取成都,疑兵出内水(涪江)向广汉,别将出中水(沱江)。声东击西,以正兵蹈虚,以疑兵眩敌,溯三峡入蜀之势既成,蜀之险已为晋有矣。"]},
-  "1":{t:"白帝开函",d:"义熙九年·溯江入蜀",p:["大军次白帝,启刘裕封策,其略曰:“众军悉从外水取成都,刘钟等出中水取广汉,使羸弱乘高舰十余,自内水向黄虎。”盖前番刘敬宣伐蜀由内水(涪江)而败,谯纵必谓晋军复由内水来。","故刘裕预定方略:以正兵出外水径捣成都,以疑兵张声内水以误之。朱龄石得策乃悟,诸将释然,分道而进。用间制胜,先机已操于庙堂之上矣。"]},
-  "2":{t:"外水克模",d:"义熙九年·进次平模",p:["谯纵果遣大将谯道福以重兵守涪城,以备内水之师;成都遂虚。朱龄石帅主力溯外水而上,直抵平模(彭模,在成都南岷江上)。蜀将侯晖、谯诜夹江立城拒守,据险以遏晋军。","朱龄石仰攻其垒,鼓噪并进,士卒争先,一日而拔其城,斩侯晖、谯诜。外水既通,蜀之门户洞开,晋军长驱,直逼成都。"]},
-  "3":{t:"成都平蜀",d:"义熙九年·益州复归",p:["晋军逼成都,蜀众震溃,无复斗志。谯纵出走,投于其祖墓,自缢而死(或云为部下所杀),首传建康。谯道福守涪城,闻成都已破,士卒离散,亦败亡。","蜀地悉平,益州复归东晋。朱龄石以平蜀之功封侯。自是刘裕尽有荆、益,西顾无忧,得专意北图——谯蜀之灭,亦其代晋大业之一阶也。"]}
+  all:{t:"三道伐蜀",d:"晋义熙九年(413)",p:["谯纵据蜀称成都王,附后秦,屡为晋患。义熙九年,刘裕遣益州刺史朱龄石,率宁朔将军臧熹、下邳太守刘钟、兰陵太守蒯恩等众二万,自江陵伐蜀。先期授以方略,缄封其策,题曰『至白帝乃开』。溯江入蜀,众皆莫测其计。","至白帝启函,依计分军三道——大军出外水(岷江)径取成都,臧熹出中水(沱江)取广汉,别以羸弱乘高舰出内水(涪江)向黄虎。以正兵蹈虚,以疑兵眩敌:溯三峡入蜀之势既成,声东击西之谋亦发,蜀之险已为晋有矣。"]},
+  "1":{t:"白帝开函 · 三道分兵",d:"义熙九年 · 溯江入蜀",p:["大军次白帝,启刘裕封策,其略曰:『众军悉从外水取成都,臧熹从中水取广汉,使羸弱乘高舰十余,从内水向黄虎。』盖前番刘敬宣伐蜀出黄虎(内水)无功而反,谯纵必谓晋军复由内水来。","刘裕预定此策,正欲以正兵出外水径捣成都,而张声内水以误敌。朱龄石得策乃悟,诸将释然,分道并进。谯纵果堕其计,遣大将军谯道福以重兵屯涪城专备内水——用间制胜,先机已操于庙堂之上矣。"]},
+  "2":{t:"外水克平模",d:"义熙九年 · 进次平模",p:["谯纵既以重兵守涪城备内水,成都遂虚。朱龄石帅主力溯外水而上,直抵平模(彭模,去成都二百里)。蜀将侯晖、谯诜夹江立南北二城拒守,据险以遏晋军。","龄石从下邳太守刘钟之计:南城险固而北城可攻,乃悉锐先攻北城,鼓噪仰攻,士卒争先,一日而拔其城,斩侯晖、谯诜,南城亦溃。外水既通,蜀之门户洞开,晋军长驱,直逼成都。"]},
+  "3":{t:"下成都 · 谯蜀亡",d:"义熙九年 · 益州复归",p:["晋军逼成都,蜀众震溃,无复斗志。谯纵出走,投于其祖墓自缢而死(一云为部下所杀),首传建康。谯道福守涪城,闻成都已破,大怒掷剑责纵,士卒离散,亦败亡。","蜀地悉平,益州复归东晋,朱龄石以平蜀之功封侯。自是刘裕尽有荆、益,西顾无忧,得专意北图——谯蜀之灭,亦其代晋大业之一阶也。"]}
 };
 const CITY={
-  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["朱龄石出兵伐蜀之地,荆州治所,西上入蜀之根本。"]},
-  baidi:{t:"白帝城",d:"三峡口,今重庆奉节",p:["三峡西口要地。刘裕缄策题曰“至白帝乃开”,朱龄石于此开函定计,分军三道。"]},
-  chengdu:{t:"成都",d:"谯蜀都城",p:["谯纵据以称成都王。晋军逼之,蜀众溃散,谯纵出走自缢,蜀亡。"]},
-  pengmo:{t:"平模(彭模)",d:"外水岷江上,今四川彭山一带",p:["侯晖、谯诜夹江立城拒守。朱龄石仰攻,一日拔之,斩二将,为平蜀之关键一战。"]},
-  jianwei:{t:"犍为",d:"外水岷江下游",p:["朱龄石主力溯外水入蜀所经之地,自此北上直抵平模。"]},
-  fucheng:{t:"涪城",d:"内水涪江上",p:["谯道福以重兵据守以备内水之师,坐失其备;闻成都破,众散而亡。"]},
-  guanghan:{t:"广汉",d:"内水所向",p:["刘裕策中疑兵出中水取广汉、内水张声所向之地,以误谯纵。"]},
-  zizhong:{t:"资中·牛鞞",d:"中水沱江上",p:["中水别军所经之地。羸弱乘高舰张声为疑,助成声东击西之计。"]}
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["朱龄石伐蜀出师之地,西上入蜀之根本;溯大江入三峡,直趋白帝。"]},
+  baidi:{t:"白帝城",d:"三峡口,今重庆奉节",p:["三峡西口要地。刘裕缄策题曰『至白帝乃开』,朱龄石于此启函定计,分军三道——声东击西之谋自此发。"]},
+  jiangzhou:{t:"江州",d:"今重庆",p:["大江与嘉陵江合流之枢。三江之口:外水(岷江)在僰道,中水(沱江)在泸州,内水(涪江)由嘉陵江在此入江——三道分兵之总汇。"]},
+  yibin:{t:"僰道",d:"今四川宜宾 · 外水入江口",p:["岷江(外水)入大江之口。朱龄石主力舍大江、转外水溯上蜀腹之转处。"]},
+  qianwei:{t:"犍为",d:"外水岷江途中",p:["朱龄石主力溯外水入蜀所经之地,自此北上直抵平模。"]},
+  pengmo:{t:"平模(彭模)",d:"外水岷江上,今四川彭山",p:["去成都二百里。侯晖、谯诜夹江立南北二城拒守。龄石从刘钟计,先攻北城,一日拔之,斩二将,南城自溃——平蜀之关键一战。"]},
+  chengdu:{t:"成都",d:"谯蜀都城",p:["谯纵据以称成都王,附后秦。晋军自外水长驱逼之,蜀众溃散,谯纵出走自缢,谯蜀亡,益州复归东晋。"]},
+  guanghan:{t:"广汉",d:"中水沱江所向,今四川广汉",p:["刘裕策中『臧熹从中水取广汉』之地。别军溯沱江取之,分敌之势,与外水主力相为掎角。"]},
+  zizhong:{t:"资中",d:"中水沱江上",p:["中水别军溯沱江北取广汉所经之地。"]},
+  fucheng:{t:"涪城",d:"内水涪江上,今四川绵阳、三台间",p:["谯纵料晋必复出内水,遣大将军谯道福以重兵屯此专备内水,坐失成都之守;闻成都破,众散而亡——声东击西所误者正在此。"]},
+  huanghu:{t:"黄虎",d:"内水涪江上游",p:["前刘敬宣伐蜀出黄虎(内水)无功而反。此番刘裕使羸弱乘高舰十余从内水向黄虎,张声眩敌,以坚谯纵备内水之心。"]},
+  hechuan:{t:"合川",d:"内水涪江入嘉陵江处",p:["涪江(内水)会嘉陵江下江州之枢。内水疑兵溯此而上向黄虎。"]},
+  luzhou:{t:"泸州",d:"中水沱江入江口",p:["沱江(中水)入大江之口。臧熹别军舍大江、转中水溯上取广汉之转处。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
