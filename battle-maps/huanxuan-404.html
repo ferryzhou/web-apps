@@ -27,6 +27,7 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.4}.realm.j{fill:var(--advance);opacity:.4}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
@@ -56,7 +57,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:760;stroke-dashoffset:760;animation:draw 1.6s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -67,19 +68,19 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>讨</span><span>桓</span><span>玄</span><span>役</span></div>
+  <div class="seal" aria-hidden="true"><span>覆</span><span>舟</span><span>复</span><span>晋</span></div>
   <header>
-    <h1>刘裕讨桓玄 · 覆舟山之战</h1>
-    <div class="sub">晋元兴三年(404)　　<i>东晋 刘裕</i> 讨 <b>桓楚 桓玄</b></div>
+    <h1>刘裕讨桓玄·覆舟山</h1>
+    <div class="sub">晋元兴三年(404)　　<i>东晋 刘裕</i> 举义复晋 · 讨 <b>桓楚 桓玄</b>　·　覆舟纵火 · 西追峥嵘</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 四地起兵</button>
-    <button data-p="1">覆舟山之战</button>
-    <button data-p="2">西追峥嵘洲</button>
+    <button class="on" data-p="all">全图 · 京口起兵</button>
+    <button data-p="1">覆舟山 · 纵火破玄</button>
+    <button data-p="2">西追 · 峥嵘洲</button>
     <button data-p="3">玄死复晋</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="刘裕讨桓玄覆舟山之战形势图,含东晋桓楚势力、长江与京口建康寻阳江陵等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="刘裕讨桓玄覆舟山之战形势图,含桓楚与北府勤王势力、长江自江陵东下入海,及京口广陵建康覆舟山寻阳峥嵘洲江陵等城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -88,87 +89,95 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 势力:桓玄据荆江上游(西),北府/勤王据下游(东) -->
-    <path d="M 0,250 C 100,256 200,262 300,272 C 380,280 430,300 470,320 L 470,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,320 C 520,300 580,288 640,286 C 740,282 860,288 1000,284 L 1000,640 L 470,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,640 C 466,520 466,420 470,320"/>
-    <text class="realm q" x="120" y="200" font-size="28">桓楚(荆江)</text>
-    <text class="realm j" x="700" y="200" font-size="28">勤王·北府</text>
+    <!-- 势力重心示意:桓玄据荆江上游(西),刘裕等北府旧将起于下游三吴(东) -->
+    <path d="M 0,120 C 200,132 450,142 690,150 C 700,300 685,430 700,600 L 0,600 Z" fill="url(#qinHatch)"/>
+    <path d="M 690,150 C 800,150 920,150 1000,150 L 1000,600 L 700,600 C 685,430 700,300 690,150 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 690,150 C 700,300 685,430 700,600"/>
+    <text class="realm q" x="120" y="210" font-size="27">桓 楚</text>
+    <text class="cname s" x="122" y="234" style="fill:var(--enemy);opacity:.6">(荆江上游)</text>
+    <text class="realm j" x="742" y="562" font-size="25">勤王·北府</text>
+    <text class="cname s" x="760" y="586" style="fill:var(--advance);opacity:.6">(下游三吴)</text>
 
-    <!-- 长江:自江陵(西)东下,过寻阳、建康、至京口入海方向 -->
-    <path class="river" stroke-width="5.5" d="M 100,360 C 200,372 280,392 320,388 C 380,382 420,396 446,400 C 520,408 600,360 680,348 C 740,340 800,338 860,344 C 920,350 970,360 1000,366"/>
-    <text class="rname" x="540" y="392" style="font-size:13px">长 江</text>
+    <!-- 长江:自江陵(西)东下,南折至寻阳(九江)为最南,复东北经建康、京口入海 -->
+    <path class="river" stroke-width="5.5" d="M 123,466 C 220,456 320,450 406,455 C 452,458 480,500 522,525 C 545,532 560,520 590,505 C 660,470 712,392 768,332 C 792,308 800,297 812,289 C 842,276 862,270 884,272 C 940,268 982,264 1000,262"/>
+    <text class="rname" x="300" y="446" style="font-size:13px">长 江</text>
+    <text class="rname" x="656" y="428" style="font-size:11px" transform="rotate(-34 656 428)">大 江</text>
 
-    <!-- 覆舟山·钟山 -->
-    <g class="mtn"><path d="M 692,296 l 7,-12 l 7,12 M 706,290 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="712" y="290">覆舟山</text>
+    <!-- 覆舟山·钟山(建康北) -->
+    <g class="mtn"><path d="M 812,285 l 6,-11 l 6,11 M 824,281 l 6,-11 l 6,11"/></g>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="jiangling"><circle cx="106" cy="356" r="5"/><text class="cname" x="60" y="352">江陵<tspan class="cname s" dx="2">(荆州)</tspan></text></g>
-      <g class="city" data-city="zhengrong"><circle cx="300" cy="372" r="4"/><text class="cname s" x="264" y="392">峥嵘洲</text></g>
-      <g class="city" data-city="penkou"><circle cx="430" cy="394" r="4.5"/><text class="cname s" x="392" y="412">湓口</text></g>
-      <g class="city" data-city="xunyang"><circle cx="452" cy="380" r="4.5"/><text class="cname s" x="460" y="376">寻阳</text></g>
-      <g class="city" data-city="sangluo"><circle cx="500" cy="368" r="3.5"/><text class="cname s" x="486" y="356">桑落洲</text></g>
-      <g class="city" data-city="liyang"><circle cx="600" cy="356" r="3.5"/><text class="cname s" x="586" y="376">历阳</text></g>
-      <g class="city cap" data-city="jiankang"><circle cx="676" cy="350" r="6"/><text class="cname" x="624" y="346">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
-      <g class="city" data-city="shitou"><circle cx="652" cy="338" r="3.5"/><text class="cname s" x="612" y="330">石头城</text></g>
-      <g class="city" data-city="jiangcheng"><circle cx="722" cy="318" r="3.5"/><text class="cname s" x="730" y="314">江乘</text></g>
-      <g class="city" data-city="zhuli"><circle cx="766" cy="330" r="3.5"/><text class="cname s" x="752" y="350">竹里</text></g>
-      <g class="city cap" data-city="jingkou"><circle cx="828" cy="346" r="5.5"/><text class="cname" x="838" y="342">京口</text></g>
-      <g class="city" data-city="guangling"><circle cx="846" cy="286" r="4"/><text class="cname s" x="854" y="282">广陵</text></g>
+      <g class="city" data-city="jiangling"><circle cx="123" cy="466" r="5.5"/><text class="cname" x="98" y="486">江陵<tspan class="cname s" dx="2">(荆州)</tspan></text></g>
+      <g class="city" data-city="zhengrong"><circle cx="406" cy="455" r="4.5"/><text class="cname s" x="374" y="474">峥嵘洲</text></g>
+      <g class="city" data-city="penkou"><circle cx="500" cy="530" r="3.5"/><text class="cname s" x="462" y="546">湓口</text></g>
+      <g class="city" data-city="xunyang"><circle cx="522" cy="527" r="4.5"/><text class="cname s" x="530" y="530">寻阳</text></g>
+      <g class="city" data-city="sangluo"><circle cx="560" cy="512" r="3.5"/><text class="cname s" x="568" y="508">桑落洲</text></g>
+      <g class="city" data-city="liyang"><circle cx="768" cy="317" r="4"/><text class="cname s" x="726" y="316">历阳</text></g>
+      <g class="city" data-city="shitou"><circle cx="808" cy="285" r="3.5"/><text class="cname s" x="758" y="298">石头城</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="815" cy="283" r="6"/><text class="cname" x="748" y="288">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+      <g class="city" data-city="fuzhou"><circle cx="824" cy="278" r="4"/><text class="cname s" x="806" y="326">覆舟山</text></g>
+      <g class="city" data-city="jiangcheng"><circle cx="831" cy="271" r="3.5"/><text class="cname s" x="838" y="286">江乘</text></g>
+      <g class="city" data-city="luoluo"><circle cx="826" cy="262" r="3.5"/><text class="cname s" x="782" y="250">罗落桥</text></g>
+      <g class="city" data-city="zhuli"><circle cx="853" cy="269" r="3.5"/><text class="cname s" x="856" y="258">竹里</text></g>
+      <g class="city" data-city="jingkou"><circle cx="884" cy="268" r="5.5"/><text class="cname" x="892" y="272">京口</text></g>
+      <g class="city" data-city="guangling"><circle cx="879" cy="245" r="4.5"/><text class="cname" x="886" y="240">广陵</text></g>
     </g>
 
-    <!-- 全图 · 四地起兵 -->
+    <!-- 全图 · 京口起兵 -->
     <g id="phAll" class="ph">
-      <path d="M 828,346 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".7"/>
-      <text class="mlabel j" x="760" y="380">刘裕京口杀桓修</text>
-      <path d="M 846,286 l 4,-9 l 3,7 l 8,-4 l -4,8 l 9,3 l -9,3 l 4,8 l -8,-4 l -3,7 l -4,-9 l -8,4 l 4,-8 l -9,-3 l 9,-3 l -4,-8 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".7"/>
-      <text class="mlabel j" x="856" y="262">刘毅广陵杀桓弘</text>
-      <text class="mlabel j" x="700" y="404">推刘裕为盟主,众千七百进竹里</text>
-      <text class="mlabel q" x="150" y="320">桓玄篡晋称帝,国号楚,据上游</text>
-      <text class="anno" x="540" y="430">元兴三年三月,北府旧将四地同举勤王</text>
+      <path d="M 884,268 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".7"/>
+      <text class="mlabel j" x="828" y="300">刘裕京口斩桓修</text>
+      <path d="M 879,245 l 4,-9 l 3,7 l 8,-4 l -4,8 l 9,3 l -9,3 l 4,8 l -8,-4 l -3,7 l -4,-9 l -8,4 l 4,-8 l -9,-3 l 9,-3 l -4,-8 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".7"/>
+      <text class="mlabel j" x="828" y="222">刘毅广陵斩桓弘</text>
+      <path class="march j" marker-end="url(#aj)" d="M 880,276 C 858,286 838,290 822,289"/>
+      <text class="mlabel j" x="560" y="342">众推刘裕为盟主,率千七百进屯竹里,西趋建康</text>
+      <text class="mlabel q" x="120" y="290">桓玄篡晋自立,国号楚,据荆江上游</text>
+      <text class="anno" x="430" y="416">元兴三年二月,北府旧将四地同举勤王复晋</text>
     </g>
 
-    <!-- 阶段一:覆舟山之战 -->
+    <!-- 阶段一:覆舟山 · 纵火破玄 -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 668,344 C 700,332 730,322 760,326"/>
-      <text class="mlabel q" x="640" y="368">桓玄遣吰甫之、皇甫敷北攻</text>
-      <path class="march j" marker-end="url(#aj)" d="M 760,332 C 740,326 730,322 726,320"/>
-      <circle class="star" cx="722" cy="318" r="6"/>
-      <text class="mlabel j" x="700" y="304">江乘斩吰甫之,罗落桥斩皇甫敷</text>
-      <rect class="camp" x="696" y="300" width="9" height="9" transform="rotate(45 700 304)"/>
-      <text class="mlabel q" x="700" y="276">桓玄屯覆舟山,以逸待勳</text>
-      <path class="march j" marker-end="url(#aj)" d="M 716,322 C 710,318 706,314 704,310"/>
-      <circle class="star" cx="700" cy="304" r="8"/>
-      <text class="anno" x="560" y="332">刘裕轻装疑兵、借风纵火,大破之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 814,278 C 820,270 824,266 828,264"/>
+      <text class="mlabel q" x="640" y="352">桓玄遣吴甫之、皇甫敷北出拒战</text>
+      <circle class="star" cx="831" cy="271" r="5"/>
+      <circle class="star" cx="826" cy="262" r="5"/>
+      <text class="mlabel j" x="640" y="230">江乘斩吴甫之,罗落桥斩皇甫敷</text>
+      <rect class="camp" x="831" y="285" width="8" height="8" transform="rotate(45 835 289)"/>
+      <text class="mlabel q" x="700" y="306">桓谦等屯覆舟山,以逸待劳</text>
+      <path class="march j" marker-end="url(#aj)" d="M 858,272 C 844,276 834,278 828,278"/>
+      <circle class="star" cx="824" cy="278" r="9"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 810,290 C 720,340 640,400 566,470"/>
+      <text class="anno" x="470" y="392">刘裕轻兵布疑兵、乘风纵火,大破之;入建康,屯石头城</text>
     </g>
 
-    <!-- 阶段二:西追峥嵘洲 -->
+    <!-- 阶段二:西追 · 峥嵘洲 -->
     <g id="ph2" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 694,308 C 600,330 520,356 458,376"/>
-      <text class="mlabel r" x="540" y="356">桓玄挟帝西奔寻阳、江陵</text>
-      <path class="march j" marker-end="url(#aj)" d="M 692,312 C 600,344 540,366 506,372"/>
-      <text class="mlabel j" x="560" y="392">刘毅·何无忌·刘道规追讨</text>
-      <circle class="star" cx="500" cy="368" r="6"/>
-      <text class="mlabel j" x="470" y="346">桑落洲破何澹之,克湓口寻阳</text>
-      <path class="march j" marker-end="url(#aj)" d="M 444,384 C 400,378 360,374 312,372"/>
-      <circle class="star" cx="300" cy="372" r="7"/>
-      <text class="anno" x="200" y="396">峥嵘洲以少破桓玄主劙(纵火)</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 806,292 C 690,360 600,500 526,524"/>
+      <text class="mlabel r" x="600" y="486">桓玄挟晋安帝西奔寻阳、江陵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 810,294 C 690,378 606,506 564,512 C 544,520 532,525 524,527 C 470,514 434,474 410,458"/>
+      <text class="mlabel j" x="620" y="404">刘毅·何无忌·刘道规溯江西讨</text>
+      <circle class="star" cx="560" cy="512" r="6"/>
+      <text class="mlabel j" x="430" y="546">桑落洲破何澹之,克湓口、寻阳</text>
+      <circle class="star" cx="406" cy="455" r="9"/>
+      <text class="anno" x="250" y="426">峥嵘洲以寡破众,复乘风纵火,焚其舟舰</text>
     </g>
 
     <!-- 阶段三:玄死复晋 -->
     <g id="ph3" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 296,372 C 220,366 160,360 116,358"/>
-      <text class="mlabel r" x="160" y="340">桓玄西走,六月遇害</text>
-      <circle class="star" cx="106" cy="356" r="7"/>
-      <text class="mlabel j" x="60" y="392">迎晋安帝复位于江陵</text>
-      <path class="march j" marker-end="url(#aj)" d="M 120,350 C 300,300 520,300 660,338"/>
-      <text class="anno" x="380" y="306">桓氏据荆州反攼,至义熙元年(405)乃定</text>
-      <text class="mlabel j" x="600" y="376">刘裕屯石头,重立晋室,威望大震</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 398,458 C 300,462 210,464 132,466"/>
+      <text class="mlabel r" x="150" y="446">桓玄败走江陵,复西奔</text>
+      <g transform="translate(58,466)">
+        <path class="march rout" marker-end="url(#ar)" d="M 55,0 L 28,0"/>
+        <text class="mlabel r" x="-2" y="-8" style="font-size:10px">⟵ 走益州途中遇害</text>
+      </g>
+      <circle class="star" cx="123" cy="466" r="6"/>
+      <path class="march j" marker-end="url(#aj)" d="M 135,472 C 350,432 600,342 806,290"/>
+      <text class="mlabel j" x="360" y="352">刘裕迎晋安帝复位,屯石头,重立晋室</text>
+      <text class="anno" x="300" y="404">桓氏余党据荆州反攻江陵,至义熙元年(405)乃平</text>
     </g>
 
-    <g class="compass" transform="translate(110,560)">
+    <g class="compass" transform="translate(160,560)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -177,37 +186,42 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>北府·勤王军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>北府·复晋义军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>桓楚军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>桓玄西奔</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>桓玄西奔·纵火溃</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·纵火</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>桓楚</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>勤王·北府</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>北府·勤王</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一一三、《宋书·武帝纪》《晋书·桓玄传》约略绘出。京口今镇江,竹里、江乘在今句容、栖霞间,覆舟山在今南京城东北,寻阳今九江,峥嵘洲在今黄冈西北,江陵今荆州。</p>
-    <p><span class="n">注二</span>晕染为元兴三年(404)势力示意:桓玄篡晋称帝(国号楚),据荆江上游;刘裕等北府旧将自下游京口、广陵起兵勤王。点划界为约略形势,非画界分明。</p>
-    <p><span class="n">注三</span>桓玄屯覆舟山"以逸待劳"为其自计上策,然不阻刘裕进农,反令其锐气愈盛。刘裕以千七百众轻装疑兵、借风纵火而克,遂入建康、复晋室——其代晋之基,实肇于此。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影约略定位,几何关系力求近实:京口、广陵在东(下游),覆舟山、建康居中(江北岸偏东),寻阳、峥嵘洲、江陵递次在西(上游),长江自西南九江折而东北,故图中江水由左下弯向右上。京口今镇江,广陵今扬州,竹里在今句容北,江乘、罗落桥在今南京栖霞、句容间,覆舟山在今南京城北(玄武湖侧),寻阳今九江,湓口即九江城,桑落洲在九江下游江中,峥嵘洲在今湖北黄冈、鄂州间江上,江陵今荆州。江河、城邑经简化描绘,位置相对示意。</p>
+    <p><span class="n">注二</span>晕染为元兴三年(404)势力重心示意:桓玄以桓氏之根本据荆江上游、篡立于建康;刘裕、刘毅、何无忌等北府旧将起于下游京口、广陵。点划线为约略之分,示上下游之势,非当时画界分明——建康本桓玄所据,覆舟山败后乃归义军。</p>
+    <p><span class="n">注三</span>依《资治通鉴》卷一一三(元兴三年)、《宋书·武帝纪》《晋书·桓玄传》。制胜之枢在覆舟山:桓玄屯大众于此『以逸待劳』本为自计上策,然刘裕仅将千七百众,连破吴甫之、皇甫敷于江乘、罗落桥,进至覆舟山,使羸弱登山张旗为疑兵、弃余粮示不反顾,乘风纵火,以寡破众。其后西追,又于峥嵘洲因风纵火,焚桓玄东下之舟师二万——两战皆疑兵火攻、以少击多。玄挟帝西走,寻遇害,晋室复安;刘裕代晋之基,实肇于此役。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"四地起兵",d:"元兴三年(404)三月",p:["元兴二年十二月,桓玄逼晋安帝禅位,自立为帝,国号楚,据荆江上游。刘裕随桓修入朝,阴蓄义举。","三月,刘裕托言游猎,与何无忌等于京口袭杀徐州刺史桓修;刘毅、孟昶于广陵杀青州刺史桓弘;诸葛长民图历阳。众推刘裕为盟主,率千七百余人进驻竹里——北府旧部群起响应。"]},
-  "1":{t:"覆舟山之战",d:"元兴三年三月",p:["桓玄闻刘裕起兵,虽惧而料定其精锐速进、计出万死,遂屯大众于覆舟山以逸待劳;桓谦力请出击,乃遣吴甫之、皇甫敷自建康北攻。","刘裕与吴甫之相遇江乘,斩之;追至罗落桥,又斩皇甫敷。进至覆舟山东,使老弱布疑兵以惑敌,饱食弃余粮,与刘毅等突击桓谦军,借风纵火,大破楚军。桓玄无意再战,挟帝西遁。刘裕入建康,屯石头城,重立晋室。"]},
-  "2":{t:"西追峥嵘洲",d:"元兴三年四 — 五月",p:["桓玄挟晋安帝自建康西奔寻阳,趋江陵,留何澹之等守湓口。何无忌、刘道规兵至桑落洲,集兵击其弱,大破何澹之,克湓口、进占寻阳。","桓玄集荆州兵二万余东下,以苻宏为前锋。刘毅、何无忌等众不足万,自寻阳西上,五月与桓玄相遇峥嵘洲,以少击众,又因风纵火,败其主力,楚军夜烧辎重而逃。"]},
-  "3":{t:"玄死复晋",d:"元兴三年六月 — 义熙元年",p:["桓玄败走江陵,复西奔,六月为益州督护冯迁等所杀于途。刘裕迎晋安帝复位。","桓氏余党仍据荆州反攻江陵,至义熙元年(405)始克之,逐桓氏,迎帝还建康。刘裕以兴复之功,威望冠绝朝野,东晋大权遂归于刘氏——为十六年后代晋建宋张本。"]}
+  all:{t:"京口起兵",d:"元兴三年(404)二月",p:["元兴二年十二月,桓玄逼晋安帝禅位,自立为帝,国号楚,据荆江上游为根本;晋室倾覆,人心未附。刘裕随桓修入朝,阴与何无忌、刘毅、诸葛长民等蓄义举。","三月(《宋书》系二月),刘裕托言游猎,与何无忌等于京口袭杀徐州刺史桓修;刘毅、孟昶于广陵杀青州刺史桓弘;诸葛长民谋据历阳。众推刘裕为盟主,合众不过千七百,进屯竹里,西指建康——北府旧部群起响应,勤王之师成矣。"]},
+  "1":{t:"覆舟山 · 纵火破玄",d:"元兴三年三月",p:["桓玄闻刘裕起兵,虽惧而料其精锐速进、计出万死,遂屯大众于覆舟山『以逸待劳』;桓谦力请出击,乃遣吴甫之、皇甫敷自建康北出拒战。刘裕与吴甫之相遇江乘,斩之;追至罗落桥,又斩皇甫敷,前锋尽折。","进至覆舟山东,刘裕使羸弱登山多张旗帜为疑兵以惑敌,饱食而弃其余粮以示必死,与刘毅等分道突击桓谦军;时东北风急,因风纵火,烟焰张天,楚军大溃。桓玄无意再战,挟晋安帝西遁。刘裕入建康,屯石头城,立留台,焚桓温神主,以匡复晋室为号。"]},
+  "2":{t:"西追 · 峥嵘洲",d:"元兴三年四 — 五月",p:["桓玄挟帝自建康西奔寻阳,趋江陵为根本,留何澹之、郭铨等守湓口。何无忌、刘道规兵至桑落洲,集兵击其弱者,大破何澹之,克湓口、进占寻阳,义军遂扼大江中流。","桓玄集荆州之众二万余东下,以苻宏为前锋,楼船高大,声势甚盛。刘毅、何无忌、刘道规兵不满万,自寻阳溯江西上,五月与桓玄相遇峥嵘洲。众惧欲退,刘道规奋励力战,复乘风纵火,焚其舟舰,以寡破众,楚军夜溃,焚辎重而逃。"]},
+  "3":{t:"玄死复晋",d:"元兴三年五月 — 义熙元年",p:["桓玄峥嵘洲败后走江陵,复西奔,五月为益州都护冯迁等邀击,杀于枚回洲(道出益州途中)。刘裕迎晋安帝反正,晋室复安。","然桓氏余党桓振、桓谦等犹据荆州反攻江陵,一度复陷,战事延及次年;至义熙元年(405)乃克定荆楚,逐桓氏,奉帝还建康。刘裕以兴复之功,威望冠绝朝野,东晋兵权、政柄遂归刘氏——为十六年后代晋建宋张本。"]}
 };
 const CITY={
-  jingkou:{t:"京口",d:"今江苏镇江",p:["北府兵根本之地,刘裕起兵首义处。袭杀桓修,控京口,遂为盟主西攻建康。"]},
-  guangling:{t:"广陵",d:"今江苏扬州",p:["刘毅、孟昶起兵处,杀青州刺史桓弘,渡江与刘裕会合。"]},
-  zhuli:{t:"竹里",d:"今江苏句容北",p:["刘裕率千七百众进驻之地,由此西指建康。"]},
-  fuzhou:{t:"覆舟山",d:"今南京城东北",p:["决战之地。桓玄屯大众于此以逸待劳,刘裕疑兵纵火破之。"]},
-  jiankang:{t:"建康",d:"东晋都城,今南京",p:["桓玄篡立之都。覆舟山败后玄西遁,刘裕入城屯石头,重立晋室。"]},
-  shitou:{t:"石头城",d:"建康西北",p:["刘裕入建康后屯兵于此,立留台,焚桓温神主,以示匡复晋室。"]},
-  xunyang:{t:"寻阳",d:"今江西九江",p:["桓玄西奔所经。何无忌、刘道规破何澹之于桑落洲后进占之。"]},
-  zhengrong:{t:"峥嵘洲",d:"今湖北黄冈西北",p:["刘毅等以不足万众,因风纵火,大破桓玄东下之主力二万。"]},
-  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["桓氏经营之根本。桓玄西奔至此,旋败死;桓氏余党据之反攼,至四〇五年乃平。"]}
+  jingkou:{t:"京口",d:"今江苏镇江",p:["北府兵根本之地,刘裕举义首倡处。三月托言游猎,袭杀徐州刺史桓修,遂为盟主,西攻建康。"]},
+  guangling:{t:"广陵",d:"今江苏扬州",p:["刘毅、孟昶起兵处,渡江杀青州刺史桓弘,南下与刘裕会合于京口、竹里之间。"]},
+  zhuli:{t:"竹里",d:"今江苏句容北",p:["刘裕合众千七百进屯之地,由此西指建康,连破桓玄前锋。"]},
+  luoluo:{t:"罗落桥",d:"建康东北,今南京句容间",p:["刘裕破皇甫敷之地。既斩吴甫之于江乘,复追斩皇甫敷于此,桓玄前锋尽折。"]},
+  jiangcheng:{t:"江乘",d:"今南京栖霞一带",p:["刘裕西进首捷之地,与桓玄将吴甫之相遇,斩之。"]},
+  fuzhou:{t:"覆舟山",d:"今南京城北,玄武湖侧",p:["决战之地。桓玄屯大众于此以逸待劳;刘裕以千七百众登山张疑兵、弃余粮示死战,乘风纵火,大破之——玄遂弃建康西遁。"]},
+  jiankang:{t:"建康",d:"东晋都城,今南京",p:["桓玄篡立之都。覆舟山败后玄挟帝西走,刘裕入城屯石头,立留台,焚桓温神主,以示匡复晋室。"]},
+  shitou:{t:"石头城",d:"建康西北临江",p:["刘裕入建康后屯兵于此,总留任、抚新旧,渐揽朝权;义军之重心。"]},
+  liyang:{t:"历阳",d:"今安徽和县,江西岸",p:["诸葛长民所谋据以应义军之地。为建康上游江防要冲。"]},
+  xunyang:{t:"寻阳",d:"今江西九江",p:["桓玄西奔所经,大江中流之枢。何无忌、刘道规破何澹之于桑落洲后进占之。"]},
+  penkou:{t:"湓口",d:"寻阳城西,今九江",p:["桓玄留何澹之、郭铨等守此以扼江。义军破何澹之,克湓口,遂得寻阳。"]},
+  sangluo:{t:"桑落洲",d:"寻阳下游江中,今九江东北",p:["何无忌、刘道规集兵击桓玄守将何澹之之弱者,大破之,为西追首捷。"]},
+  zhengrong:{t:"峥嵘洲",d:"今湖北黄冈、鄂州间江上",p:["刘毅、何无忌、刘道规以不满万众,溯江西上,因风纵火,焚桓玄东下舟师二万,以寡破众——桓玄自此一蹶不振。"]},
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["桓氏经营之根本。桓玄西奔至此,旋复西走遇害;桓氏余党据之反攻,至义熙元年(405)乃平。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
