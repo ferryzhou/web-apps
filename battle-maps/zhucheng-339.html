@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -47,7 +49,7 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -58,7 +60,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +74,16 @@
   <div class="seal" aria-hidden="true"><span>邾</span><span>城</span><span>之</span><span>战</span></div>
   <header>
     <h1>邾城之战</h1>
-    <div class="sub">晋咸康五年(339)　　<b>后赵 石虎</b>(夔安·张貉) 攻 <i>东晋 毛宝 · 樊峻</i>(守邾城)</div>
+    <div class="sub">晋咸康五年(339)　　<b>后赵 石虎</b>(夔安·张貉·石闵) 攻 <i>东晋 毛宝 · 樊峻</i>(守邾城)　·　江北孤城 · 突围溺江</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 石赵南侵</button>
-    <button data-p="1">沔南崩坏</button>
-    <button data-p="2">孤城被围</button>
-    <button data-p="3">突围溺江</button>
+    <button data-p="1">石虎南掠 · 围邾城</button>
+    <button data-p="2">孤城无援 · 城陷</button>
+    <button data-p="3">突围溺江 · 江北谋挫</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邾城之战形势图,含东晋后赵疆界、长江沔水汉水与邾城武昌江陵等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邾城之战形势图,含东晋后赵疆界、长江沔水(汉水)与邾城武昌江陵石城义阳江夏等城邑,后赵自北南下攻邾城">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,116 +92,157 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:后赵据中原沔北(北),东晋据江南(南),约以长江为界 -->
-    <path d="M 0,300 C 120,288 240,276 360,272 C 480,268 600,278 720,266 C 840,256 920,250 1000,256 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 120,288 240,276 360,272 C 480,268 600,278 720,266 C 840,256 920,250 1000,256 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <text class="realm q" x="120" y="120" font-size="32">后 赵(沔汉之北)</text>
-    <text class="realm j" x="640" y="592" font-size="30">东 晋(江南)</text>
+    <!-- ══ 疆界:后赵据沔汉中原之北,东晋据江表,约以长江为界;邾城孤悬江北 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,454 C 980,456 950,460 900,468 C 820,484 720,502 636,498 C 560,496 500,496 460,497 C 380,498 300,500 200,508 C 150,512 90,519 0,528 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,528 C 90,519 150,512 200,508 C 300,500 380,498 460,497 C 500,496 560,496 636,498 C 720,502 820,484 900,468 C 950,460 980,456 1000,454 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <!-- 约界:略循长江北岸 -->
+    <path class="border" d="M 0,528 C 90,519 150,512 200,508 C 300,500 380,498 460,497 C 500,496 560,496 636,498 C 720,502 820,484 900,468 C 950,460 980,456 1000,454"/>
+    <text class="realm q" x="96" y="118" font-size="30">后 赵</text>
+    <text class="cname s" x="98" y="140" style="fill:var(--enemy);opacity:.55">(沔汉·中原之北)</text>
+    <text class="realm j" x="120" y="600" font-size="28">东 晋(江表)</text>
 
-    <!-- 长江:自西向东 -->
-    <path class="river" stroke-width="5.5" d="M 0,360 C 120,372 240,392 360,400 C 480,408 600,406 720,398 C 840,390 920,392 1000,398"/>
-    <!-- 沔水(汉水):自西北南流入江 -->
-    <path class="river" stroke-width="3.2" d="M 150,90 C 180,170 210,250 250,320 C 280,372 320,392 360,400"/>
-    <text class="rname" x="600" y="430" style="font-size:13px">长 江</text>
-    <text class="rname" x="206" y="240" transform="rotate(68 206 240)">沔水(汉水)</text>
+    <!-- ══ 山脉 ══ -->
+    <path class="mtn fill" d="M 500,326 L 518,292 L 534,310 L 554,278 L 574,306 L 596,284 L 616,318 Z"/>
+    <path class="mtn" d="M 528,308 l 12,-16 l 10,11 l 13,-18 l 11,14"/>
+    <text class="mname" x="512" y="344">大 别 诸 山</text>
 
-    <!-- 大别诸山:江北丘陵 -->
-    <g class="mtn"><path d="M 560,300 l 8,-13 l 8,13 M 576,294 l 8,-13 l 8,13 M 592,300 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="558" y="320">大别诸山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 长江:自西向东,过江陵,分邾城(北岸)、武昌(南岸)之间,东下建康 -->
+    <path class="river" stroke-width="5.5" d="M 0,532 C 90,522 150,516 200,512 C 300,502 380,502 460,501 C 540,500 600,500 636,502 C 720,506 820,488 900,472 C 950,464 980,460 1000,458"/>
+    <!-- 沔水(汉水):自西北南流,过石城(竟陵),会江于夏口 -->
+    <path class="river" stroke-width="3.2" d="M 168,110 C 180,220 188,300 191,362 C 205,405 240,438 300,455 C 380,470 450,478 520,486"/>
+    <text class="rname" x="640" y="536" style="font-size:14px">长 江</text>
+    <text class="rname" x="196" y="250" transform="rotate(80 196 250)" style="font-size:11.5px">沔水(汉水)</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="jiangling"><circle cx="120" cy="378" r="5"/><text class="cname" x="60" y="374">江陵<tspan class="cname s" dx="2">(荆州)</tspan></text></g>
-      <g class="city" data-city="mianshui"><circle cx="250" cy="320" r="3"/><text class="cname s" x="258" y="314">沔南诸城</text></g>
-      <g class="city" data-city="mianyin"><circle cx="330" cy="334" r="4"/><text class="cname s" x="338" y="330">沔阴</text></g>
-      <g class="city" data-city="shicheng"><circle cx="470" cy="346" r="4"/><text class="cname s" x="430" y="338">石城</text></g>
-      <g class="city cap" data-city="zhucheng"><circle cx="660" cy="356" r="6.5"/><text class="cname" x="600" y="350">邾城<tspan class="cname s" dx="2">(江北孤城)</tspan></text></g>
-      <g class="city" data-city="jiangxia"><circle cx="560" cy="430" r="4"/><text class="cname s" x="500" y="446">江夏</text></g>
-      <g class="city cap" data-city="wuchang"><circle cx="672" cy="448" r="6"/><text class="cname" x="684" y="452">武昌<tspan class="cname s" dx="2">(庾亮镇)</tspan></text></g>
+      <g class="city" data-city="jiangling"><circle cx="119" cy="516" r="5"/><text class="cname" x="60" y="512">江陵<tspan class="cname s" dx="2">(荆州)</tspan></text></g>
+      <g class="city" data-city="shicheng"><circle cx="191" cy="362" r="4.5"/><text class="cname" x="120" y="356">石城<tspan class="cname s" dx="2">(竟陵)</tspan></text></g>
+      <g class="city" data-city="mianyin"><circle cx="300" cy="452" r="3.5"/><text class="cname s" x="308" y="448">沔阴</text></g>
+      <g class="city" data-city="baishi"><circle cx="356" cy="424" r="3.5"/><text class="cname s" x="364" y="420">白石</text></g>
+      <g class="city" data-city="yiyang"><circle cx="476" cy="186" r="4"/><text class="cname" x="486" y="190">义阳<tspan class="cname s" dx="2">(信阳)</tspan></text></g>
+      <g class="city" data-city="jiangxia"><circle cx="522" cy="486" r="4"/><text class="cname s" x="454" y="482">江夏(夏口)</text></g>
+      <g class="city cap" data-city="zhucheng"><circle cx="632" cy="490" r="6.5"/><text class="cname" x="548" y="478">邾城<tspan class="cname s" dx="2">(江北孤城)</tspan></text></g>
+      <g class="city cap" data-city="wuchang"><circle cx="644" cy="510" r="6"/><text class="cname" x="656" y="524">武昌<tspan class="cname s" dx="2">(庾亮镇)</tspan></text></g>
+    </g>
+
+    <!-- 襄国(后赵都·图外·北) -->
+    <g transform="translate(432,8)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,4 L 0,30"/>
+      <text class="mlabel q" x="8" y="14" style="font-size:10px">↓ 襄国·后赵都(图外·北)</text>
+    </g>
+    <!-- 建康(东晋京畿·图外·东,大江东下) -->
+    <g transform="translate(946,458)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,0"/>
+      <text class="mlabel j" x="-8" y="-8" style="font-size:10px;text-anchor:end">大江东下 · 建康(图外·东) ⟶</text>
     </g>
 
     <!-- 全图 · 石赵南侵 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 240,150 C 300,210 380,270 440,320"/>
-      <path class="march q" marker-end="url(#aq)" d="M 500,150 C 540,210 580,280 630,340"/>
-      <text class="mlabel q" x="300" y="150">石虎遣五将,众数万南侵沔汉</text>
-      <text class="anno" x="430" y="300">夔安·李农·石闵·张貉·李菟</text>
-      <text class="mlabel j" x="610" y="476">庾亮镇武昌,经营江北、谋北伐</text>
-      <text class="anno" x="588" y="372">邾城孤悬江北,毛宝、樊峻万人戍守</text>
+      <path class="march q" marker-end="url(#aq)" d="M 400,40 C 360,180 320,340 302,442"/>
+      <path class="march q" marker-end="url(#aq)" d="M 560,44 C 600,180 622,360 632,476"/>
+      <text class="mlabel q" x="300" y="92">石虎遣夔安等五将、五万人寇荆扬北鄙</text>
+      <text class="anno" x="470" y="140">别遣张貉二万骑攻邾城</text>
+      <text class="mlabel j" x="560" y="556">庾亮镇武昌,率十万众谋北伐</text>
+      <text class="anno" x="470" y="466">毛宝、樊峻万人戍邾城,孤悬江北</text>
     </g>
 
-    <!-- 阶段一:沔南崩坏 -->
+    <!-- 阶段一:石虎南掠 · 围邾城 -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 230,160 C 250,220 268,280 286,322"/>
-      <text class="mlabel q" x="232" y="180">夔安、李农攻陷沔南诸城</text>
-      <rect class="camp" x="246" y="316" width="8" height="8" transform="rotate(45 250 320)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 420,150 C 400,220 372,290 342,328"/>
-      <circle class="star" cx="330" cy="334" r="7"/>
-      <text class="mlabel q" x="346" y="358">石闵败晋军于沔阴,斩将军蔡怀</text>
-      <text class="anno" x="220" y="356">朱保败晋兵于白石,获郑豹等五将</text>
-      <text class="anno" x="300" y="384">晋之江北外围尽失,邾城益孤</text>
+      <!-- 夔安、李农拔沔南 -->
+      <path class="march q" marker-end="url(#aq)" d="M 380,60 C 340,190 310,360 302,442"/>
+      <text class="mlabel q" x="238" y="70">夔安、李农拔沔南诸城</text>
+      <rect class="camp" x="296" y="448" width="8" height="8" transform="rotate(45 300 452)"/>
+      <!-- 石闵败蔡怀于沔阴 -->
+      <circle class="star" cx="300" cy="452" r="7"/>
+      <text class="anno" x="220" y="478">石闵败晋兵于沔阴,斩将军蔡怀</text>
+      <!-- 朱保败郑豹于白石 -->
+      <circle class="star" cx="356" cy="424" r="6"/>
+      <text class="anno" x="360" y="406">朱保败晋兵于白石,获郑豹等五将</text>
+      <!-- 夔安逼江夏,义阳降 -->
+      <path class="march q" marker-end="url(#aq)" d="M 476,196 C 494,300 510,410 520,478"/>
+      <text class="mlabel q" x="480" y="240">进据胡亭,逼江夏;义阳降赵</text>
+      <!-- 张貉二万骑至邾城 -->
+      <path class="march q" marker-end="url(#aq)" d="M 566,52 C 606,190 626,360 634,474"/>
+      <text class="mlabel q" x="560" y="120">张貉二万骑专攻邾城</text>
+      <circle class="siege" cx="632" cy="490" r="19"/>
     </g>
 
-    <!-- 阶段二:孤城被围 -->
+    <!-- 阶段二:孤城无援 · 城陷 -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 480,300 C 540,316 600,336 644,352"/>
-      <text class="mlabel q" x="476" y="296">张貉率部专攻邾城</text>
-      <circle class="siege" cx="660" cy="356" r="20"/>
-      <text class="anno" x="600" y="332">毛宝、樊峻闭城固守</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 666,366 C 670,392 672,416 672,438"/>
-      <text class="mlabel j" x="684" y="404">屡遣使渡江告急求援</text>
-      <text class="anno" x="560" y="476">庾亮恃城险固,不时发兵,救援迟迟不至</text>
+      <circle class="siege" cx="632" cy="490" r="21"/>
+      <circle class="siege" cx="632" cy="490" r="13"/>
+      <text class="mlabel q" x="470" y="446">昼夜环逼,毛宝、樊峻闭城固守</text>
+      <!-- 毛宝屡遣使渡江告急 -->
+      <path class="march j" marker-end="url(#aj)" d="M 636,500 C 640,506 642,508 644,510"/>
+      <text class="mlabel j" x="672" y="488">屡遣使渡江告急</text>
+      <text class="anno" x="470" y="558">庾亮恃城险固,不时遣兵,援师竟不至</text>
+      <!-- 石城:竟陵太守李阳拒赵破之 -->
+      <path class="march q" marker-end="url(#aq)" d="M 360,80 C 300,180 230,300 200,352"/>
+      <circle class="star" cx="191" cy="362" r="8"/>
+      <text class="mlabel j" x="96" y="392">竟陵太守李阳拒战,破赵斩首五千</text>
+      <!-- 城陷 -->
+      <rect class="camp" x="628" y="486" width="9" height="9" transform="rotate(45 632 490)"/>
+      <text class="mlabel q" x="744" y="470">九月丁亥,邾城陷</text>
     </g>
 
-    <!-- 阶段三:突围溺江 -->
+    <!-- 阶段三:突围溺江 · 江北谋挫 -->
     <g id="ph3" class="ph">
-      <path d="M 660,356 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="600" y="324">邾城终为后赵攻破</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 660,368 C 656,382 652,392 648,398"/>
-      <text class="mlabel r" x="612" y="392">弃城突围赴江</text>
-      <text class="anno" x="560" y="418">六千余众赴江欲渡,人马溺死者六千</text>
-      <text class="anno" x="500" y="436">毛宝亦没于江,江北尽失</text>
-      <text class="anno" x="610" y="478">庾亮经营江北、北伐之谋大挫,上疏自贬</text>
+      <path d="M 632,490 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="558" y="466">邾城终为后赵攻破</text>
+      <!-- 毛宝、樊峻突围赴江溺死 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 634,498 C 632,502 630,505 626,509"/>
+      <text class="mlabel r" x="560" y="528">弃城突围,争赴大江</text>
+      <text class="anno" x="410" y="552">六千余众赴水欲渡,人马溺死者六千</text>
+      <text class="anno" x="410" y="572">毛宝、樊峻俱没于江,江北尽失</text>
+      <!-- 后赵掠汉东北还 -->
+      <path class="march q" marker-end="url(#aq)" d="M 300,452 C 320,340 360,190 420,60"/>
+      <text class="anno" x="120" y="150">赵围石城不克,掠汉东七千余家迁于幽、冀而退</text>
+      <text class="mlabel j" x="712" y="566">庾亮上疏自贬,忧惭成疾,明年(340)卒</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(946,600)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后赵军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(守)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后赵军(攻)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>突围溺江</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>后赵</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·拒守</span>
+    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6.5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" transform="rotate(45 6.5 6.5)" fill="#9a2b1e"/></svg>陷城·敌营</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>后赵</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷九六、《晋书·成帝纪》《庾亮传》约略绘出。邾城今湖北黄冈西北,武昌即今鄂州,沔水即汉水。水道、城邑位置为相对示意,经简化。</p>
-    <p><span class="n">注二</span>邾城孤悬江北,陆抗、桓温辈皆尝言其难守;庾亮锐意经营江北、谋移镇石城以图北伐,毛宝固谏不可置兵邾城而不能止,卒有此败。</p>
-    <p><span class="n">注三</span>此役晋丧师六千,江北经营之谋顿挫,庾亮忧惭发病,明年卒。后赵则气焰益张,然亦未能渡江南下。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影(约 111.85°—115°E、29.9°—32.2°N),几何关系力求近实:邾城在长江北岸,武昌(今鄂州)隔江在其东南,江陵在西、石城(竟陵)在西北沔水之上,义阳孤悬于北,大江自西东下建康。江河、疆界经简化;所谓"约以长江为界"仅为示意,江北本为晋、赵争地。</p>
+    <p><span class="n">注二</span>今地:邾城即今湖北黄冈黄州禹王城,武昌即今鄂州,江陵即今荆州,石城·竟陵即今钟祥,义阳即今河南信阳,江夏(夏口)在今武汉一带,沔水即汉水。沔阴、白石二地确址无考,图中位置为沔汉之间之约略拟定。</p>
+    <p><span class="n">注三</span>本图依《资治通鉴》卷九十六(咸康五年)及《晋书·成帝纪》《庾亮传》《毛宝传》《载记·石季龙》绘出。据载石虎遣夔安为大都督,帅石鉴、石闵(冉闵)、李农、张貉、李菟五将、众五万寇荆扬北鄙,别遣二万骑攻邾城。夔安、李农拔沔南,石闵败晋兵于沔阴斩将军蔡怀,朱保败晋兵于白石获郑豹等五将,张貉拔邾城,死者六千人。</p>
+    <p><span class="n">注四</span>邾城孤悬江北,难守;庾亮锐意经营江北、且欲移镇石城以图北伐,毛宝固谏而不能止,遂使万人戍此绝地。城破,毛宝、樊峻突围赴江,人马溺死者六千,二将俱没。惟竟陵太守李阳拒战破赵于石城,斩首五千余,江防未至全溃;赵掠汉东七千余家迁于幽、冀而退,终未能渡江。庾亮以此上疏自贬三等,诏不许,忧惭成疾,明年(咸康六年,340)卒,北伐之谋大挫。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"石赵南侵",d:"晋咸康五年(339)",p:["征西将军庾亮镇武昌,谋经营江北、北伐中原,使豫州刺史毛宝、西阳太守樊峻以万人戍邾城——城在长江北岸,正对江南之武昌,孤悬于敌境之前。","后赵天王石虎遣夔安、李农、石闵(冉闵)、张貉、李菟等五将,率众数万南侵荆襄沔汉之地。矛头直指江北邾城,庾亮经营江北之局面临崩坏。"]},
-  "1":{t:"沔南崩坏",d:"咸康五年九月",p:["夔安、李农等长驱南下,攻陷沔南诸城;石闵(冉闵)进而败晋军于沔阴,斩晋将军蔡怀,沔汉东路为之震动。","朱保又败晋兵于白石,擒获郑豹等五将。晋之江北外围尽失,邾城遂成绝域之中一孤垒。"]},
-  "2":{t:"孤城被围",d:"咸康五年九月",p:["张貉率所部专攻邾城,昼夜环逼。毛宝、樊峻闭城固守,屡遣使渡江,向江南武昌之庾亮告急求援。","庾亮恃邾城险固,以为足以自守,虽不时发兵,而救援之师迟迟不至。孤城外无强援,势日危蹙。"]},
-  "3":{t:"突围溺江",d:"咸康五年九月",p:["邾城终为后赵攻破。毛宝、樊峻率六千余众弃城突围,争赴江岸欲南渡。然舟楫不给,后骑相蹙,人马溺死于江者六千,毛宝亦没于水中。","江北之地尽失,庾亮经营江北、北伐中原之谋大挫。亮上疏自贬,忧愧成疾,明年(340)遂卒。"]}
+  all:{t:"石赵南侵",d:"晋咸康五年(339)",p:["征西将军庾亮镇武昌,谋经营江北、北伐中原,使豫州刺史毛宝、西阳太守樊峻以万人戍邾城——城在长江北岸,正对江南之武昌,孤悬于敌境之前;亮别率大军屯于沿江,又欲移镇石城以为进取之基。","后赵天王石虎恶之,遣夔安为大都督,帅石鉴、石闵(冉闵)、李农、张貉、李菟五将、众五万,南寇荆扬北鄙;别遣张貉率二万骑专攻邾城。矛头直指江北,庾亮经营江北之局遂临崩坏。"]},
+  "1":{t:"石虎南掠 · 围邾城",d:"咸康五年 · 秋",p:["夔安、李农长驱南下,攻陷沔南诸城;石闵(冉闵)进败晋军于沔阴,斩晋将军蔡怀;朱保又败晋兵于白石,擒郑豹等五将。夔安进据胡亭,逼江夏,义阳太守郑进、将军黄冲皆降于赵,沔汉之东尽震。","张貉别以二万骑专攻邾城,昼夜环逼。晋之江北外围既失,邾城遂成绝域中之一孤垒;毛宝、樊峻闭城自守,而外无强援。"]},
+  "2":{t:"孤城无援 · 城陷",d:"咸康五年九月",p:["赵军昼夜攻邾城,毛宝、樊峻力守,屡遣使渡江,向江南武昌之庾亮告急求援。庾亮恃邾城险固,以为足以自守,不时遣兵,救援之师竟不至。","惟西路竟陵太守李阳拒赵于石城,力战破之,斩首五千余,赵军乃退,晋之江防未至全溃。然邾城孤悬,外援已绝——九月丁亥,城终为后赵攻破。"]},
+  "3":{t:"突围溺江 · 江北谋挫",d:"咸康五年九月",p:["邾城既陷,毛宝、樊峻率六千余众弃城突围,争赴江岸欲南渡。然舟楫不给,后骑相蹙,人马溺死于江者六千,毛宝、樊峻俱没于水。江北之地尽失。","赵围石城不下,乃掠汉东七千余家迁于幽、冀而退,终未能渡江。庾亮经营江北、北伐中原之谋大挫,上疏自贬三等,诏不许;亮忧惭成疾,明年(咸康六年,340)遂卒。"]}
 };
 const CITY={
-  zhucheng:{t:"邾城",d:"江北孤城,今湖北黄冈西北",p:["毛宝、樊峻所守。孤悬长江北岸,正对江南武昌。城破之后,众六千余突围赴江,溺死殆尽,毛宝亦没于江。"]},
-  wuchang:{t:"武昌",d:"庾亮镇,今湖北鄂州",p:["征西将军庾亮治所,在大江之南,与邾城隔江相望。亮恃城险而救援不及,坐视江北之失。"]},
-  mianyin:{t:"沔阴",d:"沔水之南",p:["石闵(冉闵)败晋军于此,斩晋将军蔡怀。沔阴既失,沔汉之防摇动。"]},
-  jiangxia:{t:"江夏",d:"今湖北武汉一带",p:["大江南岸要郡,与邾城对岸相为唇齿。邾城既破,江夏首当其冲。"]},
-  shicheng:{t:"石城",d:"江北沔汉之间",p:["庾亮尝谋移镇于此,以为经营江北、北伐之根本;毛宝固谏不可,事终不行。"]},
-  mianshui:{t:"沔水(汉水)",d:"自西北南流入江",p:["夔安、李农攻陷沔南诸城,赵军循沔南下,直逼大江之北。"]},
-  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["荆州治所,上游重镇。庾亮经营江北、图谋北伐之所本,亦其退守之凭。"]}
+  zhucheng:{t:"邾城",d:"江北孤城,今湖北黄冈黄州禹王城",p:["毛宝、樊峻以万人所守。孤悬长江北岸,正对江南武昌。张貉二万骑昼夜攻之,城破,众六千余突围赴江,溺死殆尽,毛宝、樊峻俱没于水。"]},
+  wuchang:{t:"武昌",d:"庾亮镇,今湖北鄂州",p:["征西将军庾亮治所,在大江之南,与邾城隔江相望。亮恃城险而救援不及,坐视江北之失;既失邾城,忧惭成疾,明年卒。"]},
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["荆州治所,上游重镇,庾亮经营江北、图谋北伐之所本,亦其退守之凭。"]},
+  shicheng:{t:"石城(竟陵)",d:"沔水之上,今湖北钟祥",p:["庾亮尝谋移镇于此,以为经营江北、北伐之根本,毛宝固谏不可。是役夔安围之,竟陵太守李阳拒战破赵,斩首五千余,赵乃退——江防未至全溃,赖此一战。"]},
+  mianyin:{t:"沔阴",d:"沔水之南(确址无考)",p:["石闵(冉闵)败晋军于此,斩晋将军蔡怀。沔阴既失,沔汉之防摇动。其确址史无明文,图中为约略拟定。"]},
+  baishi:{t:"白石",d:"沔汉之间(确址无考)",p:["赵将朱保败晋兵于此,擒郑豹等五将。与沔阴同为赵军南掠沔南时所克,确址难考。"]},
+  yiyang:{t:"义阳",d:"今河南信阳",p:["沔汉之北要郡。夔安进据胡亭、逼江夏,义阳太守郑进、将军黄冲皆降于赵,晋之江北藩篱由是尽撤。"]},
+  jiangxia:{t:"江夏(夏口)",d:"今湖北武汉一带",p:["大江南岸要郡,沔水会江之口。夔安据胡亭进逼之;邾城既破,江夏首当其冲,然赖大江之险未失。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

@@ -31,6 +31,7 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -53,12 +54,27 @@
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,7 +85,7 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="index.html" aria-label="返回东晋征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>淝</span><span>水</span><span>之</span><span>战</span></div>
+  <div class="seal" aria-hidden="true"><span>淝</span><span>水</span><span>之</span><span>役</span></div>
   <header>
     <h1>淝水之战</h1>
     <div class="sub">晋太元八年(383)　　<i>东晋 谢石·谢玄</i>(八万) 破 <b>前秦 苻坚</b>(号百万) · 以寡胜众</div>
@@ -81,7 +97,7 @@
     <button data-p="3">淝水奔溃</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="淝水之战形势图,含东晋前秦疆界、淮水淝水洛涧八公山与寿阳建康项城等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="淝水之战形势图,含东晋前秦疆界、淮水淝水洛涧、八公山与寿阳建康项城彭城等城邑,及秦军自项城趋寿阳、晋军自建康溯淮西上诸路">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,92 +106,100 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:前秦据淮北中原(北),东晋据江左(南),约以淮水为界 -->
-    <path d="M 0,250 C 120,236 260,244 400,232 C 560,218 720,236 880,222 C 930,217 970,222 1000,224 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,250 C 120,236 260,244 400,232 C 560,218 720,236 880,222 C 930,217 970,222 1000,224 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,250 C 120,236 260,244 400,232 C 560,218 720,236 880,222 C 930,217 970,222 1000,224"/>
-    <text class="realm q" x="120" y="90" font-size="34">前 秦(淮北·中原)</text>
-    <text class="realm j" x="640" y="600" font-size="30">东 晋(江 左)</text>
+    <!-- ══ 疆界:前秦据淮北·中原(北),东晋据江左(南),约以淮水为界 ══ -->
+    <path d="M 0,458 C 160,442 320,420 476,398 C 620,378 780,300 1000,222 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,458 C 160,442 320,420 476,398 C 620,378 780,300 1000,222 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,458 C 160,442 320,420 476,398 C 620,378 780,300 1000,222"/>
+    <text class="realm q" x="120" y="120" font-size="32">前 秦(淮北·中原)</text>
+    <text class="realm j" x="700" y="600" font-size="30">东 晋(江 左)</text>
 
-    <!-- 淮水:自西北贯流东南,横亘上方 -->
-    <path class="river" stroke-width="5.5" d="M 60,150 C 200,176 320,210 420,240 C 520,270 600,290 690,300 C 780,310 880,322 1000,360"/>
-    <!-- 淝水(肥水):自寿阳南侧,自南而北汇入淮 -->
-    <path class="river" stroke-width="3" d="M 470,470 C 462,420 452,372 448,330 C 446,300 442,278 438,258"/>
-    <!-- 洛涧:寿阳之东,一小水南北流入淮 -->
-    <path class="river" stroke-width="2.4" d="M 600,460 C 596,420 592,376 588,332 C 586,312 582,296 578,288"/>
-    <text class="rname" x="180" y="186" transform="rotate(11 180 186)">淮 水</text>
-    <text class="rname" x="478" y="430" transform="rotate(82 478 430)" style="font-size:11.5px">淝水·肥水</text>
-    <text class="rname" x="608" y="430" transform="rotate(84 608 430)" style="font-size:10.5px">洛涧</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 淮水:自西北贯流东南,横亘theater之上,寿阳临其南岸 -->
+    <path class="river" stroke-width="5.5" d="M 87,492 C 220,476 350,430 466,402 C 540,388 560,392 598,398 C 690,410 715,335 763,296 C 802,270 838,251 862,237"/>
+    <!-- 淝水(肥水):自寿阳东南,自南而北汇入淮 -->
+    <path class="river" stroke-width="3" d="M 529,521 C 520,498 508,462 502,450 C 498,438 492,420 486,408"/>
+    <!-- 洛涧(洛水):寿阳之东,南北流入淮 -->
+    <path class="river" stroke-width="2.4" d="M 590,495 C 588,470 588,440 588,406"/>
+    <text class="rname" x="196" y="452" transform="rotate(-12 196 452)">淮 水</text>
+    <text class="rname" x="470" y="486" transform="rotate(80 470 486)" style="font-size:11.5px">淝水·肥水</text>
+    <text class="rname" x="598" y="470" transform="rotate(86 598 470)" style="font-size:10.5px">洛涧</text>
 
-    <!-- 八公山:寿阳之北,"草木皆兵"之山 -->
-    <g class="mtn"><path d="M 392,206 l 12,-20 l 12,20 M 414,200 l 11,-18 l 11,18 M 436,206 l 10,-17 l 10,17"/></g>
-    <text class="cname s" x="392" y="226">八公山</text>
+    <!-- 八公山:寿阳西北,"草木皆兵"之山 -->
+    <g class="mtn"><path d="M 448,404 l 12,-20 l 12,20 M 470,398 l 11,-18 l 11,18 M 492,404 l 10,-17 l 10,17"/></g>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="shouyang"><circle cx="440" cy="262" r="6"/><text class="cname" x="452" y="258">寿阳<tspan class="cname s" dx="2">(寿春)</tspan></text></g>
-      <g class="city" data-city="bagong"><circle cx="424" cy="200" r="3.5"/><text class="cname s" x="392" y="226">八公山</text></g>
-      <g class="city" data-city="luojian"><circle cx="588" cy="320" r="4"/><text class="cname s" x="600" y="316">洛涧</text></g>
-      <g class="city" data-city="xiashi"><circle cx="540" cy="278" r="3.5"/><text class="cname s" x="528" y="270">硖石</text></g>
-      <g class="city" data-city="feishui"><circle cx="468" cy="320" r="3"/><text class="cname s" x="392" y="338">淝水(决战)</text></g>
-      <g class="city" data-city="xiangcheng"><circle cx="150" cy="120" r="5"/><text class="cname" x="100" y="116">项城</text></g>
-      <g class="city" data-city="pengcheng"><circle cx="780" cy="150" r="4.5"/><text class="cname" x="792" y="146">彭城</text></g>
-      <g class="city cap" data-city="jiankang"><circle cx="880" cy="540" r="6"/><text class="cname" x="788" y="536">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+      <g class="city cap" data-city="shouyang"><circle cx="496" cy="437" r="6"/><text class="cname" x="506" y="452">寿阳<tspan class="cname s" dx="2">(寿春)</tspan></text></g>
+      <g class="city" data-city="bagong"><circle cx="488" cy="414" r="3.5"/><text class="cname s" x="498" y="408">八公山</text></g>
+      <g class="city" data-city="xiashi"><circle cx="462" cy="400" r="3.5"/><text class="cname s" x="416" y="394">硖石</text></g>
+      <g class="city" data-city="luojian"><circle cx="588" cy="430" r="4"/><text class="cname s" x="598" y="426">洛涧</text></g>
+      <g class="city" data-city="feishui"><circle cx="500" cy="452" r="3"/><text class="cname s" x="428" y="470">淝水(决战)</text></g>
+      <g class="city" data-city="xiangcheng"><circle cx="181" cy="265" r="5"/><text class="cname" x="132" y="261">项城</text></g>
+      <g class="city" data-city="pengcheng"><circle cx="562" cy="108" r="4.5"/><text class="cname" x="574" y="104">彭城</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="827" cy="541" r="6"/><text class="cname" x="736" y="537">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+    </g>
+
+    <!-- 长安(图外·西):前秦发兵之都 -->
+    <g transform="translate(6,168)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,0 L 30,0"/>
+      <text class="mlabel q" x="0" y="-8" style="font-size:10px">⟵ 长安·关中</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--enemy);font-size:9.5px">前秦都(图外西)</text>
     </g>
 
     <!-- 全图 · 大军压境 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 162,128 C 250,150 330,196 420,250"/>
-      <text class="mlabel q" x="180" y="160">苻坚自项城趋寿阳,旗鼓相望,号称百万</text>
-      <rect class="camp" x="436" y="258" width="9" height="9" transform="rotate(45 440 262)"/>
-      <text class="anno" x="452" y="288">苻融前锋克寿阳,东西万里</text>
-      <path class="march j" marker-end="url(#aj)" d="M 868,534 C 720,470 580,400 488,330"/>
-      <text class="mlabel j" x="560" y="470">谢石谢玄率北府兵八万,自建康溯江西上</text>
-      <text class="anno" x="540" y="392">夹淮拒守,以八万当百万</text>
+      <path class="march q" marker-end="url(#aq)" d="M 44,180 C 90,205 130,232 170,258"/>
+      <text class="mlabel q" x="40" y="230">苻坚自长安发倾国之众,东西万里</text>
+      <path class="march q" marker-end="url(#aq)" d="M 192,278 C 300,340 400,400 480,428"/>
+      <text class="mlabel q" x="252" y="356">苻融为前锋,自项城趋寿阳,克之</text>
+      <rect class="camp" x="492" y="433" width="9" height="9" transform="rotate(45 496.5 437.5)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 815,530 C 700,480 600,466 540,456"/>
+      <text class="mlabel j" x="590" y="504">谢石·谢玄率北府兵八万,溯淮西上</text>
+      <text class="anno" x="556" y="472">夹淝水拒守,以八万当百万</text>
     </g>
 
     <!-- 阶段一:洛涧夜捷 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="584" y="312" width="8" height="8" transform="rotate(45 588 316)"/>
-      <text class="mlabel q" x="600" y="346">梁成栅淮于洛涧,以遏东军</text>
-      <path class="march q" marker-end="url(#aq)" d="M 556,272 C 568,288 580,304 586,316"/>
-      <circle class="siege" cx="540" cy="278" r="11"/>
-      <text class="anno" x="500" y="262">胡彬粮尽,困守硖石</text>
-      <path class="march j" marker-end="url(#aj)" d="M 700,380 C 660,356 624,338 596,322"/>
-      <text class="mlabel j" x="618" y="378">刘牢之率精兵五千,夜趋洛涧</text>
-      <circle class="star" cx="588" cy="320" r="8"/>
-      <text class="anno" x="560" y="358">直渡奋击,斩梁成等十将,杀获万五千</text>
+      <circle class="siege" cx="462" cy="400" r="11"/>
+      <text class="anno" x="352" y="384">胡彬粮尽,困守硖石</text>
+      <rect class="camp" x="584" y="429" width="8" height="8" transform="rotate(45 588 433)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 516,438 C 545,436 570,435 584,434"/>
+      <text class="mlabel q" x="546" y="418">梁成栅淮于洛涧,以遏东军</text>
+      <path class="march j" marker-end="url(#aj)" d="M 722,456 C 662,449 622,442 596,437"/>
+      <text class="mlabel j" x="610" y="474">刘牢之将精兵五千,夜趋洛涧</text>
+      <circle class="star" cx="588" cy="430" r="8"/>
+      <text class="anno" x="560" y="502">直渡奋击,斩梁成等十将,杀获万五千,秦前锋夺气</text>
     </g>
 
     <!-- 阶段二:八公山下 -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aj)" d="M 446,256 C 438,238 432,222 428,206"/>
-      <text class="mlabel q" x="438" y="238">苻坚苻融登寿阳城望晋军</text>
-      <text class="anno" x="356" y="180">北望八公山草木,皆以为兵</text>
-      <text class="mlabel q" x="356" y="160">"此亦劲敌,何谓弱也"——怃然有惧色</text>
-      <path class="march j" marker-end="url(#aj)" d="M 690,500 C 600,440 530,388 480,344"/>
-      <text class="mlabel j" x="510" y="430">秦晋夹淝水而陈,秦逼水列,晋不得渡</text>
+      <path class="march q" marker-end="url(#aj)" d="M 493,431 C 490,425 488,420 487,416"/>
+      <text class="mlabel q" x="452" y="384">苻坚·苻融登寿阳城望晋军</text>
+      <text class="anno" x="352" y="368">北望八公山草木,皆以为兵</text>
+      <text class="mlabel q" x="322" y="348">"此亦劲敌,何谓弱也"——怃然有惧色</text>
+      <path class="march j" marker-end="url(#aj)" d="M 660,466 C 588,460 542,456 518,452"/>
+      <text class="mlabel j" x="548" y="486">秦晋夹淝水而陈,秦逼水列,晋不得渡</text>
     </g>
 
     <!-- 阶段三:淝水奔溃 -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="468" cy="320" r="9"/>
-      <path class="march j" marker-end="url(#aj)" d="M 504,360 C 492,346 482,334 474,326"/>
-      <text class="mlabel j" x="478" y="372">晋军抢渡淝水,乘势猛攻</text>
-      <text class="anno" x="380" y="360">朱序阵后大呼"秦兵败矣"</text>
-      <path d="M 440,262 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="380" y="248">苻融驰陈止退,马倒被杀</text>
-      <!-- 大溃:多路褐色退箭,自淝水向西北方散逃,过八公山趋项城淮北 -->
-      <path class="march rout" marker-end="url(#ar)" d="M 432,268 C 360,250 280,210 180,150"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 448,300 C 380,290 300,256 210,196"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 460,320 C 400,322 320,300 232,236"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 470,338 C 410,360 330,348 260,290"/>
-      <text class="mlabel r" x="250" y="180">秦众大奔,自相蹈藉,死者蔽野</text>
-      <text class="anno" x="296" y="232">风声鹤唳,草木皆以为王师;投水死者不可胜计</text>
-      <text class="anno" x="120" y="150">苻坚中流矢,单骑遁还淮北</text>
+      <circle class="star" cx="502" cy="452" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 552,456 C 534,455 522,454 514,453"/>
+      <text class="mlabel j" x="514" y="480">晋军抢渡淝水,乘势猛攻</text>
+      <text class="anno" x="404" y="498">朱序阵后大呼"秦兵败矣"</text>
+      <path d="M 496,437 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="404" y="430">苻融驰陈止退,马倒被杀</text>
+      <!-- 大溃:多路褐色退箭,自淝水向西北散逃,过八公山趋项城·淮北 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 486,430 C 400,398 300,338 200,282"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 480,446 C 380,428 288,378 196,320"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 500,450 C 420,462 322,430 234,372"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 512,458 C 440,480 350,472 282,420"/>
+      <text class="mlabel r" x="238" y="300">秦众大奔,自相蹈藉,死者蔽野</text>
+      <text class="anno" x="270" y="352">风声鹤唳,草木皆以为王师;投水死者不可胜计</text>
+      <text class="anno" x="120" y="252">苻坚中流矢,单骑遁还淮北</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,568)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -188,32 +212,81 @@
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前秦军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>秦军溃逃</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="10" height="10" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>秦军营栅</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>前秦</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 众而不可用,退而不可止</h3>
+    <div class="lead">何以百万之众败于八万 —— 不在兵之多寡,而在众之能用、退之能止、心之能固</div>
+    <svg class="schem" viewBox="0 0 860 260" role="img" aria-label="淝水胜负释要示意:前秦战线万里首尾不接,东晋八万凝一;晋请退、秦半渡欲击而一退不止,朱序阵后呼败,秦军自溃">
+      <!-- 淝水:中界 -->
+      <line x1="430" y1="24" x2="430" y2="236" stroke="#5f7f88" stroke-width="3" opacity=".8"/>
+      <text x="436" y="20" fill="#5f7f88" font-size="11" font-weight="700">淝水</text>
+      <!-- 上层:两军之势 -->
+      <text x="34" y="52" fill="#9a2b1e" font-size="12.5" font-weight="700">前秦 · 号百万</text>
+      <text x="34" y="68" fill="#5c4f38" font-size="10">前锋抵淝水,后军犹在项城·彭城 — 战线万里,首尾不相及</text>
+      <!-- 断续红段:示号令不一 -->
+      <g fill="none" stroke="#9a2b1e" stroke-width="10" opacity=".8" stroke-linecap="round">
+        <path d="M 34,96 L 118,96"/><path d="M 134,96 L 218,96"/><path d="M 234,96 L 318,96"/><path d="M 334,96 L 398,96"/>
+      </g>
+      <path d="M 400,90 L 416,96 L 400,102 Z" fill="#9a2b1e"/>
+      <text x="452" y="52" fill="#1f4e54" font-size="12.5" font-weight="700">东晋 · 北府八万</text>
+      <text x="452" y="68" fill="#5c4f38" font-size="10">八万凝为一体,进止如一</text>
+      <path d="M 560,96 L 462,96" fill="none" stroke="#1f4e54" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 462,90 L 446,96 L 462,102 Z" fill="#1f4e54"/>
+      <!-- 分隔虚线 -->
+      <line x1="34" y1="128" x2="826" y2="128" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 7" opacity=".5"/>
+      <!-- 下层:一退不止 -->
+      <text x="34" y="156" fill="#5c4f38" font-size="11" font-style="italic">①晋请秦稍退以决战,苻坚欲乘其半渡而击之,麾军令却</text>
+      <path d="M 402,178 C 320,178 250,178 176,178" fill="none" stroke="#7a5a23" stroke-width="7" stroke-dasharray="3 7" stroke-linecap="round"/>
+      <path d="M 176,172 L 160,178 L 176,184 Z" fill="#7a5a23"/>
+      <text x="196" y="200" fill="#7a5a23" font-size="11" font-weight="700">一退而不可复止,行伍自乱</text>
+      <!-- 晋抢渡 -->
+      <path d="M 460,206 C 420,206 400,206 372,206" fill="none" stroke="#1f4e54" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 372,200 L 356,206 L 372,212 Z" fill="#1f4e54"/>
+      <text x="470" y="210" fill="#1f4e54" font-size="11" font-weight="700">②晋军抢渡猛攻</text>
+      <!-- 朱序呼败:阵后红✕ -->
+      <g transform="translate(74,178)"><circle r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="-6" y1="-6" x2="6" y2="6" stroke="#9a2b1e" stroke-width="2.6"/><line x1="-6" y1="6" x2="6" y2="-6" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="34" y="232" fill="#9a2b1e" font-size="11" font-weight="700">③朱序阵后呼『秦兵败矣』,积疑遂发</text>
+    </svg>
+    <p class="intro">淝水之众寡,悬绝古今;然<b>兵多未必能用,兵少未必可欺</b>。秦军东西万里、氐汉杂糅、新附者众,前锋方抵淝水而后军犹在项城、彭城之间,号令一发,首尾经旬乃达;晋则北府八万,久练一心,进退如臂使指。胜负之枢,不在数,而在此。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>退而不可止</h4>
+        <p>秦晋夹淝水而陈,秦逼水列阵,晋不得渡。谢玄乃请秦稍退,俾晋得渡而后决战。苻坚欲乘其半渡而击之,许之,麾军令却——然百万之众一动而退,行伍即乱,前却相蹂,遂不可复止。本欲设饵诱敌,反自开溃势。</p>
+      </div>
+      <div class="c b">
+        <h4>众而不可用</h4>
+        <p>秦兵虽号百万,而战线万里,号令不一;洛涧一败,梁成授首,前锋已先夺气;所部又多鲜卑、羌、氐及新降之众,人心本离。众非不多,特不为坚用耳。既列淝水,一摇即散——多而无统,适足自溃。</p>
+      </div>
+    </div>
+    <p class="kicker">及退势既成,降将朱序在阵后大呼『秦兵败矣』,积疑顿发,众遂大奔;逃者闻风声鹤唳,皆以为王师追至。故淝水之败,<b>非以寡不敌众,实以众不能用、退不能止、心不能固</b>——麾军一却之间,百万自溃于俄顷。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一〇五、《晋书·谢玄传》《苻坚载记》约略绘出。寿阳即寿春,今安徽寿县;八公山在其北,淝水(肥水)经寿阳入淮,洛涧在寿阳东。淮水、淝水及城邑经简化,位置相对示意。</p>
-    <p><span class="n">注二</span>"投鞭断流""草木皆兵""风声鹤唳""东山再起(谢安)"诸成语皆出此役。苻坚恃众轻进,战线万里而号令不一;晋以北府精兵八万,临机决于一退之间——胜负之势,转于俄顷。</p>
-    <p><span class="n">注三</span>淝水既败,前秦瓦解,慕容垂、姚苌等纷纷自立,北方复分裂数十年;东晋藉此保江左、复河南,谢氏功业、北府兵威皆臻其极。此战为中国史上以少胜多之最著者。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(light-Mercator)投影定位,几何关系力求近实:寿阳(寿春)今安徽寿县,居淮南岸;八公山在其西北,即"草木皆兵"之山;淝水(肥水)自东南经寿阳北入淮;洛涧(洛水)在寿阳之东约二十五里入淮;项城今河南沈丘一带(苻坚大军所自出),彭城今江苏徐州,建康今南京。长安(前秦都)远在关中,出图幅西缘,以边缘箭头示之。淮水、淝水、洛涧走向及疆界经简化描绘,约以淮水一线为秦晋分界(前秦已越淮取寿阳)。</p>
+    <p><span class="n">注二</span>本图依《资治通鉴》卷一〇五(晋纪二十七·太元八年)为纲,参《晋书·谢玄传》《苻坚载记》。苻坚发兵之众,《通鉴》载"戎卒六十余万,骑二十七万,旗鼓相望,前后千里",号称百万;晋以谢石为征讨大都督,谢玄、谢琰、桓伊等将北府精兵八万拒之——众寡之数,史文互见,姑从《通鉴》。"投鞭断流""草木皆兵""风声鹤唳"及"东山再起"(谢安)诸成语,皆出此役。</p>
+    <p><span class="n">注三</span>胜负之枢别见"释要":非以寡胜众之奇,实以众不可用、退不可止、内应一呼而心溃。苻坚恃众轻进,战线万里而号令不一;临淝水请退决战,一退遂不可止,朱序阵后呼败,晋军抢渡猛攻,苻融马倒被杀,秦军大溃,自相蹈藉,苻坚中流矢单骑遁还淮北。</p>
+    <p><span class="n">注四</span>淝水既败,前秦土崩,慕容垂、姚苌等纷纷自立,北方复分裂数十年;东晋藉此保江左、复河南,谢氏功业与北府兵威皆臻其极。此战为中国史上以少胜多之最著者。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"大军压境",d:"晋太元八年(383)秋八月 — 十月",p:["前秦苻坚发倾国之众——步兵六十余万,骑二十七万,旗鼓相望,号称百万——大举南伐,东西万里。以阳平公苻融为前锋,自项城趋寿阳;融克寿阳,获晋将徐元喜。东晋以尚书仆射谢石为征讨大都督,以谢玄、谢琰、桓伊等将率北府精兵八万拒之。","北府兵者,谢玄镇广陵所募江淮劲卒,屡练而成劲旅。晋军自建康溯江西上,夹淮拒守。是役也,秦军东西万里、晋军以八万当百万,众寡之悬,古今所罕。"]},
-  "1":{t:"洛涧夜捷",d:"太元八年十月",p:["苻融既克寿阳,遣卫将军梁成等帅众五万栅淮于洛涧,以遏东军;晋将胡彬粮尽,退守硖石,潜遣使告急,而书为秦人所获,军中危惧。谢石闻苻坚已在寿阳,欲不战以老秦师。","谢玄遣广陵相刘牢之帅精兵五千夜趋洛涧。未至十里,梁成阻涧为陈以待之;牢之直渡奋击,大破之,斩梁成及弋阳太守王显等十将,杀获秦兵万五千,秦前锋夺气。晋军水陆继进,声势大振。"]},
+  all:{t:"大军压境",d:"晋太元八年(383)秋八月 — 冬十月",p:["前秦苻坚发倾国之众——步卒六十余万,骑二十七万,旗鼓相望,前后千里,号称百万——自长安大举南伐,东西万里。以阳平公苻融为前锋,自项城趋寿阳;融克寿阳,获晋将徐元喜。东晋以尚书仆射谢石为征讨大都督,以谢玄、谢琰、桓伊等将率北府精兵八万拒之。","北府兵者,谢玄镇广陵所募江淮劲卒,屡练而成劲旅。晋军自建康溯淮西上,夹淝水拒守。是役也,秦军东西万里、晋军以八万当百万,众寡之悬,古今所罕;而胜负竟转于一退之间。"]},
+  "1":{t:"洛涧夜捷",d:"太元八年十月",p:["苻融既克寿阳,遣卫将军梁成等帅众五万栅淮于洛涧,以遏东军;晋将胡彬粮尽,退守硖石,潜遣使告急,而书为秦人所获,军中危惧。谢石闻苻坚已在寿阳,初欲不战以老秦师。","谢玄遣广陵相刘牢之帅精兵五千夜趋洛涧。未至十里,梁成阻涧为陈以待之;牢之直渡奋击,大破之,斩梁成及弋阳太守王显等十将,杀获秦兵万五千,秦前锋夺气。晋军水陆继进,声势大振。"]},
   "2":{t:"八公山下",d:"太元八年十一月",p:["苻坚与苻融登寿阳城而望晋军,见部阵齐整,将士精锐;又北望八公山上草木,皆以为晋兵。顾谓融曰:'此亦劲敌也,何谓弱也!'怃然始有惧色。是即'草木皆兵'之所由来。","两军夹淝水而陈,秦军逼水而列,晋军不得渡。相持既久,谢玄乃遣使谓苻融,请秦军稍退,俾晋得渡而后决战——一退一渡之间,百万之众安危所系,而苻坚不察也。"]},
   "3":{t:"淝水奔溃",d:"太元八年十一月",p:["苻坚欲乘晋军半渡而击之,许其请,麾军使却;秦众一退而不可复止。先是襄阳降将朱序在秦军中,阴与晋通,乃于阵后大呼曰:'秦兵败矣!'众遂大奔。晋军乘势抢渡猛攻,苻融驰骑掠陈欲止退者,马倒,为晋兵所杀,秦军大溃。","自相蹈藉,投水死者不可胜计,淝水为之不流;余众弃甲宵遁,闻风声鹤唳,皆以为王师将至,草行露宿,重以饥冻,死者十七八。苻坚中流矢,单骑遁还淮北。前秦自是土崩,北方复乱;东晋转危为安,南北分立之局遂定。"]}
 };
 const CITY={
-  shouyang:{t:"寿阳(寿春)",d:"今安徽寿县,淮南重镇",p:["苻融前锋所克之地,获晋将徐元喜。苻坚、苻融尝登寿阳城而望晋军、北顾八公山草木皆兵。淝水之战环此而展。"]},
-  bagong:{t:"八公山",d:"寿阳之北",p:["苻坚登城北望,见山上草木皆以为晋兵,怃然有惧色——'草木皆兵'之所由出。秦军大溃后,败兵亦经此而北遁。"]},
-  luojian:{t:"洛涧",d:"寿阳之东,一水入淮",p:["梁成栅淮于此以遏东军。谢玄遣刘牢之夜趋,直渡奋击,斩梁成等十将,杀获万五千,秦前锋夺气——此役之首捷。"]},
-  xiashi:{t:"硖石",d:"淮水之上,近寿阳",p:["晋将胡彬粮尽,退守硖石,潜使告急而书为秦获,军中危惧。洛涧既捷,围解。"]},
-  feishui:{t:"淝水(肥水)",d:"经寿阳入淮之水",p:["秦晋夹水而陈、晋军抢渡决战之地。苻坚麾军使却,一退不可止;晋军乘势渡水猛攻,大破秦军,水为之不流。"]},
-  xiangcheng:{t:"项城",d:"今河南沈丘一带",p:["苻坚大军所自来,'苻坚自项城至寿阳'。淝水既败,溃众弃甲北奔,多取道淮北复集于此一带。"]},
-  pengcheng:{t:"彭城",d:"今江苏徐州",p:["淮北重镇,前秦东境屏障。淝水战后秦势瓦解,徐兖之地复为晋有。"]},
-  jiankang:{t:"建康",d:"东晋都城,今南京",p:["谢安坐镇之地。谢石、谢玄率北府兵自此西上拒秦。捷报至,谢安方与客围棋,了无喜色——既罢,过户限而不觉屐齿之折。"]}
+  shouyang:{t:"寿阳(寿春)",d:"今安徽寿县 · 淮南重镇",p:["苻融前锋所克之地,获晋将徐元喜。苻坚、苻融尝登寿阳城而望晋军、北顾八公山草木皆兵。淝水之战即环此城而展。"]},
+  bagong:{t:"八公山",d:"寿阳西北",p:["苻坚登城北望,见山上草木皆以为晋兵,怃然有惧色——'草木皆兵'之所由出。秦军大溃后,败兵亦经此而北遁。"]},
+  xiashi:{t:"硖石",d:"淮水之上,寿阳西北(今凤台一带)",p:["晋将胡彬粮尽,退守硖石,潜使告急而书为秦获,军中危惧。洛涧既捷,围解。"]},
+  luojian:{t:"洛涧(洛水)",d:"寿阳之东约二十五里,南北入淮",p:["梁成栅淮于此以遏东军。谢玄遣刘牢之夜趋,直渡奋击,斩梁成等十将,杀获万五千,秦前锋夺气——此役之首捷。"]},
+  feishui:{t:"淝水(肥水)",d:"自东南经寿阳北入淮之水",p:["秦晋夹水而陈、晋军抢渡决战之地。苻坚麾军使却,一退不可止;晋军乘势渡水猛攻,大破秦军,水为之不流。"]},
+  xiangcheng:{t:"项城",d:"今河南沈丘一带",p:["苻坚大军所自出,'苻坚自项城至寿阳,以苻融为前锋'。淝水既败,溃众弃甲北奔,多取道淮北复集于此一带。"]},
+  pengcheng:{t:"彭城",d:"今江苏徐州",p:["淮北重镇,前秦东境屏障;秦军后部及东路所在。战线万里,首尾相隔千里者,此其一端。淝水战后秦势瓦解,徐兖之地复为晋有。"]},
+  jiankang:{t:"建康",d:"东晋都城,今南京",p:["谢安坐镇之地。谢石、谢玄率北府兵自此溯淮西上拒秦。捷报至,谢安方与客围棋,了无喜色——既罢,过户限而不觉屐齿之折。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

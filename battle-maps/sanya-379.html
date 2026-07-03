@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -30,6 +30,7 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .marsh{fill:rgba(95,127,136,.16);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
@@ -58,7 +59,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +73,16 @@
   <div class="seal" aria-hidden="true"><span>三</span><span>阿</span><span>之</span><span>捷</span></div>
   <header>
     <h1>淮南三阿之战</h1>
-    <div class="sub">晋太元四年(379)　　<i>东晋 谢玄</i>(北府兵) 破 <b>前秦 彭超 · 俱难</b> · 四战四捷</div>
+    <div class="sub">晋太元四年(379)　　<i>东晋 谢玄</i>(北府兵) 破 <b>前秦 句难 · 彭超</b>　·　四战四捷 · 北府初捷</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 秦逼三阿</button>
-    <button data-p="1">秦军南压</button>
-    <button data-p="2">连破三阿</button>
-    <button data-p="3">君川全捷</button>
+    <button class="on" data-p="all">全图 · 秦逼淮南</button>
+    <button data-p="1">秦围三阿逼广陵</button>
+    <button data-p="2">谢玄驰救 · 四战四捷</button>
+    <button data-p="3">君川决胜 · 秦军北退</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="淮南三阿之战形势图,含淮水长江与彭城下邳淮阴盱眙三阿君川广陵建康等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="淮南三阿之战形势图,含前秦淮北与东晋江淮疆界、淮水泗水邗沟长江白马塘诸水,及彭城下邳淮阴盱眙三阿君川广陵建康等城邑,与谢玄北府兵四战四捷路线">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -91,82 +92,105 @@
     </defs>
 
     <!-- 疆界:前秦据淮北(北),东晋据江淮(南),约以淮水为界 -->
-    <path d="M 0,0 L 1000,0 L 1000,150 C 860,180 700,196 560,210 C 400,226 220,236 0,240 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,240 C 220,236 400,226 560,210 C 700,196 860,180 1000,150 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 1000,150 C 860,180 700,196 560,210 C 400,226 220,236 0,240"/>
-    <text class="realm q" x="120" y="86" font-size="32">前 秦(淮北)</text>
-    <text class="realm j" x="600" y="600" font-size="30">东 晋(江淮)</text>
+    <path d="M 0,0 L 1000,0 L 1000,258 C 850,250 690,250 575,272 C 535,320 490,366 430,372 C 320,382 180,388 0,395 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,395 C 180,388 320,382 430,372 C 490,366 535,320 575,272 C 690,250 850,250 1000,258 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,395 C 180,388 320,382 430,372 C 490,366 535,320 575,272 C 690,250 850,250 1000,258"/>
+    <text class="realm q" x="70" y="86" font-size="30">前 秦(淮北)</text>
+    <text class="realm j" x="660" y="596" font-size="28">东 晋(江淮)</text>
 
-    <!-- 淮水:自西而东,横贯淮南诸城 -->
-    <path class="river" stroke-width="5" d="M 0,330 C 120,318 230,326 330,346 C 430,366 520,382 620,392 C 720,402 860,404 1000,398"/>
-    <!-- 泗水:自北南下,会淮于淮阴泗口 -->
-    <path class="river" stroke-width="2.6" d="M 460,70 C 470,150 488,240 510,330 C 520,360 540,378 560,388"/>
+    <!-- 淮水:自西而东,盱眙南岸,东折趋泗口(淮阴),入海 -->
+    <path class="river" stroke-width="5" d="M 40,384 C 180,378 320,372 430,360 C 478,354 512,306 556,262 C 640,244 820,238 1000,250"/>
+    <!-- 泗水:自彭城、下邳南下,会淮于泗口(淮阴) -->
+    <path class="river" stroke-width="2.8" d="M 232,120 C 296,152 336,172 356,182 C 440,214 512,244 552,258"/>
+    <!-- 邗沟:自广陵北通山阳,接淮(江—淮之运道,舟师所循) -->
+    <path class="river" stroke-width="2.4" d="M 632,462 C 622,400 612,336 604,290 C 601,276 598,268 593,260"/>
     <!-- 长江:沿南缘东流 -->
-    <path class="river" stroke-width="5.5" d="M 0,576 C 160,560 320,558 460,566 C 600,574 760,576 1000,566"/>
-    <text class="rname" x="170" y="316" style="font-size:13px">淮 水</text>
-    <text class="rname" x="478" y="200" transform="rotate(78 478 200)" style="font-size:10.5px">泗 水</text>
-    <text class="rname" x="320" y="556" style="font-size:13px">长 江</text>
+    <path class="river" stroke-width="5.5" d="M 40,560 C 200,552 400,548 560,552 C 720,556 870,556 1000,548"/>
+    <text class="rname" x="150" y="368" style="font-size:13px">淮 水</text>
+    <text class="rname" x="300" y="176" transform="rotate(34 300 176)" style="font-size:10.5px">泗 水</text>
+    <text class="rname" x="636" y="376" transform="rotate(80 636 376)" style="font-size:10px">邗 沟</text>
+    <text class="rname" x="300" y="544" style="font-size:13px">长 江</text>
+
+    <!-- 白马塘(君川一带) -->
+    <path class="marsh" d="M 512,350 C 505,356 507,367 520,371 C 540,376 566,371 574,359 C 579,350 566,343 549,342 C 534,341 520,344 512,350 Z"/>
+    <text class="cname s" x="556" y="368" style="opacity:.8;font-size:10px">白马塘</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="pengcheng"><circle cx="300" cy="118" r="6"/><text class="cname" x="312" y="114">彭城<tspan class="cname s" dx="2">(徐州)</tspan></text></g>
-      <g class="city" data-city="xiapi"><circle cx="392" cy="200" r="5"/><text class="cname" x="404" y="196">下邳</text></g>
-      <g class="city" data-city="huaiyin"><circle cx="556" cy="388" r="6"/><text class="cname" x="568" y="384">淮阴<tspan class="cname s" dx="2">(泗口)</tspan></text></g>
-      <g class="city" data-city="xuyi"><circle cx="486" cy="404" r="5"/><text class="cname" x="418" y="400">盱眙</text></g>
-      <g class="city" data-city="sanya"><circle cx="540" cy="476" r="6"/><text class="cname" x="552" y="472">三阿</text></g>
-      <g class="city" data-city="junchuan"><circle cx="600" cy="492" r="4"/><text class="cname s" x="612" y="488">君川</text></g>
-      <g class="city" data-city="guangling"><circle cx="592" cy="540" r="6"/><text class="cname" x="604" y="536">广陵<tspan class="cname s" dx="2">(扬州)</tspan></text></g>
-      <g class="city cap" data-city="jiankang"><circle cx="220" cy="600" r="6"/><text class="cname" x="232" y="596">建康<tspan class="cname s" dx="2">(京师)</tspan></text></g>
+      <g class="city" data-city="pengcheng"><circle cx="226" cy="118" r="6"/><text class="cname" x="238" y="114">彭城<tspan class="cname s" dx="2">(徐州)</tspan></text></g>
+      <g class="city" data-city="xiapi"><circle cx="355" cy="173" r="5"/><text class="cname" x="367" y="169">下邳</text></g>
+      <g class="city" data-city="huaiyin"><circle cx="559" cy="247" r="6"/><text class="cname" x="571" y="243">淮阴<tspan class="cname s" dx="2">(泗口)</tspan></text></g>
+      <g class="city" data-city="xuyi"><circle cx="466" cy="358" r="5"/><text class="cname" x="420" y="374">盱眙</text></g>
+      <g class="city" data-city="sanya"><circle cx="614" cy="312" r="6"/><text class="cname" x="626" y="308">三阿</text></g>
+      <g class="city" data-city="junchuan"><circle cx="512" cy="330" r="4"/><text class="cname s" x="476" y="326">君川</text></g>
+      <g class="city" data-city="guangling"><circle cx="632" cy="469" r="6"/><text class="cname" x="644" y="465">广陵<tspan class="cname s" dx="2">(扬州)</tspan></text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="522" cy="534" r="6"/><text class="cname" x="440" y="530">建康<tspan class="cname s" dx="2">(京师)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 秦逼三阿 -->
+    <!-- 全图 · 秦逼淮南 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 306,126 C 360,200 440,320 520,452"/>
-      <text class="mlabel q" x="360" y="280">前秦东路克下邳、淮阴、盱眙,长驱据三阿</text>
-      <text class="anno" x="404" y="468">前锋去广陵百里,京师震动</text>
-      <path class="march j" marker-end="url(#aj)" d="M 584,532 C 560,512 552,498 546,484"/>
-      <text class="mlabel j" x="470" y="528">谢玄自广陵将北府兵赴救</text>
-      <text class="anno" x="240" y="586">诏沿江列戍,中外戒严</text>
+      <path class="march q" marker-end="url(#aq)" d="M 234,126 C 320,168 420,214 500,244 C 545,262 585,288 606,306"/>
+      <text class="mlabel q" x="248" y="196">前秦句难、彭超自淮北南下</text>
+      <text class="anno" x="300" y="216">拔盱眙,进围幽州刺史田洛于三阿,众六万</text>
+      <path class="march q" marker-end="url(#aq)" d="M 500,246 C 486,285 476,320 472,348"/>
+      <circle class="siege" cx="614" cy="312" r="13"/>
+      <text class="anno" x="600" y="292">去广陵百里,京师震动</text>
+      <path class="march j" marker-end="url(#aj)" d="M 628,462 C 620,410 618,360 616,322"/>
+      <text class="mlabel j" x="640" y="420">谢玄自广陵将北府兵驰救</text>
+      <circle class="star" cx="614" cy="312" r="9"/>
+      <circle class="star" cx="466" cy="358" r="8"/>
+      <circle class="star" cx="559" cy="247" r="8"/>
+      <circle class="star" cx="512" cy="330" r="8"/>
+      <text class="anno" x="470" y="512">诏临江列戍,中外戒严</text>
     </g>
 
-    <!-- 阶段一:秦军南压 -->
+    <!-- 阶段一:秦围三阿逼广陵 -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 312,128 C 340,158 364,180 384,196"/>
-      <rect class="camp" x="296" y="114" width="9" height="9" transform="rotate(45 300 118)"/>
-      <text class="mlabel q" x="300" y="150">彭超围彭城,晋戴遁弃城走</text>
-      <path class="march q" marker-end="url(#aq)" d="M 398,206 C 440,266 490,330 540,448"/>
-      <text class="mlabel q" x="420" y="300">俱难等下下邳、淮阴、盱眙</text>
-      <text class="anno" x="430" y="330">长驱据三阿(高邮西北)</text>
-      <path class="march j" marker-end="url(#aj)" d="M 586,532 C 562,514 552,500 546,486"/>
-      <text class="mlabel j" x="478" y="526">谢玄自广陵进救</text>
-      <text class="anno" x="230" y="586">建康大震,诏沿江列戍,中外戒严</text>
+      <path class="march q" marker-end="url(#aq)" d="M 234,126 C 300,150 336,170 356,180 C 430,212 500,238 550,252"/>
+      <text class="mlabel q" x="240" y="150">句难、彭超循泗而南,克泗口</text>
+      <path class="march q" marker-end="url(#aq)" d="M 552,254 C 512,285 486,320 472,348"/>
+      <text class="mlabel q" x="392" y="330">拔盱眙,执高密内史毛璪之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 478,352 C 522,338 570,324 604,314"/>
+      <rect class="camp" x="610" y="308" width="9" height="9" transform="rotate(45 614 312)"/>
+      <circle class="siege" cx="614" cy="312" r="13"/>
+      <text class="mlabel q" x="628" y="304">围田洛于三阿,众六万</text>
+      <text class="anno" x="600" y="338">前锋去广陵百里,朝廷大震</text>
+      <path class="march j" marker-end="url(#aj)" d="M 508,520 C 546,512 582,504 618,496"/>
+      <text class="mlabel j" x="452" y="500">谢石屯涂中 · 毛安之屯堂邑</text>
+      <text class="anno" x="360" y="512">诏卫京师</text>
     </g>
 
-    <!-- 阶段二:连破三阿 -->
+    <!-- 阶段二:谢玄驰救 · 四战四捷(三阿→盱眙→淮阴) -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 588,534 C 568,514 556,498 548,484"/>
-      <circle class="star" cx="540" cy="476" r="9"/>
-      <text class="mlabel j" x="546" y="500">玄率何谦、田洛大破秦于三阿</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 532,468 C 516,448 502,428 492,412"/>
-      <text class="mlabel r" x="400" y="448">秦军退保盱眙</text>
-      <path class="march j" marker-end="url(#aj)" d="M 532,470 C 516,450 504,432 494,416"/>
-      <circle class="star" cx="486" cy="404" r="8"/>
-      <text class="anno" x="404" y="382">玄进战盱眙,又败之</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 494,400 C 514,394 534,390 550,390"/>
-      <text class="mlabel r" x="540" y="372">秦军再退淮阴</text>
+      <path class="march j" marker-end="url(#aj)" d="M 628,462 C 622,408 620,360 617,323"/>
+      <text class="mlabel j" x="640" y="440">玄自广陵进救三阿</text>
+      <circle class="star" cx="614" cy="312" r="9"/>
+      <text class="mlabel j" x="600" y="296">① 大破之</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 606,318 C 562,332 512,346 480,354"/>
+      <text class="mlabel r" x="524" y="384">秦退屯盱眙</text>
+      <circle class="star" cx="466" cy="358" r="8"/>
+      <text class="mlabel j" x="378" y="352">② 玄与田洛帅五万进攻,又败之</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 470,350 C 500,315 530,282 552,258"/>
+      <text class="mlabel r" x="486" y="300">秦再退淮阴</text>
+      <path class="march j" marker-end="url(#aj)" d="M 630,460 C 612,398 602,318 583,266 C 574,256 566,252 560,249"/>
+      <text class="mlabel j" x="586" y="238">③ 何谦等舟师乘潮而上</text>
+      <g transform="translate(3,-141)"><path d="M 556,388 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/></g>
+      <circle class="star" cx="559" cy="247" r="9"/>
+      <text class="anno" x="574" y="266">夜焚淮桥,斩秦兖州刺史邵保</text>
     </g>
 
-    <!-- 阶段三:君川全捷 -->
+    <!-- 阶段三:君川决胜 · 秦军北退 -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 500,408 C 520,400 540,394 550,392"/>
-      <text class="mlabel j" x="436" y="364">何谦、刘牢之夜渡焚淮阴泗口淮桥</text>
-      <path d="M 556,388 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="anno" x="568" y="408">擒秦将邵保</text>
-      <path class="march j" marker-end="url(#aj)" d="M 564,396 C 580,420 592,452 598,484"/>
-      <circle class="star" cx="600" cy="492" r="9"/>
-      <text class="mlabel j" x="608" y="470">追秦至君川,三战三捷</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 596,486 C 540,420 460,310 396,210"/>
-      <text class="mlabel r" x="360" y="240">大破俱难、彭超,秦军死伤略尽,损六万余</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 552,242 C 470,196 372,148 300,122"/>
+      <text class="mlabel r" x="330" y="150">难、超退屯淮北</text>
+      <path class="march j" marker-end="url(#aj)" d="M 556,256 C 542,286 528,308 520,328"/>
+      <text class="mlabel j" x="536" y="290">玄率何谦、戴逯、田洛追之</text>
+      <circle class="star" cx="512" cy="330" r="10"/>
+      <text class="mlabel j" x="418" y="316">④ 战于君川,复大破之</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 508,324 C 452,268 366,190 252,132"/>
+      <text class="mlabel r" x="250" y="180">难、超北走,仅以身免</text>
+      <text class="anno" x="300" y="230">刘牢之攻破浮桥、白船,秦运舰尽没</text>
+      <text class="anno" x="360" y="430">四战四捷,北府劲旅之名始著</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -181,33 +205,35 @@
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋·北府兵</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前秦军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>秦军溃退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(四捷)</span>
+    <span class="item"><svg width="16" height="16"><path d="M 8,1 l 2,4.5 l 1.6,-3.2 l -2,3.6 l 4.4,1.6 l -4.4,1.6 l 2,3.6 l -3.6,-2 l -1.6,3.2 l -2,-4.5 l -3.6,2 l 2,-3.6 l -4.4,-1.6 l 4.4,-1.6 l -2,-3.6 z" transform="translate(0,1)" fill="#1f4e54"/></svg>焚淮桥·斩将</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>前秦</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一〇四、《晋书·谢玄传》约略绘出。三阿在今江苏金湖、高邮间,盱眙、淮阴在淮水之滨,广陵即今扬州。淮水、长江及城邑经简化,位置相对示意。</p>
-    <p><span class="n">注二</span>此役与襄阳之围同时,为前秦灭晋前之东路试探。谢玄所将,即太元二年组建之北府兵;四战四捷,全歼其众,北府劲旅之名自此始著,为四年后淝水大捷之先声。</p>
-    <p><span class="n">注三</span>战后彭超、俱难皆为苻坚切责,贬黜有差;前秦东路受挫,然苻坚仍锐意南图,卒有淝水之举。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(轻墨卡托)投影定位,几何关系力求近实:彭城(徐州)在西北,下邳(今睢宁西北)、泗口·淮阴(今淮安)循泗而南,盱眙在淮水南岸,三阿为秦军南下最深处、近广陵(今扬州),广陵、建康(今南京)在江畔之南。淮水、泗水、邗沟、长江及疆界经简化描绘;疆界约以淮水为限,前秦本据淮北,此役越淮而南。史事依《资治通鉴》卷一〇四(太元四年)及《晋书·谢玄传》约略绘出。</p>
+    <p><span class="n">注二</span>三阿今地,或云宝应、金湖间,或云高邮西北,旧说不一,本图从宝应一带;君川·白马塘所在亦有异说,一说近盱眙(即白马塘一带,本图从之),一说近淮阴白马湖,姑存疑以俟考。战事次第(拔盱眙→围三阿→退盱眙→退淮阴→退淮北→君川)悉依《通鉴》,其中救三阿、攻盱眙、焚淮桥、决君川即所谓"四战四捷"。</p>
+    <p><span class="n">注三</span>制胜之着在断秦归路:谢玄遣何谦、刘牢之等以舟师乘潮而上,夜焚淮阴泗口之淮桥(秦所以济师之浮桥),斩其留戍将、兖州刺史邵保;诸葛侃、李都又破其运舰。桥断舰没,句难、彭超遂不能守,退屯淮北,玄追及于君川而尽破之。此役非以粮运决胜,而以奇袭焚桥、连战乘胜为枢，故图不设漕运一层。</p>
+    <p><span class="n">注四</span>北府兵者,太元二年谢玄募江淮劲卒、镇广陵而练成之新军。三阿之捷为其成军后首战,四战四捷、几歼秦东路之众,北府劲旅之名由是大著,谢玄声望亦隆。彭超、俱难皆为苻坚切责贬黜;然坚锐意南图不已,四年后遂有淝水之役——三阿实其先声。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"秦逼三阿",d:"晋太元四年(379)",p:["前秦既图襄阳,复出东路:兖州刺史彭超、后将军俱难及毛盛、毛当、王显等众数万南下,攻彭城,克下邳、淮阴、盱眙,进据三阿。其前锋去广陵才百里,京师震动,中外戒严,诏沿江列戍以备。","时谢玄以兖州刺史镇广陵,所将乃太元二年新练之北府精兵。朝廷假玄节,使自广陵北上赴救——一场以新军当秦锋的淮南鏖战,自此开端。"]},
-  "1":{t:"秦军南压",d:"太元四年·春夏",p:["彭超先围彭城,晋戴遁等度不能守,弃城南走;俱难等乘势长驱,连下下邳、淮阴、盱眙诸城,沿泗、淮而南。秦军遂据三阿——其地在高邮西北,距广陵不过百里。","建康闻警大震,诏沿江列戍,中外戒严。谢玄不待秦军近江,自广陵率北府兵北进赴救,直趋三阿,与秦前锋相值。"]},
-  "2":{t:"连破三阿",d:"太元四年·夏",p:["谢玄率何谦、田洛等将进击,先与秦军大战于三阿,北府新军锐不可当,一举破之。秦军失利,敛众退保盱眙。","玄不予喘息,进军盱眙,复与秦战,又败其众。秦军再不能支,弃盱眙北退淮阴——两战两捷,淮南之势顿易。"]},
-  "3":{t:"君川全捷",d:"太元四年·夏",p:["谢玄遣何谦、刘牢之等率舟师夜渡,焚淮阴泗口之淮桥,断秦归路,阵斩擒其将邵保。秦军震骇北遁,玄复挥军追蹑,及之于君川。","君川一战,三战三捷,大破俱难、彭超,秦军死伤略尽,主将仅以身免,前后损众六万余。北府兵威名由是大著;彭超、俱难亦为苻坚坐贬。此捷虽小，实开淝水之先声。"]}
+  all:{t:"秦逼淮南",d:"晋太元四年(379)",p:["前秦既克襄阳,复出东路以试晋:兖州刺史彭超、后将军句难(俱难)及毛盛、王显等众数万,自淮北南下,循泗水而进,克泗口(淮阴),拔盱眙,执高密内史毛璪之,遂进围幽州刺史田洛于三阿,众号六万。其地去广陵才百里,建康大震,诏临江列戍,中外戒严。","时谢玄以兖州刺史镇广陵,所将乃太元二年新募而练之北府精兵。朝廷假玄节,使自广陵北上救三阿——以新成之军当方张之秦锋,淮南一役自此开端,而北府之威名亦系于此。"]},
+  "1":{t:"秦围三阿逼广陵",d:"太元四年·春夏",p:["彭超、句难自彭城、下邳循泗南下,克泗口(淮阴),乘势拔盱眙,执高密内史毛璪之;既渡淮而南,遂进围幽州刺史田洛于三阿,众号六万。三阿在高邮、宝应间,距广陵不过百里,秦前锋逼江,建康为之震动。","朝廷诏临江列戍、中外戒严:遣征虏将军谢石帅舟师屯涂中,右卫将军毛安之等帅众屯堂邑,以卫京师。谢玄不待秦军近江,自广陵率北府兵北进赴救,直趋三阿,与秦军相值。"]},
+  "2":{t:"谢玄驰救 · 四战四捷",d:"太元四年·夏(其一至其三)",p:["谢玄率何谦、田洛等进击,先大战于三阿,北府新军锐不可当,一举破之(①),解田洛之围;秦军失利,敛众退屯盱眙。六月,玄与田洛帅众五万进攻盱眙,复大战而又败之(②),秦军再不能支,弃盱眙北退淮阴。","玄乘胜不予喘息,遣何谦、刘牢之等率舟师乘潮而上,夜焚淮阴泗口之淮桥,断秦济师之路,阵斩其留戍将、兖州刺史邵保(③);诸葛侃、李都又破其运舰。三战三捷,淮南之势顿易,秦军震骇,退屯淮北。"]},
+  "3":{t:"君川决胜 · 秦军北退",d:"太元四年·夏(其四)",p:["淮桥既焚、运舰复没,句难、彭超不能自守,退屯淮北。谢玄率何谦、戴逯、田洛追蹑之,及于君川(白马塘一带),复大破其众(④)。参军刘牢之攻破浮桥、白船,督护诸葛侃、单父令李都又破其运舰,秦军辎重丧尽。","君川一战,四战四捷,句难、彭超北走,仅以身免,东路之众死伤略尽。北府劲旅之名由是大著,谢玄声望益隆;彭超、俱难皆为苻坚坐贬。此捷虽属淮南一隅,实开淝水大捷之先声。"]}
 };
 const CITY={
-  sanya:{t:"三阿",d:"今江苏金湖、高邮间,去广陵百里",p:["秦军前锋所据、谢玄首胜之地。其地距广陵才百里,京师为之戒严;玄大破秦军于此,遂转守为攻。"]},
-  xuyi:{t:"盱眙",d:"淮水南岸,今江苏盱眙",p:["秦军退保之地。谢玄破三阿后进战于此,又败秦军,迫其再退淮阴。"]},
-  huaiyin:{t:"淮阴",d:"泗口·淮桥,今江苏淮安",p:["泗水入淮之口,淮桥所在。刘牢之等夜渡焚桥、擒秦将邵保,断秦归路。"]},
-  xiapi:{t:"下邳",d:"泗水之滨,今江苏睢宁西北",p:["俱难等南下所克之要津。秦军由此沿泗水进逼淮阴、盱眙,直抵三阿。"]},
-  junchuan:{t:"君川",d:"近三阿,今高邮一带",p:["谢玄追歼秦军、三战三捷之地。大破俱难、彭超,秦众死伤略尽,损六万余。"]},
-  pengcheng:{t:"彭城",d:"徐州治,今江苏徐州",p:["彭超首攻之北方重镇。晋戴遁等弃城南走,秦军遂得长驱而南。"]},
-  guangling:{t:"广陵",d:"今江苏扬州,近长江北岸",p:["谢玄镇所、北府兵出救基地。玄自此率新练之卒北上,四战四捷,救淮南之危。"]},
-  jiankang:{t:"建康",d:"东晋京师,今南京",p:["秦前锋逼三阿、去广陵百里,京师大震,诏沿江列戍,中外戒严。"]}
+  sanya:{t:"三阿",d:"秦军南下最深处,今江苏宝应一带(近广陵百里)",p:["前秦围幽州刺史田洛处、谢玄首胜之地。其地距广陵才百里,京师为之戒严;玄大破秦军于此,遂转守为攻,四捷之首即在三阿。三阿今地旧说不一,或云宝应、金湖间,或云高邮西北。"]},
+  xuyi:{t:"盱眙",d:"淮水南岸之要津,今江苏盱眙",p:["秦军渡淮南下先拔之城,执高密内史毛璪之;败于三阿后又退保于此。谢玄与田洛帅五万进攻,复大败之,迫其再退淮阴——四捷之二。"]},
+  huaiyin:{t:"淮阴(泗口)",d:"泗水入淮之口、淮桥所在,今江苏淮安",p:["泗、淮交会之泗口,秦军济师之淮桥在焉。谢玄遣何谦、刘牢之等以舟师乘潮而上,夜焚淮桥,斩秦兖州刺史邵保,断其归路——四捷之三,亦全役之枢。"]},
+  junchuan:{t:"君川",d:"白马塘一带,近盱眙,今地存疑",p:["谢玄追歼秦军、决胜之地。刘牢之破其浮桥白船,诸葛侃、李都破其运舰,句难、彭超北走仅以身免——四捷之四。君川·白马塘所在有异说,或近盱眙,或近淮阴白马湖。"]},
+  xiapi:{t:"下邳",d:"泗水之滨,今江苏睢宁西北",p:["彭超、句难南下所经之要津。秦军由此循泗而下,进逼泗口、盱眙,直抵三阿。"]},
+  pengcheng:{t:"彭城",d:"徐州治,前秦东路来路,今江苏徐州",p:["前秦东路之出发重镇。彭超先攻徐州,继以句难等长驱南下,循泗越淮而入淮南。"]},
+  guangling:{t:"广陵",d:"谢玄镇所、北府兵出救之基,今江苏扬州",p:["谢玄以兖州刺史镇此,太元二年募练北府兵于此。三阿告急,玄自广陵率新军北上,四战四捷,救淮南之危。"]},
+  jiankang:{t:"建康",d:"东晋京师,今南京",p:["秦前锋逼三阿、去广陵百里,京师大震,诏临江列戍、中外戒严;遣谢石屯涂中、毛安之屯堂邑以卫都。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

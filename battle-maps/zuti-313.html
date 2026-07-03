@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>祖逖北伐 · 建兴元年(313)</title>
+<title>祖逖北伐 · 建兴元年至太兴四年(313–321)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -30,6 +30,19 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.4}.realm.j{fill:var(--advance);opacity:.4}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 互市·屯田:金色串珠,叠于河上前线,示军资自给之道 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断援·掣肘:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,7 +58,7 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -54,9 +67,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:740;stroke-dashoffset:740;animation:draw 1.6s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -70,141 +98,249 @@
   <div class="seal" aria-hidden="true"><span>祖</span><span>逖</span><span>北</span><span>伐</span></div>
   <header>
     <h1>祖逖北伐</h1>
-    <div class="sub">晋建兴元年至太兴四年(313–321)　　<i>东晋 祖逖</i> 对 <b>后赵 石勒</b></div>
+    <div class="sub">晋建兴元年至太兴四年(313–321)　　<i>东晋 祖逖</i> 伐 <b>后赵 石勒</b>　·　中流击楫 · 收河南 · 功败于掣肘</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 中流击楫</button>
-    <button data-p="1">克谯城</button>
-    <button data-p="2">故城浚仪</button>
-    <button data-p="3">镇雍丘·功败</button>
+    <button data-p="1">誓师渡江</button>
+    <button data-p="2">据谯 · 收坞堡</button>
+    <button data-p="3">进据河南 · 相持河上</button>
+    <button data-p="4">忧愤而卒 · 河南复失</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="祖逖北伐形势图,含东晋后赵疆界、长江淮水黄河与京口淮阴谯城雍丘等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="祖逖北伐形势图,含东晋后赵疆界、长江淮水泗水汴渠黄河诸水,及京口淮阴谯城雍丘浚仪封丘诸城邑与祖逖收河南、忧愤卒于雍丘之进程">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:后赵据河北中原(北),东晋据江淮(南);中间河南为争夺区 -->
-    <path d="M 0,210 C 140,206 280,206 420,212 C 540,217 640,224 720,228 C 820,233 920,228 1000,224 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 0,210 C 140,206 280,206 420,212 C 540,217 640,224 720,228 C 820,233 920,228 1000,224"/>
-    <text class="realm q" x="120" y="100" font-size="30">后 赵(石勒)</text>
-    <text class="realm j" x="640" y="600" font-size="30">东 晋(江淮)</text>
+    <!-- ══ 疆界:后赵据河北中原(北),东晋据江淮(南);其间河南为祖逖经营、与后赵相争之区 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,272 C 880,280 760,286 620,286 C 480,286 300,282 140,262 C 90,256 40,252 0,250 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,250 C 40,252 90,256 140,262 C 300,282 480,286 620,286 C 760,286 880,280 1000,272 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <!-- 晋赵约界(随祖逖进取,河南渐入晋;此为大势约界) -->
+    <path class="border" d="M 0,250 C 40,252 90,256 140,262 C 300,282 480,286 620,286 C 760,286 880,280 1000,272"/>
+    <text class="realm q" x="96" y="92" font-size="27">后 赵(石勒)</text>
+    <text class="cname s" x="102" y="112" style="fill:var(--enemy);opacity:.6">河北 · 中原</text>
+    <text class="realm j" x="700" y="600" font-size="27">东 晋(江淮)</text>
 
-    <!-- 黄河 -->
-    <path class="river" stroke-width="4.4" d="M 60,200 C 180,210 320,224 440,236 C 540,246 620,250 700,248 C 800,246 900,240 1000,236"/>
-    <!-- 淮水 -->
-    <path class="river" stroke-width="3.6" d="M 80,420 C 220,418 360,410 460,400 C 560,390 640,392 720,392 C 820,392 920,398 1000,398"/>
-    <!-- 长江 -->
-    <path class="river" stroke-width="5" d="M 0,560 C 160,552 340,540 500,548 C 620,554 700,560 780,556 C 860,552 940,556 1000,560"/>
-    <!-- 汴水/泗水(连接) -->
-    <path class="river" stroke-width="2" d="M 420,236 C 460,300 520,360 600,400"/>
-    <text class="rname" x="200" y="232" style="font-size:13px">黄 河</text>
-    <text class="rname" x="240" y="414">淮 水</text>
-    <text class="rname" x="200" y="552" style="font-size:13px">长 江</text>
+    <!-- ══ 山脉:嵩·崤(河南西境) ══ -->
+    <path class="mtn fill" d="M 60,236 L 78,206 L 92,222 L 110,192 L 128,220 L 146,198 L 162,224 Z"/>
+    <path class="mtn" d="M 80,222 l 12,-16 l 10,11 l 13,-18 l 11,14"/>
+    <text class="mname" x="70" y="252" style="font-size:10px">嵩 · 崤</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:西→东,横亘河南之北,为晋赵相持之一线 -->
+    <path class="river" stroke-width="5" d="M 0,176 C 120,169 240,161 360,153 C 480,146 600,143 720,147 C 840,151 940,157 1000,161"/>
+    <!-- 淮水:南境东西大川,东趋淮阴入海 -->
+    <path class="river" stroke-width="3.6" d="M 30,468 C 200,460 360,446 520,418 C 640,398 760,372 881,353 C 940,345 980,343 1000,341"/>
+    <!-- 长江:极南,京口建康临其上 -->
+    <path class="river" stroke-width="5" d="M 0,612 C 180,606 380,598 560,584 C 690,574 790,556 880,540 C 920,532 960,528 1000,525"/>
+    <!-- 泗水:自山东西南下,会淮于泗口(淮阴) -->
+    <path class="river" stroke-width="2.6" d="M 590,120 C 640,200 690,278 758,328 C 782,346 800,354 820,360"/>
+    <!-- 汴渠(蒗荡渠):自荥阳石门分黄河,东南历浚仪、陈留趋泗淮 -->
+    <path class="river" stroke-width="2.4" style="opacity:.72" d="M 210,186 C 280,196 322,200 365,206 C 470,224 565,244 662,262"/>
+    <!-- 邗沟(中渎水):自江北通淮(京口—淮阴之水程) -->
+    <path class="river" stroke-width="2.2" d="M 900,522 C 892,470 886,410 881,356"/>
+    <text class="rname" x="150" y="160" style="font-size:13px">黄 河</text>
+    <text class="rname" x="150" y="456" style="font-size:12px">淮 水</text>
+    <text class="rname" x="180" y="600" style="font-size:13px">长 江</text>
+    <text class="rname" x="700" y="268" transform="rotate(42 700 268)" style="font-size:11px">泗水</text>
+    <text class="rname" x="432" y="230" transform="rotate(15 432 230)" style="font-size:10px">汴渠(蒗荡渠)</text>
+    <text class="rname" x="905" y="458" transform="rotate(84 905 458)" style="font-size:9.5px">邗沟</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="jingkou"><circle cx="820" cy="498" r="6"/><text class="cname" x="772" y="516">京口</text></g>
-      <g class="city" data-city="huaiyin"><circle cx="700" cy="392" r="5"/><text class="cname" x="708" y="388">淮阴</text></g>
-      <g class="city" data-city="shouchun"><circle cx="500" cy="430" r="4.5"/><text class="cname s" x="462" y="448">寿春</text></g>
-      <g class="city" data-city="qiaocheng"><circle cx="540" cy="320" r="5"/><text class="cname" x="500" y="316">谯城</text></g>
-      <g class="city" data-city="taiqiu"><circle cx="500" cy="350" r="3.5"/><text class="cname s" x="466" y="364">太丘</text></g>
-      <g class="city cap" data-city="yongqiu"><circle cx="450" cy="288" r="5.5"/><text class="cname" x="410" y="284">雍丘</text></g>
-      <g class="city" data-city="junyi"><circle cx="430" cy="252" r="4.5"/><text class="cname s" x="392" y="248">浚仪</text></g>
-      <g class="city" data-city="fengqiu"><circle cx="404" cy="226" r="3.5"/><text class="cname s" x="366" y="222">封丘</text></g>
-      <g class="city" data-city="dongyan"><circle cx="362" cy="234" r="3.5"/><text class="cname s" x="320" y="230">东燕</text></g>
-      <g class="city" data-city="hulao"><circle cx="300" cy="262" r="4"/><text class="cname s" x="262" y="258">虎牢</text></g>
-      <g class="city" data-city="luoyang"><circle cx="220" cy="248" r="4.5"/><text class="cname s" x="182" y="244">洛阳</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="854" cy="543" r="6"/><text class="cname" x="808" y="561">建康<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
+      <g class="city" data-city="jingkou"><circle cx="932" cy="525" r="5.5"/><text class="cname" x="890" y="516">京口</text></g>
+      <g class="city" data-city="huaiyin"><circle cx="881" cy="353" r="5.5"/><text class="cname" x="838" y="348">淮阴</text></g>
+      <g class="city" data-city="hefei"><circle cx="674" cy="567" r="4"/><text class="cname s" x="634" y="562">合肥</text></g>
+      <g class="city" data-city="qiao"><circle cx="496" cy="316" r="6"/><text class="cname" x="504" y="332">谯城</text></g>
+      <g class="city" data-city="taiqiu"><circle cx="557" cy="305" r="3.5"/><text class="cname s" x="565" y="300">太丘</text></g>
+      <g class="city" data-city="yongqiu"><circle cx="378" cy="231" r="6"/><text class="cname" x="386" y="248">雍丘</text></g>
+      <g class="city" data-city="junyi"><circle cx="326" cy="200" r="5"/><text class="cname" x="278" y="196">浚仪</text></g>
+      <g class="city" data-city="chenliu"><circle cx="382" cy="206" r="3.5"/><text class="cname s" x="390" y="203">陈留</text></g>
+      <g class="city" data-city="fengqiu"><circle cx="334" cy="170" r="3.5"/><text class="cname s" x="342" y="166">封丘</text></g>
+      <g class="city" data-city="dongyan"><circle cx="320" cy="150" r="3.5"/><text class="cname s" x="276" y="146">东燕</text></g>
+      <g class="city" data-city="hulao"><circle cx="198" cy="193" r="4.5"/><text class="cname s" x="152" y="188">虎牢</text></g>
+      <g class="city" data-city="luoyang"><circle cx="100" cy="223" r="4.5"/><text class="cname s" x="58" y="238">洛阳</text></g>
+    </g>
+
+    <!-- 襄国(石勒都·图外北) -->
+    <g transform="translate(300,30)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,-6 L 0,22"/>
+      <text class="mlabel q" x="8" y="6" style="font-size:10px">↑ 襄国 · 石勒都</text>
+      <text class="cname s" x="8" y="20" style="fill:var(--enemy);font-size:9.5px">后赵都(图外北)</text>
     </g>
 
     <!-- 全图 · 中流击楫 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 814,492 C 780,470 740,440 710,402"/>
-      <text class="mlabel j" x="730" y="470">建兴元年,自京口渡江</text>
-      <text class="anno" x="640" y="450">中流击楫而誓:不清中原誓不复济</text>
-      <rect class="camp" x="694" y="386" width="0" height="0"/>
-      <text class="mlabel j" x="600" y="372">屯淮阴,起冶铸兵,募二千人</text>
-      <text class="mlabel q" x="120" y="160">石勒据河北,镇戍布于河南</text>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1300;stroke-dashoffset:1300" d="M 924,520 C 902,468 890,410 883,358 C 800,350 690,338 590,326 C 545,320 512,318 500,317 C 458,298 418,258 382,234 C 360,220 342,208 328,202"/>
+      <text class="mlabel j" x="748" y="392">水路:渡江,溯淮泗汴而北</text>
+      <text class="mlabel j" x="806" y="336">屯淮阴,铸兵募士</text>
+      <text class="anno" x="470" y="366">中流击楫而誓:不清中原者,有如大江</text>
+      <circle class="star" cx="496" cy="316" r="8"/>
+      <circle class="star" cx="326" cy="200" r="7"/>
+      <text class="anno" x="336" y="286">结坞堡以恩信,劝农互市,孤军收河南</text>
+      <text class="mlabel q" x="110" y="132">石勒据河北,镇戍布于河南</text>
     </g>
 
-    <!-- 阶段一:克谯城 -->
+    <!-- 阶段一:誓师渡江 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 694,388 C 640,366 590,340 552,328"/>
-      <text class="mlabel j" x="600" y="356">北上,破张平、樊雅</text>
-      <circle class="star" cx="540" cy="320" r="7"/>
-      <text class="mlabel j" x="500" y="300">据谯城</text>
-      <path class="march q" marker-end="url(#aq)" d="M 470,236 C 500,270 522,296 534,312"/>
-      <text class="mlabel q" x="430" y="262">石虎围谯</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 534,316 C 510,290 490,266 476,242"/>
-      <text class="anno" x="480" y="262">桓宣来救,虎解去</text>
+      <path class="march j" marker-end="url(#aj)" d="M 924,520 C 902,470 890,412 883,358"/>
+      <text class="mlabel j" x="820" y="470">建兴元年,自京口渡江</text>
+      <text class="anno" x="720" y="558">睿仅给千人廪、布三千匹,不给铠仗,使自召募</text>
+      <rect class="camp" x="877" y="349" width="8" height="8" transform="rotate(45 881 353)" style="fill:var(--advance)"/>
+      <text class="mlabel j" x="770" y="332">屯淮阴,起冶铸兵,募二千人而后进</text>
+      <text class="mlabel q" x="110" y="132">石勒据河北,镇戍布于河南</text>
     </g>
 
-    <!-- 阶段二:故城浚仪 -->
+    <!-- 阶段二:据谯 · 收坞堡 -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 440,238 C 460,270 480,296 494,318"/>
-      <text class="mlabel q" x="436" y="276">石虎五万南救陈川</text>
-      <path class="march j" marker-end="url(#aj)" d="M 530,316 C 500,296 470,276 454,260"/>
-      <text class="anno" x="480" y="300">祖逖设奇兵败石虎</text>
-      <circle class="star" cx="430" cy="252" r="7"/>
-      <text class="mlabel j" x="392" y="234">布袋疑粮计破桃豹,克浚仪</text>
-      <path class="march j" marker-end="url(#aj)" d="M 436,250 C 420,240 410,234 408,230"/>
-      <text class="mlabel j" x="360" y="210">进据封丘、东燕</text>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:520;stroke-dashoffset:520" d="M 878,356 C 780,348 660,336 552,324 C 530,320 512,318 502,317"/>
+      <text class="mlabel j" x="612" y="352">北上,破张平、樊雅</text>
+      <circle class="star" cx="496" cy="316" r="8"/>
+      <text class="mlabel j" x="470" y="296">据谯城(317)</text>
+      <path class="march q" marker-end="url(#aq)" d="M 470,210 C 484,250 492,282 498,304"/>
+      <text class="mlabel q" x="416" y="200">石虎围谯</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 512,312 C 536,288 560,262 578,236"/>
+      <text class="anno" x="556" y="230">桓宣来救,虎解去</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,314 C 380,300 260,270 176,214"/>
+      <path class="march j" marker-end="url(#aj)" d="M 480,314 C 380,296 240,252 108,228"/>
+      <text class="mlabel j" x="150" y="330">收李矩、郭默等坞主,化敌为友</text>
     </g>
 
-    <!-- 阶段三:镇雍丘·功败 -->
+    <!-- 阶段三:进据河南 · 相持河上 -->
     <g id="ph3" class="ph">
-      <rect class="camp" x="446" y="284" width="9" height="9" transform="rotate(45 450 288)"/>
-      <text class="mlabel j" x="412" y="270">祖逖镇雍丘,数邀击后赵</text>
-      <path class="march j" marker-end="url(#aj)" d="M 446,284 C 420,272 390,262 360,254"/>
-      <path class="march j" marker-end="url(#aj)" d="M 452,282 C 470,272 488,262 500,252"/>
-      <text class="anno" x="320" y="300">后赵镇戍多归附,境渐蹙,河南略复</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 690,392 C 600,360 520,330 460,296"/>
-      <text class="mlabel r" x="540" y="346">朝廷遣戴渊监之</text>
-      <text class="anno" x="360" y="332">祖逖忧愤,太兴四年卒于雍丘,土地复失</text>
+      <path class="march q" marker-end="url(#aq)" d="M 344,120 C 356,160 366,190 378,210"/>
+      <text class="mlabel q" x="352" y="118">石虎五万南救陈川</text>
+      <path class="march j" marker-end="url(#aj)" d="M 476,314 C 440,290 404,260 388,232"/>
+      <text class="anno" x="402" y="296">祖逖设奇兵,屡败石虎</text>
+      <circle class="star" cx="326" cy="200" r="8"/>
+      <text class="mlabel j" x="200" y="176">布袋疑粮破桃豹,克浚仪</text>
+      <path class="march j" marker-end="url(#aj)" d="M 330,196 C 332,186 333,178 334,174"/>
+      <text class="mlabel j" x="342" y="150">韩潜据封丘、东燕,冯铁据二台</text>
+      <rect class="camp" x="374" y="227" width="8" height="8" transform="rotate(45 378 231)" style="fill:var(--advance)"/>
+      <text class="mlabel j" x="386" y="266">自镇雍丘,相持黄河一线</text>
+      <!-- 互市·屯田:军资自给之金脉 -->
+      <path class="supply band" d="M 300,214 C 340,220 360,224 400,244"/>
+      <path class="supply core" d="M 300,214 C 340,220 360,224 400,244"/>
+      <g class="grain">
+        <rect x="316" y="214" width="7" height="7" transform="rotate(45 319.5 217.5)"/>
+        <rect x="360" y="221" width="7" height="7" transform="rotate(45 363.5 224.5)"/>
+        <rect x="392" y="238" width="7" height="7" transform="rotate(45 395.5 241.5)"/>
+      </g>
+      <text class="slabel" x="404" y="228">劝农 · 互市</text>
+      <text class="slabel" x="404" y="242" style="font-size:9.5px;opacity:.85">收利十倍,实军资</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- 阶段四:忧愤而卒 · 河南复失 -->
+    <g id="ph4" class="ph">
+      <rect class="camp" x="374" y="227" width="8" height="8" transform="rotate(45 378 231)" style="fill:var(--advance)"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 674,562 C 600,480 500,360 398,244"/>
+      <g class="cut" transform="translate(560,392)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="574" y="392">朝廷以戴渊为都督,镇合肥,掣肘 ✕</text>
+      <text class="mlabel r" x="576" y="470">逖无援,忧愤成疾</text>
+      <path class="march j" marker-end="url(#aj)" d="M 372,229 C 320,220 260,208 208,198"/>
+      <text class="anno" x="196" y="182">病中营缮虎牢,城未就而卒(321)</text>
+      <text class="mlabel r" x="300" y="266">九月,卒于雍丘</text>
+      <path class="march q" marker-end="url(#aq)" d="M 320,158 C 336,182 356,206 372,224"/>
+      <path class="march q" marker-end="url(#aq)" d="M 300,132 C 300,168 308,196 322,192"/>
+      <text class="mlabel q" x="356" y="322">逖卒,后赵屡寇,河南复失</text>
+    </g>
+
+    <g class="compass" transform="translate(944,112)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>祖逖北伐军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后赵军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>退兵/牵制</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>祖逖北伐军(水陆)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后赵军(石勒)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>退兵/掣肘</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>克城/会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>后赵</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>互市·屯田(实军资)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断援·掣肘</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>后赵</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>孤军释要 · 自立与掣肘</h3>
+    <div class="lead">何以逖能收河南而终失之 —— 非亡于石勒,实沮于朝廷</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="祖逖孤军示意:左路以募兵铸兵、坞堡、互市自给而成;右路因朝廷不给援、以戴渊夺其柄而败">
+      <!-- 中枢:祖逖孤军 -->
+      <rect x="356" y="16" width="148" height="34" rx="4" fill="rgba(43,36,24,.06)" stroke="#2b2418" stroke-width="1.4"/>
+      <text x="430" y="38" text-anchor="middle" fill="#2b2418" font-size="14" font-weight="700">祖逖 · 孤军渡江</text>
+      <text x="430" y="66" text-anchor="middle" fill="#5c4f38" font-size="10.5" font-style="italic">朝廷无北伐之志,授奋威将军、豫州刺史</text>
+      <!-- 左路(青·自立):向下 -->
+      <path d="M 356,42 C 250,54 210,66 210,86" fill="none" stroke="#1f4e54" stroke-width="2" marker-end="url(#aj)"/>
+      <g font-size="11.5" font-weight="700" fill="#1f4e54" text-anchor="middle">
+        <rect x="128" y="86" width="164" height="30" rx="3" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.1"/><text x="210" y="105">自募自铸 · 结坞堡以恩信</text>
+        <rect x="128" y="140" width="164" height="30" rx="3" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.1"/><text x="210" y="159" fill="#9c7a2c">劝农桑 · 通互市</text>
+        <rect x="128" y="194" width="164" height="34" rx="3" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.4"/><text x="210" y="212">军资自足</text><text x="210" y="224" font-size="9.5" font-weight="400" fill="#5c4f38">收河南,石勒不敢南向</text>
+      </g>
+      <path d="M 210,116 L 210,140" fill="none" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <path d="M 210,170 L 210,194" fill="none" stroke="#9c7a2c" stroke-width="1.6" marker-end="url(#aj)"/>
+      <!-- 右路(朱·掣肘):向下 -->
+      <path d="M 504,42 C 610,54 650,66 650,86" fill="none" stroke="#9a2b1e" stroke-width="2" marker-end="url(#aq)"/>
+      <g font-size="11.5" font-weight="700" fill="#9a2b1e" text-anchor="middle">
+        <rect x="568" y="86" width="164" height="30" rx="3" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.1"/><text x="650" y="105">仅千人廪 · 不给铠仗</text>
+        <rect x="568" y="140" width="164" height="30" rx="3" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.1"/><text x="650" y="159">疑其得众 · 以戴渊来统</text>
+        <rect x="568" y="194" width="164" height="34" rx="3" fill="rgba(154,43,30,.12)" stroke="#9a2b1e" stroke-width="1.4"/><text x="650" y="212">无援 · 忧愤而卒</text><text x="650" y="224" font-size="9.5" font-weight="400" fill="#5c4f38">河南复为后赵所取</text>
+      </g>
+      <path d="M 650,116 L 650,140" fill="none" stroke="#9a2b1e" stroke-width="1.6" marker-end="url(#aq)"/>
+      <path d="M 650,170 L 650,194" fill="none" stroke="#9a2b1e" stroke-width="1.6" marker-end="url(#aq)"/>
+      <g class="cut" transform="translate(650,155)"><circle r="8"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+    </svg>
+    <p class="intro">祖逖之北伐,自始至终是<b>一支没有国家为后盾的孤军</b>。晋元帝无意北伐,只授空名与千人之廪、三千匹布,连铠仗都要他自筹。故其成败,不在一城一战,而在<b>能否自立</b>——以及<b>朝廷是否掣肘</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>自立 · 何以成</h4>
+        <p>逖渡江即募兵、起冶铸兵;入河南则与李矩、郭默、上官巳、赵固诸坞主结以恩信,化敌为友;既据谯、雍丘,又劝课农桑,抚纳流亡。石勒求通使,逖不报书而听其互市,『收利十倍』,兵马日强。无饷则自养,无地则自辟——此其能以孤军翦荆棘、收河南,使石勒不敢南窥者。</p>
+      </div>
+      <div class="c b">
+        <h4>掣肘 · 何以败</h4>
+        <p>正当积谷练兵、图取河北之时,朝廷忌其得众,以戴渊为都督,镇合肥以统其军。逖谓己披荆棘收河南而渊一旦来统,意甚怏怏;又闻王敦与刘隗构隙、内难将作,知大功不遂,感激发病。太兴四年九月卒于雍丘,营缮之虎牢城竟未就。逖既卒,后赵屡寇,河南所复之地旋失。</p>
+      </div>
+    </div>
+    <p class="kicker">逖之成,成于<b>自立</b>;逖之败,败于<b>无援</b>。当其收河南、通互市、实军资,是不待朝廷而自能战;及朝廷以戴渊夺其柄、内难又作,则孤军再无所恃。故祖逖非亡于石勒之兵,实<b>沮于朝廷之疑</b>——东晋北伐之最高典型,亦其最可叹者。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷八九至九一、《晋书·祖逖传》《通鉴纪事本末》约略绘出。京口今镇江,淮阴今淮安,谯城今安徽亳州,雍丘今河南杞县,浚仪今开封,虎牢今荥阳汜水镇,东燕在今延津北。水道经简化。</p>
-    <p><span class="n">注二</span>祖逖北伐,司马睿仅给千人廪、布三千匹,不给铠仗,使自召募;逖渡江中流击楫,屯淮阴铸兵募士而后进。其与河南坞主(李矩、郭默、上官巳、赵固等)结以恩信,化敌为友,是其制胜要诀。</p>
-    <p><span class="n">注三</span>逖以孤军翦荆棘、收河南,使石勒不敢南向。然朝廷忌其得众,遣戴渊监之,又值王敦跋扈、内难将作;逖知大功不遂,忧愤卒于雍丘(321),所复之地旋为后赵所取——东晋北伐之最高典型,亦最可叹者。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(轻墨卡托)投影定位,几何力求近实:京口、建康在东南江畔,淮阴居其西北淮上,谯在西北,雍丘、浚仪、封丘更趋黄河一线,石勒都襄国远在正北(图外,以顶端箭头示之)。京口今镇江,建康今南京,淮阴今淮安,谯城今安徽亳州,雍丘今河南杞县,浚仪今开封,封丘今封丘,东燕在今延津东北,陈留今开封陈留镇,虎牢今荥阳汜水,合肥今合肥。江河、疆界经简化,晋赵之界随祖逖进取而北移,图中约界仅示大势。</p>
+    <p><span class="n">注二</span>行军多循水程:自京口渡长江,循邗沟(中渎水)入淮而屯淮阴;北进则沿淮、泗、汴渠之网络经营河南。祖逖据谯城、雍丘为中心,收李矩、郭默、上官巳、赵固等河南坞主(坞堡:乱世坞壁自守之武装),结以恩信,化敌为友,是其制胜要诀;进遣韩潜据封丘、东燕,冯铁据二台,与后赵相持于黄河。</p>
+    <p><span class="n">注三</span>孤军无朝廷之饷,全恃自给:逖渡江即起冶铸兵、募士;镇雍丘则劝课农桑,抚纳新附。石勒下幽州为逖修祖、父墓,求通使、互市;逖不报书而听互市,『收利十倍,公私丰赡,士马日滋』(《资治通鉴》卷九一)。屯田互市之实军资,乃其能久持河南之经济根本。</p>
+    <p><span class="n">注四</span>依《资治通鉴》卷八八至九一(建兴—太兴)、《晋书·祖逖传》(卷六二)、《通鉴纪事本末》约略绘出。太兴四年(321),朝廷以戴渊为征西将军、都督司兖豫并雍冀六州诸军事、豫州刺史,镇合肥统其军;逖以己收河南而渊来统,又值王敦跋扈、内难将作,忧愤发病,九月卒于雍丘,时年五十六。所复之地旋为后赵所取。诸书于坞主姓名、二台方位等或有异,姑从《通鉴》。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"中流击楫",d:"建兴元年(313)",p:["西晋丧乱,中原沦没。祖逖居京口,纠合骁健,力请北伐。司马睿素无北伐之志,仅授奋威将军、豫州刺史,给千人廪、布三千匹,不给铠仗,使自召募。","秋,逖将部曲百余家北渡长江,中流击楫而誓:祖逖不能清中原而复济者,有如大江!遂屯淮阴,起冶铸兵,募得二千余人而后进。"]},
-  "1":{t:"克谯城",d:"建武元年 — 大兴(317–319)",p:["黄河以南坞主张平、樊雅等各拥部曲、依违秦晋之间,阻遏北进。祖逖艰苦经营,破张平、据太丘,招降樊雅,进克谯城(今亳州)。","石勒遣石虎围谯,祖逖求救于南中郎将王含,桓宣率众来援,石虎解围而去。逖遂表桓宣为谯国内史,以固河南。"]},
-  "2":{t:"故城浚仪",d:"大兴三年(320)",p:["陈留陈川叛归石勒,祖逖伐之;石勒遣石虎将五万南救,逖屡以奇兵击退之。其后与守蓬陂之桃豹相持,逖以布袋盛土伪充军粮,又截其真粮,桃豹粮尽夜遁。","祖逖遂取浚仪,进遣韩潜据封丘以逼东燕,冯铁据二台,自镇雍丘。数遣兵邀击,后赵镇戍多归附,河南略定。"]},
-  "3":{t:"镇雍丘·功败",d:"大兴 — 太兴四年(321)",p:["祖逖镇雍丘,与将士同甘苦,劝课农桑,抚纳新附,虻疏贱皆结以恩礼;练兵积谷,为取河北之计。石勒患之,下幽州为逖修父祖墓,求通使互市;逖不报书而听其互市,收利十倍。","正当大举之时,朝廷以戴渊为都督,镇合肥以统其军。逖以己翦荆棘收河南而渊一旦来统,意甚怏怏;又闻㹋敦与刘隗构隙,将有内难,知大功不遂,感激发病,九月卒于雍丘。豫州士女若丧父母。逖既卒,后赵屡寇河南,所复之地复失。"]}
+  all:{t:"中流击楫 · 经营河南",d:"晋建兴元年至太兴四年(313–321)",p:["西晋丧乱,中原沦没。祖逖居京口,纠合骁健,力请北伐。元帝司马睿素无北伐之志,仅授奋威将军、豫州刺史,给千人廪、布三千匹,不给铠仗,使自召募。逖将部曲百余家北渡长江,中流击楫而誓:『祖逖不能清中原而复济者,有如大江!』遂屯淮阴,起冶铸兵,募二千余人而后进。","北伐多循淮、泗、汴渠之水网:破张平、樊雅而据谯城,收李矩、郭默等河南坞主,结以恩信;败石虎、破桃豹而取浚仪,进据封丘、东燕,自镇雍丘,与后赵相持于黄河一线。劝课农桑、通互市以实军资,石勒不敢南向。然朝廷忌之,以戴渊为都督统其军;逖忧愤,太兴四年卒于雍丘,所复之地旋失。"]},
+  "1":{t:"誓师渡江",d:"建兴元年(313)",p:["西晋既亡,中原大乱。祖逖时寓京口,慷慨有澄清之志,力请北伐。元帝方经营江左,无北伐意,仅授奋威将军、豫州刺史,给千人之廪、布三千匹,不给铠仗,使自募战士。","秋,逖将部曲百余家北渡长江,中流击楫而誓曰:『祖逖不能清中原而复济者,有如大江!』辞色壮烈,众皆慨叹。遂循邗沟入淮,屯于淮阴,起冶铸兵,更募得二千余人而后进——北伐之基,自铸自募而立。"]},
+  "2":{t:"据谯 · 收坞堡",d:"大兴初(317–319)",p:["黄河以南,坞主蜂起,各拥部曲、依违赵晋之间,阻遏北进。祖逖艰苦经营,击破自署豫州刺史之张平,招降樊雅,进克谯城(今亳州),以为经略河南之根本。石勒遣石虎围谯,逖求救于南中郎将王含,桓宣率众来援,石虎解围而去。","逖尤善抚纳:河南坞主李矩、郭默、上官巳、赵固等,或质子于赵,逖皆以恩信结之,听其两属而阴为晋用,得其虚实。坞壁归心,化敌为友,晋势遂张——此收河南之要诀。"]},
+  "3":{t:"进据河南 · 相持河上",d:"大兴三年(320)",p:["陈留人陈川叛归石勒,逖伐之;石勒遣石虎将五万南救,逖屡以奇兵击退之。其后与守蓬陂之桃豹相持,逖以布囊盛土伪充军粮,又截其真粮,桃豹粮尽夜遁,遂克浚仪。进遣韩潜据封丘、东燕,冯铁据二台,自镇雍丘,与后赵相持于黄河一线,镇戍多来归附。","逖镇雍丘,与将士同甘苦,劝课农桑,抚纳新附。石勒患之,下幽州为逖修祖、父墓,求通使、互市;逖不报书而听其互市,『收利十倍』,公私丰赡,士马日滋——孤军之军资,自屯田互市而实。"]},
+  "4":{t:"忧愤而卒 · 河南复失",d:"太兴四年(321)",p:["正当积谷练兵、将图河北之时,朝廷以戴渊为征西将军、都督六州诸军事、豫州刺史,镇合肥以统其军。逖以己披荆棘、收河南,而渊一旦来统,意甚怏怏;又闻王敦与刘隗构隙,将有内难,知大功不遂,感激发病。","逖虽内怀忧愤,图进取不辍,病中犹营缮虎牢城;城未就,九月卒于雍丘,时年五十六。豫州士女若丧父母。逖既卒,后赵屡寇河南,所复之地旋失——非亡于石勒之兵,实沮于朝廷之疑,北伐之业遂废。"]}
 };
 const CITY={
-  jingkou:{t:"京口",d:"今江苏镇江",p:["祖逖渡江北伐的出发地。中流击楫之誓即在此渡江之时。"]},
-  huaiyin:{t:"淮阴",d:"今江苏淮安",p:["渡江后屯驻之地。起冶铸兵、招募流散,得二千余人而后北进。"]},
-  qiaocheng:{t:"谯城",d:"今安徽亳州",p:["北伐首取的中原重镇。破张平、降樊雅而据之;石虎围谯,桓宣救解。"]},
-  yongqiu:{t:"雍丘",d:"今河南杞县",p:["祖逖经营河南的中心,数遣兵邀击后赵。太兴四年忧愤卒于此。"]},
-  junyi:{t:"浚仪",d:"今河南开封",p:["以布袋疑粮之计破桃豹而取之,为北伐又一重大胜利。"]},
-  hulao:{t:"虎牢",d:"今荥阳汜水镇",p:["黄河南岸天险。祖逖营缮虎牢,秣马匉兵,本欲以此为渡河北进之基。"]},
-  luoyang:{t:"洛阳",d:"今河南洛阳",p:["西晋故都,时已残破。祖逖收河南,其势直逼河北,惜功败垂成。"]}
+  jiankang:{t:"建康",d:"东晋都城,今江苏南京",p:["元帝司马睿经营江左之都。素无北伐之志,于逖仅授空名、给千人廪与布三千匹而不给铠仗;后又以戴渊都督统逖之军，为北伐掣肘之源。"]},
+  jingkou:{t:"京口",d:"今江苏镇江",p:["祖逖渡江北伐的出发地。中流击楫之誓即在此渡江之时:『不能清中原而复济者,有如大江!』"]},
+  huaiyin:{t:"淮阴",d:"今江苏淮安",p:["渡江循邗沟入淮后屯驻之地。起冶铸兵、招募流散,得二千余人而后北进——北伐自铸自养之始。"]},
+  hefei:{t:"合肥",d:"今安徽合肥",p:["太兴四年,朝廷以戴渊为都督,镇合肥以统祖逖之军。逖以收河南而渊来统,怏怏忧愤,遂成病根。"]},
+  qiao:{t:"谯城",d:"今安徽亳州",p:["北伐首取的中原重镇。破张平、降樊雅而据之,为经略河南之根本;石勒遣石虎围谯,桓宣救解。"]},
+  taiqiu:{t:"太丘",d:"今河南永城太丘一带",p:["祖逖北进途中破张平、经营之地,与谯城相接,为进取豫东之阶。"]},
+  yongqiu:{t:"雍丘",d:"今河南杞县",p:["祖逖经营河南的中心,数遣兵邀击后赵,劝课农桑、通互市以实军资。太兴四年病中营缮虎牢,城未就而忧愤卒于此,时年五十六。"]},
+  junyi:{t:"浚仪",d:"今河南开封",p:["与守蓬陂之桃豹相持,逖以布囊盛土伪充军粮、又截其真粮,桃豹粮尽夜遁,遂克之——北伐又一重大胜利。"]},
+  chenliu:{t:"陈留",d:"今开封陈留镇",p:["陈川本据此自署太守,叛归石勒。逖伐之,石勒遣石虎将五万南救,逖以奇兵屡败之。"]},
+  fengqiu:{t:"封丘",d:"今河南封丘",p:["克浚仪后,祖逖遣韩潜据封丘、东燕以逼后赵,推进至黄河一线。"]},
+  dongyan:{t:"东燕",d:"今河南延津东北",p:["黄河南岸要地。韩潜进据于此,晋赵遂相持于河上。"]},
+  hulao:{t:"虎牢",d:"今荥阳汜水",p:["黄河南岸天险,洛阳东户。祖逖病中犹营缮此城,本欲以为渡河北进之基;城未就而卒,功败垂成。"]},
+  luoyang:{t:"洛阳",d:"今河南洛阳",p:["西晋故都,时已残破。祖逖收河南,其势直逼河北;惜功败于朝廷之掣肘,不及经营。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

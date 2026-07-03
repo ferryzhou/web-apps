@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -28,9 +29,23 @@
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .border.cede{stroke:var(--qin);stroke-dasharray:2 4;opacity:.6;stroke-width:1.3}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .marsh{fill:rgba(95,127,136,.16);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
+  /* 漕运·粮道:金色串珠动脉,叠于水道之上,示军粮所经 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +54,17 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.land{stroke-dasharray:11 5}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .depot{fill:var(--gold);stroke:var(--paper);stroke-width:.8}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +73,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +104,16 @@
   <div class="seal" aria-hidden="true"><span>平</span><span>蜀</span><span>之</span><span>役</span></div>
   <header>
     <h1>桓温灭成汉之战</h1>
-    <div class="sub">晋永和二年至三年(346–347)　　<i>东晋 桓温</i> 灭 <b>成汉 李势</b></div>
+    <div class="sub">晋永和二年至三年(346–347)　　<i>东晋 桓温</i> 灭 <b>成汉 李势</b>　·　万里溯江 · 舍舟一决</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 溯江</button>
-    <button data-p="1">彭模分兵</button>
-    <button data-p="2">笮桥决战</button>
-    <button data-p="3">入成都灭汉</button>
+    <button class="on" data-p="all">全图 · 溯江灭汉</button>
+    <button data-p="1">溯江入蜀(水路)</button>
+    <button data-p="2">彭模分兵 · 舍舟趋成都</button>
+    <button data-p="3">笮桥决战 · 成汉亡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="桓温灭成汉之战形势图,含东晋成汉疆界、长江三峡岷江与江陵成都等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="桓温灭成汉之战形势图,含东晋成汉疆界、长江岷江青衣江嘉陵江诸水、自江陵溯江西上之水路与舍舟趋成都之陆路,及彭模笮桥成都葭萌等地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,84 +122,97 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:成汉据益州(西),东晋据荆州(东),约以三峡为界 -->
-    <path d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640"/>
-    <text class="realm q" x="150" y="120" font-size="34">成 汉(益州)</text>
-    <text class="realm j" x="700" y="560" font-size="32">东 晋(荆州)</text>
+    <!-- ══ 疆界:成汉据益州(西),东晋据荆州(东),约以三峡巫山之险为界 ══ -->
+    <path d="M 700,0 C 692,110 672,220 662,320 C 654,395 656,470 666,555 C 670,600 670,620 668,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 700,0 C 692,110 672,220 662,320 C 654,395 656,470 666,555 C 670,600 670,620 668,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 700,0 C 692,110 672,220 662,320 C 654,395 656,470 666,555 C 670,600 670,620 668,640"/>
+    <text class="realm q" x="240" y="120" font-size="32">成 汉(益州)</text>
+    <text class="realm j" x="775" y="150" font-size="30">东 晋(荆州)</text>
 
-    <!-- 长江:自蜀中(西)经三峡东下江陵 -->
-    <path class="river" stroke-width="5.5" d="M 230,310 C 300,340 380,380 430,408 C 500,448 560,470 640,430 C 700,400 740,372 800,366 C 850,360 920,360 1000,358"/>
-    <!-- 岷江:自北南下成都、彭模、至乐山入江 -->
-    <path class="river" stroke-width="3" d="M 250,150 C 252,210 256,270 262,330 C 268,372 280,400 300,418"/>
-    <!-- 青衣江 -->
-    <path class="river" stroke-width="2.2" d="M 190,360 C 230,388 270,406 300,418"/>
-    <!-- 嘉陵江:自葭萌(北)南下 -->
-    <path class="river" stroke-width="2.4" d="M 360,150 C 380,220 410,310 432,406"/>
-    <text class="rname" x="640" y="450" style="font-size:13px">长 江</text>
-    <text class="rname" x="262" y="240" transform="rotate(84 262 240)">岷 江</text>
-    <text class="rname" x="196" y="384" transform="rotate(34 196 384)" style="font-size:10.5px">青衣江</text>
-    <text class="rname" x="404" y="300" transform="rotate(74 404 300)" style="font-size:10.5px">嘉陵江</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 长江:自宜宾东北经江州、三峡东下江陵 -->
+    <path class="river" stroke-width="5.5" d="M 219,558 C 300,528 350,505 393,478 C 470,432 560,378 622,347 C 640,338 650,332 662,330 C 745,344 825,378 901,402"/>
+    <!-- 岷江:自北南下,经彭模、乐山至宜宾入江 -->
+    <path class="river" stroke-width="3" d="M 165,335 C 160,368 158,394 156,413 C 150,446 143,466 143,479 C 152,516 186,545 219,558"/>
+    <!-- 青衣江:自西(雅安)东汇于合水 -->
+    <path class="river" stroke-width="2.2" d="M 66,436 C 98,455 124,470 143,479"/>
+    <!-- 嘉陵江:自葭萌(北)南下江州 -->
+    <path class="river" stroke-width="2.4" d="M 330,200 C 352,285 376,388 393,470"/>
+    <text class="rname" x="700" y="360" transform="rotate(-16 700 360)">长 江</text>
+    <text class="rname" x="150" y="392" transform="rotate(82 150 392)">岷 江</text>
+    <text class="rname" x="90" y="452" transform="rotate(26 90 452)" style="font-size:10.5px">青衣江</text>
+    <text class="rname" x="358" y="316" transform="rotate(76 358 316)" style="font-size:10.5px">嘉陵江</text>
 
-    <!-- 三峡 -->
-    <g class="mtn"><path d="M 600,400 l 8,-13 l 8,13 M 616,394 l 8,-13 l 8,13 M 632,400 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="600" y="420">三峡</text>
+    <!-- 三峡·巫山 -->
+    <g class="mtn"><path d="M 636,326 l 8,-13 l 8,13 M 652,320 l 8,-13 l 8,13 M 668,326 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="626" y="352">三峡·巫山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="jiangling"><circle cx="880" cy="360" r="6"/><text class="cname" x="828" y="356">江陵<tspan class="cname s" dx="2">(荆州治)</tspan></text></g>
-      <g class="city" data-city="badong"><circle cx="660" cy="408" r="4"/><text class="cname s" x="640" y="428">巴东·白帝</text></g>
-      <g class="city" data-city="qingyi"><circle cx="300" cy="418" r="4"/><text class="cname s" x="266" y="438">青衣(乐山)</text></g>
-      <g class="city" data-city="pengmo"><circle cx="278" cy="358" r="5"/><text class="cname" x="220" y="354">彭模</text></g>
-      <g class="city" data-city="qianwei"><circle cx="232" cy="412" r="3.5"/><text class="cname s" x="160" y="416">犍为·武阳</text></g>
-      <g class="city" data-city="shatou"><circle cx="262" cy="392" r="3"/><text class="cname s" x="252" y="382">沙头津</text></g>
-      <g class="city cap" data-city="chengdu"><circle cx="252" cy="296" r="6"/><text class="cname" x="264" y="292">成都<tspan class="cname s" dx="2">(汉都)</tspan></text></g>
-      <g class="city" data-city="zeqiao"><circle cx="232" cy="312" r="3.5"/><text class="cname s" x="190" y="318">笮桥</text></g>
-      <g class="city" data-city="jiameng"><circle cx="360" cy="150" r="4"/><text class="cname s" x="368" y="146">葭萌(晋寿)</text></g>
+      <g class="city" data-city="jiangling"><circle cx="901" cy="402" r="6"/><text class="cname" x="850" y="398">江陵<tspan class="cname s" dx="2">(荆州治)</tspan></text></g>
+      <g class="city" data-city="baidi"><circle cx="658" cy="328" r="4"/><text class="cname s" x="608" y="320">巴东·白帝</text></g>
+      <g class="city" data-city="jiangzhou"><circle cx="393" cy="478" r="4"/><text class="cname s" x="402" y="494">江州(渝)</text></g>
+      <g class="city" data-city="yibin"><circle cx="219" cy="558" r="4"/><text class="cname s" x="230" y="556">僰道(宜宾)</text></g>
+      <g class="city" data-city="qingyi"><circle cx="143" cy="479" r="5"/><text class="cname s" x="80" y="500">青衣·合水</text></g>
+      <g class="city" data-city="qianwei"><circle cx="154" cy="441" r="3.5"/><text class="cname s" x="166" y="454">犍为·武阳</text></g>
+      <g class="city" data-city="shatou"><circle cx="148" cy="426" r="3"/><text class="cname s" x="90" y="422">沙头津</text></g>
+      <g class="city" data-city="pengmo"><circle cx="156" cy="413" r="5.5"/><text class="cname" x="169" y="410">彭模</text></g>
+      <g class="city" data-city="zeqiao"><circle cx="156" cy="382" r="3.5"/><text class="cname s" x="104" y="384">笮桥</text></g>
+      <g class="city cap" data-city="chengdu"><circle cx="169" cy="365" r="6"/><text class="cname" x="181" y="361">成都<tspan class="cname s" dx="2">(汉都)</tspan></text></g>
+      <g class="city" data-city="jiameng"><circle cx="330" cy="192" r="4"/><text class="cname" x="340" y="190">葭萌<tspan class="cname s" dx="2">(晋寿)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 溯江 -->
+    <!-- ══ 全图 · 溯江灭汉 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 872,366 C 760,406 660,430 560,420 C 460,408 360,400 312,414"/>
-      <text class="mlabel j" x="600" y="402">桓温率万人,留辎重,经三峡溯江而上</text>
-      <text class="anno" x="640" y="386">袁乔为前锋,周抚、司马无忌从</text>
-      <text class="mlabel q" x="150" y="200">李势昏弱,国势虚耗,刘惔料桓温必克</text>
-      <text class="anno" x="300" y="440">次年二月军次青衣,势始大发军距守</text>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1500;stroke-dashoffset:1500" d="M 895,406 C 815,382 730,346 664,334 C 640,338 610,356 580,372 C 500,414 440,446 393,482 C 340,512 282,536 222,560 C 190,547 158,516 149,483 C 146,461 151,438 158,417"/>
+      <text class="mlabel j" x="470" y="386">舟师溯大江西上,万里入蜀</text>
+      <path class="march j land" marker-end="url(#aj)" d="M 160,408 C 162,396 165,378 168,371"/>
+      <text class="mlabel j" x="42" y="352">舍舟步进</text>
+      <circle class="star" cx="156" cy="382" r="7"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 178,358 C 232,298 292,240 326,200"/>
+      <text class="mlabel r" x="238" y="256">李势夜遁葭萌</text>
+      <text class="mlabel q" x="240" y="150">李势昏虐,举国拒守而虚耗</text>
+      <text class="anno" x="230" y="470">昝坚异道,失之交臂</text>
     </g>
 
-    <!-- 阶段一:彭模分兵 -->
+    <!-- ══ 阶段一:溯江入蜀(水路) ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 306,412 C 296,396 288,378 282,366"/>
-      <text class="mlabel j" x="296" y="430">三月攻克彭模</text>
-      <rect class="camp" x="274" y="354" width="8" height="8" transform="rotate(45 278 358)"/>
-      <text class="anno" x="170" y="344">留孙盛、周楚守辎重;李福袭之,被拒退</text>
-      <path class="march j" marker-end="url(#aj)" d="M 280,350 C 268,332 260,316 256,304"/>
-      <text class="mlabel j" x="258" y="334">桓温轻装步兵,三日粮,直取成都</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 248,300 C 256,316 262,330 268,346"/>
-      <text class="mlabel q" x="288" y="332">遇李权,三战三胜</text>
-      <path class="march q" marker-end="url(#aq)" d="M 252,302 C 240,348 234,388 244,406"/>
-      <text class="mlabel q" x="120" y="380">昝坚军异道,自沙头津还,失之交臂</text>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1500;stroke-dashoffset:1500" d="M 895,406 C 815,382 730,346 664,334 C 640,338 610,356 580,372 C 500,414 440,446 393,482 C 340,512 282,536 222,560 C 195,548 165,516 150,485"/>
+      <text class="mlabel j" x="470" y="372">桓温率众万余,袁乔前锋,自江陵入峡溯江</text>
+      <text class="anno" x="640" y="352">过巴东、白帝,水军直上</text>
+      <text class="mlabel q" x="70" y="514">二月军次青衣,李势始大发兵拒守</text>
+      <path class="march q" marker-end="url(#aq)" d="M 174,372 C 205,392 202,424 160,438"/>
+      <text class="mlabel q" x="176" y="474">昝坚舍江南之伏,北向犍为</text>
     </g>
 
-    <!-- 阶段二:笮桥决战 -->
+    <!-- ══ 阶段二:彭模分兵 · 舍舟趋成都 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="246" y="290" width="9" height="9" transform="rotate(45 250 294)"/>
-      <text class="mlabel q" x="200" y="278">李势倾城出战</text>
-      <path class="march j" marker-end="url(#aj)" d="M 260,300 C 252,304 244,308 238,310"/>
-      <circle class="star" cx="232" cy="312" r="7"/>
-      <text class="anno" x="120" y="338">前锋失利,龚护战死,矢及温马首</text>
-      <text class="mlabel j" x="120" y="356">鼓吏误鸣进鼓,袁乔乘势力战,大破汉军</text>
+      <rect class="depot" x="150" y="409" width="9" height="9" transform="rotate(45 154.5 413.5)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 148,478 C 145,458 150,434 156,419"/>
+      <text class="mlabel j" x="60" y="470">克彭模,留孙盛、周楚守辎重</text>
+      <path class="march j land" marker-end="url(#aj)" d="M 160,408 C 162,396 165,378 168,371"/>
+      <text class="mlabel j" x="40" y="352">舍舟轻兵,赍三日粮直趋成都</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 176,372 C 196,388 198,400 188,408"/>
+      <text class="mlabel q" x="196" y="404">途遇李权,三战三胜</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 168,376 C 172,392 168,404 160,411"/>
+      <text class="anno" x="200" y="430">李福回袭辎重,为孙盛所拒退</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 154,438 C 150,434 149,430 148,428"/>
+      <text class="anno" x="196" y="452">昝坚自沙头津欲还,比至,温已军成都十里陌,众自溃</text>
     </g>
 
-    <!-- 阶段三:入成都灭汉 -->
+    <!-- ══ 阶段三:笮桥决战 · 成汉亡 ══ -->
     <g id="ph3" class="ph">
-      <path d="M 252,296 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="200" y="276">晋军火烧城门,入成都</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 264,292 C 300,250 332,200 354,160"/>
-      <text class="mlabel r" x="296" y="218">李势夜遁葭萌</text>
-      <text class="anno" x="300" y="172">寻请降,面缚舆榇;成汉亡</text>
-      <text class="anno" x="120" y="300">桓温威名大振,自此渐专朝政</text>
+      <rect class="camp" x="164" y="360" width="9" height="9" transform="rotate(45 168.5 364.5)"/>
+      <text class="mlabel q" x="182" y="344">李势倾城出战</text>
+      <path class="march q" marker-end="url(#aq)" d="M 166,369 C 162,373 159,377 157,380"/>
+      <circle class="star" cx="156" cy="382" r="7.5"/>
+      <text class="anno" x="40" y="402">前锋失利,龚护战死,矢及温马首</text>
+      <text class="mlabel j" x="40" y="418">鼓吏误鸣进鼓,袁乔乘势力战,大破汉军</text>
+      <path d="M 169,357 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="188" y="372">晋军火焚小城城门,入成都</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 178,358 C 232,298 292,240 326,200"/>
+      <text class="mlabel r" x="238" y="256">李势夜开东门走葭萌</text>
+      <text class="anno" x="332" y="212">寻面缚舆榇请降,成汉亡</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -179,36 +224,93 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东晋军(舟师·水路)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3" stroke-dasharray="11 5"/></svg>舍舟陆进</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>成汉军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9c7a2c"/></svg>辎重</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>成汉</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>东晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 一水一舍</h3>
+    <div class="lead">何以万余之众能灭一国 —— 系于溯江之深、舍舟之决</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="示意:自江陵沿大江溯流二千余里为水路,至彭模舍舟登陆、赍三日粮短程直取成都;笮桥几败而误鼓转胜">
+      <!-- 基线 -->
+      <line x1="60" y1="150" x2="810" y2="150" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".4"/>
+      <!-- 水路:江陵→彭模,青色粗带,溯流二千余里 -->
+      <path d="M 70,150 C 220,150 340,150 470,150" fill="none" stroke="#1f4e54" stroke-width="8" opacity=".28" stroke-linecap="round"/>
+      <path d="M 70,150 C 220,150 340,150 470,150" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <path d="M 452,150 L 470,150 L 462,145 M 470,150 L 462,155" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <!-- 波纹示水 -->
+      <path d="M 150,164 q 10,-7 20,0 t 20,0 t 20,0" fill="none" stroke="#5f7f88" stroke-width="1.4" opacity=".7"/>
+      <path d="M 280,164 q 10,-7 20,0 t 20,0 t 20,0" fill="none" stroke="#5f7f88" stroke-width="1.4" opacity=".7"/>
+      <text x="70" y="128" fill="#1f4e54" font-size="13" font-weight="700">水路 · 长江—岷江</text>
+      <text x="70" y="190" fill="#5c4f38" font-size="11">舟师自江陵溯流西上二千余里,深入敌腹</text>
+      <!-- 江陵节点 -->
+      <circle cx="70" cy="150" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="52" y="142" fill="#2b2418" font-size="11.5" font-weight="700">江陵</text>
+      <!-- 彭模:舍舟点 -->
+      <circle cx="470" cy="150" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <rect x="464" y="120" width="10" height="10" transform="rotate(45 469 125)" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <text x="440" y="112" fill="#9c7a2c" font-size="11" font-weight="700">留辎重</text>
+      <text x="446" y="176" fill="#2b2418" font-size="11.5" font-weight="700">彭模 · 舍舟</text>
+      <!-- 陆路:彭模→笮桥→成都,青色虚线,三日粮 -->
+      <path d="M 470,150 L 640,150" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="10 5"/>
+      <path d="M 640,150 L 790,150" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="10 5"/>
+      <path d="M 772,150 L 790,150 L 782,145 M 790,150 L 782,155" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <text x="486" y="128" fill="#1f4e54" font-size="13" font-weight="700">陆路 · 舍舟轻兵</text>
+      <text x="486" y="190" fill="#5c4f38" font-size="11">弃舟委辎重,赍三日粮,孤注直取成都</text>
+      <!-- 笮桥:几败(朱✕)→误鼓转胜(金环) -->
+      <g><circle cx="640" cy="150" r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="636" y1="146" x2="644" y2="154" stroke="#9a2b1e" stroke-width="2.4"/><line x1="636" y1="154" x2="644" y2="146" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <circle cx="640" cy="150" r="12" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="612" y="128" fill="#9a2b1e" font-size="10.5" font-weight="700">笮桥几败</text>
+      <text x="616" y="200" fill="#9c7a2c" font-size="10.5" font-weight="700">误鼓转胜</text>
+      <!-- 成都节点 -->
+      <circle cx="790" cy="150" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="772" y="142" fill="#2b2418" font-size="11.5" font-weight="700">成都</text>
+    </svg>
+    <p class="intro">桓温伐蜀,众不过万余,将佐皆以为不可。蜀道艰险,陆运难以远济;<b>唯大江一线可载大军深入</b>。故此役之枢,不在阵战之众寡,而在两步险着:一曰<b>溯江</b>,二曰<b>舍舟</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>溯江 · 深入敌腹</h4>
+        <p>桓温自江陵舍陆就水,率舟师循大江溯流西上,过三峡、白帝,转岷江直抵蜀中腹地二千余里。成汉恃三峡之险而守备久弛,晋军竟长驱而前,至青衣李势方惊起大发兵——形便已失其半。</p>
+      </div>
+      <div class="c b">
+        <h4>舍舟 · 孤注一决</h4>
+        <p>至彭模,袁乔力主『悬军万里,当合势齐力,不可分兵』;乃悉众舍舟登陆,留羸兵守辎重,自将步卒赍三日粮直指成都。舟辎既委于后,粮尽在旬日,唯有速战——遂逼成汉于笮桥一决。</p>
+      </div>
+    </div>
+    <p class="kicker">舍舟则退无所归、粮无以继,本为至危之着;然合力速进,反使成汉无从周旋。笮桥初挫,龚护战死,矢及温马,几于败没;<b>会鼓吏误鸣进鼓</b>,袁乔乘势力战,反败为胜;而<b>昝坚舍江南之伏、北趣犍为</b>,与温异道,坐失邀击。故成汉之亡,半系桓温之奇险,半属天亡之侥幸——非以众克,实以险与幸得蜀。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷九七、《晋书·桓温传》《华阳国志》约略绘出。彭模今四川彭山东南,青衣今乐山,笮桥在成都西南南河上,葭萌今广元西南。三峡水道及岷、嘉陵诸江经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为永和初益州形势示意:成汉据益州,东晋荆州刺史桓温镇江陵;三峡为险,故以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注三</span>桓温伐蜀仅率万余精兵,将佐皆以为不可。袁乔力主合军直进、不分兵,只带三日粮破釜沉舟;笮桥几败,赖鼓吏误鸣进鼓而转胜——胜负之间,系于一发。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑依今地经纬度线性投影定位(x=55+(经度−102.8)×90,y=600−(纬度−28.4)×104),几何力求近实:成都在极西,江陵在极东;大江自西南僰道(宜宾)经江州、三峡东下江陵,岷江自北南汇,葭萌居东北,僰道居南。据《资治通鉴》卷九十七永和二年、三年,及《晋书·桓温传》《华阳国志·大同志》参订。江河、疆界经简化描绘。</p>
+    <p><span class="n">注二</span>晕染疆界为永和初形势示意:成汉据益州,东晋荆州刺史桓温镇江陵;二者约以三峡巫山之险相隔,故以点划『约界』标之,非实有画界。彭模今四川彭山东北,青衣·合水今乐山(青衣江、大渡水会岷江处),犍为·武阳今彭山、犍为间,笮桥在成都西南检江(南河)上,葭萌·晋寿今广元西南昭化,僰道今宜宾。</p>
+    <p><span class="n">注三</span>此役制胜在一水一陆(见上『释要』):桓温以万余众自江陵溯大江、转岷江西上二千余里,深入敌腹;至彭模复舍舟登陆,袁乔力主合势不分、赍三日粮直进,孤注一掷。舍舟则辎重尽委于后,胜负系于旬日之粮——非常之举而收非常之功,亦成汉守备虚弛有以成之。</p>
+    <p><span class="n">注四</span>笮桥几败,参军龚护战死,流矢及温马首,晋军气夺将退;赖鼓吏惶遽误鸣进鼓,袁乔乘势拔剑督战,反败为胜——胜负之间,系于一发。又昝坚不从设伏江南之谋,自鸳鸯碕北向犍为,与温主力异道,及觉自沙头津还,而温已军成都十里陌,坚众不战自溃。温兵数《通鉴》《晋书》并作步骑『万余』,姑从之。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"溯江入蜀",d:"永和二年冬 — 三年二月",p:["成汉自李雄死后,内乱相寻,李势骄淫,刑滥民离,獠患饥馑,国势大衰。桓温镇荆州,察其“一踹即塌”,力排众议,不待朝命,以袁乔为前锋,率周抚、司马无忌等万余精兵自江陵溯江西上。","晋军循三峡入蜀,沿江速进。次年二月军次青衣,李势始大发军拒守,遣李福、李权、昝坚等赴合水迎击——然其部署彼此异道,自乙阵脚。"]},
-  "1":{t:"彭模分兵",d:"永和三年三月",p:["三月,桓温攻下彭模。袁乔议:孤军万里,不可分兵;乃留孙盛、周楚以老弱守辎重,自率轻装步卒、赍三日粮,直指成都。","李福回军袭彭模,为孙盛所拒退;桓温途中遇李权,三战三胜,汉兵散归成都,镇军将军李位都降。昝坚军至犍为方知与温异道,自沙头津还,比及,温已军于成都十里陌,昝坚众不战自溃。"]},
-  "2":{t:"笮桥决战",d:"永和三年三月",p:["李势倾成都守军,列阵于城西南之笮桥,与桓温决战。初战晋军前锋失利,参军龚护战死,流矢及于桓温马首,众惧欲退。","值此之际,鼓吏误鸣进鼓,袁乔乘势拔剑督军力战,士气复振,遂大破成汉军——一战而成都门户洞开。"]},
-  "3":{t:"入成都灭汉",d:"永和三年三月",p:["桓温进逼成都,纵火焚其城门。成汉军民丧气,李势虑昔吴汉灭公孙述故事,惧诛,乘夜弃城走葭萌(晋寿)。","既而李势遣使请降,面缚舆榇至军门。桓温解缚焚榇,送势及宗室十余人至建康,封归义侯,成汉灭亡。桓温以平蜀威名大振,自是渐专朝政。"]}
+  all:{t:"溯江灭汉",d:"晋永和二年冬 — 三年三月",p:["成汉自李雄卒后,内乱相寻,李势骄虐,刑滥民离,獠患饥馑,国势大衰。晋征西大将军桓温镇荆州,察其可取,永和二年冬十一月,不待朝命,率众万余,以袁乔为前锋,自江陵溯大江西上,舍舟步战,直指成都。","此役之奇,全在一『水』一『舍』:万里溯江深入敌腹,而至蜀中复弃舟轻进、赍三日粮孤注一掷。笮桥几败,赖鼓吏误鸣进鼓反胜;昝坚异道,失之交臂——成汉遂以旬月而亡,益州入晋,桓温威名自此始。"]},
+  "1":{t:"溯江入蜀(水路)",d:"永和二年十一月 — 三年二月",p:["桓温留重于后,亲率精兵万余,以袁乔督二千人为前锋,周抚、司马无忌等从,自江陵入三峡,循大江溯流西上,过巴东、白帝,舟师直趋蜀腹。成汉恃三峡之险而守备久弛,晋军竟长驱无所阻。","次年二月,军次青衣(合水),李势始惊,大发兵拒守,遣叔父李福、从兄李权、前将军昝坚等自山阳趣合水迎击。诸将欲设伏于江南,昝坚不从,引兵自鸳鸯碕渡向犍为——部署乖异,自弃形便。"]},
+  "2":{t:"彭模分兵 · 舍舟趋成都",d:"永和三年三月",p:["三月,温至彭模。议者欲分为两军、异道俱进;袁乔曰『今悬军万里,当合势齐力,不可分也』——乃悉众舍舟,留参军孙盛、周楚以羸兵守辎重,自将步卒赍三日粮,径指成都。","李福回袭彭模,为孙盛所拒退;温途中三遇李权,三战三胜,汉兵散归。昝坚军至犍为,方知与温异道,自沙头津欲还渡拒之;比至,温已军于成都十里陌,坚众不战自溃。晋军遂薄成都。"]},
+  "3":{t:"笮桥决战 · 成汉亡",d:"永和三年三月",p:["李势悉众出战于城西南之笮桥。初,晋军前锋不利,参军龚护战死,流矢及温马首,三军气夺,鸣金将退;会鼓吏仓皇误鸣进鼓,袁乔乘势拔剑督士力战,遂大破汉军。","温进逼成都,纵火焚其小城城门。李势夜开东门走葭萌(晋寿),寻遣使奉表,面缚舆榇诣军门降。温解缚焚榇,送势及宗室十余人于建康,封归义侯,成汉亡,益州入晋——桓温以是威名大振,自此渐专朝政。"]}
 };
 const CITY={
-  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["桓温镇荆州的治所,伐蜀出发地。平蜀后仍还镇于此。"]},
-  badong:{t:"巴东·白帝",d:"今重庆奉节一带",p:["三峡西口要地。桓温尝观诸葛亮八阵图于鱼复平沙,谓“此常山蛇势”。"]},
-  qingyi:{t:"青衣",d:"今四川乐山",p:["晋军溯江所抵,李势至此方大发军拒守——足见成汉国防之虚。"]},
-  pengmo:{t:"彭模",d:"今四川彭山东南",p:["桓温克之,留孙盛、周楚守辎重,自率轻兵直取成都。李福袭辎重不下。"]},
-  qianwei:{t:"犍为·武阳",d:"今四川彭山、双江一带",p:["昝坚率军趋此设防,却与桓温主力弁道而行,坐失邀击之机。"]},
-  zeqiao:{t:"笮桥",d:"成都西南南河上",p:["决战之地。晋军初挫,龚护战死;鼓吏误鸣进鼓,袁乔乘势反败为胜。"]},
-  chengdu:{t:"成都",d:"成汉都城",p:["李势倾城出战于笮桥而败,夜遁葭萌。桓温入城安抚,秋毫无犯。"]},
-  jiameng:{t:"葭萌(晋寿)",d:"今四川广元西南",p:["李势弃成都北奔之地。旋遣使请降,成汉灭亡。"]}
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["桓温镇荆州治所,伐蜀出师之地。舟师由此入峡溯江;平蜀后仍还镇于此。"]},
+  baidi:{t:"巴东·白帝",d:"今重庆奉节",p:["三峡西口要地。温尝观诸葛亮八阵图于鱼复平沙,谓『此常山蛇势也』。"]},
+  jiangzhou:{t:"江州",d:"今重庆",p:["大江与嘉陵江合流之枢,溯江入蜀必经之地。"]},
+  yibin:{t:"僰道",d:"今四川宜宾",p:["岷江入大江之口。舍大江转岷江溯上蜀腹之转处。"]},
+  qingyi:{t:"青衣·合水",d:"今四川乐山一带",p:["青衣江、大渡水会岷江处。晋军二月军次于此,李势至是方大发兵拒守——足见成汉守备之虚。"]},
+  qianwei:{t:"犍为·武阳",d:"今四川彭山、犍为间",p:["昝坚自鸳鸯碕北渡引兵趋此设防,却与温主力异道,坐失邀击之机。"]},
+  shatou:{t:"沙头津",d:"岷江古渡",p:["昝坚自犍为觉与温异道,欲自此还渡拒之;比至,温已军成都十里陌,坚众自溃。"]},
+  pengmo:{t:"彭模",d:"今四川彭山东北",p:["温克之,留孙盛、周楚守辎重;舍舟轻兵之地。李福回袭辎重,为孙盛所拒退。"]},
+  zeqiao:{t:"笮桥",d:"成都西南检江(南河)上",p:["决战之地。晋军初挫,龚护战死,矢及温马;鼓吏误鸣进鼓,袁乔乘势反败为胜。"]},
+  chengdu:{t:"成都",d:"成汉都城",p:["李势倾城战笮桥而败,夜遁葭萌。温入城,军令严整,秋毫无犯,蜀人悦附。"]},
+  jiameng:{t:"葭萌·晋寿",d:"今四川广元西南昭化",p:["李势弃成都夜奔之地。旋面缚舆榇诣军门请降,成汉灭亡。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
