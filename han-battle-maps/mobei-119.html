@@ -30,7 +30,18 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.2em;opacity:.8;font-weight:500}
+  /* 转运·军食:金色串珠,随军绝漠,示数十万转者自负其粮 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.20}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,20 +56,37 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 武刚车自环为营 */
+  .wagon circle{fill:none;stroke:var(--advance);stroke-width:1.5;stroke-dasharray:2 3;opacity:.85}
+  .wagon rect{fill:var(--advance);opacity:.8}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,19 +97,19 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>漠</span><span>北</span><span>之</span><span>役</span></div>
+  <div class="seal" aria-hidden="true"><span>封</span><span>狼</span><span>居</span><span>胥</span></div>
   <header>
     <h1>漠北之战 · 封狼居胥</h1>
-    <div class="sub">汉武帝元狩四年(前119)　　<i>汉 卫青·霍去病</i> 绝漠封狼居胥 · <b>匈奴 伊稚斜单于</b>遁走无踪</div>
+    <div class="sub">汉武帝元狩四年(前119)　　<i>汉 卫青·霍去病</i> 各将五万骑绝漠远征 · <b>匈奴 伊稚斜单于·左贤王</b>大败远遁</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 大举绝漠</button>
+    <button class="on" data-p="all">全图 · 两道绝漠</button>
     <button data-p="1">卫青绝漠遇单于</button>
-    <button data-p="2">风沙纵翼单于遁</button>
+    <button data-p="2">风沙纵翼 · 单于西遁</button>
     <button data-p="3">霍去病封狼居胥</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="漠北之战形势图,含汉与匈奴疆界、大漠瀚海狼居胥山与定襄代郡等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="漠北之战形势图,含汉与匈奴疆界、大漠戈壁、狼居胥山瀚海阗颜山与定襄代郡等城邑,及卫青霍去病两道绝漠远征路线">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,127 +118,211 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:匈奴据漠北(北),汉据长城内(南),约以阴山长城为界 -->
-    <path d="M 0,300 C 160,280 320,296 480,286 C 640,276 820,290 1000,278 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 160,280 320,296 480,286 C 640,276 820,290 1000,278 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 160,280 320,296 480,286 C 640,276 820,290 1000,278"/>
-    <text class="realm q" x="120" y="90" font-size="34">匈 奴(漠北)</text>
-    <text class="realm j" x="640" y="600" font-size="32">汉(长城内)</text>
+    <!-- ══ 疆界:匈奴据漠北(北),汉据长城内(南),约以阴山长城为界 ══ -->
+    <path d="M 0,500 C 150,490 320,500 480,502 C 640,504 820,508 1000,512 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,500 C 150,490 320,500 480,502 C 640,504 820,508 1000,512 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,500 C 150,490 320,500 480,502 C 640,504 820,508 1000,512"/>
+    <!-- 长城·汉边塞 -->
+    <path d="M 40,502 L 160,494 L 320,502 L 480,504 L 640,506 L 820,510 L 960,514" fill="none" stroke="#6e5d3c" stroke-width="2.4" stroke-dasharray="7 3" opacity=".7"/>
+    <text class="cname s" x="44" y="490">长城 · 汉边塞</text>
+    <text class="realm q" x="90" y="120" font-size="34">匈 奴(漠北)</text>
+    <text class="realm j" x="640" y="608" font-size="30">汉(长城内)</text>
 
-    <!-- 大漠·瀚海(沙碛) -->
-    <path d="M 120,330 C 260,300 420,318 600,308 C 740,300 860,314 940,308 C 900,360 760,388 560,392 C 360,396 200,382 130,360 Z" fill="rgba(180,150,90,.22)" stroke="rgba(156,122,44,.32)" stroke-width="1" stroke-dasharray="4 5"/>
-    <text class="rname" x="440" y="356" style="fill:#9c7a2c;letter-spacing:.32em;font-size:14px">大 漠 · 瀚 海</text>
+    <!-- ══ 大漠·戈壁:千里无水草,南北之绝隔 ══ -->
+    <path d="M 70,300 C 260,280 460,300 660,296 C 800,292 905,300 952,300 C 942,362 800,414 560,422 C 356,428 176,414 86,390 C 74,362 70,332 70,300 Z" fill="rgba(180,150,90,.22)" stroke="rgba(156,122,44,.32)" stroke-width="1" stroke-dasharray="4 5"/>
+    <text class="rname" x="404" y="360" style="fill:#9c7a2c;letter-spacing:.34em;font-size:15px">大 漠 · 戈 壁</text>
+    <text class="rname" x="404" y="380" style="fill:#9c7a2c;letter-spacing:.18em;font-size:10px;opacity:.85">千里无水草,匈奴恃以为险</text>
 
-    <!-- 河水(黄河)自阴山南折 -->
-    <path class="river" stroke-width="4.5" d="M 300,470 C 380,500 470,516 560,510 C 660,504 740,486 820,500"/>
-    <text class="rname" x="560" y="536" style="font-size:12px">河 水</text>
+    <!-- ══ 河水(黄河·河套),自阴山南折 ══ -->
+    <path class="river" stroke-width="4.2" d="M 300,548 C 400,566 500,560 590,548 C 680,536 750,524 830,528"/>
+    <text class="rname" x="560" y="580" style="font-size:12px">河 水(河套)</text>
 
-    <!-- 狼居胥山·姑衍山 -->
-    <g class="mtn"><path d="M 606,168 l 10,-18 l 10,18 M 622,160 l 11,-20 l 11,20 M 642,168 l 9,-16 l 9,16"/></g>
-    <text class="cname s" x="600" y="128">狼居胥山·姑衍山</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 狼居胥山·姑衍山(肯特山) -->
+    <path class="mtn fill" d="M 408,110 L 424,80 L 438,98 L 456,72 L 474,96 L 490,84 Z"/>
+    <path class="mtn" d="M 418,100 l 12,-18 l 11,15 l 14,-20 l 12,16"/>
+    <text class="mname" x="416" y="66" style="font-size:11px">狼居胥山 · 姑衍</text>
+    <!-- 阗颜山(赵信城一带) -->
+    <path class="mtn fill" d="M 196,186 L 210,160 L 222,176 L 238,154 L 254,178 Z"/>
+    <path class="mtn" d="M 204,176 l 10,-16 l 10,14 l 12,-18"/>
+    <text class="mname" x="180" y="150" style="font-size:10.5px">阗 颜 山</text>
 
-    <!-- 寘颜山(赵信城)一带山脉 -->
-    <g class="mtn"><path d="M 250,150 l 9,-15 l 9,15 M 264,142 l 9,-15 l 9,15"/></g>
-
-    <!-- 长城 -->
-    <path d="M 60,296 L 160,288 L 300,300 L 460,290 L 640,296 L 820,292 L 960,286" fill="none" stroke="#6e5d3c" stroke-width="2.4" stroke-dasharray="7 3" opacity=".7"/>
-    <text class="cname s" x="60" y="284">长　城</text>
-
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="wangting"><circle cx="300" cy="180" r="6"/><text class="cname" x="312" y="176">漠北王庭·寘颜山<tspan class="cname s" dx="2">(赵信城)</tspan></text></g>
-      <g class="city" data-city="langjuxu"><circle cx="632" cy="160" r="5"/><text class="cname" x="644" y="156">狼居胥山</text></g>
-      <g class="city" data-city="hanhai"><circle cx="800" cy="150" r="4"/><text class="cname s" x="812" y="146">瀚海·翰海</text></g>
-      <g class="city" data-city="dingxiang"><circle cx="330" cy="430" r="5"/><text class="cname" x="286" y="452">定襄</text></g>
-      <g class="city" data-city="daijun"><circle cx="700" cy="440" r="5"/><text class="cname" x="712" y="436">代郡</text></g>
-      <g class="city" data-city="yinshan"><circle cx="500" cy="292" r="4"/><text class="cname s" x="470" y="282">阴山·长城</text></g>
+      <g class="city cap" data-city="chanyu"><circle cx="385" cy="252" r="6"/><text class="cname" x="396" y="248">单于本部庭</text></g>
+      <g class="city" data-city="tianyan"><circle cx="229" cy="174" r="5"/><text class="cname" x="150" y="170">阗颜山<tspan class="cname s" dx="2">(赵信城)</tspan></text></g>
+      <g class="city" data-city="langjuxu"><circle cx="437" cy="96" r="5"/><text class="cname" x="448" y="94">狼居胥山</text></g>
+      <g class="city" data-city="guyan"><circle cx="474" cy="86" r="3.5"/><text class="cname s" x="486" y="82">姑衍</text></g>
+      <g class="city" data-city="zuoxian"><circle cx="645" cy="158" r="5"/><text class="cname" x="656" y="154">左贤王庭</text></g>
+      <g class="city" data-city="dingxiang"><circle cx="635" cy="517" r="5"/><text class="cname" x="588" y="536">定襄</text></g>
+      <g class="city" data-city="daijun"><circle cx="780" cy="548" r="5"/><text class="cname" x="792" y="546">代郡</text></g>
     </g>
 
-    <!-- 全图 · 大举绝漠 -->
+    <!-- ══ 瀚海(北海·贝加尔湖):图外北,~去病所极 ══ -->
+    <g transform="translate(0,0)">
+      <path class="march j" marker-end="url(#aj)" d="M 388,52 L 388,20" style="stroke-dasharray:none"/>
+      <text class="cname" x="398" y="34" style="fill:var(--advance)">瀚海 · 北海</text>
+      <text class="cname s" x="398" y="50" style="fill:var(--advance2)">(贝加尔湖,图外北 ~2千里)</text>
+    </g>
+
+    <!-- ══ 全图 · 两道绝漠 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 330,424 C 320,380 314,300 306,220"/>
-      <text class="mlabel j" x="150" y="360">卫青将五万骑,出定襄</text>
-      <path class="march j" marker-end="url(#aj)" d="M 700,434 C 690,380 668,270 640,178"/>
-      <text class="mlabel j" x="712" y="360">霍去病将五万骑,出代郡</text>
-      <text class="anno" x="150" y="400">步兵转运者数十万随之,分道绝大漠</text>
-      <text class="mlabel q" x="150" y="150">伊稚斜单于本部在漠北,悉远其辎重</text>
-      <text class="anno" x="560" y="240">武帝谋大举绝漠,直击匈奴王庭</text>
+      <!-- 卫青:出定襄,绝漠北进,至阗颜山赵信城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 630,510 C 556,428 456,330 392,262 C 336,224 286,198 240,182"/>
+      <text class="mlabel j" x="470" y="440">卫青将五万骑,出定襄</text>
+      <!-- 霍去病:出代,深入,破左贤王,封狼居胥,登瀚海 -->
+      <path class="march j" marker-end="url(#aj)" d="M 776,540 C 720,430 672,250 648,168 C 570,120 500,104 448,100 C 430,80 410,52 390,30"/>
+      <text class="mlabel j" x="790" y="420">霍去病将五万骑,出代郡</text>
+      <text class="anno" x="700" y="470">步兵转运者数十万随之</text>
+      <text class="mlabel q" x="90" y="230">伊稚斜单于本部在漠北,悉远其辎重以待</text>
+      <text class="anno" x="150" y="470">武帝谋大举绝漠,两道并进直捣王庭</text>
     </g>
 
-    <!-- 阶段一:卫青绝漠·遇单于本部 -->
+    <!-- ══ 阶段一:卫青绝漠·遇单于本部 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 330,424 C 322,380 314,300 306,196"/>
-      <text class="mlabel j" x="150" y="360">青行千余里,绝大漠而北</text>
-      <rect class="camp" x="296" y="176" width="9" height="9" transform="rotate(45 300 180)"/>
-      <text class="mlabel q" x="316" y="204">直遇伊稚斜单于本部</text>
-      <circle class="siege" cx="300" cy="180" r="22"/>
-      <text class="anno" x="150" y="230">青令武刚车自环为营,结环以待</text>
-      <text class="anno" x="150" y="248">纵五千骑往冲之,匈奴亦纵万骑</text>
+      <path class="march j" marker-end="url(#aj)" d="M 630,510 C 556,428 456,336 400,268"/>
+      <text class="mlabel j" x="470" y="440">青行千余里,绝大漠而北</text>
+      <!-- 单于本部结阵以待 -->
+      <rect class="camp" x="380" y="247" width="10" height="10" transform="rotate(45 385 252)"/>
+      <text class="mlabel q" x="398" y="234">直遇伊稚斜单于本部</text>
+      <!-- 武刚车自环为营 -->
+      <g class="wagon" transform="translate(385,252)">
+        <circle r="26"/>
+        <rect x="-3" y="-29" width="6" height="6"/><rect x="15" y="-24" width="6" height="6"/><rect x="24" y="-10" width="6" height="6"/><rect x="24" y="6" width="6" height="6"/><rect x="15" y="20" width="6" height="6"/><rect x="-3" y="25" width="6" height="6"/><rect x="-21" y="20" width="6" height="6"/><rect x="-30" y="6" width="6" height="6"/><rect x="-30" y="-10" width="6" height="6"/><rect x="-21" y="-24" width="6" height="6"/>
+      </g>
+      <circle class="star" cx="385" cy="252" r="34"/>
+      <text class="anno" x="150" y="300">青令武刚车自环为营,纵五千骑往冲</text>
+      <text class="anno" x="150" y="318">匈奴亦纵万骑相当,日且暮而胜负未分</text>
     </g>
 
-    <!-- 阶段二:风沙纵翼·单于遁走 -->
+    <!-- ══ 阶段二:风沙纵翼·单于西遁 ══ -->
     <g id="ph2" class="ph">
-      <text class="anno" x="180" y="140">会日暮,大风起,沙砾击面,两军不相见</text>
-      <path class="march j" marker-end="url(#aj)" d="M 288,188 C 250,206 218,222 196,236"/>
-      <path class="march j" marker-end="url(#aj)" d="M 312,188 C 350,204 384,220 410,232"/>
-      <text class="mlabel j" x="360" y="252">青纵左右翼,围绕单于</text>
-      <circle class="star" cx="300" cy="180" r="8"/>
-      <path class="march q rout" marker-end="url(#aq)" d="M 292,172 C 250,150 210,132 172,120"/>
-      <text class="mlabel r" x="120" y="110">单于乘六骡,溃围西北遁走</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 300,190 C 288,168 278,156 264,146"/>
-      <text class="anno" x="150" y="300">青追至寘颜山赵信城,焚其积粟而还,斩捕万九千级</text>
+      <text class="anno" x="150" y="216">会日暮,大风起,沙砾击面,两军不相见</text>
+      <!-- 左右翼包抄 -->
+      <path class="march j" marker-end="url(#aj)" d="M 368,244 C 320,232 282,236 250,256"/>
+      <path class="march j" marker-end="url(#aj)" d="M 402,244 C 448,232 486,238 516,258"/>
+      <text class="mlabel j" x="470" y="248">青纵左右翼,张两翼围绕单于</text>
+      <circle class="star" cx="385" cy="252" r="9"/>
+      <!-- 单于西北遁走 -->
+      <path class="march q rout" marker-end="url(#aq)" d="M 372,242 C 320,206 272,190 238,182" style="stroke-dasharray:3 7"/>
+      <text class="mlabel r" x="150" y="150">单于乘六骡,溃围西北遁走</text>
+      <!-- 青追至阗颜山赵信城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 380,240 C 340,214 296,192 250,180"/>
+      <text class="anno" x="150" y="132">青追至阗颜山赵信城,得匈奴积粟,焚其余而还</text>
+      <text class="anno" x="150" y="348">斩捕首虏万九千级</text>
     </g>
 
-    <!-- 阶段三:霍去病封狼居胥 -->
+    <!-- ══ 阶段三:霍去病封狼居胥 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 700,434 C 686,380 660,262 636,172"/>
-      <text class="mlabel j" x="700" y="330">去病出代二千余里</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 640,196 C 680,240 720,280 748,320"/>
-      <text class="mlabel r" x="700" y="270">大破左贤王,斩捕七万余级</text>
-      <path d="M 632,160 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="560" y="112">封狼居胥山,禅于姑衍</text>
-      <path class="march j" marker-end="url(#aj)" d="M 648,158 C 700,150 750,150 788,152"/>
-      <text class="anno" x="700" y="180">登临瀚海而还</text>
-      <text class="anno" x="360" y="90">是役匈奴远遁,漠南无王庭</text>
+      <path class="march j" marker-end="url(#aj)" d="M 776,540 C 726,432 686,262 656,176"/>
+      <text class="mlabel j" x="700" y="360">去病出代二千余里</text>
+      <!-- 左贤王败走 -->
+      <rect class="camp" x="640" y="153" width="10" height="10" transform="rotate(45 645 158)"/>
+      <path class="march q rout" marker-end="url(#aq)" d="M 656,168 C 700,208 740,250 772,296" style="stroke-dasharray:3 7"/>
+      <text class="mlabel r" x="700" y="250">大破左贤王,斩捕七万余级</text>
+      <circle class="star" cx="645" cy="158" r="9"/>
+      <!-- 封狼居胥 · 禅姑衍 -->
+      <path class="march j" marker-end="url(#aj)" d="M 636,164 C 560,128 500,108 452,102"/>
+      <path d="M 437,96 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="360" y="130">封狼居胥山,禅于姑衍</text>
+      <!-- 登临瀚海 -->
+      <path class="march j" marker-end="url(#aj)" d="M 442,90 C 430,64 410,44 392,26"/>
+      <text class="anno" x="300" y="70">登临瀚海(北海)而还</text>
+      <text class="anno" x="520" y="470">是役匈奴远遁,漠南无王庭</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(946,586)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃遁</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·封禅</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(卫青·霍去病)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴军(单于·左贤王)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>匈奴溃遁</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="#1f4e54" stroke-width="1.4" stroke-dasharray="2 3"/><rect x="7" y="0" width="4" height="4" fill="#1f4e54"/><rect x="14" y="7" width="4" height="4" fill="#1f4e54"/><rect x="0" y="7" width="4" height="4" fill="#1f4e54"/><rect x="7" y="14" width="4" height="4" fill="#1f4e54"/></svg>武刚车自环</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 · 封禅</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/></svg>山脉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="rgba(180,150,90,.4)" stroke="rgba(156,122,44,.5)" stroke-width="1" stroke-dasharray="3 3"/></svg>大漠戈壁</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>绝漠释要 · 深入捣其巢</h3>
+    <div class="lead">何以敢两道绝漠远征 —— 恃转运致远、以车营制骑</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="绝漠示意:汉边塞与匈奴王庭之间横亘千里大漠,汉以数十万转者自负其粮绝之,武刚车自环为营以制匈奴骑">
+      <!-- 汉边塞(南) -->
+      <rect x="24" y="196" width="812" height="30" fill="rgba(31,78,84,.10)"/>
+      <text x="34" y="216" fill="#1f4e54" font-size="12" font-weight="700">汉 · 长城边塞(定襄 / 代)</text>
+      <!-- 大漠(中) -->
+      <rect x="24" y="96" width="812" height="86" fill="rgba(180,150,90,.20)" stroke="rgba(156,122,44,.4)" stroke-width="1" stroke-dasharray="4 4"/>
+      <text x="330" y="132" fill="#9c7a2c" font-size="13" font-weight="700" letter-spacing="2">大 漠 · 千 里 无 水 草</text>
+      <text x="300" y="152" fill="#9c7a2c" font-size="10.5" opacity=".85">匈奴悉远其辎重,恃漠为险,谓汉兵不能度</text>
+      <!-- 匈奴王庭(北) -->
+      <rect x="24" y="24" width="812" height="30" fill="rgba(154,43,30,.10)"/>
+      <text x="34" y="44" fill="#9a2b1e" font-size="12" font-weight="700">匈奴 · 单于本部庭(漠北)</text>
+      <!-- 绝漠之军(青,自南穿漠向北) -->
+      <path d="M 180,196 L 180,58" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 180,44 L 174,58 L 186,58 Z" fill="#1f4e54"/>
+      <!-- 转运军食(金,随军并行) -->
+      <path d="M 210,206 L 210,64" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 210,206 L 210,64" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="206" y="150" width="7" height="7" transform="rotate(45 209.5 153.5)" fill="#9c7a2c"/>
+      <rect x="206" y="110" width="7" height="7" transform="rotate(45 209.5 113.5)" fill="#9c7a2c"/>
+      <text x="118" y="248" fill="#5c4f38" font-size="10">五万骑 + 数十万转者,自负其粮北度 ↑</text>
+      <!-- 武刚车自环为营(接战处) -->
+      <g transform="translate(180,60)">
+        <circle r="20" fill="none" stroke="#1f4e54" stroke-width="1.4" stroke-dasharray="2 3"/>
+        <rect x="-2" y="-23" width="5" height="5" fill="#1f4e54"/><rect x="12" y="-18" width="5" height="5" fill="#1f4e54"/><rect x="18" y="-3" width="5" height="5" fill="#1f4e54"/><rect x="12" y="12" width="5" height="5" fill="#1f4e54"/><rect x="-2" y="18" width="5" height="5" fill="#1f4e54"/><rect x="-17" y="12" width="5" height="5" fill="#1f4e54"/><rect x="-23" y="-3" width="5" height="5" fill="#1f4e54"/><rect x="-17" y="-18" width="5" height="5" fill="#1f4e54"/>
+      </g>
+      <text x="216" y="52" fill="#1f4e54" font-size="11" font-weight="700">武刚车自环为营</text>
+      <!-- 大风(天时) -->
+      <path d="M 470,72 q 40,-14 80,0 M 470,84 q 40,-14 80,0 M 470,96 q 40,-14 80,0" fill="none" stroke="#9a2b1e" stroke-width="1.4" opacity=".7"/>
+      <text x="470" y="118" fill="#9a2b1e" font-size="11" font-weight="700">会大风沙起 · 纵左右翼夹之</text>
+      <!-- 匈奴远遁 -->
+      <path d="M 690,44 L 640,44" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6" stroke-linecap="round"/>
+      <path d="M 636,44 L 648,39 L 648,49 Z" fill="#7a5a23"/>
+      <text x="600" y="30" fill="#7a5a23" font-size="11" font-weight="700">单于远遁,漠南无王庭</text>
+    </svg>
+    <p class="intro">漠北之战之奇,不在一战之胜,而在<b>敢以大军绝千里之漠</b>。匈奴自度汉兵不能度大漠,悉远其辎重、以精兵待于漠北;武帝反其道,以卫青、霍去病各将五万骑,而<b>发步兵转运者数十万</b>随之负粮，两道并度戈壁，直捣其所恃为安之巢——出其不意,此为全局之枢。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>绝漠致远 · 转者数十万</h4>
+        <p>大漠千里无水草,骑兵孤进则粮竭。汉乃以数十万步卒转运随行,私负从马凡十四万匹,军食自随而不绝——遂能行千里、二千里而不返顾。绝漠之所以可为,全在这一支庞大的转运之军。</p>
+      </div>
+      <div class="c b">
+        <h4>武刚车自环 · 以静制骑</h4>
+        <p>卫青绝漠遇单于本部,即令武刚车环结为营,以车城制匈奴之骑锋;既定,乃纵五千骑往冲。会日暮大风,沙砾击面,青纵左右翼包绕之——车营立而不乱,骑翼张而合围,单于遂溃。</p>
+      </div>
+    </div>
+    <p class="kicker">匈奴恃大漠为天险,谓汉不能绝;汉<b>绝之而至其庭</b>,又以车营待其骑、乘风沙而夹击。一战单于遁、再举左贤王破,<b>匈奴远遁,漠南无王庭</b>。然汉士马死者十余万,亦力疲,自是数年未能大出——此绝漠远征之得失也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·卫将军骠骑列传》《史记·匈奴列传》《汉书·卫青霍去病传》约略绘出。狼居胥山约当今蒙古肯特山,寘颜山、赵信城、瀚海(翰海)及漠北王庭地望皆为相对示意,非实测方位;大漠、河水、长城经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为元狩四年形势示意:匈奴单于本部在漠北,汉据长城以内。二者以阴山长城为约界,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>青出定襄、去病出代,本议以去病当单于;既行,乃更令去病出代、青当单于。青遇单于本部,武刚车环营,会大风沙而纵翼包抄——胜之几微,系于天时。是役匈奴远遁,漠南无王庭;然两军士马死者十余万,汉亦力疲,自是数年未大出。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影(x=21+(经−100)·52,y=590−(纬−39)·52),几何方位力求近实:定襄居西南、代郡居东南,单于本部庭在漠北中偏西、左贤王庭在其东,阗颜山(赵信城)在西北,狼居胥山(姑衍)在北,瀚海更在其北。定襄约今内蒙古和林格尔(111.8E,40.4N),代郡约今河北蔚县(114.6E,39.8N)。</p>
+    <p><span class="n">注二</span><b>比例尺告诫</b>:此役东西相去仅十余度,而南北纵深逾十三度(自汉塞40°N至贝加尔湖53°N,直线约一千四百里以上),战场之广远迈寻常。为不使南北巨距压平全图,瀚海(贝加尔湖)置于图外北缘,以箭头标之;经度方向略作放大以充画幅,故图上东西距离较实际为夸,方位可信而里距不可尺量。</p>
+    <p><span class="n">注三</span>地望多有异说:阗颜山、赵信城、狼居胥山、姑衍、瀚海皆约当今蒙古国境内,precise 位置史无定考。狼居胥山多指今肯特山(~108E,48N),瀚海(翰海)一名歧义尤大——或指贝加尔湖(北海),或即指大漠本身,或谓一大泽;本图从「北海·贝加尔湖」之说而以图外箭头示之,并存异。晕染疆界、长城、大漠、河水皆经简化,点划「约界」非实有画界。</p>
+    <p><span class="n">注四</span>依《史记·卫将军骠骑列传》《史记·匈奴列传》《汉书·卫青霍去病传》。元狩四年,武帝令青、去病各将五万骑,步兵转者数十万,私负从马凡十四万匹。初议以去病当单于,既行乃更令青出定襄当单于、去病出代;青绝漠遇单于,武刚车自环,会大风纵翼,单于遁,追至阗颜山赵信城,焚积粟,斩捕万九千级。去病出代、右北平二千余里,大破左贤王,斩捕七万余级,封狼居胥山、禅于姑衍,登临瀚海而还。是役匈奴远遁,漠南无王庭;然汉士马死者十余万,力疲,数年未大出。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"大举绝漠",d:"汉武帝元狩四年 · 前119年",p:["元狩四年,武帝谋大举绝漠,击匈奴王庭。命大将军卫青、骠骑将军霍去病各将五万骑,步兵转运者数十万随之,分道出塞:卫青出定襄,霍去病出代郡。","匈奴闻之,悉远其辎重,以精兵待于漠北。汉之谋在直捣单于本部,一举去边患;两路铁骑并绝大漠,声势震于朔野。"]},
-  "1":{t:"卫青绝漠·遇单于本部",d:"元狩四年",p:["卫青出定襄,行千余里,绝大漠而北,直遇伊稚斜单于本部——本议去病当单于,临行更令青当之,故青一军独承其锋。","青令武刚车自环为营,结环以待;既定,纵五千骑往冲匈奴,匈奴亦纵万骑相当。日且暮,而胜负未分。"]},
-  "2":{t:"风沙纵翼·单于遁走",d:"元狩四年",p:["会日暮,大风骤起,沙砾击面,两军不相见。青乘势纵左右翼,张两翼以包绕单于。","单于视汉兵尚多,而士马犹劲,战不利,自度不能胜,乃与壮骑数百溃围,乘六骡而西北遁走。青追至寘颜山赵信城,得匈奴积粟,尽焚其余而还,斩捕首虏万九千级。"]},
-  "3":{t:"霍去病封狼居胥",d:"元狩四年",p:["骠骑将军霍去病出代、右北平二千余里,与左贤王接战,大破之,斩捕首虏七万余级,俘获裨王、将军相国当户甚众。","去病乃封狼居胥山,禅于姑衍,登临瀚海而还。自是匈奴远遁,而漠南无王庭,汉之边患大纾;然两军士马死者亦十余万,汉亦力疲,数年未复大出。"]}
+  all:{t:"两道绝漠 · 大举远征",d:"汉武帝元狩四年 · 前119年",p:["元狩四年,武帝谋大举绝漠,击匈奴王庭。命大将军卫青、骠骑将军霍去病各将五万骑,步兵转运者数十万随之,私负从马凡十四万匹,分道出塞:卫青出定襄,霍去病出代郡,两道并度大漠而北。","匈奴闻汉大出,悉远其辎重,以精兵待于漠北,自度汉兵不能绝千里之漠。汉之谋正在直捣其所恃为安之巢——两路铁骑绝漠远征,声势震于朔野。"]},
+  "1":{t:"卫青绝漠 · 遇单于本部",d:"元狩四年",p:["卫青出定襄,行千余里,绝大漠而北,直遇伊稚斜单于本部——初议以去病当单于,临行更令青当之,故青一军独承其锋。","青令武刚车自环为营,以车城制匈奴骑锋;既定,纵五千骑往冲,匈奴亦纵万骑相当。日且暮,而胜负未分。"]},
+  "2":{t:"风沙纵翼 · 单于西遁",d:"元狩四年",p:["会日暮,大风骤起,沙砾击面,两军不相见。青乘势纵左右翼,张两翼以包绕单于本部。","单于视汉兵尚多而士马犹劲,自度不能胜,乃与壮骑数百溃围,乘六骡而西北遁走。青追至阗颜山赵信城,得匈奴积粟,尽焚其余而还,斩捕首虏万九千级。"]},
+  "3":{t:"霍去病封狼居胥",d:"元狩四年",p:["骠骑将军霍去病出代、右北平二千余里,深入捣左贤王之庭,大破之,斩捕首虏七万余级,俘裨王、将军、相国、当户甚众。","去病乃封狼居胥山,禅于姑衍,登临瀚海(北海)而还,兵锋所极为汉军北进之最远。自是匈奴远遁,漠南无王庭,边患大纾;然两军士马死者亦十余万,汉亦力疲,数年未复大出。"]}
 };
 const CITY={
-  wangting:{t:"漠北王庭·寘颜山",d:"约当今蒙古境内(示意)",p:["伊稚斜单于本部所在。卫青绝漠千余里直遇之,武刚车环营,会风沙而破单于。青追至寘颜山赵信城,焚其积粟而还。"]},
-  langjuxu:{t:"狼居胥山",d:"约当今蒙古肯特山",p:["霍去病大破左贤王后,封狼居胥山、禅于姑衍以告成功。「封狼居胥」自此为武功极盛之典。"]},
-  hanhai:{t:"瀚海·翰海",d:"漠北大泽(示意)",p:["霍去病登临瀚海而还,兵锋所极。史称「登临翰海」,为汉军北进之最远处。"]},
-  dingxiang:{t:"定襄",d:"汉定襄郡,长城要塞",p:["卫青出塞之基地。青将五万骑自此绝大漠而北,直捣单于本部。"]},
-  daijun:{t:"代郡",d:"汉代郡,长城东段",p:["霍去病出塞之基地。去病自此出代、右北平二千余里,大破左贤王。"]},
-  yinshan:{t:"阴山·长城",d:"汉塞北界",p:["汉军出塞之线,匈奴与汉之约界。逾此而北即入漠南、漠北匈奴之地。"]}
+  chanyu:{t:"单于本部庭",d:"伊稚斜单于本部所在,漠北(示意)",p:["匈奴闻汉大出,悉远其辎重,以精兵待于漠北。卫青绝漠千余里直遇之,武刚车自环为营,会大风纵左右翼包抄,单于溃围西北遁走。"]},
+  tianyan:{t:"阗颜山(赵信城)",d:"约当今蒙古国境内(地望有异说)",p:["赵信降匈奴后为单于所筑之城,储积粟。卫青破单于后追至此,得匈奴积粟以食军,尽焚其余而还。汉军绝漠西路之最远点。"]},
+  langjuxu:{t:"狼居胥山",d:"约当今蒙古肯特山(~108E,48N)",p:["霍去病大破左贤王后,封狼居胥山、禅于姑衍以告成功。「封狼居胥」自此为武将之极致功名。"]},
+  guyan:{t:"姑衍山",d:"狼居胥山近旁(示意)",p:["霍去病禅于姑衍。封狼居胥、禅姑衍,仿天子封禅之礼,以彰灭胡之功。"]},
+  zuoxian:{t:"左贤王庭",d:"匈奴东部左贤王本部,漠北偏东(示意)",p:["霍去病出代、右北平深入二千余里,直捣左贤王庭,大破之,斩捕七万余级,俘裨王将相甚众——去病一军之功冠于是役。"]},
+  dingxiang:{t:"定襄",d:"汉定襄郡,今内蒙古和林格尔一带",p:["卫青出塞之基地。青将五万骑自此绝大漠而北,直捣单于本部。"]},
+  daijun:{t:"代郡",d:"汉代郡,今河北蔚县一带(兼出右北平)",p:["霍去病出塞之基地。去病自此出代、右北平二千余里,深入大破左贤王,遂封狼居胥。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
