@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--ret);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,13 +31,19 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  .desert{fill:var(--faint);font-size:11px;letter-spacing:.34em;opacity:.55;font-weight:500}
+  .marsh{fill:rgba(95,127,136,.16);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .jun{fill:none;stroke:var(--gold);stroke-width:1.8;opacity:.95}
+  .junlabel{fill:var(--gold);font-size:10.5px;font-weight:700;letter-spacing:.08em}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
@@ -45,20 +52,34 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:1600;stroke-dashoffset:1600;animation:draw 1.8s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,108 +90,147 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>河</span><span>西</span><span>之</span><span>役</span></div>
+  <div class="seal" aria-hidden="true"><span>河</span><span>西</span><span>之</span><span>战</span></div>
   <header>
     <h1>河西之战</h1>
-    <div class="sub">汉武帝元狩二年(前121)　　<i>汉 霍去病</i> 越祁连千里 · <b>匈奴 浑邪王</b>杀休屠而降</div>
+    <div class="sub">汉武帝元狩二年(前121)　　<i>汉 骠骑将军霍去病</i> 两出陇西·逾居延越祁连 · <b>匈奴 浑邪王</b>杀<em>休屠王</em>而降,汉断右臂通西域</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 两出河西</button>
     <button data-p="1">春出陇西·越焉支</button>
-    <button data-p="2">夏临祁连·大破匈奴</button>
-    <button data-p="3">浑邪杀休屠·降汉</button>
+    <button data-p="2">夏逾居延·临祁连</button>
+    <button data-p="3">浑邪降·置四郡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="河西之战形势图,含汉匈疆界、祁连焉支山、黄河河西走廊与陇西河西受降诸地">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="河西之战形势图,含汉匈疆界、河西走廊、祁连焉支合黎诸山、黄河弱水居延泽,及陇西北地敦煌酒泉张掖武威等地">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:匈奴据河西走廊及其北(西北),汉据陇西内地(东南) -->
-    <path d="M 0,150 C 130,170 260,170 380,220 C 500,270 600,300 700,300 C 800,300 900,282 1000,270 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,150 C 130,170 260,170 380,220 C 500,270 600,300 700,300 C 800,300 900,282 1000,270 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,150 C 130,170 260,170 380,220 C 500,270 600,300 700,300 C 800,300 900,282 1000,270"/>
-    <text class="realm q" x="120" y="90" font-size="32">匈 奴(河西)</text>
-    <text class="realm j" x="700" y="560" font-size="30">汉(陇西内地)</text>
+    <!-- ══ 疆界:匈奴据河西走廊及其北(西·北),汉据陇西北地内地(东南) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,180 C 930,205 850,290 770,395 C 730,455 690,505 600,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 1000,180 C 930,205 850,290 770,395 C 730,455 690,505 600,640 L 1000,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 1000,180 C 930,205 850,290 770,395 C 730,455 690,505 600,640"/>
+    <text class="realm q" x="70" y="96" font-size="30">匈 奴(河西·右部)</text>
+    <text class="realm j" x="770" y="612" font-size="26">汉·陇西</text>
+    <text class="cname s" x="120" y="470" style="fill:var(--faint);opacity:.7;letter-spacing:.2em">氐 羌(祁连以南)</text>
 
-    <!-- 黄河:自西北河曲折而东北,绕河套 -->
-    <path class="river" stroke-width="5" d="M 560,470 C 620,430 700,410 780,398 C 850,388 900,360 930,300 C 952,258 950,200 936,150"/>
-    <text class="rname" x="820" y="360" style="font-size:13px">黄 河</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自陇西兰州而东北,趋宁夏河套(汉匈之间) -->
+    <path class="river" stroke-width="5" d="M 690,512 C 726,462 748,432 762,404 C 800,344 852,268 930,214"/>
+    <text class="rname" x="792" y="360" transform="rotate(-56 792 360)" style="font-size:13px">黄 河</text>
+    <!-- 弱水(黑河):自祁连北流,注居延泽(霍去病夏征南下所循) -->
+    <path class="river" stroke-width="2.6" d="M 452,352 C 476,300 498,232 512,140"/>
+    <text class="rname" x="470" y="256" transform="rotate(-74 470 256)" style="font-size:10.5px">弱水·黑河</text>
 
-    <!-- 河西走廊:西北走向的狭长廊道,夹于祁连(南)与大漠(北)之间 -->
-    <path class="river" stroke-width="16" style="stroke:#cbb98a;opacity:.55" d="M 150,180 C 240,205 330,235 420,268 C 480,290 530,310 570,332"/>
-    <text class="rname" x="300" y="222" transform="rotate(19 300 222)" style="fill:#8a7c5e;font-size:11px;letter-spacing:.3em">河 西 走 廊</text>
+    <!-- 居延泽 -->
+    <path class="marsh" d="M 492,120 C 476,124 472,138 486,146 C 502,154 528,152 540,142 C 548,134 544,122 528,118 C 514,114 502,116 492,120 Z"/>
+    <text class="cname s" x="526" y="120" style="opacity:.8">居延泽</text>
 
-    <!-- 祁连山:横亘走廊之南,绵长起伏 -->
-    <g class="mtn" style="stroke-width:1.6">
-      <path d="M 140,300 l 14,-24 l 14,24 M 168,300 l 15,-26 l 15,26 M 198,302 l 16,-28 l 16,28 M 230,304 l 15,-25 l 15,25 M 260,306 l 14,-23 l 14,23 M 288,308 l 13,-22 l 13,22"/>
-    </g>
-    <text class="cname s" x="150" y="326" style="font-size:12px;fill:var(--ink2)">祁 连 山</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 祁连山:横亘河西走廊之南,绵长起伏 -->
+    <path class="mtn fill" d="M 196,344 L 214,314 L 232,336 L 258,306 L 286,336 L 316,304 L 348,338 L 386,306 L 424,342 L 470,312 L 512,346 L 556,318 L 600,352 L 632,332 L 632,368 L 196,378 Z"/>
+    <path class="mtn" d="M 236,340 l 18,-26 l 16,20 l 22,-28 l 18,24 l 22,-30 l 20,26 l 24,-30 l 20,26"/>
+    <text class="mname" x="250" y="372" transform="rotate(9 250 372)" style="letter-spacing:.5em;font-size:13px">祁 连 山</text>
+    <!-- 焉支山:走廊中段之小山(甘凉之交) -->
+    <g class="mtn"><path d="M 552,352 l 11,-17 l 11,17 M 570,354 l 10,-15 l 10,15"/></g>
+    <!-- 合黎·龙首山:走廊之北屏 -->
+    <g class="mtn" style="opacity:.6"><path d="M 300,238 l 12,-16 l 12,16 M 326,240 l 11,-15 l 11,15 M 400,262 l 12,-16 l 12,16 M 426,264 l 11,-15 l 11,15"/></g>
+    <text class="mname" x="332" y="228" style="font-size:9.5px;opacity:.55">合黎·龙首山</text>
+    <text class="desert" x="300" y="180">大　漠(巴丹吉林)</text>
 
-    <!-- 焉支山:走廊中段的小山 -->
-    <g class="mtn"><path d="M 452,258 l 11,-18 l 11,18 M 470,260 l 10,-16 l 10,16"/></g>
-
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="jilian"><circle cx="210" cy="286" r="6"/><text class="cname" x="150" y="272">祁连山<tspan class="cname s" dx="2">(大破匈奴)</tspan></text></g>
-      <g class="city" data-city="gaolan"><circle cx="288" cy="352" r="5"/><text class="cname s" x="232" y="372">皋兰山</text></g>
-      <g class="city" data-city="hexi"><circle cx="400" cy="266" r="6"/><text class="cname" x="382" y="252">河西走廊</text></g>
-      <g class="city" data-city="yanzhi"><circle cx="474" cy="252" r="5"/><text class="cname s" x="486" y="248">焉支山</text></g>
-      <g class="city camp" data-city="shouxiang"><circle cx="520" cy="316" r="5"/><text class="cname s" x="526" y="332">受降处(浑邪降)</text></g>
-      <g class="city cap" data-city="longxi"><circle cx="720" cy="418" r="6"/><text class="cname" x="732" y="414">陇西<tspan class="cname s" dx="2">(出兵基)</tspan></text></g>
+      <g class="city" data-city="dunhuang"><circle cx="132" cy="243" r="5"/><text class="cname" x="140" y="239">敦煌</text></g>
+      <g class="city" data-city="jiuquan"><circle cx="360" cy="268" r="5"/><text class="cname" x="342" y="256">酒泉</text></g>
+      <g class="city" data-city="zhangye"><circle cx="480" cy="317" r="5"/><text class="cname" x="462" y="306">张掖</text></g>
+      <g class="city" data-city="wuwei"><circle cx="606" cy="379" r="5"/><text class="cname" x="616" y="392">武威</text></g>
+      <g class="city" data-city="yanzhi"><circle cx="561" cy="352" r="4.5"/><text class="cname s" x="498" y="345">焉支山</text></g>
+      <g class="city" data-city="qilian"><circle cx="438" cy="354" r="5.5"/><text class="cname" x="386" y="350">祁连山</text></g>
+      <g class="city" data-city="juyan"><circle cx="510" cy="127" r="4.5"/><text class="cname" x="520" y="140">居延</text></g>
+      <g class="city" data-city="gaolan"><circle cx="678" cy="497" r="4.5"/><text class="cname" x="688" y="493">皋兰山</text></g>
+      <g class="city cap" data-city="longxi"><circle cx="684" cy="534" r="6"/><text class="cname" x="638" y="553">陇西</text></g>
+      <g class="city cap" data-city="beidi"><circle cx="906" cy="516" r="6"/><text class="cname" x="852" y="512">北地</text></g>
+      <g class="city camp" data-city="wangting"><circle cx="624" cy="348" r="5"/><text class="cname s" x="632" y="336">休屠王庭</text></g>
+      <g class="city" data-city="shouxiang"><circle cx="662" cy="436" r="4.5"/><text class="cname s" x="672" y="452">受降处</text></g>
     </g>
 
-    <!-- 全图 · 两出河西 -->
+    <!-- 长安(图外·东南) -->
+    <g transform="translate(986,556)">
+      <path class="march j" marker-end="url(#aj)" d="M 8,0 L -22,0"/>
+      <text class="mlabel j" x="-64" y="-8" style="font-size:10px">长安·关中 ⟶</text>
+      <text class="cname s" x="-64" y="16" style="fill:var(--ink2);font-size:9.5px">汉都(图外东南)</text>
+    </g>
+
+    <!-- ══ 全图 · 两出河西 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 712,412 C 620,380 540,342 486,268"/>
-      <text class="mlabel j" x="520" y="352">霍去病为骠骑将军,两出陇西击匈奴</text>
-      <path class="march j" marker-end="url(#aj)" d="M 466,258 C 380,238 290,238 224,282"/>
-      <text class="anno" x="300" y="252">长驱奔袭千余里,越焉支、临祁连</text>
-      <text class="mlabel q" x="120" y="150">匈奴据河西走廊,浑邪·休屠诸王守之</text>
-      <rect class="camp" x="516" y="312" width="8" height="8" transform="rotate(45 520 316)"/>
-      <text class="anno" x="440" y="356">王庭右部,数为汉所破</text>
+      <path class="march j" marker-end="url(#aj)" d="M 684,528 C 660,470 620,410 566,358"/>
+      <text class="mlabel j" x="592" y="452">春·万骑出陇西</text>
+      <path class="march j" marker-end="url(#aj)" d="M 900,510 C 786,392 636,214 520,138"/>
+      <path class="march j" marker-end="url(#aj)" d="M 506,142 C 480,224 456,300 446,352"/>
+      <text class="mlabel j" x="640" y="250">夏·大迂回逾居延</text>
+      <text class="anno" x="360" y="234">越焉支、临祁连,深入二千余里</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 628,352 C 648,398 660,420 662,430"/>
+      <text class="mlabel r" x="668" y="416">浑邪杀休屠·率众降</text>
+      <text class="mlabel q" x="120" y="130">匈奴浑邪·休屠诸王守河西右部</text>
     </g>
 
-    <!-- 阶段一:春出陇西·越焉支 -->
+    <!-- ══ 阶段一:春出陇西·越焉支 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 712,412 C 620,378 546,330 486,262"/>
-      <text class="mlabel j" x="540" y="336">春,将万骑出陇西</text>
-      <path class="march j" marker-end="url(#aj)" d="M 466,254 C 400,244 340,254 296,346"/>
-      <text class="anno" x="470" y="238">过焉支山千余里,转战六日</text>
-      <circle class="star" cx="288" cy="352" r="8"/>
-      <text class="mlabel q" x="200" y="392">斩折兰王、卢侯王于皋兰</text>
-      <text class="anno" x="230" y="410">执浑邪王子,得休屠祭天金人</text>
+      <path class="march j" marker-end="url(#aj)" d="M 684,528 C 676,514 680,506 678,499"/>
+      <circle class="star" cx="678" cy="497" r="9"/>
+      <text class="mlabel j" x="620" y="556">春,将万骑出陇西</text>
+      <text class="mlabel q" x="536" y="512">鏖皋兰下,斩折兰王、卢侯王</text>
+      <path class="march j" marker-end="url(#aj)" d="M 676,492 C 648,452 606,400 566,358"/>
+      <text class="anno" x="592" y="430">转战六日,过焉支山千余里</text>
+      <path class="march j" marker-end="url(#aj)" d="M 556,352 C 520,338 500,332 486,324"/>
+      <text class="anno" x="476" y="298">执浑邪王子,得休屠祭天金人</text>
+      <text class="mlabel j" x="286" y="404">浑邪王败走</text>
     </g>
 
-    <!-- 阶段二:夏临祁连·大破匈奴 -->
+    <!-- ══ 阶段二:夏逾居延·临祁连 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 720,406 C 660,320 520,240 400,232 C 320,228 260,252 224,278"/>
-      <text class="mlabel j" x="440" y="210">夏,复深入二千余里</text>
-      <text class="anno" x="380" y="228">越居延、临祁连山</text>
-      <circle class="star" cx="210" cy="286" r="9"/>
-      <text class="mlabel j" x="120" y="266">大破匈奴,斩获三万余级</text>
-      <text class="anno" x="140" y="348">俘小王、王母、单于阏氏、王子无算</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 224,300 C 300,330 380,340 470,320"/>
-      <text class="mlabel r" x="330" y="356">匈奴诸王北遁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 900,510 C 792,398 656,236 522,138"/>
+      <text class="mlabel j" x="700" y="300">夏,复与公孙敖俱出北地</text>
+      <text class="anno" x="560" y="200">敖失道,去病独进,大纵深迂回</text>
+      <path class="march j" marker-end="url(#aj)" d="M 506,142 C 480,222 458,296 448,350"/>
+      <text class="anno" x="392" y="256">绕居延,沿弱水而南,经小月氏</text>
+      <circle class="star" cx="438" cy="354" r="9"/>
+      <text class="mlabel j" x="300" y="330">攻祁连山,大破匈奴</text>
+      <text class="anno" x="196" y="404">斩获三万余级,俘五王、王母、阏氏、王子</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 610,362 C 540,392 460,398 400,378"/>
+      <text class="mlabel r" x="470" y="418">匈奴失祁连、焉支,诸王北遁</text>
     </g>
 
-    <!-- 阶段三:浑邪杀休屠·降汉 -->
+    <!-- ══ 阶段三:浑邪降·置四郡 ══ -->
     <g id="ph3" class="ph">
-      <rect class="camp" x="516" y="312" width="9" height="9" transform="rotate(45 520 316)"/>
-      <text class="mlabel q" x="450" y="300">单于怒,欲召诛浑邪、休屠</text>
-      <path d="M 520,316 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="440" y="336">浑邪王杀休屠王,并其众四万</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 528,322 C 600,360 660,392 706,410"/>
-      <text class="mlabel r" x="580" y="404">率众降汉</text>
-      <text class="anno" x="560" y="440">汉置河西五属国,复置武威·酒泉·张掖·敦煌四郡</text>
-      <text class="anno" x="180" y="240">断匈奴右臂,隔绝羌胡,通西域之道大开</text>
+      <rect class="camp" x="620" y="344" width="9" height="9" transform="rotate(45 624 348)"/>
+      <text class="mlabel q" x="448" y="318">单于怒,欲召诛浑邪、休屠</text>
+      <path d="M 624,348 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="632" y="322">浑邪王杀休屠王,并其众</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 628,354 C 648,392 658,414 660,430"/>
+      <text class="mlabel r" x="616" y="470">率众四万余降汉,号十万</text>
+      <path class="march j" marker-end="url(#aj)" d="M 690,505 C 680,472 672,452 668,440"/>
+      <text class="mlabel j" x="694" y="486">霍去病渡河迎之,斩欲遁者八千</text>
+      <!-- 河西四郡 -->
+      <g class="jun">
+        <rect x="127" y="238" width="10" height="10" transform="rotate(45 132 243)"/>
+        <rect x="355" y="263" width="10" height="10" transform="rotate(45 360 268)"/>
+        <rect x="475" y="312" width="10" height="10" transform="rotate(45 480 317)"/>
+        <rect x="601" y="374" width="10" height="10" transform="rotate(45 606 379)"/>
+      </g>
+      <text class="junlabel" x="96" y="228">敦煌郡</text>
+      <text class="junlabel" x="326" y="252">酒泉郡</text>
+      <text class="junlabel" x="446" y="302">张掖郡</text>
+      <text class="junlabel" x="586" y="366">武威郡</text>
+      <text class="anno" x="150" y="418">断匈奴右臂,隔绝羌胡,通西域之道大开</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(84,600)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -181,32 +241,91 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(霍去病)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败亡·降汉</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>匈奴败遁·浑邪降</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="10" height="10" transform="rotate(45 8 8)" fill="none" stroke="#9c7a2c" stroke-width="1.8"/></svg>河西四郡</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 断匈奴右臂,张中国之掖</h3>
+    <div class="lead">河西走廊之得失,系匈奴与羌之通塞、西域道路之开闭</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="河西走廊示意:走廊为匈奴联羌之右臂、亦通西域之孔道,霍去病断之而置四郡">
+      <!-- 匈奴本部(北) -->
+      <text x="30" y="34" fill="#9a2b1e" font-size="13" font-weight="700">匈奴本部 · 漠北</text>
+      <rect x="24" y="44" width="812" height="30" fill="url(#qinHatch)"/>
+      <!-- 氐羌(南) -->
+      <rect x="24" y="196" width="812" height="30" fill="rgba(92,79,56,.14)"/>
+      <text x="30" y="218" fill="#5c4f38" font-size="13" font-weight="700" opacity=".8">氐 羌 · 青海之地</text>
+      <!-- 河西走廊:横带,连西域(左)与陇西·汉(右) -->
+      <rect x="120" y="112" width="620" height="42" fill="rgba(203,185,138,.5)" stroke="#9c7a2c" stroke-width="1" opacity=".85"/>
+      <text x="360" y="139" fill="#6e5d3c" font-size="15" font-weight="700" letter-spacing="6">河 西 走 廊</text>
+      <!-- 西域(左) / 汉·陇西(右) -->
+      <text x="24" y="139" fill="#1f4e54" font-size="12.5" font-weight="700">西域</text>
+      <path d="M 116,133 L 92,133" stroke="#1f4e54" stroke-width="2"/>
+      <path d="M 92,133 L 100,128 L 100,138 Z" fill="#1f4e54"/>
+      <text x="748" y="139" fill="#1f4e54" font-size="12.5" font-weight="700">陇西·汉</text>
+      <!-- 匈奴↔羌 之右臂:纵向红链,穿走廊 -->
+      <path d="M 430,74 L 430,196" stroke="#9a2b1e" stroke-width="3" stroke-dasharray="7 5" opacity=".85"/>
+      <text x="440" y="96" fill="#9a2b1e" font-size="11" font-weight="700">右臂:匈奴联羌</text>
+      <!-- 霍去病自陇西深入,青色奔袭 -->
+      <path d="M 720,150 C 600,170 470,168 360,150 C 280,138 210,134 150,133" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 150,133 L 168,126 L 168,140 Z" fill="#1f4e54"/>
+      <text x="470" y="184" fill="#1f4e54" font-size="11" font-weight="700">霍去病长途奔袭,扫荡全廊</text>
+      <!-- 断:红✕ 断右臂 -->
+      <g transform="translate(430,133)"><circle r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="-6.5" y1="-6.5" x2="6.5" y2="6.5" stroke="#9a2b1e" stroke-width="2.8"/><line x1="-6.5" y1="6.5" x2="6.5" y2="-6.5" stroke="#9a2b1e" stroke-width="2.8"/></g>
+      <text x="300" y="248" fill="#9a2b1e" font-size="11" font-weight="700">断右臂 ✕ 隔绝羌胡</text>
+      <!-- 四郡金记 -->
+      <g fill="none" stroke="#9c7a2c" stroke-width="1.8">
+        <rect x="205" y="128" width="10" height="10" transform="rotate(45 210 133)"/>
+        <rect x="315" y="128" width="10" height="10" transform="rotate(45 320 133)"/>
+        <rect x="545" y="128" width="10" height="10" transform="rotate(45 550 133)"/>
+        <rect x="655" y="128" width="10" height="10" transform="rotate(45 660 133)"/>
+      </g>
+      <text x="560" y="108" fill="#9c7a2c" font-size="10.5" font-weight="700">置四郡以实之</text>
+    </svg>
+    <p class="intro">河西走廊乃匈奴之<b>右臂</b>:北接单于王庭,南通青海之羌,西控西域诸国。匈奴据之,则可联羌以扰陇、右,梗塞汉通西域之路。故武帝不惜以骠骑将军两出陇西,志在取此一廊——非徒斩获,而在<b>断臂</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>断臂 · 长途奔袭</h4>
+        <p>霍去病春出陇西、越焉支千余里,夏出北地、逾居延二千余里,以轻骑大纵深迂回,直捣浑邪、休屠王庭之侧背。两役斩获逾三万,浑邪杀休屠并众来降,河西之匈奴一朝荡尽——匈奴与羌之右臂遂断。</p>
+      </div>
+      <div class="c b">
+        <h4>实边 · 张掖置郡</h4>
+        <p>汉尽得河西,自元狩以后陆续置武威、张掖、酒泉、敦煌四郡,徙民实之。张掖之名,即取『断匈奴之臂,张中国之掖(腋)』。羌胡既隔,亭障西延,通西域之道由是大开,张骞凿空之业乃成。</p>
+      </div>
+    </div>
+    <p class="kicker">河西一廊之得,兼收三利:上<b>断匈奴右臂</b>、中<b>隔绝羌胡</b>、下<b>启西域孔道</b>。故是役之功,不在斩级之多,而在改汉匈攻守之势——匈奴远遁,漠南无王庭,而丝路之门自此洞开。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·卫将军骠骑列传》《史记·匈奴列传》《汉书》约略绘出。河西走廊即今甘肃,焉支、祁连山位置为相对示意;黄河、居延、王庭诸地经简化,非实测画界。</p>
-    <p><span class="n">注二</span>晕染疆界为元狩二年河西形势示意:匈奴据河西走廊及其北,浑邪王、休屠王守右部;汉据陇西内地。虚实之间以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>匈奴失祁连、焉支,歌曰「失我祁连山,使我六畜不蕃息;失我焉支山,使我妇女无颜色」。是役汉断匈奴右臂,通西域之道由是大开。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作光墨卡托线性投影(经度 93.5°–108.5°E、纬度 34.5°–42.5°N;x=60+(经−93.5)·60,y=590−(纬−34.5)·62),几何关系力求近实:河西走廊西北—东南斜贯,敦煌在西北,武威在东南,祁连山夹其南,居延泽悬其北,黄河在东为汉匈之间。长安远在东南图外,以边箭示之。江河、疆界经简化,晕染疆界为元狩二年形势相对示意,以点划「约界」标之,非实测画界。</p>
+    <p><span class="n">注二</span>依《史记·卫将军骠骑列传》《匈奴列传》《汉书·武帝纪·霍去病传》。春役:元狩二年霍去病为骠骑将军,将万骑出陇西,转战六日,过焉支山千余里,合短兵鏖皋兰下,杀折兰王、卢侯王,执浑邪王子及相国、都尉,收休屠祭天金人。夏役:与合骑侯公孙敖俱出北地,敖失道,去病独将进,逾居延、过小月氏,攻祁连山,斩首虏三万余级(《汉书》作三二〇〇),俘五王、王母、单于阏氏、王子及相国、将军、当户、都尉多人,汉军亦亡十之三。皋兰山所在,或系今兰州、或系河西合黎间,旧说不一,姑从旧图置于陇西之北,并识其疑。</p>
+    <p><span class="n">注三</span>浑邪降汉:是秋,单于怒浑邪、休屠居西方数为汉所破,欲召诛之;二王谋降,休屠悔,浑邪杀之并其众。霍去病将兵渡河往迎,浑邪裨将见汉军多欲不降,去病驰入斩其欲遁者八千,遂率众四万余(号十万)来降。汉置五属国以处之。河西四郡非一时并置:元狩二年先置酒泉,元鼎六年(前111)分置张掖、敦煌,太初四年(前101)乃以休屠故地置武威,图中并列以见四郡之全。</p>
+    <p><span class="n">注四</span>匈奴失河西,歌曰「失我祁连山,使我六畜不蕃息;失我焉支山,使我妇女无颜色」。是役汉断匈奴右臂、隔绝羌胡,而通西域之道大开,遂为张骞再使、丝路东西之枢。故河西之战,汉匈攻守之势于此一转。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"两出河西",d:"元狩二年 春 — 夏",p:["元狩二年,霍去病为骠骑将军,两出陇西击匈奴。春,将万骑出陇西,过焉支山千余里,斩折兰、卢侯王,得休屠祭天金人。","夏,复深入二千余里,越居延、临祁连山,大破匈奴,斩获三万余级。匈奴失祁连、焉支,右部数为汉所破,单于怒而欲诛浑邪、休屠。"]},
-  "1":{t:"春出陇西·越焉支",d:"元狩二年 春",p:["春,霍去病将万骑出陇西,长驱奔袭河西走廊之匈奴。过焉支山千余里,转战六日。","激战皋兰山下,斩折兰王、卢侯王,执浑邪王子及相国、都尉,得休屠王祭天金人以归。"]},
-  "2":{t:"夏临祁连·大破匈奴",d:"元狩二年 夏",p:["夏,霍去病复与公孙敖出北地,深入二千余里,越居延泽,临祁连山。","大破匈奴,斩获三万余级,俘小王、王母、单于阏氏、王子无算。匈奴诸王北遁,歌曰「失我祁连山,使我六畜不蕃息」。"]},
-  "3":{t:"浑邪杀休屠·降汉",d:"元狩二年 秋",p:["单于怒浑邪、休屠居西方数为汉所破,欲召而诛之。浑邪王乃谋降汉,杀休屠王,并其众四万余来降。","汉纳之,置河西五属国,复置武威、酒泉、张掖、敦煌四郡。自是断匈奴右臂,隔绝羌胡,而通西域之道大开。"]}
+  all:{t:"两出河西",d:"元狩二年(前121)春 — 秋",p:["元狩二年,霍去病年十九,为骠骑将军,两出陇西·北地击匈奴河西诸部。春,将万骑出陇西,过焉支山千余里,鏖皋兰,斩折兰、卢侯二王,得休屠祭天金人。","夏,复与公孙敖俱出北地;敖失道,去病独以大纵深迂回,逾居延、沿弱水南下,攻祁连山,大破匈奴,斩获三万余。匈奴失祁连、焉支,单于怒而欲诛败军之浑邪、休屠;浑邪遂杀休屠,率众四万余降汉。汉尽得河西走廊,置四郡,断匈奴右臂,通西域之道由是大开。"]},
+  "1":{t:"春出陇西·越焉支",d:"元狩二年 春",p:["春,霍去病将万骑出陇西,长驱奔袭河西之匈奴。渡河转战六日,历五王国,过焉支山千余里。","合短兵鏖战于皋兰山下,斩折兰王、卢侯王,执浑邪王子及相国、都尉,收休屠王祭天金人以归。浑邪王败走,河西右部为之震动。"]},
+  "2":{t:"夏逾居延·临祁连",d:"元狩二年 夏",p:["夏,霍去病复与合骑侯公孙敖俱出北地,异道并进。敖行失道,不相得;去病独将所部,以大纵深外线迂回——绕居延泽,沿弱水而南,经小月氏,深入二千余里。","自浑邪、休屠侧背猛攻,临祁连山大破匈奴,斩获三万余级,俘五王及王母、单于阏氏、王子五十九人,相国、将军、当户、都尉六十三人;汉军亦亡十之三。匈奴诸王北遁,歌曰「失我祁连山」。"]},
+  "3":{t:"浑邪降·置四郡",d:"元狩二年 秋",p:["单于怒浑邪、休屠居西方数为汉所破,欲召而诛之。二王谋降汉,休屠中悔,浑邪杀之,并其众。霍去病将兵渡河往迎;浑邪裨将见汉军而多欲不降,去病驰入其营,斩欲遁者八千,乃独遣浑邪乘传诣长安,尽将其众四万余(号十万)渡河来降。","汉纳之,置五属国以处降众;又以河西故地,先置酒泉,后陆续分置张掖、敦煌、武威四郡,徙民实边。自是断匈奴右臂,隔绝羌胡,亭障西延,而通西域之道大开。"]}
 };
 const CITY={
-  jilian:{t:"祁连山",d:"河西走廊之南,今甘肃",p:["霍去病夏出,临祁连、大破匈奴处。匈奴失之,歌「失我祁连山,使我六畜不蕃息」。"]},
-  gaolan:{t:"皋兰山",d:"今甘肃兰州一带",p:["春出激战之地。霍去病鏖战六日,斩折兰王、卢侯王于此。"]},
-  hexi:{t:"河西走廊",d:"今甘肃武威至敦煌一线",p:["霍去病长驱扫荡之地。夹祁连与大漠间,浑邪、休屠诸王据守。役后置四郡,通西域。"]},
-  yanzhi:{t:"焉支山",d:"今甘肃山丹东南",p:["霍去病越之而进千余里。匈奴失焉支,歌「失我焉支山,使我妇女无颜色」。"]},
-  shouxiang:{t:"受降处",d:"浑邪王率众降汉处",p:["浑邪王杀休屠王,并其众四万余,率部于河西受降归汉。汉遣霍去病渡河迎之。"]},
-  longxi:{t:"陇西",d:"汉之边郡,今甘肃临洮一带",p:["霍去病两出击匈奴之基地。春将万骑、夏深入二千余里,皆自陇西、北地而发。"]}
+  dunhuang:{t:"敦煌(敦煌郡)",d:"河西走廊西端,今甘肃敦煌",p:["走廊最西之门户,西控西域。元鼎六年(前111)分酒泉置敦煌郡,为汉通西域之总枢、玉门阳关所出。"]},
+  jiuquan:{t:"酒泉(酒泉郡)",d:"今甘肃酒泉",p:["河西四郡中最先置者。武帝以浑邪王故地置酒泉郡,稍徙民实之。相传霍去病倾御酒入泉与将士共饮,故名。"]},
+  zhangye:{t:"张掖(张掖郡)",d:"今甘肃张掖",p:["元鼎六年分酒泉置。名取『断匈奴之臂,张中国之掖(腋)』——河西之战意旨,尽寓此名。"]},
+  wuwei:{t:"武威(武威郡)",d:"今甘肃武威",p:["河西走廊东端,休屠王故地。太初四年(前101)置武威郡,以彰霍去病之武功军威,为四郡中最后置者。"]},
+  yanzhi:{t:"焉支山",d:"甘凉之交,今甘肃山丹东南",p:["霍去病春役越之而进千余里。匈奴失焉支,歌「失我焉支山,使我妇女无颜色」——焉支产可染之红蓝花,故与妇女颜色相关。"]},
+  qilian:{t:"祁连山",d:"河西走廊之南屏,连绵今甘青界",p:["霍去病夏役临祁连、大破匈奴处。匈奴失之,歌「失我祁连山,使我六畜不蕃息」。祁连,匈奴语『天』也。"]},
+  juyan:{t:"居延(居延泽)",d:"今内蒙古额济纳旗一带",p:["河西走廊之北、大漠弱水尽处。夏役霍去病大纵深迂回,绕居延而南,沿弱水直捣匈奴侧背——此二千余里奔袭之枢。"]},
+  gaolan:{t:"皋兰山",d:"旧说今兰州一带,或系河西合黎间",p:["春役『合短兵,鏖皋兰下』之地,斩折兰王、卢侯王。其确址旧说不一,或在陇西之北兰州,或在河西走廊内,姑识其疑。"]},
+  longxi:{t:"陇西",d:"汉之边郡,今甘肃临洮一带",p:["霍去病春役出兵之基。『将万骑出陇西』,长驱奔袭河西右部。汉之陇右门户,河西未通前之西陲。"]},
+  beidi:{t:"北地",d:"汉之边郡,今甘肃庆阳、宁夏灵武一带",p:["霍去病夏役出兵之基。与公孙敖俱出北地,自灵武渡河北上,行大纵深迂回逾居延。"]},
+  wangting:{t:"休屠王庭",d:"河西右部,近今武威一带",p:["休屠、浑邪二王驻牧之地。休屠有祭天金人,春役为汉所得。是秋浑邪于此杀休屠、并其众而降汉。"]},
+  shouxiang:{t:"受降处",d:"河西·黄河之侧",p:["浑邪王率众降汉、霍去病渡河往迎之地。裨将多欲不降,去病驰入斩欲遁者八千,遂受四万余众之降。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
