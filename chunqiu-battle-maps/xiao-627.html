@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>崤之战 · 周襄王二十六年(前627)</title>
+<title>崤之战 · 周襄王二十五年(前627)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -30,7 +30,10 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.n{fill:var(--ink2);opacity:.4}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.20);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,9 +48,8 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +58,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,102 +89,111 @@
   <div class="seal" aria-hidden="true"><span>崤</span><span>山</span><span>之</span><span>役</span></div>
   <header>
     <h1>崤之战</h1>
-    <div class="sub">周襄王二十六年(前627)　　<b>秦 孟明视</b>千里袭郑 · <i>晋 襄公</i>伏歼于崤</div>
+    <div class="sub">周襄王二十五年 · 鲁僖公三十三年(前627)　　<b>秦 孟明视</b>潜师千里袭郑 · <i>晋 襄公</i>伏歼于崤函险隘</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 秦师千里袭郑</button>
+    <button class="on" data-p="all">全图 · 潜师东出崤函</button>
     <button data-p="1">弦高犒师 · 灭滑而还</button>
     <button data-p="2">晋伏崤山险隘</button>
     <button data-p="3">全歼秦军 · 俘三帅</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="崤之战形势图,含秦晋疆界、河水崤山与雍郑滑洛邑绛等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="崤之战形势图,含秦晋周郑疆界、河水洛水、崤山二陵险隘与雍绛函谷崤山洛邑滑郑诸城邑">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:秦据关中(西),晋据河东(北),约以河水崤函为界 -->
-    <path d="M 330,0 C 340,120 320,220 300,320 C 288,400 300,500 320,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 330,0 C 340,120 320,220 300,320 C 288,400 300,500 320,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 330,0 C 340,120 320,220 300,320 C 288,400 300,500 320,640"/>
-    <text class="realm q" x="90" y="360" font-size="34">秦(关中)</text>
-    <text class="realm j" x="740" y="120" font-size="32">晋(河东)</text>
+    <!-- ══ 疆界:秦据关中(西),晋据河东(北,河水之上),周·郑处河洛之间(中·东) ══ -->
+    <!-- 晋·河东:河水以北全带 -->
+    <path d="M 0,0 L 1000,0 L 1000,318 C 880,326 760,334 640,344 C 540,352 430,356 320,372 C 240,384 130,384 0,372 Z" fill="url(#jinHatch)"/>
+    <!-- 秦·关中:河水以南、崤函以西之楔 -->
+    <path d="M 0,372 C 130,384 220,384 292,378 C 300,440 286,530 300,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <!-- 秦·东疆约界(崤函一线) -->
+    <path class="border" d="M 292,378 C 300,440 286,530 300,640"/>
+    <text class="realm j" x="710" y="120" font-size="30">晋(河东)</text>
+    <text class="realm q" x="70" y="540" font-size="28">秦(关中)</text>
+    <text class="realm n" x="600" y="560" font-size="20">周王畿 · 郑</text>
 
-    <!-- 河水(黄河):自西北经龙门南下,折而东出崤函 -->
-    <path class="river" stroke-width="5.5" d="M 300,40 C 330,110 360,180 380,250 C 396,308 430,340 500,352 C 580,366 660,360 740,360 C 820,360 910,362 1000,364"/>
-    <!-- 渭水:自西入河 -->
-    <path class="river" stroke-width="2.8" d="M 120,420 C 200,404 280,384 340,352 C 366,338 382,320 388,300"/>
-    <!-- 洛水 -->
-    <path class="river" stroke-width="2.2" d="M 560,240 C 566,290 574,326 590,346"/>
-    <text class="rname" x="640" y="382" style="font-size:13px">河 水</text>
-    <text class="rname" x="210" y="404" transform="rotate(-13 210 404)" style="font-size:11px">渭 水</text>
-    <text class="rname" x="562" y="292" transform="rotate(78 562 292)" style="font-size:10.5px">洛水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 河水(黄河):自西东流,横亘崤函之北,为崤函险道之北屏 -->
+    <path class="river" stroke-width="5.5" d="M 0,372 C 130,384 240,384 320,372 C 430,356 540,352 640,344 C 760,334 880,326 1000,318"/>
+    <!-- 洛水:自洛宁西南,经洛邑北流,会河水于巩 -->
+    <path class="river" stroke-width="2.6" d="M 313,504 C 400,470 470,445 520,428 C 560,414 620,398 681,384"/>
+    <text class="rname" x="150" y="360" style="font-size:13px">河 水</text>
+    <text class="rname" x="360" y="486" transform="rotate(-26 360 486)" style="font-size:11px">洛 水</text>
 
-    <!-- 崤山二陵:东西崤,险隘 -->
-    <g class="mtn" style="stroke-width:1.6">
-      <path d="M 560,420 l 12,-22 l 12,22 M 578,412 l 12,-24 l 12,24 M 598,420 l 11,-20 l 11,20"/>
-      <path d="M 616,432 l 11,-19 l 11,19 M 632,424 l 12,-22 l 12,22"/>
+    <!-- ══ 崤山二陵:东西二崤,延亘河洛之间,道狭险峻(伏歼之地) ══ -->
+    <path class="mtn fill" d="M 250,494 L 268,458 L 284,478 L 305,448 L 326,472 L 347,442 L 368,470 L 388,450 L 406,476 L 424,460 L 440,486 Z"/>
+    <g class="mtn" style="stroke-width:1.5">
+      <path d="M 296,468 l 12,-20 l 12,20 M 320,462 l 13,-22 l 13,22 M 350,466 l 12,-22 l 12,22 M 378,470 l 12,-20 l 12,20"/>
     </g>
-    <text class="cname s" x="556" y="452">二　崤(东西崤·险隘)</text>
+    <text class="mname" x="252" y="512" transform="rotate(-16 252 512)">崤 山 · 二 陵 险 隘</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="yong"><circle cx="140" cy="392" r="6"/><text class="cname" x="90" y="388">秦雍<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
-      <g class="city cap" data-city="jiang"><circle cx="620" cy="150" r="6"/><text class="cname" x="632" y="146">晋绛<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
-      <g class="city" data-city="luoyi"><circle cx="540" cy="330" r="5"/><text class="cname" x="470" y="326">周·洛邑</text></g>
-      <g class="city" data-city="xiao"><circle cx="612" cy="404" r="6"/><text class="cname" x="626" y="400">崤山<tspan class="cname s" dx="2">(伏歼)</tspan></text></g>
-      <g class="city" data-city="hua"><circle cx="700" cy="360" r="4"/><text class="cname s" x="708" y="356">滑(秦灭之)</text></g>
-      <g class="city cap" data-city="zheng"><circle cx="800" cy="392" r="6"/><text class="cname" x="812" y="388">郑<tspan class="cname s" dx="2">(新郑)</tspan></text></g>
+      <g class="city" data-city="hangu"><circle cx="198" cy="443" r="4"/><text class="cname s" x="150" y="438">函谷关</text></g>
+      <g class="city" data-city="xiao"><circle cx="347" cy="480" r="6.5"/><text class="cname" x="356" y="476">崤山<tspan class="cname s" dx="2">(伏歼)</tspan></text></g>
+      <g class="city" data-city="luoyi"><circle cx="543" cy="419" r="5"/><text class="cname" x="500" y="406">周·洛邑</text></g>
+      <g class="city" data-city="hua"><circle cx="635" cy="443" r="5"/><text class="cname" x="646" y="440">滑<tspan class="cname s" dx="2">(缑氏·秦灭之)</tspan></text></g>
+      <g class="city cap" data-city="zheng"><circle cx="842" cy="492" r="6"/><text class="cname" x="854" y="488">郑<tspan class="cname s" dx="2">(新郑)</tspan></text></g>
+      <g class="city cap" data-city="jiang"><circle cx="382" cy="174" r="6"/><text class="cname" x="394" y="170">晋绛<tspan class="cname s" dx="2">(晋都)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 秦师千里袭郑 -->
+    <!-- 雍(图外·西) -->
+    <g transform="translate(6,443)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,0 L 30,0"/>
+      <text class="mlabel q" x="0" y="-9" style="font-size:10px">⟵ 雍 · 关中</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--enemy);font-size:9.5px">秦都(图外西)</text>
+    </g>
+
+    <!-- 全图 · 潜师东出崤函 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 148,388 C 260,368 380,352 490,344 C 600,336 700,362 792,388"/>
-      <text class="mlabel q" x="300" y="330">秦穆公不听蹇叔,潜师东出,越晋境袭郑</text>
-      <text class="anno" x="470" y="352">师过周北门,王孙满料其「轻而无礼,必败」</text>
-      <text class="mlabel j" x="700" y="130">晋文公新卒,先轸主战,晋襄公发师</text>
-      <text class="anno" x="120" y="420">孟明视、西乞术、白乙丙将师,千里远袭</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,443 C 110,443 165,443 198,443 C 250,455 312,472 347,480 C 430,458 500,432 543,419 C 578,428 610,437 632,442"/>
+      <text class="mlabel q" x="210" y="512">孟明视、西乞术、白乙丙将师,潜师千里,越晋周之境</text>
+      <text class="anno" x="470" y="404">师过周北门,超乘者三百乘,王孙满料其「轻而无礼,必败」</text>
+      <text class="mlabel j" x="410" y="150">晋文公新卒,先轸主战「天奉我也」</text>
+      <text class="anno" x="70" y="470">蹇叔哭师:「劳师以袭远,非所闻也」</text>
     </g>
 
     <!-- 阶段一:弦高犒师 · 灭滑而还 -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 552,336 C 610,352 660,356 692,360"/>
-      <text class="mlabel q" x="560" y="326">秦师过周、东抵滑</text>
-      <text class="anno" x="640" y="344">郑商弦高遇之,矫郑君命,以十二牛犒师</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 700,368 C 660,382 600,392 500,388 C 420,384 340,380 300,384"/>
-      <text class="mlabel r" x="440" y="410">秦知郑有备,灭滑而还,西归就道</text>
-      <text class="anno" x="560" y="424">郑穆公亦逐秦戍,袭郑之谋遂废</text>
+      <path class="march q" marker-end="url(#aq)" d="M 552,424 C 590,432 614,438 630,442"/>
+      <text class="mlabel q" x="548" y="404">秦师过周,东抵滑</text>
+      <text class="anno" x="600" y="466">郑商弦高矫君命,以十二牛犒师,且驰告于郑</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 632,446 C 590,442 560,432 543,428 C 470,448 405,466 362,478"/>
+      <text class="mlabel r" x="400" y="512">秦知郑有备,灭滑取资而还,西归就道</text>
+      <text class="anno" x="640" y="500">郑穆公逐杞子等秦戍,袭郑之谋遂废</text>
     </g>
 
     <!-- 阶段二:晋伏崤山险隘 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 616,158 C 600,240 596,320 604,388"/>
-      <text class="mlabel j" x="620" y="250">晋襄公墨衰绖,合姜戎</text>
-      <text class="anno" x="620" y="268">染黑丧服而亲征,先轸、梁弘将中军</text>
-      <rect class="camp" x="700" y="352" width="8" height="8" transform="rotate(45 704 356)"/>
-      <text class="mlabel q" x="672" y="342">秦军还次滑,径入崤险</text>
-      <text class="mlabel j" x="470" y="470">晋预伏于二崤之险,扼秦归路</text>
-      <text class="anno" x="470" y="486">道狭多阻,一夫当关</text>
+      <path class="march j" marker-end="url(#aj)" d="M 382,186 C 366,270 354,382 349,468"/>
+      <text class="mlabel j" x="392" y="270">晋襄公墨衰绖,合姜戎,自绛南下</text>
+      <text class="anno" x="392" y="288">染黑丧服而亲征,先轸、梁弘将中军</text>
+      <rect class="camp" x="631" y="439" width="8" height="8" transform="rotate(45 635 443)"/>
+      <text class="mlabel q" x="580" y="430">秦军还次滑,径趋崤险</text>
+      <text class="mlabel j" x="220" y="540">预伏二崤之险,扼秦归路</text>
+      <text class="anno" x="220" y="556">道狭多阻,车不方轨,一夫当关</text>
     </g>
 
     <!-- 阶段三:全歼秦军 · 俘三帅 -->
     <g id="ph3" class="ph">
-      <path class="march q rout" marker-end="url(#ar)" d="M 692,362 C 660,378 636,392 620,400"/>
-      <circle class="star" cx="612" cy="404" r="10"/>
-      <text class="mlabel r" x="640" y="384">秦军入险,首尾不能相救</text>
-      <path class="march j" marker-end="url(#aj)" d="M 600,376 C 606,384 610,392 612,398"/>
-      <path class="march j" marker-end="url(#aj)" d="M 636,384 C 628,390 620,396 616,400"/>
-      <text class="mlabel j" x="470" y="500">晋伏兵四起,秦师尽没,无一得脱</text>
-      <text class="anno" x="470" y="516">俘孟明视、西乞术、白乙丙三帅</text>
-      <text class="anno" x="120" y="392">秦自是数年不能东出;文嬴请释三帅,先轸怒唾</text>
-      <text class="mlabel q" x="90" y="430">穆公素服郊迎,转而霸西戎</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 543,424 C 480,446 410,468 366,479"/>
+      <circle class="star" cx="347" cy="480" r="11"/>
+      <text class="mlabel r" x="430" y="454">秦军入险,首尾数十里,不能相救</text>
+      <path class="march j" marker-end="url(#aj)" d="M 349,432 C 348,448 347,462 347,470"/>
+      <path class="march j" marker-end="url(#aj)" d="M 398,458 C 380,466 366,472 358,476"/>
+      <text class="mlabel j" x="150" y="452">晋伏兵四起,鼓噪合击</text>
+      <text class="mlabel j" x="150" y="540">秦师尽没,无一得脱;俘孟明视、西乞术、白乙丙</text>
+      <text class="anno" x="560" y="512">文嬴请释三帅,先轸怒而不顾唾</text>
+      <text class="mlabel q" x="20" y="588">秦自是数年不能东出,穆公素服郊迎,转而霸西戎</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,568)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -180,30 +206,75 @@
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>秦军(远袭)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>还师·覆没</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>伏歼</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>秦</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>晋</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>崤山·河洛</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>晋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>崤函释要 · 千里袭远与险隘设伏</h3>
+    <div class="lead">何以覆师于崤,非战之罪 —— 系于千里之劳与一谷之险</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="崤函示意:秦师东出千里,归途束于崤谷,晋自河东南下伏其上">
+      <!-- 崤函走廊:两山壁夹一线,崤谷处收窄 -->
+      <path d="M 40,66 C 220,66 300,92 360,112 C 300,92 220,66 40,66" fill="none"/>
+      <path class="wall" d="M 40,66 C 230,66 300,94 360,114 C 470,74 640,66 820,66" fill="none" stroke="#5c4f38" stroke-width="1.4" opacity=".65"/>
+      <path class="wall" d="M 40,186 C 230,186 300,158 360,138 C 470,178 640,186 820,186" fill="none" stroke="#5c4f38" stroke-width="1.4" opacity=".65"/>
+      <path d="M 40,66 C 230,66 300,94 360,114 C 470,74 640,66 820,66 L 820,186 C 640,186 470,178 360,138 C 300,158 230,186 40,186 Z" fill="rgba(92,79,56,.10)"/>
+      <!-- 崤谷·收束之颈 -->
+      <path d="M 336,80 l 12,-18 l 12,18 M 336,172 l 12,18 l 12,-18" fill="none" stroke="#5c4f38" stroke-width="1.2" opacity=".8"/>
+      <text x="330" y="52" fill="#2b2418" font-size="11.5" font-weight="700">崤 · 二陵险隘</text>
+      <text x="300" y="208" fill="#5c4f38" font-size="10" font-style="italic">道狭:车不方轨,骑不成列</text>
+      <!-- 两端 -->
+      <text x="30" y="122" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="start">雍·关中</text>
+      <text x="30" y="136" fill="#5c4f38" font-size="9">(秦基·西)</text>
+      <text x="762" y="122" fill="#5c4f38" font-size="11" font-weight="700">滑·郑</text>
+      <text x="742" y="136" fill="#5c4f38" font-size="9">(袭远之极·东)</text>
+      <!-- 秦师东出(上,红实) -->
+      <path d="M 70,92 C 240,88 470,86 700,90" fill="none" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)"/>
+      <text x="430" y="80" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">秦师东出千里 →</text>
+      <!-- 秦师西归(下,褐虚),束于崤谷 -->
+      <path d="M 700,160 C 470,164 440,162 380,150 C 366,146 356,140 350,134" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="470" y="176" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">← 疲师西归,复束于崤</text>
+      <!-- 晋自河东南下,伏于谷上(青) -->
+      <path d="M 348,14 C 348,44 348,74 348,104" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="356" y="26" fill="#1f4e54" font-size="10.5" font-weight="700">晋自河东南下,伏于险</text>
+      <!-- 伏歼金环 -->
+      <circle cx="348" cy="126" r="12" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="366" y="130" fill="#9c7a2c" font-size="10.5" font-weight="700">伏歼</text>
+    </svg>
+    <p class="intro">崤函为关中通中原之唯一孔道:<b>北屏河水,南倚崤山,一线绝谷,车不方轨</b>。秦师欲袭千里之外的郑,去来皆须两度穿此绝谷。蹇叔哭师时已断言「晋人御师必于崤」——去时可乘郑之不备而侥幸,归时则师疲、备失、谋泄,而险隘早为晋所据。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>险隘设伏 · 一夫当关</h4>
+        <p>崤有二陵(东西二崤),相距三十五里,山路绝险,「其南陵夏后皋之墓,其北陵文王所辟风雨」。晋襄公合姜戎,预伏于此,扼秦归路。秦师入谷,首尾数十里不能相救,晋伏兵四起,一战尽没,无一人一骑得脱,三帅俱擒——地形之利,尽归设伏之晋。</p>
+      </div>
+      <div class="c b">
+        <h4>千里袭远 · 师劳而谋泄</h4>
+        <p>蹇叔谏「劳师以袭远,非所闻也;师劳力竭,远主备之」,穆公不听而哭师。秦潜师逾晋、周之境,行千里而谋泄于弦高;郑既有备,袭之无功,乃灭滑取资,徒得疲师而归。深入无所得、归途乏警,正堕先轸预设之伏——劳师远袭,自蹈死地。</p>
+      </div>
+    </div>
+    <p class="kicker">崤之败,<b>非战阵之不力,实千里袭远、师归失备而险隘遭伏之必然</b>。蹇叔哭师之言一一而验:是役晋全歼秦师、俘其三帅,<b>塞秦东出之路</b>;秦乃折而西向,并国十二、开地千里,遂霸西戎——春秋争霸之格局,自此一变。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《左传·僖公三十二至三十三年》《史记·秦本纪》约略绘出。崤山在今河南洛宁、三门峡间,有东西二崤(二陵),道狭险峻;秦雍在今陕西凤翔,晋绛在今山西翼城、曲沃间,郑之新郑在今河南新郑,滑在今河南偃师、缑氏一带,周洛邑在今河南洛阳。城邑水道为相对示意,非按实测。</p>
-    <p><span class="n">注二</span>晕染疆界为春秋中期形势示意:秦据关中,晋据河东,河水崤函之险横亘其间,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>秦穆公不听蹇叔哭师之谏,潜师千里袭郑;弦高矫命犒师、灭滑而还,遂启晋伏崤之隙。此役晋歼秦师、俘其三帅,塞秦东出之路,秦乃西向而霸戎——春秋霸业格局自此再变。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作简易墨卡托投影(x=60+(经−110.3)×230,y=590−(纬−34.0)×245),几何关系力求近实:秦雍在西(图外),函谷、崤山、洛邑、滑自西而东列于崤函走廊,郑在其东,晋绛居北。崤山在今河南洛宁西北、西接陕县,分东西二崤(二陵),延亘河水、洛水之间,道狭险峻;函谷关在今灵宝,周洛邑今洛阳,滑(费)在今偃师缑氏镇,郑之新郑今河南新郑,秦雍今陕西凤翔,晋绛今山西翼城、曲沃间。江河疆界为相对描绘,非按实测。</p>
+    <p><span class="n">注二</span>晕染疆界为春秋中期形势示意:秦据关中,以崤函为东屏;晋据河东(河水之北);河洛之间为周王畿及郑、滑诸小国,秦师东出实越晋、周之境而袭郑。故以点划「约界」标崤函一线,非实有画界。旧图以东境全属晋,与史实未合,今改绘。</p>
+    <p><span class="n">注三</span>史源:《左传·僖公三十二年》载晋文公卒、杞子告秦、蹇叔哭师;《僖公三十三年》载秦师过周北门、弦高犒师、灭滑而还,及「夏四月辛巳,败秦师于崤,获百里孟明视、西乞术、白乙丙以归」,晋「遂墨以葬文公,晋于是始墨」。《史记·秦本纪》《晋世家》略同。滑之今地(偃师缑氏)一说其始封在睢县,后徙费,此从徙费说;崤山确址在洛宁、陕县间学界无异说。纪年前627年确,周襄王年数旧志或作二十五、二十六年,今从二十五年。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"秦师千里袭郑",d:"周襄王二十六年 · 前627",p:["晋文公卒,秦穆公欲乘丧图东方之利。杞子自郑告以「潜师掩袭,郑可得也」,穆公不听蹇叔哭师之谏,遣孟明视、西乞术、白乙丙将师,潜师东出,越晋、周之境,千里以袭郑。","秦师过周北门,车不释甲、超乘而进,王孙满观之,料其「轻而无礼,必败」。晋则文公新丧,先轸主张邀击,曰「秦不哀吾丧而伐吾同姓,天奉我也」,晋襄公乃谋发师。"]},
-  "1":{t:"弦高犒师 · 灭滑而还",d:"前627 · 春",p:["秦师东行至滑,郑商人弦高将市于周,途遇秦军。弦高矫郑穆公之命,以十二牛犒秦师,且遣人驰告于郑。孟明视等以为郑已知其谋而有备,袭之无功、围之不继。","郑穆公亦逐杞子等秦戍。孟明视曰「郑有备矣,不可冀也」,遂灭滑——滑,姬姓小国——取其资而还师西归。千里袭郑之谋,竟以一商人之诈而废。"]},
-  "2":{t:"晋伏崤山险隘",d:"前627 · 夏四月",p:["晋襄公墨衰绖——染黑其丧服而亲征,以先轸、梁弘、莱驹将中军,合姜戎之众,预伏于崤山之险,专候秦师之还。","崤有二陵(二崤):其南陵,夏后皋之墓;其北陵,文王所避风雨。道狭而多阻,车不得方轨、骑不得成列,实一夫当关之地。晋据险以待,扼秦归路,伏而不发。"]},
-  "3":{t:"全歼秦军 · 俘三帅",d:"前627 · 夏四月",p:["秦师还,径入崤险,首尾数十里,不能相救。晋伏兵四起,鼓噪合击;秦军猝不及防,进退失据,一战而尽没,无一人一骑得脱。","晋俘孟明视、西乞术、白乙丙三帅以归。晋文嬴(襄公嫡母,秦女)请释三帅,襄公许之;先轸闻之大怒,不顾而唾。秦自是数年不能东出;穆公素服郊迎败军,悔过自誓,转而并国十二、开地千里,遂霸西戎。"]}
+  all:{t:"潜师东出崤函",d:"周襄王二十五年 · 前627",p:["晋文公卒,秦穆公欲乘丧图东方之利。杞子自郑告以「郑人使我掌其北门之管,若潜师以来,国可得也」,穆公不听蹇叔哭师之谏,遣孟明视、西乞术、白乙丙将师,潜师东出,逾晋、周之境,千里以袭郑。","蹇叔哭曰「劳师以袭远,非所闻也;师劳力竭,远主备之」,又指其归途曰「晋人御师必于崤;崤有二陵……必死是间,余收尔骨焉」。秦师过周北门,车不释甲、超乘者三百乘,王孙满观之,料其「轻而无礼,必败」。晋则文公新丧,先轸主张邀击「秦不哀吾丧而伐吾同姓,天奉我也」,晋襄公乃谋发师。"]},
+  "1":{t:"弦高犒师 · 灭滑而还",d:"前627 · 春",p:["秦师东行至滑,郑商人弦高将市于周,途遇秦军。弦高矫郑穆公之命,以乘韦先、十二牛犒秦师,且遣人驰告于郑。孟明视等以为郑已知其谋而有备,「攻之不克,围之不继」,袭之无功。","郑穆公使视客馆,则束载、厉兵、秣马矣,乃逐杞子等秦戍。孟明曰「郑有备矣,不可冀也」,遂灭滑——滑,姬姓小国,徙费在今偃师缑氏——取其资而还师西归。千里袭郑之谋,竟以一商人之诈而废,徒得疲师就道。"]},
+  "2":{t:"晋伏崤山险隘",d:"前627 · 夏四月",p:["晋襄公墨衰绖——染黑其丧服而亲征,以先轸、梁弘、莱驹将中军,合姜戎之众,自绛南下,预伏于崤山之险,专候秦师之还。","崤有二陵(东西二崤,相距三十五里):其南陵,夏后皋之墓;其北陵,文王所辟风雨。北屏河水、南倚崤山,道狭而多阻,车不得方轨、骑不得成列,实一夫当关之地。晋据险以待,扼秦归路,伏而不发。"]},
+  "3":{t:"全歼秦军 · 俘三帅",d:"前627 · 夏四月辛巳",p:["秦师还,径入崤险,首尾数十里,不能相救。晋伏兵四起,鼓噪合击;秦军猝不及防,进退失据,一战而尽没,无一人一骑得脱。","晋俘孟明视、西乞术、白乙丙三帅以归,遂墨以葬文公,晋于是始墨。晋文嬴(襄公嫡母,秦女)请释三帅,襄公许之;先轸闻之大怒,不顾而唾。秦自是数年不能东出;穆公素服郊迎败军「孤违蹇叔,以辱二三子」,不替孟明,悔过自誓,转而并国十二、开地千里,遂霸西戎。"]}
 };
 const CITY={
-  yong:{t:"秦雍",d:"秦都,今陕西凤翔",p:["秦穆公之都。穆公不听蹇叔哭师之谏,自此发师千里袭郑;败还之后,素服郊迎败军于此,悔过自誓。"]},
-  jiang:{t:"晋绛",d:"晋都,今山西翼城、曲沃间",p:["晋之国都。文公新卒,先轸力主邀秦;晋襄公自此发师,墨衰绖而亲征。"]},
-  luoyi:{t:"周·洛邑",d:"东周王城,今河南洛阳",p:["秦师所过之地。师出周北门,超乘而进,王孙满观之,料其「轻而无礼,必败」。"]},
-  xiao:{t:"崤山",d:"险隘,今河南洛宁、三门峡间",p:["有东西二崤(二陵),道狭多阻,一夫当关。晋襄公合姜戎伏于此,秦师入险，全军覆没,三帅被俘——伏歼之地。"]},
-  hua:{t:"滑",d:"姬姓小国,今河南偃师、缑氏一带",p:["秦师东抵之地。弦高矫命犒师,秦知郑有备,乃灭滑取资而还师西归。"]},
-  zheng:{t:"郑(新郑)",d:"郑都,今河南新郑",p:["秦所欲袭之国。赖弦高矫命犒师、郑穆公逐秦戍,袭郑之谋遂废,秦师折而灭滑。"]}
+  hangu:{t:"函谷关",d:"崤函西口,今河南灵宝",p:["关中东出中原之门户,崤函走廊之西端。秦师潜师东出,自此入二崤险道,趋周、滑而袭郑。"]},
+  xiao:{t:"崤山(二崤·二陵)",d:"险隘,今河南洛宁西北、西接陕县",p:["有东西二崤(二陵),相距三十五里,延亘河水、洛水之间,道狭多阻,一夫当关。蹇叔哭师即预言「晋人御师必于崤」。晋襄公合姜戎伏于此,秦师入险,全军覆没,三帅被俘——伏歼之地。"]},
+  luoyi:{t:"周·洛邑",d:"东周王城,今河南洛阳",p:["秦师所过之地。师出周北门,超乘而进,王孙满观之,料其「轻而无礼,必败」——秦越周王畿之境以袭郑,已启众怒。"]},
+  hua:{t:"滑(费)",d:"姬姓小国,今河南偃师缑氏镇",p:["秦师东抵之极点。弦高矫命犒师、郑逐秦戍,秦知郑有备,乃灭滑取资而还师西归。秦虽灭滑而不能有其地,滑地后入于晋。"]},
+  zheng:{t:"郑(新郑)",d:"郑都,今河南新郑",p:["秦所欲潜袭之国。杞子掌其北门之管,乃有袭郑之谋;赖弦高矫命犒师、郑穆公逐秦戍,袭郑之谋遂废,秦师折而灭滑。"]},
+  jiang:{t:"晋绛",d:"晋都,今山西翼城、曲沃间",p:["晋之国都。文公新卒,先轸力主邀秦「天奉我也」;晋襄公自此发师南下,墨衰绖而亲征,合姜戎伏于崤。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

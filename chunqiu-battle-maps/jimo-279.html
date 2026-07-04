@@ -29,7 +29,7 @@
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.5}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
@@ -46,8 +46,9 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .fireburst{fill:var(--gold);opacity:.55}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +57,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,7 +88,7 @@
   <div class="seal" aria-hidden="true"><span>即</span><span>墨</span><span>之</span><span>役</span></div>
   <header>
     <h1>即墨之战 · 火牛阵</h1>
-    <div class="sub">周赧王三十六年(前279)　　<i>齐 田单</i> 火牛破燕 · <b>燕 骑劫</b>殒于即墨</div>
+    <div class="sub">周赧王三十六年(前279)　　<i>齐 田单</i> 火牛破燕 · <b>燕 骑劫</b>殒于即墨,尽复七十余城</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 燕围即墨</button>
@@ -81,89 +97,128 @@
     <button data-p="3">火牛破燕 · 复国</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="即墨之战火牛阵形势图,含燕所占齐地与即墨孤城疆界、海淄胶诸水与即墨莒临淄等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="即墨之战火牛阵形势图,含燕所占齐地与齐仅存莒即墨二城之疆界、渤海与淄潍胶诸水、即墨莒临淄安平等城邑,及火牛夜出与西向收复七十余城之进军">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.09)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.34)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:燕破齐,尽占齐地(外围/北),唯即墨孤城(内)未下 -->
+    <!-- ══ 疆界:乐毅破齐,尽占齐地(斜纹满染);齐仅存莒、即墨二城(青纹二岛) ══ -->
     <path d="M 0,0 L 1000,0 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,300 C 620,300 700,340 700,410 C 700,480 630,530 545,530 C 460,530 395,478 395,410 C 395,342 470,300 560,300 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,300 C 620,300 700,340 700,410 C 700,480 630,530 545,530 C 460,530 395,478 395,410 C 395,342 470,300 560,300 Z"/>
-    <text class="realm q" x="120" y="120" font-size="30">燕 据 齐 地</text>
-    <text class="realm j" x="470" y="418" font-size="20">即墨孤城</text>
+    <!-- 齐·即墨孤城(东) -->
+    <path d="M 720,214 C 762,214 786,242 786,278 C 786,316 758,342 718,342 C 680,342 656,314 656,278 C 656,242 682,214 720,214 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 720,214 C 762,214 786,242 786,278 C 786,316 758,342 718,342 C 680,342 656,314 656,278 C 656,242 682,214 720,214 Z"/>
+    <!-- 齐·莒(南) -->
+    <path d="M 468,518 C 496,518 512,538 512,560 C 512,584 492,600 468,600 C 446,600 426,584 426,560 C 426,538 442,518 468,518 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 468,518 C 496,518 512,538 512,560 C 512,584 492,600 468,600 C 446,600 426,584 426,560 C 426,538 442,518 468,518 Z"/>
+    <text class="realm q" x="92" y="122" font-size="28">燕 据 齐 地</text>
+    <text class="cname s" x="96" y="146" style="fill:var(--enemy);opacity:.55">乐毅长驱,下七十余城,皆为郡县属燕</text>
+    <text class="realm j" x="694" y="200" font-size="15">齐</text>
+    <text class="realm j" x="452" y="512" font-size="14">齐</text>
 
-    <!-- 海:东,即墨近海(渤海/胶州湾) -->
-    <path d="M 840,80 C 800,180 790,300 800,420 C 808,510 830,580 880,640 L 1000,640 L 1000,80 Z" fill="rgba(95,127,136,.28)" stroke="rgba(95,127,136,.5)" stroke-width="1"/>
-    <text class="rname" x="890" y="330" transform="rotate(84 890 330)" style="font-size:15px;letter-spacing:.3em">海</text>
+    <!-- ══ 海:东,即墨滨海(渤海·胶州湾) ══ -->
+    <path d="M 840,60 C 806,160 798,290 806,410 C 813,505 838,585 882,640 L 1000,640 L 1000,60 Z" fill="rgba(95,127,136,.28)" stroke="rgba(95,127,136,.5)" stroke-width="1"/>
+    <text class="rname" x="892" y="320" transform="rotate(84 892 320)" style="font-size:15px;letter-spacing:.3em">渤 海</text>
 
-    <!-- 淄水:自西南流向北,经临淄 -->
-    <path class="river" stroke-width="3" d="M 210,470 C 240,400 268,320 290,240 C 302,196 316,150 336,110"/>
-    <text class="rname" x="300" y="230" transform="rotate(-68 300 230)" style="font-size:11px">淄 水</text>
-    <!-- 胶水:自南向北,近即墨东 -->
-    <path class="river" stroke-width="2.4" d="M 700,560 C 712,470 720,380 726,290 C 730,230 736,170 748,120"/>
-    <text class="rname" x="742" y="250" transform="rotate(-82 742 250)" style="font-size:11px">胶 水</text>
+    <!-- ══ 水系:淄、潍、胶三水皆自南北流,入海 ══ -->
+    <!-- 淄水:临淄所临,西境大川 -->
+    <path class="river" stroke-width="3" d="M 348,470 C 356,400 360,330 362,272 C 364,214 360,164 356,120"/>
+    <text class="rname" x="326" y="360" transform="rotate(-84 326 360)" style="font-size:11px">淄 水</text>
+    <!-- 潍水:中川 -->
+    <path class="river" stroke-width="2.4" d="M 528,540 C 534,450 538,362 540,292 C 542,232 546,180 552,132"/>
+    <text class="rname" x="516" y="360" transform="rotate(-85 516 360)" style="font-size:10.5px">潍 水</text>
+    <!-- 胶水:即墨之西 -->
+    <path class="river" stroke-width="2.4" d="M 628,560 C 636,470 642,382 646,300 C 649,242 653,184 660,132"/>
+    <text class="rname" x="618" y="410" transform="rotate(-85 618 410)" style="font-size:10.5px">胶 水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="jimo"><circle cx="560" cy="412" r="6.5"/><text class="cname" x="572" y="408">即墨<tspan class="cname s" dx="2">(田单守·火牛复国基)</tspan></text></g>
-      <g class="city" data-city="ju"><circle cx="500" cy="576" r="5"/><text class="cname" x="512" y="580">莒<tspan class="cname s" dx="2">(齐未下城)</tspan></text></g>
-      <g class="city cap" data-city="linzi"><circle cx="290" cy="332" r="5.5"/><text class="cname" x="200" y="328">临淄<tspan class="cname s" dx="2">(齐旧都)</tspan></text></g>
-      <g class="city" data-city="yancamp"><circle cx="640" cy="356" r="4"/><text class="cname s" x="618" y="344">燕军大营</text></g>
-      <g class="city" data-city="ji"><circle cx="150" cy="90" r="5"/><text class="cname" x="162" y="86">蓟<tspan class="cname s" dx="2">(燕本土)</tspan></text></g>
-      <g class="city" data-city="qishi"><circle cx="230" cy="180" r="3.5"/><text class="cname s" x="242" y="176">齐七十余城(燕所占)</text></g>
+      <g class="city cap" data-city="jimo"><circle cx="720" cy="276" r="6.5"/><text class="cname" x="700" y="266" text-anchor="end">即墨<tspan class="cname s" dx="2">(田单守·火牛复国基)</tspan></text></g>
+      <g class="city" data-city="ju"><circle cx="468" cy="562" r="5.5"/><text class="cname" x="480" y="566">莒<tspan class="cname s" dx="2">(襄王行在·齐未下城)</tspan></text></g>
+      <g class="city cap" data-city="linzi"><circle cx="363" cy="250" r="6"/><text class="cname" x="351" y="246" text-anchor="end">临淄<tspan class="cname s" dx="2">(齐旧都)</tspan></text></g>
+      <g class="city" data-city="anping"><circle cx="426" cy="224" r="4"/><text class="cname s" x="436" y="220">安平<tspan class="cname s" dx="1">(田单故里)</tspan></text></g>
+      <g class="city" data-city="yancamp"><circle cx="648" cy="300" r="4"/><text class="cname s" x="628" y="322" text-anchor="end">燕军大营</text></g>
+      <g class="city" data-city="qishi"><circle cx="236" cy="196" r="3.5"/><text class="cname s" x="248" y="192">齐七十余城(燕所占)</text></g>
     </g>
 
-    <!-- 全图 · 燕围即墨 · 田单守 -->
+    <!-- 蓟·赵(图外·西北) -->
+    <g transform="translate(6,70)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,4 L 30,10"/>
+      <text class="mlabel q" x="0" y="-4" style="font-size:10px">⟵ 蓟 · 燕都(图外西北)</text>
+      <text class="cname s" x="0" y="24" style="fill:var(--ink2);font-size:9.5px">燕惠王遣将;乐毅奔赵在此方</text>
+    </g>
+
+    <!-- 火牛阵·签识:即墨城恒燃之火(复国之基所在) -->
+    <g transform="translate(746,250)" aria-hidden="true">
+      <path d="M0,6 C -8,-1 -7,-13 0,-20 C 1,-12 9,-10 6,-1 C 5,4 2,6 0,6 Z" fill="#9c7a2c" opacity=".92"/>
+      <path d="M0,4 C -4,0 -4,-7 0,-11 C 1,-6 5,-5 3,-1 C 2,2 1,4 0,4 Z" fill="#9a2b1e" opacity=".85"/>
+    </g>
+
+    <!-- ══ 全图 · 燕围即墨 · 田单守 ══ -->
     <g id="phAll" class="ph">
-      <circle class="siege" cx="560" cy="412" r="30"/>
-      <rect class="camp" x="636" y="352" width="8" height="8" transform="rotate(45 640 356)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 250,200 C 360,260 460,320 620,352"/>
-      <text class="mlabel q" x="300" y="252">乐毅破齐,尽取七十余城</text>
-      <text class="anno" x="470" y="470">唯莒、即墨不下;即墨大夫战死,城中共立田单为将</text>
-      <text class="mlabel j" x="470" y="392">田单坚守孤城,数年不拔</text>
+      <path class="march q" marker-end="url(#aq)" d="M 150,120 C 320,178 470,236 636,294"/>
+      <text class="mlabel q" x="250" y="214">乐毅破齐,尽取七十余城</text>
+      <circle class="siege" cx="720" cy="276" r="46"/>
+      <circle class="siege" cx="468" cy="562" r="30"/>
+      <rect class="camp" x="644" y="296" width="8" height="8" transform="rotate(45 648 300)"/>
+      <text class="anno" x="470" y="404">唯莒、即墨不下;即墨大夫出战死,城中共立田单为将</text>
+      <text class="mlabel j" x="540" y="360">田单坚守孤城,数年不拔</text>
     </g>
 
-    <!-- 阶段一:反间去乐毅 · 骑劫代之 -->
+    <!-- ══ 阶段一:反间去乐毅 · 骑劫代之 ══ -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="560" cy="412" r="30"/>
-      <path class="march j" marker-end="url(#aj)" d="M 540,398 C 420,300 280,200 168,108"/>
-      <text class="mlabel j" x="300" y="180">田单纵反间于燕:言乐毅欲连齐自王</text>
-      <text class="anno" x="180" y="132">燕昭王卒,惠王立,素与乐毅有隙</text>
-      <path class="march r" marker-end="url(#ar)" d="M 200,120 C 150,180 120,260 110,340"/>
-      <text class="mlabel r" x="60" y="300">惠王以骑劫代乐毅,乐毅奔赵</text>
-      <rect class="camp" x="636" y="352" width="8" height="8" transform="rotate(45 640 356)"/>
+      <circle class="siege" cx="720" cy="276" r="46"/>
+      <rect class="camp" x="644" y="296" width="8" height="8" transform="rotate(45 648 300)"/>
+      <!-- 田单纵反间,流言入燕(自即墨西北达于蓟) -->
+      <path class="march j" marker-end="url(#aj)" d="M 700,268 C 520,196 340,144 158,110"/>
+      <text class="mlabel j" x="330" y="160">田单纵反间:言乐毅欲连齐自王</text>
+      <!-- 惠王以骑劫代乐毅,自蓟遣至围城 -->
+      <path class="march q" marker-end="url(#aq)" d="M 150,124 C 320,186 480,244 636,296"/>
+      <text class="mlabel q" x="250" y="216">惠王中间,以骑劫代乐毅</text>
+      <!-- 乐毅惧诛,西奔赵 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 636,302 C 440,262 240,238 60,232"/>
+      <text class="mlabel r" x="232" y="288">乐毅惧诛,不归而奔赵</text>
+      <text class="anno" x="120" y="184">昭王卒,惠王立,素与乐毅有隙</text>
     </g>
 
-    <!-- 阶段二:示弱励士 · 骄惑燕军 -->
+    <!-- ══ 阶段二:示弱励士 · 骄惑燕军 ══ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="560" cy="412" r="30"/>
-      <rect class="camp" x="636" y="352" width="9" height="9" transform="rotate(45 640 356)"/>
-      <text class="mlabel j" x="450" y="360">田单托神师·祭先祖以致鸟</text>
-      <path class="march q" marker-end="url(#aq)" d="M 636,368 C 610,392 588,404 578,410"/>
-      <text class="mlabel q" x="600" y="430">燕军劓降卒·掘城外冢墓</text>
-      <text class="anno" x="470" y="452">齐人益怒益固,人思一战</text>
-      <text class="mlabel j" x="470" y="490">既而示弱请降,燕军懈备</text>
+      <circle class="siege" cx="720" cy="276" r="46"/>
+      <rect class="camp" x="644" y="296" width="9" height="9" transform="rotate(45 648 300)"/>
+      <text class="mlabel j" x="700" y="220" text-anchor="end">田单托神师·祭先祖以致飞鸟</text>
+      <!-- 燕军劓卒掘冢,反激齐众 -->
+      <path class="march q" marker-end="url(#aq)" d="M 636,304 C 668,314 692,306 708,292"/>
+      <text class="mlabel q" x="600" y="352" text-anchor="end">燕劓降卒·掘城外冢墓</text>
+      <text class="anno" x="470" y="376">齐人益怒益固,人思一战,怒自十倍</text>
+      <text class="mlabel j" x="470" y="430">既而遣使约降,又收金遗燕将,燕军益懈</text>
     </g>
 
-    <!-- 阶段三:火牛夜出 · 大破燕军 · 复国 -->
+    <!-- ══ 阶段三:火牛夜出 · 大破燕军 · 西逐复国 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 570,398 C 596,384 616,372 632,362"/>
-      <text class="mlabel j" x="560" y="380">夜纵千牛,角刃尾火,直冲燕营</text>
-      <circle class="star" cx="640" cy="356" r="9"/>
-      <path class="march q rout" marker-end="url(#aq)" d="M 648,352 C 720,300 780,240 820,180"/>
-      <text class="mlabel r" x="700" y="250">燕军夜溃,骑劫死于乱军</text>
-      <path class="march j" marker-end="url(#aj)" d="M 620,368 C 480,420 360,400 300,346"/>
-      <text class="mlabel j" x="360" y="440">追亡逐北,城邑皆叛燕归田单</text>
-      <path class="march j" marker-end="url(#aj)" d="M 520,540 C 480,500 400,440 300,346"/>
-      <text class="anno" x="360" y="530">迎襄王于莒,遂复七十余城,还都临淄</text>
+      <!-- 火牛夜出,直冲燕营 -->
+      <path class="march j" marker-end="url(#aj)" d="M 704,282 C 688,290 672,296 660,299"/>
+      <text class="mlabel j" x="700" y="252" text-anchor="end">夜纵千牛,角刃尾火,直冲燕营</text>
+      <!-- 火牛破营·金色火爆签识 -->
+      <g class="fireburst" transform="translate(648,300)">
+        <path d="M0,-25 L5,-9 L21,-15 L9,-3 L24,4 L8,4 L15,21 L2,8 L-4,25 L-6,8 L-21,16 L-8,2 L-24,-3 L-8,-5 L-18,-19 L-2,-9 Z"/>
+      </g>
+      <circle class="star" cx="648" cy="300" r="11"/>
+      <circle cx="648" cy="300" r="3.5" fill="#9a2b1e"/>
+      <!-- 燕军夜溃,杀骑劫,西北走河上 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 636,300 C 440,240 240,192 62,158"/>
+      <text class="mlabel r" x="300" y="196">燕军夜溃,杀骑劫,走河上</text>
+      <!-- 西向收复七十余城,至临淄 -->
+      <path class="march j" marker-end="url(#aj)" d="M 704,290 C 600,346 486,336 380,262"/>
+      <text class="mlabel j" x="470" y="336">追亡逐北,七十余城皆叛燕归齐</text>
+      <!-- 迎襄王自莒还临淄 -->
+      <path class="march j" marker-end="url(#aj)" d="M 462,548 C 428,462 392,356 368,262"/>
+      <text class="anno" x="380" y="470">迎襄王于莒,还都临淄,田单封安平君</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(952,592)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -174,33 +229,91 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>齐军(田单)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>燕军(骑劫)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(火牛破燕)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>燕军溃逐</span>
+    <span class="item"><svg width="20" height="20"><path d="M10,1 L12,7 L18,4 L13,9 L19,11 L13,11 L15,18 L10,12 L7,19 L6,12 L1,15 L6,9 L1,8 L7,7 L4,2 L9,7 Z" fill="#9c7a2c" opacity=".6"/><circle cx="10" cy="10" r="4.5" fill="none" stroke="#9c7a2c" stroke-width="1.8"/></svg>火牛破燕</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>燕久围</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>燕据齐地</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>即墨</span>
+    <span class="item"><svg width="14" height="18"><path d="M7,17 C1,12 2,5 7,1 C8,7 13,8 11,14 C10,16 8,17 7,17 Z" fill="#9c7a2c"/></svg>火牛阵·复国基</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>燕据齐地</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>齐(莒·即墨)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>诡道释要 · 反间 · 示弱 · 火牛</h3>
+    <div class="lead">何以孤城复七十余城,不专恃火牛 —— 田单心理与奇兵之术</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="田单破燕之术示意:反间去良将,示弱骄敌励士,火牛夜袭一举破之">
+      <text x="24" y="30" fill="#5c4f38" font-size="12" font-style="italic" opacity=".85">田单之谋:三术相因,而后一夕决胜</text>
+      <!-- ① 反间 -->
+      <rect x="24" y="52" width="188" height="150" rx="4" fill="rgba(31,78,84,.06)" stroke="#1f4e54" stroke-width="1.4"/>
+      <text x="40" y="80" fill="#1f4e54" font-size="15" font-weight="700">① 反间</text>
+      <text x="40" y="106" fill="#2b2418" font-size="11.5">流言:乐毅欲连齐自王</text>
+      <text x="40" y="128" fill="#5c4f38" font-size="11">惠王素与乐毅有隙</text>
+      <line x1="40" y1="142" x2="196" y2="142" stroke="#5c4f38" stroke-width=".8" stroke-dasharray="2 3" opacity=".5"/>
+      <text x="40" y="164" fill="#9a2b1e" font-size="11.5" font-weight="700">→ 骑劫代将,良将去</text>
+      <text x="40" y="186" fill="#5c4f38" font-size="10.5">燕将士愤惋不和</text>
+      <path d="M 214,127 L 246,127" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#se)"/>
+      <!-- ② 示弱 -->
+      <rect x="250" y="52" width="188" height="150" rx="4" fill="rgba(31,78,84,.06)" stroke="#1f4e54" stroke-width="1.4"/>
+      <text x="266" y="80" fill="#1f4e54" font-size="15" font-weight="700">② 示弱</text>
+      <text x="266" y="106" fill="#2b2418" font-size="11.5">神师·致鸟,坚众心</text>
+      <text x="266" y="128" fill="#2b2418" font-size="11.5">诈降·收金遗燕将</text>
+      <line x1="266" y1="142" x2="422" y2="142" stroke="#5c4f38" stroke-width=".8" stroke-dasharray="2 3" opacity=".5"/>
+      <text x="266" y="164" fill="#9a2b1e" font-size="11.5" font-weight="700">→ 燕劓卒·掘冢</text>
+      <text x="266" y="186" fill="#1f4e54" font-size="11">齐怒十倍 · 燕益懈</text>
+      <path d="M 440,127 L 472,127" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#se)"/>
+      <!-- ③ 火牛 -->
+      <rect x="476" y="52" width="188" height="150" rx="4" fill="rgba(156,122,44,.09)" stroke="#9c7a2c" stroke-width="1.6"/>
+      <text x="492" y="80" fill="#9c7a2c" font-size="15" font-weight="700">③ 火牛</text>
+      <text x="492" y="106" fill="#2b2418" font-size="11.5">千牛五彩,角刃尾火</text>
+      <text x="492" y="128" fill="#2b2418" font-size="11.5">夜凿城穴,壮士五千继</text>
+      <line x1="492" y1="142" x2="648" y2="142" stroke="#5c4f38" stroke-width=".8" stroke-dasharray="2 3" opacity=".5"/>
+      <text x="492" y="164" fill="#9a2b1e" font-size="11.5" font-weight="700">→ 燕军夜大惊</text>
+      <text x="492" y="186" fill="#5c4f38" font-size="10.5">牛触尽死伤,鼓噪动天地</text>
+      <path d="M 666,127 L 698,127" fill="none" stroke="#9a2b1e" stroke-width="1.8" marker-end="url(#sr)"/>
+      <!-- 结果 -->
+      <rect x="702" y="72" width="134" height="110" rx="4" fill="rgba(154,43,30,.07)" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="718" y="104" fill="#9a2b1e" font-size="14" font-weight="700">燕军大溃</text>
+      <text x="718" y="128" fill="#2b2418" font-size="11.5">杀骑劫,走河上</text>
+      <text x="718" y="152" fill="#1f4e54" font-size="11.5" font-weight="700">尽复七十余城</text>
+      <text x="718" y="172" fill="#5c4f38" font-size="10.5">迎襄王还临淄</text>
+      <defs>
+        <marker id="se" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5c4f38"/></marker>
+        <marker id="sr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      </defs>
+    </svg>
+    <p class="intro">田单守孤城数年而不能出,骤战则众寡不敌。其破燕非一夕之勇,乃<b>先坏其将、次骄其军、终出以奇兵</b>三术相因:去乐毅之良将而代以骑劫,是坏其帅;神师、诈降、掘冢劓卒,是一以励齐、一以骄燕;火牛夜袭,则乘其懈而出其不意。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>心理之术 · 反间与示弱</h4>
+        <p>反间去乐毅,燕失长于用兵之将,士卒由是不和;继以托神师坚己心、诈降收金骄敌心,又扬言畏燕劓卒掘冢——燕果如其言而行,城中人尽怒,人思一战,怒自十倍,而燕军日益懈怠。战未接,而胜负之势已移。</p>
+      </div>
+      <div class="c b">
+        <h4>奇兵之术 · 火牛夜袭</h4>
+        <p>收千余牛,衣以五彩龙文,束兵刃于角、灌脂燃苇于尾,夜凿城数十穴纵之,壮士五千衔枚随后,城上老弱击铜器为声。牛怒奔燕营,所触尽死伤,燕军夜大惊而溃。以久蓄之怒、出不意之兵,一举破数年之围。</p>
+      </div>
+    </div>
+    <p class="kicker">故田单之胜,<b>非独恃火牛</b>:诡道备而后一夕破之——反间坏其将,示弱骄其军、励其士,火牛乃收全功。<b>惠王中间以骑劫代乐毅,燕之所以败也</b>。既破,乘胜西逐,所过城邑皆叛燕归齐,七十余城复为齐有,迎襄王还临淄,田单以功封安平君。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·田单列传》《史记·乐毅列传》约略绘出。即墨在今山东平度东南,莒在今莒县,临淄在今淄博东北,蓟为燕都在今北京西南。海、淄水、胶水及城邑方位皆为相对示意,非实测画界。</p>
-    <p><span class="n">注二</span>晕染疆界示乐毅破齐后之形势:燕尽取齐七十余城,故以斜纹满染;唯莒与即墨二城不下,此图独绘即墨孤城以另纹标之。虚线红环示燕军久围之势,红菱为燕军大营。</p>
-    <p><span class="n">注三</span>田单之胜,不专恃火牛:先以反间去乐毅,继以神师、劓卒、掘冢骄燕而励齐,终乃示弱请降以懈其备——诡道备具,而后一夕破之。骑劫代将,燕之所以败也。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作简易墨卡托投影定位,几何力求近实:即墨在东(今山东平度东南,约120.0°E,36.7°N),莒在南(今莒县,约118.8°E,35.6°N),临淄居西偏北(今淄博东北,约118.3°E,36.8°N),安平近临淄(田单故里),燕据齐地自西北方而来。蓟(燕都,今北京西南)、赵远在西北图外,以边箭示之。渤海与淄、潍、胶诸水及疆界皆为相对示意,非实测画界。</p>
+    <p><span class="n">注二</span>晕染疆界示乐毅破齐后之形势:燕合五国之兵伐齐,长驱下七十余城,尽为郡县以属燕,故以斜纹满染;唯莒与即墨二城不下,故独以青纹二岛标之。虚线红环示燕军久围之势,红菱为燕军大营。齐襄王(法章)避难于莒。</p>
+    <p><span class="n">注三</span>田单之胜,不专恃火牛:先以反间去乐毅,继以神师、诈降、劓卒掘冢一骄燕而一励齐,终乃夜纵火牛、壮士五千继之以破燕营——诡道备具,而后一夕决之。骑劫代将,燕之所以败也。事详《史记·田单列传》,兼采《史记·乐毅列传》《资治通鉴·周纪》。</p>
+    <p><span class="n">注四</span>牛数「千余」、壮士「五千」、城「七十余」皆《史记》之约数;即墨故城确址,旧说在今平度东南朱毛村一带,与今即墨市非一地,姑从平度说。乐毅奔赵封观津,号望诸君。诸数与地望,后世多有考订，此图从本传。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"燕围即墨 · 田单守",d:"周赧王三十二年—三十六年(前284—前279)",p:["燕昭王用乐毅,合五国之兵伐齐,大破之。乐毅长驱入齐,下七十余城,尽为郡县以属燕,唯莒、即墨二城不下。","燕师围即墨,即墨大夫出战而死。城中相与推田单为将,曰:「安平之战,田单宗人以铁笼得全,是善为兵。」田单既将,坚守孤城,数年不拔。"]},
-  "1":{t:"反间去乐毅 · 骑劫代之",d:"前279 · 燕惠王初立",p:["会燕昭王卒,子惠王立。惠王为太子时,尝与乐毅有隙。田单闻之,乃纵反间于燕,曰:「乐毅与燕新王有隙,畏诛而不敢归,以伐齐为名,实欲连兵南面而王齐耳。齐人所惧,唯恐他将之来。」","惠王固已疑乐毅,得反间之言,乃使骑劫代将,而召乐毅。乐毅惧诛,遂西奔赵,赵封之以观津。燕将士由是愤惋不和——齐之转机始此。"]},
-  "2":{t:"示弱励士 · 骄惑燕军",d:"前279 · 骑劫围城",p:["田单乃令城中人食必祭其先祖于庭,飞鸟悉翔舞下食;因伪托有神师下教,以坚众心。又扬言:「吾唯惧燕人劓所得齐卒置之前行,又惧其掘吾城外冢墓、僇先人。」燕人闻之,如其言而行,城中人尽怒,人思一战,怒自十倍。","田单知士卒之可用,身操版插,与士卒分功,妻妾编于行伍之间,尽散饮食飨士。既而使老弱女子乘城,遣使约降于燕,燕军皆呼万岁;又收民金,使即墨富豪遗燕将,愿降时勿掠。燕军由是益懈而怠。"]},
-  "3":{t:"火牛夜出 · 大破燕军 · 复国",d:"前279 · 一夕决胜",p:["田单乃收城中得千余牛,为绛缯衣,画以五彩龙文,束兵刃于其角,而灌脂束苇于尾,烧其端。夜凿城数十穴,燃牛尾而纵之,壮士五千人随其后。牛尾热,怒而奔燕军。燕军夜大惊,牛所触尽死伤,五千人因衔枚击之,城上鼓噪,老弱皆击铜器为声,声动天地。","燕军大骇,败走,齐人遂杀其将骑劫。齐人追亡逐北,所过城邑皆叛燕而归田单,兵日益多,乘胜。燕日败亡,走至河上,而齐七十余城皆复为齐。乃迎襄王于莒,入临淄而听政,田单以功封安平君。"]}
+  all:{t:"燕围即墨 · 田单守",d:"周赧王三十二年—三十六年(前284—前279)",p:["燕昭王用乐毅,合五国之兵伐齐,大破之。乐毅长驱入齐,下七十余城,尽为郡县以属燕,唯莒、即墨二城不下。齐湣王死于莒,子法章立,是为襄王,避处莒城。","燕师围即墨,即墨大夫出战而死。城中相与推田单为将,曰:「安平之战,田单宗人以铁笼得全,是善为兵。」田单既将,坚守孤城,数年不拔。"]},
+  "1":{t:"反间去乐毅 · 骑劫代之",d:"前279 · 燕惠王初立",p:["会燕昭王卒,子惠王立。惠王为太子时,尝与乐毅有隙。田单闻之,乃纵反间于燕,曰:「乐毅与燕新王有隙,畏诛而不敢归,以伐齐为名,实欲连兵南面而王齐耳。齐人所惧,唯恐他将之来。」","惠王固已疑乐毅,得反间之言,乃使骑劫代将,而召乐毅。乐毅惧诛,遂西奔赵,赵封之以观津,号望诸君。燕将士由是愤惋不和——齐之转机始此。"]},
+  "2":{t:"示弱励士 · 骄惑燕军",d:"前279 · 骑劫围城",p:["田单乃令城中人食必祭其先祖于庭,飞鸟悉翔舞下食;因伪托有神师下教,以坚众心。又扬言:「吾唯惧燕人劓所得齐卒置之前行,又惧其掘吾城外冢墓、僇先人。」燕人闻之,如其言而行,城中人尽怒,人思一战,怒自十倍。","田单知士卒之可用,身操版插,与士卒分功,妻妾编于行伍之间,尽散饮食飨士。既而使老弱女子乘城,遣使约降于燕,燕军皆呼万岁;又收民金,使即墨富豪遗燕将,愿降时勿掠其家。燕军由是益懈而怠。"]},
+  "3":{t:"火牛夜出 · 大破燕军 · 复国",d:"前279 · 一夕决胜",p:["田单乃收城中得千余牛,为绛缯衣,画以五彩龙文,束兵刃于其角,而灌脂束苇于尾,烧其端。夜凿城数十穴,燃牛尾而纵之,壮士五千人随其后。牛尾热,怒而奔燕军。燕军夜大惊,牛所触尽死伤,五千人因衔枚击之,城上鼓噪,老弱皆击铜器为声,声动天地。","燕军大骇,败走,齐人遂杀其将骑劫。齐人追亡逐北,所过城邑皆叛燕而归田单,兵日益多,乘胜而西。燕日败亡,走至河上,而齐七十余城皆复为齐。乃迎襄王于莒,入临淄而听政,田单以功封安平君。"]}
 };
 const CITY={
-  jimo:{t:"即墨",d:"今山东平度东南",p:["齐东境大邑。乐毅破齐,唯此城与莒不下。即墨大夫战死,城中推田单为将,坚守数年,终以火牛夜破燕军,为复国之基。"]},
-  ju:{t:"莒",d:"今山东莒县",p:["与即墨并为燕师所不能下之二城。齐襄王(法章)避难于此。田单复国后,迎襄王于莒,还都临淄。"]},
-  linzi:{t:"临淄",d:"齐旧都,今淄博东北",p:["齐之故都,燕破齐时陷没。田单破燕、尽复失地,乃迎襄王入临淄而听政,齐社稷复安。"]},
-  yancamp:{t:"燕军大营",d:"围即墨之燕师屯所",p:["骑劫代乐毅后,燕师围即墨城下。田单示弱骄之,燕军懈备;火牛夜冲此营,燕军惊溃,骑劫死于乱军之中。"]},
-  ji:{t:"蓟 · 燕",d:"燕都,今北京西南",p:["燕之本土。昭王卒,惠王立于此。惠王中反间,以骑劫代乐毅,遂启败亡之机;乐毅惧诛,不归而奔赵。"]},
-  qishi:{t:"齐七十余城",d:"燕所占齐地,待复",p:["乐毅长驱,下齐七十余城,皆为郡县属燕。田单破燕之后,追亡逐北,所过城邑皆叛燕归齐,七十余城复为齐有。"]}
+  jimo:{t:"即墨",d:"今山东平度东南",p:["齐东境滨海大邑。乐毅破齐,唯此城与莒不下。即墨大夫出战而死,城中推田单为将,坚守数年,终以火牛夜破燕军,为复国之基。"]},
+  ju:{t:"莒",d:"今山东莒县",p:["与即墨并为燕师所不能下之二城。齐湣王死于此,襄王(法章)立而避难于莒。田单复国后,迎襄王于莒,还都临淄。"]},
+  linzi:{t:"临淄",d:"齐旧都,今淄博东北",p:["齐之故都,燕破齐时陷没。田单破燕、西向尽复失地,乃迎襄王入临淄而听政,齐社稷复安。"]},
+  anping:{t:"安平",d:"今淄博东,近临淄",p:["田单故里。燕初破齐,安平之战,田单令宗人尽断车轴末而傅以铁笼,及城溃,独以完车得脱,时人服其善为兵——城中因是推之为将。"]},
+  yancamp:{t:"燕军大营",d:"围即墨之燕师屯所",p:["骑劫代乐毅后,燕师围即墨城下。田单示弱骄之,燕军懈备;火牛夜冲此营,所触尽死伤,燕军惊溃,骑劫死于乱军之中。"]},
+  qishi:{t:"齐七十余城",d:"燕所占齐地,待复",p:["乐毅长驱,下齐七十余城,皆为郡县属燕。田单破燕之后,乘胜而西,追亡逐北,所过城邑皆叛燕归齐,七十余城复为齐有。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

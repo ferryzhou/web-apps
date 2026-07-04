@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -27,11 +28,12 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,27 +42,42 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:10 6;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .landing{fill:var(--gold);stroke:var(--ink);stroke-width:1.2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.8s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -74,16 +91,16 @@
   <div class="seal" aria-hidden="true"><span>柏</span><span>举</span><span>之</span><span>役</span></div>
   <header>
     <h1>柏举之战</h1>
-    <div class="sub">周敬王十四年(前506)　　<i>吴 阖闾 · 孙武 · 伍子胥</i> 五战入郢 · <b>楚 子常</b>柏举大溃</div>
+    <div class="sub">周敬王十四年(前506)　　<i>吴 阖闾 · 孙武 · 伍子胥</i> 溯淮舍舟 · 五战入郢,大破 <b>楚 子常</b> 于柏举　·　<em>唐 · 蔡</em>为助</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 吴溯淮舍舟</button>
+    <button class="on" data-p="all">全图 · 溯淮舍舟</button>
     <button data-p="1">夹汉而陈 · 子常擅渡</button>
     <button data-p="2">柏举决战 · 夫概先犯</button>
     <button data-p="3">清发半渡 · 五战入郢</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="柏举之战形势图,含吴楚疆界、淮水汉水清发水长江与柏举郢都汉水淮汭大别山等城邑水道">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="柏举之战形势图,含楚与吴唐蔡形势疆界、淮水汉水清发水长江诸水、大别山三关、吴师溯淮之水路与舍舟越关之陆路,及柏举郢都淮汭州来诸城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -92,90 +109,106 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:楚据西,吴据东,约以大别山、淮汭一带为界 -->
-    <path d="M 470,0 C 476,90 456,170 440,250 C 428,320 436,400 452,470 C 466,540 460,590 470,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 476,90 456,170 440,250 C 428,320 436,400 452,470 C 466,540 460,590 470,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 476,90 456,170 440,250 C 428,320 436,400 452,470 C 466,540 460,590 470,640"/>
-    <text class="realm q" x="120" y="150" font-size="34">楚(西)</text>
-    <text class="realm j" x="740" y="150" font-size="32">吴(东)</text>
+    <!-- ══ 形势疆界:楚据江汉之西(主),吴及唐蔡据淮东(客),约以大别山—淮汭一线相隔 ══ -->
+    <path d="M 560,0 C 600,140 660,260 720,360 C 772,448 840,548 900,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 560,0 C 600,140 660,260 720,360 C 772,448 840,548 900,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 560,0 C 600,140 660,260 720,360 C 772,448 840,548 900,640"/>
+    <text class="realm q" x="120" y="200" font-size="34">楚(江汉)</text>
+    <text class="realm j" x="800" y="86" font-size="26">吴 · 蔡唐</text>
+    <text class="cname s" x="806" y="108" style="fill:var(--advance);opacity:.7">(淮东之助)</text>
 
-    <!-- 淮水:自东北,吴溯淮而西,至淮汭 -->
-    <path class="river" stroke-width="4.2" d="M 960,150 C 880,168 800,186 720,206 C 660,222 610,238 578,256"/>
-    <!-- 汉水:楚陈师拒吴处,自西北南下入江 -->
-    <path class="river" stroke-width="4.6" d="M 210,120 C 226,200 246,280 268,360 C 288,428 312,470 350,500"/>
-    <!-- 清发水:追击半渡,汉东 -->
-    <path class="river" stroke-width="3" d="M 350,300 C 388,336 424,368 452,398"/>
-    <!-- 长江:南境,自西向东 -->
-    <path class="river" stroke-width="5.5" d="M 150,560 C 260,548 360,528 452,514 C 560,498 660,500 760,520 C 850,538 920,548 1000,552"/>
-    <text class="rname" x="720" y="196" transform="rotate(-13 720 196)">淮 水</text>
-    <text class="rname" x="238" y="240" transform="rotate(76 238 240)">汉 水</text>
-    <text class="rname" x="392" y="330" transform="rotate(42 392 330)" style="font-size:10.5px">清发水</text>
-    <text class="rname" x="560" y="512" style="font-size:13px">长 江</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 淮水:自桐柏西源东流,吴师溯之而西上,至淮汭舍舟 -->
+    <path class="river" stroke-width="4.4" d="M 322,176 C 440,164 560,150 690,146 C 800,142 890,140 965,132"/>
+    <!-- 汉水:自西北南下入江,楚夹汉而陈 -->
+    <path class="river" stroke-width="4.6" d="M 198,104 C 232,190 268,272 302,344 C 332,404 372,446 432,476"/>
+    <!-- 清发水(涢水):汉东一水,楚半渡被击处 -->
+    <path class="river" stroke-width="2.8" d="M 392,300 C 410,336 430,368 452,404"/>
+    <!-- 长江:南境大川,自西向东 -->
+    <path class="river" stroke-width="5.6" d="M 80,548 C 220,532 360,514 470,504 C 600,492 720,492 840,504 C 910,511 955,516 978,520"/>
+    <text class="rname" x="560" y="140" transform="rotate(-4 560 140)">淮 水</text>
+    <text class="rname" x="234" y="230" transform="rotate(72 234 230)">汉 水</text>
+    <text class="rname" x="404" y="352" transform="rotate(58 404 352)" style="font-size:10.5px">清发水·涢</text>
+    <text class="rname" x="600" y="500" style="font-size:13px">长 江</text>
 
-    <!-- 大别、小别山:吴楚三战处,中西 -->
-    <g class="mtn"><path d="M 366,336 l 9,-15 l 9,15 M 384,330 l 9,-15 l 9,15 M 402,336 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="360" y="356">大别·小别山</text>
+    <!-- ══ 大别山:分淮汉两大流域,大隧、直辕、冥厄三关所在 ══ -->
+    <path class="mtn fill" d="M 556,320 L 578,282 L 600,306 L 622,266 L 646,298 L 670,258 L 694,296 L 720,260 L 744,300 L 768,266 L 792,300 L 814,272 L 830,302 Z"/>
+    <path class="mtn" d="M 604,296 l 16,-24 l 14,18 l 18,-26 l 15,20 l 17,-24"/>
+    <text class="mname" x="600" y="258" transform="rotate(-16 600 258)">大 别 山</text>
+    <text class="cname s" x="662" y="336" style="opacity:.85">大隧·直辕·冥厄 三关</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="baiju"><circle cx="516" cy="392" r="6"/><text class="cname" x="524" y="388">柏举<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city cap" data-city="ying"><circle cx="230" cy="486" r="6"/><text class="cname" x="176" y="482">郢<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
-      <g class="city" data-city="hanshui"><circle cx="286" cy="392" r="4.5"/><text class="cname s" x="222" y="410">汉水(楚陈师)</text></g>
-      <g class="city" data-city="huairui"><circle cx="576" cy="258" r="5"/><text class="cname" x="584" y="254">淮汭<tspan class="cname s" dx="2">(舍舟)</tspan></text></g>
-      <g class="city" data-city="qingfa"><circle cx="452" cy="398" r="4"/><text class="cname s" x="460" y="418">清发水(半渡)</text></g>
-      <g class="city" data-city="dabie"><circle cx="404" cy="330" r="3.5"/><text class="cname s" x="412" y="322">大别山(三战)</text></g>
+      <g class="city" data-city="baiju"><circle cx="610" cy="365" r="6"/><text class="cname" x="618" y="361">柏举<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city cap" data-city="ying"><circle cx="205" cy="492" r="6.5"/><text class="cname" x="150" y="488">郢<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
+      <g class="city" data-city="huairui"><circle cx="778" cy="156" r="5.5"/><text class="cname" x="720" y="150">淮汭<tspan class="cname s" dx="2">(舍舟)</tspan></text></g>
+      <g class="city" data-city="zhoulai"><circle cx="880" cy="140" r="4.5"/><text class="cname s" x="888" y="136">州来·下蔡</text></g>
+      <g class="city" data-city="sanguan"><circle cx="745" cy="320" r="4"/><text class="cname s" x="700" y="312">三关</text></g>
+      <g class="city" data-city="hanshui"><circle cx="308" cy="348" r="4.5"/><text class="cname s" x="238" y="342">汉水(楚陈师)</text></g>
+      <g class="city" data-city="qingfa"><circle cx="452" cy="404" r="4"/><text class="cname s" x="416" y="424">清发水(半渡)</text></g>
     </g>
 
-    <!-- 全图 · 吴溯淮舍舟 -->
+    <!-- 吴都·姑苏(图外·东南) -->
+    <g transform="translate(958,300)">
+      <path class="march sea" marker-end="url(#aj)" d="M 30,26 L 6,2"/>
+      <text class="mlabel j" x="-108" y="44" style="font-size:10px">吴都·姑苏(图外东南) ⟶</text>
+      <text class="cname s" x="-52" y="60" style="fill:var(--advance);font-size:9.5px">阖闾自吴溯淮西上</text>
+    </g>
+
+    <!-- ══ 全图 · 溯淮舍舟 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aj)" d="M 950,158 C 850,182 740,210 588,252"/>
-      <text class="mlabel j" x="690" y="230">吴悉师溯淮而西</text>
-      <path class="march j" marker-end="url(#aj)" d="M 570,264 C 500,300 440,320 412,330"/>
-      <text class="anno" x="470" y="290">至淮汭舍舟登陆,越大别山</text>
-      <path class="march j" marker-end="url(#aj)" d="M 398,336 C 360,362 320,376 298,388"/>
-      <text class="mlabel j" x="300" y="360">间道千里奔袭,进抵汉水</text>
-      <text class="mlabel q" x="120" y="220">楚不意吴至,仓卒陈师拒之</text>
+      <!-- 水路:自东南溯淮而西,至淮汭 -->
+      <path class="march sea" marker-end="url(#aj)" d="M 950,290 C 946,240 936,196 908,172 C 862,150 820,152 786,156"/>
+      <text class="mlabel j" x="828" y="230">吴悉师溯淮而西(水路)</text>
+      <!-- 舍舟登陆记号 -->
+      <polygon class="landing" points="778,142 784,154 772,154"/>
+      <text class="anno" x="700" y="182">舍舟登陆</text>
+      <!-- 陆路:舍舟越大别三关,间道千里奔袭 -->
+      <path class="march j" marker-end="url(#aj)" d="M 774,166 C 762,224 752,272 746,310"/>
+      <path class="march j" marker-end="url(#aj)" d="M 740,328 C 620,344 470,348 322,350"/>
+      <text class="mlabel j" x="470" y="336">舍舟越三关,间道千里奔袭(陆路)</text>
+      <text class="mlabel q" x="120" y="286">楚不虞吴自淮至,仓卒陈师夹汉拒之</text>
     </g>
 
-    <!-- 阶段一:夹汉而陈 · 子常擅渡 -->
+    <!-- ══ 阶段一:夹汉而陈 · 子常擅渡 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 250,470 C 262,440 272,418 280,400"/>
-      <text class="mlabel q" x="150" y="446">楚令尹子常率师北上,夹汉而陈</text>
-      <rect class="camp" x="276" y="388" width="9" height="9" transform="rotate(45 280 392)"/>
-      <text class="anno" x="176" y="374">沈尹戌请断吴归路、夹击之,子常不从</text>
-      <path class="march q" marker-end="url(#aq)" d="M 294,388 C 320,382 344,378 360,376"/>
-      <text class="mlabel q" x="300" y="404">贪功擅渡汉水,舍险求战</text>
-      <path class="march j" marker-end="url(#aj)" d="M 400,340 C 388,352 378,362 372,368"/>
-      <text class="mlabel j" x="392" y="356">吴退而待之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 213,482 C 246,438 280,398 302,360"/>
+      <text class="mlabel q" x="150" y="452">楚令尹子常率师北上,夹汉而陈</text>
+      <rect class="camp" x="303" y="342" width="9" height="9" transform="rotate(45 307 346)"/>
+      <text class="anno" x="150" y="316">左司马沈尹戌请塞三关、焚吴舟,断其归路而夹击之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 320,350 C 366,354 412,358 446,360"/>
+      <text class="mlabel q" x="330" y="378">子常贪功擅渡汉水,舍险求战</text>
+      <path class="march j" marker-end="url(#aj)" d="M 560,360 C 528,360 500,360 480,360"/>
+      <text class="mlabel j" x="500" y="342">吴退而待之</text>
     </g>
 
-    <!-- 阶段二:柏举决战 · 夫概先犯 -->
+    <!-- ══ 阶段二:柏举决战 · 夫概先犯 ══ -->
     <g id="ph2" class="ph">
-      <path class="march q rout" marker-end="url(#ar)" d="M 372,372 C 420,378 468,384 506,388"/>
-      <text class="mlabel r" x="400" y="368">楚三战三北,退至柏举</text>
-      <rect class="camp" x="510" y="376" width="9" height="9" transform="rotate(45 514 380)"/>
-      <text class="mlabel q" x="470" y="360">子常列阵柏举</text>
-      <path class="march j" marker-end="url(#aj)" d="M 470,412 C 486,406 500,400 510,396"/>
-      <text class="mlabel j" x="416" y="430">夫概以先锋五千先犯子常</text>
-      <circle class="star" cx="516" cy="392" r="8"/>
-      <text class="anno" x="430" y="446">子常之卒奔,楚阵大乱,吴乘之大破楚师</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 452,362 C 502,364 552,366 596,366"/>
+      <text class="mlabel r" x="452" y="352">楚三战三北,退保柏举</text>
+      <rect class="camp" x="606" y="350" width="9" height="9" transform="rotate(45 610 354)"/>
+      <text class="mlabel q" x="560" y="336">子常列阵柏举</text>
+      <path class="march j" marker-end="url(#aj)" d="M 688,388 C 660,382 636,376 622,372"/>
+      <text class="mlabel j" x="636" y="404">夫概以先锋五千径犯子常之军</text>
+      <circle class="star" cx="610" cy="365" r="9"/>
+      <text class="anno" x="470" y="432">子常之卒先奔,楚阵大乱,吴乘之大破楚师</text>
     </g>
 
-    <!-- 阶段三:清发半渡 · 五战入郢 -->
+    <!-- ══ 阶段三:清发半渡 · 五战入郢 ══ -->
     <g id="ph3" class="ph">
-      <path class="march q rout" marker-end="url(#ar)" d="M 508,394 C 490,396 472,398 460,398"/>
-      <text class="mlabel r" x="440" y="382">楚师溃走清发水</text>
-      <path class="march j" marker-end="url(#aj)" d="M 508,398 C 490,400 474,400 462,400"/>
-      <circle class="star" cx="452" cy="398" r="7"/>
-      <text class="anno" x="360" y="420">吴追及,待其半渡而击,又败之</text>
-      <path class="march j" marker-end="url(#aj)" d="M 444,404 C 380,436 300,462 246,480"/>
-      <text class="mlabel j" x="280" y="452">五战及郢</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 224,480 C 190,440 156,392 132,340"/>
-      <text class="mlabel r" x="130" y="400">楚昭王弃都出奔</text>
-      <text class="anno" x="150" y="510">吴遂入郢;伍子胥掘平王墓鞭尸</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 600,368 C 550,378 500,390 466,400"/>
+      <text class="mlabel r" x="486" y="360">楚师溃走清发水</text>
+      <path class="march j" marker-end="url(#aj)" d="M 604,374 C 556,388 508,398 468,404"/>
+      <circle class="star" cx="452" cy="404" r="7"/>
+      <text class="anno" x="360" y="440">吴追及,待其半渡而击,又败之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 440,412 C 360,442 280,468 222,486"/>
+      <text class="mlabel j" x="280" y="470">五战及郢</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 194,498 C 168,516 148,530 130,544"/>
+      <text class="mlabel r" x="60" y="536">楚昭王弃都出奔,涉睢济江</text>
+      <text class="anno" x="150" y="466">吴遂入郢;伍子胥掘平王墓以鞭尸</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,588)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -184,35 +217,82 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>吴军(陆)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>吴军溯淮(舟)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>吴军(陆路)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="10 6"/></svg>吴军溯淮(水路·舟师)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>楚师溃退</span>
+    <span class="item"><svg width="16" height="16"><polygon points="8,2 13,13 3,13" fill="#9c7a2c" stroke="#2b2418" stroke-width="1"/></svg>舍舟登陆</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>吴</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>楚</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>吴·蔡唐</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 舍舟与三关</h3>
+    <div class="lead">何以千里奔袭而大胜 —— 系于『舍舟』一着:出楚不意,掩其不备</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="舍舟奇袭示意:淮水流域与江汉流域中隔大别山三关,吴师溯淮舍舟越关,自楚不虞之北突入">
+      <!-- 淮水流域(北) -->
+      <path d="M 24,58 C 300,52 560,54 836,50" fill="none" stroke="#5f7f88" stroke-width="5" opacity=".85"/>
+      <text x="26" y="44" fill="#5f7f88" font-size="12" font-weight="700">淮水流域 · 北(吴舟所溯)</text>
+      <!-- 江汉流域(南) -->
+      <path d="M 24,214 C 300,208 560,210 836,206" fill="none" stroke="#5f7f88" stroke-width="4.5" opacity=".85"/>
+      <text x="26" y="236" fill="#5f7f88" font-size="12" font-weight="700">江汉流域 · 南(楚都郢所在)</text>
+      <!-- 分水岭:大别山三关 -->
+      <path d="M 24,132 l 40,-16 l 34,16 l 42,-16 l 34,16 l 42,-16 l 34,16 l 42,-16 l 34,16 l 42,-16 l 34,16 l 42,-16 l 34,16 l 42,-16 l 34,16 l 42,-16 l 34,16 l 40,-16" fill="none" stroke="#5c4f38" stroke-width="1.3" opacity=".6"/>
+      <text x="300" y="150" fill="#5c4f38" font-size="11" font-style="italic" opacity=".85">大别山 · 大隧 / 直辕 / 冥厄 三关(分水之险)</text>
+      <!-- 水路:溯淮西上(青虚线) -->
+      <path d="M 792,58 L 320,58" fill="none" stroke="#1f4e54" stroke-width="3" stroke-dasharray="10 6" opacity=".9"/>
+      <path d="M 322,58 L 340,52 L 340,64 Z" fill="#1f4e54"/>
+      <circle cx="792" cy="58" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="700" y="46" fill="#2b2418" font-size="11" font-weight="700">州来·下蔡</text>
+      <!-- 舍舟节点 -->
+      <polygon points="300,44 308,60 292,60" fill="#9c7a2c" stroke="#2b2418" stroke-width="1.2"/>
+      <text x="196" y="42" fill="#9c7a2c" font-size="11.5" font-weight="700">淮汭 · 舍舟 ▼</text>
+      <!-- 陆路:舍舟越三关南下(金实线,决胜之奇) -->
+      <path d="M 300,66 L 300,210" fill="none" stroke="#9c7a2c" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 300,212 L 294,196 L 306,196 Z" fill="#9c7a2c"/>
+      <circle cx="300" cy="212" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="196" y="230" fill="#9c7a2c" font-size="11" font-weight="700">越三关 · 陆道奇袭 ↓</text>
+      <!-- 楚之所备:望吴于江(南),失其自淮之突至 -->
+      <path d="M 560,206 C 620,188 660,176 690,168" fill="none" stroke="#9a2b1e" stroke-width="1.6" opacity=".55" stroke-dasharray="3 4"/>
+      <text x="556" y="196" fill="#9a2b1e" font-size="10.5" font-weight="700" opacity=".85">楚素备吴于江 ✕未虞其自淮</text>
+    </svg>
+    <p class="intro">吴、楚旧争在江、淮之间;<b>楚素以舟师备吴于大江</b>,谓吴之来必循江西上。阖闾用孙武、伍子胥之谋,反其道:先溯淮水而西,至淮汭『舍舟』登陆,弃舟师之利而就陆道之速,越大别山三关,自楚所不虞之北陲突入——一着『舍舟』,而奇正易势。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>水路 · 溯淮西上</h4>
+        <p>吴悉师自吴,与唐、蔡合,循淮水溯流而西。淮为吴所习、所据(州来即下蔡已入于吴),舟行千里而楚不以为意——此为『掩其形』之程,示敌以循常之势。</p>
+      </div>
+      <div class="c b">
+        <h4>陆路 · 舍舟越关</h4>
+        <p>至淮汭忽舍舟登陆,越大隧、直辕、冥厄三关,间道疾趋汉水。舍所长(舟)而用所奇(陆),千里掩其不备;比楚觉而陈师,吴已夹汉。此为决胜之奇着。</p>
+      </div>
+    </div>
+    <p class="kicker">故柏举之捷,首不在阵战而在庙算:<b>舍舟登陆、越关奇袭,出楚不意于千里之外</b>。楚令尹子常复贪功擅渡、不用沈尹戌『塞关焚舟、夹而击之』之谋,自弃地利——一奇一拙,胜负遂决于未战之先。孙子所谓『出其所不趋,趋其所不意』,柏举其明验也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《左传·定公四年》《史记·吴太伯世家/伍子胥列传/孙子吴起列传》约略绘出。柏举在今湖北麻城(一说汉川),郢为楚都(今湖北荆州纪南城),淮水、汉水、清发水、长江诸水道及城邑位置为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为吴楚形势示意:楚据江汉之西,吴据淮泗之东,约以大别、淮汭一带为交锋之地;故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>吴王阖闾用孙武、伍子胥,先以三师更番扰楚而疲之,积年而后大举。溯淮舍舟、越山千里奔袭,出楚不意;而子常贪功擅渡、不待沈尹戌合击之谋,遂有柏举之败——胜负之机,系于将谋。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影定位,几何力求近实:郢在西南,柏举居中,淮汭、州来在东北,大别山三关横亘其间。江河、疆界经简化描绘。据《左传·定公四年》《史记·吴太伯世家 / 楚世家 / 伍子胥列传 / 孙子吴起列传》约略绘出。柏举今湖北麻城(一说汉川),郢即楚都今湖北荆州纪南城,州来·下蔡今安徽凤台,清发水多以为今涢水(安陆一带),三关即大隧、直辕、冥厄(今豫鄂界大别—桐柏间之义阳三关)。淮汭『舍舟』之确址,史无明文,图中系于淮水西曲、近三关处,为约定示意。</p>
+    <p><span class="n">注二</span>晕染疆界为形势示意,非实有画界:楚据江汉,吴及唐、蔡据淮东(州来即下蔡已为吴有,蔡、唐皆怨楚而附吴)。故以点划『约界』沿大别山—淮汭一线标之。此役实吴深入楚境千里,战地皆楚地,疆界仅示两方之来向。</p>
+    <p><span class="n">注三</span>制胜之枢在『舍舟奇袭』(见上释要):吴先以三师更番扰楚,积岁疲之;是役溯淮舍舟、越三关千里掩其不备,出楚素备之外。楚令尹囊瓦(子常)贪功,恐左司马沈尹戌独专塞关焚舟、夹击之功,不待合谋而擅渡汉水,自舍险阻——奇正相形,遂有柏举之溃。</p>
+    <p><span class="n">注四</span>柏举既败,吴五战及郢,楚昭王涉睢济江、弃都出奔,吴师入郢,伍子胥掘楚平王墓以鞭尸,楚几于亡国。其后申包胥乞师于秦,秦楚合兵反攻;会吴王弟夫概潜归自立,阖闾引兵还讨,吴乃退师,楚昭王得复入郢。楚危而复存,吴亦由此结怨埋祸。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"吴溯淮舍舟",d:"周敬王十四年(前506)冬",p:["吴王阖闾用孙武、伍子胥,谋楚积年,先以三师更番扰楚而疲之。是年,吴悉师伐楚,与唐、蔡合谋,溯淮水而西。","至淮汭舍舟登陆,越大别、小别之山,间道千里奔袭,出楚不意,直抵汉水,与楚夹汉而陈。楚仓卒发师拒之。"]},
-  "1":{t:"夹汉而陈 · 子常擅渡",d:"前506年冬",p:["吴楚夹汉水而陈。左司马沈尹戌请：以主力塞大隧、直辕、冥厄三关,断吴归舟之路,而后夹击之。","令尹囊瓦(子常)贪功,恐沈尹戌独专其名,不待合谋,擅自渡汉水求战。既失险阻,又违庙算——败机自此伏矣。"]},
-  "2":{t:"柏举决战 · 夫概先犯",d:"前506年冬",p:["子常渡汉与吴三战,三战三北,退师柏举列阵。吴王弟夫概请击之,吴王未许;夫概曰「困兽犹斗,况人乎」,遂以先锋五千径犯子常之军。","子常之卒先奔,楚阵大乱,吴王乘之,大败楚师于柏举。子常奔郑,楚师瓦解。"]},
-  "3":{t:"清发半渡 · 五战入郢",d:"前506年冬",p:["楚师溃走,吴追及于清发水。吴王欲即击之,夫概曰「半济而后可击」,待其半渡而击,又大败之。","五战及郢,楚昭王弃都出奔,吴遂入郢。伍子胥掘楚平王墓以鞭尸,以报父兄之仇。后申包胥乞秦师,秦楚反攻,吴又以夫概自立之内乱而退,楚乃得复国。"]}
+  all:{t:"溯淮舍舟",d:"周敬王十四年(前506)冬",p:["吴王阖闾用孙武、伍子胥,谋楚积年,先以三师更番扰楚而疲之。是年冬,吴悉师伐楚,与唐、蔡合谋——楚素以舟师备吴于大江,吴反溯淮水而西上,循敌所不备之道。","至淮汭『舍舟』登陆,弃舟师之长而就陆道之速,越大隧、直辕、冥厄三关,间道千里奔袭,出楚不意,直抵汉水,与楚夹汉而陈。楚仓卒发师拒之——败机已伏于吴之奇道。"]},
+  "1":{t:"夹汉而陈 · 子常擅渡",d:"前506年冬",p:["吴楚夹汉水而陈。楚左司马沈尹戌献策:以主力塞大隧、直辕、冥厄三关,焚吴所舍之舟,断其归路,而后自后夹击之——此正制吴奇兵之谋。","令尹囊瓦(子常)贪功,恐沈尹戌独专其名,不待合谋,擅自渡汉水求战。既弃天险,又违庙算,舍长就短——败端自此启矣。"]},
+  "2":{t:"柏举决战 · 夫概先犯",d:"前506年冬",p:["子常既渡汉,与吴三战,三战三北,退师柏举列阵。吴王弟夫概请击之,王未许;夫概曰『困兽犹斗,况人乎』,遂以先锋五千径犯子常之军。","子常之卒先奔,楚阵大乱,吴王乘之,大败楚师于柏举。子常弃军奔郑,楚师瓦解——此役之决胜在此一举。"]},
+  "3":{t:"清发半渡 · 五战入郢",d:"前506年冬",p:["楚师溃走,吴追及于清发水。吴王欲即击之,夫概曰『半济而后可击也』,待其半渡而击,又大破之。","遂五战及郢,楚昭王涉睢济江、弃都出奔,吴师入郢。伍子胥掘楚平王墓以鞭尸,以复父兄之仇。后申包胥乞秦师,秦楚反攻;会夫概自立之内乱,吴引兵还,楚昭王乃得复国。"]}
 };
 const CITY={
-  baiju:{t:"柏举",d:"今湖北麻城(一说汉川)",p:["吴楚决战之地。楚三战三北退此列阵,夫概以先锋五千先犯子常,楚阵大乱,吴乘之大破楚师。"]},
-  ying:{t:"郢",d:"楚都,今湖北荆州纪南城",p:["楚之国都。吴五战及郢,楚昭王弃都出奔,吴师入郢;伍子胥掘平王墓鞭尸。后赖申包胥乞秦师,楚乃复国。"]},
-  hanshui:{t:"汉水",d:"楚陈师拒吴处",p:["吴越山千里奔袭直抵汉水,与楚夹汉而陈。子常贪功,舍此天险擅自渡汉求战,遂启败端。"]},
-  huairui:{t:"淮汭",d:"吴舍舟登陆处,淮水南岸",p:["吴溯淮而西所至。至此舍舟从陆,越大别、小别山间道奔袭,出楚不意。"]},
-  qingfa:{t:"清发水",d:"楚半渡被击处",p:["楚师柏举溃后走此。吴追及,夫概谏待其半渡而击,又大败楚军。"]},
-  dabie:{t:"大别·小别山",d:"吴楚三战处,汉东",p:["吴舍舟后所越之山险。楚子常渡汉后,与吴三战于大、小别之间,三战三北,退保柏举。"]}
+  baiju:{t:"柏举",d:"今湖北麻城(一说汉川)",p:["吴楚决战之地。楚三战三北退此列阵,夫概以先锋五千先犯子常,楚阵大乱,吴乘之大破楚师——柏举之役以此得名。"]},
+  ying:{t:"郢",d:"楚都,今湖北荆州纪南城",p:["楚之国都,居江汉之西。吴五战及郢,楚昭王涉睢济江出奔,吴师入郢;伍子胥掘平王墓鞭尸。后赖申包胥乞秦师,楚乃复国。"]},
+  huairui:{t:"淮汭",d:"吴舍舟登陆处,淮水西曲",p:["吴师溯淮而西所至之点。至此『舍舟』从陆,弃舟师之长而就陆道之速,越大别三关间道奔袭,出楚不意——此役之奇着。确址史无明文,图中系于近三关处。"]},
+  zhoulai:{t:"州来·下蔡",d:"今安徽凤台",p:["淮上重镇,时已为吴所有(下蔡)。吴悉师溯淮西上,以此一带为舟师所经之枢,蔡、唐附吴以为向导。"]},
+  sanguan:{t:"三关",d:"大隧、直辕、冥厄(今义阳三关)",p:["大别山—桐柏间分淮汉之险。吴舍舟后越此三关,间道千里奔袭。沈尹戌尝请塞此三关、焚吴舟以断其归,子常不用。"]},
+  hanshui:{t:"汉水",d:"楚夹汉陈师处",p:["吴越三关直抵汉水,与楚夹汉而陈。子常贪功,舍此天险擅自渡汉求战,遂启柏举之败。"]},
+  qingfa:{t:"清发水",d:"今涢水,安陆一带",p:["楚师柏举溃后走此。吴追及,夫概谏『半济而后可击』,待其半渡而击,又大败楚军。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

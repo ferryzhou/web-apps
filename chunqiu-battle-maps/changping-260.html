@@ -30,7 +30,19 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 漕运·粮道:金色串珠动脉,叠于太行井陉滏口之道,示赵军军食所经 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -47,12 +59,27 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
@@ -72,16 +99,16 @@
   <div class="seal" aria-hidden="true"><span>长</span><span>平</span><span>之</span><span>役</span></div>
   <header>
     <h1>长平之战</h1>
-    <div class="sub">周赧王五十三至五十五年(前262–260)　　<i>秦 白起</i>佯败断粮·合围 · <b>赵 赵括</b>纸上谈兵·四十万尽坑</div>
+    <div class="sub">周赧王五十三至五十五年(前262–260)　　<i>秦 白起</i>佯败绝粮·分割合围 · <b>赵 赵括</b>轻出决战·四十万尽坑</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 争上党</button>
     <button data-p="1">赵括代廉颇</button>
-    <button data-p="2">佯败断粮</button>
+    <button data-p="2">佯败·绝粮分割</button>
     <button data-p="3">尽坑四十万</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="长平之战形势图,含秦赵疆界、丹水沁水与太行山险及长平上党邯郸咸阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="长平之战形势图,含秦赵疆界、丹水沁水与太行山险,赵军自邯郸经滏口陉而来的金色粮道及其被秦奇兵绝断之朱色记号,并长平上党故关安邑邯郸等城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,83 +117,126 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:秦据关中河东(西),赵据河北(东),韩上党居其间为争地 -->
-    <path d="M 560,0 C 546,90 548,180 536,260 C 526,330 512,400 520,480 C 526,560 548,600 556,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 546,90 548,180 536,260 C 526,330 512,400 520,480 C 526,560 548,600 556,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 546,90 548,180 536,260 C 526,330 512,400 520,480 C 526,560 548,600 556,640"/>
-    <text class="realm j" x="120" y="120" font-size="34">秦(河东)</text>
-    <text class="realm q" x="720" y="150" font-size="34">赵(河北)</text>
-    <text class="realm q" x="470" y="360" font-size="20" style="opacity:.5">韩·上党</text>
+    <!-- ══ 疆界:秦据关中·河东(西南),赵据河北(东北),韩之上党居其间为争地 ══ -->
+    <path d="M 505,0 C 480,140 470,240 458,340 C 448,440 442,540 448,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 505,0 C 480,140 470,240 458,340 C 448,440 442,540 448,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 505,0 C 480,140 470,240 458,340 C 448,440 442,540 448,640"/>
+    <text class="realm j" x="120" y="150" font-size="32">秦·河东</text>
+    <text class="realm q" x="740" y="130" font-size="32">赵·河北</text>
+    <text class="realm q" x="500" y="262" font-size="18" style="opacity:.5">韩·上党(争地)</text>
 
-    <!-- 沁水:自北南下,秦军侧翼补给线 -->
-    <path class="river" stroke-width="3.4" d="M 420,60 C 424,150 430,240 440,320 C 448,388 456,440 470,500"/>
-    <!-- 丹水:长平战线,秦赵夹丹水而对峙,自西北向东南 -->
-    <path class="river" stroke-width="4.2" d="M 560,180 C 600,240 636,300 660,360 C 682,414 700,470 716,540"/>
-    <text class="rname" x="426" y="210" transform="rotate(84 426 210)">沁 水</text>
-    <text class="rname" x="606" y="270" transform="rotate(58 606 270)">丹 水</text>
+    <!-- ══ 山脉:太行山险居中,横亘赵与上党之间;中条·王屋在西南 ══ -->
+    <path class="mtn fill" d="M 630,306 L 652,252 L 672,282 L 696,224 L 720,264 L 744,220 L 768,260 L 790,232 L 806,258 Z"/>
+    <path class="mtn" d="M 664,268 l 16,-22 l 14,16 l 18,-26 l 15,20 l 17,-24"/>
+    <text class="mname" x="682" y="212" transform="rotate(-24 682 212)">太 行 山</text>
+    <path class="mtn fill" d="M 150,440 L 168,414 L 184,434 L 204,406 L 224,430 L 244,410 L 260,432 Z"/>
+    <text class="mname" x="150" y="462" style="font-size:10px">中条·王屋</text>
 
-    <!-- 太行山险:百里石长城·故关一线山地 -->
-    <g class="mtn"><path d="M 740,300 l 9,-15 l 9,15 M 758,294 l 9,-15 l 9,15 M 776,300 l 8,-14 l 8,14 M 793,294 l 9,-15 l 9,15"/></g>
-    <text class="cname s" x="748" y="322">太行·故关</text>
-    <g class="mtn"><path d="M 300,420 l 8,-13 l 8,13 M 316,414 l 8,-13 l 8,13 M 332,420 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="300" y="440">王屋·太行南麓</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 沁水:西境,自北南流,秦军侧翼 -->
+    <path class="river" stroke-width="3.2" d="M 372,110 C 384,200 398,290 412,380 C 420,432 428,470 438,506"/>
+    <!-- 丹水:丹朱岭南流,经长平,折东南入沁 -->
+    <path class="river" stroke-width="4" d="M 528,306 C 530,332 532,356 542,396 C 552,444 566,492 582,538"/>
+    <text class="rname" x="374" y="250" transform="rotate(82 374 250)" style="font-size:11.5px">沁 水</text>
+    <text class="rname" x="548" y="430" transform="rotate(70 548 430)">丹 水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 漕运·粮道:赵军军食自邯郸经滏口陉·故关而来,叠金色串珠动脉 ══ -->
+    <path class="supply band" d="M 846,196 C 780,204 720,210 672,224 C 640,252 614,290 588,318 C 566,332 550,340 540,346"/>
+    <path class="supply core" d="M 846,196 C 780,204 720,210 672,224 C 640,252 614,290 588,318 C 566,332 550,340 540,346"/>
+    <g class="grain">
+      <rect x="786" y="200" width="7" height="7" transform="rotate(45 789.5 203.5)"/>
+      <rect x="704" y="212" width="7" height="7" transform="rotate(45 707.5 215.5)"/>
+      <rect x="640" y="252" width="7" height="7" transform="rotate(45 643.5 255.5)"/>
+      <rect x="596" y="302" width="7" height="7" transform="rotate(45 599.5 305.5)"/>
+      <rect x="556" y="336" width="7" height="7" transform="rotate(45 559.5 339.5)"/>
+    </g>
+    <text class="slabel" x="700" y="176">漕运 · 粮道(赵)</text>
+    <text class="slabel" x="700" y="190" style="font-size:9.5px;opacity:.8">自邯郸经滏口·故关运军食</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="changping"><circle cx="620" cy="340" r="6"/><text class="cname" x="558" y="336">长平<tspan class="cname s" dx="2">(主战场)</tspan></text></g>
-      <g class="city" data-city="shangdang"><circle cx="560" cy="230" r="5"/><text class="cname" x="500" y="222">上党<tspan class="cname s" dx="2">(争地)</tspan></text></g>
-      <g class="city" data-city="danshui"><circle cx="672" cy="392" r="3.5"/><text class="cname s" x="682" y="392">丹水战线</text></g>
-      <g class="city" data-city="guguan"><circle cx="748" cy="330" r="4.5"/><text class="cname s" x="758" y="352">故关·百里石长城</text></g>
-      <g class="city cap" data-city="handan"><circle cx="880" cy="420" r="6"/><text class="cname" x="800" y="416">邯郸<tspan class="cname s" dx="2">(赵都)</tspan></text></g>
-      <g class="city cap" data-city="xianyang"><circle cx="150" cy="470" r="6"/><text class="cname" x="162" y="466">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
+      <g class="city" data-city="changping"><circle cx="530" cy="350" r="6.5"/><text class="cname" x="466" y="366">长平<tspan class="cname s" dx="2">(主战场)</tspan></text></g>
+      <g class="city" data-city="shangdang"><circle cx="590" cy="290" r="5"/><text class="cname" x="600" y="284">上党·壶关<tspan class="cname s" dx="2">(争地)</tspan></text></g>
+      <g class="city" data-city="danzhu"><circle cx="528" cy="308" r="3"/><text class="cname s" x="470" y="304">丹朱岭</text></g>
+      <g class="city" data-city="guguan"><circle cx="580" cy="320" r="4.5"/><text class="cname s" x="588" y="332">故关·百里石长城</text></g>
+      <g class="city" data-city="fukou"><circle cx="670" cy="220" r="4"/><text class="cname s" x="678" y="238">滏口陉(太行)</text></g>
+      <g class="city" data-city="anyi"><circle cx="190" cy="490" r="5.5"/><text class="cname" x="200" y="486">安邑<tspan class="cname s" dx="2">(秦·河东)</tspan></text></g>
+      <g class="city cap" data-city="handan"><circle cx="850" cy="190" r="6.5"/><text class="cname" x="770" y="186">邯郸<tspan class="cname s" dx="2">(赵都)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 秦赵争上党·相持长平 -->
+    <!-- 咸阳(图外·西南) -->
+    <g transform="translate(6,556)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,-6"/>
+      <text class="mlabel j" x="0" y="-14" style="font-size:10px">⟵ 咸阳·关中</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">秦都(图外),发河内之众</text>
+    </g>
+
+    <!-- ══ 全图 · 秦赵争上党·相持长平 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 190,456 C 320,400 440,320 552,236"/>
-      <text class="mlabel j" x="300" y="330">秦王龁攻上党,进逼长平</text>
-      <path class="march q" marker-end="url(#aq)" d="M 862,414 C 780,392 700,368 636,346"/>
-      <text class="mlabel q" x="700" y="392">赵遣廉颇军长平</text>
-      <text class="anno" x="470" y="308">冯亭以上党十七城降赵,秦赵遂争</text>
-      <text class="mlabel q" x="500" y="380">廉颇筑垒坚壁,与秦相持三年</text>
-      <rect class="camp" x="610" y="356" width="9" height="9" transform="rotate(45 614 360)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 210,478 C 320,440 420,400 512,362"/>
+      <text class="mlabel j" x="270" y="418">秦左庶长王龁攻上党,进逼长平</text>
+      <path class="march q" marker-end="url(#aq)" d="M 838,204 C 740,240 640,282 566,306"/>
+      <text class="mlabel q" x="640" y="268">赵遣老将廉颇军长平以拒之</text>
+      <text class="anno" x="470" y="228">冯亭以上党十七城降赵,秦赵遂争此地</text>
+      <text class="mlabel q" x="360" y="330">廉颇筑垒坚壁,夹丹水相持三年</text>
+      <rect class="camp" x="522" y="342" width="9" height="9" transform="rotate(45 526.5 346.5)"/>
     </g>
 
-    <!-- 阶段一:赵括代廉颇·秦阴用白起 -->
+    <!-- ══ 阶段一:赵括代廉颇·秦阴用白起 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="606" y="352" width="10" height="10" transform="rotate(45 611 357)"/>
-      <text class="mlabel q" x="470" y="392">廉颇坚壁不出,秦行反间</text>
-      <text class="anno" x="470" y="410">言「秦独畏马服子赵括耳」</text>
-      <path class="march q" marker-end="url(#aq)" d="M 862,414 C 770,398 690,372 632,348"/>
-      <text class="mlabel q" x="700" y="416">赵王怒廉颇,以赵括代之·尽易约束</text>
-      <path class="march j" marker-end="url(#aj)" d="M 168,464 C 300,408 430,340 548,246"/>
-      <text class="mlabel j" x="260" y="300">秦阴使武安君白起为上将,王龁为裨</text>
+      <rect class="camp" x="522" y="342" width="10" height="10" transform="rotate(45 527 347)"/>
+      <text class="mlabel q" x="360" y="330">廉颇坚壁不出,秦行反间于赵</text>
+      <text class="anno" x="360" y="348">言「秦独畏马服子赵括为将耳」</text>
+      <path class="march q" marker-end="url(#aq)" d="M 838,202 C 748,240 648,286 568,308"/>
+      <text class="mlabel q" x="660" y="248">赵王怒廉颇,以赵括代之·尽易约束</text>
+      <path class="march j" marker-end="url(#aj)" d="M 210,476 C 320,438 420,398 510,360"/>
+      <text class="mlabel j" x="250" y="440">秦阴使武安君白起为上将,王龁为裨</text>
+      <text class="anno" x="250" y="458">令军中:有敢泄武安君将者斩</text>
     </g>
 
-    <!-- 阶段二:佯败诱赵·奇兵断粮分割 -->
+    <!-- ══ 阶段二:佯败诱赵·奇兵绝粮·分割合围 ══ -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 610,336 C 588,318 566,296 548,246"/>
-      <text class="mlabel q" x="470" y="270">赵括尽出击,深入秦壁</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 552,238 C 500,300 470,360 460,420"/>
-      <text class="mlabel j" x="400" y="330">白起佯败而走,诱赵深入</text>
-      <path class="march j" marker-end="url(#aj)" d="M 720,530 C 700,470 690,420 700,380"/>
-      <text class="mlabel j" x="704" y="500">奇兵二万五千绝赵军之后</text>
-      <path class="march j" marker-end="url(#aj)" d="M 470,510 C 520,470 560,420 596,372"/>
-      <text class="mlabel j" x="420" y="500">奇兵五千骑绝壁垒间·分赵军为二</text>
-      <circle class="siege" cx="620" cy="345" r="42"/>
-      <text class="anno" x="558" y="300">粮道遂断,合围于长平</text>
+      <!-- 赵括尽出击,深入秦壁(赵·朱) -->
+      <path class="march q" marker-end="url(#aq)" d="M 520,352 C 460,360 410,378 372,404"/>
+      <text class="mlabel q" x="330" y="424">赵括尽出兵击秦,深入</text>
+      <!-- 白起佯败诱敌(秦·青) -->
+      <path class="march j" marker-end="url(#aj)" d="M 362,410 C 320,424 296,438 276,454"/>
+      <text class="mlabel j" x="196" y="470">白起佯败而走,张两奇兵</text>
+      <!-- 奇兵二万五千绝赵军之后,断粮道(秦·青) -->
+      <path class="march j" marker-end="url(#aj)" d="M 280,520 C 420,486 530,430 604,332"/>
+      <text class="mlabel j" x="300" y="540">奇兵二万五千人绝赵军之后</text>
+      <!-- 奇兵五千骑绝壁垒之间,分赵军为二(秦·青) -->
+      <path class="march j" marker-end="url(#aj)" d="M 470,412 C 500,388 524,366 546,348"/>
+      <text class="mlabel j" x="424" y="404">五千骑绝壁间·分赵军为二</text>
+      <!-- 断粮道:朱色截断记号 -->
+      <g class="cut" transform="translate(604,304)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="614" y="300">绝赵后·断其粮道 ✕</text>
+      <g class="cut" transform="translate(556,338)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="562" y="356">分赵军为二 ✕</text>
+      <!-- 合围圈 -->
+      <circle class="siege" cx="440" cy="392" r="72"/>
+      <text class="anno" x="360" y="322">粮道遂绝,合围赵军于长平</text>
     </g>
 
-    <!-- 阶段三:赵括战死·四十万尽坑 -->
+    <!-- ══ 阶段三:赵括战死·四十万尽坑 ══ -->
     <g id="ph3" class="ph">
-      <circle class="siege" cx="620" cy="345" r="46"/>
-      <text class="anno" x="540" y="290">被围四十六日,士卒相食</text>
-      <circle class="star" cx="620" cy="340" r="9"/>
-      <path d="M 620,340 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="470" y="440">赵括自出锐卒搏战,被射杀</text>
-      <text class="mlabel r" x="490" y="460">四十万众降,白起诈而尽坑之</text>
-      <text class="anno" x="500" y="478">前后斩首虏四十五万,唯放年少者二百四十人</text>
-      <text class="anno" x="760" y="440">赵人震骇,山东胆裂</text>
+      <circle class="siege" cx="440" cy="392" r="74"/>
+      <!-- 粮道被断记号仍在 -->
+      <g class="cut" transform="translate(604,304)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="614" y="302">粮道断四十六日 ✕</text>
+      <text class="anno" x="300" y="330">被围四十六日,内无食,阴相杀食</text>
+      <!-- 赵军分四队突围,四五复之不能出(赵军被围·褐) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 430,382 C 410,374 394,364 380,357"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 456,340 C 464,322 470,308 476,296"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 398,414 C 362,424 336,432 312,440"/>
+      <text class="mlabel r" x="250" y="458">分军四队,四五复之不能出</text>
+      <!-- 赵括自将锐卒搏战,被射杀 -->
+      <circle class="star" cx="376" cy="356" r="9"/>
+      <path d="M 376,356 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="150" y="350">赵括出锐卒搏战,被秦军射杀</text>
+      <text class="mlabel r" x="360" y="502">四十万众降,白起诈而尽坑之</text>
+      <text class="anno" x="360" y="520">前后斩首虏四十五万,唯放年少者二百四十人</text>
+      <text class="anno" x="700" y="600">赵人震骇,山东胆裂,赵元气丧尽</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -180,33 +250,89 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>秦军(白起·王龁)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>赵军(廉颇·赵括)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>被围·战死</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战·坑杀</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>赵军被围·突围</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>漕运·粮道(赵)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战·战死</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>合围圈</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>秦</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>赵</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>赵</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 断粮与分割</h3>
+    <div class="lead">何以四十万之众坐困而尽坑,系于「绝其后·断其粮」六字 —— 围而不战之典范</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="断粮分割示意:赵括主力深入秦壁,秦以二万五千绝其后断邯郸粮道,五千骑绝壁间分赵军为二">
+      <!-- 秦壁(诱敌之的) -->
+      <rect x="40" y="96" width="70" height="52" rx="4" fill="none" stroke="#1f4e54" stroke-width="1.6"/>
+      <text x="46" y="120" fill="#1f4e54" font-size="11" font-weight="700">秦</text>
+      <text x="46" y="136" fill="#1f4e54" font-size="11" font-weight="700">壁</text>
+      <text x="34" y="170" fill="#5c4f38" font-size="10">白起佯败,诱赵深入 →</text>
+      <!-- 赵主力(突出部) -->
+      <circle cx="250" cy="122" r="34" fill="rgba(154,43,30,.12)" stroke="#9a2b1e" stroke-width="1.8"/>
+      <text x="222" y="118" fill="#9a2b1e" font-size="12" font-weight="700">赵括主力</text>
+      <text x="230" y="134" fill="#9a2b1e" font-size="10">深入·逐北</text>
+      <!-- 赵壁垒(基) -->
+      <circle cx="520" cy="122" r="30" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="496" y="118" fill="#9a2b1e" font-size="11.5" font-weight="700">赵壁垒</text>
+      <text x="500" y="134" fill="#9a2b1e" font-size="10">故关·基地</text>
+      <!-- 邯郸(粮源) -->
+      <circle cx="800" cy="122" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="760" y="112" fill="#2b2418" font-size="11" font-weight="700">邯郸(粮源)</text>
+      <!-- 金色粮道:邯郸→壁垒→主力 -->
+      <path d="M 795,122 L 552,122" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 795,122 L 552,122" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="672" y="118" width="7" height="7" transform="rotate(45 675.5 121.5)" fill="#9c7a2c"/>
+      <text x="600" y="150" fill="#9c7a2c" font-size="10.5" font-weight="700">邯郸粮道(自太行滏口而来)</text>
+      <!-- 秦二万五千绝后:自下方兜转,截粮道于壁垒东 -->
+      <path d="M 470,238 C 560,232 640,210 660,150" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="9 5"/>
+      <path d="M 660,150 l -6,10 l 12,-1 z" fill="#1f4e54"/>
+      <text x="430" y="234" fill="#1f4e54" font-size="10.5" font-weight="700">秦二万五千 → 绝赵后</text>
+      <g><circle cx="664" cy="122" r="7.5" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="659" y1="117" x2="669" y2="127" stroke="#9a2b1e" stroke-width="2.6"/><line x1="659" y1="127" x2="669" y2="117" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="612" y="100" fill="#9a2b1e" font-size="10.5" font-weight="700">断粮道 ✕</text>
+      <!-- 秦五千骑绝壁间:斜插主力与壁垒之间 -->
+      <path d="M 385,236 L 385,158" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="9 5"/>
+      <path d="M 385,152 l -5,11 l 10,0 z" fill="#1f4e54"/>
+      <text x="330" y="232" fill="#1f4e54" font-size="10.5" font-weight="700">五千骑 → 绝壁间</text>
+      <g><circle cx="385" cy="122" r="7.5" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="380" y1="117" x2="390" y2="127" stroke="#9a2b1e" stroke-width="2.6"/><line x1="380" y1="127" x2="390" y2="117" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="352" y="100" fill="#9a2b1e" font-size="10.5" font-weight="700">分赵为二 ✕</text>
+    </svg>
+    <p class="intro">白起未尝以正兵与赵括决胜,而以<b>「绝其后·断其粮」</b>制之。赵括恃众轻出、尽师逐北,深入秦壁;白起乃张两奇兵:一军二万五千人绕出赵军之后,截断其自邯郸经太行滏口而来的粮道;一军五千骑楔入赵军与壁垒之间,<b>分赵军为二</b>。首尾既断,四十万之众遂困于长平谷中,围而不战。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>分割 · 秦之奇兵</h4>
+        <p>秦以机动之师(青)行两断:二万五千绝赵军之后,夺故关·百里石长城以塞其归路;五千骑绝壁垒之间,使突出之主力与后方营壁不能相救。赵军首尾隔绝、粮援两阻,遂成合围。白起复以轻兵薄之,赵战不利,乃筑壁固守以待救——而救与粮皆不至。</p>
+      </div>
+      <div class="c b">
+        <h4>断粮 · 赵之命脉</h4>
+        <p>赵军军食自邯郸出,越太行(滏口陉)、经故关而至长平前线(金色粮道)。此线一断,四十万人立成绝地。史称被围四十六日,「内无食,阴相杀食」。秦昭王闻赵食道绝,自之河内,发民年十五以上悉诣长平,益发兵以绝赵之救与粮——倾国而绝其粮,乃此役枢机。</p>
+      </div>
+    </div>
+    <p class="kicker">故长平之败,<b>非战之罪,实断粮分割之败</b>。赵括未大溃于阵前,而先饿于谷中;所恃者众,而众正为其累。廉颇之坚壁,正为持久待变;赵括一易约束、轻师深入,遂堕白起「诱、割、断」之算。<b>围而不战,坐困四十六日</b>,而后一举尽坑——古今绝粮制敌之至酷者,莫过于此。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·白起王翦列传》《廉颇蔺相如列传》《赵世家》约略绘出。长平在今山西高平,故关·百里石长城为赵军东北后路,城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为战国末形势示意:秦据关中·河东居西,赵据河北居东,韩之上党处其间为争地。丹水一线为秦赵对峙战场,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>廉颇坚壁三年,老成持重;赵王中反间之计,易将而用赵括,尽变约束、轻出决战,遂堕白起佯败断粮之算。四十万降卒尽坑,赵自此元气丧尽——将帅一易,存亡系焉。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何力求近实:秦·河东(安邑)在西南,赵都邯郸在东北,长平·上党居其间之高地;秦自西南攻,赵自东北援,粮道自邯郸经太行滏口陉南下。长平今山西高平西北,上党·壶关今长治壶关,安邑今山西夏县,邯郸今河北邯郸;咸阳远在西南(图外),以边缘箭示之。江河、疆界经简化描绘。</p>
+    <p><span class="n">注二</span>晕染疆界为战国末形势示意:秦据关中·河东居西南(青),赵据河北居东北(赭),韩之上党处其间为争地。丹水一线为秦赵夹水对峙之战场,故以点划「约界」标之,非实有画界。本图以秦(白起)为所纪之主,故青;赵为敌,故赭;赵军被围突围则以褐——皆按其角色而设色,非以国别。</p>
+    <p><span class="n">注三</span>制胜之枢在「断粮」:据《史记·白起王翦列传》,白起「张二奇兵以劫之」——一军二万五千人绝赵军之后,一军五千骑绝赵壁垒之间,「赵军分而为二,粮道绝」;又「秦王闻赵食道绝,王自之河内,……发民年十五以上悉诣长平,遮绝赵救及粮食」。图中金色为赵之粮道(自邯郸经滏口·故关),朱色 ✕ 为秦奇兵绝断处。围四十六日,「赵卒不得食……阴相杀食」,遂有突围战死、尽坑之祸。</p>
+    <p><span class="n">注四</span>数目与情节据《史记·白起王翦列传》《廉颇蔺相如列传》《赵世家》及《资治通鉴·周纪五》。降卒之数,《史记》屡言「四十万」「前后斩首虏四十五万人」,后世或疑其夸饰,姑存本文之旧,谨识于此。赵括战死、白起坑降,皆本传明文;放归年少者二百四十人,亦《史记》所载。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"秦赵争上党·相持长平",d:"周赧王五十三年 · 前262",p:["韩上党守冯亭不欲降秦,以其地十七城献赵;赵受之,秦赵遂争上党。秦将王龁进攻,赵遣老将廉颇军长平以拒之。","廉颇数与秦战不利,乃筑垒固守、坚壁不出,以逸待劳,与秦相持三年。两军夹丹水而对峙,胜负未分,而秦远师久顿,亦渐不能支。"]},
-  "1":{t:"赵括代廉颇·秦阴用白起",d:"周赧王五十五年 · 前260",p:["秦知廉颇难破,乃行反间于赵,布言曰「秦之所畏,独畏马服君之子赵括为将耳,廉颇易与，且降矣」。赵孝成王素怒廉颇军久不战、多亡失，遂以赵括代廉颇为将。","赵括至,尽易廉颇约束,更置军吏,一反坚守之策而出击。秦闻括为将,乃阴使武安君白起为上将军,而王龁为裨将,令军中：有敢泄武安君将者斩。"]},
-  "2":{t:"佯败诱赵·奇兵断粮分割",d:"周赧王五十五年 · 前260",p:["赵括既出兵击秦,白起佯败而走,张两奇兵以劫之:一军二万五千人绝赵军之后,一军五千骑绝赵壁垒之间,分赵军为二,而粮道遂绝。","赵括逐北,深入至秦壁,壁坚不得入;秦复出轻兵击之。赵军战不利,乃筑壁坚守以待救至,而援与粮皆不得通,四十万之众困于长平。"]},
-  "3":{t:"赵括战死·四十万尽坑",d:"周赧王五十五年 · 前260",p:["赵军被围四十六日,内无粮草,士卒阴相杀食。赵括乃分军为四队,四五复之不能出;括自出锐卒搏战,为秦军射杀。","赵括既死,赵卒四十万人降。白起曰「赵卒反覆,非尽杀之,恐为乱」,乃挟诈而尽坑杀之,前后斩首虏四十五万人,唯放其年少者二百四十人归赵。赵人大震,山东诸国胆裂,赵元气丧尽。"]}
+  all:{t:"秦赵争上党·相持长平",d:"周赧王五十三年 · 前262",p:["秦攻韩,绝上党归路。韩上党守冯亭不欲降秦,以其地十七城献赵;赵孝成王受之,秦赵遂争上党。秦左庶长王龁进攻,赵遣老将廉颇军长平以拒之。","廉颇数与秦战不利,乃筑垒固守、坚壁不出,以逸待劳,夹丹水与秦相持三年。两军久顿,胜负未分;而秦远师深入,亦渐不能支——持久之势,本利于守而不利于攻。"]},
+  "1":{t:"赵括代廉颇·秦阴用白起",d:"周赧王五十五年 · 前260",p:["秦知廉颇难破,乃行反间于赵,布言曰「秦之所畏,独畏马服君之子赵括为将耳;廉颇易与,且降矣」。赵王素怒廉颇军久不战、多亡失,遂以赵括代廉颇为将。蔺相如、赵母皆谏其不可,王不听。","赵括至,尽易廉颇约束,更置军吏,一反坚守之策而谋出击。秦闻括为将,乃阴使武安君白起为上将军,而王龁为裨将,令军中:有敢泄武安君将者斩——阴换名将,以待赵括之轻出。"]},
+  "2":{t:"佯败·绝粮分割·合围",d:"周赧王五十五年 · 前260",p:["赵括既将,悉军而出击秦。白起佯败而走,张两奇兵以劫之:一军二万五千人绝赵军之后,一军五千骑绝赵壁垒之间,赵军分而为二,粮道遂绝。赵括逐北,深入至秦壁,壁坚不得入。","秦复出轻兵击之,赵战不利,乃筑壁坚守以待救至。秦王闻赵食道绝,自之河内,发民年十五以上悉诣长平,遮绝赵之救兵及粮食。四十万之众,首尾隔绝、内外俱断,困于长平谷中——白起未尝力战,而胜局已定。"]},
+  "3":{t:"赵括战死·四十万尽坑",d:"周赧王五十五年 · 前260",p:["赵军被围四十六日,内无粮草,士卒阴相杀食。赵括乃分军为四队,四五复之而不能出;括自出锐卒搏战,为秦军射杀。","赵括既死,赵卒四十万人降。白起曰「赵卒反覆,非尽杀之,恐为乱」,乃挟诈而尽坑杀之,前后斩首虏四十五万人,唯放其年少者二百四十人归赵。赵人大震,山东诸国胆裂,赵自此元气丧尽——非战之罪,实断粮分割之败也。"]}
 };
 const CITY={
-  changping:{t:"长平",d:"今山西高平西北",p:["秦赵决战主战场。赵军被围绝粮四十六日,赵括战死,四十万降卒尽为白起所坑,尸骨盈谷,后世号「杀谷」。"]},
-  shangdang:{t:"上党",d:"争地,今山西长治一带",p:["韩守冯亭不肯降秦,以上党十七城献赵。赵受其地,秦赵之争由是而起,遂酿长平之祸。"]},
-  danshui:{t:"丹水战线",d:"长平之东,丹水一线",p:["秦赵夹丹水而对峙。廉颇筑壁于此,坚守三年;赵括易帅出战后,秦奇兵即于此断赵后路。"]},
-  guguan:{t:"故关·百里石长城",d:"长平东北山险",p:["赵军东北后路所倚。白起遣奇兵五千骑绝壁垒之间、复以二万五千人绝其后,故关一失,合围遂成。"]},
-  handan:{t:"邯郸",d:"赵国都城,今河北邯郸",p:["赵孝成王于此中秦反间,易廉颇而用赵括。长平既败,元气尽丧;后二年秦军围邯郸,赵几亡。"]},
-  xianyang:{t:"咸阳",d:"秦国都城,今陕西咸阳",p:["秦昭王发国中十五以上悉诣长平,以绝赵救与粮。倾国之力成此一役,遂奠一统之基。"]}
+  changping:{t:"长平",d:"今山西高平西北",p:["秦赵决战主战场。赵军被围绝粮四十六日,赵括战死,四十万降卒尽为白起所坑,尸骨盈谷,后世号「杀谷」「省冤谷」。"]},
+  shangdang:{t:"上党·壶关",d:"争地,今山西长治·壶关一带",p:["韩守冯亭不肯降秦,以上党十七城献赵。赵受其地,秦赵之争由是而起,遂酿长平之祸。上党居太行之上,俯瞰河北。"]},
+  danzhu:{t:"丹朱岭·丹水",d:"长平之北,丹水所出",p:["丹水出丹朱岭,南流经长平。秦赵夹丹水而对峙,廉颇筑壁于此以拒秦。"]},
+  guguan:{t:"故关·百里石长城",d:"长平东北山险",p:["赵军东北后路所倚,亦邯郸粮道入长平之口。白起遣奇兵二万五千绝赵军之后,夺此一线,则赵之归路与粮援俱断,合围遂成。"]},
+  fukou:{t:"滏口陉",d:"太行八陉之一,邯郸西",p:["赵军自邯郸越太行入上党之要道,亦军食转输所经。粮道自邯郸经此南下故关而至长平前线。"]},
+  anyi:{t:"安邑·河东",d:"秦河东根本,今山西夏县",p:["秦以河东为攻上党之基,自此东北进逼长平。秦昭王后自之河内,发民悉诣长平,以绝赵之救与粮。"]},
+  handan:{t:"邯郸",d:"赵国都城,今河北邯郸",p:["赵孝成王于此中秦反间,易廉颇而用赵括,又为长平大军之粮源。长平既败,元气尽丧;后二年秦军围邯郸,赵几亡,赖魏楚救乃解。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

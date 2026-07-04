@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,7 +47,6 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
   .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
@@ -56,6 +57,21 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
   .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
@@ -72,7 +88,7 @@
   <div class="seal" aria-hidden="true"><span>长</span><span>勺</span><span>之</span><span>役</span></div>
   <header>
     <h1>长勺之战</h1>
-    <div class="sub">鲁庄公十年(前684)　　<i>鲁 庄公 · 曹刿</i> 一鼓作气 · <b>齐 桓公</b>三鼓而竭</div>
+    <div class="sub">鲁庄公十年(前684)　　<i>鲁 庄公 · 曹刿</i> 一鼓作气 · <b>齐 桓公</b> 三鼓而竭</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 齐师压境</button>
@@ -81,7 +97,7 @@
     <button data-p="3">察辙望旗 · 纵兵逐北</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="长勺之战形势图,含齐鲁疆界、汶水与长勺曲阜临淄乾时遂邑等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="长勺之战形势图,含齐鲁疆界、汶水与临淄乾时长勺遂邑汶上曲阜等城邑,按今地经纬度投影">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,71 +106,75 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:齐据北东,鲁据南西,约以汶水为界 -->
-    <path d="M 0,236 C 160,224 320,206 470,232 C 600,254 720,240 840,196 C 910,170 960,150 1000,140 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,236 C 160,224 320,206 470,232 C 600,254 720,240 840,196 C 910,170 960,150 1000,140 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,236 C 160,224 320,206 470,232 C 600,254 720,240 840,196 C 910,170 960,150 1000,140"/>
-    <text class="realm q" x="700" y="110" font-size="36">齐(北·东)</text>
-    <text class="realm j" x="150" y="520" font-size="34">鲁(南·西)</text>
+    <!-- ══ 疆界:齐据东北(都临淄),鲁据西南(都曲阜),约以汶水为间 ══ -->
+    <path d="M 0,505 C 140,460 280,415 430,372 C 545,340 665,288 805,230 C 888,196 954,172 1000,158 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,505 C 140,460 280,415 430,372 C 545,340 665,288 805,230 C 888,196 954,172 1000,158 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,505 C 140,460 280,415 430,372 C 545,340 665,288 805,230 C 888,196 954,172 1000,158"/>
+    <text class="realm q" x="792" y="96" font-size="36">齐</text>
+    <text class="cname s" x="788" y="120" style="fill:var(--enemy);opacity:.5">(东北·都临淄)</text>
+    <text class="realm j" x="96" y="566" font-size="34">鲁</text>
+    <text class="cname s" x="92" y="590" style="fill:var(--advance);opacity:.5">(西南·都曲阜)</text>
 
-    <!-- 汶水:齐鲁之间界河,自东北向西南 -->
-    <path class="river" stroke-width="4.5" d="M 900,180 C 800,220 700,250 600,262 C 500,274 400,278 300,296 C 240,308 190,326 150,352"/>
-    <text class="rname" x="470" y="256" transform="rotate(4 470 256)">汶 水</text>
+    <!-- ══ 汶水:齐鲁之间界河,自东北向西南 ══ -->
+    <path class="river" stroke-width="4.5" d="M 612,362 C 500,382 400,400 320,408 C 240,416 158,440 88,462"/>
+    <text class="rname" x="392" y="398" transform="rotate(7 392 398)">汶 水</text>
 
-    <!-- 泰山余脉:齐鲁之间 -->
-    <g class="mtn"><path d="M 560,300 l 10,-16 l 10,16 M 580,292 l 10,-16 l 10,16 M 600,300 l 9,-14 l 9,14"/></g>
-    <text class="cname s" x="558" y="322">泰山余脉</text>
+    <!-- ══ 泰山余脉:齐鲁之间 ══ -->
+    <path class="mtn fill" d="M 372,320 L 388,296 L 402,314 L 420,288 L 438,312 L 456,292 L 470,316 Z"/>
+    <path class="mtn" d="M 388,314 l 12,-18 l 11,13 l 14,-20 l 12,15"/>
+    <text class="mname" x="372" y="342">泰 山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="linzi"><circle cx="820" cy="150" r="6"/><text class="cname" x="832" y="146">临淄<tspan class="cname s" dx="2">(齐都)</tspan></text></g>
-      <g class="city" data-city="qianshi"><circle cx="640" cy="200" r="4"/><text class="cname s" x="650" y="196">乾时(前役齐胜鲁)</text></g>
-      <g class="city" data-city="suiyi"><circle cx="430" cy="330" r="4"/><text class="cname s" x="356" y="326">遂邑(齐所灭)</text></g>
-      <g class="city" data-city="changshao"><circle cx="470" cy="400" r="6"/><text class="cname" x="482" y="396">长勺<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city cap" data-city="qufu"><circle cx="330" cy="500" r="6"/><text class="cname" x="256" y="496">曲阜<tspan class="cname s" dx="2">(鲁都)</tspan></text></g>
-      <g class="city" data-city="wenshui"><circle cx="300" cy="296" r="3.5"/><text class="cname s" x="248" y="290">汶上(界)</text></g>
+      <g class="city cap" data-city="linzi"><circle cx="735" cy="140" r="6"/><text class="cname" x="747" y="136">临淄<tspan class="cname s" dx="2">(齐都)</tspan></text></g>
+      <g class="city" data-city="qianshi"><circle cx="630" cy="187" r="4"/><text class="cname s" x="640" y="183">乾时(前役齐胜鲁)</text></g>
+      <g class="city" data-city="changshao"><circle cx="546" cy="340" r="6.5"/><text class="cname" x="558" y="336">长勺<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="suiyi"><circle cx="279" cy="404" r="4"/><text class="cname s" x="205" y="400">遂邑(齐所灭)</text></g>
+      <g class="city" data-city="wenshang"><circle cx="195" cy="475" r="3.5"/><text class="cname s" x="143" y="471">汶上(界)</text></g>
+      <g class="city cap" data-city="qufu"><circle cx="339" cy="512" r="6"/><text class="cname" x="265" y="530">曲阜<tspan class="cname s" dx="2">(鲁都)</tspan></text></g>
     </g>
 
     <!-- 全图 · 齐师压境 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 810,158 C 720,200 620,250 540,310 C 512,332 494,360 480,386"/>
-      <text class="mlabel q" x="600" y="230">齐桓公以鲁尝助纠,兴师伐鲁</text>
-      <path class="march j" marker-end="url(#aj)" d="M 342,492 C 380,462 420,436 458,410"/>
-      <text class="mlabel j" x="330" y="470">鲁庄公率师御于长勺,曹刿从战</text>
-      <text class="anno" x="360" y="376">刿曰「肉食者鄙,未能远谋」</text>
+      <path class="march q" marker-end="url(#aq)" d="M 727,150 C 680,204 618,272 560,328"/>
+      <text class="mlabel q" x="612" y="212">齐桓公以鲁助纠,兴师伐鲁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 350,504 C 424,460 492,400 538,352"/>
+      <text class="mlabel j" x="356" y="474">庄公率师御于长勺,曹刿从</text>
+      <text class="anno" x="238" y="432">齐并灭遂,以张其势</text>
+      <text class="anno" x="360" y="494">刿曰「肉食者鄙,未能远谋」</text>
     </g>
 
     <!-- 阶段一:齐三鼓 · 鲁按兵 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="512" y="352" width="9" height="9" transform="rotate(45 516 356)"/>
-      <text class="mlabel q" x="524" y="352">齐军大营 · 恃强先鼓</text>
-      <path class="march q" marker-end="url(#aq)" d="M 512,360 C 500,372 490,382 482,392"/>
-      <text class="anno" x="500" y="392">再鼓 · 三鼓,连求速战</text>
-      <text class="mlabel j" x="352" y="418">鲁军坚阵不动,养其锐气</text>
-      <text class="anno" x="380" y="436">公将鼓,刿曰「未可」</text>
+      <rect class="camp" x="596" y="296" width="9" height="9" transform="rotate(45 600 300)"/>
+      <text class="mlabel q" x="586" y="288">齐军大营 · 恃强先鼓</text>
+      <path class="march q" marker-end="url(#aq)" d="M 590,314 C 578,326 568,332 558,338"/>
+      <text class="anno" x="556" y="366">一鼓·再鼓·三鼓,连求速战</text>
+      <text class="mlabel j" x="352" y="382">鲁坚阵不动,养其锐气</text>
+      <text class="anno" x="384" y="402">公将鼓,刿曰「未可」</text>
     </g>
 
     <!-- 阶段二:彼竭我盈 · 一鼓破齐 -->
     <g id="ph2" class="ph">
-      <text class="anno" x="470" y="362">齐三鼓气衰</text>
-      <path class="march j" marker-end="url(#aj)" d="M 462,394 C 476,384 490,376 504,368"/>
-      <circle class="star" cx="490" cy="376" r="8"/>
-      <text class="mlabel j" x="330" y="410">鲁一鼓而进,士气如虹「可矣」</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 512,362 C 560,330 620,296 690,262"/>
-      <text class="mlabel q" x="560" y="300">齐师大败</text>
+      <text class="anno" x="556" y="312">齐三鼓气竭</text>
+      <path class="march j" marker-end="url(#aj)" d="M 540,334 C 562,316 586,298 608,282"/>
+      <circle class="star" cx="586" cy="300" r="8"/>
+      <text class="mlabel j" x="342" y="366">鲁一鼓而进,士气如虹「可矣」</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 606,290 C 650,250 690,212 720,180"/>
+      <text class="mlabel r" x="638" y="252">齐师大败</text>
     </g>
 
     <!-- 阶段三:察辙望旗 · 纵兵逐北 -->
     <g id="ph3" class="ph">
-      <text class="anno" x="430" y="388">刿下视其辙 · 登轼望旗</text>
-      <text class="mlabel j" x="430" y="404">曰「辙乱旗靡」乃可逐</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 506,368 C 580,318 660,262 760,208"/>
-      <text class="mlabel r" x="600" y="256">齐师败出鲁境</text>
-      <path class="march j" marker-end="url(#aj)" d="M 480,392 C 552,344 630,290 720,236"/>
-      <text class="mlabel j" x="470" y="440">鲁纵兵逐北,遂逐齐师出境</text>
+      <text class="anno" x="392" y="378">刿下视其辙 · 登轼望旗</text>
+      <text class="mlabel j" x="392" y="394">曰「辙乱旗靡」乃可逐</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 560,328 C 628,268 688,220 723,176"/>
+      <text class="mlabel r" x="642" y="238">齐师败出鲁境</text>
+      <path class="march j" marker-end="url(#aj)" d="M 546,346 C 610,300 670,250 705,202"/>
+      <text class="mlabel j" x="430" y="436">鲁纵兵逐北,遂逐齐师出境</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -167,29 +187,77 @@
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>齐军(桓公)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>齐师败退</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" transform="rotate(45 6.5 6.5)" fill="#9a2b1e" opacity=".9"/></svg>齐军大营</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>齐</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>鲁</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>论战释要 · 一鼓作气 · 彼竭我盈</h3>
+    <div class="lead">何以弱鲁却强齐,系于一「气」字 —— 待其竭而后发之机</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="士气示意:齐三鼓而气递衰,鲁按兵养锐俟其竭而一鼓,彼竭我盈">
+      <!-- 坐标轴 -->
+      <line x1="70" y1="30" x2="70" y2="210" stroke="#5c4f38" stroke-width="1.2"/>
+      <line x1="70" y1="210" x2="820" y2="210" stroke="#5c4f38" stroke-width="1.2"/>
+      <text x="40" y="44" fill="#5c4f38" font-size="11" font-weight="700">气</text>
+      <text x="24" y="120" fill="#5c4f38" font-size="10" opacity=".8">士</text>
+      <text x="24" y="134" fill="#5c4f38" font-size="10" opacity=".8">气</text>
+      <text x="758" y="228" fill="#5c4f38" font-size="10" opacity=".8">→ 时(鼓)</text>
+      <!-- 鼓次竖引线 -->
+      <line x1="150" y1="40" x2="150" y2="210" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".45"/>
+      <line x1="320" y1="40" x2="320" y2="210" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".45"/>
+      <line x1="490" y1="40" x2="490" y2="210" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".45"/>
+      <line x1="600" y1="40" x2="600" y2="210" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".45"/>
+      <text x="118" y="228" fill="#9a2b1e" font-size="10.5" font-weight="700">齐一鼓</text>
+      <text x="288" y="228" fill="#9a2b1e" font-size="10.5" font-weight="700">齐再鼓</text>
+      <text x="452" y="228" fill="#9a2b1e" font-size="10.5" font-weight="700">齐三鼓·竭</text>
+      <text x="566" y="228" fill="#1f4e54" font-size="10.5" font-weight="700">鲁一鼓·盈</text>
+      <!-- 齐:阶梯递衰(高y=低气) -->
+      <path d="M 90,70 L 150,70 L 150,120 L 320,120 L 320,178 L 490,178 L 490,190 L 640,190" fill="none" stroke="#9a2b1e" stroke-width="3" stroke-linejoin="round"/>
+      <text x="160" y="60" fill="#9a2b1e" font-size="11" font-weight="700">盛(作气)</text>
+      <text x="330" y="110" fill="#9a2b1e" font-size="11" font-weight="700">衰(再而衰)</text>
+      <text x="392" y="200" fill="#9a2b1e" font-size="11" font-weight="700">竭(三而竭)</text>
+      <!-- 鲁:养锐持平,俟齐竭而暴起 -->
+      <path d="M 90,150 L 470,150 L 545,66 L 640,66" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linejoin="round"/>
+      <text x="150" y="142" fill="#1f4e54" font-size="11" font-weight="700">鲁按兵·养锐(未可)</text>
+      <text x="556" y="58" fill="#1f4e54" font-size="11" font-weight="700">一鼓·气盈(可矣)</text>
+      <!-- 彼竭我盈交汇:金环 -->
+      <circle cx="503" cy="150" r="12" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="500" y="120" fill="#9c7a2c" font-size="11.5" font-weight="700" text-anchor="middle">彼竭我盈</text>
+    </svg>
+    <p class="intro">长勺之役,兵不加众、械不加利,而<b>弱鲁一举却齐</b>。曹刿所争者,不在战阵之奇,而在一个「气」字 —— 齐恃强先鼓,再鼓、三鼓连求速战;鲁则按兵不动、蓄养锐气,俟齐三鼓气竭之顷,方一鼓而进,<b>以盈击竭</b>,故能后发制人。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>一鼓作气 · 彼竭我盈</h4>
+        <p>「夫战,勇气也。一鼓作气,再而衰,三而竭。」齐三鼓求战而鲁不应,任其锐气递耗;及齐竭而鲁盈,鲁始一鼓奋进,气如破竹。以逸待劳、后发制人之理,尽在此「气」之盈竭之间。</p>
+      </div>
+      <div class="c b">
+        <h4>辙乱旗靡 · 逐而后追</h4>
+        <p>齐既败,公将驰逐,刿又止之——「夫大国难测,惧有伏焉」。乃下视其车辙已乱、登轼望其旌旗尽靡,知其真溃而非伪遁,然后纵兵逐北,遂逐齐师出境。持重于追,与持重于战,同一机杼。</p>
+      </div>
+    </div>
+    <p class="kicker">故长勺之捷,不系于兵之众寡,而系于<b>气之盈竭、伪真之辨</b>:待敌气竭而后一鼓,察辙旗之乱靡而后逐。曹刿论战,遂为后世「以逸待劳、后发制人」之圭臬。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《左传·庄公十年》《史记·鲁周公世家》约略绘出。长勺在今山东莱芜(一说曲阜北),城邑水道为相对示意,非精确坐标。</p>
-    <p><span class="n">注二</span>晕染疆界为齐鲁形势示意:齐居北东、鲁居南西,约以汶水为间;点划「约界」非实有画界。曹刿论战之语,并录《左传》原文,以见「一鼓作气」「彼竭我盈」「辙乱旗靡」之所本。</p>
+    <p><span class="n">注一</span>本图城邑依今地经纬度作墨卡托投影定位(投影式 x=60+(经−116.05)×300,y=590−(纬−35.35)×310),几何关系力求近实:齐都临淄在东北,鲁都曲阜在西南,长勺当两者之间偏北。今地:临淄今淄博临淄,曲阜今曲阜,乾时在临淄之西,遂邑(遂国)约在今宁阳、肥城间,汶上今汶上县。</p>
+    <p><span class="n">注二</span>长勺地望有异说:或谓在今山东莱芜(莱芜有『长勺』故地之传),或谓在曲阜之北;本图从莱芜说,置于鲁之北境,聊备一说,非谓确址。晕染疆界为齐鲁形势示意,约以汶水为间;点划「约界」及河道走向皆经简化,非实有画界。</p>
+    <p><span class="n">注三</span>本图依《左传·庄公十年》「曹刿论战」及《史记·鲁周公世家》绘出。「一鼓作气,再而衰,三而竭。彼竭我盈,故克之」「吾视其辙乱,望其旗靡,故逐之」并录《左传》原文,以见「一鼓作气」「彼竭我盈」「辙乱旗靡」之所本。战前一年鲁尝败于乾时(庄公九年),齐又灭遂(近鲁小邦)以张势,故长勺之捷尤见曹刿持重待时之效。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"齐师压境",d:"鲁庄公十年(前684)春",p:["齐桓公新即位,以鲁尝助公子纠与己争位,衔怨兴师伐鲁。前此鲁师已败于乾时,气势颇沮;今齐复大举压境,鲁人震恐。","鲁庄公将战,曹刿请见。其乡人曰「肉食者谋之,又何间焉」,刿曰「肉食者鄙,未能远谋」,遂入见。问何以战,公历数衣食之惠、牺牲之信,刿皆以为未孚;及公言「小大之狱,必以情」,刿曰「忠之属也,可以一战」,乃从公御齐师于长勺。"]},
+  all:{t:"齐师压境",d:"鲁庄公十年(前684)春",p:["齐桓公新即位,以鲁尝助公子纠与己争位,衔怨兴师伐鲁。前此鲁师已败于乾时,气势颇沮;齐又灭遂以张其势,今复大举压境,鲁人震恐。","鲁庄公将战,曹刿请见。其乡人曰「肉食者谋之,又何间焉」,刿曰「肉食者鄙,未能远谋」,遂入见。问何以战,公历数衣食之惠、牺牲之信,刿皆以为未孚;及公言「小大之狱,必以情」,刿曰「忠之属也,可以一战」,乃从公御齐师于长勺。"]},
   "1":{t:"齐三鼓 · 鲁按兵",d:"战于长勺 · 相持",p:["两军既陈于长勺,齐恃强而求速战。齐人先鼓进兵,公将鼓以应之,曹刿止之曰「未可」。","齐再鼓、三鼓,连番挑战,声势愈盛;而鲁军坚阵不动,凝然养锐,任齐三鼓求战而按兵不出。刿之意,正欲俟齐锐气三竭而后发。"]},
   "2":{t:"彼竭我盈 · 一鼓破齐",d:"战于长勺 · 决胜",p:["齐三鼓既毕,士气已衰。曹刿曰「可矣」,鲁始一鼓而进——彼竭我盈,士气如虹,一举大破齐师。","既克,公问其故。刿对曰「夫战,勇气也。一鼓作气,再而衰,三而竭。彼竭我盈,故克之」。以逸待劳、后发制人之理,尽在于此。"]},
   "3":{t:"察辙望旗 · 纵兵逐北",d:"战于长勺 · 逐北",p:["齐师既败,公将驰车逐之,刿又止曰「未可」。乃下车视其车辙,登轼而望其旌旗,曰「辙乱旗靡」,知非伪遁,乃曰「可矣」,遂纵兵追逐。","刿释其所以持重:「夫大国难测,惧有伏焉。吾视其辙乱,望其旗靡,故逐之。」鲁遂逐齐师出境。长勺一役,以弱鲁却强齐,后世传为以逸待劳、后发制人之典。"]}
 };
 const CITY={
-  changshao:{t:"长勺",d:"鲁地,今山东莱芜(一说曲阜北)",p:["齐鲁决战之处。齐三鼓而气竭,鲁一鼓而气盈,曹刿谏庄公后发制人,大败齐师于此。"]},
-  qufu:{t:"曲阜",d:"鲁国都城",p:["鲁庄公自此率师北御齐军。曹刿请见庄公,论「小大之狱,必以情」为可战之本,乃从战长勺。"]},
-  linzi:{t:"临淄",d:"齐国都城",p:["齐桓公自此兴师伐鲁。公新即位,以鲁尝助公子纠争位,衔怨来伐,不意反败于长勺。"]},
-  wenshui:{t:"汶水",d:"齐鲁之间界河",p:["汶水横亘齐鲁之间,大致为两国之界。齐师南越其地而压鲁境,鲁御之于长勺。"]},
-  qianshi:{t:"乾时",d:"齐地,前役齐胜鲁处",p:["长勺之战前,鲁师已尝败于乾时,鲁气颇沮。故长勺之捷,尤见曹刿持重待时之效。"]},
-  suiyi:{t:"遂邑",d:"近鲁小国,齐所灭",p:["遂为鲁之附庸小邦,近鲁而当齐冲。齐桓公伐鲁之际,并灭遂以张其势,鲁益迫矣。"]}
+  changshao:{t:"长勺",d:"鲁地,今山东莱芜(一说曲阜北)",p:["齐鲁决战之处。齐三鼓而气竭,鲁一鼓而气盈,曹刿谏庄公后发制人,大败齐师于此。地望有异说,本图从莱芜说置于鲁北境。"]},
+  qufu:{t:"曲阜",d:"鲁国都城,今山东曲阜",p:["鲁庄公自此率师北御齐军。曹刿请见庄公,论「小大之狱,必以情」为可战之本,乃从战长勺。"]},
+  linzi:{t:"临淄",d:"齐国都城,今山东淄博临淄",p:["齐桓公自此兴师伐鲁。公新即位,以鲁尝助公子纠争位,衔怨来伐,不意反败于长勺。"]},
+  qianshi:{t:"乾时",d:"齐地,在临淄之西,前役齐胜鲁处",p:["鲁庄公九年,鲁纳公子纠,与齐战于乾时,鲁师大败,庄公丧戎路。故次年长勺之捷,尤见曹刿持重待时之效。"]},
+  suiyi:{t:"遂邑",d:"遂国,近鲁小邦,约在今宁阳、肥城间",p:["遂为鲁之附庸小邦,近鲁而当齐冲。齐桓公伐鲁之际,并灭遂以张其势,鲁益迫矣。"]},
+  wenshang:{t:"汶上 · 汶水",d:"齐鲁之间,汶水一线",p:["汶水横亘齐鲁之间,大致为两国之界。齐师南越其地而压鲁境,鲁御之于长勺。汶上当其津要。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
