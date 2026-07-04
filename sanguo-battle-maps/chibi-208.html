@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,11 +27,12 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .sea{fill:var(--water);opacity:.16}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:1 5 7 5;opacity:.55;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .marsh{fill:rgba(95,127,136,.16);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,28 +41,48 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.jsea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.fship{stroke:var(--fire);stroke-width:3.4}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--fire)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
-  .fire{fill:none;stroke:var(--enemy);stroke-width:2.2;opacity:.92}
-  .flabel{fill:var(--enemy);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .chain{stroke:var(--enemy);stroke-width:1.3;opacity:.85}
+  .wind{fill:none;stroke:var(--gold);stroke-width:2;opacity:.9}
+  .wlabel{fill:var(--gold);font-family:"Ma Shan Zheng",serif;letter-spacing:.12em;font-weight:400}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(192,73,31,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--fire);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--fire)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--fire)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.sea):not(.jsea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -75,7 +96,7 @@
   <div class="seal" aria-hidden="true"><span>赤</span><span>壁</span><span>之</span><span>战</span></div>
   <header>
     <h1>赤壁之战</h1>
-    <div class="sub">汉建安十三年(208)　　<i>孙刘联军 周瑜 · 刘备</i> 大破 <b>曹操</b></div>
+    <div class="sub">汉建安十三年(208)　　<i>孙刘联军 周瑜 · 刘备</i> 大破 <b>曹操</b>　·　顺流东下 · 火攻乌林</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 顺流东下</button>
@@ -84,143 +105,211 @@
     <button data-p="3">火烧乌林</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="赤壁之战形势图,含长江汉水、曹操江北乌林水寨、孙刘江南赤壁与江陵华容道夏口柴桑等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="赤壁之战形势图,含长江汉水、曹操江北乌林水寨、孙刘江南赤壁与江陵华容道夏口樊口柴桑等城邑,及黄盖火攻、华容道溃退">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
     </defs>
 
-    <!-- 疆界:曹操据江北(北),孙刘据江南(南),约以长江为限 -->
-    <path d="M 0,258 C 160,250 320,262 460,286 C 600,308 740,296 880,272 C 930,264 970,262 1000,262 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,352 C 160,360 320,354 460,342 C 620,328 760,352 880,372 C 930,380 970,384 1000,386 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <text class="realm q" x="150" y="120" font-size="32">曹 操(江北)</text>
-    <text class="realm j" x="150" y="560" font-size="30">孙 刘(江南)</text>
+    <!-- ══ 疆界:曹操据江北荆襄(北),孙刘据江南江东(南),约以大江为限 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,360 C 830,352 730,342 630,338 C 585,340 545,347 470,346 C 445,346 410,340 350,332 C 250,320 130,306 0,314 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,314 C 130,306 250,320 350,332 C 410,340 445,346 470,346 C 545,347 585,340 630,338 C 730,342 830,352 1000,360 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,314 C 130,306 250,320 350,332 C 410,340 445,346 470,346 C 545,347 585,340 630,338 C 730,342 830,352 1000,360"/>
+    <text class="realm q" x="120" y="110" font-size="30">曹 操(荆襄·江北)</text>
+    <text class="realm j" x="150" y="580" font-size="28">孙 刘(江东·江南)</text>
+    <text class="rname" x="86" y="330" style="font-size:10.5px;opacity:.8">约界 · 大江</text>
 
-    <!-- 长江:自江陵(西)东下经乌林、赤壁、夏口 -->
-    <path class="sea" d="M 0,258 C 160,250 320,262 460,286 C 600,308 740,296 880,272 C 930,264 970,262 1000,262 L 1000,386 C 970,384 930,380 880,372 C 760,352 620,328 460,342 C 320,354 160,360 0,352 Z"/>
-    <path class="river" stroke-width="6" d="M 0,306 C 160,304 320,312 460,314 C 600,316 740,322 880,320 C 930,319 970,318 1000,318"/>
-    <!-- 汉水:自北(夏口西北)南下入江 -->
-    <path class="river" stroke-width="3" d="M 812,40 C 808,110 806,180 810,240 C 812,272 816,296 820,312"/>
-    <text class="rname" x="360" y="298" style="font-size:14px">长　江</text>
-    <text class="rname" x="784" y="150" transform="rotate(84 784 150)" style="font-size:11px">汉　水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 长江:自江陵(西)顺流东下,过乌林(北岸)、赤壁(南岸),经夏口而下柴桑(东) -->
+    <path class="sea" d="M 0,300 C 130,292 250,306 350,318 C 410,326 445,332 470,332 C 545,333 585,326 630,324 C 730,328 830,338 1000,346 L 1000,374 C 830,366 730,356 630,352 C 585,354 545,361 470,360 C 445,360 410,354 350,346 C 250,334 130,320 0,328 Z"/>
+    <path class="river" stroke-width="6" d="M 0,314 C 130,306 250,320 350,332 C 410,340 445,346 470,346 C 545,347 585,340 630,338 C 730,342 830,352 1000,360"/>
+    <!-- 汉水:自北南下,于夏口(武汉)入江 -->
+    <path class="river" stroke-width="3" d="M 548,36 C 546,120 550,210 556,270 C 560,308 566,326 572,338"/>
+    <text class="rname" x="300" y="360" style="font-size:14px">长　江</text>
+    <text class="rname" x="520" y="150" transform="rotate(86 520 150)" style="font-size:11px">汉　水</text>
 
-    <!-- 华容道:江北低洼泥泞之陆道(乌林西北通江陵) -->
-    <g class="mtn"><path d="M 300,150 l 7,-11 l 7,11 M 314,144 l 7,-11 l 7,11"/></g>
-    <text class="cname s" x="252" y="168">泥泞沼泽</text>
+    <!-- 华容道:江北低洼沼泽陆道(乌林西北通江陵) -->
+    <path class="marsh" d="M 226,238 C 208,244 206,262 224,270 C 250,280 300,278 320,266 C 336,256 330,240 308,236 C 280,230 246,232 226,238 Z"/>
+    <g class="mtn"><path d="M 236,220 l 6,-10 l 6,10 M 248,214 l 6,-10 l 6,10"/></g>
+    <text class="cname s" x="222" y="292" style="opacity:.85">云梦泽 · 泥泞</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="jiangling"><circle cx="118" cy="300" r="6"/><text class="cname" x="72" y="290">江陵<tspan class="cname s" dx="2">(操基,西)</tspan></text></g>
-      <g class="city" data-city="wulin"><circle cx="452" cy="250" r="6"/><text class="cname" x="410" y="234">乌林<tspan class="cname s" dx="2">(操水寨)</tspan></text></g>
-      <g class="city" data-city="chibi"><circle cx="496" cy="378" r="6"/><text class="cname" x="504" y="392">赤壁<tspan class="cname s" dx="2">(瑜屯)</tspan></text></g>
-      <g class="city" data-city="huarong"><circle cx="262" cy="196" r="4.5"/><text class="cname s" x="200" y="192">华容道</text></g>
-      <g class="city" data-city="xiakou"><circle cx="820" cy="316" r="6"/><text class="cname" x="770" y="352">夏口·樊口</text></g>
-      <g class="city cap" data-city="chaisang"><circle cx="936" cy="404" r="6"/><text class="cname" x="882" y="424">柴桑<tspan class="cname s" dx="2">(权本)</tspan></text></g>
+      <g class="city" data-city="jiangling"><circle cx="134" cy="280" r="6"/><text class="cname" x="88" y="272">江陵<tspan class="cname s" dx="2">(操基·西)</tspan></text></g>
+      <g class="city" data-city="huarong"><circle cx="286" cy="246" r="4.5"/><text class="cname s" x="298" y="242">华容道</text></g>
+      <g class="city" data-city="wulin"><circle cx="425" cy="298" r="6.5"/><text class="cname" x="384" y="284">乌林<tspan class="cname s" dx="2">(操水寨)</tspan></text></g>
+      <g class="city" data-city="chibi"><circle cx="506" cy="392" r="6.5"/><text class="cname" x="514" y="408">赤壁<tspan class="cname s" dx="2">(瑜屯)</tspan></text></g>
+      <g class="city" data-city="xiakou"><circle cx="588" cy="384" r="6"/><text class="cname" x="596" y="380">夏口</text></g>
+      <g class="city" data-city="fankou"><circle cx="690" cy="402" r="5"/><text class="cname" x="698" y="406">樊口<tspan class="cname s" dx="2">(备屯)</tspan></text></g>
+      <g class="city cap" data-city="chaisang"><circle cx="902" cy="430" r="6"/><text class="cname" x="848" y="450">柴桑<tspan class="cname s" dx="2">(权本)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 顺流东下 -->
+    <!-- ══ 全图 · 顺流东下 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 130,296 C 240,278 340,262 442,252"/>
-      <text class="mlabel q" x="180" y="240">操治水军,顺江东指,舳舻千里</text>
-      <path class="march j" marker-end="url(#aj)" d="M 928,398 C 800,404 640,398 512,384"/>
-      <text class="mlabel j" x="620" y="418">孙权遣周瑜、程普将三万,溯江西上</text>
-      <path class="march j" marker-end="url(#aj)" d="M 812,330 C 720,352 620,372 512,380"/>
-      <text class="anno" x="600" y="358">刘备自樊口引兵会周瑜,合逆之于赤壁</text>
-      <text class="anno" x="150" y="150">操得刘琮之众,兼荆州水军</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 150,296 C 240,300 330,300 412,304"/>
+      <text class="mlabel q" x="150" y="234">操治水军,自江陵顺流东指,舳舻千里,旌旗蔽空</text>
+      <path class="march j" marker-end="url(#aj)" d="M 892,424 C 760,418 640,408 520,398"/>
+      <text class="mlabel j" x="612" y="470">孙权遣周瑜、程普将三万,自柴桑溯江西上</text>
+      <path class="march j" marker-end="url(#aj)" d="M 682,404 C 620,404 566,402 520,396"/>
+      <text class="anno" x="590" y="426">刘备自樊口引兵会瑜</text>
+      <text class="anno" x="120" y="150">操得刘琮之众,兼收荆州水军</text>
     </g>
 
-    <!-- 阶段一:赤壁初遇 -->
+    <!-- ══ 阶段一:赤壁初遇 ══ -->
     <g id="ph1" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 130,300 C 240,300 340,304 452,306"/>
-      <text class="mlabel q" x="160" y="292">操自江陵浮江东下</text>
-      <path class="march j" marker-end="url(#aj)" d="M 500,372 C 500,352 496,336 486,320"/>
-      <text class="mlabel j" x="500" y="360">联军前锋渡江逆战</text>
-      <circle class="star" cx="480" cy="312" r="8"/>
-      <text class="anno" x="360" y="336">初一交战,操军不利</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 476,314 C 466,296 460,278 456,262"/>
-      <text class="mlabel r" x="380" y="270">操引次江北,屯乌林</text>
-      <text class="anno" x="470" y="400">联军屯南岸赤壁,夹江相持</text>
-      <text class="mlabel q" x="150" y="150">军多北人,不习水土,又染疾疫</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 150,300 C 260,306 370,326 486,352"/>
+      <text class="mlabel q" x="160" y="292">操自江陵浮江东下,遇联军于赤壁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 508,384 C 502,372 498,362 494,352"/>
+      <text class="mlabel j" x="512" y="386">联军前锋逆战</text>
+      <circle class="star" cx="486" cy="348" r="8"/>
+      <text class="anno" x="360" y="332">初一交战,操军不利</text>
+      <path class="march q" marker-end="url(#aq)" d="M 480,344 C 462,332 448,320 432,306"/>
+      <text class="mlabel q" x="352" y="316">操引次江北,屯乌林</text>
+      <text class="mlabel q" x="120" y="150">军多北人,不习水土,舟中震荡,又大疫</text>
+      <text class="anno" x="470" y="428">联军屯南岸赤壁,夹江相持</text>
     </g>
 
-    <!-- 阶段二:连环诈降 -->
+    <!-- ══ 阶段二:连环诈降 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="447" y="245" width="10" height="10" transform="rotate(45 452 250)"/>
-      <text class="mlabel q" x="360" y="228">操锁战船首尾相接,以御风浪</text>
-      <path class="siege" d="M 442,246 L 462,246 M 442,254 L 462,254" stroke="var(--enemy)" stroke-width="1.4"/>
-      <path class="march j" marker-end="url(#aj)" d="M 494,368 C 490,340 478,306 466,272"/>
-      <text class="mlabel j" x="360" y="300">黄盖献诈降火攻之计</text>
-      <text class="anno" x="330" y="420">预具蒙冲斗舰十艘,实以燥荻枯柴</text>
-      <text class="anno" x="330" y="436">灌膏油,裹帷幕,建牙旗,俟东南风起</text>
-      <path class="march j" marker-end="url(#aj)" d="M 640,380 C 680,364 700,340 700,314" opacity=".55"/>
-      <text class="anno" x="620" y="356">时东南风急</text>
+      <rect class="camp" x="420" y="293" width="10" height="10" transform="rotate(45 425 298)"/>
+      <line class="chain" x1="404" y1="298" x2="446" y2="298"/>
+      <line class="chain" x1="404" y1="292" x2="446" y2="292"/>
+      <line class="chain" x1="404" y1="304" x2="446" y2="304"/>
+      <text class="mlabel q" x="330" y="272">操锁战船,首尾相接,以御风浪</text>
+      <path class="march j" marker-end="url(#aj)" d="M 502,384 C 486,356 464,326 446,306"/>
+      <text class="mlabel j" x="470" y="392">黄盖献诈降火攻之计</text>
+      <text class="anno" x="452" y="440">预具蒙冲斗舰十艘,实以燥荻枯柴,</text>
+      <text class="anno" x="452" y="456">灌膏油,裹帷幕,建牙旗,俟东南风起</text>
+      <!-- 东南风:自东南来,吹向西北(乌林) -->
+      <path class="wind" marker-end="url(#af)" d="M 660,470 C 600,436 540,398 486,360" style="stroke:var(--gold)"/>
+      <text class="wlabel" x="612" y="486" font-size="20">东南风</text>
     </g>
 
-    <!-- 阶段三:火烧乌林 -->
+    <!-- ══ 阶段三:火烧乌林 ══ -->
     <g id="ph3" class="ph">
-      <path class="march sea" stroke="#9a2b1e" marker-end="url(#aq)" d="M 494,368 C 484,336 470,300 460,266"/>
-      <text class="mlabel q" x="500" y="352">黄盖火船趋乌林</text>
-      <text class="anno" x="470" y="336">去二里余,同时纵火</text>
+      <path class="march fship" marker-end="url(#af)" d="M 500,384 C 480,356 458,328 438,308"/>
+      <text class="mlabel f" x="504" y="372">黄盖火船趋乌林</text>
+      <text class="anno" x="470" y="356">去二里余,同时纵火</text>
       <!-- 火焰:乌林水寨延烧 -->
       <g class="fire">
-        <path d="M 452,250 q -6,-14 2,-24 q 3,10 8,6 q -2,12 4,18"/>
-        <path d="M 468,246 q -5,-12 2,-22 q 3,9 7,5 q -2,11 3,16"/>
-        <path d="M 436,252 q -5,-12 1,-20 q 3,8 7,5 q -2,10 3,14"/>
+        <path d="M 425,290 q -6,-14 2,-24 q 3,10 8,6 q -2,12 4,18"/>
+        <path d="M 441,286 q -5,-12 2,-22 q 3,9 7,5 q -2,11 3,16"/>
+        <path d="M 409,292 q -5,-12 1,-20 q 3,8 7,5 q -2,10 3,14"/>
       </g>
-      <path class="fire" d="M 420,244 q 20,-22 40,-16 q 20,-14 40,4" stroke-dasharray="2 4"/>
-      <text class="flabel" x="352" y="196" font-size="24">烟炎张天</text>
-      <path d="M 400,214 C 420,226 440,236 452,246" stroke="var(--enemy)" stroke-width="1.4" fill="none" opacity=".7"/>
-      <text class="anno" x="360" y="230">风猛火烈,延烧岸上营落</text>
-      <path class="march j" marker-end="url(#aj)" d="M 500,372 C 490,344 476,306 466,272"/>
-      <text class="mlabel j" x="500" y="404">瑜等雷鼓大进,人马烧溺死者甚众</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 448,254 C 380,220 320,196 274,192"/>
-      <text class="mlabel r" x="300" y="176">操引军自华容道步走</text>
-      <text class="anno" x="180" y="212">遇泥泞,羸弱死者不可胜计</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 258,196 C 200,220 160,268 132,296"/>
-      <text class="mlabel r" x="120" y="252">仅得引归北方</text>
+      <path class="fire" d="M 393,284 q 20,-22 40,-16 q 20,-14 40,4" stroke-dasharray="2 4"/>
+      <text class="flabel" x="486" y="226" font-size="23">烟炎张天</text>
+      <path d="M 480,236 C 464,254 448,272 432,292" stroke="var(--fire)" stroke-width="1.4" fill="none" opacity=".7"/>
+      <text class="anno" x="472" y="250">风猛火烈,延烧岸上营落</text>
+      <circle class="star" cx="466" cy="330" r="8"/>
+      <path class="march j" marker-end="url(#aj)" d="M 506,384 C 490,356 468,328 450,308"/>
+      <text class="mlabel j" x="522" y="432">瑜等雷鼓大进,烧溺死者甚众</text>
+      <!-- 华容道:陆路溃退,西北趋江陵 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 414,296 C 360,272 320,258 296,252"/>
+      <text class="mlabel r" x="300" y="216">操引军自华容道步走</text>
+      <text class="anno" x="176" y="234">道遇泥泞,羸弱死者不可胜计</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 278,250 C 230,258 186,272 152,284"/>
+      <text class="mlabel r" x="120" y="304">仅得引余众北归</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(946,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>孙刘联军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>曹操军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>水军(浮江)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>火败步走</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>孙刘联军(水军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>曹操水军(浮江)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#c0491f" stroke-width="3.4"/></svg>黄盖火船</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>火败步走(陆路)</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,11 C 12,4 20,4 26,10" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>东南风</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>曹操</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>孙刘</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>火攻释要 · 连船 · 诈降 · 东南风</h3>
+    <div class="lead">何以八十万之众一炬而溃 —— 以火制舟,借东南风,系于一夕</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="火攻示意:曹军连环战船列北岸,黄盖火船自南岸乘东南风纵火,烈焰延烧">
+      <!-- 大江(中,分南北岸) -->
+      <line x1="24" y1="132" x2="836" y2="132" stroke="#5f7f88" stroke-width="5" opacity=".55"/>
+      <text x="366" y="126" fill="#5f7f88" font-size="11" font-style="italic" opacity=".85">大　江</text>
+      <text x="26" y="30" fill="#9a2b1e" font-size="12" font-weight="700">北岸 · 乌林(曹军水寨)</text>
+      <text x="26" y="232" fill="#1f4e54" font-size="12" font-weight="700">南岸 · 赤壁(孙刘联军)</text>
+      <!-- 曹连环船:一列以铁索相连之战船 -->
+      <g>
+        <rect x="330" y="58" width="34" height="20" rx="2" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+        <rect x="384" y="58" width="34" height="20" rx="2" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+        <rect x="438" y="58" width="34" height="20" rx="2" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+        <rect x="492" y="58" width="34" height="20" rx="2" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+        <rect x="546" y="58" width="34" height="20" rx="2" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+        <line x1="364" y1="68" x2="384" y2="68" stroke="#9a2b1e" stroke-width="1.4"/>
+        <line x1="418" y1="68" x2="438" y2="68" stroke="#9a2b1e" stroke-width="1.4"/>
+        <line x1="472" y1="68" x2="492" y2="68" stroke="#9a2b1e" stroke-width="1.4"/>
+        <line x1="526" y1="68" x2="546" y2="68" stroke="#9a2b1e" stroke-width="1.4"/>
+      </g>
+      <text x="330" y="50" fill="#9a2b1e" font-size="10.5" font-weight="700">铁索连环 · 首尾相接,舟不得脱</text>
+      <!-- 火焰延烧诸船 -->
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 400,58 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 454,58 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 508,58 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+      </g>
+      <!-- 黄盖火船:自南岸驶北 -->
+      <g>
+        <path d="M 250,206 l 30,0 l -6,12 l -18,0 Z" fill="#c0491f" opacity=".9"/>
+        <path d="M 252,196 q 6,-12 13,-6 q 7,-8 13,4" fill="none" stroke="#c0491f" stroke-width="1.8"/>
+      </g>
+      <text x="196" y="228" fill="#c0491f" font-size="10.5" font-weight="700">黄盖诈降 · 火船十艘</text>
+      <path d="M 268,190 C 300,150 340,110 392,84" fill="none" stroke="#c0491f" stroke-width="2.6" marker-end="url(#af)"/>
+      <!-- 东南风:自东南(右下)吹向西北(左上) -->
+      <path d="M 760,214 C 660,176 560,140 470,108" fill="none" stroke="#9c7a2c" stroke-width="3" opacity=".85" marker-end="url(#af)"/>
+      <text x="686" y="228" fill="#9c7a2c" font-size="13" font-weight="700" font-family="'Ma Shan Zheng',serif">东南风</text>
+      <!-- 结果:焚船·陆遁 -->
+      <path d="M 328,66 C 260,54 200,52 150,58" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="60" y="50" fill="#7a5a23" font-size="10.5" font-weight="700">焚船 · 华容道陆遁</text>
+    </svg>
+    <p class="intro">曹操南得荆州水军,顺流东下,号八十万,实二十余万,然其军<b>多北人,不习水战,舟中震荡而疾疫大起</b>;为御风浪、安军心,乃以铁索连锁战船,首尾相接如履平地——舟既相连,亦<b>难卒解</b>。此其致命之隙。周瑜部将黄盖窥之,献诈降火攻之计:此役之成败,遂全系于连船、诈降、东南风三事之凑合。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>诈降 · 火船</h4>
+        <p>黄盖先以书遗操诈言归降,操信之不疑;乃预具蒙冲斗舰十艘,满载燥荻枯柴、灌以膏油,外裹帷幕、上建牙旗,舟后系走舸。至则举帆诈降而进,去操军二里余,同时发火,人各弃船跳舸而还——火起于毫无戒备之际。</p>
+      </div>
+      <div class="c b">
+        <h4>连船 · 东南风</h4>
+        <p>时值隆冬而东南风急。火船乘风直冲北岸连环舟阵,风猛火烈,舟既相连而不得散,须臾尽焚,延烧岸上营落,烟炎张天。曹军以连船避风浪之短,反成一炬俱焚之祸——非风则火不烈,非连则火不广。</p>
+      </div>
+    </div>
+    <p class="kicker">故赤壁之败,不在众寡,而在<b>以短济短</b>:曹军挟疾疫、乏水战之实,又自锁其舟以待火。黄盖之火借<b>东南风</b>而烈、缘<b>连环船</b>而广,一夕而北船焚尽,操由华容道狼狈北归。至若『借东风』『草船借箭』诸事,多《三国演义》敷演,非史所载;然火攻、连船、东南风,则确为决胜之枢。三分之势,自此役定。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·周瑜传》《先主传》《武帝纪》及《资治通鉴》卷六五约略绘出。长江作西东横带,曹操屯江北,孙刘据江南;疆界、水道、城邑相对位置经简化,非实测。</p>
-    <p><span class="n">注二</span>赤壁在今湖北赤壁市西北,乌林在江北洪湖一带,二地隔江相望;江陵今荆州,夏口今武汉,柴桑今九江,华容道为江北低洼泥泞之陆道。</p>
-    <p><span class="n">注三</span>曹军疾疫流行、北人不习水战,为致败之根由;黄盖火攻、东南风骤起为决胜之关键。至若"借东风""草船借箭"诸事,多为《三国演义》敷演,非史所载。三分之势,自此役始。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(江陵今荆州112.2°E,乌林今洪湖北岸113.5°E,赤壁今湖北赤壁市西北113.9°E,夏口今武汉114.3°E,樊口今鄂州西114.9°E,柴桑今九江115.9°E),力求东西次第与南北隔江之势近实。长江本于武汉一带大曲北折,此为绘作大体东西之轴以清眉目,几何有所简化;疆界以大江为约界,非实测。</p>
+    <p><span class="n">注二</span>兵力众说不一:曹操自号八十万,实约二十余万(周瑜谓『所将中国人不过十五六万,所得(刘)表众亦极七八万耳』);孙刘联军约五万(周瑜、程普三万,刘备、刘琦约二万)。曹军多北人,不习水战,舟中震荡,加以疫疾流行,为致败之根由。</p>
+    <p><span class="n">注三</span>本图据《三国志·武帝纪》《周瑜传》《鲁肃传》《先主传》及裴松之注引《江表传》、《资治通鉴》卷六五约略绘出。乌林在江北,赤壁在江南,二地隔江相望,火攻之处即乌林曹寨;华容道为江北低洼泥泞之陆道,曹操火败后由此步走西趋江陵而北归。黄盖诈降、以蒙冲斗舰载薪草膏油乘东南风纵火,为决胜之关键(详见上『火攻释要』)。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"顺流东下",d:"建安十三年(208)冬",p:["曹操南下荆州,刘琮举州降,操尽得其水军舟船之众,治水军于江陵,顺流东指,舳舻千里,旌旗蔽空,欲一举吞吴。","孙权用鲁肃、周瑜之谋,决意拒曹,遣周瑜、程普将精兵三万,与败退屯樊口之刘备合军,溯江西上,逆操于赤壁。江北曹营、江南联军,夹大江而列。"]},
+  all:{t:"顺流东下",d:"建安十三年(208)冬",p:["曹操南下荆州,刘琮举州降,操尽得其水军舟船之众,治水军于江陵,顺流东指,舳舻千里,旌旗蔽空,号八十万,欲一举吞吴。","孙权用鲁肃、周瑜之谋,决意拒曹,遣周瑜、程普将精兵三万,自柴桑溯江西上,与败退屯樊口之刘备合军,合五万逆操于赤壁。江北曹营、江南联军,夹大江而列。"]},
   "1":{t:"赤壁初遇",d:"建安十三年冬",p:["曹操自江陵浮江东下,与孙刘前锋遇于赤壁。操军新附荆州之众,人心未一,又多北方之士,不习水土,舟中震荡,军中疾疫大起。","初一交战,操军失利,遂引军还,次于江北乌林;联军屯据南岸赤壁,两军隔江相持。曹操之锐,至此已挫。"]},
-  "2":{t:"连环诈降",d:"建安十三年冬",p:["操军苦于风浪颠簸,乃以铁索连锁战船,首尾相接,人马于船上如履平地——然舟既相连,亦难卒解。","周瑜部将黄盖察其隙,献诈降火攻之计,预具蒙冲斗舰十艘,实以燥荻枯柴,灌以膏油,外裹帷幕,上建牙旗,先以书遗操诈言归降,俟东南风起而发。"]},
-  "3":{t:"火烧乌林",d:"建安十三年冬",p:["东南风急,黄盖率火船十艘驶趋乌林,余船以次俱进。去操军二里余,同时发火;时风猛火烈,舟连难散,须臾延烧岸上营落,顷刻烟炎张天,操军人马烧溺死者甚众。","周瑜、程普等率轻锐雷鼓大进,操军大溃。曹操引军自华容道步走,道遇泥泞,天又大风,羸弱之卒填淖而进,死者不可胜计,仅得引余众归还北方。荆州复失,三分之局肇于此役。"]}
+  "2":{t:"连环诈降",d:"建安十三年冬",p:["操军苦于风浪颠簸,又多疾疫,乃以铁索连锁战船,首尾相接,人马于船上如履平地——然舟既相连,亦难卒解,此其致命之隙。","周瑜部将黄盖察其隙,献诈降火攻之计,预具蒙冲斗舰十艘,实以燥荻枯柴,灌以膏油,外裹帷幕,上建牙旗,先以书遗操诈言归降,俟东南风起而发。时隆冬而东南风急,机至矣。"]},
+  "3":{t:"火烧乌林",d:"建安十三年冬",p:["东南风急,黄盖率火船十艘举帆诈降而进,余船以次俱进。去操军二里余,同时发火;时风猛火烈,舟连难散,须臾延烧岸上营落,顷刻烟炎张天,操军人马烧溺死者甚众。","周瑜、程普等率轻锐雷鼓大进,操军大溃。曹操引军自华容道步走,道遇泥泞,天又大风,羸弱之卒填淖而进,死者不可胜计,仅得引余众归还北方。荆州复失,三分之局肇于此役。"]}
 };
 const CITY={
-  jiangling:{t:"江陵",d:"荆州治,今湖北荆州",p:["曹操东下之基。既得刘琮之众,治水军于此,顺流而下。火败后操自华容道退,终归此而北。"]},
-  wulin:{t:"乌林",d:"江北,今湖北洪湖一带",p:["曹操引次江北所屯水寨,与赤壁隔江相望。操锁战船于此,黄盖纵火之处,烟炎张天,营落尽焚。"]},
-  chibi:{t:"赤壁",d:"江南,今湖北赤壁市西北",p:["周瑜屯军决战之地。联军据南岸,与操夹江相持;火攻既发,瑜等自此雷鼓大进。"]},
-  huarong:{t:"华容道",d:"江北陆道,今湖北监利一带",p:["曹操火败后步走之陆道。地多泥泞沼泽,天寒大风,羸弱死者不可胜计。"]},
-  xiakou:{t:"夏口·樊口",d:"今湖北武汉一带",p:["刘备败退屯樊口,自此引兵会周瑜。汉水于附近入江,为孙刘军会合之所。"]},
-  chaisang:{t:"柴桑",d:"孙权本营,今江西九江",p:["孙权坐镇之地。鲁肃、诸葛亮定盟于此,周瑜、程普自此将三万众西上逆操。"]}
+  jiangling:{t:"江陵",d:"荆州治,今湖北荆州(112.2°E)",p:["曹操东下之基。既得刘琮之众,治水军于此,顺流而下。火败后操自华容道退,终趋此而北归。"]},
+  huarong:{t:"华容道",d:"江北陆道,今湖北监利·洪湖间",p:["曹操火败后步走之陆道。地多低洼泥泞(古云梦泽余泽),天寒大风,曹操使羸弱负草填道,骑乃得过,人马践踏,陷泥死者不可胜计。"]},
+  wulin:{t:"乌林",d:"江北,今湖北洪湖北岸(113.5°E)",p:["曹操引次江北所屯水寨,与赤壁隔江相望。操锁战船于此以避风浪,黄盖纵火之处,烟炎张天,营落尽焚。"]},
+  chibi:{t:"赤壁",d:"江南,今湖北赤壁市西北(113.9°E)",p:["周瑜屯军决战之地。联军据南岸,与操夹江相持;黄盖火船自此举帆趋北岸乌林,火发之后,瑜等雷鼓大进。"]},
+  xiakou:{t:"夏口",d:"今湖北武汉(114.3°E)·汉水入江处",p:["刘备败当阳后走夏口,与刘琦合。汉水于此入江,为孙刘军控扼上游、会合西上之枢。"]},
+  fankou:{t:"樊口",d:"今湖北鄂州西(114.9°E)",p:["刘备退屯之所,在夏口下游、樊港入江处。闻周瑜军至,自此引兵会瑜,合逆曹操于赤壁。"]},
+  chaisang:{t:"柴桑",d:"孙权本营,今江西九江(115.9°E)",p:["孙权坐镇之地。鲁肃、诸葛亮定盟于此,孙权断案许战;周瑜、程普自此将三万众溯江西上逆操。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
