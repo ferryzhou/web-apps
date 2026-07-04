@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -31,6 +31,17 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  /* 粮道:金色串珠动脉,叠于河北输饷之道,示袁绍军粮所经 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 焚粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .flame{stroke:var(--paper);stroke-width:.5}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,9 +56,8 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +66,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:820;stroke-dashoffset:820;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,7 +97,7 @@
   <div class="seal" aria-hidden="true"><span>官</span><span>渡</span><span>之</span><span>战</span></div>
   <header>
     <h1>官渡之战</h1>
-    <div class="sub">汉建安五年(200)　　<i>曹操</i> 大破 <b>袁绍</b></div>
+    <div class="sub">汉建安五年(200)　　<i>曹操</i> 大破 <b>袁绍</b>　·　夜袭乌巢 · 焚粮而溃</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 绍南操北</button>
@@ -81,7 +106,7 @@
     <button data-p="3">火烧乌巢</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="官渡之战形势图,含袁绍河北与曹操许都疆界、黄河与邺黎阳白马延津乌巢官渡许等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="官渡之战形势图,含袁绍河北与曹操许都疆界、黄河、邺黎阳白马延津乌巢阳武官渡许诸城,及袁绍自河北经乌巢至前线之金色粮道与曹操夜袭焚粮之朱色截断记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -91,84 +116,101 @@
     </defs>
 
     <!-- 疆界:袁绍据河北(北),曹操据许都(南),约以黄河为界 -->
-    <path d="M 0,300 C 140,286 300,276 440,270 C 600,262 760,266 1000,278 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 140,286 300,276 440,270 C 600,262 760,266 1000,278 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,286 300,276 440,270 C 600,262 760,266 1000,278"/>
-    <text class="realm q" x="120" y="120" font-size="34">袁 绍(河北)</text>
-    <text class="realm j" x="640" y="590" font-size="32">曹 操(许都)</text>
+    <path d="M 0,348 C 160,336 300,322 400,310 C 460,302 500,298 540,288 C 590,276 612,250 662,226 C 740,206 840,198 1000,190 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,348 C 160,336 300,322 400,310 C 460,302 500,298 540,288 C 590,276 612,250 662,226 C 740,206 840,198 1000,190 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,348 C 160,336 300,322 400,310 C 460,302 500,298 540,288 C 590,276 612,250 662,226 C 740,206 840,198 1000,190"/>
+    <text class="realm q" x="90" y="150" font-size="30">袁 绍(河北)</text>
+    <text class="realm j" x="96" y="560" font-size="30">曹 操(许都)</text>
 
-    <!-- 黄河:自西向东横贯上方,为两军相持之前线 -->
-    <path class="river" stroke-width="6" d="M 0,246 C 160,262 300,278 430,286 C 560,294 700,290 830,300 C 900,306 960,312 1000,320"/>
-    <text class="rname" x="150" y="240" style="font-size:14px">黄 　 河</text>
+    <!-- 黄河:自西向东横贯,为两军相持之前线;袁绍渡河南向,粮道悬于其上 -->
+    <path class="river" stroke-width="6" d="M 0,362 C 160,350 300,336 400,324 C 470,315 508,310 548,300 C 596,288 616,264 666,240 C 742,220 842,212 1000,204"/>
+    <text class="rname" x="120" y="356" style="font-size:14px">黄 　 河</text>
+
+    <!-- ══ 袁绍粮道:金色串珠动脉,自邺·河北经黎阳渡河、屯乌巢,前输官渡之营 ══ -->
+    <path class="supply band" d="M 670,106 C 662,150 658,182 655,208 C 651,254 644,314 636,366"/>
+    <path class="supply band" d="M 632,372 C 578,382 512,378 468,366"/>
+    <path class="supply core" d="M 670,106 C 662,150 658,182 655,208 C 651,254 644,314 636,366"/>
+    <path class="supply core" d="M 632,372 C 578,382 512,378 468,366"/>
+    <g class="grain">
+      <rect x="655" y="164" width="7" height="7" transform="rotate(45 658.5 167.5)"/>
+      <rect x="649" y="242" width="7" height="7" transform="rotate(45 652.5 245.5)"/>
+      <rect x="640" y="316" width="7" height="7" transform="rotate(45 643.5 319.5)"/>
+      <rect x="596" y="378" width="7" height="7" transform="rotate(45 599.5 381.5)"/>
+      <rect x="530" y="380" width="7" height="7" transform="rotate(45 533.5 383.5)"/>
+    </g>
+    <text class="slabel" x="676" y="288">袁绍 · 粮道</text>
+    <text class="slabel" x="676" y="302" style="font-size:9.5px;opacity:.85">河北输饷之命脉</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="ye"><circle cx="620" cy="90" r="6"/><text class="cname" x="632" y="86">邺<tspan class="cname s" dx="2">(袁绍本)</tspan></text></g>
-      <g class="city" data-city="liyang"><circle cx="560" cy="220" r="5"/><text class="cname" x="500" y="212">黎阳<tspan class="cname s" dx="2">(渡河基地)</tspan></text></g>
-      <g class="city" data-city="baima"><circle cx="620" cy="330" r="5"/><text class="cname" x="632" y="326">白马</text></g>
-      <g class="city" data-city="yanjin"><circle cx="470" cy="316" r="5"/><text class="cname" x="406" y="312">延津</text></g>
-      <g class="city" data-city="wuchao"><circle cx="560" cy="404" r="5"/><text class="cname" x="574" y="400">乌巢<tspan class="cname s" dx="2">(屯粮)</tspan></text></g>
-      <g class="city" data-city="yangwu"><circle cx="470" cy="420" r="4"/><text class="cname s" x="410" y="416">阳武</text></g>
-      <g class="city" data-city="guandu"><circle cx="500" cy="470" r="6"/><text class="cname" x="512" y="466">官渡<tspan class="cname s" dx="2">(相持决战)</tspan></text></g>
-      <g class="city cap" data-city="xu"><circle cx="486" cy="590" r="6"/><text class="cname" x="498" y="586">许<tspan class="cname s" dx="2">(曹操本)</tspan></text></g>
+      <g class="city cap" data-city="ye"><circle cx="672" cy="97" r="6.5"/><text class="cname" x="682" y="94">邺<tspan class="cname s" dx="2">(袁绍本)</tspan></text></g>
+      <g class="city" data-city="liyang"><circle cx="655" cy="204" r="5"/><text class="cname" x="666" y="200">黎阳<tspan class="cname s" dx="2">(渡河基地)</tspan></text></g>
+      <g class="city" data-city="baima"><circle cx="634" cy="244" r="5"/><text class="cname" x="646" y="252">白马</text></g>
+      <g class="city" data-city="yanjin"><circle cx="520" cy="307" r="5"/><text class="cname" x="456" y="303">延津</text></g>
+      <g class="city" data-city="wuchao"><circle cx="634" cy="370" r="6"/><text class="cname" x="648" y="366">乌巢<tspan class="cname s" dx="2">(袁绍屯粮)</tspan></text></g>
+      <g class="city" data-city="yangwu"><circle cx="444" cy="349" r="4.5"/><text class="cname s" x="382" y="345">阳武(绍营)</text></g>
+      <g class="city" data-city="guandu"><circle cx="444" cy="433" r="6.5"/><text class="cname" x="456" y="429">官渡<tspan class="cname s" dx="2">(相持决战)</tspan></text></g>
+      <g class="city cap" data-city="xu"><circle cx="387" cy="580" r="6.5"/><text class="cname" x="399" y="576">许<tspan class="cname s" dx="2">(曹操本)</tspan></text></g>
     </g>
 
     <!-- 全图 · 绍南操北 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 616,102 C 600,140 580,178 566,208"/>
-      <text class="mlabel q" x="628" y="150">袁绍拥河北四州之众十万南下</text>
-      <path class="march j" marker-end="url(#aj)" d="M 490,578 C 496,540 500,510 500,484"/>
-      <text class="mlabel j" x="512" y="536">曹操以数万拒之,进屯官渡</text>
-      <text class="anno" x="140" y="330">夹黄河相持,前线在白马、延津、官渡之间</text>
-      <circle class="star" cx="620" cy="330" r="7"/>
-      <circle class="star" cx="470" cy="316" r="7"/>
+      <path class="march q" marker-end="url(#aq)" d="M 666,116 C 648,192 616,272 472,344"/>
+      <text class="mlabel q" x="500" y="200">袁绍拥河北四州之众十万南下</text>
+      <path class="march j" marker-end="url(#aj)" d="M 392,572 C 412,528 432,478 444,442"/>
+      <text class="mlabel j" x="250" y="512">曹操以劣势兵拒于官渡</text>
+      <text class="anno" x="120" y="418">夹黄河相持,前线在白马、延津、官渡之间</text>
+      <circle class="star" cx="634" cy="244" r="7"/>
+      <circle class="star" cx="520" cy="307" r="7"/>
     </g>
 
     <!-- 阶段一:白马 · 延津 -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 566,232 C 580,270 600,300 616,320"/>
-      <text class="mlabel q" x="576" y="266">颜良渡河攻白马</text>
-      <path class="march j" marker-end="url(#aj)" d="M 486,478 C 500,428 520,384 560,352 C 580,338 600,334 612,332"/>
-      <text class="mlabel j" x="452" y="430">操用荀攸计,声东击西,轻兵掩至</text>
-      <circle class="star" cx="620" cy="330" r="8"/>
-      <text class="anno" x="632" y="348">关羽策马斩颜良于万众中</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 610,338 C 560,336 520,330 480,322"/>
-      <text class="anno" x="470" y="298">操徙白马民循河西行,以辎重饵敌</text>
-      <circle class="star" cx="470" cy="316" r="8"/>
-      <text class="mlabel j" x="378" y="336">伏兵斩文丑于延津</text>
-      <text class="anno" x="150" y="360">二将既死,绍军夺气</text>
+      <path class="march q" marker-end="url(#aq)" d="M 652,212 C 648,222 642,232 638,238"/>
+      <text class="mlabel q" x="648" y="222">颜良渡河攻白马</text>
+      <path class="march j" marker-end="url(#aj)" d="M 450,428 C 476,356 556,278 626,250"/>
+      <text class="mlabel j" x="452" y="404">操用荀攸计,声东击西,轻兵掩至</text>
+      <circle class="star" cx="634" cy="244" r="8"/>
+      <text class="anno" x="580" y="228">关羽策马斩颜良于万众中</text>
+      <path class="march j" marker-end="url(#aj)" d="M 626,254 C 592,272 558,290 530,302"/>
+      <text class="anno" x="470" y="278">操徙白马民循河西行,以辎重饵敌</text>
+      <circle class="star" cx="520" cy="307" r="8"/>
+      <text class="mlabel j" x="376" y="330">伏兵斩文丑于延津</text>
+      <text class="anno" x="150" y="392">二将既死,绍军夺气</text>
     </g>
 
     <!-- 阶段二:官渡相持 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="466" y="356" width="10" height="10" transform="rotate(45 471 361)"/>
-      <text class="mlabel q" x="356" y="352">袁绍进营阳武,连营向官渡</text>
-      <path class="march q" marker-end="url(#aq)" d="M 474,428 C 484,442 490,452 496,462"/>
-      <path class="march j" marker-end="url(#aj)" d="M 494,486 C 492,478 490,472 490,466"/>
-      <rect class="camp" x="496" y="464" width="8" height="8" transform="rotate(45 500 468)" fill="#1f4e54"/>
-      <text class="mlabel j" x="512" y="486">操退守官渡,与绍夹营相持数月</text>
-      <text class="anno" x="356" y="440">绍起土山、地道以瞰营中</text>
-      <text class="anno" x="512" y="502">操作发石车(霹雳车)、掘长堑以拒之</text>
-      <text class="anno" x="356" y="560">操兵少食尽,书与荀彧议退;彧劝坚守待变</text>
+      <rect class="camp" x="440" y="345" width="10" height="10" transform="rotate(45 445 350)"/>
+      <text class="mlabel q" x="316" y="336">袁绍进营阳武,连营向官渡</text>
+      <path class="march q" marker-end="url(#aq)" d="M 444,362 C 444,388 444,406 444,422"/>
+      <rect class="camp" x="440" y="429" width="8" height="8" transform="rotate(45 444 433)" fill="#1f4e54"/>
+      <text class="mlabel j" x="456" y="452">操退守官渡,与绍夹营相持数月</text>
+      <text class="anno" x="150" y="472">绍起土山、地道以瞰营中</text>
+      <text class="anno" x="456" y="488">操作发石车(霹雳车)、掘长堑以拒之</text>
+      <text class="anno" x="150" y="556">操兵少食尽,书与荀彧议退;彧劝坚守待变</text>
+      <text class="slabel" x="500" y="356" style="font-size:10.5px">绍粮自河北源源前输,操之所急在此</text>
     </g>
 
     <!-- 阶段三:火烧乌巢 -->
     <g id="ph3" class="ph">
-      <rect class="camp" x="554" y="398" width="11" height="11" transform="rotate(45 560 404)"/>
-      <text class="mlabel q" x="574" y="392">绍粮屯乌巢,备虚</text>
-      <text class="anno" x="512" y="524">许攸来奔,言其虚实</text>
-      <path class="march j" marker-end="url(#aj)" d="M 500,462 C 508,436 524,414 546,404"/>
-      <text class="mlabel j" x="410" y="440">操自将步骑五千,夜衔枚缚口,诈为绍军</text>
-      <path d="M 560,404 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="596" y="418">间道袭乌巢,纵火尽焚其粮</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 504,472 C 540,460 560,440 566,416"/>
-      <text class="anno" x="512" y="452">张郃、高览攻操营不下,闻乌巢败,遂降</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 494,462 C 500,410 520,340 556,296 C 580,266 600,240 616,104"/>
-      <text class="mlabel r" x="588" y="240">绍父子北渡河,仅以八百骑遁走</text>
-      <text class="anno" x="356" y="576">操纵兵追击,斩获七万余;北方定势自此始</text>
+      <rect class="camp" x="628" y="364" width="11" height="11" transform="rotate(45 634 370)"/>
+      <text class="anno" x="456" y="486">许攸来奔,言绍粮尽屯乌巢,守备疏略</text>
+      <path class="march j" marker-end="url(#aj)" d="M 450,428 C 512,410 574,388 626,374"/>
+      <text class="mlabel j" x="446" y="420">操自将步骑五千,夜衔枚缚口,诈为绍军</text>
+      <!-- 焚乌巢粮:烈焰 + 朱色截断记号 -->
+      <path class="flame" d="M 634,350 C 624,362 626,374 632,380 C 628,372 634,366 633,358 C 637,363 641,368 640,376 C 646,371 646,360 634,350 Z" fill="var(--fire)"/>
+      <path class="flame" d="M 641,356 C 636,363 637,370 641,373 C 639,368 643,365 642,360 C 645,364 647,367 646,372 C 650,368 650,361 641,356 Z" fill="var(--gold)"/>
+      <g class="cut" transform="translate(634,370)"><circle r="8.5"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="652" y="392">操围屯纵火,尽焚绍粮辎重 ✕</text>
+      <path class="march q" marker-end="url(#aq)" d="M 470,360 C 500,372 520,390 534,410"/>
+      <text class="anno" x="470" y="452">张郃、高览攻操营不下,闻乌巢败,遂降</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 452,356 C 500,296 566,248 606,214 C 642,176 660,140 668,112"/>
+      <text class="mlabel r" x="360" y="268">绍父子北渡河,仅以八百骑遁走</text>
+      <text class="anno" x="120" y="574">操纵兵追击,斩获七万余;河北定势自此始</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -180,33 +222,85 @@
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>袁绍军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退(北渡河)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>袁绍·粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>焚乌巢粮</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>袁绍</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>粮道释要 · 乌巢一炬</h3>
+    <div class="lead">何以官渡之胜,系于一屯之粮 —— 以寡胜众之枢</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="粮道示意:袁绍恃河北之众与积粟,粮自邺经乌巢前输官渡;曹操兵少食尽,夜袭焚乌巢之粮,绍军粮绝而自溃">
+      <!-- 河北(北) -->
+      <text x="26" y="34" fill="#9a2b1e" font-size="12" font-weight="700">河北 · 邺(袁绍·众而富)</text>
+      <line x1="24" y1="44" x2="836" y2="44" stroke="#9a2b1e" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <!-- 前线(南) -->
+      <text x="26" y="228" fill="#1f4e54" font-size="12" font-weight="700">官渡前线 · 许(曹操·寡而窘)</text>
+      <line x1="24" y1="206" x2="836" y2="206" stroke="#1f4e54" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <!-- 袁绍粮道:自邺经乌巢前输(金) -->
+      <path d="M 240,52 C 236,110 234,150 232,150" fill="none" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 240,52 L 232,150" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <path d="M 232,150 C 300,168 380,182 470,188" fill="none" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 232,150 C 300,168 380,182 470,188" fill="none" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="236" y="96" width="8" height="8" transform="rotate(45 240 100)" fill="#9c7a2c"/>
+      <rect x="336" y="171" width="8" height="8" transform="rotate(45 340 175)" fill="#9c7a2c"/>
+      <circle cx="240" cy="50" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="248" y="46" fill="#2b2418" font-size="11.5" font-weight="700">邺·河北(粮本)</text>
+      <circle cx="232" cy="150" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="118" y="146" fill="#2b2418" font-size="11.5" font-weight="700">乌巢(屯粮)</text>
+      <circle cx="470" cy="190" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="480" y="194" fill="#2b2418" font-size="11" font-weight="700">绍营·十万之食</text>
+      <!-- 曹操夜袭:自官渡奔乌巢(青) -->
+      <path d="M 470,206 C 380,204 300,182 244,158" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 5"/>
+      <path d="M 250,161 L 240,152 L 252,150 Z" fill="#1f4e54"/>
+      <text x="330" y="230" fill="#1f4e54" font-size="10.5" font-weight="700">操将五千轻骑,夜衔枚诈为绍军 →</text>
+      <!-- 焚:乌巢烈焰+✕ -->
+      <path d="M 232,132 C 222,144 224,156 230,162 C 226,154 232,148 231,140 C 235,145 239,150 238,158 C 244,153 244,142 232,132 Z" fill="#c8641e" stroke="#e9dec4" stroke-width=".5"/>
+      <g><circle cx="232" cy="150" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="226" y1="144" x2="238" y2="156" stroke="#9a2b1e" stroke-width="2.6"/><line x1="226" y1="156" x2="238" y2="144" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="118" y="188" fill="#9a2b1e" font-size="10.5" font-weight="700">纵火尽焚 ✕</text>
+      <!-- 结果 -->
+      <text x="560" y="120" fill="#9a2b1e" font-size="12.5" font-weight="700">粮尽 → 军心自溃</text>
+      <text x="560" y="140" fill="#5c4f38" font-size="10.5">郃、览闻之来降</text>
+      <path d="M 512,132 C 540,132 548,128 556,124" fill="none" stroke="#9a2b1e" stroke-width="1.4" opacity=".6" stroke-dasharray="3 3"/>
+    </svg>
+    <p class="intro">官渡之役,袁绍拥河北四州、带甲十万,曹操兵不满万、<b>粮且尽</b>,以强弱论,操本无胜理。然十万之众,日食浩繁,<b>其命全悬于自河北经乌巢前输之一线粮道</b>——众愈多则食愈重,粮道愈不可失。此绍之至弱处,恰藏于其至强处之中。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>曹操 · 奇兵夜袭</h4>
+        <p>相持既久,操亦粮竭欲退,赖荀彧劝其坚守待变。会绍谋士许攸以家事见疑来奔,尽言绍粮屯乌巢、守将淳于琼备御疏略。操即留曹洪守营,自将步骑五千,人衔枚、马缚口,夜从间道,人抱束薪,诈为绍军过守者,径趋乌巢——以至弱之军,直取敌之命脉。</p>
+      </div>
+      <div class="c b">
+        <h4>乌巢 · 十万之食</h4>
+        <p>乌巢在官渡东北,为袁绍屯粮总汇,河北之粟由此前输诸营。绍不以重兵严守,又当张郃请『分兵救粮』时,绍反遣重兵攻操大营而以轻骑救乌巢。及围屯火起、烟炎张天,粮谷辎重一炬俱尽,绍营十万,顿失所仰。</p>
+      </div>
+    </div>
+    <p class="kicker">乌巢粮尽,则十万之众不战自乱:<b>张郃、高览攻营不下,闻粮已焚,遂焚攻具来降</b>,绍军由是崩溃。斩获七万余,绍父子以八百骑北遁。故官渡之胜,非曹操之众能陷袁绍之坚,实<b>一屯粮尽而敌心自溃</b>——以寡胜众者,胜在断其所恃,非在角其兵力也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《袁绍传》《荀彧传》《贾诩传》及《资治通鉴》卷六三约略绘出。疆界、水道经简化,黄河故道与今不同,点划"约界"非实有画界。</p>
-    <p><span class="n">注二</span>官渡在今河南中牟东北,乌巢在其东北;白马在今河南滑县东,延津即古之延津渡,黎阳在河北岸(今河南浚县),邺为袁绍霸府(今河北临漳西南),许即许都(今河南许昌东)。</p>
-    <p><span class="n">注三</span>以寡胜众、奇兵烧粮,为古今名战。绍多谋而少决、内不能和:沮授谏缓进而见疏,田丰以直谏下狱见杀,许攸以谮见逼而奔操——绍之败,不独在兵,亦在人和。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=330+(经度−113.7)·380,y=643−(纬度−33.7)·210),几何关系力求近实:邺在最北,许在最南,黄河自西东流,官渡在河南岸。疆界、水道经简化;点划『约界』依黄河一线,非实有画界。依《三国志·武帝纪》《袁绍传》《荀彧传》《贾诩传》裴注及《资治通鉴》卷六三绘出。</p>
+    <p><span class="n">注二</span>地望:官渡在今河南中牟东北;乌巢在其东北,今延津(一说封丘)东南,屯粮之所;白马在今河南滑县东,黎阳隔河相对(今浚县东);延津即古延津渡;阳武今原阳东南,袁绍前营;邺为袁绍霸府(今河北临漳西南);许即许都(今河南许昌东)。乌巢确址诸家小异,已於图中从延津东南一说,并此志之。</p>
+    <p><span class="n">注三</span>决胜之枢在断粮(图中金色粮道、朱色 ✕):袁绍众十万,日费粮重,粟自河北经乌巢前输为其命脉。操兵寡食尽本处劣势,得许攸之谋,夜袭乌巢、尽焚其粮辎——粮尽而军心自溃,张郃、高览遂降,绍军崩。此以寡胜众、以奇制胜之典,胜在断敌所恃,非在兵力之角。</p>
+    <p><span class="n">注四</span>绍之败,不独在兵,亦在人和:多谋而少决,内不能和。沮授谏缓进持久而见疏,田丰以直谏下狱见杀,许攸以谮见逼而奔操,张郃、高览以谗惧而降——谋臣良将叛去,而后粮道可袭、大军可溃。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"绍南操北",d:"汉建安五年(200)春",p:["袁绍既并公孙瓒,拥青、冀、幽、并河北四州之众,简精卒十万、骑万匹,南向以争天下,声势震动。曹操挟天子都许,地狭兵寡,乃引兵北屯官渡,夹黄河而拒之。","议者多谓绍强不可敌,唯荀彧、郭嘉以“十胜十败”之论坚操之志。两军隔河对峙,前线在白马、延津、官渡一线,天下之势系于此一隅。"]},
+  all:{t:"绍南操北",d:"汉建安五年(200)春",p:["袁绍既并公孙瓒,拥青、冀、幽、并河北四州之众,简精卒十万、骑万匹,南向以争天下,声势震动。曹操挟天子都许,地狭兵寡,乃引兵北屯官渡,夹黄河而拒之。","议者多谓绍强不可敌,唯荀彧、郭嘉以『十胜十败』之论坚操之志。两军隔河对峙,前线在白马、延津、官渡一线;而绍恃者,尤在自河北经乌巢前输之十万军食——天下之势,系于此一隅。"]},
   "1":{t:"白马 · 延津",d:"建安五年二月至四月",p:["绍遣大将颜良渡河围东郡太守刘延于白马。操用荀攸声东击西之计,声言渡河袭绍后,绍分兵西应;操乃轻兵间道掩至白马,关羽望见颜良麾盖,策马刺之于万众之中,斩其首而还,白马围解。","操徙白马吏民循河西行。绍渡兵追之,操以辎重委道饵敌,绍骑争取,行伍乱;操纵兵击之,斩大将文丑于延津。颜良、文丑者,绍之名将,一战而俱殁,绍军夺气。"]},
-  "2":{t:"官渡相持",d:"建安五年八月至九月",p:["操引军还守官渡,绍进军逼之,起土山、地道,临营射矢如雨,操众蒙盾而行。操作发石车击其楼橹,号“霹雳车”;又掘长堑以拒地道,相攻连月不决。","时操兵不满万,粮且尽,士卒疲乏,乃作书与荀彧谋欲还许。彧报书曰:绍悉众聚官渡,欲与公决胜败,公以至弱当至强,若不能制,必为所乘,此天下之大机也;愿公坚守,情见势竭,必将有变。操从之。"]},
-  "3":{t:"火烧乌巢",d:"建安五年十月",p:["会绍谋士许攸以家犯法、见疑而来奔,言绍屯粮尽在乌巢,守将淳于琼备御疏略。操大喜,留曹洪、荀攸守营,自将步骑五千,人衔枚、马缚口,夜从间道，人抱束薪，托为绍军过守者，径趋乌巢，围屯纵火，烟炎张天。","绍闻之,遣张郃、高览攻操大营,而遣轻骑救乌巢。操左右告贼骑稍近,操怒曰“贼在背后,乃白!”，士卒殊死战,尽焚绍粮谷,斩淳于琼等。郃、览攻营不下,闻乌巢已破，遂焚攻具来降；绍军惊乱崩溃。操纵兵追击，斩首及降者七万余,绍与谭父子北渡河,仅以八百骑遁走。北方定势自此始。"]}
+  "2":{t:"官渡相持",d:"建安五年八月至九月",p:["操引军还守官渡,绍进营阳武,连营逼之,起土山、地道,临营射矢如雨,操众蒙盾而行。操作发石车击其楼橹,号『霹雳车』;又掘长堑以拒地道,相攻连月不决。","时操兵不满万,粮且尽,士卒疲乏,乃作书与荀彧谋欲还许。彧报书曰:公以至弱当至强,若不能制,必为所乘,此天下之大机也;愿公坚守,情见势竭,必将有变。操从之——胜负之机,已隐伏于两军粮秣之间。"]},
+  "3":{t:"火烧乌巢",d:"建安五年十月",p:["会绍谋士许攸以家犯法、见疑而来奔,言绍屯粮尽在乌巢,守将淳于琼备御疏略。操大喜,留曹洪、荀攸守营,自将步骑五千,人衔枚、马缚口,夜从间道,人抱束薪,诈为绍军过守者,径趋乌巢,围屯纵火,烟炎张天。","绍闻之,遣张郃、高览攻操大营,而遣轻骑救乌巢。操左右告贼骑稍近,操怒曰『贼在背后,乃白!』,士卒殊死战,尽焚绍粮谷,斩淳于琼等。郃、览攻营不下,闻乌巢已破,遂焚攻具来降;绍军惊乱崩溃。操纵兵追击,斩首及降者七万余,绍与谭父子北渡河,仅以八百骑遁走。河北定势自此始。"]}
 };
 const CITY={
-  guandu:{t:"官渡",d:"今河南中牟东北",p:["曹操退守之地,与袁绍夹营相持数月。土山、地道、发石车、长堑，攻守之技尽出于此，为一役之枢。"]},
-  baima:{t:"白马",d:"今河南滑县东",p:["绍将颜良渡河来围。操声东击西轻兵掩至,关羽策马于万众中斩颜良,解白马之围。"]},
-  yanjin:{t:"延津",d:"古延津渡,今河南延津一带",p:["操徙白马民西行,以辎重委道饵敌;绍骑争取而阵乱，操纵兵斩文丑于此。二将既死，绍军夺气。"]},
-  wuchao:{t:"乌巢",d:"官渡东北,今河南延津东南",p:["袁绍屯粮之所,守将淳于琼。操自将五千夜袭,纵火尽焚其粮谷——一炬而胜负分。"]},
-  yangwu:{t:"阳武",d:"今河南原阳东南",p:["袁绍前进立营之地，连营渐逼官渡。沮授尝谏缓进以持久，绍不能用。"]},
-  xu:{t:"许",d:"许都,今河南许昌东",p:["曹操挟天子所都,官渡战守之根本。荀彧居守，书劝坚守待变，为操定计。"]},
-  ye:{t:"邺",d:"今河北临漳西南",p:["袁绍霸府所在,河北之本。官渡既败，绍收散卒还邺，未几呕血而卒。"]},
-  liyang:{t:"黎阳",d:"河北岸,今河南浚县东",p:["袁绍渡河南下之基地。颜良自此渡河攻白马；绍军进退，皆以黎阳为津要。"]}
+  guandu:{t:"官渡",d:"今河南中牟东北(114.0E,34.7N)",p:["曹操退守之地,与袁绍夹营相持数月。土山、地道、发石车、长堑,攻守之技尽出于此;操兵少食尽而不退,以待乌巢之机,为一役之枢。"]},
+  baima:{t:"白马",d:"今河南滑县东(114.5E,35.6N)",p:["绍将颜良渡河来围。操声东击西轻兵掩至,关羽策马于万众中斩颜良,解白马之围。"]},
+  yanjin:{t:"延津",d:"古延津渡,今河南延津(114.2E,35.3N)",p:["操徙白马民西行,以辎重委道饵敌;绍骑争取而阵乱,操纵兵斩文丑于此。二将既死,绍军夺气。"]},
+  wuchao:{t:"乌巢",d:"官渡东北,今延津(一说封丘)东南(114.5E,35.0N)",p:["袁绍屯粮之所,河北之粟由此前输诸营,守将淳于琼。操自将五千夜袭,围屯纵火,尽焚其粮辎——十万之食一炬俱尽,胜负遂分。此袁绍粮道之末端、命脉之所系。"]},
+  yangwu:{t:"阳武",d:"今河南原阳东南(114.0E,35.1N)",p:["袁绍前进立营之地,连营渐逼官渡。沮授尝谏缓进以持久、分兵严护粮道,绍皆不能用。"]},
+  xu:{t:"许",d:"许都,今河南许昌东(113.85E,34.0N)",p:["曹操挟天子所都,官渡战守之根本。荀彧居守,书劝坚守待变,为操定计。"]},
+  ye:{t:"邺",d:"今河北临漳西南(114.6E,36.3N)",p:["袁绍霸府所在,河北之本、军粮之源。官渡既败,绍收散卒还邺,未几呕血而卒。"]},
+  liyang:{t:"黎阳",d:"黄河北岸,今河南浚县东(114.55E,35.7N)",p:["袁绍渡河南下之基地,与白马隔河相对。颜良自此渡河攻白马;河北军粮亦经此渡河南输乌巢,为粮道之津要。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
