@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -31,6 +31,7 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -44,21 +45,39 @@
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .campj{fill:var(--advance);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 沙囊冰城:青白色雉堞,内嵌冰晶 */
+  .icecity .wall{fill:rgba(95,127,136,.22);stroke:var(--advance);stroke-width:1.3}
+  .icecity .ice{stroke:var(--advance2);stroke-width:1;opacity:.9}
+  /* 抹书离间:朱笔点窜之书 */
+  .letter .sheet{fill:rgba(233,222,196,.95);stroke:var(--ret);stroke-width:1.1}
+  .letter .rule{stroke:var(--ink2);stroke-width:.9;opacity:.6}
+  .letter .edit{stroke:var(--enemy);stroke-width:1.6;stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +91,16 @@
   <div class="seal" aria-hidden="true"><span>潼</span><span>关</span><span>之</span><span>战</span></div>
   <header>
     <h1>潼关之战</h1>
-    <div class="sub">汉建安十六年(211)　　<i>曹操</i> 破 <b>马超 · 韩遂</b>(关中十部)</div>
+    <div class="sub">汉建安十六年(211)　　<i>曹操</i> 破 <b>马超 · 韩遂</b>(关中十部)　·　声东击西 · 抹书离间</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 关中拒操</button>
-    <button data-p="1">潼关相持</button>
-    <button data-p="2">潜济结营</button>
-    <button data-p="3">抹书破超</button>
+    <button data-p="1">潼关相持 · 声东</button>
+    <button data-p="2">渡河据西 · 冰城</button>
+    <button data-p="3">抹书离间 · 虎骑夹击</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="潼关之战形势图,含关中十部与曹操疆界、黄河渭水河渭之口与潼关蒲阪津渭南长安等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="潼关之战形势图,含关中十部与曹操约界、黄河自北南下折东、渭水自西来会之河渭之口,及潼关蒲坂津渭南华阴长安河东等地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,82 +109,110 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:关中十部(马超韩遂)据关中(西),曹操自东而来(东),约以潼关黄河为界 -->
-    <path d="M 560,0 C 566,120 560,220 548,300 C 538,368 540,440 556,510 C 566,566 574,606 580,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 566,120 560,220 548,300 C 538,368 540,440 556,510 C 566,566 574,606 580,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 566,120 560,220 548,300 C 538,368 540,440 556,510 C 566,566 574,606 580,640"/>
-    <text class="realm q" x="150" y="130" font-size="32">关中十部</text>
-    <text class="realm q" x="196" y="176" font-size="18">(马超 · 韩遂)</text>
-    <text class="realm j" x="720" y="560" font-size="32">曹 操(自东来)</text>
+    <!-- ══ 约界:关中十部据关中(西·南),曹操据河东·弘农(东·北),约以黄河为界 ══ -->
+    <path d="M 0,30 L 742,30 C 746,140 750,250 752,340 C 754,372 750,400 730,430 C 712,470 706,520 706,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 742,30 C 746,140 750,250 752,340 C 754,372 750,400 730,430 C 712,470 706,520 706,640 L 1000,640 L 1000,30 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 742,30 C 746,140 750,250 752,340 C 754,372 750,400 730,430 C 712,470 706,520 706,640"/>
+    <text class="realm q" x="96" y="180" font-size="30">关 中 十 部</text>
+    <text class="realm q" x="150" y="214" font-size="16">(马超 · 韩遂)</text>
+    <text class="realm j" x="812" y="560" font-size="26">曹 操</text>
+    <text class="cname s" x="812" y="582" style="fill:var(--advance);opacity:.7">(弘农·自东来)</text>
+    <text class="realm j" x="812" y="112" font-size="20">河 东</text>
 
+    <!-- ══ 水系 ══ -->
     <!-- 黄河:自北南下,至潼关河渭之口折而东流 -->
-    <path class="river" stroke-width="5.5" d="M 470,0 C 476,90 484,180 496,270 C 506,340 522,392 552,404 C 620,428 720,432 820,430 C 900,428 960,428 1000,428"/>
-    <!-- 渭水:自西而东,注黄河于潼关河渭之口 -->
-    <path class="river" stroke-width="3.4" d="M 60,344 C 160,360 260,378 360,392 C 430,402 500,404 552,404"/>
-    <text class="rname" x="452" y="200" transform="rotate(84 452 200)">黄 河</text>
-    <text class="rname" x="800" y="418" style="font-size:13px">黄 河</text>
-    <text class="rname" x="200" y="368" style="font-size:12px">渭 水</text>
-    <text class="cname s" x="560" y="424" style="fill:var(--water)">河渭之口</text>
+    <path class="river" stroke-width="5.5" d="M 742,30 C 746,130 750,250 752,340 C 754,372 762,388 792,396 C 860,410 930,410 1000,408"/>
+    <!-- 渭水:自西而东,注黄河于河渭之口 -->
+    <path class="river" stroke-width="3.2" d="M 60,472 C 200,462 340,450 460,438 C 580,426 690,406 770,392"/>
+    <text class="rname" x="762" y="150" transform="rotate(87 762 150)">黄 河</text>
+    <text class="rname" x="892" y="398" style="font-size:12px">黄 河</text>
+    <text class="rname" x="300" y="452" transform="rotate(-5 300 452)" style="font-size:12px">渭 水</text>
+    <text class="cname s" x="770" y="384" style="fill:var(--water)">河渭之口</text>
 
     <!-- 华山 -->
-    <g class="mtn"><path d="M 452,470 l 9,-15 l 9,15 M 470,462 l 9,-15 l 9,15 M 488,470 l 8,-13 l 8,13"/></g>
-    <text class="cname s" x="452" y="492">华山</text>
+    <g class="mtn"><path d="M 588,442 l 11,-18 l 11,18 M 608,435 l 10,-16 l 10,16 M 627,442 l 9,-15 l 9,15"/></g>
+    <text class="mname" x="588" y="462" style="letter-spacing:.2em">华 山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="puban"><circle cx="512" cy="150" r="5"/><text class="cname" x="522" y="146">蒲阪津<tspan class="cname s" dx="2">(风陵渡)</tspan></text></g>
-      <g class="city cap" data-city="tongguan"><circle cx="558" cy="392" r="6"/><text class="cname" x="568" y="380">潼关<tspan class="cname s" dx="2">(相持)</tspan></text></g>
-      <g class="city" data-city="weikou"><circle cx="540" cy="404" r="3.5"/><text class="cname s" x="490" y="424">渭口</text></g>
-      <g class="city" data-city="weinan"><circle cx="410" cy="380" r="5"/><text class="cname" x="356" y="374">渭南</text></g>
-      <g class="city" data-city="huayin"><circle cx="470" cy="382" r="4"/><text class="cname s" x="452" y="404">华阴</text></g>
-      <g class="city cap" data-city="changan"><circle cx="180" cy="330" r="6"/><text class="cname" x="120" y="324">长安<tspan class="cname s" dx="2">(操西入)</tspan></text></g>
+      <g class="city cap" data-city="tongguan"><circle cx="690" cy="398" r="6.5"/><text class="cname" x="662" y="386">潼关<tspan class="cname s" dx="2">(相持)</tspan></text></g>
+      <g class="city" data-city="puban"><circle cx="742" cy="250" r="5"/><text class="cname" x="752" y="246">蒲坂津<tspan class="cname s" dx="2">(永济)</tspan></text></g>
+      <g class="city" data-city="weinan"><circle cx="470" cy="448" r="5.5"/><text class="cname" x="414" y="470">渭南</text></g>
+      <g class="city" data-city="huayin"><circle cx="632" cy="406" r="4"/><text class="cname s" x="610" y="398">华阴</text></g>
+      <g class="city cap" data-city="changan"><circle cx="218" cy="481" r="6"/><text class="cname" x="158" y="476">长安<tspan class="cname s" dx="2">(操西入)</tspan></text></g>
+      <g class="city" data-city="hedong"><circle cx="852" cy="168" r="4.5"/><text class="cname" x="812" y="162">河东<tspan class="cname s" dx="2">(安邑)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 关中拒操 -->
+    <!-- ══ 全图 · 关中拒操 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 900,432 C 800,438 700,438 610,412"/>
-      <text class="mlabel j" x="700" y="470">操引大军西次,进逼潼关</text>
-      <text class="mlabel q" x="150" y="230">超、遂等十部反,拒操于潼关</text>
-      <text class="anno" x="300" y="330">沿河为垒,众十万;以正合、以奇胜</text>
-      <rect class="camp" x="500" y="380" width="8" height="8" transform="rotate(45 504 384)"/>
-      <rect class="camp" x="490" y="330" width="7" height="7" transform="rotate(45 493 333)"/>
-      <text class="anno" x="360" y="320">关中军沿河立垒</text>
+      <path class="march j" marker-end="url(#aj)" d="M 990,414 C 900,410 810,406 720,400"/>
+      <text class="mlabel j" x="792" y="440">操引大军西次,进逼潼关</text>
+      <text class="mlabel q" x="96" y="252">超、遂等十部举兵,拒操于潼关</text>
+      <text class="anno" x="120" y="272">沿河为垒,众号十万</text>
+      <rect class="camp" x="686" y="394" width="9" height="9" transform="rotate(45 690.5 398.5)"/>
+      <rect class="camp" x="742" y="316" width="8" height="8" transform="rotate(45 746 320)"/>
+      <rect class="camp" x="746" y="220" width="8" height="8" transform="rotate(45 750 224)"/>
+      <text class="anno" x="500" y="360">关中军扼关沿河而阵</text>
+      <text class="anno" x="470" y="500">操意:以正合、以奇胜</text>
     </g>
 
-    <!-- 阶段一:潼关相持 -->
+    <!-- ══ 阶段一:潼关相持 · 声东 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 860,430 C 760,436 660,430 580,404"/>
-      <text class="mlabel j" x="640" y="416">操军至潼关,夹关相持</text>
-      <text class="anno" x="600" y="452">多设疑兵以缀其前</text>
-      <rect class="camp" x="536" y="384" width="8" height="8" transform="rotate(45 540 388)"/>
-      <text class="mlabel q" x="360" y="360">关中军扼关沿河而阵</text>
-      <path class="march j" marker-end="url(#aj)" d="M 566,384 C 552,300 528,220 516,164"/>
-      <text class="mlabel j" x="524" y="248">潜遣徐晃、朱灵夜渡蒲阪津</text>
-      <text class="anno" x="524" y="200">据河西立营,成掎角之势</text>
+      <path class="march j" marker-end="url(#aj)" d="M 970,412 C 880,408 780,406 716,400"/>
+      <text class="mlabel j" x="740" y="430">夹关相持,声言攻潼关</text>
+      <text class="anno" x="770" y="448">多设疑兵以缀其前</text>
+      <rect class="camp" x="686" y="394" width="9" height="9" transform="rotate(45 690.5 398.5)"/>
+      <rect class="camp" x="742" y="316" width="8" height="8" transform="rotate(45 746 320)"/>
+      <text class="mlabel q" x="470" y="352">关中军扼关、沿河立垒</text>
+      <!-- 潜遣徐晃朱灵:自河东夜渡蒲坂津,据河西 -->
+      <path class="march j" marker-end="url(#aj)" d="M 850,180 C 810,206 772,232 750,248 C 726,262 706,260 698,256"/>
+      <text class="mlabel j" x="560" y="200">潜遣徐晃、朱灵夜渡蒲坂津</text>
+      <text class="anno" x="596" y="220">据河西立营,成掎角之势</text>
+      <rect class="campj" x="682" y="250" width="9" height="9" transform="rotate(45 686.5 254.5)"/>
+      <text class="cname s" x="632" y="272" style="fill:var(--advance)">河西·晋营</text>
     </g>
 
-    <!-- 阶段二:潜济结营 -->
+    <!-- ══ 阶段二:渡河据西 · 冰城 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 556,384 C 548,300 528,240 516,168"/>
-      <text class="mlabel j" x="522" y="300">操自潼关北渡河,前队既济</text>
-      <path class="march q" marker-end="url(#aq)" d="M 470,296 C 490,320 508,352 520,376"/>
-      <text class="mlabel q" x="392" y="300">马超以万骑突至,矢下如雨</text>
-      <text class="anno" x="428" y="336">丁斐纵牛马饵敌,许褚翼操登船</text>
-      <circle class="star" cx="516" cy="160" r="7"/>
-      <path class="march j" marker-end="url(#aj)" d="M 510,168 C 470,240 430,320 414,368"/>
-      <text class="mlabel j" x="356" y="424">乃循河为甬道而南,结营渭南</text>
-      <text class="anno" x="356" y="444">数挑之不出</text>
+      <!-- 操自潼关北渡黄河 -->
+      <path class="march j" marker-end="url(#aj)" d="M 696,392 C 720,360 738,332 743,306"/>
+      <text class="mlabel j" x="700" y="356">操自潼关北渡</text>
+      <!-- 马超万骑追射 -->
+      <path class="march q" marker-end="url(#aq)" d="M 628,344 C 668,330 702,318 736,308"/>
+      <text class="mlabel q" x="536" y="326">马超万骑追射,矢下如雨</text>
+      <circle class="star" cx="744" cy="302" r="8"/>
+      <text class="anno" x="600" y="300">丁斐纵牛马饵敌,许褚翼操,仅乃得渡</text>
+      <!-- 循河为甬道而南,渡渭结营渭南 -->
+      <path class="march j" marker-end="url(#aj)" d="M 740,306 C 700,326 656,344 616,366 C 556,402 512,428 480,444"/>
+      <text class="mlabel j" x="470" y="404">循河为甬道而南,渡渭结营渭南</text>
+      <!-- 沙囊冰城 -->
+      <g class="icecity" transform="translate(430,452)">
+        <path class="wall" d="M 0,20 L 0,6 L 5,6 L 5,2 L 11,2 L 11,6 L 17,6 L 17,2 L 23,2 L 23,6 L 28,6 L 28,20 Z"/>
+        <g class="ice"><line x1="9" y1="10" x2="9" y2="18"/><line x1="6" y1="14" x2="12" y2="14"/><line x1="7" y1="11.5" x2="11" y2="16.5"/><line x1="11" y1="11.5" x2="7" y2="16.5"/><line x1="19" y1="10" x2="19" y2="18"/><line x1="16" y1="14" x2="22" y2="14"/></g>
+      </g>
+      <text class="mlabel j" x="356" y="486">沙囊筑城 · 灌水成冰,一夜而成</text>
     </g>
 
-    <!-- 阶段三:抹书破超 -->
+    <!-- ══ 阶段三:抹书离间 · 虎骑夹击 ══ -->
     <g id="ph3" class="ph">
-      <path d="M 410,380 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="356" y="356">纵兵会战:轻兵先挑,虎骑夹击</text>
-      <text class="anno" x="356" y="400">抹书间韩遂,超等愈疑,内自离贰</text>
-      <text class="mlabel j" x="356" y="418">大破关中军,斩成宜、李堪</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 396,384 C 300,398 200,392 130,360"/>
-      <text class="mlabel r" x="150" y="416">超、遂败走凉州</text>
-      <text class="anno" x="220" y="436">关陇遂平</text>
+      <!-- 抹书离间 mark:阵前渭上 -->
+      <g class="letter" transform="translate(548,392)">
+        <rect class="sheet" x="0" y="0" width="24" height="17" rx="1.5"/>
+        <line class="rule" x1="4" y1="5" x2="20" y2="5"/><line class="rule" x1="4" y1="9" x2="20" y2="9"/><line class="rule" x1="4" y1="13" x2="16" y2="13"/>
+        <line class="edit" x1="6" y1="5" x2="13" y2="5"/><line class="edit" x1="9" y1="9" x2="17" y2="9"/><line class="edit" x1="6" y1="13" x2="11" y2="13"/>
+      </g>
+      <text class="mlabel j" x="454" y="378">贾诩计:阵前交马叙旧、抹书点窜</text>
+      <text class="anno" x="470" y="360">超等愈疑韩遂,内自离贰</text>
+      <!-- 虎骑夹击:金环+两翼夹击 -->
+      <circle class="star" cx="524" cy="440" r="11"/>
+      <path class="march j" marker-end="url(#aj)" d="M 470,408 C 492,418 506,426 516,434"/>
+      <path class="march j" marker-end="url(#aj)" d="M 600,470 C 566,462 542,452 532,446"/>
+      <text class="mlabel j" x="470" y="424">纵虎骑夹击</text>
+      <text class="anno" x="560" y="482">大破西凉,斩成宜、李堪</text>
+      <!-- 败走凉州 -->
+      <path class="march rout" marker-end="url(#ar)" style="stroke-dasharray:4 8" d="M 486,448 C 380,462 270,478 140,494"/>
+      <text class="mlabel r" x="150" y="512">马超、韩遂败走凉州</text>
+      <text class="anno" x="230" y="530">关陇遂平,操西入长安</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -180,31 +227,100 @@
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>关中军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败走凉州</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>渭南会战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>虎骑夹击 · 渭南会战</span>
+    <span class="item"><svg width="20" height="16"><path d="M 0,14 L 0,4 L 4,4 L 4,1 L 9,1 L 9,4 L 13,4 L 13,1 L 18,1 L 18,4 L 20,4 L 20,14 Z" fill="rgba(95,127,136,.22)" stroke="#1f4e54" stroke-width="1.1"/><line x1="10" y1="6" x2="10" y2="12" stroke="#2c6b6f"/><line x1="7" y1="9" x2="13" y2="9" stroke="#2c6b6f"/></svg>沙囊冰城</span>
+    <span class="item"><svg width="20" height="16"><rect x="1" y="2" width="16" height="12" rx="1.2" fill="rgba(233,222,196,.95)" stroke="#7a5a23" stroke-width="1"/><line x1="4" y1="6" x2="12" y2="6" stroke="#9a2b1e" stroke-width="1.4"/><line x1="4" y1="10" x2="10" y2="10" stroke="#9a2b1e" stroke-width="1.4"/></svg>抹书离间</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>关中十部</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 示形 · 据地 · 间敌</h3>
+    <div class="lead">何以西凉十万之众,一举而溃 —— 系于示形渡河、据地冰城、抹书间敌三策相因</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:先示形声东击西,次渡河据西筑冰城夺地利,终抹书离间溃敌心,乃纵虎骑夹击">
+      <!-- 阶段横带 -->
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 示形</text>
+      <text x="330" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 据地</text>
+      <text x="628" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 间敌</text>
+
+      <!-- ① 示形:声言攻潼关,潜渡蒲坂 -->
+      <path d="M 96,150 l 16,-26 l 16,26 M 122,150 l 14,-22 l 14,22" fill="none" stroke="#5c4f38" stroke-width="1.3" opacity=".8"/>
+      <text x="92" y="168" fill="#5c4f38" font-size="10">潼关</text>
+      <line x1="150" y1="96" x2="150" y2="156" stroke="#9a2b1e" stroke-width="2.4"/>
+      <text x="156" y="172" fill="#9a2b1e" font-size="9.5">关中拒守</text>
+      <path d="M 40,120 L 138,120" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <text x="30" y="112" fill="#1f4e54" font-size="10">声言攻关</text>
+      <path d="M 70,116 C 78,58 210,48 236,96" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#aj)"/>
+      <text x="120" y="52" fill="#1f4e54" font-size="10">潜渡蒲坂 · 据河西</text>
+
+      <!-- ② 据地:北渡黄河,循甬道,筑冰城 -->
+      <line x1="470" y1="52" x2="470" y2="168" stroke="#5f7f88" stroke-width="5" opacity=".85"/>
+      <text x="476" y="60" fill="#5f7f88" font-size="9.5">黄河</text>
+      <path d="M 542,96 L 420,96" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <text x="486" y="88" fill="#1f4e54" font-size="10">北渡 · 西据</text>
+      <path d="M 462,104 C 430,128 404,150 396,166" fill="none" stroke="#1f4e54" stroke-width="2" marker-end="url(#aj)"/>
+      <text x="330" y="128" fill="#1f4e54" font-size="10">循河甬道而南</text>
+      <g transform="translate(348,168)">
+        <path d="M 0,26 L 0,8 L 6,8 L 6,3 L 13,3 L 13,8 L 20,8 L 20,3 L 27,3 L 27,8 L 34,8 L 34,26 Z" fill="rgba(95,127,136,.22)" stroke="#1f4e54" stroke-width="1.3"/>
+        <g stroke="#2c6b6f" stroke-width="1"><line x1="11" y1="13" x2="11" y2="23"/><line x1="7" y1="18" x2="15" y2="18"/><line x1="23" y1="13" x2="23" y2="23"/><line x1="19" y1="18" x2="27" y2="18"/></g>
+      </g>
+      <text x="336" y="210" fill="#1f4e54" font-size="10" font-weight="700">沙囊冰城 · 一夜而成</text>
+
+      <!-- ③ 间敌:抹书离韩马 -->
+      <circle cx="642" cy="86" r="4.5" fill="#e9dec4" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="652" y="90" fill="#9a2b1e" font-size="10" font-weight="700">韩遂</text>
+      <circle cx="642" cy="164" r="4.5" fill="#e9dec4" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="652" y="168" fill="#9a2b1e" font-size="10" font-weight="700">马超</text>
+      <line x1="642" y1="90" x2="642" y2="160" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="3 3" opacity=".7"/>
+      <g transform="translate(690,108)">
+        <rect x="0" y="0" width="30" height="22" rx="1.5" fill="rgba(233,222,196,.95)" stroke="#7a5a23" stroke-width="1.1"/>
+        <line x1="5" y1="7" x2="25" y2="7" stroke="#5c4f38" stroke-width=".9" opacity=".6"/><line x1="5" y1="12" x2="25" y2="12" stroke="#5c4f38" stroke-width=".9" opacity=".6"/><line x1="5" y1="17" x2="20" y2="17" stroke="#5c4f38" stroke-width=".9" opacity=".6"/>
+        <line x1="7" y1="7" x2="16" y2="7" stroke="#9a2b1e" stroke-width="1.6"/><line x1="11" y1="12" x2="22" y2="12" stroke="#9a2b1e" stroke-width="1.6"/><line x1="7" y1="17" x2="14" y2="17" stroke="#9a2b1e" stroke-width="1.6"/>
+      </g>
+      <text x="640" y="212" fill="#9a2b1e" font-size="10" font-weight="700">抹书点窜 · 超疑遂</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 262,120 L 300,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+      <path d="M 560,120 L 598,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+      <!-- 归结:虎骑夹击 -->
+      <circle cx="792" cy="132" r="13" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <path d="M 762,110 C 772,118 780,124 784,128" fill="none" stroke="#1f4e54" stroke-width="2" marker-end="url(#aj)"/>
+      <path d="M 792,168 L 792,148" fill="none" stroke="#1f4e54" stroke-width="2" marker-end="url(#aj)"/>
+      <text x="760" y="190" fill="#9c7a2c" font-size="10" font-weight="700">虎骑夹击</text>
+    </svg>
+    <p class="intro">操之破超,不在力斗,而在三策相因:先<b>示形</b>以致敌于关下,次<b>渡河据地</b>以夺其势,终<b>抹书间敌</b>以溃其心,然后纵虎骑一举夹击。三者阙一,则十万之众未易图也。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>示形 · 据地(军事)</h4>
+        <p>声言攻潼关以缀敌于关下,而潜遣徐晃、朱灵夜渡蒲坂津据河西;操自北渡,虽为超骑追射、赖丁斐饵敌、许褚翼护仅乃得济。既据河西,循河为甬道渡渭而南,时天寒,以沙囊筑城、灌水成冰,一夜成垒——不与争关而先夺其地利。</p>
+      </div>
+      <div class="c b">
+        <h4>间敌 · 抹书(谋略)</h4>
+        <p>关中十部本乌合,虽众而不相服。用贾诩计:操与韩遂阵前交马,但叙京都旧故而不及军事;复为书与遂而多所点窜,若遂自改定者。马超见之益疑韩遂,诸将内自离贰,联军未战而先溃于心。</p>
+      </div>
+    </div>
+    <p class="kicker">地利既夺、敌心既离,操乃先以轻兵挑战,战酣而纵<b>虎骑夹击</b>,大破西凉十万,斩成宜、李堪,马超走凉州、关陇遂平。故潼关之胜,非力胜,乃<b>示形 · 据地 · 间敌</b>之胜也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《马超传》《贾诩传》《许褚传》约略绘出。潼关在今陕西潼关,蒲阪津在河东风陵渡一带,渭南、华阴在今陕西境。黄河、渭水水道及河渭之口经简化,疆界为点划"约界",非实有画界。</p>
-    <p><span class="n">注二</span>关中诸将本各据一方,因操遣钟繇等图汉中,道经关中,诸将疑操袭己,遂相煽而反:马超、韩遂、侯选、程银等十部合兵拒操于潼关,沿河为垒,众号十万——其合正操所愿。</p>
-    <p><span class="n">注三</span>离间韩、马为贾诩之谋。操与遂会语,但叙京都旧故而不及军事;又遗遂书多所点窜,若遂改定者,超等愈疑之。操自谓"关中长远,今皆来集,虽众而不相服,一举可灭",故独喜关中军之合。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影,几何关系力求近实:黄河自北南下、至潼关(河渭之口)折而东流,渭水自西来会;潼关在西、河东在东北、渭南在西南、长安更西。潼关今陕西潼关北;蒲坂津在今山西永济(蒲州)西之黄河渡口;渭南者渭水之南,操结营处,今陕西渭南一带;长安今西安;河东郡治安邑,今山西夏县。水道及约界经简化,点划"约界"非实有画界。依《三国志·武帝纪》《马超传》《贾诩传》《许褚传》及《资治通鉴》卷六十六绘出。</p>
+    <p><span class="n">注二</span>声东击西、渡河据西:操声言攻潼关而潜遣徐晃、朱灵夜渡蒲坂津,据河西为营;操自潼关北渡,未济,马超以万骑赴击,矢下如雨,校尉丁斐纵牛马以饵敌、贼乱取之,许褚左手举马鞍蔽操、右手刺船,翼操登舟仅乃得渡。既济,循河为甬道而南、渡渭结营渭南;时天寒,以沙囊为城、灌水成冰,一夜而成。</p>
+    <p><span class="n">注三</span>抹书离间为贾诩之谋:韩遂请与操会语,操与遂交马、但叙京都旧故而不及军事;又后遗遂书,多所点窜,若遂自改定者,超等愈疑之。操谓"关中兵虽众而不相服,一举可灭",故独喜其合。及战,先以轻兵挑之,战酣,纵虎骑夹击,大破关中军,斩成宜、李堪;马超、韩遂走凉州,侯选、程银奔汉中,关陇遂平。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"关中拒操",d:"汉建安十六年(211)三月 — 秋",p:["操遣钟繇、夏侯渊等出河东图汉中,道经关中。关中诸将疑操阴袭己,马超、韩遂、侯选、程银、李堪、成宜等十部同时举兵反,拒操于潼关,沿河为垒,众号十万,声势甚盛。","操引大军西次,进逼潼关,与关中军夹关相持。操之用兵,意在以正兵缀敌于潼关之前,而潜以奇兵旁出蒲阪、掎角制之——所谓以正合、以奇胜也。"]},
-  "1":{t:"潼关相持",d:"建安十六年 秋",p:["操军既至潼关,与关中军夹关而阵。关中军扼关、沿黄河立垒,操则多设疑兵以缀其前,示以相持之形,使敌注目于潼关一线。","乘敌顿于关下,操潜遣徐晃、朱灵将步骑四千夜渡蒲阪津(风陵渡),据河西立营为屯,与潼关正兵相为掎角,已开北渡之路。"]},
-  "2":{t:"潜济结营",d:"建安十六年 秋",p:["操自潼关北渡黄河,身留断后,使前队先济。前队既渡,马超率万余骑猝然突至,矢下如雨,军中大扰。校尉丁斐纵牛马以饵敌,贼乱取之,许褚左手举马鞍蔽操、右手刺船,翼操登舟乃得渡。","既济河西,操乃循河为甬道而南,连车树栅、结营于渭南。与关中军相拒,数挑战而超、遂不出,两军对峙于渭上。"]},
-  "3":{t:"抹书破超",d:"建安十六年 秋",p:["韩遂请与操会语,操与遂马上交谈良久,但叙京都旧交、不及军事;又后遗遂书,多所涂改点窜,若遂自改定者。马超等见之,愈疑韩遂私通于操,关中诸将内自离贰。","离间既成,操乃纵兵会战:先以轻兵挑之,战既合,复以虎骑夹击,大破关中军,斩成宜、李堪等。马超、韩遂败走凉州,侯选、程银奔汉中，关陇遂平。"]}
+  all:{t:"关中拒操",d:"汉建安十六年(211)三月 — 秋",p:["建安十六年,操遣钟繇、夏侯渊等出河东欲讨张鲁,道经关中。关中诸将疑操阴袭己,马超、韩遂、侯选、程银、李堪、成宜等十部同时举兵,拒操于潼关,沿河为垒,众号十万。","操引大军西次,进逼潼关,与关中军夹关相持。操之用兵,意在以正兵缀敌于潼关之前,而潜以奇兵旁出蒲坂、掎角制之——所谓声东击西、以正合以奇胜也。"]},
+  "1":{t:"潼关相持 · 声东",d:"建安十六年 秋",p:["操军既至潼关,与关中军夹关而阵。关中军扼关、沿黄河立垒,操则声言攻潼关、多设疑兵以缀其前,使敌注目于潼关一线。","乘敌顿于关下,操潜遣徐晃、朱灵将步骑四千夜渡蒲坂津(今山西永济),据河西立营为屯,与潼关正兵相为掎角,阴开北渡之路——声东击西之奇于此始。"]},
+  "2":{t:"渡河据西 · 冰城",d:"建安十六年 秋",p:["操留潼关而自北渡黄河,身留断后、使前队先济。前队既渡,马超率万余骑猝然突至,矢下如雨,军中大扰;校尉丁斐纵牛马以饵敌,许褚左手举马鞍蔽操、右手刺船,翼操登舟乃得渡。","既济,操循河为甬道而南、渡渭结营于渭南。时天寒,取沙囊为城、灌水成冰,一夜而成,遂据渭南与关中军相拒;数挑之而超、遂不出,两军对峙渭上。"]},
+  "3":{t:"抹书离间 · 虎骑夹击",d:"建安十六年 秋",p:["韩遂请与操会语,操与遂交马、但叙京都旧故而不及军事;又后遗遂书,多所点窜,若遂自改定者。马超等见之,愈疑韩遂私通于操,关中诸将内自离贰——此贾诩抹书离间之谋也。","离间既成,操乃纵兵会战:先以轻兵挑之,战酣,复纵虎骑夹击,大破关中军,斩成宜、李堪等。马超、韩遂败走凉州,侯选、程银奔汉中,关陇遂平,操西入长安。"]}
 };
 const CITY={
-  tongguan:{t:"潼关",d:"河渭之口,今陕西潼关",p:["黄河折东、渭水来会之扼要。关中军沿河为垒拒操于此,两军夹关相持;操多设疑兵缀之,而奇兵旁出。"]},
-  puban:{t:"蒲阪津",d:"河东风陵渡一带",p:["黄河渡口。操潜遣徐晃、朱灵夜渡于此,据河西立营,与潼关正兵成掎角,遂开北渡之路。"]},
-  weinan:{t:"渭南",d:"渭水之南,今陕西渭南",p:["操循河为甬道而南,结营于此,与关中军对峙。数挑之不出;终纵兵会战,大破关中军之地。"]},
-  huayin:{t:"华阴",d:"华山之北,今陕西华阴",p:["潼关、渭南之间道所经,近华山之险。为关中军沿河布防之一环。"]},
-  changan:{t:"长安",d:"关中重镇,今陕西西安",p:["关中形胜之都。关中军既败走凉州,操西入长安,遣夏侯渊等追讨,关陇以定。"]},
-  weikou:{t:"渭口",d:"渭水入河之口",p:["渭水东注黄河、与河合流于潼关之侧。操结甬道循河而南,即由此转趋渭南。"]}
+  tongguan:{t:"潼关",d:"河渭之口,今陕西潼关北",p:["黄河折东、渭水来会之扼要,关中东面门户。关中军沿河为垒拒操于此,两军夹关相持;操声言攻关而奇兵旁出蒲坂。"]},
+  puban:{t:"蒲坂津",d:"黄河渡口,今山西永济(蒲州)西",p:["操潜遣徐晃、朱灵夜渡于此,据河西立营,与潼关正兵成掎角,阴开北渡之路——声东击西之奇著。"]},
+  weinan:{t:"渭南",d:"渭水之南,今陕西渭南一带",p:["操循河为甬道、渡渭结营于此。时寒,以沙囊筑城、灌水成冰,一夜而成;终纵虎骑夹击、大破关中军之地。"]},
+  huayin:{t:"华阴",d:"华山之北,今陕西华阴",p:["潼关、渭南间道所经,近华山之险,为关中军沿河布防之一环。"]},
+  changan:{t:"长安",d:"关中重镇,今陕西西安",p:["关中形胜之都。关中军既败走凉州,操西入长安,遣夏侯渊等留讨,关陇以定。"]},
+  hedong:{t:"河东",d:"河东郡治安邑,今山西夏县",p:["黄河以东之地,操军旁出之基。徐晃、朱灵自河东夜渡蒲坂津,袭据河西,遂成掎角。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

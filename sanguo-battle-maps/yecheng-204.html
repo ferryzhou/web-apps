@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--flood:#3f6d7a;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -31,6 +31,23 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 上党粮道:金色串珠动脉,袁尚自上党经毛城、邯郸输邺之命脉 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 围堑(金环)与决漳水灌邺(水色泛滥) */
+  .moat{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:5 4;opacity:.9}
+  .flood{fill:var(--flood);opacity:.15}
+  .floodwave{fill:none;stroke:var(--flood);stroke-width:1.4;opacity:.55;stroke-linecap:round}
+  .flabel{fill:var(--flood);font-size:11px;font-weight:700;letter-spacing:.06em}
+  .gate line{stroke:var(--advance);stroke-width:2.4;stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -47,7 +64,7 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +73,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +104,16 @@
   <div class="seal" aria-hidden="true"><span>邺</span><span>城</span><span>之</span><span>役</span></div>
   <header>
     <h1>邺城之战</h1>
-    <div class="sub">汉建安九年(204)　　<i>曹操</i> 克 <b>邺城</b> · 破袁尚</div>
+    <div class="sub">汉建安九年(204)　　<i>曹操</i> 克 <b>邺城</b> · 破袁尚　·　围堑决漳 · 内应而下</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 乘衅围邺</button>
-    <button data-p="1">进围邺城</button>
+    <button data-p="1">凿堑决漳</button>
     <button data-p="2">阳平却尚</button>
-    <button data-p="3">城破入邺</button>
+    <button data-p="3">内应破邺</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邺城之战形势图,含袁氏河北与曹操疆界、漳水洹水黄河与邺城黎阳平原中山等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邺城之战形势图,含袁氏冀州与曹操河南疆界、黄河漳水洹水、邺黎阳邯郸毛城平原诸城,及曹操围堑决漳灌邺、断上党粮道、袁尚自平原来救于阳平被破奔中山、审荣夜开东门之内应记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,82 +122,128 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:袁氏据河北(北),曹操自黎阳渡河北上(南),约以黄河为界 -->
-    <path d="M 0,470 C 140,455 300,450 440,458 C 560,464 700,468 1000,452 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,470 C 140,455 300,450 440,458 C 560,464 700,468 1000,452 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,470 C 140,455 300,450 440,458 C 560,464 700,468 1000,452"/>
-    <text class="realm q" x="120" y="150" font-size="34">袁 氏(河北)</text>
-    <text class="realm j" x="620" y="590" font-size="30">曹 操(自黎阳渡河来)</text>
+    <!-- 疆界:袁氏据冀州·河北(北),曹操自河南渡河深入(南沿黄河),约以黄河为界 -->
+    <path d="M 0,556 C 250,562 550,564 760,556 C 870,552 940,548 1000,548 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,556 C 250,562 550,564 760,556 C 870,552 940,548 1000,548 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,556 C 250,562 550,564 760,556 C 870,552 940,548 1000,548"/>
+    <text class="realm q" x="470" y="86" font-size="30">袁 氏(冀州)</text>
+    <text class="realm j" x="120" y="612" font-size="22">曹 操(河南·自黎阳渡河来)</text>
 
-    <!-- 黄河:河北与河南之界,黎阳渡在其南岸 -->
-    <path class="river" stroke-width="5.5" d="M 0,500 C 160,486 320,482 470,490 C 610,498 760,500 1000,486"/>
-    <!-- 漳水:环邺而南,自太行东出 -->
-    <path class="river" stroke-width="3.4" d="M 250,230 C 340,250 420,272 470,300 C 520,328 540,360 560,398 C 578,432 640,452 720,448"/>
-    <!-- 洹水:邺北,自西山东流 -->
-    <path class="river" stroke-width="2.4" d="M 300,180 C 380,196 450,214 520,232 C 590,250 660,262 740,258"/>
-    <text class="rname" x="180" y="518" style="font-size:13px">黄 河</text>
-    <text class="rname" x="600" y="418" transform="rotate(10 600 418)">漳 水</text>
-    <text class="rname" x="640" y="248" transform="rotate(-4 640 248)" style="font-size:11px">洹 水</text>
+    <!-- ══ 山脉:太行·西山,河北之西垣,袁尚依西山来救 ══ -->
+    <path class="mtn" d="M 96,320 l 12,-20 l 12,20 M 116,308 l 12,-20 l 12,20 M 96,258 l 12,-20 l 12,20 M 116,246 l 12,-20 l 12,20 M 104,204 l 12,-20 l 12,20"/>
+    <text class="mname" x="70" y="356" transform="rotate(-64 70 356)">太 行 · 西 山</text>
 
-    <!-- 西山(太行):尚循西山而下 -->
-    <g class="mtn"><path d="M 250,120 l 8,-13 l 8,13 M 266,114 l 8,-13 l 8,13 M 282,120 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="248" y="140">西山(太行)</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:河北与河南之界,黎阳当北渡之津 -->
+    <path class="river" stroke-width="5.5" d="M 0,548 C 250,554 500,556 760,548 C 870,544 940,542 1000,542"/>
+    <!-- 漳水:自太行东出,径邺之北而东,操决之以灌城 -->
+    <path class="river" stroke-width="3.6" d="M 96,300 C 190,330 290,360 350,378 C 430,400 520,398 620,394 C 760,388 880,388 1000,382"/>
+    <!-- 洹水:邺南,自西山东流,操军进次于此,苏由出降 -->
+    <path class="river" stroke-width="2.4" d="M 120,438 C 240,448 360,452 500,452 C 680,452 840,448 1000,444"/>
+    <text class="rname" x="150" y="512" style="font-size:13px">黄 　 河</text>
+    <text class="rname" x="470" y="384" transform="rotate(-3 470 384)">漳 水</text>
+    <text class="rname" x="600" y="446" transform="rotate(-2 600 446)" style="font-size:11px">洹 水</text>
+
+    <!-- ══ 袁尚·上党粮道:金色串珠动脉,自上党(图外西)经毛城、邯郸输邺 ══ -->
+    <path class="supply band" d="M 22,352 C 110,330 190,308 262,296 C 300,300 330,308 350,318 C 362,344 370,368 376,388"/>
+    <path class="supply core" d="M 22,352 C 110,330 190,308 262,296 C 300,300 330,308 350,318 C 362,344 370,368 376,388"/>
+    <g class="grain">
+      <rect x="120" y="316" width="7" height="7" transform="rotate(45 123.5 319.5)"/>
+      <rect x="300" y="298" width="7" height="7" transform="rotate(45 303.5 301.5)"/>
+      <rect x="360" y="350" width="7" height="7" transform="rotate(45 363.5 353.5)"/>
+    </g>
+    <text class="slabel" x="150" y="356">上党粮道</text>
+    <text class="slabel" x="150" y="370" style="font-size:9.5px;opacity:.85">袁尚河北输邺之饷</text>
+
+    <!-- 上党(图外·西) -->
+    <g transform="translate(6,330)">
+      <path class="supply core" d="M 30,22 L 6,26" style="opacity:.7"/>
+      <text class="slabel" x="0" y="14" style="font-size:10px">⟵ 上党·太行</text>
+      <text class="cname s" x="0" y="40" style="fill:var(--gold);font-size:9.5px">粮源(图外西)</text>
+    </g>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="ye"><circle cx="500" cy="300" r="7"/><text class="cname" x="512" y="296">邺城<tspan class="cname s" dx="2">(袁氏根本)</tspan></text></g>
-      <g class="city" data-city="liyang"><circle cx="540" cy="512" r="5"/><text class="cname" x="552" y="522">黎阳<tspan class="cname s" dx="2">(渡河处)</tspan></text></g>
-      <g class="city" data-city="yangping"><circle cx="410" cy="374" r="4"/><text class="cname s" x="330" y="392">阳平亭</text></g>
-      <g class="city" data-city="pingyuan"><circle cx="830" cy="316" r="5"/><text class="cname" x="760" y="312">平原</text></g>
-      <g class="city" data-city="zhongshan"><circle cx="430" cy="96" r="5"/><text class="cname" x="442" y="92">中山</text></g>
+      <g class="city cap" data-city="ye"><circle cx="378" cy="391" r="7"/><text class="cname" x="390" y="388">邺城<tspan class="cname s" dx="2">(袁氏根本)</tspan></text></g>
+      <g class="city" data-city="liyang"><circle cx="364" cy="537" r="5"/><text class="cname" x="376" y="547">黎阳<tspan class="cname s" dx="2">(渡河处)</tspan></text></g>
+      <g class="city" data-city="handan"><circle cx="350" cy="317" r="4.5"/><text class="cname" x="362" y="313">邯郸<tspan class="cname s" dx="2">(沮鹄)</tspan></text></g>
+      <g class="city" data-city="maocheng"><circle cx="266" cy="293" r="4.5"/><text class="cname" x="196" y="281">毛城<tspan class="cname s" dx="2">(尹楷)</tspan></text></g>
+      <g class="city" data-city="yangping"><circle cx="350" cy="410" r="4"/><text class="cname s" x="262" y="424">阳平亭</text></g>
+      <g class="city" data-city="pingyuan"><circle cx="882" cy="171" r="5.5"/><text class="cname" x="806" y="167">平原<tspan class="cname s" dx="2">(尚所自来)</tspan></text></g>
+    </g>
+
+    <!-- 中山(图外·北) -->
+    <g transform="translate(300,44)">
+      <text class="mlabel r" x="-6" y="-4" style="font-size:10px">⟶ 中山(图外北)</text>
+      <text class="cname s" x="-6" y="12" style="fill:var(--ret);font-size:9.5px">袁尚败奔之所</text>
     </g>
 
     <!-- 全图 · 乘衅围邺 -->
     <g id="phAll" class="ph">
-      <circle class="siege" cx="500" cy="300" r="34"/>
-      <path class="march j" marker-end="url(#aj)" d="M 540,504 C 528,440 516,380 504,336"/>
-      <text class="mlabel j" x="556" y="446">操自黎阳渡河北上,进围邺城</text>
-      <text class="mlabel q" x="140" y="210">袁谭、袁尚兄弟阋墙,河北自弊</text>
-      <path class="march q" marker-end="url(#aq)" d="M 812,318 C 700,320 600,318 540,308"/>
-      <text class="anno" x="600" y="300">袁尚闻邺急,自平原回师来救</text>
+      <circle class="siege" cx="378" cy="391" r="30"/>
+      <circle class="moat" cx="378" cy="391" r="44"/>
+      <path class="march j" marker-end="url(#aj)" d="M 364,529 C 366,478 372,438 378,401"/>
+      <text class="mlabel j" x="392" y="470">操乘袁氏兄弟相攻,自黎阳渡河围邺</text>
+      <text class="mlabel q" x="470" y="118">袁谭、袁尚阋墙,河北自弊</text>
+      <path class="march q" marker-end="url(#aq)" d="M 874,180 C 700,150 470,150 356,220 C 300,258 320,344 346,404"/>
+      <text class="anno" x="560" y="150">袁尚闻邺急,自平原回师来救</text>
+      <text class="flabel" x="392" y="356">围堑四十里 · 决漳水灌之</text>
     </g>
 
-    <!-- 阶段一:进围邺城 -->
+    <!-- 阶段一:凿堑决漳 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 540,504 C 528,440 516,380 506,338"/>
-      <text class="mlabel j" x="552" y="440">操渡河破尚将,抵邺下</text>
-      <circle class="siege" cx="500" cy="300" r="34"/>
-      <text class="mlabel q" x="470" y="256">审配坚守,土山地道攻之不拔</text>
-      <path class="march j" marker-end="url(#aj)" d="M 470,300 C 500,320 528,350 552,392" opacity=".9"/>
-      <text class="mlabel j" x="450" y="352">乃筑长堑,周四十里</text>
-      <text class="anno" x="520" y="416">决漳水以灌之,城中饿死者过半</text>
+      <path class="march j" marker-end="url(#aj)" d="M 364,529 C 368,494 372,466 372,446"/>
+      <text class="anno" x="384" y="500">操进次洹水,守将苏由出降</text>
+      <!-- 决漳水灌邺:水色泛滥 + 引漳入城之渠 -->
+      <path class="floodwave" d="M 320,378 C 330,388 328,398 340,402"/>
+      <circle class="flood" cx="378" cy="391" r="28"/>
+      <path class="floodwave" d="M 356,384 q 10,-8 22,0 q 10,8 22,0"/>
+      <path class="floodwave" d="M 356,398 q 10,-8 22,0 q 10,8 22,0"/>
+      <circle class="siege" cx="378" cy="391" r="30"/>
+      <circle class="moat" cx="378" cy="391" r="44"/>
+      <text class="mlabel q" x="384" y="374">审配坚守,土山地道攻之不拔</text>
+      <text class="flabel" x="300" y="452">乃作围堑,周四十里;决漳水灌城</text>
+      <text class="anno" x="300" y="468">初浅示可越,一夕广深二丈,漳水灌之</text>
+      <text class="mlabel q" x="392" y="426">自五月至八月,城中饿死者过半</text>
+      <!-- 断上党粮道:操自将击尹楷于毛城、拔沮鹄于邯郸 -->
+      <path class="march j" marker-end="url(#aj)" d="M 372,386 C 330,352 296,320 272,300"/>
+      <path class="march j" marker-end="url(#aj)" d="M 372,384 C 362,360 356,340 352,324"/>
+      <g class="cut" transform="translate(266,293)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(350,317)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="150" y="262">击破尹楷 · 拔邯郸,绝上党粮道 ✕</text>
     </g>
 
     <!-- 阶段二:阳平却尚 -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="500" cy="300" r="34"/>
-      <rect class="camp" x="796" y="308" width="9" height="9" transform="rotate(45 800 312)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 812,314 C 660,306 520,320 424,364"/>
-      <text class="mlabel q" x="560" y="336">尚自平原回救,循西山而下</text>
-      <text class="anno" x="470" y="350">夜举火为应,城中亦举火相应</text>
-      <path class="march j" marker-end="url(#aj)" d="M 468,308 C 448,326 428,348 416,366"/>
-      <circle class="star" cx="410" cy="374" r="8"/>
-      <text class="mlabel j" x="290" y="410">操逆击于阳平亭,大破尚军</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 400,378 C 340,340 300,280 320,200 C 336,150 380,120 424,102"/>
-      <text class="mlabel r" x="288" y="230">尚夜遁蓝口,弃辎重印绶奔中山</text>
+      <circle class="siege" cx="378" cy="391" r="30"/>
+      <circle class="moat" cx="378" cy="391" r="44"/>
+      <rect class="camp" x="345" y="405" width="9" height="9" transform="rotate(45 349.5 409.5)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 874,180 C 690,152 470,148 350,224 C 292,266 316,352 344,404"/>
+      <text class="mlabel q" x="560" y="130">尚自平原,依西山来,东至阳平亭</text>
+      <text class="anno" x="250" y="446">去邺十七里,临滏水,夜举火为应,城中亦举火相应</text>
+      <path class="march j" marker-end="url(#aj)" d="M 372,398 C 364,402 360,406 356,410"/>
+      <circle class="star" cx="350" cy="410" r="8"/>
+      <text class="mlabel j" x="150" y="392">操逆击于阳平,大破尚军</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 344,406 C 316,360 300,300 300,220 C 300,158 302,110 306,64"/>
+      <text class="mlabel r" x="140" y="200">尚夜遁,弃辎重印绶节钺,奔中山</text>
     </g>
 
-    <!-- 阶段三:城破入邺 -->
+    <!-- 阶段三:内应破邺 -->
     <g id="ph3" class="ph">
-      <path d="M 500,300 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="510" y="256">审配犹督死守</text>
-      <text class="anno" x="470" y="342">其侄审荣夜开东门纳操军</text>
-      <text class="mlabel j" x="430" y="400">巷战力尽,配被执,不屈而死</text>
-      <text class="anno" x="140" y="220">操入邺,祭绍墓、抚其家,自领冀州牧</text>
-      <text class="anno" x="600" y="470">收河北户籍,冀州遂定</text>
+      <circle class="flood" cx="378" cy="391" r="26"/>
+      <circle class="siege" cx="378" cy="391" r="30"/>
+      <circle class="moat" cx="378" cy="391" r="44"/>
+      <text class="mlabel q" x="392" y="368">审配犹督死守</text>
+      <!-- 内应:审荣夜开东门,纳操军 -->
+      <g class="gate" transform="translate(405,391)"><line x1="0" y1="-9" x2="0" y2="-3"/><line x1="0" y1="9" x2="0" y2="3"/></g>
+      <path class="march j" marker-end="url(#aj)" d="M 448,391 C 432,391 420,391 410,391"/>
+      <text class="mlabel j" x="452" y="388">其兄子审荣夜开东门,纳操军入城</text>
+      <text class="anno" x="392" y="424">配巷战力尽,生禽,辞气不屈,遂见斩</text>
+      <text class="anno" x="392" y="440">操入邺,祭绍墓、抚其家,自领冀州牧</text>
+      <text class="mlabel j" x="470" y="470">冀州遂平,操据之以为北方根本</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -175,32 +253,86 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>袁尚军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败走</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>袁尚·审配军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败奔中山</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>上党粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断粮道</span>
+    <span class="item"><svg width="20" height="16"><circle cx="10" cy="8" r="6" fill="#3f6d7a" opacity=".18"/><path d="M 4,8 q 3,-3 6,0 q 3,3 6,0" fill="none" stroke="#3f6d7a" stroke-width="1.4" opacity=".7"/></svg>决漳水灌邺</span>
+    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="1.8" stroke-dasharray="4 3"/></svg>围堑/会战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>袁氏</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>围城释要 · 决漳一灌</h3>
+    <div class="lead">何以邺城之下,系于围堑决漳与内应一门 —— 以水困之 · 以久毙之 · 内应而下</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="围城示意:曹操围堑四十里锁邺,决漳水灌城使城中饿死过半,终赖审荣夜开东门内应而破">
+      <!-- 邺城:中央方城,审配死守(红) -->
+      <rect x="150" y="86" width="150" height="104" rx="4" fill="rgba(154,43,30,.06)" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="225" y="128" fill="#9a2b1e" font-size="15" font-weight="700" text-anchor="middle">邺　城</text>
+      <text x="225" y="150" fill="#9a2b1e" font-size="10.5" text-anchor="middle">审配死守</text>
+      <text x="225" y="170" fill="#9a2b1e" font-size="10.5" text-anchor="middle">城中饿死过半</text>
+      <!-- 围堑四十里(金环) -->
+      <rect x="112" y="52" width="226" height="172" rx="10" fill="none" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="6 4"/>
+      <text x="120" y="46" fill="#9c7a2c" font-size="11.5" font-weight="700">围堑四十里 · 内外隔绝</text>
+      <!-- 决漳水:自上灌入(水色波纹) -->
+      <path d="M 60,20 C 120,40 160,54 190,74" fill="none" stroke="#3f6d7a" stroke-width="3.4" opacity=".7" stroke-linecap="round"/>
+      <path d="M 186,66 L 194,78 L 180,78 Z" fill="#3f6d7a" opacity=".8"/>
+      <path d="M 158,110 q 12,-8 24,0 q 12,8 24,0" fill="none" stroke="#3f6d7a" stroke-width="1.6" opacity=".55"/>
+      <path d="M 158,176 q 12,-8 24,0 q 12,8 24,0" fill="none" stroke="#3f6d7a" stroke-width="1.6" opacity=".55"/>
+      <text x="40" y="16" fill="#3f6d7a" font-size="11.5" font-weight="700">决漳水灌城</text>
+      <!-- 时间轴:自五月至八月(久毙) -->
+      <line x1="150" y1="212" x2="300" y2="212" stroke="#5c4f38" stroke-width="1.4" opacity=".7"/>
+      <text x="150" y="230" fill="#5c4f38" font-size="10">五月</text>
+      <text x="272" y="230" fill="#5c4f38" font-size="10">八月</text>
+      <text x="180" y="230" fill="#5c4f38" font-size="10" font-style="italic">久困而毙</text>
+      <!-- 内应:东门开(青)→操军入 -->
+      <g stroke="#1f4e54" stroke-width="2.4" stroke-linecap="round"><line x1="300" y1="128" x2="300" y2="116"/><line x1="300" y1="160" x2="300" y2="148"/></g>
+      <path d="M 470,138 C 400,138 350,138 312,138" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 320,138 L 332,132 L 332,144 Z" fill="#1f4e54"/>
+      <text x="360" y="118" fill="#1f4e54" font-size="11.5" font-weight="700">审荣夜开东门</text>
+      <text x="360" y="164" fill="#1f4e54" font-size="10.5">纳操军入城 →</text>
+      <!-- 结局 -->
+      <text x="580" y="96" fill="#2b2418" font-size="14" font-weight="700">邺　破</text>
+      <text x="580" y="122" fill="#9a2b1e" font-size="11" font-weight="700">配巷战被擒斩</text>
+      <text x="580" y="146" fill="#5c4f38" font-size="11">操自领冀州牧</text>
+      <text x="580" y="170" fill="#1f4e54" font-size="11.5" font-weight="700">河北根本自此定</text>
+      <path d="M 490,132 C 530,130 552,124 574,110" fill="none" stroke="#2b2418" stroke-width="1.4" opacity=".55" stroke-dasharray="3 3"/>
+    </svg>
+    <p class="intro">邺为袁氏都会、冀州之本,城坚而审配善守;操起土山、穿地道以攻之,配辄内应拒之,<b>攻之不拔</b>。强攻既不能克,操乃改以困毙之法——一围一水,而胜负之枢遂系于此:围以绝其出入,水以竭其食力,久以毙其众心,末乃俟内应而下。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>围堑决漳 · 以水困之</h4>
+        <p>操作围堑,周四十里,初令浅狭,示若可越,审配笑而不备;一夕之间广深各二丈,又决漳水以灌之,遂成绝城之堑。城既四面阻水,内外不通,粮援皆绝——自五月至八月,城中饿死者过半。此非以刃陷城,而以水与时困毙其人。同时击破尹楷于毛城、拔沮鹄于邯郸,绝其上党粮道,救援之望亦断。</p>
+      </div>
+      <div class="c b">
+        <h4>内应一门 · 以隙下之</h4>
+        <p>久困之下,城中先溃于内。袁尚自平原来救,操逆击大破于阳平,尚弃辎重印绶奔中山,外援遂绝;而后审配兄子审荣夜开东门,纳操军入城。配犹巷战力尽,被擒不屈而死。坚城不拔者数月,终以一门之启而下——困毙在前,内溃在后,水与时成之,内应竟之。</p>
+      </div>
+    </div>
+    <p class="kicker">故邺城之克,非力攻之能陷,实<b>围堑绝之、决漳竭之、久困毙之,而内应终启其门</b>。操前决泗、沂以灌下邳,后决漳水以灌邺,皆恃水以困城,一辙也。邺既下,操据之以为霸府,冀州平,河北根本自此始厚——袁氏方强而以内争授隙,操乘衅而以水困收之。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《袁绍传》《审配传》约略绘出。疆界、水道经简化,以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注二</span>邺在今河北临漳西南,漳水绕其南而东出;黎阳在今河南浚县东,当黄河北渡之要津。平原在今山东平原南,中山在今河北定州一带。</p>
-    <p><span class="n">注三</span>决漳水灌邺,与前决泗、沂灌下邳同为曹操攻城之法,皆恃水以困城。袁氏方强而以内争自亡,操乘衅取之,遂并河北,基业自此始厚。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=210+(经度−114.0)·280,y=598−(纬度−35.45)·244),几何关系力求近实:邺居中,黎阳在其南(渡河之津),邯郸、毛城在其北(近太行),平原在东北,黄河横于南境。疆界、水道经简化;点划『约界』依黄河一线,非实有画界。中山(定州)在图北、上党在图西,皆以边外箭标示。依《三国志·武帝纪》《袁绍传》(附袁尚)《审配传》裴注及《资治通鉴》卷六四绘出。</p>
+    <p><span class="n">注二</span>地望:邺在今河北临漳西南(114.6E,36.3N),漳水径其北而东,操决之以灌城,洹水在其南(今安阳河),操军进次于此,守将苏由出降;黎阳在今河南浚县东(114.55E,35.7N),当黄河北渡之要;邯郸(114.5E,36.6N)、毛城(武安一带,114.2E,36.7N)当上党输邺之道;平原在今山东平原南(116.4E,37.2N),袁尚所自来救;阳平亭去邺十七里、临滏水,尚屯以举火;中山今河北定州一带(114.99E,38.5N),尚败奔之所。诸小地望,史家或有小异,并此志之。</p>
+    <p><span class="n">注三</span>制胜之枢在围与水(图中金色围堑、水色泛滥、朱色 ✕):操起土山地道强攻不拔,乃作围堑周四十里,决漳水灌城,自五月至八月城中饿死过半;又击破尹楷于毛城、拔沮鹄于邯郸,断其上党粮道。及袁尚自平原来救,逆击破于阳平,尚奔中山,外援遂绝。终赖审荣夜开东门内应,配巷战被擒斩,邺乃下。此以水困城、以久毙众、以内应竟功之典,与前决泗沂灌下邳同法。</p>
+    <p><span class="n">注四</span>是役之本,在袁氏内争:绍死而谭、尚兄弟争冀州相攻,尚方在平原击谭,操乃乘衅北取邺。年初操济河,遏淇水入白沟以通粮道,为北伐之资;既定邺,自领冀州牧,祭绍墓、抚其家、免河北租赋。河北根本自此始厚,而袁谭、袁熙、袁尚之余势,数年乃尽。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"乘衅围邺",d:"汉建安九年(204)",p:["袁绍既死,子谭、尚兄弟阋墙,争冀州相攻,河北自弊。曹操乘其内乱北上,自黎阳渡黄河而进,击破袁尚诸将,遂进围邺城。","审配为尚坚守邺城,操环而攻之。袁尚时在平原攻其兄谭,闻邺围急,乃引军回师来救——一城之围,牵动河北全局。"]},
-  "1":{t:"进围邺城",d:"建安九年 二月—五月",p:["操自黎阳渡河,连破袁尚守将,长驱抵于邺下。审配据城坚守,操起土山、穿地道以攻之,配辄于城内应之,攻之不拔。","乃改筑长堑,周四十里,初令浅,示若可越;一夕广深之,决漳水以灌城。自五月至八月,城中饿死者过半,而配守志不衰。"]},
-  "2":{t:"阳平却尚",d:"建安九年 七月—八月",p:["袁尚自平原回师救邺,循西山而下,进屯阳平亭,去邺十七里,临滏水为营,夜举火为应,城中亦举火相应,欲内外夹击。","操逆击之于阳平亭,大破尚军。尚惧,夜遁蓝口,遣使请降,操不许;尚众溃散,弃辎重、印绶、节钺北奔中山,余部悉降于操。"]},
-  "3":{t:"城破入邺",d:"建安九年 八月",p:["尚军既破,审配犹督众死守。其侄审荣夜开东门纳操军入城,配巷战力尽,为操所执,辞气不屈,遂见杀。邺城陷。","操入邺,亲临袁绍墓致祭,哭之流涕,抚绍妻及家人,免河北租赋一年。收河北户籍,自领冀州牧,河北渐定,王业之基自此始。"]}
+  all:{t:"乘衅围邺",d:"汉建安九年(204)",p:["袁绍既死,子谭、尚兄弟阋墙,争冀州相攻,河北自弊。袁尚方在平原攻其兄谭,留苏由、审配守邺。曹操乘其内乱,自黎阳济河北上,进军围邺,起土山、穿地道以攻之。","审配坚守不下,操乃作围堑周四十里,决漳水以灌之,以水与时困城;又断其上党粮道。袁尚闻邺围急,自平原回师来救——一城之围,遂牵动河北全局。"]},
+  "1":{t:"凿堑决漳",d:"建安九年 二月—八月",p:["操进军至洹水,守将苏由出降;遂至邺下,起土山、地道以攻,审配辄于城内应之,攻之不拔。操乃改筑围堑,周四十里,初令浅狭,示若可越,配笑而不备;一夕广深各二丈,决漳水以灌城。自五月至八月,城中饿死者过半,而配守志不衰。","围城之际,操分兵绝其外援:武安长尹楷屯毛城,通上党粮道,操自将击破之;尚将沮鹄守邯郸,又击拔之。上党输邺之道既断,邺乃孤悬于水堑之中。"]},
+  "2":{t:"阳平却尚",d:"建安九年 七月—八月",p:["袁尚自平原回师救邺,依西山而来,东至阳平亭,去邺十七里,临滏水为营,夜举火为号,城中亦举火相应,欲为内外夹击。诸将以为归师人自为战,宜避之;操曰彼若从大道来则避之,若循西山来则成擒耳——尚果循西山来。","操逆击之于阳平,大破尚军。尚惧,夜遁,遣使请降,操不许;尚众溃散,弃辎重、印绶、节钺北奔中山,余部悉降于操。救邺之师折于此,邺城之援遂绝。"]},
+  "3":{t:"内应破邺",d:"建安九年 八月",p:["尚军既破、外援已绝,审配犹督众死守。其兄子审荣夜开所守东门,纳操军入城。配将兵巷战,力尽被擒,操问而配辞气不屈,遂见斩。邺城陷。","操入邺,亲临袁绍墓致祭,哭之流涕,抚绍妻及家人,免河北租赋一年。收河北户籍,自领冀州牧,据邺以为北方根本,冀州遂平——王业之基,自此始厚。"]}
 };
 const CITY={
-  ye:{t:"邺城",d:"袁氏根本,今河北临漳西南",p:["袁氏都会,冀州治所。审配坚守,操决漳水灌之,城中饿死过半;终以审荣夜开东门而陷。操入领冀州牧,遂为其霸府所在。"]},
-  liyang:{t:"黎阳",d:"操渡河处,今河南浚县东",p:["黄河北渡之要津。操自此渡河北上,破尚将而抵邺下,为伐河北之门户。"]},
-  yangping:{t:"阳平亭",d:"去邺十七里,滏水之侧",p:["袁尚回救,循西山而下屯此,夜举火与城中相应。操逆击之,大破尚军——救邺之师折于此。"]},
-  pingyuan:{t:"平原",d:"今山东平原南",p:["袁尚方在平原攻其兄谭,闻邺急乃自此回师来救。兄弟阋墙、分兵两地,遂授操以隙。"]},
-  zhongshan:{t:"中山",d:"今河北定州一带",p:["尚军既败,弃辎重印绶北奔于此。河北未定,尚犹依中山、故安为患,终为操所逐。"]}
+  ye:{t:"邺城",d:"袁氏根本,今河北临漳西南(114.6E,36.3N)",p:["袁氏都会,冀州治所。审配坚守,操起土山地道攻之不拔,乃作围堑四十里、决漳水灌之,城中饿死过半;终以审荣夜开东门而陷,配巷战被擒斩。操入领冀州牧,遂据以为霸府。"]},
+  liyang:{t:"黎阳",d:"操渡河处,今河南浚县东(114.55E,35.7N)",p:["黄河北渡之要津。年初操济河、遏淇水入白沟以通粮道,复自此北上围邺,为伐河北之门户。"]},
+  handan:{t:"邯郸",d:"今河北邯郸(114.5E,36.6N)",p:["尚将沮鹄守之,当上党输邺粮道之要。操于围邺之际击拔之,以绝尚之外援。"]},
+  maocheng:{t:"毛城",d:"武安一带,今河北武安境(114.2E,36.7N)",p:["武安长尹楷屯此,通上党粮道。操留曹洪攻邺,自将击破尹楷,断河北输邺之饷——邺乃孤于水堑。"]},
+  yangping:{t:"阳平亭",d:"去邺十七里,临滏水(邺西南)",p:["袁尚自平原依西山来救,屯此,夜举火与城中相应,欲内外夹击。操逆击,大破尚军——救邺之师折于此。"]},
+  pingyuan:{t:"平原",d:"今山东平原南(116.4E,37.2N)",p:["袁尚方在平原攻其兄谭,闻邺围急乃自此回师来救。兄弟阋墙、分兵两地,遂授操以隙。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

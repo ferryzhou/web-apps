@@ -46,19 +46,35 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .bridge line{stroke:var(--ret);stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +88,16 @@
   <div class="seal" aria-hidden="true"><span>逍</span><span>遥</span><span>津</span><span>役</span></div>
   <header>
     <h1>逍遥津之战</h1>
-    <div class="sub">汉建安二十年(215)　　<i>曹魏 张辽 · 李典 · 乐进</i> 破 <b>孙权</b>(十万)于合肥</div>
+    <div class="sub">汉建安二十年(215)　　<i>魏 张辽</i>(李典·乐进,兵七千) 破 <b>孙权</b>(十万)于合肥　·　八百陷阵 · 追蹑逍遥津</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 十万围合肥</button>
     <button data-p="1">八百陷阵</button>
     <button data-p="2">相持退兵</button>
-    <button data-p="3">逍遥津追</button>
+    <button data-p="3">逍遥津追蹑</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="逍遥津之战形势图,含曹魏淮南与孙吴江东疆界、施水肥水巢湖与合肥逍遥津濡须寿春建业等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="逍遥津之战形势图,含曹魏淮南与孙吴江东约界、淮水淝水施水巢湖濡须水长江诸水,及合肥逍遥津寿春硖石居巢濡须建业等地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,124 +106,194 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:曹魏据淮南(北),孙吴据江东(南),约以巢湖濡须一线为界 -->
-    <path d="M 0,300 C 160,286 340,300 500,320 C 660,340 840,352 1000,346 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 160,286 340,300 500,320 C 660,340 840,352 1000,346 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 160,286 340,300 500,320 C 660,340 840,352 1000,346"/>
-    <text class="realm j" x="120" y="120" font-size="32">曹 魏(淮南)</text>
-    <text class="realm q" x="700" y="580" font-size="32">孙 吴(江东)</text>
+    <!-- ══ 疆界:曹魏据淮南(北),孙吴据江东(南),江淮之间为争地,约以巢湖濡须一线相拒 ══ -->
+    <path d="M 0,332 C 170,344 330,362 470,402 C 560,432 620,470 720,502 C 820,530 910,542 1000,548 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,332 C 170,344 330,362 470,402 C 560,432 620,470 720,502 C 820,530 910,542 1000,548 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,332 C 170,344 330,362 470,402 C 560,432 620,470 720,502 C 820,530 910,542 1000,548"/>
+    <text class="realm j" x="120" y="250" font-size="30">魏 · 淮南</text>
+    <text class="realm q" x="720" y="606" font-size="30">吴 · 江东</text>
 
-    <!-- 施水(肥水):北自寿春方向南下经合肥,注入巢湖;逍遥津为其渡口 -->
-    <path class="river" stroke-width="4" d="M 540,120 C 520,175 508,205 500,240 C 494,268 490,290 484,320 C 476,360 452,420 440,452"/>
+    <!-- ══ 水系 ══ -->
+    <!-- 淮水:北境东西大川,硖石·寿春在其上,为魏淮南屏障 -->
+    <path class="river" stroke-width="4.4" d="M 120,150 C 240,132 320,122 372,134 C 520,160 700,182 972,190"/>
+    <!-- 淝水(东淝河/肥水):合肥北通寿春入淮,江淮分水岭之北支 -->
+    <path class="river" stroke-width="2.6" d="M 486,384 C 462,320 404,240 352,168"/>
+    <!-- 施水(南淝河):合肥/逍遥津南注巢湖,江淮分水岭之南支;逍遥津为其渡口 -->
+    <path class="river" stroke-width="3" d="M 516,356 C 504,368 492,382 488,398 C 486,418 502,438 524,450"/>
     <!-- 巢湖:南方大泽 -->
-    <path class="river" stroke-width="1.5" d="M 360,452 C 388,430 430,424 470,432 C 520,442 548,472 540,510 C 532,548 480,566 420,560 C 366,554 336,522 344,486 C 348,470 352,460 360,452 Z" fill="rgba(95,127,136,.35)"/>
-    <!-- 濡须水:巢湖南下入江 -->
-    <path class="river" stroke-width="2.6" d="M 470,558 C 476,585 480,606 484,628"/>
-    <!-- 长江:东南 -->
-    <path class="river" stroke-width="5" d="M 300,630 C 420,626 560,624 700,608 C 780,598 860,580 1000,556"/>
-    <text class="rname" x="500" y="210" transform="rotate(72 500 210)" style="font-size:11px">施水(肥水)</text>
-    <text class="rname" x="428" y="500" style="font-size:12px">巢 湖</text>
-    <text class="rname" x="486" y="606" transform="rotate(80 486 606)" style="font-size:10.5px">濡须水</text>
-    <text class="rname" x="760" y="586">长 江</text>
+    <path class="river" stroke-width="1.5" d="M 497,488 C 497,466 523,450 555,450 C 587,450 613,466 613,488 C 613,510 587,526 555,526 C 523,526 497,510 497,488 Z" fill="rgba(95,127,136,.35)"/>
+    <!-- 濡须水:巢湖南口出濡须坞入长江 -->
+    <path class="river" stroke-width="2.6" d="M 555,524 C 580,530 620,534 653,538 C 665,548 673,560 680,572"/>
+    <!-- 长江:东南大江 -->
+    <path class="river" stroke-width="5" d="M 380,634 C 520,626 620,612 700,592 C 800,566 880,548 968,526"/>
+    <text class="rname" x="150" y="140" style="font-size:13px">淮 水</text>
+    <text class="rname" x="410" y="272" transform="rotate(58 410 272)" style="font-size:10.5px">淝水(通寿春)</text>
+    <text class="rname" x="452" y="416" transform="rotate(64 452 416)" style="font-size:10.5px">施水</text>
+    <text class="rname" x="530" y="492" style="font-size:12px">巢 湖</text>
+    <text class="rname" x="612" y="556" transform="rotate(52 612 556)" style="font-size:10px">濡须水</text>
+    <text class="rname" x="812" y="560" transform="rotate(-16 812 560)">长 江</text>
+    <text class="cname s" x="526" y="446" style="opacity:.8">施口</text>
 
-    <!-- 逍遥津渡口标记 -->
-    <text class="cname s" x="512" y="238">施水渡口</text>
-
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="hefei"><circle cx="500" cy="300" r="6"/><text class="cname" x="514" y="304">合肥<tspan class="cname s" dx="2">(张辽守·决战城)</tspan></text></g>
-      <g class="city" data-city="xiaoyaojin"><circle cx="500" cy="248" r="5"/><text class="cname" x="380" y="252">逍遥津</text></g>
-      <g class="city" data-city="ruxu"><circle cx="470" cy="530" r="5"/><text class="cname" x="484" y="534">濡须<tspan class="cname s" dx="2">(吴军来路)</tspan></text></g>
-      <g class="city" data-city="chaohu"><circle cx="430" cy="470" r="3.5"/><text class="cname s" x="392" y="462">巢湖口</text></g>
-      <g class="city" data-city="shouchun"><circle cx="560" cy="92" r="6"/><text class="cname" x="574" y="96">寿春<tspan class="cname s" dx="2">(曹魏北援)</tspan></text></g>
-      <g class="city cap" data-city="jianye"><circle cx="850" cy="486" r="6"/><text class="cname" x="742" y="482">建业<tspan class="cname s" dx="2">(孙权本)</tspan></text></g>
+      <g class="city cap" data-city="hefei"><circle cx="486" cy="388" r="6.5"/><text class="cname" x="410" y="376">合肥<tspan class="cname s" dx="2">(张辽守·决战城)</tspan></text></g>
+      <g class="city" data-city="xiaoyaojin"><circle cx="500" cy="372" r="5"/><text class="cname" x="512" y="360">逍遥津<tspan class="cname s" dx="2">(施水渡口·断桥)</tspan></text></g>
+      <g class="city" data-city="shouchun"><circle cx="347" cy="156" r="6"/><text class="cname" x="360" y="152">寿春<tspan class="cname s" dx="2">(魏淮南根本)</tspan></text></g>
+      <g class="city" data-city="xiashi"><circle cx="331" cy="124" r="3.5"/><text class="cname s" x="252" y="120">硖石口</text></g>
+      <g class="city" data-city="juchao"><circle cx="644" cy="472" r="5"/><text class="cname" x="656" y="476">居巢<tspan class="cname s" dx="2">(吴军所自)</tspan></text></g>
+      <g class="city" data-city="ruxu"><circle cx="653" cy="536" r="5"/><text class="cname" x="666" y="540">濡须<tspan class="cname s" dx="2">(吴前进坞·入江口)</tspan></text></g>
     </g>
+
+    <!-- 建业(图外·东):孙权治所,舟师所出 -->
+    <text class="cname s" x="906" y="474" style="fill:var(--enemy);opacity:.8">建业·孙权治所(图外东)</text>
 
     <!-- 全图 · 十万围合肥 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 476,516 C 486,450 494,390 498,318"/>
-      <text class="mlabel q" x="512" y="440">孙权乘操西征,以十万众自濡须北上围合肥</text>
-      <circle class="siege" cx="500" cy="300" r="30"/>
-      <text class="mlabel j" x="150" y="200">操西征张鲁,留张辽·乐进·李典守合肥,兵才七千</text>
-      <text class="anno" x="150" y="222">先付护军薛悌函教,题"贼至乃发"</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 556,104 C 548,150 540,200 524,244" opacity=".5"/>
-      <text class="anno" x="566" y="164">寿春为魏淮南根本,援军所出</text>
+      <!-- 吴军水路:自建业溯江入濡须口 -->
+      <path class="march q" marker-end="url(#aq)" d="M 986,500 C 880,514 760,528 662,534"/>
+      <!-- 吴军溯濡须水入巢湖,循施水趋合肥 -->
+      <path class="march q" marker-end="url(#aq)" d="M 650,532 C 600,506 556,478 528,452 C 512,436 500,414 494,398"/>
+      <text class="mlabel q" x="560" y="510">权乘操西征,率众十万自濡须溯江北上</text>
+      <text class="mlabel q" x="360" y="440">入巢湖·循施水,进围合肥</text>
+      <circle class="siege" cx="488" cy="388" r="30"/>
+      <text class="mlabel j" x="150" y="300">操西征张鲁,留辽·乐进·李典守合肥,兵才七千</text>
+      <text class="anno" x="150" y="320">先付护军薛悌函教,题“贼至乃发”</text>
+      <path class="march j rout" marker-end="url(#aj)" d="M 350,168 C 380,236 430,320 476,378" opacity=".45"/>
+      <text class="anno" x="356" y="230">寿春为魏淮南根本,援军所出</text>
     </g>
 
     <!-- 阶段一:八百陷阵 -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="500" cy="300" r="30"/>
-      <rect class="camp" x="452" y="336" width="9" height="9" transform="rotate(45 456 340)"/>
-      <text class="mlabel q" x="360" y="360">权军初至,列营城南</text>
-      <path class="march j" marker-end="url(#aj)" d="M 500,290 C 494,320 482,344 468,352"/>
-      <circle class="star" cx="470" cy="352" r="8"/>
-      <text class="mlabel j" x="516" y="288">辽夜募敢死八百,椎牛飨士</text>
-      <text class="anno" x="150" y="300">平旦被甲持戟,先登陷阵,直冲权麾下,叱权</text>
-      <text class="mlabel q" x="380" y="336">权惊走登高冢,以长戟自守</text>
-      <text class="anno" x="150" y="322">辽驰突数四,自旦至日中,吴人夺气,辽还修备</text>
+      <circle class="siege" cx="488" cy="388" r="30"/>
+      <rect class="camp" x="498" y="430" width="9" height="9" transform="rotate(45 502 434)"/>
+      <text class="mlabel q" x="512" y="446">权军初至,列营城南</text>
+      <path class="march j" marker-end="url(#aj)" d="M 484,394 C 490,410 496,424 503,433"/>
+      <circle class="star" cx="503" cy="434" r="8"/>
+      <text class="mlabel j" x="330" y="352">辽夜募敢死八百,椎牛飨士,平旦被甲持戟</text>
+      <text class="anno" x="300" y="336">先登陷阵,直冲权麾下,大呼己名,叱之</text>
+      <text class="mlabel q" x="516" y="414">权惊走登高冢,以长戟自守</text>
+      <text class="anno" x="330" y="470">辽驰突数四,自旦至日中,吴人夺气,辽还修备</text>
     </g>
 
     <!-- 阶段二:相持退兵 -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="500" cy="300" r="30"/>
-      <text class="mlabel q" x="360" y="352">权攻合肥十余日,城不可拔;会军中大疫</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 496,314 C 490,344 486,388 480,428"/>
-      <text class="mlabel q" x="500" y="392">乃引军还,诸军先发</text>
-      <path class="march q" marker-end="url(#aq)" d="M 500,296 C 500,270 500,260 500,254"/>
-      <text class="mlabel q" x="380" y="228">权与吕蒙·甘宁·凌统等千余人殿后,次逍遥津北</text>
+      <circle class="siege" cx="488" cy="388" r="30" opacity=".6"/>
+      <text class="mlabel q" x="300" y="360">权攻合肥十余日,城不可拔;会军中大疫</text>
+      <!-- 吴军主力先发,南循施水退趋巢湖·居巢 -->
+      <path class="march q rout" marker-end="url(#ar)" d="M 500,408 C 528,436 576,462 634,470"/>
+      <text class="mlabel r" x="540" y="452">诸军以次先发,还趋居巢</text>
+      <!-- 权与诸将殿后,次逍遥津北 -->
+      <path class="march q" marker-end="url(#aq)" d="M 486,382 C 490,378 496,374 499,373"/>
+      <text class="mlabel q" x="360" y="332">权与吕蒙·甘宁·凌统等千余人为殿,次逍遥津北</text>
     </g>
 
-    <!-- 阶段三:逍遥津追 -->
+    <!-- 阶段三:逍遥津追蹑 -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 500,294 C 500,278 500,268 500,258"/>
-      <text class="mlabel j" x="300" y="286">辽觇知权还,率步骑掩击津北</text>
-      <path d="M 500,248 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
-      <circle class="star" cx="500" cy="248" r="10"/>
-      <text class="mlabel q" x="300" y="230">吴军猝乱,甘宁厉声·凌统扞卫死战</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 494,254 C 490,244 494,238 502,234 C 512,229 522,232 528,240"/>
-      <text class="mlabel r" x="540" y="234">权乘骏马腾跃过津桥</text>
-      <text class="anno" x="380" y="252">桥南已撤板丈余</text>
-      <text class="anno" x="300" y="212">凌统还战身被创,左右皆没;江东夺气,"张辽止啼"</text>
+      <path class="march j" marker-end="url(#aj)" d="M 486,384 C 490,380 494,376 498,373"/>
+      <text class="mlabel j" x="300" y="352">辽觇知权还兵少,率步骑掩击津北</text>
+      <!-- 断桥 -->
+      <g class="bridge" transform="translate(500,372)"><line x1="-15" y1="6" x2="-3" y2="6" stroke-width="2.4"/><line x1="6" y1="6" x2="18" y2="6" stroke-width="2.4"/><line x1="-15" y1="6" x2="-15" y2="1" stroke-width="1.6"/><line x1="18" y1="6" x2="18" y2="1" stroke-width="1.6"/></g>
+      <circle class="star" cx="500" cy="372" r="11"/>
+      <text class="mlabel q" x="300" y="336">吴军猝乱,甘宁厉声·凌统扞卫死战</text>
+      <!-- 权乘骏马腾跃过断桥而南 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 497,376 C 493,386 502,396 516,392"/>
+      <text class="mlabel r" x="522" y="392">权跃骏马过津桥得脱</text>
+      <text class="anno" x="360" y="404">桥南已撤板丈余,谷利著鞭,权乃腾越而免</text>
+      <text class="anno" x="300" y="452">凌统还战身被创,左右皆没;江东夺气,“张辽止啼”</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(946,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹魏军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>孙吴军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>陷阵·追击</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>魏军(张辽·守)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>吴军(孙权)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>吴军退·跃桥</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>陷阵·追蹑</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>吴军围城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹魏</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>孙吴</span>
+    <span class="item"><svg width="30" height="12"><line x1="1" y1="9" x2="10" y2="9" stroke="#7a5a23" stroke-width="2.4"/><line x1="19" y1="9" x2="29" y2="9" stroke="#7a5a23" stroke-width="2.4"/></svg>断桥</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>魏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>吴</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 以少破众,先夺其气</h3>
+    <div class="lead">何以七千能挫十万 —— 乘其未合,陷阵夺气;觇隙而追,几获其主</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="示意:吴众十万初至未合,张辽八百陷阵夺气,相持不拔而退,辽觇隙掩击于逍遥津">
+      <!-- 左:吴众十万,初至未合 -->
+      <text x="26" y="30" fill="#9a2b1e" font-size="12" font-weight="700">吴 · 十万(初至·营垒未合)</text>
+      <g fill="rgba(154,43,30,.30)" stroke="#9a2b1e" stroke-width=".6">
+        <circle cx="40" cy="70" r="5"/><circle cx="66" cy="60" r="5"/><circle cx="92" cy="74" r="5"/><circle cx="120" cy="62" r="5"/><circle cx="150" cy="76" r="5"/><circle cx="52" cy="98" r="5"/><circle cx="80" cy="104" r="5"/><circle cx="112" cy="96" r="5"/><circle cx="142" cy="106" r="5"/><circle cx="38" cy="128" r="5"/><circle cx="70" cy="134" r="5"/><circle cx="100" cy="126" r="5"/><circle cx="132" cy="136" r="5"/><circle cx="160" cy="120" r="5"/>
+      </g>
+      <line x1="24" y1="158" x2="184" y2="158" stroke="#9a2b1e" stroke-width="1" stroke-dasharray="2 4" opacity=".6"/>
+      <text x="24" y="176" fill="#9a2b1e" font-size="10" font-style="italic" opacity=".85">众而未整,气可夺</text>
+      <!-- 中:辽八百陷阵,直冲中军 -->
+      <path d="M 210,110 L 296,110" stroke="#1f4e54" stroke-width="6" fill="none" marker-end="url(#aj)"/>
+      <text x="206" y="96" fill="#1f4e54" font-size="12" font-weight="700">辽 · 敢死八百</text>
+      <text x="206" y="132" fill="#1f4e54" font-size="10" opacity=".9">先登陷阵·直冲麾下</text>
+      <!-- 夺气:金色爆点 -->
+      <g transform="translate(330,110)"><circle r="16" fill="none" stroke="#9c7a2c" stroke-width="2.4"/><path d="M 0,-24 L 4,-16 L 12,-18 L 7,-11 L 15,-6 L 6,-5 L 8,4 L 1,-2 L -6,4 L -4,-5 L -13,-6 L -5,-11 L -10,-18 L -3,-16 Z" fill="#9c7a2c" opacity=".9"/></g>
+      <text x="316" y="150" fill="#9c7a2c" font-size="11" font-weight="700">夺 其 气</text>
+      <!-- 相持不拔 -->
+      <path d="M 360,110 L 452,110" stroke="#5c4f38" stroke-width="1.6" fill="none" marker-end="url(#ar)" opacity=".7"/>
+      <text x="372" y="98" fill="#5c4f38" font-size="10.5" font-weight="700">攻十余日不能拔</text>
+      <text x="372" y="132" fill="#5c4f38" font-size="10">会大疫 → 权引退</text>
+      <!-- 右:逍遥津掩击 -->
+      <rect x="500" y="46" width="336" height="164" rx="4" fill="rgba(31,78,84,.05)" stroke="rgba(110,93,60,.4)" stroke-width="1"/>
+      <text x="516" y="70" fill="#2b2418" font-size="12" font-weight="700">逍遥津 · 觇隙掩击</text>
+      <!-- 施水与断桥 -->
+      <path d="M 516,150 C 600,146 700,148 820,150" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".8"/>
+      <text x="516" y="176" fill="#5f7f88" font-size="10">施水(逍遥津渡)</text>
+      <g stroke="#7a5a23" stroke-width="3" stroke-linecap="round"><line x1="636" y1="150" x2="658" y2="150"/><line x1="676" y1="150" x2="698" y2="150"/></g>
+      <text x="640" y="140" fill="#7a5a23" font-size="9.5" font-weight="700">断桥</text>
+      <!-- 辽追 -->
+      <path d="M 540,96 L 620,124" stroke="#1f4e54" stroke-width="4" fill="none" marker-end="url(#aj)"/>
+      <text x="524" y="92" fill="#1f4e54" font-size="10.5" font-weight="700">辽追蹑</text>
+      <!-- 权跃桥脱 -->
+      <path d="M 662,146 C 672,132 690,132 704,142" stroke="#7a5a23" stroke-width="2.6" fill="none" stroke-dasharray="3 4" marker-end="url(#ar)"/>
+      <text x="702" y="126" fill="#7a5a23" font-size="10" font-weight="700">权跃桥仅脱</text>
+      <!-- 甘宁凌统死战 -->
+      <text x="516" y="200" fill="#9a2b1e" font-size="10">甘宁·凌统死战殿其后 ✕</text>
+    </svg>
+    <p class="intro">合肥七千,而权众十万,寡不敌众似无可守。张辽独得曹操函教之意:<b>『若权至,张李出战,乐进守』</b>——盖初至之众,营垒未合,其气方锐而未固;当此时,不可示弱坐守,须先以精锐折其锋、夺其气,而后城可全。此『兵有先声后实』之谓。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>陷阵夺气 · 先声</h4>
+        <p>辽夜募敢死八百,椎牛飨士。平旦被甲持戟,先登陷阵,大呼己名,直冲至权麾下。权惊走登高冢,以长戟自守;辽叱之,权不敢动。驰突数四,自旦至日中,吴人夺气,辽乃还城修备,众心始安。以八百挫十万之锋,守势遂固。</p>
+      </div>
+      <div class="c b">
+        <h4>觇隙掩击 · 后实</h4>
+        <p>相守十余日,城不可拔,会军中大疫,权引军还。辽觇知权已还而殿兵少,率步骑追蹑于逍遥津北。吴军猝乱,权几为所获,赖甘宁厉声、凌统死战;桥南已撤板丈余,权乘骏马腾越断桥仅以身免。</p>
+      </div>
+    </div>
+    <p class="kicker">故逍遥津之胜,不在众寡,而在<b>先夺其气</b>:出战者所以折敌之锐、安己之心,守而后可久,退而后可追。辽以七千当十万而威震江东,自是吴人闻『张辽』之名而<b>止小儿夜啼</b>,合肥遂为魏之南障,终吴之世不能越。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·张辽传》《吴主传》《甘宁传》《凌统传》及《资治通鉴》约略绘出。疆界、施水肥水与巢湖濡须诸水道经简化,点划"约界"非实有画界。</p>
-    <p><span class="n">注二</span>合肥在今安徽合肥,逍遥津在其城北施水渡口;濡须在巢湖入江之口,寿春在北为曹魏淮南根本,建业(今南京)为孙权治所。</p>
-    <p><span class="n">注三</span>张辽以七千破十万、几擒孙权,威震江东,吴人闻其名而止小儿夜啼。合肥自此为魏吴必争之地,孙权屡攻不能下,魏之淮南遂固。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作光墨卡托线性投影(x=470+(经−117.23)×272.6,y=330−(纬−32.04)×322),几何关系力求近实:合肥居中,逍遥津在其东北,巢湖·居巢·濡须在东南,寿春·硖石在西北。江河湖泽、疆界经简化,点划“约界”非实有画界——江淮之间实为魏吴争地,无定界。</p>
+    <p><span class="n">注二</span>依《三国志·张辽传》《吴主传》《甘宁传》《凌统传》及《资治通鉴》卷六十七绘出。合肥今安徽合肥;逍遥津在其旧城东北,古为淝水(施水)上津渡,有津桥可渡,即战地;寿春今寿县,为魏淮南根本、援军所出;硖石口即长淮第一硖,在今凤台县西南淮水峡,为寿春上游门户;居巢今巢湖市境;濡须坞在巢湖入江之口(今无为·含山间);建业(今南京)为孙权治所,在图外东,吴师循长江至濡须口入巢湖。</p>
+    <p><span class="n">注三</span>吴军进兵全恃水道:自建业溯长江至濡须口,入濡须水而抵巢湖,复循施水北趋合肥。合肥正当江淮分水岭:北由淝水(东淝河)通寿春入淮,南由施水(南淝河)入巢湖达江,故为南北必争之枢——孙权屡攻十年不能下,魏之淮南遂固。此役非以逸待劳之守,乃以少者出战、先夺其气之守。</p>
+    <p><span class="n">注四</span>兵数从本传:魏守兵七千,辽募敢死八百;吴众“十万”乃约举成数,史家或疑其过实,姑存旧文。逍遥津确址、津桥所在,后世略有异说,今从旧城东北施水渡口之说。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"十万围合肥",d:"汉建安二十年(215)八月",p:["建安二十年,曹操西征张鲁,淮南空虚。孙权乘虚,亲率大众十万,自濡须北上,进围合肥。时守将张辽、乐进、李典兵才七千,众寡悬绝。","操未行,先以函教付护军薛悌,题其函曰“贼至乃发”。及权至,发之,教曰:“若孙权至者,张、李将军出战,乐将军守,护军勿得与战。”诸将疑之,张辽独慨然请依教出击,以折其锋。"]},
-  "1":{t:"八百陷阵",d:"建安二十年八月",p:["权军初至,列营合肥城下。张辽夜募敢死之士八百人,椎牛飨士,以待旦。平旦,辽被甲持戟,先登陷阵,大呼己名,冲垒入,直至权麾下,叱之。","权大惊,不知所为,走登高冢,以长戟自守。辽叱权下战,权不敢动;辽麾左右突围,复还救余众,驰突数四,自旦至日中,吴人夺气。辽乃还城修守备,众心始安。"]},
-  "2":{t:"相持退兵",d:"建安二十年八月",p:["张辽既挫其锐,吴军气沮。权攻合肥十余日,城坚不可拔,又会军中大疫,乃议引军还。","诸军以次先发,孙权与吕蒙、甘宁、凌统及诸将亲兵千余人为殿后,次于逍遥津之北,将济施水而南。"]},
-  "3":{t:"逍遥津追",d:"建安二十年八月",p:["张辽觇望,知权军已还而殿后兵少,乃率步骑掩击津北。吴军猝不及防,遂大乱。甘宁厉声问鼓吹何以不作,壮气毅然;凌统率亲近扞卫,与魏兵死战。","权乘骏马上津桥,桥南已撤板丈余,谷利著鞭,权乃腾跃而过得免。凌统还身还战,左右尽没,统被创,仅以身还。江东为之夺气,自是魏人以“张辽”之名止小儿夜啼。"]}
+  all:{t:"十万围合肥",d:"汉建安二十年(215)八月",p:["建安二十年,曹操西征张鲁,淮南空虚。孙权乘虚,亲率大众十万,自建业溯长江至濡须口,入濡须水浮巢湖,复循施水北上,进围合肥。时守将张辽、乐进、李典兵才七千,众寡悬绝。","操未行,先以函教付护军薛悌,题其函曰“贼至乃发”。及权至,发之,教曰:“若孙权至者,张、李将军出战,乐将军守,护军勿得与战。”诸将疑之,张辽独慨然请依教出击,以折其锋、安众心。"]},
+  "1":{t:"八百陷阵",d:"建安二十年八月",p:["权军初至,列营合肥城南。张辽夜募敢死之士八百人,椎牛飨士,以待旦。平旦,辽被甲持戟,先登陷阵,大呼己名,冲垒而入,直至权麾下,叱之。","权大惊,不知所为,走登高冢,以长戟自守。辽叱权下战,权不敢动;辽麾左右溃围,复还救余众,驰突数四,自旦至日中,吴人夺气。辽乃还城修守备,众心始安。"]},
+  "2":{t:"相持退兵",d:"建安二十年八月",p:["张辽既挫其锐,吴军气沮。权攻合肥十余日,城坚不可拔,又会军中大疫,乃议引军还。","诸军以次先发,南循施水还趋居巢;孙权与吕蒙、甘宁、凌统及诸将亲兵千余人为殿,次于逍遥津之北,将济施水而南。"]},
+  "3":{t:"逍遥津追蹑",d:"建安二十年八月",p:["张辽觇望,知权军已还而殿后兵少,乃率步骑掩击津北。吴军猝不及防,遂大乱。甘宁厉声问鼓吹何以不作,壮气毅然;凌统率亲近扞卫,与魏兵死战。","权乘骏马上津桥,桥南已撤板丈余,谷利著鞭,权乃腾跃而过得免。凌统还身死战,左右尽没,被创仅以身还。江东为之夺气,自是魏人以“张辽”之名止小儿夜啼——威震江东。"]}
 };
 const CITY={
-  hefei:{t:"合肥",d:"曹魏扬州治,今安徽合肥",p:["魏淮南要冲,张辽、乐进、李典以七千守之,为决战之城。孙权以十万围攻十余日不能下。"]},
-  xiaoyaojin:{t:"逍遥津",d:"合肥城北施水渡口",p:["孙权殿后处,几为张辽所擒。权乘骏马腾跃过津桥而免,桥南板已撤丈余,江东夺气之地。"]},
-  ruxu:{t:"濡须",d:"巢湖入江之口,今安徽无为东北",p:["孙吴北出淮南之来路。权自此溯濡须、经巢湖北上围合肥,兵败亦由此退。"]},
-  chaohu:{t:"巢湖",d:"合肥南之大泽",p:["施水肥水所注,吴军水陆经巢湖趋合肥。巢湖濡须一线为魏吴之界。"]},
-  shouchun:{t:"寿春",d:"今安徽寿县",p:["曹魏淮南根本,北援之基地。合肥受围时,援军自寿春方面赴之。"]},
-  jianye:{t:"建业",d:"今江苏南京",p:["孙权治所,江东之本。围合肥之师自此发,逍遥津败还亦归于此。"]}
+  hefei:{t:"合肥",d:"曹魏扬州治,今安徽合肥",p:["魏淮南要冲,当江淮分水岭:北由淝水通寿春入淮,南由施水入巢湖达江。张辽、乐进、李典以七千守之,为决战之城。孙权以十万围攻十余日不能下。"]},
+  xiaoyaojin:{t:"逍遥津",d:"合肥旧城东北,淝水(施水)上津渡",p:["古有津桥可渡。孙权殿后处,几为张辽所擒;桥南板已撤丈余,权乘骏马腾跃过桥而免,江东夺气之地。‘张辽威震逍遥津’即此。"]},
+  shouchun:{t:"寿春",d:"今安徽寿县",p:["曹魏淮南根本、北援之基地。合肥受围,援军自寿春方面赴之。淝水自合肥北通寿春以入淮。"]},
+  xiashi:{t:"硖石口",d:"长淮第一硖,今凤台县西南淮水峡",p:["淮水中游之险,寿春上游门户。可树障锁淮、封江河舟楫,历为兵家所争,魏淮南防线之北枢。"]},
+  juchao:{t:"居巢",d:"今安徽巢湖市境",p:["巢湖东岸古邑。吴军自濡须入巢湖,由此循施水北趋合肥;兵退亦南还于此。"]},
+  ruxu:{t:"濡须",d:"巢湖入江之口,今无为·含山之间",p:["孙吴前进基地,筑濡须坞扼巢湖南口。权自长江濡须口入濡须水、浮巢湖以攻合肥,兵败亦由此退。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
