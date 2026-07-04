@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -53,12 +55,27 @@
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +89,16 @@
   <div class="seal" aria-hidden="true"><span>阏</span><span>与</span><span>之</span><span>役</span></div>
   <header>
     <h1>阏与之战</h1>
-    <div class="sub">周赧王四十六年(前269)　　<i>赵 赵奢</i> 狭路勇者胜 · <b>秦</b>败退阏与</div>
+    <div class="sub">周赧王四十六年(前269)　　<i>赵 赵奢</i> 狭路勇者胜 · <b>秦</b>败退阏与　·　示怯骄敌 · 卷甲疾进 · 先据高地</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 秦围阏与 · 赵议救</button>
     <button data-p="1">去邯郸三十里 · 增垒示怯</button>
     <button data-p="2">卷甲兼程 · 二日一夜抵前</button>
-    <button data-p="3">据北山俯击 · 大破秦军</button>
+    <button data-p="3">先据北山 · 俯击大破</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="阏与之战形势图,含秦赵疆界、漳水沁水与阏与邯郸北山等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="阏与之战形势图,含秦赵疆界、太行山险、漳水沁水与阏与北山邯郸武安上党诸地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,79 +107,99 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:秦据西,赵据东,约以太行、上党一线为界 -->
-    <path d="M 470,0 C 466,90 456,170 452,250 C 448,330 460,410 480,490 C 496,560 500,600 500,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 466,90 456,170 452,250 C 448,330 460,410 480,490 C 496,560 500,600 500,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 466,90 456,170 452,250 C 448,330 460,410 480,490 C 496,560 500,600 500,640"/>
-    <text class="realm q" x="150" y="150" font-size="34">秦</text>
-    <text class="realm j" x="820" y="150" font-size="34">赵</text>
-    <text class="realm j" x="560" y="590" font-size="26" style="opacity:.34">韩(上党)</text>
+    <!-- ══ 疆界:秦据西(河东上党),赵据东(华北);约以太行一线为限 ══ -->
+    <path d="M 300,0 C 296,90 282,150 300,250 C 316,330 306,420 292,520 C 284,580 282,610 284,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 300,0 C 296,90 282,150 300,250 C 316,330 306,420 292,520 C 284,580 282,610 284,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 300,0 C 296,90 282,150 300,250 C 316,330 306,420 292,520 C 284,580 282,610 284,640"/>
+    <text class="realm q" x="120" y="150" font-size="34">秦</text>
+    <text class="cname s" x="96" y="176" style="fill:var(--enemy);opacity:.6">(河东·上党方向)</text>
+    <text class="realm j" x="820" y="180" font-size="34">赵</text>
+    <text class="realm j" x="330" y="574" font-size="20" style="opacity:.34">韩(上党)</text>
 
-    <!-- 漳水:自太行山西南出,东流 -->
-    <path class="river" stroke-width="4" d="M 560,360 C 640,376 720,392 800,404 C 860,412 920,414 1000,412"/>
-    <!-- 沁水:自西北南下 -->
-    <path class="river" stroke-width="3" d="M 300,120 C 320,200 350,300 388,420 C 410,490 430,540 448,600"/>
-    <text class="rname" x="760" y="392" style="font-size:13px">漳 水</text>
-    <text class="rname" x="360" y="300" transform="rotate(74 360 300)" style="font-size:11px">沁 水</text>
+    <!-- ══ 太行山险:分山西高原(西·阏与)与华北平原(东·邯郸),阏与一路所以险狭 ══ -->
+    <path class="mtn fill" d="M 452,150 L 470,120 L 486,152 L 502,126 L 520,160 L 504,196 L 524,232 L 506,268 L 528,308 L 508,352 L 530,398 L 510,444 L 528,486 L 500,500 L 480,452 L 496,406 L 476,360 L 494,314 L 474,270 L 492,224 L 470,186 L 452,150 Z"/>
+    <g class="mtn"><path d="M 460,166 l 10,-16 l 10,16 M 476,160 l 10,-16 l 10,16"/></g>
+    <g class="mtn"><path d="M 480,262 l 10,-16 l 10,16 M 496,256 l 10,-16 l 10,16"/></g>
+    <g class="mtn"><path d="M 482,372 l 10,-16 l 10,16 M 498,366 l 10,-16 l 10,16"/></g>
+    <g class="mtn"><path d="M 478,468 l 10,-16 l 10,16 M 494,462 l 10,-16 l 10,16"/></g>
+    <text class="mname" x="512" y="300" transform="rotate(84 512 300)">太 行 山</text>
 
-    <!-- 太行山险:阏与东、赵境西缘 -->
-    <g class="mtn"><path d="M 640,250 l 9,-15 l 9,15 M 658,244 l 9,-15 l 9,15 M 676,250 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="642" y="272">太行山险</text>
-    <g class="mtn"><path d="M 660,470 l 8,-13 l 8,13 M 676,464 l 8,-13 l 8,13"/></g>
+    <!-- 北山:阏与近旁高地,决战所争之高 -->
+    <g class="mtn"><path d="M 352,120 l 9,-16 l 9,16 M 368,114 l 9,-16 l 9,16 M 384,120 l 8,-15 l 8,15"/></g>
+    <text class="cname s" x="392" y="112" style="opacity:.85">北山(高地)</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 水系 ══ -->
+    <!-- 漳水:自太行东南出,东流经武安、邯郸之南 -->
+    <path class="river" stroke-width="4" d="M 452,432 C 540,446 640,452 760,452 C 860,452 940,448 1000,442"/>
+    <text class="rname" x="700" y="444" style="font-size:13px">漳 水</text>
+    <!-- 沁水:自西北南下(河东上党境) -->
+    <path class="river" stroke-width="3" d="M 216,150 C 232,270 250,400 268,540"/>
+    <text class="rname" x="236" y="330" transform="rotate(82 236 330)" style="font-size:11px">沁 水</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="handan"><circle cx="880" cy="420" r="6"/><text class="cname" x="828" y="440">邯郸<tspan class="cname s" dx="2">(赵都)</tspan></text></g>
-      <g class="city" data-city="wuan"><circle cx="720" cy="360" r="4.5"/><text class="cname" x="700" y="346">武安</text></g>
-      <g class="city" data-city="yuyu"><circle cx="560" cy="300" r="6"/><text class="cname" x="574" y="296">阏与<tspan class="cname s" dx="2">(被秦围)</tspan></text></g>
-      <g class="city" data-city="beishan"><circle cx="590" cy="248" r="4"/><text class="cname s" x="600" y="240">北山(据高俯击)</text></g>
-      <g class="city" data-city="shangdang"><circle cx="470" cy="470" r="4.5"/><text class="cname" x="412" y="486">上党</text></g>
-      <g class="city cap" data-city="xianyang"><circle cx="120" cy="360" r="6"/><text class="cname" x="134" y="356">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
+      <g class="city cap" data-city="handan"><circle cx="634" cy="376" r="6.5"/><text class="cname" x="646" y="380">邯郸<tspan class="cname s" dx="2">(赵都)</tspan></text></g>
+      <g class="city" data-city="wuan"><circle cx="561" cy="345" r="4.5"/><text class="cname" x="540" y="332">武安</text></g>
+      <g class="city" data-city="yuyu"><circle cx="365" cy="162" r="6.5"/><text class="cname" x="378" y="166">阏与<tspan class="cname s" dx="2">(秦所围)</tspan></text></g>
+      <g class="city" data-city="beishan"><circle cx="372" cy="125" r="4"/></g>
+      <g class="city" data-city="shangdang"><circle cx="291" cy="498" r="4.5"/><text class="cname" x="232" y="514">上党</text></g>
+    </g>
+
+    <!-- 秦·河东上党(都咸阳,图外西) -->
+    <g transform="translate(6,278)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,0 L 32,0"/>
+      <text class="mlabel q" x="0" y="-8" style="font-size:10px">⟵ 秦 · 河东上党</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--enemy);font-size:9.5px">都咸阳(图外西)</text>
     </g>
 
     <!-- 全图 · 秦围阏与 · 赵议救 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 132,352 C 260,320 400,306 546,300"/>
-      <text class="mlabel q" x="220" y="316">秦攻韩,进军围阏与</text>
-      <circle class="siege" cx="560" cy="300" r="20"/>
-      <text class="anno" x="470" y="264">秦围阏与(韩地,近赵)</text>
-      <text class="mlabel j" x="720" y="446">赵廷议救:廉颇、乐乘皆曰道险难救</text>
-      <text class="anno" x="760" y="464">独赵奢请行:两鼠斗于穴中,将勇者胜</text>
+      <path class="march q" marker-end="url(#aq)" d="M 44,272 C 140,236 250,196 356,168"/>
+      <text class="mlabel q" x="120" y="214">秦攻韩,越险进围阏与</text>
+      <circle class="siege" cx="365" cy="162" r="20"/>
+      <text class="anno" x="300" y="212">阏与:韩地近赵,秦围之</text>
+      <text class="mlabel j" x="560" y="404">赵廷议救:廉颇、乐乘皆曰道远险狭难救</text>
+      <text class="anno" x="500" y="422">独赵奢曰:「其道远险狭,譬之犹两鼠斗于穴中,将勇者胜。」</text>
     </g>
 
     <!-- 阶段一:去邯郸三十里 · 增垒示怯 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 872,414 C 840,404 820,398 800,392"/>
-      <text class="mlabel j" x="792" y="382">赵奢出邯郸三十里</text>
-      <rect class="camp" x="795" y="386" width="9" height="9" transform="rotate(45 799 390)" style="fill:var(--advance)"/>
-      <text class="anno" x="700" y="410">壁垒不进,留二十八日;斩谏者以坚其伪</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 690,398 C 740,392 770,392 792,392"/>
-      <text class="mlabel r" x="620" y="428">厚遇秦间而遣之,佯示不敢救以骄秦</text>
-      <rect class="camp" x="556" y="296" width="9" height="9" transform="rotate(45 560 300)"/>
-      <text class="anno" x="470" y="278">秦间归报,秦将大喜</text>
+      <path class="march j" marker-end="url(#aj)" d="M 626,376 C 616,376 610,376 604,376"/>
+      <text class="mlabel j" x="556" y="398">赵奢出邯郸三十里即坚壁</text>
+      <rect class="camp" x="595" y="372" width="9" height="9" transform="rotate(45 599 376)" style="fill:var(--advance)"/>
+      <text class="anno" x="470" y="418">增垒不进,留二十八日;有以军事谏者,立斩之以坚其伪</text>
+      <!-- 秦鼓噪武安 -->
+      <path class="march q" marker-end="url(#aq)" d="M 400,200 C 460,260 510,310 552,340"/>
+      <text class="mlabel q" x="452" y="276">秦军鼓噪勒兵,声言且攻武安</text>
+      <text class="anno" x="470" y="360">部将请救武安,奢斩其言者,坚守不动</text>
+      <!-- 厚遣秦间 -->
+      <path class="march q rout" marker-end="url(#ar)" d="M 588,380 C 480,360 360,310 300,270"/>
+      <text class="mlabel r" x="330" y="352">厚遇秦间而遣之,佯示怯不敢救,以骄秦</text>
+      <text class="anno" x="240" y="240">间归报,秦将大喜,弛其备</text>
     </g>
 
     <!-- 阶段二:卷甲兼程 · 二日一夜抵前 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 795,388 C 720,372 650,340 578,308"/>
-      <text class="mlabel j" x="640" y="352">卷甲兼程,二日一夜疾趋阏与前线</text>
-      <text class="anno" x="600" y="332">既误秦之判,出秦不意</text>
-      <rect class="camp" x="556" y="296" width="9" height="9" transform="rotate(45 560 300)"/>
-      <text class="mlabel q" x="470" y="316">秦军犹围阏与,未及觉</text>
+      <path class="march j" marker-end="url(#aj)" d="M 596,374 C 520,332 458,272 418,214"/>
+      <text class="mlabel j" x="452" y="300">卷甲兼程,二日一夜疾抵阏与前线</text>
+      <rect class="camp" x="410" y="204" width="9" height="9" transform="rotate(45 414 208)" style="fill:var(--advance)"/>
+      <text class="anno" x="430" y="238">去阏与五十里而军,出秦不意</text>
+      <text class="mlabel q" x="270" y="176">秦犹分兵围阏与,未及觉赵师之至</text>
     </g>
 
-    <!-- 阶段三:据北山俯击 · 大破秦军 -->
+    <!-- 阶段三:先据北山 · 俯击大破 -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 572,306 C 582,290 586,272 588,256"/>
-      <text class="mlabel j" x="600" y="222">用许历谋,先据北山之高</text>
-      <path d="M 590,248 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march q rout" marker-end="url(#ar)" d="M 560,286 C 574,272 582,262 586,254"/>
-      <text class="mlabel q" x="470" y="250">秦争山不得上</text>
-      <path class="march j" marker-end="url(#aj)" d="M 588,258 C 578,278 570,288 564,294"/>
-      <text class="mlabel j" x="560" y="326">赵纵兵自高俯击</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 546,304 C 400,320 260,336 132,368"/>
-      <text class="mlabel r" x="220" y="360">秦军大破,败退</text>
-      <text class="anno" x="470" y="286">遂解阏与之围</text>
+      <path class="march j" marker-end="url(#aj)" d="M 412,204 C 396,180 384,150 376,132"/>
+      <text class="mlabel j" x="392" y="200">用许历谋,先据北山之高</text>
+      <path d="M 372,125 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="372" cy="125" r="14"/>
+      <path class="march q rout" marker-end="url(#ar)" d="M 364,150 C 366,142 368,136 370,132"/>
+      <text class="mlabel q" x="300" y="150">秦后至,争山不得上</text>
+      <path class="march j" marker-end="url(#aj)" d="M 374,132 C 368,148 364,158 360,166"/>
+      <text class="mlabel j" x="256" y="196">赵纵兵自高俯击</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 352,172 C 250,206 140,244 46,278"/>
+      <text class="mlabel r" x="110" y="256">秦军大破,败退</text>
+      <text class="anno" x="300" y="234">遂解阏与之围</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -176,32 +213,81 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>赵军(赵奢)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>秦军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>秦败退 / 疑兵</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(据高)</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>秦</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>赵</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>方略释要 · 示怯骄敌 → 卷甲疾进 → 先据高地</h3>
+    <div class="lead">何以远险狭路而能胜秦 —— 不在力斗,而在骄之、速之、据高制之</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="阏与之战方略示意:留邯郸示怯二十八日,再卷甲兼程二日一夜,先据北山之高俯击破秦">
+      <!-- 时间轴 -->
+      <line x1="40" y1="196" x2="820" y2="196" stroke="#5c4f38" stroke-width="1.2" stroke-dasharray="2 6" opacity=".55"/>
+      <text x="86" y="214" fill="#5c4f38" font-size="10.5" font-style="italic">留 28 日(示怯)</text>
+      <text x="392" y="214" fill="#5c4f38" font-size="10.5" font-style="italic">疾进 2 日 1 夜</text>
+      <text x="660" y="214" fill="#5c4f38" font-size="10.5" font-style="italic">决于俯击</text>
+      <!-- 节点A:邯郸示怯 -->
+      <circle cx="150" cy="86" r="7" fill="#e9dec4" stroke="#1f4e54" stroke-width="2"/>
+      <rect x="90" y="44" width="120" height="26" rx="3" fill="none" stroke="#1f4e54" stroke-width="1.4" opacity=".85"/>
+      <text x="150" y="61" fill="#1f4e54" font-size="12" font-weight="700" text-anchor="middle">邯郸近郊 · 增垒</text>
+      <text x="150" y="112" fill="#5c4f38" font-size="10" text-anchor="middle">去邯郸三十里坚壁</text>
+      <text x="150" y="172" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">秦:信赵怯,弛备</text>
+      <!-- 节点B:阏与前线 -->
+      <circle cx="470" cy="86" r="7" fill="#e9dec4" stroke="#1f4e54" stroke-width="2"/>
+      <rect x="410" y="44" width="120" height="26" rx="3" fill="none" stroke="#1f4e54" stroke-width="1.4" opacity=".85"/>
+      <text x="470" y="61" fill="#1f4e54" font-size="12" font-weight="700" text-anchor="middle">阏与前线</text>
+      <text x="470" y="112" fill="#5c4f38" font-size="10" text-anchor="middle">去阏与五十里而军</text>
+      <text x="470" y="172" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">秦:出其不意</text>
+      <!-- 节点C:北山高地 -->
+      <circle cx="710" cy="86" r="8" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <path d="M 710,86 m -4,-4 l 8,8 m 0,-8 l -8,8" stroke="#9c7a2c" stroke-width="1.4"/>
+      <rect x="650" y="44" width="120" height="26" rx="3" fill="none" stroke="#9c7a2c" stroke-width="1.4" opacity=".9"/>
+      <text x="710" y="61" fill="#9c7a2c" font-size="12" font-weight="700" text-anchor="middle">北山之高</text>
+      <text x="710" y="112" fill="#5c4f38" font-size="10" text-anchor="middle">先据者胜 · 俯击</text>
+      <text x="710" y="172" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">秦:争山不得上 → 大破 ✕</text>
+      <!-- 连接:A→B 卷甲 -->
+      <path d="M 214,86 L 456,86" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="335" y="80" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">卷甲兼程</text>
+      <!-- 连接:B→C 先据 -->
+      <path d="M 534,86 L 696,86" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="615" y="80" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">先据高地</text>
+    </svg>
+    <p class="intro">阏与道远险狭,大军难展,故廉颇、乐乘皆以为『难救』。赵奢之胜,不在<b>正面力斗</b>,而在以三着相承:先<b>怠敌之心</b>,再<b>争敌之时</b>,终<b>据敌之地</b>——所谓「两鼠斗于穴中,将勇者胜」,勇者非徒斗狠,乃敢行此险而已。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>示怯骄敌 · 留邯郸二十八日</h4>
+        <p>出邯郸三十里即坚壁不进,增垒自守二十八日;有谏进兵者立斩之,以坚其伪。秦军扬言攻武安、鼓噪勒兵以试之,奢终不动。复厚遇秦间而纵还,秦将信赵怯而不敢救,遂弛其备——先以『怯』骄敌,伏胜机于此。</p>
+      </div>
+      <div class="c b">
+        <h4>疾进据高 · 二日一夜先据北山</h4>
+        <p>既遣秦间,即卷甲兼程,二日一夜疾抵阏与,去秦军五十里而军,出秦不意。军士许历请『先据北山上者胜』,奢纳之,遣万人先登。秦军后至争山,仰攻不得上;赵纵兵自高俯击,大破秦军,遂解阏与之围。</p>
+      </div>
+    </div>
+    <p class="kicker">故阏与之捷,<b>非力斗之胜,乃方略之胜</b>:以怯骄敌而弛其备,以速争时而出不意,以先登据高而制其下——三者环环相扣。赵奢由是赐号<b>马服君</b>,与廉颇、蔺相如同位,为战国末赵却秦之著名胜绩。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·廉颇蔺相如列传(赵奢)》约略绘出。阏与在今山西和顺,北山为阏与近旁高地;邯郸今河北邯郸,武安在邯郸西,上党当韩赵之间,咸阳今陕西咸阳。城邑及漳、沁诸水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为惠文王末年秦赵形势示意:秦据西,赵据东,韩上党介乎其间;太行为险,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>赵奢先示怯以骄秦,再卷甲兼程、先据北山之高,俯击破秦——所谓「其道远险狭,譬之犹两鼠斗于穴中,将勇者胜」。战后赵奢赐号马服君,与廉颇、蔺相如同位。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何关系力求近实:阏与在西北山地,邯郸在东南平原,武安介乎其间,秦自西方河东、上党一线越太行而来。阏与今山西和顺(约113.4°E,37.3°N),北山为阏与近旁高地;邯郸今河北邯郸(114.5°E,36.6°N),武安今河北武安(114.2°E,36.7°N),上党约当今山西长治(113.1°E,36.2°N)。漳、沁诸水及太行山形为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为惠文王末年秦赵形势示意:秦据西(经河东、上党方向东出),赵据东(华北),韩之上党介乎其冲;太行为险,阏与一路即所谓『道远险狭』。以点划「约界」标之,非实有画界。秦都咸阳远在图外之西,故以左缘箭头示秦师所自来。</p>
+    <p><span class="n">注三</span>方略本末:赵奢出邯郸三十里即坚壁,增垒二十八日不进,斩谏者、厚遣秦间以骄秦;既遣间,乃卷甲兼程,二日一夜抵阏与,去秦军五十里而军。军士许历谏『先据北山上者胜』,奢从之,秦军争山不得上,赵纵兵自高俯击,大破秦军而解其围。事见《史记·廉颇蔺相如列传(赵奢)》、《资治通鉴》卷五(周纪五·赧王四十六年)。</p>
+    <p><span class="n">注四</span>标准问题略答:(一)全程<b>陆路</b>,无水战,太行险狭之地形为一路成败所系,故行军以『慢』(示怯)与『快』(卷甲)之反差为枢。(二)后勤非本役决胜之factor,故不设漕运层;胜负决于骄敌、争时、据高。(三)交战两方为<b>赵</b>(主,青)与<b>秦</b>(敌,朱),秦师自河东、上党方向越太行来围,韩之阏与为战场;无第三方援军。(四)存疑:阏与今地旧多异说(主流指山西和顺,亦有谓近武安或沁县者),北山确址不详,史亦未详载双方兵数——皆姑从主流并存疑。</p>
   </div>
 </div>
 <script>
 const PH={
   all:{t:"全图 · 秦围阏与 · 赵议救",d:"周赧王四十六年(前269)",p:["秦攻韩,军于阏与(韩地,近赵),遂围之。赵惠文王召廉颇、乐乘问计,皆曰:「道远险狭,难救。」","独问赵奢,奢对曰:「其道远险狭,譬之犹两鼠斗于穴中,将勇者胜。」乃请行。王遣之,以救阏与之围。"]},
-  "1":{t:"去邯郸三十里 · 增垒示怯",d:"出师之初",p:["赵奢率军出邯郸三十里即壁垒不进,增垒自守,留二十八日不行,复益增垒;有以军事谏者,奢立斩之,以坚其伪。","秦间至,奢厚遇而遣之;间归报秦将,秦将大喜,以为赵怯而不敢救,遂弛其备——奢佯示不救,以骄秦军。"]},
-  "2":{t:"卷甲兼程 · 二日一夜抵前",d:"疾趋阏与",p:["既误秦之判断,赵奢乃卷甲而趋,兼程急进,二日一夜疾抵阏与前线,去秦军五十里而军。","秦军犹分兵围阏与,未及觉赵师之至;赵奢出其不意,已逼近战地,遂据形便以待。"]},
-  "3":{t:"据北山俯击 · 大破秦军",d:"决战破秦",p:["军士许历请以军事谏,奢纳其谋:先据北山之高。秦军后至,争山不得上。","赵奢纵兵自高俯击,大破秦军;秦军解而走,遂解阏与之围。奢以功赐号马服君,与廉颇、蔺相如同位,此赵却秦之著名胜绩。"]}
+  "1":{t:"去邯郸三十里 · 增垒示怯",d:"出师之初 · 留二十八日",p:["赵奢率军出邯郸三十里即壁垒不进,增垒自守,留二十八日不行,复益增垒;有以军事谏者,奢立斩之,以坚其伪。","秦军扬言且攻武安,鼓噪勒兵以试之,奢终坚守不动;又厚遇秦间而纵还。间归报秦将,秦将大喜,以为赵怯而不敢救,遂弛其备——奢佯示不救,以骄秦军。"]},
+  "2":{t:"卷甲兼程 · 二日一夜抵前",d:"疾趋阏与",p:["既遣秦间,赵奢乃卷甲而趋,兼程急进,二日一夜疾抵阏与前线,去秦军五十里而军。","秦军犹分兵围阏与,未及觉赵师之至;赵奢出其不意,已逼近战地,遂据形便以待,而秦之判断已误。"]},
+  "3":{t:"先据北山 · 俯击大破",d:"决战破秦",p:["军士许历请以军事谏,曰「先据北山上者胜,后至者败」,奢纳其谋,发万人趋据北山之高。秦军后至,争山不得上。","赵奢纵兵自高俯击,大破秦军;秦军解而走,遂解阏与之围。奢以功赐号马服君,与廉颇、蔺相如同位,此战国末赵却秦之著名胜绩。"]}
 };
 const CITY={
-  yuyu:{t:"阏与",d:"韩地,近赵,今山西和顺",p:["秦攻韩,军而围之。赵奢受命往救,先示怯、后疾趋,终据北山俯击破秦,解其围。"]},
-  handan:{t:"邯郸",d:"赵都,今河北邯郸",p:["赵惠文王廷议救阏与之所。赵奢自此出师,去邯郸三十里即壁垒不进,以骄秦军。"]},
-  wuan:{t:"武安",d:"邯郸西,途中要地",p:["秦军尝扬言将攻武安,鼓噪勒兵;赵奢部属请救之,奢斩其言者,坚守不动,以坚示怯之伪。"]},
-  beishan:{t:"北山",d:"阏与近旁高地",p:["赵奢用许历之谋,先据此高。秦军后至,争山不得上;赵纵兵自高俯击,遂破秦军。"]},
-  shangdang:{t:"上党",d:"韩赵之间要地",p:["介乎秦、赵、韩之冲,当太行之险。阏与一路皆山地险狭,故廉颇等以为难救。"]},
-  xianyang:{t:"咸阳",d:"秦都,今陕西咸阳",p:["秦军东出攻韩、围阏与之根本。此役秦师大败而退,赵却秦之势由是彰。"]}
+  yuyu:{t:"阏与",d:"韩地近赵,今山西和顺",p:["秦攻韩,军而围之。赵奢受命往救,先示怯、后疾趋,终先据北山俯击破秦,解其围。今地旧有异说,主流指山西和顺。"]},
+  handan:{t:"邯郸",d:"赵都,今河北邯郸",p:["赵惠文王廷议救阏与之所。赵奢自此出师,去邯郸三十里即坚壁不进,增垒二十八日以骄秦军。"]},
+  wuan:{t:"武安",d:"邯郸之西,太行东麓,今河北武安",p:["秦军扬言且攻武安,鼓噪勒兵,声闻武安屋瓦皆振;赵奢部将请救之,奢斩其言者,坚守不动,以固示怯之伪。"]},
+  beishan:{t:"北山",d:"阏与近旁高地",p:["赵奢用许历之谋,遣万人先据此高。秦军后至,争山不得上;赵纵兵自高俯击,遂大破秦军。先据者胜,此役决胜之地。"]},
+  shangdang:{t:"上党",d:"韩赵之间,当太行之险,约今山西长治",p:["介乎秦、赵、韩之冲。阏与一路皆山地险狭,故廉颇、乐乘皆以为难救;赵奢独以『将勇者胜』请行。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
