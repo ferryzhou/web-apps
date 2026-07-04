@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>潍水之战 · 汉四年(前204)</title>
+<title>潍水之战 · 破龙且(前204)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -30,7 +30,14 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 水攻:囊沙壅水 · 决水 */
+  .dam{fill:#c2a86a;stroke:var(--border);stroke-width:.7}
+  .damlabel{fill:var(--ret);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .flood{fill:none;stroke:var(--water);stroke-linecap:round;stroke-linejoin:round}
+  .surge{fill:var(--water)}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,26 +46,41 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.feint{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:8 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(95,127,136,.08),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--water)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--water)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +94,16 @@
   <div class="seal" aria-hidden="true"><span>潍</span><span>水</span><span>之</span><span>战</span></div>
   <header>
     <h1>潍水之战 · 破龙且</h1>
-    <div class="sub">汉四年(前204)　　<i>汉 韩信</i> 囊沙壅水 · 破 <b>楚将 龙且</b>(二十万)</div>
+    <div class="sub">汉四年(前204)　　<i>汉 韩信</i> 囊沙壅水 · 半渡而击 · 决水破 <b>楚将 龙且</b>(二十万)与 <b>齐王 田广</b></div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 下齐拒楚</button>
     <button data-p="1">袭齐破历下</button>
-    <button data-p="2">囊沙壅水</button>
+    <button data-p="2">囊沙壅水 · 半渡而击</button>
     <button data-p="3">决水斩龙且</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="潍水之战形势图,含汉军与楚齐联军疆界、潍水淄水与临淄高密城阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="潍水之战形势图,含汉军与楚齐联军疆界、潍水淄水与临淄高密历下城阳诸城邑,及囊沙壅水、半渡而击、决水诸水攻标记">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,84 +112,116 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:楚·齐据齐地(东),汉自赵西来(西),约以潍水为界 -->
-    <path d="M 500,0 C 508,90 512,170 508,250 C 504,330 512,410 520,490 C 526,560 522,600 520,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 500,0 C 508,90 512,170 508,250 C 504,330 512,410 520,490 C 526,560 522,600 520,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 500,0 C 508,90 512,170 508,250 C 504,330 512,410 520,490 C 526,560 522,600 520,640"/>
-    <text class="realm q" x="720" y="130" font-size="32">楚 · 齐(齐地)</text>
-    <text class="realm j" x="120" y="150" font-size="32">汉(自赵西来)</text>
+    <!-- ══ 疆界:汉据齐地之西(韩信已下,临淄以西),楚齐据潍水之东;约以潍水为战线 ══ -->
+    <path d="M 700,0 C 706,90 708,180 701,271 C 692,360 655,445 636,520 C 624,575 620,608 618,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 700,0 C 706,90 708,180 701,271 C 692,360 655,445 636,520 C 624,575 620,608 618,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 700,0 C 706,90 708,180 701,271 C 692,360 655,445 636,520 C 624,575 620,608 618,640"/>
+    <text class="realm j" x="120" y="410" font-size="30">汉 · 韩信</text>
+    <text class="cname s" x="124" y="434" style="fill:var(--advance);opacity:.6">已下之齐地</text>
+    <text class="realm q" x="812" y="150" font-size="30">楚 · 齐</text>
+    <text class="cname s" x="816" y="174" style="fill:var(--enemy);opacity:.6">龙且·田广</text>
+    <text class="anno" x="656" y="474" transform="rotate(68 656 474)" style="fill:var(--ink2);opacity:.7">约以潍水为战线</text>
 
-    <!-- 潍水:自北南下,决战之河 -->
-    <path class="river" stroke-width="5" d="M 560,40 C 566,130 572,220 582,310 C 592,400 602,490 610,600"/>
-    <!-- 淄水:自西北南下,经临淄 -->
-    <path class="river" stroke-width="3" d="M 300,60 C 306,150 314,250 330,340 C 342,410 356,470 366,540"/>
-    <text class="rname" x="588" y="270" transform="rotate(84 588 270)">潍 水</text>
-    <text class="rname" x="322" y="300" transform="rotate(82 322 300)" style="font-size:11px">淄 水</text>
+    <!-- ══ 潍水:自南(沂山)北流入海,决战之河;上流在南,下流在北 ══ -->
+    <path class="river" stroke-width="5" d="M 597,530 C 610,480 618,455 621,430 C 640,360 685,315 701,271 C 707,215 712,190 713,150 C 705,110 690,95 678,84"/>
+    <!-- 淄水:经临淄北流 -->
+    <path class="river" stroke-width="3" d="M 423,300 C 428,240 432,190 434,156 C 424,128 410,108 400,90"/>
+    <text class="rname" x="712" y="210" transform="rotate(80 712 210)">潍 水</text>
+    <text class="rname" x="418" y="238" transform="rotate(82 418 238)" style="font-size:11px">淄 水</text>
+    <text class="cname s" x="690" y="98" style="fill:var(--water);opacity:.85">入海(北)↑</text>
 
-    <!-- 泰沂山地 -->
-    <g class="mtn"><path d="M 400,470 l 8,-13 l 8,13 M 416,464 l 8,-13 l 8,13 M 432,470 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="398" y="490">泰沂山地</text>
+    <!-- ══ 泰沂山地 / 沂山(潍水源) ══ -->
+    <path class="mtn fill" d="M 322,500 L 340,468 L 356,486 L 376,458 L 396,482 L 414,462 L 432,486 Z"/>
+    <path class="mtn" d="M 352,482 l 12,-16 l 10,11 l 14,-20 l 12,16"/>
+    <text class="mname" x="330" y="520">泰沂山地</text>
+    <path class="mtn fill" d="M 560,540 L 576,512 L 590,528 L 606,506 L 622,528 Z"/>
+    <text class="mname" x="556" y="558" style="font-size:10px">沂山·潍水源</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="linzi"><circle cx="300" cy="330" r="6"/><text class="cname" x="220" y="326">临淄<tspan class="cname s" dx="2">(齐都)</tspan></text></g>
-      <g class="city" data-city="lixia"><circle cx="188" cy="290" r="4"/><text class="cname s" x="140" y="286">历下</text></g>
-      <g class="city" data-city="weishui"><circle cx="582" cy="330" r="5"/><text class="cname" x="596" y="326">潍水<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="gaomi"><circle cx="720" cy="380" r="6"/><text class="cname" x="734" y="376">高密<tspan class="cname s" dx="2">(龙且屯)</tspan></text></g>
-      <g class="city" data-city="chengyang"><circle cx="628" cy="520" r="5"/><text class="cname" x="640" y="516">城阳<tspan class="cname s" dx="2">(田广死)</tspan></text></g>
+      <g class="city" data-city="lixia"><circle cx="133" cy="199" r="4"/><text class="cname s" x="90" y="194">历下</text></g>
+      <g class="city cap" data-city="linzi"><circle cx="434" cy="156" r="6"/><text class="cname" x="352" y="150">临淄<tspan class="cname s" dx="2">(齐都)</tspan></text></g>
+      <g class="city" data-city="weishui"><circle cx="701" cy="271" r="5"/><text class="cname" x="600" y="252">潍水<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="gaomi"><circle cx="759" cy="271" r="6"/><text class="cname" x="772" y="267">高密<tspan class="cname s" dx="2">(龙且屯)</tspan></text></g>
+      <g class="city" data-city="chengyang"><circle cx="550" cy="502" r="5"/><text class="cname" x="562" y="498">城阳<tspan class="cname s" dx="2">(田广死)</tspan></text></g>
+    </g>
+
+    <!-- 楚·彭城(图外·南) -->
+    <g transform="translate(556,624)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,10 L 0,-16"/>
+      <text class="mlabel q" x="-46" y="30" style="font-size:10px">⟱ 楚 · 彭城(图外南)</text>
     </g>
 
     <!-- 全图 · 下齐拒楚 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 100,180 C 160,230 230,290 288,322"/>
-      <text class="mlabel j" x="110" y="210">韩信自赵引兵东,袭破齐</text>
-      <text class="anno" x="200" y="352">齐王田广走高密,求救于楚</text>
-      <path class="march q" marker-end="url(#aq)" d="M 900,200 C 830,260 770,320 728,368"/>
-      <text class="mlabel q" x="800" y="200">项羽遣龙且将二十万救齐</text>
-      <rect class="camp" x="716" y="376" width="9" height="9" transform="rotate(45 720 380)"/>
-      <text class="anno" x="640" y="410">龙且与齐军合,夹潍水而阵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 145,205 C 250,224 350,198 428,162 C 520,196 606,242 652,272"/>
+      <text class="mlabel j" x="150" y="182">韩信自赵引兵东,袭破齐,长驱至临淄</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 442,164 C 560,198 660,236 748,266"/>
+      <text class="mlabel r" x="470" y="216">田广烹郦生,东走高密</text>
+      <path class="march q" marker-end="url(#aq)" d="M 560,600 C 620,500 690,360 750,282"/>
+      <text class="mlabel q" x="596" y="426">项羽遣龙且将二十万救齐</text>
+      <rect class="camp" x="726" y="256" width="9" height="9" transform="rotate(45 730.5 260.5)"/>
+      <text class="anno" x="590" y="224">龙且·齐合军,夹潍水东岸而阵</text>
+      <text class="mlabel j" x="548" y="300" style="opacity:.85">汉军拒潍水西岸</text>
     </g>
 
     <!-- 阶段一:袭齐破历下 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 96,240 C 130,262 158,278 182,288"/>
-      <text class="mlabel j" x="90" y="264">韩信袭齐历下军</text>
-      <path class="march j" marker-end="url(#aj)" d="M 194,292 C 234,306 268,318 294,328"/>
-      <text class="mlabel j" x="196" y="316">长驱至临淄</text>
-      <text class="anno" x="120" y="352">郦生已说下齐,蒯通劝信乘其无备</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 306,336 C 420,360 540,378 620,410"/>
-      <text class="mlabel r" x="380" y="392">田广烹郦生,东走高密求救于楚</text>
+      <path class="march j" marker-end="url(#aj)" d="M 96,214 C 108,208 118,204 128,201"/>
+      <text class="mlabel j" x="60" y="236">韩信渡河,袭齐历下军</text>
+      <path class="march j" marker-end="url(#aj)" d="M 142,197 C 240,178 350,168 426,159"/>
+      <text class="mlabel j" x="196" y="140">乘齐无备,长驱至临淄</text>
+      <text class="anno" x="150" y="256">郦生已说下齐,蒯通劝信乘间击之</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 442,164 C 560,200 660,238 748,268"/>
+      <text class="mlabel r" x="470" y="222">田广以为见卖,烹郦生,东走高密求救于楚</text>
     </g>
 
-    <!-- 阶段二:囊沙壅水 -->
+    <!-- 阶段二:囊沙壅水 · 半渡而击 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="716" y="376" width="9" height="9" transform="rotate(45 720 380)"/>
-      <text class="mlabel q" x="700" y="360">龙且·齐合军二十万,夹潍水而陈</text>
-      <text class="anno" x="600" y="440">或说深壁勿战、招降齐城,龙且不听</text>
-      <!-- 上流囊沙壅水 -->
-      <path class="camp" d="M 566,120 h 32 v 10 h -32 z" transform="rotate(6 582 125)"/>
-      <text class="mlabel j" x="600" y="118">夜为万余囊,盛沙壅潍水上流</text>
-      <path class="march j" marker-end="url(#aj)" d="M 500,300 C 530,312 552,320 570,326"/>
-      <text class="mlabel j" x="440" y="292">引军半渡击龙且,佯败还走</text>
-      <text class="anno" x="470" y="356">龙且曰「吾平生知韩信,易与耳」</text>
+      <rect class="camp" x="726" y="256" width="9" height="9" transform="rotate(45 730.5 260.5)"/>
+      <text class="mlabel q" x="516" y="206">龙且·齐合军二十万,夹潍水东岸而陈</text>
+      <text class="anno" x="150" y="356">或说深壁勿战、招降齐城,龙且不听</text>
+      <!-- 上流囊沙壅水(堰在南) -->
+      <g transform="translate(624,428) rotate(-18)">
+        <rect class="dam" x="-24" y="-7" width="48" height="14" rx="2"/>
+        <rect class="dam" x="-20" y="-11" width="9" height="8" rx="1"/>
+        <rect class="dam" x="-9" y="-12" width="9" height="8" rx="1"/>
+        <rect class="dam" x="2" y="-11" width="9" height="8" rx="1"/>
+        <rect class="dam" x="12" y="-12" width="9" height="8" rx="1"/>
+      </g>
+      <text class="damlabel" x="408" y="414">夜为万余囊,盛沙壅潍水上流</text>
+      <text class="anno" x="420" y="430" style="fill:var(--ret)">水壅,下流浅涸,可徒涉</text>
+      <!-- 半渡而击:韩信引军半渡东岸击龙且 -->
+      <path class="march j" marker-end="url(#aj)" d="M 656,290 C 672,284 688,280 700,276"/>
+      <text class="mlabel j" x="536" y="292">引军半渡,击龙且</text>
+      <!-- 佯败还走 -->
+      <path class="march feint" marker-end="url(#aj)" d="M 696,284 C 682,290 668,294 656,298"/>
+      <text class="mlabel j" x="536" y="310" style="opacity:.9">佯不胜,还走(诱敌)</text>
+      <text class="anno" x="150" y="380">龙且曰「吾平生知韩信,易与耳」</text>
     </g>
 
     <!-- 阶段三:决水斩龙且 -->
     <g id="ph3" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 606,332 C 588,330 572,328 560,326"/>
-      <text class="mlabel q" x="588" y="316">龙且喜「固知信怯」,追渡水</text>
-      <!-- 决壅囊,水大至 -->
-      <path class="river" stroke-width="7" opacity=".95" d="M 582,130 C 588,220 596,300 588,330 C 582,352 566,356 552,352"/>
-      <text class="mlabel j" x="600" y="180">信使人决壅囊,水大至</text>
-      <path d="M 552,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
-      <circle class="star" cx="556" cy="330" r="9"/>
-      <text class="mlabel j" x="420" y="336">急击,杀龙且;军大半不得渡</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 620,410 C 628,450 626,485 628,512"/>
-      <text class="mlabel r" x="636" y="470">田广亡走,汉追斩之于城阳</text>
-      <text class="anno" x="480" y="560">齐地悉定,楚失右臂</text>
+      <!-- 龙且追渡潍水(自东岸西渡) -->
+      <path class="march q" marker-end="url(#aq)" d="M 745,268 C 722,270 706,272 682,277"/>
+      <text class="mlabel q" x="540" y="230">龙且喜「固知信怯」,引兵追渡潍水</text>
+      <!-- 决壅囊,水大至:自上流(南)奔下流(北) -->
+      <path class="flood" stroke-width="12" opacity=".42" d="M 622,432 C 648,372 684,320 701,271 C 707,222 711,198 712,172"/>
+      <path class="flood" stroke-width="4.5" opacity=".9" d="M 622,432 C 648,372 684,320 701,271 C 707,222 711,198 712,172"/>
+      <path class="surge" d="M 701,271 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" opacity=".9"/>
+      <text class="mlabel j" x="512" y="360">信使人决壅囊,水大至</text>
+      <circle class="star" cx="701" cy="271" r="10"/>
+      <!-- 楚军半渡溺败 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 700,286 C 686,296 674,300 662,302"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 716,282 C 728,300 736,320 740,344"/>
+      <text class="mlabel r" x="430" y="392">急击,斩龙且;楚军大半不得渡,溺散</text>
+      <!-- 田广亡走城阳 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 748,284 C 680,360 600,442 558,494"/>
+      <text class="mlabel r" x="566" y="466">田广亡走,灌婴追斩之于城阳</text>
+      <text class="anno" x="150" y="470">齐地悉定,楚失右臂</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -177,31 +231,76 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(韩信)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="8 5"/></svg>佯败诱敌</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚·齐军(龙且·田广)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃走</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溺散·溃走</span>
+    <span class="item"><svg width="30" height="14"><rect x="4" y="4" width="22" height="7" rx="1.5" fill="#c2a86a" stroke="#6e5d3c" stroke-width=".7"/></svg>囊沙壅水(堰)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#5f7f88" stroke-width="6" opacity=".4"/><line x1="2" y1="6" x2="32" y2="6" stroke="#5f7f88" stroke-width="2.4"/></svg>决水(水大至)</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚·齐</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>楚·齐</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>水攻释要 · 壅水 · 诱渡 · 决水</h3>
+    <div class="lead">何以二十万楚齐之众一战而溃 —— 非力敌,乃以水为兵</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="潍水水攻示意:上流壅囊使下流可涉,半渡佯败诱龙且渡水,决囊放水以分敌半渡而击">
+      <!-- 潍水(纵向),上流在下(南),下流在上(北) -->
+      <path d="M 430,232 C 428,180 430,120 430,66 C 430,48 430,36 430,24" fill="none" stroke="#5f7f88" stroke-width="6" opacity=".85"/>
+      <text x="446" y="30" fill="#5f7f88" font-size="11" font-weight="700">下流·入海(北)</text>
+      <text x="360" y="246" fill="#5f7f88" font-size="11" font-weight="700">上流·沂山(南)</text>
+      <text x="300" y="120" fill="#1f4e54" font-size="12" font-weight="700" text-anchor="end">汉·西岸</text>
+      <text x="560" y="120" fill="#9a2b1e" font-size="12" font-weight="700">楚齐·东岸</text>
+      <!-- 壅囊之堰(上流,下方) -->
+      <rect x="406" y="196" width="48" height="14" rx="2" fill="#c2a86a" stroke="#6e5d3c" stroke-width=".8"/>
+      <text x="462" y="208" fill="#7a5a23" font-size="11" font-weight="700">① 囊沙壅上流,下流浅涸</text>
+      <!-- ② 半渡诱敌:韩信自西东渡击、佯败还走 -->
+      <path d="M 322,150 C 360,146 396,144 424,142" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <path d="M 424,164 C 396,166 360,168 328,170" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="7 4" marker-end="url(#aj)"/>
+      <text x="150" y="146" fill="#1f4e54" font-size="11" font-weight="700">② 半渡击龙且</text>
+      <text x="150" y="180" fill="#1f4e54" font-size="10.5">佯败还走以诱之</text>
+      <!-- ③ 龙且追渡 -->
+      <path d="M 540,120 C 504,118 470,116 438,114" fill="none" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)"/>
+      <text x="548" y="118" fill="#9a2b1e" font-size="11" font-weight="700">③ 龙且追渡潍水</text>
+      <!-- ④ 决水:自堰奔下流,水大至,断敌为二 -->
+      <path d="M 430,196 C 430,150 430,110 430,72" fill="none" stroke="#5f7f88" stroke-width="11" opacity=".4"/>
+      <path d="M 430,196 C 430,150 430,110 430,72" fill="none" stroke="#5f7f88" stroke-width="3.4" marker-end="url(#aj)"/>
+      <text x="446" y="150" fill="#2b6b6f" font-size="11" font-weight="700">④ 决囊放水</text>
+      <g><circle cx="430" cy="112" r="8" fill="none" stroke="#9c7a2c" stroke-width="2"/></g>
+      <text x="446" y="96" fill="#9c7a2c" font-size="10.5" font-weight="700">水东水西断为二</text>
+    </svg>
+    <p class="intro">龙且二十万与齐军合,列于潍水东岸;汉军拒西岸。<b>正面决之则众寡不敌</b>——韩信不与力争,而以潍水为兵器:先<b>壅其上流</b>使下流可涉以诱敌，再<b>半渡佯败</b>使龙且轻进渡河，终<b>决水断之</b>,使楚军首尾不相及,半渡者尽没，遂各个击破。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>壅水 · 诱渡</h4>
+        <p>夜令人为万余囊,盛沙壅潍水上流,水为之竭,下流清浅可徒涉。旦日引军半渡,击龙且,佯不胜而还走。龙且素轻韩信,曰「固知信怯」,遂喜而引兵追渡——伏笔已藏于上流之囊。</p>
+      </div>
+      <div class="c b">
+        <h4>决水 · 分敌</h4>
+        <p>俟龙且军半渡,信使人决上流之壅囊,潍水暴涨,大至。楚军大半不得渡,首尾断绝:已渡之众孤悬西岸,为汉伏兵所歼;未渡之众隔水不能救。信急回击,斩龙且于阵;水东之军见主将死,一时溃散。</p>
+      </div>
+    </div>
+    <p class="kicker">故潍水之胜,非力敌二十万,实<b>以水为兵</b>:壅之使竭而诱其渡,决之使涨而分其众,<b>半渡而击</b>,一举而齐楚之众溃、龙且授首。楚失龙且及二十万,右臂既折,项羽始惧——鼎足之势,萌于此水。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·淮阴侯列传》《史记·田儋列传》《资治通鉴》卷十约略绘出。疆界、水道经简化,楚齐夹潍水而阵仅示大略,非实测战线。</p>
-    <p><span class="n">注二</span>潍水即今潍河,自南向北入海,图取上南下北之势示上流壅水;高密、临淄、城阳皆在今山东,历下即今济南一带。地望经比定,方位从略。</p>
-    <p><span class="n">注三</span>韩信囊沙壅水、半渡而击,一战斩龙且、并齐地;楚失龙且二十万,项羽始惧,遣武涉说信,鼎足之势隐现。信自请为假齐王,汉之东方遂固,而君臣之隙亦萌于此。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何关系力求近实:临淄在西(齐都),历下(今济南)更西,高密在东(龙且屯),城阳(莒地)在南,潍水自南(沂山)北流入海,居东。疆界、水道经简化,潍水西岸(汉)、东岸(楚齐)之战线为示意,非实测。依《史记·淮阴侯列传》《史记·田儋列传》《资治通鉴》卷十约略绘出。</p>
+    <p><span class="n">注二</span>两军夹潍水而阵:据诸家考订,<b>汉军在潍水西岸,齐楚联军在东岸</b>(龙且指挥部驻高密城阴,营垒跨今诸城、高密、安丘之交)。韩信自西渡水击龙且、佯败还西岸,龙且自东追渡而西,决水乃作——本图从此说。按高密故城与潍水东西相对之说,史地家或有异,方位从略;图取上北下南、决战之潍水居东之势。</p>
+    <p><span class="n">注三</span>『囊沙壅水』之数,《史记》作「万余囊」;龙且之众,《史记》称「二十万」,或曰「号二十万」,姑存其目。壅水在上流(南),半渡之处在下流(北),决囊则水自南奔北而暴至——此水攻之枢,图中以堰(囊沙)、决水(粗水纹)、决战(金环)三记示之。</p>
+    <p><span class="n">注四</span>此役之后:韩信囊沙壅水、半渡而击,一战斩龙且、并齐地;楚失龙且二十万,项羽始惧,遣武涉说信,蒯通亦劝其三分。信自请为假齐王,汉之东方遂固,而君臣之隙亦萌于此。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"下齐拒楚",d:"汉四年 · 前204年",p:["韩信既定赵、燕,引兵东向击齐。会齐王田广已为郦食其所说而附汉,信乘其无备,袭破之。田广以为见卖,烹郦生而东走高密,遣使求救于楚。","项羽方与汉相持荥阳,闻齐危,遣大将龙且将兵号二十万往救。龙且与齐军合,进屯高密,与韩信夹潍水而阵——楚齐在东,汉军自西,决战之势成于潍水之上。"]},
+  all:{t:"下齐拒楚",d:"汉四年 · 前204年",p:["韩信既定赵、燕,引兵东向击齐。会齐王田广已为郦食其所说而附汉,信乘其无备,袭破之。田广以为见卖,烹郦生而东走高密,遣使求救于楚。","项羽方与汉相持荥阳,闻齐危,遣大将龙且将兵号二十万往救。龙且与齐军合,进屯高密,与韩信夹潍水而阵——楚齐在潍水东岸,汉军拒西岸,决战之势成于潍水之上。"]},
   "1":{t:"袭齐破历下",d:"汉四年 · 前204年",p:["韩信引兵将东击齐,未渡平原,闻郦食其已说下齐七十余城,欲止兵。范阳辩士蒯通说之曰:将军受诏击齐,而汉独发间使下齐,岂有诏止将军乎?信然其言,遂渡河。","齐方飨郦生,纵酒罢备。信袭破其历下军,长驱直至临淄。齐王田广以郦生卖己,烹之,东走高密,发使求救于楚——一袭而齐都破,齐势遂危。"]},
-  "2":{t:"囊沙壅水",d:"汉四年 · 前204年",p:["龙且既至,与齐王合军二十万,夹潍水而陈。或说龙且:汉兵远斗穷战,其锋不可当;不如深壁勿战,令齐王使人招降诸城,城闻齐王在、楚来救,必反汉。龙且素轻信,曰「吾平生知韩信为人,易与耳」,又欲以救齐之功自居,不听。","韩信乃夜令人为万余囊,盛沙壅潍水上流,水为之壅。旦日引军半渡,击龙且,佯不胜,还走——诱之使追,壅水之计已伏于上流矣。"]},
-  "3":{t:"决水斩龙且",d:"汉四年 · 前204年",p:["龙且果喜,曰「固知信怯也」,遂引兵追信,渡潍水而进。信使人决壅上流之囊,水大至,龙且军大半不得渡;首尾断绝,进退失据。","信急回击,大破之,遂斩龙且。水东之军见主将死,溃散奔走。齐王田广亡去,汉将灌婴等追斩之于城阳,齐地悉定。楚失龙且及二十万众,右臂既折,项羽始惧;信自请为假齐王,东方遂固。"]}
+  "2":{t:"囊沙壅水 · 半渡而击",d:"汉四年 · 前204年",p:["龙且既至,与齐王合军二十万,夹潍水而陈于东岸。或说龙且:汉兵远斗穷战,其锋不可当;不如深壁勿战,令齐王使人招降诸城,城闻齐王在、楚来救,必反汉。龙且素轻信,曰「吾平生知韩信为人,易与耳」,又欲以救齐之功自居,不听。","韩信乃夜令人为万余囊,盛沙壅潍水上流,水为之竭,下流清浅可涉。旦日引军半渡,击龙且,佯不胜,还走西岸——诱之使追,壅水之计已伏于上流矣。"]},
+  "3":{t:"决水斩龙且",d:"汉四年 · 前204年",p:["龙且果喜,曰「固知信怯也」,遂引兵追信,渡潍水而西。俟其军半渡,信使人决上流之壅囊,水大至,龙且军大半不得渡;已渡者孤悬西岸,未渡者隔水莫救,首尾断绝。","信急回击,大破之,遂斩龙且。水东之军见主将死,溃散奔走。齐王田广亡去,汉将灌婴等追斩之于城阳,齐地悉定。楚失龙且及二十万众,右臂既折,项羽始惧;信自请为假齐王,东方遂固。"]}
 };
 const CITY={
+  lixia:{t:"历下",d:"齐前军所拒,今山东济南一带",p:["齐置重兵拒汉于历下。会郦生说下齐,齐纵酒罢备;韩信渡河乘之,袭破历下军,开临淄之门。"]},
   linzi:{t:"临淄",d:"齐国都城,今山东淄博东北",p:["韩信袭破历下军后长驱所至。齐王田广以郦生卖己,烹之而东走高密。齐都一破,齐势遂溃。"]},
-  lixia:{t:"历下",d:"齐前军所拒,今山东济南一带",p:["齐置重兵拒汉于历下。会郦生说下齐,齐纵酒罢备;韩信乘之,袭破历下军,开临淄之门。"]},
-  weishui:{t:"潍水",d:"即今潍河,决战之地",p:["楚齐夹潍水而阵。韩信夜为万余囊,盛沙壅其上流;半渡而击,佯败诱敌。及龙且追渡,决囊放水,遂斩龙且于此。"]},
-  gaomi:{t:"高密",d:"龙且楚齐联军屯所,今山东高密西南",p:["田广走此求救,龙且将二十万来会,合军屯高密,进而夹潍水拒汉。或劝深壁招降,龙且轻信不用。"]},
+  weishui:{t:"潍水",d:"即今潍河,自南北流入海,决战之地",p:["楚齐夹潍水而阵,汉拒西岸、楚齐据东岸。韩信夜为万余囊,盛沙壅其上流;半渡而击,佯败诱敌。及龙且追渡,决囊放水,水大至,遂斩龙且于此。"]},
+  gaomi:{t:"高密",d:"龙且楚齐联军屯所,今山东高密西南",p:["田广走此求救,龙且将二十万来会,合军屯高密,进而夹潍水拒汉,列阵东岸。或劝深壁招降,龙且轻信不用。"]},
   chengyang:{t:"城阳",d:"田广走死之地,今山东莒县一带",p:["潍水军溃,齐王田广亡走,汉将灌婴追及,斩之于城阳。齐地悉定,楚失右臂。"]}
 };
 const panel=document.getElementById('panel');

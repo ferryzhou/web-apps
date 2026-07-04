@@ -30,7 +30,20 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.28em;opacity:.7;font-weight:500}
+  /* 粮道:金色串珠动脉,叠于水陆运道之上 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.20}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.08em}
+  /* 敖仓:金色粮囷 */
+  .gran .roof{fill:var(--gold);opacity:.92}.gran .body{fill:var(--paper);stroke:var(--gold);stroke-width:1.8}
+  /* 断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.03em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -44,10 +57,9 @@
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
-  .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.5;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +68,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +99,16 @@
   <div class="seal" aria-hidden="true"><span>荥</span><span>成</span><span>相</span><span>持</span></div>
   <header>
     <h1>荥阳成皋对峙 · 鸿沟划界</h1>
-    <div class="sub">汉二年至四年(前205–前203)　　<i>汉 刘邦</i> 与 <b>楚 项羽</b> 相持荥成 · 鸿沟划界</div>
+    <div class="sub">汉二年至四年(前205–前203)　　<i>汉 刘邦</i> 相持 <b>楚 项羽</b> 于荥成 · 恃敖仓之粟 · 彭越挠楚粮道 · 鸿沟划界</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 荥成拉锯</button>
-    <button data-p="1">纪信诳楚</button>
-    <button data-p="2">迭据成皋</button>
+    <button class="on" data-p="all">全图 · 荥成相持</button>
+    <button data-p="1">据敖仓 · 纪信诳楚</button>
+    <button data-p="2">挠楚粮道 · 两线疲楚</button>
     <button data-p="3">鸿沟划界</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="荥阳成皋对峙形势图,含楚汉疆界、黄河鸿沟与荥阳成皋敖仓广武彭城等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="荥阳成皋对峙形势图,含楚汉疆界、黄河鸿沟睢水、敖仓甬道与楚粮道两条粮线,及荥阳成皋敖仓广武修武梁地彭城等城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,132 +117,233 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:楚据东,汉据西,约以鸿沟为界 -->
-    <path d="M 520,0 C 526,90 516,170 512,250 C 508,330 516,410 522,490 C 526,560 520,600 516,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 520,0 C 526,90 516,170 512,250 C 508,330 516,410 522,490 C 526,560 520,600 516,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 520,0 C 526,90 516,170 512,250 C 508,330 516,410 522,490 C 526,560 520,600 516,640"/>
-    <text class="realm j" x="120" y="130" font-size="32">汉(关中·河内)</text>
-    <text class="realm q" x="700" y="150" font-size="34">楚(梁·彭城)</text>
+    <!-- ══ 疆界:汉据西·北(关中·河内·荥成),楚据东·南(梁·彭城),约以鸿沟为界 ══ -->
+    <path d="M 0,0 L 430,0 C 425,120 400,240 380,340 C 400,430 460,510 520,610 L 520,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 430,0 L 1000,0 L 1000,640 L 520,640 C 460,510 400,430 380,340 C 400,240 425,120 430,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 430,0 C 425,120 400,240 380,340 C 400,430 460,510 520,610"/>
+    <text class="realm j" x="70" y="152" font-size="30">汉(关中·河内)</text>
+    <text class="realm q" x="700" y="205" font-size="32">楚(梁·彭城)</text>
 
-    <!-- 黄河:自西北经荥阳北东流 -->
-    <path class="river" stroke-width="5.5" d="M 40,150 C 150,180 260,200 360,214 C 440,226 520,236 600,238 C 720,240 860,236 1000,240"/>
-    <!-- 鸿沟(运河):自荥阳引河南下,分楚汉之界 -->
-    <path class="river" stroke-width="3" d="M 452,236 C 470,300 500,370 512,440 C 522,500 520,560 516,630"/>
-    <!-- 济水 -->
-    <path class="river" stroke-width="2.2" d="M 600,238 C 640,300 680,360 720,430"/>
-    <text class="rname" x="150" y="176" style="font-size:13px">黄 河</text>
-    <text class="rname" x="470" y="360" transform="rotate(80 470 360)" style="font-size:11px">鸿沟(运河)</text>
-    <text class="rname" x="648" y="330" transform="rotate(58 648 330)" style="font-size:10.5px">济水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西经荥阳北东流,渐折东北趋濮阳 -->
+    <path class="river" stroke-width="5.5" d="M -10,425 C 90,428 200,420 270,402 C 300,395 330,388 380,368 C 470,332 600,262 720,192 C 800,150 862,130 922,112"/>
+    <!-- 鸿沟(蒗荡渠):自荥阳引黄河东出大梁,折而东南入淮泗,楚汉分野 -->
+    <path class="river" stroke-width="3" d="M 300,404 C 360,410 405,414 434,420 C 470,455 500,520 522,610"/>
+    <!-- 睢水:自大梁东南经睢阳趋泗,彭越所渡 -->
+    <path class="river" stroke-width="2.2" style="opacity:.7" d="M 470,438 C 540,458 600,472 660,496 C 720,518 780,532 840,542"/>
+    <text class="rname" x="150" y="410" style="font-size:13px">黄 河</text>
+    <text class="rname" x="452" y="490" transform="rotate(66 452 490)" style="font-size:11px">鸿沟(界)</text>
+    <text class="rname" x="640" y="500" transform="rotate(18 640 500)" style="font-size:10px">睢水</text>
 
-    <!-- 广武山:两城隔涧对峙 -->
-    <g class="mtn"><path d="M 400,262 l 8,-13 l 8,13 M 416,256 l 8,-13 l 8,13 M 432,262 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="392" y="284">广武山·鸿沟涧</text>
+    <!-- 广武山·鸿沟涧:两城隔涧对垒 -->
+    <g class="mtn"><path d="M 306,388 l 7,-12 l 7,12 M 320,384 l 7,-12 l 7,12 M 334,388 l 6,-11 l 6,11"/></g>
+    <text class="mname" x="322" y="368" style="font-size:9.5px">广武山·鸿沟涧</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 粮道·漕运(金色串珠动脉) ══ -->
+    <!-- 甲·汉敖仓甬道属河:自河—敖仓下荥成,汉之粮本(短而固) -->
+    <path class="supply band" d="M 300,384 C 296,400 290,416 285,428 C 278,424 262,416 248,410"/>
+    <path class="supply core" d="M 300,384 C 296,400 290,416 285,428 C 278,424 262,416 248,410"/>
+    <g class="grain"><rect x="293" y="399" width="6.4" height="6.4" transform="rotate(45 296.2 402.2)"/><rect x="282" y="421" width="6.4" height="6.4" transform="rotate(45 285.2 424.2)"/></g>
+    <!-- 乙·楚粮道:自彭城·关东西输荥成前线,途经梁地(长而暴露) -->
+    <path class="supply band" d="M 905,506 C 800,502 700,494 620,480 C 560,468 500,452 440,436 C 400,426 360,418 322,410"/>
+    <path class="supply core" d="M 905,506 C 800,502 700,494 620,480 C 560,468 500,452 440,436 C 400,426 360,418 322,410"/>
+    <g class="grain">
+      <rect x="797" y="497" width="6.4" height="6.4" transform="rotate(45 800.2 500.2)"/>
+      <rect x="677" y="486" width="6.4" height="6.4" transform="rotate(45 680.2 489.2)"/>
+      <rect x="557" y="463" width="6.4" height="6.4" transform="rotate(45 560.2 466.2)"/>
+      <rect x="437" y="435" width="6.4" height="6.4" transform="rotate(45 440.2 438.2)"/>
+      <rect x="360" y="415" width="6.4" height="6.4" transform="rotate(45 363.2 418.2)"/>
+    </g>
+    <text class="slabel" x="655" y="536">楚粮道 · 自彭城关东西输</text>
+    <text class="slabel" x="150" y="440" style="font-size:11px">敖仓 · 甬道属河</text>
+    <text class="slabel" x="150" y="453" style="font-size:9.5px;opacity:.82">汉之粮本,恃以持久</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="xingyang"><circle cx="452" cy="300" r="6"/><text class="cname" x="464" y="296">荥阳<tspan class="cname s" dx="2">(汉守)</tspan></text></g>
-      <g class="city" data-city="chenggao"><circle cx="392" cy="320" r="5.5"/><text class="cname" x="316" y="340">成皋<tspan class="cname s" dx="2">(迭据)</tspan></text></g>
-      <g class="city" data-city="aocang"><circle cx="474" cy="262" r="4"/><text class="cname s" x="486" y="258">敖仓(粮)</text></g>
-      <g class="city" data-city="guangwu"><circle cx="424" cy="266" r="4"/><text class="cname s" x="388" y="252">广武·鸿沟</text></g>
-      <g class="city" data-city="gongluoyang"><circle cx="270" cy="336" r="4.5"/><text class="cname s" x="200" y="332">巩·洛阳</text></g>
-      <g class="city cap" data-city="pengcheng"><circle cx="820" cy="420" r="6"/><text class="cname" x="832" y="416">彭城<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
-      <g class="city" data-city="xiuwu"><circle cx="470" cy="150" r="3.5"/><text class="cname s" x="480" y="146">修武(河内)</text></g>
-      <g class="city" data-city="liangdi"><circle cx="660" cy="330" r="3.5"/><text class="cname s" x="620" y="322">梁地·外黄</text></g>
+      <g class="city" data-city="xingyang"><circle cx="284" cy="432" r="6"/><text class="cname" x="226" y="446">荥阳<tspan class="cname s" dx="1">(汉守)</tspan></text></g>
+      <g class="city" data-city="chenggao"><circle cx="245" cy="410" r="5"/><text class="cname" x="170" y="406">成皋·虎牢</text></g>
+      <g class="gran city" data-city="aocang"><path class="roof" d="M 291,382 L 297,376 L 303,382 Z"/><rect class="body" x="292" y="382" width="10" height="9"/><text class="cname s" x="264" y="380" style="fill:var(--gold);font-weight:700">敖仓</text></g>
+      <g class="city" data-city="guangwu"><circle cx="318" cy="392" r="4"/><text class="cname s" x="326" y="390">广武</text></g>
+      <g class="city" data-city="xiuwu"><circle cx="293" cy="346" r="4"/><text class="cname s" x="302" y="342">修武(河内)</text></g>
+      <g class="city" data-city="gongluo"><circle cx="204" cy="432" r="4.5"/><text class="cname" x="120" y="428">巩·洛阳</text></g>
+      <g class="city" data-city="waihuang"><circle cx="534" cy="443" r="4"/><text class="cname s" x="500" y="434">外黄</text></g>
+      <g class="city" data-city="suiyang"><circle cx="649" cy="485" r="4.5"/><text class="cname" x="620" y="504">睢阳<tspan class="cname s" dx="1">(梁)</tspan></text></g>
+      <g class="city cap" data-city="pengcheng"><circle cx="913" cy="508" r="6"/><text class="cname" x="852" y="504">彭城<tspan class="cname s" dx="1">(楚都)</tspan></text></g>
+      <g class="city" data-city="zhao"><circle cx="468" cy="122" r="4"/><text class="cname s" x="478" y="118">赵·邯郸(韩信定)</text></g>
     </g>
 
-    <!-- 全图 · 荥成拉锯 -->
+    <!-- 关中(图外·西) -->
+    <g transform="translate(6,470)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 关中·汉本</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">刘邦根本(图外)</text>
+    </g>
+    <!-- 齐(图外·东北) -->
+    <g transform="translate(958,150)">
+      <path class="march j" marker-end="url(#aj)" d="M -30,0 L -4,0"/>
+      <text class="mlabel j" x="-118" y="-8" style="font-size:10px">韩信东定齐 ⟶</text>
+      <text class="cname s" x="-96" y="16" style="fill:var(--advance);font-size:9.5px">齐·临淄(图外东北)</text>
+    </g>
+
+    <!-- 全图 · 荥成相持 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 260,336 C 300,326 340,318 386,318"/>
-      <text class="mlabel j" x="210" y="356">刘邦收兵守荥阳、成皋,恃敖仓之粟</text>
-      <path class="march q" marker-end="url(#aq)" d="M 806,414 C 700,388 580,340 468,306"/>
-      <text class="mlabel q" x="600" y="392">项羽自彭城引兵西向,急攻荥成</text>
-      <ellipse class="siege" cx="452" cy="300" rx="34" ry="26"/>
-      <path class="march j" marker-end="url(#aj)" d="M 468,158 C 490,200 500,240 486,262"/>
-      <text class="mlabel j" x="490" y="200">韩信北定魏赵齐,分楚势</text>
-      <path class="march j" marker-end="url(#aj)" d="M 636,330 C 600,318 560,310 480,300"/>
-      <text class="mlabel j" x="560" y="348">彭越挠楚粮道于梁地</text>
+      <path class="march j" marker-end="url(#aj)" d="M 212,432 C 232,428 246,424 256,418"/>
+      <text class="mlabel j" x="118" y="472">刘邦收兵西守荥成,筑甬道取敖仓粟</text>
+      <path class="march q" marker-end="url(#aq)" d="M 905,502 C 720,470 500,432 332,418"/>
+      <text class="mlabel q" x="560" y="440">项羽自彭城西向,急攻荥成</text>
+      <ellipse class="siege" cx="284" cy="430" rx="30" ry="25"/>
+      <path class="march j" marker-end="url(#aj)" d="M 296,340 C 360,290 420,210 462,138"/>
+      <text class="mlabel j" x="330" y="230">韩信北定魏赵齐,张汉右翼</text>
+      <path class="march j" marker-end="url(#aj)" d="M 646,480 C 610,470 580,464 566,462"/>
+      <text class="mlabel j" x="560" y="500">彭越出没梁地,数绝楚粮</text>
+      <g class="cut" transform="translate(560,464)"><circle r="6.5"/><line x1="-4.6" y1="-4.6" x2="4.6" y2="4.6"/><line x1="-4.6" y1="4.6" x2="4.6" y2="-4.6"/></g>
     </g>
 
-    <!-- 阶段一:纪信诳楚 -->
+    <!-- 阶段一:据敖仓 · 纪信诳楚 -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 700,400 C 620,372 540,336 470,306"/>
-      <ellipse class="siege" cx="452" cy="300" rx="40" ry="30"/>
-      <ellipse class="siege" cx="452" cy="300" rx="52" ry="40"/>
-      <text class="mlabel q" x="500" y="360">项羽围荥阳数重,绝汉甬道,食尽</text>
-      <rect class="camp" x="502" y="298" width="8" height="8" transform="rotate(45 506 302)"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 476,308 C 460,320 440,330 410,322"/>
-      <text class="mlabel r" x="410" y="340">纪信乘王驾诈降,诳楚代死</text>
-      <path class="march j" marker-end="url(#aj)" d="M 444,306 C 424,314 410,318 400,320"/>
-      <text class="mlabel j" x="330" y="308">刘邦从西门出走成皋</text>
-      <text class="anno" x="410" y="284">夜出妇女二千于东门以疑楚</text>
+      <path class="march q" marker-end="url(#aq)" d="M 905,504 C 700,472 460,438 332,428"/>
+      <ellipse class="siege" cx="284" cy="430" rx="34" ry="27"/>
+      <ellipse class="siege" cx="284" cy="430" rx="46" ry="37"/>
+      <text class="mlabel q" x="326" y="466">项羽围荥阳数重</text>
+      <!-- 项羽数绝甬道 -->
+      <g class="cut" transform="translate(291,408)"><circle r="6.5"/><line x1="-4.6" y1="-4.6" x2="4.6" y2="4.6"/><line x1="-4.6" y1="4.6" x2="4.6" y2="-4.6"/></g>
+      <text class="clabel" x="150" y="392">楚数绝甬道,汉军乏食 ✕</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 278,438 C 260,444 240,446 224,442"/>
+      <text class="mlabel r" x="146" y="486">纪信乘王驾诈降,诳楚代死</text>
+      <path class="march j" marker-end="url(#aj)" d="M 276,428 C 264,422 256,416 250,412"/>
+      <text class="anno" x="150" y="508">陈平夜出妇女二千于东门以疑楚,刘邦从西门出走成皋</text>
     </g>
 
-    <!-- 阶段二:迭据成皋 -->
+    <!-- 阶段二:挠楚粮道 · 两线疲楚 -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 468,306 C 440,314 418,318 404,320"/>
-      <text class="mlabel q" x="420" y="336">楚复取荥阳、成皋</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 388,314 C 400,260 430,200 462,160"/>
-      <text class="mlabel r" x="404" y="220">刘邦北走修武,夺韩信军</text>
-      <rect class="camp" x="470" y="258" width="8" height="8" transform="rotate(45 474 262)"/>
-      <text class="anno" x="486" y="240">用郦食其守敖仓,深沟高垒勿战</text>
-      <path class="march j" marker-end="url(#aj)" d="M 636,326 C 660,300 680,270 690,240"/>
-      <text class="mlabel j" x="640" y="286">彭越渡睢,绝楚粮于梁</text>
-      <path class="march q" marker-end="url(#aq)" d="M 480,300 C 560,314 620,322 646,328"/>
-      <text class="mlabel q" x="520" y="380">项羽东西奔命,不得专攻</text>
+      <!-- 彭越绝楚粮 -->
+      <path class="march j" marker-end="url(#aj)" d="M 649,479 C 600,470 560,462 542,458"/>
+      <g class="cut" transform="translate(534,456)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(628,481)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="520" y="472">彭越渡睢,下睢阳外黄十七城,绝楚后粮 ✕</text>
+      <!-- 项羽东西奔命 -->
+      <path class="march q" marker-end="url(#aq)" d="M 330,420 C 440,436 540,452 616,472"/>
+      <text class="mlabel q" x="360" y="430">项羽东击彭越</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 616,486 C 520,472 420,448 330,428"/>
+      <text class="mlabel q" x="440" y="462">复西还拒汉,东西奔命</text>
+      <!-- 韩信北略 -->
+      <path class="march j" marker-end="url(#aj)" d="M 296,340 C 360,288 420,205 462,136"/>
+      <text class="mlabel j" x="308" y="250">韩信破赵定齐,楚势为之分</text>
+      <!-- 刘邦北走修武夺军 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 286,424 C 286,398 288,372 292,358"/>
+      <text class="mlabel r" x="300" y="330">刘邦北渡河走修武,晨夺韩信军</text>
+      <text class="anno" x="120" y="470">郦食其言「据敖仓之粟」为王业本,汉深沟高垒、坚壁勿战</text>
     </g>
 
     <!-- 阶段三:鸿沟划界 -->
     <g id="ph3" class="ph">
-      <path class="border" style="stroke:var(--gold);stroke-width:2.4;opacity:.9" d="M 452,236 C 470,300 500,370 512,440 C 522,500 520,560 516,630"/>
-      <text class="mlabel q" x="530" y="470">割鸿沟以东为楚</text>
-      <text class="mlabel j" x="360" y="470">鸿沟以西为汉</text>
-      <path class="march j" marker-end="url(#aj)" d="M 460,290 C 490,286 520,282 540,280"/>
-      <text class="anno" x="470" y="272">汉遣侯公说楚,约中分天下</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 470,306 C 560,344 680,388 800,414"/>
-      <text class="mlabel q" x="560" y="420">项羽引兵解而东归,归太公、吕后</text>
-      <path class="march j" marker-end="url(#aj)" d="M 490,314 C 580,352 690,394 796,424"/>
-      <text class="anno" x="600" y="452">张良、陈平劝汉乘敝追之,遂启垓下</text>
+      <path class="border" style="stroke:var(--gold);stroke-width:2.6;opacity:.95;stroke-dasharray:none" d="M 300,404 C 360,410 405,414 434,420 C 470,455 500,520 522,610"/>
+      <text class="mlabel j" x="300" y="462">鸿沟以西为汉</text>
+      <text class="mlabel q" x="470" y="560">鸿沟以东为楚</text>
+      <text class="anno" x="150" y="392">汉遣侯公说楚,约中分天下,归汉太公、吕后</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 330,416 C 520,448 720,478 900,506"/>
+      <text class="mlabel q" x="560" y="492">项羽引兵解围而东归</text>
+      <path class="march j" marker-end="url(#aj)" d="M 320,426 C 460,452 620,478 780,502"/>
+      <text class="anno" x="470" y="524">张良、陈平劝汉乘楚敝背约追之,遂启垓下</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(952,590)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(刘邦)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(刘邦·韩信·彭越)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚军(项羽)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>弃城·东归</span>
-    <span class="item"><svg width="30" height="16"><ellipse cx="15" cy="8" rx="12" ry="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>楚围荥阳</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>弃城·东归·奔命</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".2"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>粮道(敖仓·楚运)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断粮道 ✕</span>
+    <span class="item"><svg width="30" height="16"><ellipse cx="15" cy="8" rx="12" ry="6" fill="none" stroke="#9a2b1e" stroke-width="1.5" stroke-dasharray="2 4"/></svg>楚围荥阳</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>粮道释要 · 敖仓之粟与挠楚之谋</h3>
+    <div class="lead">何以荥成相持二年而楚先困 —— 胜负不在一战,而在粮之继与不继</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="粮道示意:汉恃敖仓短固之粮本,楚粮道自彭城长运而屡为彭越所绝,又值韩信北略,楚疲于两线">
+      <!-- 中分隔 -->
+      <line x1="430" y1="24" x2="430" y2="238" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 8" opacity=".5"/>
+      <text x="22" y="40" fill="#1f4e54" font-size="13" font-weight="700">汉 · 恃敖仓之粟(粮本固)</text>
+      <text x="470" y="40" fill="#9a2b1e" font-size="13" font-weight="700">楚 · 粮道长运(粮线暴露)</text>
+      <!-- 左:汉—敖仓短固之粮 -->
+      <rect x="60" y="150" width="150" height="40" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.4"/>
+      <text x="135" y="175" fill="#1f4e54" font-size="12" font-weight="700" text-anchor="middle">荥阳·成皋(汉守)</text>
+      <!-- 敖仓粮囷 -->
+      <path d="M 150,74 L 168,58 L 186,74 Z" fill="#9c7a2c"/>
+      <rect x="152" y="74" width="32" height="26" fill="#e9dec4" stroke="#9c7a2c" stroke-width="1.8"/>
+      <text x="168" y="52" fill="#9c7a2c" font-size="12" font-weight="700" text-anchor="middle">敖仓(临河积粟)</text>
+      <!-- 甬道属河(短金线) -->
+      <path d="M 168,102 L 150,150" stroke="#9c7a2c" stroke-width="7" opacity=".2" stroke-linecap="round"/>
+      <path d="M 168,102 L 150,150" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="0.5 5"/>
+      <rect x="155" y="122" width="7" height="7" transform="rotate(45 158.5 125.5)" fill="#9c7a2c"/>
+      <text x="196" y="128" fill="#9c7a2c" font-size="11" font-weight="700">甬道属河(短而固)</text>
+      <text x="60" y="222" fill="#5c4f38" font-size="10.5">粮近在敖仓,虽楚数绝甬道,旋筑旋通,汉终不乏食 → <tspan fill="#1f4e54" font-weight="700">能持久</tspan></text>
+      <!-- 右:楚—彭城长运,彭越绝之,韩信开第二线 -->
+      <circle cx="790" cy="80" r="16" fill="#e9dec4" stroke="#9a2b1e" stroke-width="1.8"/>
+      <text x="790" y="60" fill="#9a2b1e" font-size="11.5" font-weight="700" text-anchor="middle">彭城·关东</text>
+      <rect x="470" y="150" width="150" height="40" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="545" y="175" fill="#9a2b1e" font-size="12" font-weight="700" text-anchor="middle">项羽·荥成前线</text>
+      <!-- 楚粮道(长金线,自彭城至前线) -->
+      <path d="M 776,92 C 700,120 640,150 560,170 C 520,180 480,186 545,190" fill="none" stroke="#9c7a2c" stroke-width="7" opacity=".2" stroke-linecap="round"/>
+      <path d="M 776,92 C 700,120 640,150 560,170 C 520,180 480,186 545,190" fill="none" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="0.5 5"/>
+      <rect x="700" y="115" width="7" height="7" transform="rotate(45 703.5 118.5)" fill="#9c7a2c"/>
+      <rect x="612" y="152" width="7" height="7" transform="rotate(45 615.5 155.5)" fill="#9c7a2c"/>
+      <!-- 彭越断点 -->
+      <g><circle cx="656" cy="140" r="8" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="651" y1="135" x2="661" y2="145" stroke="#9a2b1e" stroke-width="2.6"/><line x1="651" y1="145" x2="661" y2="135" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="600" y="128" fill="#9a2b1e" font-size="10.5" font-weight="700">彭越绝之于梁 ✕</text>
+      <!-- 韩信第二线(北) -->
+      <path d="M 545,150 C 560,110 620,74 690,50" fill="none" stroke="#1f4e54" stroke-width="2.2" stroke-dasharray="7 4"/>
+      <path d="M 690,50 L 678,52 L 683,62 Z" fill="#1f4e54"/>
+      <text x="560" y="112" fill="#1f4e54" font-size="10.5" font-weight="700" transform="rotate(-24 560 112)">韩信北略赵齐</text>
+      <text x="470" y="222" fill="#5c4f38" font-size="10.5">粮道千里,彭越屡绝之,又韩信迫其北 → <tspan fill="#9a2b1e" font-weight="700">疲于两线</tspan></text>
+    </svg>
+    <p class="intro">荥成相持二年余,楚兵屡胜而先困,汉屡败而益强,其枢不在城之得失,而在<b>粮之继否与力之专否</b>。刘邦所恃者,近在肘腋之<b>敖仓</b>;项羽所苦者,粮道千里而侧翼洞开。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>汉 · 敖仓之粟,恃以持久</h4>
+        <p>敖仓乃秦积粟之仓,临黄河南岸敖山,去荥阳咫尺。刘邦「军荥阳南,筑甬道属之河,以取敖仓粟」,粮本近固。项羽虽数侵夺甬道、汉一时乏食而围急,然甬道旋筑旋通,郦食其谓「据敖仓之粟」为王业之本——汉遂能深沟高垒、坚壁不战,以久制楚。</p>
+      </div>
+      <div class="c b">
+        <h4>楚 · 粮道被挠,疲于两线</h4>
+        <p>项羽粮械仰给于彭城、关东,西输荥成千余里,侧翼尽暴。彭越「常往来为汉游兵,绝其后粮于梁地」,下睢阳、外黄十七城;韩信复北举魏、赵、齐以张汉右翼。项羽东击彭越则荥阳解、西拒汉王则梁地失,<b>东西奔命</b>,不得专力,兵虽锐而食日蹙。</p>
+      </div>
+    </div>
+    <p class="kicker">故楚汉之胜负,非力不敌,实<b>粮不继、力不专</b>:汉持敖仓不竭之粟以持久,彭越挠其粮、韩信分其势,使楚疲于两线。相持既久,「楚兵罢食尽」,遂有中分天下、割鸿沟之约;而汉乘其敝背约东追,垓下之局伏于此矣。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·项羽本纪》《高祖本纪》《陈丞相世家》及《资治通鉴》卷九至十约略绘出。疆界、水道经简化,点划"约界"标鸿沟分野,非实有画界。</p>
-    <p><span class="n">注二</span>荥阳、成皋在今河南荥阳、汜水一带,敖仓临河为秦所积粟,汉恃之;广武二城隔鸿沟涧对峙,鸿沟为古运河,自荥阳引黄河水东南入淮泗。</p>
-    <p><span class="n">注三</span>「楚河汉界」之名本此,即今象棋界河所自。汉楚相持数岁,汉恃敖仓之粟与韩信、彭越之势,楚渐困而汉渐盛;鸿沟之约旋为汉所背,遂有垓下之围。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(简易墨卡托)投影定位,几何关系力求近实:成皋·荥阳·敖仓·广武同在今荥阳一带(相距仅十数里,图中略予展开以便标注),修武在黄河北之河内,巩·洛阳在西为汉通关中之孔道,梁地(外黄·睢阳)在东南,彭城在东,赵在北、齐在东北(图外)。江河、疆界经简化,点划「约界」标鸿沟分野,非实有画界。荥阳今河南荥阳,成皋今荥阳汜水镇,敖仓在荥阳北敖山,彭城今江苏徐州,睢阳今商丘,外黄今民权西北,修武今获嘉。</p>
+    <p><span class="n">注二</span>粮道为此役之枢,图中以金色串珠动脉标之:一为汉「筑甬道属之河,以取敖仓粟」(《史记·高祖本纪》),近固而为汉之粮本;一为楚自彭城·关东西输前线之粮道,长而暴露。朱色 ✕ 记断粮之处——项羽「数侵夺汉甬道,汉军乏食」(高祖本纪);彭越「常往来为汉游兵,击楚,绝其后粮于梁地」,「攻下睢阳、外黄十七城」(《史记·魏豹彭越列传》)。</p>
+    <p><span class="n">注三</span>纪信诳楚:汉三年(前204)楚围荥阳急,用陈平计,夜出妇女二千人东门,纪信乘王驾、张黄屋左纛诈称汉王降,刘邦得从西门出走成皋;项羽觉见诳,烧杀纪信(高祖本纪、项羽本纪)。刘邦又尝北渡河入修武,晨自称使者驰入韩信、张耳壁,夺其军以自益。</p>
+    <p><span class="n">注四</span>鸿沟划界:汉四年(前203)楚兵罢食尽,汉遣侯公说项羽,约中分天下,割鸿沟以西者为汉、以东者为楚,归汉太公、吕后;项羽引兵解而东归。张良、陈平谏「汉有天下太半,楚兵罢食尽,此天亡之时」,汉乃背约追楚,启垓下之役。「楚河汉界」之名本此。本图约略绘出,史文散见《史记·项羽本纪》《高祖本纪》《魏豹彭越列传》《淮阴侯列传》及《资治通鉴》卷九至十一(汉纪一至三)。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"荥成拉锯",d:"汉二年 — 四年(前205–前203)",p:["彭城败后,刘邦收散兵西守荥阳、成皋,筑甬道属河以取敖仓之粟,与项羽相持于荥、成之间。楚兵锐而汉据险,一进一退,凡数岁不决。","当此之际,韩信北举而定魏、赵、齐,彭越出没梁地、屡绝楚之粮道,楚势为之东西分。项羽虽屡挫汉军,而不能拔关西、专攻荥阳,拉锯之局遂成。"]},
-  "1":{t:"纪信诳楚",d:"汉三年(前204)",p:["项羽急攻荥阳,围之数重,又数绝汉甬道,城中食尽,危甚。汉王用陈平之计,夜出妇女二千人于东门,被甲以疑楚兵。","将军纪信乃乘王之车驾、张黄屋左纛,诈称汉王出降,楚皆呼万岁、聚观于城东。刘邦因得与数十骑从西门出,走保成皋。项羽既觉见诳,怒烧杀纪信。"]},
-  "2":{t:"迭据成皋",d:"汉三年至四年(前204–前203)",p:["刘邦数失荥阳、成皋,尝北渡河走修武,晨入韩信、张耳壁,夺其军以自益;又立郦食其之策,深沟高垒、坚壁勿与楚战,而遣兵守敖仓之粟。","同时使彭越渡睢水,数绝楚军粮于梁地、下睢阳外黄十七城。项羽腹背受挠,东击彭越、西拒汉王,东西奔命,不得专力于荥成,故荥、成迭为楚汉所据。"]},
-  "3":{t:"鸿沟划界",d:"汉四年(前203)",p:["久相持,楚兵疲、食益乏。项羽尝置太公、吕后于军中为质,欲要挟汉王,汉不为动。汉遣侯公往说项羽,乃约中分天下:割鸿沟以西者为汉、以东者为楚,归汉太公、吕后。","项羽既约,引兵解围而东归。张良、陈平进曰:汉有天下太半,而楚兵罢食尽,此天亡之时,不如因其敝而取之。刘邦从之,遂背约追楚,启垓下之役。"]}
+  all:{t:"荥成相持",d:"汉二年 — 四年(前205–前203)",p:["彭城败后,刘邦收散兵西守荥阳、成皋,「军荥阳南,筑甬道属之河,以取敖仓粟」,与项羽相持于荥、成之间,凡二年余。楚兵锐而汉据险,城邑迭为攻守,而胜负之枢实系于粮。","当此之际,韩信北举而定魏、赵、齐,以张汉之右翼;彭越出没梁地、屡绝楚之后粮。项羽虽屡挫汉军,而粮道千里、侧翼洞开,东西奔命,不得专攻荥成——相持之局,楚先困焉。"]},
+  "1":{t:"据敖仓 · 纪信诳楚",d:"汉二年至三年(前205–前204)",p:["刘邦据荥阳,筑甬道属河以取敖仓之粟为粮本,深沟高垒与楚相持。项羽急攻,围荥阳数重,又「数侵夺汉甬道」,城中一时乏食,危甚。汉王请割荥阳以西为汉以求和,项羽不听。","汉三年,用陈平计,夜出妇女二千人于东门以疑楚;将军纪信乃乘王驾、张黄屋左纛,诈称汉王出降,楚皆呼万岁、聚观城东。刘邦因得与数十骑从西门出,走保成皋。项羽既觉见诳,怒烧杀纪信。"]},
+  "2":{t:"挠楚粮道 · 两线疲楚",d:"汉三年至四年(前204–前203)",p:["此相持之决机,在断楚之粮、分楚之势。彭越「常往来为汉游兵,击楚,绝其后粮于梁地」,渡睢水,下睢阳、外黄十七城;韩信复北破赵、降燕、定齐,汉之右翼大张。","项羽腹背受挠:东击彭越则荥成之围自解、西拒汉王则梁地复失,东西奔命,不得专力。刘邦则据敖仓之粟坚壁勿战,又尝北渡河入修武,晨夺韩信、张耳之军以自益。荥、成虽迭为楚汉所据,而楚兵日蹙、汉势日张。"]},
+  "3":{t:"鸿沟划界",d:"汉四年(前203)",p:["相持既久,「楚兵罢食尽」。项羽尝置太公、吕后于军中为质以要汉,汉不为动。汉遣侯公往说项羽,乃约中分天下:割鸿沟以西者为汉、以东者为楚,归汉太公、吕后。项羽既约,引兵解围而东归。","张良、陈平进曰:汉有天下太半,而楚兵罢食尽,此天亡之时,不如因其敝而取之。刘邦从之,遂背鸿沟之约,乘楚敝而东追,启垓下之役。今象棋界河「楚河汉界」之名,即本于此。"]}
 };
 const CITY={
-  xingyang:{t:"荥阳",d:"汉守,依敖仓,今河南荥阳",p:["楚汉相持之枢。刘邦据以拒楚,筑甬道取敖仓粟;项羽围之数重,纪信代死于此,刘邦得脱走成皋。"]},
-  chenggao:{t:"成皋",d:"汉楚迭据,今河南汜水一带",p:["西控巩、洛之险要。荥阳既失,刘邦退保成皋;成皋复失,则北走修武。荥、成两城数易其手。"]},
-  aocang:{t:"敖仓",d:"临河积粟,汉所恃",p:["秦时积粟之仓,临黄河南岸敖山。汉筑甬道属河以取其粟,郦食其言「据敖仓之粟」乃王业之本,汉赖以久持。"]},
-  guangwu:{t:"广武·鸿沟",d:"隔涧对语、划界处",p:["广武二城夹鸿沟涧而峙,楚汉各据其一,相守对语。汉四年中分天下之约,即以此鸿沟为界。"]},
-  gongluoyang:{t:"巩·洛阳",d:"汉后方,今河南巩义、洛阳",p:["荥、成之西屏障,通关中之孔道。汉据之则粮械可西输、败可西保,为刘邦持久之资。"]},
-  pengcheng:{t:"彭城",d:"楚都,今江苏徐州",p:["项羽都城。汉二年刘邦尝乘虚陷之,复为项羽以三万骑大破;此后项羽自此西向,与汉争荥、成。"]},
-  xiuwu:{t:"修武(河内)",d:"今河南获嘉一带",p:["黄河以北要地。刘邦尝夜渡河驰入韩信、张耳军壁,晨自称使者夺其军,复振以拒楚。"]},
-  liangdi:{t:"梁地·外黄",d:"今河南商丘、民权一带",p:["楚都彭城与荥成之间的粮运通道。彭越出没于此,数绝楚粮、下十七城,楚为之东西奔命。"]}
+  xingyang:{t:"荥阳",d:"汉守·粮枢,今河南荥阳",p:["楚汉相持之枢。刘邦据以拒楚,「筑甬道属之河,以取敖仓粟」为粮本;项羽围之数重、数绝甬道,纪信代死于此,刘邦得脱走成皋。"]},
+  chenggao:{t:"成皋·虎牢",d:"汉楚迭据,今荥阳汜水镇",p:["西控巩、洛之险要,天下之枢。荥阳既失,刘邦退保成皋;成皋复失,则北走修武。荥、成两城数易其手,为相持主战场。"]},
+  aocang:{t:"敖仓",d:"临河积粟,汉之粮本",p:["秦时积粟之仓,在荥阳北敖山、临黄河南岸。汉「筑甬道属之河以取敖仓粟」,郦食其谓「据敖仓之粟」乃王业之本——汉赖此近固之粮以久持,虽屡败而不匮。"]},
+  guangwu:{t:"广武·鸿沟涧",d:"楚汉对垒·划界处",p:["广武二城夹鸿沟涧而峙,楚汉各据其一,相守对语。汉四年中分天下之约,即以此鸿沟为界。项羽尝据此欲与汉王决,汉王数其罪,为楚伏弩所中。"]},
+  xiuwu:{t:"修武(河内)",d:"黄河北要地,今河南获嘉",p:["刘奔困于荥成,尝北渡河入此,晨自称使者驰入韩信、张耳军壁,夺其军以自益,复振以拒楚——相持中汉转弱为强之一著。"]},
+  gongluo:{t:"巩·洛阳",d:"汉后方·通关中,今巩义洛阳",p:["荥、成之西屏障,汉通关中之孔道。据之则关中之粮械可东输、败可西保,为刘邦持久之资。"]},
+  waihuang:{t:"外黄",d:"梁地·彭越所下,今民权西北",p:["彭城与荥成间楚粮道所经。彭越渡睢往来,与睢阳等下十七城,绝楚后粮,楚为之东西奔命。"]},
+  suiyang:{t:"睢阳(梁)",d:"彭越游击之基,今河南商丘",p:["梁地重镇,当楚之后方粮道。彭越出没于此,「绝其后粮于梁地」,数挠楚,使项羽不得专力荥成——挠楚之枢。"]},
+  pengcheng:{t:"彭城",d:"楚都,今江苏徐州",p:["项羽都城,楚粮械西输荥成之总汇。汉二年刘邦尝乘虚陷之,复为项羽三万骑大破;此后项羽自此西向争荥、成,而粮道自此千里,侧翼暴于彭越。"]},
+  zhao:{t:"赵·邯郸",d:"韩信北略,今河北邯郸",p:["韩信背水破赵(井陉)、进而降燕定齐,汉之右翼由是大张,楚势为之东西分。齐地更远在东北(图外),汉四年韩信定之。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
