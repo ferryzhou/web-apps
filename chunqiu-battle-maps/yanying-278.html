@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--flood:#3d6f8f;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,40 +27,61 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  /* 引水灌城:蓝色水攻记号 */
+  .march.flow{stroke:var(--flood);stroke-width:3.6;opacity:.92}
+  .flood{fill:var(--flood);opacity:.20;stroke:var(--flood);stroke-width:1;stroke-opacity:.4}
+  .ripple{fill:none;stroke:var(--flood);stroke-width:1.4;opacity:.5;stroke-linecap:round}
+  .weir{stroke:var(--advance);stroke-width:4.5;stroke-linecap:round}
+  .wlabel{fill:var(--flood);font-size:11px;font-weight:700}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .fire{fill:var(--enemy);opacity:.85}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(61,111,143,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--flood);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--flood)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--flood)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.flow){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -70,7 +91,7 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../chunqiu-battle-maps/index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回春秋战国征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>鄢</span><span>郢</span><span>之</span><span>役</span></div>
   <header>
     <h1>鄢郢之战</h1>
@@ -78,88 +99,116 @@
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 白起南伐楚</button>
-    <button data-p="1">拔鄢 · 引夷水灌城</button>
+    <button data-p="1">拔邓 · 引水灌鄢城</button>
     <button data-p="2">进拔郢都 · 烧夷陵</button>
-    <button data-p="3">楚东徙于陈</button>
+    <button data-p="3">楚东徙于陈 · 置南郡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="鄢郢之战形势图,含秦楚疆界、汉水夷水长江与鄢郢夷陵陈咸阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="鄢郢之战形势图,含秦楚疆界、汉水夷水长江与邓鄢郢夷陵等城邑,及白起引水灌鄢城之水攻记号,陈在图外东北以边箭指之">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3d6f8f"/></marker>
     </defs>
 
-    <!-- 疆界:秦据西北(关中汉北),楚据南、东(江汉腹地) -->
-    <path d="M 470,0 C 452,90 430,170 400,250 C 372,320 340,390 320,470 C 306,540 300,590 300,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 452,90 430,170 400,250 C 372,320 340,390 320,470 C 306,540 300,590 300,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 452,90 430,170 400,250 C 372,320 340,390 320,470 C 306,540 300,590 300,640"/>
-    <text class="realm j" x="80" y="150" font-size="34">秦(关中)</text>
-    <text class="realm q" x="640" y="560" font-size="34">楚(江汉)</text>
+    <!-- ══ 疆界:秦据西北(汉中·关中),楚据江汉之腹地(南、东) ══ -->
+    <path d="M 0,0 L 300,0 C 285,70 245,135 195,190 C 140,250 80,310 40,380 C 25,415 15,445 8,468 L 0,468 Z" fill="url(#jinHatch)"/>
+    <path d="M 300,0 C 285,70 245,135 195,190 C 140,250 80,310 40,380 C 25,415 15,445 8,468 L 0,468 L 0,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 300,0 C 285,70 245,135 195,190 C 140,250 80,310 40,380 C 25,415 15,445 8,468"/>
+    <text class="realm j" x="58" y="182" font-size="30">秦</text>
+    <text class="cname s" x="36" y="206" style="fill:var(--advance);opacity:.7">(汉中·汉北)</text>
+    <text class="realm q" x="648" y="606" font-size="34">楚(江汉)</text>
 
-    <!-- 汉水:自西北汉北南下,秦军南下之路 -->
-    <path class="river" stroke-width="4.5" d="M 200,70 C 260,130 320,190 380,240 C 440,290 500,320 560,352"/>
-    <!-- 夷水(蛮河):自西山出,东注,过鄢城 -->
-    <path class="river" stroke-width="3" d="M 360,360 C 420,372 470,382 520,392 C 560,400 590,406 620,410"/>
-    <!-- 长江:自西(夷陵)东下,经郢而东 -->
-    <path class="river" stroke-width="5.5" d="M 280,470 C 360,486 460,500 560,508 C 660,516 760,512 880,506 C 940,504 980,502 1000,500"/>
-    <text class="rname" x="300" y="210" transform="rotate(42 300 210)">汉 水</text>
-    <text class="rname" x="440" y="372" style="font-size:11.5px">夷 水</text>
-    <text class="rname" x="700" y="500" style="font-size:13px">长 江</text>
+    <!-- ══ 山脉:西山·长谷(鄢城之西,白起壅水之源) ══ -->
+    <path class="mtn fill" d="M 300,120 L 316,86 L 330,104 L 348,72 L 366,100 L 384,74 L 400,108 Z"/>
+    <path class="mtn" d="M 316,104 l 12,-16 l 12,13 l 14,-20 l 12,16"/>
+    <text class="mname" x="300" y="72" style="font-size:10.5px">西 山 · 长 谷</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 水系 ══ -->
+    <!-- 汉水:自西北汉中南下,秦军循之东下 -->
+    <path class="river" stroke-width="4.6" d="M 350,20 C 400,78 425,96 442,140 C 480,225 505,255 545,300 C 610,370 700,415 785,435 C 830,446 870,452 905,455"/>
+    <!-- 夷水(蛮河)·长谷:自西山出,东注,过鄢城入汉——白起引以灌城之水 -->
+    <path class="river" stroke-width="2.6" d="M 356,132 C 396,148 440,168 478,181"/>
+    <!-- 长江:自西(夷陵)东下,经江陵之南而东 -->
+    <path class="river" stroke-width="5.4" d="M 70,382 C 130,388 175,389 205,390 C 262,392 302,432 352,453 C 402,472 442,473 472,475 C 565,481 685,470 802,451 C 872,440 942,431 990,424"/>
+    <text class="rname" x="452" y="188" transform="rotate(56 452 188)" style="font-size:12px">汉 水</text>
+    <text class="rname" x="360" y="126" style="font-size:10px">夷水·长谷</text>
+    <text class="rname" x="628" y="470" transform="rotate(-7 628 470)" style="font-size:13px">长 江</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="xianyang"><circle cx="150" cy="96" r="6"/><text class="cname" x="162" y="92">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
-      <g class="city" data-city="hanshui"><circle cx="470" cy="300" r="4"/><text class="cname s" x="478" y="296">汉水(秦军南下)</text></g>
-      <g class="city cap" data-city="yan"><circle cx="546" cy="392" r="6.5"/><text class="cname" x="504" y="380">鄢</text></g>
-      <g class="city cap" data-city="ying"><circle cx="560" cy="490" r="6.5"/><text class="cname" x="516" y="510">郢<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
-      <g class="city" data-city="yiling"><circle cx="360" cy="486" r="4"/><text class="cname s" x="300" y="482">夷陵(楚先王墓)</text></g>
-      <g class="city cap" data-city="chen"><circle cx="820" cy="240" r="6"/><text class="cname" x="770" y="236">陈<tspan class="cname s" dx="2">(楚新都)</tspan></text></g>
+      <g class="city" data-city="deng"><circle cx="437" cy="117" r="5"/><text class="cname" x="446" y="114">邓<tspan class="cname s" dx="2">(襄阳北)</tspan></text></g>
+      <g class="city cap" data-city="yan"><circle cx="480.5" cy="180" r="6.5"/><text class="cname" x="490" y="176">鄢<tspan class="cname s" dx="2">(别都·宜城)</tspan></text></g>
+      <g class="city cap" data-city="ying"><circle cx="466" cy="463.5" r="6.5"/><text class="cname" x="476" y="482">郢<tspan class="cname s" dx="2">(楚都·江陵)</tspan></text></g>
+      <g class="city" data-city="yiling"><circle cx="205" cy="390" r="4"/><text class="cname s" x="146" y="386">夷陵(楚先王墓)</text></g>
+    </g>
+
+    <!-- 秦军自西北入(图外·汉中·武关) -->
+    <g transform="translate(6,86)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 32,7"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 秦·汉中·武关</text>
+      <text class="cname s" x="0" y="20" style="fill:var(--advance);font-size:9.5px">白起自西北入(图外)</text>
+    </g>
+    <!-- 陈·淮阳(图外东北·楚东徙终点) -->
+    <g transform="translate(902,120)">
+      <path class="march rout" marker-end="url(#ar)" d="M 0,12 L 30,-8"/>
+      <text class="mlabel r" x="-96" y="-4" style="font-size:10px">陈·淮阳(图外东北)⟶</text>
+      <text class="cname s" x="-58" y="26" style="fill:var(--ret);font-size:9.5px">楚东徙新都</text>
     </g>
 
     <!-- 全图 · 白起南伐楚 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 158,104 C 260,180 360,272 440,320 C 480,344 510,362 534,380"/>
-      <text class="mlabel j" x="240" y="230">秦昭王使白起大举伐楚</text>
-      <text class="anno" x="360" y="300">自汉北、南阳出兵,长驱深入楚境</text>
-      <text class="mlabel q" x="640" y="470">楚顷襄王骄纵,国势虚耗,江汉门户空虚</text>
-      <text class="anno" x="560" y="418">白起先指楚之别都鄢——郢之北门户</text>
+      <path class="march j" marker-end="url(#aj)" d="M 44,96 C 170,104 320,110 428,122 C 452,142 470,162 476,175"/>
+      <text class="mlabel j" x="150" y="230">秦昭王使武安大将白起大举伐楚</text>
+      <text class="anno" x="200" y="252">自汉中·武关循汉水东下,长驱深入楚境</text>
+      <text class="mlabel q" x="600" y="300">楚顷襄王骄纵,忠良见弃,江汉门户空虚</text>
+      <text class="anno" x="500" y="322">白起不趋郢,先指鄢——楚之别都、郢之北门户</text>
     </g>
 
-    <!-- 阶段一:拔鄢·引夷水灌城 -->
+    <!-- 阶段一:拔邓·引水灌鄢城 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 470,320 C 500,346 520,364 536,382"/>
-      <text class="mlabel j" x="452" y="336">白起攻鄢,城坚不下</text>
-      <rect class="camp" x="420" y="374" width="8" height="8" transform="rotate(45 424 378)"/>
-      <text class="anno" x="360" y="360">乃于城西百里筑堰,壅夷水(蛮河)</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 430,378 C 470,384 505,388 534,390"/>
-      <text class="mlabel q" x="430" y="404">引水直灌鄢城</text>
-      <circle class="siege" cx="546" cy="392" r="16"/>
-      <circle class="star" cx="546" cy="392" r="10"/>
-      <text class="anno" x="560" y="372">水溃城东北隅,军民溺死数十万,城遂破</text>
+      <path class="march j" marker-end="url(#aj)" d="M 44,96 C 170,104 300,108 428,120"/>
+      <circle class="star" cx="437" cy="117" r="9"/>
+      <text class="mlabel j" x="300" y="104">先拔邓,尽取汉北要地</text>
+      <path class="march j" marker-end="url(#aj)" d="M 439,128 C 456,146 470,164 476,173"/>
+      <text class="mlabel j" x="500" y="150">进攻鄢,城坚不下</text>
+      <!-- 引水灌鄢城:西山长谷筑堰,东注灌城 -->
+      <line class="weir" x1="346" y1="122" x2="368" y2="142"/>
+      <text class="wlabel" x="250" y="120">城西百里筑堰壅长谷水</text>
+      <path class="march flow" marker-end="url(#aw)" d="M 362,136 C 400,152 442,170 474,181"/>
+      <text class="wlabel" x="360" y="214">引夷水(蛮河)自城西东灌鄢城</text>
+      <path class="flood" d="M 458,172 C 456,155 498,150 514,164 C 530,178 528,205 509,213 C 486,222 459,211 456,192 Z"/>
+      <path class="ripple" d="M 466,183 C 476,175 492,175 502,183"/>
+      <path class="ripple" d="M 462,192 C 476,180 500,180 514,192"/>
+      <circle class="star" cx="480.5" cy="180" r="15"/>
+      <circle class="star" cx="480.5" cy="180" r="9"/>
+      <text class="anno" x="500" y="228">水溃城东北隅,军民溺死数十万,城遂破</text>
     </g>
 
     <!-- 阶段二:进拔郢都·烧夷陵 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 546,402 C 550,430 554,458 558,478"/>
-      <text class="mlabel j" x="562" y="446">乘胜进拔楚都郢</text>
-      <circle class="siege" cx="560" cy="490" r="16"/>
-      <circle class="star" cx="560" cy="490" r="10"/>
-      <path class="march j" marker-end="url(#aj)" d="M 548,492 C 480,490 420,488 376,486"/>
-      <text class="mlabel j" x="384" y="474">焚楚先王陵墓于夷陵</text>
-      <text class="anno" x="300" y="506">楚人震恐,江汉腹地尽失</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,192 C 476,290 472,382 468,452"/>
+      <text class="mlabel j" x="486" y="330">越明年,乘胜南下拔楚都郢</text>
+      <circle class="star" cx="466" cy="463.5" r="15"/>
+      <circle class="star" cx="466" cy="463.5" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 456,460 C 380,448 300,414 220,396"/>
+      <path class="fire" d="M 205,384 l 4,-11 l 4,7 l 7,-9 l -2,10 l 8,4 l -8,4 l 2,9 l -7,-6 l -4,7 l -4,-11 l -7,4 l 4,-8 l -8,-4 l 8,-4 z"/>
+      <text class="mlabel j" x="150" y="416">焚楚先王陵于夷陵</text>
+      <text class="anno" x="150" y="436">宗庙一炬,楚人震恐;进兵东至竟陵</text>
+      <text class="anno" x="486" y="352">江汉腹地尽入于秦</text>
     </g>
 
     <!-- 阶段三:楚东徙于陈·秦置南郡 -->
     <g id="ph3" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 566,482 C 660,420 740,340 806,254"/>
-      <text class="mlabel r" x="640" y="378">顷襄王兵散,东北保于陈城</text>
-      <text class="anno" x="740" y="270">迁都于陈(今河南淮阳)</text>
-      <path d="M 560,490 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="470" y="530">秦即取郢为南郡</text>
-      <text class="anno" x="360" y="556">楚势大衰,一蹶不振;屈原闻郢破,自沉汨罗</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 476,456 C 630,378 762,262 900,138"/>
+      <text class="mlabel r" x="560" y="330">顷襄王兵散,东北徙保于陈城</text>
+      <text class="anno" x="600" y="350">去江汉之根本,遂迁都于陈(淮阳)</text>
+      <path d="M 466,463 l 6,-13 l 5,9 l 10,-6 l -6,10 l 13,5 l -13,5 l 6,10 l -10,-6 l -5,9 l -6,-13 l -10,6 l 6,-10 l -13,-5 l 13,-5 l -6,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="392" y="512">秦取郢地,置为南郡</text>
+      <text class="anno" x="250" y="532">楚势大衰,一蹶不振;屈原闻郢破,自沉汨罗</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -172,33 +221,76 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>秦军(白起)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>引水灌城</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>楚军溃·东徙</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#3d6f8f" stroke-width="3.4"/></svg>引水灌城</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>楚溃·东徙</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>拔城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>秦</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚</span>
+    <span class="item"><svg width="16" height="14"><line x1="2" y1="3" x2="12" y2="12" stroke="#1f4e54" stroke-width="3.5" stroke-linecap="round"/></svg>筑堰壅水</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>楚</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>水攻释要 · 引长谷灌鄢城</h3>
+    <div class="lead">何以坚城不攻自溃,系于一堰一渠 —— 以水代兵之著例</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="引水灌鄢示意:西山长谷筑堰蓄水成渊,长渠东注百里,灌鄢城低洼之东北隅">
+      <!-- 地面基线:西高东低 -->
+      <path d="M 24,150 L 300,150 L 560,196 L 836,196" fill="none" stroke="#5c4f38" stroke-width="1.4" opacity=".55"/>
+      <text x="70" y="240" fill="#5c4f38" font-size="10.5" font-style="italic" opacity=".85">西山(高) —— 地势西高东低,水可自流 —— 鄢城(低)</text>
+      <!-- 左:西山长谷 + 堰 + 蓄水成渊(青=蓄) -->
+      <path class="mtn fill" d="M 30,150 L 60,86 L 88,120 L 120,70 L 150,116 L 176,150 Z" fill="rgba(92,79,56,.2)" stroke="#5c4f38" stroke-width="1"/>
+      <text x="40" y="70" fill="#5c4f38" font-size="11" font-weight="700">西山·长谷</text>
+      <!-- 蓄水成渊 -->
+      <path d="M 150,150 C 172,138 214,138 236,150 L 236,150 C 214,162 172,162 150,150 Z" fill="#3d6f8f" opacity=".28"/>
+      <rect x="146" y="118" width="10" height="40" rx="2" fill="#1f4e54"/>
+      <text x="120" y="112" fill="#1f4e54" font-size="11.5" font-weight="700">筑堰(堨)</text>
+      <text x="176" y="140" fill="#3d6f8f" font-size="11" font-weight="700">壅水成渊</text>
+      <!-- 中:长渠东注 百余里(蓝=水) -->
+      <path d="M 160,150 C 320,150 430,172 556,192" fill="none" stroke="#3d6f8f" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 160,150 C 320,150 430,172 556,192" fill="none" stroke="#3d6f8f" stroke-width="2.4" opacity=".9" marker-end="url(#aw)"/>
+      <text x="330" y="150" fill="#3d6f8f" font-size="11" font-weight="700">开渠东注 · 去城百余里</text>
+      <!-- 右:鄢城 + 东北隅溃 + 灌城(金=城破) -->
+      <rect x="560" y="150" width="120" height="86" rx="3" fill="none" stroke="#2b2418" stroke-width="1.6"/>
+      <rect x="560" y="150" width="120" height="86" rx="3" fill="#3d6f8f" opacity=".16"/>
+      <text x="596" y="176" fill="#2b2418" font-size="12" font-weight="700">鄢 城</text>
+      <!-- 东北隅溃口 -->
+      <path d="M 680,150 L 700,150 L 700,168 Z" fill="#3d6f8f" opacity=".5"/>
+      <g><circle cx="690" cy="158" r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="686" y1="154" x2="694" y2="162" stroke="#9a2b1e" stroke-width="2.4"/><line x1="686" y1="162" x2="694" y2="154" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <text x="702" y="150" fill="#9a2b1e" font-size="10.5" font-weight="700">溃城东北隅 ✕</text>
+      <circle cx="620" cy="200" r="15" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="586" y="228" fill="#9c7a2c" font-size="11" font-weight="700">水灌 · 死者数十万</text>
+    </svg>
+    <p class="intro">鄢为郢之北门户,城坚兵聚,秦军强攻不下。白起察其地势:<b>西山长谷之水高于城,鄢城低洼</b>,乃不复力攻,而以水代兵——于城西百里立堰(堨),壅夷水(蛮河、长谷水)蓄之成渊,复凿长渠导水东注,决而灌城。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>壅水成渊 · 蓄势</h4>
+        <p>白起于鄢城西百余里、西山长谷水上立堰,遏水不使东流,壅积成渊(即后世所谓白起渠、长渠)。水位既高于城,则势能自蓄,如引满之弓——此为「以水代兵」之本,不待战而胜机已伏。</p>
+      </div>
+      <div class="c b">
+        <h4>决堰灌城 · 一决</h4>
+        <p>渠成水盈,决堰东注,水自城西灌城东,入注为渊。鄢城地下,水潴不泄,溃其东北隅而入。城中军民随水漂溺,死者数十万,浮尸蔽流——坚城不攻而自破。</p>
+      </div>
+    </div>
+    <p class="kicker">《水经注·沔水》:『白起引西山长谷水,旧堨去城百许里,水从城西灌城东……水溃城东北角,百姓随水流,死于城东者数十万,城东皆臭,因名其陂为臭池。』一堰蓄之、一渠导之,坚城遂溃。故鄢之拔,<b>非攻城之力,实灌城之谋</b>;此战国「以水代兵」之著例,亦楚人「死者数十万」之惨——白起之名,自此而威震天下。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·白起王翦列传》《史记·楚世家》《水经注》约略绘出。鄢在今湖北宜城,郢在今湖北荆州江陵,夷陵在今湖北宜昌,陈在今河南淮阳。城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为战国中期秦楚形势示意:秦据关中、汉北(西北),楚据江汉、江东(南、东);二国犬牙相错,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>白起攻鄢不下,乃筑堰壅夷水(蛮河),自城西百里引水东灌,水溃城东北隅——此古代「引水灌城」之著例。郢破之后,秦置南郡,楚遂丧江汉腹地。白起以功封武安君。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作简易墨卡托投影定位,几何关系力求近实:邓在北(汉水东岸),鄢在其南,郢·江陵在鄢之正南、大江之滨,夷陵在西(大江上游),陈远在东北(图外,以边箭指之);秦自西北(汉中·武关)循汉水入。江河、疆界经简化描绘,非实测。邓今湖北襄阳北,鄢今湖北宜城,郢今湖北荆州江陵,夷陵今湖北宜昌,陈今河南淮阳。</p>
+    <p><span class="n">注二</span>晕染疆界为战国中期秦楚形势示意:秦既取汉中,据西北;楚据江汉腹地(南、东)。二国犬牙相错,故以点划「约界」标之,非实有画界。鄢郢一线本楚之根本,故本图取秦之视角(从征之victor),秦军以青(白起)、楚以朱标之。</p>
+    <p><span class="n">注三</span>据《史记·白起王翦列传》《史记·楚世家》:周赧王三十六年(前279)白起攻楚,拔邓、鄢;次年(前278)拔郢,烧夷陵,东至竟陵,楚顷襄王兵散,东北保于陈城,遂徙都焉。秦以其地置南郡,白起以功封武安君。屈原闻郢破,自沉汨罗。</p>
+    <p><span class="n">注四</span>引水灌鄢事,详见《水经注·沔水》(卷二八):白起壅西山长谷·夷水(即今蛮河),立堰去城百许里,自城西灌城东,水溃城东北角,死者数十万。此堰后世谓之白起渠、长渠,至今犹灌宜城、南漳之田。所引之水,《水经注》作『长谷水』『夷水』,今名蛮河,乃汉水支流;『城西百里』为约数,各本略异,并存以志。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"白起南伐楚",d:"周赧王三十六年(前279)",p:["秦昭王使武安大将白起大举伐楚。白起自汉北、南阳出兵,循汉水一线长驱南下,深入楚之江汉腹地。","楚顷襄王骄纵日久,忠良见弃,国势虚耗,江汉门户空虚。白起不趋楚都,先指鄢——鄢者,楚之别都、郢之北门户,城坚兵聚,乃楚人所恃以蔽郢者。"]},
-  "1":{t:"拔鄢·引夷水灌城",d:"周赧王三十六年(前279)",p:["白起攻鄢,楚人固守,城坚难拔。白起乃于城西百里筑堰,壅遏夷水(蛮河),蓄水既盈,决而东注,引水直灌鄢城。","水溃城之东北隅,城中军民溺死者数十万,浮尸蔽流。鄢遂破——楚之北藩既失,郢都门户洞开。"]},
-  "2":{t:"进拔郢都·烧夷陵",d:"周赧王三十七年(前278)",p:["越明年,白起乘胜南进,遂拔楚都郢。楚人震恐,守备瓦解。","白起复焚楚先王陵墓于夷陵。宗庙陵寝一炬,楚人上下丧气,江汉之地尽入于秦。"]},
-  "3":{t:"楚东徙于陈·秦置南郡",d:"周赧王三十七年(前278)",p:["顷襄王兵散,不能复守,乃收余众东北保于陈城(今河南淮阳),遂迁都于陈。楚自此去江汉之根本。","秦即取郢地,置为南郡。楚势大衰,一蹶不振。屈原闻郢破,悲愤自沉汨罗;白起以拔鄢郢之功,封武安君。"]}
+  all:{t:"白起南伐楚",d:"周赧王三十六年(前279)",p:["秦昭王使武安大将白起大举伐楚。白起自汉中、武关出兵,循汉水一线东下,沿岸掠取粮草、克其重镇,出敌不意,长驱深入楚之江汉腹地。","楚顷襄王骄纵日久,忠良见弃,国势虚耗,江汉门户空虚。白起不趋楚都,先指鄢——鄢者,楚之别都、郢之北门户,城坚兵聚,乃楚人所恃以蔽郢者。"]},
+  "1":{t:"拔邓 · 引水灌鄢城",d:"周赧王三十六年(前279)",p:["白起先拔邓(今襄阳北),尽取汉北要地,进逼鄢城。楚人固守,城坚难拔,秦军强攻不下。","白起察地势:西山长谷之水高于城。乃于城西百余里立堰(堨),壅夷水(蛮河)蓄之成渊,凿长渠导水东注,决而灌城。水自城西灌城东,溃其东北隅,城中军民溺死者数十万,浮尸蔽流,鄢遂破——楚之北藩既失,郢都门户洞开。"]},
+  "2":{t:"进拔郢都 · 烧夷陵",d:"周赧王三十七年(前278)",p:["越明年,白起乘胜南下,遂拔楚都郢(今江陵)。楚人震恐,守备瓦解。","白起复焚楚先王陵墓于夷陵,宗庙陵寝一炬,楚人上下丧气;进兵东至竟陵。江汉之地尽入于秦。"]},
+  "3":{t:"楚东徙于陈 · 秦置南郡",d:"周赧王三十七年(前278)",p:["顷襄王兵散,不能复守,乃收余众东北保于陈城(今河南淮阳),遂迁都于陈。楚自此去江汉之根本,偏处东方。","秦即取郢地,置为南郡。楚势大衰,一蹶不振。屈原闻郢破,悲愤自沉汨罗;白起以拔鄢郢之功,封武安君,威震天下。"]}
 };
 const CITY={
-  xianyang:{t:"咸阳",d:"秦都,今陕西咸阳",p:["秦昭王之都。使白起大举伐楚,自此发兵南向。"]},
-  hanshui:{t:"汉水",d:"秦军南下之路",p:["白起自汉北、南阳出兵,循汉水一线长驱深入楚境,直指鄢郢。"]},
-  yan:{t:"鄢",d:"楚之别都,今湖北宜城",p:["郢之北门户,城坚难拔。白起筑堰壅夷水,引水直灌,城溃东北隅,军民溺死数十万而破。"]},
-  ying:{t:"郢",d:"楚都,今湖北荆州江陵",p:["楚之国都。鄢破次年,白起乘胜进拔之。秦取其地置南郡,楚遂东徙。"]},
-  yiling:{t:"夷陵",d:"楚先王墓,今湖北宜昌",p:["楚先王陵寝所在。白起拔郢后焚烧夷陵,宗庙一炬,楚人震恐丧气。"]},
-  chen:{t:"陈",d:"楚东徙新都,今河南淮阳",p:["顷襄王兵散东北保于此,遂迁都于陈。楚去江汉根本,自此偏处东方。"]}
+  deng:{t:"邓",d:"汉北要地,今湖北襄阳北",p:["楚汉水流域重镇。白起循汉水东下,先拔邓,尽取汉北,遂进逼鄢城。"]},
+  yan:{t:"鄢",d:"楚之别都,今湖北宜城",p:["郢之北门户,城坚难拔。白起于城西百里筑堰壅夷水(蛮河、长谷水),引水东灌,水溃城东北隅,军民溺死数十万而破。此古代『以水代兵·灌城』之著例。"]},
+  ying:{t:"郢",d:"楚都,今湖北荆州江陵",p:["楚之国都,大江之滨。鄢破次年(前278),白起乘胜进拔之。秦取其地置南郡,楚遂东徙于陈。"]},
+  yiling:{t:"夷陵",d:"楚先王墓,今湖北宜昌",p:["楚先王陵寝所在,在大江上游。白起拔郢后焚烧夷陵,宗庙一炬,楚人震恐丧气。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
