@@ -31,6 +31,17 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  /* 大楯阵:麹义先登伏楯之列 */
+  .shield{fill:var(--advance);stroke:var(--paper);stroke-width:.7;opacity:.92}
+  .shieldrank{fill:none;stroke:var(--advance);stroke-width:3;stroke-linecap:round;opacity:.85}
+  /* 强弩:千弩俱发之矢 */
+  .volley{stroke:var(--advance);stroke-width:1.4;opacity:.9;stroke-linecap:round}
+  /* 白马义从:公孙瓒中坚骑锋 */
+  .whorse{fill:#f4eeda;stroke:var(--enemy);stroke-width:1.1}
+  .whorse.fallen{fill:rgba(154,43,30,.18);stroke:var(--enemy);stroke-width:.9;opacity:.85}
+  .redcav{fill:var(--enemy);opacity:.85}
+  /* 袁绍遇险:瓒散骑合围 */
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:3 5;opacity:.9}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,9 +56,8 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +66,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:820;stroke-dashoffset:820;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +97,17 @@
   <div class="seal" aria-hidden="true"><span>界</span><span>桥</span><span>之</span><span>战</span></div>
   <header>
     <h1>界桥之战</h1>
-    <div class="sub">汉初平二年(191)　　<i>袁绍</i> 破 <b>公孙瓒</b></div>
+    <div class="sub">汉初平二年(191)　　<i>袁绍</i> 破 <b>公孙瓒</b>　·　伏楯待骑 · 强弩破锋</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 瓒袭冀州</button>
-    <button data-p="1">白马压境</button>
-    <button data-p="2">麹义先登</button>
-    <button data-p="3">追奔龙凑</button>
+    <button data-p="1">南下布阵 · 磐河</button>
+    <button data-p="2">白马义从冲锋</button>
+    <button data-p="3">麹义强弩破骑</button>
+    <button data-p="4">追破其营 · 绍险</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="界桥之战形势图,含公孙瓒幽州与袁绍冀州疆界、黄河清河漳水与蓟平原界桥邺等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="界桥之战形势图,含公孙瓒幽州与袁绍冀州疆界、黄河清河漳水磐河诸水、蓟广宗界桥清河邺平原龙凑等地,及麹义伏楯强弩破公孙瓒白马义从之阵">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,77 +116,163 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:公孙瓒据幽州(北),袁绍据冀州(南),约以清河一带为界 -->
-    <path d="M 0,300 C 150,286 320,278 470,272 C 640,266 820,270 1000,258 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 150,286 320,278 470,272 C 640,266 820,270 1000,258 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 150,286 320,278 470,272 C 640,266 820,270 1000,258"/>
-    <text class="realm q" x="120" y="120" font-size="34">公孙瓒(幽州)</text>
-    <text class="realm j" x="620" y="560" font-size="32">袁 绍(冀州)</text>
+    <!-- 疆界:公孙瓒起幽州(北·河朔),袁绍据冀州(南·邺),冀州为所争;约界示意于北 -->
+    <path d="M 0,232 C 180,210 360,196 520,190 C 680,184 850,176 1000,166 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,232 C 180,210 360,196 520,190 C 680,184 850,176 1000,166 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,232 C 180,210 360,196 520,190 C 680,184 850,176 1000,166"/>
+    <text class="realm q" x="70" y="96" font-size="27">公孙瓒(幽州·河朔)</text>
+    <text class="realm j" x="150" y="600" font-size="30">袁 绍(冀州)</text>
+    <text class="cname s" x="640" y="150" style="fill:var(--ink2);opacity:.72">冀州为二雄所争之地</text>
 
-    <!-- 黄河:南界,自西南向东北横贯河北之南 -->
-    <path class="river" stroke-width="5.5" d="M 40,596 C 200,584 360,570 520,560 C 680,550 840,548 1000,536"/>
-    <!-- 清河:自西南斜贯平原,界桥跨其上 -->
-    <path class="river" stroke-width="3" d="M 200,470 C 320,440 420,412 500,388 C 600,358 700,336 820,320"/>
-    <!-- 漳水:自西南下,过邺东北流 -->
-    <path class="river" stroke-width="2.6" d="M 150,540 C 250,510 340,478 420,452 C 500,426 570,410 640,400"/>
-    <text class="rname" x="360" y="588" style="font-size:13px">黄 河</text>
-    <text class="rname" x="440" y="392" transform="rotate(-18 440 392)" style="font-size:11px">清 河</text>
-    <text class="rname" x="300" y="500" transform="rotate(-18 300 500)" style="font-size:10.5px">漳 水</text>
+    <!-- 水系 -->
+    <!-- 黄河:大河故渎,自西南斜贯,东北趋海,当theater之东南 -->
+    <path class="river" stroke-width="5.5" d="M 20,608 C 240,598 440,590 620,572 C 780,556 900,528 1000,486"/>
+    <!-- 清河:自西南斜贯平原,界桥跨其上,东北通平原 -->
+    <path class="river" stroke-width="3" d="M 120,556 C 260,470 360,360 432,292 C 510,240 610,222 780,186"/>
+    <!-- 漳水:自西南出,过邺东北流 -->
+    <path class="river" stroke-width="2.4" d="M 40,566 C 140,532 230,512 320,478 C 380,456 430,438 470,420"/>
+    <!-- 磐河:界桥北小水,公孙瓒屯营处 -->
+    <path class="river" stroke-width="2" d="M 300,214 C 360,222 410,230 452,244"/>
+    <text class="rname" x="470" y="560" transform="rotate(-16 470 560)" style="font-size:13px">黄 河</text>
+    <text class="rname" x="360" y="330" transform="rotate(-36 360 330)" style="font-size:11.5px">清 河</text>
+    <text class="rname" x="250" y="486" transform="rotate(-22 250 486)" style="font-size:10.5px">漳 水</text>
+    <text class="rname" x="300" y="206" style="font-size:9.5px">磐河</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="ji"><circle cx="640" cy="120" r="6"/><text class="cname" x="652" y="116">蓟<tspan class="cname s" dx="2">(公孙瓒本·幽州)</tspan></text></g>
-      <g class="city" data-city="pingyuan"><circle cx="760" cy="360" r="5"/><text class="cname" x="772" y="356">平原<tspan class="cname s" dx="2">(瓒南据)</tspan></text></g>
-      <g class="city cap" data-city="jieqiao"><circle cx="470" cy="380" r="6"/><text class="cname" x="482" y="376">界桥<tspan class="cname s" dx="2">(决战地)</tspan></text></g>
-      <g class="city" data-city="qinghe"><circle cx="600" cy="352" r="4"/><text class="cname s" x="612" y="348">清河(县)</text></g>
-      <g class="city" data-city="longcou"><circle cx="700" cy="336" r="4"/><text class="cname s" x="712" y="332">龙凑(瓒再败处)</text></g>
-      <g class="city cap" data-city="ye"><circle cx="300" cy="490" r="6"/><text class="cname" x="230" y="486">邺<tspan class="cname s" dx="2">(袁绍治)</tspan></text></g>
+      <g class="city" data-city="julu"><circle cx="303" cy="198" r="3.5"/><text class="cname s" x="256" y="194">巨鹿</text></g>
+      <g class="city cap" data-city="guangzong"><circle cx="342" cy="247" r="5.5"/><text class="cname" x="266" y="243">广宗<tspan class="cname s" dx="2">(瓒屯)</tspan></text></g>
+      <g class="city cap" data-city="jieqiao"><circle cx="424" cy="272" r="6.5"/><text class="cname" x="436" y="268">界桥<tspan class="cname s" dx="2">(决战地)</tspan></text></g>
+      <g class="city" data-city="qinghe"><circle cx="530" cy="247" r="4"/><text class="cname s" x="542" y="243">清河(国)</text></g>
+      <g class="city cap" data-city="ye"><circle cx="155" cy="508" r="6.5"/><text class="cname" x="168" y="504">邺<tspan class="cname s" dx="2">(袁绍治)</tspan></text></g>
+      <g class="city" data-city="pingyuan"><circle cx="807" cy="217" r="5"/><text class="cname" x="726" y="213">平原<tspan class="cname s" dx="2">(瓒·青州)</tspan></text></g>
+      <g class="city" data-city="longcou"><circle cx="706" cy="238" r="4"/><text class="cname s" x="662" y="256">龙凑(瓒再败)</text></g>
     </g>
 
-    <!-- 全图 · 瓒袭冀州 -->
+    <!-- 蓟·幽州(图外·北):公孙瓒本据 -->
+    <g transform="translate(760,8)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,4 L 0,30"/>
+      <text class="mlabel q" x="8" y="14" style="font-size:10px">↑ 蓟·幽州</text>
+      <text class="cname s" x="8" y="28" style="fill:var(--enemy);font-size:9.5px">公孙瓒本据(图外北)</text>
+    </g>
+
+    <!-- ══ 全图 · 瓒袭冀州 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 640,132 C 660,220 700,300 730,352"/>
-      <text class="mlabel q" x="668" y="230">公孙瓒破青、徐黄巾,威震河朔</text>
-      <text class="anno" x="690" y="378">南据冀州诸城,自置州郡守令</text>
-      <path class="march j" marker-end="url(#aj)" d="M 310,478 C 360,440 420,406 456,388"/>
-      <text class="mlabel j" x="316" y="452">袁绍拒之于界桥(清河之上)</text>
-      <text class="anno" x="380" y="512">河北二雄,一决于此</text>
+      <path class="march q" marker-end="url(#aq)" d="M 762,42 C 700,90 560,150 452,222"/>
+      <text class="mlabel q" x="560" y="120">公孙瓒破青徐黄巾,威震河朔,南侵冀州</text>
+      <text class="anno" x="620" y="196">自置严纲冀州、田楷青州、单经兖州</text>
+      <path class="march j" marker-end="url(#aj)" d="M 168,498 C 260,430 350,344 410,296"/>
+      <text class="mlabel j" x="180" y="452">袁绍自邺北出,拒瓒于界桥</text>
+      <circle class="star" cx="424" cy="272" r="9"/>
+      <text class="anno" x="300" y="352">河北二雄,一决于清河之上</text>
     </g>
 
-    <!-- 阶段一:白马压境 -->
+    <!-- ══ 阶段一:南下布阵 · 磐河 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 640,132 C 620,220 560,300 496,368"/>
-      <text class="mlabel q" x="548" y="248">瓒自幽州南下,步骑三万列阵</text>
-      <rect class="camp" x="716" y="332" width="9" height="9" transform="rotate(45 720 336)"/>
-      <text class="anno" x="640" y="316">中军步卒,两翼各五千骑</text>
-      <text class="mlabel q" x="520" y="352">"白马义从"为锋,声势甚盛</text>
-      <text class="anno" x="560" y="404">冀州诸城多叛应之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 762,42 C 690,96 560,150 458,214"/>
+      <text class="mlabel q" x="540" y="128">瓒屯磐河,步骑四万列阵而南</text>
+      <rect class="camp" x="392" y="214" width="9" height="9" transform="rotate(45 396 218)"/>
+      <text class="anno" x="404" y="214">步兵三万余为方陈</text>
+      <!-- 白马义从中坚(南向列阵) -->
+      <path class="whorse" d="M 401,234 L 411,234 L 406,244 Z"/>
+      <path class="whorse" d="M 417,232 L 427,232 L 422,242 Z"/>
+      <path class="whorse" d="M 433,234 L 443,234 L 438,244 Z"/>
+      <path class="whorse" d="M 409,246 L 419,246 L 414,256 Z"/>
+      <path class="whorse" d="M 425,246 L 435,246 L 430,256 Z"/>
+      <text class="mlabel q" x="446" y="240">白马义从为中坚,分左右两校</text>
+      <!-- 两翼骑 -->
+      <path class="redcav" d="M 350,240 L 360,240 L 355,250 Z"/>
+      <path class="redcav" d="M 364,236 L 374,236 L 369,246 Z"/>
+      <path class="redcav" d="M 486,236 L 496,236 L 491,246 Z"/>
+      <path class="redcav" d="M 500,240 L 510,240 L 505,250 Z"/>
+      <text class="anno" x="300" y="272">两翼骑各五千</text>
+      <!-- 袁绍军自邺北上,麹义先登在前 -->
+      <path class="march j" marker-end="url(#aj)" d="M 168,500 C 280,436 360,372 404,332"/>
+      <path class="shield" d="M 356,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 374,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 392,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 410,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 428,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 446,306 q 9,-16 18,0 Z"/>
+      <path class="shieldrank" d="M 358,314 L 482,314"/>
+      <text class="mlabel j" x="300" y="342">麹义领精兵八百、强弩千张为先登</text>
+      <text class="anno" x="330" y="378">绍以步兵数万结阵于后</text>
     </g>
 
-    <!-- 阶段二:麹义先登 -->
+    <!-- ══ 阶段二:白马义从冲锋 ══ -->
     <g id="ph2" class="ph">
-      <text class="mlabel q" x="510" y="330">瓒骑迫近数十步</text>
-      <path class="march q" marker-end="url(#aq)" d="M 560,352 C 540,362 520,372 494,382"/>
-      <path class="march j" marker-end="url(#aj)" d="M 448,384 C 460,382 470,382 480,382"/>
-      <circle class="star" cx="470" cy="380" r="8"/>
-      <text class="mlabel j" x="300" y="356">麹义领精兵八百、强弩千张为先登</text>
-      <text class="anno" x="300" y="374">伏大楯下不动,俟其近乃腾跃</text>
-      <text class="mlabel j" x="300" y="420">千弩俱发,白马义从披靡,斩严纲</text>
-      <text class="anno" x="360" y="438">直取界桥</text>
+      <text class="mlabel q" x="452" y="214">瓒见绍兵少,纵白马义从直冲</text>
+      <!-- 白马义从冲锋(南下逼近盾阵) -->
+      <path class="whorse" d="M 399,262 L 409,262 L 404,272 Z"/>
+      <path class="whorse" d="M 415,266 L 425,266 L 420,276 Z"/>
+      <path class="whorse" d="M 431,262 L 441,262 L 436,272 Z"/>
+      <path class="whorse" d="M 407,276 L 417,276 L 412,286 Z"/>
+      <path class="whorse" d="M 423,278 L 433,278 L 428,288 Z"/>
+      <path class="march q" marker-end="url(#aq)" d="M 406,244 C 408,262 410,276 412,288"/>
+      <path class="march q" marker-end="url(#aq)" d="M 430,244 C 432,262 434,276 436,288"/>
+      <text class="anno" x="450" y="272">左射右,右射左,声势甚盛</text>
+      <!-- 麹义盾阵伏而不动 -->
+      <path class="shield" d="M 356,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 374,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 392,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 410,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 428,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 446,306 q 9,-16 18,0 Z"/>
+      <path class="shieldrank" d="M 358,314 L 482,314"/>
+      <text class="mlabel j" x="316" y="336">义兵皆伏楯下不动</text>
+      <text class="anno" x="330" y="356">偃旗按兵,俟其近数十步</text>
     </g>
 
-    <!-- 阶段三:追奔龙凑 -->
+    <!-- ══ 阶段三:麹义强弩破骑 ══ -->
     <g id="ph3" class="ph">
-      <path d="M 470,380 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march j" marker-end="url(#aj)" d="M 486,378 C 550,364 620,350 686,340"/>
-      <text class="mlabel j" x="500" y="330">麹义追拔其营、拔其牙门</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 712,332 C 700,270 680,200 648,136"/>
-      <text class="mlabel r" x="704" y="240">瓒军大溃,退守幽州</text>
-      <text class="anno" x="620" y="300">龙凑再战,瓒复败</text>
-      <text class="anno" x="320" y="420">绍几为瓒骑所围,赖强弩得脱;河北归绍</text>
+      <text class="mlabel j" x="300" y="330">未至数十步,同时俱起,扬尘大叫</text>
+      <!-- 盾阵 -->
+      <path class="shield" d="M 356,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 374,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 392,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 410,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 428,306 q 9,-16 18,0 Z"/>
+      <path class="shield" d="M 446,306 q 9,-16 18,0 Z"/>
+      <path class="shieldrank" d="M 358,314 L 482,314"/>
+      <!-- 千弩俱发:矢自盾后向北射骑 -->
+      <line class="volley" marker-end="url(#aj)" x1="368" y1="304" x2="360" y2="256"/>
+      <line class="volley" marker-end="url(#aj)" x1="388" y1="304" x2="386" y2="252"/>
+      <line class="volley" marker-end="url(#aj)" x1="408" y1="304" x2="410" y2="250"/>
+      <line class="volley" marker-end="url(#aj)" x1="428" y1="304" x2="434" y2="252"/>
+      <line class="volley" marker-end="url(#aj)" x1="448" y1="304" x2="456" y2="256"/>
+      <text class="mlabel j" x="470" y="300">强弩雷发,所中必倒</text>
+      <!-- 白马义从披靡:骑锋倾覆 -->
+      <path class="whorse fallen" d="M 388,250 L 398,252 L 391,260 Z"/>
+      <path class="whorse fallen" d="M 406,246 L 416,250 L 407,256 Z"/>
+      <path class="whorse fallen" d="M 424,250 L 434,248 L 429,258 Z"/>
+      <path class="whorse fallen" d="M 440,246 L 450,250 L 442,256 Z"/>
+      <circle class="star" cx="424" cy="264" r="9"/>
+      <text class="mlabel q" x="452" y="238">白马义从大乱披靡</text>
+      <text class="anno" x="452" y="254">斩瓒所置冀州刺史严纲,甲首千余级</text>
+      <path class="march j" marker-end="url(#aj)" d="M 414,300 C 418,290 420,282 422,276"/>
+      <text class="anno" x="300" y="356">麹义追奔,直取界桥</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:追破其营 · 袁绍遇险 ══ -->
+    <g id="ph4" class="ph">
+      <rect class="camp" x="338" y="214" width="9" height="9" transform="rotate(45 342 218)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 420,264 C 396,250 372,236 352,226"/>
+      <text class="mlabel j" x="300" y="238">义乘胜逐北,拔其营,拔其牙门</text>
+      <!-- 公孙瓒大溃北走 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 380,214 C 500,150 640,86 748,44"/>
+      <text class="mlabel r" x="470" y="112">瓒军星散,北走幽州</text>
+      <!-- 袁绍遇险:未至桥十余里,瓒迸骑二千围之 -->
+      <circle class="siege" cx="300" cy="392" r="22"/>
+      <path class="march q" marker-end="url(#aq)" d="M 386,300 C 350,330 322,356 308,374"/>
+      <text class="mlabel q" x="196" y="352">瓒散骑二千余,还围袁绍于阵后</text>
+      <text class="anno" x="212" y="426">田丰扶绍,强弩乱发,骑不知是绍,遂退</text>
+      <!-- 龙凑再战 -->
+      <path class="march j" marker-end="url(#aj)" d="M 460,268 C 560,260 640,250 690,242"/>
+      <circle class="star" cx="706" cy="238" r="7"/>
+      <text class="anno" x="600" y="286">是后复战于龙凑,瓒再败,河北尽归绍</text>
+    </g>
+
+    <g class="compass" transform="translate(948,150)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -171,32 +283,94 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>袁绍军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>公孙瓒军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>瓒军溃走</span>
+    <span class="item"><svg width="26" height="14"><path d="M 4,12 q 4.5,-9 9,0 Z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".6"/><line x1="15" y1="12" x2="21" y2="3" stroke="#1f4e54" stroke-width="1.4"/></svg>麹义楯阵·强弩</span>
+    <span class="item"><svg width="18" height="14"><path d="M 4,3 L 14,3 L 9,12 Z" fill="#f4eeda" stroke="#9a2b1e" stroke-width="1.1"/></svg>白马义从(骑)</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="#9a2b1e"/></svg>瓒营</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>公孙瓒</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>袁绍</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>弩阵释要 · 伏楯待骑,强弩破锋</h3>
+    <div class="lead">何以界桥之捷,系于八百伏楯之静 —— 汉末以步制骑之典范</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="弩阵示意:公孙瓒白马义从自北冲锋,麹义八百先登伏大楯下按兵不动,俟骑近数十步齐起,千弩俱发,骑锋摧折,斩严纲">
+      <!-- 北:公孙瓒骑锋 -->
+      <text x="26" y="30" fill="#9a2b1e" font-size="12" font-weight="700">北 · 公孙瓒白马义从(骑锋 · 恃锐直冲)</text>
+      <line x1="24" y1="40" x2="836" y2="40" stroke="#9a2b1e" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+      <!-- 南:麹义楯弩 -->
+      <text x="26" y="234" fill="#1f4e54" font-size="12" font-weight="700">南 · 麹义八百先登(伏楯 · 强弩千张)</text>
+      <line x1="24" y1="196" x2="836" y2="196" stroke="#1f4e54" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+      <!-- 骑锋自上冲下 -->
+      <path d="M 210,58 L 230,58 L 220,74 Z" fill="#f4eeda" stroke="#9a2b1e" stroke-width="1.2"/>
+      <path d="M 250,54 L 270,54 L 260,70 Z" fill="#f4eeda" stroke="#9a2b1e" stroke-width="1.2"/>
+      <path d="M 290,58 L 310,58 L 300,74 Z" fill="#f4eeda" stroke="#9a2b1e" stroke-width="1.2"/>
+      <path d="M 236,78 L 256,78 L 246,94 Z" fill="#f4eeda" stroke="#9a2b1e" stroke-width="1.2"/>
+      <path d="M 276,78 L 296,78 L 286,94 Z" fill="#f4eeda" stroke="#9a2b1e" stroke-width="1.2"/>
+      <path d="M 258,96 C 258,120 256,140 254,150" fill="none" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)"/>
+      <text x="320" y="96" fill="#9a2b1e" font-size="11" font-weight="700">见绍兵少,纵骑陵蹈</text>
+      <!-- 数十步:临界距离 -->
+      <line x1="120" y1="150" x2="760" y2="150" stroke="#5c4f38" stroke-width="1.2" stroke-dasharray="2 7" opacity=".6"/>
+      <text x="560" y="145" fill="#5c4f38" font-size="10.5" font-style="italic" opacity=".9">临界:骑近数十步,乃发 —— 入弩程而后动</text>
+      <!-- 大楯之列 -->
+      <path d="M 150,182 q 11,-19 22,0 Z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path d="M 178,182 q 11,-19 22,0 Z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path d="M 206,182 q 11,-19 22,0 Z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path d="M 234,182 q 11,-19 22,0 Z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path d="M 262,182 q 11,-19 22,0 Z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <path d="M 290,182 q 11,-19 22,0 Z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <line x1="150" y1="190" x2="312" y2="190" stroke="#1f4e54" stroke-width="3"/>
+      <text x="150" y="176" fill="#1f4e54" font-size="10.5" font-weight="700">大楯之列(伏而不动)</text>
+      <!-- 千弩齐发,自楯后向上 -->
+      <line x1="176" y1="180" x2="196" y2="126" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <line x1="214" y1="180" x2="238" y2="122" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <line x1="252" y1="180" x2="280" y2="126" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <line x1="290" y1="180" x2="318" y2="128" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <text x="330" y="172" fill="#1f4e54" font-size="11" font-weight="700">千弩俱发,所中必倒</text>
+      <!-- 结果 -->
+      <g><circle cx="600" cy="112" r="10" fill="none" stroke="#9c7a2c" stroke-width="2"/></g>
+      <text x="618" y="108" fill="#9a2b1e" font-size="12.5" font-weight="700">骑锋摧折</text>
+      <text x="618" y="126" fill="#5c4f38" font-size="10.5">斩严纲,甲首千余,追至界桥破营</text>
+      <path d="M 500,120 C 540,118 560,116 586,114" fill="none" stroke="#9a2b1e" stroke-width="1.4" opacity=".6" stroke-dasharray="3 3"/>
+    </svg>
+    <p class="intro">河北平原,旷野无险,<b>地利本在骑兵</b>。公孙瓒破黄巾、震河朔,恃『白马义从』之锐,见袁绍兵少,遂纵骑直冲,欲一举陵蹈之——以骑践步,乃其常胜之法。然此法之利,全在敌阵动摇、望尘先溃;一旦当之者不动,则奔冲之势反成待宰之的。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>麹义 · 伏楯先登</h4>
+        <p>麹义久在凉州,晓习羌斗,兵皆骁锐。当白马义从奔冲,义令八百死士尽伏大楯之下,偃旗按兵、寂然不动,任骑迫近而不妄发。此『静』字最难:非纪律精严、将士相信,不能当奔骑于数十步而色不变。以静制动,先夺其恃者也。</p>
+      </div>
+      <div class="c b">
+        <h4>强弩 · 千张雷发</h4>
+        <p>八百楯后,夹以强弩千张。骑贵在冲,冲则须近;近则入弩程而失其速。义俟瓒骑至数十步,同时腾起、扬尘大叫,千弩俱发,应弦而倒。骑锋一挫,后骑自相腾践,遂大乱披靡。斩其所置冀州刺史严纲,甲首千余,追奔破营。</p>
+      </div>
+    </div>
+    <p class="kicker">故界桥之胜,不在袁绍之众能陷公孙瓒之坚,而在<b>麹义以纪律之静破骑锋之动、以强弩之程夺白马之速</b>。旷野利骑,而骑反败;正以其恃锐轻进,自蹈弩阵。此汉末<b>以步制骑</b>之名例——制胜之枢,在乎持重待敌、发不虚举,非在角力于奔冲之间。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·袁绍传》《公孙瓒传》《后汉书》及《资治通鉴》卷六十约略绘出。蓟、平原、界桥、龙凑、邺诸地相对方位从史,疆界、水道(黄河、清河、漳水)经简化,非实有画界。</p>
-    <p><span class="n">注二</span>界桥在今河北威县东,以跨清河之桥得名;时为袁绍拒公孙瓒之要冲。</p>
-    <p><span class="n">注三</span>麹义以八百强弩先登破"白马义从",为汉末以步破骑之名例。伏楯不动、俟近齐发,尽显弩阵之利。公孙瓒自此渐衰,终困于易京。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:x=40+(经度−114.3)·360,y=600−(纬度−36.0)·330,几何关系力求近实——蓟在最北(图外),广宗、界桥居中,邺在西南,清河国在东,平原、龙凑在东北,黄河故渎斜贯东南。疆界、水道(黄河、清河、漳水、磐河)经简化,点划『约界』示幽冀之间,非实有画界。依《三国志·袁绍传》《公孙瓒传》及裴注引《英雄记》、《后汉书·公孙瓒传》、《资治通鉴》卷六十绘出。</p>
+    <p><span class="n">注二</span>地望:界桥故址在今河北邢台威县东(方家营以东、大葛寨村南),以跨清河之桥得名,当大河以北东西交通之冲;公孙瓒屯广宗(今威县东)、军磐河,进逼界桥。邺为袁绍治所(今河北临漳西南),清河国治今河北清河,平原属青州(今山东平原),龙凑在平原界(今地小异,姑系于平原西北)。蓟为幽州治、公孙瓒本据(今北京城西南),远在图外之北,以边缘箭头示之。</p>
+    <p><span class="n">注三</span>纪年有异:本图从《后汉书》『初平二年(191)冬』一系;《资治通鉴》则系界桥之战于初平三年(192)正月。两说相差一年,今存以备考。战前公孙瓒破青、徐黄巾于东光,乘胜南下,自置严纲为冀州刺史、田楷为青州刺史、单经为兖州刺史,尽有河朔之势,故袁绍不得不与之决。</p>
+    <p><span class="n">注四</span>制胜之枢在弩阵破骑(图中楯列、青矢、金环):公孙瓒步骑四万,步兵三万余为方陈,骑为两翼各五千余,白马义从为中坚。袁绍以麹义领精兵八百、强弩千张为先登,自以步兵数万结阵于后。瓒见绍兵少,纵骑直冲;义兵伏楯不动,俟其近数十步,同时俱起,强弩雷发,斩严纲,甲首千余级,追至界桥,再破其营,拔其牙门。战中瓒迸骑二千余还围袁绍于阵后,矢下如雨,田丰扶绍欲入空垣,绍投兜鍪曰『大丈夫当前斗死,而反逃垣墙间邪』,督强弩乱发,骑不知是绍,乃退(《英雄记》)。自是瓒势渐衰,复败于龙凑,终困守易京而亡。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"瓒袭冀州",d:"汉初平二年(191)",p:["公孙瓒破青、徐黄巾,威震河朔,乘胜南据冀州诸城,自置州郡守令,气吞河北。袁绍新得冀州,兵势未固,乃拒瓒于界桥——桥跨清河之上,当南北之冲。","河北二雄相持,一战而定归属。此役之前,冀州诸城多观望叛附;界桥一决,遂判其势。"]},
-  "1":{t:"白马压境",d:"初平二年·会战之初",p:["公孙瓒自幽州南下,以步骑三万列阵而进:中军尽为步卒,两翼各置骑兵五千,而以“白马义从”为前锋。瓒善用白马,选精骑数千,皆乘白马,号“白马义从”,纵横塞下,声势甚盛。","瓒军既盛,冀州诸城多叛而应之,袁绍之势危蹙。绍列阵于界桥之南以待,兵力寡于瓒,而阵法精严。"]},
-  "2":{t:"麹义先登",d:"初平二年·决战",p:["袁绍以麹义领精兵八百、强弩千张为先登,余众继后。麹义久在凉州,晓习羌斗,乃令士卒伏于大楯之下,偃旗按兵不动,俟瓒骑迫近数十步。","瓒见其寡,纵骑直冲。麹义军一时腾跃而起,扬尘大叫,千弩俱发,应弦而倒者甚众。白马义从大乱披靡,斩瓒所置冀州刺史严纲,追奔直取界桥,瓒军前锋尽溃。"]},
-  "3":{t:"追奔龙凑",d:"初平二年·战后",p:["瓒军大溃,退保界桥复整军再战,又为麹义所破;义乘胜追奔,拔其营、拔其牙门,瓒众星散北走。战中袁绍尝为瓒散骑所围,矢下如雨,绍以强弩力射,仅得脱险。","其后瓒收余众复战于龙凑,又败,遂退守幽州,不复南向。自是河北之势尽归袁绍。瓒退保易京,凿堑筑楼,坐困而亡。"]}
+  all:{t:"瓒袭冀州",d:"汉初平二年(191)冬",p:["公孙瓒破青、徐黄巾于东光,威震河朔,乘胜南侵冀州,自置严纲为冀州刺史、田楷为青州刺史、单经为兖州刺史,气吞河北。冀州诸城多叛袁绍而应之,绍势危蹙。","袁绍新得冀州,不得不与瓒决,乃自邺北出,拒瓒于界桥——桥跨清河之上,当南北之冲。河北二雄,遂一战而定归属。"]},
+  "1":{t:"南下布阵 · 磐河",d:"初平二年冬 · 会战之初",p:["公孙瓒自幽州南下,屯军磐河,以步骑四万列阵而进:步兵三万余人为方陈,骑分两翼、左右各五千余匹,而以『白马义从』为中坚,分作两校,左射右、右射左,旌旗铠甲,光照天地。瓒善用白马,选精骑数千皆乘白马,号『白马义从』,纵横塞下,声势甚盛。","袁绍以麹义领精兵八百、强弩千张夹承之为先登,自以步兵数万结阵于后。麹义久在凉州,晓习羌斗,兵皆骁锐;乃令士卒伏于大楯之下,偃旗按兵不动,以待瓒骑。"]},
+  "2":{t:"白马义从冲锋",d:"初平二年冬 · 决战",p:["公孙瓒望袁绍阵,见其兵少,遂放骑欲陵蹈之。白马义从为锋,两翼骑并进,奔冲直逼麹义之阵,尘土蔽天,声势撼地——旷野利骑,瓒恃此常胜之法,欲一举践破绍军。","麹义之兵皆伏楯下不动,任骑迫近而不妄发。偃旗寂然,俟瓒骑至数十步之内。此为全役之枢:以静制动,先夺其恃奔冲之势。"]},
+  "3":{t:"麹义强弩破骑",d:"初平二年冬 · 决战",p:["瓒骑未至数十步,麹义兵一时腾跃而起,扬尘大叫,直前冲突;强弩千张雷发,应弦而倒者甚众。白马义从奔势方盛,骤遇矢雨,前骑倒毙、后骑腾践,一时大乱披靡。","麹义临阵斩瓒所置冀州刺史严纲,甲首千余级。骑锋既折,瓒军前阵尽溃;义乘胜追奔,直取界桥。旷野之利尽归弩阵,以步制骑,胜负遂分。"]},
+  "4":{t:"追破其营 · 袁绍遇险",d:"初平二年冬 · 战后",p:["瓒军敛陈于界桥,麹义复冲之,瓒众又败;义遂至瓒营,拔其牙门,营中余众皆散走,瓒军星散北走幽州。然战中袁绍在后,未至桥十余里,下马发鞍,唯有强弩数十张、大戟士百许人;瓒迸骑二千余还围之,矢下如雨。田丰扶绍欲入空垣,绍投兜鍪曰『大丈夫当前斗死,而反逃垣墙间邪』,督强弩乱发,瓒骑不知是绍,乃稍引去,义军来迎,围解。","其后袁绍复遣兵与瓒战于龙凑,瓒又败,退还幽州,不复南向。自是河北之势尽归袁绍;瓒退保易京,凿堑筑楼,坐困而亡。"]}
 };
 const CITY={
-  jieqiao:{t:"界桥",d:"决战地,今河北威县东",p:["以跨清河之桥得名。袁绍拒公孙瓒于此,麹义先登破白马义从,斩严纲,遂定河北之局。"]},
-  ye:{t:"邺",d:"袁绍治所,今河北临漳西南",p:["冀州魏郡治,袁绍据冀州后经营之根本。界桥之捷,巩固其河北基业。"]},
-  ji:{t:"蓟",d:"公孙瓒本据,幽州治,今北京城西南",p:["幽州治所,公孙瓒起兵之地。瓒破黄巾威震河朔,自此南下争冀州。"]},
-  pingyuan:{t:"平原",d:"瓒南据之地,今山东平原一带",p:["公孙瓒南略冀州诸城时所据要地,亦其部将屯戍之所。刘备尝为平原相属焉。"]},
-  longcou:{t:"龙凑",d:"瓒再败处,今山东德州东北",p:["界桥败后,公孙瓒收众复战于此,又为袁绍所破,遂退守幽州,不复南争。"]},
-  qinghe:{t:"清河",d:"清河国,今河北清河一带",p:["清河国治所所在,界桥所跨之清河即由此得名,乃两军对峙之水道。"]}
+  jieqiao:{t:"界桥",d:"决战地,今河北威县东(约115.35E,37.0N)",p:["以跨清河之桥得名,当大河以北东西交通之冲。袁绍拒公孙瓒于此,麹义伏楯发强弩,破白马义从,斩严纲,追破其营,遂定河北之局。"]},
+  guangzong:{t:"广宗",d:"公孙瓒屯军处,今河北威县东(约115.14E,37.07N)",p:["公孙瓒南侵冀州,屯广宗、军磐河,进逼界桥。界桥之败,瓒自此退军北走。"]},
+  ye:{t:"邺",d:"袁绍治所,今河北临漳西南(约114.62E,36.28N)",p:["冀州魏郡治,袁绍据冀州后经营之根本。绍自邺北出拒瓒;界桥之捷,巩固其河北基业。"]},
+  qinghe:{t:"清河(国)",d:"清河国治,今河北清河(约115.66E,37.07N)",p:["界桥所跨之清河即由此得名,乃两军对峙之水道,自西南斜贯平原、东北通于平原界。"]},
+  ji:{t:"蓟",d:"公孙瓒本据 · 幽州治,今北京城西南(约116.4E,39.9N)",p:["幽州治所,公孙瓒起兵之地,远在图外之北。瓒破黄巾威震河朔,自此南下争冀州;界桥既败,终退保幽州。"]},
+  pingyuan:{t:"平原",d:"瓒所据青州,今山东平原(约116.43E,37.16N)",p:["公孙瓒表田楷为青州刺史,据平原诸城。刘备尝为平原相,属焉。界桥、龙凑之战皆在其西境展开。"]},
+  longcou:{t:"龙凑",d:"瓒再败处,平原界(今地小异)",p:["界桥败后,袁绍复遣兵与公孙瓒战于龙凑,瓒又败,遂退还幽州,不复南争。今址诸家小异,姑系于平原西北。"]},
+  julu:{t:"巨鹿",d:"巨鹿郡,今河北平乡一带(约115.03E,37.22N)",p:["界桥在巨鹿郡界。汉末巨鹿为河北要郡,黄巾之乱起于此(广宗、下曲阳),其地当袁、瓒争锋之场。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
