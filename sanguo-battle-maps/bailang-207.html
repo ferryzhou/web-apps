@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>白狼山之战 · 建安十二年(207)</title>
+<title>白狼山之战 · 曹操北征乌桓 · 建安十二年(207)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -27,10 +27,22 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:rgba(95,127,136,.15)}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 粮乏·凿井:金色艰险记号,示自困于死地之给养 */
+  .strain circle{fill:rgba(156,122,44,.12);stroke:var(--gold);stroke-width:1.8}
+  .strain line{stroke:var(--gold);stroke-width:2;stroke-linecap:round}
+  .strain circle.dot{fill:var(--gold);stroke:none}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.06em}
+  /* 阻·水潦:朱色截断记号(道阻不通) */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.03em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +51,15 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.fail{stroke:var(--advance);stroke-width:2.4;opacity:.34;stroke-dasharray:2 6}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--advance);opacity:.6}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +68,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--enemy)}.explain .c.b{border-color:var(--advance)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--enemy)}.explain .c.b h4{color:var(--advance)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.fail){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,19 +96,20 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>白</span><span>狼</span><span>山</span><span>役</span></div>
+  <div class="seal" aria-hidden="true"><span>白</span><span>狼</span><span>之</span><span>役</span></div>
   <header>
-    <h1>白狼山之战</h1>
-    <div class="sub">汉建安十二年(207)　　<i>曹操</i> 破 <b>乌桓 蹋顿</b> · 张辽阵斩</div>
+    <h1>白狼山之战 · 北征乌桓</h1>
+    <div class="sub">汉建安十二年(207)　　<i>曹操</i> 越塞北征 <b>乌桓 蹋顿</b> 与 <b>袁尚 袁熙</b>　·　弃大道 · 出奇塞 · 张辽阵斩</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 北征乌桓</button>
-    <button data-p="1">卢龙间道</button>
-    <button data-p="2">白狼遇敌</button>
-    <button data-p="3">张辽斩蹋顿</button>
+    <button data-p="1">集结无终 · 滨海道阻</button>
+    <button data-p="2">田畴引道 · 出卢龙塞</button>
+    <button data-p="3">白狼遇敌 · 张辽斩蹋顿</button>
+    <button data-p="4">二袁走辽东 · 公孙康献首</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白狼山之战形势图,含曹操与乌桓袁氏疆界、燕山卢龙塞与蓟无终白狼山柳城辽东等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白狼山之战暨曹操北征乌桓形势图,含曹操幽州与乌桓袁氏塞外辽西之疆界、燕山卢龙塞滦河白狼水渤海诸地、失利之滨海道与制胜之卢龙塞间道,及无终卢龙塞白檀平冈白狼山柳城辽东诸城">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,80 +118,117 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:曹操据幽州中原(西南),乌桓袁氏残据塞外辽西(北、东北),约以燕山卢龙塞为界 -->
-    <path d="M 0,220 C 180,250 340,270 500,290 C 640,308 780,300 1000,250 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,220 C 180,250 340,270 500,290 C 640,308 780,300 1000,250 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,220 C 180,250 340,270 500,290 C 640,308 780,300 1000,250"/>
-    <text class="realm q" x="620" y="120" font-size="30">乌桓·袁氏残(塞外辽西)</text>
-    <text class="realm j" x="120" y="560" font-size="30">曹 操(幽州·中原)</text>
+    <!-- ══ 疆界:曹操据幽州(南·西南),乌桓蹋顿与袁尚袁熙残据塞外辽西(北·东北),约以燕山长城为界 ══ -->
+    <path d="M 0,455 C 160,450 320,442 425,418 C 520,392 590,340 650,270 C 720,205 820,165 1000,150 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,455 C 160,450 320,442 425,418 C 520,392 590,340 650,270 C 720,205 820,165 1000,150 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,455 C 160,450 320,442 425,418 C 520,392 590,340 650,270 C 720,205 820,165 1000,150"/>
+    <text class="realm q" x="486" y="86" font-size="27">乌桓 · 二袁</text>
+    <text class="cname s" x="500" y="108" style="fill:var(--enemy);opacity:.55">塞外辽西 · 三郡乌桓</text>
+    <text class="realm j" x="70" y="586" font-size="27">曹 操(幽州)</text>
 
-    <!-- 濡水:自燕山北出塞外东南下 -->
-    <path class="river" stroke-width="3.4" d="M 400,110 C 420,180 448,260 470,330 C 490,392 520,450 560,500"/>
-    <!-- 易水:幽州西南水道 -->
-    <path class="river" stroke-width="2.6" d="M 60,430 C 130,438 200,448 262,466"/>
-    <text class="rname" x="470" y="300" transform="rotate(70 470 300)" style="font-size:11px">濡 水</text>
-    <text class="rname" x="120" y="428" style="font-size:11px">易 水</text>
+    <!-- ══ 渤海:南境大海,滨海道沿之 ══ -->
+    <path class="sea" d="M 0,560 C 180,548 360,556 520,566 C 700,578 860,584 1000,582 L 1000,640 L 0,640 Z"/>
+    <text class="rname" x="300" y="612" style="font-size:14px;letter-spacing:.4em">渤　海</text>
 
-    <!-- 燕山·卢龙塞:三峰 出塞险道 -->
-    <g class="mtn"><path d="M 340,352 l 12,-20 l 12,20 M 366,344 l 13,-22 l 13,22 M 396,352 l 12,-20 l 12,20"/></g>
-    <text class="cname s" x="336" y="378">燕山·卢龙塞</text>
-    <!-- 塞外群山 -->
-    <g class="mtn"><path d="M 620,232 l 9,-15 l 9,15 M 642,226 l 9,-15 l 9,15"/></g>
+    <!-- ══ 水系 ══ -->
+    <!-- 滦河(濡水):自燕山之北南出,历卢龙塞而入渤海 -->
+    <path class="river" stroke-width="3.2" d="M 408,188 C 420,290 424,360 442,440 C 456,502 470,548 486,566"/>
+    <text class="rname" x="392" y="470" transform="rotate(80 392 470)" style="font-size:11px">滦河(濡水)</text>
+    <!-- 白狼水(大凌河):自白狼山北经柳城东北入海 -->
+    <path class="river" stroke-width="2.8" d="M 606,304 C 654,258 704,208 736,184 C 800,150 848,126 884,110"/>
+    <text class="rname" x="774" y="150" transform="rotate(-30 774 150)" style="font-size:11px">白狼水(大凌河)</text>
 
-    <!-- 城邑 (SW→NE) -->
+    <!-- ══ 燕山山脉:横亘幽州之北,卢龙塞穿其中——迫使择道之山 ══ -->
+    <path class="mtn fill" d="M 236,452 L 256,414 L 274,432 L 296,398 L 318,428 L 344,404 L 366,432 L 392,414 L 410,432 Z"/>
+    <path class="mtn" d="M 268,430 l 16,-22 l 13,15 l 18,-24 l 14,18 l 16,-22"/>
+    <text class="mname" x="250" y="472" transform="rotate(-13 250 472)">燕　山</text>
+    <!-- 塞外群山:堑山堙谷所经 -->
+    <path class="mtn fill" d="M 470,318 L 486,292 L 500,308 L 518,284 L 536,306 L 554,288 L 570,308 Z"/>
+    <path class="mtn" d="M 486,306 l 12,-16 l 10,11 l 13,-17 l 11,13"/>
+    <text class="mname" x="470" y="336" style="font-size:10px">塞外山谷</text>
+
+    <!-- ══ 城邑 (西南→东北) ══ -->
     <g id="cities">
-      <g class="city cap" data-city="ji"><circle cx="150" cy="480" r="6"/><text class="cname" x="94" y="476">蓟<tspan class="cname s" dx="2">(幽州治)</tspan></text></g>
-      <g class="city" data-city="wuzhong"><circle cx="288" cy="440" r="5"/><text class="cname" x="252" y="462">无终</text></g>
-      <g class="city" data-city="lulong"><circle cx="410" cy="360" r="4.5"/><text class="cname s" x="418" y="356">卢龙塞</text></g>
-      <g class="city" data-city="bailang"><circle cx="600" cy="272" r="5.5"/><text class="cname" x="612" y="268">白狼山<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="liucheng"><circle cx="762" cy="182" r="6"/><text class="cname" x="716" y="176">柳城<tspan class="cname s" dx="2">(乌桓王庭)</tspan></text></g>
-      <g class="city" data-city="liaodong"><circle cx="884" cy="128" r="5"/><text class="cname" x="838" y="122">辽东</text></g>
+      <g class="city" data-city="ji"><circle cx="121" cy="509" r="4.5"/><text class="cname s" x="70" y="505">蓟(幽州治)</text></g>
+      <g class="city cap" data-city="wuzhong"><circle cx="273" cy="485" r="6"/><text class="cname" x="210" y="505">无终<tspan class="cname s" dx="2">(蓟州)</tspan></text></g>
+      <g class="city" data-city="lulong"><circle cx="425" cy="415" r="5"/><text class="cname" x="336" y="410">卢龙塞<tspan class="cname s" dx="2">(喜峰口)</tspan></text></g>
+      <g class="city" data-city="baitan"><circle cx="440" cy="345" r="4"/><text class="cname s" x="452" y="341">白檀(宽城)</text></g>
+      <g class="city" data-city="pinggang"><circle cx="470" cy="235" r="4"/><text class="cname s" x="482" y="231">平冈(宁城)</text></g>
+      <g class="city" data-city="bailang"><circle cx="622" cy="295" r="6"/><text class="cname" x="634" y="291">白狼山<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city cap" data-city="liucheng"><circle cx="736" cy="181" r="6"/><text class="cname" x="646" y="176">柳城<tspan class="cname s" dx="2">(乌桓王庭)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 北征乌桓 -->
+    <!-- 辽东·襄平(图外·东北):二袁所奔,公孙康所据 -->
+    <g transform="translate(918,236)">
+      <path class="march rout" marker-end="url(#ar)" d="M 0,0 L 30,-2"/>
+      <text class="cname s" x="-6" y="-12" style="fill:var(--ret)">辽东·襄平(图外)⟶</text>
+      <text class="cname s" x="-6" y="18" style="fill:var(--ret);opacity:.8;font-size:9.5px">公孙康所据</text>
+    </g>
+
+    <!-- ══════ 全图 · 北征乌桓 ══════ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 156,474 C 210,462 250,454 282,446"/>
-      <text class="mlabel j" x="120" y="504">曹操自蓟发,以田畴为乡导</text>
-      <path class="march j" marker-end="url(#aj)" d="M 294,436 C 380,400 500,320 592,278"/>
-      <text class="mlabel j" x="360" y="330">纳郭嘉策,轻兵远袭,直捣柳城</text>
-      <rect class="camp" x="756" y="176" width="9" height="9" transform="rotate(45 760 180)"/>
-      <text class="mlabel q" x="620" y="150">袁尚、袁熙奔蹋顿,数入塞为寇</text>
-      <text class="anno" x="470" y="230">时方夏秋,滨海道潦不通</text>
+      <!-- 失利之滨海道(淡)：无终东出沿海,遇水潦而阻 -->
+      <path class="march fail" d="M 279,491 C 360,530 440,545 500,548 C 528,549 548,550 560,550"/>
+      <g class="cut" transform="translate(566,550)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="422" y="572">滨海道:夏秋水潦,泥泞不通 ✕</text>
+      <!-- 制胜之卢龙塞间道(青)：无终—卢龙塞—白檀—平冈—白狼山—柳城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 279,481 C 360,450 415,442 425,415 C 442,388 436,372 440,345 C 450,300 462,268 470,238 C 520,256 586,282 618,293 C 660,252 706,210 730,184"/>
+      <text class="mlabel j" x="150" y="330">曹操回军,出卢龙塞废道</text>
+      <text class="mlabel j" x="486" y="266">堑山堙谷五百里,东指柳城</text>
+      <rect class="camp" x="731" y="177" width="9" height="9" transform="rotate(45 735 181)"/>
+      <text class="mlabel q" x="600" y="140">二袁依蹋顿,据柳城,数入塞为寇</text>
+      <circle class="star" cx="622" cy="295" r="9"/>
     </g>
 
-    <!-- 阶段一:卢龙间道 -->
+    <!-- ══════ 阶段一:集结无终 · 滨海道阻 ══════ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 294,436 C 330,410 372,384 404,366"/>
-      <text class="mlabel j" x="252" y="418">自无终出卢龙塞</text>
-      <path class="march j" marker-end="url(#aj)" d="M 416,354 C 470,318 540,290 594,276"/>
-      <text class="mlabel j" x="420" y="336">堑山堙谷五百里</text>
-      <text class="anno" x="440" y="392">傍白檀、历平冈,凿险傍绝而进</text>
-      <text class="anno" x="470" y="252">出敌不意,虏不虞其至</text>
+      <path class="march j" marker-end="url(#aj)" d="M 127,505 C 175,500 225,494 267,489"/>
+      <text class="mlabel j" x="120" y="530">曹操自蓟进次无终,遂集大军</text>
+      <!-- 滨海道大书其阻 -->
+      <path class="march fail" d="M 279,491 C 360,530 448,546 512,549 C 538,550 555,550 566,550"/>
+      <g class="cut" transform="translate(572,550)"><circle r="8"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="392" y="574">滨海道:浅不通车马,深不载舟船 ✕</text>
+      <text class="anno" x="300" y="524">五月至无终,七月霖雨,傍海道潦不通</text>
+      <text class="anno" x="336" y="398">田畴请出卢龙塞旧道 ↗</text>
     </g>
 
-    <!-- 阶段二:白狼遇敌 -->
+    <!-- ══════ 阶段二:田畴引道 · 出卢龙塞堑山堙谷 ══════ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 470,320 C 520,300 560,286 590,276"/>
-      <text class="mlabel j" x="440" y="316">军次白狼山</text>
-      <path class="march q" marker-end="url(#aq)" d="M 750,190 C 700,214 650,246 612,268"/>
-      <text class="mlabel q" x="640" y="228">蹋顿及袁尚数万骑猝至</text>
-      <circle class="star" cx="600" cy="272" r="9"/>
-      <text class="anno" x="470" y="300">操军辎重在后,披甲者少,众心惧</text>
-      <text class="anno" x="470" y="316">操登高望虏阵不整,决意击之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 279,481 C 360,450 415,442 425,415 C 442,388 436,372 440,345 C 450,300 462,268 470,238 C 520,256 570,278 610,290"/>
+      <text class="mlabel j" x="140" y="505">自无终出卢龙塞,傍白檀·历平冈</text>
+      <text class="mlabel j" x="410" y="212">涉鲜卑庭,潜军诡道</text>
+      <text class="anno" x="270" y="360">堑山堙谷五百里,凿险傍绝而进</text>
+      <!-- 粮乏·凿地取水:置之死地之给养艰险 -->
+      <g class="strain" transform="translate(506,252)"><circle r="8"/><line x1="0" y1="-4" x2="0" y2="2"/><circle class="dot" cx="0" cy="5" r="1.3"/></g>
+      <text class="slabel" x="150" y="452">粮乏:时寒且旱,二百里无水</text>
+      <text class="slabel" x="150" y="467" style="font-size:9.5px;opacity:.85">杀马数千为食 · 凿地三十余丈取水</text>
+      <text class="anno" x="470" y="150">虏不虞王师之至,竟未设备</text>
     </g>
 
-    <!-- 阶段三:张辽斩蹋顿 -->
+    <!-- ══════ 阶段三:白狼遇敌 · 张辽斩蹋顿 ══════ -->
     <g id="ph3" class="ph">
-      <path d="M 600,272 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march j" marker-end="url(#aj)" d="M 560,290 C 578,284 592,278 596,274"/>
-      <text class="mlabel j" x="470" y="300">操假张辽麾,辽为前锋先登陷阵</text>
-      <text class="anno" x="470" y="316">阵斩蹋顿及名王以下,胡汉降者二十余万</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 620,262 C 700,222 800,168 872,132"/>
-      <text class="mlabel r" x="700" y="200">袁尚、袁熙走辽东</text>
-      <text class="anno" x="800" y="150">公孙康斩之,函首送操,北边遂定</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,258 C 540,270 578,284 610,292"/>
+      <text class="mlabel j" x="452" y="252">军次白狼山,去柳城二百余里</text>
+      <!-- 蹋顿及二袁数万骑自柳城猝下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 726,190 C 692,222 656,262 630,290"/>
+      <text class="mlabel q" x="648" y="232">蹋顿及二袁数万骑猝至</text>
+      <circle class="star" cx="622" cy="295" r="10"/>
+      <!-- 张辽先登:麾旗直陷 -->
+      <path class="march j" marker-end="url(#aj)" d="M 566,300 C 588,297 602,296 612,295"/>
+      <text class="mlabel j" x="452" y="330">操登高望其阵不整,假张辽麾,先登陷阵</text>
+      <text class="anno" x="452" y="346">阵斩蹋顿及名王,胡汉降者二十余万口</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══════ 阶段四:二袁走辽东 · 公孙康献首 ══════ -->
+    <g id="ph4" class="ph">
+      <path class="march rout" marker-end="url(#ar)" d="M 744,182 C 810,192 872,212 916,230"/>
+      <text class="mlabel r" x="612" y="188">袁尚·袁熙率数千骑走辽东</text>
+      <text class="anno" x="470" y="330">操不追,曰:且待其自相图</text>
+      <text class="anno" x="600" y="262">公孙康斩尚·熙,函首送操</text>
+      <text class="mlabel j" x="150" y="380">三郡乌桓遂衰,北边悉定</text>
+    </g>
+
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -172,34 +237,83 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>乌桓·袁氏</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃走</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军(卢龙间道)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="2 5" opacity=".4"/></svg>滨海道(阻·不通)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>乌桓·二袁</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>二袁溃走辽东</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>乌桓·袁氏</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6.5" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.6"/><line x1="8" y1="4" x2="8" y2="9" stroke="#9c7a2c" stroke-width="2"/><circle cx="8" cy="12" r="1.2" fill="#9c7a2c"/></svg>粮乏·凿地取水</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>道阻(水潦)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>乌桓·二袁</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>择道释要 · 弃大道 · 出奇塞</h3>
+    <div class="lead">何以北征乌桓之胜,系于一道之择 —— 舍平衍之大路,取废绝之险塞</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="择道示意:自无终至柳城有二道,滨海大道遇水潦而阻绝,卢龙塞废道虽艰险乏粮而出敌不意,遂克">
+      <!-- 起讫两节点 -->
+      <circle cx="70" cy="128" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="34" y="152" fill="#2b2418" font-size="11.5" font-weight="700">无终(蓟州)</text>
+      <text x="40" y="167" fill="#5c4f38" font-size="9.5">大军集结</text>
+      <circle cx="792" cy="128" r="6.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="726" y="120" fill="#2b2418" font-size="11.5" font-weight="700">柳城·王庭</text>
+      <text x="742" y="152" fill="#5c4f38" font-size="9.5">蹋顿·二袁</text>
+      <!-- 上路:滨海大道(阻) -->
+      <path d="M 88,116 C 260,52 560,52 700,110" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="3 6" opacity=".55"/>
+      <g><circle cx="398" cy="55" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="392" y1="49" x2="404" y2="61" stroke="#9a2b1e" stroke-width="2.6"/><line x1="392" y1="61" x2="404" y2="49" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <path d="M 300,66 C 330,74 360,74 396,72 C 440,70 470,72 500,66" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".5"/>
+      <text x="300" y="34" fill="#9a2b1e" font-size="11" font-weight="700">滨海道:平衍近捷之大路</text>
+      <text x="322" y="94" fill="#9a2b1e" font-size="10.5" font-weight="700">夏秋水潦,泥泞不通 ✕</text>
+      <!-- 下路:卢龙塞废道(艰险而奇) -->
+      <path d="M 88,140 C 240,214 420,214 560,190" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 560,190 C 640,176 720,150 782,132" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 774,136 L 782,128 L 786,138 Z" fill="#1f4e54"/>
+      <path class="mtn" d="M 210,208 l 12,-16 l 10,11 l 13,-17 l 11,13 l 12,-15" fill="none" stroke="#5c4f38" stroke-width="1.2" opacity=".8"/>
+      <g><circle cx="360" cy="209" r="7" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.6"/><line x1="360" y1="205" x2="360" y2="211" stroke="#9c7a2c" stroke-width="2"/><circle cx="360" cy="214" r="1.3" fill="#9c7a2c"/></g>
+      <circle cx="560" cy="190" r="7" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="150" y="196" fill="#1f4e54" font-size="11" font-weight="700">卢龙塞废道</text>
+      <text x="150" y="234" fill="#5c4f38" font-size="10">堑山堙谷五百里 · 傍白檀历平冈</text>
+      <text x="378" y="230" fill="#9c7a2c" font-size="10" font-weight="700">乏粮·凿地取水</text>
+      <text x="520" y="222" fill="#9c7a2c" font-size="10.5" font-weight="700">白狼山·纵兵急击</text>
+      <text x="596" y="176" fill="#1f4e54" font-size="10.5" font-weight="700">出敌不意 → 破之</text>
+    </svg>
+    <p class="intro">自无终趋柳城,道有二:一为<b>滨海大道</b>,平衍近捷,循渤海之滨东指;一为<b>卢龙塞废道</b>,穿燕山之险,自建武以来陷坏断绝二百载。以常理度之,当取大道;然时值夏秋,霖雨积潦,滨海『浅不通车马,深不载舟船』,大道遂<b>阻绝不行</b>——曹操几欲还师。田畴一言,乃反其道而行之。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>滨海道 · 大路而阻</h4>
+        <p>滨海道乃出塞正途,平近可通车马舟船。然乌桓亦知其为正途,必扼守以待;而夏秋水潦,泥淖弥漫,车骑舟楫俱废。取之则师老于泥潦,进退失据,又正落敌之逆料——是明知之路,反为死路。</p>
+      </div>
+      <div class="c b">
+        <h4>卢龙塞 · 险道而奇</h4>
+        <p>废道二百年无人行,虏必不设备。堑山堙谷五百里,傍白檀、历平冈、涉鲜卑庭,凿险傍绝;途中寒旱乏水,二百里无泉,杀马数千为食,凿地三十余丈方得水——置之死地。然正以此绝人所行,故能潜军诡道,径出王庭之侧,一举而虏不及觉。</p>
+      </div>
+    </div>
+    <p class="kicker">北征之胜,不在白狼山之一战,而在无终之一择:<b>舍平衍之大路,就废绝之险塞</b>。大道虽近,阻而落敌逆料;险道虽死,奇而出敌不意。曹操以给养之艰、行军之险为孤注,赌其『虏不虞王师之至』——及登高望其阵不整,张辽先登,遂斩蹋顿于成列之前。故曰:此役之枢,系于<b>弃大道、出奇塞</b>之一念;既胜,操犹厚赏前谏止征者,自谓『乘危以徼幸,天所佐也』。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《张辽传》《郭嘉传》《田畴传》约略绘出。疆界、水道经简化;塞外辽西乌桓与曹操幽州之界以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注二</span>白狼山在今辽宁喀左,柳城在今辽宁朝阳。卢龙塞为出塞险道,今喜峰口一带;濡水即今滦河,易水在今河北易县。</p>
-    <p><span class="n">注三</span>堑山堙谷、轻兵远袭,乃奇险之胜。操归途艰苦,几乏水粮,凿地三十余丈方得水;既还,乃厚赏前谏止征者,曰"孤前行乘危以徼幸,虽得之,天所佐也"。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=60+(经度−116.0)·152,y=595−(纬度−39.5)·200),几何关系力求近实:无终在西南,卢龙塞居燕山之口,白檀·平冈递北,白狼山在柳城西南二百余里,渤海在南,辽东在东北(图外)。疆界、水道经简化;点划『约界』依燕山长城一线,非实有画界。依《三国志·武帝纪》《郭嘉传》《张辽传》《田畴传》裴注及《资治通鉴》卷六五绘出。</p>
+    <p><span class="n">注二</span>地望:无终今天津蓟州(汉右北平属县,田畴所居徐无山在其东);卢龙塞即今河北喜峰口一带,滦河(古濡水)所经出塞险道;白檀今河北宽城,平冈今内蒙古宁城甸子;鲜卑庭方位约在老哈河上游,确址无考;白狼山今辽宁喀左(一说大阳山),白狼水即今大凌河;柳城为三郡乌桓王庭,今辽宁朝阳;辽东襄平今辽宁辽阳,公孙康所据,在图外东北。</p>
+    <p><span class="n">注三</span>制胜之枢在择道(图中青为卢龙间道,朱色 ✕ 为滨海道之阻):建安十二年五月次无终,会夏秋霖雨,滨海道潦不通,『浅不通车马,深不载舟船』。田畴献策,引军上徐无山,出卢龙塞,『塞外道绝不通,乃堑山堙谷五百余里,经白檀,历平冈,涉鲜卑庭,东指柳城』。《曹瞒传》载途中『时寒且旱,二百里无复水,军又乏食,杀马数千匹以为粮,凿地入三十余丈乃得水』——弃大道、就死地,而以出奇制胜,图中金色艰险记号即志此给养之困。</p>
+    <p><span class="n">注四</span>八月登白狼山,卒与蹋顿及袁尚、袁熙数万骑相遇,操军辎重在后、被甲者少,左右皆惧。操登高望虏阵不整,乃纵兵急击,假张辽以己麾,辽为先锋先登陷阵,大破之,阵斩蹋顿及名王以下,胡、汉降者二十余万口。袁尚、袁熙走辽东依公孙康;操不追,曰『且待其自相图』。康素惮袁氏,遂斩尚、熙,函首送操——不劳而定辽东,三郡乌桓由是衰息,北边悉定,操乃回师,南向以图荆州。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"北征乌桓",d:"汉建安十二年(207)",p:["官渡既败,袁尚、袁熙北奔辽西乌桓,依大人蹋顿。蹋顿骁武,数入塞为寇,杀略吏民,幽、冀不宁。曹操欲北征以绝后患,诸将多虑刘表袭许,独郭嘉料表必不能用刘备,劝操兼弱攻昧,轻兵远袭,直捣柳城。","操自蓟北进,以右北平田畴为乡导。时方夏秋,霖雨积潦,滨海道不通,乃回军别取间道,凿险傍绝,出敌不意——一举而虏其王庭。"]},
-  "1":{t:"卢龙间道",d:"建安十二年 秋七月",p:["滨海道潦水弥漫,车骑不通,操几欲还师。田畴进言:旧北平郡治在平冈,道出卢龙,达于柳城;自建武以来陷坏断绝二百载,然有微径可寻。","操乃令堑山堙谷五百里,自无终出卢龙塞,傍白檀、历平冈,凿险傍绝而进。堑山填谷,昼夜兼行,虏不虞王师之至,竟未设备。"]},
-  "2":{t:"白狼遇敌",d:"建安十二年 八月",p:["军次白狼山,去柳城二百余里,卒与蹋顿及袁尚、袁熙数万骑相遇。操军轻装疾进,辎重在后,被甲者少,左右皆惧。","操登高望之,见虏众虽盛而阵势不整,乃知可击。众心方摇,操意已决——纵兵急击,不容其成列。"]},
-  "3":{t:"张辽斩蹋顿",d:"建安十二年 八月",p:["操假张辽以己之麾旌,辽劝乘其未整急击,气甚奋厉。张辽为前锋先登陷阵,大破之,阵斩蹋顿及名王以下,胡、汉降者二十余万口。","袁尚、袁熙率数千骑走辽东,依公孙康。康素惮袁氏,又幸操不来,乃斩尚、熙,函其首送于操。北边遂定,三郡乌桓由是衰息。"]}
+  all:{t:"北征乌桓",d:"汉建安十二年(207)",p:["官渡既败,袁尚、袁熙北奔辽西,依三郡乌桓大人蹋顿。蹋顿骁武,数入塞为寇,杀略吏民,幽、冀不宁。曹操欲远征以绝袁氏之根,诸将多虑刘表乘虚袭许,独郭嘉料表坐谈之客、必不能任刘备,力劝兼弱攻昧,轻兵远袭,直捣其庭。","五月出师,次于无终。时值夏秋,霖雨积潦,滨海大道泥泞不通,几欲还师。田畴献策,引军出废弃之卢龙塞,堑山堙谷五百里,经白檀、平冈、鲜卑庭,东指柳城——弃大道、出奇塞,一举而虏其王庭。"]},
+  "1":{t:"集结无终 · 滨海道阻",d:"建安十二年 五 — 七月",p:["曹操自邺北进,过蓟,五月大军集结于无终(今蓟州)。所规者滨海大道:循渤海之滨东出,平衍近捷,乃出塞之正途。","然七月霖雨,积潦弥漫,滨海道『浅不通车马,深不载舟船』,车骑舟楫俱废。大军顿于泥潦,进退维谷,操几欲引还。右北平田畴时居徐无山,操召而问计——弃正途、走间道之议,由此而发。"]},
+  "2":{t:"田畴引道 · 出卢龙塞",d:"建安十二年 秋七月",p:["田畴进言:旧北平郡治在平冈,道出卢龙,达于柳城;自光武建武以来陷坏断绝二百载,然尚有微径可寻,且虏必不设备。操大悦,以畴为乡导。","乃伪立标于滨海道口,诡云『方暑未可行,俟秋冬乃进』,以懈虏心;而潜军上徐无山,出卢龙塞,塞外道绝,堑山堙谷五百余里,经白檀、历平冈、涉鲜卑庭,东指柳城。途中寒且旱,二百里无水,军又乏食,杀马数千匹为粮,凿地三十余丈乃得水——置之死地,以求出敌不意。"]},
+  "3":{t:"白狼遇敌 · 张辽斩蹋顿",d:"建安十二年 八月",p:["八月,军登白狼山,去柳城尚二百余里,卒与蹋顿及袁尚、袁熙数万骑相遇。操军轻装疾进,辎重在后,被甲者少,左右皆惧。","操登高望之,见虏众虽盛而行陈不整,知可击。乃假张辽以己之麾旌,辽劝乘其未成列急击之,气甚奋厉;张辽为先锋先登陷阵,大破之,阵斩蹋顿及名王以下,胡、汉降者二十余万口。柳城王庭遂溃。"]},
+  "4":{t:"二袁走辽东 · 公孙康献首",d:"建安十二年 八 — 十一月",p:["蹋顿既死,袁尚、袁熙率其余众数千骑东走辽东,依公孙康。诸将请乘胜进讨辽东,操不许,曰『吾方使公孙康斩送尚、熙首,不烦兵矣』,乃引军还。","公孙康素惮袁氏,又幸操之不来,遂伏兵斩尚、熙,函其首送于操——不劳一兵而定辽东。三郡乌桓由是衰息,北边悉定。操还军,道多艰苦,既至,乃厚赏前谏止征者,曰『孤前行乘危以徼幸,虽得之,天所佐也。诸君之谏,万安之计,是以相赏』。"]}
 };
 const CITY={
-  ji:{t:"蓟",d:"幽州治,今北京西南",p:["曹操北征乌桓的发兵地。大军自此出,循无终东趋卢龙塞。"]},
-  wuzhong:{t:"无终",d:"今天津蓟州",p:["滨海道潦不通,操驻此进退维谷;田畴议轻兵出卢龙间道,遂由此弃大道而入险。"]},
-  lulong:{t:"卢龙塞",d:"今河北喜峰口一带",p:["燕山出塞险道,汉末陷坏断绝二百载。操堑山堙谷五百里,傍白檀、历平冈,凿险而出。"]},
-  bailang:{t:"白狼山",d:"今辽宁喀左",p:["决战之地。操军卒与蹋顿数万骑遇,登高见虏阵不整,纵兵急击;张辽先登陷阵,阵斩蹋顿。"]},
-  liucheng:{t:"柳城",d:"乌桓王庭,今辽宁朝阳",p:["三郡乌桓蹋顿之王庭,袁尚、袁熙所依。操北征之所指;白狼既破,王庭遂溃。"]},
-  liaodong:{t:"辽东",d:"公孙康所据,今辽宁辽阳",p:["蹋顿败死,袁尚、袁熙北奔于此。公孙康斩之,函首送操,不劳而定辽东。"]}
+  ji:{t:"蓟",d:"幽州治,今北京西南",p:["曹操北征所经。大军自邺北上,过蓟而东趋无终,循以出塞。"]},
+  wuzhong:{t:"无终",d:"今天津蓟州(汉右北平属县)",p:["曹操北征乌桓之集结地,五月大军至此。田畴所居徐无山在其东。会夏秋水潦,滨海道不通,进退维谷;田畴议出卢龙塞间道,遂由此弃大道而入险——一役择道之枢。"]},
+  lulong:{t:"卢龙塞",d:"今河北喜峰口一带",p:["燕山出塞险道,滦河(古濡水)所经。自建武以来陷坏断绝二百载,虏不设备。操堑山堙谷五百里,自此出塞,傍白檀、历平冈,凿险傍绝而进。"]},
+  baitan:{t:"白檀",d:"今河北宽城",p:["出卢龙塞后所经。汉白檀县故地,间道北行之一站。"]},
+  pinggang:{t:"平冈",d:"今内蒙古宁城甸子",p:["旧北平郡治所在。田畴所指『道出卢龙,达于柳城』之要途;军历平冈,折而东指鲜卑庭、柳城。"]},
+  bailang:{t:"白狼山",d:"今辽宁喀左(一说大阳山)",p:["决战之地,去柳城二百余里,白狼水(大凌河)所经。操军卒与蹋顿数万骑遇,登高见虏阵不整,纵兵急击;张辽假麾先登陷阵,阵斩蹋顿,胡汉降者二十余万。"]},
+  liucheng:{t:"柳城",d:"三郡乌桓王庭,今辽宁朝阳",p:["蹋顿单于王庭,袁尚、袁熙所依。曹操北征之所指;白狼既破,王庭遂溃,乌桓自此衰息。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

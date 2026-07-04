@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -30,7 +30,19 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 汲道 / 山下之水:蜀军所恃之水源(青),被绝则军乱 */
+  .draw{fill:none;stroke:var(--advance2);stroke-linecap:round}
+  .draw.band{stroke-width:6;opacity:.20}
+  .draw.core{stroke-width:1.7;opacity:.85;stroke-dasharray:0.5 5}
+  .spring{fill:var(--water);opacity:.85}
+  .slabel{fill:var(--advance2);font-size:11px;font-weight:700;letter-spacing:.06em}
+  /* 断汲道 · 断水:朱色截断记号(仿断粮道) */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -43,22 +55,33 @@
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
-  .camp{fill:var(--enemy);opacity:.9}
+  .camp{fill:var(--advance);opacity:.9}
+  .camp.q{fill:var(--enemy)}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,100 +95,144 @@
   <div class="seal" aria-hidden="true"><span>街</span><span>亭</span><span>之</span><span>役</span></div>
   <header>
     <h1>街亭之战</h1>
-    <div class="sub">蜀汉建兴六年·魏太和二年(228)　　<i>蜀汉 诸葛亮</i>(马谡) 败于 <b>曹魏 张郃</b> · 一伐退兵</div>
+    <div class="sub">蜀汉建兴六年·魏太和二年(228)　　<i>蜀汉 诸葛亮</i>(马谡) 败于 <b>曹魏 张郃</b> · 舍水上山 · 绝汲道而溃</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 一出祁山</button>
     <button data-p="1">三郡响应</button>
-    <button data-p="2">谡违节度</button>
-    <button data-p="3">挥泪退兵</button>
+    <button data-p="2">舍水上山</button>
+    <button data-p="3">绝汲道 · 大溃</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="街亭之战形势图,含曹魏关中蜀汉陇右疆界、渭水陇山与街亭祁山长安等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="街亭之战形势图,含曹魏关中陇右与蜀汉汉中之约界、渭水西汉水、陇山秦岭诸山,及街亭祁山上邽天水西县汉中长安等地;示马谡舍水上山、张郃绝汲道断水之败">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:曹魏据关中陇东(东),蜀汉据汉中及新收陇右(西南),约以陇山为界 -->
-    <path d="M 560,0 C 556,110 566,190 590,270 C 610,340 620,420 610,500 C 604,560 596,600 590,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 556,110 566,190 590,270 C 610,340 620,420 610,500 C 604,560 596,600 590,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 556,110 566,190 590,270 C 610,340 620,420 610,500 C 604,560 596,600 590,640"/>
-    <text class="realm q" x="700" y="130" font-size="32">曹 魏(关中)</text>
-    <text class="realm j" x="90" y="540" font-size="30">蜀 汉(汉中·陇右)</text>
+    <!-- ══ 疆界:曹魏据关中及陇右(北·东),蜀汉据汉中(南),约以秦岭为界 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,430 C 820,414 660,396 520,384 C 340,368 180,352 0,360 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,360 C 180,352 340,368 520,384 C 660,396 820,414 1000,430 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,360 C 180,352 340,368 520,384 C 660,396 820,414 1000,430"/>
+    <text class="realm q" x="686" y="140" font-size="30">曹 魏(关中)</text>
+    <text class="realm j" x="470" y="606" font-size="28">蜀 汉(汉中)</text>
+    <text class="cname s" x="92" y="104" style="fill:var(--enemy);opacity:.6">陇右(魏)三郡</text>
 
-    <!-- 渭水:自陇上(西)东流上邽、长安,W→E -->
-    <path class="river" stroke-width="5" d="M 170,250 C 260,262 340,272 430,286 C 520,300 620,312 720,318 C 820,324 920,328 1000,330"/>
-    <!-- 略阳川水,自街亭道口南入渭 -->
-    <path class="river" stroke-width="2.2" d="M 452,180 C 456,220 460,258 448,286"/>
-    <!-- 西汉水,自祁山西县一带南流 -->
-    <path class="river" stroke-width="2.4" d="M 210,320 C 216,380 232,440 258,486"/>
-    <text class="rname" x="640" y="308" style="font-size:13px">渭 水</text>
-    <text class="rname" x="230" y="400" transform="rotate(70 230 400)" style="font-size:10.5px">西汉水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 渭水:自陇上(西)东流,经上邽、循陇山谷道东下关中长安,W→E -->
+    <path class="river" stroke-width="5" d="M 150,166 C 250,172 330,175 370,177 C 470,182 540,196 600,210 C 720,232 860,248 1000,258"/>
+    <!-- 西汉水:自天水西南流,历西县、祁山南入嘉陵 -->
+    <path class="river" stroke-width="2.6" d="M 300,178 C 262,236 238,314 240,400 C 242,448 256,478 274,500"/>
+    <!-- 街亭略阳川水:自街亭道口南入渭 -->
+    <path class="river" stroke-width="2" d="M 458,120 C 470,150 486,178 500,200"/>
+    <text class="rname" x="700" y="240" style="font-size:13px">渭 水</text>
+    <text class="rname" x="232" y="360" transform="rotate(74 232 360)" style="font-size:11px">西汉水</text>
 
-    <!-- 陇山:横亘关陇之间 -->
-    <g class="mtn"><path d="M 540,210 l 8,-13 l 8,13 M 556,204 l 8,-13 l 8,13 M 572,210 l 7,-12 l 7,12 M 548,300 l 8,-13 l 8,13 M 564,294 l 8,-13 l 8,13"/></g>
-    <text class="cname s" x="560" y="335">陇 山</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 陇山(陇坂):横亘关陇之间,张郃自关中逾此而西趋街亭 -->
+    <path class="mtn fill" d="M 560,60 L 578,84 L 594,66 L 588,120 L 604,150 L 590,196 L 606,240 L 588,286 L 600,326 L 566,330 L 578,286 L 562,240 L 576,196 L 560,150 L 574,110 Z"/>
+    <g class="mtn"><path d="M 556,96 l 8,-14 l 8,14 M 560,156 l 8,-14 l 8,14 M 556,216 l 8,-14 l 8,14 M 560,276 l 8,-14 l 8,14"/></g>
+    <text class="mname" x="596" y="292">陇 山</text>
+    <!-- 秦岭:关中汉中之隔,当约界之上(东段) -->
+    <path class="mtn fill" d="M 640,384 L 660,360 L 678,380 L 702,356 L 726,378 L 750,356 L 772,380 L 796,358 L 818,382 L 818,398 L 640,398 Z"/>
+    <g class="mtn"><path d="M 668,382 l 10,-16 l 10,16 M 720,380 l 10,-16 l 10,16 M 772,382 l 10,-16 l 10,16"/></g>
+    <text class="mname" x="690" y="420">秦　岭</text>
     <!-- 祁山山势 -->
-    <g class="mtn"><path d="M 150,470 l 8,-13 l 8,13 M 166,464 l 8,-13 l 8,13"/></g>
+    <g class="mtn"><path d="M 176,286 l 9,-15 l 9,15 M 194,280 l 9,-15 l 9,15"/></g>
 
-    <!-- 城邑 -->
+    <!-- ══ 街亭·南山与山下之水(马谡所舍) ══ -->
+    <!-- 南山:马谡舍当道之城,依阻南山 -->
+    <path class="mtn fill" d="M 408,100 L 430,64 L 448,88 L 464,58 L 482,92 L 462,102 L 430,104 Z"/>
+    <text class="cname s" x="404" y="60" style="font-size:10px">南山(谡屯)</text>
+    <!-- 山下之水/汲道:蜀军所恃(青串珠),自山营下汲于水 -->
+    <path class="draw band" d="M 448,86 C 452,102 456,112 460,120"/>
+    <path class="draw core" d="M 448,86 C 452,102 456,112 460,120"/>
+    <path class="spring" d="M 452,118 C 446,122 446,130 454,132 C 462,133 470,128 468,121 C 466,116 458,115 452,118 Z"/>
+    <text class="slabel" x="474" y="130" style="font-size:10px">山下水·汲道</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="chuang"><circle cx="900" cy="330" r="6"/><text class="cname" x="848" y="326">长安<tspan class="cname s" dx="2">(魏西镇)</tspan></text></g>
-      <g class="city" data-city="jieting"><circle cx="452" cy="300" r="6"/><text class="cname" x="464" y="296">街亭<tspan class="cname s" dx="2">(陇山道口)</tspan></text></g>
-      <g class="city" data-city="shanggui"><circle cx="330" cy="278" r="4.5"/><text class="cname s" x="336" y="270">上邽</text></g>
-      <g class="city" data-city="tianshui"><circle cx="288" cy="308" r="4.5"/><text class="cname s" x="234" y="308">天水(冀)</text></g>
-      <g class="city" data-city="qishan"><circle cx="204" cy="446" r="5"/><text class="cname" x="216" y="450">祁山</text></g>
-      <g class="city" data-city="xixian"><circle cx="176" cy="404" r="4"/><text class="cname s" x="120" y="400">西县</text></g>
-      <g class="city" data-city="jigu"><circle cx="470" cy="520" r="4"/><text class="cname s" x="480" y="524">箕谷</text></g>
+      <g class="city" data-city="jieting"><circle cx="440" cy="106" r="6.5"/><text class="cname" x="400" y="150">街亭<tspan class="cname s" dx="2">(陇山道口)</tspan></text></g>
+      <g class="city" data-city="lueyang"><circle cx="492" cy="86" r="3.5"/><text class="cname s" x="500" y="82">略阳</text></g>
+      <g class="city" data-city="shanggui"><circle cx="370" cy="177" r="5"/><text class="cname" x="380" y="174">上邽</text></g>
+      <g class="city" data-city="tianshui"><circle cx="251" cy="141" r="4.5"/><text class="cname s" x="196" y="138">天水(冀)</text></g>
+      <g class="city" data-city="xixian"><circle cx="257" cy="231" r="4"/><text class="cname s" x="266" y="228">西县</text></g>
+      <g class="city" data-city="qishan"><circle cx="202" cy="268" r="5"/><text class="cname" x="150" y="264">祁山</text></g>
+      <g class="city cap" data-city="hanzhong"><circle cx="760" cy="532" r="6.5"/><text class="cname" x="700" y="552">汉中<tspan class="cname s" dx="2">(蜀本)</tspan></text></g>
+      <g class="city" data-city="jigu"><circle cx="867" cy="350" r="4"/><text class="cname s" x="820" y="346">箕谷</text></g>
+      <g class="city" data-city="changan"><circle cx="955" cy="250" r="5"/><text class="cname s" x="900" y="272">长安(图外)</text></g>
     </g>
 
-    <!-- 全图 · 一出祁山 -->
+    <!-- 长安·关中(图外·东):魏援自此逾陇 -->
+    <g transform="translate(986,250)">
+      <path class="march q" marker-end="url(#aq)" d="M -4,0 L -30,0"/>
+      <text class="mlabel q" x="-96" y="-10" style="font-size:10px">长安·关中 ⟶</text>
+    </g>
+
+    <!-- ══ 全图 · 一出祁山 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 200,430 C 250,400 290,360 322,286"/>
-      <text class="mlabel j" x="130" y="486">诸葛亮率大军出祁山,戎陈整齐</text>
-      <path class="march q" marker-end="url(#aq)" d="M 890,336 C 760,340 640,332 466,304"/>
-      <text class="mlabel q" x="600" y="356">张郃督步骑五万自长安驰援陇右</text>
-      <text class="mlabel j" x="300" y="248">天水、南安、安定三郡叛魏应蜀</text>
-      <text class="anno" x="130" y="562">别遣赵云、邓芝为疑军,据箕谷以扬声</text>
+      <path class="march j" marker-end="url(#aj)" d="M 745,525 C 560,512 400,452 320,392 C 268,352 232,304 210,276"/>
+      <text class="mlabel j" x="430" y="470">诸葛亮率大军自汉中出祁山,戎陈整齐</text>
+      <path class="march j" marker-end="url(#aj)" d="M 220,268 C 300,210 360,150 428,112"/>
+      <text class="mlabel j" x="238" y="196">遣马谡督军在前,拒张郃于街亭</text>
+      <path class="march q" marker-end="url(#aq)" d="M 950,254 C 780,262 640,236 540,206 C 500,180 470,140 452,116"/>
+      <text class="mlabel q" x="560" y="300">张郃督步骑五万自长安驰援</text>
+      <path class="march j" marker-end="url(#aj)" d="M 772,522 C 826,470 852,414 866,362"/>
+      <text class="anno" x="812" y="500">赵云、邓芝为疑军,据箕谷扬声</text>
+      <text class="mlabel j" x="248" y="122">三郡叛魏应亮,关中响震</text>
     </g>
 
-    <!-- 阶段一:三郡响应 -->
+    <!-- ══ 阶段一:三郡响应 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 200,430 C 240,400 280,340 320,286"/>
-      <text class="mlabel j" x="120" y="472">春,亮出祁山,号令明肃</text>
-      <text class="mlabel j" x="250" y="252">南安·天水·安定三郡叛魏,关中大震</text>
-      <path class="march q" marker-end="url(#aq)" d="M 888,338 C 780,346 700,342 610,336"/>
-      <text class="mlabel q" x="640" y="372">魏明帝西镇长安</text>
-      <text class="anno" x="632" y="390">遣张郃督步骑五万驰援</text>
+      <path class="march j" marker-end="url(#aj)" d="M 745,525 C 560,514 410,458 330,398 C 276,356 236,306 212,278"/>
+      <text class="mlabel j" x="430" y="474">春,亮出祁山,号令明肃,魏不意汉军猝至</text>
+      <text class="mlabel j" x="214" y="110">南安·天水·安定三郡叛魏应亮</text>
+      <text class="anno" x="214" y="126">天水参军姜维亦归蜀,关中大震</text>
+      <path class="march q" marker-end="url(#aq)" d="M 950,254 C 820,260 720,250 640,236"/>
+      <text class="mlabel q" x="632" y="212">魏明帝西镇长安</text>
+      <text class="anno" x="612" y="230">遣右将军张郃督步骑五万驰援陇右</text>
     </g>
 
-    <!-- 阶段二:谡违节度 -->
+    <!-- ══ 阶段二:舍水上山 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 320,282 C 370,278 410,286 440,296"/>
-      <text class="mlabel j" x="300" y="262">亮使马谡督诸军在前,拒张郃于街亭</text>
-      <rect class="camp" x="446" y="256" width="9" height="9" transform="rotate(45 450 260)" fill="#1f4e54"/>
-      <text class="anno" x="462" y="252">谡舍水上山,不下据城;王平谏不听</text>
-      <path class="march q" marker-end="url(#aq)" d="M 690,320 C 600,318 530,312 470,302"/>
-      <text class="mlabel q" x="500" y="336">张郃至,绝其汲道</text>
-      <circle class="star" cx="452" cy="300" r="9"/>
-      <text class="mlabel q" x="360" y="330">纵兵急击,蜀军无水,不战自乱,大破之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 380,172 C 400,150 418,128 432,112"/>
+      <text class="mlabel j" x="250" y="196">亮违众议,使马谡督诸军拒张郃于街亭</text>
+      <!-- 马谡舍城上山:营于南山 -->
+      <rect class="camp" x="440" y="72" width="10" height="10" transform="rotate(45 445 77)"/>
+      <text class="mlabel j" x="332" y="52">谡舍水上山,不下据城</text>
+      <text class="anno" x="332" y="68">举措烦扰;王平连规谏,不能用</text>
+      <path class="march q" marker-end="url(#aq)" d="M 640,236 C 560,214 510,168 474,120"/>
+      <text class="mlabel q" x="516" y="182">张郃倍道趋街亭</text>
+      <text class="anno" x="470" y="200">依水当道之城反弃之</text>
     </g>
 
-    <!-- 阶段三:挥泪退兵 -->
+    <!-- ══ 阶段三:绝汲道 · 大溃 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="452" cy="300" r="9"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 444,306 C 360,340 260,380 190,412"/>
-      <text class="mlabel r" x="270" y="360">街亭既败,亮拔西县千余家还汉中</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 466,514 C 420,470 340,420 216,428"/>
-      <text class="mlabel r" x="300" y="500">赵云敛众固守,烧栈道,不至大败</text>
-      <text class="anno" x="120" y="440">亮上疏自贬三等,戮马谡以谢众</text>
+      <rect class="camp" x="440" y="72" width="10" height="10" transform="rotate(45 445 77)"/>
+      <!-- 张郃围山绝汲:断其山下之水 -->
+      <path class="march q" marker-end="url(#aq)" d="M 520,150 C 500,138 480,128 468,122"/>
+      <path class="march q" marker-end="url(#aq)" d="M 470,162 C 468,146 464,132 460,124"/>
+      <g class="cut" transform="translate(460,120)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="474" y="118">张郃绝汲道 · 断其水 ✕</text>
+      <circle class="star" cx="445" cy="90" r="11"/>
+      <text class="mlabel q" x="360" y="30">纵兵急击,蜀军居山无水,不战自乱,大破之</text>
+      <!-- 蜀军星散·溃退 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 430,102 C 356,150 300,196 270,236"/>
+      <text class="mlabel r" x="286" y="180">蜀军渴乱溃散,士卒星散</text>
+      <text class="anno" x="256" y="252">独王平千人鸣鼓自持,徐收遗迸而还</text>
+      <!-- 亮拔西县还汉中 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 262,244 C 400,330 580,440 742,522"/>
+      <text class="mlabel r" x="454" y="392">亮拔西县千余家,还汉中</text>
+      <!-- 箕谷失利·烧栈道 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 862,360 C 826,420 800,472 766,520"/>
+      <text class="anno" x="784" y="452">赵云敛众固守,烧栈道,不至大败</text>
+      <text class="anno" x="560" y="576">亮上疏自贬三等,戮马谡以谢众</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(946,584)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -174,35 +241,89 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蜀汉军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>曹魏军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>曹魏</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蜀汉</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蜀汉军(诸葛亮·马谡)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>曹魏军(张郃)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>蜀军溃散</span>
+    <span class="item"><svg width="30" height="14"><path d="M 6,12 L 12,4 L 16,9 L 20,3 L 26,12 Z" fill="rgba(92,79,56,.28)" stroke="#5c4f38" stroke-width="1"/><line x1="4" y1="9" x2="26" y2="9" stroke="#2c6b6f" stroke-width="2" opacity=".6"/></svg>山下水·汲道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>绝汲道·断水</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(街亭)</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/></svg>山脉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>曹魏</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>蜀汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 舍水上山 与 绝汲道</h3>
+    <div class="lead">何以街亭之败,系于一山一水 —— 置之死地,反自乱于渴</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="街亭之败图解:马谡舍当道之城与水而上南山,张郃围山绝汲道断水,蜀军无水自乱">
+      <!-- 左:当道之城(有水),马谡所舍 -->
+      <rect x="40" y="150" width="70" height="46" rx="3" fill="none" stroke="#1f4e54" stroke-width="1.8"/>
+      <path d="M 44,204 C 60,200 92,200 106,206" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".85"/>
+      <text x="46" y="142" fill="#1f4e54" font-size="11.5" font-weight="700">当道之城</text>
+      <text x="40" y="224" fill="#5f7f88" font-size="10.5">城傍有水 · 可守可汲</text>
+      <g><circle cx="118" cy="126" r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="113.5" y1="121.5" x2="122.5" y2="130.5" stroke="#9a2b1e" stroke-width="2.4"/><line x1="113.5" y1="130.5" x2="122.5" y2="121.5" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <text x="70" y="118" fill="#9a2b1e" font-size="10.5" font-weight="700">舍之 ✕</text>
+      <path d="M 116,150 C 150,120 190,96 240,80" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="7 5" marker-end="url(#aj)"/>
+      <text x="140" y="150" fill="#1f4e54" font-size="10.5" font-style="italic">舍水上山</text>
+      <!-- 中:南山,马谡屯于其上 -->
+      <path d="M 300,196 L 380,60 L 460,196 Z" fill="rgba(92,79,56,.18)" stroke="#5c4f38" stroke-width="1.2"/>
+      <rect x="373" y="66" width="14" height="14" transform="rotate(45 380 73)" fill="#1f4e54"/>
+      <text x="346" y="52" fill="#1f4e54" font-size="11.5" font-weight="700">马谡屯南山</text>
+      <text x="330" y="176" fill="#5c4f38" font-size="10">居高临下 · 欲置之死地而后生</text>
+      <!-- 山下之水与汲道 -->
+      <path d="M 388,196 L 402,214" stroke="#2c6b6f" stroke-width="2.4" stroke-dasharray="1 4"/>
+      <path d="M 392,214 C 384,218 384,228 396,230 C 408,231 418,224 414,216 C 411,210 400,210 392,214 Z" fill="#5f7f88" opacity=".85"/>
+      <text x="330" y="234" fill="#2c6b6f" font-size="10.5">山下汲道:军所恃之水</text>
+      <!-- 张郃围山绝汲 -->
+      <path d="M 560,150 C 500,150 456,190 420,224" fill="none" stroke="#9a2b1e" stroke-width="2.6" marker-end="url(#aq)"/>
+      <path d="M 560,120 C 500,110 450,140 412,214" fill="none" stroke="#9a2b1e" stroke-width="2.6" marker-end="url(#aq)"/>
+      <g><circle cx="404" cy="222" r="8" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="399" y1="217" x2="409" y2="227" stroke="#9a2b1e" stroke-width="2.6"/><line x1="399" y1="227" x2="409" y2="217" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="566" y="128" fill="#9a2b1e" font-size="11.5" font-weight="700">张郃围山</text>
+      <text x="566" y="146" fill="#9a2b1e" font-size="11.5" font-weight="700">绝其汲道 ✕</text>
+      <!-- 右:军无水自乱 -->
+      <path d="M 470,90 C 560,80 640,80 690,86" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 7" marker-end="url(#ar)"/>
+      <text x="628" y="60" fill="#2b2418" font-size="12.5" font-weight="700">军无水</text>
+      <text x="628" y="80" fill="#7a5a23" font-size="12.5" font-weight="700">→ 渴 → 自乱</text>
+      <text x="628" y="120" fill="#7a5a23" font-size="11" font-style="italic">不战而溃</text>
+      <text x="628" y="138" fill="#7a5a23" font-size="11" font-style="italic">士卒星散</text>
+    </svg>
+    <p class="intro">街亭者,陇山之道口,关陇通衢。诸葛亮所以命马谡当之者,欲以扼张郃于陇坂,俾陇右三郡从容内附。胜负之枢,不在城之得失,而在<b>水之能守与否</b>——谡舍傍水当道之城而上南山,自弃其所恃,张郃因得绝其汲道以困之。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>舍水上山 · 谡之所恃</h4>
+        <p>马谡不下据当道之城,而依阻南山,盖欲居高临下、乘势冲下,又『置之死地而后生』。然街亭之要,本在扼道守水;既舍平地傍水之城而登孤山,则营中之水一绝,数万之众无所取汲——所恃之地利,反成受困之绝地。王平连规谏,谡不能用。</p>
+      </div>
+      <div class="c b">
+        <h4>绝汲道 · 郃之所乘</h4>
+        <p>张郃宿将,一见其隙。既至街亭,不与争山,但纵兵围之,<b>绝其汲道</b>,断山营下汲之路。蜀军居山旬日无水,渴乏交攻,未接刃而部伍已乱;郃因纵兵急击,遂大破之,士卒星散。所谓破军者,非攻其山,乃断其水也。</p>
+      </div>
+    </div>
+    <p class="kicker">故街亭之败,不在众寡,不在勇怯,而在<b>失其所恃之水</b>:置之死地而不能后生,反自乱于渴。诸葛亮所以拔西县而还、挥泪斩谡、上疏自贬者,痛用人之失、举措之烦——一伐功败垂成,枢机止于<b>一山一水之间</b>。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·诸葛亮传》《马谡传》《王平传》《张郃传》及《资治通鉴》卷七一约略绘出。疆界、水道经简化,晕染"约界"非实有画界。</p>
-    <p><span class="n">注二</span>街亭在今甘肃秦安东北,祁山在今礼县东,上邽今天水市,西县在今礼县东北;渭水东下长安。诸地位置从旧释,存异说。</p>
-    <p><span class="n">注三</span>马谡舍水上山、张郃绝汲致败,蜀军星散。亮以用人失当自贬三等、挥泪斩谡;本图从蜀汉(青)而其败,溃退用褐,以志一伐之挫。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何关系力求近实:街亭在北(陇山道口),上邽居中,天水·冀在西北,祁山·西县在西南,汉中在南(蜀本),长安在东(图外),陇山亘于关陇之间。因陇右theatre南北长而东西狭,东西向略有拉伸(KX>KY),江河、疆界经简化描绘,晕染『约界』非实有画界。依《三国志·诸葛亮传》《马谡传》《王平传》《张郃传》及《资治通鉴》卷七十一约略绘出。</p>
+    <p><span class="n">注二</span>今地:街亭在今甘肃秦安东北(陇城镇一带),略阳城近之;祁山在今礼县东(祁山堡),西县在今礼县东北;上邽今天水市秦州区,天水郡治冀城在今甘谷东;汉中今陕西汉中;长安今西安西北。祁山旧释在礼县,其经度实西于街亭,故图中列于西南(与所命经纬相合);诸地位置从旧释,存异说。</p>
+    <p><span class="n">注三</span>制胜之枢在『断水』:马谡违亮节度,舍水上山、不下据城,举措烦扰;张郃绝其汲道(图中朱色 ✕),蜀军居山无水,不战自乱,大破之——非战之罪,实失水之败。街亭既失,亮进无所据,乃拔西县千余家还汉中。参《张郃传》『郃绝其汲道,击,大破之』,《马谡传》『舍水上山,举措烦扰』,《王平传》平『连规谏谡』『鸣鼓自持』。</p>
+    <p><span class="n">注四</span>本图从蜀汉(青)为主,虽其败亦以青为诸葛亮·马谡之军;曹魏(朱)为敌;蜀军溃散用褐,以志一伐之挫。陇右三郡(南安·天水·安定)本魏土,叛魏应亮,故图中位于魏疆(朱)之内,以青字标其响应,非另立疆界。别将赵云、邓芝为疑军据箕谷,为魏大将军曹真所拒,兵弱失利,然敛众固守、烧栈道断后,不至大败。诸军中兵数、街亭确址,史或互异,并存以俟考。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"一出祁山",d:"蜀汉建兴六年春(228)",p:["诸葛亮首出祁山,扬声由斜谷道取郿,遣赵云、邓芝为疑军据箕谷以缀魏兵,而自率大军攻祁山。戎陈整齐,号令明肃,南安、天水、安定三郡叛魏应蜀,关中响震。","魏明帝亲西镇长安,遣右将军张郃督步骑五万驰援陇右。亮使参军马谡督诸军在前,拒张郃于街亭——陇山道口,关陇之枢,胜负系焉。"]},
-  "1":{t:"三郡响应",d:"建兴六年春·魏太和二年",p:["建兴六年春,亮出祁山,戎陈整齐,号令明肃,魏人不意汉军猝至。南安、天水、安定三郡叛魏应亮,天水参军姜维亦归蜀,关中大震,朝野惊恐。","魏明帝以陇右危急,西镇长安坐镇关中,遣右将军张郃督步骑五万倍道驰援陇右,以解三郡之围,与蜀军争衡于陇上。"]},
-  "2":{t:"谡违节度",d:"建兴六年春",p:["亮违众议,不用旧将魏延、吴壹,而使参军马谡督诸军在前,拒张郃于街亭。谡违亮节度,舍水上山、不下据城,举措烦扰;裨将军王平连规谏之,谡不能用。","张郃至,绝其汲道,纵兵急击。蜀军居山无水,渴乱溃散,不战自乱,大破之,士卒星散。独王平所领千人鸣鼓自持,徐徐收合诸营遗迸而还。"]},
-  "3":{t:"挥泪退兵",d:"建兴六年春·夏",p:["街亭既败,亮进无所据,乃拔西县千余家,还于汉中。赵云、邓芝以疑军当箕谷,亦为魏将曹真所拒,兵弱敌强,失利于箕谷;然云敛众固守,身自断后,烧毁栈道,军资什物略无所弃,不至大败。","亮既还,上疏自贬三等,以右将军行丞相事;戮马谡以谢众,并诛将军张休、李盛,夺黄袭等兵。乃明法训厉,厉兵讲武,以图后举。"]}
+  all:{t:"一出祁山",d:"蜀汉建兴六年春(228)",p:["诸葛亮首出祁山,扬声由斜谷道取郿,遣赵云、邓芝为疑军据箕谷以缀魏兵,而自率大军攻祁山。戎陈整齐,号令明肃,南安、天水、安定三郡叛魏应亮,关中响震。","魏明帝亲西镇长安,遣右将军张郃督步骑五万倍道驰援陇右。亮违众议,使参军马谡督诸军在前,拒张郃于街亭——陇山道口,关陇之枢,一伐胜负系焉。"]},
+  "1":{t:"三郡响应",d:"建兴六年春·魏太和二年",p:["建兴六年春,亮出祁山,戎陈整齐,号令明肃,魏人不意汉军猝至。南安、天水、安定三郡叛魏应亮,天水参军姜维亦归蜀,关中大震,朝野恐惧。","魏以陇右危急,明帝西镇长安坐镇关中,遣右将军张郃督步骑五万倍道驰援陇右,以解三郡之围,与蜀军争衡于陇上。别以大将军曹真拒赵云疑军于箕谷。"]},
+  "2":{t:"舍水上山",d:"建兴六年春",p:["亮违众议,不用旧将魏延、吴壹,而使参军马谡督诸军在前,拒张郃于街亭。街亭有当道之城,傍水可守;谡违亮节度,舍水上山、不下据城,依阻南山,举措烦扰。","裨将军王平连规谏之,谡不能用,分其麾下千人别为一屯。张郃倍道趋街亭,望见谡舍水登山、自弃其所恃,遂知其可破。"]},
+  "3":{t:"绝汲道 · 大溃",d:"建兴六年春",p:["张郃至,不与争山,但纵兵围之,绝其汲道。蜀军居山无水,渴乱交攻,未及接刃而部伍已乱;郃因纵兵急击,大破之,士卒星散。独王平所领千人鸣鼓自持,徐徐收合诸营遗迸而还,魏军疑有伏,不敢逼。","街亭既败,亮进无所据,乃拔西县千余家,还于汉中。赵云、邓芝失利于箕谷,然敛众固守、烧栈道断后,不至大败。亮上疏自贬三等,行丞相事;戮马谡以谢众,挥泪斩之。一伐功败垂成,乃厉兵讲武,以图后举。"]}
 };
 const CITY={
-  jieting:{t:"街亭",d:"今甘肃秦安东北",p:["陇山道口,关陇通衢。亮使马谡拒张郃于此。谡舍水上山、不据城守,张郃绝其汲道,蜀军无水自乱,大破之——一伐成败之枢。"]},
-  qishan:{t:"祁山",d:"今甘肃礼县东",p:["诸葛亮首出所围之地,汉军自汉中北出陇右之门户。亮率大军攻祁山,戎陈整齐,三郡因之叛魏。"]},
-  xixian:{t:"西县",d:"今甘肃礼县东北",p:["街亭既败,亮进无所据,乃拔西县千余家而还汉中。徙民实蜀,以收桑榆。"]},
-  shanggui:{t:"上邽",d:"今甘肃天水市",p:["陇右渭上要邑,魏郭淮等所保。亮出祁山时,魏军犹守上邽、西围诸城,汉军未能尽下。"]},
-  tianshui:{t:"天水(冀)",d:"今甘肃甘谷东",p:["天水郡治冀城。天水与南安、安定三郡叛魏应亮,关中响震;天水参军姜维亦于此归蜀。"]},
-  chuang:{t:"长安",d:"今陕西西安西北",p:["关中重镇。魏明帝闻陇右警,亲西镇长安,张郃自此督步骑五万驰援陇右,倍道趋街亭。"]},
-  jigu:{t:"箕谷",d:"褒斜道南口一带",p:["亮扬声由斜谷取郿,遣赵云、邓芝为疑军据箕谷。云为曹真所拒,兵弱失利,然敛众固守、烧栈道断后,不至大败。"]}
+  jieting:{t:"街亭",d:"今甘肃秦安东北(陇城镇一带)",p:["陇山道口,关陇通衢。亮使马谡拒张郃于此。谡舍水上山、不下据城,张郃绝其汲道,蜀军无水自乱,大破之——一伐成败之枢。"]},
+  lueyang:{t:"略阳",d:"今甘肃秦安东,近街亭",p:["街亭之侧要地。陇坂西麓,魏蜀争衡陇右之冲。马谡拒张郃于街亭一带,略阳诸道皆其经营所系。"]},
+  shanggui:{t:"上邽",d:"今甘肃天水市秦州区",p:["陇右渭上要邑,魏郭淮等所保。亮出祁山时,魏军犹守上邽、西围诸城,汉军未能尽下;其地当渭水东下之冲。"]},
+  tianshui:{t:"天水(冀)",d:"郡治冀城,今甘肃甘谷东",p:["天水与南安、安定三郡叛魏应亮,关中响震;天水参军姜维亦于此归蜀。三郡本魏土,以亮猝至而叛应。"]},
+  xixian:{t:"西县",d:"今甘肃礼县东北",p:["近祁山。街亭既败,亮进无所据,乃拔西县千余家而还汉中,徙民实蜀,以收桑榆之效。"]},
+  qishan:{t:"祁山",d:"今甘肃礼县东(祁山堡)",p:["诸葛亮首出所围之地,汉军自汉中北出陇右之门户。亮率大军攻祁山,戎陈整齐,三郡因之叛魏。其地经度实西于街亭,故图列西南。"]},
+  hanzhong:{t:"汉中",d:"今陕西汉中",p:["蜀汉北伐根本,亮出兵所自、退军所归。街亭既败,亮拔西县千余家还此;上疏自贬三等,戮马谡,厉兵讲武以图后举。"]},
+  jigu:{t:"箕谷",d:"褒斜道北口一带",p:["亮扬声由斜谷取郿,遣赵云、邓芝为疑军据箕谷。云为大将军曹真所拒,兵弱失利,然敛众固守、烧栈道断后,不至大败。"]},
+  changan:{t:"长安(图外)",d:"今陕西西安西北",p:["关中重镇,魏西面根本。魏明帝闻陇右警,亲西镇长安;张郃自此督步骑五万驰援陇右,倍道逾陇坂趋街亭。地在图外之东,以边箭示之。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

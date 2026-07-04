@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,6 +42,7 @@
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.trail{stroke:var(--advance);stroke-width:3.2;stroke-dasharray:2.5 4.5;opacity:.95}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
@@ -47,18 +50,33 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.trail){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -71,107 +89,158 @@
   <a class="navback" href="index.html" aria-label="返回三国征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>邓</span><span>艾</span><span>灭</span><span>蜀</span></div>
   <header>
-    <h1>魏灭蜀之战</h1>
-    <div class="sub">魏景元四年 · 蜀炎兴元年(263)　　<i>曹魏 钟会 · 邓艾</i> 灭 <b>蜀汉 刘禅</b></div>
+    <h1>魏灭蜀 · 偷渡阴平</h1>
+    <div class="sub">魏景元四年 · 蜀炎兴元年(263)　　<i>曹魏 钟会 · 邓艾</i> 灭 <b>蜀汉 姜维 · 刘禅</b>　·　正合于剑阁 · 奇出阴平</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 三道伐蜀</button>
-    <button data-p="1">剑阁相拒</button>
-    <button data-p="2">偷渡阴平</button>
+    <button data-p="1">剑阁相拒(正合)</button>
+    <button data-p="2">偷渡阴平(奇出)</button>
     <button data-p="3">绵竹 · 蜀亡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="魏灭蜀之战形势图,含曹魏蜀汉疆界、剑门摩天岭群山与涪江白龙江及剑阁成都等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="魏灭蜀之战形势图,含曹魏蜀汉疆界、秦岭大巴摩天诸山与白龙江涪江嘉陵江,及汉中剑阁阴平江油绵竹成都等城邑与邓艾偷渡阴平小道">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:曹魏据汉中关陇(北),蜀汉据益州(南),约以剑门摩天岭群山为界 -->
-    <path d="M 0,232 C 130,214 260,236 380,224 C 520,210 640,244 760,232 C 860,222 940,236 1000,230 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path d="M 0,232 C 130,214 260,236 380,224 C 520,210 640,244 760,232 C 860,222 940,236 1000,230 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 0,232 C 130,214 260,236 380,224 C 520,210 640,244 760,232 C 860,222 940,236 1000,230"/>
-    <text class="realm j" x="620" y="90" font-size="32">曹 魏(汉中·关陇)</text>
-    <text class="realm q" x="360" y="560" font-size="34">蜀 汉(益州)</text>
+    <!-- ══ 疆界:曹魏据关中·陇右(北,秦岭以外),蜀汉据益州(南,含汉中);约以秦岭为界 ══ -->
+    <path d="M 0,110 C 90,72 170,56 250,56 C 380,58 470,92 560,116 C 660,142 800,150 1000,156 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,110 C 90,72 170,56 250,56 C 380,58 470,92 560,116 C 660,142 800,150 1000,156 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,110 C 90,72 170,56 250,56 C 380,58 470,92 560,116 C 660,142 800,150 1000,156"/>
+    <text class="realm j" x="612" y="70" font-size="30">曹 魏</text>
+    <text class="cname s" x="612" y="94" style="fill:var(--advance);opacity:.7">关中 · 陇右</text>
+    <text class="realm q" x="470" y="600" font-size="34">蜀 汉 · 益 州</text>
 
-    <!-- 白龙江:自阴平西北南流,经江油入涪 -->
-    <path class="river" stroke-width="3.4" d="M 150,150 C 200,220 250,290 300,340 C 336,378 372,404 420,420"/>
-    <!-- 涪江:自江油南下,经绵竹东至成都之北 -->
-    <path class="river" stroke-width="3.2" d="M 420,420 C 470,438 520,470 560,510 C 600,548 640,572 700,584"/>
-    <!-- 剑阁道旁小水 -->
-    <path class="river" stroke-width="2" d="M 700,300 C 720,350 730,400 720,450"/>
-    <text class="rname" x="236" y="288" transform="rotate(50 236 288)" style="font-size:11px">白龙江</text>
-    <text class="rname" x="520" y="486" transform="rotate(40 520 486)">涪 江</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 秦岭:关中与汉中之隔,钟会自骆谷、斜谷穿之而入汉中 -->
+    <path class="mtn fill" d="M 452,118 L 470,86 L 486,104 L 506,72 L 526,102 L 546,74 L 566,106 L 586,84 L 606,116 L 624,96 Z"/>
+    <path class="mtn" d="M 470,102 l 14,-18 l 12,13 l 16,-22 l 13,17 l 15,-20"/>
+    <text class="mname" x="470" y="60" transform="rotate(-9 470 60)">秦　岭</text>
+    <!-- 大巴山:汉中与剑阁之间,金牛道所经 -->
+    <path class="mtn fill" d="M 528,238 L 546,210 L 560,226 L 578,200 L 596,224 L 612,206 L 628,228 Z"/>
+    <text class="mname" x="536" y="256" style="font-size:10px">大 巴 山</text>
+    <!-- 摩天岭 · 岷山:阴平道所越之绝险 -->
+    <path class="mtn fill" d="M 214,244 L 230,216 L 244,232 L 262,208 L 280,230 L 296,212 L 312,234 Z"/>
+    <path class="mtn" d="M 232,228 l 12,-16 l 10,11 l 14,-19 l 11,14"/>
+    <text class="mname" x="204" y="264" style="font-size:10px">摩天岭·岷山</text>
+    <!-- 剑门:剑阁天险 -->
+    <path class="mtn fill" d="M 396,282 L 410,258 L 422,272 L 436,252 L 450,270 Z"/>
+    <text class="cname s" x="384" y="300" style="opacity:.85">剑门天险</text>
 
-    <!-- 摩天岭(邓艾偷渡所越) -->
-    <g class="mtn"><path d="M 300,300 l 9,-15 l 9,15 M 318,293 l 9,-15 l 9,15 M 336,300 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="298" y="322">摩天岭</text>
-    <!-- 剑门(剑阁天险) -->
-    <g class="mtn"><path d="M 636,268 l 9,-15 l 9,15 M 654,261 l 9,-15 l 9,15 M 672,268 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="638" y="290">剑门</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 白龙江:自阴平(文县)东南流,会嘉陵 -->
+    <path class="river" stroke-width="3" d="M 232,124 C 258,158 282,186 300,224 C 316,256 340,276 372,290"/>
+    <!-- 涪江:自江油南下,历绵竹东,至涪城,近成都之东 -->
+    <path class="river" stroke-width="3.2" d="M 300,286 C 306,352 330,432 372,516"/>
+    <!-- 嘉陵江:自陇南南流,经剑阁之东、阆中 -->
+    <path class="river" stroke-width="2.6" d="M 606,150 C 582,238 566,338 560,452"/>
+    <text class="rname" x="248" y="176" transform="rotate(52 248 176)" style="font-size:11px">白龙江</text>
+    <text class="rname" x="312" y="420" transform="rotate(80 312 420)">涪 江</text>
+    <text class="rname" x="566" y="360" transform="rotate(84 566 360)" style="font-size:11px">嘉陵江</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="yangan"><circle cx="596" cy="176" r="4"/><text class="cname" x="606" y="172">阳安关</text></g>
-      <g class="city" data-city="tazhong"><circle cx="176" cy="188" r="4"/><text class="cname s" x="120" y="184">沓中</text></g>
-      <g class="city" data-city="yinping"><circle cx="150" cy="150" r="4"/><text class="cname s" x="100" y="146">阴平</text></g>
-      <g class="city" data-city="jiange"><circle cx="700" cy="300" r="6"/><text class="cname" x="712" y="296">剑阁<tspan class="cname s" dx="2">(天险)</tspan></text></g>
-      <g class="city" data-city="jiangyou"><circle cx="420" cy="420" r="4.5"/><text class="cname" x="360" y="416">江油</text></g>
-      <g class="city" data-city="mianzhu"><circle cx="560" cy="510" r="5"/><text class="cname" x="572" y="506">绵竹</text></g>
-      <g class="city cap" data-city="chengdu"><circle cx="700" cy="584" r="6.5"/><text class="cname" x="712" y="580">成都<tspan class="cname s" dx="2">(蜀都)</tspan></text></g>
+      <g class="city" data-city="hanzhong"><circle cx="674.5" cy="174.5" r="5"/><text class="cname" x="684" y="171">汉中·南郑<tspan class="cname s" dx="2">(拔汉、乐)</tspan></text></g>
+      <g class="city" data-city="yangan"><circle cx="509.5" cy="203.5" r="4.5"/><text class="cname" x="519" y="200">阳安关</text></g>
+      <g class="city" data-city="tazhong"><circle cx="240.6" cy="73" r="4.5"/><text class="cname" x="250" y="70">沓中</text></g>
+      <g class="city" data-city="yinping"><circle cx="295" cy="203.5" r="5"/><text class="cname" x="305" y="200">阴平<tspan class="cname s" dx="2">(文县)</tspan></text></g>
+      <g class="city" data-city="jiange"><circle cx="443.5" cy="290.5" r="6"/><text class="cname" x="453" y="287">剑阁<tspan class="cname s" dx="2">(天险)</tspan></text></g>
+      <g class="city" data-city="jiangyou"><circle cx="295" cy="276" r="4.5"/><text class="cname" x="305" y="272">江油</text></g>
+      <g class="city" data-city="mianzhu"><circle cx="295" cy="435.5" r="5"/><text class="cname" x="305" y="432">绵竹</text></g>
+      <g class="city cap" data-city="chengdu"><circle cx="191" cy="528.3" r="6.5"/><text class="cname" x="201" y="525">成都<tspan class="cname s" dx="2">(蜀都)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 三道伐蜀 -->
+    <!-- 长安·关中(图外东北):魏军之根本,钟会自此度秦岭 -->
+    <g transform="translate(944,42)">
+      <path class="march j" marker-end="url(#aj)" d="M 30,-14 L 6,10"/>
+      <text class="mlabel j" x="-96" y="-20" style="font-size:10px">长安·关中(图外东北)↗</text>
+      <text class="cname s" x="-86" y="-6" style="fill:var(--advance);font-size:9.5px">司马昭遣三道之师</text>
+    </g>
+
+    <!-- ══ 全图 · 三道伐蜀 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 596,182 C 630,220 664,258 692,290"/>
-      <text class="mlabel j" x="600" y="234">钟会主力自汉中南下,克阳安关,趋剑阁</text>
-      <path class="march j" marker-end="url(#aj)" d="M 156,158 C 220,240 290,320 356,392"/>
-      <text class="mlabel j" x="180" y="264">邓艾出奇,自阴平行无人之地七百里</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 184,196 C 320,240 480,270 656,296"/>
-      <text class="mlabel q" x="300" y="228">姜维自沓中且战且退,合诸军扼剑阁</text>
-      <circle class="siege" cx="700" cy="300" r="16"/>
-      <text class="anno" x="620" y="336">会攻之不能下,粮运悬远,议欲引还</text>
+      <!-- 钟会:度秦岭入汉中,克阳安关,长驱剑阁 -->
+      <path class="march j" marker-end="url(#aj)" d="M 700,66 C 688,108 680,146 676,166 C 630,186 566,199 517,205 C 490,232 464,266 450,283"/>
+      <text class="mlabel j" x="560" y="150">钟会主力度秦岭</text>
+      <text class="mlabel j" x="470" y="248">克阳安,趋剑阁</text>
+      <!-- 邓艾:自陇右趋阴平 -->
+      <path class="march j" marker-end="url(#aj)" d="M 150,88 C 194,118 240,150 286,196"/>
+      <text class="mlabel j" x="132" y="130">邓艾出陇右</text>
+      <!-- 邓艾奇兵:偷渡阴平小道 -->
+      <path class="march trail" marker-end="url(#aj)" d="M 295,214 C 258,226 234,244 246,262 C 256,278 280,278 293,278"/>
+      <text class="mlabel j" x="150" y="300">邓艾偷渡阴平</text>
+      <text class="anno" x="150" y="314">行无人之地七百余里</text>
+      <path class="march j" marker-end="url(#aj)" d="M 295,284 C 293,346 293,420 262,468 C 246,492 220,510 202,522"/>
+      <text class="mlabel j" x="128" y="410">出江油,破绵竹,趋成都</text>
+      <!-- 姜维:自沓中且战且退,合诸军扼剑阁 -->
+      <path class="march q" marker-end="url(#aq)" d="M 246,84 C 316,150 388,224 436,282"/>
+      <text class="mlabel q" x="300" y="200">姜维自沓中还,扼剑阁</text>
+      <circle class="star" cx="443.5" cy="290.5" r="15"/>
+      <text class="anno" x="386" y="330">会攻之不下,议欲引还</text>
     </g>
 
-    <!-- 阶段一:剑阁相拒 -->
+    <!-- ══ 阶段一:剑阁相拒(正合) ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 596,182 C 632,222 666,260 694,292"/>
-      <text class="mlabel j" x="590" y="230">钟会克阳安关,长驱至剑阁</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 184,196 C 320,238 480,268 656,296"/>
-      <text class="mlabel q" x="280" y="216">姜维自沓中且战且退,合廖化、张翼</text>
-      <rect class="camp" x="672" y="304" width="9" height="9" transform="rotate(45 676 308)"/>
-      <text class="mlabel q" x="640" y="346">姜维营剑阁,凭天险拒守</text>
-      <circle class="siege" cx="700" cy="300" r="17"/>
-      <text class="anno" x="600" y="372">会攻之不克,粮运悬远,议欲引还</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,66 C 688,108 680,146 676,166 C 630,186 566,199 517,205"/>
+      <text class="mlabel j" x="560" y="146">钟会自骆谷·斜谷入汉中</text>
+      <text class="anno" x="588" y="192">拔汉、乐二城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 502,208 C 480,234 462,264 450,283"/>
+      <text class="mlabel j" x="452" y="246">克阳安关口,长驱剑阁</text>
+      <!-- 姜维退保 -->
+      <path class="march q" marker-end="url(#aq)" d="M 246,84 C 316,150 388,224 436,282"/>
+      <text class="mlabel q" x="252" y="150">姜维自沓中且战且退</text>
+      <text class="anno" x="288" y="196">合廖化、张翼、董厥</text>
+      <rect class="camp" x="458" y="298" width="9" height="9" transform="rotate(45 462 302)"/>
+      <text class="mlabel q" x="470" y="318">姜维营剑阁,凭险拒守</text>
+      <circle class="siege" cx="443.5" cy="290.5" r="17"/>
+      <circle class="star" cx="443.5" cy="290.5" r="11"/>
+      <text class="anno" x="368" y="352">会攻之累旬不克,粮运悬远,议欲引还</text>
     </g>
 
-    <!-- 阶段二:偷渡阴平 -->
+    <!-- ══ 阶段二:偷渡阴平(奇出) ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" stroke-width="4.4" d="M 150,158 C 210,230 260,290 300,332 C 340,372 380,398 414,414"/>
-      <text class="mlabel j" x="150" y="238">邓艾自阴平行无人之地七百余里</text>
-      <text class="anno" x="240" y="298">凿山通道,造作桥阁;山高谷深</text>
-      <text class="anno" x="286" y="356">粮将匮,艾以毡自裹,推转而下</text>
-      <text class="anno" x="330" y="392">将士攀木缘崖,鱼贯而进</text>
-      <path class="march j" marker-end="url(#aj)" d="M 424,416 C 434,414 444,412 452,410"/>
-      <text class="mlabel j" x="380" y="446">出于江油,守将马邈不意其至,遂降</text>
+      <path class="march j" marker-end="url(#aj)" d="M 150,88 C 194,118 240,150 286,196"/>
+      <text class="mlabel j" x="128" y="128">邓艾自阴平由景谷道</text>
+      <!-- 阴平小道:凿山裹毡而下 -->
+      <path class="march trail" marker-end="url(#aj)" d="M 295,214 C 256,226 230,246 244,266 C 256,282 282,280 294,280"/>
+      <!-- 山道险峻记号 -->
+      <path class="mtn" style="opacity:.6" d="M 250,236 l 7,-11 l 7,11 M 236,258 l 7,-11 l 7,11"/>
+      <text class="mlabel j" x="112" y="238">行无人之地七百余里</text>
+      <text class="anno" x="120" y="330">凿山通道,造作桥阁</text>
+      <text class="anno" x="120" y="346">山高谷深,粮运将匮</text>
+      <text class="anno" x="120" y="362">艾以毡自裹,推转而下</text>
+      <text class="anno" x="120" y="378">将士攀木缘崖,鱼贯而进</text>
+      <path class="march j" marker-end="url(#aj)" d="M 296,282 C 296,296 296,308 296,322"/>
+      <text class="mlabel j" x="308" y="316">出于江油,守将马邈降</text>
+      <!-- 钟会仍顿剑阁(牵制) -->
+      <circle class="siege" cx="443.5" cy="290.5" r="15" style="opacity:.55"/>
+      <text class="anno" x="404" y="322" style="opacity:.7">钟会正兵犹缀剑阁</text>
     </g>
 
-    <!-- 阶段三:绵竹 · 蜀亡 -->
+    <!-- ══ 阶段三:绵竹 · 蜀亡 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 424,426 C 470,452 512,480 548,502"/>
-      <text class="mlabel j" x="420" y="470">邓艾进逼绵竹</text>
-      <path d="M 560,510 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="470" y="534">诸葛瞻斩使力战,兵败,瞻及子尚俱死</text>
-      <path class="march j" marker-end="url(#aj)" d="M 568,516 C 610,540 646,562 684,578"/>
-      <text class="mlabel j" x="600" y="560">艾长驱径至成都</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 690,578 C 700,556 700,530 700,320"/>
-      <text class="mlabel r" x="708" y="440">刘禅出降,敕姜维等降于钟会;蜀汉亡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 296,284 C 294,340 294,392 295,428"/>
+      <text class="mlabel j" x="308" y="360">邓艾进逼绵竹</text>
+      <!-- 绵竹战:诸葛瞻父子死之 -->
+      <rect class="camp" x="291" y="431" width="9" height="9" transform="rotate(45 295 435)"/>
+      <circle class="star" cx="295" cy="435.5" r="10"/>
+      <text class="mlabel q" x="130" y="424">诸葛瞻斩使力战</text>
+      <text class="mlabel q" x="130" y="440">瞻及子尚俱死之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 288,442 C 256,470 222,500 200,521"/>
+      <text class="mlabel j" x="200" y="486">艾长驱径至成都</text>
+      <circle class="star" cx="191" cy="528.3" r="11"/>
+      <!-- 蜀亡:刘禅出降,敕姜维等降钟会 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 200,522 C 300,470 400,362 440,300"/>
+      <text class="mlabel r" x="300" y="440">刘禅出降,敕姜维等降于钟会</text>
+      <text class="anno" x="150" y="556">蜀汉立国四十三年而亡</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -180,35 +249,78 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹魏军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>蜀汉军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>退降</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>战殁</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹魏</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>蜀汉</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹魏军(钟会·邓艾)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3.2" stroke-dasharray="2.5 4.5"/></svg>阴平小道(奇兵)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>蜀汉军(姜维)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>出降 · 蜀亡</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战·要地</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>曹魏</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>蜀汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 正合奇胜</h3>
+    <div class="lead">剑阁天险守而蜀亡 —— 钟会以正兵缀其锋,邓艾以奇兵拊其背</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="正合奇胜示意:钟会正兵顿于剑门天险之下,邓艾奇兵绕阴平山地出于剑阁之后,直捣空虚之成都">
+      <!-- 剑门天险:中央壁垒 -->
+      <path class="mtn fill" d="M 396,60 L 412,84 L 428,64 L 444,90 L 460,66 L 476,96 L 460,230 L 412,230 Z" style="fill:rgba(92,79,56,.26)"/>
+      <line x1="396" y1="230" x2="476" y2="230" stroke="#5c4f38" stroke-width="1.4" opacity=".5"/>
+      <text x="386" y="248" fill="#5c4f38" font-size="12" font-weight="700">剑门天险</text>
+      <text x="700" y="40" fill="#9a2b1e" font-size="12" font-weight="700">蜀·益州(成都)</text>
+      <!-- 正兵:钟会自左正面来,顿于天险 -->
+      <path d="M 30,150 L 372,150" fill="none" stroke="#1f4e54" stroke-width="5" stroke-linecap="round"/>
+      <path d="M 372,150 L 358,144 L 358,156 Z" fill="#1f4e54"/>
+      <g><circle cx="392" cy="150" r="9" fill="none" stroke="#9a2b1e" stroke-width="2"/><line x1="386" y1="144" x2="398" y2="156" stroke="#9a2b1e" stroke-width="2.6"/><line x1="386" y1="156" x2="398" y2="144" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="40" y="140" fill="#1f4e54" font-size="12.5" font-weight="700">正兵 · 钟会十余万</text>
+      <text x="40" y="176" fill="#5c4f38" font-size="11">攻之不克,粮运悬远,几欲引还</text>
+      <text x="404" y="140" fill="#9a2b1e" font-size="11" font-weight="700">缀 ✕</text>
+      <!-- 奇兵:邓艾自左,绕山地越顶,出天险之后至成都 -->
+      <path d="M 30,150 C 40,70 120,44 250,44 C 360,44 430,44 500,44 C 640,44 720,110 776,182" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-dasharray="3 5"/>
+      <path d="M 776,182 L 770,166 L 782,170 Z" fill="#1f4e54"/>
+      <!-- 山道险峻记号 -->
+      <path d="M 150,54 l 8,-12 l 8,12 M 300,50 l 8,-12 l 8,12" fill="none" stroke="#5c4f38" stroke-width="1.2" opacity=".7"/>
+      <text x="150" y="34" fill="#1f4e54" font-size="12" font-weight="700">奇兵 · 邓艾出阴平(七百里绝地)</text>
+      <text x="470" y="34" fill="#5c4f38" font-size="10.5" font-style="italic">凿山裹毡,推转而下</text>
+      <circle cx="792" cy="188" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <g><circle cx="792" cy="188" r="10" fill="none" stroke="#9c7a2c" stroke-width="2"/></g>
+      <text x="720" y="212" fill="#2b2418" font-size="11.5" font-weight="700">成都(空虚,刘禅降)</text>
+    </svg>
+    <p class="intro">蜀之北门,恃<b>剑阁一线天险</b>,一夫当关、万夫莫开。姜维尽锐扼守,钟会主力顿于其下累旬,攻之不能拔——若徒以正面相持,则蜀未必亡。破局之钥,不在剑门之正,而在<b>剑门之背</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>以正合 · 钟会缀剑阁</h4>
+        <p>钟会统十余万主力,自骆谷、斜谷度秦岭入汉中,拔汉、乐二城,克阳安关口,长驱至剑阁。虽攻之不克、粮运悬远而欲还,却牢牢牵制姜维之蜀军全数于此天险,使成都以西门户尽空——此『以正合』者,顿其锋以钳其力。</p>
+      </div>
+      <div class="c b">
+        <h4>以奇胜 · 邓艾出阴平</h4>
+        <p>邓艾自阴平由景谷道行无人之地七百余里,凿山通道、造作桥阁;山高谷深,以毡自裹推转而下,将士攀木缘崖。既出江油(马邈降),破诸葛瞻父子于绵竹,径趋成都。蜀恃剑阁而不虞其背,遂以空国而降——此『以奇胜』者,拊其背以捣其虚。</p>
+      </div>
+    </div>
+    <p class="kicker">剑阁未尝一日破,而蜀汉竟亡:非天险之不固,乃<b>奇兵出其不意、直捣其虚</b>。姜维守剑阁不败而国先降,将在外而君先屈,惜哉。故曰『凡战者,以正合,以奇胜』——钟会缀其锋于剑门,邓艾拊其背于阴平,一正一奇,而<b>四十三年之蜀祚终</b>。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·邓艾传》《钟会传》《姜维传》《后主传》及《资治通鉴》卷七八约略绘出。疆界、水道经简化;三道伐蜀之诸葛绪一路(趋武街、桥头)未尽标出。</p>
-    <p><span class="n">注二</span>阴平在今甘肃文县,江油在今四川平武南,绵竹在今德阳。剑阁天险即剑门关,摩天岭为阴平道所越之绝险。</p>
-    <p><span class="n">注三</span>邓艾裹毡转崖、偷渡阴平七百里,为古今奇袭之绝;蜀以成都空虚、后主暗弱而亡。姜维守剑阁不败,而国先降——将在外而君先屈,惜哉。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何关系力求近实:汉中·南郑在东北,剑阁在中东,阴平在西北,沓中在极西北,江油、绵竹、成都自北而南,长安·关中在图外东北。经纬取值:汉中(107.0E,33.1N)、剑阁·剑门(105.6E,32.3N)、阴平·文县(104.7E,32.9N)、江油·平武(104.7E,32.4N)、绵竹·德阳(104.7E,31.3N)、成都(104.07E,30.66N)、沓中·舟曲(104.4E,33.8N)。江河、疆界、山脉经简化描绘,东西向略有放大。</p>
+    <p><span class="n">注二</span>依《三国志·钟会传》《邓艾传》《姜维传》《后主传》及《资治通鉴》卷七十八(魏纪十,景元四年)绘出。战前汉中本蜀土,魏景元四年秋司马昭遣钟会、邓艾、诸葛绪三道伐蜀:钟会主力自骆谷、斜谷度秦岭入汉中,拔汉、乐二城,克阳安关口(蜀将蒋舒降、傅佥战死),进逼剑阁;邓艾自狄道趋沓中缀姜维,诸葛绪出武街、桥头断其归路。姜维自沓中且战且退,摆脱诸葛绪,合廖化、张翼、董厥退保剑阁。诸葛绪一路(趋武街、桥头,后并于钟会)未尽标出。</p>
+    <p><span class="n">注三</span>邓艾偷渡阴平为古今奇袭之绝:自阴平由景谷邪径出剑阁之西,行无人之地七百余里,『凿山通道,造作桥阁』;山高谷深,粮运将匮,艾以毡自裹推转而下,将士攀木缘崖、鱼贯而进。既出江油,守将马邈不意魏军自天而降,遂降;进破诸葛瞻父子于绵竹,径至成都,后主刘禅面缚舆榇出降,并敕姜维等降于钟会。姜维守剑阁天险终不败,而国竟先降。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"三道伐蜀",d:"魏景元四年秋 · 蜀炎兴元年(263)",p:["司马昭欲成不世之功,遣钟会、邓艾、诸葛绪三道伐蜀:钟会统主力十余万自汉中南下,邓艾自狄道趋沓中缀姜维,诸葛绪出武街断其归路。蜀汉承平日久,黄皓用事,不设周备。","姜维自沓中且战且退,间道趋剑阁,合廖化、张翼、董厥诸军,扼天险拒钟会。会攻之不能下,粮运悬远,议欲引还;邓艾乃献偷渡阴平之奇策,出于剑阁之外。"]},
-  "1":{t:"剑阁相拒",d:"景元四年九月 — 十月",p:["钟会主力自汉中分道南进,克阳安关口(蜀将蒋舒降、傅佥战死),长驱直趋剑阁。姜维闻阳安已破,自沓中且战且退,与廖化、张翼、董厥合军,退保剑阁。","剑阁一夫当关、万夫莫开。姜维列营据险,钟会攻之累旬不能下。魏军深入,粮运悬远,士卒疲乏,会遂与诸将议:若旷日相持,或当引军而还——蜀之社稷,几系于此天险。"]},
-  "2":{t:"偷渡阴平",d:"景元四年十月 — 十一月",p:["邓艾上言:今贼摧折,宜从阴平由邪径出剑阁西,径趋涪、成都,出其空虚之地。遂自阴平行无人之地七百余里,凿山通道,造作桥阁。山高谷深,至为艰险,粮运将匮,几于危殆。","艾以毡自裹,推转而下;将士皆攀木缘崖,鱼贯而进。既出于江油,蜀守将马邈不意魏军自天而降,仓皇出降。奇兵既下,成都门户洞开——七百里绝地,一举而破蜀之藩篱。"]},
-  "3":{t:"绵竹 · 蜀亡",d:"景元四年十一月",p:["邓艾自江油进逼绵竹。蜀卫将军诸葛瞻(诸葛亮子)督诸军拒之,前锋不利,退屯绵竹。艾遗书诱降,许表为琅邪王;瞻怒,斩其使,列阵力战。","战酣,蜀军败绩,诸葛瞻及子尚俱死之,黄崇、张遵等皆没。艾遂长驱径至成都。后主刘禅面缚舆榇,出降于军门,并遣使敕姜维等降于钟会。立国四十三年之蜀汉,自此而亡。"]}
+  all:{t:"三道伐蜀",d:"魏景元四年秋 · 蜀炎兴元年(263)",p:["司马昭欲成不世之功,遣钟会、邓艾、诸葛绪三道伐蜀:钟会统主力十余万自关中度秦岭南下,趋汉中、剑阁;邓艾自狄道趋沓中缀姜维,诸葛绪出武街、桥头断其归路。蜀汉承平日久,黄皓用事,不设周备。","姜维自沓中且战且退,摆脱诸葛绪,合廖化、张翼、董厥,扼剑阁天险拒钟会。会攻之不能下,粮运悬远,议欲引还;邓艾乃献偷渡阴平之奇策,自阴平由景谷道出于剑阁之外——正合于剑阁,奇出于阴平。"]},
+  "1":{t:"剑阁相拒(正合)",d:"景元四年九月 — 十月",p:["钟会主力自骆谷、斜谷度秦岭入汉中,拔汉、乐二城,克阳安关口(蜀将蒋舒降、傅佥力战而死),长驱直趋剑阁。姜维闻关口已破,自沓中且战且退,与廖化、张翼、董厥合军,退保剑阁天险。","剑阁一夫当关、万夫莫开。姜维列营据险,钟会攻之累旬不能下。魏军深入,粮运悬远,士卒疲乏,会遂与诸将议:若旷日相持,或当引军而还——蜀之社稷,几系于此天险。然正兵之顿,实牵蜀之全军于此。"]},
+  "2":{t:"偷渡阴平(奇出)",d:"景元四年十月 — 十一月",p:["邓艾上言:今贼摧折,宜从阴平由邪径出剑阁西,径趋涪、成都,出其空虚之地。遂自阴平由景谷道行无人之地七百余里,凿山通道,造作桥阁。山高谷深,至为艰险,粮运将匮,几于危殆。","艾以毡自裹,推转而下;将士皆攀木缘崖,鱼贯而进。既出于江油,蜀守将马邈不意魏军自天而降,仓皇出降。此时钟会正兵犹缀剑阁——奇兵既下,成都门户洞开:七百里绝地,一举而破蜀之藩篱。"]},
+  "3":{t:"绵竹 · 蜀亡",d:"景元四年十一月",p:["邓艾自江油进逼绵竹。蜀卫将军诸葛瞻(诸葛亮子)督诸军拒之,前锋不利,退屯绵竹。艾遗书诱降,许表为琅邪王;瞻怒,斩其使,列阵力战。","战酣,蜀军败绩,诸葛瞻及子尚俱死之,黄崇、张遵等皆没。艾遂长驱径至成都。后主刘禅面缚舆榇,出降于军门,并遣使敕姜维等降于钟会。立国四十三年之蜀汉,自此而亡——剑阁天险守而不失,而国先降。"]}
 };
 const CITY={
-  jiange:{t:"剑阁",d:"今四川剑阁,剑门天险",p:["姜维扼此拒钟会,一夫当关,万夫莫开。会攻之不能下,粮运悬远,议欲引还——蜀之门户,守而不失,而国竟先亡。"]},
+  hanzhong:{t:"汉中 · 南郑",d:"今陕西汉中,蜀之北门",p:["刘备建安二十四年取汉中,为蜀北疆重镇。景元四年钟会主力度秦岭而入,拔汉城、乐城二城,克阳安关口,遂长驱南趋剑阁。"]},
+  jiange:{t:"剑阁",d:"今四川剑阁,剑门天险",p:["姜维扼此拒钟会,一夫当关,万夫莫开。会攻之不能下,粮运悬远,议欲引还——蜀之门户,守而不失,而国竟先亡。正合之兵顿于此,奇兵乃得出其背。"]},
   yangan:{t:"阳安关",d:"阳平关口,今陕西宁强西北",p:["汉中入蜀之锁钥。蜀将蒋舒出降、傅佥力战而死,关遂陷。钟会由此长驱南下,直趋剑阁。"]},
-  tazhong:{t:"沓中",d:"今甘肃舟曲一带",p:["姜维初屯避祸屯田之地。魏军三道并进,邓艾趋沓中缀之;维乃且战且退,间道趋剑阁合军拒守。"]},
-  yinping:{t:"阴平",d:"今甘肃文县",p:["邓艾偷渡之起点。自此行无人之地七百余里,凿山通道、造作桥阁,以毡裹身推转而下,遂出江油。"]},
+  tazhong:{t:"沓中",d:"今甘肃舟曲一带",p:["姜维避祸屯田之地。魏军三道并进,邓艾趋沓中缀之,诸葛绪出桥头断归路;维乃且战且退,摆脱诸葛绪,间道趋剑阁合军拒守。"]},
+  yinping:{t:"阴平",d:"今甘肃文县",p:["邓艾偷渡之起点。自此由景谷道行无人之地七百余里,凿山通道、造作桥阁,以毡裹身推转而下,遂出江油。"]},
   jiangyou:{t:"江油",d:"今四川平武南",p:["邓艾出阴平所下第一城。守将马邈不意魏军自绝地而至,仓皇出降,成都藩篱由是尽撤。"]},
-  mianzhu:{t:"绵竹",d:"今四川德阳",p:["诸葛瞻父子战死处。瞻斩艾诱降之使,列阵力战而败,与子尚俱殉;成都以北再无重兵。"]},
-  chengdu:{t:"成都",d:"蜀汉都城",p:["邓艾长驱径至,后主刘禅面缚舆榇出降,并敕姜维等降于钟会。蜀汉立国四十三年而亡。"]}
+  mianzhu:{t:"绵竹",d:"今四川德阳北",p:["诸葛瞻父子战死处。瞻斩艾诱降之使,列阵力战而败,与子尚俱殉;黄崇、张遵等皆没。成都以北再无重兵。"]},
+  chengdu:{t:"成都",d:"蜀汉都城,今四川成都",p:["邓艾长驱径至,后主刘禅面缚舆榇出降,并敕姜维等降于钟会。蜀汉立国四十三年而亡。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,7 +47,6 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
   .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
@@ -56,9 +57,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +88,16 @@
   <div class="seal" aria-hidden="true"><span>汉</span><span>中</span><span>之</span><span>战</span></div>
   <header>
     <h1>汉中之战</h1>
-    <div class="sub">汉建安二十二年至二十四年(217–219)　　<i>刘备</i> 争汉中 · 破 <b>曹操</b>(夏侯渊)</div>
+    <div class="sub">汉建安二十二年至二十四年(217–219)　　<i>刘备</i> 争汉中 · 斩 <b>曹操</b>大将夏侯渊于定军山</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 争夺汉中</button>
     <button data-p="1">阳平相持</button>
     <button data-p="2">定军斩渊</button>
-    <button data-p="3">操来无功</button>
+    <button data-p="3">拒险待疲</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="汉中之战形势图,含曹魏关中蜀汉益州疆界、汉水沔水与定军山阳平关南郑等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="汉中之战形势图,含曹魏关中与蜀汉益州疆界、秦岭大巴山、沔水汉水,及定军山阳平关南郑葭萌下辨等地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,89 +106,111 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:曹魏据关中(北),蜀汉据益州(南),约以秦岭为界 -->
-    <path d="M 0,300 C 120,290 250,282 380,272 C 520,262 660,270 800,260 C 880,255 950,252 1000,250 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 120,290 250,282 380,272 C 520,262 660,270 800,260 C 880,255 950,252 1000,250 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 120,290 250,282 380,272 C 520,262 660,270 800,260 C 880,255 950,252 1000,250"/>
-    <text class="realm q" x="620" y="130" font-size="32">曹 魏(关中)</text>
-    <text class="realm j" x="120" y="590" font-size="32">蜀 汉(益州)</text>
+    <!-- ══ 疆界:曹魏据关中(北),蜀汉据益州(南),汉中盆地夹于秦岭、大巴山之间,乃两家必争之地 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,470 C 780,478 620,486 470,486 C 320,486 150,478 0,470 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,470 C 150,478 320,486 470,486 C 620,486 780,478 1000,470 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,470 C 150,478 320,486 470,486 C 620,486 780,478 1000,470"/>
+    <text class="realm q" x="720" y="200" font-size="30">曹 魏(关中)</text>
+    <text class="realm j" x="150" y="588" font-size="30">蜀 汉(益州)</text>
+    <text class="cname s" x="612" y="300" style="fill:var(--ink);opacity:.45;font-size:15px;letter-spacing:.3em">汉中盆地 · 争地</text>
+    <text class="cname s" x="612" y="318" style="opacity:.7">曹操新得张鲁旧地,备举益州以争之</text>
 
-    <!-- 汉水·沔水:自西向东流经汉中 -->
-    <path class="river" stroke-width="5" d="M 120,470 C 240,458 340,452 430,448 C 540,442 640,436 740,432 C 840,428 930,428 1000,430"/>
-    <!-- 褒斜道支流示意(北通斜谷) -->
-    <path class="river" stroke-width="2.2" d="M 560,270 C 556,330 552,390 548,444"/>
-    <text class="rname" x="360" y="438" style="font-size:13px">沔 水 · 汉 水</text>
-    <text class="rname" x="566" y="360" transform="rotate(86 566 360)" style="font-size:10.5px">褒水</text>
+    <!-- ══ 秦岭:魏蜀天堑,横亘于北;褒斜、陈仓、傥骆诸道穿之 ══ -->
+    <path class="mtn fill" d="M 250,120 L 274,84 L 296,106 L 322,74 L 348,102 L 376,72 L 404,104 L 432,76 L 460,106 L 490,78 L 520,108 L 552,80 L 584,110 L 616,84 L 648,112 L 250,120 Z"/>
+    <path class="mtn" d="M 300,104 l 18,-26 l 16,20 l 20,-30 l 18,26 l 20,-28"/>
+    <path class="mtn" d="M 470,106 l 18,-26 l 16,20 l 20,-30 l 18,26 l 20,-28"/>
+    <text class="mname" x="392" y="70">秦　岭</text>
 
-    <!-- 秦岭:魏蜀之界,北 -->
-    <g class="mtn"><path d="M 300,262 l 9,-15 l 9,15 M 318,255 l 9,-15 l 9,15 M 336,262 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="300" y="284">秦岭</text>
-    <!-- 米仓山:汉中之南 -->
-    <g class="mtn"><path d="M 400,540 l 9,-15 l 9,15 M 418,533 l 9,-15 l 9,15 M 436,540 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="400" y="562">米仓山</text>
-    <!-- 定军山群峰 -->
-    <g class="mtn"><path d="M 236,488 l 8,-14 l 8,14 M 253,481 l 8,-14 l 8,14 M 270,488 l 7,-13 l 7,13"/></g>
+    <!-- ══ 大巴山·米仓山:汉中之南屏,魏蜀初界所依 ══ -->
+    <path class="mtn fill" d="M 288,486 L 312,462 L 334,480 L 360,458 L 386,480 L 412,460 L 440,482 L 468,460 L 494,482 L 520,462 L 546,484 L 288,486 Z"/>
+    <text class="mname" x="356" y="506" style="font-size:10.5px">大巴山 · 米仓山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 水系:沔水(汉水)自西向东贯汉中;褒水自秦岭南注 ══ -->
+    <path class="river" stroke-width="5" d="M 150,300 C 250,318 340,328 420,332 C 470,336 500,340 527,346 C 610,354 700,358 800,358 L 1000,360"/>
+    <path class="river" stroke-width="2.4" d="M 540,122 C 536,190 532,268 528,344"/>
+    <text class="rname" x="300" y="322" style="font-size:13px">沔 水 · 汉 水</text>
+    <text class="rname" x="546" y="230" transform="rotate(88 546 230)" style="font-size:10.5px">褒水</text>
+
+    <!-- 定军山群峰(汉水之南) -->
+    <g class="mtn"><path d="M 406,368 l 9,-15 l 9,15 M 424,361 l 9,-15 l 9,15 M 442,368 l 8,-14 l 8,14"/></g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="dingjunshan"><circle cx="262" cy="470" r="6"/><text class="cname" x="150" y="466">定军山<tspan class="cname s" dx="2">(斩渊)</tspan></text></g>
-      <g class="city" data-city="yangping"><circle cx="196" cy="440" r="5"/><text class="cname s" x="120" y="428">阳平关</text></g>
-      <g class="city cap" data-city="nanzheng"><circle cx="470" cy="440" r="6"/><text class="cname" x="482" y="436">南郑<tspan class="cname s" dx="2">(汉中治)</tspan></text></g>
-      <g class="city" data-city="mianshui"><circle cx="380" cy="450" r="3.5"/><text class="cname s" x="338" y="470">沔阳</text></g>
-      <g class="city" data-city="xiabian"><circle cx="180" cy="230" r="4.5"/><text class="cname s" x="118" y="226">下辨</text></g>
-      <g class="city" data-city="chengdu"><circle cx="240" cy="600" r="5.5"/><text class="cname" x="252" y="604">成都<tspan class="cname s" dx="2">(备后方)</tspan></text></g>
-      <g class="city cap" data-city="changan"><circle cx="840" cy="120" r="6"/><text class="cname" x="852" y="116">长安<tspan class="cname s" dx="2">(操援自此)</tspan></text></g>
+      <g class="city cap" data-city="nanzheng"><circle cx="527" cy="344" r="6"/><text class="cname" x="539" y="340">南郑<tspan class="cname s" dx="2">(汉中治)</tspan></text></g>
+      <g class="city" data-city="dingjunshan"><circle cx="428" cy="349" r="6"/><text class="cname" x="330" y="376">定军山<tspan class="cname s" dx="2">(斩渊)</tspan></text></g>
+      <g class="city" data-city="yangping"><circle cx="403" cy="321" r="5"/><text class="cname s" x="330" y="308">阳平关</text></g>
+      <g class="city" data-city="mianyang"><circle cx="463" cy="332" r="3.5"/><text class="cname s" x="470" y="326">沔阳</text></g>
+      <g class="city" data-city="xiabian"><circle cx="212" cy="158" r="4.5"/><text class="cname s" x="150" y="154">下辨</text></g>
+      <g class="city" data-city="jiameng"><circle cx="242" cy="534" r="5.5"/><text class="cname" x="180" y="554">葭萌<tspan class="cname s" dx="2">(广元)</tspan></text></g>
+    </g>
+
+    <!-- 长安(图外·东北):曹操来援之基 -->
+    <g transform="translate(902,66)">
+      <path class="march q" marker-end="url(#aq)" d="M 46,6 L 18,26"/>
+      <text class="mlabel q" x="-8" y="-2" style="font-size:10px">长安·关中 ⟶</text>
+      <text class="cname s" x="4" y="12" style="fill:var(--enemy);font-size:9.5px">曹操援自此(图外东北)</text>
+    </g>
+    <!-- 成都·益州(图外·南):刘备根本 -->
+    <g transform="translate(110,626)">
+      <path class="march j" marker-end="url(#aj)" d="M 30,10 L 60,-10"/>
+      <text class="cname s" x="0" y="6" style="fill:var(--advance);font-size:9.5px">↙ 成都·益州(图外南,备之根本)</text>
     </g>
 
     <!-- 全图 · 争夺汉中 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 240,590 C 226,540 210,490 200,452"/>
-      <text class="mlabel j" x="130" y="520">刘备用法正之谋,率诸将北争汉中</text>
-      <text class="anno" x="212" y="500">法正、黄忠、赵云、张飞、马超从</text>
-      <path class="march q" marker-end="url(#aq)" d="M 828,132 C 720,210 600,300 500,420"/>
-      <text class="mlabel q" x="600" y="250">夏侯渊、张郃守汉中,相拒于阳平</text>
-      <text class="anno" x="520" y="410">相持逾年,备不能进</text>
+      <path class="march j" marker-end="url(#aj)" d="M 250,522 C 296,456 350,392 398,338"/>
+      <text class="mlabel j" x="150" y="450">刘备用法正之谋,举益州之众北争汉中</text>
+      <text class="anno" x="150" y="468">法正、黄忠、赵云、张飞、马超从</text>
+      <rect class="camp" x="523" y="340" width="9" height="9" transform="rotate(45 527 344)"/>
+      <text class="mlabel q" x="545" y="366">夏侯渊、张郃督汉中诸军,拒于阳平</text>
+      <path class="march q" marker-end="url(#aq)" d="M 912,86 C 760,150 640,240 540,320"/>
+      <text class="mlabel q" x="640" y="150">曹操后自长安来争</text>
+      <text class="anno" x="196" y="242">相持逾年,备不能进</text>
     </g>
 
     <!-- 阶段一:阳平相持 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 236,590 C 214,470 196,350 182,244"/>
-      <text class="mlabel j" x="70" y="330">备遣张飞、马超、吴兰等出下辨</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 190,224 C 230,300 300,380 380,442"/>
-      <text class="mlabel r" x="250" y="330">为曹洪、曹休所破,吴兰败死</text>
-      <rect class="camp" x="192" y="436" width="9" height="9" transform="rotate(45 196 440)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 246,596 C 232,540 216,486 202,450"/>
-      <text class="mlabel j" x="120" y="560">备亲屯阳平关,夹关相持逾年</text>
-      <text class="anno" x="300" y="450">与夏侯渊、张郃相拒,不能进</text>
+      <path class="march j" marker-end="url(#aj)" d="M 250,522 C 300,450 350,384 398,330"/>
+      <text class="mlabel j" x="230" y="470">备亲屯阳平关</text>
+      <text class="anno" x="150" y="504">夹关与夏侯渊、张郃相拒逾年</text>
+      <path class="march j" marker-end="url(#aj)" d="M 258,516 C 250,400 232,270 218,172"/>
+      <text class="mlabel j" x="100" y="330">遣张飞、马超、吴兰</text>
+      <text class="mlabel j" x="100" y="346">等出下辨,规武都</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 224,166 C 300,220 380,270 452,308"/>
+      <text class="mlabel r" x="316" y="238">曹洪、曹休破吴兰,吴兰败死</text>
+      <rect class="camp" x="399" y="317" width="9" height="9" transform="rotate(45 403 321)"/>
+      <text class="mlabel q" x="420" y="302">渊、郃守鹿角,备攻之不能克</text>
     </g>
 
     <!-- 阶段二:定军斩渊 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="192" y="436" width="9" height="9" transform="rotate(45 196 440)"/>
-      <text class="mlabel q" x="110" y="422">夏侯渊、张郃守鹿角</text>
-      <path class="march j" marker-end="url(#aj)" d="M 200,446 C 216,456 236,462 256,468"/>
-      <text class="mlabel j" x="120" y="490">备夜烧鹿角,南渡沔水,据定军山高处</text>
-      <circle class="star" cx="262" cy="470" r="8"/>
-      <text class="anno" x="286" y="474">黄忠居高鼓噪、乘势推锋</text>
-      <text class="mlabel j" x="286" y="492">大破之,阵斩夏侯渊及刺史赵颙</text>
-      <path class="march q" marker-end="url(#aq)" d="M 210,436 C 250,432 300,432 372,442"/>
-      <text class="mlabel q" x="300" y="428">渊分兵半救张郃,轻出当矢石</text>
-      <text class="anno" x="380" y="470">赵云汉水空营退曹兵,"一身是胆"</text>
+      <rect class="camp" x="399" y="317" width="9" height="9" transform="rotate(45 403 321)"/>
+      <text class="mlabel q" x="298" y="296">夏侯渊守南围鹿角</text>
+      <path class="march j" marker-end="url(#aj)" d="M 405,328 C 412,336 420,342 424,346"/>
+      <text class="mlabel j" x="150" y="414">备夜烧鹿角,南渡沔水,据定军山之高</text>
+      <circle class="star" cx="428" cy="349" r="9"/>
+      <text class="mlabel j" x="250" y="432">黄忠居高鼓噪、乘势推锋</text>
+      <text class="anno" x="250" y="448">一战斩夏侯渊及益州刺史赵颙,曹军夺气</text>
+      <path class="march q" marker-end="url(#aq)" d="M 415,318 C 470,312 520,318 560,330"/>
+      <text class="mlabel q" x="452" y="298">渊分兵救张郃,轻出当矢石</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 645,360 C 605,360 575,358 548,354"/>
+      <text class="anno" x="576" y="392">赵云汉水空营退曹兵,『一身是胆』</text>
     </g>
 
-    <!-- 阶段三:操来无功 -->
+    <!-- 阶段三:拒险待疲(操来无功) -->
     <g id="ph3" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 828,132 C 700,200 620,300 560,410"/>
-      <text class="mlabel q" x="600" y="270">曹操自长安引大军入斜谷来争</text>
-      <path d="M 470,440 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="480" y="466">备敛众拒险,终不交锋</text>
-      <text class="anno" x="360" y="486">"曹公虽来,无能为也,我必有汉川矣"</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 556,398 C 640,300 740,200 826,134"/>
-      <text class="mlabel r" x="640" y="330">操叹"鸡肋",引还长安</text>
-      <text class="anno" x="150" y="580">备遂有汉中,秋,群下推为汉中王</text>
+      <path class="march q" marker-end="url(#aq)" d="M 912,86 C 740,150 620,240 545,318"/>
+      <text class="mlabel q" x="636" y="150">曹操自长安引大军</text>
+      <text class="mlabel q" x="636" y="166">出斜谷来争</text>
+      <path d="M 527,344 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="410" y="392">备敛众拒险,终不交锋</text>
+      <text class="anno" x="330" y="410">『曹公虽来,无能为也,我必有汉川矣』</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 540,314 C 620,236 748,150 906,84"/>
+      <text class="mlabel r" x="700" y="220">操叹『鸡肋』,引军还长安</text>
+      <text class="anno" x="180" y="580">备遂尽有汉中,是秋群下推为汉中王</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(946,560)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -183,33 +221,86 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>刘备军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>曹操军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退·引还</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>曹军退还</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(斩渊)</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" transform="rotate(45 6.5 6.5)" fill="#9a2b1e"/></svg>曹军营垒</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>曹魏</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蜀汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 得地利,挫其锐</h3>
+    <div class="lead">备之胜,不在攻坚而在夺气 —— 斩将于高、拒险待疲,操乃食『鸡肋』而退</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="释要示意:左为定军山斩将夺气,右为拒险待疲使曹操鸡肋而退">
+      <!-- 分隔 -->
+      <line x1="430" y1="24" x2="430" y2="228" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+      <text x="26" y="30" fill="#1f4e54" font-size="12.5" font-weight="700">① 定军山 · 斩将夺气</text>
+      <text x="452" y="30" fill="#9c7a2c" font-size="12.5" font-weight="700">② 拒险待疲 · 鸡肋而退</text>
+
+      <!-- 左:高地示意 -->
+      <path d="M 60,190 L 150,96 L 240,190 Z" fill="rgba(92,79,56,.18)" stroke="#5c4f38" stroke-width="1"/>
+      <text x="120" y="150" fill="#5c4f38" font-size="10" opacity=".8">定军山</text>
+      <!-- 刘备居高 -->
+      <circle cx="150" cy="96" r="6" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <text x="128" y="86" fill="#1f4e54" font-size="10.5" font-weight="700">备·黄忠居高</text>
+      <path d="M 150,104 L 210,168" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)" fill="none"/>
+      <text x="150" y="128" fill="#1f4e54" font-size="10">鼓噪推锋 ↘</text>
+      <!-- 曹营在下,夏侯渊被斩 -->
+      <rect x="300" y="176" width="12" height="12" transform="rotate(45 306 182)" fill="#9a2b1e" opacity=".9"/>
+      <text x="286" y="212" fill="#9a2b1e" font-size="10.5" font-weight="700">曹营·夏侯渊</text>
+      <g transform="translate(306,150)"><circle r="8" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5" stroke="#9a2b1e" stroke-width="2.6"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="318" y="146" fill="#9a2b1e" font-size="10.5" font-weight="700">斩渊 ✕ 夺气</text>
+
+      <!-- 右:拒险待疲 -->
+      <!-- 曹操远来大军 -->
+      <path d="M 824,70 L 720,120" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)" fill="none"/>
+      <text x="734" y="60" fill="#9a2b1e" font-size="10.5" font-weight="700">操引大军远来</text>
+      <text x="700" y="98" fill="#5c4f38" font-size="9.5" opacity=".85">越秦岭·运粮艰</text>
+      <!-- 险要一线 -->
+      <path d="M 590,60 C 620,110 620,150 590,204" fill="none" stroke="#1f4e54" stroke-width="3.4"/>
+      <text x="512" y="150" fill="#1f4e54" font-size="10.5" font-weight="700" transform="rotate(90 512 150)">备·敛众拒险</text>
+      <text x="600" y="130" fill="#1f4e54" font-size="9.5">终不交锋</text>
+      <!-- 曹军顿于险前 -->
+      <rect x="668" y="132" width="11" height="11" transform="rotate(45 673.5 137.5)" fill="#9a2b1e" opacity=".85"/>
+      <text x="640" y="172" fill="#5c4f38" font-size="9.5" opacity=".85">攻不能进,士卒亡叛</text>
+      <!-- 鸡肋而退 -->
+      <path d="M 700,150 C 760,168 800,186 828,196" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="720" y="220" fill="#7a5a23" font-size="11" font-weight="700">叹『鸡肋』引还 ↘</text>
+    </svg>
+    <p class="intro">汉中山险粮远,非旬月可拔。备用法正之谋,不与曹军争坚城,而争<b>地利与士气</b>:先舍阳平、南渡沔水据定军之高,一战斩曹操方面大将夏侯渊,曹军<b>夺气</b>;及操亲提大军来救,则<b>敛众拒险、终不交锋</b>,坐待其疲。故此役之决,不在攻取一城,而在夺一军之气、耗一军之力。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>斩将夺气 · 得定军之高</h4>
+        <p>阳平夹关相拒逾年而不能进,乃夜烧鹿角、南渡沔水,缘山径据定军山高处以临曹营。夏侯渊分兵半救张郃、亲当矢石,备遣黄忠居高鼓噪、乘势推锋,一战斩渊及益州刺史赵颙。主将既没,曹军『夺气』,汉中之势遂倾。『居高临下』之地利,一举而破相持之局。</p>
+      </div>
+      <div class="c b">
+        <h4>拒险待疲 · 操食『鸡肋』</h4>
+        <p>渊死,操自长安亲引大军出斜谷来争。备曰『曹公虽来,无能为也,我必有汉川矣』,敛众据险、终不交锋。操军越秦岭而来,运粮艰阻、士卒多亡叛,进不能胜、退恐见嗤,相持月余,乃以『鸡肋』为教而引还——食之无味,弃之可惜,终弃汉中与备。</p>
+      </div>
+    </div>
+    <p class="kicker">故汉中之得,非力攻而下,乃<b>夺其气、疲其师</b>而致之:斩夏侯渊以挫其锐于前,拒险不战以老其众于后。此为刘备生平<b>唯一一次对曹操的正面大胜</b>;是秋备进位汉中王,《隆中》『跨有荆益』之业于此臻其极。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·先主传》《法正传》《黄忠传》《夏侯渊传》《武帝纪》约略绘出。定军山在今陕西勉县南,阳平关在其西,南郑今汉中,下辨今甘肃成县,长安今西安。秦岭、米仓山与汉、沔水道经简化。</p>
-    <p><span class="n">注二</span>定军山在今陕西勉县南,阳平关在其西;晕染疆界为建安末年形势示意:曹魏据关中于北,蜀汉据益州于南,约以秦岭为险,故以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注三</span>夏侯渊为一军之帅而轻出救火、亲当矢石,操常戒之"为将当有怯弱时,不可但恃勇也";及定军之败,操以"鸡肋"叹而退,汉中遂归备。此为刘备生平对曹操唯一一次大胜。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影定位,几何力求近实:定军山、阳平关、沔阳同在汉中盆地之西(今勉县一带),南郑居其东(今汉中市),葭萌在南(今广元昭化),下辨在西北(今甘肃成县),长安在东北图外(今西安)。秦岭、大巴山与沔水(汉水)经简化描绘。</p>
+    <p><span class="n">注二</span>晕染疆界为建安末形势示意:曹魏据关中于北,蜀汉据益州于南,汉中盆地本张鲁之地,建安二十年曹操破张鲁得之,故战初为曹操所有;点划『约界』依大巴山一线,非实有画界。战后汉中归蜀,两家之界乃移于秦岭。</p>
+    <p><span class="n">注三</span>是役皆山地陆战:备自益州循金牛道北出葭萌、阳平,曹操自关中越秦岭出斜谷(褒斜道);全程无舟师。惟『南渡沔水』据定军山为一渡河之着,赵云复于汉水滨空营偃旗退曹兵,时称『一身是胆』——水之用在临阵,不在漕运。曹操远师越岭,粮道悬长、转输艰阻,虽非被截,而实为其退兵之一因。</p>
+    <p><span class="n">注四</span>据《三国志·先主传》《法正传》《黄忠传》《夏侯渊传》《赵云传》裴注引《云别传》及《武帝纪》、参《资治通鉴》卷六十八。夏侯渊建安二十四年正月死于定军山;曹操三月自长安出,五月引还,备遂有汉中。此为刘备平生对曹操唯一一次大胜。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"争夺汉中",d:"建安二十二年 — 二十四年(217–219)",p:["建安二十二年,刘备用法正之谋,率诸将北争汉中。汉中乃益州咽喉、巴蜀屏障,法正谓可克曹以图关陇,备遂大举。","备与夏侯渊、张郃相拒于阳平之险,相持逾年而不能进。夏侯渊督汉中诸军,张郃、徐晃分守要害;备屡攻不下,乃增兵益急,发益州男女转运,战守相持,胜负未分。"]},
-  "1":{t:"阳平相持",d:"建安二十二年至二十三年",p:["备先遣张飞、马超、吴兰等出下辨,规取武都以张两翼;曹操遣曹洪、曹休御之,大破吴兰之军,吴兰败死,张飞、马超引退,备偏师受挫。","备乃亲屯阳平关,与夏侯渊、张郃夹关相持逾年。张郃屯广石,备以精卒万余分为十部,夜急攻郃,郃力战不能克;相持既久,备终不能进,而曹军亦固守不动。"]},
-  "2":{t:"定军斩渊",d:"建安二十四年正月",p:["建安二十四年,备用法正计,自阳平南渡沔水,缘山稍前,夜烧曹军鹿角、走马谷,径据定军山高处以临曹营。夏侯渊分兵半救张郃于东围,自将轻兵护南围鹿角。","备遣黄忠据高鼓噪、乘势推锋,居高临下,一战大破之,阵斩夏侯渊及益州刺史赵颙,曹军夺气。是时赵云于汉水空营偃旗息鼓退曹兵,备叹曰“子龙一身都是胆也”,时称“一身是胆”。"]},
-  "3":{t:"操来无功",d:"建安二十四年三月至五月",p:["夏侯渊既没,曹操自长安亲引大军入斜谷来争。备敛众拒险,终不交锋,曰“曹公虽来,无能为也,我必有汉川矣”。据险固守,不与曹操野战。","相持月余,曹操运粮艰阻、士卒多亡叛,进不能胜、退恐见嗤,乃以“鸡肋”为教而引还长安。备遂尽有汉中之地。是年秋,群下上表,推备为汉中王。"]}
+  all:{t:"争夺汉中",d:"建安二十二年 — 二十四年(217–219)",p:["建安二十年,曹操破张鲁,得汉中。汉中乃益州咽喉、巴蜀屏障,法正谓『上可倾覆寇敌、尊奖王室,下可蚕食雍凉、广拓境土』,劝刘备乘时而取。二十二年,备遂举益州之众,率法正、黄忠、赵云、张飞、马超诸将北争汉中。","备与曹操所遣夏侯渊、张郃相拒于阳平之险,相持逾年而不能进。渊都督汉中诸军,郃、徐晃分守要害;备屡攻不下,乃发益州男女转运益急,战守相持,胜负未分。"]},
+  "1":{t:"阳平相持",d:"建安二十二年至二十三年",p:["备先遣张飞、马超、吴兰等出下辨(今甘肃成县),规取武都以张两翼;曹操遣曹洪、曹休御之,大破吴兰之军,吴兰败死,张飞、马超引退,备偏师受挫。","备乃自益州循金牛道北出,亲屯阳平关,与夏侯渊、张郃夹关相持逾年。备以精卒万余分为十部,夜急攻张郃于广石,郃力战不能克;相持既久,备终不能进,而曹军亦固守鹿角不动。"]},
+  "2":{t:"定军斩渊",d:"建安二十四年正月",p:["建安二十四年,备用法正计,舍阳平、自南渡沔水,缘山稍前,夜烧曹军鹿角、走马谷,径据定军山高处以临曹营。夏侯渊分兵半救张郃于东围,自将轻兵护南围鹿角。","备遣黄忠据高鼓噪、乘势推锋,居高临下,一战大破之,阵斩夏侯渊及益州刺史赵颙,曹军夺气。是时赵云于汉水空营偃旗息鼓退曹兵,备叹曰『子龙一身都是胆也』,军中号为『虎威将军』。"]},
+  "3":{t:"拒险待疲",d:"建安二十四年三月至五月",p:["夏侯渊既没,曹操自长安亲引大军出斜谷来争。备敛众拒险,终不交锋,曰『曹公虽来,无能为也,我必有汉川矣』;据险固守,不与曹操野战。","操军越秦岭而来,运粮艰阻、士卒多亡叛,进不能胜、退恐见嗤,相持月余,乃以『鸡肋』为教而引还长安。备遂尽有汉中之地。是年秋,群下上表,推备为汉中王——此为刘备生平对曹操唯一一次大胜。"]}
 };
 const CITY={
-  dingjunshan:{t:"定军山",d:"今陕西勉县南",p:["黄忠斩夏侯渊处,汉中西南之决战地。备南渡沔水,缘山据其高处,黄忠居高鼓噪、乘势大破曹军,阵斩夏侯渊。"]},
-  yangping:{t:"阳平关",d:"定军山之西,汉中西口",p:["曹军守险之要地。备与夏侯渊、张郃夹关相持逾年不能进,后乃舍关南渡沔水,别取定军山。"]},
-  nanzheng:{t:"南郑",d:"汉中郡治,今陕西汉中",p:["汉中治所,曹军本据于此。夏侯渊都督汉中诸军以镇之;渊死操退,南郑遂归刘备。"]},
-  mianshui:{t:"沔水·汉水",d:"沔阳一带,西东流经汉中",p:["汉水上游,自西向东贯汉中。备夜渡沔水缘山进兵;赵云于汉水之滨空营退曹兵,时称“一身是胆”。"]},
-  xiabian:{t:"下辨",d:"今甘肃成县,汉中西北",p:["备遣张飞、马超、吴兰等出下辨,规取武都以张两翼;为曹洪、曹休所破,吴兰败死。"]},
-  chengdu:{t:"成都",d:"益州治,刘备后方",p:["刘备根本之地。汉中之役,发益州男女转运不绝,倾巴蜀之力以争汉中,终获全胜。"]},
-  changan:{t:"长安",d:"今陕西西安,操援自此",p:["曹操亲引大军自长安入斜谷来争汉中;相持月余,叹“鸡肋”而引还于此,汉中遂弃与刘备。"]}
+  nanzheng:{t:"南郑",d:"汉中郡治,今陕西汉中",p:["汉中治所,曹军本据于此。夏侯渊都督汉中诸军以镇之;渊死操退,南郑遂归刘备,为汉中王国之都。"]},
+  dingjunshan:{t:"定军山",d:"今陕西勉县南,沔水之南",p:["黄忠斩夏侯渊处,汉中西南之决战地。备南渡沔水,缘山据其高处,黄忠居高鼓噪、乘势大破曹军,阵斩夏侯渊及刺史赵颙——一战而汉中之势倾。"]},
+  yangping:{t:"阳平关",d:"汉中西口,沔水之北",p:["曹军守险之要地。备与夏侯渊、张郃夹关相拒逾年不能进,后乃舍关南渡沔水,别取定军山之高。"]},
+  mianyang:{t:"沔阳",d:"今陕西勉县,沔水北岸",p:["汉水(沔水)上游要地,阳平、定军之间。备夜渡沔水缘山进兵;赵云复于汉水之滨空营退曹兵,时称『一身是胆』。"]},
+  xiabian:{t:"下辨",d:"今甘肃成县,汉中西北",p:["备遣张飞、马超、吴兰等出下辨,规取武都以张两翼;为曹洪、曹休所破,吴兰败死,偏师之谋遂沮。"]},
+  jiameng:{t:"葭萌",d:"今四川广元昭化,益州北关",p:["刘备北争汉中所自出。备循金牛道自成都、葭萌北上,经阳平以趋汉中;益州男女转运不绝,倾巴蜀之力以争汉中,终获全胜。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

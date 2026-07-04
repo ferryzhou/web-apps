@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -29,8 +30,10 @@
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +42,18 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 典韦死战·守辕门:褐色双戟交挥,朱心 */
+  .weimark line{stroke:var(--ret);stroke-width:3.4;stroke-linecap:round}
+  .weimark circle{fill:var(--enemy)}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +62,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,135 +93,230 @@
   <div class="seal" aria-hidden="true"><span>宛</span><span>城</span><span>之</span><span>役</span></div>
   <header>
     <h1>宛城之战</h1>
-    <div class="sub">汉建安二年(197)　　<i>曹操</i> 败于 <b>张绣</b></div>
+    <div class="sub">汉建安二年(197)　　<i>曹操</i> 败于 <b>张绣</b>,<em>刘表</em>为援　·　降而复叛 · 夜袭破营</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 南征张绣</button>
-    <button data-p="1">绣降复叛</button>
-    <button data-p="2">夜袭中军</button>
-    <button data-p="3">典韦死殿</button>
+    <button data-p="1">曹操南征 · 张绣降</button>
+    <button data-p="2">降而复叛 · 夜袭破营</button>
+    <button data-p="3">典韦死战 · 北走舞阴</button>
+    <button data-p="4">贾诩逆料 · 安众终降</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宛城之战形势图,含张绣刘表荆州与曹操许都疆界、淯水白河及宛城舞阴襄阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宛城之战形势图,含张绣南阳、曹操许都、刘表荆州三方疆界,淯水白河与汉水,及宛城舞阴许穰安众育阳襄阳诸城,曹操自许南征之路、张绣夜袭破营、典韦死守辕门与曹操北走舞阴之败退">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:张绣、刘表据荆州(南),曹操据许都方向(北/东),约以南阳北界为限 -->
-    <path d="M 1000,232 C 850,220 700,236 560,270 C 420,304 300,326 0,318 L 0,640 L 1000,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 1000,232 C 850,220 700,236 560,270 C 420,304 300,326 0,318 L 0,0 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 1000,232 C 850,220 700,236 560,270 C 420,304 300,326 0,318"/>
-    <text class="realm q" x="120" y="470" font-size="30">张绣·刘表(荆州)</text>
-    <text class="realm j" x="640" y="120" font-size="32">曹 操(许都)</text>
+    <!-- ══ 三方疆界:张绣据宛·南阳(中),曹操据许都·颍川(东北),刘表据荆州·襄阳(南)为援 ══ -->
+    <!-- 曹操(颍川)据东北一隅 -->
+    <path d="M 505,0 L 1000,0 L 1000,288 C 895,275 790,250 705,205 C 610,150 545,80 505,0 Z" fill="url(#jinHatch)"/>
+    <!-- 张绣(南阳)据盆地之中 -->
+    <path d="M 0,0 L 505,0 C 545,80 610,150 705,205 C 790,250 895,275 1000,288 L 1000,580 L 800,574 C 700,570 580,566 450,558 C 320,548 190,528 90,508 L 0,505 Z" fill="url(#qinHatch)"/>
+    <!-- 刘表(荆州)据汉水以南 -->
+    <path d="M 0,505 L 90,508 C 190,528 320,548 450,558 C 580,566 700,570 800,574 L 1000,580 L 1000,640 L 0,640 Z" fill="url(#fqinHatch)"/>
+    <!-- 绣·操约界(南阳北界一线) -->
+    <path class="border" d="M 505,0 C 545,80 610,150 705,205 C 790,250 895,275 1000,288"/>
+    <!-- 绣·表约界(汉水一线) -->
+    <path class="border" d="M 0,505 C 90,508 190,528 320,548 C 450,558 580,566 700,570 C 800,574 900,577 1000,580"/>
+    <text class="realm j" x="812" y="150" font-size="26">曹 操</text>
+    <text class="cname s" x="812" y="172" style="fill:var(--advance);opacity:.7">(许都·颍川)</text>
+    <text class="realm q" x="60" y="150" font-size="28">张 绣</text>
+    <text class="cname s" x="62" y="172" style="fill:var(--enemy);opacity:.7">(宛·南阳)</text>
+    <text class="realm f" x="470" y="618" font-size="22">刘 表(荆州)</text>
 
-    <!-- 淯水(白河):自西北南下,经宛城,东南入汉 -->
-    <path class="river" stroke-width="4.5" d="M 400,150 C 430,220 452,290 470,352 C 486,410 504,470 540,540"/>
-    <!-- 育水支流 -->
-    <path class="river" stroke-width="2.2" d="M 560,300 C 528,330 500,352 470,352"/>
-    <!-- 汉水:荆州南界大川 -->
-    <path class="river" stroke-width="5" d="M 300,540 C 400,556 500,560 600,548 C 680,538 740,522 820,536"/>
-    <text class="rname" x="474" y="330" transform="rotate(72 474 330)">淯 水</text>
-    <text class="rname" x="430" y="360" style="font-size:10px">(白河)</text>
-    <text class="rname" x="640" y="540" style="font-size:13px">汉 水</text>
+    <!-- ══ 山脉:伏牛山,南阳盆地西北之屏 ══ -->
+    <path class="mtn fill" d="M 208,246 L 226,214 L 242,232 L 262,202 L 282,230 L 300,206 L 316,234 Z"/>
+    <path class="mtn" d="M 224,232 l 14,-18 l 12,14 l 16,-22 l 13,17"/>
+    <text class="mname" x="196" y="264" transform="rotate(-16 196 264)">伏 牛 山</text>
 
-    <!-- 伏牛山:南阳西北 -->
-    <g class="mtn"><path d="M 330,190 l 8,-13 l 8,13 M 346,184 l 8,-13 l 8,13 M 362,190 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="330" y="210">伏牛山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 淯水(白河):自伏牛山南下,经宛城之东,南注于汉水 -->
+    <path class="river" stroke-width="4.5" d="M 285,196 C 297,250 303,290 300,320 C 297,372 284,422 254,470 C 230,506 205,522 186,530"/>
+    <!-- 汉水:荆州南界大川,西来东去,襄阳临其上 -->
+    <path class="river" stroke-width="5.2" d="M 92,512 C 190,532 320,552 452,562 C 582,570 690,574 800,580 L 960,586"/>
+    <text class="rname" x="300" y="360" transform="rotate(74 300 360)">淯 水</text>
+    <text class="rname" x="252" y="452" style="font-size:10px">(白河)</text>
+    <text class="rname" x="560" y="558" style="font-size:13px">汉 水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="wancheng"><circle cx="470" cy="352" r="6"/><text class="cname" x="482" y="348">宛城<tspan class="cname s" dx="2">(张绣据·南阳)</tspan></text></g>
-      <g class="city" data-city="wuyin"><circle cx="640" cy="248" r="5"/><text class="cname" x="652" y="244">舞阴<tspan class="cname s" dx="2">(操退保)</tspan></text></g>
-      <g class="city" data-city="yushui"><circle cx="470" cy="352" r="0"/><text class="cname s" x="392" y="372">淯水·白河</text></g>
-      <g class="city" data-city="yuyang"><circle cx="524" cy="410" r="3.5"/><text class="cname s" x="534" y="414">育阳</text></g>
-      <g class="city" data-city="rang"><circle cx="332" cy="440" r="4"/><text class="cname s" x="270" y="444">穰</text></g>
-      <g class="city" data-city="xu"><circle cx="820" cy="150" r="6"/><text class="cname" x="760" y="146">许<tspan class="cname s" dx="2">(操自此来)</tspan></text></g>
-      <g class="city" data-city="xiangyang"><circle cx="520" cy="562" r="5"/><text class="cname" x="470" y="586">襄阳<tspan class="cname s" dx="2">(刘表)</tspan></text></g>
+      <g class="city cap" data-city="wancheng"><circle cx="267" cy="318" r="6.5"/><text class="cname" x="180" y="314">宛城<tspan class="cname s" dx="2">(张绣据·南阳)</tspan></text></g>
+      <g class="city" data-city="wuyin"><circle cx="454" cy="337" r="5"/><text class="cname" x="466" y="333">舞阴<tspan class="cname s" dx="2">(操退保)</tspan></text></g>
+      <g class="city cap" data-city="xu"><circle cx="649" cy="76" r="6.5"/><text class="cname" x="661" y="72">许<tspan class="cname s" dx="2">(曹操本·许都)</tspan></text></g>
+      <g class="city" data-city="anzhong"><circle cx="181" cy="353" r="4.5"/><text class="cname s" x="118" y="345">安众</text></g>
+      <g class="city" data-city="rang"><circle cx="150" cy="393" r="4.5"/><text class="cname" x="104" y="389">穰</text></g>
+      <g class="city" data-city="yuyang"><circle cx="238" cy="412" r="3.5"/><text class="cname s" x="248" y="416">育阳</text></g>
+      <g class="city cap" data-city="xiangyang"><circle cx="168" cy="541" r="6"/><text class="cname" x="180" y="537">襄阳<tspan class="cname s" dx="2">(刘表治)</tspan></text></g>
     </g>
 
     <!-- 全图 · 南征张绣 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 812,158 C 720,200 600,264 500,332"/>
-      <text class="mlabel j" x="600" y="228">曹操自许南征,军于宛城</text>
-      <rect class="camp" x="466" y="336" width="8" height="8" transform="rotate(45 470 340)"/>
-      <text class="anno" x="392" y="300">张绣举众降,操纳张济之妻、赂胡车儿</text>
-      <text class="mlabel q" x="150" y="500">绣怨而复叛,用贾诩计,阴谋夜袭</text>
-      <text class="anno" x="470" y="600">刘表据荆州,为绣声援</text>
+      <path class="march j" marker-end="url(#aj)" d="M 640,92 C 520,150 405,235 322,320"/>
+      <text class="mlabel j" x="430" y="196">曹操自许南征,军于宛·淯水</text>
+      <rect class="camp" x="299" y="329" width="9" height="9" transform="rotate(45 303.5 333.5)" fill="#1f4e54"/>
+      <text class="anno" x="330" y="352">曹操之营(依淯水)</text>
+      <text class="mlabel q" x="60" y="300">张绣据宛,举众降,寻复叛</text>
+      <text class="anno" x="60" y="318">操纳张济妻邹氏,绣恨而反</text>
+      <path class="march qin" marker-end="url(#af)" d="M 176,524 C 180,470 181,420 182,388"/>
+      <text class="mlabel f" x="60" y="500">刘表据荆州,为绣声援</text>
     </g>
 
-    <!-- 阶段一:绣降复叛 -->
+    <!-- 阶段一:曹操南征 · 张绣降 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="466" y="336" width="9" height="9" transform="rotate(45 470 340)"/>
-      <text class="mlabel q" x="486" y="322">张绣据宛降操</text>
-      <path class="march q" marker-end="url(#aq)" d="M 452,362 C 428,378 408,392 392,404"/>
-      <text class="mlabel q" x="300" y="420">绣徙军就高道,请以辎重过操营</text>
-      <text class="anno" x="330" y="392">操私纳张济之妻,又欲收胡车儿,绣不自安</text>
-      <text class="anno" x="360" y="330">用贾诩计,潜勒兵为备</text>
+      <path class="march j" marker-end="url(#aj)" d="M 640,92 C 520,150 405,235 322,320"/>
+      <text class="mlabel j" x="440" y="188">操军至宛,依淯水为营</text>
+      <rect class="camp" x="299" y="329" width="10" height="10" transform="rotate(45 304 334)" fill="#1f4e54"/>
+      <text class="mlabel q" x="60" y="288">张绣举众降操</text>
+      <text class="anno" x="60" y="410">操纳张济之妻邹氏,又赂骁将胡车儿</text>
+      <text class="anno" x="60" y="428">绣闻而恨之,不自安;用贾诩计,潜勒兵为备</text>
     </g>
 
-    <!-- 阶段二:夜袭中军 -->
+    <!-- 阶段二:降而复叛 · 夜袭破营 -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 400,406 C 424,388 444,372 460,360"/>
-      <text class="mlabel q" x="300" y="428">绣众夜突操营</text>
-      <circle class="star" cx="470" cy="352" r="9"/>
-      <text class="anno" x="380" y="322">操仓卒失备,军中大乱,操中流矢</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 480,344 C 540,300 590,272 628,254"/>
-      <text class="mlabel r" x="520" y="300">操乘曹昂之马溃围</text>
-      <text class="anno" x="470" y="332">骏马"绝影"被创不能骋,昂以己马授操</text>
+      <rect class="camp" x="299" y="329" width="10" height="10" transform="rotate(45 304 334)" fill="#1f4e54"/>
+      <path class="march q" marker-end="url(#aq)" d="M 252,330 C 270,336 285,336 296,335"/>
+      <text class="mlabel q" x="80" y="322">张绣夜袭操营</text>
+      <circle class="star" cx="304" cy="334" r="10"/>
+      <text class="anno" x="60" y="392">操仓卒失备,军中大乱,操中流矢</text>
+      <text class="anno" x="60" y="410">骏马『绝影』被创,长子昂以己马授操</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 318,326 C 362,320 402,326 432,332"/>
+      <text class="mlabel r" x="356" y="312">操溃围北走</text>
+      <text class="mlabel q" x="330" y="360">曹昂、曹安民死于阵</text>
     </g>
 
-    <!-- 阶段三:典韦死殿 -->
+    <!-- 阶段三:典韦死战 · 北走舞阴 -->
     <g id="ph3" class="ph">
-      <path d="M 470,352 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="360" y="336">典韦守辕门,力战死殿</text>
-      <text class="anno" x="330" y="378">一叉十余矛俱摧,身被重创,瞋目大骂而死</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 486,342 C 550,300 596,272 632,252"/>
-      <text class="mlabel r" x="540" y="298">操退保舞阴,收合散卒</text>
-      <text class="anno" x="470" y="322">昂、安民俱没于阵;军复振</text>
+      <rect class="camp" x="299" y="329" width="9" height="9" transform="rotate(45 303.5 333.5)" fill="#1f4e54" opacity=".45"/>
+      <g class="weimark" transform="translate(300,352)">
+        <line x1="-9" y1="9" x2="9" y2="-9"/>
+        <line x1="-9" y1="-9" x2="9" y2="9"/>
+        <circle r="2.8"/>
+      </g>
+      <text class="mlabel r" x="60" y="368">典韦独当营门,力战死之</text>
+      <text class="anno" x="60" y="386">一叉十余矛俱摧,身被重创,瞋目大骂而死</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 320,336 C 366,332 408,334 442,337"/>
+      <text class="mlabel r" x="352" y="322">操退保舞阴</text>
+      <text class="anno" x="410" y="360">收合散卒,军复振</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- 阶段四:贾诩逆料 · 安众终降 -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 636,96 C 430,150 250,250 168,382"/>
+      <text class="mlabel j" x="404" y="150">建安三年,操再攻,围绣于穰</text>
+      <circle class="star" cx="150" cy="393" r="8"/>
+      <path class="march qin" marker-end="url(#af)" d="M 170,528 C 175,470 178,420 181,364"/>
+      <text class="mlabel f" x="60" y="470">刘表出荆州,据安众绝操归路</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 158,384 C 176,360 180,352 186,346 C 300,290 460,190 628,104"/>
+      <text class="mlabel r" x="236" y="238">操闻许有变,解围引还</text>
+      <path class="march q" marker-end="url(#aq)" d="M 200,362 C 320,300 470,205 618,116"/>
+      <circle class="star" cx="192" cy="352" r="7"/>
+      <text class="mlabel q" x="286" y="298">绣用贾诩计追之,破操后军于安众</text>
+      <text class="anno" x="330" y="440">贾诩逆料:『追必败,更追必胜』——皆验</text>
+      <text class="mlabel j" x="120" y="330">建安四年,绣卒用诩计,举众降曹</text>
+    </g>
+
+    <g class="compass" transform="translate(936,596)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>张绣军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>曹操夜遁</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>夜袭中军</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>张绣·刘表</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>刘表援军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>曹操败退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>夜袭 · 会战</span>
+    <span class="item"><svg width="20" height="16"><line x1="4" y1="12" x2="16" y2="4" stroke="#7a5a23" stroke-width="2.6" stroke-linecap="round"/><line x1="4" y1="4" x2="16" y2="12" stroke="#7a5a23" stroke-width="2.6" stroke-linecap="round"/><circle cx="10" cy="8" r="2" fill="#9a2b1e"/></svg>典韦死战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>张绣·南阳</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操·许都</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#fqinHatch)"/></svg>刘表·荆州</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 受降不备与贾诩之谋</h3>
+    <div class="lead">何以既降之敌一夕成大患 —— 危于既克者,受降而不设备也</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="示意:曹操受张绣降而不设备、纳邹氏激变,绣夜袭大破之;越年安众之役,贾诩逆料追退必败、更追必胜,两言皆验">
+      <!-- 左:受降不备致败 -->
+      <text x="24" y="28" fill="#9a2b1e" font-size="12" font-weight="700">建安二年 · 宛城:受降不备</text>
+      <rect x="30" y="40" width="150" height="34" rx="3" fill="none" stroke="#5c4f38" stroke-width="1.2"/>
+      <text x="105" y="61" text-anchor="middle" font-size="12" font-weight="700" fill="#2b2418">曹操受张绣降</text>
+      <path d="M 105,74 L 105,100" stroke="#5c4f38" stroke-width="1.3"/>
+      <path d="M 100,100 L 105,110 L 110,100 Z" fill="#5c4f38"/>
+      <text x="118" y="92" fill="#9a2b1e" font-size="10">受之不设备 · 纳邹氏 · 赂胡车儿</text>
+      <rect x="30" y="112" width="150" height="34" rx="3" fill="none" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="105" y="133" text-anchor="middle" font-size="12" font-weight="700" fill="#9a2b1e">绣怨,夜袭操营</text>
+      <g><circle cx="105" cy="160" r="8" fill="none" stroke="#9c7a2c" stroke-width="2"/></g>
+      <path d="M 105,168 L 105,180" stroke="#5c4f38" stroke-width="1.3"/>
+      <path d="M 100,180 L 105,190 L 110,180 Z" fill="#5c4f38"/>
+      <rect x="30" y="192" width="150" height="44" rx="3" fill="rgba(122,90,35,.12)" stroke="#7a5a23" stroke-width="1.4"/>
+      <text x="105" y="211" text-anchor="middle" font-size="11.5" font-weight="700" fill="#7a5a23">操大败,中流矢</text>
+      <text x="105" y="227" text-anchor="middle" font-size="10.5" fill="#7a5a23">典韦 · 曹昂 · 安民俱死</text>
+      <!-- 分隔 -->
+      <line x1="300" y1="18" x2="300" y2="236" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+      <!-- 右:贾诩逆料 -->
+      <text x="330" y="28" fill="#9c7a2c" font-size="12" font-weight="700">建安三年 · 安众:贾诩逆料</text>
+      <rect x="330" y="44" width="120" height="32" rx="3" fill="none" stroke="#5c4f38" stroke-width="1.2"/>
+      <text x="390" y="64" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2b2418">操引军北退</text>
+      <path d="M 450,60 L 516,60" stroke="#5c4f38" stroke-width="1.3"/>
+      <path d="M 516,55 L 526,60 L 516,65 Z" fill="#5c4f38"/>
+      <rect x="528" y="40" width="300" height="40" rx="3" fill="rgba(156,122,44,.1)" stroke="#9c7a2c" stroke-width="1.3"/>
+      <text x="544" y="58" font-size="11" font-weight="700" fill="#9c7a2c">诩:『不可追,追必败』</text>
+      <text x="544" y="73" font-size="9.5" fill="#5c4f38">绣不听,以精兵追 → 操自断后,绣败还</text>
+      <path d="M 678,80 L 678,116" stroke="#5c4f38" stroke-width="1.2" stroke-dasharray="3 3"/>
+      <path d="M 673,116 L 678,126 L 683,116 Z" fill="#5c4f38"/>
+      <rect x="528" y="128" width="300" height="40" rx="3" fill="rgba(156,122,44,.1)" stroke="#9c7a2c" stroke-width="1.3"/>
+      <text x="544" y="146" font-size="11" font-weight="700" fill="#9c7a2c">诩:『促更追之,更战必胜』</text>
+      <text x="544" y="161" font-size="9.5" fill="#5c4f38">绣从之,以败卒追 → 破操后军,果胜</text>
+      <rect x="330" y="188" width="498" height="42" rx="3" fill="rgba(31,78,84,.06)" stroke="#5c4f38" stroke-width="1"/>
+      <text x="344" y="206" font-size="11" font-weight="700" fill="#1f4e54">料敌如神:胜负不在兵之精,而在殿军之将与士气</text>
+      <text x="344" y="222" font-size="10" fill="#5c4f38">追退兵,操必亲殿 → 必败;破追兵后操必速走留他将殿 → 必胜</text>
+    </svg>
+    <p class="intro">宛城之役,操本已<b>不战而得</b>:张绣举众来降,南阳传檄可定。然操<b>受降而不设其备</b>,又纳张济之妻邹氏、阴图骁将胡车儿以激其众——遂使一夕之间,降者复为劲敌。祸不在战之不力,而在<b>处降之失</b>:既克之势,反危于未克。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>曹操之失 · 受降不设备</h4>
+        <p>绣新降,众心未附,操当抚而防之。乃置酒高会,内纳邹氏辱其宗、外赂胡车儿疑其将,既激其怨,又弛其备。绣用贾诩计,徙军就道、请以辎重过营,操不之察;夜袭猝发,营中大乱,操中流矢,长子昂、侄安民、猛将典韦俱死。所谓『降而复叛,危于既克』者此也。</p>
+      </div>
+      <div class="c b">
+        <h4>贾诩之谋 · 逆料如神</h4>
+        <p>越年安众之役,操围绣于穰,闻许有变而引还。绣欲追,诩止之曰『追必败』;绣不听而果败。诩复趣之曰『更追必胜』;绣从之而果胜。诩言:操善兵,退必自殿,精兵追之犹不能克,故败;既破追兵则操必速走而留他将殿,以败卒击之,故胜。识殿军之将、料士气之变,故能逆睹胜负。</p>
+      </div>
+    </div>
+    <p class="kicker">一败一料,尽见处降之难与料敌之明:操以<b>受降不备</b>而几殒于宛,绣以<b>用诩之谋</b>而两挫强敌。然天下大势终归于操——建安四年,绣卒<b>用贾诩计,举众降曹</b>,操执其手为欢,不咎前怨。故宛城之炬,烈于一时;贾诩之算,终定于长远。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《张绣传》《典韦传》《贾诩传》约略绘出。宛城即今河南南阳,舞阴今河南泌阳西北,穰今河南邓州,育阳今河南新野北,许今河南许昌东,襄阳今湖北襄阳。疆界、水道经简化。</p>
-    <p><span class="n">注二</span>宛城即今河南南阳,淯水即今白河,自西北南下经城旁,东南注于汉水。晕染疆界为建安初南阳形势示意:张绣屯宛、刘表据荆州为其援,曹操自许南下;以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注三</span>此为曹操生平大挫,典韦、曹昂、曹安民俱死;操后每追念,叹曰"吾失典韦而不哭,独哭昂与韦耳"。本图从曹操(青)而其败衄,溃退用褐,不以胜负易主角。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=90+(经度−111.85)·260,y=588−(纬度−31.85)·235),几何关系力求近实:许在东北,宛居盆地之中,襄阳在南,舞阴在宛之东、当操归许之途。江河、疆界经简化。宛即今河南南阳(112.53E,33.0N);舞阴今泌阳西北(约113.25E,32.9N,故址诸家小异,此从泌阳西北一说);许即许都,今许昌东(114.0E,34.03N);穰今邓州(112.08E,32.68N);安众今邓州东北(约112.2E,32.85N);育阳今新野北(约112.42E,32.6N);襄阳今湖北襄阳(112.15E,32.05N)。</p>
+    <p><span class="n">注二</span>【行军与地势】此役全为陆战:操自许西南陆行至宛,依淯水(白河)结营;夜溃亦陆道东走舞阴,收散卒而军复振。无水运舟师,亦无决胜之漕运粮道——胜负系于『受降不备』与掩袭,非系于粮。淯水即今白河,自伏牛山南下,经宛城之东,南注汉水;南阳盆地为其地。</p>
+    <p><span class="n">注三</span>【三方所出】主角曹操(青)自许都·颍川来,居东北;张绣(朱)据宛·南阳,当其中;刘表(紫)据荆州·襄阳,在南,为绣之声援——建安三年安众之役,表果出兵绝操归路(图中紫色虚线)。疆界以点划『约界』示之:绣·操约以南阳北界,绣·表约以汉水,皆非实有画界。</p>
+    <p><span class="n">注四</span>【异同与本事】此为操生平大挫:典韦独当辕门力战死,长子昂以己马授操而殁,侄安民亦死。操后每追念,祭韦辄流涕曰『吾失典韦而不哭,独哭昂与韦耳』。邹氏,张济之妻、绣之从叔母,《武帝纪》讳言其事而《张绣传》裴注载之。建安三年安众之役、四年张绣之降,史在其后,本图并为末幅,以见贾诩逆料之明。依《三国志·武帝纪》《张绣传》《贾诩传》《典韦传》及《资治通鉴》卷六十二绘出。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"南征张绣",d:"汉建安二年(197)正月",p:["曹操南征张绣,军于宛城。绣举众降,操受之,置酒高会。既而操纳绣从叔张济之妻,绣闻而恨之;操又闻绣骁将胡车儿之勇,赂以金,绣益疑惧,以为图己。","绣阴怀怨望,用谋士贾诩之计,徙军就高道、请以辎重过操营,潜为之备。刘表据荆州,为绣之声援;宛城一隅,遂伏杀机。"]},
-  "1":{t:"绣降复叛",d:"建安二年正月",p:["操军宛城,张绣举众而降。既而操私纳张济之妻,绣恨之;操又欲阴收胡车儿,绣觉而不自安,乃与贾诩谋叛。","诩为之画计:请徙军就高道,以辎重车重多、须从操营中过,操许之。绣因是得潜勒兵甲,阳言过营,实为夜袭之备——降者一夕而成劲敌。"]},
-  "2":{t:"夜袭中军",d:"建安二年正月",p:["绣众夜突操营,操仓卒失备,军中大乱。操中流矢,所乘骏马“绝影”被创,不能驰骋,危甚。","长子曹昂以己马授操,操乘之乃得溃围而出;昂徒行,遂殁于阵。侄安民亦死。一夕之变,操几不免。"]},
-  "3":{t:"典韦死殿",d:"建安二年正月",p:["校尉典韦守辕门,以长戟左右奋击,一叉而十余矛俱摧;绣兵前后至者益众,韦身被数十创,短兵接战,犹瞋目大骂而死,贼不敢近其尸而后取之。","操赖韦、昂死殿,得脱走。退保舞阴,收合散卒,军复振。昂、安民俱没,操哀之;后每祭韦,辄流涕曰:“吾失典韦而不哭,独哭昂与韦耳。”"]}
+  all:{t:"南征张绣",d:"汉建安二年(197)正月",p:["曹操南征张绣,军于宛城,依淯水(白河)结营。绣举众降,操受之,置酒高会。既而操纳绣从叔张济之妻邹氏,绣闻而恨之;操又闻绣骁将胡车儿之勇,赂以金,绣益疑惧,以为图己。","绣阴怀怨望,用谋士贾诩之计,徙军就高道、请以辎重过操营,潜为之备。刘表据荆州,为绣之声援。宛城一隅,遂伏杀机——降者一夕而成劲敌。"]},
+  "1":{t:"曹操南征 · 张绣降",d:"建安二年正月",p:["操引兵自许西南征绣,军至宛城,依淯水为营。张绣据宛,自度不能与操争,乃举众而降,操受之,南阳传檄可定。","既降之后,操私纳张济之妻邹氏,绣以宗妇被辱,深恨之;操又闻绣骁将胡车儿骁勇,厚赂以金,绣觉而不自安,以为操将图己。绣新降众心未附,而操受之不设其备——祸机已伏于欢会之中。"]},
+  "2":{t:"降而复叛 · 夜袭破营",d:"建安二年正月",p:["绣与贾诩谋叛。诩为画计:请徙军就高道,以辎重车重、须从操营中过,操许之;绣因得潜勒兵甲,阳言过营,实为夜袭之备。","一夕,绣众突袭操营,操仓卒失备,军中大乱。操中流矢,所乘骏马『绝影』被创不能驰;长子曹昂以己马授操,操乘之乃得溃围北出,而昂徒行殁于阵,侄安民亦死。一夕之变,操几不免。"]},
+  "3":{t:"典韦死战 · 北走舞阴",d:"建安二年正月",p:["校尉典韦独当辕门,以长戟左右奋击,一叉而十余矛俱摧;绣兵前后益众,韦身被数十创,短兵接战,犹瞋目大骂而死,贼不敢近其尸而后取之。操赖韦、昂死殿,得脱走。","操北走,退保舞阴(今泌阳西北),收合散卒,军势复振,反击破绣追兵。绣与刘表合,操乃引军还许。操哀昂、韦之死,后每祭韦,辄流涕曰:『吾失典韦而不哭,独哭昂与韦耳。』"]},
+  "4":{t:"贾诩逆料 · 安众终降",d:"建安三年(198) — 四年(199)",p:["建安三年,操复南征,围绣于穰。会闻袁绍欲袭许,操解围引还;至安众(今邓州东北),刘表出荆州兵绝其归路,与绣夹之。绣欲追,贾诩曰『不可追,追必败』;绣不听,以精兵追,操自断后击破之。诩复趣绣曰『促更追之,更战必胜』;绣从之,以败卒再追,果破操后军。","诩之料曰:操善用兵,退必自殿,吾追兵虽精而将不敌,其士气尚锐,故追之必败;既破吾追兵,操必全军速退而留他将殿,其将虽良而不及将军,故更追必胜。建安四年,绣卒用贾诩计,举众降曹,操执其手为欢,拜扬武将军,不咎宛城之怨——降而复叛之敌,终为操用。"]}
 };
 const CITY={
-  wancheng:{t:"宛城",d:"张绣据,南阳郡治,今河南南阳",p:["张绣屯据之地。绣先降操,复用贾诩计夜袭之,操大败于此,长子昂、侄安民及典韦皆死。"]},
-  wuyin:{t:"舞阴",d:"今河南泌阳西北",p:["操夜溃后退保之处。收合散卒,军势复振,与绣相持;绣退,操引军还许。"]},
-  yushui:{t:"淯水(白河)",d:"经宛城旁,今白河",p:["自西北南下,绕宛城而过,东南注汉水。操军营垒依水而列,夜袭即起于此。"]},
-  xu:{t:"许",d:"今河南许昌东,操之都",p:["建安元年操迎汉献帝都许。此役操自许南下征绣,败后亦还于许。"]},
-  yuyang:{t:"育阳",d:"今河南新野北",p:["宛城东南、淯水之滨小邑。当操南下与还师之途,处宛、襄之间。"]},
-  rang:{t:"穰",d:"今河南邓州",p:["南阳西南要邑。张绣、刘表连兵所据,后操再征绣屡战于其间。"]},
-  xiangyang:{t:"襄阳",d:"刘表治,今湖北襄阳",p:["荆州牧刘表镇此。表与张绣为掎角,为绣之声援;操北还,表、绣合兵尝议追之。"]}
+  wancheng:{t:"宛城",d:"张绣据,南阳郡治,今河南南阳(112.53E,33.0N)",p:["张绣屯据之地,依淯水(白河)。绣先举众降操,复用贾诩计夜袭之,操大败于此:长子昂、侄安民及猛将典韦皆死,操亦中流矢。此操生平大挫之所。"]},
+  wuyin:{t:"舞阴",d:"今河南泌阳西北(约113.25E,32.9N)",p:["操夜溃后北走退保之处,当宛东、归许之途。操收合散卒于此,军势复振,反破张绣追兵;后绣与刘表合,操乃引军还许。故址诸家小异,此从泌阳西北一说。"]},
+  xu:{t:"许",d:"许都,今河南许昌东(114.0E,34.03N)",p:["建安元年操迎汉献帝都许,为其霸府根本。此役操自许南下征绣,败后亦还于许;建安三年再征,即因闻绍欲袭许而引还。"]},
+  anzhong:{t:"安众",d:"今河南邓州东北(约112.2E,32.85N)",p:["穰之东北、操归许所经。建安三年操解穰围北还,刘表出兵据险绝其归路,与绣夹击。贾诩逆料『追必败、更追必胜』,两言皆验于此——料敌如神之典。"]},
+  rang:{t:"穰",d:"今河南邓州(112.08E,32.68N)",p:["南阳西南要邑。建安三年操再南征,围张绣于此;会闻袁绍将袭许,乃解围引还,遂有安众之役。"]},
+  yuyang:{t:"育阳",d:"今河南新野北(约112.42E,32.6N)",p:["宛城东南、淯水之滨小邑,处宛、襄之间,当操南下与还师之途。"]},
+  xiangyang:{t:"襄阳",d:"刘表治,今湖北襄阳(112.15E,32.05N)",p:["荆州牧刘表镇此,临汉水。表与张绣为掎角,为绣之声援;建安三年安众之役,表果出兵绝操归路。表据荆州以观中原,终为绣之后盾。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
