@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -31,6 +31,7 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,13 +41,25 @@
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.q.rout{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.8;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
@@ -58,7 +71,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,7 +85,7 @@
   <div class="seal" aria-hidden="true"><span>白</span><span>登</span><span>之</span><span>围</span></div>
   <header>
     <h1>白登之围</h1>
-    <div class="sub">汉高帝七年(前200)　　<i>汉高帝 刘邦</i> 轻敌被围 · <b>匈奴 冒顿</b>七日困白登</div>
+    <div class="sub">汉高帝七年(前200)　　<i>汉·高帝 刘邦</i> 轻敌被围 · <b>匈奴 冒顿单于</b> 四十万骑困白登七日 · 贿阏氏而解</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 高帝北征</button>
@@ -81,7 +94,7 @@
     <button data-p="3">密计解围 · 结和亲</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白登之围形势图,含匈奴与汉疆界、长城桑干河句注山与白登平城晋阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白登之围形势图,含匈奴与汉之疆界、汉塞长城、桑干河、句注雁门山、白登山平城马邑晋阳诸城,及汉军北征、匈奴合围与脱围路线">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,83 +103,103 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:匈奴据漠南(北),汉据内地(南),约以长城为界 -->
-    <path d="M 0,232 C 140,214 300,204 460,214 C 600,222 740,206 1000,196 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,232 C 140,214 300,204 460,214 C 600,222 740,206 1000,196 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,232 C 140,214 300,204 460,214 C 600,222 740,206 1000,196"/>
-    <text class="realm q" x="120" y="110" font-size="34">匈 奴(漠南)</text>
-    <text class="realm j" x="640" y="560" font-size="32">汉(内地)</text>
+    <!-- ══ 疆界:匈奴据漠南(北),汉据内地(南),约以汉塞(句注·长城)为界。平城、白登乃汉之北边孤悬,故易陷重围 ══ -->
+    <path d="M 0,128 C 200,108 420,104 600,112 C 760,118 880,110 1000,104 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,128 C 200,108 420,104 600,112 C 760,118 880,110 1000,104 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,128 C 200,108 420,104 600,112 C 760,118 880,110 1000,104"/>
+    <text class="realm q" x="118" y="82" font-size="30">匈 奴(漠南)</text>
+    <text class="realm j" x="120" y="588" font-size="30">汉(内地)</text>
 
-    <!-- 长城:沿疆界东西横亘 -->
-    <g class="mtn"><path d="M 0,250 C 150,232 320,222 470,232 C 620,240 760,224 1000,214" stroke-width="1.6" stroke-dasharray="6 4"/></g>
-    <text class="cname s" x="60" y="244" style="fill:var(--ink2)">长　城</text>
+    <!-- 长城·汉塞:沿疆界东西横亘 -->
+    <g class="mtn"><path d="M 0,118 C 200,99 420,95 600,102 C 760,108 880,101 1000,95" stroke-width="1.4" stroke-dasharray="6 4"/></g>
+    <text class="cname s" x="40" y="112" style="fill:var(--ink2)">长城·汉塞</text>
 
-    <!-- 桑干河:自西南句注一带东北流经平城、白登 -->
-    <path class="river" stroke-width="4" d="M 220,470 C 340,440 430,410 500,378 C 560,352 620,336 700,326 C 780,318 850,320 940,318"/>
-    <text class="rname" x="720" y="348">桑 干 河</text>
+    <!-- 桑干河:发源朔州(马邑)一带,东北流经平城,东出 -->
+    <path class="river" stroke-width="4" d="M 418,300 C 470,252 522,208 566,186 C 650,162 780,168 962,178"/>
+    <text class="rname" x="700" y="152">桑 干 河</text>
 
-    <!-- 句注山(雁门):西南险塞 -->
-    <g class="mtn"><path d="M 210,520 l 10,-16 l 10,16 M 228,514 l 10,-16 l 10,16 M 246,520 l 9,-15 l 9,15"/></g>
-    <text class="cname s" x="196" y="540">句注山(雁门)</text>
+    <!-- 句注山(雁门塞):晋阳北出之险,汉军所逾 -->
+    <g class="mtn"><path d="M 470,326 l 13,-19 l 13,19 M 492,321 l 13,-19 l 13,19 M 514,326 l 12,-18 l 12,18"/></g>
+    <!-- 白登山:平城东,帝先登被围之山 -->
+    <g class="mtn"><path d="M 570,162 l 9,-14 l 9,14 M 586,158 l 9,-14 l 9,14"/></g>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="baideng"><circle cx="560" cy="298" r="6"/><text class="cname" x="572" y="294">白登山<tspan class="cname s" dx="2">(被围)</tspan></text></g>
-      <g class="city cap" data-city="pingcheng"><circle cx="500" cy="330" r="5.5"/><text class="cname" x="446" y="352">平城<tspan class="cname s" dx="2">(大同)</tspan></text></g>
-      <g class="city" data-city="jinyang"><circle cx="470" cy="560" r="5"/><text class="cname" x="482" y="556">晋阳</text></g>
-      <g class="city" data-city="mayi"><circle cx="330" cy="360" r="4.5"/><text class="cname s" x="278" y="356">马邑</text></g>
-      <g class="city" data-city="juzhu"><circle cx="360" cy="500" r="4"/><text class="cname s" x="290" y="496">句注·雁门</text></g>
-      <g class="city" data-city="guangwu"><circle cx="410" cy="452" r="4"/><text class="cname s" x="420" y="448">广武</text></g>
+      <g class="city" data-city="baideng"><circle cx="584" cy="170" r="6.5"/><text class="cname" x="596" y="166">白登山<tspan class="cname s" dx="2">(被围)</tspan></text></g>
+      <g class="city cap" data-city="pingcheng"><circle cx="566" cy="186" r="5.5"/><text class="cname" x="512" y="206">平城<tspan class="cname s" dx="2">(大同)</tspan></text></g>
+      <g class="city" data-city="guangwu"><circle cx="491" cy="298" r="4.5"/><text class="cname s" x="502" y="294">广武</text></g>
+      <g class="city" data-city="juzhu"><circle cx="502" cy="322" r="4"/><text class="cname s" x="514" y="336">句注·雁门</text></g>
+      <g class="city" data-city="mayi"><circle cx="435" cy="294" r="5"/><text class="cname" x="378" y="290">马邑</text></g>
+      <g class="city" data-city="loufan"><circle cx="416" cy="361" r="4"/><text class="cname s" x="360" y="358">楼烦</text></g>
+      <g class="city" data-city="jinyang"><circle cx="453" cy="522" r="5.5"/><text class="cname" x="465" y="518">晋阳<tspan class="cname s" dx="2">(太原)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 高帝北征 -->
+    <!-- 长安(图外·西南):汉都,和亲之议所自出 -->
+    <g transform="translate(6,596)">
+      <path class="march j" marker-end="url(#aj)" d="M 30,0 L 4,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">长安·关中 ⟶ 帝亲征所自出</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--ink2);font-size:9.5px">汉都(图外西南)</text>
+    </g>
+
+    <!-- ══ 全图 · 高帝北征 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 470,552 C 462,510 452,470 442,442 C 430,410 470,368 494,336"/>
-      <text class="mlabel j" x="380" y="512">高帝率三十二万北征</text>
-      <text class="anno" x="360" y="530">连破匈奴于铜鞮、晋阳</text>
-      <path class="march q" marker-end="url(#aq)" d="M 340,352 C 400,346 450,340 490,332"/>
-      <text class="mlabel q" x="270" y="332">韩王信以马邑降匈奴,连兵南犯</text>
-      <text class="anno" x="150" y="180">时值隆冬大寒,士卒堕指者什二三</text>
+      <path class="march j" marker-end="url(#aj)" d="M 456,506 C 476,430 486,372 500,326 C 512,282 536,222 562,190"/>
+      <text class="mlabel j" x="500" y="440">高帝自将三十二万北征</text>
+      <text class="anno" x="500" y="458">连破匈奴、韩信兵于铜鞮、晋阳</text>
+      <path class="march q" marker-end="url(#aq)" d="M 436,300 C 420,362 420,438 448,504"/>
+      <text class="mlabel q" x="300" y="330">韩王信以马邑降匈奴</text>
+      <text class="anno" x="300" y="346">连兵南犯,略太原至晋阳</text>
+      <path class="march q" marker-end="url(#aq)" d="M 606,110 C 600,128 596,142 592,156"/>
+      <text class="mlabel q" x="612" y="98">冒顿匿精骑,示弱以诱汉</text>
+      <text class="anno" x="120" y="230">时值隆冬大寒雨雪,士卒堕指者什二三</text>
     </g>
 
-    <!-- 阶段一:示弱诱敌 · 轻骑冒进 -->
+    <!-- ══ 阶段一:示弱诱敌 · 轻骑冒进 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="596" y="256" width="9" height="9" transform="rotate(45 600 260)"/>
-      <rect class="camp" x="628" y="292" width="8" height="8" transform="rotate(45 632 296)"/>
-      <rect class="camp" x="600" y="336" width="8" height="8" transform="rotate(45 604 340)"/>
-      <text class="mlabel q" x="600" y="240">冒顿匿精壮,示以老弱羸畜以诱汉</text>
-      <path class="march j rout" marker-end="url(#ar)" d="M 414,446 C 440,420 470,384 512,340"/>
-      <text class="mlabel r" x="424" y="424">刘敬谏有伏,帝怒系之广武</text>
-      <path class="march j" marker-end="url(#aj)" d="M 508,332 C 528,320 544,310 552,304"/>
-      <text class="mlabel j" x="500" y="300">帝自将轻骑先趋白登</text>
+      <rect class="camp" x="600" y="120" width="9" height="9" transform="rotate(45 604 124)"/>
+      <rect class="camp" x="640" y="140" width="8" height="8" transform="rotate(45 644 144)"/>
+      <rect class="camp" x="560" y="132" width="8" height="8" transform="rotate(45 564 136)"/>
+      <text class="mlabel q" x="560" y="108">冒顿匿精壮,徒见老弱羸畜以诱汉</text>
+      <path class="march j rout" marker-end="url(#ar)" d="M 512,318 C 502,308 496,302 493,300"/>
+      <text class="mlabel r" x="290" y="252">刘敬谏有伏,帝怒系之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,320 C 520,270 542,220 564,192"/>
+      <text class="mlabel j" x="548" y="266">帝自将轻骑先趋平城,进登白登</text>
+      <text class="anno" x="356" y="450">大军步卒犹在道,未尽至</text>
     </g>
 
-    <!-- 阶段二:白登被围 · 七日不通 -->
+    <!-- ══ 阶段二:白登被围 · 七日不通 ══ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="560" cy="298" r="34"/>
-      <circle class="star" cx="560" cy="298" r="9"/>
-      <path class="march q" marker-end="url(#aq)" d="M 618,258 C 600,270 588,278 578,286"/>
-      <path class="march q" marker-end="url(#aq)" d="M 620,340 C 604,326 592,318 582,310"/>
-      <path class="march q" marker-end="url(#aq)" d="M 508,262 C 526,274 538,282 546,288"/>
-      <path class="march q" marker-end="url(#aq)" d="M 506,338 C 524,326 536,318 546,310"/>
-      <text class="mlabel q" x="600" y="216">冒顿纵四十万骑,四面围白登山</text>
-      <text class="anno" x="590" y="360">七日七夜,内外不得相救饷</text>
-      <text class="anno" x="400" y="270">天寒,汉军士卒堕指</text>
+      <circle class="siege" cx="584" cy="170" r="42"/>
+      <circle class="star" cx="584" cy="170" r="9"/>
+      <path class="march q" marker-end="url(#aq)" d="M 540,128 C 552,140 560,148 566,154"/>
+      <path class="march q" marker-end="url(#aq)" d="M 636,128 C 622,140 612,148 604,154"/>
+      <path class="march q" marker-end="url(#aq)" d="M 540,214 C 552,202 560,194 566,188"/>
+      <path class="march q" marker-end="url(#aq)" d="M 636,214 C 622,202 612,194 604,188"/>
+      <text class="mlabel q" x="560" y="98">冒顿纵四十万骑,四面围白登山</text>
+      <text class="anno" x="516" y="118" style="font-size:10px">北·乌骊</text>
+      <text class="anno" x="640" y="118" style="font-size:10px">东·青駹</text>
+      <text class="anno" x="514" y="234" style="font-size:10px">西·白马</text>
+      <text class="anno" x="638" y="234" style="font-size:10px">南·騂马</text>
+      <text class="anno" x="600" y="256">七日七夜,汉军内外不得相救饷</text>
+      <text class="anno" x="360" y="200">天寒,士卒堕指者什二三</text>
     </g>
 
-    <!-- 阶段三:密计解围 · 结和亲 -->
+    <!-- ══ 阶段三:密计解围 · 结和亲 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="560" cy="298" r="9"/>
-      <path class="march j" marker-end="url(#aj)" d="M 552,306 C 528,326 508,340 494,338"/>
-      <text class="mlabel j" x="470" y="288">陈平密赂阏氏,说单于开围一角</text>
-      <text class="anno" x="440" y="306">会天大雾,汉军张弩徐出,得脱</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 578,286 C 620,254 660,232 700,214"/>
-      <text class="mlabel r" x="608" y="248">冒顿引兵去</text>
-      <path class="march j" marker-end="url(#aj)" d="M 486,340 C 456,384 428,424 414,446"/>
-      <text class="anno" x="330" y="472">帝至广武,赦刘敬;遂与匈奴结和亲</text>
+      <circle class="star" cx="584" cy="170" r="9"/>
+      <path class="march q rout" marker-end="url(#ar)" d="M 592,152 C 598,124 604,106 610,90"/>
+      <text class="mlabel r" x="618" y="98">阏氏说单于,解围一角</text>
+      <path class="march j" marker-end="url(#aj)" d="M 576,178 C 572,182 570,184 568,186"/>
+      <text class="mlabel j" x="470" y="150">陈平密赂阏氏</text>
+      <text class="anno" x="440" y="166">会天大雾,汉军张弩徐出</text>
+      <path class="march j" marker-end="url(#aj)" d="M 560,192 C 528,244 506,286 495,300"/>
+      <text class="mlabel j" x="360" y="330">帝入平城,与大军合,至广武赦刘敬</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 610,142 C 640,110 680,86 720,70"/>
+      <text class="mlabel r" x="636" y="66">冒顿引兵去</text>
+      <text class="anno" x="150" y="486">自是汉与匈奴结和亲,岁遗宗女缯絮</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,570)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -175,34 +208,88 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军冒进·脱困</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>被围</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军·脱围</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴·韩信</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>系刘敬·两军引去</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>四面合围</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>被围·白登</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 示弱诱敌,轻进被围</h3>
+    <div class="lead">白登之危,不系于战之胜负,而系于一诱、一围、一言</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="白登之围机理图解:冒顿示弱诱敌,四十万骑四面合围白登,陈平贿阏氏而解一角">
+      <!-- 左:诱 -->
+      <rect x="24" y="46" width="176" height="46" rx="4" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="112" y="66" text-anchor="middle" fill="#9a2b1e" font-size="12.5" font-weight="700">匈奴示弱</text>
+      <text x="112" y="83" text-anchor="middle" fill="#5c4f38" font-size="10.5">匿精壮 · 徒见老弱羸畜</text>
+      <rect x="24" y="150" width="176" height="46" rx="4" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="112" y="170" text-anchor="middle" fill="#1f4e54" font-size="12.5" font-weight="700">汉轻敌冒进</text>
+      <text x="112" y="187" text-anchor="middle" fill="#5c4f38" font-size="10.5">十辈使皆言可击 · 帝先登</text>
+      <path d="M 112,92 L 112,150" fill="none" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="3 3" opacity=".6"/>
+      <text x="120" y="126" fill="#5c4f38" font-size="10" font-style="italic">独刘敬谏,反系之</text>
+      <path d="M 200,120 C 236,120 252,120 274,120" fill="none" stroke="#7a5a23" stroke-width="2.2" marker-end="url(#ar)"/>
+      <!-- 中:围(四色马四面合围) -->
+      <circle cx="430" cy="120" r="52" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="3 4"/>
+      <circle cx="430" cy="120" r="12" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="430" y="116" text-anchor="middle" fill="#2b2418" font-size="11" font-weight="700">白登</text>
+      <text x="430" y="130" text-anchor="middle" fill="#5c4f38" font-size="9">帝·先登</text>
+      <path d="M 430,50 L 430,96" stroke="#9a2b1e" stroke-width="2" marker-end="url(#aq)"/>
+      <path d="M 430,190 L 430,144" stroke="#9a2b1e" stroke-width="2" marker-end="url(#aq)"/>
+      <path d="M 360,120 L 406,120" stroke="#9a2b1e" stroke-width="2" marker-end="url(#aq)"/>
+      <path d="M 500,120 L 454,120" stroke="#9a2b1e" stroke-width="2" marker-end="url(#aq)"/>
+      <text x="430" y="44" text-anchor="middle" fill="#5c4f38" font-size="9.5">北·乌骊</text>
+      <text x="430" y="206" text-anchor="middle" fill="#5c4f38" font-size="9.5">南·騂马</text>
+      <text x="326" y="123" text-anchor="middle" fill="#5c4f38" font-size="9.5">西·白</text>
+      <text x="534" y="123" text-anchor="middle" fill="#5c4f38" font-size="9.5">青駹·东</text>
+      <text x="430" y="238" text-anchor="middle" fill="#9a2b1e" font-size="10.5" font-weight="700">四十万骑 · 围七日七夜</text>
+      <path d="M 512,120 C 548,120 564,120 586,120" fill="none" stroke="#9c7a2c" stroke-width="2.2" marker-end="url(#ar)"/>
+      <!-- 右:解 -->
+      <rect x="640" y="46" width="196" height="46" rx="4" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.2"/>
+      <text x="738" y="66" text-anchor="middle" fill="#9c7a2c" font-size="12.5" font-weight="700">陈平密计</text>
+      <text x="738" y="83" text-anchor="middle" fill="#5c4f38" font-size="10.5">间使厚遗阏氏 · 说单于</text>
+      <rect x="640" y="150" width="196" height="46" rx="4" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="738" y="170" text-anchor="middle" fill="#1f4e54" font-size="12.5" font-weight="700">开围一角</text>
+      <text x="738" y="187" text-anchor="middle" fill="#5c4f38" font-size="10.5">会大雾 · 张弩徐出得脱</text>
+      <path d="M 738,92 L 738,150" fill="none" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="3 3" opacity=".6"/>
+    </svg>
+    <p class="intro">白登之围,汉军非败于阵,而困于势:冒顿<b>匿其精壮、示以老弱</b>,汉十辈之使皆中其饵,谓匈奴可击;帝乘胜轻进,自将先登,<b>步卒未尽至而先陷四十万骑之围</b>。围既成,七日七夜内外不通,战不能、走不得——胜负遂不在锋镝,而在能否解此一围。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>轻进 · 汉之失</h4>
+        <p>韩王信降匈奴,连兵南犯,帝自将三十二万往击,连捷于铜鞮、晋阳,乘胜逾句注而北。冒顿佯败示弱,帝信之,以轻骑先趋平城、登白登,而大军步卒犹在道未至。骄兵深入、首尾不属,是以一战不接而身陷重围——独娄敬(刘敬)谏有伏,反遭械系。</p>
+      </div>
+      <div class="c b">
+        <h4>解围 · 谋之力</h4>
+        <p>七日不能出,陈平乃出秘计:遣使间道厚赂阏氏(单于妻)。阏氏说冒顿曰『两主不相困;汉地终非单于所能有』,又疑汉救兵将至,乃纵开围之一角。会天大雾,汉军张弩持满、徐引而出,遂与大军合于平城。非兵之能,一妇人之言解之。</p>
+      </div>
+    </div>
+    <p class="kicker">白登之围,汉初国势之一大转关:高帝身脱虎口而元气知警,乃纳娄敬之策,<b>与匈奴结和亲</b>,以宗女、缯絮岁遗单于——终惠、文、景之世不复大举,至武帝乃反攻。故此役之义,不在一时之险胜,而在<b>『示弱诱敌·轻进被围』之戒</b>与由攻转和之国策。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·匈奴列传》《史记·高祖本纪》《史记·陈丞相世家》及《汉书》约略绘出。白登山在今山西大同东,平城即大同,晋阳今太原,句注山即雁门。长城、桑干河及诸城邑水道为相对示意,非实测方位。</p>
-    <p><span class="n">注二</span>晕染疆界为高帝七年形势示意:匈奴据漠南,汉据内地,约以长城为界;故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>冒顿匿其精壮、示以老弱羸畜以诱汉,汉使十辈皆言可击,独刘敬(娄敬)谏曰匈奴必有伏、不可击;帝怒械系之,轻敌深入,遂困白登七日——诱敌骄兵,险胜一发。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作光墨卡托投影定位,几何关系力求近实:白登山在北(平城东),平城即今大同,句注·雁门为晋阳北出之险塞,马邑在西(今朔州)、韩王信降处,晋阳今太原、在南为进兵之基。桑干河、长城汉塞及疆界经简化描绘,非实测方位。</p>
+    <p><span class="n">注二</span>晕染疆界为高帝七年形势示意:匈奴据漠南,汉据内地,约以句注·长城汉塞为界;平城、白登乃汉之北边孤悬之地,深入匈奴之境,故点划「约界」标之,非实有画界。长安为汉都、在图外西南,帝亲征所自出、和亲之议所自决,故以图外箭标之。</p>
+    <p><span class="n">注三</span>依《史记·匈奴列传》《史记·高祖本纪》《史记·陈丞相世家》及《汉书·匈奴传》。冒顿匿精壮、示羸弱以诱汉,汉使十辈皆言可击,独娄敬(刘敬)谏曰匈奴必有奇兵伏、不可击;帝怒械系之,轻骑先登白登,遂困七日七夜。围合之状,《匈奴列传》记四方之马:西尽白马、东尽青駹、北尽乌骊、南尽騂马。</p>
+    <p><span class="n">注四</span>解围之计出陈平,史谓『其计秘,世莫得闻』,《陈丞相世家》但言使人厚遗阏氏;《匈奴列传》载阏氏说单于『两主不相困』及疑汉救兵至,单于乃开围一角,会大雾汉得出。兵数三十二万(汉步卒)、四十万骑(匈奴)从本纪、列传;和亲之策亦娄敬所建,自是数十年汉不复大举击匈奴。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"高帝北征",d:"汉高帝七年(前200)冬",p:["韩王信王代地,都马邑,数为匈奴所苦;匈奴大攻马邑,信降之,以马邑连兵南犯,略太原,至晋阳。","高帝自将三十二万众往击之,连破其兵于铜鞮、晋阳。时值隆冬大寒雨雪,士卒堕指者什二三——胜势方张,而危机已伏。"]},
-  "1":{t:"示弱诱敌 · 轻骑冒进",d:"前200年冬",p:["冒顿单于匿其精壮士马,但见老弱羸畜以诱汉。汉使十辈往,皆言匈奴可击。","独刘敬(娄敬)使还,谏曰:两国相击,宜矜夸见所长;今徒见羸瘠老弱,此必匿奇兵以争利,不可击也。帝怒,骂而械系之广武,乃自将轻骑先至平城,进登白登。"]},
-  "2":{t:"白登被围 · 七日不通",d:"前200年冬",p:["冒顿纵精骑四十万,四面围帝于白登山:西方尽白马,东方尽青駹马,北方尽乌骊马,南方尽騂马。","围凡七日七夜,汉军内外不得相救饷。天寒大雪,士卒冻馁堕指,危在旦夕。"]},
-  "3":{t:"密计解围 · 结和亲",d:"前200年冬 — 其后数十年",p:["陈平出密计,使人间厚遗阏氏(单于妻)。阏氏乃说冒顿曰:两主不相困;今得汉地,单于终非能居之。又疑汉救兵将至,乃解围之一角。","会天大雾,汉军张弩持满外向,徐引兵而出,得与大军合;冒顿引兵去。帝至广武,赦刘敬、封二千户。自是汉与匈奴结和亲,以宗女、缯絮岁遗单于,数十年不复大举兵。"]}
+  all:{t:"高帝北征",d:"汉高帝七年(前200)冬",p:["韩王信王代地,都马邑,数为匈奴所苦;匈奴大攻马邑,信降之,以马邑连兵南犯,略太原,至晋阳。高帝自长安亲征,将三十二万众往击,连破其兵于铜鞮、晋阳,乘胜逾句注而北。","时值隆冬大寒雨雪,士卒堕指者什二三。冒顿单于匿其精壮、示以老弱羸畜以诱汉——胜势方张,而危机已伏于平城之北。"]},
+  "1":{t:"示弱诱敌 · 轻骑冒进",d:"前200年冬",p:["冒顿匿其精壮士马,但见老弱羸畜以诱汉。帝使十辈往觇,皆言匈奴可击。独娄敬(刘敬)使还,谏曰:两国相击,宜矜夸见所长;今徒见羸瘠老弱,此必匿奇兵以争利,不可击也。","帝方乘胜,怒骂而械系敬于广武,自将轻骑先至平城,进登白登山。而大军步卒犹在道、未尽至——首尾不属,骄兵深入,危机遂发。"]},
+  "2":{t:"白登被围 · 七日不通",d:"前200年冬",p:["冒顿纵精骑四十万,四面围帝于白登山:西方尽白马,东方尽青駹马,北方尽乌骊马,南方尽騂马,旌旗如林。","围凡七日七夜,汉军内外不得相救饷。天寒大雪,士卒冻馁堕指,战不能进、走不能出,危在旦夕。"]},
+  "3":{t:"密计解围 · 结和亲",d:"前200年冬 — 其后数十年",p:["陈平出秘计,使人间道厚遗阏氏(单于妻)。阏氏乃说冒顿曰:两主不相困;今得汉地,单于终非能居之。又疑汉救兵将至,乃纵解围之一角。会天大雾,汉军张弩持满外向,徐引兵而出,得入平城与大军合;冒顿引兵去。","帝至广武,赦娄敬、封二千户,号建信侯。自是汉纳敬策,与匈奴结和亲,以宗女、缯絮岁遗单于——白登一围,遂为汉初由攻转守、和亲数十年之始。"]}
 };
 const CITY={
-  baideng:{t:"白登山",d:"今山西大同东",p:["高帝轻骑先登之处。冒顿纵四十万骑四面围之,七日七夜,内外不得相救饷,汉军险困于此。"]},
-  pingcheng:{t:"平城",d:"今山西大同",p:["汉军所趋之城,近白登山。帝自将轻骑先至平城,进登白登,遂陷重围。"]},
-  jinyang:{t:"晋阳",d:"今山西太原",p:["高帝北征进兵之基。连破匈奴、韩王信之兵于铜鞮、晋阳,乘胜北趋。"]},
-  mayi:{t:"马邑",d:"今山西朔州",p:["韩王信封代都马邑,匈奴大攻之,信遂以马邑降匈奴,连兵南犯,兵祸由此起。"]},
-  juzhu:{t:"句注·雁门",d:"句注山即雁门,今代县北",p:["汉军出塞所经之险塞。逾此而北,则入匈奴大寒之地。"]},
-  guangwu:{t:"广武",d:"今山西代县西",p:["刘敬谏止不可击,帝怒械系之于此。解围后,帝还至广武,赦刘敬而封之。"]}
+  baideng:{t:"白登山",d:"今山西大同东",p:["高帝轻骑先登之处。冒顿纵四十万骑四面围之,七日七夜,内外不得相救饷;西白马、东青駹、北乌骊、南騂马,匈奴精骑毕集于此。汉军险困,赖陈平密计乃脱。"]},
+  pingcheng:{t:"平城",d:"今山西大同 · 汉边重镇",p:["汉军所趋之城,近白登山。帝自将轻骑先至平城,进登白登,遂陷重围;解围后复入平城,与大军合。"]},
+  guangwu:{t:"广武",d:"今山西代县西北 · 句注塞北",p:["娄敬(刘敬)谏止不可击,帝怒械系之于此。解围后,帝还至广武,赦刘敬而封为建信侯。"]},
+  juzhu:{t:"句注·雁门",d:"句注山即雁门,今代县北",p:["晋阳北出之险塞,汉军逾此而北,则入匈奴大寒之地。此线亦汉与匈奴约略相枕之边塞。"]},
+  mayi:{t:"马邑",d:"今山西朔州",p:["韩王信封代、都马邑,匈奴大攻之,信遂以马邑降匈奴,连兵南犯,略太原至晋阳——白登兵祸由此而起。"]},
+  loufan:{t:"楼烦",d:"今山西宁武·朔州一带 · 战国楼烦故地",p:["古楼烦国故地,匈奴楼烦王所据,以骑射名。汉军北出、匈奴南下皆经其境,为晋阳、句注间之通道。"]},
+  jinyang:{t:"晋阳",d:"今山西太原",p:["高帝北征进兵之基。连破匈奴、韩王信之兵于铜鞮、晋阳,乘胜北趋句注、平城。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

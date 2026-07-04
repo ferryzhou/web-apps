@@ -31,7 +31,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.28em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,16 +42,15 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -58,9 +59,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.06),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -71,19 +87,19 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>汉</span><span>平</span><span>南</span><span>越</span></div>
+  <div class="seal" aria-hidden="true"><span>楼</span><span>船</span><span>南</span><span>征</span></div>
   <header>
     <h1>汉灭南越之战</h1>
-    <div class="sub">汉武帝元鼎五至六年(前112–111)　　<i>汉 路博德·杨仆</i> 楼船下番禺 · <b>南越 吕嘉</b>夜遁就擒</div>
+    <div class="sub">汉武帝元鼎五至六年(前112–111)　　<i>汉 楼船·伏波五路</i> 会师番禺 · <b>南越 吕嘉</b>夜遁就擒　·　舟师并进 · 夜袭纵火</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 吕嘉拒汉</button>
-    <button data-p="1">楼船分道 · 会师番禺</button>
+    <button data-p="1">五路并进 · 会师番禺</button>
     <button data-p="2">先陷石门 · 纵火破城</button>
     <button data-p="3">城降 · 吕嘉就擒</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="汉灭南越之战形势图,含汉与南越疆界、西江珠江湟水南海与番禺横浦关等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="汉灭南越之战形势图,含汉与南越以五岭为约界,西江珠江汇水浈水离水牂柯江诸水道,与楼船伏波戈船下厉驰义五路水军自桂阳豫章零陵苍梧夜郎并进会师番禺">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -92,124 +108,201 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:汉据中原(北),南越据岭南(南),约以五岭为界 -->
-    <path d="M 0,300 C 140,286 300,296 430,320 C 560,344 700,352 1000,344 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 140,286 300,296 430,320 C 560,344 700,352 1000,344 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,286 300,296 430,320 C 560,344 700,352 1000,344"/>
-    <text class="realm j" x="150" y="150" font-size="32">汉(中原)</text>
-    <text class="realm q" x="600" y="590" font-size="32">南 越(岭南)</text>
+    <!-- ══ 疆界:汉据其北(江淮·荆楚),南越据岭南(南),约以五岭为界 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,372 C 820,382 660,388 500,374 C 340,360 160,352 0,364 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,364 C 160,352 340,360 500,374 C 660,388 820,382 1000,372 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,364 C 160,352 340,360 500,374 C 660,388 820,382 1000,372"/>
+    <text class="realm j" x="120" y="150" font-size="30">汉(江淮·荆楚)</text>
+    <text class="realm q" x="180" y="590" font-size="30">南 越(岭南)</text>
 
-    <!-- 南海 -->
-    <path class="sea" d="M 0,600 C 200,588 420,596 620,612 C 800,626 920,628 1000,626 L 1000,640 L 0,640 Z"/>
-    <text class="rname" x="300" y="626" style="opacity:.7">南 海</text>
+    <!-- ══ 南海 ══ -->
+    <path class="sea" d="M 0,602 C 220,592 460,598 700,588 C 850,582 940,584 1000,582 L 1000,640 L 0,640 Z"/>
+    <text class="rname" x="360" y="626" style="opacity:.7">南 海</text>
 
-    <!-- 西江/珠江:自西(苍梧)东流,会于番禺,入南海 -->
-    <path class="river" stroke-width="5" d="M 60,398 C 200,410 320,430 430,452 C 520,470 590,486 640,500 C 700,516 760,530 840,548"/>
-    <!-- 湟水(骑田岭道):自北(桂阳)南下,汇入西江 -->
-    <path class="river" stroke-width="3" d="M 380,214 C 396,270 412,340 430,452"/>
-    <!-- 浈水/横浦道:自东北(横浦关)南下,汇合口 -->
-    <path class="river" stroke-width="2.6" d="M 640,214 C 620,300 600,400 590,486"/>
-    <text class="rname" x="150" y="428" transform="rotate(6 150 428)">西江 · 珠江</text>
-    <text class="rname" x="392" y="320" transform="rotate(80 392 320)" style="font-size:11px">湟 水</text>
-    <text class="rname" x="612" y="360" transform="rotate(96 612 360)" style="font-size:11px">浈 水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 西江·珠江:自西(夜郎/牂柯江)东流,会苍梧,趋番禺入南海 -->
+    <path class="river" stroke-width="5" d="M 90,332 C 240,362 400,436 558,474 C 630,490 690,498 716,504 C 800,516 880,530 1000,540"/>
+    <!-- 汇水(湟水·连江):自北(桂阳)骑田岭道南下,入北江趋番禺 -->
+    <path class="river" stroke-width="3" d="M 692,314 C 700,372 706,432 712,494"/>
+    <!-- 浈水·北江:自大庾岭(横浦关)南下,经石门趋番禺 -->
+    <path class="river" stroke-width="3" d="M 796,346 C 776,392 748,444 720,494"/>
+    <!-- 离水·漓江·桂江:自零陵南下,会苍梧入西江 -->
+    <path class="river" stroke-width="2.8" d="M 581,286 C 572,360 564,430 558,468"/>
+    <text class="rname" x="250" y="404" transform="rotate(15 250 404)">西江 · 珠江</text>
+    <text class="rname" x="150" y="356" transform="rotate(11 150 356)" style="font-size:11px">牂柯江</text>
+    <text class="rname" x="716" y="418" transform="rotate(96 716 418)" style="font-size:11px">汇 水</text>
+    <text class="rname" x="770" y="426" transform="rotate(122 770 426)" style="font-size:11px">浈 水</text>
+    <text class="rname" x="572" y="372" transform="rotate(96 572 372)" style="font-size:11px">离 水</text>
 
-    <!-- 五岭(骑田·横浦诸岭) -->
-    <g class="mtn"><path d="M 300,300 l 8,-13 l 8,13 M 316,294 l 8,-13 l 8,13 M 332,300 l 7,-12 l 7,12"/></g>
-    <g class="mtn"><path d="M 600,304 l 8,-13 l 8,13 M 616,298 l 8,-13 l 8,13 M 632,304 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="300" y="322">骑田岭</text>
-    <text class="cname s" x="600" y="326">横浦诸岭</text>
+    <!-- ══ 五岭(南岭):汉越天险 ══ -->
+    <path class="mtn fill" d="M 430,378 L 448,352 L 462,368 L 482,344 L 500,366 L 520,346 L 538,368 L 556,350 L 574,372 Z"/>
+    <g class="mtn"><path d="M 176,362 l 8,-14 l 8,14 M 192,356 l 8,-14 l 8,14 M 208,362 l 7,-13 l 7,13"/></g>
+    <g class="mtn"><path d="M 470,360 l 8,-14 l 8,14 M 486,354 l 8,-14 l 8,14 M 502,360 l 7,-13 l 7,13"/></g>
+    <g class="mtn"><path d="M 636,372 l 8,-14 l 8,14 M 652,366 l 8,-14 l 8,14 M 668,372 l 7,-13 l 7,13"/></g>
+    <g class="mtn"><path d="M 774,364 l 8,-14 l 8,14 M 790,358 l 8,-14 l 8,14 M 806,364 l 7,-13 l 7,13"/></g>
+    <text class="mname" x="480" y="398" style="font-size:10px">越城岭·萌渚</text>
+    <text class="mname" x="628" y="392" style="font-size:10px">骑田岭</text>
+    <text class="mname" x="770" y="390" style="font-size:10px">大庾岭</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="changsha"><circle cx="380" cy="150" r="5"/><text class="cname" x="330" y="146">长沙·桂阳<tspan class="cname s" dx="2">(汉军基)</tspan></text></g>
-      <g class="city" data-city="hengpu"><circle cx="660" cy="176" r="4.5"/><text class="cname s" x="668" y="172">横浦关(越岭道)</text></g>
-      <g class="city" data-city="huanghui"><circle cx="430" cy="452" r="4.5"/><text class="cname s" x="336" y="448">湟水·汇合口</text></g>
-      <g class="city" data-city="shimen"><circle cx="560" cy="480" r="4"/><text class="cname s" x="568" y="474">石门</text></g>
-      <g class="city cap" data-city="panyu"><circle cx="600" cy="512" r="6"/><text class="cname" x="612" y="528">番禺<tspan class="cname s" dx="2">(南越都·广州)</tspan></text></g>
-      <g class="city" data-city="cangwu"><circle cx="130" cy="418" r="4"/><text class="cname s" x="86" y="410">苍梧</text></g>
+      <g class="city" data-city="guiyang"><circle cx="692" cy="304" r="5"/><text class="cname" x="628" y="300">桂阳<tspan class="cname s" dx="2">(郴州)</tspan></text></g>
+      <g class="city" data-city="yuzhang"><circle cx="921" cy="89" r="5"/><text class="cname" x="848" y="86">豫章<tspan class="cname s" dx="2">(南昌)</tspan></text></g>
+      <g class="city" data-city="lingling"><circle cx="581" cy="274" r="5"/><text class="cname" x="516" y="270">零陵<tspan class="cname s" dx="2">(永州)</tspan></text></g>
+      <g class="city" data-city="yelang"><circle cx="100" cy="304" r="4.5"/><text class="cname" x="72" y="326">夜郎<tspan class="cname s" dx="2">(北盘江)</tspan></text></g>
+      <g class="city" data-city="hengpu"><circle cx="795" cy="346" r="4.5"/><text class="cname s" x="804" y="342">横浦关(大庾岭道)</text></g>
+      <g class="city" data-city="cangwu"><circle cx="558" cy="474" r="4.5"/><text class="cname" x="486" y="470">苍梧<tspan class="cname s" dx="2">(广信·梧州)</tspan></text></g>
+      <g class="city" data-city="shimen"><circle cx="704" cy="466" r="4"/><text class="cname s" x="644" y="454">石门</text></g>
+      <g class="city cap" data-city="panyu"><circle cx="716" cy="504" r="6.5"/><text class="cname" x="726" y="522">番禺<tspan class="cname s" dx="2">(南越都·广州)</tspan></text></g>
     </g>
 
     <!-- 全图 · 吕嘉拒汉 -->
     <g id="phAll" class="ph">
-      <rect class="camp" x="596" y="508" width="9" height="9" transform="rotate(45 600 512)"/>
-      <text class="mlabel q" x="490" y="556">南越相吕嘉杀王及汉使,立建德拒汉</text>
-      <text class="anno" x="500" y="574">宗族强盛,世相三王,不欲归汉</text>
-      <text class="mlabel j" x="150" y="200">武帝发楼船十万,五路南征</text>
-      <text class="anno" x="150" y="218">江淮以南、夜郎、巴蜀之兵,期会番禺</text>
+      <path class="march j sea" marker-end="url(#aj)" d="M 692,314 C 700,372 706,432 710,492"/>
+      <path class="march j sea" marker-end="url(#aj)" d="M 914,100 C 872,150 812,272 796,338 C 780,398 748,452 720,494"/>
+      <path class="march j sea" marker-end="url(#aj)" d="M 581,286 C 570,360 560,432 558,468 C 604,488 662,496 708,500"/>
+      <path class="march j sea" style="stroke-dasharray:7 5" marker-end="url(#aj)" d="M 576,290 C 550,354 534,436 554,472 C 600,492 662,500 706,505"/>
+      <path class="march j sea" style="stroke-dasharray:7 5" marker-end="url(#aj)" d="M 108,316 C 260,360 420,442 556,476 C 630,494 680,500 706,503"/>
+      <rect class="camp" x="711" y="499" width="10" height="10" transform="rotate(45 716 504)"/>
+      <text class="mlabel q" x="376" y="548">南越相吕嘉杀汉使及王、太后,立建德拒汉</text>
+      <text class="anno" x="392" y="566">宗族强盛,世相三王,不欲归汉</text>
+      <text class="mlabel j" x="118" y="210">武帝发罪人及江淮以南楼船十万</text>
+      <text class="mlabel j" x="118" y="228" style="font-size:12.5px">五路南征 · 咸会番禺</text>
     </g>
 
-    <!-- 阶段一:楼船分道 · 会师番禺 -->
+    <!-- 阶段一:五路并进 · 会师番禺 -->
     <g id="ph1" class="ph">
-      <path class="march j sea" marker-end="url(#aj)" d="M 380,158 C 398,260 414,360 428,444"/>
-      <text class="mlabel j" x="200" y="300">路博德出桂阳 · 下湟水</text>
-      <path class="march j sea" marker-end="url(#aj)" d="M 660,184 C 638,300 616,410 600,502"/>
-      <text class="mlabel j" x="668" y="300">杨仆出豫章 · 下横浦</text>
-      <path class="march j" marker-end="url(#aj)" d="M 436,458 C 500,478 550,492 592,506"/>
-      <text class="anno" x="440" y="486">越五岭南下,期会于番禺城下</text>
-      <circle class="siege" cx="600" cy="512" r="22"/>
+      <path class="march j sea" marker-end="url(#aj)" d="M 692,314 C 700,372 706,432 710,492"/>
+      <text class="mlabel j" x="656" y="366">伏波·路博德 出桂阳,下汇水</text>
+      <path class="march j sea" marker-end="url(#aj)" d="M 914,100 C 872,150 812,272 796,338 C 780,398 748,452 720,494"/>
+      <text class="mlabel j" x="812" y="214">楼船·杨仆 出豫章,下横浦(浈水)</text>
+      <path class="march j sea" marker-end="url(#aj)" d="M 581,286 C 570,360 560,432 558,468 C 604,488 662,496 708,500"/>
+      <text class="mlabel j" x="452" y="352">戈船 出零陵,下离水</text>
+      <path class="march j sea" style="stroke-dasharray:7 5" marker-end="url(#aj)" d="M 576,290 C 550,354 534,436 554,472 C 600,492 662,500 706,505"/>
+      <text class="mlabel j" x="452" y="502">下厉 出零陵,抵苍梧</text>
+      <path class="march j sea" style="stroke-dasharray:7 5" marker-end="url(#aj)" d="M 108,316 C 260,360 420,442 556,476 C 630,494 680,500 706,503"/>
+      <text class="mlabel j" x="210" y="430">驰义侯 发夜郎兵,下牂柯江</text>
+      <text class="anno" x="150" y="448">因巴蜀罪人,道远,未及至</text>
+      <circle class="siege" cx="716" cy="504" r="24" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/>
+      <text class="anno" x="612" y="486">诸军异道并进,期会于番禺城下</text>
     </g>
 
     <!-- 阶段二:先陷石门 · 纵火破城 -->
     <g id="ph2" class="ph">
-      <path class="march j sea" marker-end="url(#aj)" d="M 640,320 C 620,400 596,450 566,476"/>
-      <text class="mlabel j" x="590" y="392">杨仆先破寻峡·石门,得越船粟</text>
-      <path class="march j" marker-end="url(#aj)" d="M 560,484 C 574,494 584,500 592,506"/>
-      <text class="anno" x="540" y="500">进居城东南</text>
-      <path d="M 600,512 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="612" y="500">日暮纵火烧城</text>
-      <path class="march j" marker-end="url(#aj)" d="M 448,458 C 490,474 528,490 560,502"/>
-      <text class="anno" x="440" y="446">路博德道远后至,居城西北</text>
+      <path class="march j sea" marker-end="url(#aj)" d="M 796,346 C 776,398 750,436 720,470"/>
+      <path class="march j" marker-end="url(#aj)" d="M 704,472 C 710,482 714,490 718,496"/>
+      <text class="mlabel j" x="588" y="410">楼船先至,破石门</text>
+      <text class="anno" x="588" y="426">得越船粟,乘胜前进,居城东南</text>
+      <path class="march j sea" marker-end="url(#aj)" d="M 710,312 C 704,372 700,432 704,486"/>
+      <text class="mlabel j" x="588" y="442">伏波夜至,居城西北,招降</text>
+      <path d="M 716,504 l 5,-12 l 4,9 l 10,-6 l -6,10 l 12,4 l -12,4 l 6,10 l -10,-6 l -4,9 l -5,-12 l -10,6 l 6,-10 l -12,-4 l 12,-4 l -6,-10 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="730" y="498">日暮纵火烧城</text>
+      <circle class="star" cx="716" cy="504" r="9"/>
     </g>
 
     <!-- 阶段三:城降 · 吕嘉就擒 -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="600" cy="512" r="8"/>
-      <text class="mlabel j" x="612" y="498">城中夜皆降伏波</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 594,518 C 500,548 380,570 240,584"/>
-      <text class="mlabel r" x="360" y="600">吕嘉·建德夜与数百人亡入海西遁</text>
-      <path class="march j" marker-end="url(#aj)" d="M 606,522 C 520,556 400,576 258,588"/>
-      <text class="anno" x="360" y="566">伏波遣人追擒之,南越遂平</text>
-      <text class="anno" x="140" y="480">既定,置岭南九郡</text>
+      <circle class="star" cx="716" cy="504" r="9"/>
+      <text class="mlabel j" x="612" y="470">城中夜皆降伏波</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 710,512 C 600,556 460,574 300,580"/>
+      <text class="mlabel r" x="330" y="600">吕嘉·建德夜与数百人亡入海,西遁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 722,516 C 620,562 480,580 318,586"/>
+      <text class="anno" x="360" y="556">伏波遣人追擒之,枭吕嘉首,南越遂平</text>
+      <text class="anno" x="118" y="252">既定,置南海、苍梧、交趾等九郡</text>
     </g>
 
-    <g class="compass" transform="translate(944,110)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(956,150)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(陆)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>楼船水路</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>汉军·楼船水路</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军·陆攻</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南越军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>夜遁</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>破城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南越</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>吕嘉·夜遁入海</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>破城·纵火</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.28)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>五岭·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>南越</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 数路并进,会师番禺</h3>
+    <div class="lead">五路声势十万,而破番禺者,实楼船、伏波二军先至耳</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="五路会师番禺示意:楼船伏波二军先至纵火破城,戈船下厉后至,驰义夜郎兵未至">
+      <!-- 番禺中枢 -->
+      <circle cx="430" cy="210" r="7" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="430" y="238" fill="#2b2418" font-size="12" font-weight="700" text-anchor="middle">番禺(南越都)</text>
+      <g><circle cx="430" cy="210" r="13" fill="none" stroke="#9c7a2c" stroke-width="2"/></g>
+      <path d="M 430,200 l 4,-9 l 3,7 l 8,-5 l -5,8 l 9,3 l -9,3 l 5,8 l -8,-5 l -3,7 l -4,-9 l -8,5 l 5,-8 l -9,-3 l 9,-3 l -8,-5 z" fill="#9a2b1e" transform="translate(0,-30)"/>
+      <text x="446" y="182" fill="#9a2b1e" font-size="10.5" font-weight="700">纵火</text>
+      <!-- 先至:楼船(右上,实线) -->
+      <path d="M 790,42 C 660,90 540,150 444,204" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <circle cx="790" cy="42" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="712" y="34" fill="#2b2418" font-size="11.5" font-weight="700">豫章·浈水</text>
+      <text x="712" y="50" fill="#1f4e54" font-size="10.5" font-weight="700">楼船·杨仆 先至·破石门</text>
+      <!-- 先至:伏波(正上,实线) -->
+      <path d="M 430,44 C 430,100 430,150 430,196" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <circle cx="430" cy="44" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="430" y="32" fill="#2b2418" font-size="11.5" font-weight="700" text-anchor="middle">桂阳·汇水</text>
+      <text x="430" y="16" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">伏波·路博德 夜至·招降</text>
+      <!-- 后至:戈船(左上,细虚) -->
+      <path d="M 70,70 C 200,110 320,160 416,204" fill="none" stroke="#2c6b6f" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round" opacity=".85"/>
+      <circle cx="70" cy="70" r="4" fill="#e9dec4" stroke="#2b2418" stroke-width="1.4"/>
+      <text x="82" y="62" fill="#5c4f38" font-size="11" font-weight="700">零陵·离水</text>
+      <text x="82" y="78" fill="#2c6b6f" font-size="10" font-weight="700">戈船 后至</text>
+      <!-- 后至:下厉(左中,细虚) -->
+      <path d="M 60,150 C 190,170 320,190 414,208" fill="none" stroke="#2c6b6f" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round" opacity=".85"/>
+      <circle cx="60" cy="150" r="4" fill="#e9dec4" stroke="#2b2418" stroke-width="1.4"/>
+      <text x="72" y="144" fill="#5c4f38" font-size="11" font-weight="700">零陵·苍梧</text>
+      <text x="72" y="160" fill="#2c6b6f" font-size="10" font-weight="700">下厉 后至</text>
+      <!-- 未至:驰义·夜郎(左下,虚线+朱✕) -->
+      <path d="M 60,230 C 180,224 290,220 360,216" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="4 6" stroke-linecap="round" opacity=".8"/>
+      <g transform="translate(300,222)"><circle r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="-5" y1="-5" x2="5" y2="5" stroke="#9a2b1e" stroke-width="2.4"/><line x1="-5" y1="5" x2="5" y2="-5" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <circle cx="60" cy="230" r="4" fill="#e9dec4" stroke="#2b2418" stroke-width="1.4"/>
+      <text x="72" y="244" fill="#5c4f38" font-size="11" font-weight="700">夜郎·牂柯江</text>
+      <text x="316" y="240" fill="#9a2b1e" font-size="10" font-weight="700">驰义侯 未至 ✕</text>
+    </svg>
+    <p class="intro">元鼎五年,武帝发『罪人及江淮以南楼船十万师』,分<b>五路</b>南征,期<b>咸会番禺</b>。然五军道里远近悬殊、水程各异:楼船出豫章下浈水、伏波出桂阳下汇水,二军道近先抵城下;戈船、下厉出零陵,道远<b>后至</b>;驰义侯发夜郎兵下牂柯江,<b>竟未及至</b>而番禺已破。所谓十万之众,决城者不过二军。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>先至者决之 · 楼船与伏波</h4>
+        <p>楼船将军杨仆将精卒,顺浈水急下,先至,攻破石门,得越船粟,纵兵前进,居城东南;伏波将军路博德将罪人,循汇水后至,居城西北,招降者辄赐印绶,复纵令相招。日暮,杨仆纵火烧城。城中素闻伏波之名,夜皆降。不待五路合围而番禺已下。</p>
+      </div>
+      <div class="c b">
+        <h4>后至与未至 · 戈船·下厉·驰义</h4>
+        <p>戈船、下厉二将出零陵,一下离水、一抵苍梧,山川迂远,城破乃至,遂徇定西境;驰义侯所发夜郎之兵,循牂柯江东下,路阻且远,南越已平而未及会师。五路南征,声势撼动岭表,而真收番禺之功者,楼船、伏波二军而已。</p>
+      </div>
+    </div>
+    <p class="kicker">五路者,张十万之声、分越人之备也;而胜负决于<b>舟师之速</b>与<b>夜袭纵火</b>。楼船顺流先至,伏波以威名招降,一夕城下——故番禺之破,<b>非五路合围之力,乃楼船先登之捷</b>。及城既定,苍梧王赵光等相继降,汉遂尽有岭南,置九郡。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·南越列传》《汉书·武帝纪》《汉书·两粤传》约略绘出。番禺即今广东广州,湟水即今连江(骑田岭道),横浦关在今大庾岭一带,苍梧治广信(今梧州、封开一带)。西江、珠江、湟水诸水道及城邑位置为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为南越形势示意:南越自赵佗立国,据岭南,北阻五岭以抗中原;汉据其北。五岭为险,故以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注三</span>元鼎五年,武帝发江淮以南楼船十万师,分五路南征,伏波将军路博德、楼船将军杨仆为其要;又发夜郎、巴蜀及西南夷之兵,期会番禺。杨仆将精卒先陷,居东南;博德将罪人后至,居西北。日暮纵火,城中素闻伏波之名,夜皆降。番禺既下,南越五世而亡,汉置南海、苍梧、郁林、合浦、交趾、九真、日南等九郡,岭南自此入版图。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影定位,几何力求近实:番禺在南(近海),桂阳正北,豫章居东北,零陵西北,苍梧正西(略偏北),夜郎远在西陲。今地:番禺即广州,桂阳今郴州,豫章今南昌,零陵今永州,苍梧治广信(今梧州、封开一带),夜郎在今贵州西部(北盘江上游),横浦关在大庾岭,石门在番禺北(今广州西北)。汇水即湟水、洭水(今连江,北江支流);离水今漓江—桂江;牂柯江今北盘江—红水河—西江上源。诸水道位置为相对示意,非实测。</p>
+    <p><span class="n">注二</span>南越自赵佗立国,据岭南,北阻五岭以抗中原,汉据其北。五岭(越城、都庞、萌渚、骑田、大庾)为汉越天险,故以点划『约界』标之,非实有画界;晕染疆界亦为形势示意。</p>
+    <p><span class="n">注三</span>《史记·南越列传》:元鼎五年秋,『卫尉路博德为伏波将军,出桂阳,下汇水;主爵都尉杨仆为楼船将军,出豫章,下横浦;故归义越侯二人为戈船、下厉将军,出零陵,或下离水,或抵苍梧;使驰义侯因巴蜀罪人,发夜郎兵,下牂柯江:咸会番禺。』元鼎六年冬,楼船先至,攻破石门;伏波夜至,招降;吕嘉、建德夜遁入海,伏波遣人追擒之,南越五世而亡。</p>
+    <p><span class="n">注四</span>五军会番禺者,实楼船、伏波二军:『楼船将军将精卒先陷寻陕(石门),乃居前;伏波将军居后。』戈船、下厉道远后至,徇定西境;驰义侯发夜郎兵下牂柯江,史载其兵『且郎(未及)』而南越已定(《史记·西南夷列传》并见牂柯之事)。番禺既下,汉置南海、苍梧、郁林、合浦、交趾、九真、日南、儋耳、珠崖九郡,岭南自此入版图。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"吕嘉拒汉",d:"元鼎五年(前112)",p:["南越自赵佗立国,传五世。武帝时,南越王赵兴与其母樛太后欲内属,而丞相吕嘉世相三王、宗族强盛,不欲归汉,遂杀南越王、太后及汉使,立术阳侯建德为王,举兵拒汉。","武帝闻之大怒,发罪人及江淮以南楼船十万师,分五路南征:伏波将军路博德出桂阳、下湟水,楼船将军杨仆出豫章、下横浦,又发夜郎、巴蜀之兵,期会番禺。"]},
-  "1":{t:"楼船分道 · 会师番禺",d:"元鼎六年(前111)冬",p:["路博德将罪人自桂阳南下湟水,杨仆将精卒自豫章下横浦,越五岭而进。汉师水陆并举,楼船顺湟水、浈水、西江诸道南下。","诸军异道并进,期会于番禺城下。楼船之师沿江速进,遂逼南越都城,汉军会攻之势成。"]},
-  "2":{t:"先陷石门 · 纵火破城",d:"元鼎六年(前111)冬",p:["杨仆将精卒先陷寻峡、破石门,得越船粟,乘胜前进,居番禺东南;路博德将罪人道远后至,居城西北。","日暮,杨仆纵火烧城。番禺城中素闻伏波(路博德)之名,人心已摇。汉军东南、西北夹攻,城遂危。"]},
-  "3":{t:"城降 · 吕嘉就擒",d:"元鼎六年(前111)冬",p:["城中素闻伏波之名,夜皆降伏波。吕嘉、建德夜与数百人亡入海,乘船西去;伏波遣人追擒之,枭吕嘉首。","番禺既下,南越遂平。汉以其地置南海、苍梧、郁林、合浦、交趾、九真、日南等九郡,岭南自此入汉版图。"]}
+  all:{t:"吕嘉拒汉",d:"元鼎五年(前112)",p:["南越自赵佗立国,传五世。武帝时,南越王赵兴与其母樛太后欲内属,而丞相吕嘉世相三王、宗族强盛,不欲归汉,遂杀南越王、太后及汉使,立术阳侯建德为王,发兵守要害以拒汉。","武帝闻之大怒,元鼎五年秋发『罪人及江淮以南楼船十万师』,分五路南征:伏波将军路博德出桂阳、下汇水,楼船将军杨仆出豫章、下横浦,戈船、下厉二将出零陵(一下离水、一抵苍梧),又使驰义侯发夜郎兵下牂柯江,期咸会番禺。"]},
+  "1":{t:"五路并进 · 会师番禺",d:"元鼎六年(前111)冬",p:["五军异道并进,皆缘水而下:伏波循汇水(湟水·连江)自骑田岭道南下;楼船越大庾岭出横浦,顺浈水(北江)而下;戈船、下厉出零陵,一下离水(漓江)、一抵苍梧,并入西江;驰义侯发夜郎兵,循牂柯江东下。","诸军期会于番禺城下。然道里远近不齐:楼船、伏波二军道近先抵,戈船、下厉道远后至,驰义侯之夜郎兵路阻未及至。舟师顺流,声势撼动岭表,汉军会攻之势已成。"]},
+  "2":{t:"先陷石门 · 纵火破城",d:"元鼎六年(前111)冬",p:["楼船将军杨仆将精卒先至,攻破石门(寻陕),得越船粟,纵兵前进,居番禺城东南;伏波将军路博德将罪人道远,夜至,居城西北,遣使招降者,辄赐印绶,复纵令相招。","日暮,杨仆纵火烧城。番禺城中素闻伏波之名,人心已摇。汉军东南、西北夹攻,火光烛天,城遂危殆。"]},
+  "3":{t:"城降 · 吕嘉就擒",d:"元鼎六年(前111)冬",p:["城中素闻伏波之名,夜多亡降伏波。吕嘉、建德见大势已去,夜与其属数百人亡入海,乘船西去;伏波遣人追之,得吕嘉,枭其首,建德亦擒。","番禺既下,南越遂平。苍梧王赵光等相继降汉。汉以其地置南海、苍梧、郁林、合浦、交趾、九真、日南、儋耳、珠崖九郡,岭南自此入汉版图。"]}
 };
 const CITY={
-  changsha:{t:"长沙·桂阳",d:"汉军出兵基,今湖南",p:["伏波将军路博德出桂阳,南下湟水,自此越骑田岭而入岭南,为南征西路主力。"]},
-  hengpu:{t:"横浦关 · 五岭",d:"汉军越岭道,今大庾岭一带",p:["楼船将军杨仆出豫章,下横浦,越岭而南。为汉军东路南下之要道。"]},
-  huanghui:{t:"湟水 · 汇合口",d:"杨仆楼船南下路,今连江下游",p:["湟水(连江)入西江之口。楼船之师顺湟水、西江南下,诸军于此附近趋会番禺。"]},
-  shimen:{t:"石门",d:"番禺北险,今广州北",p:["番禺城北门户之险。杨仆将精卒先陷寻峡、破石门,得越船粟,乘胜进居城东南。"]},
-  panyu:{t:"番禺",d:"南越都城,今广东广州",p:["南越五世之都。杨仆居东南、纵火烧城,城中夜降伏波;吕嘉、建德夜遁入海,旋被擒,南越亡。"]},
-  cangwu:{t:"苍梧",d:"南越西部,今梧州、封开一带",p:["南越西境重镇。番禺既破,苍梧王赵光等后降汉;汉即其地置苍梧郡。"]}
+  guiyang:{t:"桂阳",d:"伏波军出兵地,今湖南郴州",p:["伏波将军路博德出桂阳,下汇水(湟水·连江),自骑田岭道南入岭南。道近,与楼船同为先至之军。"]},
+  yuzhang:{t:"豫章",d:"楼船军出兵地,今江西南昌",p:["楼船将军杨仆出豫章,越大庾岭出横浦关,顺浈水(北江)急下。将精卒先至番禺,破石门、纵火破城,南征首功。"]},
+  lingling:{t:"零陵",d:"戈船·下厉出兵地,今湖南永州",p:["故归义越侯二人为戈船将军、下厉将军,出零陵:一下离水(漓江),一抵苍梧。山川迂远,城破乃至,遂徇定西境。"]},
+  yelang:{t:"夜郎",d:"今贵州西部,北盘江上源",p:["武帝使驰义侯因巴蜀罪人,发夜郎兵下牂柯江(北盘江—红水河—西江)东会番禺。路阻且远,南越已平而其兵未及至。"]},
+  hengpu:{t:"横浦关 · 大庾岭",d:"楼船越岭道,今大庾岭一带",p:["五岭之一,汉越东路孔道。楼船将军杨仆出豫章、下横浦,越此岭而入浈水,顺北江南下番禺。"]},
+  cangwu:{t:"苍梧",d:"南越西境重镇,今梧州、封开一带",p:["西江要冲,离水(漓江)会西江之口。下厉将军抵苍梧。番禺既破,苍梧王赵光降汉,汉即其地置苍梧郡。"]},
+  shimen:{t:"石门",d:"番禺北险,今广州西北",p:["番禺北门户之险(一作寻陕)。楼船将军杨仆先至,攻破石门,得越船粟,乘胜前进,居城东南。"]},
+  panyu:{t:"番禺",d:"南越都城,今广东广州",p:["南越五世之都,五路会师之的。楼船居东南纵火,伏波居西北招降,城中夜降;吕嘉、建德夜遁入海,旋被擒,南越亡。汉置南海郡治此。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

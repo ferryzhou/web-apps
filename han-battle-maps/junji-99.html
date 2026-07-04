@@ -30,7 +30,16 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .marsh{fill:rgba(95,127,136,.16);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
+  .dune{fill:none;stroke:var(--faint);stroke-width:1;opacity:.55;stroke-linecap:round}
+  /* 结车营:以大车为营,青色方栅 */
+  .laager rect{fill:rgba(31,78,84,.12);stroke:var(--advance);stroke-width:1.5}
+  .laager line{stroke:var(--advance);stroke-width:1.3;opacity:.85;stroke-linecap:round}
+  /* 援绝:去塞百余里而无继,朱褐点线 */
+  .gap{fill:none;stroke:var(--ret);stroke-width:1.8;stroke-dasharray:2 6;opacity:.8;stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -47,7 +56,7 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +65,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--ret)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--ret)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,19 +93,19 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>浚</span><span>稽</span><span>之</span><span>役</span></div>
+  <div class="seal" aria-hidden="true"><span>浚</span><span>稽</span><span>之</span><span>战</span></div>
   <header>
     <h1>浚稽山之战 · 李陵</h1>
-    <div class="sub">汉武帝天汉二年(前99)　　<i>汉 李陵</i> 五千步卒力战 · <b>匈奴</b>八万骑围之·矢尽而陷</div>
+    <div class="sub">汉武帝天汉二年(前99)　　<i>汉 李陵</i> 五千步卒 · <b>匈奴</b> 且鞮侯单于八万骑围之 · 以步制骑·矢尽援绝</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 李陵别道出居延</button>
+    <button class="on" data-p="all">全图 · 别道出居延</button>
     <button data-p="1">浚稽结营·千弩却敌</button>
     <button data-p="2">八万围之·且战且退</button>
     <button data-p="3">矢尽道穷·力屈被俘</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="浚稽山之战形势图,含汉匈疆界、大漠居延塞与浚稽山龙勒水等城邑水道">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="浚稽山之战形势图,含汉匈疆界、河西居延塞、浚稽山鞮汗山、弱水居延泽与李陵且战且退路线">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,121 +114,219 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:匈奴据漠北(北),汉据居延边塞(南),约以大漠为界 -->
-    <path d="M 0,300 C 160,286 340,282 500,290 C 660,298 840,304 1000,296 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 160,286 340,282 500,290 C 660,298 840,304 1000,296 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 160,286 340,282 500,290 C 660,298 840,304 1000,296"/>
-    <text class="realm q" x="120" y="100" font-size="34">匈 奴(漠北)</text>
-    <text class="realm j" x="120" y="600" font-size="30">汉(居延边塞)</text>
+    <!-- ══ 疆界:匈奴据漠北(北),汉守河西居延塞(南),约以汉塞遮虏鄣一线为界 ══ -->
+    <path d="M 0,304 C 160,316 360,320 551,320 C 720,320 870,326 1000,330 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,304 C 160,316 360,320 551,320 C 720,320 870,326 1000,330 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,304 C 160,316 360,320 551,320 C 720,320 870,326 1000,330"/>
+    <text class="realm q" x="96" y="96" font-size="34">匈 奴 · 漠 北</text>
+    <text class="realm j" x="96" y="452" font-size="30">汉 · 河 西</text>
 
-    <!-- 大漠 -->
-    <g class="mtn"><path d="M 640,258 l 7,-11 l 7,11 M 654,252 l 7,-11 l 7,11 M 668,258 l 6,-10 l 6,10"/></g>
-    <text class="cname s" x="628" y="278">大漠</text>
+    <!-- 汉塞(遮虏鄣一线):点划长墙,与约界略合 -->
+    <path class="mtn" stroke-width="1.8" stroke-dasharray="11 3 2 3" d="M 40,326 C 220,314 400,322 551,322 C 720,322 880,330 986,326"/>
+    <text class="cname s" x="150" y="316" style="opacity:.8">汉塞 · 长城障燧</text>
 
-    <!-- 龙勒水:自浚稽山南流,且战且退所循 -->
-    <path class="river" stroke-width="3" d="M 500,190 C 496,270 486,340 470,410 C 458,458 442,494 420,522"/>
-    <text class="rname" x="484" y="330" transform="rotate(82 484 330)" style="font-size:11px">龙勒水</text>
+    <!-- ══ 北疆山脉:戈壁阿尔泰·浚稽山 ══ -->
+    <path class="mtn fill" d="M 372,104 L 392,66 L 410,88 L 430,52 L 450,86 L 470,60 L 490,90 L 512,66 L 530,100 Z"/>
+    <path class="mtn" d="M 400,90 l 14,-20 l 12,14 l 16,-24 l 13,18 l 15,-22"/>
+    <text class="mname" x="360" y="58" transform="rotate(-10 360 58)">戈壁阿尔泰 · 浚稽诸山</text>
+    <!-- 鞮汗山:垒石断路之绝地 -->
+    <g class="mtn"><path d="M 480,262 l 8,-14 l 8,14 M 497,255 l 8,-14 l 8,14 M 515,262 l 7,-12 l 7,12"/></g>
 
-    <!-- 浚稽山·龙勒水诸山 -->
-    <g class="mtn"><path d="M 452,170 l 9,-15 l 9,15 M 470,162 l 9,-15 l 9,15 M 488,170 l 8,-14 l 8,14"/></g>
-    <g class="mtn"><path d="M 434,438 l 7,-12 l 7,12 M 448,432 l 7,-12 l 7,12 M 462,438 l 6,-11 l 6,11"/></g>
-    <text class="cname s" x="416" y="452">鞮汗山</text>
+    <!-- 大漠·戈壁 沙丘 -->
+    <g class="dune"><path d="M 632,208 q 12,-8 24,0 M 662,214 q 12,-8 24,0 M 646,224 q 12,-8 24,0 M 690,204 q 12,-8 24,0"/></g>
+    <text class="mname" x="636" y="196" style="font-size:11px">大 漠 · 戈 壁</text>
 
-    <!-- 长城·居延塞 -->
-    <path class="mtn" stroke-width="2" stroke-dasharray="10 3 2 3" d="M 60,540 C 220,522 380,516 540,522 C 700,528 860,532 980,520"/>
-    <text class="cname s" x="720" y="512">长城·居延塞</text>
+    <!-- ══ 水系:弱水北注居延泽 ══ -->
+    <path class="river" stroke-width="3.4" d="M 526,566 C 520,506 528,440 526,362"/>
+    <text class="rname" x="534" y="470" transform="rotate(84 534 470)" style="font-size:11.5px">弱水</text>
+    <!-- 居延泽 -->
+    <path class="marsh" d="M 508,352 C 494,356 492,368 504,375 C 520,384 548,382 562,372 C 573,364 570,352 554,349 C 536,344 520,346 508,352 Z"/>
+    <text class="cname s" x="558" y="372" style="opacity:.85">居延泽</text>
 
-    <!-- 城邑 -->
+    <!-- 大泽·芦苇(且战且退所经,匈奴纵火,陵先烧之) -->
+    <path class="marsh" d="M 492,196 C 476,201 474,214 488,221 C 505,229 534,227 548,216 C 559,207 555,195 538,192 C 519,187 504,190 492,196 Z"/>
+    <text class="cname s" x="500" y="212" style="opacity:.9">大泽 · 芦苇</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="junji"><circle cx="500" cy="188" r="6"/><text class="cname" x="512" y="184">浚稽山<tspan class="cname s" dx="2">(结营力战)</tspan></text></g>
-      <g class="city" data-city="dihan"><circle cx="452" cy="430" r="5"/><text class="cname" x="360" y="420">鞮汗山狭谷</text></g>
-      <g class="city" data-city="zhelu"><circle cx="424" cy="524" r="5"/><text class="cname" x="436" y="520">遮虏鄣·汉塞</text></g>
-      <g class="city" data-city="juyan"><circle cx="360" cy="560" r="6"/><text class="cname" x="286" y="556">居延<tspan class="cname s" dx="2">(出兵基)</tspan></text></g>
-      <g class="city" data-city="jiuquan"><circle cx="230" cy="600" r="4"/><text class="cname s" x="160" y="604">酒泉·张掖</text></g>
-      <g class="city" data-city="chanyu"><circle cx="620" cy="120" r="5"/><text class="cname" x="632" y="116">单于大营<tspan class="cname s" dx="2">(匈奴主力)</tspan></text></g>
+      <g class="city cap" data-city="junji"><circle cx="448" cy="119" r="6.5"/><text class="cname" x="458" y="115">浚稽山<tspan class="cname s" dx="2">(结营力战)</tspan></text></g>
+      <g class="city" data-city="dihan"><circle cx="500" cy="257" r="5"/><text class="cname" x="510" y="253">鞮汗山<tspan class="cname s" dx="2">(垒石断路)</tspan></text></g>
+      <g class="city" data-city="zhelu"><circle cx="551" cy="320" r="5.5"/><text class="cname" x="560" y="315">遮虏鄣<tspan class="cname s" dx="2">(汉塞)</tspan></text></g>
+      <g class="city" data-city="juyan"><circle cx="526" cy="356" r="6"/><text class="cname" x="536" y="371">居延<tspan class="cname s" dx="2">(出兵基)</tspan></text></g>
+      <g class="city" data-city="jiuquan"><circle cx="428" cy="507" r="4"/><text class="cname s" x="382" y="504">酒泉</text></g>
+      <g class="city" data-city="zhangye"><circle cx="526" cy="562" r="4"/><text class="cname s" x="536" y="566">张掖</text></g>
     </g>
 
-    <!-- 全图 · 李陵别道出居延 -->
+    <!-- 单于庭(图外·北):匈奴主力所自出 -->
+    <g transform="translate(452,30)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,2 L 0,30"/>
+      <text class="mlabel q" x="-92" y="-8" style="font-size:10px">↑ 单于庭·漠北王庭(图外北)</text>
+    </g>
+
+    <!-- ══ 全图 · 别道出居延 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 360,554 C 400,470 440,340 480,204"/>
-      <text class="mlabel j" x="392" y="380">李陵将步卒五千,别道出居延北</text>
-      <text class="anno" x="380" y="300">深入浚稽山,以分匈奴之兵</text>
-      <text class="mlabel q" x="120" y="150">贰师击右贤王于天山;单于主力屯漠北</text>
-      <text class="anno" x="512" y="150">陵至浚稽山,遇且鞮侯单于三万骑</text>
+      <path class="march j" marker-end="url(#aj)" d="M 526,350 C 500,290 470,200 452,130"/>
+      <text class="mlabel j" x="150" y="252">李陵将步卒五千,别道出居延北</text>
+      <text class="anno" x="150" y="270">北行三十日,深入浚稽山,以分匈奴之兵</text>
+      <g class="laager" transform="translate(448,119)"><rect x="-8" y="-8" width="16" height="16" rx="1.5"/><line x1="-11" y1="-3" x2="-8" y2="-3"/><line x1="-11" y1="3" x2="-8" y2="3"/><line x1="8" y1="-3" x2="11" y2="-3"/><line x1="8" y1="3" x2="11" y2="3"/></g>
+      <text class="mlabel q" x="120" y="200">贰师李广利击右贤王于天山(图外西)</text>
+      <text class="anno" x="210" y="176">陵至浚稽山,遇且鞮侯单于三万骑</text>
     </g>
 
-    <!-- 阶段一:浚稽结营·千弩却敌 -->
+    <!-- ══ 阶段一:浚稽结营·千弩却敌 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="612" y="112" width="9" height="9" transform="rotate(45 616 116)"/>
-      <text class="mlabel q" x="540" y="98">单于三万骑南下攻陵</text>
-      <path class="march q" marker-end="url(#aq)" d="M 612,124 C 576,146 540,164 516,180"/>
-      <circle class="star" cx="500" cy="188" r="9"/>
-      <text class="mlabel j" x="512" y="212">以大车结营,前戟盾后弓弩</text>
-      <text class="anno" x="512" y="230">千弩俱发,匈奴退走山上</text>
-      <path class="march j" marker-end="url(#aj)" d="M 508,196 C 548,180 582,162 610,140"/>
-      <text class="mlabel j" x="540" y="256">汉军追斩数千</text>
+      <rect class="camp" x="444" y="66" width="9" height="9" transform="rotate(45 448 70)"/>
+      <text class="mlabel q" x="360" y="58">单于三万骑南下,直前就营</text>
+      <path class="march q" marker-end="url(#aq)" d="M 450,80 C 452,92 452,102 450,110"/>
+      <circle class="star" cx="448" cy="119" r="10"/>
+      <g class="laager" transform="translate(448,119)"><rect x="-9" y="-9" width="18" height="18" rx="1.5"/><line x1="-12" y1="-3" x2="-9" y2="-3"/><line x1="-12" y1="3" x2="-9" y2="3"/><line x1="9" y1="-3" x2="12" y2="-3"/><line x1="9" y1="3" x2="12" y2="3"/><line x1="-3" y1="-12" x2="-3" y2="-9"/><line x1="3" y1="-12" x2="3" y2="-9"/></g>
+      <text class="mlabel j" x="460" y="140">以大车为营,前戟盾·后弓弩</text>
+      <text class="anno" x="460" y="158">千弩俱发,应弦而倒,虏退走上山</text>
+      <path class="march j" marker-end="url(#aj)" d="M 456,110 C 470,94 484,82 498,72"/>
+      <text class="mlabel j" x="470" y="176">汉军追击,斩首数千</text>
+      <text class="anno" x="470" y="194">单于大惊,召左右地兵八万余骑</text>
     </g>
 
-    <!-- 阶段二:八万围之·且战且退 -->
+    <!-- ══ 阶段二:八万围之·且战且退 ══ -->
     <g id="ph2" class="ph">
-      <text class="mlabel q" x="512" y="104">单于召左右地兵八万余骑共攻</text>
-      <path class="march q" marker-end="url(#aq)" d="M 600,132 C 566,158 536,176 514,192"/>
-      <path class="march q" marker-end="url(#aq)" d="M 660,150 C 600,220 540,280 490,330"/>
-      <circle class="siege" cx="500" cy="188" r="24"/>
-      <path class="march j" marker-end="url(#aj)" d="M 496,204 C 486,290 470,370 452,432"/>
-      <text class="mlabel j" x="360" y="330">陵且战且引南退,转战千里</text>
-      <text class="anno" x="360" y="300">士卒死伤犹奋击,斩虏累累</text>
+      <text class="mlabel q" x="300" y="56">单于召左右地兵共八万余骑,合攻陵军</text>
+      <path class="march q" marker-end="url(#aq)" d="M 402,72 C 410,96 420,108 436,120"/>
+      <path class="march q" marker-end="url(#aq)" d="M 512,74 C 540,140 520,210 500,250"/>
+      <circle class="siege" cx="448" cy="119" r="26"/>
+      <!-- 且战且退:循龙城故道东南行,经大泽芦苇 -->
+      <path class="march j" marker-end="url(#aj)" d="M 452,128 C 470,168 486,210 500,248"/>
+      <g class="laager" transform="translate(500,215)"><rect x="-7" y="-7" width="14" height="14" rx="1.5"/><line x1="-10" y1="-2" x2="-7" y2="-2"/><line x1="-10" y1="2" x2="-7" y2="2"/><line x1="7" y1="-2" x2="10" y2="-2"/><line x1="7" y1="2" x2="10" y2="2"/></g>
+      <text class="mlabel j" x="360" y="170">陵且战且引,循龙城故道南退</text>
+      <text class="anno" x="360" y="188">大泽芦苇,虏纵火;陵先烧之以自救</text>
+      <text class="mlabel j" x="510" y="286">连战八日,转战数百里,斩虏万余</text>
     </g>
 
-    <!-- 阶段三:矢尽道穷·力屈被俘 -->
+    <!-- ══ 阶段三:矢尽道穷·力屈被俘 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 490,300 C 478,350 466,392 456,424"/>
-      <text class="mlabel j" x="470" y="360">一日五十万矢皆尽,弃车徒行</text>
-      <circle class="siege" cx="452" cy="430" r="18"/>
-      <text class="mlabel q" x="300" y="452">匈奴垒石断路,矢尽援绝</text>
-      <path d="M 452,430 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 448,440 C 440,478 434,502 428,516"/>
-      <text class="mlabel r" x="300" y="500">去塞百余里·未及而陷</text>
-      <text class="anno" x="300" y="536">李陵力屈被俘,生还者四百余</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,250 C 504,262 508,270 512,276"/>
+      <text class="mlabel j" x="300" y="238">一日五十万矢皆尽,弃车徒行</text>
+      <text class="anno" x="300" y="256">士尚三千余,斩车辐·持尺刀而斗</text>
+      <circle class="star" cx="512" cy="277" r="9"/>
+      <path class="march q" marker-end="url(#aq)" d="M 486,262 C 496,268 504,272 508,275"/>
+      <text class="mlabel q" x="386" y="292">匈奴乘隅·从上垒石断路,矢尽道穷</text>
+      <path d="M 512,277 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <!-- 弃车徒行,短程溃退 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 516,286 C 526,298 534,306 542,314"/>
+      <!-- 援绝:去塞百余里而不得达 -->
+      <path class="gap" d="M 520,288 C 534,302 544,310 549,318"/>
+      <text class="mlabel r" x="558" y="298">去塞百余里 · 援绝(孤军无继)</text>
+      <text class="anno" x="558" y="316">未及汉塞而陷,生还者仅四百余</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(950,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(李陵)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军溃陷</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军·李陵(且战且退)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈奴(单于)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军矢尽力屈溃陷</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>结营力战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="18" height="16"><rect x="3" y="3" width="12" height="12" rx="1.5" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.5"/><line x1="0" y1="6" x2="3" y2="6" stroke="#1f4e54" stroke-width="1.3"/><line x1="15" y1="6" x2="18" y2="6" stroke="#1f4e54" stroke-width="1.3"/></svg>结车营(以大车为营)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="2 5"/></svg>援绝·去塞百余里</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>匈奴</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 以步制骑与矢尽援绝</h3>
+    <div class="lead">何以五千步能却八万骑,而终不免于陷 —— 成于车营千弩,败于矢尽无继</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="释要示意:左示以大车结营、千弩俱发之步制骑;右示五十万矢俱尽、去塞百余里而援绝">
+      <!-- 左:以步制骑(青) -->
+      <text x="24" y="30" fill="#1f4e54" font-size="13" font-weight="700">以步制骑 · 车营千弩</text>
+      <!-- 车营方栅 -->
+      <rect x="96" y="96" width="86" height="86" rx="3" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="2"/>
+      <g stroke="#1f4e54" stroke-width="1.4" opacity=".85">
+        <line x1="88" y1="112" x2="96" y2="112"/><line x1="88" y1="139" x2="96" y2="139"/><line x1="88" y1="166" x2="96" y2="166"/>
+        <line x1="182" y1="112" x2="190" y2="112"/><line x1="182" y1="139" x2="190" y2="139"/><line x1="182" y1="166" x2="190" y2="166"/>
+        <line x1="112" y1="88" x2="112" y2="96"/><line x1="139" y1="88" x2="139" y2="96"/><line x1="166" y1="88" x2="166" y2="96"/>
+        <line x1="112" y1="182" x2="112" y2="190"/><line x1="139" y1="182" x2="139" y2="190"/><line x1="166" y1="182" x2="166" y2="190"/>
+      </g>
+      <text x="139" y="144" fill="#1f4e54" font-size="11" font-weight="700" text-anchor="middle">五千步</text>
+      <text x="139" y="228" fill="#5c4f38" font-size="10.5" text-anchor="middle">前戟盾 · 后弓弩</text>
+      <!-- 匈奴骑冲营(红),被弩矢却退 -->
+      <g stroke="#9a2b1e" stroke-width="2" fill="none" opacity=".9">
+        <path d="M 40,60 C 60,74 74,84 84,96" marker-end="url(#aq)"/>
+        <path d="M 250,64 C 226,78 210,88 196,98" marker-end="url(#aq)"/>
+        <path d="M 44,220 C 62,206 76,196 86,184" marker-end="url(#aq)"/>
+      </g>
+      <!-- 千弩俱发:青色短矢向外 -->
+      <g stroke="#1f4e54" stroke-width="1.6" fill="none">
+        <path d="M 96,110 L 66,92" marker-end="url(#aj)"/>
+        <path d="M 182,110 L 212,92" marker-end="url(#aj)"/>
+        <path d="M 96,168 L 66,186" marker-end="url(#aj)"/>
+        <path d="M 182,168 L 212,186" marker-end="url(#aj)"/>
+      </g>
+      <text x="24" y="86" fill="#9a2b1e" font-size="10.5" font-weight="700">八万骑冲营</text>
+      <text x="196" y="86" fill="#1f4e54" font-size="10.5" font-weight="700">千弩俱发↗</text>
+      <!-- 分隔 -->
+      <line x1="300" y1="34" x2="300" y2="220" stroke="#6e5d3c" stroke-width="1" stroke-dasharray="3 5" opacity=".55"/>
+      <!-- 右:矢尽援绝(褐) -->
+      <text x="336" y="30" fill="#7a5a23" font-size="13" font-weight="700">矢尽援绝 · 孤军无继</text>
+      <!-- 矢囊耗竭:满→空 -->
+      <text x="336" y="62" fill="#5c4f38" font-size="10.5">五十万矢</text>
+      <rect x="336" y="70" width="240" height="16" rx="2" fill="none" stroke="#7a5a23" stroke-width="1.4"/>
+      <rect x="336" y="70" width="70" height="16" rx="2" fill="rgba(122,90,35,.45)"/>
+      <text x="590" y="82" fill="#9a2b1e" font-size="11" font-weight="700">一日俱尽 ✕</text>
+      <path d="M 640,70 l 6,6 l 6,-6 M 646,76 l 0,10" stroke="#9a2b1e" stroke-width="2" fill="none"/>
+      <!-- 矢尽处 → 塞,中隔百余里,援绝 -->
+      <circle cx="360" cy="150" r="5" fill="#7a5a23"/>
+      <text x="336" y="176" fill="#7a5a23" font-size="10.5" font-weight="700">矢尽处·鞮汗山</text>
+      <path d="M 372,150 L 760,150" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="2 6"/>
+      <text x="470" y="142" fill="#5c4f38" font-size="10.5" font-style="italic">去汉塞百余里,竟不能达</text>
+      <!-- 塞:雉堞 -->
+      <g stroke="#2b2418" stroke-width="1.6" fill="none">
+        <path d="M 772,138 L 772,168 M 772,138 L 782,138 L 782,132 L 790,132 L 790,138 L 800,138 L 800,132 L 808,132 L 808,138 L 818,138 L 818,168 Z"/>
+      </g>
+      <text x="778" y="184" fill="#2b2418" font-size="10.5" font-weight="700">汉塞·遮虏鄣</text>
+      <!-- 援绝:塞中无援兵出(红✕) -->
+      <path d="M 770,150 C 700,150 640,150 600,150" stroke="#9a2b1e" stroke-width="1.4" fill="none" opacity=".35" stroke-dasharray="4 4" marker-end="url(#ar)"/>
+      <g transform="translate(690,150)"><circle r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="-5" y1="-5" x2="5" y2="5" stroke="#9a2b1e" stroke-width="2.2"/><line x1="-5" y1="5" x2="5" y2="-5" stroke="#9a2b1e" stroke-width="2.2"/></g>
+      <text x="636" y="204" fill="#9a2b1e" font-size="10.5" font-weight="700">后援不继 · 无兵出塞相迎</text>
+    </svg>
+    <p class="intro">李陵五千皆荆楚勇士、材力剑客,以<b>大车结营</b>、<b>千弩俱发</b>之法,使无骑之步军能当漠北铁骑而不溃——当矢石未竭时,匈奴虽众,冲营辄却,八日之间反损万余。然此法之命脉全系于<b>矢</b>:一旦五十万矢一日俱尽,车营遂不能守,而汉塞近在百余里,竟无一兵出迎。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>以步制骑 · 车营千弩</h4>
+        <p>陵军无骑,乃『以大车为营』,列阵营外:前行持戟盾,后行持弓弩,闻鼓而纵、闻金而止。匈奴恃骑欲以众蹂之,及逼营,则千弩俱发,应弦而倒,骑不得近。故五千步得却三万、复挫八万,且战且退而斩虏万余——步兵御骑之极则,古所罕见。</p>
+      </div>
+      <div class="c b">
+        <h4>矢尽援绝 · 孤军无继</h4>
+        <p>车营之守恃矢,而矢有尽。一日五十万矢俱竭,乃弃车徒行、斩车辐为兵;匈奴遂乘隅垒石断路。是时去汉塞遮虏鄣仅百余里,而路博德不为后拒、别无一军出塞相迎——孤军深入而无继,遂夜溃力屈,陵降,生还者四百余人。</p>
+      </div>
+    </div>
+    <p class="kicker">故浚稽之陷,<b>非战之罪</b>:以步制骑之法已臻其极,五千当八万而犹能杀伤过当。所败者,一在<b>矢尽</b>——车营失其所恃;二在<b>援绝</b>——深入千里而无后继、去塞百里而无迎兵。武帝先许路博德出塞应之而事竟不行,李陵之亡,亡于<b>孤军无继</b>而已。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《汉书·李广苏建传(李陵)》《史记》约略绘出。浚稽山在今蒙古国南戈壁,居延、遮虏鄣在今内蒙古额济纳旗一带,酒泉、张掖为河西边郡;城邑水道及漠北方位为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为天汉间汉匈形势示意:匈奴据漠北,汉守居延边塞;大漠为险,故以点划「约界」标之,非实有画界。长城·居延塞以点划线示其大略。</p>
-    <p><span class="n">注三</span>李陵以步卒五千当匈奴八万骑,结车营、千弩俱发,且战且退,转战千里,一日五十万矢俱尽——力战之烈,古所罕见。然矢尽道穷,去汉塞遮虏鄣仅百余里而陷。陵叹「无面目报陛下」,遂降;武帝族其家,太史公司马迁为陵辩,亦坐罪下蚕室。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影定位(约 97.5°–102.5°E,38.5°–46°N;x=371+(lon−97.5)·51.5,y=590−(lat−38.5)·69.3),几何方位力求近实:浚稽山在北、居延·汉塞在南,退路自北而南、略偏东。居延今内蒙古额济纳旗(居延泽·黑城一带),酒泉·张掖为河西边郡,弱水(黑河)北注居延泽。江河疆界经简化描绘。</p>
+    <p><span class="n">注二</span>浚稽山、鞮汗山之今地,史无确指,学者多系于今蒙古国南部戈壁阿尔泰一带,方位存疑,本图从「北行三十日、去汉塞千余里」之记载约略定位,非实测。遮虏鄣为太初中强弩都尉路博德所筑,在居延泽北,为汉最北障塞之一;图中列于汉塞一线。</p>
+    <p><span class="n">注三</span>晕染疆界为天汉间汉匈形势示意:匈奴据漠北,汉守河西居延塞;大漠为险,故以点划「约界」标之,汉塞·障燧以点划线示其大略,非实有画界。惟两方对垒,故本图止绘汉、匈奴二方。</p>
+    <p><span class="n">注四</span>兵数、矢数依《汉书·李广苏建传(李陵)》:陵将步卒五千出居延,遇单于三万骑,继增至八万余骑;结车营力战,「千弩俱发」,且战且退,「连战八日」斩虏万余;「一日五十万矢皆尽」,乃弃车徒行,士尚三千余人。去汉塞遮虏鄣百余里,矢尽道穷、后援不继,夜溃力屈,李陵被俘遂降,生还入塞者四百余人。太史公司马迁为陵辩,坐罪下蚕室。数字亦见《史记》,《资治通鉴》卷二十一系于天汉二年。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"李陵别道出居延",d:"汉武帝天汉二年(前99)",p:["天汉二年,贰师将军李广利击匈奴右贤王于天山。骑都尉李陵请自将所领步卒五千人,别道出居延北,深入浚稽山,以分匈奴之兵。","陵至浚稽山,遇且鞮侯单于主力三万骑。陵以大车为营,前行持戟盾、后持弓弩,与单于相拒——五千步卒对漠北铁骑,悬绝之势自此始。"]},
-  "1":{t:"浚稽结营·千弩却敌",d:"天汉二年·浚稽山",p:["单于以三万骑围陵军。陵引士出营外为陈,前行持戟盾,后行持弓弩,令曰「闻鼓声而纵,闻金声而止」。","虏见汉军少,直前就营。陵搏战攻之,千弩俱发,应弦而倒。匈奴退走上山,汉军追击,斩首数千。单于大惊,乃召左右地兵八万余骑共攻陵。"]},
-  "2":{t:"八万围之·且战且退",d:"天汉二年·龙勒水南",p:["单于召兵八万余骑共攻陵军。陵且战且引,南行数日,循龙勒水而退,转战千里。","士卒中矢伤者三创者载于车,两创者将车,一创者持兵战;犹奋呼力斗,斩虏累累。虏不能克,而陵军矢石渐尽,去塞益近而围亦益急。"]},
-  "3":{t:"矢尽道穷·力屈被俘",d:"天汉二年·鞮汗山",p:["一日五十万矢皆尽,乃弃车徒行,士尚三千余人,持尺刀、斩车辐、握短兵而斗。至鞮汗山狭谷,匈奴从上垒石断路,矢尽道穷。","时去汉塞遮虏鄣仅百余里。夜半,陵叹「无面目报陛下」,力战至旦,士卒溃散,得脱归塞者仅四百余人。陵力屈被俘,遂降匈奴。武帝怒,族其家;太史公司马迁为陵辩,亦坐罪下蚕室。"]}
+  all:{t:"别道出居延",d:"汉武帝天汉二年(前99)秋",p:["天汉二年,贰师将军李广利将三万骑击匈奴右贤王于天山(图外西)。骑都尉李陵请自将所领步卒五千人,别道出居延北,北行三十日,深入浚稽山,以分单于之兵。","陵所将皆荆楚勇士、奇材剑客,而无骑军。至浚稽山止营,遇且鞮侯单于主力三万骑——五千步卒当漠北铁骑,悬绝之势自此始。陵以大车为营,与单于相拒。"]},
+  "1":{t:"浚稽结营·千弩却敌",d:"天汉二年·浚稽山",p:["单于见汉军少,以三万骑围陵,直前就营。陵引士出营外为陈,前行持戟盾,后行持弓弩,令曰『闻鼓声而纵,闻金声而止』。","虏骑逼营,千弩俱发,应弦而倒。匈奴退走上山,汉军追击,斩首数千。单于大惊,乃召左右地兵八万余骑共攻陵——五千步却三万骑,而更大之围将至。"]},
+  "2":{t:"八万围之·且战且退",d:"天汉二年·龙城故道",p:["单于合左右地兵八万余骑攻陵。陵且战且引,循龙城故道东南而退,转战数百里。行至大泽芦苇中,虏从上风纵火,陵令士卒先烧其前芦苇以自救。","士卒中矢伤三创者载于车,两创者将车,一创者持兵战,犹奋呼力斗。连战八日,前后斩虏万余;虏不能克,而陵军矢石渐尽,去塞益近,围亦益急。"]},
+  "3":{t:"矢尽道穷·力屈被俘",d:"天汉二年·鞮汗山",p:["一日五十万矢皆尽,乃弃车徒行,士尚三千余人,斩车辐、持尺刀短兵而斗。入鞮汗山狭谷,匈奴乘隅从上垒石断路,士卒多死,矢尽道穷。","时去汉塞遮虏鄣仅百余里,而后援不继、无一军出塞相迎。夜半,陵叹『无面目报陛下』,力战至溃,得脱归塞者仅四百余人。李陵力屈被俘,遂降匈奴;武帝族其家,司马迁为陵辩,坐罪下蚕室。"]}
 };
 const CITY={
-  junji:{t:"浚稽山",d:"今蒙古国南戈壁一带",p:["李陵深入以分匈奴之兵处。遇单于三万骑,以大车结营,千弩俱发,退虏斩数千;寻为八万骑所围,力战之始。"]},
-  dihan:{t:"鞮汗山狭谷",d:"且战且退所至之绝地",p:["陵军南退,至此山狭谷。匈奴从上垒石断路,矢尽道穷,士卒溃散——李陵力屈被俘之处。"]},
-  zhelu:{t:"遮虏鄣·汉塞",d:"李陵欲归而未及",p:["汉北边障塞。陵败处去此仅百余里,士卒竭力欲归而不及,终陷于虏。"]},
-  juyan:{t:"居延",d:"今内蒙古额济纳旗一带",p:["李陵出兵基地。陵别道自居延北出,深入浚稽山,以牵制单于之兵。"]},
-  jiuquan:{t:"酒泉·张掖",d:"河西边郡",p:["汉边后方之地。李陵尝在此教射酒泉、张掖以屯卫胡;此役为汉军西路屏障。"]},
-  chanyu:{t:"单于大营",d:"匈奴主力所屯",p:["且鞮侯单于亲率主力。初以三万骑攻陵不克,乃召左右地兵八万余骑共围之。"]}
+  junji:{t:"浚稽山",d:"约今蒙古国南戈壁阿尔泰一带(存疑)",p:["李陵北行三十日深入之地,以分单于之兵。遇单于三万骑,以大车结营,千弩俱发,退虏斩数千;寻为八万骑所围,力战之始。今地无确指。"]},
+  dihan:{t:"鞮汗山",d:"且战且退所至之绝地",p:["陵军循龙城故道南退所至。匈奴乘隅从上垒石断路,矢尽道穷,士卒溃散——李陵力屈被俘之处,去汉塞仅百余里。"]},
+  zhelu:{t:"遮虏鄣·汉塞",d:"居延泽北,李陵欲归而未及",p:["太初中强弩都尉路博德所筑,汉最北障塞之一。陵败处去此仅百余里,士卒竭力欲归而不及;后援不出,终陷于虏。"]},
+  juyan:{t:"居延",d:"今内蒙古额济纳旗一带",p:["李陵出兵基地,弱水所注之居延泽在焉。陵别道自居延北出,深入浚稽山以牵制单于之兵。"]},
+  jiuquan:{t:"酒泉",d:"河西边郡,今甘肃酒泉",p:["汉河西四郡之一,西路后方屏障。李陵尝将丹阳楚人五千,教射酒泉、张掖以屯卫胡。"]},
+  zhangye:{t:"张掖",d:"河西边郡,今甘肃张掖",p:["弱水(黑河)出祁连北流,经张掖趋居延泽。李陵尝教射于酒泉、张掖间,为汉西陲屯卫之地。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

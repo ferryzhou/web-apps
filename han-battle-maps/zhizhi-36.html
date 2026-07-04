@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -46,19 +48,37 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .scale line{stroke:var(--ink2);stroke-width:1.4}
+  .scale text{fill:var(--ink2);font-size:10px;letter-spacing:.05em}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.long){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
+  .ph.show .march.long{stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 2.1s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +88,20 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../han-battle-maps/index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>郅</span><span>支</span><span>之</span><span>役</span></div>
+  <a class="navback" href="index.html" aria-label="返回两汉征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>虽</span><span>远</span><span>必</span><span>诛</span></div>
   <header>
     <h1>郅支之战</h1>
-    <div class="sub">汉元帝建昭三年(前36)　　<i>汉 陈汤·甘延寿</i> 万里远诛 · <b>郅支单于</b>殒于都赖水</div>
+    <div class="sub">汉元帝建昭三年(前36)　　<i>汉 陈汤·甘延寿</i> 矫制发兵、两道远袭 · 万里诛 <b>郅支单于</b>于都赖水</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 郅支西徙筑城</button>
-    <button data-p="1">矫制发兵 · 长驱远袭</button>
+    <button data-p="1">矫制发兵 · 两道远袭</button>
     <button data-p="2">合围郅支城 · 强弩焚城</button>
     <button data-p="3">破城斩单于 · 虽远必诛</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="郅支之战形势图,含汉西域都护与康居疆界、都赖水葱岭天山沙碛与郅支城乌垒赤谷等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="郅支之战形势图,西起中亚康居都赖水、东至西域都护府乌垒,含汉西域与康居疆界、天山葱岭沙碛、郅支城乌垒温宿赤谷大宛疏勒诸城与汉军南北两道远袭路线">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,118 +110,195 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:郅支·康居据西北(中亚),汉西域都护据东(西域),约以葱岭天山为界 -->
-    <path d="M 470,0 C 460,110 430,180 400,250 C 372,320 360,400 380,500 C 392,560 400,600 404,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 460,110 430,180 400,250 C 372,320 360,400 380,500 C 392,560 400,600 404,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 460,110 430,180 400,250 C 372,320 360,400 380,500 C 392,560 400,600 404,640"/>
-    <text class="realm q" x="90" y="130" font-size="30">康 居(中亚)</text>
-    <text class="realm j" x="640" y="560" font-size="30">汉 · 西域都护</text>
+    <!-- 疆界:康居(中亚)据西,汉西域都护据东,约以葱岭天山为界 -->
+    <path d="M 355,0 C 350,80 348,150 358,240 C 368,330 392,400 410,470 C 424,540 432,600 436,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 355,0 C 350,80 348,150 358,240 C 368,330 392,400 410,470 C 424,540 432,600 436,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 355,0 C 350,80 348,150 358,240 C 368,330 392,400 410,470 C 424,540 432,600 436,640"/>
+    <text class="realm q" x="66" y="94" font-size="30">康　居</text>
+    <text class="cname s" x="70" y="116" style="fill:var(--enemy);opacity:.5">(中亚·锡尔河北)</text>
+    <text class="realm j" x="600" y="556" font-size="30">汉 · 西域都护</text>
+    <text class="cname s" x="606" y="578" style="fill:var(--advance);opacity:.5">(西域城郭诸国)</text>
 
-    <!-- 都赖水(塔拉斯河):自东北山地西南流,郅支城临其畔 -->
-    <path class="river" stroke-width="4.5" d="M 360,90 C 320,140 280,180 250,220 C 210,272 170,300 110,318"/>
-    <!-- 支流·沙碛间水泉 -->
-    <path class="river" stroke-width="2.2" d="M 300,300 C 270,286 240,250 250,220"/>
-    <text class="rname" x="230" y="196" transform="rotate(35 230 196)" style="font-size:13px">都 赖 水</text>
-    <text class="rname" x="150" y="250" style="font-size:10px;letter-spacing:.14em">(塔拉斯河)</text>
+    <!-- 都赖水(塔拉斯河):自天山西北流,郅支城临其畔 -->
+    <path class="river" stroke-width="4.5" d="M 348,80 C 312,108 282,130 262,150 C 236,176 206,200 172,222"/>
+    <text class="rname" x="292" y="118" transform="rotate(35 292 118)" style="font-size:12px">都 赖 水</text>
+    <text class="rname" x="188" y="212" style="font-size:9.5px;letter-spacing:.12em">(塔拉斯河)</text>
+    <!-- 药杀水(锡尔河):自大宛西北流,历康居入西海 -->
+    <path class="river" stroke-width="3.4" d="M 296,338 C 252,318 196,292 150,266 C 108,242 66,224 24,216"/>
+    <text class="rname" x="150" y="288" transform="rotate(24 150 288)" style="font-size:10.5px">药杀水(锡尔河)</text>
 
-    <!-- 葱岭·天山 -->
-    <g class="mtn"><path d="M 560,300 l 9,-15 l 9,15 M 578,293 l 9,-15 l 9,15 M 596,300 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="556" y="322">葱岭·天山</text>
-    <g class="mtn"><path d="M 470,160 l 8,-13 l 8,13 M 486,154 l 8,-13 l 8,13"/></g>
-    <!-- 沙碛 -->
-    <g class="mtn" opacity=".55"><path d="M 150,440 q 12,-10 24,0 q 12,-10 24,0 M 210,470 q 12,-10 24,0 q 12,-10 24,0 M 130,500 q 12,-10 24,0 q 12,-10 24,0"/></g>
-    <text class="cname s" x="150" y="418">沙　碛</text>
+    <!-- 天山:横亘乌孙(北)与温宿(南)之间,北道越勃达岭 -->
+    <path class="mtn fill" d="M 548,238 L 566,206 L 582,224 L 602,192 L 622,222 L 642,196 L 662,224 L 684,200 L 704,232 L 724,206 L 744,236 Z"/>
+    <path class="mtn" d="M 576,224 l 14,-20 l 12,15 l 16,-24 l 13,19 l 15,-22 l 14,20"/>
+    <text class="mname" x="588" y="186" transform="rotate(-8 588 186)">天　山</text>
+    <!-- 葱岭(帕米尔):南道逾此赴大宛 -->
+    <path class="mtn fill" d="M 372,452 L 388,420 L 402,438 L 420,410 L 438,436 L 456,414 L 474,442 Z"/>
+    <path class="mtn" d="M 392,436 l 12,-18 l 11,13 l 14,-20 l 12,16"/>
+    <text class="mname" x="386" y="474" style="font-size:10.5px">葱岭·帕米尔</text>
+    <!-- 沙碛(塔克拉玛干):塔里木盆地 -->
+    <g class="mtn" opacity=".5"><path d="M 600,388 q 13,-10 26,0 q 13,-10 26,0 q 13,-10 26,0 M 640,414 q 13,-10 26,0 q 13,-10 26,0 M 620,362 q 13,-10 26,0 q 13,-10 26,0 q 13,-10 26,0"/></g>
+    <text class="mname" x="628" y="352" style="font-size:10px;letter-spacing:.2em">沙　碛</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="zhizhi"><circle cx="250" cy="220" r="6"/><text class="cname" x="262" y="216">郅支城<tspan class="cname s" dx="2">(都赖水畔)</tspan></text></g>
-      <g class="city" data-city="kangju"><circle cx="120" cy="260" r="5"/><text class="cname" x="60" y="256">康居</text></g>
-      <g class="city" data-city="chigu"><circle cx="470" cy="360" r="5"/><text class="cname" x="482" y="356">乌孙·赤谷城</text></g>
-      <g class="city" data-city="wulei"><circle cx="820" cy="330" r="6"/><text class="cname" x="760" y="326">都护府·乌垒</text></g>
-      <g class="city" data-city="congling"><circle cx="600" cy="290" r="4"/><text class="cname s" x="560" y="278">葱岭道</text></g>
-      <g class="city" data-city="dayuan"><circle cx="500" cy="480" r="4.5"/><text class="cname s" x="512" y="484">大宛</text></g>
+      <g class="city cap" data-city="zhizhi"><circle cx="258" cy="150" r="6.5"/><text class="cname" x="176" y="140">郅支城<tspan class="cname s" dx="1">(都赖水)</tspan></text></g>
+      <g class="city" data-city="kangju"><circle cx="126" cy="237" r="5"/><text class="cname" x="72" y="234">康居王城</text></g>
+      <g class="city" data-city="dayuan"><circle cx="268" cy="318" r="5"/><text class="cname" x="280" y="322">大宛<tspan class="cname s" dx="1">(贵山城)</tspan></text></g>
+      <g class="city" data-city="shule"><circle cx="490" cy="380" r="4.5"/><text class="cname" x="500" y="384">疏勒</text></g>
+      <g class="city" data-city="congling"><circle cx="420" cy="424" r="3.5"/><text class="cname s" x="430" y="428">葱岭道</text></g>
+      <g class="city" data-city="wensu"><circle cx="708" cy="266" r="5"/><text class="cname" x="718" y="262">温宿<tspan class="cname s" dx="1">(阿克苏)</tspan></text></g>
+      <g class="city" data-city="chigu"><circle cx="637" cy="197" r="5"/><text class="cname" x="548" y="190">乌孙·赤谷城</text></g>
+      <g class="city cap" data-city="wulei"><circle cx="910" cy="225" r="6.5"/><text class="cname" x="824" y="220">都护府·乌垒</text></g>
+    </g>
+
+    <!-- 匈奴故地(图外·东北):郅支所自西徙 -->
+    <g transform="translate(662,20)">
+      <path class="march q" marker-end="url(#aq)" d="M 26,4 L 2,20"/>
+      <text class="mlabel q" x="0" y="-4" style="font-size:10px">⟵ 匈奴·坚昆故地</text>
+      <text class="cname s" x="12" y="34" style="fill:var(--enemy);font-size:9.5px">(图外东北)</text>
     </g>
 
     <!-- 全图 · 郅支西徙筑城 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 640,180 C 500,180 380,200 268,214"/>
-      <text class="mlabel q" x="400" y="168">郅支单于杀汉使谷吉,西徙依康居</text>
-      <rect class="camp" x="246" y="216" width="9" height="9" transform="rotate(45 250 220)"/>
-      <text class="anno" x="150" y="248">筑城都赖水畔,雄张西域,数陵诸国</text>
-      <text class="mlabel j" x="640" y="360">陈汤、甘延寿在都护府,谋早图之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 690,60 C 560,90 400,120 270,146"/>
+      <text class="mlabel q" x="360" y="82">郅支西徙:破乌孙、丁零、坚昆,西依康居</text>
+      <rect class="camp" x="254" y="146" width="9" height="9" transform="rotate(45 258 150)"/>
+      <text class="anno" x="150" y="176">筑城都赖水畔,土城重以木城,陵辱汉使</text>
+      <text class="mlabel j" x="620" y="300">陈汤、甘延寿镇都护府(乌垒),谋早图之</text>
     </g>
 
-    <!-- 阶段一:矫制发兵 · 长驱远袭 -->
+    <!-- 阶段一:矫制发兵 · 两道远袭 -->
     <g id="ph1" class="ph">
-      <text class="mlabel j" x="700" y="308">陈汤矫制,发诸国兵及屯田吏士四万余</text>
-      <path class="march j" marker-end="url(#aj)" d="M 806,336 C 720,360 640,392 560,392 C 520,392 500,380 484,368"/>
-      <text class="mlabel j" x="560" y="424">南道 · 越葱岭,经大宛</text>
-      <path class="march j" marker-end="url(#aj)" d="M 806,326 C 700,300 600,300 500,320 C 400,340 320,300 262,232"/>
-      <text class="mlabel j" x="420" y="330">北道 · 经乌孙赤谷城</text>
-      <text class="anno" x="480" y="500">分六校,长驱万里,远袭郅支</text>
+      <text class="mlabel j" x="600" y="252">陈汤矫制,发城郭诸国兵及屯田吏士四万余</text>
+      <!-- 北道:出温宿,越乌孙赤谷城 -->
+      <path class="march j long" marker-end="url(#aj)" d="M 902,224 C 820,238 760,256 712,266 C 682,250 656,220 640,202 C 540,180 380,152 274,150"/>
+      <text class="mlabel j" x="430" y="172">北道 · 出温宿,越乌孙(赤谷城)</text>
+      <!-- 南道:逾葱岭,经大宛 -->
+      <path class="march j long" marker-end="url(#aj)" d="M 902,238 C 760,318 600,362 500,382 C 448,392 440,402 424,412 C 360,392 306,352 274,322 C 262,272 258,210 262,164"/>
+      <text class="mlabel j" x="486" y="440">南道 · 逾葱岭,经大宛</text>
+      <text class="anno" x="150" y="470">分六校,合四万余众,长驱万里,远袭郅支</text>
     </g>
 
     <!-- 阶段二:合围郅支城 · 强弩焚城 -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="250" cy="220" r="30"/>
-      <text class="mlabel j" x="120" y="170">汉军四面合围郅支城</text>
-      <rect class="camp" x="246" y="216" width="9" height="9" transform="rotate(45 250 220)"/>
-      <text class="anno" x="270" y="182">土城外重以木城</text>
-      <path class="march j" marker-end="url(#aj)" d="M 296,242 C 282,236 270,230 262,226"/>
-      <path class="march j" marker-end="url(#aj)" d="M 210,196 C 224,204 234,210 242,214"/>
-      <path class="march j" marker-end="url(#aj)" d="M 252,268 C 251,254 250,242 250,230"/>
-      <text class="mlabel j" x="120" y="290">强弩仰射城上,纵火焚木城,鱼鳞进逼</text>
+      <circle class="siege" cx="258" cy="150" r="30"/>
+      <rect class="camp" x="254" y="146" width="9" height="9" transform="rotate(45 258 150)"/>
+      <text class="mlabel j" x="122" y="98">汉军去城三里止营,四面合围</text>
+      <text class="anno" x="278" y="112">土城外重以木城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,178 C 288,170 278,164 270,158"/>
+      <path class="march j" marker-end="url(#aj)" d="M 216,124 C 228,132 240,140 248,146"/>
+      <path class="march j" marker-end="url(#aj)" d="M 258,198 C 258,184 258,170 258,160"/>
+      <path class="march j" marker-end="url(#aj)" d="M 210,180 C 224,172 236,164 246,158"/>
+      <text class="mlabel j" x="120" y="222">强弩仰射城上,纵火焚木城,鱼鳞并进</text>
     </g>
 
     <!-- 阶段三:破城斩单于 · 虽远必诛 -->
     <g id="ph3" class="ph">
-      <path class="march q rout" marker-end="url(#aq)" d="M 130,254 C 168,240 200,232 226,224"/>
-      <text class="mlabel q" x="60" y="248">康居骑外扰,汉军拒却之</text>
-      <path d="M 250,220 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <circle class="star" cx="250" cy="220" r="16"/>
-      <text class="mlabel r" x="270" y="204">旦纵火争入,斩单于以下千五百级</text>
-      <text class="anno" x="120" y="352">陈汤上疏「明犯强汉者,虽远必诛」</text>
-      <text class="anno" x="150" y="372">威震西域绝域</text>
+      <path class="march q" marker-end="url(#aq)" d="M 140,228 C 176,206 208,184 232,166"/>
+      <text class="mlabel q" x="72" y="212">康居万余骑夜环城外扰,汉军拒却之</text>
+      <path d="M 258,150 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="258" cy="150" r="16"/>
+      <text class="mlabel r" x="278" y="140">及旦纵火,吏士争入,斩单于以下千五百级</text>
+      <text class="anno" x="150" y="290">陈汤、甘延寿上疏「明犯强汉者,虽远必诛」</text>
+      <text class="anno" x="150" y="310">威震西域绝域,郅支之患遂平</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- 比例尺(约300公里,仅东西向近实) -->
+    <g class="scale" transform="translate(120,606)">
+      <line x1="0" y1="0" x2="181" y2="0"/>
+      <line x1="0" y1="-4" x2="0" y2="4"/>
+      <line x1="90.5" y1="-3" x2="90.5" y2="3"/>
+      <line x1="181" y1="-4" x2="181" y2="4"/>
+      <text x="0" y="16">0</text>
+      <text x="150" y="16">300 公里</text>
+      <text x="0" y="-8" style="opacity:.8">约七百汉里(东西向近实)</text>
+    </g>
+
+    <g class="compass" transform="translate(952,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(西域诸国·屯田吏士)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>郅支·康居</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退·破城</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>郅支败亡·破城</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>攻拔·斩单于</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>合围</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>康居</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>康居(中亚)</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉·西域</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 矫制两道 · 虽远必诛</h3>
+    <div class="lead">何以万里之外能诛一单于 —— 系于「矫制发兵」与「两道并进」二事</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="示意:自西域都护府矫制发兵,分南北两道逾葱岭越乌孙,合围郅支城斩单于">
+      <!-- 起点:都护府 -->
+      <circle cx="792" cy="125" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="742" y="108" fill="#2b2418" font-size="11.5" font-weight="700">西域都护府·乌垒</text>
+      <text x="748" y="150" fill="#5c4f38" font-size="10">屯田吏士 · 城郭诸国兵</text>
+      <!-- 矫制决断点 -->
+      <rect x="646" y="104" width="60" height="42" rx="3" fill="none" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="676" y="122" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">矫制</text>
+      <text x="676" y="138" fill="#9a2b1e" font-size="9.5" text-anchor="middle">假朝命发兵</text>
+      <path d="M 786,125 L 710,125" fill="none" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="3 3"/>
+      <!-- 北道(青) -->
+      <path d="M 642,116 C 460,66 300,60 150,80" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 150,80 L 168,73 L 165,88 Z" fill="#1f4e54"/>
+      <text x="360" y="52" fill="#1f4e54" font-size="11" font-weight="700">北道 · 出温宿,越乌孙赤谷城</text>
+      <!-- 南道(青) -->
+      <path d="M 642,140 C 470,196 300,206 156,168" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 156,168 L 174,168 L 166,181 Z" fill="#1f4e54"/>
+      <text x="356" y="212" fill="#1f4e54" font-size="11" font-weight="700">南道 · 逾葱岭,经大宛</text>
+      <!-- 距离标注(金) -->
+      <text x="400" y="126" fill="#9c7a2c" font-size="11.5" font-weight="700" text-anchor="middle" letter-spacing="2">长驱万里 · 远袭</text>
+      <line x1="300" y1="112" x2="500" y2="112" stroke="#9c7a2c" stroke-width="1" stroke-dasharray="2 4" opacity=".7"/>
+      <line x1="300" y1="140" x2="500" y2="140" stroke="#9c7a2c" stroke-width="1" stroke-dasharray="2 4" opacity=".7"/>
+      <!-- 终点:郅支城 合击 -->
+      <g><circle cx="120" cy="124" r="15" fill="none" stroke="#9c7a2c" stroke-width="2"/><rect x="115" y="119" width="10" height="10" transform="rotate(45 120 124)" fill="#9a2b1e" opacity=".9"/></g>
+      <text x="86" y="102" fill="#2b2418" font-size="11.5" font-weight="700">郅支城</text>
+      <text x="70" y="164" fill="#7a5a23" font-size="10" font-weight="700">四面合围 · 焚城斩单于</text>
+    </svg>
+    <p class="intro">郅支单于远遁康居、筑城都赖水,自恃<b>去汉绝远、汉兵必不能至</b>——万里之外,朝廷发一军须经年请命,比及诏下,单于已徙。陈汤所破的正是这个「远」字:不待奏可而<b>矫制发兵</b>,又<b>两道并进</b>使敌无所遁,遂以奇袭抵消了距离。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>矫制 · 发兵之机</h4>
+        <p>甘延寿欲奏请而后动,陈汤谓「稽留失机,大众一散难复合」,乃矫制(假托朝命)调西域城郭诸国之兵与汉屯田吏士凡四万余。延寿惊起欲止,汤按剑叱之,遂共发兵。无此一矫,则师出无名、旷日弥久,郅支得以远走——制胜之权,先在「敢发」。</p>
+      </div>
+      <div class="c b">
+        <h4>两道 · 远袭之势</h4>
+        <p>四万之众分为六校:三校从南道逾葱岭、经大宛而西北趋;三校从北道出温宿、越乌孙赤谷城而西。两道数千里外合于郅支城下,首尾相应,使单于既不能拒于一隅、亦无路可遁。长驱奄至,「彼无所备」,故能一举围而歼之。</p>
+      </div>
+    </div>
+    <p class="kicker">距离本是郅支最大的凭恃,却被<b>「矫制」的果决</b>与<b>「两道」的合击</b>一并抵销:兵至城下时单于犹不之信。城拔单于殒,陈汤上疏遂有<b>「明犯强汉者,虽远必诛」</b>之语——非徒夸辞,乃此役以速与合破「远」之实证。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《汉书·傅常郑甘陈段传(陈汤)》约略绘出。郅支城约在今哈萨克斯坦塔拉斯河(都赖水)畔,乌垒都护府在今新疆轮台,乌孙赤谷城在今伊塞克湖东南——诸城邑与水道方位为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为建昭初西域形势示意:郅支单于西徙依康居、筑城中亚,汉西域都护统辖东境;葱岭、天山为险,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>陈汤矫制(假托朝命)发西域城郭诸国兵及屯田吏士凡四万余,分六校,长驱远袭万里。郅支城土城之外复重以木城,汉军四面纵火、强弩仰射而拔之。事后陈汤疏中「明犯强汉者,虽远必诛」,遂为千古名言。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作等距(轻墨卡托)投影粗定,几何关系力求近实:郅支城在极西(北纬最高),都护府乌垒在极东,乌孙赤谷城居北、大宛葱岭居南。投影窗约东经67.5°—84.5°、北纬37.8°—43°;取 x=60+(经度−67.5)×50.75, y=492−(纬度−37.8)×67。江河、疆界、山脉经简化描绘,非实测界线。</p>
+    <p><span class="n">注二</span>比例尺仅东西向近实(该纬度一经度约84公里)。此役横跨西域至中亚,直线已逾千里,循两道逾岭越碛则「长驱万里」;图幅东西压缩,故距离仅供比度,不足以量真程——「万里远袭」之难,正在图外。</p>
+    <p><span class="n">注三</span>今地比定:郅支城约在今哈萨克斯坦塔拉斯河(都赖水)畔江布尔(Taraz);康居王城约在锡尔河中游(今塔什干一带);大宛都贵山城在费尔干纳盆地;温宿今新疆阿克苏,疏勒今喀什,乌孙赤谷城约在伊塞克湖东南,西域都护府乌垒城今新疆轮台东。诸地经纬为约值,部分方位史无定说,姑从通说。</p>
+    <p><span class="n">注四</span>依《汉书·傅常郑甘陈段传(陈汤)》《西域传》:郅支单于杀汉使谷吉,西徙依康居,筑城都赖水畔,土城之外复重以木城,数陵辱乌孙、大宛及汉使。建昭三年(前36),西域都护骑都尉甘延寿、副校尉陈汤矫制发城郭诸国兵及屯田吏士四万余,分六校、两道并进,围郅支城,强弩仰射、四面纵火而拔之,斩郅支单于以下千五百级,生虏百四十五人。「明犯强汉者,虽远必诛」遂为千古名言。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"郅支西徙筑城",d:"汉宣帝末 — 元帝初",p:["匈奴郅支单于与汉相怨,杀汉使谷吉,自度负汉,乃引众西徙,依康居王,借其兵威,筑城于都赖水畔。","郅支城成,雄张西域,数陵辱乌孙、大宛诸国,责其岁遗,又困辱汉使——绝域震恐。时西域副校尉陈汤,与都护骑都尉甘延寿并镇,以郅支久为边害、宜早图之。"]},
-  "1":{t:"矫制发兵·长驱远袭",d:"建昭三年(前36)",p:["陈汤为人沉勇有大虑,谓延寿曰:郅支城无坚守之备,若发屯田吏士、驱从乌孙之众,直指其城,彼无所之——此千载一时之功也。延寿欲奏请,汤以稽留失机,乃矫制(假托朝命)发西域城郭诸国之兵及汉屯田吏士凡四万余。","延寿惊起,汤按剑叱之,遂共发兵。分为六校,三校从南道越葱岭、经大宛,三校从北道经乌孙赤谷城,长驱万里,远袭郅支。"]},
-  "2":{t:"合围郅支城·强弩焚城",d:"建昭三年(前36)",p:["汉军至郅支城下三里,止营傅陈。城上立五采幡帜,数百人被甲乘城,又出百余骑往来驰,步兵百余夹门鱼鳞阵讲习用兵。","郅支城有土城,外复重以木城。汉军四面围之,发强弩仰射城中,城上人皆下走;因纵火焚其木城,鱼鳞阵徐徐进逼,矢下如雨,郅支被创。"]},
-  "3":{t:"破城斩单于·虽远必诛",d:"建昭三年(前36)",p:["夜过半,康居兵万余骑分十余处,四面环城,与城中相应,外扰汉军;汉军拒战,却之。及旦,四面纵火,吏士乘势争入,郅支单于被创死。","军候杜勋斩郅支首,并阏氏、太子、名王以下千五百级,生虏百四十五人。陈汤、甘延寿上疏,有「明犯强汉者,虽远必诛」之语——威震西域绝域,遂传为千古名言。"]}
+  all:{t:"郅支西徙筑城",d:"汉宣帝末 — 元帝初",p:["匈奴郅支单于与汉相怨,杀汉使谷吉,自度负汉,乃引众西徙,破乌孙、丁零、坚昆,依康居王,借其兵威,筑城于都赖水畔。","郅支城成,土城外重以木城,雄张西域,数陵辱乌孙、大宛诸国,责其岁遗,又困辱汉使——绝域震恐。时西域副校尉陈汤,与都护骑都尉甘延寿并镇都护府(乌垒),以郅支久为边害、宜早图之。"]},
+  "1":{t:"矫制发兵·两道远袭",d:"建昭三年(前36)",p:["陈汤为人沉勇有大虑,谓延寿曰:郅支城无坚守之备,若发屯田吏士、驱从诸国之众,直指其城,彼无所之——此千载一时之功也。延寿欲奏请,汤以稽留失机,乃矫制(假托朝命)发西域城郭诸国之兵及汉屯田吏士凡四万余。","延寿惊起欲止,汤按剑叱之,遂共发兵。分为六校,三校从南道逾葱岭、经大宛而西北趋;三校从北道出温宿、越乌孙赤谷城而西,长驱数千里,两道合于郅支城下,远袭郅支。"]},
+  "2":{t:"合围郅支城·强弩焚城",d:"建昭三年(前36)",p:["汉军至郅支城下三里,止营傅陈。城上立五采幡帜,数百人被甲乘城,又出百余骑往来驰,步兵百余夹门鱼鳞阵讲习用兵——皆汉军不之惧。","郅支城有土城,外复重以木城。汉军四面围之,发强弩仰射城中,城上人皆下走;因纵火焚其木城,鱼鳞阵徐徐进逼,矢下如雨,郅支被创。"]},
+  "3":{t:"破城斩单于·虽远必诛",d:"建昭三年(前36)",p:["夜过半,康居兵万余骑分十余处,四面环城,与城中相应,外扰汉军;汉军拒战,却之。及旦,四面纵火,吏士乘势争入,郅支单于被创死。","军候杜勋斩郅支首,并阏氏、太子、名王以下千五百级,生虏百四十五人,降者千余。陈汤、甘延寿上疏,有「明犯强汉者,虽远必诛」之语——威震西域绝域,遂传为千古名言。"]}
 };
 const CITY={
-  zhizhi:{t:"郅支城",d:"都赖水畔,约今塔拉斯河畔",p:["郅支单于西徙所筑,土城外重以木城。汉军四面合围,强弩焚城,斩单于以下千五百级于此。"]},
-  kangju:{t:"康居",d:"郅支所依,中亚",p:["郅支单于西徙时所依之国,借其兵威筑城。破城之夜,康居万余骑外扰汉军,为汉军拒却。"]},
-  chigu:{t:"乌孙·赤谷城",d:"约今伊塞克湖东南",p:["乌孙都城。汉军北道所经,驱从其众以西袭郅支。乌孙尝为郅支所陵辱。"]},
-  wulei:{t:"都护府·乌垒",d:"约今新疆轮台",p:["西域都护治所。陈汤、甘延寿自此发兵——矫制驱诸国兵及屯田吏士四万余,长驱远袭。"]},
-  congling:{t:"葱岭道",d:"汉军越岭之道",p:["南道三校越葱岭、经大宛而西。葱岭天山为西域险阻,汉军逾之以赴郅支城下。"]},
-  dayuan:{t:"大宛",d:"西域诸国之一,约今费尔干纳",p:["西域城郭诸国之一,南道所经。郅支尝责其岁遗、陵辱其国,故乐从汉军之征。"]}
+  zhizhi:{t:"郅支城",d:"都赖水畔,约今哈萨克斯坦塔拉斯河畔江布尔(Taraz)",p:["郅支单于西徙所筑,土城外重以木城。汉军南北两道合围于此,强弩焚城,斩单于以下千五百级——此役决战之地。"]},
+  kangju:{t:"康居王城",d:"约今锡尔河中游·塔什干一带",p:["康居据锡尔河北。郅支西徙时所依之国,借其兵威筑城。破城之夜,康居万余骑外扰汉军,为汉军拒却。"]},
+  dayuan:{t:"大宛(贵山城)",d:"约今费尔干纳盆地",p:["西域名国,盛产良马。南道三校逾葱岭而经其地以西袭郅支。郅支尝责其岁遗、陵辱其国,故乐从汉军之征。"]},
+  shule:{t:"疏勒",d:"约今新疆喀什",p:["西域城郭诸国之一,当南道要冲。汉军自都护府西行,由此转趋葱岭。"]},
+  congling:{t:"葱岭道",d:"帕米尔高原,南道所逾",p:["南道三校逾葱岭而西。葱岭为西域极险,汉军越之以赴大宛、郅支城下——两道之难,南道尤甚。"]},
+  wensu:{t:"温宿",d:"约今新疆阿克苏",p:["天山之南要地,北道所出。汉军由此北越天山(勃达岭),入乌孙赤谷城,再西趋郅支。"]},
+  chigu:{t:"乌孙·赤谷城",d:"约今伊塞克湖东南",p:["乌孙都城。北道所经,汉军驱从其众以西袭郅支。乌孙尝为郅支所陵辱,故与汉合。"]},
+  wulei:{t:"都护府·乌垒",d:"约今新疆轮台东",p:["西域都护治所。陈汤、甘延寿自此矫制发兵——驱城郭诸国兵及屯田吏士四万余,分六校、两道并进,长驱远袭。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
