@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.28em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -46,6 +48,7 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .drown circle{fill:var(--ret);opacity:.5}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
   .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
@@ -53,12 +56,27 @@
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--enemy)}.explain .c.b{border-color:var(--ret)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--enemy)}.explain .c.b h4{color:var(--ret)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +90,16 @@
   <div class="seal" aria-hidden="true"><span>彭</span><span>城</span><span>之</span><span>战</span></div>
   <header>
     <h1>彭城之战</h1>
-    <div class="sub">汉二年(前205)　　<b>楚 项羽</b>(三万) 大破 <i>汉 刘邦</i>(五十六万)</div>
+    <div class="sub">汉二年(前205)　　<b>楚 项羽</b>(精骑三万) 大破 <i>汉 刘邦</i>(五诸侯五十六万)　·　轻兵奔袭 · 睢水不流</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 汉袭彭城</button>
-    <button data-p="1">汉入彭城</button>
+    <button data-p="1">楚骑南奔</button>
     <button data-p="2">睢水大溃</button>
     <button data-p="3">大风脱围</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="彭城之战形势图,含楚汉诸侯疆界、睢水泗水谷水与彭城萧灵璧下邑荥阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="彭城之战形势图,含楚汉诸侯疆界、泗水睢水谷水,彭城萧灵璧下邑胡陵鲁等城邑,楚骑自鲁胡陵南奔、从萧晨击而东,汉军溺死睢水">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,81 +108,111 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:楚据东南(彭城为都),汉·诸侯据西北,约以泗水淮北一线为界 -->
-    <path d="M 560,0 C 540,90 560,180 590,260 C 620,340 660,420 690,500 C 710,560 720,600 730,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 540,90 560,180 590,260 C 620,340 660,420 690,500 C 710,560 720,600 730,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 540,90 560,180 590,260 C 620,340 660,420 690,500 C 710,560 720,600 730,640"/>
-    <text class="realm q" x="800" y="130" font-size="32">楚(东·南)</text>
-    <text class="realm j" x="90" y="140" font-size="30">汉·诸侯(西·北)</text>
+    <!-- ══ 疆界:楚据东南(彭城本楚都,此时为汉所袭据),汉·诸侯自西北长驱而入 ══ -->
+    <path d="M 600,0 C 620,150 662,300 702,420 C 722,490 745,560 760,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 600,0 C 620,150 662,300 702,420 C 722,490 745,560 760,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 600,0 C 620,150 662,300 702,420 C 722,490 745,560 760,640"/>
+    <text class="realm q" x="838" y="150" font-size="30">楚(东·南)</text>
+    <text class="realm j" x="96" y="150" font-size="28">汉·诸侯(西·北)</text>
 
-    <!-- 泗水:自西北南下经彭城 -->
-    <path class="river" stroke-width="4.5" d="M 470,70 C 500,150 540,230 570,300 C 600,368 620,430 636,520"/>
-    <!-- 睢水:自彭城西南分流,汉军溺死处 -->
-    <path class="river" stroke-width="3.4" d="M 566,296 C 540,340 500,378 452,410 C 400,444 340,468 288,500"/>
-    <!-- 谷水:彭城之北,汉卒争入处 -->
-    <path class="river" stroke-width="2.4" d="M 600,150 C 570,190 548,230 552,272"/>
-    <text class="rname" x="600" y="440" transform="rotate(72 600 440)">泗 水</text>
-    <text class="rname" x="430" y="440" transform="rotate(-28 430 440)">睢 水</text>
-    <text class="rname" x="560" y="200" transform="rotate(58 560 200)" style="font-size:10.5px">谷 水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 泗水:自北南下,径彭城,东南趋淮(汉卒争入谷·泗死者十余万) -->
+    <path class="river" stroke-width="4.5" d="M 520,40 C 528,150 540,260 536,368 C 533,432 560,502 600,600"/>
+    <!-- 谷水:彭城西北,注泗水 -->
+    <path class="river" stroke-width="2.4" d="M 452,178 C 486,236 512,300 532,352"/>
+    <!-- 睢水:自西而来,径彭城之南,东经灵璧,汉军溺死为之不流 -->
+    <path class="river" stroke-width="3.6" d="M 84,406 C 240,410 380,414 476,432 C 540,444 592,478 632,506 C 690,546 742,572 790,600"/>
+    <text class="rname" x="548" y="250" transform="rotate(84 548 250)">泗 水</text>
+    <text class="rname" x="470" y="300" transform="rotate(60 470 300)" style="font-size:10.5px">谷 水</text>
+    <text class="rname" x="300" y="404" style="font-size:12px">睢 水</text>
+    <text class="rname" x="678" y="548" transform="rotate(36 678 548)" style="font-size:11px">睢水下流</text>
 
-    <!-- 芒砀山:彭城西北 -->
-    <g class="mtn"><path d="M 300,220 l 8,-13 l 8,13 M 316,214 l 8,-13 l 8,13 M 332,220 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="298" y="240">芒砀山</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 芒砀山:彭城西北,刘邦旧起兵处 -->
+    <path class="mtn fill" d="M 300,318 L 314,296 L 326,312 L 342,290 L 358,310 L 372,294 L 386,314 Z"/>
+    <path class="mtn" d="M 316,308 l 12,-16 l 10,12 l 14,-18 l 12,14"/>
+    <text class="mname" x="300" y="342">芒 砀 山</text>
+    <!-- 彭城南山:汉卒南走山处 -->
+    <path class="mtn" d="M 470,458 l 12,-15 l 10,12 l 13,-16 l 11,14"/>
+    <text class="mname" x="452" y="480" style="font-size:10px">彭城南山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="pengcheng"><circle cx="566" cy="296" r="6.5"/><text class="cname" x="580" y="292">彭城<tspan class="cname s" dx="2">(楚都·汉袭据)</tspan></text></g>
-      <g class="city" data-city="suishui"><circle cx="452" cy="410" r="4"/><text class="cname s" x="416" y="430">睢水(溺死处)</text></g>
-      <g class="city" data-city="xiao"><circle cx="452" cy="288" r="4.5"/><text class="cname" x="396" y="284">萧</text></g>
-      <g class="city" data-city="lingbi"><circle cx="640" cy="380" r="4"/><text class="cname s" x="652" y="384">灵璧(被围)</text></g>
-      <g class="city" data-city="xiayi"><circle cx="392" cy="352" r="4"/><text class="cname s" x="326" y="356">下邑(收兵)</text></g>
-      <g class="city" data-city="xingyang"><circle cx="120" cy="330" r="5.5"/><text class="cname" x="132" y="326">荥阳<tspan class="cname s" dx="2">(西退据守)</tspan></text></g>
+      <g class="city cap" data-city="pengcheng"><circle cx="536" cy="368" r="6.5"/><text class="cname" x="550" y="364">彭城<tspan class="cname s" dx="2">(楚都·汉袭据)</tspan></text></g>
+      <g class="city" data-city="xiao"><circle cx="490" cy="382" r="4.5"/><text class="cname" x="452" y="400">萧</text></g>
+      <g class="city" data-city="lingbi"><circle cx="610" cy="512" r="4.5"/><text class="cname" x="622" y="516">灵璧<tspan class="cname s" dx="2">(睢水上)</tspan></text></g>
+      <g class="city" data-city="xiayi"><circle cx="370" cy="336" r="4"/><text class="cname s" x="326" y="330">下邑</text></g>
+      <g class="city" data-city="huling"><circle cx="440" cy="240" r="4"/><text class="cname s" x="398" y="234">胡陵</text></g>
+      <g class="city" data-city="lu"><circle cx="498" cy="104" r="5"/><text class="cname" x="510" y="100">鲁<tspan class="cname s" dx="2">(曲阜)</tspan></text></g>
+      <g class="city" data-city="suishui"><circle cx="650" cy="510" r="3.5"/><text class="cname s" x="606" y="498">溺死处</text></g>
     </g>
 
-    <!-- 全图 · 汉袭彭城 -->
+    <!-- 齐·城阳(图外·东北,项羽伐齐处) -->
+    <g transform="translate(786,44)">
+      <text class="mlabel q" x="0" y="0" style="font-size:10px">齐 · 城阳(图外东北)</text>
+      <text class="cname s" x="18" y="15" style="fill:var(--enemy);font-size:9.5px">项羽伐齐处 ⟶</text>
+    </g>
+
+    <!-- 荥阳(图外·西,汉王西保处) -->
+    <g class="city" data-city="xingyang" transform="translate(0,0)">
+      <circle cx="30" cy="360" r="5"/><text class="cname" x="18" y="392">荥阳</text>
+      <text class="cname s" x="6" y="408" style="font-size:9.5px">⟵ 西保(图外)</text>
+    </g>
+
+    <!-- ══ 全图 · 汉袭彭城 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 128,336 C 260,360 400,360 500,320 C 530,308 548,302 556,298"/>
-      <text class="mlabel j" x="240" y="352">汉王合五诸侯兵五十六万东伐楚,入彭城</text>
-      <path class="march q" marker-end="url(#aq)" d="M 800,120 C 720,150 640,210 590,270"/>
-      <text class="mlabel q" x="700" y="176">项羽方北击齐(田荣)</text>
-      <text class="anno" x="600" y="250">自将精骑三万,间道南还赴救</text>
+      <path class="march j" marker-end="url(#aj)" d="M 40,356 C 180,344 330,344 430,352 C 480,356 512,362 526,366"/>
+      <text class="mlabel j" x="150" y="336">汉合五诸侯兵五十六万,东伐楚,入彭城</text>
+      <rect class="camp" x="532" y="364" width="9" height="9" transform="rotate(45 536 368)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 862,96 C 760,92 640,96 512,110"/>
+      <text class="mlabel q" x="640" y="86">项羽方北击齐(田荣),闻之自将精骑三万南还</text>
+      <text class="anno" x="560" y="150">五十六万之众,与三万之骑,遂相值于彭城</text>
     </g>
 
-    <!-- 阶段一:汉入彭城 -->
+    <!-- ══ 阶段一:楚骑南奔 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="562" y="292" width="9" height="9" transform="rotate(45 566 296)"/>
-      <text class="mlabel j" x="580" y="316">汉王入城,收货宝美人,日置酒高会</text>
-      <text class="anno" x="500" y="336">军无斗志,部伍不整</text>
-      <path class="march q" marker-end="url(#aq)" d="M 452,282 C 490,278 528,282 556,290"/>
-      <text class="mlabel q" x="380" y="262">项羽以精兵三万,晨自萧县西薄汉军</text>
-      <text class="anno" x="386" y="304">间道南下,留诸将击齐</text>
+      <rect class="camp" x="532" y="364" width="9" height="9" transform="rotate(45 536 368)"/>
+      <text class="mlabel j" x="548" y="352">汉王入城,收货宝美人,日置酒高会</text>
+      <text class="anno" x="452" y="418">恃众而骄,部伍不整</text>
+      <!-- 项羽:南从鲁出胡陵,乃西从萧 -->
+      <path class="march q" marker-end="url(#aq)" d="M 500,116 C 480,150 460,200 448,232 C 452,296 476,348 486,374"/>
+      <text class="mlabel q" x="222" y="452">留诸将击齐,自以精兵三万</text>
+      <text class="mlabel q" x="304" y="214">南从鲁出胡陵</text>
+      <text class="mlabel q" x="356" y="360">乃西从萧,潜薄汉军</text>
     </g>
 
-    <!-- 阶段二:睢水大溃 -->
+    <!-- ══ 阶段二:睢水大溃 ══ -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 458,286 C 500,290 536,294 558,296"/>
-      <text class="mlabel q" x="400" y="272">项羽晨击汉军而东,日中大破之</text>
-      <circle class="star" cx="566" cy="296" r="9"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 560,302 C 520,340 470,376 430,398"/>
-      <text class="mlabel r" x="440" y="424">汉军却入睢水,睢水为之不流</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 572,290 C 580,240 588,200 596,166"/>
-      <text class="mlabel r" x="600" y="220">争入谷·泗水,死者十余万</text>
-      <circle class="siege" cx="566" cy="296" r="18"/>
-      <text class="anno" x="590" y="330">楚骑围汉王三匝</text>
+      <!-- 项羽从萧晨击汉军而东 -->
+      <path class="march q" marker-end="url(#aq)" d="M 494,380 C 508,376 520,372 528,370"/>
+      <text class="mlabel q" x="376" y="356">项羽从萧,晨击汉军而东,日中大破之</text>
+      <circle class="star" cx="536" cy="368" r="9"/>
+      <circle class="siege" cx="536" cy="368" r="18"/>
+      <text class="anno" x="556" y="404">楚骑围汉王三匝</text>
+      <!-- 汉军北争入谷·泗 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 542,362 C 556,300 552,240 540,192"/>
+      <text class="mlabel r" x="548" y="220">争入谷·泗水,死者十余万</text>
+      <!-- 汉卒南走山,却入睢水 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 530,376 C 500,436 540,486 600,504 C 618,510 634,510 644,510"/>
+      <text class="mlabel r" x="452" y="536">追至灵璧东,却入睢水,睢水为之不流</text>
+      <g class="drown"><circle cx="632" cy="512" r="5"/><circle cx="650" cy="508" r="6"/><circle cx="668" cy="514" r="4"/><circle cx="616" cy="508" r="4"/></g>
     </g>
 
-    <!-- 阶段三:大风脱围 -->
+    <!-- ══ 阶段三:大风脱围 ══ -->
     <g id="ph3" class="ph">
-      <path class="mtn" stroke="var(--ret)" stroke-width="1.6" d="M 660,150 C 630,190 600,240 580,286" marker-end="url(#ar)"/>
-      <text class="mlabel r" x="600" y="150">大风从西北起,折木发屋,昼晦,楚军大乱</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 558,298 C 460,320 320,320 200,332"/>
-      <text class="mlabel r" x="300" y="308">汉王与数十骑遁去</text>
-      <text class="anno" x="330" y="372">道逢孝惠·鲁元,楚追急,推堕者三,赖夏侯婴收载得脱</text>
-      <path d="M 120,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="132" y="360">西收兵军荥阳,楚汉相持之局始成</text>
+      <circle class="siege" cx="536" cy="368" r="18"/>
+      <!-- 大风从西北起 -->
+      <path class="mtn" stroke="var(--ret)" stroke-width="1.6" d="M 300,180 C 372,232 448,296 516,352" marker-end="url(#ar)"/>
+      <text class="mlabel r" x="228" y="256">大风从西北起,折木发屋,昼晦,楚军大乱</text>
+      <!-- 汉王与数十骑西遁 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 528,372 C 380,384 200,382 62,368"/>
+      <text class="mlabel r" x="150" y="352">汉王与数十骑遁去,西收散兵</text>
+      <text class="anno" x="150" y="420">道逢孝惠·鲁元,楚追急,推堕者三,赖夏侯婴收载得脱</text>
+      <path d="M 30,360 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="12" y="440" style="font-size:10.5px">军荥阳,楚汉相持之局始成</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -173,34 +221,80 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(诸侯)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚军(项羽)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军大溃</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(五诸侯)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>楚军(项羽·三万骑)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军大溃·溺睢</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>楚</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉·诸侯</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 从萧捣虚,驱汉东溃入睢</h3>
+    <div class="lead">何以三万破五十六万 —— 非兵少之能胜,乃驱众入水以其众自屠</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="彭城之战机理示意:楚骑自西之萧突击,驱骄堕之汉军东溃,背彭城而临泗睢,自相蹂践,十余万溺死">
+      <!-- 东侧水障:泗水(北)+睢水(南) -->
+      <path d="M 690,26 C 706,90 706,160 690,224" fill="none" stroke="#5f7f88" stroke-width="6" opacity=".85"/>
+      <text x="700" y="40" fill="#5f7f88" font-size="11" font-weight="700">泗</text>
+      <text x="700" y="216" fill="#5f7f88" font-size="11" font-weight="700">睢</text>
+      <text x="612" y="18" fill="#5f7f88" font-size="10.5" font-style="italic" opacity=".85">东·南皆水,退无所出</text>
+      <!-- 彭城 -->
+      <circle cx="556" cy="125" r="7" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="540" y="150" fill="#2b2418" font-size="11.5" font-weight="700">彭城</text>
+      <!-- 汉五十六万:骄堕之众,背城临水 -->
+      <rect x="430" y="70" width="150" height="112" rx="6" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.4" stroke-dasharray="4 4"/>
+      <text x="452" y="60" fill="#1f4e54" font-size="12" font-weight="700">汉五十六万 · 日置酒高会</text>
+      <!-- 萧:楚三万骑,晨击而东 -->
+      <circle cx="150" cy="125" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="118" y="150" fill="#2b2418" font-size="11.5" font-weight="700">萧(西)</text>
+      <text x="96" y="58" fill="#9a2b1e" font-size="12" font-weight="700">楚三万精骑 · 拂晓奇袭</text>
+      <path d="M 168,110 C 260,96 350,96 420,108" fill="none" stroke="#9a2b1e" stroke-width="4" marker-end="url(#aq)"/>
+      <text x="228" y="92" fill="#9a2b1e" font-size="10.5" font-weight="700">从萧晨击而东 →</text>
+      <!-- 驱汉东溃入水 -->
+      <path d="M 584,110 C 636,104 664,110 678,118" fill="none" stroke="#7a5a23" stroke-width="3" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <path d="M 584,148 C 636,158 664,156 678,150" fill="none" stroke="#7a5a23" stroke-width="3" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="596" y="196" fill="#7a5a23" font-size="10.5" font-weight="700">东溃 · 争入泗睢</text>
+      <!-- 溺死 -->
+      <g fill="#7a5a23" opacity=".5"><circle cx="690" cy="120" r="4"/><circle cx="700" cy="132" r="5"/><circle cx="688" cy="146" r="4"/><circle cx="702" cy="156" r="3.5"/></g>
+      <text x="726" y="128" fill="#7a5a23" font-size="11" font-weight="700">睢水不流</text>
+      <text x="726" y="144" fill="#5c4f38" font-size="9.5">溺死十余万</text>
+    </svg>
+    <p class="intro">彭城之败,不在众寡,而在<b>方向与地形</b>。项羽弃齐地大军于不顾,独提三万轻骑,南从鲁、胡陵间道疾驰,拂晓自<b>西面之萧</b>突击——一击而汉军东向溃走,恰背彭城而临泗、睢二水。五十六万拥挤于一隅,不得展布,反自相蹂践,坠水而死者累累。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>楚 · 轻兵奔袭,出其不意</h4>
+        <p>项羽不与汉争都邑之得失,舍辎重、去大军,以三万精骑昼夜兼行,自齐地经鲁、胡陵折而至萧。汉方恃众而骄,日置酒高会,不虞楚之骤至。楚以哀愤简锐之师,乘汉骄堕不整之众;拂晓一击,胜负已判于未战之先——所谓「击其不意」。</p>
+      </div>
+      <div class="c b">
+        <h4>汉 · 背城临水,以众为累</h4>
+        <p>项羽独取「西从萧,晨击而东」者,正欲逼汉军背彭城而东走,则前有泗、睢横亘,退无所归。五十六万之众塞于狭地,部伍先已不整,遇袭则自相冲突践踏,争入谷、泗、睢水;水为之不流,死者数十万。众非能胜,适以自屠——数之多者,乃败之媒也。</p>
+      </div>
+    </div>
+    <p class="kicker">故此役之酷,不系于楚之三万,而系于<b>汉之五十六万无所措于泗睢之间</b>。项羽以一奔袭之方向,化汉之众为汉之累;及大风西北骤起、昼晦楚乱,汉王仅以数十骑得脱西走——非战之罪,实<b>骄堕致败、背水自溃</b>之极也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·项羽本纪》《高祖本纪》及《资治通鉴》卷九约略绘出。彭城即今江苏徐州,萧县在其西,睢水经灵璧东南下,下邑今安徽砀山,荥阳在今河南荥阳东北。疆界、水道经简化,以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注二</span>彭城,楚都也,汉乘项羽北伐田荣之虚而袭据之;睢水自彭城西南分流,东经灵璧而下,即汉军溺死为之不流处。萧县乃项羽晨击汉军所自出。</p>
-    <p><span class="n">注三</span>项羽以三万破五十六万,古今以少胜多之极也。然不追穷寇,纵汉王遁去,楚汉遂成相持之局。本图从汉(青),而汉军之大溃、溃退皆用褐,以志睢水之惨。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作近似投影,几何关系力求近实:彭城居中,萧在其西,下邑在西北,胡陵、鲁在北,灵璧·睢水在东南。彭城即今江苏徐州,萧今安徽萧县,灵璧今安徽灵璧,下邑今安徽砀山,胡陵在今山东鱼台、江苏沛县之间,鲁即今山东曲阜。荥阳(今河南荥阳东北)远在西方,以图外西缘箭标之;齐·城阳(项羽伐齐处)远在东北,亦以图外箭标之。疆界、水道经简化,以点划「约界」标之,非实有画界。据《史记·项羽本纪》《高祖本纪》及《资治通鉴》卷九(汉纪一)约略绘出。</p>
+    <p><span class="n">注二</span>汉「劫五诸侯兵,凡五十六万人,东伐楚」(《项羽本纪》)。「五诸侯」所指,史无定文,或谓常山、河南、韩、魏、殷,或兼塞、翟诸国,姑存疑。彭城本项羽之都,汉乘其北伐田荣、兵久留齐之虚而袭据之,「收其货宝美人,日置酒高会」。</p>
+    <p><span class="n">注三</span>制胜之枢在「奔袭·驱众入水」:项羽「令诸将击齐,而自以精兵三万人南从鲁出胡陵……项王乃西从萧,晨击汉军而东,至彭城,日中,大破汉军。汉军皆走,相随入谷、泗水,杀汉卒十余万人。汉卒皆南走山,楚又追击至灵壁东睢水上。汉军却,为楚所挤,多杀,汉卒十余万人皆入睢水,睢水为之不流」(《项羽本纪》)。项羽独自西面之萧发起攻击,正为逼汉军东溃入泗、睢,使其众不得展而自相蹂践——此以少胜多之至要,图中朱线示楚骑奔袭,褐线示汉军溃溺。</p>
+    <p><span class="n">注四</span>「围汉王三匝。于是大风从西北而起,折木发屋,扬沙石,窈冥昼晦……楚军大乱坏散,而汉王乃得与数十骑遁去」(《项羽本纪》)。道逢孝惠、鲁元,楚骑追急,汉王急,数推堕二子于车,赖夏侯婴每收载之得脱。诸侯见汉败,皆背汉复与楚。汉王西收散兵,军于荥阳,阻敖仓之粟、据成皋之险,楚汉相持之局自此始。项羽不追穷寇、纵汉王西走,论者以为失机。本图从汉(青),汉军之溃退、溺死皆用褐,以志睢水之惨。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"汉袭彭城",d:"汉二年(前205)三月 — 四月",p:["项羽方北击齐,以田荣叛楚,自将兵北伐,连战城阳,兵久留而未下。汉王刘邦乘其虚,合塞、翟、魏、殷及常山等五诸侯之兵,凡五十六万,东伐楚。","三月,汉军长驱而东,直入楚都彭城。项羽闻之,乃留诸将击齐,自以精兵三万,间道南还赴救——五十六万之众与三万之骑,遂相值于彭城之下。"]},
-  "1":{t:"汉入彭城",d:"汉二年三月",p:["汉王既入彭城,收其货宝美人,日置酒高会,恃众而骄,军无斗志,部伍不整——五十六万之师,徒拥其数而已。","项羽留诸将击齐,自以精兵三万,间道南下,晨自萧县之西薄汉军而东。楚以哀愤之锐师,乘汉之骄堕;胜负之势,已判于未战之先。"]},
-  "2":{t:"睢水大溃",d:"汉二年三月·日中",p:["项羽晨击汉军而东,至彭城,日中大破之。汉卒骇溃,争走相蹂,相随入谷、泗水,死者十余万人;楚追至灵璧东,汉军却入睢水,士卒溺死者又十余万,睢水为之不流。","楚骑纵横,围汉王三匝。以三万之骑,裂五十六万之众如摧枯朽——古今以少胜多,未有酷于此者。"]},
-  "3":{t:"大风脱围",d:"汉二年三月",p:["方汉王危急,会大风从西北起,折木发屋、扬沙石,白昼晦冥,楚军大乱、分披。汉王乃得与数十骑遁去,天意若为之开一线也。","道逢孝惠、鲁元,载之以行;楚骑追急,汉王急,推堕二子于车者三,赖夏侯婴每收而载之,得脱。诸侯见汉败,皆背汉复与楚;汉王西收散兵,军于荥阳,楚汉相持之局始成。"]}
+  all:{t:"汉袭彭城",d:"汉二年(前205)三月 — 四月",p:["项羽方北击齐,以田荣叛楚,自将兵北伐,连战城阳,兵久留齐地而未下。汉王刘邦乘其虚,合五诸侯之兵,凡五十六万,东伐楚,长驱直入楚都彭城。","汉军既入彭城,收其货宝美人,日置酒高会。项羽闻之,乃令诸将留击齐,自以精兵三万,间道南还赴救——五十六万之众与三万之骑,遂相值于彭城之下。"]},
+  "1":{t:"楚骑南奔",d:"汉二年三月·四月",p:["汉王既据彭城,恃众而骄,日置酒高会,军无斗志,部伍不整——五十六万之师,徒拥其数而已。","项羽舍齐地大军,独以三万精骑,昼夜兼行:南从鲁出胡陵,乃西趋于萧,潜薄汉军之西。楚以哀愤简锐之师,乘汉之骄堕不整;所以西从萧者,正欲拂晓东击,逼汉背城临水,预置其死地也。"]},
+  "2":{t:"睢水大溃",d:"汉二年四月·日中",p:["项羽从萧,晨击汉军而东,至彭城,日中大破之。汉卒骇溃,相随争入谷、泗水,死者十余万人;汉卒复南走山,楚追至灵璧东睢水上。","汉军却,为楚所挤,十余万人皆入睢水,睢水为之不流。楚骑纵横,围汉王三匝。五十六万之众塞于泗睢之间,不得展布,反自相蹂践——以三万裂五十六万如摧枯朽,古今以少胜多,未有酷于此者。"]},
+  "3":{t:"大风脱围",d:"汉二年四月",p:["方汉王危急,会大风从西北起,折木发屋、扬沙石,白昼晦冥,楚军大乱、坏散。汉王乃得与数十骑遁去,天若为之开一线也。","道逢孝惠、鲁元,载之以行;楚骑追急,汉王数推堕二子于车,赖夏侯婴每收而载之,得脱。诸侯见汉败,皆背汉复与楚;汉王西收散兵,军于荥阳,阻敖仓、据成皋,楚汉相持之局始成。项羽不追穷寇,纵汉王西走,论者惜之。"]}
 };
 const CITY={
-  pengcheng:{t:"彭城",d:"楚都,今江苏徐州",p:["项羽之都。汉乘其北伐田荣之虚而袭据,日置酒高会;项羽自将三万南还,日中而复破汉,汉王仅以身免。"]},
-  suishui:{t:"睢水",d:"汉军溺死处,经灵璧",p:["汉军为楚所逼,却入睢水,士卒溺死十余万,睢水为之不流——彭城之惨,尽在此水。"]},
-  xiao:{t:"萧",d:"萧县,彭城之西",p:["项羽晨击汉军所自出。以三万精骑,自萧西薄汉军而东,日中至彭城,大破之。"]},
-  lingbi:{t:"灵璧",d:"睢水东,汉军被围处",p:["楚追汉军至灵璧东,逼之睢水而围。汉军丧师十余万于此,睢水不流。"]},
-  xiayi:{t:"下邑",d:"今安徽砀山,刘邦收兵处",p:["汉王脱围西走,尝至下邑收兵。张良为陈「下邑之谋」,劝结黥布、彭越、韩信以图楚。"]},
-  xingyang:{t:"荥阳",d:"刘邦西退据守,今河南荥阳东北",p:["汉王西收散兵,军于荥阳,阻敖仓之粟,据成皋之险,楚汉相持之局自此始。"]}
+  pengcheng:{t:"彭城",d:"楚都,今江苏徐州",p:["项羽之都。汉乘其北伐田荣、久留齐地之虚而袭据,日置酒高会;项羽自将三万南还,晨从萧击而东,日中复破汉,汉王仅以身免。"]},
+  xiao:{t:"萧",d:"萧县,彭城之西,今安徽萧县",p:["项羽晨击汉军所自出。三万精骑自鲁、胡陵南下后,不径趋彭城,而西趋于萧;「西从萧,晨击汉军而东」,正欲逼汉背城临水而溃——奔袭之方向,尽在此一折。"]},
+  lingbi:{t:"灵璧",d:"睢水上,今安徽灵璧",p:["汉卒南走山,楚追至灵璧东睢水上。汉军却,为楚所挤,十余万人皆入睢水,睢水为之不流——彭城之惨,尽在此水此地。"]},
+  xiayi:{t:"下邑",d:"今安徽砀山",p:["彭城西北。汉王脱围西走,尝至下邑收兵;张良为陈「下邑之谋」,劝结黥布、彭越、韩信以图楚,为汉后来反攻之张本。"]},
+  huling:{t:"胡陵",d:"今山东鱼台、江苏沛县之间",p:["项羽三万骑南还所经。「南从鲁出胡陵」,自齐地间道疾趋,由此折而西向萧,以出汉军之不意。"]},
+  lu:{t:"鲁(曲阜)",d:"今山东曲阜",p:["项羽自齐地南还之门户。「南从鲁出胡陵」,弃辎重、去大军,轻骑疾行,昼夜兼道以赴彭城。"]},
+  suishui:{t:"睢水(溺死处)",d:"灵璧东,睢水上",p:["汉军为楚所逼,却入睢水,士卒溺死十余万,睢水为之不流。合谷、泗之溺,凡死数十万——五十六万之众,反以众多自屠于此。"]},
+  xingyang:{t:"荥阳",d:"汉王西保处,今河南荥阳东北(图外西)",p:["彭城既败,汉王西收散兵,军于荥阳,阻敖仓之粟、据成皋之险。楚汉相持之局自此始,汉赖以复振。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>巨鹿之战 · 秦二世三年(前207)</title>
+<title>巨鹿之战 · 破釜沉舟(前207)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -30,7 +30,19 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 甬道·粮道:金色串珠动脉,秦筑以属河饷王离 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:8;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 绝甬道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -46,8 +58,12 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 破釜沉舟:主将之誓,青色沉舟破釜之记 */
+  .pofu{fill:none;stroke:var(--advance);stroke-linecap:round}
+  .pofu .rim{stroke-width:2.4}.pofu .x{stroke-width:2}
+  .plabel{fill:var(--advance);font-size:11px;font-weight:700;letter-spacing:.04em}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +72,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--enemy)}.explain .c.b{border-color:var(--advance)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--enemy)}.explain .c.b h4{color:var(--advance)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +103,16 @@
   <div class="seal" aria-hidden="true"><span>巨</span><span>鹿</span><span>之</span><span>战</span></div>
   <header>
     <h1>巨鹿之战</h1>
-    <div class="sub">秦二世三年(前207)　　<i>楚 项羽</i> 破釜沉舟 · 大破 <b>秦 章邯 · 王离</b></div>
+    <div class="sub">秦二世三年(前207)　　<i>楚 项羽</i> 破釜沉舟 · 绝甬道 · 大破 <b>秦 章邯 · 王离</b></div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 诸侯救赵</button>
     <button data-p="1">斩宋义夺军</button>
-    <button data-p="2">破釜沉舟</button>
+    <button data-p="2">破釜沉舟 · 绝甬道</button>
     <button data-p="3">巨鹿解围</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="巨鹿之战形势图,含秦与赵诸侯疆界、漳水黄河与巨鹿棘原殷墟安阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="巨鹿之战形势图,含秦与赵诸侯疆界、黄河漳水洹水、巨鹿棘原安阳殷墟诸城邑,及秦筑甬道属河饷王离之金色粮道与项羽绝甬道之朱色截记">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,120 +121,199 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:秦据关中河内(西·南),赵·诸侯据河北(北·东),约以黄河、漳水一线为势界 -->
-    <path d="M 640,0 C 610,90 560,150 500,210 C 440,270 380,330 340,410 C 310,480 300,560 300,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 640,0 C 610,90 560,150 500,210 C 440,270 380,330 340,410 C 310,480 300,560 300,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 640,0 C 610,90 560,150 500,210 C 440,270 380,330 340,410 C 310,480 300,560 300,640"/>
-    <text class="realm q" x="120" y="150" font-size="32">秦(西·南)</text>
-    <text class="realm j" x="700" y="130" font-size="30">赵·诸侯(北·东)</text>
+    <!-- ══ 疆界:秦据河内关中(西·南),赵与诸侯救兵据河北(北·东),约以漳水黄河一线为势界 ══ -->
+    <path d="M 0,500 C 150,470 300,442 430,417 C 560,392 720,362 1000,342 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,500 C 150,470 300,442 430,417 C 560,392 720,362 1000,342 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,500 C 150,470 300,442 430,417 C 560,392 720,362 1000,342"/>
+    <text class="realm q" x="70" y="588" font-size="30">秦(河内·西南)</text>
+    <text class="realm j" x="628" y="96" font-size="30">赵 · 诸侯(河北)</text>
 
-    <!-- 黄河:自西南向东北,秦军渡河北上之障 -->
-    <path class="river" stroke-width="5" d="M 220,600 C 320,540 420,480 500,430 C 580,382 660,350 760,332 C 840,318 920,314 1000,318"/>
-    <!-- 漳水:自西南向东,巨鹿之南,项羽渡河沉舟处 -->
-    <path class="river" stroke-width="3.2" d="M 430,300 C 520,320 610,342 700,352 C 780,360 850,362 920,360"/>
-    <!-- 洹水:殷墟之南 -->
-    <path class="river" stroke-width="2.2" d="M 360,470 C 420,486 490,494 560,494"/>
-    <text class="rname" x="330" y="520" transform="rotate(-30 330 520)">黄 河</text>
-    <text class="rname" x="560" y="336" style="font-size:12px">漳 水</text>
-    <text class="rname" x="480" y="488" style="font-size:10.5px">洹水</text>
+    <!-- ══ 山脉:太行山,河北之西,南北纵亘 ══ -->
+    <path class="mtn fill" d="M 176,200 L 192,168 L 206,188 L 222,150 L 238,184 L 254,146 L 268,182 L 282,158 L 292,188 L 268,420 L 210,420 Z"/>
+    <path class="mtn" d="M 200,240 l 12,-18 l 11,13 l 14,-20 l 12,15 l 13,-18"/>
+    <path class="mtn" d="M 206,330 l 12,-16 l 10,12 l 13,-18 l 12,14"/>
+    <text class="mname" x="196" y="300" transform="rotate(90 196 300)">太 行 山</text>
 
-    <!-- 太行山:河北之西 -->
-    <g class="mtn"><path d="M 470,150 l 8,-13 l 8,13 M 486,144 l 8,-13 l 8,13 M 502,150 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="470" y="172">太行</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河(汉志古河):自西南向东北,历河北平原东出,秦漕运之所属 -->
+    <path class="river" stroke-width="5" d="M 560,600 C 590,540 606,500 612,458 C 622,410 640,360 668,320 C 706,266 748,196 782,132 C 806,86 824,50 838,16"/>
+    <!-- 漳水(今漳河):自太行东出,横亘巨鹿之南,项羽渡河沉舟处 -->
+    <path class="river" stroke-width="3.2" d="M 296,388 C 360,400 424,412 486,428 C 540,442 596,454 654,470"/>
+    <!-- 洹水:殷墟之侧,章邯降处 -->
+    <path class="river" stroke-width="2.2" d="M 292,506 C 330,516 372,524 414,528"/>
+    <text class="rname" x="700" y="264" transform="rotate(-56 700 264)">黄 河</text>
+    <text class="rname" x="430" y="452" style="font-size:12px">漳 水</text>
+    <text class="rname" x="330" y="500" style="font-size:10.5px">洹水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 甬道·粮道:金色串珠动脉,秦筑甬道属河,自黄河饷王离围城之军 ══ -->
+    <path class="supply band" d="M 566,566 C 596,512 618,472 626,438 C 604,388 574,332 552,286 C 542,250 534,216 530,196"/>
+    <path class="supply core" d="M 566,566 C 596,512 618,472 626,438 C 604,388 574,332 552,286 C 542,250 534,216 530,196"/>
+    <g class="grain">
+      <rect x="586" y="522" width="7" height="7" transform="rotate(45 589.5 525.5)"/>
+      <rect x="620" y="452" width="7" height="7" transform="rotate(45 623.5 455.5)"/>
+      <rect x="596" y="384" width="7" height="7" transform="rotate(45 599.5 387.5)"/>
+      <rect x="546" y="258" width="7" height="7" transform="rotate(45 549.5 261.5)"/>
+      <rect x="533" y="216" width="7" height="7" transform="rotate(45 536.5 219.5)"/>
+    </g>
+    <text class="slabel" x="638" y="418">甬道 · 属河饷王离</text>
+    <text class="slabel" x="638" y="432" style="font-size:9.5px;opacity:.85">夹道筑墙以通秦粮</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="julu"><circle cx="640" cy="230" r="6"/><text class="cname" x="654" y="226">巨鹿城<tspan class="cname s" dx="2">(赵歇被围)</tspan></text></g>
-      <g class="city" data-city="zhangshui"><circle cx="600" cy="342" r="4"/><text class="cname s" x="582" y="330">漳水津(渡河沉舟)</text></g>
-      <g class="city" data-city="jiyuan"><circle cx="580" cy="410" r="5"/><text class="cname" x="592" y="414">棘原<tspan class="cname s" dx="2">(章邯屯)</tspan></text></g>
-      <g class="city" data-city="yongdao"><circle cx="610" cy="300" r="3.5"/><text class="cname s" x="620" y="296">甬道(饷王离)</text></g>
-      <g class="city" data-city="yinxu"><circle cx="500" cy="486" r="5"/><text class="cname s" x="420" y="504">殷墟·洹水(章邯降)</text></g>
-      <g class="city" data-city="anyang"><circle cx="380" cy="536" r="4"/><text class="cname s" x="300" y="540">安阳(斩宋义)</text></g>
+      <g class="city cap" data-city="julu"><circle cx="530" cy="183" r="6.5"/><text class="cname" x="544" y="180">巨鹿城<tspan class="cname s" dx="2">(赵歇·张耳被围)</tspan></text></g>
+      <g class="city" data-city="jiyuan"><circle cx="496" cy="346" r="5"/><text class="cname" x="446" y="338">棘原<tspan class="cname s" dx="2">(章邯屯)</tspan></text></g>
+      <g class="city" data-city="handan"><circle cx="384" cy="356" r="4"/><text class="cname s" x="320" y="352">邯郸(章邯前夷)</text></g>
+      <g class="city" data-city="zhangjin"><circle cx="424" cy="414" r="4"/><text class="cname s" x="434" y="404">漳水津(渡河沉舟)</text></g>
+      <g class="city" data-city="yinxu"><circle cx="334" cy="496" r="5"/><text class="cname s" x="248" y="490">殷墟·洹水(章邯降)</text></g>
+      <g class="city" data-city="anyang"><circle cx="373" cy="540" r="4.5"/><text class="cname" x="386" y="556">安阳<tspan class="cname s" dx="2">(宋义逗留)</tspan></text></g>
     </g>
 
     <!-- 全图 · 诸侯救赵 -->
     <g id="phAll" class="ph">
-      <circle class="siege" cx="640" cy="230" r="26"/>
-      <text class="mlabel q" x="668" y="210">章邯北渡河,王离围赵王歇、张耳于巨鹿</text>
-      <path class="march q" marker-end="url(#aq)" d="M 588,406 C 620,360 634,300 640,258"/>
-      <text class="anno" x="612" y="352">章邯筑甬道属河饷王离</text>
-      <path class="march j" marker-end="url(#aj)" d="M 388,530 C 460,480 540,420 574,406"/>
-      <text class="mlabel j" x="360" y="512">楚遣宋义、项羽北救赵</text>
-      <text class="anno" x="720" y="290">诸侯兵救者十余壁,莫敢纵兵,作壁上观</text>
+      <circle class="siege" cx="530" cy="183" r="27"/>
+      <rect class="camp" x="491" y="341" width="10" height="10" transform="rotate(45 496 346)"/>
+      <text class="mlabel q" x="556" y="150">王离围赵王歇、张耳于巨鹿</text>
+      <text class="mlabel q" x="470" y="322" style="fill:var(--enemy)">章邯军棘原</text>
+      <path class="march q" marker-end="url(#aq)" d="M 500,340 C 512,290 522,240 528,210"/>
+      <text class="anno" x="640" y="386">章邯筑甬道属河,饷王离军</text>
+      <path class="march j" marker-end="url(#aj)" d="M 378,534 C 400,472 420,430 442,420"/>
+      <text class="mlabel j" x="300" y="576">楚遣宋义、项羽北救赵</text>
+      <text class="anno" x="612" y="220">诸侯救者十余壁,莫敢纵兵,作壁上观</text>
     </g>
 
     <!-- 阶段一:斩宋义夺军 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="376" y="532" width="9" height="9" transform="rotate(45 380 536)"/>
-      <text class="mlabel j" x="300" y="522">宋义引兵至安阳,留四十六日不进</text>
-      <text class="anno" x="300" y="558">欲坐观秦赵之敝,饮酒高会,士卒冻饥</text>
-      <path class="march j" marker-end="url(#aj)" d="M 372,528 C 366,520 362,514 358,508"/>
-      <text class="mlabel j" x="250" y="500">羽晨入斩宋义,号令军中</text>
-      <text class="anno" x="250" y="486">怀王因以羽为上将军,诸军皆属焉</text>
+      <rect class="camp" x="368" y="535" width="10" height="10" transform="rotate(45 373 540)"/>
+      <text class="mlabel j" x="300" y="576">宋义引兵至安阳,留四十六日不进</text>
+      <text class="anno" x="300" y="592">欲坐观秦赵之敝,饮酒高会,士卒冻饥</text>
+      <path class="march j" marker-end="url(#aj)" d="M 362,532 C 350,520 344,512 338,504"/>
+      <text class="mlabel j" x="150" y="470">羽晨入斩宋义,号令军中</text>
+      <text class="anno" x="150" y="455">怀王因立羽为上将军,诸军皆属焉</text>
     </g>
 
-    <!-- 阶段二:破釜沉舟 -->
+    <!-- 阶段二:破釜沉舟 · 绝甬道 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 386,528 C 440,470 500,420 540,398"/>
-      <text class="mlabel j" x="392" y="470">先遣英布、蒲将军渡河</text>
-      <path class="march j" marker-end="url(#aj)" d="M 552,394 C 574,360 588,330 604,308"/>
-      <text class="mlabel j" x="470" y="420">绝章邯甬道</text>
-      <path class="march j" marker-end="url(#aj)" d="M 598,342 C 616,316 626,290 636,258"/>
-      <circle class="star" cx="620" cy="300" r="8"/>
-      <text class="mlabel j" x="560" y="376">乃悉引兵渡漳,沉船破釜,持三日粮</text>
-      <text class="anno" x="560" y="392">烧庐舍,以示士卒必死,无一还心</text>
-      <text class="mlabel j" x="648" y="322">与秦军遇,九战,绝其甬道</text>
+      <!-- 先遣英布、蒲将军渡河绝甬道 -->
+      <path class="march j" marker-end="url(#aj)" d="M 460,428 C 500,392 536,344 552,306"/>
+      <text class="mlabel j" x="470" y="466">先遣英布、蒲将军二万渡河</text>
+      <!-- 绝甬道之朱记 -->
+      <g class="cut" transform="translate(556,296)"><circle r="8"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="568" y="292">绝章邯甬道,王离粮绝 ✕</text>
+      <!-- 悉引兵渡漳,破釜沉舟 -->
+      <path class="march j" marker-end="url(#aj)" d="M 388,532 C 400,480 412,448 420,420"/>
+      <path class="march j" marker-end="url(#aj)" d="M 428,404 C 452,340 490,258 520,206"/>
+      <text class="mlabel j" x="300" y="384">乃悉引兵渡漳,持三日粮</text>
+      <!-- 破釜沉舟标记(渡漳处) -->
+      <g class="pofu" transform="translate(424,414)">
+        <path class="rim" d="M -10,-3 A 10 8 0 0 0 10,-3"/>
+        <line class="rim" x1="-7" y1="-1" x2="-5" y2="6"/><line class="rim" x1="7" y1="-1" x2="5" y2="6"/>
+        <line class="x" x1="-12" y1="-10" x2="12" y2="8"/><line class="x" x1="-12" y1="8" x2="12" y2="-10"/>
+      </g>
+      <text class="plabel" x="330" y="440">破釜沉舟,示士卒必死</text>
+      <text class="mlabel j" x="540" y="200">与秦军遇,九战,大破之</text>
     </g>
 
     <!-- 阶段三:巨鹿解围 -->
     <g id="ph3" class="ph">
-      <path d="M 640,230 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="500" y="196">楚战士无不一当十,呼声动天</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 646,254 C 640,268 632,282 620,296"/>
-      <text class="mlabel r" x="660" y="252">虏王离,苏角死,涉间自烧</text>
-      <text class="anno" x="700" y="270">巨鹿围解</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 588,406 C 560,430 530,458 508,478"/>
-      <text class="mlabel r" x="380" y="470">章邯久之以殷墟降,秦精锐尽丧</text>
-      <text class="anno" x="700" y="200">诸侯将入辕门,皆膝行而前,莫敢仰视</text>
+      <path d="M 530,183 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="390" y="150">楚战士无不一以当十,呼声动天</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 536,208 C 526,224 516,240 506,258"/>
+      <text class="mlabel r" x="554" y="230">虏王离,苏角死,涉间自烧</text>
+      <text class="anno" x="560" y="246">巨鹿围解</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 490,352 C 448,410 400,458 356,490"/>
+      <text class="mlabel r" x="300" y="524">章邯相持而却,以殷墟降,秦精锐尽丧</text>
+      <text class="anno" x="600" y="120">诸侯将入辕门,皆膝行而前,莫敢仰视</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(948,588)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>楚·诸侯军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>楚·项羽军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>秦军(章邯·王离)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>秦军溃降</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>甬道·粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>绝甬道</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>秦</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>赵·诸侯</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 3"/></svg>围城</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>赵·诸侯</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>兵机释要 · 绝甬道 · 破釜沉舟</h3>
+    <div class="lead">断敌之粮,绝己之退 —— 巨鹿一战制胜之枢</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="巨鹿制胜示意:秦以甬道属河饷王离围城军,项羽先绝甬道断敌粮、复破釜沉舟绝己退">
+      <!-- 河(粮源,右) -->
+      <path d="M 812,30 C 806,110 804,170 806,224" fill="none" stroke="#5f7f88" stroke-width="5" opacity=".85"/>
+      <text x="740" y="24" fill="#5f7f88" font-size="12" font-weight="700">黄河(秦粮所属)</text>
+      <!-- 甬道:自河饷王离(金,横贯) -->
+      <path d="M 806,150 L 470,150" stroke="#9c7a2c" stroke-width="7" opacity=".22" stroke-linecap="round"/>
+      <path d="M 806,150 L 470,150" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="690" y="146" width="7" height="7" transform="rotate(45 693.5 149.5)" fill="#9c7a2c"/>
+      <rect x="590" y="146" width="7" height="7" transform="rotate(45 593.5 149.5)" fill="#9c7a2c"/>
+      <path d="M 476,150 L 490,144 L 490,156 Z" fill="#9c7a2c"/>
+      <text x="600" y="140" fill="#9c7a2c" font-size="11" font-weight="700">甬道 · 运粮</text>
+      <!-- 王离围城军(被饷者) -->
+      <circle cx="452" cy="150" r="20" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/>
+      <circle cx="452" cy="150" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="412" y="192" fill="#9a2b1e" font-size="11.5" font-weight="700">王离围巨鹿</text>
+      <text x="424" y="206" fill="#5c4f38" font-size="10">兵盛而恃甬道之粮</text>
+      <!-- 断甬道之朱记 -->
+      <g transform="translate(636,150)"><circle r="9" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="-6" y1="-6" x2="6" y2="6" stroke="#9a2b1e" stroke-width="2.6"/><line x1="-6" y1="6" x2="6" y2="-6" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="600" y="112" fill="#9a2b1e" font-size="11" font-weight="700">① 绝甬道:断敌粮 ✕</text>
+      <!-- 漳水 -->
+      <path d="M 40,214 C 160,206 300,202 452,200" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".85"/>
+      <text x="44" y="234" fill="#5f7f88" font-size="11" font-weight="700">漳 水</text>
+      <!-- 项羽自南渡漳(青,破釜沉舟) -->
+      <path d="M 130,214 L 210,158" stroke="#1f4e54" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M 210,158 L 196,160 L 204,170 Z" fill="#1f4e54"/>
+      <text x="60" y="150" fill="#1f4e54" font-size="11.5" font-weight="700">项羽渡漳北上</text>
+      <!-- 破釜沉舟记 -->
+      <g transform="translate(150,196)" fill="none" stroke="#1f4e54"><path d="M -11,-3 A 11 8 0 0 0 11,-3" stroke-width="2.4"/><line x1="-13" y1="-11" x2="13" y2="9" stroke-width="2"/><line x1="-13" y1="9" x2="13" y2="-11" stroke-width="2"/></g>
+      <text x="66" y="176" fill="#1f4e54" font-size="11" font-weight="700">② 破釜沉舟:绝己退</text>
+      <text x="250" y="120" fill="#2b2418" font-size="11" font-weight="700">九战 → 大破秦军</text>
+      <path d="M 244,160 C 310,150 380,150 430,150" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="4 4" opacity=".7"/>
+    </svg>
+    <p class="intro">王离数十万之众能久围巨鹿,全恃章邯所筑之<b>甬道</b>——夹道筑墙、属之于河,自黄河源源运粮。围城之军兵虽盛,其命脉却系于这一条粮道。项羽之谋,正是一手<b>断敌之粮</b>、一手<b>绝己之退</b>:先绝甬道使王离军馁,再破釜沉舟使楚军无所反顾,遂以寡击众,九战而破之。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>绝甬道 · 断敌之粮</h4>
+        <p>项羽既渡,先遣英布、蒲将军将卒二万渡河,径击章邯所筑甬道而绝之,断王离围城军之粮源。甬道一绝,秦军虽众而食不继,兵势遂馁——此为『攻其所必救、断其所必需』,先坏敌之根本,而后可乘。</p>
+      </div>
+      <div class="c b">
+        <h4>破釜沉舟 · 绝己之退</h4>
+        <p>项羽悉引兵渡漳,既渡皆沉船、破釜甑、烧庐舍,持三日粮,以示士卒必死、无一还心。断敌之粮者削其势,绝己之退者励其气:楚战士无不一以当十,呼声动天,诸侯军皆惴恐。此非匹夫之勇,乃置之死地而后生之算。</p>
+      </div>
+    </div>
+    <p class="kicker">故巨鹿之胜,不独在阵战之锐,而在<b>粮道与死志</b>之双击:甬道既绝,王离势穷而<b>被虏、苏角战死、涉间自烧</b>;三日之粮迫楚军以死战,九战而秦围尽破。诸侯作壁上观,既胜乃膝行而前——项羽由是号令诸侯,而秦之精锐由是尽丧。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·项羽本纪》《史记·张耳陈馀列传》《资治通鉴》卷八约略绘出。疆界、水道经简化,以点划「约界」示秦与赵·诸侯之势界,非实有画界。</p>
-    <p><span class="n">注二</span>巨鹿在今河北平乡,漳水即今漳河,殷墟在今河南安阳,棘原、甬道故址在漳南。诸城邑方位以河北、河内地望约略定之。</p>
-    <p><span class="n">注三</span>「破釜沉舟」「作壁上观」「膝行而前」皆本此役;项羽以此定亡秦首功、诸侯之霸。本图从项羽反秦之锋,楚·诸侯用青,秦军溃降用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑依今地经纬度作墨卡托线性投影(约 x=250+(经−114.0)×280,y=659−(纬−35.7)×340),几何关系力求近实:巨鹿在北(今河北平乡),棘原在其南,漳水横其间,安阳·殷墟更在南(今河南安阳),太行山纵亘于西,黄河古道自西南斜趋东北。江河、疆界经简化,以点划「约界」示秦(河内)与赵·诸侯(河北)之势界,非实有画界。</p>
+    <p><span class="n">注二</span>制胜之枢在『甬道』(图中金色粮道):《史记·项羽本纪》『章邯军其南,筑甬道而输之粟』,《张耳陈馀列传》『章邯军巨鹿南棘原,筑甬道属河,饷王离』。甬道乃夹道筑墙、护漕以饷围城之军的运粮通道;项羽先遣英布、蒲将军『绝其甬道』(图中朱色 ✕),断王离粮,再悉军渡漳、破釜沉舟,九战大破之——故王离军之败,先败于粮绝。</p>
+    <p><span class="n">注三</span>『安阳』宋义逗留处,古注(《史记正义》)以为相州安阳,即今河南安阳;然亦有考订在今山东境者,兹从旧注并存疑。棘原、甬道故址在漳南,今地无确指,按地望约略定之。项羽所渡之『河』,或指漳水,或兼指黄河支津,史文互见,图中以漳水津示破釜沉舟之处。</p>
+    <p><span class="n">注四</span>「破釜沉舟」「作壁上观」「膝行而前」皆本此役。项羽以此定亡秦首功、诸侯之霸。本图从项羽反秦之锋:楚·诸侯救兵用青,秦军(章邯·王离)用朱,秦军溃降用褐,秦筑甬道粮道用金,项羽绝甬道之截记用朱 ✕。诸城年代、方位取《史记·项羽本纪》《史记·张耳陈馀列传》《资治通鉴》卷八,troop 数依本传,存疑处见上。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"诸侯救赵",d:"秦二世二年冬 — 三年",p:["秦将章邯既破项梁于定陶,以为楚地兵不足忧,乃北渡河击赵,与王离、涉间围赵王歇、张耳于巨鹿城中。章邯军其南棘原,筑甬道属河以饷王离,兵盛粮足。","赵数请救于楚。诸侯兵来救巨鹿者十余壁,皆莫敢纵兵,坚壁自守以观成败。楚怀王遣上将军宋义、次将项羽、末将范增将兵北救赵,天下存亡,系于河北一战。"]},
-  "1":{t:"斩宋义夺军",d:"秦二世三年 十一月",p:["宋义引兵至安阳,留四十六日不进,曰:「今秦攻赵,战胜则兵罢,我承其敝;不胜则我引兵鼓行而西,必举秦矣。」欲坐观秦赵之敝。时天寒大雨,士卒冻饥,而宋义饮酒高会。","项羽晨朝上将军宋义,即其帐中斩之,出令军中曰:「宋义与齐谋反楚,楚王阴令羽诛之。」诸将慑服,莫敢枝梧。怀王因立羽为上将军,当阳君、蒲将军皆属项羽。"]},
-  "2":{t:"破釜沉舟",d:"秦二世三年 十二月",p:["项羽乃遣当阳君英布、蒲将军将卒二万渡河,救巨鹿,战少利,绝章邯甬道。陈馀复请兵,项羽乃悉引兵渡漳水。","既渡,皆沉船,破釜甑,烧庐舍,持三日粮,以示士卒必死,无一还心。于是至则围王离,与秦军遇,九战,绝其甬道,大破之。"]},
-  "3":{t:"巨鹿解围",d:"秦二世三年 十二月",p:["楚战士无不一以当十,呼声动天,诸侯军无不人人惴恐。遂虏王离,苏角死,涉间不降楚而自烧死;秦围巨鹿者尽破,巨鹿之围乃解。","于是已破秦军,项羽召见诸侯将,入辕门,无不膝行而前,莫敢仰视。项羽由是始为诸侯上将军,诸侯皆属焉。章邯军渐却,久之乃以殷墟、洹水降,秦之精锐尽丧于此役。"]}
+  all:{t:"诸侯救赵",d:"秦二世二年冬 — 三年",p:["秦将章邯既破项梁于定陶,以为楚地兵不足忧,乃北渡河击赵,大破之,尽徙邯郸民于河内,夷其城郭。遂与王离、涉间围赵王歇、张耳于巨鹿城中。章邯军其南棘原,筑甬道属河以饷王离,兵盛粮足。","赵数请救于楚。诸侯兵来救巨鹿者十余壁,皆莫敢纵兵,坚壁自守以观成败。楚怀王遣上将军宋义、次将项羽、末将范增将兵北救赵——天下存亡,系于河北一战。"]},
+  "1":{t:"斩宋义夺军",d:"秦二世三年 十一月",p:["宋义引兵至安阳,留四十六日不进,曰:『今秦攻赵,战胜则兵罢,我承其敝;不胜则我引兵鼓行而西,必举秦矣。』欲坐观秦赵之敝。时天寒大雨,士卒冻饥,而宋义遣其子相齐,饮酒高会。","项羽晨朝上将军宋义,即其帐中斩之,出令军中曰:『宋义与齐谋反楚,楚王阴令羽诛之。』诸将慑服,莫敢枝梧。怀王因立羽为上将军,当阳君、蒲将军皆属项羽。"]},
+  "2":{t:"破釜沉舟 · 绝甬道",d:"秦二世三年 十二月",p:["项羽乃遣当阳君英布、蒲将军将卒二万渡河,救巨鹿,战少利;陈馀复请兵。项羽乃悉引兵渡漳水,既渡,皆沉船、破釜甑、烧庐舍,持三日粮,以示士卒必死,无一还心。","于是至则围王离,与秦军遇,九战,绝其甬道,大破之。甬道既绝,王离军粮尽势穷——此役之枢,正在先断敌粮、复绝己退,以死地励三军。"]},
+  "3":{t:"巨鹿解围",d:"秦二世三年 十二月",p:["楚战士无不一以当十,呼声动天,诸侯军无不人人惴恐。遂虏王离,苏角死,涉间不降楚而自烧死;秦围巨鹿者尽破,巨鹿之围乃解。","于是已破秦军,项羽召见诸侯将,入辕门,无不膝行而前,莫敢仰视。项羽由是始为诸侯上将军,诸侯皆属焉。其后章邯军渐却,相持既久,终以殷墟、洹水降;秦之精锐尽丧于此役。"]}
 };
 const CITY={
-  julu:{t:"巨鹿城",d:"今河北平乡,决战核心",p:["赵王歇、张耳被围于此。城中食尽兵少,数请救于诸侯。九战绝甬道、虏王离而围解,遂为亡秦之枢。"]},
-  zhangshui:{t:"漳水津",d:"巨鹿之南,今漳河",p:["项羽渡河沉舟之处。既渡漳,沉船破釜甑、烧庐舍,持三日粮以示必死,楚军由是奋不顾身。"]},
-  jiyuan:{t:"棘原",d:"漳南,章邯屯军处",p:["章邯军所军之地,南倚河内。筑甬道属河以饷王离。围解之后,章邯屯棘原与项羽相持,渐却而降。"]},
-  yongdao:{t:"甬道",d:"章邯筑以饷王离",p:["夹道筑墙、属河而通粮,以给王离围城之军。项羽先遣英布、蒲将军渡河绝之,再九战大破,秦军遂馁。"]},
-  yinxu:{t:"殷墟·洹水",d:"今河南安阳,章邯降处",p:["章邯与项羽约,期洹水南殷墟上。章邯见项羽而流涕,遂降;项羽立章邯为雍王。秦精锐尽丧。"]},
-  anyang:{t:"安阳",d:"宋义逗留、羽夺军处",p:["上将军宋义引兵至此,留四十六日不进,饮酒高会。项羽晨入其帐斩之,怀王因以羽为上将军。"]}
+  julu:{t:"巨鹿城",d:"今河北平乡,决战核心",p:["赵王歇、张耳被围于此。城中食尽兵少,数请救于诸侯。王离以长城军团围之,恃章邯甬道之粮。项羽九战绝甬道、虏王离而围解,遂为亡秦之枢。"]},
+  jiyuan:{t:"棘原",d:"漳南,章邯屯军处",p:["章邯军所军之地,在巨鹿之南、漳水之侧。筑甬道属河以饷王离围城之军。围解之后,章邯屯棘原与项羽相持,渐却而降。故址无确指,按地望约略定之。"]},
+  handan:{t:"邯郸",d:"今河北邯郸,章邯前所夷",p:["章邯北渡河击赵,大破之,尽徙邯郸之民于河内,夷其城郭。赵王歇、张耳乃走保巨鹿,秦军追围之——巨鹿之围由此起。"]},
+  zhangjin:{t:"漳水津",d:"巨鹿之南,今漳河",p:["项羽渡河沉舟之处。既悉引兵渡漳,沉船、破釜甑、烧庐舍,持三日粮以示必死,楚军由是奋不顾身。史文所云所渡之『河』,或指漳水,或兼黄河支津,互见存疑。"]},
+  yinxu:{t:"殷墟·洹水",d:"今河南安阳,章邯降处",p:["章邯与项羽约,期洹水南殷墟上。章邯见项羽而流涕,遂降;项羽立章邯为雍王。秦之精锐尽丧于此役。"]},
+  anyang:{t:"安阳",d:"宋义逗留、羽夺军处",p:["上将军宋义引兵至此,留四十六日不进,饮酒高会,士卒冻饥。项羽晨入其帐斩之,怀王因以羽为上将军。古注以为相州安阳(今河南安阳),亦有考在山东境者,兹存疑。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
