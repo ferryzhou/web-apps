@@ -30,7 +30,24 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 褒斜粮道:金色串珠动脉,叠于斜谷道之上,示蜀军自汉中转输之命脉 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.20}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 粮运不继:金色转输艰阻记号 */
+  .strain line{stroke:var(--gold);stroke-width:2.4;stroke-linecap:round}
+  .strain circle{fill:none;stroke:var(--gold);stroke-width:1.6}
+  .clabel{fill:var(--gold);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 屯田·渭滨:蜀军自给之田畴 */
+  .field rect{fill:rgba(31,78,84,.10);stroke:var(--advance);stroke-width:1.2}
+  .field line{stroke:var(--advance);stroke-width:.9;opacity:.7}
+  .field .grn{fill:var(--gold);stroke:var(--paper);stroke-width:.5;opacity:.95}
+  .flabel{fill:var(--advance);font-size:11.5px;font-weight:700;letter-spacing:.08em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +56,16 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.thin{stroke-width:2.2}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
-  .camp{fill:var(--enemy);opacity:.9}
+  .camp{opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .shield{fill:rgba(154,43,30,.12);stroke:var(--enemy);stroke-width:1.6}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +74,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.q{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.q h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,7 +105,7 @@
   <div class="seal" aria-hidden="true"><span>五</span><span>丈</span><span>原</span><span>役</span></div>
   <header>
     <h1>五丈原之战</h1>
-    <div class="sub">蜀汉建兴十二年·魏青龙二年(234)　　<i>蜀汉 诸葛亮</i> 出斜谷据五丈原 · 星落 　<b>司马懿</b> 拒守</div>
+    <div class="sub">蜀汉建兴十二年·魏青龙二年(234)　　<i>蜀汉 诸葛亮</i> 出斜谷据五丈原 · 屯田久驻 · 星落秋风　<b>司马懿</b> 夹渭坚壁待毙</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 出斜谷据原</button>
@@ -81,99 +114,156 @@
     <button data-p="3">秋风星落</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="五丈原之战形势图,含蜀汉曹魏疆界、渭水斜谷北原与五丈原长安汉中等地">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="五丈原之战形势图,含蜀汉曹魏夹渭之界、渭水斜谷水、五丈原北原司马懿营郿斜谷口,及屯田渭滨、褒斜粮道、汉中长安图外方位">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:曹魏据关中(东、北),蜀汉据汉中斜谷(西南),约以秦岭斜谷为界 -->
-    <path d="M 470,0 C 460,90 452,160 440,230 C 428,300 410,360 380,420 C 350,490 320,560 300,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 460,90 452,160 440,230 C 428,300 410,360 380,420 C 350,490 320,560 300,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 460,90 452,160 440,230 C 428,300 410,360 380,420 C 350,490 320,560 300,640"/>
-    <text class="realm q" x="720" y="120" font-size="32">曹 魏(关中)</text>
-    <text class="realm j" x="70" y="560" font-size="30">蜀 汉(汉中)</text>
+    <!-- ══ 疆界:曹魏据关中(渭北·东),蜀汉出汉中据渭南五丈原之锋,约以渭水为界 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,260 L 925,260 C 845,242 745,213 475,185 C 375,170 275,158 175,150 L 0,140 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,140 L 175,150 C 275,158 375,170 475,185 C 745,213 845,242 925,260 L 1000,260 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 175,150 C 275,158 375,170 475,185 C 745,213 845,242 925,260"/>
+    <text class="realm q" x="690" y="96" font-size="30">曹 魏(关中)</text>
+    <text class="cname s" x="700" y="118" style="fill:var(--enemy);opacity:.6">渭北·长安之根本</text>
+    <text class="realm j" x="70" y="470" font-size="28">蜀 汉(汉中·斜谷)</text>
+    <text class="cname s" x="82" y="492" style="fill:var(--advance);opacity:.6">出褒斜以争关中</text>
 
-    <!-- 渭水:自西陇而来,由西向东流经渭南,长安在东 -->
-    <path class="river" stroke-width="5.5" d="M 150,300 C 260,300 360,306 460,312 C 560,318 660,320 760,318 C 850,316 930,314 1000,312"/>
-    <!-- 斜谷水:自南秦岭斜谷口北出,注入渭水 -->
-    <path class="river" stroke-width="2.6" d="M 452,560 C 456,500 460,440 466,384 C 470,352 474,332 480,318"/>
-    <text class="rname" x="640" y="338" style="font-size:14px">渭 水</text>
-    <text class="rname" x="470" y="470" transform="rotate(84 470 470)" style="font-size:11px">斜谷水</text>
+    <!-- ══ 渭水:关中大川,自西陇东注,趋长安;夹渭相持之界 ══ -->
+    <path class="river" stroke-width="5.5" d="M 175,150 C 275,158 375,170 475,185 C 575,200 675,215 775,230 C 845,242 885,251 925,260"/>
+    <text class="rname" x="250" y="150" style="font-size:14px">渭 水</text>
+    <text class="rname" x="808" y="252" transform="rotate(8 808 252)" style="font-size:10px">东注长安</text>
+    <!-- ══ 斜谷水(石头河):自斜谷口北出,经五丈原之东注渭 ══ -->
+    <path class="river" stroke-width="2.6" d="M 492,300 C 484,258 478,222 470,190"/>
+    <text class="rname" x="497" y="266" transform="rotate(80 497 266)" style="font-size:10px">斜谷水·石头河</text>
 
-    <!-- 秦岭:横亘南界 -->
-    <g class="mtn"><path d="M 380,470 l 9,-15 l 9,15 M 398,462 l 9,-15 l 9,15 M 416,470 l 8,-14 l 8,14 M 340,480 l 9,-15 l 9,15"/></g>
-    <text class="cname s" x="356" y="500">秦 岭</text>
-    <!-- 北原丘阜(渭北) -->
-    <g class="mtn"><path d="M 512,214 l 8,-13 l 8,13 M 528,208 l 8,-13 l 8,13"/></g>
+    <!-- ══ 秦岭:横亘南界,褒斜道穿之 ══ -->
+    <path class="mtn fill" d="M 330,452 L 350,414 L 366,432 L 386,398 L 406,428 L 428,404 L 448,434 L 470,406 L 490,436 L 512,410 L 532,440 L 552,418 L 566,442 Z"/>
+    <path class="mtn" d="M 360,432 l 14,-20 l 12,15 l 15,-22 l 13,18 l 15,-20 l 13,17"/>
+    <text class="mname" x="360" y="474">秦　岭</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 褒斜粮道:金色串珠动脉,自汉中沿斜谷道北输,蜀军转输之命脉;粮运不继为其病 ══ -->
+    <path class="supply band" d="M 470,584 C 460,470 452,360 440,220"/>
+    <path class="supply core" d="M 470,584 C 460,470 452,360 440,220"/>
+    <g class="grain">
+      <rect x="466" y="546" width="7" height="7" transform="rotate(45 469.5 549.5)"/>
+      <rect x="458" y="460" width="7" height="7" transform="rotate(45 461.5 463.5)"/>
+      <rect x="450" y="360" width="7" height="7" transform="rotate(45 453.5 363.5)"/>
+      <rect x="443" y="270" width="7" height="7" transform="rotate(45 446.5 273.5)"/>
+    </g>
+    <text class="slabel" x="300" y="352">褒斜粮道</text>
+    <text class="slabel" x="300" y="366" style="font-size:9.5px;opacity:.85">自汉中转输军食</text>
+    <!-- 粮运不继:转输艰阻记号(叠于秦岭段) -->
+    <g class="strain" transform="translate(455,432)"><circle r="7"/><line x1="-9" y1="0" x2="-4" y2="0"/><line x1="4" y1="0" x2="9" y2="0"/></g>
+    <text class="clabel" x="300" y="428">亮虑粮运不继 ≈ 转输艰阻</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="wuzhangyuan"><circle cx="470" cy="392" r="6"/><text class="cname" x="326" y="396">五丈原<tspan class="cname s" dx="2">(亮据·星落)</tspan></text></g>
-      <g class="city" data-city="beiyuan"><circle cx="540" cy="222" r="5"/><text class="cname" x="552" y="218">北原<tspan class="cname s" dx="2">(郭淮先据)</tspan></text></g>
-      <g class="city" data-city="weishui"><circle cx="480" cy="316" r="0"/><text class="cname s" x="486" y="300">渭水·夹渭相持</text></g>
-      <g class="city" data-city="meixiegukou"><circle cx="452" cy="560" r="4.5"/><text class="cname s" x="356" y="576">郿·斜谷口</text></g>
-      <g class="city" data-city="changan"><circle cx="820" cy="326" r="6"/><text class="cname" x="832" y="322">长安<tspan class="cname s" dx="2">(魏)</tspan></text></g>
-      <g class="city" data-city="hanzhong"><circle cx="180" cy="588" r="5.5"/><text class="cname" x="192" y="592">汉中<tspan class="cname s" dx="2">(蜀后方)</tspan></text></g>
+      <g class="city cap" data-city="wuzhangyuan"><circle cx="425" cy="200" r="6.5"/><text class="cname" x="292" y="192">五丈原<tspan class="cname s" dx="2">(亮据·星落)</tspan></text></g>
+      <g class="city" data-city="beiyuan"><circle cx="450" cy="150" r="4.5"/><text class="cname" x="460" y="146">北原<tspan class="cname s" dx="2">(郭淮先据)</tspan></text></g>
+      <g class="city" data-city="weinan"><circle cx="600" cy="222" r="5"/><text class="cname" x="612" y="218">司马懿营<tspan class="cname s" dx="2">(渭南背水)</tspan></text></g>
+      <g class="city" data-city="weishui"><circle cx="748" cy="234" r="3.5"/><text class="cname s" x="756" y="230">渭水津</text></g>
+      <g class="city" data-city="xiegukou"><circle cx="492" cy="300" r="4"/><text class="cname s" x="502" y="298">斜谷口·斜峪关</text></g>
+      <g class="city" data-city="mei"><circle cx="585" cy="322" r="4.5"/><text class="cname" x="595" y="326">郿</text></g>
     </g>
 
-    <!-- 全图 · 出斜谷据原 -->
+    <!-- 汉中(图外·南):蜀军所出所归 -->
+    <g class="city" data-city="hanzhong" transform="translate(462,588)">
+      <circle cx="0" cy="0" r="4.5"/>
+      <path class="march rout" marker-end="url(#ar)" d="M -6,10 L -10,26" style="stroke-width:2.2"/>
+      <text class="cname" x="10" y="4">汉中<tspan class="cname s" dx="2">(图外·南)</tspan></text>
+      <text class="cname s" x="10" y="20" style="fill:var(--advance)">蜀北伐后方·褒斜道南口 ↓</text>
+    </g>
+    <!-- 长安(图外·东):曹魏关中根本 -->
+    <g class="city" data-city="changan" transform="translate(938,268)">
+      <circle cx="0" cy="0" r="5"/>
+      <path class="march q" marker-end="url(#aq)" d="M 8,-6 L 26,-12" style="stroke-width:2.2"/>
+      <text class="cname" x="-118" y="-6">长安<tspan class="cname s" dx="2">(图外·东)</tspan></text>
+      <text class="cname s" x="-118" y="10" style="fill:var(--enemy)">魏关中根本·辛毗自此赴军 →</text>
+    </g>
+
+    <!-- ══ 全图 · 出斜谷据原 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 190,582 C 300,540 400,480 452,410"/>
-      <text class="mlabel j" x="230" y="516">亮悉大众十万,由斜谷出</text>
-      <text class="anno" x="330" y="446">以流马运粮,据五丈原,渭水之南</text>
-      <path class="march q" marker-end="url(#aq)" d="M 806,332 C 720,332 640,330 560,326"/>
-      <text class="mlabel q" x="600" y="356">懿引军渡渭,背水为垒</text>
-      <text class="anno" x="600" y="300">约孙权同时东西并进</text>
-      <text class="anno" x="500" y="392" font-style="italic">夹渭相持</text>
+      <path class="march j" marker-end="url(#aj)" d="M 466,578 C 452,458 444,330 430,214"/>
+      <text class="mlabel j" x="238" y="560">亮悉大众十万,由斜谷出</text>
+      <text class="anno" x="300" y="242">以流马运粮,据五丈原,在渭水之南</text>
+      <path class="march q" marker-end="url(#aq)" d="M 930,262 C 810,250 706,238 614,226"/>
+      <text class="mlabel q" x="640" y="252">懿引军渡渭,背水为垒</text>
+      <text class="anno" x="600" y="140">约孙权同举,东西并进</text>
+      <text class="anno" x="470" y="206" font-style="italic">夹渭相持</text>
     </g>
 
-    <!-- 阶段一:据原屯田 -->
+    <!-- ══ 阶段一:据原屯田 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 200,576 C 300,536 396,478 452,406"/>
-      <text class="mlabel j" x="238" y="512">流马运粮,据五丈原</text>
-      <rect class="camp" x="462" y="384" width="9" height="9" transform="rotate(45 466 388)" style="fill:#1f4e54"/>
-      <path class="march q" marker-end="url(#aq)" d="M 800,330 C 700,330 600,328 512,322"/>
-      <text class="mlabel q" x="580" y="352">懿渡渭背水为垒</text>
-      <rect class="camp" x="700" y="310" width="9" height="9" transform="rotate(45 704 314)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 640,318 C 600,300 570,262 546,228"/>
-      <text class="mlabel q" x="556" y="256">郭淮料亮必争北原</text>
-      <text class="anno" x="556" y="196">断陇道,懿遣淮先据之</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 476,378 C 494,320 512,272 532,232"/>
-      <text class="mlabel r" x="384" y="290">亮争北原不克</text>
-      <text class="anno" x="300" y="360">乃分兵屯田于渭滨,杂居民间,为久驻之计</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,576 C 456,456 446,326 432,214"/>
+      <text class="mlabel j" x="250" y="556">流马运粮,据五丈原</text>
+      <rect class="camp" x="419" y="194" width="10" height="10" transform="rotate(45 424 199)" style="fill:#1f4e54"/>
+      <!-- 郭淮先据北原 -->
+      <path class="march q" marker-end="url(#aq)" d="M 596,214 C 540,186 500,166 460,154"/>
+      <text class="mlabel q" x="470" y="128">郭淮料亮必争北原,懿遣先据</text>
+      <rect class="camp" x="595" y="217" width="10" height="10" transform="rotate(45 600 222)"/>
+      <!-- 亮争北原不克 -->
+      <path class="march j thin" marker-end="url(#aj)" d="M 432,192 C 440,178 446,166 449,158"/>
+      <text class="mlabel r" x="312" y="150" style="fill:var(--ret)">亮争北原,堑垒未成而不克</text>
+      <!-- 屯田·渭滨 -->
+      <g class="field" transform="translate(452,236)">
+        <rect x="0" y="0" width="96" height="30" rx="2"/>
+        <line x1="24" y1="0" x2="24" y2="30"/><line x1="48" y1="0" x2="48" y2="30"/><line x1="72" y1="0" x2="72" y2="30"/>
+        <line x1="0" y1="15" x2="96" y2="15"/>
+        <rect class="grn" x="9" y="4" width="5" height="5" transform="rotate(45 11.5 6.5)"/>
+        <rect class="grn" x="57" y="19" width="5" height="5" transform="rotate(45 59.5 21.5)"/>
+        <rect class="grn" x="81" y="4" width="5" height="5" transform="rotate(45 83.5 6.5)"/>
+      </g>
+      <text class="flabel" x="452" y="284">屯田·渭滨</text>
+      <text class="anno" x="452" y="298">分兵屯田,杂居民间,为久驻之基</text>
     </g>
 
-    <!-- 阶段二:坚壁不战 -->
+    <!-- ══ 阶段二:坚壁不战 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="462" y="384" width="9" height="9" transform="rotate(45 466 388)" style="fill:#1f4e54"/>
-      <rect class="camp" x="700" y="310" width="9" height="9" transform="rotate(45 704 314)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 480,392 C 560,388 640,380 692,340"/>
-      <text class="mlabel j" x="500" y="416">亮数挑战,遗巾帼妇人之服以辱之</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 692,336 C 640,364 580,384 500,392"/>
-      <text class="mlabel q" x="560" y="300">懿坚壁不出,以老其师</text>
-      <text class="anno" x="620" y="278">懿怒表请战,明帝遣辛毗持节制之</text>
-      <text class="anno" x="470" y="452">相持百余日,胜负未决</text>
+      <rect class="camp" x="419" y="194" width="10" height="10" transform="rotate(45 424 199)" style="fill:#1f4e54"/>
+      <rect class="camp" x="595" y="217" width="10" height="10" transform="rotate(45 600 222)"/>
+      <g class="field" transform="translate(452,236)" style="opacity:.85">
+        <rect x="0" y="0" width="96" height="30" rx="2"/>
+        <line x1="24" y1="0" x2="24" y2="30"/><line x1="48" y1="0" x2="48" y2="30"/><line x1="72" y1="0" x2="72" y2="30"/>
+        <line x1="0" y1="15" x2="96" y2="15"/>
+      </g>
+      <text class="flabel" x="452" y="284">屯田不辍</text>
+      <!-- 亮数挑战 -->
+      <path class="march j" marker-end="url(#aj)" d="M 440,210 C 500,214 552,218 594,224"/>
+      <text class="mlabel j" x="300" y="184">亮数挑战,遗巾帼妇人之饰以辱之</text>
+      <!-- 巾帼之辱 记号 -->
+      <g transform="translate(548,205)">
+        <rect x="-8" y="-7" width="16" height="14" rx="2" fill="rgba(154,43,30,.10)" stroke="var(--enemy)" stroke-width="1.3"/>
+        <path d="M -8,-7 Q 0,-13 8,-7" fill="none" stroke="var(--enemy)" stroke-width="1.3"/>
+        <text x="-14" y="-12" style="font-size:9.5px;fill:var(--enemy);font-weight:700">巾帼</text>
+      </g>
+      <!-- 懿坚壁不出 -->
+      <g class="shield" transform="translate(600,240)"><path d="M -11,-9 L 11,-9 L 11,3 Q 0,15 -11,3 Z"/></g>
+      <text class="mlabel q" x="616" y="252">懿坚壁不出,以老其师</text>
+      <text class="anno" x="616" y="268">怒表请战,明帝遣辛毗持节制之</text>
+      <text class="anno" x="300" y="330" font-style="italic">相持百余日,胜负未决</text>
     </g>
 
-    <!-- 阶段三:秋风星落 -->
+    <!-- ══ 阶段三:秋风星落 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="470" cy="392" r="10"/>
-      <path d="M 470,378 l 3,-8 l 2,6 l 7,-4 l -4,7 l 8,3 l -8,3 l 4,7 l -7,-4 l -2,6 l -3,-8 l -7,4 l 4,-7 l -8,-3 l 8,-3 l -4,-7 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8" transform="translate(0,14)"/>
-      <text class="mlabel r" x="326" y="384">亮卒于军中,年五十四</text>
-      <text class="anno" x="326" y="420">蜀军秘不发丧,整军而还</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 460,406 C 380,470 300,530 200,580"/>
-      <text class="mlabel r" x="256" y="536">整军而退,趋斜谷·汉中</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 700,320 C 620,352 560,384 500,404"/>
-      <text class="mlabel q" x="560" y="380">懿追之,姜维反旗鸣鼓</text>
-      <text class="anno" x="560" y="420">懿疑有伏,敛军退,不敢逼</text>
-      <text class="anno" x="220" y="500" font-style="italic">"死诸葛走生仲达"</text>
+      <circle class="star" cx="425" cy="200" r="11"/>
+      <path d="M 425,185 l 3,-8 l 2,6 l 7,-4 l -4,7 l 8,3 l -8,3 l 4,7 l -7,-4 l -2,6 l -3,-8 l -7,4 l 4,-7 l -8,-3 l 8,-3 l -4,-7 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8" transform="translate(0,15)"/>
+      <text class="mlabel r" x="292" y="180">亮积劳成疾,卒于军中,年五十四</text>
+      <text class="anno" x="300" y="150" font-style="italic">星落五丈原 · 秋风渭水寒</text>
+      <!-- 蜀军退还 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 428,214 C 440,340 450,460 460,580"/>
+      <text class="mlabel r" x="472" y="470">烧营徐退,趋斜谷·汉中</text>
+      <!-- 懿追而敛军 -->
+      <path class="march q" marker-end="url(#aq)" d="M 596,226 C 540,232 490,232 452,224"/>
+      <text class="mlabel q" x="470" y="256">懿追之,姜维反旗鸣鼓若将向懿</text>
+      <text class="anno" x="470" y="272">懿疑有伏,敛军退,不敢逼</text>
+      <text class="anno" x="300" y="360" font-style="italic">"死诸葛走生仲达" · 蜀军全师而还</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -184,32 +274,90 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蜀汉军(诸葛亮)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>曹魏军(司马懿)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>整军而退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>蜀军退还</span>
+    <span class="item"><svg width="30" height="16"><rect x="1" y="2" width="28" height="12" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1"/><line x1="10" y1="2" x2="10" y2="14" stroke="#1f4e54" stroke-width=".8"/><line x1="19" y1="2" x2="19" y2="14" stroke="#1f4e54" stroke-width=".8"/><line x1="1" y1="8" x2="29" y2="8" stroke="#1f4e54" stroke-width=".8"/></svg>屯田·渭滨(自给)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".2"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>褒斜粮道·粮运不继</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>争北原·星落</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>曹魏</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蜀汉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>曹魏</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>蜀汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>相持释要 · 屯田久驻 vs 坚壁待毙</h3>
+    <div class="lead">五丈原非战之罪 —— 攻守之势,成败终系于粮与寿</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="相持示意:蜀以攻,须久驻故屯田自给以解粮运不继;魏以守,坚壁待变;相持百余日,星落而局定">
+      <!-- 相持时间轴 -->
+      <line x1="70" y1="125" x2="792" y2="125" stroke="#5c4f38" stroke-width="1.2" stroke-dasharray="2 6" opacity=".55"/>
+      <text x="300" y="140" fill="#5c4f38" font-size="11" font-style="italic" opacity=".85">相持百余日 —— 时间在守者一方</text>
+      <text x="66" y="150" fill="#5c4f38" font-size="10">春·出斜谷据原</text>
+      <text x="700" y="150" fill="#5c4f38" font-size="10">秋八月·星落</text>
+      <!-- 蜀·攻(上行,青) -->
+      <rect x="24" y="24" width="112" height="34" rx="3" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.4"/>
+      <text x="80" y="39" fill="#1f4e54" font-size="12.5" font-weight="700" text-anchor="middle">蜀·亮 以攻</text>
+      <text x="80" y="52" fill="#5c4f38" font-size="9.5" text-anchor="middle">悬军远来,利在速战</text>
+      <path d="M 138,41 L 176,41" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <g><circle cx="228" cy="41" r="10" fill="none" stroke="#9c7a2c" stroke-width="1.6"/><line x1="222" y1="41" x2="234" y2="41" stroke="#9c7a2c" stroke-width="2.2"/></g>
+      <text x="228" y="20" fill="#9c7a2c" font-size="10.5" font-weight="700" text-anchor="middle">粮运不继</text>
+      <path d="M 246,41 L 300,41" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <rect x="312" y="26" width="30" height="30" rx="2" fill="rgba(156,122,44,.16)" stroke="#9c7a2c" stroke-width="1.2"/>
+      <line x1="327" y1="26" x2="327" y2="56" stroke="#9c7a2c" stroke-width=".9"/><line x1="312" y1="41" x2="342" y2="41" stroke="#9c7a2c" stroke-width=".9"/>
+      <text x="327" y="18" fill="#9c7a2c" font-size="10.5" font-weight="700" text-anchor="middle">屯田自给</text>
+      <path d="M 348,41 L 402,41" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)"/>
+      <text x="470" y="38" fill="#1f4e54" font-size="12" font-weight="700" text-anchor="middle">久驻之基 —— 粮忧遂解</text>
+      <text x="470" y="53" fill="#5c4f38" font-size="9.5" text-anchor="middle">然屯田能延军食,不能速取懿营</text>
+      <!-- 魏·守(下行,红) -->
+      <rect x="24" y="192" width="112" height="34" rx="3" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="80" y="207" fill="#9a2b1e" font-size="12.5" font-weight="700" text-anchor="middle">魏·懿 以守</text>
+      <text x="80" y="220" fill="#5c4f38" font-size="9.5" text-anchor="middle">据渭南积聚,以逸待劳</text>
+      <path d="M 138,209 L 208,209" stroke="#9a2b1e" stroke-width="1.6" marker-end="url(#aq)"/>
+      <text x="300" y="206" fill="#9a2b1e" font-size="12" font-weight="700" text-anchor="middle">坚壁不战·以待其变</text>
+      <text x="300" y="221" fill="#5c4f38" font-size="9.5" text-anchor="middle">巾帼不能激,辛毗持节以制之</text>
+      <path d="M 396,209 L 470,209" stroke="#9a2b1e" stroke-width="1.6" marker-end="url(#aq)"/>
+      <text x="580" y="206" fill="#9a2b1e" font-size="12" font-weight="700" text-anchor="middle">待其粮尽或将毙</text>
+      <text x="580" y="221" fill="#5c4f38" font-size="9.5" text-anchor="middle">时久则蜀自敝,守者之利</text>
+      <!-- 星落定局 -->
+      <circle cx="756" cy="125" r="15" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <path d="M 756,113 l 2,-6 l 1,5 l 6,-3 l -3,5 l 6,2 l -6,2 l 3,6 l -6,-3 l -1,5 l -2,-6 l -6,3 l 3,-5 l -6,-2 l 6,-2 l -3,-5 z" fill="#7a5a23"/>
+      <text x="756" y="164" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">亮卒·星落</text>
+      <path d="M 772,132 C 800,158 812,182 810,206" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#aq)"/>
+      <text x="800" y="228" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="end">守者收功</text>
+    </svg>
+    <p class="intro">五丈原之役非以一战决胜负,而是一场<b>持久相持</b>:诸葛亮悬军远来、利在速战,而司马懿据渭南积聚、坚壁不出——攻者急于求战而不得,守者从容待时。于是胜负不系于阵前之搏,而系于两事:<b>粮</b>与<b>寿</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>屯田久驻 · 蜀之解粮</h4>
+        <p>亮每患粮运不继:自汉中越秦岭、循褒斜四百余里转输,道险而馈艰,前四次北伐屡以粮尽退兵。第五次乃分兵屯田于渭滨,耕者杂于渭南居民之间而百姓相安,军无私焉——蜀军自此可不复以粮为忧,遂为久驻不退之计。然屯田能养军而不能破敌,懿既不出,亮亦无速克之术。</p>
+      </div>
+      <div class="c q">
+        <h4>坚壁待毙 · 魏之待变</h4>
+        <p>懿知亮粮虽足而势不能久,乃坚壁拒战、以老其师。亮遗巾帼妇人之饰以辱之,懿怒而表请战;魏明帝不欲其出,遣卫尉辛毗持节为军师以制之。懿又察亮食少事烦,谓"其能久乎",告人曰"亮将死矣"。守而待时,不争一日之短长,成败之权遂操于魏。</p>
+      </div>
+    </div>
+    <p class="kicker">亮能屯田以解其<b>粮</b>,而不能屯田以延其<b>寿</b>:相持百余日,秋八月亮竟卒于军。蜀军烧营徐退,姜维反旗鸣鼓,懿疑有伏而不敢逼——"死诸葛走生仲达"。故五丈原非战之罪:攻守之势既定,<b>屯田久驻终不敌坚壁待毙,成败系于粮与寿</b>。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·诸葛亮传》《晋书·宣帝纪》《汉晋春秋》《资治通鉴》卷七二约略绘出。五丈原在渭水之南,北原在渭水之北,郿及斜谷口在南,长安在东,汉中为蜀之后方。疆界、渭水、斜谷水道经简化,非实有画界。</p>
-    <p><span class="n">注二</span>五丈原在今陕西岐山南、渭水之南;斜谷为褒斜道北口,蜀军自汉中出此以趋关中。晕染疆界示曹魏据关中、蜀汉据汉中之大势,秦岭斜谷为险,故以点划"约界"标之。</p>
-    <p><span class="n">注三</span>诸葛亮五出祁山,终以身殁五丈原,兴复汉室之图遂不复振;"死诸葛走生仲达"传为千古谈。本图从蜀汉(青),魏军用红,蜀军星落整军而退用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影,几何关系力求近实:五丈原在渭水之南,北原在渭水之北,司马懿营在渭南(背水为垒),郿及斜谷口(斜峪关)在其东南,长安在东、汉中在南,二地远出图外,以边缘箭头示其方位。渭水、斜谷水(石头河)、疆界经简化描绘,非实有画界。五丈原今陕西宝鸡岐山南、秦岭北麓黄土台原,东临石头河,北临渭水,南倚秦岭,褒斜道北口斜峪关在其东南约二里半。</p>
+    <p><span class="n">注二</span>决局之枢在粮与相持,非在阵战。亮"每患粮不继,使己志不申,是以分兵屯田,为久驻之基。耕者杂于渭滨居民之间,而百姓安堵,军无私焉"(《三国志·诸葛亮传》)。前此北伐屡以粮尽退,褒斜转输之艰为蜀之痼疾(图中金色粮道及"粮运不继"记号),屯田正为对治此弊;魏则"百姓积聚皆在渭南",懿渡渭背水为垒以据之,不忧军食,坚壁得以持久。</p>
+    <p><span class="n">注三</span>相持之状:雍州刺史郭淮料亮必争北原以断陇道,言于懿,懿遣淮先据;堑垒未成,蜀兵大至,亮争之不克。亮数挑战,懿终不出,亮乃遗巾帼妇人之饰以辱之;懿怒表请战,明帝遣辛毗持节制之。相持百余日,胜负未决(《晋书·宣帝纪》《汉晋春秋》《资治通鉴》卷七二青龙二年)。</p>
+    <p><span class="n">注四</span>是年秋八月,亮积劳成疾,卒于军中,年五十四。蜀军烧营徐退,司马懿追之,长史杨仪、护军姜维反旗鸣鼓若将向懿,懿不敢逼,乃退,蜀军全师而还;百姓为之谚曰"死诸葛走生仲达"。诸葛亮五出北伐,终殁五丈原,兴复汉室之图遂不复振。本图从蜀汉(青),魏军用红,蜀军退还用褐;金色为褒斜粮道,青色田畴为屯田渭滨。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"出斜谷据原",d:"蜀汉建兴十二年·魏青龙二年(234)春",p:["建兴十二年春,诸葛亮悉大众十万,由斜谷出,以流马运粮,据五丈原,在渭水之南,与司马懿夹渭相持;复约孙权同时大举,东西并进,期分魏之势。","司马懿引军渡渭,背水为垒以拒之。魏诸将欲据渭以待其变,懿曰:百姓积聚皆在渭南,此必争之地也,遂渡渭背水而阵。两军夹渭,相持之局遂成。"]},
-  "1":{t:"据原屯田",d:"建兴十二年四月—五月",p:["亮由斜谷出,以流马运粮,进据五丈原。司马懿渡渭背水为垒。雍州刺史郭淮料亮必争北原以断陇道、隔绝陇右,言于懿曰:若亮跨渭登原,连兵北山,则陇道危矣。懿乃遣淮先据北原。","堑垒未成,蜀兵大至,亮争北原不克。于是亮分兵屯田于渭滨,杂处民间,耕者与居民相安,军无私焉,为久驻不退之计——蜀军自此不复以粮尽为忧。"]},
-  "2":{t:"坚壁不战",d:"建兴十二年五月—八月",p:["司马懿知亮悬军远来、利在速战,乃坚壁不出,欲以持久老其师。亮数挑战,懿终不应;亮乃遗懿巾帼妇人之服以辱之,激其出战。","懿怒,表请与战。魏明帝不欲懿出,遣卫尉辛毗持节为军师以制之。护军姜维谓亮曰:辛佐治仗节而至,贼不复出矣。亮曰:彼本无战心,所以请战者,以示武于其众耳。相持百余日,胜负竟未决。"]},
-  "3":{t:"秋风星落",d:"建兴十二年八月",p:["亮遣使至懿军,懿唯问其寝食及事之烦简,不问戎事;使对曰:诸葛公夙兴夜寐,罚二十以上皆亲览,所啖食不至数升。懿告人曰:亮将死矣。是月,亮果积劳成疾,卒于军中,年五十四。","蜀军秘不发丧,整军而还。懿追之,姜维令杨仪反旗鸣鼓,若将向懿;懿疑有伏,敛军退,不敢逼。百姓为之谚曰:死诸葛走生仲达。懿闻而笑曰:吾能料生,不便料死也。既而案行亮之营垒处所,叹曰:天下奇才也。蜀军遂入斜谷,还汉中。"]}
+  all:{t:"出斜谷据原",d:"蜀汉建兴十二年·魏青龙二年(234)春二月",p:["建兴十二年春,诸葛亮悉大众十万,由斜谷出,以流马运粮,至郿,进据五丈原,在渭水之南,与司马懿夹渭相持;复约孙权同时大举,东西并进,期分魏之势。","司马懿引军渡渭,背水为垒以拒之。魏诸将欲据渭以待其变,懿曰:百姓积聚皆在渭南,此必争之地也,遂渡渭背水而阵。两军夹渭,相持之局遂成。"]},
+  "1":{t:"据原屯田",d:"建兴十二年四月—五月",p:["亮由斜谷出,以流马运粮,进据五丈原。司马懿渡渭背水为垒。雍州刺史郭淮料亮必争北原以断陇道、隔绝陇右,言于懿曰:若亮跨渭登原,连兵北山,则陇道危矣。懿乃遣淮先据北原;堑垒未成,蜀兵大至,亮争北原不克。","亮每患粮运不继:自汉中越秦岭、循褒斜转输,道险而馈艰,前此北伐屡以粮尽退兵。至是乃分兵屯田于渭滨,耕者杂处民间,与居民相安,军无私焉,为久驻不退之计——蜀军自此不复以粮尽为忧。"]},
+  "2":{t:"坚壁不战",d:"建兴十二年五月—八月",p:["司马懿知亮悬军远来、利在速战,而屯田既成、蜀军粮足难以坐困,乃坚壁不出,欲以持久老其师、待其变。亮数挑战,懿终不应;亮乃遗懿巾帼妇人之饰以辱之,激其出战。","懿怒,表请与战。魏明帝不欲懿出,遣卫尉辛毗持节为军师以制之。护军姜维谓亮曰:辛佐治仗节而至,贼不复出矣。亮曰:彼本无战心,所以请战者,以示武于其众耳。懿又问亮使,唯询其寝食及事之烦简,不问戎事,退而告人曰:亮将死矣。相持百余日,胜负竟未决。"]},
+  "3":{t:"秋风星落",d:"建兴十二年秋八月",p:["是月,亮果积劳成疾,卒于军中,年五十四。星落五丈原,秋风渭水,兴复汉室之图遂成千古之叹。蜀军秘不发丧,烧营整军,徐徐而退。","司马懿闻而追之,长史杨仪、护军姜维令反旗鸣鼓,若将向懿;懿疑有伏,敛军退,不敢逼,蜀军遂全师入斜谷,还于汉中。百姓为之谚曰:死诸葛走生仲达。懿闻而笑曰:吾能料生,不便料死也。既而案行亮之营垒处所,叹曰:天下奇才也。"]}
 };
 const CITY={
-  wuzhangyuan:{t:"五丈原",d:"今陕西岐山南,渭水之南",p:["诸葛亮出斜谷所据之地,与司马懿夹渭相持、分兵屯田于此。相持百余日,亮卒于军,星落五丈原,遂成千古之叹。"]},
-  beiyuan:{t:"北原",d:"渭水之北,五丈原对岸",p:["郭淮料亮必争之以断陇道,言于司马懿,懿遣淮先据。亮争北原不克,乃退屯渭滨屯田。"]},
-  weishui:{t:"渭水",d:"关中大川,西来东注",p:["两军夹渭相持之所。司马懿渡渭背水为垒,谓渭南积聚为必争之地;亮据渭南五丈原,魏蜀隔水对峙。"]},
-  meixiegukou:{t:"郿·斜谷口",d:"褒斜道北口,今陕西眉县境",p:["蜀军自汉中出褒斜道，由斜谷口北出以趋关中。亮以流马转运军粮，皆经此道。"]},
-  changan:{t:"长安",d:"曹魏关中重镇",p:["魏关中根本,司马懿都督雍凉军事以御蜀。明帝遣辛毗持节赴军,制懿不使出战,亦自关中而往。"]},
-  hanzhong:{t:"汉中",d:"蜀汉北伐之后方基地",p:["诸葛亮历次北伐所出与所归之地。五丈原亮卒,蜀军整军而退,循斜谷还于汉中。"]}
+  wuzhangyuan:{t:"五丈原",d:"今陕西宝鸡岐山南,渭水之南、秦岭北麓台原",p:["诸葛亮出斜谷所据之地,东临石头河(斜谷水)、北临渭水、南倚秦岭,形势险要。亮与司马懿夹渭相持、分兵屯田于此。相持百余日,秋八月亮卒于军,星落五丈原,遂成千古之叹。"]},
+  beiyuan:{t:"北原",d:"渭水之北,五丈原对岸",p:["郭淮料亮必跨渭登原、连兵北山以断陇道,言于司马懿,懿遣淮先据。堑垒未成,蜀兵大至,亮争北原不克,乃退屯渭滨屯田。"]},
+  weinan:{t:"司马懿营(渭南·背水为垒)",d:"渭水之南,五丈原之东",p:["魏诸将欲据渭北待变,懿曰百姓积聚皆在渭南,此必争之地,遂渡渭背水为垒以拒亮。据渭南积聚,故不忧军食,得以坚壁持久、以老蜀师。"]},
+  weishui:{t:"渭水",d:"关中大川,西来东注,趋长安",p:["两军夹渭相持之界。司马懿渡渭背水为垒,谓渭南积聚为必争之地;亮据渭南五丈原,魏蜀隔水对峙。渭水东注,下达长安。"]},
+  xiegukou:{t:"斜谷口·斜峪关",d:"褒斜道北口,今陕西眉县西南",p:["褒斜道之北出口,在五丈原东南约二里半。蜀军自汉中出褒斜道、由斜谷口北出以趋关中,亮以流马转运军粮皆经此道。"]},
+  mei:{t:"郿",d:"今陕西眉县,渭水之南",p:["亮出斜谷,先至郿,军于渭水之南。郿当褒斜道北口之东,为蜀军入关中所经之要地。"]},
+  hanzhong:{t:"汉中(图外·南)",d:"蜀汉北伐之后方基地",p:["诸葛亮历次北伐所出与所归之地,褒斜道南口所在。军食自此越秦岭北运,道险馈艰,粮运不继为蜀之痼疾。五丈原亮卒,蜀军烧营徐退,循斜谷还于汉中。"]},
+  changan:{t:"长安(图外·东)",d:"曹魏关中重镇",p:["魏关中根本,司马懿都督雍凉军事以御蜀。懿怒表请战,明帝遣卫尉辛毗持节赴军,制懿不使出战,亦自关中而往。渭水东注,下达于此。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

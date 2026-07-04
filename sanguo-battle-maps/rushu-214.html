@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--ret);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,7 +31,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,9 +48,10 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .fall{fill:none;stroke:var(--enemy);stroke-width:1.6}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +60,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.06),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,134 +91,222 @@
   <div class="seal" aria-hidden="true"><span>入</span><span>蜀</span><span>之</span><span>役</span></div>
   <header>
     <h1>刘备入蜀之战</h1>
-    <div class="sub">汉建安十六年至十九年(211–214)　　<i>刘备</i> 取益州 · 灭 <b>刘璋</b></div>
+    <div class="sub">汉建安十六年至十九年(211–214)　　<i>刘备</i> 取 <b>刘璋</b> 之益州　·　内外并进 · 会围成都　·　<em>璋降</em></div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 应邀入川</button>
-    <button data-p="1">葭萌反目</button>
-    <button data-p="2">雒城苦战</button>
-    <button data-p="3">围成都 · 璋降</button>
+    <button class="on" data-p="all">全图 · 内外并进</button>
+    <button data-p="1">应邀入蜀 · 葭萌反目</button>
+    <button data-p="2">涪雒相持 · 庞统陨落</button>
+    <button data-p="3">溯江会师 · 围成都</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="刘备入蜀之战形势图,含刘璋刘备疆界、长江三峡涪江与成都雒城江陵等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="刘备入蜀之战形势图,含刘璋刘备疆界、岷江涪江嘉陵江长江诸水,及成都雒城涪城葭萌江州江阳等城邑与内外并进合围成都之势">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:刘璋据益州(西),刘备自荆州入(东),约以三峡为界 -->
-    <path d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 596,0 C 600,90 590,170 560,250 C 540,300 520,360 520,430 C 520,520 540,580 560,640"/>
-    <text class="realm q" x="140" y="120" font-size="34">刘 璋(益州)</text>
-    <text class="realm j" x="690" y="560" font-size="32">刘 备(自荆州)</text>
+    <!-- ══ 疆界:刘璋据益州(西·中·南),刘备本据荆州(东),约以巴东三峡为界 ══ -->
+    <path d="M 0,0 L 792,0 C 800,120 806,260 800,380 C 796,470 806,560 812,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 792,0 L 1000,0 L 1000,640 L 812,640 C 806,560 796,470 800,380 C 806,260 800,120 792,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 792,0 C 800,120 806,260 800,380 C 796,470 806,560 812,640"/>
+    <text class="realm q" x="150" y="150" font-size="34">益 州(刘璋)</text>
+    <text class="realm j" x="828" y="150" font-size="22">荆</text>
+    <text class="realm j" x="828" y="182" font-size="22">州</text>
+    <text class="cname s" x="820" y="210" style="fill:var(--advance);opacity:.7">刘备本据</text>
 
-    <!-- 长江:自蜀中(西)经三峡东下江陵 -->
-    <path class="river" stroke-width="5.5" d="M 230,360 C 300,380 380,410 430,428 C 500,458 560,470 640,438 C 700,410 740,382 800,376 C 850,370 920,368 1000,366"/>
-    <!-- 涪江:自北南下经涪城至成都 -->
-    <path class="river" stroke-width="3" d="M 372,120 C 388,190 400,258 396,318 C 392,362 340,392 300,414"/>
-    <text class="rname" x="640" y="460" style="font-size:13px">长 江</text>
-    <text class="rname" x="400" y="220" transform="rotate(80 400 220)">涪 江</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 岷江:自都江堰南下经成都,趋宜宾入长江 -->
+    <path class="river" stroke-width="3.4" d="M 60,236 C 100,270 130,296 146,316 C 176,362 214,472 246,562"/>
+    <!-- 涪江:自绵阳北南下经涪城,东南趋合川入嘉陵 -->
+    <path class="river" stroke-width="2.8" d="M 320,110 C 296,150 274,178 266,202 C 320,300 470,392 566,432"/>
+    <!-- 嘉陵江:自北南下,会于江州 -->
+    <path class="river" stroke-width="2.6" d="M 566,120 C 592,230 602,350 606,452"/>
+    <!-- 长江:自宜宾东下,历江阳、江州,出三峡趋江陵 -->
+    <path class="river" stroke-width="5" d="M 240,568 C 320,560 372,556 400,550 C 486,536 556,486 610,460 C 700,432 800,424 1000,418"/>
+    <text class="rname" x="96" y="430" transform="rotate(74 96 430)" style="font-size:12px">岷 江</text>
+    <text class="rname" x="332" y="330" transform="rotate(46 332 330)" style="font-size:11px">涪 江</text>
+    <text class="rname" x="586" y="300" transform="rotate(84 586 300)" style="font-size:10.5px">嘉陵江</text>
+    <text class="rname" x="700" y="452" style="font-size:13px">长 江</text>
 
-    <!-- 三峡 -->
-    <g class="mtn"><path d="M 600,408 l 8,-13 l 8,13 M 616,402 l 8,-13 l 8,13 M 632,408 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="600" y="428">三峡</text>
+    <!-- 巴东·三峡(益荆之界) -->
+    <g class="mtn"><path d="M 806,404 l 8,-13 l 8,13 M 822,398 l 8,-13 l 8,13 M 838,404 l 7,-12 l 7,12"/></g>
+    <text class="cname s" x="796" y="428">巴东·三峡</text>
+    <!-- 蜀北山险 -->
+    <path class="mtn fill" d="M 420,60 L 438,30 L 452,48 L 470,20 L 488,46 L 506,26 L 522,52 Z"/>
+    <text class="mname" x="428" y="24" style="font-size:10px">葭 萌 山 险</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="chengdu"><circle cx="270" cy="380" r="6"/><text class="cname" x="282" y="384">成都<tspan class="cname s" dx="2">(刘璋都)</tspan></text></g>
-      <g class="city" data-city="luocheng"><circle cx="330" cy="320" r="5"/><text class="cname" x="342" y="316">雒城</text></g>
-      <g class="city" data-city="fucheng"><circle cx="384" cy="238" r="5"/><text class="cname" x="396" y="234">涪城</text></g>
-      <g class="city" data-city="jiameng"><circle cx="378" cy="130" r="4"/><text class="cname s" x="386" y="126">葭萌</text></g>
-      <g class="city" data-city="jiangzhou"><circle cx="500" cy="450" r="5"/><text class="cname" x="474" y="472">江州</text></g>
-      <g class="city" data-city="jiangling"><circle cx="880" cy="368" r="6"/><text class="cname" x="828" y="364">江陵<tspan class="cname s" dx="2">(荆州)</tspan></text></g>
+      <g class="city cap" data-city="chengdu"><circle cx="146" cy="315" r="6.5"/><text class="cname" x="158" y="319">成都<tspan class="cname s" dx="2">(刘璋治)</tspan></text></g>
+      <g class="city" data-city="luocheng"><circle cx="181" cy="270" r="5.5"/><text class="cname" x="170" y="268" style="text-anchor:end">雒城</text></g>
+      <g class="city" data-city="fucheng"><circle cx="266" cy="202" r="5"/><text class="cname" x="278" y="198">涪城</text></g>
+      <g class="city" data-city="jiameng"><circle cx="485" cy="76" r="5.5"/><text class="cname" x="496" y="72">葭萌关</text></g>
+      <g class="city" data-city="guantou"><circle cx="494" cy="101" r="4"/><text class="cname s" x="504" y="112">关头·白水</text></g>
+      <g class="city" data-city="jiangzhou"><circle cx="608" cy="459" r="5.5"/><text class="cname" x="620" y="463">江州</text></g>
+      <g class="city" data-city="jiangyang"><circle cx="399" cy="553" r="5"/><text class="cname" x="411" y="557">江阳</text></g>
+    </g>
+    <!-- 江陵·荆州(图外·东) -->
+    <g transform="translate(958,432)">
+      <path class="march j" marker-end="url(#aj)" d="M -6,0 L -32,0"/>
+      <text class="mlabel j" x="-96" y="-8" style="font-size:10px">⟶ 江陵·荆州</text>
+      <text class="cname s" x="-96" y="16" style="fill:var(--advance);font-size:9.5px">备诸军所自(图外东)</text>
     </g>
 
-    <!-- 全图 · 应邀入川 -->
+    <!-- ══ 全图 · 内外并进 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 872,374 C 760,414 660,442 560,442 C 490,442 430,412 392,258"/>
-      <text class="mlabel j" x="560" y="416">刘备自江陵溯江入蜀,璋会于涪城</text>
-      <text class="anno" x="640" y="398">璋益其兵,使击张鲁</text>
-      <path class="march j" marker-end="url(#aj)" d="M 380,142 C 360,210 340,270 324,308"/>
-      <text class="mlabel j" x="200" y="188">备北屯葭萌,厚树恩德以收众心</text>
-      <ellipse class="siege" cx="270" cy="380" rx="26" ry="20"/>
-      <text class="anno" x="150" y="440">既而构隙,回军南向,合围成都</text>
+      <!-- 备自葭萌南下(正面) -->
+      <path class="march j" marker-end="url(#aj)" d="M 478,88 C 400,138 322,176 272,200 C 226,232 200,250 186,264 C 172,282 158,300 152,310"/>
+      <text class="mlabel j" x="300" y="150">刘备自葭萌南下,克涪据雒</text>
+      <!-- 别军自荆州溯江西上(会师) -->
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1500;stroke-dashoffset:1500" d="M 946,440 C 820,452 700,458 616,458 C 470,456 300,398 158,322"/>
+      <text class="mlabel j" x="470" y="500">诸葛亮·张飞·赵云自荆州溯江西上</text>
+      <circle class="star" cx="181" cy="270" r="9"/>
+      <g class="fall" transform="translate(224,244)"><circle r="7"/><line x1="-4.6" y1="-4.6" x2="4.6" y2="4.6"/><line x1="-4.6" y1="4.6" x2="4.6" y2="-4.6"/></g>
+      <text class="cname s" x="233" y="238" style="fill:var(--enemy)">落凤坡</text>
+      <circle class="star" cx="146" cy="315" r="12"/>
+      <ellipse class="siege" cx="146" cy="315" rx="26" ry="21"/>
+      <text class="mlabel q" x="60" y="360">内外并进,会围成都</text>
+      <text class="anno" x="360" y="70">璋迎备拒张鲁,反目而蜀亡</text>
     </g>
 
-    <!-- 阶段一:葭萌反目 -->
+    <!-- ══ 阶段一:应邀入蜀 · 葭萌反目 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="374" y="126" width="8" height="8" transform="rotate(45 378 130)"/>
-      <text class="mlabel j" x="230" y="112">备北屯葭萌,收众心</text>
-      <path class="march j" marker-end="url(#aj)" d="M 376,146 C 372,182 378,212 384,230"/>
-      <text class="mlabel j" x="392" y="180">回军南向,袭斩杨怀、高沛</text>
-      <path class="march j" marker-end="url(#aj)" d="M 384,244 C 380,270 372,296 340,314"/>
-      <text class="mlabel j" x="300" y="272">进据涪城</text>
-      <text class="anno" x="470" y="300">璋会备于涪城,推行大司马,益兵击张鲁</text>
+      <!-- 备自荆州溯江入,会璋于涪,北屯葭萌 -->
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1400;stroke-dashoffset:1400" d="M 946,440 C 780,452 640,456 560,452 C 440,442 340,300 274,206"/>
+      <text class="mlabel j" x="470" y="440">备自江陵溯江入蜀,璋会之于涪城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 272,196 C 320,150 420,104 478,84"/>
+      <text class="mlabel j" x="330" y="118">北屯葭萌,厚树恩德以收众心</text>
+      <rect class="camp" x="481" y="72" width="8" height="8" transform="rotate(45 485 76)"/>
+      <!-- 反目回军南向,斩杨怀高沛于关头,据涪城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 490,110 C 460,150 380,180 292,200"/>
+      <text class="mlabel j" x="336" y="176">还兵南向,袭斩杨怀、高沛</text>
+      <rect class="camp" x="490" y="97" width="7" height="7" transform="rotate(45 493.5 100.5)"/>
+      <text class="anno" x="200" y="230">进据涪城,宾主反目,兵锋南指</text>
     </g>
 
-    <!-- 阶段二:雒城苦战 -->
+    <!-- ══ 阶段二:涪雒相持 · 庞统陨落 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 380,250 C 368,278 352,300 338,314"/>
-      <text class="mlabel j" x="356" y="286">进围雒城</text>
-      <circle class="star" cx="330" cy="320" r="9"/>
-      <text class="mlabel q" x="344" y="342">刘循坚守,相持将一年</text>
-      <text class="anno" x="300" y="360">军师庞统攻城,中流矢而死</text>
-      <path class="march j" marker-end="url(#aj)" d="M 872,374 C 720,420 620,448 512,452"/>
-      <text class="mlabel j" x="600" y="440">诸葛、张、赵自荆州溯江西上</text>
-      <path class="march j" marker-end="url(#aj)" d="M 490,448 C 440,430 400,388 348,332"/>
-      <text class="anno" x="410" y="428">分定江州、江阳、德阳诸郡,来会</text>
+      <path class="march j" marker-end="url(#aj)" d="M 266,214 C 246,236 220,252 198,260"/>
+      <text class="mlabel j" x="276" y="222">进围雒城</text>
+      <circle class="star" cx="181" cy="270" r="9"/>
+      <g class="fall" transform="translate(224,244)"><circle r="7"/><line x1="-4.6" y1="-4.6" x2="4.6" y2="4.6"/><line x1="-4.6" y1="4.6" x2="4.6" y2="-4.6"/></g>
+      <text class="cname s" x="233" y="238" style="fill:var(--enemy)">落凤坡</text>
+      <text class="mlabel q" x="196" y="300">刘循坚守,相持将一年</text>
+      <text class="anno" x="96" y="332">军师庞统攻城,中流矢死(『落凤坡』乃演义附会)</text>
     </g>
 
-    <!-- 阶段三:围成都·璋降 -->
+    <!-- ══ 阶段三:溯江会师 · 围成都 · 璋降 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 328,332 C 316,346 300,360 288,372"/>
-      <ellipse class="siege" cx="270" cy="380" rx="30" ry="23"/>
-      <text class="mlabel j" x="140" y="360">诸军合围成都数十日</text>
-      <path d="M 270,380 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="150" y="418">城中精兵三万,谷帛支一年</text>
-      <text class="anno" x="200" y="436">璋不忍复战,开城出降,益州入备</text>
+      <!-- 诸军自荆州溯江西上,会于江州 -->
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:900;stroke-dashoffset:900" d="M 946,440 C 820,452 720,458 622,458"/>
+      <text class="mlabel j" x="640" y="446">诸葛·张·赵溯江西上</text>
+      <text class="anno" x="512" y="490">张飞义释严颜于江州</text>
+      <!-- 张飞北道,分定巴西德阳,自东北来会 -->
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:900;stroke-dashoffset:900" d="M 600,452 C 480,410 360,360 168,318"/>
+      <text class="mlabel j" x="356" y="392">张飞北定巴西、德阳</text>
+      <!-- 赵云南道,定江阳犍为,溯岷江来会 -->
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:900;stroke-dashoffset:900" d="M 598,464 C 500,510 440,540 410,548"/>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:900;stroke-dashoffset:900" d="M 392,548 C 300,510 210,400 156,330"/>
+      <text class="mlabel j" x="300" y="540">赵云南定江阳、犍为</text>
+      <!-- 备主力自雒城下成都 -->
+      <path class="march j" marker-end="url(#aj)" d="M 178,282 C 168,296 158,306 154,312"/>
+      <ellipse class="siege" cx="146" cy="315" rx="30" ry="24"/>
+      <circle class="star" cx="146" cy="315" r="12"/>
+      <text class="mlabel j" x="30" y="288">诸军合围成都数十日</text>
+      <!-- 璋降(brown) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 138,332 C 128,352 122,368 120,384"/>
+      <text class="mlabel r" x="40" y="404">璋以百姓故,开城出降</text>
+      <text class="anno" x="40" y="422">城中精兵三万,谷帛支一年</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(952,570)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>刘备军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>刘璋军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>降/守</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>苦战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>刘璋</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>刘备</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>刘备军(青)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>刘璋军(朱)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>璋降(赭)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>攻围·苦战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.2"/></svg>庞统殒处(落凤坡)</span>
+    <span class="item"><svg width="10" height="10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="#9a2b1e"/></svg>营垒</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>刘璋·益州</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>刘备·荆州</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 内外并进,会围成都</h3>
+    <div class="lead">璋之亡,不亡于一战,亡于两路并进,内外交攻</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="内外并进示意:刘备自北正面缀之,诸葛张赵别军自东溯江西上分道会围成都">
+      <!-- 成都节点 -->
+      <circle cx="410" cy="185" r="9" fill="#e9dec4" stroke="#2b2418" stroke-width="2"/>
+      <circle cx="410" cy="185" r="16" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="410" y="222" fill="#2b2418" font-size="13" font-weight="700" text-anchor="middle">成都(璋)</text>
+      <!-- 左:备自北正面·相持雒城 -->
+      <circle cx="150" cy="40" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="160" y="36" fill="#2b2418" font-size="11" font-weight="700">葭萌</text>
+      <path d="M 152,46 C 200,80 250,110 292,138" fill="none" stroke="#1f4e54" stroke-width="3.4" marker-end="url(#aj)"/>
+      <circle cx="300" cy="146" r="8" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="234" y="96" fill="#1f4e54" font-size="11.5" font-weight="700">备·正面南下</text>
+      <text x="300" y="132" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">相持雒城经年</text>
+      <path d="M 318,152 C 350,164 372,172 392,180" fill="none" stroke="#1f4e54" stroke-width="3" stroke-dasharray="5 5"/>
+      <!-- 右:别军自荆州溯江西上,分道 -->
+      <circle cx="812" cy="150" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="796" y="140" fill="#2b2418" font-size="11" font-weight="700" text-anchor="end">荆州</text>
+      <path d="M 806,150 C 740,150 690,150 660,150" fill="none" stroke="#1f4e54" stroke-width="3.4" marker-end="url(#aj)"/>
+      <circle cx="650" cy="150" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="648" y="140" fill="#2b2418" font-size="11" font-weight="700" text-anchor="middle">江州</text>
+      <text x="726" y="176" fill="#1f4e54" font-size="11.5" font-weight="700" text-anchor="middle">别军溯江西上</text>
+      <!-- 张飞北 -->
+      <path d="M 642,144 C 560,110 500,110 440,150" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="540" y="104" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">张飞·北定巴西</text>
+      <!-- 赵云南 -->
+      <path d="M 644,158 C 580,206 500,224 438,206" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="556" y="234" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">赵云·南定江阳</text>
+    </svg>
+    <p class="intro">刘备既与璋反目,其取蜀非恃一战之克,而在<b>两路并进、内外交攻</b>:自将者当其正面,别军者绕其侧背,使璋首尾不能相顾,坐见郡县瓦解而后成都孤悬。故雒城虽相持经年,益州之势已去。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>备·正面缀之</h4>
+        <p>刘备自葭萌还兵南下,克涪城、围雒城。璋子刘循固守,相持将一年,庞统且中流矢死于城下。备主力顿于坚城,然正以此牢牢牵制璋之主力,使其不得分兵御他道——正面之师,缀敌而已。</p>
+      </div>
+      <div class="c b">
+        <h4>别军·溯江分定</h4>
+        <p>诸葛亮留关羽守荆州,自与张飞、赵云溯江西上入蜀。张飞北道下巴东、克江州(义释严颜)、定巴西德阳;赵云别道南定江阳、犍为。分定郡县,四面来会,遂与备合围成都。</p>
+      </div>
+    </div>
+    <p class="kicker">正面缀之,别军定之,两路会于成都之下。城中犹有<b>精兵三万、谷帛支一年</b>,然郡县尽失、内外无援,璋乃以百姓之故开城出降。故益州之亡,<b>非力屈于阵,实势穷于内外并进</b>。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·先主传》《刘璋传》《庞统传》《诸葛亮传》约略绘出。疆界、长江三峡及涪江水道经简化,点划"约界"以三峡为限,非实有画界。</p>
-    <p><span class="n">注二</span>雒城在今四川广汉,涪城在今绵阳,葭萌在今广元,江州在今重庆。诸城相去,依水陆道里略示方位。</p>
-    <p><span class="n">注三</span>庞统实死于雒城流矢,后世"落凤坡"之说乃《三国演义》附会,不见于正史。刘璋以爱民之心开城出降,益州遂为刘备之基业,隆中"跨有荆益"之图至是半成。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影定位,几何方位力求近实:葭萌关在北(今广元昭化),涪城居中北(今绵阳),雒城、成都在中南(今广汉、成都),江州在东(今重庆),江阳在东南(今泸州);荆州(江陵)远在东,故作图外东缘之箭示。岷江、涪江、嘉陵江、长江水道及益荆疆界经简化描绘,点划"约界"以巴东三峡一线为限,非实有画界。</p>
+    <p><span class="n">注二</span>制胜之枢在"内外并进":刘备自葭萌南下,克涪据雒,正面缀璋主力;诸葛亮、张飞、赵云自荆州溯江西上,分定郡县,四面来会,内外交攻,遂围成都。事见《三国志·先主传》《诸葛亮传》。此为本役之决机,故图中以两路青师并指成都示之。</p>
+    <p><span class="n">注三</span>庞统实卒于雒城下流矢(《庞统传》:"进围雒县,统率众攻城,为流矢所中,卒"),后世"落凤坡"之说乃《三国演义》附会,不见于正史,图中以朱色 ✕ 记而标之。张飞义释巴郡太守严颜于江州、赵云别定江阳犍为,并见《张飞传》《赵云传》(裴注引《云别传》)。</p>
+    <p><span class="n">注四</span>雒城相持将一年,城久不下;及诸军合围成都数十日,城中尚有精兵三万、谷帛支一年,吏民咸欲死战。刘璋曰"父子在州二十余年,无恩德以加百姓;百姓攻战三年,肌膏草野者,以璋故也,何心能安",遂开城出降(《刘璋传》)。益州入于刘备,隆中"跨有荆益"之图至是半成。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"应邀入川",d:"汉建安十六年至十九年(211–214)",p:["刘璋闻曹操将取汉中,惧张鲁为患,用张松、法正之谋,迎刘备入川以拒张鲁。备自江陵溯江西上入蜀,璋会之于涪城,益其兵、使击张鲁。","备北屯葭萌,未即讨鲁,而厚树恩德,以收众心。既而与璋构隙,乃回军南向,与诸葛亮、张飞、赵云水陆并进,长驱合围成都。"]},
-  "1":{t:"葭萌反目",d:"建安十六年至十七年",p:["刘璋会刘备于涪城,推行大司马、领司隶校尉,益其兵众,使北击张鲁;备遂北屯葭萌,厚树恩德,以收众心,而未即进讨。","既而与璋构隙,备乃回军南向,袭斩璋将杨怀、高沛,尽收其众,进据涪城——由是宾主反目,兵锋直指成都。"]},
-  "2":{t:"雒城苦战",d:"建安十八年至十九年",p:["备进围雒城,璋子刘循坚守,相持将一年,城久不下。军师中郎将庞统率众攻城,中流矢而死,备痛惜之(后世附会为“落凤坡”,非正史所载)。","诸葛亮、张飞、赵云自荆州溯江西上,分定江州、江阳、德阳诸郡,克巴东、下巴郡,来会于成都。荆益之师,水陆并进。"]},
-  "3":{t:"围成都·璋降",d:"建安十九年(214)",p:["诸军合围成都数十日。城中尚有精兵三万,谷帛可支一年,吏民咸欲死战。","璋曰:“父子在州二十余年,无恩德以加百姓,百姓攻战三年,肌膏草野者,以璋故也,何心能安!”遂开城出降。益州入于刘备,基业始定。"]}
+  all:{t:"内外并进 · 会围成都",d:"汉建安十六年至十九年(211–214)",p:["刘璋闻曹操将遣钟繇讨张鲁,惧鲁并汉中为患,用张松、法正之谋,迎刘备入蜀以拒张鲁。备自江陵溯江西上入益,璋会之于涪城,益其兵、使击张鲁;备北屯葭萌,厚树恩德以收众心,而久不进讨。","既与璋构隙,备乃还兵南向:斩杨怀、高沛于关头,进据涪城,围雒城。别遣诸葛亮、张飞、赵云自荆州溯江西上,分定郡县,四面来会。两路并进、内外交攻,遂合围成都,璋以百姓之故开城出降,益州入于刘备。"]},
+  "1":{t:"应邀入蜀 · 葭萌反目",d:"建安十六年至十七年",p:["刘璋会刘备于涪城,推行大司马、领司隶校尉,益其兵众,使北击张鲁。备遂北屯葭萌关,厚树恩德以收众心,而未即进讨,以观蜀中之衅。","既而与璋构隙,备乃还兵南向,袭斩璋所遣守关之将杨怀、高沛于关头(白水),尽收其众,进据涪城——由是宾主反目,兵锋直指成都。"]},
+  "2":{t:"涪雒相持 · 庞统陨落",d:"建安十八年至十九年",p:["备自涪城进围雒城,璋子刘循坚守,相持将一年,城久不下。军师中郎将庞统率众攻城,为流矢所中而卒,备痛惜之(后世附会为『落凤坡』,非正史所载)。","雒城当成都之北,为璋北面屏障。备主力顿于坚城经年,然正以此牵制璋之主力,使其不得分兵以御溯江西上之别军——相持之久,反成合围之基。"]},
+  "3":{t:"溯江会师 · 围成都",d:"建安十九年(214)",p:["诸葛亮留关羽守荆州,自与张飞、赵云将兵溯江西上入蜀。张飞北道下巴东,克江州,义释巴郡太守严颜,进定巴西、德阳;赵云别道南定江阳、犍为。分定郡县,四面来会,与备合围成都。","诸军围城数十日。城中尚有精兵三万、谷帛可支一年,吏民咸欲死战;刘璋以爱民之故,不忍复战,开城出降。益州遂入于刘备,基业始定。"]}
 };
 const CITY={
-  chengdu:{t:"成都",d:"刘璋治所,益州都城",p:["诸军合围数十日。城中精兵三万、谷帛支一年,吏民欲死战;刘璋不忍复战,开城出降,益州遂入刘备。"]},
-  luocheng:{t:"雒城",d:"成都之北,今四川广汉",p:["苦战之地。刘璋子刘循坚守,相持将一年;军师庞统率众攻城,中流矢而死。"]},
-  fucheng:{t:"涪城",d:"成都东北,今四川绵阳",p:["刘璋会刘备于此,益兵使击张鲁;后备反目回军,袭斩杨怀、高沛而进据之。"]},
-  jiameng:{t:"葭萌",d:"益州北门,今四川广元",p:["刘备初屯之地。备不即讨张鲁,而厚树恩德,以收众心;既与璋构隙,乃自此回军南向。"]},
-  jiangzhou:{t:"江州",d:"益州东部要冲,今重庆",p:["诸葛亮、张飞、赵云自荆州溯江西上会师之处。张飞于此义释严颜,遂分定诸郡,来会成都。"]},
-  jiangling:{t:"江陵",d:"荆州治所,今湖北荆州",p:["刘备入蜀所自出。诸葛亮、张飞、赵云亦自荆州溯江西上,与备会于蜀中。"]}
+  chengdu:{t:"成都",d:"刘璋治所,益州都城,今四川成都",p:["内外两路会围之的。诸军合围数十日,城中犹有精兵三万、谷帛支一年,吏民欲死战;刘璋以百姓之故不忍复战,开城出降,益州遂入刘备。"]},
+  luocheng:{t:"雒城",d:"成都之北屏障,今四川广汉",p:["相持之地。璋子刘循坚守,备围之将一年不下;军师庞统率众攻城,中流矢而死于城下。后世『落凤坡』之说乃演义附会,正史但云卒于雒城流矢。"]},
+  fucheng:{t:"涪城",d:"成都东北,今四川绵阳",p:["刘璋会刘备于此,推大司马、益兵使击张鲁;后备反目还军,袭斩杨怀、高沛而进据之,遂为南攻成都之前进基地。"]},
+  jiameng:{t:"葭萌关",d:"益州北门,今四川广元昭化",p:["刘备初屯之地。备受璋命北拒张鲁,乃屯此,厚树恩德以收众心而久不攻鲁;既与璋构隙,即自此还兵南向,直指成都。"]},
+  guantou:{t:"关头 · 白水",d:"葭萌之南,白水关一带",p:["刘璋遣白水军督杨怀、高沛守之以备刘备。备还兵南向,先呼二将而斩之,尽收白水军,南下无所碍。"]},
+  jiangzhou:{t:"江州",d:"益州东部要冲,今重庆",p:["诸葛亮、张飞、赵云溯江西上入蜀之枢。张飞破江州,生获巴郡太守严颜,义而释之,引为宾客;遂北定巴西、德阳,来会成都。"]},
+  jiangyang:{t:"江阳",d:"益州南部,今四川泸州",p:["赵云别道所定。云自江州分兵南下,定江阳、犍为,溯岷江北上,自南面来会围成都——内外并进之南翼。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
