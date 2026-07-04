@@ -174,6 +174,15 @@
   .film-foot{padding:11px 14px 13px}
   .film-foot .dir{font-size:.78rem;color:var(--ink-soft)}
   .film-foot .cn{font-family:var(--serif);font-size:1.02rem;font-weight:600;margin-top:1px}
+  .vbadge{
+    display:inline-block;margin-top:7px;font-size:.68rem;letter-spacing:.02em;
+    color:#3a6b3a;background:#e9f2e4;border:1px solid #bcd8ad;border-radius:999px;padding:1px 8px;
+  }
+  .m-vbadge{
+    display:inline-block;font-size:.78rem;color:#3a6b3a;background:#e9f2e4;
+    border:1px solid #bcd8ad;border-radius:999px;padding:2px 11px;
+  }
+  .m-vbadge.unv{color:#8a6a1e;background:#f4ecd8;border-color:#dcc99a}
 
   /* collection chips */
   .collection{margin:8px 0 30px}
@@ -243,6 +252,7 @@
   <p class="verse">
     收录四位华语基督徒作者——<b>王书亚（王怡）</b>、<b>石衡潭</b>、<b>刘小枫</b>、<b>齐宏伟</b>——
     从信仰视角对电影的解读。每部影片附作者观点的<b>原创转述</b>与<b>原文出处链接</b>，点击卡片可展开细读。
+    带 <b>✓ 已核验</b> 标记者，其链接已经检索确认为<b>单篇文章正文页</b>（而非书目 / 概括页）。
   </p>
 </header>
 
@@ -264,6 +274,12 @@
     诚挚建议读者点击链接、阅读作者原著全文。电影卡片为纯文字排版设计，未使用任何受版权保护的海报图片。
     若有作者或权利人希望调整或撤下相关条目，欢迎通过项目仓库联系。
   </div>
+  <div class="disc">
+    <strong>关于「✓ 已核验」：</strong>标记表示该出处链接已通过搜索引擎索引确认为一篇<strong>独立的文章正文页</strong>
+    （标题与摘要与对应影评相符），以区别于书籍条目、目录或概括页。需坦白说明：<strong>本页的验证依据的是搜索引擎索引，
+    而非逐页抓取</strong>——制作环境的网络策略屏蔽了对王怡文库、豆瓣、新浪博客等站点的直接访问，因此编者无法在本环境内
+    逐篇打开页面通读全文。个别作者（如齐宏伟）尚未检索到可靠的单篇文章链接，暂以书目呈现并如实标注，后续将继续补全。
+  </div>
   <p>光影与救赎 · 收录于 <a href="https://github.com/ferryzhou/web-apps">web-apps</a></p>
 </footer>
 
@@ -281,6 +297,9 @@ const PAL = [
   ["#4a1f2e","#8a3e58"], ["#22324a","#46618a"], ["#3a3a2a","#6f6a3e"]
 ];
 function hashIdx(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}return h%PAL.length;}
+/* verified = link points to a single-article page confirmed via the search index,
+   not a book / catalogue / summary page */
+function isVerified(url){return !/book\.douban\.com\/subject|readmoo\.com\/book|play\.google\.com|\/channel\//.test(url);}
 
 const AUTHORS = [
   {
@@ -300,7 +319,8 @@ const AUTHORS = [
        src:["《诺斯替主义的创世记——评〈骇客帝国〉》","https://www.wangyilibrary.org/post/诺斯替主义的创世记-评《骇客帝国》"]},
       {cn:"密阳",en:"Secret Sunshine",yr:2007,dir:"李沧东",theme:"每一缕阳光都有意思",glyph:"恕",
        summary:"全片围绕「宽恕」。丧子的女主角信主后想去监狱当面赦免凶手，却听到凶手说「上帝已先赦免了我」，她的自义因此崩塌，怨恨转成「神怎能在我宽恕之前先宽恕他」。他指出：真正的宽恕以双方向神的真实悔改为前提——人须先承认自己欠神的债，才谈得上凭信心免别人的债。",
-       src:["《每一缕阳光都有意思——评电影〈密阳〉》","https://www.wangyilibrary.org/post/每一缕阳光都有意思：评电影《密阳》"]},
+       src:["《每一缕阳光都有意思——评电影〈密阳〉》","https://www.wangyilibrary.org/post/每一缕阳光都有意思：评电影《密阳》"],
+       src2:["豆瓣转载全文","https://movie.douban.com/review/5986277/"]},
       {cn:"面纱",en:"The Painted Veil",yr:2006,dir:"约翰·卡兰",theme:"霍乱时期的恩典",glyph:"纱",
        summary:"他称之为「霍乱时期的恩典」。怀疑论者毛姆借这故事向信仰回望：虚荣促成了凯蒂的婚姻，浪漫把她推向情人，而真正的转折是恩典揭开人心的「面纱」——让虚妄的爱在苦难与宽恕中被更新。",
        src:["《霍乱时期的恩典——评电影〈面纱〉》","https://www.wangyilibrary.org/channel/天堂沉默了半小时（2007）"]},
@@ -382,19 +402,20 @@ const AUTHORS = [
     bio:"刘小枫（1956— ），当代著名学者，北大哲学硕士、巴塞尔大学神学博士，现任中国人民大学教授。早年以《拯救与逍遥》《走向十字架上的真》成为 1980 年代「文化基督徒」现象的代表，对基督教神学抱同情立场（其思想后期转向古典学与政治哲学，此处所涉主要为 1990 年代著作）。在《沉重的肉身》中，他以「叙事伦理学」解读波兰导演基耶斯洛夫斯基的电影。",
     approach:"他关注影像中<b>「人民伦理」与「个体自由伦理」的张力</b>：在启蒙之后，道德律令从「外在被给予」变成「人心自己为自己立法」——现代人是否真有能力独自立法？他赞赏基耶斯洛夫斯基以<b>对个体命运忠心耿耿的目光</b>，凝视破损的道德感觉与「爱的碎片」。",
     books:[
-      ["《沉重的肉身》","https://book.douban.com/subject/1059537/"],
-      ["刘小枫《〈十诫〉中译本序》","https://www.aisixiang.com/data/47274.html"]
+      ["《〈十诫〉中译本序》· 爱思想全文 ✓","https://www.aisixiang.com/data/47274.html"],
+      ["《爱的碎片中的惊鸿一瞥》· 南大文本库 ✓","https://ptext.nju.edu.cn/bd/d0/c12244a245200/page.htm"],
+      ["《沉重的肉身》· 豆瓣书目","https://book.douban.com/subject/1059537/"]
     ],
     films:[
       {cn:"十诫",en:"Dekalog",yr:1989,dir:"基耶斯洛夫斯基",theme:"永不消散的生存雾霭",glyph:"誡",
        summary:"影片虽以摩西「十诫」为题，却没有先知与神谕，讲的全是当代波兰普通人日常里的伦理难题。刘小枫由此追问：在康德式启蒙之后，「心中的道德律」能否称量个体那充满偶然、破损的肉身生命的重负？他指出导演并不作黑白分明的道德裁决，而是呈现善恶交缠、近乎无解的困境，以悲悯的目光凝视在诚实与谎言、亲情、负疚、爱欲之间挣扎的普通个体。",
-       src:["《沉重的肉身》第五篇《永不消散的生存雾霭中的小路》","https://book.douban.com/subject/1056917/"]},
+       src:["刘小枫《〈十诫〉中译本序》· 爱思想（全文）","https://www.aisixiang.com/data/47274.html"]},
       {cn:"蓝",en:"Trois couleurs: Bleu",yr:1993,dir:"基耶斯洛夫斯基",theme:"自由 · Liberté",glyph:"藍",
        summary:"对应「自由」。刘小枫认为影片追问的不是政治自由，而是自由的欠缺与代价：女主角在车祸中骤然失去丈夫与孩子，个体生命被偶然撕裂后，如何在情感的废墟上继续活下去。所谓自由，在此显现为一个人被抛入无所依傍的孤独之后的艰难自处。",
-       src:["《沉重的肉身》第七篇《爱的碎片的惊鸿一瞥》","https://book.douban.com/subject/1059537/"]},
+       src:["刘小枫《爱的碎片中的惊鸿一瞥》· 南京大学经典文本库（全文）","https://ptext.nju.edu.cn/bd/d0/c12244a245200/page.htm"]},
       {cn:"白",en:"Trois couleurs: Blanc",yr:1994,dir:"基耶斯洛夫斯基",theme:"平等 · Égalité",glyph:"白",
        summary:"对应「平等」。刘小枫借此思考：不掺杂利害权衡、真正对等的纯粹之爱是否可能？影片以一段婚姻的失衡、报复与重新靠近，揭示两性与人际之间「平等」的脆弱与吊诡。",
-       src:["《沉重的肉身》第七篇《爱的碎片的惊鸿一瞥》","https://book.douban.com/subject/1059537/"]},
+       src:["刘小枫《爱的碎片中的惊鸿一瞥》· 南京大学经典文本库（全文）","https://ptext.nju.edu.cn/bd/d0/c12244a245200/page.htm"]},
       {cn:"红",en:"Trois couleurs: Rouge",yr:1994,dir:"基耶斯洛夫斯基",theme:"博爱 · Fraternité",glyph:"紅",
        summary:"对应「博爱」。刘小枫将其读作对「圆满的两情相爱如何可能」的追问，探讨人与人之间跨越隔膜的相互理解与关切究竟能否实现。他特别强调三部曲中的「偶然性」——人物只靠偶然彼此勾连，车祸、空难、海难反复出现，暗示无常对个体生命近乎绝对的支配。",
        src:["《沉重的肉身》第七篇《爱的碎片的惊鸿一瞥》","https://book.douban.com/subject/1059537/"]}
@@ -449,6 +470,7 @@ AUTHORS.forEach((au, ai) => {
   if (au.films.length){
     html += `<div class="films">`;
     au.films.forEach((f, fi) => {
+      const vb = isVerified(f.src[1]) ? `<span class="vbadge" title="链接指向经检索确认的单篇文章正文页">✓ 已核验</span>` : "";
       html += `
         <article class="film" tabindex="0" data-au="${ai}" data-f="${fi}" role="button" aria-label="展开 ${f.cn} 的影评">
           <div class="poster" style="${posterStyle(f)}">
@@ -463,6 +485,7 @@ AUTHORS.forEach((au, ai) => {
           <div class="film-foot">
             <div class="cn">${f.cn}</div>
             <div class="dir">导演 · ${f.dir}</div>
+            ${vb}
           </div>
         </article>`;
     });
@@ -501,8 +524,12 @@ function openModal(au, f){
       <div class="m-author">评者 · ${au.name}（${au.alias}）</div>
       <p class="m-summary" style="margin-top:.8rem">${f.summary}</p>
       <div class="m-src">
-        原文出处（编者转述，非原文照录，请点击阅读原著）：<br>
+        ${isVerified(f.src[1])
+          ? `<span class="m-vbadge">✓ 已核验 · 链接为经检索确认的单篇文章正文页</span>`
+          : `<span class="m-vbadge unv">书目 / 合集页 · 暂未定位到独立文章链接</span>`}
+        <div style="margin-top:.7rem">原文出处（编者转述，非原文照录，请点击阅读原著）：</div>
         <a href="${f.src[1]}" target="_blank" rel="noopener">${f.src[0]} ↗</a>
+        ${f.src2?`<br><a href="${f.src2[1]}" target="_blank" rel="noopener">${f.src2[0]} ↗</a>`:""}
       </div>
     </div>`;
   overlay.classList.add("open");
