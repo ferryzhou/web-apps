@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,11 +27,12 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,7 +41,7 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--advance);stroke-width:2.7;stroke-dasharray:7 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
@@ -49,12 +50,27 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
@@ -74,140 +90,203 @@
   <div class="seal" aria-hidden="true"><span>光</span><span>武</span><span>平</span><span>蜀</span></div>
   <header>
     <h1>光武平蜀灭公孙述</h1>
-    <div class="sub">建武十一至十二年(35–36)　　<i>汉 岑彭·吴汉</i> 溯江克蜀 · <b>成家 公孙述</b>兵败身死</div>
+    <div class="sub">建武十一至十二年(35–36)　　<i>汉 岑彭·吴汉</i> 溯江克蜀 · <b>成家 公孙述</b>兵败身死　·　舟师溯江 · 火攻破锁</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 既平陇复望蜀</button>
-    <button data-p="1">岑彭溯江 · 火破荆门</button>
+    <button data-p="1">溯江西上 · 火破荆门</button>
     <button data-p="2">彭亡遇刺 · 吴汉继统</button>
     <button data-p="3">围成都 · 述死蜀平</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="光武平蜀灭公孙述形势图,含汉与成家疆界、长江三峡涪江岷江荆门与成都江州等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="光武平蜀灭公孙述形势图,含汉与成家疆界、长江三峡岷江嘉陵江诸水、舟师溯江西上水路与成家败亡,及成都江州荆门虎牙江关夷陵江陵等地">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:成家据益州(西),汉已定关东陇右(东),约以江关三峡为界 -->
-    <path d="M 566,0 C 572,90 560,170 540,250 C 522,300 508,360 512,430 C 518,520 542,580 560,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 566,0 C 572,90 560,170 540,250 C 522,300 508,360 512,430 C 518,520 542,580 560,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 566,0 C 572,90 560,170 540,250 C 522,300 508,360 512,430 C 518,520 542,580 560,640"/>
-    <text class="realm q" x="130" y="120" font-size="32">成 家(益州)</text>
-    <text class="realm j" x="690" y="560" font-size="30">汉(关东陇右)</text>
+    <!-- ══ 疆界:成家据益州(西·大),汉已定关东陇右荆州(东),约以荆门·三峡为界 ══ -->
+    <path d="M 890,0 C 884,120 880,260 882,360 C 884,470 892,560 896,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 890,0 C 884,120 880,260 882,360 C 884,470 892,560 896,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 890,0 C 884,120 880,260 882,360 C 884,470 892,560 896,640"/>
+    <text class="realm q" x="250" y="92" font-size="30">成 家(益州)</text>
+    <text class="realm j" x="906" y="150" font-size="20">汉</text>
+    <text class="cname s" x="884" y="172" style="fill:var(--advance);opacity:.7">荆州·天下</text>
 
-    <!-- 长江:自蜀中(西)经三峡·江关东下,汉水师溯之西上 -->
-    <path class="river" stroke-width="5.5" d="M 250,330 C 320,352 400,388 452,412 C 520,448 580,466 660,436 C 720,412 760,384 812,378 C 860,372 930,372 1000,370"/>
-    <!-- 涪江:自北(绵阳)南下,经武阳一带入江 -->
-    <path class="river" stroke-width="2.8" d="M 330,150 C 340,220 360,300 372,376 C 380,406 392,420 408,430"/>
-    <!-- 岷江:自北南下成都、经武阳入江 -->
-    <path class="river" stroke-width="2.6" d="M 240,150 C 244,210 250,280 258,340 C 266,380 282,404 300,416"/>
-    <text class="rname" x="640" y="452" style="font-size:13px">长 江</text>
-    <text class="rname" x="372" y="250" transform="rotate(82 372 250)" style="font-size:10.5px">涪 江</text>
-    <text class="rname" x="252" y="240" transform="rotate(84 252 240)" style="font-size:10.5px">岷 江</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 巫山·三峡:江关与夷陵之间,长江所穿 -->
+    <path class="mtn fill" d="M 668,250 L 686,218 L 700,236 L 720,208 L 740,232 L 760,212 L 778,240 Z"/>
+    <g class="mtn"><path d="M 690,244 l 10,-15 l 9,12 l 12,-18 l 10,14"/></g>
+    <text class="mname" x="672" y="266" style="font-size:10.5px">巫山 · 三峡</text>
+    <!-- 巴山:益州之北 -->
+    <path class="mtn fill" d="M 300,150 L 320,120 L 336,140 L 356,112 L 376,138 L 396,116 L 414,142 Z"/>
+    <text class="mname" x="316" y="112" style="font-size:10px">巴 山</text>
 
-    <!-- 三峡·巫山 -->
-    <g class="mtn"><path d="M 604,406 l 8,-13 l 8,13 M 620,400 l 8,-13 l 8,13 M 636,406 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="596" y="426">巫山·三峡</text>
-    <!-- 剑阁 -->
-    <g class="mtn"><path d="M 384,132 l 7,-12 l 7,12 M 398,126 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="398" y="118">剑阁</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 长江:自蜀中(西)东下,经江州、三峡、江关、荆门至江陵;汉水师溯之西上 -->
+    <path class="river" stroke-width="5.5" d="M 921,314 C 880,296 862,286 842,276 C 838,272 835,268 831,262 C 788,224 700,204 650,210 C 592,218 558,238 545,250 C 506,304 470,392 448,414 C 418,436 392,440 366,438 C 288,432 226,478 176,552"/>
+    <!-- 岷江(都江):自成都南下,经武阳,续南入江(宜宾方向,图外) -->
+    <path class="river" stroke-width="2.8" d="M 118,262 C 110,288 106,314 105,340 C 104,384 128,438 158,478 C 172,512 174,540 172,566"/>
+    <!-- 嘉陵江:自北南下,会长江于江州 -->
+    <path class="river" stroke-width="2.4" d="M 402,296 C 388,338 372,404 366,432"/>
+    <text class="rname" x="560" y="440" style="font-size:13px">长 江</text>
+    <text class="rname" x="126" y="410" transform="rotate(80 126 410)" style="font-size:10.5px">岷 江</text>
+    <text class="rname" x="404" y="340" transform="rotate(80 404 340)" style="font-size:10px">嘉陵江</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="chengdu"><circle cx="256" cy="300" r="6"/><text class="cname" x="200" y="296">成都<tspan class="cname s" dx="2">(成家都)</tspan></text></g>
-      <g class="city" data-city="guangdu"><circle cx="300" cy="352" r="3.5"/><text class="cname s" x="300" y="372">广都</text></g>
-      <g class="city" data-city="wuyang"><circle cx="392" cy="410" r="4.5"/><text class="cname s" x="344" y="428">武阳·彭亡</text></g>
-      <g class="city" data-city="jiangzhou"><circle cx="500" cy="440" r="4.5"/><text class="cname s" x="470" y="460">江州</text></g>
-      <g class="city" data-city="jingmen"><circle cx="700" cy="436" r="5"/><text class="cname" x="708" y="432">荆门·虎牙</text></g>
-      <g class="city" data-city="jiangguan"><circle cx="612" cy="416" r="4"/><text class="cname s" x="592" y="404">江关·鱼复</text></g>
+      <g class="city cap" data-city="chengdu"><circle cx="116" cy="266" r="6.5"/><text class="cname" x="128" y="262">成都<tspan class="cname s" dx="2">(成家都)</tspan></text></g>
+      <g class="city" data-city="guangdu"><circle cx="124" cy="303" r="3.8"/><text class="cname s" x="134" y="300">广都</text></g>
+      <g class="city" data-city="wuyang"><circle cx="105" cy="339" r="4.5"/><text class="cname s" x="90" y="358">武阳·彭亡</text></g>
+      <g class="city" data-city="jiangzhou"><circle cx="362" cy="437" r="5"/><text class="cname" x="330" y="456">江州</text></g>
+      <g class="city" data-city="jiangguan"><circle cx="650" cy="210" r="4.5"/><text class="cname s" x="612" y="200">江关·鱼复</text></g>
+      <g class="city" data-city="yiling"><circle cx="831" cy="262" r="4"/><text class="cname s" x="792" y="252">夷陵</text></g>
+      <g class="city" data-city="jingmen"><circle cx="842" cy="275" r="5.5"/><text class="cname" x="850" y="272">荆门·虎牙</text></g>
+      <g class="city cap" data-city="jiangling"><circle cx="921" cy="314" r="5.5"/><text class="cname" x="866" y="334">江陵<tspan class="cname s" dx="2">(津乡)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 既平陇复望蜀 -->
+    <!-- ══ 全图 · 既平陇复望蜀 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aj)" d="M 812,384 C 760,406 700,428 664,432"/>
-      <text class="mlabel j" x="720" y="418">岑彭率水师溯长江西上</text>
-      <path class="march j" marker-end="url(#aj)" d="M 652,436 C 560,462 460,458 408,436"/>
-      <text class="anno" x="470" y="474">吴汉、臧宫等诸军水陆并进</text>
-      <text class="mlabel q" x="130" y="200">公孙述僭号成家帝,据益州拒汉</text>
-      <text class="anno" x="150" y="230">帝书岑彭:「既平陇,复望蜀」</text>
+      <path class="march sea" style="stroke-dasharray:7 5" marker-end="url(#aj)" d="M 908,312 C 868,294 856,284 842,276 C 800,240 706,208 654,214 C 596,222 560,240 548,252 C 510,304 474,392 452,414 C 422,436 396,440 370,438"/>
+      <text class="mlabel j" x="470" y="404">岑彭率舟师溯长江西上,水陆并进</text>
+      <text class="anno" x="470" y="466">吴汉、臧宫、刘尚等诸军继进</text>
+      <rect class="camp" x="838" y="271" width="9" height="9" transform="rotate(45 842 275)"/>
+      <text class="mlabel q" x="666" y="330">蜀横江浮桥拒于荆门·虎牙</text>
+      <text class="mlabel q" x="190" y="140" style="font-size:12px">公孙述僭号成家帝,据益州拒汉</text>
+      <text class="anno" x="190" y="164">帝与彭书:「既平陇,复望蜀」</text>
+      <circle class="star" cx="116" cy="266" r="7"/>
+      <text class="anno" x="60" y="238">兵锋所指:成都</text>
     </g>
 
-    <!-- 阶段一:岑彭溯江 · 火破荆门 -->
+    <!-- ══ 阶段一:溯江西上 · 火破荆门 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="694" y="430" width="9" height="9" transform="rotate(45 698 434)"/>
-      <text class="mlabel q" x="708" y="458">蜀横江为浮桥·立斗楼拒汉</text>
-      <path class="march sea" marker-end="url(#aj)" d="M 720,432 C 712,432 706,432 702,434"/>
-      <circle class="star" cx="700" cy="436" r="8"/>
-      <text class="anno" x="640" y="480">岑彭乘东风,纵火焚浮桥斗楼,破荆门</text>
-      <path class="march sea" marker-end="url(#aj)" d="M 688,438 C 600,462 540,458 508,444"/>
-      <path class="march sea" marker-end="url(#aj)" d="M 492,440 C 440,428 410,418 400,414"/>
-      <text class="mlabel j" x="420" y="440">长驱拔江州,溯江疾进逼成都</text>
+      <!-- 蜀横江浮桥·斗楼·攒柱 -->
+      <line x1="833" y1="260" x2="857" y2="290" stroke="#9a2b1e" stroke-width="4" stroke-linecap="round"/>
+      <rect x="836" y="264" width="6" height="6" fill="#9a2b1e"/>
+      <rect x="848" y="278" width="6" height="6" fill="#9a2b1e"/>
+      <text class="mlabel q" x="676" y="322">蜀横江为浮桥·斗楼·攒柱锁江</text>
+      <!-- 火攻 -->
+      <path d="M 853,255 c -6,7 -4,13 1,16 c -2,-4 2,-7 3,-10 c 3,4 6,7 3,12 c 5,-3 6,-10 1,-15 c -1,3 -4,3 -4,0 c 0,-3 -1,-4 -4,-3 z" fill="var(--fire)" stroke="#9a2b1e" stroke-width=".6"/>
+      <text class="mlabel r" x="700" y="232" style="fill:var(--fire)">彭乘东风纵火,焚浮桥斗楼</text>
+      <circle class="star" cx="842" cy="275" r="9"/>
+      <!-- 破后长驱:拔夷陵、入江关、拔江州 -->
+      <path class="march sea" style="stroke-dasharray:7 5" marker-end="url(#aj)" d="M 826,262 C 786,226 702,208 654,214 C 596,222 560,240 548,252 C 510,304 474,392 452,414 C 422,436 396,440 372,438"/>
+      <text class="mlabel j" x="440" y="392">破荆门,拔夷陵,过江关,长驱拔江州</text>
     </g>
 
-    <!-- 阶段二:彭亡遇刺 · 吴汉继统 -->
+    <!-- ══ 阶段二:彭亡遇刺 · 吴汉继统 ══ -->
     <g id="ph2" class="ph">
-      <path class="march sea" marker-end="url(#aj)" d="M 500,436 C 460,428 420,420 400,416"/>
-      <text class="mlabel j" x="410" y="398">岑彭前锋径抵武阳,逼近成都</text>
-      <path d="M 392,410 l 4,-9 l 4,7 l 8,-4 l -4,8 l 9,4 l -9,3 l 4,8 l -8,-4 l -4,7 l -4,-9 l -8,4 l 4,-8 l -9,-3 l 9,-4 l -4,-8 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="330" y="392">述遣刺客诈降,夜刺杀岑彭于彭亡</text>
-      <path class="march j" marker-end="url(#aj)" d="M 384,412 C 360,388 320,352 300,332"/>
-      <text class="mlabel j" x="196" y="352">大司马吴汉继统其军,进围成都</text>
+      <!-- 江州→武阳:溯都江疾进 -->
+      <path class="march sea" style="stroke-dasharray:7 5" marker-end="url(#aj)" d="M 356,436 C 298,438 242,472 200,500 C 160,472 128,404 110,348"/>
+      <text class="mlabel j" x="208" y="490">溯都江(岷江)疾进,一日夜行二千余里</text>
+      <text class="mlabel j" x="158" y="378">径拔武阳,精骑驰广都,逼成都数十里</text>
+      <!-- 遇刺 -->
+      <g transform="translate(105,339)"><path d="M 0,0 l 4,-9 l 4,7 l 8,-4 l -4,8 l 9,4 l -9,3 l 4,8 l -8,-4 l -4,7 l -4,-9 l -8,4 l 4,-8 l -9,-3 l 9,-4 l -4,-8 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/></g>
+      <text class="mlabel r" x="54" y="430">述遣刺客诈降,夜刺杀岑彭于彭亡</text>
+      <!-- 吴汉继统 -->
+      <path class="march j" marker-end="url(#aj)" d="M 108,344 C 113,330 118,318 122,308"/>
+      <text class="anno" x="150" y="306">大司马吴汉继统其军</text>
     </g>
 
-    <!-- 阶段三:围成都 · 述死蜀平 -->
+    <!-- ══ 阶段三:围成都 · 述死蜀平 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 300,348 C 288,336 276,324 266,314"/>
-      <text class="anno" x="240" y="376">吴汉自广都进逼,与蜀军相拒</text>
-      <circle class="siege" cx="256" cy="300" r="26"/>
-      <text class="mlabel j" x="150" y="266">吴汉围攻成都</text>
-      <rect class="camp" x="250" y="276" width="9" height="9" transform="rotate(45 254 280)"/>
-      <text class="mlabel q" x="262" y="272">述亲出督战,为汉军所刺,重伤夜死</text>
-      <path d="M 256,300 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="170" y="326">明日延岑以成都降,天下复归于一</text>
+      <path class="march j" marker-end="url(#aj)" d="M 124,300 C 121,289 118,278 116,272"/>
+      <text class="anno" x="170" y="318">吴汉军广都,与蜀八战八克</text>
+      <circle class="siege" cx="116" cy="266" r="26"/>
+      <circle class="star" cx="116" cy="266" r="9"/>
+      <text class="mlabel j" x="150" y="224">吴汉围攻成都</text>
+      <rect class="camp" x="110" y="243" width="9" height="9" transform="rotate(45 114 247)"/>
+      <text class="mlabel q" x="160" y="248">述亲出督战,为汉军所刺,重伤夜死</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 132,278 C 164,302 204,330 236,350"/>
+      <text class="mlabel r" x="150" y="368">延岑举成都降,成家亡,天下复归于一</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(948,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(陆)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>岑彭水师溯江</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.7" stroke-dasharray="7 5"/></svg>岑彭舟师溯江(水路)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>吴汉进军(陆·骑)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>成家蜀军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>述败死</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>成家败亡</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>破城 / 决战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>成家</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="16" height="16"><path d="M 8,2 c -4,5 -3,9 1,11 c -1,-3 1,-5 2,-7 c 2,3 4,5 2,8 c 3,-2 4,-7 1,-10 c -1,2 -3,2 -3,0 c 0,-2 -1,-3 -3,-2 z" fill="#c0491f"/></svg>火攻焚浮桥</span>
+    <span class="item"><svg width="16" height="12"><rect x="6" y="0" width="4" height="12" fill="#9a2b1e"/></svg>横江锁</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>成家</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 溯江火攻 · 出奇制胜</h3>
+    <div class="lead">何以成家之亡,系于一炬一疾 —— 破锁于荆门,捣虚于成都</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="示意:成家横江锁于荆门,汉军火攻破锁、溯江疾进直捣成都腹心">
+      <!-- 长江(横贯,右为下游江陵,左为上游成都) -->
+      <path d="M 30,132 C 240,126 560,128 830,124" fill="none" stroke="#5f7f88" stroke-width="6" opacity=".85"/>
+      <text x="742" y="118" fill="#5f7f88" font-size="11" font-weight="700">江陵(汉·下游) →</text>
+      <text x="34" y="118" fill="#5f7f88" font-size="11" font-weight="700">← 成都(蜀·上游)</text>
+      <!-- 荆门:横江锁(浮桥·斗楼·攒柱) -->
+      <line x1="648" y1="98" x2="648" y2="166" stroke="#9a2b1e" stroke-width="7" stroke-linecap="round"/>
+      <rect x="643" y="90" width="10" height="10" fill="#9a2b1e"/>
+      <rect x="643" y="152" width="10" height="10" fill="#9a2b1e"/>
+      <text x="596" y="84" fill="#9a2b1e" font-size="11.5" font-weight="700">荆门·横江锁</text>
+      <text x="600" y="186" fill="#9a2b1e" font-size="10">浮桥·斗楼·攒柱</text>
+      <!-- 火攻破锁 -->
+      <path d="M 648,110 c -12,14 -8,26 3,32 c -4,-8 3,-14 6,-20 c 5,8 12,14 5,24 c 10,-6 12,-20 2,-30 c -2,6 -8,6 -8,0 c 0,-6 -3,-8 -8,-6 z" fill="#c0491f" stroke="#9a2b1e" stroke-width=".7" transform="translate(6,0)"/>
+      <text x="666" y="128" fill="#c0491f" font-size="11" font-weight="700">火攻焚桥</text>
+      <!-- 舟师破锁后疾进:teal 大箭直取成都 -->
+      <path d="M 632,150 C 460,168 260,166 118,150" fill="none" stroke="#1f4e54" stroke-width="4.5" marker-end="url(#aj)" stroke-linecap="round"/>
+      <text x="300" y="192" fill="#1f4e54" font-size="11.5" font-weight="700">溯江疾进 · 一日夜二千余里,不顿兵城邑</text>
+      <!-- 成都:腹心目标 -->
+      <circle cx="104" cy="150" r="12" fill="none" stroke="#9c7a2c" stroke-width="2.5"/>
+      <circle cx="104" cy="150" r="4" fill="#9c7a2c"/>
+      <text x="70" y="222" fill="#9c7a2c" font-size="11.5" font-weight="700">成都 · 腹心</text>
+      <!-- 中途被绕过的蜀防 -->
+      <text x="360" y="120" fill="#5c4f38" font-size="10" font-style="italic" opacity=".8">江关·三峡之险 (径过不攻)</text>
+    </svg>
+    <p class="intro">公孙述恃三峡之险、横江之锁以拒汉:于荆门、虎牙间<b>横江为浮桥,立斗楼、施攒柱,装大船</b>以断水道。岑彭数攻不利——蜀之守,守在<b>一锁</b>;而汉之破,破在<b>一炬</b>、进在<b>一疾</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>火攻破锁 · 荆门</h4>
+        <p>蜀以浮桥、斗楼、攒柱锁长江,舟师不得上。彭候东风大起,遣偏将鲁奇乘轻舟纵火,风怒火盛,桥楼俱焚,攒柱尽毁,水道遂通,一举破荆门、拔夷陵——如枋头以水陆定成败,此役之枢在破此一锁。</p>
+      </div>
+      <div class="c b">
+        <h4>疾进捣虚 · 成都</h4>
+        <p>锁既破,彭不顿兵郡县,溯江疾上:拔江州,复引兵溯都江,一日夜行二千余里,径拔武阳,精骑驰广都,去成都数十里,出其不意。蜀恃险而缓备,防线一破,腹心洞开,虽刺杀彭,而吴汉继之,成都终不能守。</p>
+      </div>
+    </div>
+    <p class="kicker">述<b>恃三峡之险、浮桥之固而缓其备</b>,彭以火破其锁、以速捣其虚:险不足恃,备不及设,故荆门一破而成都随亡。非蜀力不能敌,失在<b>恃险自固、坐待汉军</b>——「得陇望蜀」之志,遂以一炬一疾成之。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《后汉书·光武帝纪/岑彭传/吴汉传/公孙述传》约略绘出。成都、荆门在今四川、湖北,江州今重庆,武阳·彭亡在今四川彭山一带,江关·鱼复在今重庆奉节。城邑水道为相对示意,长江三峡及涪、岷诸江经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为建武中形势示意:公孙述据益州僭号成家,汉已平关东、定陇右隗嚣;三峡·江关为险,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>光武既定陇右,与岑彭书曰「人苦不知足,既平陇,复望蜀」,「得陇望蜀」之语出焉。岑彭乘东风火破荆门浮桥、溯江径逼成都,兵锋神速,惜遇刺于彭亡;吴汉继之围成都,述亲战被刺而死,蜀遂平——然吴汉纵兵屠成都、夷述宗族,史讥其暴。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(light-Mercator)投影定位,几何关系力求近实:成都在西(上游),江州居中而最南,江关·三峡偏北,荆门·虎牙、江陵在东(下游)。惟本役东西横亘八九经度而南北仅一二纬度,为免图幅过扁、注记相压,纬向略作放大(KY≈1.6·KX),故南北向距离较实际稍夸,阅时以经度定东西为准。江河疆界经简化描绘。</p>
+    <p><span class="n">注二</span>今地略考:成都今四川成都;广都今成都双流·华阳一带;武阳·彭亡今四川眉山彭山区;江州今重庆;江关·鱼复今重庆奉节,长江三峡东出之门户;夷陵今湖北宜昌;荆门·虎牙即宜昌以东、宜都虎牙滩夹江之险;江陵·津乡今湖北荆州,岑彭治舟师之所。</p>
+    <p><span class="n">注三</span>晕染疆界为建武中形势示意:公孙述据益州(图中大部)僭号成家帝,汉已平关东、定陇右隗嚣,天下唯蜀未下,故图之东缘一线为汉之荆州。益州东界本在江关·三峡,述进据荆门、虎牙以拒汉,故约界画于荆门之东;三峡为险,以点划「约界」标之,非实有画界。</p>
+    <p><span class="n">注四</span>本役依《后汉书·光武帝纪/岑彭传/吴汉传/公孙述传》约略绘出。光武既定陇右,与岑彭书曰「人苦不知足,既平陇,复望蜀」,「得陇望蜀」语出焉。彭乘东风火破荆门浮桥、溯江径逼成都,兵锋神速,惜遇刺于彭亡;吴汉继之,与蜀战于广都、成都间,八战八克,围成都,述亲战被刺重伤夜死,蜀遂平——然吴汉纵兵屠成都、夷述宗族,史讥其暴。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"既平陇复望蜀",d:"建武十一年(35)",p:["光武帝既平关东,复定陇右隗嚣,天下唯蜀之公孙述僭号「成家帝」未下。帝与征南大将军岑彭书曰:「人苦不知足,既平陇,复望蜀。」遂谋取蜀。","蜀道艰险,乃水陆并进:岑彭率水师溯长江西上,吴汉、臧宫等诸军继之。蜀于荆门、虎牙间横江为浮桥、立斗楼、装大船以拒汉军,益州震动。"]},
-  "1":{t:"岑彭溯江·火破荆门",d:"建武十一年(35)",p:["蜀将田戎、任满于荆门、虎牙之间横江作浮桥、斗楼,立攒柱以断水道,装大船以拒汉军。岑彭数攻不利,乃候东风。","岑彭乘东风纵火,焚其浮桥斗楼,大破荆门,长驱直入。既拔江州,复溯江疾进,兵锋直逼成都,蜀中大震。"]},
-  "2":{t:"彭亡遇刺·吴汉继统",d:"建武十一年(35)",p:["岑彭前锋径抵武阳,前逼成都数十里,所过郡县望风降附,蜀人惶骇。公孙述计穷,遣刺客诈为亡奴归降。","夜,刺客刺杀岑彭于彭亡聚。汉军失帅,大司马吴汉继统其众,率师进围成都,与蜀军相拒。"]},
-  "3":{t:"围成都·述死蜀平",d:"建武十二年(36)",p:["吴汉军广都,进逼成都,与蜀军数战。公孙述倾其众亲出督战,为汉军所刺,洞胸重伤,舁还城中,夜死。","明日,蜀将延岑以成都降。天下复归于一,东汉统一遂成。惟吴汉纵兵屠成都、夷述宗族,尽灭延岑等家,史深讥其暴。"]}
+  all:{t:"既平陇复望蜀",d:"建武十一年(35)",p:["光武帝既平关东,复定陇右隗嚣,天下唯蜀之公孙述僭号「成家帝」未下。帝与征南大将军岑彭书曰:「人苦不知足,既平陇,复望蜀。」遂谋取蜀。","蜀道艰险,乃水陆并进:岑彭治舟师于江陵·津乡,溯长江西上;吴汉、臧宫、刘尚等诸军继之。蜀将田戎、任满于荆门、虎牙间横江为浮桥、立斗楼、装大船以拒汉军,益州震动。"]},
+  "1":{t:"溯江西上·火破荆门",d:"建武十一年(35)",p:["蜀将任满、田戎、程汎于荆门、虎牙之间横江作浮桥、斗楼,立攒柱以断水道,装大船以拒汉军。岑彭数攻不利,乃候东风。","彭乘东风,遣偏将鲁奇等纵火焚其浮桥斗楼,风怒火盛,桥楼攒柱俱焚,大破荆门、虎牙,擒任满,长驱直入。既拔夷陵,过江关,遂拔江州,溯江疾进,蜀中大震。"]},
+  "2":{t:"彭亡遇刺·吴汉继统",d:"建武十一年(35)",p:["岑彭既拔江州,留兵拒延岑,自引兵溯都江(岷江)而上,袭击侯丹,一日夜行二千余里,径拔武阳,遣精骑驰广都,前逼成都数十里,所过望风降附,蜀人惶骇。公孙述计穷,遣刺客诈为亡奴归降。","夜,刺客刺杀岑彭于彭亡聚——「彭亡」之名,时人以为谶。汉军失帅,大司马吴汉继统其众,率师进围成都,与蜀军相拒。"]},
+  "3":{t:"围成都·述死蜀平",d:"建武十二年(36)",p:["吴汉军广都,进逼成都,与蜀军大战,八战八克,遂薄其郭。公孙述倾其众,自将数万人出战,为汉军所刺,洞胸重伤,舁还城中,是夜死。","明日,蜀将延岑以成都降。成家亡,天下复归于一,东汉统一遂成。惟吴汉纵兵屠成都、夷述宗族,尽灭延岑等家,史深讥其暴。"]}
 };
 const CITY={
-  chengdu:{t:"成都",d:"成家都城,今四川成都",p:["公孙述僭号成家帝之都。岑彭前锋逼之,述遣刺客杀彭;继吴汉围攻,述亲出督战被刺,重伤夜死,延岑举城降,蜀平。"]},
-  guangdu:{t:"广都",d:"今四川双流一带",p:["成都东南要地。吴汉进军据此以逼成都,为围城之据点。"]},
-  wuyang:{t:"武阳·彭亡",d:"今四川彭山一带",p:["岑彭前锋所抵,前逼成都。述遣诈降刺客,夜刺杀岑彭于彭亡聚——「彭亡」之名,时人以为谶。"]},
-  jiangzhou:{t:"江州",d:"今重庆",p:["长江要冲。岑彭破荆门后溯江拔之,遂长驱西进,直逼成都。"]},
-  jingmen:{t:"荆门·虎牙",d:"今湖北宜都一带",p:["蜀于此横江为浮桥、立斗楼、装大船以拒汉水军。岑彭乘东风纵火焚之,大破荆门,水城尽毁。"]},
-  jiangguan:{t:"江关·鱼复",d:"今重庆奉节",p:["长江三峡之门户,汉军入蜀之要隘。岑彭水师溯江过此,径入蜀中。"]}
+  chengdu:{t:"成都",d:"成家都城,今四川成都",p:["公孙述僭号成家帝之都。岑彭前锋逼之,述遣刺客杀彭;继吴汉围攻,八战八克,述亲出督战被刺,重伤夜死,延岑举城降,蜀平。"]},
+  guangdu:{t:"广都",d:"今成都双流·华阳一带",p:["成都东南要地。岑彭遣精骑先驰据之以逼成都;吴汉复军于此,进围成都,为围城之据点。"]},
+  wuyang:{t:"武阳·彭亡",d:"今四川眉山彭山区",p:["岑彭溯都江疾进所拔,前逼成都。述遣诈降刺客,夜刺杀岑彭于彭亡聚——「彭亡」之名,时人以为谶。"]},
+  jiangzhou:{t:"江州",d:"今重庆",p:["长江与嘉陵江合流之要冲。岑彭破荆门后溯江拔之,留兵拒延岑,自引兵溯都江西进,直逼成都。"]},
+  jiangguan:{t:"江关·鱼复",d:"今重庆奉节",p:["长江三峡东出之门户,益州入蜀之要隘。岑彭破荆门后,舟师溯江过此,径入蜀中。"]},
+  yiling:{t:"夷陵",d:"今湖北宜昌",p:["长江出三峡之口。岑彭火破荆门后拔之,遂溯江西入三峡。"]},
+  jingmen:{t:"荆门·虎牙",d:"今湖北宜昌东·宜都虎牙一带",p:["荆门山在南,虎牙山在北,夹江对峙,长江之险。蜀于此横江为浮桥、立斗楼、施攒柱、装大船以拒汉水军。岑彭乘东风纵火焚之,大破荆门,水城尽毁——此役之枢。"]},
+  jiangling:{t:"江陵·津乡",d:"今湖北荆州",p:["汉征南大将军岑彭治舟师之所。建武十一年,彭发江陵、津乡,率楼船水军溯长江西上伐蜀。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

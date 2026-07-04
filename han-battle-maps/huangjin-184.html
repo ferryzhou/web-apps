@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0532a;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,10 +27,11 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:1 5 7 5;opacity:.62;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.44}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,9 +46,11 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4;opacity:.9}
+  .fire .f1{fill:var(--fire);opacity:.92}.fire .f2{fill:var(--gold);opacity:.95}
+  .flabel{fill:var(--fire);font-size:11px;font-weight:700;letter-spacing:.06em}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +59,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.siege){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,113 +90,159 @@
   <div class="seal" aria-hidden="true"><span>黄</span><span>巾</span><span>之</span><span>乱</span></div>
   <header>
     <h1>黄巾之乱</h1>
-    <div class="sub">汉灵帝中平元年(184)　　<i>汉 皇甫嵩·朱儁</i> 分讨平乱 · <b>黄巾</b>虽平而群雄渐起</div>
+    <div class="sub">汉灵帝中平元年(184)　　<i>汉 皇甫嵩·朱儁·卢植</i> 分道讨平 <b>黄巾</b>(张角·波才)　·　八州并起 · 乱平而群雄渐起</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 八州并起</button>
-    <button data-p="1">长社火攻 · 破波才</button>
-    <button data-p="2">转战南阳 · 拔宛城</button>
-    <button data-p="3">广宗下曲阳 · 汉衰</button>
+    <button data-p="1">长社火攻 · 荡颍豫兖</button>
+    <button data-p="2">转战南阳 · 拔宛</button>
+    <button data-p="3">广宗下曲阳 · 决胜</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="黄巾之乱形势图,含汉官军与黄巾疆界、黄河颍水漳水与洛阳长社广宗等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="黄巾之乱形势图,含汉官军与黄巾八州起事区、黄河颍水漳水与洛阳长社广宗下曲阳等城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:黄巾八州散布并起(以晕染示乱区遍布),汉官军以洛阳京师为中枢 -->
-    <path d="M 0,0 L 1000,0 L 1000,120 C 820,150 700,140 560,180 C 420,220 300,300 220,420 C 160,510 140,590 130,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 1000,120 C 820,150 700,140 560,180 C 420,220 300,300 220,420 C 160,510 140,590 130,640 L 1000,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 1000,120 C 820,150 700,140 560,180 C 420,220 300,300 220,420 C 160,510 140,590 130,640"/>
-    <text class="realm q" x="120" y="130" font-size="30">黄巾乱区</text>
-    <text class="realm q" x="640" y="90" font-size="22" opacity=".34">八州并起</text>
-    <text class="realm j" x="640" y="480" font-size="30">汉·官军</text>
+    <!-- ══ 汉土为底(青),黄巾八州散布起事(赭色晕染,示乱区遍布,无实界) ══ -->
+    <rect x="0" y="0" width="1000" height="640" fill="url(#jinHatch)" opacity=".55"/>
+    <!-- 冀州黄巾:张角本据,广宗·下曲阳·钜鹿 -->
+    <path d="M 558,54 C 620,48 720,50 782,58 C 792,120 790,190 780,240 C 720,258 660,260 604,252 C 566,214 552,130 558,54 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 558,54 C 620,48 720,50 782,58 C 792,120 790,190 780,240 C 720,258 660,260 604,252 C 566,214 552,130 558,54 Z"/>
+    <!-- 兖州·东郡黄巾:卜己据苍亭 -->
+    <path d="M 600,262 C 680,250 762,248 808,256 C 814,304 810,350 802,376 C 720,388 650,386 606,376 C 598,342 596,300 600,262 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 600,262 C 680,250 762,248 808,256 C 814,304 810,350 802,376 C 720,388 650,386 606,376 C 598,342 596,300 600,262 Z"/>
+    <!-- 豫州黄巾:颍川(波才)·汝南·陈国 -->
+    <path d="M 372,414 C 460,406 560,414 652,452 C 668,504 656,556 636,588 C 540,600 460,600 400,586 C 372,540 366,472 372,414 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 372,414 C 460,406 560,414 652,452 C 668,504 656,556 636,588 C 540,600 460,600 400,586 C 372,540 366,472 372,414 Z"/>
+    <!-- 荆州·南阳黄巾:张曼成据宛 -->
+    <path d="M 234,506 C 300,500 360,506 374,516 C 378,556 374,590 368,604 C 300,608 254,606 236,602 C 230,566 230,532 234,506 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 234,506 C 300,500 360,506 374,516 C 378,556 374,590 368,604 C 300,608 254,606 236,602 C 230,566 230,532 234,506 Z"/>
 
-    <!-- 黄河:自西(河东)东行,经河南北、入海 -->
-    <path class="river" stroke-width="5" d="M 40,300 C 160,286 280,296 400,282 C 520,268 640,258 760,268 C 850,276 930,290 1000,296"/>
-    <!-- 颍水:自嵩高(洛阳东南)东南流,经颍川、长社 -->
-    <path class="river" stroke-width="2.6" d="M 470,360 C 520,410 560,468 600,540"/>
-    <!-- 漳水:太行东麓,经广宗、下曲阳一带东北流 -->
-    <path class="river" stroke-width="2.6" d="M 660,130 C 720,170 780,210 850,236"/>
-    <text class="rname" x="300" y="278" style="font-size:13px">黄 河</text>
-    <text class="rname" x="560" y="470" transform="rotate(56 560 470)" style="font-size:11px">颍 水</text>
-    <text class="rname" x="740" y="182" transform="rotate(28 740 182)" style="font-size:11px">漳 水</text>
+    <text class="realm j" x="120" y="240" font-size="30">汉·官军</text>
+    <text class="cname s" x="122" y="262" style="fill:var(--advance);opacity:.72">洛阳京师,分道所自</text>
+    <text class="realm q" x="600" y="120" font-size="19">冀州黄巾</text>
+    <text class="cname s" x="602" y="138" style="fill:var(--enemy);opacity:.7">张角·钜鹿</text>
+    <text class="realm q" x="646" y="332" font-size="17">兖·东郡</text>
+    <text class="realm q" x="392" y="500" font-size="19">豫州黄巾</text>
+    <text class="cname s" x="394" y="518" style="fill:var(--enemy);opacity:.7">颍川·汝南·陈</text>
+    <text class="realm q" x="250" y="546" font-size="16">荆·南阳</text>
 
-    <!-- 太行余脉:西侧屏障 -->
-    <g class="mtn"><path d="M 560,180 l 9,-15 l 9,15 M 578,172 l 9,-15 l 9,15 M 596,180 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="558" y="200">太行余脉</text>
+    <!-- ══ 山脉 ══ -->
+    <g class="mtn"><path d="M 470,132 l 10,-17 l 10,17 M 490,124 l 10,-17 l 10,17 M 510,132 l 9,-15 l 9,15"/></g>
+    <text class="mname" x="470" y="150" transform="rotate(-24 470 150)">太行余脉</text>
+    <g class="mtn"><path d="M 336,432 l 8,-13 l 8,13 M 352,426 l 8,-13 l 8,13"/></g>
+    <text class="mname" x="326" y="448" style="font-size:10px">嵩 高</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自河东东北行,经荥阳、东郡濮阳、苍亭津,东北入海 -->
+    <path class="river" stroke-width="5" d="M 150,395 C 260,384 360,378 418,379 C 500,360 570,330 639,297 C 672,282 700,268 715,254 C 760,225 810,190 860,150"/>
+    <!-- 颍水:自嵩高东南流,经阳翟、长社,趋汝南入淮 -->
+    <path class="river" stroke-width="2.8" d="M 348,410 C 400,438 424,452 452,470 C 500,500 540,548 566,600"/>
+    <!-- 漳水:太行东麓,西绕广宗、下曲阳东北流 -->
+    <path class="river" stroke-width="2.4" d="M 500,235 C 540,190 580,140 640,95"/>
+    <!-- 淮水:南境大川,汝南、陈国之南 -->
+    <path class="river" stroke-width="3" d="M 360,602 C 500,592 660,586 860,594"/>
+    <text class="rname" x="322" y="366" style="font-size:13px">黄 河</text>
+    <text class="rname" x="470" y="512" transform="rotate(58 470 512)" style="font-size:11px">颍 水</text>
+    <text class="rname" x="546" y="176" transform="rotate(-40 546 176)" style="font-size:10.5px">漳水</text>
+    <text class="rname" x="404" y="600" style="font-size:11px">淮 水</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="luoyang"><circle cx="440" cy="330" r="6"/><text class="cname" x="452" y="326">洛阳<tspan class="cname s" dx="2">(汉京师)</tspan></text></g>
-      <g class="city" data-city="yingchuan"><circle cx="510" cy="392" r="4.5"/><text class="cname" x="522" y="388">颍川</text></g>
-      <g class="city" data-city="changshe"><circle cx="558" cy="426" r="5"/><text class="cname" x="570" y="422">长社</text></g>
-      <g class="city" data-city="wancheng"><circle cx="452" cy="520" r="5"/><text class="cname" x="466" y="524">宛城<tspan class="cname s" dx="2">(南阳)</tspan></text></g>
-      <g class="city" data-city="julu"><circle cx="770" cy="140" r="4.5"/><text class="cname" x="700" y="130">巨鹿</text></g>
-      <g class="city" data-city="guangzong"><circle cx="740" cy="190" r="5"/><text class="cname" x="752" y="186">广宗</text></g>
-      <g class="city" data-city="xiaquyang"><circle cx="820" cy="150" r="5"/><text class="cname" x="832" y="146">下曲阳</text></g>
+      <g class="city cap" data-city="luoyang"><circle cx="290" cy="406" r="6.5"/><text class="cname" x="214" y="402">洛阳<tspan class="cname s" dx="2">(京师)</tspan></text></g>
+      <g class="city" data-city="yangzhai"><circle cx="429" cy="450" r="4.5"/><text class="cname" x="386" y="440">阳翟<tspan class="cname s" dx="1">(颍川)</tspan></text></g>
+      <g class="city" data-city="changshe"><circle cx="468" cy="446" r="5.5"/><text class="cname" x="480" y="440">长社</text></g>
+      <g class="city" data-city="wan"><circle cx="301" cy="562" r="5"/><text class="cname" x="220" y="566">宛<tspan class="cname s" dx="1">(南阳)</tspan></text></g>
+      <g class="city" data-city="runan"><circle cx="585" cy="565" r="4.5"/><text class="cname" x="597" y="569">汝南</text></g>
+      <g class="city" data-city="chen"><circle cx="618" cy="492" r="4.5"/><text class="cname" x="630" y="488">陈国</text></g>
+      <g class="city" data-city="dongjun"><circle cx="639" cy="297" r="4.5"/><text class="cname" x="562" y="292">东郡</text></g>
+      <g class="city" data-city="cangting"><circle cx="715" cy="254" r="5"/><text class="cname" x="727" y="250">苍亭</text></g>
+      <g class="city" data-city="guangzong"><circle cx="661" cy="168" r="5.5"/><text class="cname" x="676" y="164">广宗</text></g>
+      <g class="city" data-city="xiaquyang"><circle cx="639" cy="79" r="5.5"/><text class="cname" x="654" y="82">下曲阳</text></g>
     </g>
 
     <!-- 全图 · 八州并起 -->
     <g id="phAll" class="ph">
-      <rect class="camp" x="736" y="186" width="9" height="9" transform="rotate(45 740 190)"/>
-      <rect class="camp" x="816" y="146" width="8" height="8" transform="rotate(45 820 150)"/>
-      <rect class="camp" x="554" y="422" width="8" height="8" transform="rotate(45 558 426)"/>
-      <text class="mlabel q" x="600" y="240">张角自称天公将军,弟宝、梁称地、人公</text>
-      <text class="anno" x="600" y="256">皆著黄巾为帜,焚官府、掠州郡</text>
-      <text class="mlabel q" x="150" y="230">「苍天已死,黄天当立」旬月之间天下响应</text>
-      <path class="march j" marker-end="url(#aj)" d="M 452,332 C 490,360 500,372 508,384"/>
-      <text class="mlabel j" x="430" y="366">遣皇甫嵩、朱儁讨颍川</text>
-      <path class="march j" marker-end="url(#aj)" d="M 448,326 C 560,270 660,220 732,196"/>
-      <text class="mlabel j" x="470" y="292">卢植北讨张角于广宗</text>
+      <rect class="camp" x="464" y="442" width="9" height="9" transform="rotate(45 468 446)"/>
+      <rect class="camp" x="657" y="164" width="9" height="9" transform="rotate(45 661 168)"/>
+      <rect class="camp" x="635" y="75" width="8" height="8" transform="rotate(45 639 79)"/>
+      <rect class="camp" x="711" y="250" width="8" height="8" transform="rotate(45 715 254)"/>
+      <rect class="camp" x="297" y="558" width="8" height="8" transform="rotate(45 301 562)"/>
+      <text class="mlabel q" x="470" y="286">张角自称天公将军,弟宝、梁称地、人公</text>
+      <text class="anno" x="470" y="302">「苍天已死,黄天当立,岁在甲子,天下大吉」</text>
+      <text class="anno" x="470" y="318">皆著黄巾为帜,焚官府、掠州郡,旬月天下响应</text>
+      <path class="march j" marker-end="url(#aj)" d="M 298,412 C 350,432 392,440 424,448"/>
+      <text class="mlabel j" x="300" y="470">遣皇甫嵩·朱儁东讨颍川</text>
+      <path class="march j" marker-end="url(#aj)" d="M 296,400 C 420,300 560,210 655,175"/>
+      <text class="mlabel j" x="330" y="300">卢植北讨张角于广宗</text>
+      <!-- 图外诸州亦起(八州并起) -->
+      <g transform="translate(320,44)"><path class="march q" marker-end="url(#aq)" d="M 0,22 L 0,4"/><text class="mlabel q" x="8" y="16">幽州↑</text></g>
+      <g transform="translate(946,300)"><path class="march q" marker-end="url(#aq)" d="M 0,0 L 22,0"/><text class="mlabel q" x="-78" y="-4">青·徐亦起→</text></g>
+      <g transform="translate(690,614)"><path class="march q" marker-end="url(#aq)" d="M 0,0 L 0,18"/><text class="mlabel q" x="8" y="14">扬州↓</text></g>
     </g>
 
-    <!-- 阶段一:长社火攻 · 破波才 -->
+    <!-- 阶段一:长社火攻 · 荡颍豫兖 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 452,336 C 490,376 520,400 550,420"/>
-      <text class="mlabel j" x="430" y="380">嵩、儁进讨颍川黄巾</text>
-      <rect class="camp" x="574" y="422" width="10" height="10" transform="rotate(45 578 426)"/>
-      <text class="mlabel q" x="592" y="430">波才拥众围嵩于长社</text>
-      <path class="march q siege" d="M 540,410 C 560,398 580,406 588,426 C 592,446 578,458 558,452"/>
-      <circle class="star" cx="558" cy="426" r="8"/>
-      <text class="anno" x="440" y="452">嵩乘夜大风纵火,举燧夹击</text>
-      <text class="mlabel j" x="440" y="470">骑都尉曹操适至,内外并势,大破波才</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 566,432 C 600,470 630,510 650,548"/>
-      <text class="mlabel r" x="620" y="500">颍川、汝南、陈国三郡皆平</text>
+      <path class="march j" marker-end="url(#aj)" d="M 298,410 C 358,436 410,448 460,448"/>
+      <text class="mlabel j" x="300" y="428">嵩·儁进讨颍川黄巾</text>
+      <rect class="camp" x="464" y="442" width="10" height="10" transform="rotate(45 468 446)"/>
+      <path class="siege" d="M 448,432 C 470,420 492,430 498,450 C 500,470 484,482 466,478"/>
+      <text class="mlabel q" x="502" y="430">波才拥众围嵩于长社</text>
+      <g class="fire" transform="translate(454,428)">
+        <path class="f1" d="M 0,0 C -6,-9 -3,-18 0,-24 C 3,-18 6,-9 0,0 Z"/>
+        <path class="f2" d="M 0,-3 C -3,-9 -1.5,-15 0,-19 C 1.5,-15 3,-9 0,-3 Z"/>
+      </g>
+      <text class="flabel" x="398" y="418">夜纵火</text>
+      <circle class="star" cx="468" cy="446" r="9"/>
+      <text class="anno" x="392" y="466">乘夜大风纵火,举燧夹击</text>
+      <text class="anno" x="392" y="482">骑都尉曹操适至,内外并势,大破波才</text>
+      <path class="march j" marker-end="url(#aj)" d="M 476,452 C 528,486 558,522 582,558"/>
+      <text class="mlabel j" x="500" y="524">进破汝南·陈国黄巾于西华</text>
+      <path class="march j" marker-end="url(#aj)" d="M 622,486 C 678,412 702,330 714,262"/>
+      <text class="mlabel j" x="640" y="420">嵩东讨东郡</text>
+      <circle class="star" cx="715" cy="254" r="9"/>
+      <rect class="camp" x="711" y="250" width="9" height="9" transform="rotate(45 715 254)"/>
+      <text class="mlabel j" x="628" y="238">破卜己于苍亭,擒斩七千余</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 476,458 C 440,510 420,552 412,588"/>
+      <text class="mlabel r" x="360" y="560">颍、汝、陈黄巾溃</text>
     </g>
 
-    <!-- 阶段二:转战南阳 · 拔宛城 -->
+    <!-- 阶段二:转战南阳 · 拔宛 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 552,428 C 500,470 470,494 460,508"/>
-      <text class="mlabel j" x="470" y="466">朱儁转攻南阳黄巾</text>
-      <rect class="camp" x="448" y="516" width="10" height="10" transform="rotate(45 452 520)"/>
-      <path class="march q siege" d="M 430,506 C 448,494 468,502 476,520 C 480,540 466,552 446,546"/>
-      <text class="mlabel q" x="330" y="520">黄巾据宛城坚守</text>
-      <circle class="star" cx="452" cy="520" r="8"/>
-      <text class="anno" x="330" y="556">儁与荆州刺史徐璆等围攻,苦战数月</text>
-      <text class="mlabel j" x="330" y="574">拔宛城,斩黄巾帅孙夏,荆豫渐定</text>
+      <path class="march j" marker-end="url(#aj)" d="M 452,452 C 400,498 342,538 312,556"/>
+      <text class="mlabel j" x="336" y="500">朱儁转兵南攻南阳</text>
+      <rect class="camp" x="297" y="558" width="10" height="10" transform="rotate(45 301 562)"/>
+      <path class="siege" d="M 281,548 C 302,536 324,546 330,566 C 332,586 316,596 298,592"/>
+      <text class="mlabel q" x="196" y="536">黄巾据宛坚守</text>
+      <circle class="star" cx="301" cy="562" r="9"/>
+      <text class="anno" x="196" y="586">帅张曼成死,余众推赵弘、孙夏更守</text>
+      <text class="mlabel j" x="196" y="602">儁与徐璆·秦颉苦战数月,拔宛斩孙夏</text>
+      <text class="anno" x="386" y="616">荆·豫之间遂定</text>
     </g>
 
-    <!-- 阶段三:广宗下曲阳 · 黄巾平而汉衰 -->
+    <!-- 阶段三:广宗下曲阳 · 决胜 -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 452,326 C 560,266 660,216 730,194"/>
-      <text class="mlabel j" x="450" y="286">皇甫嵩代卢植北上广宗</text>
-      <rect class="camp" x="736" y="186" width="10" height="10" transform="rotate(45 740 190)"/>
-      <circle class="star" cx="740" cy="190" r="8"/>
-      <text class="anno" x="600" y="228">时张角已病死,嵩夜掩击,破张梁,剖角棺戮尸</text>
-      <path class="march j" marker-end="url(#aj)" d="M 748,186 C 778,172 800,162 814,154"/>
-      <circle class="star" cx="820" cy="150" r="8"/>
-      <text class="mlabel j" x="770" y="132">进破张宝于下曲阳</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 740,196 C 720,240 700,290 686,336"/>
-      <text class="mlabel r" x="660" y="300">黄巾主力遂平</text>
-      <text class="anno" x="150" y="470">乱平而州郡拥兵自重,群雄渐起,汉室将倾</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,400 C 430,300 560,208 654,174"/>
+      <text class="mlabel j" x="330" y="286">嵩代卢植·董卓,北击广宗</text>
+      <rect class="camp" x="657" y="164" width="10" height="10" transform="rotate(45 661 168)"/>
+      <circle class="star" cx="661" cy="168" r="9"/>
+      <text class="anno" x="480" y="150">时张角已病死,嵩夜勒兵鸡鸣驰击</text>
+      <text class="mlabel j" x="480" y="196">破张梁于广宗,斩三万,剖角棺戮尸</text>
+      <path class="march j" marker-end="url(#aj)" d="M 662,158 C 656,132 648,104 640,88"/>
+      <circle class="star" cx="639" cy="79" r="9"/>
+      <rect class="camp" x="635" y="75" width="9" height="9" transform="rotate(45 639 79)"/>
+      <text class="mlabel j" x="654" y="102">进破张宝于下曲阳,斩获十余万</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 655,178 C 620,246 600,320 594,388"/>
+      <text class="mlabel r" x="540" y="330">黄巾主力遂平</text>
+      <text class="anno" x="120" y="360">乱平而州郡拥兵自重,群雄渐起,汉室将倾</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -189,33 +253,93 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉·官军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>黄巾军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃败</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>黄巾乱区</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>黄巾溃败</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><path d="M 8,15 C 2,7 5,2 8,-1 C 11,2 14,7 8,15 Z" fill="#c0532a"/></svg>火攻</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" transform="rotate(45 7 7)" fill="#9a2b1e"/></svg>黄巾据点</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>黄巾起事区</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 乱平而汉室瓦解</h3>
+    <div class="lead">何以黄巾旬月而平,而汉祚由是瓦解 —— 一纸募兵之诏,权柄下移之始</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="黄巾之乱因果示意:八州并起,官军三路分讨旬月而平;然弛禁募兵,州郡拥兵,遂启群雄割据">
+      <text x="30" y="26" fill="#9a2b1e" font-size="12" font-weight="700">病 · 八州并起</text>
+      <g fill="url(#qinHatch)" stroke="#9a2b1e" stroke-width="1">
+        <rect x="30" y="40" width="30" height="22"/><rect x="30" y="72" width="30" height="22"/>
+        <rect x="30" y="104" width="30" height="22"/><rect x="30" y="136" width="30" height="22"/>
+        <rect x="30" y="168" width="30" height="22"/><rect x="30" y="200" width="30" height="22"/>
+      </g>
+      <text x="66" y="56" fill="#5c4f38" font-size="9.5">冀·张角</text><text x="66" y="88" fill="#5c4f38" font-size="9.5">豫·波才</text>
+      <text x="66" y="120" fill="#5c4f38" font-size="9.5">兖·卜己</text><text x="66" y="152" fill="#5c4f38" font-size="9.5">荆·曼成</text>
+      <text x="66" y="184" fill="#5c4f38" font-size="9.5">青·徐</text><text x="66" y="216" fill="#5c4f38" font-size="9.5">幽·扬</text>
+      <!-- 官军三路收束 -->
+      <g stroke="#1f4e54" stroke-width="2.4" fill="none">
+        <path d="M 178,130 C 240,100 260,120 320,124"/>
+        <path d="M 178,130 C 240,130 268,128 320,130"/>
+        <path d="M 178,130 C 240,160 260,140 320,136"/>
+      </g>
+      <path d="M 320,130 m -4,-6 L 320,130 L 314,134" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <text x="150" y="120" fill="#1f4e54" font-size="10.5" font-weight="700">皇甫嵩</text>
+      <text x="150" y="146" fill="#1f4e54" font-size="10.5" font-weight="700">朱儁·卢植</text>
+      <rect x="324" y="106" width="96" height="48" rx="3" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.4"/>
+      <text x="372" y="128" fill="#1f4e54" font-size="12" font-weight="700" text-anchor="middle">三路分讨</text>
+      <text x="372" y="145" fill="#5c4f38" font-size="9.5" text-anchor="middle">旬月荡平</text>
+      <path d="M 420,130 L 470,130" stroke="#5c4f38" stroke-width="1.6" marker-end=""/>
+      <path d="M 470,130 l -8,-4 v 8 z" fill="#5c4f38"/>
+      <!-- 病根:募兵之诏 -->
+      <rect x="474" y="98" width="128" height="64" rx="3" fill="rgba(156,122,44,.14)" stroke="#9c7a2c" stroke-width="1.6"/>
+      <text x="538" y="122" fill="#9c7a2c" font-size="11.5" font-weight="700" text-anchor="middle">弛党锢 · 令州郡</text>
+      <text x="538" y="140" fill="#9c7a2c" font-size="11.5" font-weight="700" text-anchor="middle">自募兵讨贼</text>
+      <text x="538" y="156" fill="#5c4f38" font-size="9" text-anchor="middle">兵权下移</text>
+      <path d="M 602,130 L 652,130" stroke="#5c4f38" stroke-width="1.6"/>
+      <path d="M 652,130 l -8,-4 v 8 z" fill="#5c4f38"/>
+      <!-- 果:州牧拥兵→群雄 -->
+      <rect x="656" y="88" width="176" height="30" rx="3" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="744" y="108" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">州牧刺史拥兵自重</text>
+      <rect x="656" y="124" width="176" height="30" rx="3" fill="rgba(154,43,30,.14)" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="744" y="144" fill="#9a2b1e" font-size="11.5" font-weight="700" text-anchor="middle">群雄割据 · 汉室瓦解</text>
+      <text x="656" y="176" fill="#5c4f38" font-size="9.5">董卓入洛 → 三国之局肇于此</text>
+    </svg>
+    <p class="intro">黄巾以太平道传教十余年,徒众数十万,青、徐、幽、冀、荆、扬、兖、豫<b>八州同时并起</b>,旬月之间天下响应,京师震动。汉遣皇甫嵩、朱儁、卢植<b>三路分讨</b>,以长社火攻为转机,自颍川而汝南、陈、东郡,北决广宗、下曲阳,不逾岁而荡平。乱平之速,反成祸乱之深——为御贼计,朝廷弛禁而令州郡自募兵。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>官军分讨 · 各个击破</h4>
+        <p>黄巾虽众而八州散起、无统一号令,官军得以分道并进、逐方荡平:皇甫嵩、朱儁先破颍川波才,继定汝南、陈国,东破卜己于苍亭;朱儁南拔宛城;嵩北代卢植、董卓,决胜于广宗、下曲阳,斩获数十万。旬月之乱,不逾岁而平。</p>
+      </div>
+      <div class="c b">
+        <h4>募兵下移 · 尾大不掉</h4>
+        <p>平乱之际,朝廷解党锢、许州郡自募兵、后又改刺史为州牧以重其权。兵权、财权、人事悉归方镇,州牧刺史由是拥兵自守。中央徒存虚名,豪强乘时坐大——黄巾未尽而拥兵之患已成。</p>
+      </div>
+    </div>
+    <p class="kicker">故黄巾之平,非汉之振,实<b>汉室瓦解之始</b>:数年之后灵帝崩、何进召外兵,<b>董卓入洛、废立擅政</b>,关东州牧连兵讨之,天下遂分崩为群雄割据,三国鼎立之局肇端于此。旬月荡平之捷,竟埋四百年汉祚倾覆之根。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《后汉书·皇甫嵩朱儁列传》《灵帝纪》约略绘出。广宗、下曲阳在今河北(广宗今邢台一带、下曲阳今晋州西),长社在今河南长葛东,颍川治阳翟、宛城即今南阳;黄河、颍、漳诸水及城邑位置为相对示意。黄巾八州并起、散布无定界,故乱区以晕染约标,非实有画界。</p>
-    <p><span class="n">注二</span>张角以太平道传教十余年,徒众数十万,自青、徐、幽、冀、荆、扬、兖、豫八州同时起事,皆著黄巾为标帜。旬月之间天下响应,京师震动;灵帝以何进为大将军镇京,遣皇甫嵩、朱儁、卢植分道讨之。</p>
-    <p><span class="n">注三</span>乱虽旬月而平,然朝廷弛党锢、令州郡自募兵讨贼,州牧刺史由是拥兵自重。群雄渐起,中央之权益衰,遂启汉末分崩、董卓之乱与三国鼎立之局——黄巾之平,实汉室将倾之始。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作简化墨卡托投影定位,几何关系力求近实(南北向为主轴,故横向略经拉伸):洛阳京师居西,颍川·长社在其东南,南阳·宛在南,东郡·苍亭在东,广宗·下曲阳在东北之冀州。今地:长社在河南长葛东,阳翟即今禹州,宛即今南阳,汝南治平舆,陈国治今淮阳,东郡治濮阳,苍亭在今阳谷东北黄河津渡,广宗在今河北威县东,下曲阳在今晋州西。黄河、颍、漳、淮诸水经简化描绘。</p>
+    <p><span class="n">注二</span>黄巾八州并起、散布无定界,故图中乱区以四色晕染约标(冀、豫、兖、荆),非实有画界;青、徐、幽、扬四州亦同时起事,以图边箭头示之。张角以太平道传徒十余年,分徒众为三十六方,大方万余人、小方六七千,各立渠帅。中平元年二月同时举事,自称天公将军,弟宝、梁为地公、人公将军,皆著黄巾为标帜。事见《后汉书·皇甫嵩传》。</p>
+    <p><span class="n">注三</span>五月,皇甫嵩、朱儁讨颍川黄巾,为波才所围于长社;嵩因贼依草结营,乘夜大风纵火,举燧夹击,骑都尉曹操适将兵至,三军合势大破之(火攻见图中长社)。继破汝南、陈国黄巾于西华,东讨东郡卜己于苍亭,擒斩七千余。朱儁转攻南阳,与荆州刺史徐璆、南阳太守秦颉合围,苦战数月,拔宛斩孙夏。俱据《后汉书·皇甫嵩朱儁列传》《资治通鉴》卷五十八。</p>
+    <p><span class="n">注四</span>北路:卢植先围张角于广宗,以谗征还;董卓代之复败。诏以皇甫嵩代之。会张角先已病死,嵩夜勒兵鸡鸣驰击,大破张梁于广宗,斩首三万余,剖张角棺戮尸传首京师;进破张宝于下曲阳,斩获十余万,黄巾主力遂平(广宗、下曲阳金环即决胜二役)。乱虽旬月而平,而朝廷弛禁、令州郡自募兵,州牧刺史拥兵自重,遂启汉末分崩、董卓之乱与三国鼎立之局——黄巾之平,实汉室将倾之始(参见释要)。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"八州并起",d:"中平元年(184)二月",p:["汉季政乱,张角以太平道传教十余年,徒众数十万遍及青、徐、幽、冀、荆、扬、兖、豫八州。中平元年,以「苍天已死,黄天当立,岁在甲子,天下大吉」为谶,张角自称天公将军,弟宝、梁称地公、人公将军,同时起事,皆著黄巾为标帜。","黄巾焚官府、掠州郡,旬月之间天下响应,京师震动。灵帝以何进为大将军镇京师,遣皇甫嵩、朱儁、卢植分道讨之——嵩、儁东讨颍川,卢植北攻张角于冀州之广宗。"]},
-  "1":{t:"长社火攻·破波才",d:"中平元年五月",p:["皇甫嵩、朱儁进讨颍川黄巾,波才拥众大至,围嵩于长社。城中兵少,众皆恐惧;嵩谓贼依草结营,可因风纵火。","会夜大风,嵩乘之纵火举燧,分锐卒击其外营,内外并势;骑都尉曹操适将兵至,与嵩、儁合。三军大破波才,斩首数万级,遂平颍川、汝南、陈国三郡黄巾。"]},
-  "2":{t:"转战南阳·拔宛城",d:"中平元年六月至十一月",p:["朱儁既平颍川,转兵南向,攻南阳黄巾。黄巾帅张曼成已死,余众复推孙夏等据宛城坚守,城大而固,儁攻之未能骤下。","儁与荆州刺史徐璆、南阳太守秦颉合围,苦战数月,身当矢石,吏士争奋。终拔宛城,斩孙夏,大破其众,荆、豫之间遂定。"]},
-  "3":{t:"广宗下曲阳·黄巾平而汉衰",d:"中平元年八月至十一月",p:["卢植、董卓先后攻张角于广宗,皆未能下。诏以皇甫嵩代之;会张角病死,嵩夜勒兵,鸡鸣驰击,大破张梁于广宗,斩首三万余,剖张角棺戮尸,传首京师。","嵩进破张宝于下曲阳,斩获十余万,黄巾主力遂平。然乱虽平,而朝廷弛禁、令州郡自募兵以讨贼,州牧刺史拥兵自重,群雄由是渐起,汉室中央之权益衰,遂启汉末分崩、董卓之乱与三国之局。"]}
+  all:{t:"八州并起",d:"中平元年(184)二月",p:["汉季政乱,张角以太平道传教十余年,分徒众为三十六方,遍及青、徐、幽、冀、荆、扬、兖、豫八州。中平元年二月,以「苍天已死,黄天当立,岁在甲子,天下大吉」为谶,张角自称天公将军,弟宝、梁称地公、人公将军,同时起事,皆著黄巾为标帜。","黄巾焚官府、掠州郡,旬月之间天下响应,京师震动。灵帝以何进为大将军镇京师,遣北中郎将卢植北攻张角于冀州广宗,左中郎将皇甫嵩、右中郎将朱儁东讨颍川黄巾——三路分道,各个讨平。"]},
+  "1":{t:"长社火攻 · 荡颍豫兖",d:"中平元年五月至八月",p:["皇甫嵩、朱儁进讨颍川黄巾,波才拥众大至,围嵩于长社。城中兵少,众皆恐惧;嵩谓贼依草结营,可因风纵火。会夜大风,嵩乘之纵火举燧,分锐卒击其外营;骑都尉曹操适将兵至,内外并势,大破波才,斩首数万。","乘胜而东南,复破汝南、陈国黄巾于西华;皇甫嵩又独东讨东郡黄巾,破卜己于苍亭,擒斩七千余。颍、汝、陈、东郡诸方以次荡平——长社一火,遂为全局转机。"]},
+  "2":{t:"转战南阳 · 拔宛",d:"中平元年六月至十一月",p:["南阳黄巾帅张曼成据宛,杀太守褚贡;曼成既为新太守秦颉所杀,余众复推赵弘、韩忠、孙夏更相为帅,拥众十余万,坚守宛城。朱儁既平颍川,转兵南向,与荆州刺史徐璆、南阳太守秦颉合围之。","城大而固,儁攻之未能骤下,乃解围伪退、诱其出战,复急击之;身当矢石,吏士争奋,前后斩弘、忠。至十一月,拔宛斩孙夏,大破其众,荆、豫之间遂定。"]},
+  "3":{t:"广宗下曲阳 · 决胜",d:"中平元年八月至十一月",p:["北路,卢植围张角于广宗,垒而未下,以谗征还;董卓代之,复败。诏以皇甫嵩代董卓北上。会张角先已病死,嵩夜勒兵,鸡鸣驰击,大破张梁于广宗,斩首三万余,赴河死者五万;剖张角棺戮尸,传首京师。","进击张宝于下曲阳,斩获十余万,黄巾主力遂平。然乱虽旬月而平,朝廷弛禁、令州郡自募兵以讨贼,州牧刺史由是拥兵自重,群雄渐起,汉室中央之权益衰,遂启汉末分崩、董卓之乱与三国之局。"]}
 };
 const CITY={
-  luoyang:{t:"洛阳",d:"汉京师,今河南洛阳",p:["东汉都城、发兵中枢。黄巾起事,京师震动,灵帝以何进为大将军镇之,遣皇甫嵩、朱儁、卢植分道出讨。"]},
-  yingchuan:{t:"颍川",d:"郡治阳翟,今河南禹州",p:["三辅屏障、京畿东南之要。波才率颍川黄巾大起,皇甫嵩、朱儁受命东讨,战事首集于此。"]},
-  changshe:{t:"长社",d:"今河南长葛东",p:["皇甫嵩为波才所围之地。嵩乘夜大风纵火,内外夹击,曹操适至,大破波才——黄巾之乱官军首捷。"]},
-  wancheng:{t:"宛城",d:"南阳郡治,今河南南阳",p:["南阳黄巾据守之城。朱儁转战南下,与徐璆、秦颉合围,苦战数月拔之,斩帅孙夏,荆豫渐定。"]},
-  julu:{t:"巨鹿",d:"今河北平乡一带",p:["张角起事本乡、太平道之根本。乱起于此而波及八州,为黄巾冀州主力之源。"]},
-  guangzong:{t:"广宗",d:"今河北邢台一带",p:["张角、张梁据守之地。卢植、董卓攻之未下,皇甫嵩代之;会角病死,嵩夜击破张梁,剖角棺戮尸。"]},
-  xiaquyang:{t:"下曲阳",d:"今河北晋州西",p:["张宝据守之地。皇甫嵩破广宗后进击于此,斩获十余万,黄巾主力遂平。"]}
+  luoyang:{t:"洛阳",d:"汉京师,今河南洛阳",p:["东汉都城、发兵中枢。黄巾起,京师震动,灵帝以何进为大将军镇之,遣皇甫嵩、朱儁东讨颍川,卢植北攻张角于广宗——三路皆自京畿分道而出。"]},
+  yangzhai:{t:"阳翟(颍川)",d:"颍川郡治,今河南禹州",p:["京畿东南之要、颍川治所。波才率颍川黄巾大起,皇甫嵩、朱儁受命东讨,黄巾之乱平贼首捷即集于此郡。"]},
+  changshe:{t:"长社",d:"今河南长葛东",p:["皇甫嵩为波才所围之地。嵩因贼依草结营,乘夜大风纵火、举燧夹击,骑都尉曹操适至,内外并势大破波才——黄巾之乱全局转机。"]},
+  wan:{t:"宛",d:"南阳郡治,今河南南阳",p:["南阳黄巾据守之城。帅张曼成死,余众推赵弘、韩忠、孙夏更守。朱儁转战南下,与徐璆、秦颉合围,苦战数月拔之,斩孙夏,荆、豫渐定。"]},
+  runan:{t:"汝南",d:"郡治平舆,今河南平舆北",p:["豫州黄巾一方。皇甫嵩、朱儁破长社后,乘胜进破汝南、陈国黄巾于西华。"]},
+  chen:{t:"陈国",d:"治陈县,今河南淮阳",p:["豫州黄巾一方,与汝南连兵。官军自颍川南下,并平之于西华一带。"]},
+  dongjun:{t:"东郡",d:"郡治濮阳,今河南濮阳西",p:["兖州黄巾据地。渠帅卜己拥众起于东郡,皇甫嵩既定颍川、汝南,东讨破之。"]},
+  cangting:{t:"苍亭",d:"黄河津渡,今山东阳谷东北",p:["皇甫嵩东讨东郡黄巾,破卜己于此,擒斩七千余。苍亭乃黄河南岸津口,兖州之要。"]},
+  guangzong:{t:"广宗",d:"今河北威县东,时属钜鹿郡",p:["张角、张梁据守之地,张角本钜鹿人,起兵之根本。卢植、董卓攻之未下,皇甫嵩代之;会角病死,嵩夜击破张梁,斩三万余,剖角棺戮尸传首京师。"]},
+  xiaquyang:{t:"下曲阳",d:"今河北晋州西",p:["张宝据守之地。皇甫嵩破广宗后进击于此,斩获十余万,黄巾主力遂平——决胜之末役。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
