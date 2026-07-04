@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>韩信破魏之战 · 汉二年(前205)</title>
+<title>安邑之战 · 韩信破魏(前205)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -30,7 +30,12 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 木罂缶筏:束木系罂,韩信潜渡之具 */
+  .raft rect{fill:var(--ret);stroke:var(--paper);stroke-width:.6}
+  .raft circle{fill:#c9b285;stroke:#5c4f38;stroke-width:.8}
+  .rlabel{fill:var(--ret);font-size:11px;font-weight:700;letter-spacing:.06em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,26 +44,42 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  /* 疑兵·陈船:虚示欲渡,青色虚线 */
+  .march.feint{stroke:var(--advance);stroke-width:2.4;stroke-dasharray:7 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -71,17 +92,17 @@
   <a class="navback" href="index.html" aria-label="返回秦楚之际征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>木</span><span>罂</span><span>渡</span><span>军</span></div>
   <header>
-    <h1>韩信破魏之战</h1>
-    <div class="sub">汉二年(前205)　　<i>汉 韩信</i> 破 <b>魏王 豹</b> · 定河东</div>
+    <h1>安邑之战 · 破魏</h1>
+    <div class="sub">汉二年(前205)　　<i>汉 韩信</i> 破 <b>魏王 豹</b> · 木罂潜渡 · 定河东</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 魏豹叛汉</button>
     <button data-p="1">陈兵蒲坂</button>
-    <button data-p="2">木罂渡军</button>
+    <button data-p="2">陈船·木罂潜渡</button>
     <button data-p="3">虏豹定魏</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="韩信破魏之战形势图,含魏汉疆界、黄河汾水与蒲坂夏阳安邑东垣荥阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="安邑之战形势图,含魏汉疆界、黄河汾水、临晋蒲坂夏阳安邑东垣等城邑,及陈船疑兵与木罂潜渡之路">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,112 +111,174 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:魏据河东(黄河之东),汉自关中、荥阳来(河西、河南);约以黄河为界 -->
-    <path d="M 440,0 C 470,90 500,160 500,240 C 500,320 470,400 470,470 C 470,540 500,590 520,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 440,0 C 470,90 500,160 500,240 C 500,320 470,400 470,470 C 470,540 500,590 520,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 440,0 C 470,90 500,160 500,240 C 500,320 470,400 470,470 C 470,540 500,590 520,640"/>
-    <text class="realm q" x="700" y="150" font-size="34">魏(河东)</text>
-    <text class="realm j" x="90" y="520" font-size="30">汉(关中·荥阳)</text>
+    <!-- ══ 疆界:魏据河东(黄河之东),汉据关中(河西)、荥阳(图外东);约以黄河为界 ══ -->
+    <path d="M 440,40 C 424,120 408,200 400,270 C 394,330 386,395 380,430 C 470,485 620,505 1000,508 L 1000,40 Z" fill="url(#qinHatch)"/>
+    <path d="M 440,40 C 424,120 408,200 400,270 C 394,330 386,395 380,430 C 470,485 620,505 1000,508 L 1000,640 L 0,640 L 0,40 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 440,40 C 424,120 408,200 400,270 C 394,330 386,395 380,430 C 470,485 620,505 1000,508"/>
+    <text class="realm q" x="560" y="150" font-size="30">魏 · 河东</text>
+    <text class="realm j" x="96" y="300" font-size="28">汉 · 关中</text>
+    <text class="cname s" x="720" y="600" style="opacity:.6">汉 · 河南(荥阳)</text>
 
-    <!-- 黄河:自北南下(前线),折向东为河曲之势 -->
-    <path class="river" stroke-width="5.5" d="M 470,20 C 452,110 448,200 452,290 C 456,370 470,440 490,510 C 512,570 560,596 640,600 C 730,604 830,600 1000,596"/>
-    <!-- 汾水:自东北汇入黄河 -->
-    <path class="river" stroke-width="3" d="M 780,140 C 720,200 660,270 600,330 C 560,368 520,398 496,432"/>
-    <text class="rname" x="430" y="300" transform="rotate(84 430 300)">黄 河</text>
-    <text class="rname" x="668" y="256" transform="rotate(46 668 256)" style="font-size:11px">汾 水</text>
+    <!-- ══ 水系:黄河此段南北纵流(秦晋界),折而东为河曲;汾水自东北汇入 ══ -->
+    <path class="river" stroke-width="5.5" d="M 440,36 C 424,120 408,200 400,270 C 394,330 386,395 378,430 C 392,478 448,505 540,516 C 700,532 860,534 1000,536"/>
+    <path class="river" stroke-width="3" d="M 822,80 C 700,110 580,138 470,160"/>
+    <text class="rname" x="356" y="286" transform="rotate(84 356 286)">黄 河</text>
+    <text class="rname" x="600" y="120" transform="rotate(-18 600 120)" style="font-size:11px">汾 水</text>
+    <text class="cname s" x="444" y="78" style="fill:var(--water)">龙门·禹门口</text>
 
-    <!-- 河曲群山 -->
-    <g class="mtn"><path d="M 640,110 l 8,-13 l 8,13 M 656,104 l 8,-13 l 8,13 M 672,110 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="638" y="130">河东群山</text>
+    <!-- ══ 山脉:中条山亘河东之南,隔河东与河南 ══ -->
+    <g class="mtn"><path d="M 520,456 l 10,-16 l 10,16 M 546,456 l 10,-16 l 10,16 M 572,456 l 10,-16 l 10,16 M 646,460 l 10,-16 l 10,16 M 672,460 l 10,-16 l 10,16"/></g>
+    <text class="mname" x="556" y="480">中 条 山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="pubanlinjinguan"><circle cx="452" cy="470" r="5"/><text class="cname" x="360" y="466">蒲坂·临晋关<tspan class="cname s" dx="2">(河东渡)</tspan></text></g>
-      <g class="city" data-city="xiayang"><circle cx="456" cy="230" r="5"/><text class="cname" x="366" y="226">夏阳<tspan class="cname s" dx="2">(木罂渡处)</tspan></text></g>
-      <g class="city cap" data-city="anyi"><circle cx="620" cy="330" r="6"/><text class="cname" x="632" y="326">安邑<tspan class="cname s" dx="2">(魏都)</tspan></text></g>
-      <g class="city" data-city="dongyuan"><circle cx="760" cy="250" r="4.5"/><text class="cname" x="772" y="246">东垣<tspan class="cname s" dx="2">(虏魏豹处)</tspan></text></g>
-      <g class="city cap" data-city="xingyang"><circle cx="210" cy="560" r="6"/><text class="cname" x="120" y="556">荥阳<tspan class="cname s" dx="2">(汉本)</tspan></text></g>
-      <g class="city" data-city="huanghe"><circle cx="482" cy="380" r="3"/><text class="cname s" x="492" y="378">黄河渡</text></g>
+      <g class="city" data-city="xiayang"><circle cx="362" cy="168" r="5"/><text class="cname" x="272" y="164">夏阳<tspan class="cname s" dx="2">(木罂渡)</tspan></text></g>
+      <g class="city" data-city="linjin"><circle cx="372" cy="382" r="5"/><text class="cname" x="234" y="378">临晋·蒲坂<tspan class="cname s" dx="2">(河东正渡)</tspan></text></g>
+      <g class="city cap" data-city="anyi"><circle cx="656" cy="272" r="6.5"/><text class="cname" x="668" y="268">安邑<tspan class="cname s" dx="2">(魏都)</tspan></text></g>
+      <g class="city" data-city="dongyuan"><circle cx="800" cy="218" r="4.5"/><text class="cname" x="812" y="214">东垣<tspan class="cname s" dx="2">(虏豹处)</tspan></text></g>
+      <g class="city" data-city="xingyang"><circle cx="946" cy="470" r="5"/><text class="cname" x="936" y="458" style="text-anchor:end">荥阳<tspan class="cname s" dx="2">⟶</tspan></text><text class="cname s" x="936" y="486" style="text-anchor:end">(汉王行在·图外东)</text></g>
+    </g>
+
+    <!-- 关中·栎阳(图外·西):汉军所出 -->
+    <g transform="translate(6,432)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 32,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 关中·栎阳</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">汉军所出(图外西)</text>
     </g>
 
     <!-- 全图 · 魏豹叛汉 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 224,548 C 300,500 380,470 442,462"/>
-      <text class="mlabel j" x="250" y="512">彭城败后,魏豹叛汉附楚,刘邦遣韩信将兵击之</text>
-      <text class="mlabel q" x="640" y="200">魏王豹塞临晋、绝河关以拒汉</text>
-      <text class="anno" x="360" y="440">郦食其往说不听,遂决于兵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 44,430 C 160,412 260,398 344,388"/>
+      <text class="mlabel j" x="70" y="418">韩信将兵自关中西来,临河而止</text>
+      <text class="mlabel q" x="470" y="118">魏豹叛汉附楚,塞临晋、绝河关以拒汉</text>
+      <text class="anno" x="286" y="452">郦食其往说不听,遂决于兵</text>
     </g>
 
     <!-- 阶段一:陈兵蒲坂 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="446" y="464" width="10" height="10" transform="rotate(45 452 470)"/>
-      <text class="mlabel q" x="356" y="500">魏豹盛兵蒲坂,塞临晋关(河东渡口)</text>
-      <path class="march q" marker-end="url(#aq)" d="M 616,344 C 560,388 510,430 460,462"/>
-      <text class="anno" x="470" y="418">以为汉军必由此渡,重设备焉</text>
-      <text class="mlabel j" x="150" y="560">韩信军自荥阳、关中西来,临河而止</text>
+      <rect class="camp" x="366" y="376" width="11" height="11" transform="rotate(45 372 382)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 640,290 C 540,332 452,362 388,378"/>
+      <text class="mlabel q" x="410" y="336">魏豹盛兵蒲坂,塞临晋关</text>
+      <text class="anno" x="196" y="418">以为汉军必由此渡,重设备焉</text>
+      <text class="mlabel j" x="60" y="360">韩信军抵河西,临流而止</text>
     </g>
 
-    <!-- 阶段二:木罂渡军 -->
+    <!-- 阶段二:陈船·木罂潜渡 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 435,478 C 448,474 458,470 462,466"/>
-      <text class="mlabel j" x="330" y="496">陈船临晋以示欲渡(疑兵)</text>
-      <path class="march j" marker-end="url(#aj)" d="M 300,430 C 360,340 420,270 448,238"/>
-      <text class="mlabel j" x="210" y="330">潜以木罂缶载兵,自夏阳上游偷渡黄河</text>
-      <path class="march j" marker-end="url(#aj)" d="M 464,236 C 520,270 570,300 608,326"/>
-      <circle class="star" cx="620" cy="330" r="9"/>
-      <text class="anno" x="520" y="300">袭安邑,出魏军不意</text>
+      <!-- 疑兵:多陈船于临晋(下游),示欲渡 -->
+      <path class="march feint" marker-end="url(#aj)" d="M 292,384 C 320,383 348,382 366,381"/>
+      <text class="mlabel j" x="118" y="404" style="opacity:.9">多陈船于临晋,示欲渡(疑兵)</text>
+      <!-- 潜移上游:自临晋暗趋夏阳(河西) -->
+      <path class="march j" marker-end="url(#aj)" d="M 344,372 C 350,300 354,232 360,178"/>
+      <text class="mlabel j" x="120" y="250">潜以木罂缶载兵,自夏阳偷渡黄河</text>
+      <!-- 奇渡:自夏阳越河袭安邑 -->
+      <path class="march j" marker-end="url(#aj)" d="M 368,172 C 470,200 560,238 646,266"/>
+      <g class="raft" transform="translate(408,183) rotate(20)">
+        <rect x="-12" y="-3" width="24" height="6" rx="1.5"/>
+        <circle cx="-7" cy="-5" r="3"/><circle cx="0" cy="-5" r="3"/><circle cx="7" cy="-5" r="3"/>
+      </g>
+      <text class="rlabel" x="392" y="150">木罂缶筏</text>
+      <circle class="star" cx="656" cy="272" r="10"/>
+      <text class="anno" x="530" y="248">袭安邑,出魏军不意</text>
     </g>
 
     <!-- 阶段三:虏豹定魏 -->
     <g id="ph3" class="ph">
-      <path class="march q rout" marker-end="url(#aq)" d="M 460,464 C 500,420 540,378 596,340"/>
-      <text class="mlabel q" x="466" y="400">魏豹惊,引兵迎战</text>
-      <path class="march j" marker-end="url(#aj)" d="M 632,326 C 680,300 720,278 752,256"/>
-      <path d="M 760,250 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="640" y="230">击破之,进虏魏豹于东垣</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 748,258 C 600,340 420,470 240,552"/>
-      <text class="mlabel r" x="440" y="360">传送荥阳</text>
-      <text class="anno" x="600" y="360">尽定魏地,置河东、太原、上党郡</text>
-      <text class="anno" x="150" y="536">因请益兵北举燕赵、东击齐,南绝楚粮道</text>
+      <path class="march q" marker-end="url(#aq)" d="M 388,378 C 470,344 548,306 618,282"/>
+      <text class="mlabel q" x="392" y="352">魏豹惊,引兵迎战</text>
+      <circle class="star" cx="614" cy="308" r="7"/>
+      <text class="anno" x="470" y="356">汉击破之,禽魏将王襄</text>
+      <path class="march j" marker-end="url(#aj)" d="M 666,268 C 718,250 758,234 790,222"/>
+      <path d="M 800,218 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="640" y="196">乘胜追虏魏豹于东垣</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 636,290 C 700,268 748,246 790,224"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 808,224 C 866,300 902,392 938,456"/>
+      <text class="mlabel r" x="826" y="404" transform="rotate(58 826 404)">械系传诣荥阳</text>
+      <text class="anno" x="120" y="546">尽定魏地,置河东、太原、上党三郡</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <g class="compass" transform="translate(952,110)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>汉军(韩信)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="7 5"/></svg>陈船疑兵</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>魏军(魏豹)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>被虏·传送</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>魏败·传送</span>
+    <span class="item"><svg width="30" height="12"><rect x="4" y="4" width="22" height="5" rx="1.5" fill="#7a5a23"/><circle cx="9" cy="3" r="2.6" fill="#c9b285" stroke="#5c4f38" stroke-width=".7"/><circle cx="15" cy="3" r="2.6" fill="#c9b285" stroke="#5c4f38" stroke-width=".7"/><circle cx="21" cy="3" r="2.6" fill="#c9b285" stroke="#5c4f38" stroke-width=".7"/></svg>木罂缶筏</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>袭破</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>魏</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>汉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>魏</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>汉</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 陈船疑之,木罂潜渡</h3>
+    <div class="lead">示形于此,出奇于彼 —— 破魏一役成败之枢</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="陈船疑兵与木罂潜渡示意:黄河纵贯,临晋陈船牵魏之守,夏阳潜渡出其虚">
+      <!-- 黄河纵贯(中) -->
+      <path d="M 430,20 C 420,90 420,160 430,230" fill="none" stroke="#5f7f88" stroke-width="7" opacity=".85"/>
+      <text x="384" y="130" fill="#5f7f88" font-size="11" font-weight="700" transform="rotate(88 384 130)">黄河·秦晋之界</text>
+      <text x="150" y="20" fill="#1f4e54" font-size="12" font-weight="700">汉 · 河西(关中)</text>
+      <text x="690" y="20" fill="#9a2b1e" font-size="12" font-weight="700">魏 · 河东</text>
+      <!-- 上游:夏阳(木罂潜渡,青实线,越河袭安邑) -->
+      <text x="150" y="66" fill="#2b2418" font-size="11.5" font-weight="700" text-anchor="end">夏阳(上游)</text>
+      <path d="M 158,70 C 260,70 350,70 430,72" fill="none" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 430,72 C 520,74 600,86 668,110" fill="none" stroke="#1f4e54" stroke-width="4" stroke-linecap="round" marker-end="url(#aj)"/>
+      <g transform="translate(300,70)"><rect x="-11" y="-3" width="22" height="6" rx="1.5" fill="#7a5a23" stroke="#e9dec4" stroke-width=".6"/><circle cx="-6" cy="-5" r="2.8" fill="#c9b285" stroke="#5c4f38" stroke-width=".7"/><circle cx="0" cy="-5" r="2.8" fill="#c9b285" stroke="#5c4f38" stroke-width=".7"/><circle cx="6" cy="-5" r="2.8" fill="#c9b285" stroke="#5c4f38" stroke-width=".7"/></g>
+      <text x="250" y="52" fill="#7a5a23" font-size="10.5" font-weight="700">木罂潜渡(魏不备)</text>
+      <circle cx="676" cy="114" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <circle cx="676" cy="114" r="9" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="688" y="112" fill="#2b2418" font-size="11.5" font-weight="700">安邑(魏都)</text>
+      <text x="688" y="128" fill="#9c7a2c" font-size="10" font-weight="700">奇渡径袭 ✦</text>
+      <!-- 下游:临晋(陈船疑兵,青虚线;魏重兵屯守) -->
+      <text x="150" y="196" fill="#2b2418" font-size="11.5" font-weight="700" text-anchor="end">临晋(下游·正渡)</text>
+      <path d="M 158,200 C 260,200 350,200 424,200" fill="none" stroke="#1f4e54" stroke-width="3" stroke-dasharray="7 5" opacity=".9"/>
+      <text x="196" y="222" fill="#1f4e54" font-size="10.5" font-weight="700">陈船示欲渡(疑兵)</text>
+      <rect x="440" y="188" width="26" height="24" rx="2" fill="url(#qinHatch)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="474" y="196" fill="#9a2b1e" font-size="10.5" font-weight="700">魏盛兵蒲坂</text>
+      <text x="474" y="210" fill="#9a2b1e" font-size="10" font-weight="700">壅塞津口 ✕</text>
+      <!-- 牵引箭:魏之注意力被牵于临晋,上游遂虚 -->
+      <path d="M 560,150 C 540,166 520,180 486,192" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 4" opacity=".7" marker-end="url(#aq)"/>
+      <text x="512" y="150" fill="#9a2b1e" font-size="10" font-style="italic" opacity=".85">魏聚重于此,上游空虚 ↓</text>
+    </svg>
+    <p class="intro">黄河此段南北纵流,为秦晋之界。魏王豹尽塞河东诸津以拒汉,所恃者<b>黄河之险</b>。韩信不与争正渡,而以『示形—出奇』二着破之:<b>陈船于下游之临晋以牵魏之重兵,潜渡于上游之夏阳以出其空虚。</b></p>
+    <div class="cols">
+      <div class="c a">
+        <h4>临晋 · 陈船疑兵(示形)</h4>
+        <p>临晋乃河东正渡,舟楫所会。韩信多陈船,若将济者;魏豹果尽锐屯蒲坂,壅塞津口,日夜为备——魏之兵力与注意皆为此一处所系。此『示形』也,所以致敌、分敌之守,而非真欲战于此。</p>
+      </div>
+      <div class="c b">
+        <h4>夏阳 · 木罂潜渡(出奇)</h4>
+        <p>魏重既聚于临晋,则上游百余里之夏阳遂虚。信束木、系瓦罂以为筏(木罂缶),潜载兵夜渡,径袭魏都安邑。魏仓卒回师,已失据河之利。此『出奇』也,一渡而河东全局定。</p>
+      </div>
+    </div>
+    <p class="kicker">魏所恃者黄河之险,而险不能自守,守险者兵也。信以<b>陈船疑兵『分魏之守』</b>,以<b>木罂潜渡『击魏之虚』</b>,魏兵半为虚设而不自知,故一战而豹禽、河东尽入于汉。此正『兵者诡道,示形动敌』之典型,亦韩信开『北伐』之局的第一奇。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·淮阴侯列传》《史记·高祖本纪》《资治通鉴》卷九约略绘出。疆界、水道经简化,以点划「约界」标黄河为魏汉之限,非实有画界。</p>
-    <p><span class="n">注二</span>临晋关在今陕西大荔东,蒲坂在其对岸(今山西永济);夏阳在今陕西韩城南;安邑在今山西夏县;东垣在今山西垣曲一带。</p>
-    <p><span class="n">注三</span>韩信声东击西、木罂渡军,一举定河东,遂开北举燕赵之局;其后有井陉背水、潍水囊沙之捷,汉之北伐由此张焉。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何力求近实:黄河此段南北纵流为秦晋之界,夏阳在北(上游)、临晋在南(下游),皆在河西;安邑在河东(河之东岸),东垣更在其东。江河、疆界、山川经简化,以点划『约界』标黄河为魏汉之限,非实有画界。</p>
+    <p><span class="n">注二</span>地望:临晋关在今陕西大荔东,蒲坂在其对岸(今山西永济)隔河相对;夏阳在今陕西韩城南;安邑魏都在今山西夏县西北;荥阳在今河南荥阳东北,居本图之东,以边标示。魏豹败走曲阳、终虏于东垣一带,诸书地望微异,今姑系一处。</p>
+    <p><span class="n">注三</span>本图据《史记·淮阴侯列传》《魏豹彭越列传》《高祖本纪》及《资治通鉴》卷九(汉纪一)绘出。《高祖本纪》系拜信为左丞相于汉二年八月,战定于九月;信与骑将灌婴、步将曹参俱。渡河后先破魏将孙遫于东张,禽王襄于安邑,遂虏豹。诸小役散见诸传,图中择要而已。</p>
+    <p><span class="n">注四</span>韩信声东击西、木罂渡军,一举定河东,尽置河东、太原、上党三郡(河东凡五十二县);因请益兵三万,以北举燕、赵,东击齐,南绝楚之粮道。其后阏与、井陉背水、潍水囊沙诸捷相踵,汉之『北伐』由此而张。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"魏豹叛汉",d:"汉二年(前205)",p:["彭城之败后,诸侯多背汉附楚。魏王豹谒归视亲疾,即绝河关,反为楚,塞临晋、绝河津以拒汉。刘邦遣郦食其往说之,豹不听,曰「人生一世间,如白驹过隙耳」,汉王乃以韩信为左丞相,将兵击魏。","魏据河东,恃黄河之险为固;汉自关中、荥阳而来,隔河相望。信问郦生「魏得毋用周叔为大将乎」,闻其将柏直,曰「竖子耳」,遂进兵临河,谋所以渡。"]},
-  "1":{t:"陈兵蒲坂",d:"汉二年·临河",p:["魏豹盛兵蒲坂,塞临晋关。临晋乃河东正渡,舟楫所会;豹以为汉军必由此渡,故重列兵备,壅塞津口,专候于此。","韩信军抵河西,临流而止。魏豹据险自恃,以为河防已固,不虞信之别有奇谋也。"]},
-  "2":{t:"木罂渡军",d:"汉二年·奇渡",p:["韩信乃多陈船于临晋,若将济者,以疑魏兵——是为疑兵。魏豹果聚重于蒲坂,守望正渡。","而信潜以木罂缶载兵,自夏阳上游偷渡黄河。夏阳在临晋之北,魏备所不及。军既济,径袭安邑,出魏军不意,魏都仓卒而破。"]},
-  "3":{t:"虏豹定魏",d:"汉二年·平河东",p:["魏豹闻安邑被袭,大惊,引兵还迎战。韩信击破之,乘胜进虏魏豹于东垣,械系传送荥阳,以献汉王。","于是尽定魏地,置河东、太原、上党三郡。信因请益兵三万,愿以北举燕、赵,东击齐,南绝楚之粮道,西与汉王会于荥阳——「北伐」之大略自此张焉。"]}
+  all:{t:"魏豹叛汉",d:"汉二年(前205)",p:["彭城既败,诸侯多叛汉附楚。魏王豹谒归视亲疾,至国即绝河关反,与楚约和,塞临晋、断河津以拒汉。魏据河东,南可绝关中与荥阳汉军之饷道,东可与楚为夹击之势,其地甚要。","八月,汉王遣郦食其往说豹,豹不听,曰『人生一世间,如白驹过隙耳』。乃以韩信为左丞相,与骑将灌婴、步将曹参俱,引兵击魏。信问郦生魏大将为谁,曰柏直,信曰『竖子耳』,遂进兵临河,谋所以渡。"]},
+  "1":{t:"陈兵蒲坂",d:"汉二年·临河",p:["魏豹盛兵蒲坂,塞临晋关。临晋乃河东正渡,舟楫所会;豹以为汉军必由此济,故重列军实,壅塞津口,专备于此。","韩信军抵河西,临流而止。豹恃黄河之险、蒲坂之守,以为河防已固,不虞信之别有奇谋——此正信所欲致也。"]},
+  "2":{t:"陈船·木罂潜渡",d:"汉二年·奇渡",p:["信乃多陈船于临晋,若将济者,以疑魏兵——是为『陈船疑之』。魏果聚重于蒲坂,守望正渡,上游之备遂虚。","而信潜以木罂缶(束木、系瓦罂以为筏)载兵,自夏阳偷渡黄河。夏阳在临晋上游百余里,魏所不备。军既济,先破魏将孙遫于东张,径袭魏都安邑,出魏不意,河东为之震动。"]},
+  "3":{t:"虏豹定魏",d:"汉二年·平河东",p:["魏豹闻安邑被袭,大惊,引兵还迎战,并急调蒲坂之众北上。九月,汉军击破之于安邑西南,禽魏将王襄。","豹败,东走曲阳;汉乘胜追之,遂虏豹于东垣,械系传诣荥阳,以献汉王。于是尽定魏地,以其地置河东、太原、上党三郡(河东凡五十二县)。信因请益兵三万,愿北举燕、赵,东击齐,南绝楚粮道,西会汉王于荥阳——『北伐』之略自此张焉。"]}
 };
 const CITY={
-  pubanlinjinguan:{t:"蒲坂·临晋关",d:"今山西永济、陕西大荔东隔河相对",p:["河东正渡、津口所会。魏豹陈重兵塞此,以为汉军必由此渡;韩信乃陈船以疑之,而别渡于夏阳。"]},
-  xiayang:{t:"夏阳",d:"今陕西韩城南",p:["临晋之北、黄河上游。魏备所不及。韩信潜以木罂缶载兵自此偷渡,径袭安邑,声东击西之枢也。"]},
-  anyi:{t:"安邑",d:"魏都,今山西夏县",p:["魏豹之都。韩信渡河即径袭之,出魏军不意,都城仓卒而破,河东全局遂动。"]},
-  dongyuan:{t:"东垣",d:"今山西垣曲一带",p:["魏豹引兵迎战被破后,韩信乘胜进虏魏豹于此,械系传送荥阳。"]},
-  xingyang:{t:"荥阳",d:"汉之本营,今河南荥阳东北",p:["刘邦拒楚之根本。韩信传送魏豹至此;既定河东,信请益兵,期与汉王会师于荥阳。"]},
-  huanghe:{t:"黄河",d:"魏汉之天堑",p:["魏据河东恃以为固,塞临晋、绝河关。韩信以疑兵临晋、奇兵夏阳,越此天堑而定魏。"]}
+  xiayang:{t:"夏阳",d:"今陕西韩城南 · 河西",p:["临晋上游百余里,黄河河西岸,魏备所不及。韩信潜以木罂缶载兵自此偷渡,径袭安邑——『声东击西、出奇于彼』之枢也。"]},
+  linjin:{t:"临晋·蒲坂",d:"今陕西大荔东、山西永济隔河相对",p:["河东正渡,津口所会。临晋关在河西(汉),蒲坂在河东岸(魏)。魏豹陈重兵塞此,以为汉必由此渡;韩信乃多陈船以疑之,而潜渡于上游夏阳。"]},
+  anyi:{t:"安邑",d:"魏都,今山西夏县西北",p:["魏之国都、河东重镇。韩信渡河即径袭之,出魏军不意,都城仓卒被破,河东全局遂动。"]},
+  dongyuan:{t:"东垣",d:"今山西垣曲一带",p:["魏豹迎战被破,东走曲阳;汉乘胜追虏魏豹于此,械系传诣荥阳。按豹东走曲阳、终虏于东垣,诸书地望微异,今姑系此。"]},
+  xingyang:{t:"荥阳",d:"汉之本营,今河南荥阳东北(居图外之东)",p:["汉王拒楚之根本。韩信传送魏豹至此;既定河东,信请益兵,期与汉王会师于荥阳。以其在本图之东,以边标示。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
