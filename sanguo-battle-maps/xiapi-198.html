@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -46,13 +46,29 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 决水灌城:泗沂被决入城,水色泛涨记号 + 金环示城陷 */
+  .flood{fill:none;stroke:var(--water);stroke-width:3.4;stroke-linecap:round;opacity:.9}
+  .floodring{fill:none;stroke:var(--water);opacity:.4}
+  .wlabel{fill:var(--water);font-size:10.5px;font-weight:700;letter-spacing:.04em}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
@@ -72,93 +88,112 @@
   <div class="seal" aria-hidden="true"><span>下</span><span>邳</span><span>之</span><span>战</span></div>
   <header>
     <h1>下邳之战</h1>
-    <div class="sub">汉建安三年(198)　　<i>曹操</i> 擒 <b>吕布</b></div>
+    <div class="sub">汉建安三年(198)　　<i>曹操</i> 东征 <b>吕布</b>　·　决泗沂以灌城 · 久围而离心</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 东征吕布</button>
     <button data-p="1">先拔彭城</button>
-    <button data-p="2">决水灌城</button>
+    <button data-p="2">决泗沂灌城</button>
     <button data-p="3">白门就擒</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="下邳之战形势图,含吕布徐州与曹操自西来之疆界、泗水沂水交汇下邳,及彭城小沛广陵等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="下邳之战形势图,含吕布徐州与曹操自西来之疆界、泗水沂水交汇下邳、决水灌城之势,及彭城小沛萧关广陵等城邑">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5f7f88"/></marker>
     </defs>
 
-    <!-- 疆界:吕布据徐州(东),曹操自西来(西),约以泗上为界 -->
-    <path d="M 300,0 C 320,120 300,220 288,320 C 278,420 300,530 320,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 300,0 C 320,120 300,220 288,320 C 278,420 300,530 320,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 300,0 C 320,120 300,220 288,320 C 278,420 300,530 320,640"/>
-    <text class="realm q" x="640" y="120" font-size="34">吕 布(徐州)</text>
-    <text class="realm j" x="70" y="560" font-size="30">曹 操(自西来)</text>
+    <!-- 疆界:吕布据徐州(东),曹操自兖豫西来(西),约以泗上诸城之西为界 -->
+    <path d="M 300,0 C 320,160 302,340 302,460 C 302,540 330,600 346,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 300,0 C 320,160 302,340 302,460 C 302,540 330,600 346,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 300,0 C 320,160 302,340 302,460 C 302,540 330,600 346,640"/>
+    <text class="realm q" x="700" y="108" font-size="32">吕 布(徐州)</text>
+    <text class="realm j" x="70" y="120" font-size="26">曹 操</text>
+    <text class="cname s" x="66" y="142" style="fill:var(--advance);opacity:.7">(兖·豫)</text>
 
-    <!-- 泗水:自西北南下,经彭城、下邳 -->
-    <path class="river" stroke-width="4.5" d="M 360,70 C 400,150 440,230 500,300 C 540,346 570,382 600,410"/>
+    <!-- 泗水:自西北南下,历沛、彭城,至下邳 -->
+    <path class="river" stroke-width="4.6" d="M 378,44 C 372,120 388,205 408,247 C 440,272 480,282 509,287"/>
     <!-- 沂水:自东北南下,会于下邳 -->
-    <path class="river" stroke-width="3.4" d="M 720,90 C 700,180 660,270 620,340 C 610,362 604,390 600,410"/>
-    <!-- 泗沂合流南入淮,东南至广陵 -->
-    <path class="river" stroke-width="4.8" d="M 600,410 C 640,470 700,520 760,558 C 820,590 880,600 940,604"/>
-    <text class="rname" x="410" y="200" transform="rotate(58 410 200)">泗 水</text>
-    <text class="rname" x="704" y="200" transform="rotate(-64 704 200)">沂 水</text>
-    <text class="rname" x="770" y="540" style="font-size:11px">泗沂合流入淮</text>
+    <path class="river" stroke-width="3.4" d="M 557,46 C 562,150 534,225 519,262 C 514,273 511,281 509,287"/>
+    <!-- 泗沂合流南入淮,东南趋广陵 -->
+    <path class="river" stroke-width="4.8" d="M 509,287 C 555,318 602,345 651,360 C 676,422 698,502 705,548"/>
+    <text class="rname" x="356" y="196" transform="rotate(80 356 196)">泗 水</text>
+    <text class="rname" x="566" y="150" transform="rotate(-74 566 150)">沂 水</text>
+    <text class="rname" x="648" y="430" transform="rotate(66 648 430)" style="font-size:11px">泗沂合流入淮</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="xiapi"><circle cx="600" cy="410" r="6.5"/><text class="cname" x="612" y="406">下邳<tspan class="cname s" dx="2">(吕布都·白门楼)</tspan></text></g>
-      <g class="city" data-city="pengcheng"><circle cx="410" cy="196" r="5.5"/><text class="cname" x="352" y="192">彭城</text></g>
-      <g class="city" data-city="xiaopei"><circle cx="356" cy="300" r="4.5"/><text class="cname" x="298" y="298">小沛</text></g>
-      <g class="city" data-city="xiaoguan"><circle cx="470" cy="384" r="3.5"/><text class="cname s" x="426" y="404">萧关</text></g>
-      <g class="city" data-city="guangling"><circle cx="820" cy="562" r="5"/><text class="cname" x="760" y="558">广陵</text></g>
+      <g class="city cap" data-city="xiapi"><circle cx="509" cy="287" r="6.5"/><text class="cname" x="521" y="283">下邳<tspan class="cname s" dx="2">(吕布都·白门楼)</tspan></text></g>
+      <g class="city" data-city="pengcheng"><circle cx="408" cy="247" r="5.5"/><text class="cname" x="350" y="243">彭城</text></g>
+      <g class="city" data-city="xiaopei"><circle cx="368" cy="182" r="4.5"/><text class="cname" x="310" y="178">小沛</text></g>
+      <g class="city" data-city="xiaoguan"><circle cx="465" cy="275" r="3.5"/><text class="cname s" x="440" y="262">萧关</text></g>
+      <g class="city" data-city="guangling"><circle cx="705" cy="556" r="5"/><text class="cname" x="647" y="552">广陵</text></g>
+    </g>
+
+    <!-- 许都(图外·西),曹操东征所自出 -->
+    <g transform="translate(6,336)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 许都·兖州</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">曹操本据(图外)</text>
     </g>
 
     <!-- 全图 · 东征吕布 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 60,470 C 160,420 240,320 356,300"/>
-      <path class="march j" marker-end="url(#aj)" d="M 366,296 C 390,260 400,228 408,206"/>
-      <text class="mlabel j" x="90" y="440">曹操自将东征,连拔诸城</text>
-      <text class="anno" x="330" y="252">乘胜进逼下邳</text>
-      <text class="mlabel q" x="640" y="200">吕布反覆,夺徐州、结袁术、攻刘备</text>
-      <path class="march q" marker-end="url(#aq)" d="M 620,150 C 616,240 610,320 600,398"/>
-      <text class="anno" x="606" y="300">布众屯守,恃泗沂之险</text>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:1000;stroke-dashoffset:1000" d="M 40,338 C 150,318 270,300 360,262 C 384,252 398,248 404,246 C 440,262 480,276 502,283"/>
+      <text class="mlabel j" x="120" y="300">曹操自将东征,连拔诸城,进逼下邳</text>
+      <path class="march q" marker-end="url(#aq)" d="M 500,282 C 460,246 420,212 380,190"/>
+      <text class="mlabel q" x="330" y="150">布逐刘备,据徐州,结袁术</text>
+      <circle class="siege" cx="509" cy="287" r="26"/>
+      <text class="anno" x="512" y="330">布恃泗沂之险,聚众固守</text>
     </g>
 
     <!-- 阶段一:先拔彭城 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 360,296 C 380,262 394,230 404,206"/>
-      <circle class="star" cx="410" cy="196" r="8"/>
-      <text class="mlabel j" x="330" y="168">操破布于彭城</text>
-      <path class="march j" marker-end="url(#aj)" d="M 418,206 C 470,270 530,340 592,402"/>
-      <text class="mlabel j" x="470" y="300">乘胜逼下邳</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 560,380 C 540,360 520,340 500,322"/>
-      <text class="mlabel q" x="440" y="332">布出战屡败,闭城固守</text>
-      <text class="anno" x="470" y="440">陈宫劝布出屯泗上,成犄角;布惑妻言不用</text>
+      <path class="march j" marker-end="url(#aj)" style="stroke-dasharray:900;stroke-dashoffset:900" d="M 40,338 C 150,318 260,296 340,268 C 366,258 388,252 400,250"/>
+      <circle class="star" cx="408" cy="247" r="9"/>
+      <text class="mlabel j" x="322" y="222">操破布于彭城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 416,252 C 448,264 480,276 501,283"/>
+      <text class="mlabel j" x="430" y="300">乘胜逼下邳</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 486,258 C 500,268 506,276 505,281"/>
+      <text class="mlabel q" x="420" y="248">布屡出战,皆败,闭城固守</text>
+      <text class="anno" x="360" y="360">陈宫劝布出屯泗上,与城中为犄角;布惑妻言,不用</text>
     </g>
 
-    <!-- 阶段二:决水灌城 -->
+    <!-- 阶段二:决泗沂灌城 -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="600" cy="410" r="30"/>
-      <circle class="siege" cx="600" cy="410" r="42"/>
-      <text class="mlabel j" x="500" y="360">操围下邳月余,起攻未拔</text>
-      <path class="march j" marker-end="url(#aj)" d="M 500,300 C 540,338 570,372 592,398"/>
-      <text class="mlabel j" x="404" y="288">用荀攸、郭嘉计</text>
-      <path class="march j" marker-end="url(#aj)" d="M 700,340 C 660,362 630,384 610,402"/>
-      <text class="mlabel j" x="666" y="322">决泗、沂之水灌城</text>
-      <text class="anno" x="470" y="470">城中水浸粮尽,人马疲病,布左右离心</text>
+      <circle class="siege" cx="509" cy="287" r="30"/>
+      <circle class="siege" cx="509" cy="287" r="42"/>
+      <text class="mlabel j" x="360" y="360">操围下邳月余,起攻未拔,士卒疲</text>
+      <text class="mlabel j" x="360" y="376">荀攸、郭嘉献『以水灌城』之计</text>
+      <!-- 决泗水入城 -->
+      <path class="flood" marker-end="url(#aw)" d="M 462,272 C 480,278 494,282 502,285"/>
+      <text class="wlabel" x="416" y="258">决泗水 →</text>
+      <!-- 决沂水入城 -->
+      <path class="flood" marker-end="url(#aw)" d="M 528,258 C 522,268 517,278 513,283"/>
+      <text class="wlabel" x="526" y="250">决沂水</text>
+      <!-- 泛涨灌城:同心水环 -->
+      <circle class="floodring" cx="509" cy="287" r="14" stroke-width="2"/>
+      <circle class="floodring" cx="509" cy="287" r="20" stroke-width="1.6"/>
+      <circle class="floodring" cx="509" cy="287" r="26" stroke-width="1.2"/>
+      <text class="slabel" x="536" y="304">决泗沂 · 灌下邳</text>
+      <text class="anno" x="392" y="404">城中水浸,粮储渐尽,人马疲病,布左右离心</text>
     </g>
 
     <!-- 阶段三:白门就擒 -->
     <g id="ph3" class="ph">
-      <path d="M 600,410 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="470" y="358">侯成、宋宪、魏续反,缚陈宫、高顺</text>
-      <path class="march j" marker-end="url(#aj)" d="M 520,440 C 552,428 576,420 592,414"/>
-      <text class="mlabel j" x="440" y="456">开门纳操军</text>
-      <text class="mlabel r" x="612" y="440">布登白门楼请降</text>
-      <text class="anno" x="466" y="490">操缢杀吕布,斩陈宫、高顺,徐州遂定</text>
+      <circle class="floodring" cx="509" cy="287" r="20" stroke-width="1.4"/>
+      <circle class="star" cx="509" cy="287" r="10"/>
+      <path d="M 509,287 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="330" y="230">侯成、宋宪、魏续叛,缚陈宫、高顺</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 500,280 C 470,262 442,248 416,240"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 502,290 C 468,296 436,300 410,302"/>
+      <text class="mlabel r" x="332" y="322">开门出降,纳曹操之军</text>
+      <text class="mlabel r" x="520" y="264">布登白门楼请降</text>
+      <text class="anno" x="430" y="352">操缢杀吕布,斩陈宫、高顺,徐州遂平</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
@@ -172,32 +207,78 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>曹操军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>吕布军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退·被擒</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>众叛·出降</span>
+    <span class="item"><svg width="40" height="16"><line x1="2" y1="8" x2="30" y2="8" stroke="#5f7f88" stroke-width="3.2"/><path d="M 28,4 L 36,8 L 28,12 Z" fill="#5f7f88"/></svg>决水灌城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·城陷</span>
     <span class="item"><svg width="30" height="14"><circle cx="15" cy="7" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>吕布</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>曹操</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>决水灌城释要 · 以水攻其固,以久攻其心</h3>
+    <div class="lead">何以下邳之拔,系于一水一心 —— 攻坚而不拔者,转以水火、转以时日</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="决水灌城示意:下邳恃泗沂之险与吕布之勇二恃,曹操以决水破其险、以久围离其心">
+      <!-- 下邳城(中) -->
+      <rect x="384" y="96" width="92" height="58" rx="3" fill="none" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="404" y="122" fill="#2b2418" font-size="13" font-weight="700">下邳</text>
+      <text x="392" y="140" fill="#5c4f38" font-size="9.5">泗沂夹之,城枕水险</text>
+      <!-- 泗水(左上)决入 -->
+      <path d="M 120,40 C 220,44 320,60 384,100" fill="none" stroke="#5f7f88" stroke-width="4.5" opacity=".85"/>
+      <path d="M 300,58 L 384,112" fill="none" stroke="#5f7f88" stroke-width="3" stroke-dasharray="2 4"/>
+      <path d="M 380,110 L 372,100 L 384,102 Z" fill="#5f7f88"/>
+      <text x="126" y="34" fill="#5f7f88" font-size="12" font-weight="700">泗水 · 自西北来</text>
+      <!-- 沂水(右上)决入 -->
+      <path d="M 740,40 C 640,44 540,60 476,100" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".85"/>
+      <path d="M 560,58 L 476,112" fill="none" stroke="#5f7f88" stroke-width="3" stroke-dasharray="2 4"/>
+      <path d="M 480,110 L 488,100 L 476,102 Z" fill="#5f7f88"/>
+      <text x="640" y="34" fill="#5f7f88" font-size="12" font-weight="700">沂水 · 自东北来</text>
+      <!-- 泛涨水环 -->
+      <circle cx="430" cy="125" r="70" fill="none" stroke="#5f7f88" stroke-width="1.4" opacity=".4"/>
+      <circle cx="430" cy="125" r="86" fill="none" stroke="#5f7f88" stroke-width="1.1" opacity=".28"/>
+      <!-- 左:以水攻其固(青) -->
+      <line x1="170" y1="196" x2="360" y2="150" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 358,151 L 348,148 L 352,158 Z" fill="#1f4e54"/>
+      <text x="90" y="214" fill="#1f4e54" font-size="12" font-weight="700">以水攻 · 破其固</text>
+      <text x="90" y="230" fill="#5c4f38" font-size="10">决二水灌之,险不足恃</text>
+      <!-- 右:以久攻其心(金)—— 侯成宋宪魏续叛 -->
+      <line x1="690" y1="196" x2="500" y2="150" stroke="#9c7a2c" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 502,151 L 512,148 L 508,158 Z" fill="#9c7a2c"/>
+      <text x="600" y="214" fill="#9c7a2c" font-size="12" font-weight="700">以久攻 · 离其心</text>
+      <text x="560" y="230" fill="#5c4f38" font-size="10">相守月余,诸将叛而缚之出降</text>
+    </svg>
+    <p class="intro">下邳之固,在于<b>泗、沂二水夹城</b>,城枕水险,又益以吕布骁勇——故曹操围之月余,数攻不拔,士卒疲敝,几欲引还。破此二恃者亦二端:一曰<b>水</b>,一曰<b>时</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>以水攻 · 攻其固</h4>
+        <p>荀攸、郭嘉进言,谓布勇而无谋,三战皆北,锐气已堕,宜乘其衰急攻之。曹操从计,决泗水、沂水以灌下邳:城所恃之水险,反成灌城之资;水浸城中,庐舍垫溺,粮储渐尽,坚城不攻而自溃。</p>
+      </div>
+      <div class="c b">
+        <h4>以久攻 · 攻其心</h4>
+        <p>水灌之外,更在一『久』字。相守月余,内无斗志,外无援兵,人马疲病,布之左右离心。将侯成、宋宪、魏续遂叛,执缚谋主陈宫、大将高顺,开门出降——孤城之破,先破于人心。</p>
+      </div>
+    </div>
+    <p class="kicker">故下邳非力攻可拔,乃<b>以水解其地险、以久解其人心</b>:二水既决而城垫,月余既久而众叛。吕布不用陈宫『出屯泗上、内外犄角』之策,坐守孤城以待水至、以待心离——<b>非曹操之善攻,实吕布之自困</b>。徐州遂平,操乃得专意河北以图袁绍。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《三国志·武帝纪》《吕布传》《荀攸传》约略绘出;疆界、水道经简化,泗、沂二水走向及诸城相对方位仅取其略。</p>
-    <p><span class="n">注二</span>下邳在今江苏睢宁北,泗水、沂水于此交汇。彭城即今江苏徐州,处下邳西北;小沛(沛县)在西,广陵在南濒淮。</p>
-    <p><span class="n">注三</span>决水灌城为曹操攻坚之惯技(前有下邳,后有邺城)。吕布骁勇而寡谋,不能用陈宫犄角之策,遂困守孤城以亡——胜败之机,系于用谋。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度墨卡托投影定位,几何关系力求近实:下邳在泗、沂交汇处居中,彭城在其西北,小沛(沛县)在北,广陵在东南濒淮,曹操自西(兖、豫)入。江河、疆界经简化描绘。下邳今江苏睢宁西北古邳镇,彭城即今江苏徐州,小沛今沛县,广陵今扬州。许都(今河南许昌)远在图外西方,以边箭示之。</p>
+    <p><span class="n">注二</span>本图依《三国志·武帝纪》《吕布传》,参《荀攸传》《郭嘉传》裴注及《资治通鉴》卷六十二(建安三年)绘出。据《武帝纪》:『九月,公东征布……冬十月……遂东击布,败之。布退固守,攻之不下。时公连战,士卒罢,欲还,荀攸、郭嘉说公急攻之,遂决泗、沂水以灌城。月余,布将宋宪、魏续等执陈宫,举城降,生禽布、宫,皆杀之。』(诸书或作侯成、宋宪、魏续,叛降次第互有出入,并存之。)</p>
+    <p><span class="n">注三</span>制胜之枢在『决水灌城』与『久围离心』二事(图中水色泛环、金环示之):下邳恃泗沂之险,曹操决二水灌之,反以其险为攻;又相守月余,布众离心而叛。陈宫尝为布画『出屯泗上、内外犄角』之策以老曹师,布惑于妻言不能用,遂困守孤城。吕布骁勇冠世而寡谋自败,登白门楼请降,操缢杀之,并斩陈宫、高顺——胜败之机,系于用谋与人心,不独在攻具。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"东征吕布",d:"汉建安三年(198)",p:["吕布反覆无常,乘衅夺据徐州,复外结袁术、内攻刘备,遂为中原东南之患。曹操既定豫、兖,乃自将东征,以除肘腋之忧。","操军连拔诸城,进逼下邳。吕布恃泗、沂交汇之险,聚众守城,曹操大军压境,东征之势已成。"]},
-  "1":{t:"先拔彭城",d:"建安三年 · 进军",p:["曹操进军,先破吕布于彭城,乘胜直逼下邳。吕布屡出城野战,皆为操所败,乃闭城固守,不复轻出。","陈宫为布画策:请布将骑出屯泗上,己与高顺守城,内外为犄角之势,操远来粮乏,可相持而困之。布初然其计,既而惑于妻言,狐疑不决,终不能用,坐守孤城。"]},
-  "2":{t:"决水灌城",d:"建安三年 · 围城",p:["曹操围下邳月余,数起攻而城坚未拔,士卒疲敝,操意欲还。荀攸、郭嘉进言:吕布勇而无谋,今三战皆北,锐气已堕,宜急攻之,以水灌城。","操从其计,决泗水、沂水以灌下邳。城中水浸,粮储渐尽,人马疲病,守御日懈;吕布左右离心,大势已去。"]},
-  "3":{t:"白门就擒",d:"建安三年 · 城破",p:["吕布将侯成、宋宪、魏续叛,执缚陈宫、高顺以降,开城门纳曹操之军。布势穷力蹙,与麾下数人登白门楼,四顾无援,乃自请降。","曹操缢杀吕布,斩陈宫、高顺;徐州遂平。操既除东南之患,后顾无忧,乃得专意于河北,以图袁绍。"]}
+  all:{t:"东征吕布",d:"汉建安三年(198)秋 — 冬",p:["吕布反覆无常,乘衅夺据徐州,逐刘备于小沛,复外结袁术、纵兵抄掠,遂为中原东南之患。曹操既定豫、兖,乃自许都东征,以除肘腋之忧;刘备来奔,从征为前导。","操军连拔诸城,进逼下邳。吕布恃泗、沂交汇之险,聚众守城。曹操大军压境,围而攻之,东征之势已成——然坚城水险,一时未可猝拔。"]},
+  "1":{t:"先拔彭城",d:"建安三年 · 进军",p:["曹操自西进军,先破吕布于彭城,屠之,乘胜直逼下邳。吕布屡出城野战,皆为操所败,乃闭城固守,不复轻出。","陈宫为布画策:请布将骑出屯泗上,己与高顺守城,操若攻城则布击其背、攻布则城中出救,内外为犄角,操远来粮乏,可相持而困之。布初然其计,既而惑于妻言,狐疑不决,终不能用,坐守孤城。"]},
+  "2":{t:"决泗沂灌城",d:"建安三年 · 围城",p:["曹操围下邳,起土山地道,数攻而城坚未拔;相守既久,士卒疲敝,操意欲还。荀攸、郭嘉进言:吕布勇而无谋,今三战皆北,锐气已堕,陈宫有智而迟,宜及布气之未复、宫谋之未定,急攻之,以水灌城。","操从其计,决泗水、沂水以灌下邳。城中水浸,庐舍垫溺,粮储渐尽,人马疲病,守御日懈;吕布左右离心,大势去矣。所恃之水险,反成灌城之资——此攻坚之妙,在转其所长为所短。"]},
+  "3":{t:"白门就擒",d:"建安三年 · 城破",p:["相守月余,吕布将侯成、宋宪、魏续叛,执缚谋主陈宫、大将高顺,举城出降,纳曹操之军。布势穷力蹙,与麾下数人登白门楼,四顾无援,乃下楼请降。","曹操缢杀吕布,斩陈宫、高顺;徐州遂平。操既除东南之患,后顾无忧,乃得专意于河北,以图袁绍——两年之后,遂有官渡之决。"]}
 };
 const CITY={
-  xiapi:{t:"下邳",d:"吕布都城,今江苏睢宁北",p:["吕布据以为都,泗水、沂水于此交汇,城枕水险。曹操围而灌之,城破,布登白门楼请降,遂就缢于此。"]},
-  pengcheng:{t:"彭城",d:"今江苏徐州",p:["下邳之西北门户。曹操东征,先破吕布于彭城,乘胜进逼下邳,布野战屡败而退守。"]},
-  xiaopei:{t:"小沛",d:"沛县,下邳之西",p:["徐州西面重镇,刘备尝屯于此为羽翼。吕布夺徐州、攻刘备,反覆之迹皆系于沛下,遂启曹操东征之衅。"]},
-  xiaoguan:{t:"萧关",d:"下邳外围隘口",p:["下邳城外要隘,曹军围城时藉以扼守,断吕布出入之道,使孤城益困。"]},
-  guangling:{t:"广陵",d:"今江苏扬州一带,下邳之南濒淮",p:["徐州南境滨淮之地,泗、沂合流南下入淮所经。吕布败亡后,徐州南北皆入曹操之手。"]}
+  xiapi:{t:"下邳",d:"吕布都城,今江苏睢宁西北古邳镇",p:["吕布据以为都,泗水、沂水于此交汇,城枕水险,故曹操攻之月余不拔。荀攸、郭嘉献计,决泗、沂二水以灌城,城垫粮尽,布众离心。布将叛而出降,布登白门楼请降,遂就缢于此,徐州平。"]},
+  pengcheng:{t:"彭城",d:"今江苏徐州,下邳之西北",p:["下邳之西北门户。曹操东征,先破吕布于彭城,屠之,乘胜进逼下邳;布野战屡败而退守孤城。"]},
+  xiaopei:{t:"小沛(沛县)",d:"今江苏沛县,下邳之北",p:["徐州西北重镇,刘备尝屯此为羽翼。吕布夺徐州、逐刘备于小沛,备奔曹操,遂启操东征之衅。"]},
+  xiaoguan:{t:"萧关",d:"下邳外围隘口(位置示意)",p:["下邳城外要隘。曹军围城,藉以扼守泗上出入之道,断吕布内外相通,使孤城益困。其确址无考,图中就泗水近下邳处示意。"]},
+  guangling:{t:"广陵",d:"今江苏扬州一带,下邳东南濒淮",p:["徐州南境滨淮之地,泗、沂合流南下入淮所经。吕布败亡后,徐州南北皆入曹操之手;广陵旋为陈登所守,以御江东。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
