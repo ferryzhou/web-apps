@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -31,6 +32,8 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,8 +48,22 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
@@ -58,7 +75,7 @@
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.9s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +89,16 @@
   <div class="seal" aria-hidden="true"><span>张</span><span>楚</span><span>首</span><span>事</span></div>
   <header>
     <h1>大泽乡起义 · 张楚</h1>
-    <div class="sub">秦二世元年(前209)　　<i>张楚 陈胜 · 吴广</i> 首事亡秦</div>
+    <div class="sub">秦二世元年(前209)　　<i>张楚 陈胜 · 吴广</i> 首事亡秦,分兵略地　·　周文长驱入关,<b>秦 章邯</b>逆击而张楚旋亡</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 揭竿而起</button>
     <button data-p="1">大泽首事</button>
-    <button data-p="2">据陈称王</button>
+    <button data-p="2">据陈称王 · 分兵略地</button>
     <button data-p="3">周文入关 · 张楚亡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="大泽乡起义形势图,含秦与张楚山东群雄疆界、黄河淮水与大泽乡陈荥阳戏函谷咸阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="大泽乡起义形势图,含秦与关东张楚山东群雄疆界、黄河渭水淮水,及大泽乡蕲陈荥阳函谷戏咸阳渑池城父邯郸等城邑与义军诸路">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,84 +107,115 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:秦据关中(西),张楚山东群雄据关东(东),约以函谷关为界 -->
-    <path d="M 470,0 C 466,90 456,170 452,250 C 448,320 452,400 458,470 C 462,540 468,590 472,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 466,90 456,170 452,250 C 448,320 452,400 458,470 C 462,540 468,590 472,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 466,90 456,170 452,250 C 448,320 452,400 458,470 C 462,540 468,590 472,640"/>
-    <text class="realm q" x="150" y="150" font-size="34">秦(关中)</text>
-    <text class="realm j" x="640" y="120" font-size="30">张楚 · 山东</text>
+    <!-- ══ 疆界:秦据关中·三川(西),关东六国之地为张楚·山东群雄所据(东),约以崤函为界 ══ -->
+    <path d="M 362,0 C 354,120 346,240 348,340 C 350,440 358,540 362,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 362,0 C 354,120 346,240 348,340 C 350,440 358,540 362,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 362,0 C 354,120 346,240 348,340 C 350,440 358,540 362,640"/>
+    <text class="realm q" x="96" y="150" font-size="30">秦 · 关中</text>
+    <text class="realm j" x="792" y="128" font-size="26">张楚 · 山东</text>
+    <text class="cname s" x="440" y="452" style="opacity:.85">关　东　之　地</text>
 
-    <!-- 黄河:自西而东,经函谷、荥阳北,东流入海 -->
-    <path class="river" stroke-width="5.5" d="M 120,210 C 240,224 360,238 452,240 C 560,244 660,258 740,242 C 830,224 910,222 1000,232"/>
-    <!-- 淮水:自西南向东流 -->
-    <path class="river" stroke-width="3.4" d="M 560,470 C 640,486 720,500 800,506 C 880,512 940,512 1000,510"/>
-    <!-- 渭水:自陇西东下,经咸阳入河 -->
-    <path class="river" stroke-width="2.4" d="M 130,300 C 200,296 280,286 360,270 C 410,260 440,250 452,240"/>
-    <text class="rname" x="300" y="228" style="font-size:13px">黄 河</text>
-    <text class="rname" x="690" y="498">淮 水</text>
-    <text class="rname" x="230" y="288" transform="rotate(-6 230 288)" style="font-size:10.5px">渭 水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西北下龙门,折而东流,经渑池荥阳之北,东注于海 -->
+    <path class="river" stroke-width="5" d="M 270,250 C 264,310 268,362 300,378 C 360,392 420,352 470,342 C 560,330 660,336 760,342 C 860,347 940,350 1000,352"/>
+    <!-- 渭水:自陇西东下,经咸阳,东会河于潼关 -->
+    <path class="river" stroke-width="2.6" d="M 62,430 C 130,424 200,410 260,392 C 280,386 292,382 300,378"/>
+    <!-- 淮水:南境大川,自西东流 -->
+    <path class="river" stroke-width="3.4" d="M 540,600 C 660,588 780,580 900,568 C 950,563 980,562 1000,560"/>
+    <text class="rname" x="150" y="270" style="font-size:13px">黄 河</text>
+    <text class="rname" x="120" y="424" transform="rotate(-8 120 424)" style="font-size:10.5px">渭 水</text>
+    <text class="rname" x="700" y="586">淮 水</text>
 
     <!-- 崤山·函谷之险 -->
-    <g class="mtn"><path d="M 470,300 l 8,-13 l 8,13 M 486,294 l 8,-13 l 8,13 M 502,300 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="470" y="320">崤山</text>
+    <path class="mtn fill" d="M 322,300 L 334,278 L 344,292 L 356,270 L 366,290 L 376,274 L 386,296 Z"/>
+    <g class="mtn"><path d="M 330,300 l 9,-14 l 9,14 M 346,294 l 9,-14 l 9,14"/></g>
+    <text class="mname" x="322" y="320" style="font-size:10.5px">崤　函</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="xianyang"><circle cx="210" cy="278" r="6"/><text class="cname" x="150" y="274">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
-      <g class="city" data-city="xi"><circle cx="266" cy="290" r="4"/><text class="cname s" x="256" y="310">戏</text></g>
-      <g class="city" data-city="hanguguan"><circle cx="452" cy="288" r="4.5"/><text class="cname s" x="460" y="284">函谷关</text></g>
-      <g class="city" data-city="xingyang"><circle cx="560" cy="266" r="5"/><text class="cname" x="568" y="262">荥阳</text></g>
-      <g class="city cap" data-city="chen"><circle cx="650" cy="410" r="6"/><text class="cname" x="662" y="406">陈<tspan class="cname s" dx="2">(张楚都)</tspan></text></g>
-      <g class="city" data-city="chengfu"><circle cx="700" cy="452" r="3.5"/><text class="cname s" x="708" y="470">城父</text></g>
-      <g class="city" data-city="daze"><circle cx="790" cy="418" r="5"/><text class="cname" x="800" y="414">大泽乡<tspan class="cname s" dx="2">(蕲县)</tspan></text></g>
+      <g class="city cap" data-city="xianyang"><circle cx="110" cy="414" r="6"/><text class="cname" x="120" y="410">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
+      <g class="city" data-city="xi"><circle cx="169" cy="408" r="4.5"/><text class="cname s" x="158" y="428">戏</text></g>
+      <g class="city" data-city="hanguguan"><circle cx="324" cy="382" r="4.5"/><text class="cname s" x="292" y="372">函谷关</text></g>
+      <g class="city" data-city="mianchi"><circle cx="411" cy="356" r="4"/><text class="cname s" x="418" y="350">渑池</text></g>
+      <g class="city" data-city="xingyang"><circle cx="566" cy="356" r="5"/><text class="cname" x="574" y="351">荥阳<tspan class="cname s" dx="2">(敖仓)</tspan></text></g>
+      <g class="city cap" data-city="chen"><circle cx="712" cy="499" r="6"/><text class="cname" x="686" y="486">陈<tspan class="cname s" dx="2">(张楚都)</tspan></text></g>
+      <g class="city" data-city="chengfu"><circle cx="809" cy="499" r="4"/><text class="cname s" x="816" y="494">城父</text></g>
+      <g class="city" data-city="qi"><circle cx="924" cy="545" r="4"/><text class="cname s" x="898" y="562">蕲</text></g>
+      <g class="city" data-city="daze"><circle cx="908" cy="520" r="5.5"/><text class="cname" x="822" y="512">大泽乡</text></g>
+      <g class="city cap" data-city="handan"><circle cx="673" cy="122" r="5"/><text class="cname" x="682" y="118">邯郸<tspan class="cname s" dx="2">(赵)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 揭竿而起 -->
+    <!-- ══ 全图 · 揭竿而起 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 782,414 C 740,400 700,404 662,410"/>
-      <text class="mlabel j" x="666" y="392">陈胜、吴广据陈称王,号张楚</text>
-      <path class="march j" marker-end="url(#aj)" d="M 640,404 C 580,360 520,320 470,296"/>
-      <text class="mlabel j" x="520" y="352">分遣诸将西击秦</text>
-      <text class="mlabel q" x="150" y="200">秦二世方娱骊山,不知寇至</text>
-      <text class="anno" x="640" y="430">武臣略赵,山东豪杰并起响应</text>
+      <!-- 起义主轴:大泽乡→蕲→陈 -->
+      <path class="march j" marker-end="url(#aj)" d="M 902,522 C 850,528 780,514 724,502"/>
+      <text class="mlabel j" x="770" y="486">攻蕲下县,比至陈,众数万</text>
+      <!-- 吴广西围荥阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 704,492 C 660,448 610,398 576,364"/>
+      <!-- 周文长驱西入至戏 -->
+      <path class="march j" marker-end="url(#aj)" d="M 700,496 C 560,442 430,398 330,384 C 262,392 214,400 180,406"/>
+      <text class="mlabel j" x="352" y="360">周文长驱西入函谷,至戏,逼咸阳</text>
+      <!-- 武臣北略赵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 706,488 C 692,380 684,250 678,134"/>
+      <text class="mlabel j" x="612" y="250">武臣北略赵,自立为赵王</text>
+      <circle class="star" cx="566" cy="356" r="7"/>
+      <circle class="star" cx="169" cy="408" r="7"/>
+      <text class="anno" x="600" y="400">分遣诸将徇地,山东豪杰并起响应</text>
+      <text class="mlabel q" x="60" y="200">秦二世方娱,不知寇至</text>
     </g>
 
-    <!-- 阶段一:大泽首事 -->
+    <!-- ══ 阶段一:大泽首事 ══ -->
     <g id="ph1" class="ph">
-      <circle class="star" cx="790" cy="418" r="8"/>
-      <text class="mlabel j" x="740" y="400">七月,谪戍屯大泽乡</text>
-      <text class="anno" x="700" y="438">会天大雨失期当斩,杀尉揭竿</text>
-      <path class="march j" marker-end="url(#aj)" d="M 782,414 C 730,412 690,410 662,412"/>
-      <text class="mlabel j" x="676" y="428">攻蕲下县,比至陈,众数万</text>
-      <text class="anno" x="700" y="470">「王侯将相宁有种乎」</text>
+      <circle class="star" cx="908" cy="520" r="9"/>
+      <text class="mlabel j" x="800" y="494">七月,谪戍九百屯大泽乡</text>
+      <text class="anno" x="720" y="560">会天大雨失期当斩,斩木揭竿</text>
+      <path class="march j" marker-end="url(#aj)" d="M 902,524 C 930,532 928,540 922,543"/>
+      <path class="march j" marker-end="url(#aj)" d="M 918,546 C 850,540 780,516 724,502"/>
+      <text class="mlabel j" x="600" y="474">攻蕲,下诸县,比至陈,车骑千余、卒数万</text>
+      <text class="anno" x="560" y="592" style="fill:var(--advance);opacity:.85">「王侯将相宁有种乎」</text>
     </g>
 
-    <!-- 阶段二:据陈称王 -->
+    <!-- ══ 阶段二:据陈称王 · 分兵略地 ══ -->
     <g id="ph2" class="ph">
-      <path d="M 650,410 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="600" y="392">陈胜自立为王,号张楚</text>
-      <path class="march j" marker-end="url(#aj)" d="M 640,400 C 600,340 578,300 566,278"/>
-      <text class="mlabel j" x="560" y="330">吴广西围荥阳,攻李由</text>
-      <rect class="camp" x="556" y="262" width="8" height="8" transform="rotate(45 560 266)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 634,406 C 560,380 500,336 470,300"/>
-      <text class="mlabel j" x="490" y="368">周文西击秦</text>
-      <text class="anno" x="640" y="440">武臣略赵,诸将徇地,山东并起</text>
+      <path d="M 712,499 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="628" y="522">陈胜自立为王,号「张楚」</text>
+      <!-- 吴广西围荥阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 704,492 C 660,448 610,398 576,364"/>
+      <text class="mlabel j" x="560" y="418">吴广西围荥阳,攻三川守李由</text>
+      <rect class="camp" x="562" y="352" width="8" height="8" transform="rotate(45 566 356)"/>
+      <circle class="star" cx="566" cy="356" r="7"/>
+      <!-- 周文西击秦 -->
+      <path class="march j" marker-end="url(#aj)" d="M 700,496 C 580,452 470,414 380,392"/>
+      <text class="mlabel j" x="392" y="376">周文将兵西击秦</text>
+      <!-- 武臣北略赵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 706,488 C 692,380 684,250 678,134"/>
+      <text class="mlabel j" x="590" y="230">武臣、张耳、陈馀北略赵地</text>
+      <!-- 周市徇魏 -->
+      <path class="march j" marker-end="url(#aj)" d="M 724,490 C 760,420 786,340 796,268"/>
+      <text class="mlabel j" x="802" y="300">周市徇魏地,立魏咎为王</text>
+      <text class="anno" x="470" y="600">齐、燕、赵、魏之地,豪杰杀守令以应陈涉</text>
     </g>
 
-    <!-- 阶段三:周文入关 · 张楚亡 -->
+    <!-- ══ 阶段三:周文入关 · 张楚亡 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 466,286 C 400,282 330,286 272,290"/>
-      <text class="mlabel j" x="320" y="272">周文长驱入函谷关至戏</text>
-      <text class="anno" x="300" y="308">兵数十万,逼咸阳</text>
-      <rect class="camp" x="204" y="272" width="9" height="9" transform="rotate(45 208 276)"/>
-      <text class="mlabel q" x="130" y="256">章邯赦骊山徒以击之</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 260,296 C 340,320 420,314 460,300"/>
-      <text class="mlabel r" x="330" y="336">周文败走,自刭</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 648,416 C 668,430 686,442 698,450"/>
-      <text class="mlabel r" x="640" y="480">陈胜死于城父;张楚旋亡</text>
+      <!-- 周文长驱至戏 -->
+      <path class="march j" marker-end="url(#aj)" d="M 558,360 C 460,368 380,376 330,382 C 262,390 214,400 180,406"/>
+      <text class="mlabel j" x="316" y="358">周文入函谷,至戏,兵数十万</text>
+      <text class="anno" x="120" y="376">去咸阳咫尺,秦廷始惧</text>
+      <circle class="star" cx="169" cy="408" r="9"/>
+      <!-- 章邯赦骊山徒逆击 -->
+      <rect class="camp" x="106" y="410" width="9" height="9" transform="rotate(45 110 414)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 120,418 C 138,416 152,412 162,410"/>
+      <text class="mlabel q" x="60" y="450">章邯赦骊山徒,悉发以击楚</text>
+      <!-- 周文败走渑池,自刭 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 178,412 C 250,416 320,398 405,362"/>
+      <text class="mlabel r" x="228" y="440">周文败走,退出关,自刭于渑池</text>
+      <!-- 陈胜败死城父 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 720,500 C 760,501 786,500 802,500"/>
+      <text class="mlabel r" x="726" y="524">陈胜为御者庄贾所杀于城父,张楚旋亡</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -176,35 +224,79 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>张楚军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>秦军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败亡</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>张楚义军(诸路)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>秦军(章邯)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>义军败亡</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 · 攻围</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" transform="rotate(45 8 8)" fill="#9a2b1e"/></svg>秦守/围垒</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>秦 · 关中</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>张楚 · 山东</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 首事而无后继,悬军而无援</h3>
+    <div class="lead">何以张楚半岁而亡 —— 燎原之速,反成其孤</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="张楚分兵示意:陈为中枢,吴广滞荥阳、周文孤入至戏、武臣自王于赵、周市立魏,诸路不相统属,章邯逐个击破">
+      <!-- 中枢:陈·张楚 -->
+      <circle cx="430" cy="132" r="30" fill="#e9dec4" stroke="#1f4e54" stroke-width="2"/>
+      <text x="430" y="128" text-anchor="middle" fill="#1f4e54" font-size="14" font-weight="700">陈</text>
+      <text x="430" y="144" text-anchor="middle" fill="#5c4f38" font-size="9.5">张楚都</text>
+      <!-- 分路箭 -->
+      <path d="M 402,116 C 320,86 230,66 150,58" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <path d="M 404,138 C 300,168 210,182 120,190" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <path d="M 458,116 C 560,88 650,70 720,60" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <path d="M 456,150 C 560,178 650,192 720,200" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <text x="150" y="50" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">吴广 · 荥阳</text>
+      <text x="150" y="34" text-anchor="middle" fill="#5c4f38" font-size="9.5">顿兵于坚城,不下</text>
+      <text x="120" y="208" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">周文 · 戏</text>
+      <text x="120" y="224" text-anchor="middle" fill="#5c4f38" font-size="9.5">孤军深入,近咸阳</text>
+      <text x="720" y="50" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">武臣 · 赵</text>
+      <text x="720" y="34" text-anchor="middle" fill="#5c4f38" font-size="9.5">既得地,自立为王</text>
+      <text x="720" y="212" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">周市 · 魏</text>
+      <text x="720" y="228" text-anchor="middle" fill="#5c4f38" font-size="9.5">立魏咎,不受节制</text>
+      <!-- 章邯逐个击破:红色横扫 -->
+      <path d="M 60,132 C 220,120 300,124 372,130" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="9 5" marker-end="url(#aq)"/>
+      <g stroke="#9a2b1e" stroke-width="2.4"><line x1="100" y1="122" x2="112" y2="134"/><line x1="100" y1="134" x2="112" y2="122"/></g>
+      <text x="70" y="152" fill="#9a2b1e" font-size="10.5" font-weight="700">章邯出关,各个击破 ✕</text>
+    </svg>
+    <p class="intro">陈胜『斩木为兵、揭竿为旗』,旬月之间众数十万,天下响应,亡秦之势似已成。然张楚之败,不在秦之强,而在<b>其胜之太速、其军之太散</b>:诸将各以偏师徇地,得地者辄自王,首事之陈遂成空悬之枢——<b>周文以数十万之众孤入至戏,而吴广顿荥阳、武臣王于赵,无一军能为之继援</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>燎原之速 —— 山东并起</h4>
+        <p>自大泽乡揭竿,攻蕲下陈不过旬月;既称『张楚』,则分遣吴广、周文、武臣、周市、召平诸将四出徇地。齐田儋、燕韩广、赵武臣、魏周市纷纷自王,六国之绪并起。声势之盛,秦人震恐——然号令不出于一,诸军各为其主。</p>
+      </div>
+      <div class="c b">
+        <h4>悬军之孤 —— 周文无援</h4>
+        <p>周文长驱入函谷,至戏,兵数十万,距咸阳咫尺。然吴广攻荥阳久不下、敖仓之粟为秦守,后路不通;武臣既王赵,拥兵不西。章邯赦骊山徒骤出,周文一败即退,阻关外月余,救兵不至,遂自刭。周文既灭,张楚失其锋,陈胜旋为庄贾所杀。</p>
+      </div>
+    </div>
+    <p class="kicker">故张楚之亡,非战之罪,实<b>首事而无后继、分兵而不相统属</b>之败:周文悬军无援于西,吴广顿兵坚城于中,武臣拥地自王于北——三者一断俱断。然『始事者胜也』,亡秦之端自此启,项梁、刘邦皆承其绪,六国豪杰卒以倾秦。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记 · 陈涉世家》《秦楚之际月表》及《资治通鉴》卷七至八约略绘出。疆界、水道经简化,黄河、淮水、渭水皆概略走向,函谷、崤山之险以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注二</span>大泽乡在今安徽宿州东南,蕲县属焉;陈即今河南淮阳,张楚都之;戏在今陕西临潼东,近咸阳,周文西入至此;城父今安徽亳州东南,陈胜败死之地。</p>
-    <p><span class="n">注三</span>陈胜首事而速亡,自七月揭竿至次年腊月被杀,不过半岁。然「始事者胜也」,亡秦诸雄项梁、刘邦皆承其绪。本图从张楚(青),其败亡用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何关系力求近实:大泽乡·蕲在东南,陈居其西,荥阳·渑池·函谷循黄河南岸而西,戏·咸阳在最西,邯郸(赵)在北。疆界、水道经简化;黄河、渭水、淮水皆概略走向,崤函之险以点划「约界」标之,非实有画界。史事依《史记 · 陈涉世家》《秦始皇本纪》《秦楚之际月表》及《资治通鉴》卷七至八约略绘出。</p>
+    <p><span class="n">注二</span>今地:大泽乡在今安徽宿州东南,蕲县属焉;陈即今河南淮阳,张楚都之;荥阳今河南荥阳,敖仓在其北,秦三川郡治;函谷关今河南灵宝北;戏水在今陕西临潼东,近咸阳,周文西入至此;渑池今河南渑池,周文败退自刭之地;城父今安徽亳州东南,陈胜败死之所;邯郸即赵地,武臣自立为赵王。</p>
+    <p><span class="n">注三</span>荥阳虽在崤函以东,然为秦三川郡治、敖仓所在,李由(李斯子)守之,吴广围而不下;故图中虽处张楚·山东一侧,实为深入关东之秦守据点(朱色围垒),非张楚所有。此正张楚西向受阻、后路不通之关键。图中疆界为大势示意,秦郡县与义军犬牙交错,不可拘泥于一线。</p>
+    <p><span class="n">注四</span>陈胜首事而速亡,自二世元年七月揭竿,至次年腊月被杀,不过半岁。诸家于周文兵数(『车千乘、卒数十万』)、诸将叛立之次第互有出入,本图取《史记》大略。本图从张楚为主(青),秦军章邯用朱,义军败亡用褐。此为自主绘制之判断,分路取舍与投影窗口(约108.5°—117.5°E,33°—37°N)为作图假设,并存于此。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"揭竿而起",d:"秦二世元年(前209)",p:["陈胜、吴广戍卒失期,揭竿于大泽乡,斩木为兵、揭竿为旗;旬月之间,众数万,入陈自立为王,号「张楚」。","乃分遣诸将:吴广西围荥阳攻秦将李由,周文将兵西击秦,武臣北略赵地。山东豪杰并起响应,亡秦之端自此启。"]},
-  "1":{t:"大泽首事",d:"二世元年七月",p:["二世元年七月,发谪戍渔阳,九百人屯于大泽乡。会天大雨,道不通,度已失期;失期,法皆斩。","陈胜、吴广乃杀两尉,召徒属曰「王侯将相宁有种乎」,斩木为兵、揭竿为旗。攻蕲,下诸县,比至陈,车六七百乘、骑千余、卒数万人。"]},
-  "2":{t:"据陈称王",d:"二世元年八月",p:["入陈,与父老豪杰计事,遂立为王,号「张楚」。分遣诸将徇地四方。","乃令吴广西围荥阳,攻三川守李由;周文将兵西击秦;武臣、张耳、陈馀北略赵地。山东豪杰杀其守令以应陈涉,天下响应。"]},
-  "3":{t:"周文入关 · 张楚亡",d:"二世元年九月 — 腊月",p:["周文长驱入函谷关,至戏,车千乘、卒数十万,直逼咸阳。二世大惊,少府章邯请赦骊山徒、人奴产子,悉发以击楚军。","章邯出,周文败走,退出关,自刭。诸将不相能:吴广为部将田臧所杀,陈胜为御者庄贾所杀于城父,张楚旋亡。然亡秦之绪已启,项梁、刘邦继之。"]}
+  all:{t:"揭竿而起",d:"秦二世元年(前209)七月 — 腊月",p:["陈胜、吴广等九百戍卒谪戍渔阳,屯于大泽乡,会天大雨失期当斩。乃杀尉揭竿,斩木为兵、揭竿为旗;攻蕲下县,比至陈,车六七百乘、骑千余、卒数万,遂入陈自立为王,号「张楚」。","乃分遣诸将徇地四方:吴广西围荥阳攻李由,周文将兵西击秦、长驱入函谷至戏,武臣北略赵地,周市徇魏。山东豪杰并起响应,亡秦之端自此启。然周文孤入无援,章邯逆击,张楚旋亡。"]},
+  "1":{t:"大泽首事",d:"二世元年七月",p:["二世元年七月,发闾左谪戍渔阳,九百人屯于大泽乡。会天大雨,道不通,度已失期;失期,法皆斩。陈胜、吴广乃谋:「今亡亦死,举大计亦死,等死,死国可乎?」","乃杀两尉,召徒属曰「王侯将相宁有种乎」,斩木为兵、揭竿为旗。攻大泽乡,收而攻蕲;蕲下,乃令符离人葛婴将兵徇蕲以东。攻铚、酂、苦、柘、谯皆下之,比至陈,车六七百乘、骑千余、卒数万人。"]},
+  "2":{t:"据陈称王 · 分兵略地",d:"二世元年八月",p:["入陈,陈守令皆不在,独守丞与战谯门中,弗胜,守丞死。陈胜乃入据陈,与父老豪杰计事,遂立为王,号「张楚」。","分遣诸将徇地四方:令吴广为假王,西围荥阳,攻三川守李由;遣周文(周章)将兵西击秦;武臣、张耳、陈馀北略赵地,周市徇魏,召平徇广陵。诸郡县苦秦吏者,皆杀其守令以应陈涉,山东大扰,六国之绪并起。"]},
+  "3":{t:"周文入关 · 张楚亡",d:"二世元年九月 — 腊月",p:["周文西击秦,行收兵至函谷关,车千乘、卒数十万,至戏,军焉,去咸阳咫尺。二世大惊,少府章邯请赦骊山徒、人奴产子,悉发以击楚军,大破之。","周文败走,出关,止次曹阳、渑池,秦兵追击,遂自刭,军遂不战。吴广围荥阳不下,为部将田臧所杀;武臣既王赵,拥兵不西救。腊月,陈胜之汝阴,还至下城父,为其御者庄贾所杀以降秦。张楚旋亡——然亡秦之绪已启,项梁、刘邦继之,卒以倾秦。"]}
 };
 const CITY={
-  daze:{t:"大泽乡",d:"蕲县,今安徽宿州东南",p:["起义地。九百谪戍屯此,会天大雨失期,陈胜、吴广杀尉揭竿,亡秦之事自此始。"]},
-  chen:{t:"陈",d:"张楚都,今河南淮阳",p:["陈胜攻下诸县,比至陈,众数万。入陈自立为王,号「张楚」,分遣诸将徇地四方。"]},
-  xingyang:{t:"荥阳",d:"三川郡要地,敖仓所在",p:["吴广奉命西围之,攻秦三川守李由(李斯子)。荥阳当敖仓之粟、控扼东西,久攻不下。"]},
-  xi:{t:"戏",d:"今陕西临潼东,近咸阳",p:["周文西入至此,兵数十万,逼咸阳。章邯赦骊山徒来击,周文败退,寻自刭于此路。"]},
-  hanguguan:{t:"函谷关",d:"秦关中东门户",p:["周文长驱入关,秦守不能御。关破则关中震动,故章邯急发骊山徒以拒之。"]},
-  xianyang:{t:"咸阳",d:"秦都",p:["二世方娱于甘泉,谒者以群盗告,反系之。周文军戏,去咸阳咫尺,秦廷始惧,乃发骊山徒击之。"]},
-  chengfu:{t:"城父",d:"今安徽亳州东南",p:["陈胜兵败退保于此,为其御者庄贾所杀,以降秦。张楚遂亡,首事者陈涉身死。"]}
+  daze:{t:"大泽乡",d:"起义地,今安徽宿州东南",p:["九百谪戍屯此,会天大雨失期,陈胜、吴广杀尉揭竿,斩木为兵、揭竿为旗。亡秦之事自此始。"]},
+  qi:{t:"蕲",d:"今安徽宿州南 · 蕲县",p:["大泽乡属蕲。义军首下蕲城,乃令葛婴将兵徇蕲以东,而自引兵西向,攻铚、酂、苦、柘、谯,比至陈众数万。"]},
+  chen:{t:"陈",d:"张楚都,今河南淮阳",p:["攻下诸县,比至陈,守丞战死。陈胜入据,与父老豪杰计事,自立为王,号「张楚」,分遣诸将徇地四方。此为义军中枢。"]},
+  chengfu:{t:"城父",d:"今安徽亳州东南 · 下城父",p:["周文既败、诸将离叛,陈胜之汝阴,还至下城父,为其御者庄贾所杀以降秦。首事者陈涉身死,张楚遂亡。"]},
+  xingyang:{t:"荥阳",d:"秦三川郡治,敖仓所在,今河南荥阳",p:["吴广为假王,奉命西围之,攻秦三川守李由(李斯子)。荥阳控扼东西、临敖仓之粟,坚守不下;吴广顿兵于此,张楚西路后援遂梗——终为部将田臧所杀。"]},
+  hanguguan:{t:"函谷关",d:"秦关中东门户,今河南灵宝北",p:["周文长驱入关,秦守不能御。关破则关中震动,故章邯急发骊山徒以拒之。周文既败,复退出此关。"]},
+  xi:{t:"戏",d:"戏水,今陕西临潼东,近咸阳",p:["周文西入之极点,车千乘、卒数十万军于此,去咸阳咫尺。章邯赦骊山徒来击,大破之,周文败退出关。"]},
+  mianchi:{t:"渑池",d:"今河南渑池 · 曹阳一带",p:["周文败出函谷,止次曹阳、渑池,拒守月余以待援;救兵不至,秦兵追击,遂自刭。张楚失其西锋。"]},
+  xianyang:{t:"咸阳",d:"秦都,今陕西咸阳",p:["周文军戏,去咸阳咫尺,秦廷始惧。二世乃从章邯议,赦骊山徒、人奴产子,悉发以击楚军。骊山在其东,近戏。"]},
+  handan:{t:"邯郸(赵)",d:"赵地,今河北邯郸",p:["陈胜遣武臣、张耳、陈馀北略赵地。武臣渡河下赵三十余城,遂自立为赵王,拥兵不西救周文——张楚分兵而不相统属之显例。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
