@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -29,8 +30,10 @@
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +42,16 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +60,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(92,74,110,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--qin);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--qin)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--qin)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
   body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,7 +91,7 @@
   <div class="seal" aria-hidden="true"><span>邯</span><span>郸</span><span>之</span><span>役</span></div>
   <header>
     <h1>邯郸之战</h1>
-    <div class="sub">周赧王五十六至五十八年(前259–257)　　<i>信陵君·平原君·春申君</i> 内外夹击 · <b>秦</b>大败邯郸城下</div>
+    <div class="sub">周赧王五十六至五十八年(前259–257)　　<i>赵</i> 苦守 · <em>魏 信陵君 · 楚 春申君</em> 来救 · 内外夹击,<b>秦</b>大败邯郸城下</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 秦围邯郸</button>
@@ -81,97 +100,130 @@
     <button data-p="3">内外夹击 · 大破秦军</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邯郸之战形势图,含秦赵魏楚疆界、黄河漳水与邯郸大梁邺咸阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邯郸之战形势图,含秦赵魏楚疆界、黄河漳水,及邯郸邺大梁郢陈上党河内河东等城邑与内外夹击之势">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:秦据关中河东(西),赵魏楚在山东(东),约以河东西为界 -->
-    <path d="M 430,0 C 440,110 400,210 380,300 C 362,380 358,470 380,560 C 390,600 396,620 400,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 430,0 C 440,110 400,210 380,300 C 362,380 358,470 380,560 C 390,600 396,620 400,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 430,0 C 440,110 400,210 380,300 C 362,380 358,470 380,560 C 390,600 396,620 400,640"/>
-    <text class="realm q" x="120" y="140" font-size="34">秦</text>
-    <text class="realm j" x="640" y="150" font-size="32">赵</text>
-    <text class="realm j" x="720" y="360" font-size="28">魏</text>
-    <text class="realm j" x="660" y="560" font-size="28">楚</text>
+    <!-- ══ 三方疆界:秦据关中·河东·上党(西·长平新得),赵据河北(邯郸,东北),魏·楚在河南(大梁·郢陈,东南) ══ -->
+    <path d="M 480,0 C 500,110 470,200 465,290 C 460,400 480,540 470,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 480,0 C 500,110 470,200 465,290 C 540,286 620,292 720,304 C 840,318 930,322 1000,322 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 465,290 C 460,400 480,540 470,640 L 1000,640 L 1000,322 C 930,322 840,318 720,304 C 620,292 540,286 465,290 Z" fill="url(#fqinHatch)"/>
+    <!-- 秦·东方约界(太行—河内一线) -->
+    <path class="border" d="M 480,0 C 500,110 470,200 465,290 C 460,400 480,540 470,640"/>
+    <!-- 赵·魏楚约界(漳南—河北一线) -->
+    <path class="border" d="M 465,290 C 540,286 620,292 720,304 C 840,318 930,322 1000,322"/>
+    <text class="realm q" x="150" y="112" font-size="30">秦</text>
+    <text class="cname s" x="150" y="134" style="fill:var(--enemy);opacity:.62">(关中·河东·上党)</text>
+    <text class="realm j" x="770" y="118" font-size="30">赵</text>
+    <text class="realm f" x="812" y="432" font-size="26">魏</text>
+    <text class="realm f" x="726" y="566" font-size="26">楚</text>
+    <text class="cname s" x="700" y="586" style="fill:var(--qin);opacity:.7">魏·楚 · 山东救赵之援</text>
 
-    <!-- 河水(黄河):自西河东折而东出,经河内南下 -->
-    <path class="river" stroke-width="5.5" d="M 300,90 C 340,160 360,230 380,300 C 400,360 470,392 560,398 C 660,404 760,410 860,404"/>
-    <!-- 漳水:自西山东流,经邺、邯郸之南入河 -->
-    <path class="river" stroke-width="3" d="M 470,210 C 540,230 600,258 646,290 C 690,320 720,352 748,378"/>
-    <text class="rname" x="700" y="426" style="font-size:13px">河 水(黄河)</text>
-    <text class="rname" x="560" y="248" transform="rotate(24 560 248)" style="font-size:11px">漳 水</text>
+    <!-- ══ 山脉:太行,横亘秦(上党)赵(邯郸)之间 ══ -->
+    <path class="mtn fill" d="M 486,148 L 502,170 L 490,186 L 508,210 L 494,228 L 512,252 L 498,270 L 516,290 L 528,278 L 518,254 L 532,232 L 520,206 L 534,182 L 522,158 Z"/>
+    <path class="mtn" d="M 500,176 l 10,-14 l 8,10 M 504,222 l 10,-14 l 8,10 M 508,268 l 10,-14 l 8,10"/>
+    <text class="mname" x="470" y="230" transform="rotate(78 470 230)">太 行 山</text>
 
-    <!-- 太行山:赵秦之间 -->
-    <g class="mtn"><path d="M 452,200 l 8,-13 l 8,13 M 468,194 l 8,-13 l 8,13 M 484,200 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="452" y="220">太行</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 河水(黄河):自河内东流,经邺·大梁之间,东北趋大河故道 -->
+    <path class="river" stroke-width="5.5" d="M 220,362 C 340,352 430,344 490,338 C 560,332 660,342 760,362 C 850,378 930,388 1000,394"/>
+    <!-- 漳水:自太行东出,经邺、邯郸之南入河 -->
+    <path class="river" stroke-width="3" d="M 505,215 C 545,215 575,220 600,230 C 650,248 700,270 745,296"/>
+    <text class="rname" x="300" y="382" style="font-size:13px">河 水(黄河)</text>
+    <text class="rname" x="620" y="256" transform="rotate(26 620 256)" style="font-size:11px">漳 水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="handan"><circle cx="616" cy="270" r="6"/><text class="cname" x="628" y="266">邯郸<tspan class="cname s" dx="2">(赵都)</tspan></text></g>
-      <g class="city" data-city="daliang"><circle cx="748" cy="392" r="6"/><text class="cname" x="760" y="388">大梁<tspan class="cname s" dx="2">(魏都)</tspan></text></g>
-      <g class="city" data-city="ye"><circle cx="628" cy="330" r="4.5"/><text class="cname s" x="596" y="352">邺·荡阴</text></g>
-      <g class="city" data-city="henei"><circle cx="470" cy="360" r="4"/><text class="cname s" x="404" y="356">河内·汾城</text></g>
-      <g class="city" data-city="yingchen"><circle cx="712" cy="560" r="4"/><text class="cname s" x="722" y="556">郢陈(楚)</text></g>
-      <g class="city" data-city="xianyang"><circle cx="150" cy="360" r="5"/><text class="cname" x="162" y="356">咸阳<tspan class="cname s" dx="2">(秦都)</tspan></text></g>
+      <g class="city cap" data-city="handan"><circle cx="595" cy="157" r="6.5"/><text class="cname" x="606" y="153">邯郸<tspan class="cname s" dx="2">(赵都)</tspan></text></g>
+      <g class="city" data-city="ye"><circle cx="557" cy="194" r="4.5"/><text class="cname s" x="500" y="184">邺·荡阴</text></g>
+      <g class="city cap" data-city="daliang"><circle cx="570" cy="377" r="6"/><text class="cname" x="581" y="373">大梁<tspan class="cname s" dx="2">(魏都)</tspan></text></g>
+      <g class="city cap" data-city="yingchen"><circle cx="644" cy="508" r="6"/><text class="cname" x="655" y="504">郢陈<tspan class="cname s" dx="2">(楚都)</tspan></text></g>
+      <g class="city" data-city="shangdang"><circle cx="419" cy="207" r="4"/><text class="cname s" x="372" y="200">上党</text></g>
+      <g class="city" data-city="changping"><circle cx="390" cy="255" r="3.5"/><text class="cname s" x="342" y="266">长平</text></g>
+      <g class="city" data-city="henei"><circle cx="429" cy="340" r="4"/><text class="cname s" x="384" y="358">河内·野王</text></g>
+      <g class="city" data-city="hedong"><circle cx="147" cy="350" r="4"/><text class="cname s" x="120" y="372">河东·安邑</text></g>
     </g>
 
-    <!-- 全图 · 秦围邯郸 -->
+    <!-- 咸阳(图外·西) -->
+    <g transform="translate(6,420)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,0 L 30,0"/>
+      <text class="mlabel q" x="0" y="-8" style="font-size:10px">⟵ 咸阳·关中</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--enemy);font-size:9.5px">秦都(图外)</text>
+    </g>
+
+    <!-- ══ 全图 · 秦围邯郸 ══ -->
     <g id="phAll" class="ph">
-      <circle class="siege" cx="616" cy="270" r="30"/>
-      <path class="march q" marker-end="url(#aq)" d="M 168,354 C 300,336 420,320 500,300 C 550,288 580,282 594,278"/>
-      <text class="mlabel q" x="300" y="316">长平战后,秦乘胜围赵都邯郸</text>
-      <rect class="camp" x="656" y="240" width="9" height="9" transform="rotate(45 660 244)"/>
-      <rect class="camp" x="572" y="292" width="9" height="9" transform="rotate(45 576 296)"/>
-      <text class="anno" x="628" y="234">王龁久围,秦更遣郑安平益兵</text>
-      <text class="mlabel j" x="628" y="212">赵人同仇,苦守邯郸,遣使求救魏楚</text>
-      <text class="anno" x="500" y="450">河东、太原新附秦,后方在河内</text>
+      <circle class="siege" cx="595" cy="157" r="30"/>
+      <!-- 秦自河东·上党踰太行,长平战后乘胜围邯郸 -->
+      <path class="march q" marker-end="url(#aq)" d="M 165,352 C 300,344 400,300 445,255 C 490,214 545,182 566,168"/>
+      <text class="mlabel q" x="250" y="300">长平战后,秦踰太行,乘胜围赵都邯郸</text>
+      <rect class="camp" x="628" y="132" width="9" height="9" transform="rotate(45 632 136)"/>
+      <rect class="camp" x="560" y="178" width="9" height="9" transform="rotate(45 564 182)"/>
+      <text class="anno" x="606" y="126">王陵攻之不拔,王龁代将,郑安平益兵</text>
+      <text class="mlabel j" x="606" y="196">赵人同仇,苦守三年,遣使求救魏·楚</text>
+      <text class="anno" x="330" y="404">秦资河东、河内、上党转输,后方在西</text>
+      <text class="mlabel f" x="612" y="440">魏·楚援自南来,内外相应</text>
     </g>
 
-    <!-- 阶段一:赵苦守·散财求救 -->
+    <!-- ══ 阶段一:赵苦守·散财求救 ══ -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="616" cy="270" r="30"/>
-      <rect class="camp" x="572" y="292" width="9" height="9" transform="rotate(45 576 296)"/>
-      <text class="mlabel j" x="620" y="240">平原君散家财,编妻妾入行伍</text>
-      <text class="anno" x="628" y="256">李同率敢死士三千,却秦三十里</text>
-      <path class="march j" marker-end="url(#aj)" d="M 632,286 C 660,320 690,400 706,548"/>
-      <text class="mlabel j" x="700" y="470">平原君使楚求救</text>
-      <text class="anno" x="672" y="500">毛遂自荐,按剑说楚王,合从遂定</text>
-      <path class="march j" marker-end="url(#aj)" d="M 632,278 C 680,308 716,352 742,384"/>
-      <text class="mlabel j" x="640" y="356">又求救于魏</text>
+      <circle class="siege" cx="595" cy="157" r="30"/>
+      <rect class="camp" x="560" y="178" width="9" height="9" transform="rotate(45 564 182)"/>
+      <text class="mlabel j" x="606" y="120">平原君散家财,编妻妾入行伍</text>
+      <!-- 李同敢死士出击,却秦三十里 -->
+      <path class="march j" marker-end="url(#aj)" d="M 578,162 C 552,170 528,178 508,186"/>
+      <text class="anno" x="452" y="200">李同率敢死士三千,却秦三十里,同战死</text>
+      <!-- 平原君使楚求救 -->
+      <path class="march j" marker-end="url(#aj)" d="M 604,168 C 646,258 656,378 646,494"/>
+      <text class="mlabel j" x="656" y="380">平原君使楚求救</text>
+      <text class="anno" x="640" y="398">毛遂自荐,按剑说楚王,合从遂定</text>
+      <!-- 又求救于魏 -->
+      <path class="march j" marker-end="url(#aj)" d="M 590,168 C 580,240 576,304 573,364"/>
+      <text class="mlabel j" x="512" y="300">又求救于魏</text>
     </g>
 
-    <!-- 阶段二:窃符夺军·楚春申至 -->
+    <!-- ══ 阶段二:窃符夺军·楚春申至 ══ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="616" cy="270" r="30"/>
-      <path class="march j" marker-end="url(#aj)" d="M 742,388 C 700,372 670,352 642,336"/>
-      <text class="mlabel j" x="648" y="378">信陵君用如姬窃符,至邺矫命夺晋鄙军</text>
-      <text class="anno" x="600" y="396">朱亥椎杀晋鄙,选兵八万进击秦</text>
-      <path class="march j" marker-end="url(#aj)" d="M 636,326 C 632,312 626,298 622,286"/>
-      <path class="march j" marker-end="url(#aj)" d="M 706,548 C 690,470 670,360 636,300"/>
-      <text class="mlabel j" x="700" y="510">楚春申君率师北上救赵</text>
+      <circle class="siege" cx="595" cy="157" r="30"/>
+      <rect class="camp" x="553" y="180" width="9" height="9" transform="rotate(45 557 184)"/>
+      <!-- 信陵君自大梁北上,至邺矫命夺晋鄙军 -->
+      <path class="march qin" marker-end="url(#af)" d="M 566,364 C 558,300 556,250 556,210"/>
+      <text class="mlabel f" x="404" y="286">信陵君用如姬窃符,至邺矫命夺晋鄙军</text>
+      <text class="anno" x="470" y="230">朱亥椎杀晋鄙,选兵八万进击秦</text>
+      <path class="march qin" marker-end="url(#af)" d="M 558,190 C 566,180 576,172 584,166"/>
+      <!-- 楚春申君自郢陈率师北上 -->
+      <path class="march qin" marker-end="url(#af)" d="M 640,494 C 626,400 616,300 606,232 C 602,206 600,188 601,174"/>
+      <text class="mlabel f" x="656" y="420">楚春申君率师北上救赵</text>
     </g>
 
-    <!-- 阶段三:内外夹击·大破秦军 -->
+    <!-- ══ 阶段三:内外夹击·大破秦军 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 642,314 C 632,300 626,290 622,282"/>
-      <path class="march j" marker-end="url(#aj)" d="M 690,480 C 672,400 660,330 632,292"/>
-      <path class="march j" marker-end="url(#aj)" d="M 616,300 C 612,306 610,310 610,314"/>
-      <circle class="star" cx="616" cy="270" r="9"/>
-      <text class="mlabel j" x="628" y="230">魏楚援军与城中赵军内外夹击</text>
-      <text class="anno" x="628" y="246">大破秦军于邯郸城下</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 594,286 C 500,320 400,352 320,362"/>
-      <text class="mlabel r" x="360" y="342">王龁败走</text>
-      <rect class="camp" x="656" y="238" width="9" height="9" transform="rotate(45 660 242)"/>
-      <text class="mlabel q" x="672" y="316">郑安平以二万人降赵</text>
-      <text class="anno" x="420" y="382">秦所得河东、太原之地复失,东进暂挫</text>
+      <!-- 魏·楚援军自外攻秦围 -->
+      <path class="march qin" marker-end="url(#af)" d="M 556,204 C 566,190 576,180 585,170"/>
+      <path class="march qin" marker-end="url(#af)" d="M 606,228 C 604,206 602,188 601,174"/>
+      <text class="mlabel f" x="606" y="248">魏楚援军自外并力攻围</text>
+      <!-- 赵军自城中出击 -->
+      <path class="march j" marker-end="url(#aj)" d="M 592,170 C 588,180 585,188 583,196"/>
+      <text class="mlabel j" x="606" y="120">城中赵军乘势出击,内外夹击</text>
+      <circle class="star" cx="595" cy="157" r="10"/>
+      <text class="anno" x="606" y="136">大破秦军于邯郸城下</text>
+      <!-- 王龁败走河东 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 566,166 C 470,210 340,290 200,346"/>
+      <text class="mlabel r" x="300" y="300">王龁引兵败走,退保河东</text>
+      <!-- 郑安平降赵 -->
+      <rect class="camp" x="628" y="130" width="9" height="9" transform="rotate(45 632 134)"/>
+      <text class="mlabel q" x="648" y="150">郑安平以二万人降赵</text>
+      <text class="anno" x="300" y="380">秦所得河东、太原之地复失,东进暂挫</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -180,35 +232,84 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>赵·魏·楚联军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>赵军(守·出击)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>魏·楚援军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>秦军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退·降赵</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>秦败退·降赵</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>城下决战</span>
     <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>秦久围</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>秦</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>赵·联军</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>秦</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>赵</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>魏·楚</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>窃符释要 · 内外夹击之枢</h3>
+    <div class="lead">何以邯郸得全,系于一符一椎 —— 外援得入而后内外可夹</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="内外夹击示意:秦围邯郸,魏楚援军自外、赵军自内夹击秦师于城下">
+      <!-- 秦围之环 -->
+      <circle cx="430" cy="125" r="70" fill="none" stroke="#9a2b1e" stroke-width="1.8" stroke-dasharray="3 5" opacity=".85"/>
+      <text x="352" y="44" fill="#9a2b1e" font-size="12" font-weight="700">秦 围(王龁·郑安平)</text>
+      <!-- 邯郸城(赵) -->
+      <circle cx="430" cy="125" r="26" fill="rgba(31,78,84,.16)" stroke="#1f4e54" stroke-width="2"/>
+      <text x="410" y="130" fill="#1f4e54" font-size="13" font-weight="700">邯郸</text>
+      <text x="405" y="147" fill="#1f4e54" font-size="10">赵·守</text>
+      <!-- 赵军自内出击(青,向外) -->
+      <path d="M 430,99 L 430,72" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 430,60 L 424,74 L 436,74 Z" fill="#1f4e54"/>
+      <text x="300" y="70" fill="#1f4e54" font-size="11" font-weight="700">内:赵军乘势出击 ↑</text>
+      <!-- 魏援自左下攻围(紫) -->
+      <path d="M 250,236 C 300,200 340,178 372,158" fill="none" stroke="#5c4a6e" stroke-width="3.4" stroke-dasharray="9 5" stroke-linecap="round"/>
+      <path d="M 382,151 L 366,150 L 373,164 Z" fill="#5c4a6e"/>
+      <text x="150" y="230" fill="#5c4a6e" font-size="11" font-weight="700">外:魏 信陵君(八万)</text>
+      <!-- 楚援自右下攻围(紫) -->
+      <path d="M 620,236 C 566,200 528,178 494,158" fill="none" stroke="#5c4a6e" stroke-width="3.4" stroke-dasharray="9 5" stroke-linecap="round"/>
+      <path d="M 484,151 L 500,150 L 493,164 Z" fill="#5c4a6e"/>
+      <text x="560" y="230" fill="#5c4a6e" font-size="11" font-weight="700">外:楚 春申君</text>
+      <!-- 秦环被夹处红✕ -->
+      <g><circle cx="372" cy="158" r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="368" y1="154" x2="376" y2="162" stroke="#9a2b1e" stroke-width="2.4"/><line x1="368" y1="162" x2="376" y2="154" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <g><circle cx="494" cy="158" r="7" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="490" y1="154" x2="498" y2="162" stroke="#9a2b1e" stroke-width="2.4"/><line x1="490" y1="162" x2="498" y2="154" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <!-- 城下决战金环 -->
+      <circle cx="430" cy="125" r="44" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="700" y="120" fill="#9c7a2c" font-size="11" font-weight="700">城下决战</text>
+      <text x="700" y="138" fill="#5c4f38" font-size="10">秦三面受敌而溃</text>
+    </svg>
+    <p class="intro">邯郸苦守三年,城守之力已尽;然<b>秦围坚而外援不能入</b>,则城终不可全。破局之枢有二:魏援之能来,系于<b>信陵君窃符夺军</b>;援既至城下,乃能与城中赵军<b>内外夹击</b>——一符解外援之滞,一击成合围之势。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>内 · 赵之苦守</h4>
+        <p>邯郸被围三年,几陷复守。平原君散家财以飨士,编妻妾入行伍;李同率敢死之士三千赴秦军,却之三十里。赵人昼夜城守,力已竭而志未夺——正待外援之至,乃能自城中乘势出击,为夹击之内应。</p>
+      </div>
+      <div class="c b">
+        <h4>外 · 魏楚之援</h4>
+        <p>魏遣晋鄙将十万救赵,惧秦而屯兵邺·荡阴观望。信陵君用侯嬴谋,请如姬窃兵符于魏王卧内,至邺矫命,朱亥袖铁椎椎杀晋鄙,选兵八万进击;楚亦以毛遂之说,遣春申君北上。两援自南并进,合围于城下。</p>
+      </div>
+    </div>
+    <p class="kicker">故邯郸之全,非独恃城守之坚。晋鄙持两端而不进,则<b>十万之众坐失于邺</b>;赖信陵君一符夺军、一椎立威,魏师乃动,楚师继之——外援既入城下,与内师夹击,<b>秦三面受敌而大溃</b>,郑安平以二万人降赵。此所谓<b>内外相应,一符转危</b>者也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史记·平原君虞卿列传》《魏公子列传》《春申君列传》《白起王翦列传》约略绘出。邯郸即今河北邯郸,大梁今河南开封,邺在今河北临漳西南,咸阳在今陕西咸阳东。城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为战前形势示意:秦据关中、河东,赵魏楚在山东;界线以点划「约界」标之,非实有画界。长平之后秦得河东、太原,邯郸战败后复失。</p>
-    <p><span class="n">注三</span>魏王遣晋鄙将十万救赵,惧秦而屯兵荡阴观望。信陵君用侯嬴之谋,得如姬窃兵符于魏王卧内,至邺矫命夺军,朱亥椎杀晋鄙——夺军进击,系于一符。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影定位(x = 96 + (经度−110.6)×128,y = 560 −(纬度−33.3)×122),几何关系力求近实:邯郸居北,邺·荡阴在其西南,大梁更南,郢陈在东南,上党·河内·河东在西(秦地),秦军自西踰太行而来。邯郸即今河北邯郸,邺在今河北临漳西南、荡阴今河南汤阴,大梁今河南开封,郢陈今河南淮阳,上党今山西长治,河内·野王今河南沁阳,河东·安邑今山西夏县,长平今山西高平,咸阳今陕西咸阳东(在图外西南)。江河、疆界为相对示意,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为战前形势示意:秦据关中、河东、上党(长平之后新得),赵据河北(邯郸),魏·楚在河南(大梁·郢陈);界以点划「约界」标之,非实有画界。长平之后秦得河东、太原(上党),邯郸战败后复失。图以角色着色:<i style="color:var(--advance);font-style:normal">赵(守)青</i>,<em style="color:var(--qin);font-style:normal">魏·楚(援)紫</em>,<b style="color:var(--enemy)">秦(围)朱</b>,秦败退作褐,非以国别为色。</p>
+    <p><span class="n">注三</span>据《史记·白起王翦列传》,秦昭王四十八年(前259)十月遣五大夫王陵攻邯郸,少利,亡五校;四十九年秦使王龁代陵将,围之八九月不拔,更遣郑安平益兵。前257年十二月,魏楚救至,大破秦军城下,郑安平以卒二万人降赵。围城将帅先后为王陵、王龁、郑安平,图中「秦军」总而示之。</p>
+    <p><span class="n">注四</span>据《史记·魏公子列传》,魏王遣晋鄙将十万救赵,惧秦而屯兵邺(《资治通鉴》作荡阴)持两端观望。信陵君用侯嬴之谋,得如姬窃兵符于魏王卧内,至邺矫命夺军,朱亥椎杀晋鄙,选兵八万进击秦军——「窃符救赵」系于一符一椎。楚考烈王时都陈(郢陈),赖平原君门客毛遂「按剑历阶」之说,合从乃定,遣春申君黄歇率师北上。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"秦围邯郸",d:"周赧王五十六年 · 前259",p:["长平之役,赵括败没,四十万众坑于秦。秦乘胜进兵,王龁围赵都邯郸,更遣郑安平益兵,壁垒相望,久攻不下。","邯郸孤悬,外无强援,内食且尽。赵人同仇敌忾,昼夜城守;平原君遣使四出,求救于魏、楚,以图解围。"]},
-  "1":{t:"赵苦守·散财求救",d:"前258 — 前257",p:["邯郸被围三年,几陷复守。平原君尽散家财以飨士,编妻妾入行伍,与民同苦;李同率敢死之士三千人赴秦军,却之三十里,同战死。","平原君使楚请救,门下毛遂自荐从行,按剑历阶,晓以利害,合从之约乃定,楚遣救兵。又求救于魏,魏王遣晋鄙将十万军救赵。"]},
-  "2":{t:"窃符夺军·楚春申至",d:"前257",p:["魏王惧秦,阴令晋鄙止军于荡阴,屯兵观望不进。信陵君用侯嬴之谋,请如姬窃兵符于魏王卧内,携朱亥至邺，矫魏王命夺晋鄙军。","晋鄙合符而疑,朱亥袖四十斤铁椎椎杀之。信陵君勒兵,遣归父子俱在军者,选精兵八万，进击秦军。楚春申君亦率师北上,并趋邯郸。"]},
-  "3":{t:"内外夹击·大破秦军",d:"前257",p:["魏、楚援军既至邯郸城下,与城中赵军内外并力,夹击秦师。秦军三面受敌,阵动而溃,大败于邯郸城下。","秦将郑安平为赵所困,以卒二万人降赵;王龁引兵败走。秦前所得河东、太原之地复失。此战重挫秦之东进,延六国之存者数十年。"]}
+  all:{t:"秦围邯郸",d:"周赧王五十六年 · 前259",p:["长平之役,赵括败没,四十万众坑于秦。秦乘胜进兵,踰太行而东,围赵都邯郸;五大夫王陵先攻不拔,亡五校,秦使王龁代将,更遣郑安平益兵,壁垒相望,久攻不下。","邯郸孤悬,外无强援,内食且尽。赵人同仇敌忾,昼夜城守;平原君遣使四出,求救于魏、楚,以图内外夹击而解围。"]},
+  "1":{t:"赵苦守·散财求救",d:"前258 — 前257",p:["邯郸被围三年,几陷复守。平原君尽散家财以飨士,编妻妾入行伍,与民同苦;李同率敢死之士三千人赴秦军,却之三十里,同战死。","平原君使楚请救,门下毛遂自荐从行,按剑历阶,晓以利害,合从之约乃定,楚遣救兵。又求救于魏,魏王遣晋鄙将十万军救赵。求救二途既通,而外援犹未得进。"]},
+  "2":{t:"窃符夺军·楚春申至",d:"前257",p:["魏王惧秦,阴令晋鄙止军于邺·荡阴,屯兵观望不进。信陵君用侯嬴之谋,请如姬窃兵符于魏王卧内,携朱亥至邺,矫魏王命夺晋鄙军。","晋鄙合符而疑,朱亥袖四十斤铁椎椎杀之。信陵君勒兵,遣归父子俱在军者,选精兵八万,进击秦军。楚春申君亦率师自郢陈北上,并趋邯郸——外援两路俱动。"]},
+  "3":{t:"内外夹击·大破秦军",d:"前257 · 十二月",p:["魏、楚援军既至邯郸城下,与城中赵军内外并力,夹击秦师。秦军三面受敌,阵动而溃,大败于邯郸城下。","秦将郑安平为赵所困,以卒二万人降赵;王龁引兵败走,退保河东。秦前所得河东、太原(上党)之地复失。此战重挫秦之东进,延六国之存者数十年。"]}
 };
 const CITY={
-  handan:{t:"邯郸",d:"赵都,今河北邯郸",p:["赵之国都。长平战后为秦所围,苦守三年,几陷复守;终赖魏楚援军与城中赵军内外夹击,大破秦军于城下。"]},
-  daliang:{t:"大梁",d:"魏都,今河南开封",p:["信陵君魏无忌所自。魏王遣晋鄙十万救赵而屯兵不进;信陵君窃符夺军,自此出兵解邯郸之围。"]},
-  ye:{t:"邺·荡阴",d:"今河北临漳西南、河南汤阴一带",p:["晋鄙将魏军所驻之处。信陵君至邺矫命夺军,朱亥椎杀晋鄙,选兵八万进击秦军。"]},
-  henei:{t:"河内·汾城",d:"今河南沁阳、山西侯马一带",p:["秦军后方与增兵、败退所经。长平、邯郸之役,秦资河东、河内之地转输;邯郸败后,秦军西退,河东复失于赵。"]},
-  yingchen:{t:"郢陈(楚)",d:"今河南淮阳一带",p:["楚顷襄王东徙后之都畿。毛遂说楚,合从既定,春申君率救兵自此北上救赵。"]},
-  xianyang:{t:"咸阳",d:"秦都,今陕西咸阳东",p:["秦昭王之都。长平战后昭王欲一举灭赵而围邯郸;白起谏不可攻,称疾不行,后赐死杜邮。邯郸之败,秦东进暂挫。"]}
+  handan:{t:"邯郸",d:"赵都,今河北邯郸",p:["赵之国都。长平战后为秦所围,苦守三年,几陷复守;终赖魏楚援军与城中赵军内外夹击,大破秦军于城下。围城秦将先后为王陵、王龁、郑安平。"]},
+  ye:{t:"邺·荡阴",d:"今河北临漳西南、河南汤阴一带",p:["晋鄙将魏军十万所驻之处。魏王惧秦,令其屯兵持两端观望。信陵君至邺矫命夺军,朱亥椎杀晋鄙,选兵八万进击秦军——「窃符救赵」之关键。《资治通鉴》作屯军荡阴。"]},
+  daliang:{t:"大梁",d:"魏都,今河南开封",p:["信陵君魏无忌所自。魏王遣晋鄙十万救赵而屯兵不进;信陵君窃符夺军,自此发兵,北上解邯郸之围。"]},
+  yingchen:{t:"郢陈",d:"楚都,今河南淮阳",p:["楚顷襄王避秦东徙后之都,楚考烈王时仍都于此(后徙寿春)。毛遂说楚,合从既定,春申君黄歇率救兵自此北上救赵。"]},
+  shangdang:{t:"上党",d:"今山西长治一带",p:["长平之役所争之地。冯亭以上党十七城降赵,遂启长平之衅。战后秦得上党、太原,以为围邯郸之基;邯郸败后复失于赵。"]},
+  changping:{t:"长平",d:"今山西高平西北",p:["前260年秦赵决战处。赵括代廉颇出战,为白起所围,四十万众降而尽坑。长平之败,邯郸之围之所由起。"]},
+  henei:{t:"河内·野王",d:"今河南沁阳一带",p:["秦军后方转输之地。秦昭王亲至河内,发民年十五以上悉诣长平,遮绝赵之救兵与粮食;邯郸之役,秦亦资河内、河东转输军食。"]},
+  hedong:{t:"河东·安邑",d:"今山西夏县一带",p:["秦东出之根本重镇。围邯郸之军资河东转输;邯郸败后,王龁引兵西退,退保河东,秦之东境复缩。"]},
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
