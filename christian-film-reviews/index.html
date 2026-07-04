@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光影与救赎 · 基督徒影评辑录</title>
+<style>
+  :root{
+    --ink:#2b2622;
+    --ink-soft:#5b5148;
+    --paper:#f5efe3;
+    --paper-2:#efe7d6;
+    --card:#fbf7ee;
+    --line:#d9cdb3;
+    --gold:#a8842c;
+    --gold-deep:#8a6a1e;
+    --crimson:#8f2d2d;
+    --blue:#2f4a6b;
+    --shadow:0 8px 30px rgba(60,45,20,.14);
+    --serif:"Noto Serif SC","Songti SC","Source Han Serif SC",STSong,"SimSun",Georgia,"Times New Roman",serif;
+    --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #fbf5e8 0%, rgba(251,245,232,0) 60%),
+      var(--paper);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Masthead ---------- */
+  header.hero{
+    position:relative;
+    text-align:center;
+    padding:64px 20px 40px;
+    border-bottom:1px solid var(--line);
+    background:
+      linear-gradient(180deg, rgba(168,132,44,.06), rgba(168,132,44,0) 70%);
+  }
+  .kicker{
+    font-family:var(--serif);
+    letter-spacing:.5em;
+    font-size:.72rem;
+    color:var(--gold-deep);
+    text-indent:.5em;
+    margin-bottom:1.1rem;
+  }
+  h1.title{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(2.2rem,6vw,3.6rem);
+    letter-spacing:.06em;
+    color:var(--ink);
+    line-height:1.15;
+  }
+  h1.title .cross{color:var(--crimson);font-weight:400}
+  .subtitle{
+    font-family:var(--serif);
+    color:var(--ink-soft);
+    font-size:clamp(.95rem,2.4vw,1.15rem);
+    margin-top:1rem;
+    letter-spacing:.04em;
+  }
+  .verse{
+    max-width:640px;margin:1.6rem auto 0;
+    font-family:var(--serif);font-style:italic;
+    color:var(--ink-soft);font-size:.98rem;
+    padding-top:1.1rem;border-top:1px solid var(--line);
+  }
+  .verse b{color:var(--gold-deep);font-style:normal;font-weight:600}
+
+  /* ---------- Author nav ---------- */
+  nav.authors{
+    position:sticky;top:0;z-index:20;
+    background:rgba(245,239,227,.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.authors .wrap{
+    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+    padding:10px 20px;
+  }
+  nav.authors a{
+    font-family:var(--serif);
+    text-decoration:none;
+    font-size:.92rem;
+    color:var(--ink-soft);
+    padding:6px 14px;border-radius:999px;
+    border:1px solid transparent;
+    transition:.2s;
+  }
+  nav.authors a:hover{color:var(--ink);border-color:var(--line);background:var(--card)}
+
+  /* ---------- Author section ---------- */
+  section.author{padding:56px 0 8px;border-bottom:1px dashed var(--line)}
+  .author-head{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-bottom:34px}
+  .seal{
+    flex:0 0 auto;width:92px;height:92px;border-radius:50%;
+    display:grid;place-items:center;
+    font-family:var(--serif);font-size:2.1rem;font-weight:700;color:#fff;
+    box-shadow:var(--shadow);
+    border:3px double rgba(255,255,255,.55);
+  }
+  .author-meta{flex:1 1 320px;min-width:280px}
+  .author-meta h2{
+    font-family:var(--serif);font-size:1.9rem;letter-spacing:.05em;
+    display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;
+  }
+  .author-meta h2 .alias{font-size:1rem;color:var(--ink-soft);font-weight:400;letter-spacing:.02em}
+  .author-role{color:var(--gold-deep);font-family:var(--serif);font-size:.95rem;margin:.2rem 0 .8rem}
+  .author-bio{color:var(--ink-soft);font-size:.98rem;max-width:70ch}
+  .author-approach{
+    margin-top:.9rem;padding:.8rem 1rem;border-left:3px solid var(--gold);
+    background:var(--paper-2);border-radius:0 8px 8px 0;font-size:.94rem;
+  }
+  .author-approach b{color:var(--gold-deep)}
+  .booklinks{margin-top:.9rem;display:flex;gap:.5rem;flex-wrap:wrap}
+  .booklinks a{
+    font-size:.82rem;text-decoration:none;color:var(--blue);
+    border:1px solid var(--line);border-radius:6px;padding:3px 10px;background:var(--card);
+    transition:.2s;
+  }
+  .booklinks a:hover{border-color:var(--blue);background:#fff}
+
+  /* ---------- Film grid ---------- */
+  .films{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(216px,1fr));
+    gap:22px;padding-bottom:8px;
+  }
+  .film{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    overflow:hidden;cursor:pointer;
+    box-shadow:0 2px 10px rgba(60,45,20,.08);
+    transition:transform .18s, box-shadow .18s;
+    display:flex;flex-direction:column;
+  }
+  .film:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .film:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  /* CSS "poster" */
+  .poster{
+    position:relative;aspect-ratio:2/3;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:16px 15px;color:#f6f0e2;overflow:hidden;
+  }
+  .poster::after{
+    content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.28);
+    border-radius:6px;pointer-events:none;
+  }
+  .poster .yr{font-family:var(--serif);font-size:.8rem;letter-spacing:.18em;opacity:.85}
+  .poster .pt{
+    font-family:var(--serif);font-weight:700;line-height:1.18;
+    font-size:clamp(1.35rem,3.4vw,1.75rem);
+    text-shadow:0 1px 12px rgba(0,0,0,.28);
+    letter-spacing:.02em;
+  }
+  .poster .pe{font-size:.72rem;letter-spacing:.08em;opacity:.82;margin-top:.35rem;font-family:var(--serif);font-style:italic}
+  .poster .glyph{
+    position:absolute;right:-8px;bottom:-14px;font-size:6.2rem;line-height:1;
+    opacity:.13;font-family:var(--serif);pointer-events:none;user-select:none;
+  }
+  .poster .theme{
+    align-self:flex-start;font-size:.7rem;letter-spacing:.05em;
+    background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.3);
+    padding:2px 8px;border-radius:999px;backdrop-filter:blur(2px);
+  }
+  .film-foot{padding:11px 14px 13px}
+  .film-foot .dir{font-size:.78rem;color:var(--ink-soft)}
+  .film-foot .cn{font-family:var(--serif);font-size:1.02rem;font-weight:600;margin-top:1px}
+
+  /* collection chips */
+  .collection{margin:8px 0 30px}
+  .collection h3{font-family:var(--serif);font-size:1.05rem;color:var(--ink-soft);margin-bottom:.7rem;font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    font-family:var(--serif);font-size:.86rem;color:var(--ink-soft);
+    background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:4px 13px;
+  }
+  .note{font-size:.86rem;color:var(--ink-soft);font-style:italic;margin-top:.4rem}
+
+  /* ---------- Modal ---------- */
+  .overlay{
+    position:fixed;inset:0;z-index:60;display:none;
+    background:rgba(40,32,22,.55);backdrop-filter:blur(3px);
+    align-items:center;justify-content:center;padding:20px;
+  }
+  .overlay.open{display:flex}
+  .modal{
+    background:var(--card);border-radius:16px;max-width:640px;width:100%;
+    max-height:88vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.4);
+    border:1px solid var(--line);
+  }
+  .modal-top{padding:26px 30px 20px;color:#f6f0e2;position:relative}
+  .modal-top .m-yr{font-family:var(--serif);letter-spacing:.2em;font-size:.82rem;opacity:.85}
+  .modal-top .m-cn{font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1.2;margin-top:.2rem}
+  .modal-top .m-en{font-family:var(--serif);font-style:italic;opacity:.86;margin-top:.3rem}
+  .modal-top .m-dir{font-size:.86rem;opacity:.85;margin-top:.5rem}
+  .modal-top .close{
+    position:absolute;top:16px;right:18px;width:34px;height:34px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.18);color:#fff;
+    font-size:1.1rem;cursor:pointer;line-height:1;
+  }
+  .modal-body{padding:22px 30px 28px}
+  .m-theme{
+    display:inline-block;font-family:var(--serif);color:var(--gold-deep);
+    border:1px solid var(--gold);border-radius:999px;padding:2px 12px;font-size:.85rem;margin-bottom:1rem;
+  }
+  .m-summary{font-size:1rem;color:var(--ink);line-height:1.85}
+  .m-summary .lead{font-family:var(--serif);color:var(--gold-deep);font-weight:600}
+  .m-src{margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.86rem;color:var(--ink-soft)}
+  .m-src a{color:var(--blue);word-break:break-all}
+  .m-author{font-family:var(--serif);font-size:.9rem;color:var(--ink-soft);margin-top:.3rem}
+
+  /* ---------- Footer ---------- */
+  footer.site{padding:46px 20px 60px;text-align:center;color:var(--ink-soft);font-size:.86rem}
+  footer.site .disc{
+    max-width:720px;margin:0 auto 1.4rem;padding:1rem 1.2rem;
+    background:var(--paper-2);border:1px solid var(--line);border-radius:10px;
+    font-size:.84rem;text-align:left;line-height:1.7;
+  }
+  footer.site a{color:var(--blue)}
+  @media (max-width:560px){
+    .author-head{gap:18px}
+    .seal{width:72px;height:72px;font-size:1.7rem}
+    .films{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+    .modal-body,.modal-top{padding-left:20px;padding-right:20px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">光 影 · 信 仰 · 救 赎</div>
+  <h1 class="title">光影与救赎 <span class="cross">✝</span></h1>
+  <p class="subtitle">基督徒影评辑录 · A Curated Anthology of Christian Film Criticism</p>
+  <p class="verse">
+    收录四位华语基督徒作者——<b>王书亚（王怡）</b>、<b>石衡潭</b>、<b>刘小枫</b>、<b>齐宏伟</b>——
+    从信仰视角对电影的解读。每部影片附作者观点的<b>原创转述</b>与<b>原文出处链接</b>，点击卡片可展开细读。
+  </p>
+</header>
+
+<nav class="authors">
+  <div class="wrap">
+    <a href="#wangshuya">王书亚 · 王怡</a>
+    <a href="#shihengtan">石衡潭</a>
+    <a href="#liuxiaofeng">刘小枫</a>
+    <a href="#qihongwei">齐宏伟</a>
+  </div>
+</nav>
+
+<main class="wrap" id="app"></main>
+
+<footer class="site">
+  <div class="disc">
+    <strong>关于本辑录：</strong>本页为非营利的读书笔记式导览。所有影评「核心观点」均为编者依据公开资料对各位作者思想的
+    <strong>原创概括与转述，并非原文照录</strong>；著作权归各位作者所有。每部影片均标注<strong>原文出处链接</strong>，
+    诚挚建议读者点击链接、阅读作者原著全文。电影卡片为纯文字排版设计，未使用任何受版权保护的海报图片。
+    若有作者或权利人希望调整或撤下相关条目，欢迎通过项目仓库联系。
+  </div>
+  <p>光影与救赎 · 收录于 <a href="https://github.com/ferryzhou/web-apps">web-apps</a></p>
+</footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+/* ---------------- Data ---------------- */
+/* palettes: [c1,c2,glyph-color base] used for the CSS poster gradient */
+const PAL = [
+  ["#3b2f4a","#6d4b6b"], ["#1f3a4d","#3f6d78"], ["#4a2b2b","#8a4a3c"],
+  ["#25402f","#4f7a52"], ["#402a1c","#7a5230"], ["#2c2f4a","#54608f"],
+  ["#4a3320","#916a3a"], ["#37324a","#6a5a86"], ["#123536","#2f6d63"],
+  ["#4a1f2e","#8a3e58"], ["#22324a","#46618a"], ["#3a3a2a","#6f6a3e"]
+];
+function hashIdx(s){let h=0;for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}return h%PAL.length;}
+
+const AUTHORS = [
+  {
+    id:"wangshuya", initial:"書", seal:["#7a2f2f","#a8842c"],
+    name:"王书亚", alias:"本名 王怡 · 牧师、影评人",
+    role:"以「罪 · 义 · 审判 · 信 · 望 · 爱」的架构写电影随笔",
+    bio:"王怡（1973— ），笔名王书亚，四川三台人。早年为宪政学者与公共知识分子，2004 年入选《南方人物周刊》「影响中国的公共知识分子」。约 2005 年归信基督教，后于成都牧养教会。他以「王书亚」笔名在报刊专栏发表大量以信仰视角解读电影的随笔，结集为《天堂沉默了半小时——影视中的信仰与人生》《我有平安如江河》《电光倒影》等。",
+    approach:"读电影如读圣经的注脚——总在情节背后追问<b>罪、恩典、救赎与盼望</b>，常以一句经文为题眼，把影像接回福音的根基。",
+    books:[
+      ["王怡文库 · 影评合集","https://www.wangyilibrary.org/channel/film-review"],
+      ["《天堂沉默了半小时》","https://book.douban.com/subject/3009030/"],
+      ["《我有平安如江河》","https://book.douban.com/subject/4007145/"]
+    ],
+    films:[
+      {cn:"黑客帝国",en:"The Matrix",yr:1999,dir:"沃卓斯基",theme:"诺斯替主义的创世记",glyph:"母",
+       summary:"他把「母体」读作一个篡夺造物主之位的伪神，尼奥则是被败坏、被篡改的「伪基督」。这样的设定否认了人的罪性与真实的道德秩序，把救赎偷换成对虚拟世界的觉悟，而非神对罪人的拯救；续集里连锡安也不过是系统设计的又一层母体。",
+       src:["《诺斯替主义的创世记——评〈骇客帝国〉》","https://www.wangyilibrary.org/post/诺斯替主义的创世记-评《骇客帝国》"]},
+      {cn:"密阳",en:"Secret Sunshine",yr:2007,dir:"李沧东",theme:"每一缕阳光都有意思",glyph:"恕",
+       summary:"全片围绕「宽恕」。丧子的女主角信主后想去监狱当面赦免凶手，却听到凶手说「上帝已先赦免了我」，她的自义因此崩塌，怨恨转成「神怎能在我宽恕之前先宽恕他」。他指出：真正的宽恕以双方向神的真实悔改为前提——人须先承认自己欠神的债，才谈得上凭信心免别人的债。",
+       src:["《每一缕阳光都有意思——评电影〈密阳〉》","https://www.wangyilibrary.org/post/每一缕阳光都有意思：评电影《密阳》"]},
+      {cn:"面纱",en:"The Painted Veil",yr:2006,dir:"约翰·卡兰",theme:"霍乱时期的恩典",glyph:"纱",
+       summary:"他称之为「霍乱时期的恩典」。怀疑论者毛姆借这故事向信仰回望：虚荣促成了凯蒂的婚姻，浪漫把她推向情人，而真正的转折是恩典揭开人心的「面纱」——让虚妄的爱在苦难与宽恕中被更新。",
+       src:["《霍乱时期的恩典——评电影〈面纱〉》","https://www.wangyilibrary.org/channel/天堂沉默了半小时（2007）"]},
+      {cn:"窃听风暴",en:"The Lives of Others",yr:2006,dir:"多纳斯马尔克",theme:"我们头顶干净的天空",glyph:"听",
+       summary:"在极权监控的体制之下，一个秘密警察的良心被惊动，最终选择庇护而非告密。他把这一转变看作良知的苏醒与自我救赎——人即使身处压制人性的制度中，仍能凭道德抉择保有「头顶那片干净的天空」。",
+       src:["《我们头顶干净的天空——评电影〈窃听风暴〉》","https://www.wangyilibrary.org/post/我们头顶干净的天空-评电影《窃听风暴》-2"]},
+      {cn:"奇异恩典",en:"Amazing Grace",yr:2006,dir:"迈克尔·艾普特",theme:"少一个奴隶，多一个弟兄",glyph:"恩",
+       summary:"影片讲英国议员威伯福斯推动废奴。他强调二百年前英美的废奴运动本质是<b>福音性的、而非革命性的</b>——从跪下祷告的信徒到议会里的政治家，都基于圣经「人皆神造、彼此平等」的信念在争战；圣诗作者、前奴隶贩子约翰·牛顿的悔改，正是「奇异恩典」的注脚。",
+       src:["《少一个奴隶，多一个弟兄——评电影〈奇异恩典〉》","https://www.wangyilibrary.org/post/少一个奴隶，多一个弟兄-评电影《奇异恩典》"]},
+      {cn:"血色将至",en:"There Will Be Blood",yr:2007,dir:"保罗·托马斯·安德森",theme:"路上行人欲断魂",glyph:"血",
+       summary:"片名取自《圣经·出埃及记》。他将资本家的贪婪与虚假的宗教并置批判——石油大亨与巡回布道者互为镜像，资本每一次扩张都像要「以血献祭」，二者在灵魂里同归败坏，走上一条不归的路。",
+       src:["《路上行人欲断魂——评电影〈血色将至〉》","https://www.wangyilibrary.org/post/路上行人欲断魂：评电影《血色将至》"]},
+      {cn:"无间道",en:"Infernal Affairs",yr:2002,dir:"刘伟强 / 麦兆辉",theme:"无底坑中有凄惨的笑",glyph:"間",
+       summary:"他认为以往港片的卧底题材迷恋情节张力，而《无间道》把「灵魂中的律法之争」逼视到华语电影的极致。陈永仁与刘健明的身份迷失，正如片名所引佛经，堕入没有出口的「无间地狱」——那是罪的困境。",
+       src:["《无底坑中有凄惨的笑——评电影〈无间道〉》","https://www.wangyilibrary.org/post/无底坑中有凄惨的笑：评电影-《无间道》"]},
+      {cn:"王的男人",en:"The King and the Clown",yr:2005,dir:"李濬益",theme:"因为我们成了一台戏",glyph:"戲",
+       summary:"他用舞台、法庭、镜子、公司四重隐喻解读，援引使徒「我们成了一台戏，给世人和天使观看」之语：人的身体活在一套叙事里，灵魂却活在另一套叙事里。救赎，就是脱离革命式的自我编剧，进入神为人生所写的剧本，殷勤而有盼望地活成一个见证。",
+       src:["《因为我们成了一台戏——评电影〈王的男人〉》","https://www.wangyilibrary.org/post/因为我们成了一台戏-评电影《王的男人》"]},
+      {cn:"芳香之旅",en:"The Road",yr:2006,dir:"章家瑞",theme:"我们一生都在模仿幸福",glyph:"香",
+       summary:"「我们一生都在模仿幸福。」他指出在时代与政治的捆绑中，国家在「土地」与「婚姻」这两样人间最重要的产业上僭夺了神的主权，使人对幸福的认知被扭曲。女主角两次爱情都系于「领袖的祝福」，一旦失去更高的盼望，人便只能持之以恒地模仿着幸福。",
+       src:["《我们一生都在模仿幸福——评电影〈芳香之旅〉》","https://www.wangyilibrary.org/post/我们一生都在模仿幸福-评电影《芳香之旅》"]},
+      {cn:"V字仇杀队",en:"V for Vendetta",yr:2005,dir:"詹姆斯·麦克特格",theme:"一个腰部以下的叛逆",glyph:"V",
+       summary:"他借奥威尔《1984》中「腰部以下的叛逆」一语，批评影片对暴力与恐怖主义态度暧昧。真正的自由不是用一种激情替换另一种激情；若缺乏灵魂层面的更新与更高的盼望，反乌托邦式的反抗只是欲望驱动的循环，构不成真正的解放。",
+       src:["《一个腰部以下的叛逆——评〈V字仇杀队〉》","https://www.wangyilibrary.org/post/一个腰部以下的叛逆-评《v-字仇杀队》"]},
+      {cn:"伟大辩手",en:"The Great Debaters",yr:2007,dir:"丹泽尔·华盛顿",theme:"道可道，非常道",glyph:"道",
+       summary:"以「道可道，非常道」为题谈修辞、公义与非暴力抵抗——真正的「道」超越言辞与辩术，指向一个更高的公义根基。",
+       src:["《道可道，非常道——评电影〈伟大辩手〉》","https://www.wangyilibrary.org/post/道可道，非常道：评电影《伟大辩手》"]},
+      {cn:"盲山",en:"Blind Mountain",yr:2007,dir:"李杨",theme:"叫瞎眼的得看见",glyph:"盲",
+       summary:"以福音书「叫瞎眼的得看见」为题，把被拐卖题材读成一则关于属灵盲目与看见的寓言。",
+       src:["《叫瞎眼的得看见——评电影〈盲山〉》","https://www.wangyilibrary.org/post/叫瞎眼的得看见：评电影《盲山》"]},
+      {cn:"我在伊朗长大",en:"Persepolis",yr:2007,dir:"萨特拉皮",theme:"日光之下无新事",glyph:"波",
+       summary:"以《传道书》「日光之下无新事」为题，透视革命、流亡与人性的循环往复。",
+       src:["《日光之下无新事——评电影〈我在伊朗长大〉》","https://www.wangyilibrary.org/post/日光之下无新事：评电影《我在伊朗长大》"]},
+      {cn:"暗物质",en:"Dark Matter",yr:2007,dir:"陈士争",theme:"你爱我比这些更深吗",glyph:"暗",
+       summary:"以耶稣对彼得的问话「你爱我比这些更深吗」为题，剖析学术野心一旦成为偶像，如何走向毁灭。",
+       src:["《你爱我比这些更深吗——评电影〈暗物质〉》","https://www.wangyilibrary.org/post/你爱我比这些更深吗：评电影《暗物质》"]},
+      {cn:"李尔王",en:"King Lear",yr:"—",dir:"莎剧改编",theme:"在约伯的天平上",glyph:"王",
+       summary:"以「在约伯的天平上」为题，把李尔的苦难放到《约伯记》的天平上称量，追问义人受苦与神的公义。",
+       src:["《在约伯的天平上——评电影〈李尔王〉》","https://www.wangyilibrary.org/post/在约伯的天平上：评电影《李尔王》"]},
+      {cn:"全能者埃文",en:"Evan Almighty",yr:2007,dir:"汤姆·沙迪亚克",theme:"不以福音为耻",glyph:"舟",
+       summary:"以《罗马书》「不以福音为耻」为题，借这部现代版「挪亚造方舟」的喜剧，谈顺服与信心。",
+       src:["《不以福音为耻——评电影〈全能者埃文〉》","https://www.wangyilibrary.org/post/不以福音为耻：评电影《全能者埃文》"]},
+      {cn:"东京审判",en:"Tokyo Trial",yr:2006,dir:"高群书",theme:"现在正是拯救的日子",glyph:"審",
+       summary:"以《哥林多后书》「现在正是拯救的日子」为题，从审判与罪责谈救恩的时机。",
+       src:["《现在正是拯救的日子——评电影〈东京审判〉》","https://www.wangyilibrary.org/post/现在正是拯救的日子：评电影《东京审判》…"]},
+      {cn:"被遗忘的天使",en:"The Forgotten Angel",yr:"—",dir:"—",theme:"这婴孩是谁",glyph:"嬰",
+       summary:"以「这婴孩是谁」为题，从降生叙事指向道成肉身与救赎的奥秘。",
+       src:["《这婴孩是谁——评电影〈被遗忘的天使〉》","https://www.wangyilibrary.org/post/这婴孩是谁-评电影《被遗忘的天使》"]}
+    ],
+    collectionTitle:"《天堂沉默了半小时》另收（存目，详见原书）",
+    collection:["夜宴","满城尽带黄金甲","任逍遥","300","巴别塔","三峡好人","风吹麦浪","父辈的旗帜","地下","佐罗传奇","越狱","戈雅之灵","新大陆","我是大卫","一球成名","迷失"],
+    collectionNote:"另附《与信仰有关的 220 部电影》推荐片单。"
+  },
+
+  {
+    id:"shihengtan", initial:"石", seal:["#2f4a6b","#a8842c"],
+    name:"石衡潭", alias:"哲学博士 · 中国社科院世界宗教研究所",
+    role:"「透过电影看人生」——从哲学高度俯瞰影像里的人性",
+    bio:"石衡潭，湖南长沙人，北京大学哲学博士，中国社会科学院世界宗教研究所副研究员，基督徒。长期在北大、人大、复旦、港中大等地主讲「透过电影看人生」「《论语》与《圣经》对读」等系列讲座逾三百场。影评集《电影之于人生》曾获第三十届汤清基督教文艺奖。",
+    approach:"他不作专业的电影技法分析，而是<b>「从哲学的高度俯瞰电影里的人生」</b>——站在人性关怀与信仰立场，从爱情、命运、暴力的表象背后，挖出<b>孤独、罪、虚空与救赎</b>这些更根源的问题，并常把影片主题接回《圣经》（尤其《传道书》）来观照。",
+    books:[
+      ["《电影之于人生》","https://book.douban.com/subject/2348554/"],
+      ["世界宗教研究所 · 个人简介","http://iwr.cssn.cn/zj/zjxz/sht/grjj/200911/t20091109_3106628.shtml"]
+    ],
+    films:[
+      {cn:"太阳照常升起",en:"The Sun Also Rises",yr:2007,dir:"姜文",theme:"日光之下并无新事",glyph:"陽",
+       summary:"石衡潭把全片读成一连串的梦：第一个爱情 / 奇迹之梦虽美却失真，第二个情欲 / 人性之梦最深刻、最有现实根据，第三个自由逍遥之梦则天马行空、离历史真实最远——由此判定姜文「仍是个带着童心看世界、没长大的孩子」。他特别指出片名经海明威同名小说上溯至<b>《圣经·传道书》</b>，主旨即「万物流转、日光之下并无新事、人生虚空」，为全片定下哲理与信仰的底色。",
+       src:["《电影〈太阳照常升起〉解读》（石衡潭）","https://blog.sina.com.cn/s/blog_4a90a23401000bcy.html"]}
+    ],
+    collectionTitle:"《电影之于人生》系列评及影片（存目，详见原书）",
+    collection:["孔雀","青红","如果·爱","2046","疯狂的石头","满城尽带黄金甲","天下无贼","无极","三峡好人","千里走单骑","色，戒","图雅的婚事","立春","海角七号","贫民窟里的百万富翁","生死朗读","一一","千与千寻","入殓师","返老还童","海上钢琴师","山楂树之恋"],
+    collectionNote:"片单来自《电影之于人生》一、二集与《光影中的信望爱》目录；上述影片的逐篇解读请见原书或作者专栏。"
+  },
+
+  {
+    id:"liuxiaofeng", initial:"劉", seal:["#4a2b52","#a8842c"],
+    name:"刘小枫", alias:"学者 · 《沉重的肉身》",
+    role:"以「叙事伦理学」解读基耶斯洛夫斯基的影像",
+    bio:"刘小枫（1956— ），当代著名学者，北大哲学硕士、巴塞尔大学神学博士，现任中国人民大学教授。早年以《拯救与逍遥》《走向十字架上的真》成为 1980 年代「文化基督徒」现象的代表，对基督教神学抱同情立场（其思想后期转向古典学与政治哲学，此处所涉主要为 1990 年代著作）。在《沉重的肉身》中，他以「叙事伦理学」解读波兰导演基耶斯洛夫斯基的电影。",
+    approach:"他关注影像中<b>「人民伦理」与「个体自由伦理」的张力</b>：在启蒙之后，道德律令从「外在被给予」变成「人心自己为自己立法」——现代人是否真有能力独自立法？他赞赏基耶斯洛夫斯基以<b>对个体命运忠心耿耿的目光</b>，凝视破损的道德感觉与「爱的碎片」。",
+    books:[
+      ["《沉重的肉身》","https://book.douban.com/subject/1059537/"],
+      ["刘小枫《〈十诫〉中译本序》","https://www.aisixiang.com/data/47274.html"]
+    ],
+    films:[
+      {cn:"十诫",en:"Dekalog",yr:1989,dir:"基耶斯洛夫斯基",theme:"永不消散的生存雾霭",glyph:"誡",
+       summary:"影片虽以摩西「十诫」为题，却没有先知与神谕，讲的全是当代波兰普通人日常里的伦理难题。刘小枫由此追问：在康德式启蒙之后，「心中的道德律」能否称量个体那充满偶然、破损的肉身生命的重负？他指出导演并不作黑白分明的道德裁决，而是呈现善恶交缠、近乎无解的困境，以悲悯的目光凝视在诚实与谎言、亲情、负疚、爱欲之间挣扎的普通个体。",
+       src:["《沉重的肉身》第五篇《永不消散的生存雾霭中的小路》","https://book.douban.com/subject/1056917/"]},
+      {cn:"蓝",en:"Trois couleurs: Bleu",yr:1993,dir:"基耶斯洛夫斯基",theme:"自由 · Liberté",glyph:"藍",
+       summary:"对应「自由」。刘小枫认为影片追问的不是政治自由，而是自由的欠缺与代价：女主角在车祸中骤然失去丈夫与孩子，个体生命被偶然撕裂后，如何在情感的废墟上继续活下去。所谓自由，在此显现为一个人被抛入无所依傍的孤独之后的艰难自处。",
+       src:["《沉重的肉身》第七篇《爱的碎片的惊鸿一瞥》","https://book.douban.com/subject/1059537/"]},
+      {cn:"白",en:"Trois couleurs: Blanc",yr:1994,dir:"基耶斯洛夫斯基",theme:"平等 · Égalité",glyph:"白",
+       summary:"对应「平等」。刘小枫借此思考：不掺杂利害权衡、真正对等的纯粹之爱是否可能？影片以一段婚姻的失衡、报复与重新靠近，揭示两性与人际之间「平等」的脆弱与吊诡。",
+       src:["《沉重的肉身》第七篇《爱的碎片的惊鸿一瞥》","https://book.douban.com/subject/1059537/"]},
+      {cn:"红",en:"Trois couleurs: Rouge",yr:1994,dir:"基耶斯洛夫斯基",theme:"博爱 · Fraternité",glyph:"紅",
+       summary:"对应「博爱」。刘小枫将其读作对「圆满的两情相爱如何可能」的追问，探讨人与人之间跨越隔膜的相互理解与关切究竟能否实现。他特别强调三部曲中的「偶然性」——人物只靠偶然彼此勾连，车祸、空难、海难反复出现，暗示无常对个体生命近乎绝对的支配。",
+       src:["《沉重的肉身》第七篇《爱的碎片的惊鸿一瞥》","https://book.douban.com/subject/1059537/"]}
+    ]
+  },
+
+  {
+    id:"qihongwei", initial:"齊", seal:["#25402f","#a8842c"],
+    name:"齐宏伟", alias:"笔名 小约翰 · 灵性文学作家",
+    role:"「以道观之」——在电影与新闻中辨认沉沦与救赎",
+    bio:"齐宏伟（1972— ），笔名小约翰，生于山东沂蒙山区，南京大学比较文学博士，曾任南京师范大学文学院副教授，基督徒（灵性文学作家）。代表作多为文学评论，如《一生必读的关于信仰与人生的 30 部经典》《目击道存：欧美文学与基督教文化》《鲁迅：幽暗意识与光明追求》；影评则结集为《电影和新闻中的沉沦与救赎》。",
+    approach:"他明确以<b>圣经神学（而非儒家）</b>为解读框架，「以道观之、以道贯之」——从电影与新闻的背后，探查人性的<b>幽暗与光辉、世相的「沉沦」与「救赎」</b>。他认为电影「虚而非假」，是当代精神氛围的写照，故按影片出现的时间顺序编排，借以观照当代人的爱、恨、恐惧与盼望。",
+    books:[
+      ["《电影和新闻中的沉沦与救赎》","https://readmoo.com/book/2101993940001"],
+      ["《一生必读的关于信仰与人生的 30 部经典》","https://book.douban.com/subject/2368198/"]
+    ],
+    films:[],
+    collectionTitle:"关于收录影片",
+    collection:[],
+    collectionNote:"齐宏伟的影评以《电影和新闻中的沉沦与救赎》为主要结集，多为随新闻事件与新片而作。因公开渠道未能取得该书完整目录，本辑录暂不逐片转述其观点，以免误植；完整片单与解读请参见上方电子书链接与作者原著。"
+  }
+];
+
+/* ---------------- Render ---------------- */
+const app = document.getElementById("app");
+
+function posterStyle(f){
+  const i = hashIdx(f.cn+f.en);
+  const [a,b] = PAL[i];
+  return `background:linear-gradient(150deg, ${a} 0%, ${b} 100%);`;
+}
+
+AUTHORS.forEach((au, ai) => {
+  const sec = document.createElement("section");
+  sec.className = "author";
+  sec.id = au.id;
+
+  const books = au.books.map(b=>`<a href="${b[1]}" target="_blank" rel="noopener">${b[0]} ↗</a>`).join("");
+
+  let html = `
+    <div class="author-head">
+      <div class="seal" style="background:linear-gradient(135deg,${au.seal[0]},${au.seal[1]})">${au.initial}</div>
+      <div class="author-meta">
+        <h2>${au.name} <span class="alias">${au.alias}</span></h2>
+        <div class="author-role">${au.role}</div>
+        <div class="author-bio">${au.bio}</div>
+        <div class="author-approach">${au.approach}</div>
+        <div class="booklinks">${books}</div>
+      </div>
+    </div>`;
+
+  if (au.films.length){
+    html += `<div class="films">`;
+    au.films.forEach((f, fi) => {
+      html += `
+        <article class="film" tabindex="0" data-au="${ai}" data-f="${fi}" role="button" aria-label="展开 ${f.cn} 的影评">
+          <div class="poster" style="${posterStyle(f)}">
+            <div class="yr">${f.yr}</div>
+            <div>
+              <div class="pt">${f.cn}</div>
+              <div class="pe">${f.en}</div>
+            </div>
+            <span class="theme">${f.theme}</span>
+            <span class="glyph">${f.glyph}</span>
+          </div>
+          <div class="film-foot">
+            <div class="cn">${f.cn}</div>
+            <div class="dir">导演 · ${f.dir}</div>
+          </div>
+        </article>`;
+    });
+    html += `</div>`;
+  }
+
+  if (au.collection && au.collection.length){
+    html += `<div class="collection">
+      <h3>${au.collectionTitle}</h3>
+      <div class="chips">${au.collection.map(c=>`<span class="chip">${c}</span>`).join("")}</div>
+      ${au.collectionNote?`<p class="note">${au.collectionNote}</p>`:""}
+    </div>`;
+  } else if (au.collectionNote){
+    html += `<div class="collection"><h3>${au.collectionTitle||""}</h3><p class="note">${au.collectionNote}</p></div>`;
+  }
+
+  sec.innerHTML = html;
+  app.appendChild(sec);
+});
+
+/* ---------------- Modal ---------------- */
+const overlay = document.getElementById("overlay");
+const modal = document.getElementById("modal");
+
+function openModal(au, f){
+  const [a,b] = PAL[hashIdx(f.cn+f.en)];
+  modal.innerHTML = `
+    <div class="modal-top" style="background:linear-gradient(150deg,${a},${b})">
+      <button class="close" aria-label="关闭">✕</button>
+      <div class="m-yr">${f.yr}</div>
+      <div class="m-cn">${f.cn}</div>
+      <div class="m-en">${f.en}${f.dir&&f.dir!=="—"?` · 导演 ${f.dir}`:""}</div>
+    </div>
+    <div class="modal-body">
+      <span class="m-theme">题眼 · ${f.theme}</span>
+      <div class="m-author">评者 · ${au.name}（${au.alias}）</div>
+      <p class="m-summary" style="margin-top:.8rem">${f.summary}</p>
+      <div class="m-src">
+        原文出处（编者转述，非原文照录，请点击阅读原著）：<br>
+        <a href="${f.src[1]}" target="_blank" rel="noopener">${f.src[0]} ↗</a>
+      </div>
+    </div>`;
+  overlay.classList.add("open");
+  document.body.style.overflow="hidden";
+  modal.querySelector(".close").addEventListener("click", closeModal);
+}
+function closeModal(){
+  overlay.classList.remove("open");
+  document.body.style.overflow="";
+}
+overlay.addEventListener("click", e => { if(e.target===overlay) closeModal(); });
+document.addEventListener("keydown", e => { if(e.key==="Escape") closeModal(); });
+
+document.querySelectorAll(".film").forEach(el=>{
+  const au = AUTHORS[+el.dataset.au];
+  const f = au.films[+el.dataset.f];
+  el.addEventListener("click", ()=>openModal(au,f));
+  el.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();openModal(au,f);} });
+});
+</script>
+</body>
+</html>
