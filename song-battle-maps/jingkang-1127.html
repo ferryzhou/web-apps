@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -16,8 +16,9 @@
   .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
   header{margin-bottom:14px;padding-right:74px}
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
-  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.08em;line-height:1.7}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--ret);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,7 +31,8 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,14 +42,19 @@
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.captive{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:7 6;opacity:.95}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
+  /* 金军围城:朱色围环 */
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 宋军守城:青色守御环(李纲督守汴京 · 王禀死守太原) */
+  .defend{fill:none;stroke:var(--advance);stroke-width:2.2;stroke-dasharray:6 4;opacity:.95}
+  .dlabel{fill:var(--advance);font-size:11px;font-weight:700}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +63,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--enemy)}.explain .c.b{border-color:var(--advance)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--enemy)}.explain .c.b h4{color:var(--advance)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.captive){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +94,17 @@
   <div class="seal" aria-hidden="true"><span>靖</span><span>康</span><span>之</span><span>变</span></div>
   <header>
     <h1>靖康之变 · 汴京陷落</h1>
-    <div class="sub">宋靖康元年至二年(1126–1127)　　<b>金 宗望 · 宗翰</b> 两围汴京 · <i>北宋</i>亡</div>
+    <div class="sub">宋靖康元年至二年(1126–1127)　金两路南下伐宋　<b>金 · 东路完颜宗望(斡离不) · 西路完颜宗翰(粘罕)</b> 钳攻会师围汴　攻 <i>北宋 · 钦宗 · 李纲</i>(守汴)　·　太原血战 · 会师破都 · <em>二帝北狩</em> · 北宋亡</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 金分两路</button>
-    <button data-p="1">首围乞和</button>
-    <button data-p="2">再围城破</button>
-    <button data-p="3">二帝北狩</button>
+    <button data-p="1">两路南下 · 东路先趋汴京</button>
+    <button data-p="2">一次围汴 · 李纲守城 · 割三镇乞和</button>
+    <button data-p="3">太原陷 · 两路会师合围</button>
+    <button data-p="4">城破 · 掳二帝北去 · 北宋亡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="靖康之变形势图,含金宋以黄河为界之疆域、黄河水道与燕山云中太原汴京等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="靖康之变形势图,含金据河北与北宋据河南以黄河为约界之疆域、黄河与太行山,及汴京(东京开封)、燕京(东路宗望本)、云中(西京大同,西路宗翰本)、太原(王禀死守)、真定中山河间(河北三镇)、相州、洛阳、南京应天府诸城与图外极北会宁府之边箭;金东西两路钳形南下会师围汴、李纲督守汴京王禀死守太原之青色守御环、金围城朱环、城破与二帝被掳北迁会宁府之褐色虏行道诸记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,85 +113,133 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:金据河北(北),北宋据河南(南),约以黄河为界 -->
-    <path d="M 0,300 C 140,286 300,282 460,296 C 620,310 780,300 1000,286 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 140,286 300,282 460,296 C 620,310 780,300 1000,286 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,286 300,282 460,296 C 620,310 780,300 1000,286"/>
-    <text class="realm q" x="120" y="90" font-size="34">金(河北)</text>
-    <text class="realm j" x="600" y="590" font-size="32">北 宋(河南)</text>
+    <!-- ══ 疆界:金既灭辽据河北(北),北宋据河南(南),约以黄河为界(示意) ══ -->
+    <path d="M 0,505 C 200,516 380,522 560,514 C 720,507 860,509 1000,504 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,505 C 200,516 380,522 560,514 C 720,507 860,509 1000,504 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,505 C 200,516 380,522 560,514 C 720,507 860,509 1000,504"/>
+    <text class="realm q" x="60" y="150" font-size="26">金 · 河北(灭辽而南)</text>
+    <text class="realm j" x="150" y="600" font-size="24">北 宋 · 河南(汴都)</text>
 
-    <!-- 黄河:自西而东,横贯中原 -->
-    <path class="river" stroke-width="5" d="M 0,330 C 160,318 320,314 470,326 C 620,338 770,332 1000,320"/>
-    <text class="rname" x="700" y="352" style="font-size:13px">黄 河</text>
+    <!-- ══ 太行山:河东与河北之间,西路所越 ══ -->
+    <path class="mtn" d="M 300,150 l 11,-18 l 11,18 M 318,140 l 11,-18 l 11,18 M 300,196 l 11,-18 l 11,18 M 318,186 l 11,-18 l 11,18 M 306,244 l 11,-18 l 11,18 M 324,236 l 11,-18 l 11,18 M 300,296 l 11,-18 l 11,18 M 318,288 l 11,-18 l 11,18 M 306,346 l 11,-18 l 11,18"/>
+    <text class="mname" x="272" y="330" transform="rotate(80 272 330)">太 行 山</text>
 
-    <!-- 太行山 -->
-    <g class="mtn"><path d="M 250,220 l 8,-13 l 8,13 M 266,214 l 8,-13 l 8,13 M 282,220 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="250" y="242">太行山</text>
+    <!-- ══ 黄河:自西而东横贯中原,汴京北面之天堑;金军渡此直薄汴城 ══ -->
+    <path class="river" stroke-width="5.5" d="M 40,498 C 200,510 340,520 430,512 C 560,500 720,506 960,500"/>
+    <text class="rname" x="700" y="536" style="font-size:13px">黄 　 河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 会宁府(金上京,图外极北):二帝被掳北迁之所 ══ -->
+    <g transform="translate(838,20)">
+      <path class="march captive" marker-end="url(#ar)" d="M 4,44 L 46,8"/>
+      <text class="mlabel r" x="6" y="20" style="font-size:11px">会宁府 · 金上京 ⟶</text>
+      <text class="cname s" x="-16" y="70" style="fill:var(--ret);font-size:9.5px">今黑龙江阿城(图外极北) · 二帝北狩之所</text>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="yanshan"><circle cx="810" cy="120" r="6"/><text class="cname" x="822" y="116">燕山府<tspan class="cname s" dx="2">(金南下基地)</tspan></text></g>
-      <g class="city" data-city="yunzhong"><circle cx="180" cy="130" r="6"/><text class="cname" x="90" y="126">云中</text></g>
-      <g class="city" data-city="taiyuan"><circle cx="230" cy="300" r="6"/><text class="cname" x="158" y="296">太原</text></g>
-      <g class="city" data-city="zhending"><circle cx="470" cy="200" r="5"/><text class="cname" x="482" y="196">真定·中山<tspan class="cname s" dx="2">(三镇)</tspan></text></g>
-      <g class="city" data-city="xiangzhou"><circle cx="560" cy="360" r="4.5"/><text class="cname" x="572" y="356">相州<tspan class="cname s" dx="2">(康王募兵)</tspan></text></g>
-      <g class="city cap" data-city="bianjing"><circle cx="600" cy="470" r="7"/><text class="cname" x="612" y="474">汴京·东京<tspan class="cname s" dx="2">(汴都)</tspan></text></g>
-      <g class="city" data-city="huanghe"><circle cx="470" cy="326" r="3"/><text class="cname s" x="400" y="318">黄河渡口</text></g>
+      <g class="city" data-city="yunzhong"><circle cx="281" cy="67" r="6"/><text class="cname" x="200" y="63">云中<tspan class="cname s" dx="2">(西京·西路本)</tspan></text></g>
+      <g class="city" data-city="yanshan"><circle cx="622" cy="85" r="6"/><text class="cname" x="634" y="81">燕京<tspan class="cname s" dx="2">(南京·东路本)</tspan></text></g>
+      <g class="city" data-city="taiyuan"><circle cx="199" cy="268" r="6"/><text class="cname" x="120" y="264">太原</text></g>
+      <g class="city" data-city="zhending"><circle cx="421" cy="243" r="5"/><text class="cname" x="432" y="239">真定</text></g>
+      <g class="city" data-city="zhongshan"><circle cx="467" cy="210" r="5"/><text class="cname" x="478" y="206">中山</text></g>
+      <g class="city" data-city="hejian"><circle cx="589" cy="216" r="5"/><text class="cname" x="600" y="212">河间</text></g>
+      <g class="city" data-city="xiangzhou"><circle cx="397" cy="427" r="4.5"/><text class="cname s" x="408" y="423">相州(康王募兵)</text></g>
+      <g class="city" data-city="luoyang"><circle cx="188" cy="560" r="4.5"/><text class="cname s" x="120" y="556">洛阳(西京)</text></g>
+      <g class="city cap" data-city="bianjing"><circle cx="391" cy="544" r="7.5"/><text class="cname" x="403" y="548">汴京 · 东京<tspan class="cname s" dx="2">(开封·被围)</tspan></text></g>
+      <g class="city" data-city="yingtian"><circle cx="540" cy="579" r="4.5"/><text class="cname s" x="551" y="583">南京应天府(康王即位)</text></g>
+      <g class="city" data-city="huanghe"><circle cx="391" cy="522" r="3"/><text class="cname s" x="401" y="514">黄河渡口</text></g>
     </g>
 
-    <!-- 全图 · 金分两路 -->
+    <!-- ══════ 全图 · 金分两路南下 ══════ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 800,132 C 720,220 660,320 610,456"/>
-      <text class="mlabel q" x="680" y="270">东路 宗望 自燕山南下</text>
-      <path class="march q" marker-end="url(#aq)" d="M 190,144 C 260,240 400,380 588,462"/>
-      <text class="mlabel q" x="300" y="360">西路 宗翰 自云中经太行</text>
-      <text class="anno" x="120" y="180">金灭辽,乘胜南下,分两道并进</text>
-      <text class="anno" x="560" y="502">两道合围 汴京</text>
+      <!-- 东路宗望:燕京→河北平原→渡河→汴京 -->
+      <path class="march q" marker-end="url(#aq)" d="M 616,96 C 560,220 470,380 402,530"/>
+      <text class="mlabel q" x="486" y="330">东路 宗望</text>
+      <text class="anno" x="486" y="346">自燕京循河北南下</text>
+      <!-- 西路宗翰:云中→太原→河东→渡河→汴京 -->
+      <path class="march q" marker-end="url(#aq)" d="M 276,80 C 236,160 210,230 200,258 C 220,380 320,470 384,532"/>
+      <text class="mlabel q" x="120" y="200">西路 宗翰</text>
+      <text class="anno" x="120" y="216">自云中越太行 · 攻太原</text>
+      <!-- 会师围汴 -->
+      <circle class="siege" cx="391" cy="544" r="32"/>
+      <text class="mlabel q" x="300" y="470">两路钳攻 · 会师合围汴京</text>
+      <text class="anno" x="150" y="120">金灭辽,分东西两道并进,期以合攻汴都</text>
     </g>
 
-    <!-- 阶段一:首围乞和 -->
+    <!-- ══════ 阶段一 · 两路南下 · 东路先趋汴京 ══════ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 800,132 C 700,240 640,340 610,456"/>
-      <text class="mlabel q" x="640" y="300">靖康元年正月,东路宗望渡河先抵</text>
-      <circle class="siege" cx="600" cy="470" r="30"/>
-      <circle class="siege" cx="600" cy="470" r="38"/>
-      <rect class="camp" x="642" y="440" width="9" height="9" transform="rotate(45 646 444)"/>
-      <text class="mlabel j" x="470" y="530">李纲为亲征行营使,督军民登陴死守</text>
-      <text class="anno" x="490" y="548">却金攻城之具于四壁</text>
-      <text class="anno" x="470" y="230">宋许割 太原·中山·河间 三镇乞和,金乃引退</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 606,442 C 660,360 720,250 800,142"/>
-      <text class="mlabel r" x="700" y="400">金退;既退宋悔约,三镇不与</text>
+      <!-- 东路宗望迅进:渡河直薄汴城 -->
+      <path class="march q" marker-end="url(#aq)" d="M 616,96 C 550,210 460,370 400,528"/>
+      <rect class="camp" x="600" y="120" width="9" height="9" transform="rotate(45 604 124)"/>
+      <text class="mlabel q" x="470" y="300">东路宗望自燕山府渡黄河</text>
+      <text class="anno" x="470" y="316">宋守将不战而溃,金骑长驱</text>
+      <!-- 西路宗翰阻于太原 -->
+      <path class="march q" marker-end="url(#aq)" d="M 276,80 C 240,150 214,210 202,254"/>
+      <circle class="siege" cx="199" cy="268" r="20"/>
+      <text class="mlabel q" x="90" y="360">西路宗翰围太原,道阻进迟</text>
+      <text class="anno" x="386" y="500">东路先至汴京城下</text>
     </g>
 
-    <!-- 阶段二:再围城破 -->
+    <!-- ══════ 阶段二 · 一次围汴 · 李纲守城 · 割三镇乞和 ══════ -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 192,144 C 220,210 226,262 230,290"/>
-      <circle class="siege" cx="230" cy="300" r="20"/>
-      <circle class="siege" cx="230" cy="300" r="27"/>
-      <text class="mlabel q" x="130" y="264">宗翰围太原,苦守二百五十日乃陷</text>
-      <path class="march q" marker-end="url(#aq)" d="M 242,308 C 400,400 500,440 588,462"/>
-      <text class="mlabel q" x="330" y="410">西路会师</text>
-      <path class="march q" marker-end="url(#aq)" d="M 800,132 C 720,240 660,350 612,456"/>
-      <text class="mlabel q" x="690" y="290">宗望再自河北南下</text>
-      <circle class="siege" cx="600" cy="470" r="30"/>
-      <circle class="siege" cx="600" cy="470" r="40"/>
-      <path d="M 600,470 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="440" y="540">宋罢李纲,守备弛;郭京「六甲神兵」出战一溃</text>
-      <text class="anno" x="500" y="558">闰十一月,金乘之登城,外城破</text>
+      <path class="march q" marker-end="url(#aq)" d="M 616,96 C 550,210 460,370 402,522"/>
+      <!-- 金围汴(朱环) -->
+      <circle class="siege" cx="391" cy="544" r="30"/>
+      <circle class="siege" cx="391" cy="544" r="40"/>
+      <rect class="camp" x="440" y="512" width="9" height="9" transform="rotate(45 444 516)"/>
+      <!-- 李纲督守(青环) -->
+      <circle class="defend" cx="391" cy="544" r="21"/>
+      <text class="dlabel" x="300" y="596">李纲为亲征行营使 · 督军民登陴死守 · 却敌于宣化门</text>
+      <text class="mlabel q" x="470" y="300">靖康元年正月,宗望孤军抵汴</text>
+      <!-- 割三镇乞和,金退 -->
+      <circle class="star" cx="421" cy="243" r="7"/><circle class="star" cx="467" cy="210" r="7"/><circle class="star" cx="589" cy="216" r="7"/>
+      <text class="mlabel r" x="430" y="188">宋许割 太原·中山·河间 三镇乞和</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 400,516 C 470,360 550,220 610,104"/>
+      <text class="mlabel r" x="500" y="418">金既得质币,引兵北退</text>
+      <text class="anno" x="500" y="434">既退而宋悔约,三镇不与,衅端复启</text>
     </g>
 
-    <!-- 阶段三:二帝北狩 -->
+    <!-- ══════ 阶段三 · 太原陷 · 两路会师合围 ══════ -->
     <g id="ph3" class="ph">
-      <rect class="camp" x="638" y="438" width="10" height="10" transform="rotate(45 643 443)"/>
-      <text class="mlabel q" x="470" y="440">金驻城外,索金银子女图籍无算,纵兵大掠</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 606,458 C 660,340 720,230 800,140"/>
-      <text class="mlabel r" x="700" y="330">俘徽·钦二帝、后妃宗室百官北去</text>
-      <text class="anno" x="560" y="500">靖康二年三月,废二帝为庶人,北宋亡</text>
-      <path class="march j" marker-end="url(#aj)" d="M 566,368 C 600,420 610,510 600,570"/>
-      <text class="mlabel j" x="560" y="600">康王赵构即位南京,宋室南渡</text>
+      <!-- 西路先破太原 -->
+      <circle class="siege" cx="199" cy="268" r="20"/>
+      <circle class="defend" cx="199" cy="268" r="13"/>
+      <path d="M 199,268 l 5,-11 l 4,9 l 10,-5 l -5,10 l 11,4 l -11,4 l 5,10 l -10,-5 l -4,9 l -5,-11 l -10,5 l 5,-10 l -11,-4 l 11,-4 l -5,-10 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="dlabel" x="90" y="240">王禀死守二百五十日</text>
+      <text class="anno" x="90" y="316">九月城陷,王禀父子赴汾水死</text>
+      <!-- 西路宗翰破太原后南趋会师 -->
+      <path class="march q" marker-end="url(#aq)" d="M 210,282 C 250,380 320,470 382,530"/>
+      <text class="mlabel q" x="236" y="430">西路宗翰下河东,南趋会师</text>
+      <!-- 东路宗望再南下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 616,96 C 550,220 460,380 402,528"/>
+      <text class="mlabel q" x="486" y="300">东路宗望再自河北渡河</text>
+      <!-- 两路合围汴京 -->
+      <circle class="siege" cx="391" cy="544" r="30"/>
+      <circle class="siege" cx="391" cy="544" r="42"/>
+      <rect class="camp" x="352" y="512" width="9" height="9" transform="rotate(45 356 516)"/>
+      <rect class="camp" x="432" y="516" width="9" height="9" transform="rotate(45 436 520)"/>
+      <text class="mlabel q" x="290" y="600">两路会师汴京城下 · 合围益急</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══════ 阶段四 · 城破 · 掳二帝北去 · 北宋亡 ══════ -->
+    <g id="ph4" class="ph">
+      <!-- 合围,城破 -->
+      <circle class="siege" cx="391" cy="544" r="30"/>
+      <circle class="siege" cx="391" cy="544" r="42"/>
+      <path d="M 391,544 l 7,-15 l 6,12 l 13,-7 l -7,13 l 15,6 l -15,6 l 7,13 l -13,-7 l -6,12 l -7,-15 l -13,7 l 7,-13 l -15,-6 l 15,-6 l -7,-13 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="150" y="470">罢李纲 · 惑郭京「六甲神兵」撤守陴</text>
+      <text class="anno" x="150" y="486">闰十一月,金由宣化门登城,外城破</text>
+      <!-- 二帝北狩:褐色虏行道,自汴京东北出图外趋会宁府 -->
+      <path class="march captive" marker-end="url(#ar)" d="M 402,530 C 560,430 720,270 858,90"/>
+      <text class="mlabel r" x="560" y="360">俘徽·钦二帝、后妃宗室</text>
+      <text class="mlabel r" x="560" y="376">百官工匠、图籍法物北去</text>
+      <text class="anno" x="470" y="558">靖康二年,立张邦昌为伪楚,北宋亡</text>
+      <!-- 康王南渡:相州→应天府即位 -->
+      <path class="march j" marker-end="url(#aj)" d="M 400,436 C 450,490 500,540 528,568"/>
+      <text class="mlabel j" x="410" y="612">康王赵构即位南京应天府 · 宋室南渡</text>
+    </g>
+
+    <g class="compass" transform="translate(946,596)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -177,35 +248,96 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(李纲)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(宗望·宗翰)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>北狩·撤军</span>
-    <span class="item"><svg width="30" height="16"><circle cx="15" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>北宋</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(东路宗望·西路宗翰)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(李纲·王禀·康王)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金退兵</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="7 5"/></svg>二帝北狩(虏行道)</span>
+    <span class="item"><svg width="30" height="16"><circle cx="15" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>金军围城</span>
+    <span class="item"><svg width="30" height="16"><circle cx="15" cy="8" r="6" fill="none" stroke="#1f4e54" stroke-width="2.2" stroke-dasharray="6 4"/></svg>宋军守城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>三镇 / 城破</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金(河北)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>北宋(河南)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>战局释要 · 两路钳攻 · 会师破汴</h3>
+    <div class="lead">何以百年之北宋一朝而亡 —— 金以东西两路钳形并进,会师围都;宋守河不固、和战无常、终惑妖术,遂破都掳帝</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="靖康之变示意:金分东路宗望自燕京、西路宗翰自云中两道南下,东路迅而先至汴京城下,西路阻于太原王禀死守;太原既陷,两路会师合围汴京,宋惑郭京六甲神兵撤守陴而外城破;金掳徽钦二帝北迁会宁府,北宋亡,康王南渡立宋于江南">
+      <!-- 左上:东路宗望(燕京) -->
+      <rect x="24" y="20" width="150" height="40" rx="4" fill="rgba(154,43,30,.06)" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="99" y="38" fill="#9a2b1e" font-size="12" font-weight="700" text-anchor="middle">东路 · 宗望</text>
+      <text x="99" y="53" fill="#9a2b1e" font-size="9.5" text-anchor="middle">自燕京 · 迅而先至</text>
+      <!-- 左下:西路宗翰(云中→太原) -->
+      <rect x="24" y="150" width="150" height="40" rx="4" fill="rgba(154,43,30,.06)" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="99" y="168" fill="#9a2b1e" font-size="12" font-weight="700" text-anchor="middle">西路 · 宗翰</text>
+      <text x="99" y="183" fill="#9a2b1e" font-size="9.5" text-anchor="middle">自云中 · 阻于太原</text>
+      <!-- 太原血战(西路受阻) -->
+      <g transform="translate(250,170)"><circle r="16" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 4"/><circle r="10" fill="none" stroke="#1f4e54" stroke-width="1.8" stroke-dasharray="5 4"/></g>
+      <text x="250" y="212" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="middle">太原·王禀死守</text>
+      <text x="250" y="226" fill="#5c4f38" font-size="9" text-anchor="middle">二百五十日 · 西路受阻</text>
+      <!-- 钳臂:两路箭指汴京 -->
+      <path d="M 178,44 C 300,60 380,90 430,116" fill="none" stroke="#9a2b1e" stroke-width="2.6" marker-end="url(#aq)"/>
+      <path d="M 268,170 C 340,150 390,140 428,132" fill="none" stroke="#9a2b1e" stroke-width="2.6" marker-end="url(#aq)"/>
+      <path d="M 178,168 C 210,170 226,170 234,170" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 3" opacity=".7"/>
+      <!-- 中:汴京被围 -->
+      <rect x="430" y="96" width="130" height="70" rx="4" fill="rgba(31,78,84,.06)" stroke="#1f4e54" stroke-width="1.6"/>
+      <circle cx="495" cy="131" r="40" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 4"/>
+      <text x="495" y="120" fill="#1f4e54" font-size="14" font-weight="700" text-anchor="middle">汴　京</text>
+      <text x="495" y="137" fill="#1f4e54" font-size="9.5" text-anchor="middle">李纲督守 · 一却之</text>
+      <text x="495" y="153" fill="#9a2b1e" font-size="9.5" text-anchor="middle">再围 · 郭京撤陴</text>
+      <text x="495" y="86" fill="#9a2b1e" font-size="10" font-weight="700" text-anchor="middle">两路会师 · 合围</text>
+      <!-- 破 -->
+      <text x="640" y="128" fill="#9a2b1e" font-size="30" font-weight="700" text-anchor="middle" font-family="'Ma Shan Zheng',serif">破</text>
+      <path d="M 562,131 C 590,131 606,130 616,128" fill="none" stroke="#9a2b1e" stroke-width="2.2" marker-end="url(#aq)"/>
+      <!-- 掳帝北迁 -->
+      <path d="M 660,116 C 700,90 740,66 782,48" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="7 5" marker-end="url(#ar)"/>
+      <text x="748" y="40" fill="#7a5a23" font-size="11" font-weight="700" text-anchor="middle">掳二帝北去</text>
+      <text x="770" y="70" fill="#7a5a23" font-size="9" text-anchor="middle">→ 会宁府 · 靖康之耻</text>
+      <!-- 南渡 -->
+      <path d="M 640,158 C 680,182 720,200 760,214" fill="none" stroke="#1f4e54" stroke-width="2" marker-end="url(#aj)"/>
+      <text x="742" y="230" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="middle">康王南渡 · 宋祚续于江南</text>
+    </svg>
+    <p class="intro">靖康之祸,不在一城一战之失,而在<b>金以东西两路钳形并进,会师而破都</b>。金既灭辽,乘胜分道:东路宗望自燕京循河北平原,迅而先至汴城之下;西路宗翰自云中越太行、下河东,却顿于太原坚城之下,王禀死守二百五十日不能拔——故一次围汴,东路孤军无以竟功,宋赖李纲督守得全,割三镇而金退。及太原既陷,西路南下,两路遂会师合围;宋方罢李纲、弛守备,复惑于郭京「六甲神兵」之妄,尽撤守陴之卒,金乘之登城。都破而帝虏,后妃宗室、百官工匠、图籍法物尽驱以北,是为「靖康之耻」。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>金之钳形 · 会师之势</h4>
+        <p>金人伐宋,不以一军独进,而以两路并举:东路宗望出燕京,西路宗翰出云中,如两臂夹汴。东路道平而迅,一次围汴即抵城下;西路道险而迟,血战太原近一年。<b>太原者,钳之一臂,系西路成败之枢</b>:太原不下,则两臂不能合,一次围汴遂功败垂成;太原既陷,两路会师城下,合围之势乃成——破都,自此不可复御。</p>
+      </div>
+      <div class="c b">
+        <h4>宋之自败 · 和战之误</h4>
+        <p>宋非无以自守。守河不固,金骑一鼓而渡,汴京先失其险;李纲督守而朝议摇于和战之间,一却敌即许割三镇、遣质乞和,既退又悔约不与,徒启再举之衅。再围之际,复罢李纲、散勤王之师,守备大弛;终信妖人郭京七千七百七十七之众可作法退敌,撤守陴之卒以出战,一溃而外城不守。<b>敌未必能破,自撤其备而已</b>。</p>
+      </div>
+    </div>
+    <p class="kicker">故靖康之亡,<b>两路钳攻以合其势,会师破都以成其功,掳帝北迁以绝其祀</b>。金之胜,胜在东西并进、以太原之血战为代价而终得会师;宋之败,败在守河不固、和战无常、以妖妄自撤其守。闰十一月外城破,二帝、后妃、宗室、百工、图籍法物尽掠而北,迁于金上京会宁府,百六十年之北宋以亡。独康王赵构以兵在外,即位南京应天府,是为高宗,宋祚乃延于江南——<b>此一钳之合,遂分南北宋之界</b>。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·钦宗纪》《宋史·李纲传》《金史·太宗纪》《金史·宗望传》《宗翰传》及《三朝北盟会编》约略绘出。疆界以黄河为约界,水道经简化,非实有画界。</p>
-    <p><span class="n">注二</span>汴京即今河南开封,燕山府即今北京,云中即今山西大同,太原即今太原,中山即今河北定州,真定即今正定,河间即今河间,相州即今河南安阳。</p>
-    <p><span class="n">注三</span>李纲力守而宋廷和战无常,既退悔约、罢将弛备,终惑于郭京妖妄以致外城破;二帝北狩,宫室府藏为墟,是为「靖康之耻」。本图以宋为本方(青),金军以红,北宋之亡以褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x = 160 + (经度 − 112.2) × 110,y = 598 − (纬度 − 34.2) × 90</b>(视窗约经度112.2°–116.6°E、纬度34.2°–40.2°N)。此战场南北长(汴京北纬约34.8°至云中约40.1°)而东西狭,故东西向略作展阔以充图幅,青红两路南北并进之大势与孰东孰西之相位力求近实;会宁府远在东北(今黑龙江阿城,约126.9°E/45.5°N),悬于视窗之外,以图右上角边箭标之,不入视窗以免挤压战场。疆界、水道经简化;点划『约界』依黄河一线示金据河北、宋据河南之大势,非实有画界。依《宋史·钦宗本纪》《宋史·李纲传》《金史·太宗纪》《金史·宗望传》《宗翰传》《三朝北盟会编》《续资治通鉴长编纪事本末》诸书绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:汴京即东京开封府,今河南开封(约114.3°E/34.8°N),靖康两围、城破之地;燕京即金南京、辽之析津(幽州),今北京(约116.4°E/39.9°N),东路宗望南下之本;云中即金西京大同府,今山西大同(约113.3°E/40.1°N),西路宗翰南下之本;太原即河东要冲,今山西太原(约112.55°E/37.87°N),王禀死守之地;三镇者太原、中山(今河北定州,约115.0°E/38.5°N)、河间(今河北河间,约116.1°E/38.45°N),真定(今河北正定,约114.57°E/38.14°N)亦河北重镇,宋所许割而不与;相州今河南安阳(约114.35°E/36.1°N),康王受命为河北兵马大元帅募兵之地;南京应天府今河南商丘(约115.65°E/34.4°N),康王即位、南宋所肇;洛阳即西京(约112.45°E/34.62°N,图外西南方向)。会宁府即金上京,今黑龙江哈尔滨阿城(约126.9°E/45.5°N,图外极东北),二帝所迁。</p>
+    <p><span class="n">注三</span>凡进军皆由陆路,无漕运舟师之事:金骑长驱,以黄河为唯一天堑,宋守河不固,金一鼓而渡,汴京遂无险可恃——守河之失,实亡国之肇。<b>制胜之枢在两路钳攻、会师破都</b>:东路宗望自燕京循河北平原,道平而迅,靖康元年正月已抵汴城之下;西路宗翰自云中越太行、下河东,道险而迟,顿于太原坚城,守将王禀率军民苦守二百五十日,九月初三城乃陷,王禀父子赴汾水死。太原既下,西路南趋,东路复渡河,两路会师于汴京城下,合围益急。故图以东西两路红色进军线为主脉,太原之围环与汴京之围环并著,以见钳形并进、以太原之血战易两路会师之大势。</p>
+    <p><span class="n">注四</span>两次围汴与守御:一次围汴在靖康元年正月,东路宗望孤军先至(西路方顿太原),李纲拜亲征行营使,督军民登陴死守,却金攻城之具于四壁,城赖以完;宋许割太原、中山、河间三镇,输金帛、遣质子(康王构、张邦昌)乞和,金乃引兵北退,既退而宋悔约,三镇不与。二次围汴在同年秋冬:西路既下太原,与东路会师城下。宋罢李纲、散勤王之师,守备大弛;宰相何㮚、孙傅误信市井游民郭京「六甲神兵」七千七百七十七人可作法退敌,尽撤守陴之卒、启宣化门出战,一触即溃。闰十一月二十五日(1127年1月9日),金由宣化门拥兵登城,外城遂破。图以青色守御环志李纲督守汴京、王禀死守太原,以别于金之朱色围环。</p>
+    <p><span class="n">注五</span>掳帝亡国与南渡:城破后金驻兵城外,索金银、缯帛、子女、图籍、法物无算,纵兵大掠,都人涂炭;二帝屡出郊质于金营。靖康二年(1127)春,金废徽、钦二帝为庶人,俘二帝及后妃、宗室、百官、伎艺工匠数千人,并法驾、府库、礼器北去,迁于金上京会宁府(图右上角褐色虏行道·边箭),北宋亡,金立张邦昌为伪楚。独康王赵构以受命在外得免,是岁五月即位于南京应天府,是为高宗,改元建炎,宋室南渡。异说与考订:太原围守之日,史文或作二百五十日、或云二百六十余日,自宣和七年末合围至靖康元年九月初三城陷,凡历一冬;宗翰破太原后,尝分兵五万余扼潼关以断陕西勤王之援,自将七万余南趋会师,兵数史文多约举,不必尽实。二帝北迁,先至燕山、中京,再徙上京会宁,终迁五国城(今黑龙江依兰),本图会宁府一箭姑志其北狩之大略。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"金分两路",d:"宣和末 — 靖康元年正月",p:["金既灭辽,乘胜南下。宣和末,金太宗命兵分两道:东路完颜宗望(斡离不)自燕山府,西路完颜宗翰(粘罕)自云中,两道并进,期以合攻汴京。","东路循河北平原南趋,直薄黄河;西路出太行、下河东,道阻而进迟。宋边备久弛,守臣望风奔溃,金骑遂长驱而南,合围之势成。"]},
-  "1":{t:"首围乞和",d:"靖康元年正月",p:["靖康元年正月,东路宗望渡河先抵汴京。宋廷震恐,议欲南幸;李纲力谏固守,拜亲征行营使,督军民登陴死守,却金攻城之具于四壁,城赖以完。","宋既怯战,许割太原、中山、河间三镇,输金帛、遣质子以乞和,金乃引退。既退而宋悔约,三镇之地不与——祸端已伏,二次南下之衅由是启。"]},
-  "2":{t:"再围城破",d:"靖康元年秋 — 闰十一月",p:["秋,金以宋背约复大举:西路宗翰围太原,城孤援绝,苦守二百五十日乃陷;宗翰遂长驱而南。东路宗望再自河北渡河,两军会于汴京城下,合围益急。","宋主和,罢李纲、散勤王之师,守备大弛。又惑于妄人郭京「六甲神兵」之说,尽撤守陴之卒,启宣化门出战;一触即溃,金军乘之登城。闰十一月,外城遂破。"]},
-  "3":{t:"二帝北狩",d:"靖康二年三月",p:["金驻城外,索金银、缯帛、子女、图籍、法物无算,纵兵大掠,都人涂炭。二帝屡出郊质于金营,君臣束手。","靖康二年三月,金废徽、钦二帝为庶人,俘二帝及后妃、宗室、百官、伎艺工匠数千人,并法驾、府库、礼器北去,北宋亡。康王赵构以兵在外,即位于南京应天府,是为高宗,宋室南渡。"]}
+  all:{t:"金分两路南下",d:"宣和七年冬 — 靖康元年(1125末—1126)",p:["金既灭辽,乘胜南下。分兵两道:东路完颜宗望(斡离不)自燕京(南京),西路完颜宗翰(粘罕)自云中(西京),两道并进,期以合攻汴京。","东路循河北平原南趋,道平而迅,直薄黄河;西路出太行、下河东,顿于太原坚城,道险而进迟。宋边备久弛,守臣望风奔溃,金骑遂长驱而南——两路钳形并进、会师围都之势,自此已成。"]},
+  "1":{t:"两路南下 · 东路先趋汴京",d:"靖康元年冬 — 正月(1125末—1126初)",p:["东路宗望自燕山府南下,循河北平原,道平而迅;渡黄河时,宋守将李梲等不战而溃,金骑长驱直趋汴京,靖康元年正月已抵城下。","西路宗翰自云中越太行、下河东,然为太原一城所阻:守将王禀凭坚拒守,城久不下。两路本期会师,而西路顿兵太原,东路遂以孤军先临汴城——钳之两臂,一至而一滞,一次围汴之功败机已伏于此。"]},
+  "2":{t:"一次围汴 · 李纲守城 · 割三镇乞和",d:"靖康元年正月 — 二月(1126)",p:["东路宗望孤军抵汴,宋廷震恐,议欲南幸。李纲力谏固守,拜亲征行营使,督军民登陴死守,却金攻城之具于四壁,城赖以完;各路勤王之师亦稍集。","然宋既怯战,许割太原、中山、河间三镇,输金帛、遣质子(康王构、张邦昌)以乞和,金乃引兵北退。既退而宋悔约,三镇之地不与——西路太原犹未下,金之钳臂未合,遂以背约为词,二次南下之衅由是启。"]},
+  "3":{t:"太原陷 · 两路会师合围",d:"靖康元年九月 — 冬(1126)",p:["西路宗翰苦攻太原,守将王禀率军民凭坚死守二百五十日,粮尽援绝,九月初三城乃陷,王禀父子赴汾水死。太原既下,河东门户洞开,西路遂长驱南趋。","东路宗望复自河北渡河再举。两路会师于汴京城下,合围益急——钳之两臂至此始合。宋主和罢李纲、散勤王之师,守备大弛,坐待其困:太原之血战,终易得金人两路之会师。"]},
+  "4":{t:"城破 · 掳二帝北去 · 北宋亡",d:"靖康元年闰十一月 — 二年(1126末—1127)",p:["宋既罢李纲、弛守备,复惑于市井游民郭京「六甲神兵」之妄,谓七千七百七十七人可作法退敌,尽撤守陴之卒、启宣化门出战,一触即溃。闰十一月二十五日,金由宣化门拥兵登城,外城遂破。","金驻城外,索金银、子女、图籍、法物无算,纵兵大掠。靖康二年三月,金废徽、钦二帝为庶人,俘二帝及后妃、宗室、百官、伎艺工匠数千人,并法驾府库、礼器北去,迁于金上京会宁府,立张邦昌为伪楚,北宋亡,是为『靖康之耻』。独康王赵构以兵在外得免,即位于南京应天府,是为高宗,宋室南渡。"]}
 };
 const CITY={
-  bianjing:{t:"汴京·东京",d:"北宋都城,今河南开封",p:["靖康之变主战场。金两围此城:首围李纲督守得全,再围守备弛、郭京妖言误国,闰十一月外城破。二帝北狩,北宋亡于此。"]},
-  taiyuan:{t:"太原",d:"河东重镇,今山西太原",p:["西路宗翰南下所必攻。守将王禀率军民苦守二百五十日,粮尽援绝乃陷。太原既下,河东门户洞开,金西路遂得会师汴下。"]},
-  zhending:{t:"中山·真定",d:"河北三镇,今定州·正定",p:["与河间并称「三镇」，宋许割以乞和而不果与。三镇为河北屏障,金必欲得之;宋悔约不与,遂为再举之口实。"]},
-  yanshan:{t:"燕山府",d:"金南下基地,今北京",p:["金灭辽后所得,东路宗望自此发兵。地当河北之北,南下汴京之路由此启;二帝北狩亦道经于此而更北。"]},
-  xiangzhou:{t:"相州",d:"今河南安阳",p:["康王赵构受命为河北兵马大元帅,于相州募兵勤王,以兵在外得免于难。汴京陷后即位南京,延宋祚于江南。"]},
-  yunzhong:{t:"云中",d:"今山西大同",p:["西路宗翰(粘罕)发兵之地。金军自此出太行、下河东,围太原而后南趋,与东路会师于汴京城下。"]},
-  huanghe:{t:"黄河",d:"金宋约界",p:["东西横贯中原,为河北、河南之天堑。宋守河不固,金骑一鼓而渡,汴京遂无险可恃——守河之失,实亡国之肇。"]}
+  bianjing:{t:"汴京 · 东京",d:"北宋都城,今河南开封(约114.3E,34.8N)",p:["靖康之变主战场。金两围此城:一次围汴,东路宗望孤军先至,李纲督守得全,宋割三镇乞和而退;二次围汴,两路会师合围,宋惑郭京妖术撤守陴,闰十一月外城破。二帝北狩,北宋亡于此。"]},
+  yanshan:{t:"燕京 · 金南京",d:"辽析津府(幽州),今北京(约116.4E,39.9N)",p:["金灭辽后所得,东路完颜宗望(斡离不)南下之本。地当河北之北,循平原南趋汴京,道平而迅;二帝北狩亦道经于此而更北迁会宁。"]},
+  yunzhong:{t:"云中 · 金西京",d:"今山西大同(约113.3E,40.1N)",p:["西路完颜宗翰(粘罕)发兵之地。金军自此越太行、下河东,先攻太原;太原既下,乃南趋与东路会师于汴京城下。"]},
+  taiyuan:{t:"太原",d:"河东重镇,今山西太原(约112.55E,37.87N)",p:["西路宗翰南下所必攻。守将王禀率军民凭坚死守二百五十日,粮尽援绝,靖康元年九月初三城陷,王禀父子赴汾水死。太原既下,河东门户洞开,金西路遂得会师汴下——钳之西臂,系于此城。"]},
+  zhending:{t:"真定",d:"河北重镇,今河北正定(约114.57E,38.14N)",p:["河北要冲,东路宗望南下所经。与中山、河间同为河北屏障;金骑循平原而南,守臣多望风奔溃。"]},
+  zhongshan:{t:"中山",d:"河北三镇之一,今河北定州(约115.0E,38.5N)",p:["与太原、河间并称「三镇」,宋许割以乞和而不果与。三镇为河北屏障,金必欲得之;宋悔约不与,遂为再举之口实。"]},
+  hejian:{t:"河间",d:"河北三镇之一,今河北河间(约116.1E,38.45N)",p:["与太原、中山并称「三镇」。宋一次围汴时许割三镇乞和,既退而悔约不与,金以背约为词复大举南下。"]},
+  xiangzhou:{t:"相州",d:"今河南安阳(约114.35E,36.1N)",p:["康王赵构受命为河北兵马大元帅,于相州募兵勤王,以兵在外得免于难。汴京陷后即位南京应天府,延宋祚于江南。"]},
+  luoyang:{t:"洛阳 · 西京",d:"今河南洛阳(约112.45E,34.62N,图外西南方向)",p:["北宋西京,河洛重镇,在汴京之西。靖康之际非主战场,附志以见方位。"]},
+  yingtian:{t:"南京应天府",d:"今河南商丘(约115.65E,34.4N)",p:["北宋南京。靖康二年五月,康王赵构即位于此,是为高宗,改元建炎,南宋所肇——汴京既破、宋室南渡之始。"]},
+  huanghe:{t:"黄河",d:"金宋约界 · 汴京北面天堑",p:["东西横贯中原,为河北、河南之天堑,汴京北面所恃之险。宋守河不固,金骑一鼓而渡,汴京遂无险可恃——守河之失,实亡国之肇。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
