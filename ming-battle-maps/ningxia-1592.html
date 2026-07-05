@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--flood:#3f6d7a;--qin:#5c4a6e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -17,7 +17,7 @@
   header{margin-bottom:14px;padding-right:74px}
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
-  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}.sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -29,8 +29,22 @@
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 筑长堤壅黄河 · 决水灌城:金环围堤 + 水色泛滥 */
+  .moat{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:5 4;opacity:.9}
+  .dam{stroke:var(--gold);stroke-width:5.5;stroke-linecap:round;opacity:.92}
+  .flood{fill:none;stroke:var(--flood);stroke-width:3.4;stroke-linecap:round;opacity:.9}
+  .floodfill{fill:var(--flood);opacity:.15}
+  .floodring{fill:none;stroke:var(--flood);opacity:.42}
+  .floodwave{fill:none;stroke:var(--flood);stroke-width:1.4;opacity:.55;stroke-linecap:round}
+  .flabel{fill:var(--flood);font-size:11px;font-weight:700;letter-spacing:.06em}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.08em}
+  /* 击退套虏:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,26 +53,38 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.7;stroke-dasharray:7 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:720;stroke-dashoffset:720;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,101 +94,155 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>宁</span><span>夏</span><span>之</span><span>役</span></div>
   <header>
     <h1>宁夏之役</h1>
-    <div class="sub">万历二十年(1592)　　<i>明 李如松</i> 决河灌城 · <b>哱拜</b>父子城破自尽</div>
+    <div class="sub">万历二十年(1592)　万历三大征之首　　<i>明 李如松·魏学曾·叶梦熊</i> 决黄河灌城 · 平 <b>哱拜</b> 之乱　·　外拒 <em>河套套虏</em></div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 哱拜据城叛</button>
-    <button data-p="1">进围镇城 · 拒套虏援</button>
-    <button data-p="2">城坚不下 · 筑堤灌城</button>
-    <button data-p="3">城中内乱 · 城破叛平</button>
+    <button class="on" data-p="all">全图 · 平哱拜</button>
+    <button data-p="1">据镇城反 · 占河西</button>
+    <button data-p="2">官军围城 · 套虏来援</button>
+    <button data-p="3">击退套虏 · 筑堤壅河</button>
+    <button data-p="4">决水灌城 · 城溃叛平</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宁夏之役形势图,含河套套虏与明官军疆界、黄河贺兰山与宁夏镇城灵州花马池等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宁夏之役形势图,含河西哱拜叛军、河套套虏与明官军三方疆界、黄河贺兰山、宁夏镇城灵州花马池平虏城等城邑,及官军围城、击退套虏、筑长堤壅黄河决水灌城、城崩内讧哱拜自焚之记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+      <marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3f6d7a"/></marker>
     </defs>
 
-    <!-- 疆界:河套蒙古(套虏·叛军援)据北,明官军围城于南 -->
-    <path d="M 0,300 C 140,270 300,250 460,258 C 620,266 780,244 1000,270 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 140,270 300,250 460,258 C 620,266 780,244 1000,270 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,270 300,250 460,258 C 620,266 780,244 1000,270"/>
-    <text class="realm q" x="120" y="150" font-size="30">河 套(套虏 · 叛援)</text>
-    <text class="realm j" x="560" y="600" font-size="30">明 官军(围城)</text>
+    <!-- 疆界:河西(哱拜叛军)据黄河以西,河套(套虏)在东北河外,明官军自东南进围;约以黄河为界 -->
+    <path d="M 357,563 C 372,540 385,505 402,482 C 430,462 452,435 458,401 C 462,368 466,330 470,293 C 474,260 480,225 492,185 C 500,165 520,150 548,118 L 548,0 L 0,0 L 0,640 L 357,563 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,293 C 474,260 480,225 492,185 C 500,165 520,150 548,118 L 1000,60 L 1000,300 C 800,300 630,296 470,293 Z" fill="url(#fqinHatch)"/>
+    <path d="M 470,293 C 630,296 800,300 1000,300 L 1000,640 L 402,640 C 388,600 402,522 430,462 C 452,435 462,410 466,393 C 468,360 470,326 470,293 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 357,563 C 372,540 385,505 402,482 C 430,462 452,435 458,401 C 462,368 466,330 470,293 C 474,260 480,225 492,185 C 500,165 520,150 548,118"/>
+    <path class="border" d="M 470,293 C 630,296 800,300 1000,300"/>
+    <text class="realm q" x="66" y="150" font-size="27">河 西(哱拜叛军)</text>
+    <text class="realm f" x="700" y="110" font-size="26">河 套(套虏)</text>
+    <text class="realm j" x="640" y="600" font-size="24">明 官军</text>
 
-    <!-- 黄河:自西南入,环绕镇城东北出(引以灌城) -->
-    <path class="river" stroke-width="5.5" d="M 120,600 C 220,540 320,500 400,470 C 470,444 510,410 512,362 C 514,318 480,296 440,300 C 400,304 384,336 402,366 C 424,400 480,392 540,360 C 640,306 740,280 900,266"/>
-    <text class="rname" x="300" y="516" transform="rotate(-22 300 516)">黄 河</text>
-    <text class="rname" x="660" y="286" transform="rotate(-8 660 286)" style="font-size:11px">黄河(引以灌城)</text>
+    <!-- 贺兰山:镇城西垣,南北屏障,套虏由山北出没 -->
+    <path class="mtn" d="M 330,330 l 11,-18 l 11,18 M 351,318 l 11,-18 l 11,18 M 330,286 l 11,-18 l 11,18 M 351,274 l 11,-18 l 11,18 M 336,240 l 11,-18 l 11,18 M 357,228 l 11,-18 l 11,18 M 342,194 l 11,-18 l 11,18"/>
+    <text class="mname" x="312" y="330" transform="rotate(-74 312 330)">贺 兰 山</text>
 
-    <!-- 贺兰山:镇城西侧屏障(套虏出没) -->
-    <g class="mtn"><path d="M 300,300 l 10,-16 l 10,16 M 320,300 l 10,-16 l 10,16 M 300,340 l 10,-16 l 10,16 M 320,340 l 10,-16 l 10,16 M 310,380 l 10,-16 l 10,16"/></g>
-    <text class="cname s" x="256" y="358" transform="rotate(72 256 358)">贺 兰 山</text>
+    <!-- 黄河:自石嘴山北来,径镇城之东南下,引以灌城 -->
+    <path class="river" stroke-width="5.2" d="M 548,118 C 520,150 500,165 492,185 C 480,225 474,260 470,293 C 466,330 462,368 458,401 C 452,435 430,462 402,482 C 385,505 372,540 357,563"/>
+    <text class="rname" x="500" y="250" transform="rotate(74 500 250)">黄 河</text>
+    <text class="rname" x="392" y="520" transform="rotate(-40 392 520)" style="font-size:11px">黄河(引以灌城)</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="zhenchengcheng"><circle cx="470" cy="340" r="7"/><text class="cname" x="484" y="336">宁夏镇城<tspan class="cname s" dx="2">(银川·叛据)</tspan></text></g>
-      <g class="city" data-city="helanshan"><circle cx="330" cy="340" r="4"/><text class="cname s" x="278" y="326">贺兰山</text></g>
-      <g class="city" data-city="lingzhou"><circle cx="500" cy="510" r="5"/><text class="cname" x="514" y="514">灵州<tspan class="cname s" dx="2">(进兵基)</tspan></text></g>
-      <g class="city" data-city="huamachi"><circle cx="790" cy="440" r="4.5"/><text class="cname s" x="720" y="430">花马池(套虏入援)</text></g>
-      <g class="city" data-city="dukou"><circle cx="440" cy="300" r="3.5"/><text class="cname s" x="382" y="290">黄河渡口</text></g>
-      <g class="city" data-city="pingluchen"><circle cx="440" cy="230" r="4"/><text class="cname s" x="454" y="226">平虏城(叛党)</text></g>
+      <g class="city cap" data-city="zhencheng"><circle cx="418" cy="300" r="7"/><text class="cname" x="360" y="290">宁夏镇城<tspan class="cname s" dx="2">(银川·叛据)</tspan></text></g>
+      <g class="city" data-city="lingzhou"><circle cx="464" cy="404" r="5"/><text class="cname" x="476" y="408">灵州<tspan class="cname s" dx="2">(灵武·进兵基)</tspan></text></g>
+      <g class="city" data-city="yuquan"><circle cx="400" cy="360" r="3.6"/><text class="cname s" x="336" y="372">玉泉营</text></g>
+      <g class="city" data-city="mingsha"><circle cx="270" cy="530" r="3.6"/><text class="cname s" x="222" y="544">鸣沙洲</text></g>
+      <g class="city" data-city="huamachi"><circle cx="672" cy="478" r="4.5"/><text class="cname" x="596" y="470">花马池<tspan class="cname s" dx="2">(套虏犯)</tspan></text></g>
+      <g class="city" data-city="pinglu"><circle cx="470" cy="188" r="4.2"/><text class="cname s" x="482" y="184">平虏城(套虏犯)</text></g>
+      <g class="city" data-city="zhenyuan"><circle cx="498" cy="108" r="3.6"/><text class="cname s" x="440" y="100">镇远关</text></g>
     </g>
 
-    <!-- 全图 · 哱拜据城叛 -->
+    <!-- 河套·套虏(图外东),黄河以东鄂尔多斯诸部 -->
+    <g transform="translate(972,238)">
+      <path class="march qin" marker-end="url(#af)" d="M 22,0 L 0,0"/>
+      <text class="mlabel f" x="-2" y="-8" style="font-size:10px" text-anchor="end">河套·套虏 ⟶</text>
+      <text class="cname s" x="-2" y="16" style="fill:var(--qin);font-size:9.5px" text-anchor="end">著力兔·卜失兔(图外东)</text>
+    </g>
+
+    <!-- 全图 · 平哱拜 -->
     <g id="phAll" class="ph">
-      <rect class="camp" x="466" y="336" width="9" height="9" transform="rotate(45 470 340)"/>
-      <text class="mlabel q" x="486" y="360">哱拜父子杀巡抚,据镇城反</text>
-      <path class="march q" marker-end="url(#aq)" d="M 470,222 C 460,262 460,296 466,332"/>
-      <text class="mlabel q" x="356" y="212">连结套虏为援,河西堡寨多陷</text>
-      <path class="march j" marker-end="url(#aj)" d="M 502,502 C 490,464 480,400 474,352"/>
-      <text class="mlabel j" x="512" y="470">明发大军往讨</text>
-      <text class="anno" x="120" y="120">著力兔、卜失兔诸部俟机入援</text>
+      <rect class="camp" x="414" y="296" width="9" height="9" transform="rotate(45 418 300)"/>
+      <circle class="moat" cx="418" cy="300" r="40"/>
+      <text class="mlabel q" x="300" y="252">哱拜杀巡抚党馨,据镇城反,尽占河西四十七堡</text>
+      <path class="march qin" marker-end="url(#af)" d="M 700,240 C 600,246 520,236 486,214"/>
+      <text class="mlabel f" x="560" y="222">套虏应招入援</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,400 C 452,368 436,336 428,320"/>
+      <text class="mlabel j" x="486" y="380">官军自灵州北上围讨</text>
+      <text class="flabel" x="330" y="336">筑长堤 · 决黄河灌之</text>
+      <text class="anno" x="150" y="600">决水灌城 · 城溃 · 哱拜阖门自焚,叛平</text>
     </g>
 
-    <!-- 阶段一:进围镇城 · 拒套虏援 -->
+    <!-- 阶段一:据镇城反 · 占河西四十七堡 -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="470" cy="340" r="26"/>
-      <text class="mlabel j" x="352" y="298">官军四合,进围宁夏镇城</text>
-      <path class="march q" marker-end="url(#aq)" d="M 780,436 C 700,412 600,380 500,356"/>
-      <text class="mlabel q" x="600" y="420">著力兔、卜失兔屡入援</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 512,356 C 590,382 680,410 774,432"/>
-      <text class="mlabel j" x="560" y="470">李如松、麻贵击退之于</text>
-      <text class="mlabel j" x="560" y="486">贺兰山、花马池间</text>
-      <path class="march j" marker-end="url(#aj)" d="M 340,352 C 380,368 410,352 442,344"/>
-      <text class="anno" x="266" y="400">拒套虏于贺兰山下</text>
+      <rect class="camp" x="414" y="296" width="9" height="9" transform="rotate(45 418 300)"/>
+      <text class="mlabel q" x="300" y="258">二月十八日,哱拜父子杀党馨,据镇城反</text>
+      <path class="march q" marker-end="url(#aq)" d="M 410,292 C 430,250 440,214 462,196"/>
+      <path class="march q" marker-end="url(#aq)" d="M 408,308 C 380,344 350,388 292,470"/>
+      <path class="march q" marker-end="url(#aq)" d="M 424,314 C 440,352 452,378 458,396"/>
+      <text class="mlabel q" x="200" y="430">刘东旸称总兵,河西堡寨望风皆下</text>
+      <path class="march qin" marker-end="url(#af)" d="M 700,244 C 600,250 540,238 486,212"/>
+      <text class="mlabel f" x="556" y="256">许以割地重赂,勾河套套虏为援</text>
+      <text class="anno" x="360" y="120">此万历三大征之首役</text>
     </g>
 
-    <!-- 阶段二:城坚不下 · 筑堤灌城 -->
+    <!-- 阶段二:官军围城 · 久攻不下 · 套虏来援 -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="470" cy="340" r="30"/>
-      <path class="mtn" style="stroke-width:2.4;stroke-dasharray:5 3;opacity:.9" d="M 470,304 A 36 36 0 1 1 469.9,304 Z"/>
-      <text class="mlabel j" x="384" y="290">城坚久攻不下,乃筑长堤环城</text>
-      <path class="march j" marker-end="url(#aj)" d="M 420,306 C 436,314 448,322 458,332"/>
-      <text class="mlabel j" x="330" y="322">决黄河之水灌之</text>
-      <text class="anno" x="490" y="392">城中水潦,粮尽</text>
-      <text class="mlabel q" x="486" y="358">哱拜父子困守</text>
+      <circle class="siege" cx="418" cy="300" r="26"/>
+      <text class="mlabel j" x="298" y="250">总督魏学曾督师四合,进围镇城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 466,398 C 448,366 436,336 430,320"/>
+      <path class="march j" marker-end="url(#aj)" d="M 372,296 C 388,300 400,300 408,300"/>
+      <text class="anno" x="270" y="440">镇城坚厚,久攻不下,士卒疲顿</text>
+      <!-- 套虏来援:自河套东、北两路入犯 -->
+      <path class="march qin" marker-end="url(#af)" d="M 660,468 C 580,432 500,372 448,320"/>
+      <text class="mlabel f" x="560" y="410">套虏由花马池犯</text>
+      <path class="march qin" marker-end="url(#af)" d="M 496,116 C 480,168 460,232 436,282"/>
+      <text class="mlabel f" x="504" y="150">又由平虏、镇远关入</text>
     </g>
 
-    <!-- 阶段三:城中内乱 · 城破叛平 -->
+    <!-- 阶段三:击退套虏 · 筑长堤壅黄河 -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="470" cy="340" r="14"/>
-      <path d="M 470,340 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="490" y="330">水灌粮绝,官军乘乱登城,城破</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 470,346 C 466,356 462,364 458,372"/>
-      <text class="mlabel r" x="360" y="392">哱拜阖门自尽</text>
-      <text class="anno" x="360" y="410">承恩、东旸伏诛,叛平</text>
-      <text class="anno" x="500" y="360">此为万历三大征之首役</text>
+      <circle class="siege" cx="418" cy="300" r="28"/>
+      <circle class="moat" cx="418" cy="300" r="44"/>
+      <text class="slabel" x="300" y="248">李如松·麻贵至,筑长堤环城</text>
+      <!-- 击退套虏:两路援兵被截 -->
+      <path class="march qin" marker-end="url(#af)" d="M 662,470 C 604,438 560,410 540,398"/>
+      <g class="cut" transform="translate(552,404)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <path class="march qin" marker-end="url(#af)" d="M 496,120 C 486,158 476,196 468,224"/>
+      <g class="cut" transform="translate(474,236)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="560" y="360">麻贵击退套虏 ✕</text>
+      <text class="clabel" x="500" y="272">拒之贺兰山、花马池间,援路遂绝 ✕</text>
+      <!-- 壅黄河筑坝 -->
+      <line class="dam" x1="474" y1="252" x2="510" y2="232"/>
+      <path class="march j" marker-end="url(#aj)" d="M 466,300 C 480,290 488,278 494,262"/>
+      <text class="flabel" x="512" y="230">壅黄河 · 筑坝蓄水</text>
+      <text class="anno" x="300" y="352">七月,叶梦熊代魏学曾为总督,益急其攻</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:决水灌城 · 城溃 · 哱拜自焚 · 叛平 -->
+    <g id="ph4" class="ph">
+      <circle class="floodfill" cx="418" cy="300" r="30"/>
+      <circle class="moat" cx="418" cy="300" r="44"/>
+      <!-- 决黄河之水西灌镇城 -->
+      <path class="flood" marker-end="url(#aw)" d="M 486,250 C 466,262 448,278 436,290"/>
+      <path class="flood" marker-end="url(#aw)" d="M 468,300 C 456,300 448,300 440,300"/>
+      <text class="flabel" x="492" y="244">决黄河水灌城 →</text>
+      <circle class="floodring" cx="418" cy="300" r="16" stroke-width="2"/>
+      <circle class="floodring" cx="418" cy="300" r="22" stroke-width="1.6"/>
+      <circle class="floodring" cx="418" cy="300" r="28" stroke-width="1.2"/>
+      <path class="floodwave" d="M 396,294 q 11,-8 22,0 q 11,8 22,0"/>
+      <path class="floodwave" d="M 396,308 q 11,-8 22,0 q 11,8 22,0"/>
+      <text class="flabel" x="300" y="356">八月,水深八九尺,东西城崩百余丈</text>
+      <!-- 城中内讧火并 -->
+      <circle class="star" cx="418" cy="300" r="11"/>
+      <path d="M 418,300 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="300" y="238">城中火并:东旸杀土文秀,承恩杀许朝</text>
+      <!-- 官军登城破,哱拜自焚 -->
+      <path class="march j" marker-end="url(#aj)" d="M 470,398 C 452,366 440,336 432,318"/>
+      <text class="mlabel j" x="476" y="392">李如松乘乱登城,大城破</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 414,312 C 402,336 392,362 384,388"/>
+      <text class="mlabel r" x="300" y="410">九月,哱拜阖门自焚,承恩等伏诛</text>
+      <text class="anno" x="330" y="430">河西悉平 · 明威复振于西陲</text>
+    </g>
+
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -172,34 +252,86 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明 官军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>叛军 · 套虏</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>城破 · 自尽</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战 · 城破</span>
-    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城灌水</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>套虏</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>哱拜叛军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.7" stroke-dasharray="7 5"/></svg>河套套虏(外援)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>城破 · 自焚</span>
+    <span class="item"><svg width="40" height="16"><line x1="2" y1="8" x2="30" y2="8" stroke="#3f6d7a" stroke-width="3.2"/><path d="M 28,4 L 36,8 L 28,12 Z" fill="#3f6d7a"/></svg>决水灌城</span>
+    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="1.8" stroke-dasharray="4 3"/></svg>筑长堤/围城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>击退套虏</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>城破 · 平叛</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>河西叛军</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#fqinHatch)"/></svg>河套套虏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明官军</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>围城释要 · 筑堤壅河 · 决水灌城</h3>
+    <div class="lead">何以宁夏镇城之下,系于一堤一水一援 —— 拒外援以孤其城 · 壅黄河以水困之 · 待内溃以竟其功</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="决水灌城示意:宁夏镇城坚厚,官军筑长堤壅黄河决水灌之,又击退河套套虏之援,城崩粮尽内讧火并而叛平">
+      <!-- 镇城:中央方城,哱拜父子据守(红) -->
+      <rect x="352" y="92" width="150" height="100" rx="4" fill="rgba(154,43,30,.06)" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="427" y="130" fill="#9a2b1e" font-size="14" font-weight="700" text-anchor="middle">宁夏镇城</text>
+      <text x="427" y="150" fill="#9a2b1e" font-size="10.5" text-anchor="middle">哱拜父子据守</text>
+      <text x="427" y="170" fill="#9a2b1e" font-size="10.5" text-anchor="middle">城坚 · 久攻不下</text>
+      <!-- 长堤环城(金环) -->
+      <rect x="314" y="58" width="226" height="168" rx="10" fill="none" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="6 4"/>
+      <text x="322" y="52" fill="#9c7a2c" font-size="11.5" font-weight="700">筑长堤环城 · 内外隔绝</text>
+      <!-- 黄河决入(水色波纹) -->
+      <path d="M 640,20 C 580,44 540,70 512,104" fill="none" stroke="#3f6d7a" stroke-width="3.6" opacity=".75" stroke-linecap="round"/>
+      <path d="M 520,96 L 508,104 L 522,110 Z" fill="#3f6d7a" opacity=".85"/>
+      <line x1="556" y1="60" x2="588" y2="44" stroke="#9c7a2c" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+      <text x="600" y="18" fill="#3f6d7a" font-size="11.5" font-weight="700" text-anchor="end">壅黄河 · 决水灌城</text>
+      <path d="M 360,116 q 12,-8 24,0 q 12,8 24,0" fill="none" stroke="#3f6d7a" stroke-width="1.6" opacity=".55"/>
+      <path d="M 360,176 q 12,-8 24,0 q 12,8 24,0" fill="none" stroke="#3f6d7a" stroke-width="1.6" opacity=".55"/>
+      <!-- 套虏来援被击退(紫→红✕) -->
+      <path d="M 40,150 C 130,150 210,150 296,150" fill="none" stroke="#5c4a6e" stroke-width="2.7" stroke-dasharray="7 5" stroke-linecap="round"/>
+      <path d="M 288,150 L 300,144 L 300,156 Z" fill="#5c4a6e"/>
+      <g transform="translate(210,150)" stroke="#9a2b1e"><circle r="8" fill="none" stroke-width="1.6"/><line x1="-6" y1="-6" x2="6" y2="6" stroke-width="2.6"/><line x1="-6" y1="6" x2="6" y2="-6" stroke-width="2.6"/></g>
+      <text x="40" y="138" fill="#5c4a6e" font-size="11.5" font-weight="700">河套套虏来援</text>
+      <text x="150" y="182" fill="#9a2b1e" font-size="10.5">击退于花马池 ✕ 援绝</text>
+      <!-- 结局 -->
+      <text x="600" y="120" fill="#2b2418" font-size="14" font-weight="700">城　崩</text>
+      <text x="600" y="146" fill="#9a2b1e" font-size="11" font-weight="700">内讧火并 · 粮尽</text>
+      <text x="600" y="170" fill="#7a5a23" font-size="11" font-weight="700">哱拜阖门自焚</text>
+      <text x="600" y="194" fill="#1f4e54" font-size="11.5" font-weight="700">河西悉平</text>
+      <path d="M 512,150 C 546,148 566,142 592,132" fill="none" stroke="#2b2418" stroke-width="1.4" opacity=".5" stroke-dasharray="3 3"/>
+    </svg>
+    <p class="intro">宁夏镇城墙厚而完,哱拜父子恃以固守,官军自二月围之,数攻不拔,士卒疲敝——<b>攻坚不能克</b>。破此坚城者不在刀锋,而在三事:一曰<b>拒援</b>,二曰<b>水</b>,三曰<b>时</b>。城之所以久不下,恃河套套虏为外援;援若不绝,围终难成。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>筑堤壅河 · 以水困之</h4>
+        <p>李如松、麻贵至,先分兵拒套虏于贺兰山、花马池间,著力兔、卜失兔屡入屡却,外援遂绝,镇城成孤垒。乃相度地势,环城筑长堤为围,壅黄河之水而决之以灌城。八月,河决堤坏,城外水深八九尺,东西城崩塌百余丈——所资以自守之地利,反成灌城之具。此非以力陷城,而以水与堤困毙其人。</p>
+      </div>
+      <div class="c b">
+        <h4>拒援内溃 · 困而破之</h4>
+        <p>水灌之外,更在一『久』字。自二月至九月,城中水浸粮尽,人马疲病,叛党相疑而离心。九月,刘东旸杀土文秀,哱承恩杀许朝,周国柱复杀东旸,自相屠戮。官军乘其内乱,李如松鼓噪登城,大城遂破;进围哱拜宅,拜阖门自焚,承恩等被擒伏诛。坚城不拔者七月,终以水困援绝、内溃而下。</p>
+      </div>
+    </div>
+    <p class="kicker">故宁夏之克,非力攻可拔,乃<b>拒套虏以孤其城、筑长堤壅黄河决水以困之、久围以毙其众而俟其内溃</b>。魏学曾发其端,叶梦熊、李如松竟其功。曹操前决泗沂以灌下邳、决漳水以灌邺,皆恃水以困城;三百余年之后,明人决黄河以灌宁夏,一辙也。此役既为万历三大征之首,明威复振于西陲。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·李如松传》《明史·神宗本纪》《明史纪事本末·平哱拜》约略绘出。宁夏镇城即今宁夏银川,黄河环城水道、贺兰山及花马池诸地皆为相对示意,非实测方位。</p>
-    <p><span class="n">注二</span>晕染疆界为万历二十年河套形势示意:河套蒙古(套虏)著力兔、卜失兔诸部居北,应哱拜之招为援;明官军自灵州北上进围,以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>决黄河水灌城为此役制胜之枢:城坚攻久不拔,乃筑长堤环之,引黄河之水灌灌,城中水潦、粮绝内乱,官军乘之而克。宁夏一役,遂为万历三大征之首。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作简易墨卡托投影(x=222+(经度−105.4)·225,y=590−(纬度−37.4)·270),几何关系力求近实:宁夏镇城(银川)居中,黄河自石嘴山北来、径城之东,南下经灵州而折西南出;贺兰山屏于城西,平虏城、镇远关在北,灵州、花马池在东南,鸣沙洲在西南。疆界、水道经简化;点划『约界』依黄河一线及河东南北之分,非实有画界。依《明史·神宗本纪》《明史·李如松传》《明史·魏学曾传》《明史纪事本末·平哱拜》及《明神宗实录》绘出。</p>
+    <p><span class="n">注二</span>地望:宁夏镇城即今宁夏银川(约106.28E,38.48N),哱拜据以为叛之中枢;黄河径其东,官川在河西,故城临河而反可引河灌之。灵州今宁夏灵武(约106.34E,38.10N,河东),官军进兵屯集之基;花马池今宁夏盐池(约107.4E,37.8N,东南),套虏入犯要路;平虏城今宁夏平罗(约106.5E,38.9N,城北)、镇远关(贺兰山北口)皆套虏入犯之地;贺兰山(约106.0E,38.7N)为镇城西垣,套虏由山北出没;鸣沙洲、玉泉营皆河西四十七堡之属。诸小地望史家或有小异,并此志之。</p>
+    <p><span class="n">注三</span>三方之势(图中朱色河西叛军、紫色河套套虏、青色明官军):万历二十年二月十八日,致仕副总兵哱拜(蒙古降人)与子承恩、义子哱云、部将刘东旸、许朝、土文秀等,以克扣军饷激变,杀巡抚党馨,据宁夏镇城反,尽占河西四十七堡,刘东旸自称总兵;复许割地重赂,勾河套蒙古(套虏)著力兔、卜失兔、宰僧诸部为援,由花马池、平虏、镇远关数道入犯。套虏为第三方外援,以紫色虚线及✕记号标之。</p>
+    <p><span class="n">注四</span>制胜之枢在『拒援』与『决黄河灌城』(图中金色长堤、水色泛滥、朱色✕):初以总督魏学曾督师围城,城坚久攻不下;调李如松为宁夏总兵(提督),御史梅国桢监军,麻贵为将,连破套虏于贺兰山、花马池间,外援遂绝。七月,魏学曾以久不下待罪,朝命叶梦熊代为总督。乃环城筑长堤,壅黄河决水灌城;八月,水深八九尺,东西城崩百余丈,城中粮尽。九月,叛党内讧火并(刘东旸杀土文秀、哱承恩杀许朝、周国柱杀东旸),官军乘乱登城,大城破;哱拜阖门自焚(一作自缢),承恩等被擒伏诛,九月十八日宁夏悉平。此役历七月,为万历三大征之首。哱拜结局『自焚』与『自缢』诸书互见,并存之。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"哱拜据城叛",d:"万历二十年 春",p:["万历二十年,宁夏镇原副总兵哱拜,蒙古降人也,恃功骄横。与子哱承恩、党刘东旸等杀巡抚党馨,据宁夏镇城反,连结河套蒙古(套虏)为援,河西堡寨多陷。","明廷震动,以魏学曾总督军务往讨,后以李如松为提督,发大军以进。套虏著力兔、卜失兔诸部俟机入援,河西之势危矣。"]},
-  "1":{t:"进围镇城 · 拒套虏援",d:"万历二十年 夏",p:["官军自灵州北上,四面合围宁夏镇城。哱拜父子恃城固守,套虏著力兔、卜失兔屡引众入援,欲解其围。","李如松、麻贵等分兵拒之,连破套虏于贺兰山、花马池间,援路屡绝。外援既阻,镇城遂成孤垒。"]},
-  "2":{t:"城坚不下 · 筑堤灌城",d:"万历二十年 秋",p:["镇城坚厚,官军久攻不下,士卒疲顿。乃相度地势,筑长堤环城以为围,决黄河之水灌之。","水势浸城,城中水潦弥漫,粮储渐尽,内外隔绝。哱拜父子困守孤城,人心离散,叛党相疑。"]},
-  "3":{t:"城中内乱 · 城破叛平",d:"万历二十年 冬",p:["水灌粮绝,城中相残,刘东旸等杀哱氏党羽以求降,复自相攻杀。官军乘其内乱,鼓噪登城,城遂破。","哱拜自度不免,阖门自尽(一说被擒诛);哱承恩、刘东旸等皆伏诛,宁夏悉平。此役为万历三大征之首,明威复振于西陲。"]}
+  all:{t:"平哱拜 · 万历三大征之首",d:"万历二十年(1592)二月—九月",p:["万历二十年,宁夏镇致仕副总兵哱拜,蒙古降人也,恃功骄横。以克扣军饷激变,与子承恩、义子哱云、部将刘东旸、许朝等杀巡抚党馨,据宁夏镇城反,尽占河西四十七堡;复许割地重赂,勾河套蒙古(套虏)著力兔、卜失兔诸部为援,河西大震。","明廷以总督魏学曾督师往讨,进围镇城,久攻不下;调李如松为宁夏总兵,御史梅国桢监军,麻贵为将,连破套虏之援,又以叶梦熊代魏学曾为总督。乃环城筑长堤,决黄河之水灌城;城崩粮尽,内讧火并,哱拜阖门自焚,叛遂平。"]},
+  "1":{t:"据镇城反 · 占河西四十七堡",d:"万历二十年 二月",p:["二月十八日,哱拜父子及刘东旸、土文秀等作乱,杀巡抚党馨、兵备副使石继芳,据宁夏镇城反。刘东旸自称总兵,许朝、土文秀为左右副总兵,分党据守;河西四十七堡望风皆下,玉泉营、鸣沙洲、中卫诸地俱陷。","哱拜自度以叛军之力难支明师,乃遣使河套,许以割地重赂,招河套蒙古(套虏)著力兔、卜失兔诸部为外援。塞外之众俟机由花马池、平虏、镇远关数道入犯,河西之势遂危。此役为万历三大征之首。"]},
+  "2":{t:"官军围城 · 久攻不下 · 套虏来援",d:"万历二十年 三月—夏",p:["明廷震动,以总督魏学曾督师往讨,总兵麻贵等自灵州北上,四面合围宁夏镇城。然镇城墙厚而完,哱拜父子恃城固守,官军起攻数月不能拔,士卒疲顿。","当围城之际,套虏著力兔、卜失兔诸部应哱拜之招,自河套东出,由花马池犯其东南,又由平虏城、镇远关犯其北,欲内外夹击以解围。外援不绝,则孤城终不可成,围攻遂成僵局。"]},
+  "3":{t:"击退套虏 · 筑长堤壅黄河",d:"万历二十年 夏—七月",p:["朝廷调李如松为宁夏总兵(提督),御史梅国桢监军,统辽东、宣、大、山西及浙、苗诸兵至。如松、麻贵分兵拒套虏,连破著力兔、卜失兔于贺兰山、花马池间,套虏屡入屡却,援路遂绝,镇城成孤垒。","外援既阻,乃改以困毙之策:相度地势,环城筑长堤为围,壅黄河之水以蓄之,决而灌城。七月,魏学曾以久攻不下待罪军中,朝命叶梦熊代为总督,益急其攻。坚城之下,水堤之围渐成。"]},
+  "4":{t:"决水灌城 · 城溃 · 哱拜自焚 · 叛平",d:"万历二十年 八月—九月",p:["八月,黄河决口,大堤既坏,城外水深八九尺,东西城崩塌百余丈;城中水潦弥漫,粮储渐尽,人马疲病,叛党相疑。所恃以自守之城池地利,反成灌城之资。","九月,城中火并:刘东旸杀土文秀,哱承恩杀许朝,周国柱复杀东旸,自相屠戮。官军乘其内乱,李如松鼓噪登城,大城遂破;进围哱拜宅,拜阖门自焚(一作自缢),承恩等被擒伏诛。九月十八日,宁夏悉平。此役历七月而定,为万历三大征之首,明威复振于西陲。"]}
 };
 const CITY={
-  zhenchengcheng:{t:"宁夏镇城",d:"叛军据守,即今宁夏银川",p:["哱拜父子杀巡抚据以反,为一役中枢。官军围之久攻不下,乃决黄河水灌城;城破,哱拜阖门自尽。"]},
-  helanshan:{t:"贺兰山",d:"镇城西屏,套虏出没",p:["河套蒙古由此出没入援。李如松、麻贵拒套虏于山下,援路屡绝,镇城遂成孤垒。"]},
-  lingzhou:{t:"灵州",d:"明军进兵之基,城南",p:["官军自此北上进围宁夏镇城,为讨叛之前进屯集地。"]},
-  huamachi:{t:"花马池",d:"套虏入援要路,城东",p:["著力兔、卜失兔诸部由此引众入援,为麻贵、李如松等击退于花马池、贺兰山间。"]},
-  dukou:{t:"黄河渡口",d:"引水灌城处,近镇城",p:["官军筑长堤于此,决黄河之水灌灌镇城。城中水潦粮尽,内乱遂起。"]},
-  pingluchen:{t:"平虏城",d:"叛党据点,镇城北",p:["哱拜反时河西堡寨多陷,平虏诸城一度为叛党所据,后随镇城破而复。"]}
+  zhencheng:{t:"宁夏镇城",d:"叛军据守,今宁夏银川(106.28E,38.48N)",p:["哱拜父子杀巡抚党馨据以反,为一役之中枢。城在黄河之西,墙厚而完,官军围之久攻不下;乃筑长堤环城,壅黄河决水灌之,城崩粮尽,内讧火并。李如松乘乱登城,城破,哱拜阖门自焚。"]},
+  lingzhou:{t:"灵州",d:"官军进兵之基,今宁夏灵武(106.34E,38.10N)",p:["在黄河之东、镇城东南。官军自此渡河北上,为讨叛之前进屯集地。总兵麻贵、提督李如松皆道出于此以逼镇城。"]},
+  yuquan:{t:"玉泉营",d:"河西堡寨,镇城之南",p:["河西四十七堡之一。哱拜反时望风而下,与鸣沙、中卫诸堡俱为叛党所据,后随镇城破而复。"]},
+  mingsha:{t:"鸣沙洲",d:"河西堡寨,镇城西南",p:["黄河西岸之戍,河西四十七堡之属。哱拜之乱起,河西诸堡皆陷,鸣沙、玉泉在焉。"]},
+  huamachi:{t:"花马池",d:"套虏入犯要路,今宁夏盐池(107.4E,37.8N)",p:["镇城东南之边堡,河套套虏入犯之要路。著力兔、卜失兔诸部由此引众入援,为李如松、麻贵等击退于花马池、贺兰山间,援路遂绝。"]},
+  pinglu:{t:"平虏城",d:"套虏入犯之地,今宁夏平罗(106.5E,38.9N)",p:["镇城之北,黄河之西。哱拜反时河西堡寨多陷,套虏亦由平虏、镇远关一道入犯以援叛军,为官军所拒。"]},
+  zhenyuan:{t:"镇远关",d:"贺兰山北口,城北要隘",p:["贺兰山北端之关口,套虏入犯宁夏之孔道。官军拒守于此以断塞外之援,使镇城益孤。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
