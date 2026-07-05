@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -16,10 +16,11 @@
   .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
   header{margin-bottom:14px;padding-right:74px}
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
-  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.08em;line-height:1.6}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
-  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.04em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
   .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -28,38 +29,60 @@
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
-  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.55}
+  .seaname{fill:var(--water);letter-spacing:.5em;font-weight:500;opacity:.5}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.65;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.26em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.44}.realm.f{fill:var(--qin);opacity:.5}
+  .isle{fill:var(--ink2);opacity:.5}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
-  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}.march.f{stroke:var(--qin)}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.feign{stroke:var(--qin);stroke-width:2.4;stroke-dasharray:2 5;opacity:.95}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
-  .camp{fill:var(--advance);opacity:.9}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .flag line{stroke:var(--qin);stroke-width:1.6}.flag path{fill:var(--qin);opacity:.85}
+  .flabel{fill:var(--qin);font-size:10px;font-weight:700}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .amb line{stroke:var(--qin);stroke-width:2.6;stroke-linecap:round}.amb circle{fill:none;stroke:var(--qin);stroke-width:1.8}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(92,74,110,.08),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--enemy);letter-spacing:.12em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--qin)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--qin)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea):not(.feign){stroke-dasharray:760;stroke-dashoffset:760;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,141 +92,238 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>浮</span><span>海</span><span>征</span><span>爪</span></div>
   <header>
     <h1>元征爪哇</h1>
-    <div class="sub">元至元二十九至三十年(1292–1293)　　<i>元 史弼·高兴</i> 浮海二万里 · <b>爪哇 满者伯夷</b>反噬·元师无功而还</div>
+    <div class="sub">元至元二十九至三十年(1292–1293)　　<i>元 史弼·亦黑迷失·高兴</i>(舟师二万·战船千艘)浮海问罪 · 卷入爪哇内乱 · 助 <em>麻喏巴歇 土罕必阇耶</em> 灭 <b>谏义里 查耶卡特望</b> · 反为降人所卖 · 无功浮海而还</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 浮海征爪</button>
-    <button data-p="1">联满者伯夷·破葛郎</button>
-    <button data-p="2">满者伯夷反噬</button>
-    <button data-p="3">转战不利·浮海而还</button>
+    <button class="on" data-p="all">全图 · 涉海征爪</button>
+    <button data-p="1">黥使 · 渡海问罪</button>
+    <button data-p="2">登陆杜并足 · 内乱 · 土罕必阇耶伪降请助</button>
+    <button data-p="3">助攻谏义里 · 破查耶卡特望</button>
+    <button data-p="4">反戈突袭 · 浮海败归 · 满者伯夷立国</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="元征爪哇形势图,含元自泉州浮海南下、爪哇岛北岸诸国满者伯夷葛郎、八节涧答哈杜并足章姑等地与爪哇海">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="元征爪哇形势图,含爪哇海(北,元舟师自泉州浮海南来)、爪哇岛东部(南,谏义里与麻喏巴歇二内战之国)、杜并足戎牙路八节涧章孤麻喏巴歇答哈诸地与泗水河(布兰塔斯河),及元军渡海登陆、助土罕必阇耶溯河攻灭谏义里、旋为其反戈突袭而浮海败归之迹">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.07)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.32)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 爪哇海:全图主体为海,元自海上来 -->
-    <path class="sea" d="M 0,0 L 1000,0 L 1000,320 C 900,300 800,308 720,326 C 640,342 560,338 470,352 C 380,364 300,360 220,372 C 140,382 60,378 0,388 Z"/>
-    <text class="rname" x="300" y="150" style="opacity:.7;letter-spacing:.4em">爪 哇 海</text>
-    <text class="rname" x="560" y="230" style="opacity:.55;font-size:10.5px">七洲洋 · 万里石塘</text>
+    <!-- ══ 爪哇海:居图北半,元舟师自海上远来,海即其命脉与退路 ══ -->
+    <path class="sea" d="M 0,0 L 1000,0 L 1000,360 C 850,352 700,336 600,312 C 540,285 460,238 350,224 C 240,214 120,212 0,205 Z"/>
+    <path class="coast" d="M 0,205 C 120,212 240,214 350,224 C 460,238 540,285 600,312 C 700,336 850,352 1000,360"/>
+    <text class="seaname" x="150" y="150" font-size="17">爪　哇　海</text>
+    <text class="rname" x="150" y="176" style="opacity:.6;font-size:10.5px;letter-spacing:.3em">七洲洋 · 万里石塘(途经)</text>
 
-    <!-- 爪哇岛(诸国:满者伯夷/葛郎),自海上视之在南 -->
-    <path d="M 120,372 C 240,352 340,362 440,346 C 540,332 640,338 720,320 C 820,300 920,308 1000,318 L 1000,640 L 0,640 L 0,384 C 40,378 80,378 120,372 Z" fill="url(#qinHatch)"/>
-    <!-- 元(自海上来):海面一角晕染示元舟师所据 -->
-    <path d="M 0,0 L 300,0 C 260,60 210,110 170,140 C 120,178 70,200 0,214 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 120,372 C 240,352 340,362 440,346 C 540,332 640,338 720,320 C 820,300 920,308 1000,318"/>
-    <text class="realm q" x="360" y="560" font-size="34">爪 哇 诸 国</text>
-    <text class="realm j" x="30" y="80" font-size="24">元(自海上)</text>
+    <!-- ══ 爪哇岛(内乱二国):谏义里(葛郎)据西南,麻喏巴歇(满者伯夷)据东北 ══ -->
+    <path d="M 0,205 C 120,212 240,214 350,224 C 400,232 430,250 440,270 C 432,360 415,470 395,560 L 380,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 440,270 C 460,255 540,290 600,312 C 700,336 850,352 1000,360 L 1000,640 L 380,640 L 395,560 C 415,470 432,360 440,270 Z" fill="url(#fqinHatch)"/>
+    <path class="border" d="M 440,270 C 432,360 415,470 395,560 L 380,640"/>
+    <text class="realm q" x="120" y="470" font-size="27">谏 义 里</text>
+    <text class="cname s" x="126" y="492" style="fill:var(--enemy);opacity:.6">(葛郎 · 查耶卡特望)</text>
+    <text class="realm f" x="640" y="500" font-size="25">麻 喏 巴 歇</text>
+    <text class="cname s" x="646" y="522" style="fill:var(--qin);opacity:.7">(满者伯夷 · 土罕必阇耶)</text>
+    <text class="cname s" x="150" y="600" style="fill:var(--ink2);opacity:.6;font-size:10px">信诃沙里(葛达那加剌)已亡于内乱</text>
 
-    <!-- 泗水河口 / 爪哇岛北岸港汊 -->
-    <path class="river" stroke-width="4" d="M 470,490 C 500,450 540,410 560,368"/>
-    <path class="river" stroke-width="2.6" d="M 680,470 C 700,430 710,400 722,360"/>
-    <text class="rname" x="516" y="440" transform="rotate(-52 516 440)" style="font-size:11px">泗水河</text>
+    <!-- ══ 泗水河(布兰塔斯河/Kali Mas):自答哈(西南)经章孤·八节涧,东北入海;元军溯之攻谏义里 ══ -->
+    <path class="river" stroke-width="4" d="M 334,516 C 400,470 460,425 490,396 C 540,378 580,366 608,356 C 628,340 642,320 648,300"/>
+    <text class="rname" x="524" y="392" transform="rotate(-40 524 392)" style="font-size:11px">泗 水 河(布兰塔斯)</text>
 
     <!-- 北岸海口小屿 -->
-    <g class="isle"><ellipse cx="600" cy="320" rx="14" ry="7"/><ellipse cx="640" cy="330" rx="8" ry="5"/></g>
-    <g class="isle"><ellipse cx="230" cy="356" rx="12" ry="6"/></g>
+    <g class="isle"><ellipse cx="660" cy="300" rx="13" ry="6"/><ellipse cx="700" cy="312" rx="7" ry="4"/></g>
+    <g class="isle"><ellipse cx="250" cy="222" rx="11" ry="5"/></g>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑(自海而陆) ══ -->
     <g id="cities">
-      <g class="city" data-city="quanzhou"><circle cx="150" cy="70" r="5.5"/><text class="cname" x="162" y="66">泉州<tspan class="cname s" dx="2">(舟师出发)</tspan></text></g>
-      <g class="city" data-city="dubingzu"><circle cx="560" cy="360" r="5"/><text class="cname s" x="568" y="356">杜并足(登陆泊舟)</text></g>
-      <g class="city" data-city="zhanggu"><circle cx="722" cy="352" r="4.5"/><text class="cname s" x="730" y="348">章姑(经行港)</text></g>
-      <g class="city" data-city="bajiejian"><circle cx="672" cy="452" r="4.5"/><text class="cname s" x="680" y="448">八节涧(水战)</text></g>
-      <g class="city cap" data-city="majapahit"><circle cx="560" cy="470" r="6"/><text class="cname" x="500" y="490">满者伯夷·麻喏巴歇</text></g>
-      <g class="city cap" data-city="daha"><circle cx="446" cy="502" r="6"/><text class="cname" x="360" y="524">答哈·葛郎</text></g>
+      <g class="city" data-city="dubingzu"><circle cx="350" cy="240" r="5.5"/><text class="cname" x="300" y="234">杜并足</text><text class="cname s" x="300" y="249">(Tuban·登陆港)</text></g>
+      <g class="city" data-city="rongyalu"><circle cx="590" cy="318" r="5"/><text class="cname s" x="600" y="314">戎牙路(Gresik)</text></g>
+      <g class="city" data-city="bajiejian"><circle cx="608" cy="356" r="5"/><text class="cname" x="618" y="352" style="font-size:12px">八节涧</text><text class="cname s" x="618" y="367">(苏鲁马益·泗水)</text></g>
+      <g class="city" data-city="zhanggu"><circle cx="490" cy="396" r="4.5"/><text class="cname s" x="500" y="392">章孤(Canggu)</text></g>
+      <g class="city cap" data-city="majapahit"><circle cx="482" cy="435" r="6"/><text class="cname" x="492" y="431">麻喏巴歇</text><text class="cname s" x="492" y="446">(满者伯夷·土酋据)</text></g>
+      <g class="city cap" data-city="daha"><circle cx="334" cy="516" r="6.5"/><text class="cname" x="254" y="512">答哈·谏义里</text><text class="cname s" x="254" y="527">(Kediri·葛郎都)</text></g>
     </g>
 
-    <!-- 全图 · 浮海征爪 -->
+    <!-- ══ 图外来向:泉州(北·舟师所出)、占城/交趾(西北·途经) ══ -->
+    <g transform="translate(600,8)">
+      <path class="march sea" marker-end="url(#aj)" d="M 20,4 L 20,30"/>
+      <text class="cname s" x="34" y="16" style="fill:var(--advance);opacity:.85;font-size:10px">↓ 泉州(舟师所出·图外北)</text>
+      <text class="cname s" x="34" y="30" style="fill:var(--advance);opacity:.65;font-size:9px">至元二十九年十二月发·涉海二万余里</text>
+    </g>
+    <g transform="translate(70,40)">
+      <path class="march sea" style="opacity:.55" marker-end="url(#aj)" d="M 6,6 L 34,26"/>
+      <text class="cname s" x="0" y="-2" style="fill:var(--advance);opacity:.7;font-size:9.5px">占城·交阯(途经·图外西北) ↘</text>
+    </g>
+
+    <!-- ══════ 全图 · 涉海征爪 ══════ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aj)" d="M 156,84 C 260,180 360,270 470,338 C 500,354 528,360 552,362"/>
-      <text class="mlabel j" x="230" y="200">史弼·亦黑迷失·高兴 率舟师二万、战船千艘</text>
-      <text class="anno" x="300" y="250">历七洲洋、万里石塘,涉海二万余里而至</text>
-      <text class="mlabel q" x="360" y="588">爪哇尝黥辱元使孟琪,忽必烈怒,命浮海南征</text>
-      <text class="mlabel j" x="520" y="392">舟师登爪哇北岸,泊杜并足</text>
+      <path class="march sea" marker-end="url(#aj)" d="M 620,42 C 560,92 470,150 405,192 C 378,210 362,226 353,236"/>
+      <text class="mlabel j" x="380" y="150">史弼·亦黑迷失·高兴 率军二万·战船千艘,自泉州浮海南征</text>
+      <path class="march feign" marker-end="url(#af)" d="M 478,432 C 470,400 500,362 556,332"/>
+      <path class="march j" marker-end="url(#aj)" d="M 590,322 C 612,340 612,350 608,356 C 556,380 516,392 494,398 C 438,432 378,472 344,510"/>
+      <path class="march f" marker-end="url(#af)" d="M 480,440 C 440,462 384,490 348,512"/>
+      <circle class="star" cx="608" cy="356" r="7"/>
+      <circle class="star" cx="334" cy="516" r="8"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 340,512 C 420,470 520,360 600,60"/>
+      <text class="mlabel q" x="150" y="440" style="font-size:11px">爪哇内乱:谏义里弑君,土罕必阇耶伪降请助</text>
+      <text class="anno" x="360" y="600">联土酋灭谏义里,旋为其反戈所卖,浮海败归 —— 涉海干政而无功</text>
     </g>
 
-    <!-- 阶段一:联满者伯夷·破葛郎 -->
+    <!-- ══════ 阶段一:黥使 · 渡海问罪 ══════ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 566,368 C 600,398 636,420 664,442"/>
-      <text class="mlabel j" x="600" y="410">元水陆并进,战八节涧</text>
-      <circle class="star" cx="672" cy="452" r="7"/>
-      <path class="march j" marker-end="url(#aj)" d="M 664,458 C 600,478 520,490 460,498"/>
-      <path class="march q" marker-end="url(#aq)" d="M 552,472 C 528,478 500,486 466,496"/>
-      <text class="mlabel q" x="470" y="452">土罕必阇耶走保麻喏巴歇,乞元助讨葛郎</text>
-      <circle class="star" cx="446" cy="502" r="8"/>
-      <text class="mlabel j" x="300" y="490">合兵大破葛郎,擒杀哈只葛当</text>
-      <text class="anno" x="330" y="540">葛郎降;元与满者伯夷之土酋合力而克</text>
+      <path class="march sea" marker-end="url(#aj)" d="M 620,42 C 560,92 470,150 405,192 C 378,210 362,226 353,236"/>
+      <text class="mlabel j" x="360" y="118">史弼·亦黑迷失·高兴 率军二万·战船千艘</text>
+      <text class="anno" x="360" y="136">自泉州浮海,历七洲洋·万里石塘·占城,涉海二万余里</text>
+      <rect class="camp" x="330" y="512" width="9" height="9" transform="rotate(45 334 516)"/>
+      <text class="mlabel q" x="150" y="470" style="font-size:11px">信诃沙里王 葛达那加剌</text>
+      <text class="anno" x="150" y="488">黥元使孟琪之面,刺字逐还;忽必烈大怒,命浮海问罪</text>
+      <text class="anno" x="360" y="250">是时爪哇已内乱:葛达那加剌 已为属国谏义里所弑</text>
     </g>
 
-    <!-- 阶段二:满者伯夷反噬 -->
+    <!-- ══════ 阶段二:登陆杜并足 · 爪哇内乱 · 土罕必阇耶伪降请助 ══════ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 452,498 C 500,486 528,480 552,474"/>
-      <text class="mlabel j" x="380" y="474">元许分兵护送土罕必阇耶归备降礼</text>
-      <path class="march q" marker-end="url(#aq)" d="M 556,478 C 540,506 528,540 520,570"/>
-      <text class="mlabel q" x="524" y="548">既至,乘元无备,途中设伏反攻</text>
-      <circle class="star" cx="540" cy="520" r="7"/>
-      <text class="mlabel r" x="360" y="446">元军猝不及防,腹背受敌</text>
-      <text class="anno" x="380" y="588">土罕必阇耶,满者伯夷之祖也,遂叛元</text>
+      <path class="march j" marker-end="url(#aj)" d="M 353,238 C 430,262 520,294 584,314"/>
+      <text class="mlabel j" x="356" y="284">舟师泊杜并足·戎牙路,舍舟登岸</text>
+      <rect class="camp" x="330" y="512" width="9" height="9" transform="rotate(45 334 516)"/>
+      <text class="mlabel q" x="150" y="548" style="font-size:11px">谏义里王 查耶卡特望(哈只葛当)</text>
+      <text class="anno" x="150" y="566">已弑葛达那加剌,据爪哇;其婿走保麻喏巴歇</text>
+      <!-- 伪降:土罕必阇耶诈降元军,乞助讨谏义里 -->
+      <path class="march feign" marker-end="url(#af)" d="M 478,432 C 470,398 502,360 556,334"/>
+      <g class="flag" transform="translate(482,435)"><line x1="0" y1="0" x2="0" y2="-16"/><path d="M 0,-16 L 15,-12 L 0,-8 Z"/></g>
+      <text class="flabel" x="430" y="410">伪降·诈降</text>
+      <text class="mlabel f" x="430" y="470">土罕必阇耶(麻喏巴歇之主)伪降元军</text>
+      <text class="anno" x="440" y="486">信诃沙里王之婿,欲假元兵报弑君之仇,乞助讨谏义里</text>
     </g>
 
-    <!-- 阶段三:转战不利·浮海而还 -->
+    <!-- ══════ 阶段三:元军助攻谏义里 · 破查耶卡特望 ══════ -->
     <g id="ph3" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 540,510 C 560,470 566,420 562,372"/>
-      <text class="mlabel r" x="566" y="440">元军且战且退,趋杜并足登舟</text>
-      <text class="anno" x="470" y="516">孤军暑疫,死者三千余</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 554,356 C 440,270 320,180 200,96"/>
-      <text class="mlabel r" x="300" y="300">收余众浮海而还,劳师万里无功</text>
-      <text class="anno" x="240" y="360">史弼·高兴还朝受责罚</text>
-      <text class="mlabel q" x="380" y="600">土罕必阇耶遂建满者伯夷王国,雄于南海</text>
+      <path class="march j" marker-end="url(#aj)" d="M 590,322 C 612,340 612,350 608,356 C 556,380 516,392 494,398 C 438,432 380,472 344,510"/>
+      <text class="mlabel j" x="440" y="336">元军水陆并进,溯泗水而上</text>
+      <circle class="star" cx="608" cy="356" r="8"/>
+      <text class="anno" x="622" y="384">破葛郎兵于八节涧(水战)</text>
+      <path class="march f" marker-end="url(#af)" d="M 480,440 C 440,462 384,490 348,512"/>
+      <text class="mlabel f" x="410" y="458">土罕必阇耶自麻喏巴歇合攻</text>
+      <rect class="camp" x="330" y="512" width="9" height="9" transform="rotate(45 334 516)"/>
+      <circle class="star" cx="334" cy="516" r="10"/>
+      <text class="mlabel j" x="150" y="500">进围答哈,大破谏义里兵</text>
+      <text class="anno" x="150" y="558">查耶卡特望出降;元师以为大功告成</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══════ 阶段四:反戈突袭 · 浮海败归 · 满者伯夷立国 ══════ -->
+    <g id="ph4" class="ph">
+      <path class="march f" marker-end="url(#af)" d="M 344,512 C 400,486 448,458 478,438"/>
+      <text class="mlabel f" x="340" y="500">土罕必阇耶托词归国备贡礼(元遣兵护送)</text>
+      <!-- 反戈突袭:中途设伏,突袭疏备之元军 -->
+      <path class="march f" marker-end="url(#af)" d="M 486,436 C 528,410 572,386 600,364"/>
+      <g class="amb" transform="translate(556,392)"><circle r="10"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel f" x="470" y="416">中途反戈,突袭疏备之元军</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 600,368 C 520,336 430,286 360,246"/>
+      <text class="mlabel r" x="380" y="316">元军猝不及防,腹背受敌,死三千余人</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 350,236 C 400,186 500,120 606,48"/>
+      <text class="mlabel r" x="330" y="270">史弼断后,且战且走三百里,趋杜并足登舟</text>
+      <text class="mlabel r" x="400" y="150">浮海六十八日夜,归泉州;史弼杖十七·没家资三分一</text>
+      <text class="anno" x="360" y="600" style="fill:var(--qin);font-style:normal;font-weight:700">土罕必阇耶遂建满者伯夷(Majapahit)王国,雄于南海 —— 元师远征反助其立国</text>
+    </g>
+
+    <g class="compass" transform="translate(946,96)">
+      <circle r="19" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-19 L 4,0 L 0,15 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,19 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-23">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>元军(陆)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>元舟师浮海</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>爪哇(满者伯夷/葛郎)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>元军浮海而还(无功)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>元舟师·浮海(自泉州渡海)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>元军·登陆溯河</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="3"/></svg>土罕必阇耶·麻喏巴歇(降人)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.4" stroke-dasharray="2 4"/></svg>伪降(诈降)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#5c4a6e" stroke-width="1.8"/><line x1="4" y1="4" x2="12" y2="12" stroke="#5c4a6e" stroke-width="2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#5c4a6e" stroke-width="2"/></svg>反戈突袭</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>谏义里(葛郎)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#fqinHatch)"/></svg>麻喏巴歇(满者伯夷)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>元军浮海败归(无功)</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>爪哇诸国</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>征爪释要 · 涉海干政 · 为降人所卖 · 无功而还</h3>
+    <div class="lead">何以二万之众涉海二万里,一战灭国而竟无功 —— 远征卷入他邦内乱,恃降人为盟,盟者一朝反噬,遂败还</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="征爪示意:元舟师自泉州涉海远来,爪哇方内乱(谏义里弑信诃沙里王,土罕必阇耶据麻喏巴歇);土罕必阇耶伪降请元助讨谏义里,元与之合兵灭谏义里;既灭,土罕必阇耶反戈突袭元军,元浮海败归,而满者伯夷因之立国">
+      <!-- 元:自海远来(左·teal) -->
+      <circle cx="58" cy="125" r="7" fill="#e9dec4" stroke="#1f4e54" stroke-width="1.9"/>
+      <text x="58" y="108" fill="#1f4e54" font-size="11" font-weight="700" text-anchor="middle">元舟师</text>
+      <text x="58" y="150" fill="#5c4f38" font-size="9.5" text-anchor="middle">涉海二万里</text>
+      <path d="M 68,122 C 120,116 150,112 190,110" fill="none" stroke="#1f4e54" stroke-width="3" stroke-dasharray="8 5" marker-end="url(#aj)"/>
+      <text x="132" y="98" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="middle">浮海问罪</text>
+      <!-- 爪哇内乱:二国(中) -->
+      <rect x="196" y="40" width="150" height="170" fill="none" stroke="#8a7c5e" stroke-width="1" stroke-dasharray="3 4"/>
+      <text x="271" y="34" fill="#5c4f38" font-size="10.5" font-weight="700" text-anchor="middle">爪哇内乱</text>
+      <circle cx="271" cy="80" r="7" fill="#e9dec4" stroke="#5c4a6e" stroke-width="1.9"/>
+      <text x="271" y="66" fill="#5c4a6e" font-size="10.5" font-weight="700" text-anchor="middle">麻喏巴歇·土罕必阇耶</text>
+      <circle cx="271" cy="170" r="7" fill="#e9dec4" stroke="#9a2b1e" stroke-width="1.9"/>
+      <text x="271" y="192" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">谏义里·查耶卡特望</text>
+      <path d="M 271,158 L 271,94" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="3 3"/>
+      <text x="318" y="126" fill="#9a2b1e" font-size="9" text-anchor="middle">弑君</text>
+      <!-- 伪降+合兵灭谏义里 -->
+      <path d="M 200,104 C 232,92 250,86 262,82" fill="none" stroke="#5c4a6e" stroke-width="2.4" stroke-dasharray="2 4" marker-end="url(#af)"/>
+      <text x="212" y="78" fill="#5c4a6e" font-size="9.5" font-weight="700">伪降请助</text>
+      <path d="M 278,88 C 300,120 300,150 280,166" fill="none" stroke="#1f4e54" stroke-width="2.6" marker-end="url(#aj)"/>
+      <g transform="translate(271,170)"><line x1="-8" y1="-8" x2="8" y2="8" stroke="#9a2b1e" stroke-width="3"/><line x1="-8" y1="8" x2="8" y2="-8" stroke="#9a2b1e" stroke-width="3"/></g>
+      <text x="352" y="150" fill="#1f4e54" font-size="9.5" font-weight="700">合兵灭之</text>
+      <!-- 反戈突袭(右) -->
+      <path d="M 300,74 C 420,70 520,84 590,110" fill="none" stroke="#5c4a6e" stroke-width="3" marker-end="url(#af)"/>
+      <text x="460" y="66" fill="#5c4a6e" font-size="11" font-weight="700" text-anchor="middle">既灭谏义里,反戈突袭</text>
+      <g transform="translate(610,120)"><circle r="12" fill="none" stroke="#5c4a6e" stroke-width="2"/><line x1="-7" y1="-7" x2="7" y2="7" stroke="#5c4a6e" stroke-width="2.6"/><line x1="-7" y1="7" x2="7" y2="-7" stroke="#5c4a6e" stroke-width="2.6"/></g>
+      <text x="610" y="150" fill="#5c4a6e" font-size="9.5" font-weight="700" text-anchor="middle">突袭疏备元军</text>
+      <!-- 浮海败归 -->
+      <path d="M 626,124 C 690,140 720,160 748,190" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="720" y="118" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">浮海败归</text>
+      <text x="720" y="210" fill="#7a5a23" font-size="9.5" text-anchor="middle">死三千余·六十八日归泉州</text>
+      <!-- 底注 -->
+      <text x="430" y="234" fill="#5c4a6e" font-size="12" font-weight="700" text-anchor="middle">土罕必阇耶因之立满者伯夷(Majapahit)王国 —— 元师远征,反助其立国</text>
+    </svg>
+    <p class="intro">元之征爪哇,非爪哇能御之于海、拒之于城,而在其<b>误入他邦骨肉之争、错认降人为与国</b>:忽必烈为一使被黥而遣二万之众、涉海二万里而来问罪;及至,则所欲问罪之葛达那加剌已死于内乱,元师遂被牵入谏义里(葛郎)与麻喏巴歇之私斗。<b>伪降之土罕必阇耶,借元兵以灭其仇;仇既灭,则元兵即为其腹心之患</b>——一战灭国之功,转瞬化为为人作嫁之败。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>元 · 涉海远征 · 卷入内乱</h4>
+        <p>史弼、亦黑迷失、高兴以舟师二万、战船千艘,自泉州浮海,历七洲洋、万里石塘、占城,涉海二万余里而至爪哇北岸,泊杜并足、戎牙路,舍舟登岸。海即其命脉:粮械、退路皆系于舟。既受土罕必阇耶之降,遂弃「问罪」之初旨而助之讨谏义里——水陆并进,溯泗水破葛郎兵于八节涧,进围答哈,大破之,查耶卡特望出降。元师深入内陆、去舟日远,以为大功告成,而不知已堕降人之彀中。</p>
+      </div>
+      <div class="c b">
+        <h4>土罕必阇耶 · 伪降 · 反戈</h4>
+        <p>土罕必阇耶者,信诃沙里王之婿、麻喏巴歇之主也。方谏义里弑君据国,彼势孤力屈,乃<b>伪降元军、乞助报仇</b>——非诚服,借元兵为己刃耳。及谏义里既灭,彼托词归国、整备贡物,元许分兵护送;既得间,遂中途反戈,突袭分散疏备之元军。元军猝不及防、腹背受敌,史弼且战且走三百里始得登舟。<b>所联之盟,一朝而为劲敌</b>;元师劳师万里,竟为降人所卖。</p>
+      </div>
+    </div>
+    <p class="kicker">故征爪之败,<b>不在战之不力,而在谋之误、盟之伪</b>:元恃海之远而不虞海之隔,恃降人之款而不备降人之诈。<b>助盟灭仇,仇灭而盟叛;深入弃舟,舟远而师危</b>——遂死三千余人,浮海六十八日夜而还,史弼、亦黑迷失以损兵获罪。而土罕必阇耶因元师之力尽灭群雄,遂建满者伯夷(Majapahit)王国,为南海一代雄邦。元之远征,反为他人立国之资:此所谓「涉海干政、为降人所卖、无功而还」也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·世祖本纪》《元史·史弼传》《元史·爪哇传》及《大德南海志》约略绘出。爪哇(阇婆)在今印度尼西亚爪哇岛,答哈(谏义里)、麻喏巴歇诸地及泗水河口在今东爪哇一带,泉州至爪哇之海道及岛岸皆为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为示意:爪哇岛诸国(满者伯夷、葛郎)据南,元舟师自海上来;二者本无接壤画界,故以海分之,以点划「约界」标岛岸,非实有画界。</p>
-    <p><span class="n">注三</span>元师初联满者伯夷之主土罕必阇耶,合破其仇敌葛郎,擒杀哈只葛当;既而土罕必阇耶乘元无备反噬,元军腹背受敌、暑疫交作,且战且退,死者三千余,收众浮海而还——胜之与败,反覆于旬月之间。土罕必阇耶因之立满者伯夷王国,元之南海远征至此而止。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作简化墨卡托投影(爪哇在赤道以南,纬度取南纬;北上南下,x=150+(经度−111.55)×400,y=60+(南纬−6.30)×300),几何力求近实:杜并足(Tuban)在西北岸,戎牙路(Gresik)、八节涧(苏鲁马益/泗水)在东北岸,章孤(Canggu)、麻喏巴歇(Trowulan)居内陆之中,答哈·谏义里(Kediri)在西南上游;泗水河(布兰塔斯河/Kali Mas)自答哈东北流入海,元军溯之攻谏义里。泉州(舟师所出)远在图北、占城·交阯远在图西北,皆图外,以边缘箭头示之。爪哇海占图北半,正见此役「涉海远征、以海为命脉」之实。海岸线、疆界晕染经简化,仅志二国内乱之势,非实有画界。依《元史·世祖本纪》《元史·史弼传》《元史·亦黑迷失传》《元史·高兴传》《元史·爪哇传》及《大德南海志》约略绘出。</p>
+    <p><span class="n">注二</span>行程与舟陆之变(答第一问·行军之道):元军<b>去时浮海、归时亦浮海,而其兴亡实系于「登陆去舟」之一转</b>。至元二十九年(1292)十二月自泉州扬帆,历七洲洋、万里石塘,经交阯、占城,涉海二万余里,至爪哇北岸泊杜并足、戎牙路。舟师分道:一部溯泗水(Kali Mas)而上,一部循陆并进,合攻谏义里——此为「舍舟入陆」之进。既灭谏义里、深入内陆,去舟日远、部伍分散,遂为土罕必阇耶反戈所乘。败后史弼断后、且战且走三百里,趋杜并足登舟,浮海六十八日夜归泉州。<b>去舟则命脉断:</b>元军之败,正在离其舟师、孤军内陆而不能自保。</p>
+    <p><span class="n">注三</span>粮道与命脉(答第二问·后勤):此役无陆上漕运可言,<b>元军之粮械、退路皆载于舟,海即其唯一之补给线与生路</b>。泊舟登陆、深入攻谏义里,是以血肉之躯远离舟师;既胜而分兵护送降人,益形分散。土罕必阇耶正窥其「离舟、分散、疏备」之隙而突袭之。故所谓「后勤」之败,不在粮尽,而在<b>自弃其舟、自远其海</b>——舟在则退可全师,故史弼得且战且走以登舟,收余众浮海而还,不致全没(与弘安之役舟没而全军覆者异)。</p>
+    <p><span class="n">注四</span>几方之势与来路(答第三问·几家几方):本图凡三方——<i>元</i>(青,自海上远来,泉州、占城皆图外之来路)、<b>谏义里/葛郎</b>(红,查耶卡特望/哈只葛当,据西南上游之答哈)、<em>麻喏巴歇/满者伯夷</em>(紫,土罕必阇耶,据东北;伪降之「盟友」而卒为叛者)。别有<i>信诃沙里</i>(葛达那加剌)本为爪哇之主,元使被黥即其所为,然元军未至而其已为谏义里所弑,故仅志其亡,不别著色。三方之中,元自北方之海入,谏义里踞西南,麻喏巴歇处东北——元之误,正在错认此三角为二方(以麻喏巴歇为盟、谏义里为敌),而不知麻喏巴歇之款乃伪。</p>
+    <p><span class="n">注五</span>异说与地望(答第四·第五问·今地经纬与异同):杜并足(今印尼东爪哇图班/Tuban,约112.05E/6.90S)、戎牙路(今格雷西/Gresik,约112.65E/7.16S)、八节涧(《元史》又译苏鲁马益,今泗水/Surabaya之Kali Mas河,约112.74E/7.25S)、章孤(今Canggu,布兰塔斯河渡,约112.40E/7.42S)、麻喏巴歇/满者伯夷(今Trowulan一带,约112.38E/7.55S)、答哈·谏义里(今谏义里/Kediri,约112.01E/7.82S);泉州(约118.6E/24.9N,图外北)、占城(今越南南部,约109.2E/12N,图外西北)。人名对音:土罕必阇耶即Raden Wijaya(满者伯夷开国之君),查耶卡特望即Jayakatwang(《元史》作葛郎主哈只葛当),葛达那加剌即Kertanegara(信诃沙里末王)。兵数、损失诸书微异:《元史》诸传或云「兵二万」、或云「五千」（初发之数）、战船「千艘」，损失「三千余人」（近世学者据战况估元军殁者或达六成);八节涧、章孤等地望及战地先后,中外考订亦有出入,今并存举其略。史弼以损兵还朝,杖十七、没家资三分之一;亦黑迷失亦获谴,而高兴以力战免罚——赏罚亦诸传小异。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"浮海征爪",d:"至元二十九年(1292)冬 — 三十年正月",p:["爪哇国主葛达那加剌尝黥辱元使孟琪。忽必烈怒,至元二十九年命史弼、亦黑迷失、高兴率舟师二万、战船千艘,自泉州浮海南征爪哇。","舟师历七洲洋、万里石塘,涉海二万余里而至爪哇北岸,泊于杜并足。时爪哇内乱方殷,元师适逢其会——遂得因其隙而入。"]},
-  "1":{t:"联满者伯夷·破葛郎",d:"至元三十年(1293)二三月",p:["先是葛郎国主哈只葛当杀爪哇国主葛达那加剌,其婿土罕必阇耶走保麻喏巴歇,遣使降元、乞元军助讨葛郎。元军许之,遂与之合兵,水陆并进。","战于八节涧、答哈,大破葛郎兵,擒杀哈只葛当,葛郎降。元师与满者伯夷之土酋合力,旬日之间连拔劲敌,声势方张。"]},
-  "2":{t:"满者伯夷反噬",d:"至元三十年(1293)三四月",p:["土罕必阇耶请归其地,整备降元之礼、贡献土物;元军许之,分兵护送。","既至,土罕必阇耶乘元军无备,于途中设伏反攻。元军猝不及防,腹背受敌——所联之土酋,一朝而为劲敌矣。"]},
-  "3":{t:"转战不利·浮海而还",d:"至元三十年(1293)夏",p:["元军孤军深入,值暑热疫病,乃且战且退。死者三千余人,收余众趋杜并足登舟,浮海而还,劳师万里而无功。","史弼、高兴等以损兵折将、无功还朝,俱受责罚。土罕必阇耶遂建满者伯夷(麻喏巴歇)王国,为爪哇一代雄国;元之南海远征,至此而止。"]}
+  all:{t:"涉海征爪",d:"至元二十九年(1292)十二月 — 三十年(1293)",p:["爪哇(信诃沙里)国王葛达那加剌尝黥辱元使孟琪之面、刺字逐还。忽必烈大怒,至元二十九年命史弼、亦黑迷失、高兴率舟师二万、战船千艘,自泉州浮海南征,历七洲洋、万里石塘,涉海二万余里而至爪哇北岸。","然元师适逢爪哇内乱:葛达那加剌已为属国谏义里(葛郎)王查耶卡特望所弑,其婿土罕必阇耶(麻喏巴歇之主)伪降元军、乞助讨谏义里。元与之合兵,溯泗水破谏义里、擒其主;既而土罕必阇耶反戈突袭,元军猝不及防,且战且走、浮海败归——劳师万里而无功,反助土罕必阇耶立满者伯夷王国。"]},
+  "1":{t:"黥使 · 渡海问罪",d:"至元二十九年(1292)十二月",p:["先是,爪哇信诃沙里王葛达那加剌恃远,黥元使孟琪之面、刺字逐还,拒不入贡。忽必烈以为辱国,大怒,乃命福建行省右丞史弼、平章亦黑迷失、参政高兴,发江淮、荆湖、福建、江西之卒二万,战船千艘,自泉州浮海问罪。","至元二十九年十二月自泉州扬帆,涉七洲洋、万里石塘之险,经交阯、占城之外洋,风涛汹涌,士卒累日不能食,涉海二万余里而趋爪哇。是时爪哇已内乱方殷——所欲问罪之葛达那加剌,元军未至而已见弑,元师遂将因其隙而入。"]},
+  "2":{t:"登陆杜并足 · 内乱 · 土罕必阇耶伪降请助",d:"至元三十年(1293)正月 — 二月",p:["元舟师抵爪哇北岸,泊于杜并足(Tuban)、戎牙路(Gresik),舍舟登岸,分道并进。时爪哇之乱:谏义里(葛郎)王查耶卡特望(哈只葛当)已弑葛达那加剌、篡据其国;葛达那加剌之婿土罕必阇耶走保麻喏巴歇(满者伯夷),势孤力屈。","土罕必阇耶遣使伪降元军,自陈为查耶卡特望所迫,愿附大元、乞元兵助讨谏义里以报弑君之仇。元帅利其为乡导、藉其为内应,遂许之——不知此降乃伪:彼特借元师为己之刃耳。"]},
+  "3":{t:"元军助攻谏义里 · 破查耶卡特望",d:"至元三十年(1293)二月 — 三月",p:["元军与土罕必阇耶合兵,水陆并进,溯泗水(布兰塔斯河)而上。先战于八节涧(苏鲁马益),元舟师、陆军夹击,大破谏义里之众;乘胜长驱,进围答哈(谏义里都)。","答哈城下再大破葛郎兵,查耶卡特望(哈只葛当)力屈出降,谏义里遂灭。自登陆至克敌,不过旬月,元师声势方张,以为问罪之功已成、可携俘获而归——然元军至此已深入内陆、去舟日远,部伍分散,危机已伏。"]},
+  "4":{t:"反戈突袭 · 浮海败归 · 满者伯夷立国",d:"至元三十年(1293)三月 — 五月",p:["谏义里既灭,土罕必阇耶请归麻喏巴歇,托词整备降元之贡物;元许之,分兵护送。既得间,土罕必阇耶乘元军无备,中途设伏反戈,复驰袭分散之元军主力。元军猝不及防、腹背受敌,大败,死者三千余人。","史弼自断后,且战且走三百里,乃得趋杜并足登舟,收余众浮海而还,航六十八日夜归泉州。虽携金宝、俘获甚夥,朝廷犹以损兵折将罪之:史弼杖十七、没家资三分之一,亦黑迷失亦获谴。而土罕必阇耶遂尽灭群雄、建满者伯夷(Majapahit)王国,雄于南海——元之南海远征,反为其立国之资,至此而绝。"]}
 };
 const CITY={
-  daha:{t:"答哈·葛郎",d:"葛郎(谏义里)都,今东爪哇谏义里一带",p:["元与满者伯夷之土酋合破葛郎之处。大破葛郎兵,擒杀其主哈只葛当,葛郎遂降——元师此役之极盛在此。"]},
-  majapahit:{t:"满者伯夷·麻喏巴歇",d:"土罕必阇耶之地,今东爪哇满者伯夷故墟",p:["土罕必阇耶(满者伯夷之祖)走保之地。初遣使乞元助讨葛郎,既破葛郎,乃乘元无备反噬,元军自此转败。战后因之立满者伯夷王国。"]},
-  bajiejian:{t:"八节涧",d:"爪哇北岸水道,今东爪哇泗水附近",p:["元军登陆后水战之地。水陆并进,破葛郎之兵于此,进逼答哈。"]},
-  dubingzu:{t:"杜并足",d:"爪哇岛北岸海口,今东爪哇北海岸",p:["元舟师泊舟登陆之处。既联满者伯夷破葛郎;后转战不利,元军亦自此收众登舟、浮海而还。"]},
-  quanzhou:{t:"泉州",d:"今福建泉州",p:["元舟师浮海南征爪哇之出发基地。史弼等率战船千艘、军二万,自此扬帆,历七洲洋、万里石塘南下。"]},
-  zhanggu:{t:"章姑",d:"爪哇北岸港汊,今东爪哇沿海",p:["元军经行之港。舟师沿爪哇岛北岸转泊诸港,以图深入。"]}
+  dubingzu:{t:"杜并足(Tuban)",d:"爪哇岛西北岸海口,今印尼东爪哇图班(约112.05E/6.90S)",p:["元舟师浮海二万余里所抵、泊舟登陆之港,《元史》或作杜板、赌班。元军自此舍舟入陆,分道并进;后转战不利,史弼亦自此收余众登舟、浮海而还——登陆与败归,俱在此港。"]},
+  rongyalu:{t:"戎牙路(Gresik)",d:"爪哇东北岸港,今印尼格雷西(约112.65E/7.16S)",p:["《元史》又作新村。元舟师登陆之另一口,近泗水河(布兰塔斯)入海之处。元军一部由此溯河而上,以攻谏义里。"]},
+  bajiejian:{t:"八节涧(苏鲁马益)",d:"泗水河下游水道,今印尼泗水(Surabaya)之Kali Mas河(约112.74E/7.25S)",p:["元军溯泗水攻谏义里之首战地。元舟师、陆军水陆夹击,大破谏义里之众于此,乘胜进逼答哈。八节涧、苏鲁马益之今地,学者考订微有出入。"]},
+  zhanggu:{t:"章孤(Canggu)",d:"布兰塔斯河渡口,今印尼东爪哇Canggu一带(约112.40E/7.42S)",p:["泗水河(布兰塔斯)中游要渡,介麻喏巴歇与答哈之间。元军与土罕必阇耶溯河合攻谏义里,经行于此。"]},
+  majapahit:{t:"麻喏巴歇 · 满者伯夷",d:"土罕必阇耶据点,今印尼东爪哇Trowulan一带(约112.38E/7.55S)",p:["土罕必阇耶(Raden Wijaya)所据之地。彼伪降元军、乞助讨谏义里;既灭谏义里,乃托词归此备贡,中途反戈突袭元军。战后即以此为都,建满者伯夷(Majapahit)王国——元师远征,反成其立国之资。"]},
+  daha:{t:"答哈 · 谏义里(Kediri)",d:"谏义里(葛郎)之都,今印尼东爪哇谏义里/Kediri(约112.01E/7.82S)",p:["谏义里王查耶卡特望(哈只葛当)之都,居泗水河上游西南。查耶卡特望先弑信诃沙里王葛达那加剌而篡据爪哇;元与土罕必阇耶合兵溯河来攻,八节涧、答哈连破之,查耶卡特望出降,谏义里遂灭——此元师此役之极盛,亦其被卖之始。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
