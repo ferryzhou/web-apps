@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--qin:#5c4a6e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -17,7 +17,7 @@
   header{margin-bottom:14px;padding-right:74px}
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
-  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}.sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,7 +30,12 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 先绝其援:朱色截断记号(断二王合流之道) */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +44,23 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.wing{stroke:var(--advance);stroke-width:2.4;opacity:.92}
+  .march.kd{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:6 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.k{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 象舆(四象驮楼·忽必烈督战) */
+  .eleph .bd{fill:var(--advance);opacity:.92}
+  .eleph .tw{fill:var(--paper);stroke:var(--advance);stroke-width:1.6}
+  .eleph .ln{stroke:var(--advance);stroke-width:1.4;fill:none}
+  /* 景教十字旗(乃颜军) */
+  .cross{stroke:var(--enemy);stroke-width:2;fill:none}
+  .cannon{fill:var(--gold)}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +69,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.kd){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,143 +96,242 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>亲</span><span>征</span><span>乃</span><span>颜</span></div>
   <header>
     <h1>忽必烈亲征乃颜之战</h1>
-    <div class="sub">元至元二十四年(1287)　　<i>元世祖 忽必烈</i> 象舆亲征 · <b>东道诸王 乃颜</b>就擒伏诛</div>
+    <div class="sub">元至元二十四年(1287)　　<i>元世祖 忽必烈</i> 象舆亲征 · <b>东道诸王 乃颜</b>联 <em>西北 海都</em> 谋东西夹击 · 炮骑破叛而就擒</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 东道叛乱</button>
-    <button data-p="1">象舆亲征 · 昼夜兼程</button>
-    <button data-p="2">火炮破骑 · 两军决战</button>
-    <button data-p="3">乃颜就擒 · 东道遂定</button>
+    <button class="on" data-p="all">全图 · 东道之乱</button>
+    <button data-p="1">联海都欲夹击·亲征</button>
+    <button data-p="2">昼夜兼程·抢在海都东援前</button>
+    <button data-p="3">撒儿都鲁决战·象舆炮阵</button>
+    <button data-p="4">骑兵包抄·擒乃颜·乱平</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="忽必烈亲征乃颜之战形势图,含元廷与东道诸王疆界、辽河潢河与大兴安岭及上都大都辽东等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="忽必烈亲征乃颜之战形势图,含元廷与东道诸王疆界、西辽河潢河与嫩江诸水、大兴安岭天险,及上都应昌撒儿都鲁不里古都咸平等地,示忽必烈自上都昼夜兼程东北突袭、象舆督战汉军炮阵破乃颜,海都自西北欲援而二王不得合,大都在图外南">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:元廷自中(上都、大都)而来,东道诸王乃颜据辽东(东) -->
-    <path d="M 560,0 C 566,110 590,190 620,270 C 646,340 660,410 650,500 C 642,560 620,600 610,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 566,110 590,190 620,270 C 646,340 660,410 650,500 C 642,560 620,600 610,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 566,110 590,190 620,270 C 646,340 660,410 650,500 C 642,560 620,600 610,640"/>
-    <text class="realm q" x="740" y="120" font-size="30">东道诸王(辽东)</text>
-    <text class="realm j" x="120" y="560" font-size="30">元 廷(自上都来)</text>
+    <!-- 疆界:元廷据漠南(上都·应昌,西南),东道诸王乃颜据辽东嫩江-西辽河(东北),约以大兴安岭一线为限(示意) -->
+    <path d="M 540,0 C 580,150 610,300 640,420 C 664,520 690,580 720,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 540,0 C 580,150 610,300 640,420 C 664,520 690,580 720,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 540,0 C 580,150 610,300 640,420 C 664,520 690,580 720,640"/>
+    <text class="realm j" x="96" y="556" font-size="28">元 廷(自上都来)</text>
+    <text class="realm q" x="760" y="66" font-size="26">东道诸王(辽东)</text>
+    <text class="cname s" x="766" y="90" style="fill:var(--enemy);opacity:.55">乃颜·斡赤斤兀鲁思(嫩江·西辽河)</text>
+    <text class="mname" x="150" y="90" style="letter-spacing:.24em">漠　南 · 草　原</text>
 
-    <!-- 辽河:自北南下,注辽东湾 -->
-    <path class="river" stroke-width="4.5" d="M 780,120 C 790,200 800,300 806,390 C 810,460 810,520 800,590"/>
-    <!-- 潢河(西拉木伦河):自大兴安岭东南流 -->
-    <path class="river" stroke-width="3.4" d="M 470,250 C 560,268 650,290 730,320 C 770,336 800,354 820,370"/>
-    <!-- 辽东湾岸线 -->
-    <path class="river" stroke-width="2.4" d="M 760,600 C 820,596 880,606 940,624"/>
-    <text class="rname" x="812" y="470" transform="rotate(80 812 470)">辽 河</text>
-    <text class="rname" x="560" y="270" transform="rotate(12 560 270)" style="font-size:11.5px">潢河·西拉木伦</text>
-    <text class="rname" x="880" y="620" style="font-size:10.5px">辽东湾</text>
+    <!-- 大兴安岭:自东北蜿蜒西南,漠南与辽东嫩江之天险,元军越之而东 -->
+    <g class="mtn" stroke-width="1.4">
+      <path d="M 596,436 l 13,-24 l 13,24 M 620,412 l 13,-24 l 13,24 M 644,388 l 12,-22 l 12,22 M 666,362 l 13,-24 l 13,24 M 688,336 l 12,-22 l 12,22"/>
+      <path d="M 700,300 l 12,-22 l 12,22 M 700,262 l 12,-22 l 12,22 M 704,224 l 12,-22 l 12,22 M 710,186 l 12,-22 l 12,22"/>
+    </g>
+    <text class="mname" x="612" y="470" transform="rotate(-52 612 470)" style="letter-spacing:.36em;opacity:.78">大 兴 安 岭</text>
 
-    <!-- 大兴安岭:自北蜿蜒西南,元廷与东道之天险 -->
-    <g class="mtn"><path d="M 420,70 l 9,-15 l 9,15 M 438,64 l 9,-15 l 9,15 M 456,70 l 9,-14 l 9,14 M 400,150 l 9,-15 l 9,15 M 418,144 l 9,-15 l 9,15 M 470,220 l 8,-14 l 8,14 M 486,214 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="404" y="110">大兴安岭</text>
-    <!-- 草原示意 -->
-    <text class="anno" x="180" y="230" style="font-size:11px">漠北·草原</text>
-    <text class="anno" x="700" y="250" style="font-size:11px">辽东·草原</text>
+    <!-- 西辽河·潢河:自大兴安岭西麓东南流,乃颜活动之域 -->
+    <path class="river" stroke-width="4" d="M 420,430 C 500,412 560,402 650,398 C 730,396 790,410 848,440"/>
+    <text class="rname" x="470" y="424" style="font-size:12px">西辽河 · 潢河</text>
+    <!-- 嫩江:自东北南下,乃颜牙帐所倚 -->
+    <path class="river" stroke-width="3.6" d="M 824,92 C 806,180 790,258 782,332 C 778,378 780,410 786,442"/>
+    <text class="rname" x="800" y="200" transform="rotate(82 800 200)" style="font-size:11.5px">嫩 江</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="shangdu"><circle cx="330" cy="360" r="6"/><text class="cname" x="248" y="356">上都<tspan class="cname s" dx="2">(出师基)</tspan></text></g>
-      <g class="city" data-city="dadu"><circle cx="300" cy="500" r="6"/><text class="cname" x="252" y="520">大都<tspan class="cname s" dx="2">(元廷)</tspan></text></g>
-      <g class="city cap" data-city="burigudu"><circle cx="620" cy="330" r="6"/><text class="cname" x="510" y="322">不里古都伯塔哈·撒尔都鲁</text></g>
-      <g class="city" data-city="liaohe"><circle cx="820" cy="380" r="5"/><text class="cname s" x="828" y="376">辽河·失剌斡耳朵(乃颜牙帐)</text></g>
-      <g class="city" data-city="huanghe"><circle cx="560" cy="278" r="4"/><text class="cname s" x="500" y="262">潢河·活动区</text></g>
-      <g class="city" data-city="xianping"><circle cx="800" cy="500" r="4.5"/><text class="cname s" x="808" y="504">咸平·懿州</text></g>
+      <g class="city cap" data-city="shangdu"><circle cx="204" cy="482" r="6.5"/><text class="cname" x="216" y="478">上都·开平<tspan class="cname s" dx="2">(出师亲征)</tspan></text></g>
+      <g class="city" data-city="yingchang"><circle cx="278" cy="408" r="5"/><text class="cname" x="228" y="396">应昌<tspan class="cname s" dx="2">(途经)</tspan></text></g>
+      <g class="city cap" data-city="sardulu"><circle cx="646" cy="310" r="6.5"/><text class="cname" x="540" y="300">撒儿都鲁<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="burigu"><circle cx="718" cy="246" r="5"/><text class="cname" x="640" y="228">不里古都伯塔哈<tspan class="cname s" dx="2">(追击)</tspan></text></g>
+      <g class="city" data-city="nayanya"><circle cx="790" cy="300" r="4.5"/><text class="cname s" x="800" y="304">乃颜牙帐(嫩江)</text></g>
+      <g class="city" data-city="xianping"><circle cx="830" cy="462" r="4.5"/><text class="cname" x="736" y="480">咸平·懿州<tspan class="cname s" dx="2">(辽东)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 东道叛乱 -->
+    <!-- 海都·和林(图外·西北):乃颜欲联结之西道诸王,忽必烈抢先阻其东援 -->
+    <g transform="translate(6,150)">
+      <path class="march kd" marker-end="url(#af)" d="M 2,2 C 34,10 58,18 78,26"/>
+      <text class="mlabel k" x="0" y="-8" style="font-size:10px">海都·窝阔台系(图外西北)</text>
+      <text class="cname s" x="0" y="44" style="fill:var(--qin);font-size:9px">欲东援乃颜 · 一度犯和林旋退</text>
+    </g>
+    <!-- 大都(图外·南):元廷根本,忽必烈留辅臣镇之 -->
+    <g transform="translate(200,632)">
+      <path class="march j" marker-end="url(#aj)" d="M 8,4 C 4,-6 2,-14 0,-24"/>
+      <text class="mlabel j" x="14" y="-6" style="font-size:10px">↓ 大都(图外南)</text>
+      <text class="cname s" x="14" y="8" style="fill:var(--advance);font-size:9px">元廷根本·今北京</text>
+    </g>
+
+    <!-- 全图 · 东道之乱 -->
     <g id="phAll" class="ph">
-      <rect class="camp" x="814" y="374" width="9" height="9" transform="rotate(45 818 378)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 810,388 C 760,360 700,346 636,336"/>
-      <text class="mlabel q" x="640" y="366">乃颜据辽东,拥兵自重</text>
-      <text class="anno" x="560" y="150">与西北海都东西相结,谋夹攻元廷</text>
-      <path class="march j" marker-end="url(#aj)" d="M 336,354 C 420,332 500,326 606,330"/>
-      <text class="mlabel j" x="360" y="316">忽必烈决意亲征,自上都东指辽东</text>
+      <rect class="camp" x="785" y="295" width="10" height="10" transform="rotate(45 790 300)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 786,306 C 740,340 690,360 660,332"/>
+      <text class="mlabel q" x="700" y="360">乃颜据辽东,拥兵自重</text>
+      <text class="anno" x="640" y="150">谋联西北海都,东西夹击元廷</text>
+      <path class="march j" marker-end="url(#aj)" d="M 214,472 C 340,420 480,360 636,314"/>
+      <text class="mlabel j" x="300" y="380">忽必烈决意亲征,自上都东北突袭</text>
+      <circle class="star" cx="646" cy="310" r="9"/>
     </g>
 
-    <!-- 阶段一:象舆亲征 · 昼夜兼程 -->
+    <!-- 阶段一:联海都欲夹击 · 忽必烈亲征 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 336,356 C 430,330 520,326 610,332"/>
-      <text class="mlabel j" x="356" y="320">忽必烈年逾七旬,乘象舆督师</text>
-      <text class="anno" x="360" y="392">留大都辅政,自上都出师</text>
-      <text class="mlabel j" x="470" y="360">昼夜兼程,出乃颜不意</text>
-      <path class="march j" marker-end="url(#aj)" d="M 320,494 C 322,450 326,404 330,372"/>
-      <text class="anno" x="240" y="470">玉昔帖木儿、李庭将汉军以从</text>
+      <rect class="camp" x="785" y="295" width="10" height="10" transform="rotate(45 790 300)"/>
+      <text class="mlabel q" x="700" y="284">乃颜举兵,势都儿·哈丹诸王应之</text>
+      <path class="march kd" marker-end="url(#af)" d="M 96,168 C 260,200 420,236 560,270"/>
+      <text class="mlabel k" x="300" y="228">约海都自西并起,东西相结</text>
+      <path class="march j" marker-end="url(#aj)" d="M 214,474 C 300,440 380,400 470,352"/>
+      <text class="mlabel j" x="222" y="452">忽必烈年逾七旬,乘象舆亲征</text>
+      <text class="anno" x="300" y="500">留辅臣镇大都·上都,自上都出师</text>
+      <text class="anno" x="440" y="386">博罗欢·李庭将汉军,玉昔帖木儿别将蒙古军</text>
     </g>
 
-    <!-- 阶段二:火炮破骑 · 两军决战 -->
+    <!-- 阶段二:昼夜兼程 · 抢在海都东援之前 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="626" y="322" width="10" height="10" transform="rotate(45 631 327)"/>
-      <text class="mlabel q" x="560" y="300">乃颜大营,建十字架·景教旗</text>
-      <path class="march j" marker-end="url(#aj)" d="M 590,340 C 600,338 608,336 614,334"/>
-      <circle class="star" cx="620" cy="330" r="9"/>
-      <text class="anno" x="470" y="382">两军会于不里古都伯塔哈之野</text>
-      <text class="mlabel j" x="440" y="404">汉军步兵居中,施火炮(回回炮·火铳)轰击</text>
-      <text class="mlabel j" x="470" y="424">蒙古精骑列两翼夹击</text>
-      <text class="mlabel q" x="640" y="304">乃颜草原骑兵不意火器之烈,士气夺</text>
+      <path class="march j" marker-end="url(#aj)" d="M 214,474 C 340,414 500,352 636,314"/>
+      <text class="mlabel j" x="300" y="392">大军昼夜兼程,径趋辽东,出乃颜不意</text>
+      <text class="anno" x="330" y="440">以老病之躯亲临,夺诸王观望之心</text>
+      <!-- 先绝其援:海都东援之路被阻 -->
+      <path class="march kd" marker-end="url(#af)" d="M 96,168 C 220,196 320,222 404,244"/>
+      <text class="mlabel k" x="120" y="200">海都乘虚犯和林</text>
+      <g class="cut" transform="translate(430,250)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="382" y="234">✕ 旋退,二王不得合</text>
+      <text class="anno" x="452" y="266">忽必烈抢在海都东援之前直扑乃颜</text>
     </g>
 
-    <!-- 阶段三:乃颜就擒 · 东道遂定 -->
+    <!-- 阶段三:撒儿都鲁决战 · 象舆督战 · 汉军炮阵 -->
     <g id="ph3" class="ph">
-      <path d="M 620,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="560" y="316">元军大破乃颜</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 628,322 C 680,280 730,240 770,200"/>
-      <text class="mlabel r" x="700" y="248">乃颜北走被擒</text>
-      <text class="anno" x="700" y="204">以宗室不使流血,裹毡颠踬伏诛</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 636,340 C 700,400 760,460 796,494"/>
-      <text class="mlabel r" x="640" y="440">党哈丹秃鲁干窜扰辽东、高丽数年</text>
-      <text class="anno" x="700" y="524">终平,东道诸王之势遂定</text>
+      <!-- 乃颜阵:建景教十字旗 -->
+      <rect class="camp" x="700" y="322" width="11" height="11" transform="rotate(45 705.5 327.5)"/>
+      <g class="cross" transform="translate(705,300)"><line x1="0" y1="-14" x2="0" y2="2"/><line x1="-6" y1="-8" x2="6" y2="-8"/></g>
+      <text class="mlabel q" x="716" y="330">乃颜军多信景教,建十字旗</text>
+      <!-- 象舆:忽必烈四象驮楼督战 -->
+      <g class="eleph" transform="translate(566,300)">
+        <ellipse class="bd" cx="0" cy="0" rx="17" ry="9"/>
+        <rect class="bd" x="-13" y="6" width="4" height="10"/><rect class="bd" x="-4" y="7" width="4" height="10"/><rect class="bd" x="6" y="7" width="4" height="10"/><rect class="bd" x="12" y="6" width="4" height="10"/>
+        <path class="bd" d="M -17,-2 C -25,-2 -27,4 -26,10 C -25,14 -22,14 -22,10 C -22,6 -20,4 -17,4 Z"/>
+        <path class="ln" d="M -23,9 C -26,11 -28,12 -30,13" style="stroke:var(--paper);stroke-width:1.4"/>
+        <rect class="tw" x="-10" y="-21" width="21" height="13"/>
+        <path class="ln" d="M -10,-21 l 0,-3 l 4,0 l 0,3 M -2,-21 l 0,-3 l 4,0 l 0,3 M 6,-21 l 0,-3 l 4,0 l 0,3"/>
+        <line x1="11" y1="-21" x2="11" y2="-32" style="stroke:var(--gold);stroke-width:1.5"/>
+        <path d="M 11,-32 l 11,3.5 l -11,3.5 Z" fill="var(--gold)"/>
+      </g>
+      <text class="mlabel j" x="470" y="336">忽必烈乘四象驮楼象舆,亲临督战</text>
+      <text class="anno" x="470" y="356">六月三日至撒儿都鲁,天雨相持竟日</text>
+      <!-- 汉军炮阵:夜以火炮轰营 -->
+      <path class="march j" marker-end="url(#aj)" d="M 606,306 C 640,300 668,308 690,320"/>
+      <g class="cannon"><rect x="636" y="300" width="9" height="9" transform="rotate(45 640.5 304.5)"/></g>
+      <text class="mlabel j" x="470" y="378">用李庭策,夜遣敢死士以火炮轰其营</text>
+      <circle class="star" cx="646" cy="310" r="10"/>
+      <text class="mlabel q" x="700" y="352">炮声震野,叛军大惊,自乱溃</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- 阶段四:骑兵包抄 · 擒乃颜 · 裹毡而死 · 乱平 -->
+    <g id="ph4" class="ph">
+      <!-- 蒙古精骑两翼包抄 -->
+      <path class="march wing" marker-end="url(#aj)" d="M 600,346 C 640,362 680,352 700,336"/>
+      <path class="march wing" marker-end="url(#aj)" d="M 640,258 C 668,286 692,300 706,318"/>
+      <text class="mlabel j" x="560" y="392">玉昔帖木儿率蒙古精骑,两翼包抄</text>
+      <path class="march j" marker-end="url(#aj)" d="M 660,300 C 686,278 704,262 714,250"/>
+      <text class="mlabel j" x="640" y="212">追乃颜至不里古都(大兴安岭西)</text>
+      <!-- 乃颜溃走被擒 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 712,238 C 740,220 762,214 776,210"/>
+      <path class="mark" d="M 780,206 l 4,-9 l 3,7 l 8,-4 l -4,7 l 9,3 l -9,3 l 4,7 l -8,-4 l -3,7 l -4,-9 l -8,4 l 4,-7 l -9,-3 l 9,-3 l -4,-7 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="748" y="196">乃颜走至失列门林被擒</text>
+      <text class="anno" x="628" y="176">以宗室不使流血,裹以毡毯颠踬而死</text>
+      <!-- 哈丹余党窜扰辽东 -->
+      <path class="march q rout" marker-end="url(#aq)" d="M 706,340 C 760,380 800,420 826,452"/>
+      <text class="mlabel r" x="640" y="426">党哈丹秃鲁干犹窜扰辽东、高丽数年</text>
+      <text class="anno" x="700" y="500">后亦平,东道诸王之势遂定</text>
+    </g>
+
+    <g class="compass" transform="translate(946,118)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>元军(忽必烈亲征·汉军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>元军(忽必烈亲征·汉军步炮)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4"/></svg>蒙古骑兵·两翼包抄</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>乃颜叛军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="6 5"/></svg>海都·欲东援(被阻)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>东道·乃颜</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>乃颜营·景教十字旗</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>元廷</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>东道·乃颜</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 亲征奇袭 · 先绝其援 · 炮骑破叛</h3>
+    <div class="lead">何以一战而东道遂定 —— 抢在海都东援之前绝其合流,以汉军火炮步阵合蒙古骑兵破草原叛骑</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="平叛机理示意:乃颜居东、海都居西,欲东西夹击;忽必烈自上都昼夜兼程插入其间,抢先阻断二王合流;撒儿都鲁决战,汉军火炮步阵居中、蒙古骑兵两翼包抄,破乃颜">
+      <!-- 上:东西夹击之势与先绝其援 -->
+      <text x="24" y="26" fill="#5c4f38" font-size="12" font-weight="700">东西夹击之势 —— 忽必烈抢在海都东援之前,先绝其合流</text>
+      <circle cx="80" cy="80" r="10" fill="#5c4a6e" opacity=".9"/>
+      <text x="42" y="112" fill="#5c4a6e" font-size="11" font-weight="700">海都·窝阔台系(西)</text>
+      <rect x="770" y="72" width="16" height="16" transform="rotate(45 778 80)" fill="#9a2b1e" opacity=".9"/>
+      <text x="690" y="112" fill="#9a2b1e" font-size="11" font-weight="700">乃颜·斡赤斤系(东)</text>
+      <path d="M 96,80 C 220,72 320,72 400,80" fill="none" stroke="#5c4a6e" stroke-width="2.4" stroke-dasharray="6 5"/>
+      <path d="M 762,80 C 640,72 540,72 460,80" fill="none" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="6 5"/>
+      <g><circle cx="430" cy="80" r="12" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="422" y1="72" x2="438" y2="88" stroke="#9a2b1e" stroke-width="2.6"/><line x1="422" y1="88" x2="438" y2="72" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="392" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700">✕ 二王不得合</text>
+      <path d="M 430,206 C 430,160 430,128 430,102" fill="none" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 430,96 L 423,112 L 437,112 Z" fill="#1f4e54"/>
+      <text x="444" y="150" fill="#1f4e54" font-size="11" font-weight="700">忽必烈亲征·昼夜兼程</text>
+      <text x="444" y="166" fill="#5c4f38" font-size="9.5">自上都插入其间,先破东叛</text>
+      <!-- 下:撒儿都鲁决战之炮骑合击 -->
+      <text x="24" y="224" fill="#1f4e54" font-size="12" font-weight="700">撒儿都鲁决战 · 汉军火炮步阵居中 + 蒙古骑兵两翼包抄</text>
+      <rect x="150" y="196" width="14" height="14" transform="rotate(45 157 203)" fill="#9a2b1e" opacity=".9"/>
+      <path d="M 157,238 L 157,214" stroke="#9c7a2c" stroke-width="7" stroke-linecap="round"/>
+      <path d="M 157,208 L 151,222 L 163,222 Z" fill="#9c7a2c"/>
+      <text x="172" y="238" fill="#9c7a2c" font-size="10" font-weight="700">火炮步阵(李庭·夜轰)</text>
+      <path d="M 60,240 C 100,222 128,214 150,206" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <path d="M 254,240 C 214,222 186,214 164,206" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <text x="470" y="204" fill="#5c4f38" font-size="10.5">草原叛骑不意火器之烈,又见大汗亲临,士气顿夺,一战而溃</text>
+    </svg>
+    <p class="intro">乃颜之乱,患不在乃颜一军,而在其<b>东西夹击</b>之势:乃颜据辽东嫩江,西约窝阔台之孙海都并起,一东一西,欲共困元廷。若二王合流,则元廷腹背受敌、旷日难支。故忽必烈平叛之要,首在<b>先绝其援</b>——抢在海都东援之前,以雷霆之速直破东叛,使二寇终不得合。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>元 · 亲征速战 · 炮骑合击</h4>
+        <p>忽必烈虽年逾七旬、体衰多病,仍乘象舆亲征,昼夜兼程北上,出乃颜不意——以帝躬亲临夺诸王观望之心,以奇速抢在海都东援之前。及会战撒儿都鲁,用李庭策,以汉军步兵结阵、夜遣敢死士施火炮轰其营;蒙古精骑(玉昔帖木儿)列两翼包抄。火器破草原骑兵,一战而叛军自乱。</p>
+      </div>
+      <div class="c b">
+        <h4>乃颜 · 联海都夹击 · 终不得合</h4>
+        <p>乃颜为成吉思汗幼弟斡赤斤之裔,世据辽东,拥兵自重;举兵之谋,正在联海都东西相结、共夹元廷。然元军来速,乃颜牙帐草原骑兵犹恃众轻敌;海都虽乘虚犯和林,旋即退去,东援不至。夹击之势既破,乃颜孤军独当帝师火炮,遂溃走被擒。</p>
+      </div>
+    </div>
+    <p class="kicker">故乃颜之败,不在一战之力,而在<b>其援先绝</b>:忽必烈以亲征之威、昼夜之速,插东西二王之间,使海都东援不及、二寇不得合;继以汉军火炮步阵破其骑、蒙古精骑两翼包抄擒其王。<b>先绝其援而后破其军</b>,东道诸王之乱,遂一举而定。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·世祖本纪》《宗室世系表》及《马可·波罗行纪》约略绘出。乃颜牙帐在辽东潢河(西拉木伦河)一带,不里古都伯塔哈(一作撒尔都鲁)决战之野及城邑水道皆为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为至元末东道形势示意:成吉思汗幼弟斡赤斤之裔乃颜世据辽东,与西北海都(窝阔台之孙)东西相结;元廷都于大都、夏都上都,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>忽必烈时年逾七十、体衰多病,恐诸王观望、事久生变,乃乘象舆督师、昼夜兼程,出乃颜不意。以汉军步兵居中施火炮、蒙古精骑列两翼——火器破草原骑兵,一战而东道遂定;马可·波罗《行纪》尝记大汗乘象督战之状。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=70+(经度−114.5)·80,y=590−(纬度−41.0)·80),几何关系力求近实:上都在西南,应昌在其东北,撒儿都鲁在东北为决战地,不里古都伯塔哈更在东北大兴安岭西麓,咸平·懿州在东南辽东,嫩江在东、大都在图外南、海都·和林在图外西北(皆以边箭示之)。今地:上都·开平即今内蒙古正蓝旗,应昌在今达里诺尔畔,撒儿都鲁约在今内蒙古兴安盟·西辽河上游一带,咸平即今辽宁开原、懿州今阜新一带,大都今北京。大兴安岭、西辽河·潢河、嫩江及晕染疆界经简化描绘,非实测画界。依《元史·世祖本纪》《元史·李庭传》《元史·玉昔帖木儿传》及拉施特《史集·忽必烈合罕纪·平乃颜之役》、马可·波罗《行纪》绘出。</p>
+    <p><span class="n">注二</span>晕染疆界为至元末东道形势示意:成吉思汗幼弟斡赤斤(铁木哥)之裔乃颜世据辽东嫩江-西辽河之斡赤斤兀鲁思,拥兵自重;与西北窝阔台之孙海都东西相结,谋夹攻元廷。元廷都大都、夏都上都,以点划「约界」标之,大略以大兴安岭一线为限,非实有画界。</p>
+    <p><span class="n">注三</span>决胜之枢在「先绝其援」(图中紫色海都虚线、朱色 ✕ 断合流):乃颜之乱之危,在其欲联海都东西夹击。忽必烈恐二王合流,乃不待海都东出,自上都昼夜兼程北上,径扑乃颜。海都虽乘元军主力东去,一度发兵犯和林(哈剌和林),旋即退去,东援竟不至,二王卒不得合——夹击之势既破,乃颜孤立而败。</p>
+    <p><span class="n">注四</span>决战之状(图中象舆、金色炮记、决战环):至元二十四年五月忽必烈自上都出师,以博罗欢领五部前锋、李庭将汉军,玉昔帖木儿别将蒙古军,分道并进;六月三日至撒儿都鲁,与乃颜军遇。乃颜军多奉景教(也里可温),建十字旗。时天雨,两军相持竟日;忽必烈乘四象驮楼之象舆亲临督战(马可·波罗《行纪》盛记大汗乘象督战之状),用李庭之策,夜遣敢死士以火炮(回回炮·火铳)轰其营,叛军大惊自乱;蒙古精骑两翼包抄,遂大破之。乃颜以宗室之尊被擒,依蒙古俗不使流血,裹以毡毯颠踬(摔踏)而死。</p>
+    <p><span class="n">注五</span>异说与考订:决战地名,《元史》作「撒儿都鲁」(一作撒里都鲁),玉昔帖木儿追乃颜至「不里古都伯塔哈」(大兴安岭西侧),乃颜后走「失列门林」之地被擒——诸地今皆约在西辽河上游至嫩江间,确址有异说,姑取其大略以明方位;本图以撒儿都鲁为决战主场,不里古都伯塔哈·失列门林为追歼、就擒之地。乃颜军数、火炮种类史载简略,不敢妄补。哈丹(哈丹秃鲁干)余党乱后犹扰辽东、高丽数年,至至元二十八年后乃平;而西北海都之叛,犹延及成宗大德间。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"东道叛乱",d:"至元二十四年(1287)",p:["元世祖忽必烈晚年,西北有海都(窝阔台之孙)之叛;东道则有成吉思汗幼弟斡赤斤之裔乃颜,世据辽东,拥兵自重,与海都东西相结,谋夹攻元廷。","至元二十四年,乃颜举兵反,辽东震动。忽必烈虽年逾七十、体衰多病,恐诸王观望、事久生变,乃决意亲征,自上都东指辽东。"]},
-  "1":{t:"象舆亲征 · 昼夜兼程",d:"至元二十四年五月",p:["忽必烈乘象所驾之舆(象舆)督师,以玉昔帖木儿、李庭等将汉军以从,留守辅政于大都、上都,自上都出师东征。","大军昼夜兼程,径赴辽东,务出乃颜不意——以老病之躯亲临阵前,所以夺诸王观望之心、绝其久拖生变之谋。"]},
-  "2":{t:"火炮破骑 · 两军决战",d:"至元二十四年六月",p:["乃颜信奉景教(也里可温),军中建十字架旗。两军会于不里古都伯塔哈(一作撒尔都鲁)之野。","忽必烈以汉军步兵居中、施火炮(回回炮及火铳)轰击,蒙古精骑列两翼夹击。乃颜军多草原骑兵,不意元军火器之烈,又见大汗亲临、士气顿夺,遂大溃。"]},
-  "3":{t:"乃颜就擒 · 东道遂定",d:"至元二十四年后",p:["乃颜军大溃,北走被擒。以其为宗室,依蒙古俗不使流血,裹以毡毯颠踬而死(伏诛)。","其党哈丹秃鲁干犹窜扰辽东、高丽数年,终为元军所平。东道诸王之势遂定;然西北海都之叛,犹延及成宗之世。"]}
+  all:{t:"东道之乱",d:"至元二十四年(1287)",p:["元世祖忽必烈晚年,西北有窝阔台之孙海都之叛;东道则有成吉思汗幼弟斡赤斤(铁木哥)之裔乃颜,世据辽东嫩江-西辽河,拥兵自重,与海都东西相结,谋夹攻元廷。","至元二十四年乃颜举兵反,势都儿、哈丹等宗王应之,辽东震动。忽必烈恐乃颜与海都合流、事久生变,乃决意亲征,自上都东北突袭,直扑乃颜。"]},
+  "1":{t:"联海都欲夹击 · 忽必烈亲征",d:"至元二十四年五月",p:["乃颜为斡赤斤兀鲁思之主,举兵辽东,势都儿、哈丹诸王应之;又西约窝阔台系海都并起,欲东西相结、共夹元廷——若二王合流,则元廷腹背受敌。","忽必烈虽年逾七旬、体衰多病,仍决意亲征:乘象舆自上都出师,以博罗欢领五部前锋、李庭将汉军,玉昔帖木儿别将蒙古军,分道并进;留辅臣镇大都、上都以固根本。"]},
+  "2":{t:"昼夜兼程 · 抢在海都东援之前",d:"至元二十四年五月—六月",p:["忽必烈知平叛之要在先绝其援,乃不待海都东出,大军昼夜兼程、径趋辽东,务出乃颜不意——以老病之躯亲临阵前,所以夺诸王观望之心、绝其久拖生变之谋。","海都果乘元军主力东去,一度发兵犯哈剌和林,然旋即退去,东援竟不至。忽必烈抢在海都东援之前直扑乃颜,东西夹击之势遂破,乃颜孤军独当帝师。"]},
+  "3":{t:"撒儿都鲁决战 · 象舆督战 · 汉军炮阵",d:"至元二十四年六月三日",p:["六月三日,元军进至撒儿都鲁,与乃颜军相遇。乃颜军多奉景教(也里可温),军中建十字旗。时天雨,两军相持竟日,未决。","忽必烈乘四象驮楼之象舆,亲临阵前督战。用李庭之策,夜遣敢死士以火炮(回回炮·火铳)潜轰乃颜营;炮声震野,叛军多草原骑兵,不意火器之烈,又见大汗亲临,士气顿夺,阵中大惊自乱。"]},
+  "4":{t:"骑兵包抄 · 擒乃颜 · 裹毡而死 · 乱平",d:"至元二十四年六月以后",p:["乃颜军既乱,蒙古精骑列两翼包抄。玉昔帖木儿率军追乃颜至不里古都伯塔哈(大兴安岭西侧),再破之;乃颜溃走至失列门林之地,为元军生擒。","乃颜以宗室之尊被处死,依蒙古俗不使流血,裹以毡毯颠踬(摔踏)而死。其党哈丹秃鲁干犹窜扰辽东、高丽数年,后亦为元军所平——东道诸王之乱遂定,元廷东北乃固;然西北海都之叛,犹延及成宗之世。"]}
 };
 const CITY={
-  shangdu:{t:"上都",d:"元夏都,今内蒙古正蓝旗",p:["忽必烈出师之基。象舆亲征即自此东指辽东,昼夜兼程赴敌。"]},
-  dadu:{t:"大都",d:"元廷,今北京",p:["元帝国之都。世祖亲征之际,留辅臣辅政于此，以镇根本。"]},
-  burigudu:{t:"不里古都伯塔哈·撒尔都鲁",d:"决战破乃颜处,辽东潢河一带",p:["两军会战之野。元以汉军火炮居中、精骑列两翼,大破乃颜草原骑兵,一战而定东道。"]},
-  liaohe:{t:"辽河·失剌斡耳朵",d:"乃颜牙帐,辽东",p:["东道诸王乃颜之牙帐所在。乃颜据此拥兵自重,建十字架·景教旗以举兵。"]},
-  huanghe:{t:"潢河·西拉木伦",d:"乃颜活动区,辽东中部",p:["斡赤斤后王世居之地。乃颜起兵，多由潢河一带草原骑兵为主力。"]},
-  xianping:{t:"咸平·懿州",d:"辽东要地,今辽宁开原、阜新一带",p:["辽东南要冲。乱后其党哈丹犹窜扰辽东、高丽,元军数年乃平之。"]}
+  shangdu:{t:"上都 · 开平",d:"元夏都,今内蒙古正蓝旗",p:["忽必烈亲征出师之基。至元二十四年五月,世祖乘象舆自此东北出师,昼夜兼程赴辽东,抢在海都东援之前直扑乃颜。"]},
+  yingchang:{t:"应昌",d:"上都东北,今达里诺尔畔",p:["元廷漠南要地,居上都与辽东之间。忽必烈亲征东指,取道其东北一线趋撒儿都鲁。"]},
+  sardulu:{t:"撒儿都鲁",d:"决战地,约今内蒙古兴安盟·西辽河上游一带",p:["元军与乃颜军决战之野。六月三日两军相遇,天雨相持;忽必烈乘象舆督战,用李庭策夜以火炮轰乃颜营,叛军自乱,一战而破——此役以火器破草原骑兵之决战地。一作撒里都鲁。"]},
+  burigu:{t:"不里古都伯塔哈",d:"大兴安岭西侧,乃颜退保处",p:["乃颜败于撒儿都鲁后东退之地。玉昔帖木儿率蒙古精骑追及,再破乃颜军;乃颜复走失列门林,终被生擒。"]},
+  nayanya:{t:"乃颜牙帐 · 嫩江",d:"辽东,斡赤斤兀鲁思之域",p:["东道诸王乃颜之牙帐所倚。乃颜世据辽东嫩江-西辽河,拥兵自重,建十字旗以举兵,谋联海都东西夹击元廷。"]},
+  xianping:{t:"咸平 · 懿州",d:"辽东要地,今辽宁开原、阜新一带",p:["辽东南要冲。乃颜乱平后,其党哈丹秃鲁干犹窜扰辽东、高丽数年,元军数岁乃平之。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
