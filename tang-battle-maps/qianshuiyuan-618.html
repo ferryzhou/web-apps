@@ -30,7 +30,23 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 西秦粮道:金色串珠动脉,自陇右前输,示军食所经 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 粮尽·断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 唐军挫败记号:青色 ✕(一战浅水原之败) */
+  .setback line{stroke:var(--advance);stroke-width:2.8;stroke-linecap:round}
+  .setback circle{fill:none;stroke:var(--advance);stroke-width:1.7}
+  .sblabel{fill:var(--advance);font-size:11.5px;font-weight:700;letter-spacing:.05em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -44,10 +60,10 @@
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +72,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--enemy)}.explain .c.b{border-color:var(--advance)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--enemy)}.explain .c.b h4{color:var(--advance)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:700;stroke-dashoffset:700;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,19 +100,20 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>浅</span><span>水</span><span>原</span><span>捷</span></div>
+  <div class="seal" aria-hidden="true"><span>浅</span><span>水</span><span>原</span><span>战</span></div>
   <header>
     <h1>浅水原之战</h1>
-    <div class="sub">唐武德元年(618)　　<i>唐 秦王李世民</i> 灭 <b>西秦 薛举 · 薛仁杲</b></div>
+    <div class="sub">唐武德元年(618)　　<i>唐 秦王李世民</i> 平 <b>西秦 薛举 · 薛仁杲</b>　·　一败再战 · 坚壁挫锐</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 薛举逼关</button>
-    <button data-p="1">坚壁疲敌</button>
-    <button data-p="2">浅水原决战</button>
-    <button data-p="3">折墌出降</button>
+    <button class="on" data-p="all">全图 · 关陇相争</button>
+    <button data-p="1">薛举东逼高墌</button>
+    <button data-p="2">一战浅水原 · 唐军轻战大败</button>
+    <button data-p="3">坚壁挫锐 · 折锐待疲</button>
+    <button data-p="4">二战浅水原 · 折墌纳降</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="浅水原之战形势图,含唐西秦疆界、泾水陇山与长安高墌折墌等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="浅水原之战形势图,含唐与西秦疆界、陇山泾水汭水、折墌城高墌浅水原邠州及图外东南之长安;绘薛举东逼、一战唐军轻战大败、坚壁挫锐、二战浅水原折墌纳降四阶段">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,114 +122,212 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:西秦据陇右(西),唐据关中(东),约以陇山、泾水上游为界 -->
-    <path d="M 470,0 C 456,90 452,170 458,250 C 462,320 448,380 452,440 C 456,520 470,580 460,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 456,90 452,170 458,250 C 462,320 448,380 452,440 C 456,520 470,580 460,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 456,90 452,170 458,250 C 462,320 448,380 452,440 C 456,520 470,580 460,640"/>
-    <text class="realm q" x="120" y="130" font-size="32">西 秦(陇右)</text>
-    <text class="realm j" x="700" y="560" font-size="32">唐(关中)</text>
+    <!-- ══ 疆界:西秦据陇右(西),唐据关中(东),约以陇山、泾水上游为界 ══ -->
+    <path d="M 596,0 C 578,110 566,220 560,320 C 556,420 566,530 588,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 596,0 C 578,110 566,220 560,320 C 556,420 566,530 588,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 596,0 C 578,110 566,220 560,320 C 556,420 566,530 588,640"/>
+    <text class="realm q" x="196" y="120" font-size="30">西 秦(陇右)</text>
+    <text class="realm j" x="720" y="530" font-size="30">唐(关中)</text>
 
-    <!-- 泾水:自西北陇上东南流向长安 -->
-    <path class="river" stroke-width="5" d="M 150,70 C 240,120 320,180 380,240 C 460,320 560,400 660,450 C 740,490 820,510 900,516"/>
-    <!-- 汭水(小支,自西入泾) -->
-    <path class="river" stroke-width="2.4" d="M 210,300 C 280,320 340,318 380,300"/>
-    <text class="rname" x="560" y="420" transform="rotate(24 560 420)">泾 水</text>
-    <text class="rname" x="250" y="332" style="font-size:10.5px">汭水</text>
+    <!-- ══ 陇山:关陇分隔之险,南北大脉,西秦门户 ══ -->
+    <path class="mtn fill" d="M 150,150 L 168,116 L 184,140 L 202,108 L 220,146 L 236,120 L 250,150 Z"/>
+    <g class="mtn"><path d="M 158,214 l 8,-14 l 8,14 M 172,208 l 8,-14 l 8,14 M 186,214 l 8,-14 l 8,14"/></g>
+    <g class="mtn"><path d="M 146,282 l 8,-14 l 8,14 M 160,276 l 8,-14 l 8,14 M 174,282 l 8,-14 l 8,14"/></g>
+    <g class="mtn"><path d="M 156,350 l 8,-14 l 8,14 M 170,344 l 8,-14 l 8,14 M 184,350 l 8,-14 l 8,14"/></g>
+    <text class="mname" x="140" y="180" transform="rotate(88 140 180)">陇 山</text>
 
-    <!-- 陇山山脉(西,南北向) -->
-    <g class="mtn"><path d="M 120,180 l 7,-13 l 7,13 M 133,174 l 7,-13 l 7,13 M 147,180 l 7,-13 l 7,13"/></g>
-    <g class="mtn"><path d="M 100,300 l 7,-13 l 7,13 M 113,294 l 7,-13 l 7,13 M 127,300 l 7,-13 l 7,13"/></g>
-    <g class="mtn"><path d="M 110,420 l 7,-13 l 7,13 M 123,414 l 7,-13 l 7,13 M 137,420 l 7,-13 l 7,13"/></g>
+    <!-- ══ 泾水:自西北陇上东南流,历折墌、高墌、邠州趋长安(会渭) ══ -->
+    <path class="river" stroke-width="5" d="M 250,80 C 350,120 430,158 490,196 C 555,232 610,250 664,272 C 730,300 852,412 1000,536"/>
+    <!-- 汭水:小支,自西入泾,近折墌 -->
+    <path class="river" stroke-width="2.4" d="M 322,150 C 392,168 442,182 486,198"/>
+    <text class="rname" x="588" y="248" transform="rotate(30 588 248)">泾 水</text>
+    <text class="rname" x="352" y="158" style="font-size:10.5px">汭水</text>
 
-    <!-- 城邑(东→西):长安 高墌城 浅水原 折墌城 泾州 陇山 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="changan"><circle cx="882" cy="516" r="6"/><text class="cname" x="828" y="512">长安<tspan class="cname s" dx="2">(唐都)</tspan></text></g>
-      <g class="city" data-city="gaozhi"><circle cx="600" cy="356" r="5"/><text class="cname" x="612" y="352">高墌城</text></g>
-      <g class="city" data-city="qianshui"><circle cx="512" cy="318" r="4"/><text class="cname s" x="466" y="312">浅水原</text></g>
-      <g class="city" data-city="zhezhi"><circle cx="404" cy="270" r="5"/><text class="cname" x="336" y="266">折墌城</text></g>
-      <g class="city" data-city="jingzhou"><circle cx="366" cy="238" r="3.5"/><text class="cname s" x="316" y="226">泾州</text></g>
-      <g class="city" data-city="longshan"><circle cx="128" cy="300" r="0" fill="none" stroke="none"/><text class="cname s" x="150" y="304">陇山</text></g>
+      <g class="city cap" data-city="zhezhi"><circle cx="490" cy="188" r="6"/><text class="cname" x="416" y="184">折墌城<tspan class="cname s" dx="2">(泾州·薛仁杲都)</tspan></text></g>
+      <g class="city" data-city="qianshui"><circle cx="632" cy="212" r="5"/><text class="cname" x="560" y="200">浅水原</text></g>
+      <g class="city" data-city="gaozhi"><circle cx="666" cy="248" r="6"/><text class="cname" x="678" y="252">高墌城<tspan class="cname s" dx="2">(唐前垒)</tspan></text></g>
+      <g class="city" data-city="binzhou"><circle cx="726" cy="288" r="4"/><text class="cname s" x="736" y="292">邠州</text></g>
+      <g class="city" data-city="longshan"><circle cx="176" cy="284" r="3.5"/><text class="cname s" x="188" y="288">陇山关</text></g>
+      <g class="city cap" data-city="changan"><circle cx="948" cy="592" r="6"/><text class="cname" x="864" y="596">长安<tspan class="cname s" dx="2">(唐都·图外)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 薛举逼关 -->
+    <!-- 秦州·金城(图外·西):西秦本 -->
+    <g transform="translate(6,336)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,0 L 30,0"/>
+      <text class="mlabel q" x="0" y="-8" style="font-size:10px">薛举本 ⟶</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--enemy);font-size:9.5px">秦州·金城(图外西)</text>
+    </g>
+
+    <!-- ══ 全图 · 关陇相争 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 396,278 C 480,320 560,360 594,352"/>
-      <text class="mlabel q" x="440" y="360">薛举父子据陇右,东寇泾州、逼长安</text>
-      <path class="march j" marker-end="url(#aj)" d="M 872,510 C 760,470 680,420 610,362"/>
-      <text class="mlabel j" x="640" y="470">唐遣秦王世民西拒于高墌</text>
-      <text class="anno" x="150" y="170">薛举称西秦霸王,兵锋方锐</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,332 C 200,318 380,240 490,204 C 550,214 600,224 634,232"/>
+      <text class="mlabel q" x="230" y="250">薛举拥陇右劲骑,东寇泾原,逼高墌以窥长安</text>
+      <path class="march j" marker-end="url(#aj)" d="M 936,566 C 850,478 770,372 692,268"/>
+      <text class="mlabel j" x="700" y="430">高祖遣秦王世民西拒,军于高墌</text>
+      <text class="setback" style="font:0px" x="0" y="0"></text>
+      <g class="setback" transform="translate(632,212)"><circle r="8"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <circle class="star" cx="632" cy="212" r="14"/>
+      <text class="anno" x="470" y="150">浅水原:一败(青✕)而再战(金环),反败为胜之地</text>
+      <text class="anno" x="210" y="150">薛举称西秦霸王,兵锋方锐</text>
     </g>
 
-    <!-- 阶段一:坚壁疲敌 -->
+    <!-- ══ 阶段一:薛举东逼高墌 ══ -->
     <g id="ph1" class="ph">
-      <path d="M 588,344 h 24 v 24 h -24 z" fill="none" stroke="#1f4e54" stroke-width="2"/>
-      <text class="mlabel j" x="560" y="392">世民军高墌,深沟高垒,闭壁不战</text>
-      <path class="march q" marker-end="url(#aq)" d="M 412,278 C 470,300 530,326 578,348"/>
-      <text class="mlabel q" x="430" y="308">薛仁杲屡挑战,唐军坚壁不出</text>
-      <text class="anno" x="540" y="410">相持六十余日,纵反间、绝其粮道以老其师</text>
-      <text class="anno" x="430" y="256">七月薛举死,子仁杲立,军心渐离</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,332 C 190,318 360,242 484,202"/>
+      <text class="mlabel q" x="150" y="300">薛举自陇右东出,拔泾原诸城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 496,200 C 550,210 600,222 632,232"/>
+      <rect class="camp" x="628" y="226" width="10" height="10" transform="rotate(45 633 231)"/>
+      <text class="mlabel q" x="530" y="244">进逼高墌,军势甚盛</text>
+      <path class="march j" marker-end="url(#aj)" d="M 936,566 C 852,476 772,368 694,264"/>
+      <text class="mlabel j" x="742" y="420">世民自长安西拒,壁于高墌</text>
+      <rect class="camp j" x="662" y="244" width="9" height="9" transform="rotate(45 666.5 248.5)"/>
+      <text class="anno" x="360" y="176">时唐初定关中,西陲未靖,以薛举为腹心之患</text>
     </g>
 
-    <!-- 阶段二:浅水原决战 -->
+    <!-- ══ 阶段二:一战浅水原 · 唐军轻战大败 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 592,352 C 560,340 536,330 522,322"/>
-      <text class="mlabel j" x="520" y="356">遣梁实营浅水原以诱之</text>
-      <rect class="camp" x="404" y="304" width="9" height="9" transform="rotate(45 408 308)"/>
-      <text class="mlabel q" x="360" y="296">仁杲精骑倾出赴战</text>
-      <path class="march q" marker-end="url(#aq)" d="M 416,308 C 460,314 490,316 508,318"/>
-      <circle class="star" cx="512" cy="318" r="8"/>
-      <path class="march j" marker-end="url(#aj)" d="M 588,348 C 556,336 534,326 520,320"/>
-      <text class="anno" x="470" y="342">世民自率骁骑横击,庞玉夹攻,大破西秦精骑</text>
+      <rect class="camp j" x="662" y="244" width="9" height="9" transform="rotate(45 666.5 248.5)"/>
+      <text class="mlabel j" x="592" y="286">世民方病,委军刘文静、殷开山</text>
+      <path class="march j" marker-end="url(#aj)" d="M 660,250 C 648,238 640,228 634,220"/>
+      <text class="mlabel j" x="536" y="234">二将违「坚壁」之令,陈于原上,恃众不备</text>
+      <!-- 薛举潜师掩其后 -->
+      <path class="march q" marker-end="url(#aq)" d="M 500,196 C 548,180 592,182 628,206"/>
+      <text class="mlabel q" x="470" y="176">薛举潜师掩其后</text>
+      <g class="setback" transform="translate(632,212)"><circle r="9"/><line x1="-6.5" y1="-6.5" x2="6.5" y2="6.5"/><line x1="-6.5" y1="6.5" x2="6.5" y2="-6.5"/></g>
+      <text class="sblabel" x="560" y="150">八总管皆败,士卒死者什五六 ✕</text>
+      <!-- 唐军退还长安 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 664,258 C 758,338 852,452 930,566"/>
+      <text class="mlabel r" x="770" y="470">世民引兵还长安,薛举遂拔高墌</text>
     </g>
 
-    <!-- 阶段三:折墌出降 -->
+    <!-- ══ 阶段三:坚壁挫锐 · 折锐待疲 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 508,320 C 470,306 436,290 412,276"/>
-      <text class="mlabel j" x="440" y="300">世民不待步军,自率二千余骑穷追</text>
-      <path d="M 404,270 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="336" y="252">直抵折墌城下</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 420,290 C 440,300 456,308 468,314"/>
-      <text class="mlabel r" x="448" y="330">城中将卒逾城来降</text>
-      <text class="anno" x="300" y="292">薛仁杲计穷出降,西秦亡,陇右悉平</text>
+      <rect class="camp j" x="661" y="243" width="11" height="11" transform="rotate(45 666.5 248.5)"/>
+      <text class="mlabel j" x="620" y="298">世民复军高墌,深沟高垒,闭壁不战</text>
+      <text class="anno" x="360" y="120">薛举寻病死,子仁杲立,军心渐离</text>
+      <!-- 宗罗睺屡挑战,唐坚壁不出 -->
+      <path class="march q" marker-end="url(#aq)" d="M 500,192 C 556,204 604,220 644,238"/>
+      <text class="mlabel q" x="430" y="216">仁杲遣宗罗睺屡来挑战</text>
+      <!-- 西秦粮道:自陇右前输,相持既久而粮尽 -->
+      <path class="supply band" d="M 40,340 C 180,328 340,238 490,196"/>
+      <path class="supply core" d="M 40,340 C 180,328 340,238 490,196"/>
+      <g class="grain"><rect x="150" y="322" width="7" height="7" transform="rotate(45 153.5 325.5)"/><rect x="300" y="256" width="7" height="7" transform="rotate(45 303.5 259.5)"/><rect x="430" y="212" width="7" height="7" transform="rotate(45 433.5 215.5)"/></g>
+      <text class="slabel" x="150" y="374">西秦粮道 · 自陇右前输</text>
+      <g class="cut" transform="translate(500,196)"><circle r="8"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="382" y="240">相持六十余日,绝其粮道,西秦粮尽 ✕</text>
+      <!-- 骁将来降 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 520,200 C 560,214 600,228 646,246"/>
+      <text class="mlabel r" x="470" y="270">骁将梁胡郎等帅所部来降</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:二战浅水原 · 折墌纳降 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 梁实营浅水原以诱敌 -->
+      <path class="march j" marker-end="url(#aj)" d="M 662,244 C 652,232 644,224 638,218"/>
+      <rect class="camp j" x="628" y="208" width="9" height="9" transform="rotate(45 632.5 212.5)"/>
+      <text class="mlabel j" x="616" y="284">遣梁实营浅水原以诱之</text>
+      <!-- 宗罗睺尽锐赴战 -->
+      <path class="march q" marker-end="url(#aq)" d="M 500,194 C 548,200 592,204 622,208"/>
+      <text class="mlabel q" x="420" y="180">宗罗睺尽锐攻之</text>
+      <!-- 世民自原北出其不意 -->
+      <path class="march j" marker-end="url(#aj)" d="M 624,108 C 626,140 628,168 630,198"/>
+      <text class="mlabel j" x="636" y="120">世民亲率骁骑,自原北出其不意</text>
+      <circle class="star" cx="632" cy="212" r="10"/>
+      <text class="anno" x="470" y="330">庞玉当其锋,世民横击,表里奋击,大破西秦精骑</text>
+      <!-- 穷追至折墌 -->
+      <path class="march j" marker-end="url(#aj)" d="M 620,210 C 576,204 534,198 502,192"/>
+      <text class="mlabel j" x="452" y="150">不待步军,自率二千余骑穷追至折墌</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 476,196 C 504,206 528,214 552,222"/>
+      <text class="mlabel r" x="416" y="220">将卒逾城来降,仁杲计穷出降</text>
+      <text class="anno" x="300" y="132">西秦亡,陇右悉平</text>
+    </g>
+
+    <g class="compass" transform="translate(946,110)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>西秦军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃降</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(李世民)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>西秦军(薛举父子)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军败退 / 西秦来降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#1f4e54" stroke-width="1.7"/><line x1="4" y1="4" x2="12" y2="12" stroke="#1f4e54" stroke-width="2.6"/><line x1="4" y1="12" x2="12" y2="4" stroke="#1f4e54" stroke-width="2.6"/></svg>一战唐军大败</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>二战·会战(唐胜)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>西秦粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>粮尽</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>西秦</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 坚壁挫锐,后发制人</h3>
+    <div class="lead">违令则败,守令则胜 —— 两战浅水原之枢</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="锐气示意:西秦兵锋随相持之久而衰;唐军一战趁其锐而出遂败,二战待其惰而后发遂胜">
+      <!-- 坐标轴 -->
+      <line x1="70" y1="210" x2="800" y2="210" stroke="#5c4f38" stroke-width="1.4" opacity=".6"/>
+      <text x="620" y="230" fill="#5c4f38" font-size="11" font-style="italic" opacity=".85">相持六十余日,坚壁以老其师 →</text>
+      <text x="40" y="70" fill="#9a2b1e" font-size="11" font-weight="700" transform="rotate(-90 40 70)">西秦锐气</text>
+      <!-- 西秦锐气曲线:由高(左)而衰(右) -->
+      <path d="M 90,70 C 240,78 360,104 480,138 C 580,166 670,182 760,190" fill="none" stroke="#9a2b1e" stroke-width="3" opacity=".85"/>
+      <text x="96" y="60" fill="#9a2b1e" font-size="10.5" font-weight="700">兵锋方锐 · 掩袭唐师</text>
+      <text x="612" y="182" fill="#9a2b1e" font-size="10.5" font-weight="700">粮尽 · 众离 · 骁将来降</text>
+      <!-- 坚壁区间括号 -->
+      <path d="M 205,96 C 205,88 213,88 221,88 L 640,88 C 648,88 656,88 656,96" fill="none" stroke="#5c4f38" stroke-width="1.2" opacity=".55"/>
+      <text x="360" y="82" fill="#5c4f38" font-size="10.5" opacity=".8">世民闭壁不战,纵反间、绝粮道</text>
+      <!-- 一战:趁锐而出→唐败(青✕) -->
+      <path d="M 150,205 L 150,92" stroke="#1f4e54" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 5"/>
+      <path d="M 150,84 L 144,98 L 156,98 Z" fill="#1f4e54"/>
+      <g><circle cx="150" cy="80" r="9" fill="none" stroke="#1f4e54" stroke-width="1.8"/><line x1="144" y1="74" x2="156" y2="86" stroke="#1f4e54" stroke-width="2.6"/><line x1="144" y1="86" x2="156" y2="74" stroke="#1f4e54" stroke-width="2.6"/></g>
+      <text x="86" y="234" fill="#1f4e54" font-size="10.5" font-weight="700">一战·违令轻出</text>
+      <text x="118" y="248" fill="#1f4e54" font-size="10" font-weight="700">→ 唐败</text>
+      <!-- 二战:待惰而后发→唐胜(金环) -->
+      <path d="M 700,205 L 700,202" stroke="#1f4e54" stroke-width="0"/>
+      <path d="M 700,206 L 700,198" stroke="#1f4e54" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="7 5"/>
+      <path d="M 700,190 L 694,204 L 706,204 Z" fill="#1f4e54"/>
+      <circle cx="700" cy="188" r="10" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="642" y="234" fill="#1f4e54" font-size="10.5" font-weight="700">二战·后发制人</text>
+      <text x="676" y="248" fill="#9c7a2c" font-size="10" font-weight="700">→ 唐胜</text>
+    </svg>
+    <p class="intro">浅水原两战,同地同将而一败一胜,其别不在众寡,而在<b>「坚壁勿战」一令之守违</b>。薛举父子悬军深入,食少兵疲,利在速战;唐军之上策,唯有闭垒待其锐尽。第一战世民方病,诸将违令趁敌方锐而出,遂遭掩袭大败;第二战世民亲执此令,坚壁六十余日,待其粮尽气惰而后动——胜负之枢,尽在一「待」字。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>一战:违令则败(六、七月)</h4>
+        <p>世民戒刘文静、殷开山曰「薛举悬军深入,食少兵疲,慎勿与战」。会世民卧病,殷开山谓贼轻我,宜曜武以威之,乃陈于高墌西南,恃众不设备。薛举潜师掩其后,战于浅水原,八总管皆败,士卒死者什五六,慕容罗睺、李安远、刘弘基皆没。趁敌方锐而浪战,故败。</p>
+      </div>
+      <div class="c b">
+        <h4>二战:守令则胜(十一月)</h4>
+        <p>薛举寻病死,仁杲立。世民复军高墌,深沟高垒,令「敢言战者斩」,坚壁六十余日;纵反间以携其众,绝粮道以困其师。及西秦粮尽、骁将来降,乃遣梁实诱之浅水原,俟宗罗睺攻疲,亲率骁骑自原北横击,大破之,穷追至折墌,仁杲出降。待敌锐尽而后发,故胜。</p>
+      </div>
+    </div>
+    <p class="kicker">同一浅水原,先以趁锐轻出而<b>丧师什五六</b>,后以坚壁待疲而<b>一举平陇右</b>。故此役之要,不在斗力而在<b>挫锐</b>:敌恃胜而骄,我闭垒以老之,俟其粮尽气惰,后发制人——「坚壁挫锐、后发制人」者,世民早年用兵之范式,亦其克薛之所以然也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一八五至一八六、《旧唐书·太宗纪》《薛举传》约略绘出。疆界、水道经简化,城邑为相对示意:高墌今陕西长武,折墌城在泾川,浅水原在长武一带。</p>
-    <p><span class="n">注二</span>第一次浅水原(618年七月)唐实败:时世民方病,委军于诸将,刘文静、殷开山等违令出战,为薛举所破。此图所绘为十一月世民反攻、坚壁致胜之役。</p>
-    <p><span class="n">注三</span>浅水原在今陕西长武一带,折墌城在泾川。世民“坚壁疲敌、俟衅而动”为其早年用兵之范式——不与锐师争锋,而待其粮尽气惰,一举破之。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=40+(经度−106.0)·330,y=445−(纬度−34.55)·330),几何关系力求近实:折墌·泾州在西北,浅水原、高墌居中(泾水北岸),邠州在其东南,陇山为西界大脉,长安在东南图外。今地:高墌今陕西长武(北),浅水原在长武北约五里,折墌城即泾州治(隋安定县)今甘肃泾川,邠州今陕西彬州,长安今西安。疆界、水道经简化,点划「约界」依陇山—泾水上游一线,非实有画界。依《资治通鉴》卷一八五至一八六、《旧唐书·太宗本纪·薛举传》《新唐书》绘出。</p>
+    <p><span class="n">注二</span>两战浅水原之别(图中青✕为一战之败、金环为二战之胜):一战在武德元年六、七月,唐实败——时世民方病,委军于长史刘文静、司马殷开山,并戒以「坚壁勿战」;二人违令,陈于高墌西南,恃众不备,薛举潜师掩其后,战于浅水原,八总管皆败,士卒死者什五六,大将慕容罗睺、李安远、刘弘基皆没,世民引兵还长安,举遂拔高墌。二战在十一月,乃世民反攻、坚壁致胜之役,不可与一战相混。</p>
+    <p><span class="n">注三</span>决胜之枢在坚壁挫锐(图中金色粮道、朱色 ✕):薛举父子起于陇右,悬军深入,食少兵疲,利在速战。世民复至高墌,深沟高垒,闭壁六十余日,纵反间以携其众,绝其粮道以老其师;西秦粮尽,骁将梁胡郎等来降,众心离散。世民乃遣梁实营浅水原诱敌,俟宗罗睺尽锐来攻、师疲气堕,亲率骁骑自原北出其不意横击,大破之,穷追至折墌,仁杲出降,陇右悉平。违令趁锐则败,守令待疲则胜,一「待」字定成败。</p>
+    <p><span class="n">注四</span>薛举本金城校尉,隋末起兵据陇右,称西秦霸王,寻称帝,徙都天水(秦州,图外西);七月己卯病死,子薛仁杲立,据折墌城(泾州)。折墌确址,《元和郡县志》系于泾州安定县(今泾川),与高墌(长武)非一地,图中分绘之。陇右既平,尽入于唐,关中西陲之患遂除。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"薛举逼关",d:"武德元年(618)",p:["薛举父子起于金城,据陇右,称西秦霸王,拥劲骑,屡寇泾州、扶风,兵锋直逼长安。唐新定关中,西陲未靖,以此为腹心之患。","高祖遣秦王世民西拒之,军于高墌。六月世民方病,委军诸将,刘文静等违令浪战,大败于浅水原(第一次浅水原,唐败);七月薛举死,子薛仁杲立。"]},
-  "1":{t:"坚壁疲敌",d:"武德元年十一月",p:["十一月,世民复出,军于高墌,深沟高垒,闭壁不战。薛仁杲遣宗罗睺屡来挑战,唐诸将请出,世民不许，曰:“我士气犹屈,贼恃胜而骄,宜且待之。”","相持六十余日,世民纵反间以携其众,绝其粮道以困其师。西秦粮尽,部将梁胡郎等相继来降,军心离散,气势渐堕——正世民所俟之衅。"]},
-  "2":{t:"浅水原决战",d:"武德元年十一月",p:["世民察其可乘,遣行军总管梁实营于浅水原以诱之。宗罗睺大喜,尽锐攻之,梁实据险不出,数日水泉且竭而志不夺,西秦师老气惰。","世民候其气衰,遣庞玉先陈原南以当其锋,亲率骁骑自原北出其不意横击之,表里奋击,大破西秦精骑于浅水原,斩获数千。"]},
-  "3":{t:"折墌出降",d:"武德元年十一月",p:["世民乘胜,不待步军,自率骁骑二千余,穷追奔北,诸将谏止而不听,直抵折墌城下。薛仁杲惧,阵于城下未战,其将卒相继逾城来降。","仁杲计穷,遂出降。世民尽收其精兵,得薛氏所掠士女、财帛甚众;西秦亡,陇右悉平,关中西陲之患遂除。"]}
+  all:{t:"关陇相争",d:"唐武德元年(618)",p:["隋末薛举起于金城,据陇右,称西秦霸王,拥劲骑数十万,徙都天水,屡以精骑东寇泾原、扶风,兵锋直逼长安。唐新定关中,西陲未靖,以此为腹心之患。高祖遣秦王世民西拒之,军于高墌。","浅水原(今陕西长武北)一地,先后两战而成败相反:一战世民方病,委军诸将,违「坚壁」之令而浪战,大败(图中青✕);二战世民坚壁挫锐、后发制人,大破西秦,穷追至折墌,薛仁杲出降(图中金环)。同地再战,反败为胜,陇右遂平。"]},
+  "1":{t:"薛举东逼高墌",d:"武德元年六月",p:["武德元年六月,薛举拥陇右之众东出,连拔泾原诸城,主力直趋高墌(今陕西长武北),军势甚盛,志在东取长安。时唐初定关中,西面未靖,薛举劲骑为其腹心之患。","高祖诏秦王世民为元帅西拒之。世民引兵至高墌,深壁以待。七月四日,世民至军而忽婴疾疟,乃委军事于行军长史刘文静、司马殷开山,戒之曰:『薛举悬军深入,食少兵疲,若来挑战,慎勿应也;俟吾疾愈,为君等破之。』"]},
+  "2":{t:"一战浅水原 · 唐军轻战大败",d:"武德元年七月",p:["世民既病卧,殷开山谓刘文静曰:『王虑公不能办,故有此言耳;且贼闻王有疾,必轻我,宜曜武以威之。』遂违「坚壁勿战」之令,陈兵于高墌西南浅水原上,恃众而不设备。","薛举潜师掩其后,壬子,战于浅水原,唐军大溃:八总管皆败,士卒死者什五六,大将慕容罗睺、李安远、刘弘基皆没。世民引兵还长安,薛举遂拔高墌,收唐兵死者为京观;刘文静等皆坐除名。此第一次浅水原,唐实败——趁敌方锐而浪战之咎也。"]},
+  "3":{t:"坚壁挫锐 · 折锐待疲",d:"武德元年八月至十一月",p:["七月,薛举病死,子薛仁杲立,据折墌城,军心渐离。八月,世民复以元帅出屯高墌,深沟高垒,闭壁不战。仁杲遣大将宗罗睺屡来挑战,诸将咸请战,世民不许,曰:『我军新败,士气沮丧,贼恃胜而骄,宜闭垒以待之;彼骄我奋,可一战而克。』乃令军中敢言战者斩。","相持六十余日,世民纵反间以携其众,绝其粮道以老其师。薛举父子悬军深入,本食少兵疲,今粮道既绝,西秦粮尽,骁将梁胡郎等相继帅所部来降,众心离散、气势渐堕——正世民所俟之衅也。"]},
+  "4":{t:"二战浅水原 · 折墌纳降",d:"武德元年十一月",p:["世民度贼可乘,命行军总管梁实营于浅水原以诱之。宗罗睺大喜,尽锐攻之;梁实守险不出,营中乏水数日而志不夺,西秦师老气惰。世民候其气衰,遣庞玉先陈于原南以当其锋,亲率骁骑自原北出其不意横击之,表里奋击,大破西秦精骑于浅水原,斩获数千。","世民乘胜,不待步军,自率骁骑二千余穷追奔北,诸将谏止而不听,直抵折墌城下。仁杲惧,陈于城下未战,其将卒相继逾城来降;仁杲计穷,遂出降。世民尽收其精兵,西秦亡,陇右悉平,关中西陲之患遂除。"]}
 };
 const CITY={
-  changan:{t:"长安",d:"唐都,今陕西西安",p:["唐之根本。薛举屡以劲骑东逼,长安震动;世民西拒破秦,西陲乃安。"]},
-  gaozhi:{t:"高墌城",d:"今陕西长武北,浅水原侧",p:["世民坚壁之处。深沟高垒,闭壁六十余日不战,以老薛仁杲之师。"]},
-  qianshui:{t:"浅水原",d:"高墌西北,决战之地",p:["世民遣梁实营此以诱敌,俟宗罗睺气惰,亲率骁骑横击,大破西秦精骑。"]},
-  zhezhi:{t:"折墌城",d:"泾州治,今甘肃泾川,薛仁杲都",p:["薛仁杲所都。世民自率轻骑穷追至城下,将卒逾城来降,仁杲出降,西秦亡。"]},
-  jingzhou:{t:"泾州",d:"今甘肃泾川一带",p:["西秦东出寇唐之要冲,亦折墌所在之州。陇右既平,尽入唐土。"]},
-  longshan:{t:"陇山",d:"关中与陇右之界山",p:["关陇分隔之险。西秦据陇山以西之陇右,东与唐争关中,山为天堑。"]}
+  zhezhi:{t:"折墌城(泾州)",d:"薛仁杲都,今甘肃泾川",p:["泾州治,隋安定县,武德元年改安定郡为泾州。薛举父子据陇右,以折墌为都。世民二战破敌,自率轻骑穷追至城下,将卒逾城来降,薛仁杲出降,西秦亡。"]},
+  qianshui:{t:"浅水原",d:"高墌北,今陕西长武北约五里",p:["两战之地。一战世民方病,诸将违令陈兵于此,为薛举掩袭大败(青✕);二战世民遣梁实营此诱敌,俟宗罗睺气惰,亲率骁骑自原北横击,大破西秦精骑(金环)。同地再战,反败为胜。"]},
+  gaozhi:{t:"高墌城",d:"今陕西长武(北),唐初属宁州",p:["唐军西拒之前垒。世民两至高墌:一战病委诸将而败,城为薛举所拔;二战复军于此,深沟高垒、闭壁六十余日,以老薛仁杲之师,遂成挫锐之功。"]},
+  binzhou:{t:"邠州",d:"今陕西彬州,泾水东南",p:["高墌东南、泾水下游要地,自高墌趋长安之道所经。西秦东逼、唐军进退,皆循泾原此道往来。"]},
+  longshan:{t:"陇山",d:"关中与陇右之界山",p:["关陇分隔之天险。西秦据陇山以西之陇右,东与唐争关中;山为屏障,亦薛举东出之门户。"]},
+  changan:{t:"长安",d:"唐都,今陕西西安(图外东南)",p:["唐之根本,在图外东南。薛举屡以劲骑东逼,长安震动;一战唐败,世民引兵还此;二战破秦,西陲乃安。世民由此往返高墌前线。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
