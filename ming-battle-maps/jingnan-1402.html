@@ -39,6 +39,7 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.big{stroke-width:4.2}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
@@ -46,8 +47,10 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .gate line{stroke:var(--gold);stroke-width:2.4;stroke-linecap:round}
+  .fall{fill:none;stroke:var(--enemy);stroke-width:1.4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +59,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +90,17 @@
   <div class="seal" aria-hidden="true"><span>靖</span><span>难</span><span>之</span><span>役</span></div>
   <header>
     <h1>靖难之役</h1>
-    <div class="sub">建文元年至四年(1399–1402)　　<i>燕王 朱棣</i> 清君侧·入京师 · <b>建文帝</b>不知所终</div>
+    <div class="sub">建文元年至四年(1399–1402)　　<i>燕王 朱棣</i> 靖难夺位 · <b>建文帝</b> 不知所终</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 燕王起兵</button>
-    <button data-p="1">白沟河大捷</button>
-    <button data-p="2">顿于济南</button>
-    <button data-p="3">渡江入京</button>
+    <button class="on" data-p="all">全图 · 靖难形势</button>
+    <button data-p="1">起兵靖难 · 白沟河大捷</button>
+    <button data-p="2">顿兵山东 · 济南东昌受挫</button>
+    <button data-p="3">弃坚城 · 疾趋京师 · 灵璧渡淮</button>
+    <button data-p="4">渡江 · 金川门降 · 成祖即位</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="靖难之役形势图,含燕与建文南军疆界、黄河淮河长江大运河与北平济南南京等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="靖难之役形势图,含燕据北平与建文南军疆界、黄河淮河长江大运河诸水,及北平白沟河济南东昌徐州灵璧盱眙扬州瓜洲镇江南京等城邑与四阶段进军路线">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,92 +109,137 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:燕据北平(北),建文南军据中原、京师(南),约以黄河一线为争地 -->
-    <path d="M 0,250 C 160,236 340,244 500,232 C 660,220 820,236 1000,224 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path d="M 0,250 C 160,236 340,244 500,232 C 660,220 820,236 1000,224 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 0,250 C 160,236 340,244 500,232 C 660,220 820,236 1000,224"/>
-    <text class="realm j" x="90" y="140" font-size="32">燕(北平)</text>
-    <text class="realm q" x="560" y="560" font-size="32">建文·南军(京师)</text>
+    <!-- ══ 疆界:燕据北平之北(青),建文南军拥中原·山东·江淮(赭),约以河北一线为争地 ══ -->
+    <path d="M 0,196 C 120,204 240,214 360,232 C 520,250 720,246 1000,240 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,196 C 120,204 240,214 360,232 C 520,250 720,246 1000,240 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,196 C 120,204 240,214 360,232 C 520,250 720,246 1000,240"/>
+    <text class="realm j" x="60" y="120" font-size="30">燕(北平)</text>
+    <text class="realm q" x="600" y="430" font-size="30">建文 · 南军(京师)</text>
+    <text class="cname s" x="606" y="452" style="fill:var(--enemy);opacity:.6">拥中原·山东·江淮之众</text>
 
-    <!-- 黄河:自西横贯华北 -->
-    <path class="river" stroke-width="4.5" d="M 0,300 C 140,314 280,320 400,326 C 520,332 640,318 760,306 C 850,298 930,296 1000,300"/>
-    <!-- 淮河:中部东流入海 -->
-    <path class="river" stroke-width="3.4" d="M 300,440 C 420,452 540,458 660,452 C 780,446 880,442 1000,446"/>
-    <!-- 长江:南部东流 -->
-    <path class="river" stroke-width="5" d="M 260,540 C 400,556 540,560 660,552 C 780,544 900,540 1000,544"/>
-    <!-- 大运河:自北平南下经济南、扬州达江 -->
-    <path class="river" stroke-width="2.6" d="M 216,150 C 240,240 300,330 360,410 C 410,478 470,520 560,548"/>
-    <text class="rname" x="120" y="316">黄 河</text>
-    <text class="rname" x="470" y="474" style="font-size:12px">淮 河</text>
-    <text class="rname" x="470" y="576">长 江</text>
-    <text class="rname" x="300" y="360" transform="rotate(58 300 360)" style="font-size:10.5px">大 运 河</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 大运河:南北纵贯之脊,自德州经临清·东昌·济宁·徐州·淮安达扬州瓜洲入江 -->
+    <path class="river" stroke-width="3" d="M 252,178 C 232,238 222,286 250,338 C 270,378 300,406 318,428 C 372,472 432,508 489,548"/>
+    <!-- 黄河(明代夺淮):自西经徐州东南趋淮安入海 -->
+    <path class="river" stroke-width="4.5" d="M 40,352 C 150,372 250,398 314,424 C 372,450 430,470 500,486 C 620,500 760,494 1000,486"/>
+    <!-- 淮河:西来,经盱眙·泗州东流,下游合黄入海 -->
+    <path class="river" stroke-width="3.2" d="M 180,468 C 280,484 360,498 408,502 C 520,508 700,502 1000,496"/>
+    <!-- 长江:西上游经应天,过瓜洲·镇江东流入海 -->
+    <path class="river" stroke-width="5" d="M 300,592 C 380,570 439,566 489,554 C 560,547 760,552 1000,560"/>
+    <text class="rname" x="70" y="368" style="font-size:12px">黄 河</text>
+    <text class="rname" x="120" y="486" style="font-size:11px">淮 河</text>
+    <text class="rname" x="640" y="556">长 江</text>
+    <text class="rname" x="196" y="250" transform="rotate(74 196 250)" style="font-size:10.5px">大 运 河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="beiping"><circle cx="216" cy="150" r="6"/><text class="cname" x="228" y="146">北平<tspan class="cname s" dx="2">(燕起兵基)</tspan></text></g>
-      <g class="city" data-city="baigou"><circle cx="288" cy="262" r="5"/><text class="cname" x="300" y="258">白沟河</text></g>
-      <g class="city" data-city="dongchang"><circle cx="360" cy="356" r="4"/><text class="cname s" x="372" y="352">东昌</text></g>
-      <g class="city" data-city="jinan"><circle cx="440" cy="392" r="5.5"/><text class="cname" x="452" y="388">济南<tspan class="cname s" dx="2">(铁铉守)</tspan></text></g>
-      <g class="city" data-city="lingbi"><circle cx="470" cy="470" r="5"/><text class="cname" x="482" y="466">灵璧</text></g>
-      <g class="city" data-city="yangzhou"><circle cx="560" cy="518" r="4.5"/><text class="cname" x="474" y="514">扬州·瓜洲</text></g>
-      <g class="city cap" data-city="nanjing"><circle cx="592" cy="556" r="6"/><text class="cname" x="604" y="572">南京<tspan class="cname s" dx="2">(应天·京师)</tspan></text></g>
+      <g class="city cap" data-city="beiping"><circle cx="252" cy="73" r="6.5"/><text class="cname" x="264" y="70">北平<tspan class="cname s" dx="2">(燕·起兵基)</tspan></text></g>
+      <g class="city" data-city="baigou"><circle cx="217" cy="110" r="5.5"/><text class="cname" x="228" y="106">白沟河</text></g>
+      <g class="city" data-city="zhending"><circle cx="111" cy="185" r="4"/><text class="cname s" x="66" y="181">真定</text></g>
+      <g class="city" data-city="jiahe"><circle cx="155" cy="200" r="4"/><text class="cname s" x="94" y="216">夹河·藁城</text></g>
+      <g class="city" data-city="dezhou"><circle cx="244" cy="225" r="5"/><text class="cname" x="256" y="221">德州<tspan class="cname s" dx="2">(李景隆基)</tspan></text></g>
+      <g class="city" data-city="guantao"><circle cx="166" cy="284" r="5"/><text class="cname" x="108" y="281">馆陶<tspan class="cname s" dx="1">(渡河)</tspan></text></g>
+      <g class="city" data-city="dongchang"><circle cx="220" cy="287" r="5.5"/><text class="cname" x="196" y="308">东昌</text></g>
+      <g class="city" data-city="donge"><circle cx="240" cy="296" r="3.5"/><text class="cname s" x="248" y="293">东阿</text></g>
+      <g class="city cap" data-city="jinan"><circle cx="298" cy="275" r="6"/><text class="cname" x="310" y="272">济南<tspan class="cname s" dx="2">(铁铉守)</tspan></text></g>
+      <g class="city" data-city="wenshang"><circle cx="259" cy="332" r="3.5"/><text class="cname s" x="267" y="330">汶上</text></g>
+      <g class="city" data-city="peixian"><circle cx="294" cy="394" r="4"/><text class="cname s" x="302" y="391">沛县</text></g>
+      <g class="city" data-city="xuzhou"><circle cx="314" cy="423" r="5.5"/><text class="cname" x="325" y="420">徐州</text></g>
+      <g class="city" data-city="suzhou"><circle cx="297" cy="462" r="4"/><text class="cname s" x="248" y="459">宿州</text></g>
+      <g class="city" data-city="lingbi"><circle cx="341" cy="467" r="6"/><text class="cname" x="352" y="463">灵璧<tspan class="cname s" dx="1">(大捷)</tspan></text></g>
+      <g class="city" data-city="xuyi"><circle cx="408" cy="501" r="5"/><text class="cname" x="419" y="498">盱眙·泗州<tspan class="cname s" dx="1">(渡淮)</tspan></text></g>
+      <g class="city" data-city="yangzhou"><circle cx="486" cy="537" r="5"/><text class="cname" x="428" y="533">扬州<tspan class="cname s" dx="1">(降)</tspan></text></g>
+      <g class="city" data-city="guazhou"><circle cx="487" cy="550" r="4"/><text class="cname s" x="496" y="548">瓜洲(渡江)</text></g>
+      <g class="city" data-city="zhenjiang"><circle cx="507" cy="557" r="4"/><text class="cname s" x="516" y="562">镇江(降)</text></g>
+      <g class="city cap" data-city="nanjing"><circle cx="439" cy="563" r="6.5"/><text class="cname" x="352" y="582">南京<tspan class="cname s" dx="2">(应天·京师)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 燕王起兵 -->
+    <!-- 大宁(图外·东北) -->
+    <g transform="translate(300,16)">
+      <path class="march j" marker-end="url(#aj)" d="M 30,-6 C 10,4 -4,14 -18,26"/>
+      <text class="mlabel j" x="8" y="-8" style="font-size:10px">大宁 ⟶ 收朵颜三卫</text>
+      <text class="cname s" x="16" y="6" style="fill:var(--advance);font-size:9.5px">(图外东北)</text>
+    </g>
+
+    <!-- ══ 全图 · 靖难形势 ══ -->
     <g id="phAll" class="ph">
-      <rect class="camp" x="330" y="336" width="9" height="9" transform="rotate(45 334 340)"/>
-      <text class="mlabel j" x="130" y="196">建文削藩,燕王朱棣以「清君侧、靖国难」于北平起兵</text>
-      <text class="anno" x="150" y="216">初取通州、蓟州、居庸,据北平以抗南师</text>
-      <path class="march q" marker-end="url(#aq)" d="M 560,540 C 500,470 420,380 320,290"/>
-      <text class="mlabel q" x="430" y="410">建文遣耿炳文、李景隆率大军北讨</text>
-      <text class="anno" x="560" y="470">南军号五十万,营于河北</text>
+      <path class="march j big" marker-end="url(#aj)" d="M 250,84 C 200,150 166,230 168,280 C 200,330 270,392 314,424 C 356,452 388,486 410,502 C 450,522 476,536 486,542"/>
+      <text class="mlabel j" x="60" y="252">燕军四年鏖战,终弃坚城疾趋京师</text>
+      <circle class="siege" cx="298" cy="275" r="11"/>
+      <circle class="siege" cx="220" cy="287" r="10"/>
+      <text class="mlabel q" x="316" y="300">山东坚城,燕军顿挫三年</text>
+      <path class="march q" marker-end="url(#aq)" d="M 300,300 C 288,270 268,244 250,228"/>
+      <text class="mlabel q" x="300" y="336">建文遣李景隆·盛庸北御</text>
+      <circle class="star" cx="217" cy="110" r="6"/>
+      <circle class="star" cx="341" cy="467" r="6"/>
+      <text class="anno" x="440" y="560">金川门开,京师陷,建文失踪</text>
     </g>
 
-    <!-- 阶段一:白沟河大捷 -->
+    <!-- ══ 阶段一:起兵靖难 · 白沟河大捷 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="300" y="288" width="9" height="9" transform="rotate(45 304 292)"/>
-      <text class="mlabel q" x="316" y="300">李景隆大营</text>
-      <path class="march j" marker-end="url(#aj)" d="M 222,158 C 240,196 262,228 282,254"/>
-      <text class="mlabel j" x="140" y="240">燕军南出郑村坝、白沟河</text>
-      <circle class="star" cx="288" cy="262" r="8"/>
-      <path class="march q rout" marker-end="url(#ar)" d="M 296,270 C 360,320 410,360 434,386"/>
-      <text class="mlabel r" x="330" y="342">南军尽溃,南奔济南</text>
-      <text class="anno" x="150" y="286">两破李景隆五十万众,尽获其辎重</text>
+      <text class="mlabel j" x="66" y="150">建文削藩,朱棣以「清君侧·靖国难」起兵北平</text>
+      <path class="march j" marker-end="url(#aj)" d="M 250,82 C 240,92 228,100 221,106"/>
+      <text class="anno" x="70" y="170">初取通州·蓟州·居庸,袭大宁,收朵颜劲骑</text>
+      <rect class="camp" x="240" y="221" width="9" height="9" transform="rotate(45 244 225)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 244,218 C 234,182 226,146 221,120"/>
+      <text class="mlabel q" x="256" y="200">李景隆合军六十万,营于河北</text>
+      <circle class="star" cx="217" cy="110" r="8"/>
+      <text class="mlabel j" x="120" y="98">郑村坝·白沟河两破景隆</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 224,118 C 240,170 258,220 288,268"/>
+      <text class="mlabel r" x="300" y="250">南军尽溃,南奔德州·济南</text>
+      <text class="anno" x="70" y="126">会旋风折景隆帅旗,燕军乘之奋击,尽获辎重</text>
     </g>
 
-    <!-- 阶段二:顿于济南·东昌受挫 -->
+    <!-- ══ 阶段二:顿兵山东 · 济南东昌受挫 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 294,270 C 340,310 390,350 432,384"/>
-      <text class="mlabel j" x="300" y="322">燕军乘胜南追,围济南</text>
-      <circle class="siege" cx="440" cy="392" r="11"/>
-      <text class="mlabel q" x="452" y="416">铁铉、盛庸坚守,燕不能下</text>
-      <rect class="camp" x="352" y="348" width="8" height="8" transform="rotate(45 356 352)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 430,384 C 404,372 384,364 368,360"/>
-      <text class="mlabel q" x="330" y="378">盛庸邀战于东昌</text>
-      <text class="anno" x="150" y="356">东昌一战,燕大将张玉战死,燕军顿于坚城</text>
-      <path class="march j rout" marker-end="url(#ar)" d="M 350,352 C 300,300 260,220 226,164"/>
-      <text class="mlabel r" x="150" y="230">燕军敛兵北还</text>
+      <path class="march j" marker-end="url(#aj)" d="M 220,118 C 250,170 285,232 296,266"/>
+      <text class="mlabel j" x="150" y="176">燕军乘胜南追,围济南三月</text>
+      <circle class="siege" cx="298" cy="275" r="12"/>
+      <text class="mlabel q" x="312" y="266">铁铉·盛庸死守,悬神牌·诈降,燕不能下</text>
+      <path class="march j" marker-end="url(#aj)" d="M 290,282 C 268,286 246,288 230,288"/>
+      <text class="mlabel j" x="176" y="270">燕移攻东昌</text>
+      <circle class="star" cx="220" cy="287" r="9"/>
+      <rect class="camp" x="216" y="283" width="8" height="8" transform="rotate(45 220 287)" fill="#1f4e54"/>
+      <text class="mlabel r" x="120" y="360">东昌大败,骁将张玉战死</text>
+      <path class="march j rout" marker-end="url(#ar)" d="M 216,282 C 200,220 214,150 244,86"/>
+      <text class="mlabel r" x="60" y="176">燕军敛兵北还,南征一顿</text>
     </g>
 
-    <!-- 阶段三:避实趋虚·渡江入京 -->
+    <!-- ══ 阶段三:弃坚城 · 疾趋京师 · 灵璧渡淮 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 226,166 C 300,260 360,340 400,404 C 430,452 448,470 462,470"/>
-      <text class="mlabel j" x="150" y="270">朱棣变计,以精骑避实趋虚,直捣京师</text>
-      <circle class="star" cx="470" cy="470" r="8"/>
-      <text class="mlabel j" x="482" y="450">灵璧破南军,擒平安等诸将</text>
-      <path class="march j" marker-end="url(#aj)" d="M 476,476 C 510,500 534,512 552,516"/>
-      <circle class="star" cx="592" cy="556" r="9"/>
-      <path class="march j" marker-end="url(#aj)" d="M 562,524 C 574,536 582,544 588,550"/>
-      <text class="mlabel j" x="470" y="540">瓜洲渡江,盛庸江防溃</text>
-      <text class="anno" x="560" y="590">金川门开,燕军入南京;宫中火起,建文失踪</text>
-      <text class="anno" x="150" y="300">棣即皇帝位,是为成祖,改元永乐</text>
+      <path class="march j big" marker-end="url(#aj)" d="M 248,84 C 205,150 168,225 166,278 C 190,290 216,292 240,296 C 250,312 256,322 259,330 C 272,352 286,374 294,392 C 302,405 310,416 314,421"/>
+      <text class="mlabel j" x="52" y="330">纳姚广孝策:毋下城邑,疾趋京师</text>
+      <text class="anno" x="120" y="416">绕济南·东昌坚城,自馆陶渡河,连下东阿·汶上·沛县</text>
+      <path class="march j big" marker-end="url(#aj)" d="M 314,421 C 306,438 300,452 300,459"/>
+      <circle class="star" cx="341" cy="467" r="9"/>
+      <path class="march j big" marker-end="url(#aj)" d="M 305,462 C 320,466 330,467 336,466"/>
+      <text class="mlabel j" x="352" y="484">灵璧大捷,擒平安等三十七将</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 336,472 C 372,486 396,494 404,498"/>
+      <text class="mlabel r" x="300" y="522">南军全军覆没</text>
+      <path class="march j big" marker-end="url(#aj)" d="M 346,470 C 372,482 396,494 405,499"/>
+      <text class="mlabel j" x="430" y="512">克泗州,渡淮</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:渡江 · 金川门降 · 成祖即位 ══ -->
+    <g id="ph4" class="ph">
+      <path class="march j big" marker-end="url(#aj)" d="M 410,502 C 440,514 468,528 483,534"/>
+      <text class="mlabel j" x="416" y="524">扬州不战而降</text>
+      <path class="march j big" marker-end="url(#aj)" d="M 487,541 C 488,545 490,549 492,552"/>
+      <path class="march j big" marker-end="url(#aj)" d="M 490,553 C 496,555 500,556 503,556"/>
+      <text class="mlabel j" x="512" y="544">瓜洲渡江,盛庸江防溃</text>
+      <path class="march j big" marker-end="url(#aj)" d="M 503,559 C 480,563 460,564 448,564"/>
+      <g class="gate" transform="translate(439,563)"><line x1="-7" y1="-6" x2="-7" y2="6"/><line x1="7" y1="-6" x2="7" y2="6"/></g>
+      <circle class="fall" cx="439" cy="563" r="10"/>
+      <text class="mlabel j" x="352" y="600">谷王橞·李景隆开金川门迎降</text>
+      <text class="anno" x="300" y="544">京师陷,宫中火起,建文帝不知所终</text>
+      <text class="mlabel j" x="560" y="512">朱棣即皇帝位,是为成祖,改元永乐</text>
+    </g>
+
+    <g class="compass" transform="translate(950,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
@@ -184,32 +248,86 @@
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>建文·南军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>坚守</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>坚守·围城</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#1f4e54"/></svg>张玉战死</span>
+    <span class="item"><svg width="16" height="16"><line x1="4" y1="4" x2="4" y2="12" stroke="#9c7a2c" stroke-width="2.4"/><line x1="12" y1="4" x2="12" y2="12" stroke="#9c7a2c" stroke-width="2.4"/></svg>金川门降</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>燕</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南军</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 弃坚城 · 疾趋京师</h3>
+    <div class="lead">何以四年鏖战之局,决于建文三年冬之一变 —— 靖难成败之枢</div>
+    <svg class="schem" viewBox="0 0 860 260" role="img" aria-label="战略示意:燕军攻山东济南东昌坚城不下,乃越坚城疾趋单弱之京师,金川门降而定鼎">
+      <text x="26" y="30" fill="#1f4e54" font-size="12" font-weight="700">燕军(北平·起兵)</text>
+      <line x1="24" y1="40" x2="836" y2="40" stroke="#1f4e54" stroke-width="1.6" opacity=".3" stroke-dasharray="3 4"/>
+      <!-- 左:攻坚城不下 -->
+      <rect x="120" y="86" width="86" height="40" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+      <text x="163" y="111" fill="#9a2b1e" font-size="12.5" font-weight="700" text-anchor="middle">济南·东昌</text>
+      <text x="163" y="146" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">铁铉·盛庸坚守</text>
+      <path d="M 163,50 L 163,80" fill="none" stroke="#1f4e54" stroke-width="3.5" stroke-linecap="round"/>
+      <g><circle cx="163" cy="66" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="157" y1="60" x2="169" y2="72" stroke="#9a2b1e" stroke-width="2.6"/><line x1="157" y1="72" x2="169" y2="60" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="182" y="60" fill="#9a2b1e" font-size="11" font-weight="700">攻之三年不能下 ✕</text>
+      <text x="163" y="176" fill="#5c4f38" font-size="10.5" font-style="italic" text-anchor="middle">张玉战死·师老兵疲</text>
+      <!-- 右:疾趋京师 -->
+      <path d="M 232,106 C 380,110 470,150 600,196" fill="none" stroke="#1f4e54" stroke-width="4.5" stroke-linecap="round" marker-end="url(#aj)"/>
+      <text x="360" y="150" fill="#1f4e54" font-size="12.5" font-weight="700">毋下城邑 · 疾趋京师 →</text>
+      <text x="360" y="168" fill="#5c4f38" font-size="10.5">绕坚城·渡淮·渡江</text>
+      <!-- 京师:单弱·开门 -->
+      <rect x="628" y="182" width="120" height="52" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 4"/>
+      <text x="688" y="206" fill="#2b2418" font-size="12.5" font-weight="700" text-anchor="middle">京师(应天)</text>
+      <text x="688" y="224" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">单弱 · 金川门降</text>
+      <g><line x1="676" y1="182" x2="676" y2="170" stroke="#9c7a2c" stroke-width="2.6"/><line x1="700" y1="182" x2="700" y2="170" stroke="#9c7a2c" stroke-width="2.6"/></g>
+      <text x="640" y="164" fill="#9c7a2c" font-size="10.5" font-weight="700">门开迎降</text>
+    </svg>
+    <p class="intro">靖难四年,燕军之弱不在野战,而在<b>攻坚</b>:铁铉·盛庸据济南·东昌坚城死守,燕师两破李景隆之后,却<b>屡攻不克、师老于坚城之下</b>,张玉战死,数年不得志。以数万之众与举国之师角城池,燕本无必胜之理——此其至危处。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>坚城 · 不可猝拔</h4>
+        <p>白沟河虽大捷,然山东济南三月不下:铁铉悬太祖神牌于城,燕军不敢发炮;又诈降几毙朱棣。盛庸复于东昌大破燕师,骁将张玉死之。逐城而攻,则南军举国之众可徐集,燕以偏师久顿,势必坐困——攻坚正是燕之短。</p>
+      </div>
+      <div class="c b">
+        <h4>京师 · 单弱可直取</h4>
+        <p>建文三年冬,姚广孝进策:「毋下城邑,疾趋京师;京师单弱,势必举。」精兵尽在北方拉锯,应天守御空虚。燕遂弃攻城,自馆陶渡河,绕坚城长驱南下,克徐州·大捷灵璧,渡淮渡江,直薄京师——避己所短,攻敌所虚。</p>
+      </div>
+    </div>
+    <p class="kicker">故靖难之胜,不在拔一城、陷一地,而在<b>一策之变</b>:及朱棣弃坚城、疾趋京师,四年之僵局一举而解——灵璧覆南军之精锐,瓜洲溃盛庸之江防,<b>谷王·李景隆开金川门</b>,京师遂陷,建文不知所终。非攻坚之功,实<b>弃坚城·疾趋京师·渡江定鼎</b>之效也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·成祖本纪/恭闵帝纪/盛庸铁铉传》《明史纪事本末》约略绘出。北平今北京,白沟河在今河北高碑店一带,东昌今山东聊城,济南、灵璧、扬州·瓜洲、南京(应天)方位为相对示意;黄河、淮河、长江、大运河水道经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为建文年间形势示意:燕据北平以抗南师,建文南军据中原、京师;南北反复拉锯,并无定界,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>燕军初于郑村坝、白沟河两破李景隆,然山东铁铉、盛庸坚守济南、东昌屡挫燕师,张玉战死,燕军三年顿于坚城。朱棣乃弃攻城略地之策,以精骑避实趋虚、直捣京师——转败为功,系于一变。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=80+(经度−114.2)×78,y=600−(纬度−31.4)×62),东西向略事夸张以容标注;几何关系力求近实:北平在北,南京在南,济南·东昌居中,徐州·灵璧·扬州渐次东南。依《明史·成祖本纪/恭闵帝纪/铁铉传/盛庸传》《明太宗实录》《明史纪事本末·燕王起兵/平定京师》约略绘出。北平今北京,白沟河在今河北雄县·容城间(拒马河),德州今山东德州,东昌今聊城,济南今济南,馆陶今河北馆陶,东阿·汶上·沛县今属鲁苏,徐州·宿州·灵璧今属苏皖,盱眙(泗州)今江苏盱眙,扬州·瓜洲今扬州,镇江今镇江,应天即今南京。</p>
+    <p><span class="n">注二</span>晕染疆界为靖难年间形势示意——燕据北平及永平·保定之北,建文南军拥中原·山东·江淮之众;实则南北无定界,燕据地甚狭而屡出屡入,山东济南·东昌乃南军死守之据点,故以点划「约界」标之,非实有画界。黄河为明代夺淮东流之道,经徐州趋淮安入海;大运河、淮河、长江皆经简化描绘。</p>
+    <p><span class="n">注三</span>靖难之枢在一「变」:燕军虽两破李景隆于郑村坝·白沟河,然铁铉·盛庸坚守济南三月不下(悬太祖神牌燕不敢炮击,诈降几毙朱棣),盛庸复大破燕军于东昌,骁将张玉战死,燕师三年顿于山东坚城。建文三年冬,朱棣纳姚广孝「毋下城邑,疾趋京师;京师单弱,势必举」之策,遂弃攻城,绕坚城长驱南下,连下东阿·汶上·沛县,克徐州,大捷灵璧(擒平安等),渡淮·渡江,金川门开而京师陷。转败为功,系于弃坚城·疾趋京师一策。</p>
+    <p><span class="n">注四</span>建文元年冬,朱棣北袭大宁(今内蒙古宁城,图外东北),胁宁王,收朵颜三卫劲骑,燕军骑兵由是益强。诸书所记南军「六十万」「五十万」多属号称,未可尽信;白沟河南军实数、东昌燕军伤亡,史载互异,姑存疑。建文四年六月十三,谷王橞·曹国公李景隆开金川门迎降,燕军入应天,宫中火起,建文帝不知所终(或云自焚,或云出亡),朱棣即皇帝位,是为成祖,改元永乐,后迁都北京。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"燕王起兵",d:"建文元年(1399)",p:["太祖崩,皇太孙建文帝立,用齐泰、黄子澄谋削藩,周、齐、湘、代、岷诸王相继得罪。燕王朱棣拥重兵居北平,遂以「清君侧、靖国难」为名起兵,初取通州、蓟州、居庸关,据北平以抗南师。","建文遣老将耿炳文率师北讨,败于真定;继以曹国公李景隆代之,合军号五十万,进营河北,与燕相持。南北之争由是大起。"]},
-  "1":{t:"白沟河大捷·两败景隆",d:"建文二年(1400)",p:["燕王先破李景隆于郑村坝,尽焚其营;明年复战于白沟河。两军数十万列阵夹河,鏖战竟日,会旋风折景隆帅旗,燕军乘之奋击,南军大溃。","白沟河一役,南军五十万众尽丧,辎重器械山积,李景隆南奔济南。燕军主力既破,南师锐气为之一挫。"]},
-  "2":{t:"顿于济南·东昌受挫",d:"建文二年至三年(1400–1401)",p:["燕军乘胜南追,围济南三月。参政铁铉、都督盛庸婴城固守,诈降诱敌、以计败之,燕竟不能下,敛兵北还。","盛庸继邀战于东昌,大破燕师,燕之骁将张玉力战而死,朱棣仅以身免。燕军顿于坚城,南征之势为之一顿。"]},
-  "3":{t:"避实趋虚·渡江入京",d:"建文四年(1402)",p:["朱棣乃变计:不复攻城略地,而以精骑绕坚城、避实趋虚,直捣京师。四年,燕军自馆陶渡河,连败南军于淝河、灵璧,擒平安等诸将,继破泗州、扬州。","燕军至瓜洲渡江,盛庸江防溃。谷王橞、李景隆开金川门迎降,燕军入南京;宫中火起,建文帝不知所终。朱棣即皇帝位,是为成祖,改元永乐,后迁都北京。"]}
+  all:{t:"靖难形势 · 四年鏖战",d:"建文元年至四年(1399–1402)",p:["太祖崩,皇太孙即位,是为建文帝,用齐泰·黄子澄谋削藩。燕王朱棣拥重兵居北平,遂以「清君侧·靖国难」(诛齐泰·黄子澄)为名起兵。役凡四年:先则拉锯于河北·山东,燕军两破李景隆,而铁铉·盛庸坚守济南·东昌,燕顿于坚城;继则弃坚城·疾趋京师,长驱渡淮渡江,金川门降而京师陷。","全图示燕军自北平南出,鏖战山东坚城而不得志,终绕城疾趋、直捣应天之大势。点开城邑或上方四阶段,可览白沟河大捷、济南东昌受挫、灵璧渡淮、金川门降各节之详。"]},
+  "1":{t:"起兵靖难 · 白沟河大捷",d:"建文元年至二年(1399–1400)",p:["建文帝削藩,周·齐·湘·代·岷诸王相继得罪。燕王朱棣以「清君侧·靖国难」为名起兵北平,初取通州·蓟州·居庸关;又北袭大宁,胁宁王,尽收朵颜三卫劲骑,骑兵益强。建文遣老将耿炳文北讨,败于真定;乃以曹国公李景隆代之,合军号五十万至六十万,进营河北。","燕王先破李景隆于郑村坝,尽焚其营;明年复战于白沟河。两军数十万夹河鏖战,会旋风折景隆帅旗,燕军乘之奋击,南军大溃,五十万众尽丧,辎重山积,景隆南奔德州·济南。南师锐气,为之一挫。"]},
+  "2":{t:"顿兵山东 · 济南东昌受挫",d:"建文二年至三年(1400–1401)",p:["燕军乘胜南追,围济南三月。参政铁铉·都督盛庸婴城固守:悬太祖神牌于城,燕军不敢发炮;又设诈降之计,几毙朱棣于城门。燕竟不能下,敛兵北还。","盛庸继邀战于东昌,大破燕师;燕之骁将张玉力战陷阵而死,朱棣仅以身免。夹河·藁城复反复拉锯,燕军虽屡战,而顿于山东坚城,数年不得志——南征之势,为之一顿。"]},
+  "3":{t:"弃坚城 · 疾趋京师 · 灵璧渡淮",d:"建文三年冬至四年(1401–1402)",p:["朱棣乃变计。姚广孝进策:「毋下城邑,疾趋京师;京师单弱,势必举。」遂弃攻城略地,绕济南·东昌坚城,长驱南下。建文四年正月自馆陶渡河,连陷东阿·东平·汶上·沛县,进克徐州,趋宿州。","四月,南军何福·平安屯灵璧,粮乏欲突围,以三炮为号;会燕军攻垒之号亦三炮,南军误为己号,争夺路而溃。燕乘势奋击,南军全军覆没,擒平安·陈晖等三十七将,获马二万余。京师门户遂开。燕军继下泗州,渡淮而南。"]},
+  "4":{t:"渡江 · 金川门降 · 成祖即位",d:"建文四年五至六月(1402)",p:["燕军渡淮南下,五月至扬州,不战而降。六月自瓜洲渡江,盛庸江防既溃,大江天险不复能守;镇江守将出降,燕军直趋应天。","六月十三,谷王橞·曹国公李景隆开金川门迎降,燕军入京师;宫中火起,建文帝不知所终(或云自焚,或云出亡)。朱棣即皇帝位,是为成祖,改元永乐,后迁都北京。四年靖难,以弃坚城·疾趋京师·渡江定鼎终。"]}
 };
 const CITY={
-  beiping:{t:"北平",d:"燕王封国,今北京",p:["燕王朱棣封国、起兵之基。既起,先取通州、蓟州、居庸关,据此以抗南师,为靖难全役之根本。"]},
-  baigou:{t:"白沟河",d:"今河北高碑店一带",p:["建文二年,燕王与李景隆决战于此。会旋风折南军帅旗,燕乘势奋击,五十万众尽溃——靖难第一大捷。"]},
-  dongchang:{t:"东昌",d:"今山东聊城",p:["盛庸邀战之地。燕军为南军所大破,骁将张玉战死,朱棣仅以身免。燕之南征至此一顿。"]},
-  jinan:{t:"济南",d:"今山东济南",p:["参政铁铉、都督盛庸坚守三月,以计屡挫燕师,燕竟不能下,敛兵北还。铁铉之守,靖难南军之壮者。"]},
-  lingbi:{t:"灵璧",d:"今安徽灵璧",p:["建文四年,燕军直捣京师途中大破南军于此,擒平安等诸将,南军精锐尽丧,京师门户遂开。"]},
-  yangzhou:{t:"扬州·瓜洲",d:"今江苏扬州、瓜洲渡",p:["燕军破扬州,进至瓜洲渡江。盛庸江防既溃,大江天险不复能守,应天在望。"]},
-  nanjing:{t:"南京(应天)",d:"明京师,今江苏南京",p:["谷王橞、李景隆开金川门迎降,燕军入城;宫中火起,建文帝不知所终。朱棣即位,是为成祖。"]}
+  beiping:{t:"北平",d:"燕王封国,今北京(116.4E,39.9N)",p:["燕王朱棣封国、起兵之基。既起,先取通州·蓟州·居庸关,又北袭大宁收朵颜三卫,据此以抗南师,为靖难全役之根本。"]},
+  baigou:{t:"白沟河",d:"今河北雄县·容城间拒马河(≈115.95E,39.3N)",p:["建文二年,燕王与李景隆决战于此。会旋风折南军帅旗,燕乘势奋击,五十万众尽溃——靖难第一大捷,南军主力一战而丧。"]},
+  zhending:{t:"真定",d:"今河北正定(114.6E,38.1N)",p:["建文遣老将耿炳文屯此北讨,为燕所败。建文乃以李景隆代炳文,合军号五十万北上——用将之失,南军先着已错。"]},
+  jiahe:{t:"夹河 · 藁城",d:"今河北武邑·藁城一带(≈114.9E,38.0N)",p:["建文三年,盛庸·吴杰与燕军反复拉锯于滹沱河之夹河及藁城。燕虽屡战屡胜,而不能得志于坚城,河北之局遂成僵持。"]},
+  dezhou:{t:"德州",d:"今山东德州(116.3E,37.45N)",p:["李景隆屯师·转饷之基。白沟河既败,景隆南奔德州、复走济南。德州扼运河,为南军河北防线之枢。"]},
+  guantao:{t:"馆陶",d:"今河北馆陶(115.3E,36.5N)",p:["建文四年正月,燕军弃坚城疾趋京师,自此渡河(卫河)南下,连陷东阿·东平·汶上——疾趋京师之起点。"]},
+  dongchang:{t:"东昌",d:"今山东聊城(116.0E,36.45N)",p:["盛庸邀战之地。燕军为南军所大破,骁将张玉力战陷阵而死,朱棣仅以身免。燕之南征至此一顿——靖难中燕军最惨之败。"]},
+  donge:{t:"东阿",d:"今山东东阿(116.25E,36.33N)",p:["燕军疾趋京师,正月十四陷东阿。绕济南·东昌坚城之西南而下,不复攻城,长驱直进。"]},
+  jinan:{t:"济南",d:"今山东济南(117.0E,36.65N)",p:["参政铁铉·都督盛庸坚守三月:悬太祖神牌于城,燕不敢炮击;设诈降之计,几毙朱棣于城门。燕竟不能下,敛兵北还。铁铉之守,靖难南军之壮者;后疾趋京师,燕正绕此坚城而过。"]},
+  wenshang:{t:"汶上",d:"今山东汶上(116.5E,35.72N)",p:["燕军疾趋京师,正月十七陷汶上。沿运河一线南向,径趋沛县·徐州,不顾山东诸城。"]},
+  peixian:{t:"沛县",d:"今江苏沛县(116.94E,34.72N)",p:["燕军正月廿七陷沛县,始入今江苏境。南下之势既成,直薄徐州。"]},
+  xuzhou:{t:"徐州",d:"今江苏徐州(117.2E,34.26N)",p:["南北要冲,黄河·运河之会。燕军正月三十至徐州,克之,南军之北面藩篱既失,京师门户洞开。"]},
+  suzhou:{t:"宿州",d:"今安徽宿州(116.98E,33.63N)",p:["燕军趋京师所经。自徐州南下,连战于淝河·睢水间,进逼灵璧,南军何福·平安屯守以拒之。"]},
+  lingbi:{t:"灵璧",d:"今安徽灵璧(117.55E,33.55N)",p:["建文四年四月决战之地。南军粮乏欲突围,以三炮为号;会燕军攻垒之号亦三炮,南军误为己号争路而溃,燕乘势奋击,全军覆没,擒平安·陈晖等三十七将,获马二万余——南军精锐尽丧,京师门户遂开。"]},
+  xuyi:{t:"盱眙 · 泗州",d:"今江苏盱眙(≈118.4E,33.0N)",p:["灵璧既捷,燕军东南下泗州,渡淮而南。淮河天堑一失,江北再无坚阻,应天在望。"]},
+  yangzhou:{t:"扬州",d:"今江苏扬州(119.4E,32.4N)",p:["燕军渡淮南下,五月至扬州,守者不战而降。江防之北岸既失,燕军直趋瓜洲渡口。"]},
+  guazhou:{t:"瓜洲",d:"扬州南长江北岸渡口(≈119.4E,32.24N)",p:["六月,燕军自瓜洲渡长江。盛庸江防既溃,大江天险不复能守——渡江一举,京师震动。"]},
+  zhenjiang:{t:"镇江",d:"今江苏镇江(119.45E,32.2N)",p:["长江南岸重镇。燕军渡江,镇江守将出降,朱棣遂率军直趋应天,无复所阻。"]},
+  nanjing:{t:"南京(应天)",d:"明京师,今江苏南京(118.8E,32.05N)",p:["建文四年六月十三,谷王橞·曹国公李景隆开金川门迎降,燕军入城;宫中火起,建文帝不知所终。朱棣即皇帝位,是为成祖,改元永乐,后迁都北京。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

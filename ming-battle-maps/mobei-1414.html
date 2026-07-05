@@ -30,7 +30,10 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.hi{stroke:var(--enemy);stroke-width:1.5;opacity:.8}
+  .mtn.hifill{fill:rgba(154,43,30,.10);stroke:none}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +42,24 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.wing{stroke:var(--advance);stroke-width:2.4;opacity:.92}
+  /* 诱敌下山:细虚线,示前锋佯退诱瓦剌冲下 */
+  .march.lure{stroke:var(--advance);stroke-width:2;stroke-dasharray:5 4;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 神机营火铳火炮:铳炮身与铳口喷焰(向瓦剌冲骑) */
+  .gun .barrel{fill:#3a3327;stroke:var(--ink);stroke-width:.7}
+  .gun .wheel{fill:none;stroke:var(--ink);stroke-width:1.3}
+  .gun .base{fill:#3a3327}
+  .blast line{stroke:var(--gold);stroke-width:1.7;stroke-linecap:round}
+  .blast .core{fill:var(--gold);opacity:.92}
+  .smoke{fill:#8a7c5e;opacity:.22}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +68,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.lure){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +95,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>忽</span><span>兰</span><span>之</span><span>役</span></div>
   <header>
     <h1>忽兰忽失温之战</h1>
-    <div class="sub">永乐十二年(1414)　　<i>明成祖 朱棣</i> 神机破敌 · <b>瓦剌 马哈木</b>忽兰忽失温大败</div>
+    <div class="sub">永乐十二年(1414) · 成祖二征漠北　　<i>明成祖 朱棣</i> 神机破虏 · <b>瓦剌 马哈木 · 太平 · 把秃孛罗</b>据高山列阵而大败</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 成祖亲征漠北</button>
-    <button data-p="1">瓦剌据高列阵</button>
-    <button data-p="2">神机铳炮当锋</button>
-    <button data-p="3">铁骑夹击 · 追奔百里</button>
+    <button data-p="1">亲征出塞 · 北越饮马河</button>
+    <button data-p="2">瓦剌据高山列阵</button>
+    <button data-p="3">诱敌下山 · 神机营火器齐发</button>
+    <button data-p="4">精骑两翼冲击 · 追至土剌河</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="忽兰忽失温之战形势图,含瓦剌漠北与明长城内疆界、饮马河土拉河诸水及北京开平和林等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="忽兰忽失温之战形势图,含瓦剌漠北与明军来路大漠之疆界、图拉河土剌河与克鲁伦河斡难河诸水、忽兰忽失温红山嘴之高地,及三峡口和林等地,示朱棣自兴和北越饮马河深入、瓦剌据高山列阵、诱敌下山而神机营火铳火炮齐发挫其骑、精骑两翼冲击大破瓦剌并追至土剌河,北京兴和开平在图外东南">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,123 +118,219 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:瓦剌据漠北(北),明据长城之内(南),约以大漠为界 -->
-    <path d="M 0,300 C 140,286 300,320 460,300 C 620,280 780,314 1000,296 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 140,286 300,320 460,300 C 620,280 780,314 1000,296 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,286 300,320 460,300 C 620,280 780,314 1000,296"/>
-    <text class="realm q" x="120" y="90" font-size="32">瓦 剌 · 漠 北</text>
-    <text class="realm j" x="600" y="588" font-size="30">大 明(长城之内)</text>
+    <!-- 疆界:图为漠北草原,瓦剌游牧其间(北),明军自大漠以南来征(南下之路),约以瀚海大漠为限(示意) -->
+    <path d="M 0,455 C 200,468 400,450 600,462 C 780,472 900,460 1000,466 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,455 C 200,468 400,450 600,462 C 780,472 900,460 1000,466 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,455 C 200,468 400,450 600,462 C 780,472 900,460 1000,466"/>
+    <text class="realm q" x="70" y="120" font-size="27">瓦 剌 · 漠 北</text>
+    <text class="cname s" x="74" y="144" style="fill:var(--enemy);opacity:.55">马哈木 · 太平 · 把秃孛罗 游牧之地</text>
+    <text class="realm j" x="120" y="560" font-size="24">大 漠 · 瀚 海</text>
+    <text class="cname s" x="124" y="584" style="fill:var(--advance);opacity:.6">明军北征所越 · 兴和 / 开平 / 北京在图外东南</text>
 
-    <!-- 大漠:南北之间瀚海 -->
-    <g class="mtn" opacity=".6">
-      <path d="M 300,338 q 10,-9 20,0 q 10,-9 20,0 M 360,346 q 10,-9 20,0 q 10,-9 20,0 M 640,332 q 10,-9 20,0 q 10,-9 20,0 M 700,340 q 10,-9 20,0 q 10,-9 20,0"/>
+    <!-- 图拉河 / 土剌河:自东南肯特山出,经忽兰忽失温西北流(追击之河) -->
+    <path class="river" stroke-width="4" d="M 677,356 C 590,340 511,316 400,272 C 340,248 250,220 168,206"/>
+    <text class="rname" x="360" y="252" transform="rotate(20 360 252)">图拉河 · 土剌河</text>
+
+    <!-- 克鲁伦河 / 饮马河:自肯特山东南流(明军北越之河) -->
+    <path class="river" stroke-width="3.6" d="M 687,190 C 730,220 775,253 820,288 C 862,320 900,352 932,380"/>
+    <text class="rname" x="800" y="270" transform="rotate(40 800 270)" style="font-size:11.5px">饮马河 · 克鲁伦河</text>
+
+    <!-- 斡难河:肯特山北,东北流(方位标示) -->
+    <path class="river" stroke-width="2.6" d="M 707,166 C 760,140 830,108 883,79"/>
+    <text class="rname" x="770" y="112" transform="rotate(-28 770 112)" style="font-size:10.5px;opacity:.8">斡 难 河</text>
+
+    <!-- 忽兰忽失温:红山嘴 · 瓦剌所据之高山 -->
+    <path class="mtn hifill" d="M 556,362 L 583,304 L 599,320 L 616,300 L 645,362 Z"/>
+    <g class="mtn hi">
+      <path d="M 556,362 l 15,-30 l 12,20 l 16,-32 l 15,26 l 13,-18 l 15,34"/>
+      <path d="M 574,346 l 10,-18 l 10,18 M 606,342 l 9,-16 l 9,16"/>
     </g>
-    <text class="cname s" x="470" y="352" style="letter-spacing:.3em">大　漠 · 瀚 海</text>
-
-    <!-- 长城:明之北界 -->
-    <path class="mtn" style="stroke-width:1.6;stroke-dasharray:5 4" d="M 60,470 C 260,452 480,462 700,448 C 820,440 900,442 960,438"/>
-    <text class="cname s" x="120" y="464">长　城</text>
-
-    <!-- 克鲁伦河/饮马河:漠北自西向东 -->
-    <path class="river" stroke-width="3.4" d="M 250,150 C 350,168 460,186 560,178 C 660,170 740,158 860,150"/>
-    <!-- 土拉河:和林、忽兰忽失温一带 -->
-    <path class="river" stroke-width="2.6" d="M 300,110 C 360,140 420,168 470,196 C 500,214 520,236 528,262"/>
-    <text class="rname" x="600" y="200">饮马河 · 克鲁伦河</text>
-    <text class="rname" x="332" y="140" transform="rotate(36 332 140)" style="font-size:10.5px">土 拉 河</text>
-
-    <!-- 山高:忽兰忽失温瓦剌所据 -->
-    <g class="mtn"><path d="M 470,236 l 10,-16 l 10,16 M 490,230 l 10,-16 l 10,16 M 510,236 l 9,-15 l 9,15"/></g>
+    <text class="mname" x="600" y="296" text-anchor="middle" style="fill:var(--enemy);opacity:.7">红 山 嘴 (据高)</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="helin"><circle cx="300" cy="196" r="4"/><text class="cname s" x="230" y="192">和林(瓦剌活动区)</text></g>
-      <g class="city" data-city="hulan"><circle cx="500" cy="248" r="6"/><text class="cname" x="512" y="244">忽兰忽失温<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="sanxia"><circle cx="612" cy="216" r="3.5"/><text class="cname s" x="624" y="212">三峡口·撒里怯儿</text></g>
-      <g class="city" data-city="yinma"><circle cx="560" cy="178" r="4"/><text class="cname s" x="500" y="164">饮马河(成祖驻跸)</text></g>
-      <g class="city" data-city="kaiping"><circle cx="620" cy="408" r="5"/><text class="cname" x="632" y="404">开平<tspan class="cname s" dx="2">(出塞基)</tspan></text></g>
-      <g class="city cap" data-city="beijing"><circle cx="700" cy="540" r="6"/><text class="cname" x="712" y="536">北京<tspan class="cname s" dx="2">(成祖亲征所自)</tspan></text></g>
+      <g class="city cap" data-city="hulan"><circle cx="599" cy="348" r="6.5"/><text class="cname" x="611" y="344">忽兰忽失温<tspan class="cname s" dx="2">(决战·红山嘴)</tspan></text></g>
+      <g class="city" data-city="sanxia"><circle cx="668" cy="514" r="4.5"/><text class="cname s" x="680" y="510">三峡口 · 康哈里孩</text></g>
+      <g class="city" data-city="yinma"><circle cx="812" cy="300" r="4.5"/><text class="cname s" x="700" y="292">饮马河驻跸(克鲁伦河)</text></g>
+      <g class="city" data-city="tula"><circle cx="320" cy="258" r="4.5"/><text class="cname s" x="196" y="254">土剌河(追奔至此)</text></g>
+      <g class="city" data-city="helin"><circle cx="112" cy="427" r="4.5"/><text class="cname s" x="124" y="423">和林(哈剌和林)</text></g>
+    </g>
+
+    <!-- 北京·兴和·开平(图外·东南):成祖出师来路 -->
+    <g transform="translate(700,600)">
+      <path class="march j" marker-end="url(#aj)" d="M 24,26 C 12,14 4,4 -6,-10"/>
+      <text class="mlabel j" x="20" y="20" style="font-size:10px">↙ 北京 · 兴和 · 开平(图外东南)</text>
+      <text class="cname s" x="20" y="34" style="fill:var(--advance);font-size:9px">成祖亲征出师之来路</text>
     </g>
 
     <!-- 全图 · 成祖亲征漠北 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 700,532 C 668,478 640,448 624,418"/>
-      <text class="mlabel j" x="712" y="486">成祖率大军自北京北出</text>
-      <path class="march j" marker-end="url(#aj)" d="M 616,400 C 588,340 548,290 508,258"/>
-      <text class="mlabel j" x="560" y="320">出开平,深入漠北,趋忽兰忽失温</text>
-      <text class="mlabel q" x="120" y="150">瓦剌马哈木部势张,拒命扣使</text>
-      <text class="anno" x="330" y="230">太平、把秃孛罗诸部众三万余以待</text>
+      <path class="march j" marker-end="url(#aj)" d="M 690,586 C 740,470 828,388 782,332 C 726,336 655,344 615,349"/>
+      <text class="mlabel j" x="770" y="470">朱棣率大军(号五十万)北出</text>
+      <text class="anno" x="690" y="430">自兴和越大漠 · 北度饮马河</text>
+      <rect class="camp" x="595" y="296" width="9" height="9" transform="rotate(45 599 300)"/>
+      <text class="mlabel q" x="470" y="248" text-anchor="end">瓦剌三部据高山列阵</text>
+      <text class="anno" x="470" y="268" text-anchor="end">马哈木势张 · 拒命扣使 · 逼杀本雅失里</text>
+      <circle class="star" cx="599" cy="348" r="10"/>
     </g>
 
-    <!-- 阶段一:瓦剌据高列阵 -->
+    <!-- 阶段一:亲征出塞 · 北越饮马河 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="474" y="216" width="9" height="9" transform="rotate(45 478 220)"/>
-      <text class="mlabel q" x="330" y="212">瓦剌三部三万余众据山高列阵</text>
-      <path class="march q" marker-end="url(#aq)" d="M 300,200 C 360,214 420,224 476,232"/>
-      <text class="anno" x="310" y="256">凭高之势,以逸待劳</text>
-      <path class="march j" marker-end="url(#aj)" d="M 560,300 C 540,286 522,272 512,258"/>
-      <text class="mlabel j" x="540" y="316">明军进抵山下</text>
+      <path class="march j" marker-end="url(#aj)" d="M 690,586 C 742,472 826,392 812,306"/>
+      <text class="mlabel j" x="746" y="486">朱棣携皇太孙亲征,大军北出</text>
+      <text class="anno" x="712" y="430">三月出塞,越大漠而北</text>
+      <path class="march j" marker-end="url(#aj)" d="M 806,300 C 740,318 665,340 615,349"/>
+      <text class="mlabel j" x="640" y="330">北度饮马河,趋忽兰忽失温</text>
+      <text class="anno" x="470" y="392" text-anchor="middle">六月初七,前锋抵瓦剌之境</text>
+      <text class="mlabel q" x="470" y="150" text-anchor="end">瓦剌马哈木部拥兵三万余以待</text>
     </g>
 
-    <!-- 阶段二:神机铳炮当锋 -->
+    <!-- 阶段二:瓦剌据高山列阵 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="490" y="222" width="9" height="9" transform="rotate(45 494 226)"/>
-      <text class="mlabel q" x="420" y="212">瓦剌凭高冲下</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 496,236 C 508,258 516,278 520,298"/>
-      <path class="march j" marker-end="url(#aj)" d="M 540,320 C 528,300 518,282 512,266"/>
-      <text class="mlabel j" x="540" y="342">柳升发神机铳炮当其冲</text>
-      <text class="anno" x="380" y="300">炮铳齐发,先挫瓦剌下冲之锐</text>
-      <circle class="star" cx="500" cy="248" r="9"/>
+      <rect class="camp" x="595" y="296" width="10" height="10" transform="rotate(45 600 301)"/>
+      <text class="mlabel q" x="614" y="286">瓦剌三部据红山嘴高处列阵</text>
+      <path class="march q" marker-end="url(#aq)" d="M 560,318 C 574,326 586,332 596,338"/>
+      <path class="march q" marker-end="url(#aq)" d="M 642,318 C 628,326 616,332 606,338"/>
+      <text class="anno" x="470" y="238" text-anchor="end">凭高扼险 · 居高临下 · 欲俟明军仰攻疲惫</text>
+      <path class="march j" marker-end="url(#aj)" d="M 599,430 C 599,410 599,398 599,384"/>
+      <text class="mlabel j" x="612" y="422">明军进抵山下</text>
+      <text class="anno" x="612" y="440">成祖不欲仰攻,别设诱敌之谋</text>
     </g>
 
-    <!-- 阶段三:铁骑夹击 · 追奔百里 -->
+    <!-- 阶段三:诱敌下山 · 神机营火器齐发 -->
     <g id="ph3" class="ph">
-      <path d="M 500,248 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march j" marker-end="url(#aj)" d="M 470,300 C 462,282 468,262 486,250"/>
-      <path class="march j" marker-end="url(#aj)" d="M 560,296 C 566,278 552,260 514,250"/>
-      <text class="mlabel j" x="380" y="330">铁骑左右翼夹击</text>
-      <text class="anno" x="520" y="322">自午至暮,大破之,斩获数千</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 490,238 C 420,210 350,196 306,198"/>
-      <text class="mlabel r" x="360" y="184">马哈木宵遁远走</text>
-      <text class="anno" x="560" y="230">追奔百余里,斩王子十余人</text>
+      <!-- 前锋佯退,诱瓦剌冲下 -->
+      <path class="march lure" marker-end="url(#aj)" d="M 599,352 C 590,372 585,390 582,406"/>
+      <text class="mlabel j" x="486" y="388" text-anchor="end">前锋以少诱敌 · 佯退下山</text>
+      <!-- 瓦剌骑兵凭高冲下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 599,306 C 599,332 600,356 601,378"/>
+      <text class="mlabel q" x="614" y="322">瓦剌铁骑凭高冲下,其势甚锐</text>
+      <!-- 神机营火铳火炮齐发,铳口喷焰向冲骑 -->
+      <g class="gun" transform="translate(558,412)">
+        <circle class="wheel" cx="0" cy="3" r="3.4"/><rect class="barrel" x="-2.4" y="-16" width="5" height="18" transform="rotate(-6 0 -7)"/>
+        <g class="blast" transform="translate(-3,-17)"><path class="core" d="M 0,0 l 5,-8 l 1,7 l 7,-3 l -5,7 l 6,4 l -8,1 z"/><line x1="0" y1="0" x2="3" y2="-13"/><line x1="0" y1="0" x2="11" y2="-6"/><line x1="0" y1="0" x2="12" y2="2"/></g>
+      </g>
+      <g class="gun" transform="translate(599,418)">
+        <circle class="wheel" cx="0" cy="3" r="3.6"/><rect class="barrel" x="-2.6" y="-17" width="5.4" height="19"/>
+        <g class="blast" transform="translate(0,-18)"><path class="core" d="M 0,0 l 3,-9 l 3,7 l 7,-1 l -6,6 l 4,7 l -8,-3 l -6,4 l 1,-8 z"/><line x1="0" y1="0" x2="-2" y2="-14"/><line x1="0" y1="0" x2="4" y2="-13"/><line x1="0" y1="0" x2="10" y2="-6"/></g>
+      </g>
+      <g class="gun" transform="translate(640,412)">
+        <circle class="wheel" cx="0" cy="3" r="3.4"/><rect class="barrel" x="-2.4" y="-16" width="5" height="18" transform="rotate(6 0 -7)"/>
+        <g class="blast" transform="translate(3,-17)"><path class="core" d="M 0,0 l -5,-8 l -1,7 l -7,-3 l 5,7 l -6,4 l 8,1 z"/><line x1="0" y1="0" x2="-3" y2="-13"/><line x1="0" y1="0" x2="-11" y2="-6"/><line x1="0" y1="0" x2="-12" y2="2"/></g>
+      </g>
+      <ellipse class="smoke" cx="580" cy="392" rx="30" ry="13"/><ellipse class="smoke" cx="620" cy="392" rx="30" ry="13"/>
+      <text class="mlabel g" x="470" y="452" text-anchor="end">柳升督神机营 · 火铳火炮齐发</text>
+      <text class="anno" x="470" y="470" text-anchor="end">铳炮连轰,烟尘蔽天,人马死伤枕籍,阵脚大乱</text>
+      <circle class="star" cx="599" cy="348" r="11"/>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- 阶段四:精骑两翼冲击 · 大破瓦剌 · 追至土剌河 -->
+    <g id="ph4" class="ph">
+      <path d="M 599,348 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <!-- 精骑左右两翼冲击 -->
+      <path class="march wing" marker-end="url(#aj)" d="M 542,406 C 556,370 574,346 592,330"/>
+      <path class="march wing" marker-end="url(#aj)" d="M 662,406 C 646,370 626,346 608,330"/>
+      <text class="mlabel j" x="486" y="416" text-anchor="end">成祖亲率精骑,分左右翼冲击</text>
+      <!-- 瓦剌溃遁,追至土剌河 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 580,336 C 470,308 372,282 330,266"/>
+      <text class="mlabel r" x="430" y="286" text-anchor="middle">大破瓦剌,追奔至土剌河</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 320,262 C 250,258 180,300 130,412"/>
+      <text class="mlabel r" x="176" y="330">马哈木宵遁,西走和林</text>
+      <text class="anno" x="150" y="452">势遂衰 · 明年遣使谢罪</text>
+      <text class="anno" x="600" y="298" text-anchor="middle">自午至暮,战甚烈,两军皆伤亡不轻</text>
+    </g>
+
+    <g class="compass" transform="translate(946,116)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(神机·铁骑)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>瓦剌军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(朱棣亲征)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4"/></svg>精骑两翼冲击</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2" stroke-dasharray="5 4"/></svg>诱敌下山(佯退)</span>
+    <span class="item"><svg width="20" height="16"><rect x="7" y="4" width="4" height="10" fill="#3a3327"/><path d="M 9,4 l 3,-3 l 4,2 l -3,3 z" fill="#9c7a2c"/><line x1="9" y1="3" x2="15" y2="-1" stroke="#9c7a2c" stroke-width="1.4"/></svg>神机营火铳火炮</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>瓦剌军(据高山冲下)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>瓦剌败遁</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>瓦剌营</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>瓦剌·漠北</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大明</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大漠·明军来路</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 神机火器 · 步骑协同 · 破虏漠北</h3>
+    <div class="lead">何以破瓦剌之高骑 —— 诱其骑下山而以神机营火铳火炮齐发挫之,继以精骑两翼冲击而大破</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="破敌机理示意:瓦剌据红山嘴之高地,明前锋佯退诱其铁骑冲下,至平地则神机营火铳火炮齐发挫其锋,明精骑左右两翼乘乱冲击而大破,追至土剌河">
+      <!-- 高地:瓦剌据高 -->
+      <path d="M 300,150 L 360,60 L 400,96 L 440,52 L 500,150 Z" fill="rgba(154,43,30,.10)"/>
+      <path d="M 300,150 l 26,-40 l 22,26 l 30,-46 l 26,40 l 24,-30 l 26,50" fill="none" stroke="#9a2b1e" stroke-width="1.4" opacity=".7"/>
+      <rect x="392" y="52" width="15" height="15" transform="rotate(45 399.5 59.5)" fill="#9a2b1e" opacity=".9"/>
+      <text x="418" y="52" fill="#9a2b1e" font-size="11.5" font-weight="700">瓦剌据红山嘴高地</text>
+      <text x="418" y="68" fill="#5c4f38" font-size="10">凭高列阵,居高待明军仰攻</text>
+      <!-- 明前锋诱敌 -->
+      <path d="M 400,150 C 392,172 388,186 386,200" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="5 4"/>
+      <path d="M 386,206 l -4,-12 l 8,2 z" fill="#1f4e54"/>
+      <text x="150" y="150" fill="#1f4e54" font-size="10.5" font-weight="700">明前锋佯退诱敌</text>
+      <!-- 瓦剌骑冲下 -->
+      <path d="M 400,104 C 402,132 404,158 406,182" fill="none" stroke="#9a2b1e" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 406,188 l -5,-12 l 9,1 z" fill="#9a2b1e"/>
+      <text x="418" y="140" fill="#9a2b1e" font-size="10.5" font-weight="700">铁骑凭高冲下</text>
+      <!-- 平地:神机营火器齐发 -->
+      <line x1="60" y1="206" x2="800" y2="206" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="3 4" opacity=".4"/>
+      <g transform="translate(360,216)">
+        <circle cx="0" cy="4" r="4" fill="none" stroke="#2b2418" stroke-width="1.3"/><rect x="-3" y="-20" width="6" height="22" fill="#3a3327"/>
+        <path d="M 0,-20 l 4,-11 l 4,8 l 9,-2 l -7,7 l 5,8 l -9,-3 z" fill="#9c7a2c"/>
+        <line x1="0" y1="-20" x2="-2" y2="-34" stroke="#9c7a2c" stroke-width="1.6"/><line x1="0" y1="-20" x2="6" y2="-32" stroke="#9c7a2c" stroke-width="1.6"/>
+      </g>
+      <ellipse cx="360" cy="188" rx="34" ry="14" fill="#8a7c5e" opacity=".22"/>
+      <text x="404" y="230" fill="#9c7a2c" font-size="11" font-weight="700">神机营火铳火炮齐发,挫其下冲之锐</text>
+      <!-- 精骑两翼 -->
+      <path d="M 240,240 C 290,224 320,216 356,210" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <path d="M 360,208 l -13,-1 l 6,-7 z" fill="#1f4e54"/>
+      <path d="M 620,240 C 500,222 460,216 420,210" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <path d="M 416,209 l 13,-1 l -6,-7 z" fill="#1f4e54"/>
+      <text x="628" y="228" fill="#1f4e54" font-size="10.5" font-weight="700">精骑两翼冲击</text>
+      <text x="150" y="228" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="end">乘乱夹击</text>
+    </svg>
+    <p class="intro">忽兰忽失温之胜,不在与瓦剌角力于高坡,而在<b>使其骑舍高就平、既下则以火器挫之</b>。瓦剌恃红山嘴之险,凭高列阵,居高临下,欲俟明军仰攻疲惫而击之。成祖不入其彀,反<b>以前锋之少佯退诱敌</b>:瓦剌铁骑按捺不住,如潮下山冲卷明军——正堕成祖之谋。骑既离高就平,都督柳升督<b>神机营火铳火炮齐发</b>,铳炮连轰,人马辟易;而后精骑左右两翼乘乱冲击,遂大破之。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>明 · 诱敌下山 · 火器步骑协同</h4>
+        <p>成祖不与瓦剌争高坡之利,先以前锋少骑挑之、佯退以诱其骑冲下;待瓦剌铁骑离高就平,乃令安远侯柳升督神机营,火铳火炮齐发当其锋——铳声大作、烟尘蔽天,瓦剌骑纷纷坠马,冲锐既挫。成祖复亲率精骑分左右两翼夹击,自午至暮,大破瓦剌,追奔至土剌河。此以火器野战破草原重骑,火铳步阵居中、铁骑两翼包抄之著例。</p>
+      </div>
+      <div class="c b">
+        <h4>瓦剌 · 恃高恃骑 · 冲下受铳而溃</h4>
+        <p>马哈木、太平、把秃孛罗三部众约三万,据忽兰忽失温之高山,凭高扼险、居高临下,本欲以逸待劳,俟明军仰攻力竭而乘之。然为明军之诱所动,骑兵按捺不住而倾泻下山,既离高地之利,骤遇神机火器齐发,人马死伤枕籍、阵脚大乱;又受明精骑两翼冲击,遂溃。马哈木宵遁西走,瓦剌元气大伤。</p>
+      </div>
+    </div>
+    <p class="kicker">故忽兰忽失温之破瓦剌,<b>非力战仰攻之功,实诱敌下山与神机火器之效</b>:诱其骑舍高就平于前,火铳火炮齐发挫其锋于中,精骑两翼冲击成其溃于后——<b>火器挫其骑、步骑相协以破虏</b>,为明军大规模火器野战破骑之典范。是役瓦剌势衰,明年三王遣使谢罪;然明军亦伤亡不轻,五征漠北,劳师糜饷,北患终未能尽绝。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·成祖本纪》《明太宗实录》约略绘出。忽兰忽失温在今蒙古乌兰巴托东南,和林(哈剌和林)在其西北,饮马河即克鲁伦河、土拉河为漠北大川;漠北城邑水道为相对示意,非实测画界。</p>
-    <p><span class="n">注二</span>晕染疆界为永乐间形势示意:瓦剌马哈木部据漠北,明成祖出长城、开平以亲征;大漠瀚海为南北之限,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>此役明军以神机营火器(铳炮)当骑兵之冲,先以火器齐发挫其锋,继以铁骑左右翼夹击,为明军大规模用火器野战破骑之著例。终成祖之世凡五出塞、亲征漠北,北疆暂靖;惟劳师糜饷,晚年国力亦耗。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑水道按今地经纬度作墨卡托投影(x=60+(经度−102.3)·98,y=585−(纬度−46.2)·158),几何关系力求近实:忽兰忽失温(红山嘴)居图中,土剌河(图拉河)自其东南出、经之而西北流(追击之河),饮马河(克鲁伦河)在其东北、斡难河更在东北,和林在西南,三峡口·康哈里孩在南为进军所经;北京、兴和、开平皆在图外东南(以边箭示之)。晕染疆界仅示瓦剌游牧漠北、明军自大漠以南来征之大势,以点划「约界」标瀚海大漠一线,非实测画界。依《明史·成祖本纪》《明史·柳升传》及《明太宗实录》卷一五三、卷一五四绘出。</p>
+    <p><span class="n">注二</span>地望与经纬(今地多有异说,姑取其大略以明方位):忽兰忽失温(蒙古语「红山嘴」之意,今蒙古国乌兰巴托东南、图拉河上游一带,约107.8E/47.7N,决战地),图拉河·土剌河(今蒙古国土拉河,流经乌兰巴托,明军追击之河),饮马河·克鲁伦河(今克鲁伦河上游,明军北进所度),斡难河(今鄂嫩河,方位标示),和林·哈剌和林(元旧都,今蒙古国前杭爱省鄂尔浑河畔,约102.85E/47.2N),三峡口·康哈里孩(明军进军所经,今址不详,约置于决战地之南);兴和(今河北张北一带)、开平(元上都,今内蒙古正蓝旗)、北京(今北京)俱在图外东南。决战地一带介于图拉河与克鲁伦河上游之间、乌兰巴托以东,确址史无定说。</p>
+    <p><span class="n">注三</span>行军与来路(图中青色进军、图外东南边箭):永乐十二年(1414)三月十七日,成祖朱棣携皇太孙朱瞻基,率大军(号五十万)自北京出师,历兴和(开平)出塞,越大漠而北,度饮马河(克鲁伦河),六月初七进抵瓦剌之境忽兰忽失温。瓦剌顺宁王马哈木既强,逼杀北元可汗本雅失里、拒明朝命、扣留使者,故成祖决意再度亲征(五征漠北之第二征)。明军自南而北、由大漠深入,故图中来路皆自东南入。</p>
+    <p><span class="n">注四</span>制胜之枢在「诱敌下山」与「神机营火器齐发」(图中青色诱敌虚线、金色铳炮喷焰、决战环、青色两翼):瓦剌马哈木、太平、把秃孛罗三部众约三万,据红山嘴之高山列阵,凭高扼险、居高临下,欲俟明军仰攻疲惫。成祖不轻仰攻,命前锋以少诱之、佯退下山;瓦剌铁骑不能忍,凭高冲下。都督(安远侯)柳升督神机营,火铳火炮齐发当其冲,铳炮连轰、烟尘蔽天,瓦剌人马坠地、死伤枕籍、阵脚大乱。成祖亲率精骑分左右翼乘乱冲击,自午至暮,大破之,追奔至土剌河。此为明军大规模以火器(神机营铳炮)野战破草原重骑之著例。</p>
+    <p><span class="n">注五</span>异说与考订:斩获之数(斩王子十余人、部众数千)与瓦剌兵三万、明军号五十万诸数,本《明实录》约举,不必尽实,史家亦谓是役惨烈、明军伤亡不轻。瓦剌傀儡可汗答里巴(一作德勒伯克)随马哈木遁走。战后成祖尝改忽兰忽失温之名(一说为「杀胡镇」),旋班师。瓦剌经此重创、势遂衰,永乐十三年(1415)三王(马哈木·太平·把秃孛罗)联袂遣使谢罪;然瓦剌未久复振,至正统间遂有土木之变——附记以见北患之未绝。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"成祖亲征漠北",d:"永乐十二年(1414)",p:["鞑靼既破于永乐八年首征,瓦剌马哈木部势张,拒命扣使,渐成北边之患。永乐十二年,成祖朱棣率大军亲征漠北,自北京北出,历开平而深入瀚海,趋忽兰忽失温。","瓦剌马哈木与太平、把秃孛罗三部,众三万余,据高列阵以待。成祖以神机营火器当先、铁骑继之,遂有忽兰忽失温之决战。"]},
-  "1":{t:"瓦剌据高列阵",d:"永乐十二年六月",p:["瓦剌马哈木、太平、把秃孛罗三部众三万余,据山之高处列阵以待,凭高之势,以逸待劳,欲乘明军仰攻而挫之。","明军进抵山下,遥望敌阵之峻。成祖不轻与角力于坡,而先以神机营列阵于前,议以火器破其凭高之势。"]},
-  "2":{t:"神机铳炮当锋",d:"永乐十二年六月",p:["瓦剌凭高冲下,其势甚锐。成祖以神机营火器当其冲,都督柳升发神机铳炮,炮铳齐发,先挫瓦剌下冲之锋。","火器所及,人马辟易,敌锐既折。此明军以火器野战当骑兵之冲,遏其凭高之势者也。"]},
-  "3":{t:"铁骑夹击 · 追奔百里",d:"永乐十二年六月",p:["火器既挫其锋,成祖以铁骑分左右翼夹击。瓦剌凭高冲下,战甚烈,明军柳升发神机炮毙其众,自午至暮,大破之。","追奔百余里,斩王子十余人、部众数千。瓦剌宵遁,马哈木远走。是役,明军大规模用火器破骑,北疆暂靖。"]}
+  all:{t:"成祖亲征漠北",d:"永乐十二年(1414) · 二征漠北",p:["永乐八年首征破鞑靼本雅失里、阿鲁台后,瓦剌顺宁王马哈木部势渐张:逼杀北元可汗本雅失里,拒明朝命、扣留使者,渐成北边之患。永乐十二年,成祖朱棣决意再度亲征漠北(五征之第二征),携皇太孙朱瞻基,率大军(号五十万)自北京出师,历兴和出塞,越大漠而北。","明军北度饮马河(克鲁伦河),六月初七进抵瓦剌之境忽兰忽失温(红山嘴,今乌兰巴托东南、图拉河上游)。瓦剌马哈木与太平、把秃孛罗三部,众约三万,据高山列阵以待。成祖以诱敌下山、神机营火器当锋、精骑两翼冲击破之,遂有忽兰忽失温之决战。"]},
+  "1":{t:"亲征出塞 · 北越饮马河",d:"永乐十二年三月—六月",p:["三月十七日,成祖朱棣携皇太孙朱瞻基,率大军(号五十万)自北京出师,历兴和(开平)出塞,越大漠而北。瓦剌顺宁王马哈木既逼杀本雅失里、拒命扣使,成祖决意再征。","大军北度饮马河(克鲁伦河),深入瀚海,循河而进;六月初七,前锋进抵瓦剌之境忽兰忽失温。瓦剌马哈木、太平、把秃孛罗三部,拥兵三万余,已据高山以待。"]},
+  "2":{t:"瓦剌据高山列阵",d:"永乐十二年六月初七",p:["瓦剌马哈木、太平、把秃孛罗三部众约三万,据忽兰忽失温之高山(红山嘴)列阵,凭高扼险、居高临下,欲以逸待劳,俟明军仰攻疲惫而乘之。","明军进抵山下,遥望敌阵之峻峭。成祖不欲以师徒角力于高坡、堕仰攻之疲,乃别设诱敌下山之谋,以火器为破敌之具。"]},
+  "3":{t:"诱敌下山 · 神机营火器齐发",d:"永乐十二年六月初七",p:["成祖命前锋以少骑挑瓦剌、佯退以诱其下山。瓦剌铁骑按捺不住,如潮水凭高冲下、直卷明军——正堕成祖之谋。骑既离高就平,乃命安远侯柳升督神机营,火铳火炮齐发当其冲。","铳炮连轰、烟尘蔽天,瓦剌人马纷纷坠地,死伤枕籍,阵脚大乱。此明军以火器野战当草原重骑之冲、先挫其锐者也——神机营火铳火炮齐发,为是役制胜之关键。"]},
+  "4":{t:"精骑两翼冲击 · 追至土剌河",d:"永乐十二年六月初七 · 自午至暮",p:["火器既挫瓦剌下冲之锐,成祖亲率精骑分左右两翼,乘乱冲击。瓦剌阵既乱,腹背受敌,自午至暮,战甚烈,明军大破之,追奔至土剌河(图拉河)。","马哈木宵遁,西走和林,瓦剌元气大伤。惟是役惨烈,明军亦伤亡不轻。瓦剌势遂衰,永乐十三年三王(马哈木·太平·把秃孛罗)联袂遣使谢罪;然瓦剌未久复振,北患终未能尽绝。"]}
 };
 const CITY={
-  hulan:{t:"忽兰忽失温",d:"今蒙古乌兰巴托东南",p:["永乐十二年决战之地。瓦剌三部据高列阵,成祖以神机火器当锋、铁骑夹击,大破之,追奔百余里。"]},
-  yinma:{t:"饮马河·克鲁伦河",d:"漠北大川",p:["成祖亲征驻跸之地,大军循河北进。饮马河即克鲁伦河,与土拉河同为漠北要川。"]},
-  kaiping:{t:"开平",d:"今内蒙古正蓝旗一带",p:["明军出塞之基。成祖自北京北出,历开平而深入漠北,趋忽兰忽失温。"]},
-  beijing:{t:"北京",d:"成祖亲征所自",p:["永乐十二年,成祖率大军自北京北出亲征漠北。终成祖之世凡五出塞,皆以此为本。"]},
-  helin:{t:"和林",d:"哈剌和林,今蒙古前杭爱省",p:["瓦剌活动区,漠北旧都。忽兰忽失温既败,马哈木远走其西北。"]},
-  sanxia:{t:"三峡口·撒里怯儿",d:"漠北追击处",p:["瓦剌宵遁,明军追奔百余里,至此而还。斩王子十余人、部众数千。"]}
+  hulan:{t:"忽兰忽失温(红山嘴)",d:"今蒙古国乌兰巴托东南 · 图拉河上游一带(约107.8E,47.7N)",p:["蒙古语「红山嘴」之意。永乐十二年六月决战之地,介于图拉河与克鲁伦河上游之间、乌兰巴托以东。瓦剌三部据其高山列阵,成祖诱敌下山、以神机营火器齐发挫其骑、精骑两翼冲击,大破之,追奔至土剌河。今确址史无定说。"]},
+  yinma:{t:"饮马河 · 克鲁伦河",d:"今克鲁伦河上游 · 明军北进所度",p:["成祖亲征北进所度之大川。大军自兴和出塞、越大漠,北度饮马河(克鲁伦河)而后趋忽兰忽失温。永乐首征亦尝于此一带破本雅失里。"]},
+  tula:{t:"土剌河 · 图拉河",d:"今蒙古国土拉河 · 流经乌兰巴托",p:["瓦剌败遁、明军追奔所至之河。忽兰忽失温既破,明军追奔至土剌河;马哈木沿河西遁,西走和林。图拉河为漠北大川,流经今乌兰巴托。"]},
+  sanxia:{t:"三峡口 · 康哈里孩",d:"明军进军所经 · 决战地之南(今址不详)",p:["成祖大军自兴和出塞、深入漠北,途经三峡口、康哈里孩一带而北趋忽兰忽失温。今址无定说,姑置于决战地之南以明进军之向。"]},
+  helin:{t:"和林 · 哈剌和林",d:"元旧都,今蒙古国前杭爱省鄂尔浑河畔(约102.85E,47.2N)",p:["漠北旧都、蒙古故地之心。忽兰忽失温既败,马哈木宵遁,西向和林一带远走;瓦剌势衰,明年遣使谢罪。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

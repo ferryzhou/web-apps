@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -30,24 +30,45 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 宁远城墙(放大示意) */
+  .wall{fill:rgba(110,93,60,.05);stroke:var(--ink2);stroke-width:2.4;opacity:.95}
+  .moat{fill:none;stroke:var(--water);stroke-width:1.6;opacity:.7}
+  .gate circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+  /* 红夷大炮:铳身与铳口喷焰(向密集攻城之后金军) */
+  .gun .barrel{fill:#3a3327;stroke:var(--ink);stroke-width:.7}
+  .gun .base{fill:#3a3327}
+  .gun .wheel{fill:none;stroke:var(--ink);stroke-width:1.1}
+  .blast line{stroke:var(--gold);stroke-width:1.9;stroke-linecap:round}
+  .blast .core{fill:var(--fire);opacity:.95}
+  /* 糜烂数里:金色轰击带,扫过后金密集队伍 */
+  .havoc{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .havoc.band{stroke-width:9;opacity:.20}
+  .havoc.core{stroke-width:2;opacity:.9;stroke-dasharray:1 6}
+  .smoke{fill:#8a7c5e;opacity:.20}
+  .fallen line{stroke:var(--enemy);stroke-width:1.8;stroke-linecap:round;opacity:.8}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .gname{font-size:10px;font-weight:500;fill:var(--ink2);pointer-events:none;opacity:.8}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.raid{stroke:var(--enemy);stroke-width:2.4;stroke-dasharray:7 4}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.7;stroke-dasharray:2 5;opacity:.9}
+  .ice{fill:rgba(200,215,220,.30);stroke:rgba(95,127,136,.5);stroke-width:.8;stroke-dasharray:3 3}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +77,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.raid){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,19 +105,20 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>宁</span><span>远</span><span>之</span><span>役</span></div>
+  <div class="seal" aria-hidden="true"><span>宁</span><span>远</span><span>大</span><span>捷</span></div>
   <header>
     <h1>宁远之战</h1>
-    <div class="sub">天启六年(1626)　　<i>明 袁崇焕</i> 凭坚炮却敌 · <b>后金 努尔哈赤</b>宁远受创而退</div>
+    <div class="sub">明天启六年(1626) · 宁远大捷　　<i>明 宁前道 袁崇焕</i> 凭坚城 · 用大炮 · 万余守孤城　·　<b>后金 努尔哈赤</b> 号十三万攻城不克而退 —— 明对后金之首捷</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 努尔哈赤西攻</button>
-    <button data-p="1">缮城誓守</button>
-    <button data-p="2">红夷却敌</button>
-    <button data-p="3">攻城不克</button>
+    <button class="on" data-p="all">全图 · 孤城却敌</button>
+    <button data-p="1">高第尽撤关外 · 袁独守宁远</button>
+    <button data-p="2">渡辽河 · 号十三万围城</button>
+    <button data-p="3">凭坚城 · 红夷大炮猛轰</button>
+    <button data-p="4">掠觉华 · 受挫撤军 · 旋殁</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宁远之战形势图,含明关宁防线与后金辽沈疆界、渤海辽西走廊、宁远觉华岛山海关锦州等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宁远之战形势图,以放大之宁远孤城为中心,含后金辽东与明关宁之疆界、渤海岸线与觉华岛、首山、辽西走廊,及山海关(图外西南)、锦州右屯大凌河与辽河辽沈(图外东北)之边缘箭头;示高第尽撤关外而袁崇焕独守宁远、努尔哈赤渡辽河号十三万围城、袁凭坚城以红夷大炮猛轰密集攻城之后金军而糜烂数里、后金转掠觉华岛乘海冰屠其军民而主攻受挫撤军">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,85 +127,161 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:后金据辽东(东北,辽沈已陷),明据关宁(西南,山海关—宁远防线);约以辽河、大凌河一线为界 -->
-    <path d="M 470,0 C 500,80 540,150 590,230 C 640,310 700,380 760,440 C 810,490 870,540 940,600 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 500,80 540,150 590,230 C 640,310 700,380 760,440 C 810,490 870,540 940,600 L 1000,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 500,80 540,150 590,230 C 640,310 700,380 760,440 C 810,490 870,540 940,600"/>
-    <text class="realm q" x="720" y="150" font-size="30">后 金(辽东)</text>
-    <text class="realm j" x="120" y="520" font-size="28">明 · 关 宁</text>
+    <!-- ══ 疆界:后金据辽东(东北,辽沈广宁已陷),明尽撤关外独宁远孤悬;约以辽河—锦州一线为界(示意) ══ -->
+    <path d="M 470,0 C 540,120 610,240 700,340 C 780,428 870,486 1000,548 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 540,120 610,240 700,340 C 780,428 870,486 1000,548 L 1000,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 540,120 610,240 700,340 C 780,428 870,486 1000,548"/>
+    <text class="realm q" x="726" y="130" font-size="25">后 金 · 辽 东</text>
+    <text class="cname s" x="730" y="154" style="fill:var(--enemy);opacity:.55">辽沈·广宁已陷 · 努尔哈赤来向</text>
+    <text class="realm j" x="70" y="150" font-size="24">明 · 关 宁</text>
+    <text class="cname s" x="74" y="174" style="fill:var(--advance);opacity:.6">高第尽撤关外 · 独宁远一城孤守</text>
 
-    <!-- 渤海:南 -->
-    <path class="river" stroke-width="0" d="M 0,560 L 1000,560"/>
-    <path d="M 0,540 C 200,560 460,566 620,548 C 760,532 880,530 1000,538 L 1000,640 L 0,640 Z" fill="rgba(95,127,136,.16)" stroke="none"/>
-    <path class="river" stroke-width="2.2" d="M 40,548 C 260,566 500,566 700,546 C 820,534 920,536 1000,542"/>
-    <text class="rname" x="360" y="600" style="font-size:14px;letter-spacing:.4em">渤　海</text>
+    <!-- ══ 辽西丘陵·松岭:走廊西北之山 ══ -->
+    <path class="mtn fill" d="M 96,214 L 128,168 L 152,196 L 182,158 L 208,196 L 232,168 L 256,208 Z"/>
+    <g class="mtn"><path d="M 104,208 l 20,-30 l 16,22 l 22,-32 l 18,26 M 190,196 l 16,-24 l 14,20"/></g>
+    <text class="mname" x="150" y="252" transform="rotate(-8 150 252)">松 岭 · 辽 西 丘 陵</text>
+    <text class="cname s" x="250" y="330" style="letter-spacing:.2em;opacity:.7">辽 西 走 廊</text>
 
-    <!-- 辽河:后金西攻所渡 -->
-    <path class="river" stroke-width="3" d="M 640,20 C 660,110 700,220 750,320 C 790,400 830,470 880,530"/>
-    <text class="rname" x="726" y="250" transform="rotate(66 726 250)" style="font-size:11px">辽　河</text>
-    <!-- 大凌河:右屯一线 -->
-    <path class="river" stroke-width="2.2" d="M 560,120 C 590,210 630,320 690,430"/>
-    <text class="rname" x="612" y="290" transform="rotate(62 612 290)" style="font-size:10.5px">大凌河</text>
+    <!-- ══ 渤海:东南岸线,觉华岛在海中 ══ -->
+    <path d="M 250,540 C 420,468 560,414 760,358 C 860,332 940,320 1000,314 L 1000,640 L 250,640 Z" fill="rgba(95,127,136,.16)" stroke="none"/>
+    <path class="river" stroke-width="2.4" d="M 250,540 C 420,468 560,414 760,358 C 860,332 940,322 1000,316"/>
+    <text class="rname" x="720" y="470" style="font-size:15px;letter-spacing:.4em">渤　海</text>
 
-    <!-- 辽西走廊 -->
-    <text class="cname s" x="300" y="330" style="letter-spacing:.16em">辽 西 走 廊</text>
+    <!-- 辽河(图外东北,努尔哈赤西渡):图内仅露右上一段 -->
+    <path class="river" stroke-width="2.6" d="M 968,60 C 946,120 918,176 902,232"/>
+    <text class="rname" x="908" y="150" transform="rotate(70 908 150)" style="font-size:10.5px">辽　河</text>
 
-    <!-- 首山:后金列营处,近宁远城 -->
-    <g class="mtn"><path d="M 386,236 l 9,-15 l 9,15 M 404,229 l 9,-15 l 9,15 M 422,236 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="392" y="256">首山</text>
+    <!-- 首山:宁远城西南之山,后金列营处 -->
+    <g class="mtn"><path d="M 300,398 l 12,-22 l 12,22 M 320,392 l 11,-20 l 11,20"/></g>
+    <text class="mname" x="298" y="416" style="letter-spacing:.14em">首 山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 宁远孤城(放大示意方城;实城周仅六里,图中夸大以见炮城之守) ══ -->
+    <path class="moat" d="M 337,230 L 503,230 Q 511,230 511,238 L 511,362 Q 511,370 503,370 L 337,370 Q 329,370 329,362 L 329,238 Q 329,230 337,230 Z"/>
+    <rect class="wall" x="345" y="238" width="150" height="124" rx="5"/>
+    <!-- 城门名(不可点) -->
+    <text class="gname" x="404" y="234">春和门</text>
+    <text class="gname" x="404" y="380">延辉门</text>
+    <text class="gname" x="512" y="304">永宁门</text>
+    <text class="gname" x="300" y="304" text-anchor="end">威远门</text>
+
+    <!-- 红夷大炮:置城头,炮口向西南(后金列营首山之向) -->
+    <g class="gun" transform="translate(352,360) rotate(200)"><circle class="wheel" cx="0" cy="4" r="3.2"/><rect class="barrel" x="-2.4" y="-15" width="5" height="17"/></g>
+    <g class="gun" transform="translate(392,362) rotate(180)"><circle class="wheel" cx="0" cy="4" r="3.2"/><rect class="barrel" x="-2.4" y="-15" width="5" height="17"/></g>
+    <g class="gun" transform="translate(438,362) rotate(180)"><circle class="wheel" cx="0" cy="4" r="3.2"/><rect class="barrel" x="-2.4" y="-15" width="5" height="17"/></g>
+    <g class="gun" transform="translate(345,306) rotate(250)"><circle class="wheel" cx="0" cy="4" r="3.2"/><rect class="barrel" x="-2.4" y="-15" width="5" height="17"/></g>
+
+    <!-- ══ 城邑(可点) ══ -->
     <g id="cities">
-      <g class="city cap" data-city="ningyuan"><circle cx="360" cy="300" r="7"/><text class="cname" x="286" y="296">宁远<tspan class="cname s" dx="2">(死守)</tspan></text></g>
-      <g class="city" data-city="juehua"><circle cx="440" cy="470" r="4.5"/><text class="cname s" x="450" y="474">觉华岛</text></g>
-      <g class="city" data-city="shanhaiguan"><circle cx="150" cy="428" r="5"/><text class="cname" x="86" y="424">山海关</text></g>
-      <g class="city" data-city="jinzhou"><circle cx="560" cy="176" r="4.5"/><text class="cname" x="572" y="172">锦州</text></g>
-      <g class="city" data-city="youtun"><circle cx="660" cy="230" r="4"/><text class="cname s" x="672" y="226">右屯·大凌河</text></g>
-      <g class="city" data-city="shoushan"><circle cx="404" cy="238" r="3"/><text class="cname s" x="414" y="228">首山营</text></g>
+      <g class="city cap" data-city="ningyuan"><circle cx="420" cy="300" r="6.5"/><text class="cname" x="432" y="296">宁远<tspan class="cname s" dx="2">(孤城·十一炮)</tspan></text></g>
+      <g class="city" data-city="juehua"><circle cx="572" cy="440" r="5"/><text class="cname" x="584" y="436">觉华岛</text></g>
+      <g class="city" data-city="shoushan"><circle cx="322" cy="380" r="3.6"/></g>
     </g>
 
-    <!-- 全图 · 努尔哈赤西攻 -->
+    <!-- 山海关·关内(图外西南):明军后盾 -->
+    <g transform="translate(16,556)">
+      <path class="march j" marker-end="url(#aj)" d="M 40,10 C 24,6 12,4 -2,2" opacity=".85"/>
+      <text class="mlabel j" x="0" y="-6" style="font-size:10px">⟵ 山海关 · 关内(图外西南)</text>
+      <text class="cname s" x="0" y="30" style="fill:var(--advance);font-size:9px">高第退守 · 关宁防线后盾</text>
+    </g>
+
+    <!-- 锦州·右屯·辽河·辽沈(图外东北):后金来向 -->
+    <g transform="translate(838,40)">
+      <text class="mlabel q" x="14" y="6" style="font-size:10px">辽河 · 辽沈 ↗(图外东北)</text>
+      <text class="cname s" x="14" y="22" style="fill:var(--enemy);font-size:9px">努尔哈赤自沈阳渡辽河西来</text>
+      <text class="cname s" x="14" y="36" style="fill:var(--enemy);font-size:9px">锦州·右屯·大凌河(高第所弃)</text>
+    </g>
+
+    <!-- ══════════ 全图 · 孤城却敌 ══════════ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 700,120 C 640,150 560,190 480,238 C 440,262 410,282 386,296"/>
-      <text class="mlabel q" x="500" y="180">努尔哈赤号十三万,渡辽河西攻</text>
-      <text class="anno" x="470" y="220">正月,直逼宁远,连陷右屯、大凌河诸堡</text>
-      <text class="mlabel j" x="120" y="440">高第尽撤关外兵,独袁崇焕请守宁远</text>
-      <text class="anno" x="200" y="382">凭坚城、列红夷炮,坚壁清野以待</text>
+      <path class="march q" marker-end="url(#aq)" d="M 902,120 C 800,180 660,258 560,300 C 520,316 486,320 452,314"/>
+      <text class="mlabel q" x="600" y="238">努尔哈赤号十三万,渡辽河西攻</text>
+      <text class="anno" x="612" y="256">连下右屯·大凌河诸弃城,直逼宁远</text>
+      <circle class="siege" cx="420" cy="300" r="70"/>
+      <!-- 红夷大炮轰击·糜烂数里 -->
+      <path class="havoc band" d="M 372,352 C 340,380 312,404 288,424"/>
+      <path class="havoc core" d="M 372,352 C 340,380 312,404 288,424"/>
+      <circle class="star" cx="420" cy="300" r="20"/>
+      <text class="mlabel g" x="150" y="470">凭坚城·用大炮 · 炮过糜烂数里</text>
+      <text class="mlabel j" x="150" y="200">袁崇焕万余守孤城,誓与城存亡</text>
+      <!-- 觉华之屠 -->
+      <path class="march raid" marker-end="url(#aq)" d="M 452,332 C 500,372 540,404 566,428"/>
+      <text class="mlabel q" x="590" y="470">分兵掠觉华岛,乘海冰屠军民</text>
+      <!-- 受挫撤军 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 470,266 C 620,220 780,168 906,118"/>
+      <text class="mlabel r" x="640" y="150">攻城两日不克,努尔哈赤受创而退</text>
     </g>
 
-    <!-- 阶段一:缮城誓守·列炮清野 -->
+    <!-- ══════════ 阶段一:高第尽撤关外 · 袁崇焕独守宁远 ══════════ -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="360" cy="300" r="34"/>
-      <text class="mlabel j" x="240" y="256">缮城储械,置红夷大炮十一门于城上</text>
-      <text class="anno" x="252" y="344">刺血为盟,偃旗死守,拒不出战</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 466,466 C 430,460 400,452 388,436"/>
-      <text class="anno" x="404" y="452">坚壁清野,徙近郊军民入城</text>
-      <path class="march q" marker-end="url(#aq)" d="M 470,240 C 440,258 414,272 392,288"/>
-      <text class="mlabel q" x="430" y="230">后金列营首山,进逼城下</text>
+      <!-- 高第尽撤关外兵:自东北弃城退山海关 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 862,150 C 700,240 520,320 300,430 C 220,470 140,510 70,540"/>
+      <text class="mlabel r" x="560" y="360" transform="rotate(-24 560 360)">经略高第尽撤关外兵,弃锦州·右屯·大凌河退守山海关</text>
+      <!-- 袁崇焕独守:缮城列炮 -->
+      <text class="mlabel j" x="150" y="200">宁前道袁崇焕独抗命,誓守宁远孤城</text>
+      <text class="anno" x="150" y="220">刺血为书,集将士盟誓,与城存亡</text>
+      <g class="gun" transform="translate(392,362) rotate(180)"><rect class="barrel" x="-2.4" y="-16" width="5" height="18"/><g class="blast" transform="translate(0,-16)"><path class="core" d="M 0,0 l 3,-6 l 3,4 l 5,-1 l -4,5 l 3,5 l -6,-2 z"/><line x1="0" y1="0" x2="0" y2="-8"/></g></g>
+      <text class="mlabel g" x="470" y="326">缮城储械 · 列红夷大炮十一门于城上</text>
+      <text class="anno" x="470" y="344">分置四隅,孙元化等教习炮手,以城护炮·以炮卫城</text>
+      <!-- 坚壁清野 -->
+      <path class="march j" marker-end="url(#aj)" d="M 322,372 C 356,360 384,346 402,332" opacity=".8"/>
+      <text class="anno" x="230" y="452">坚壁清野,徙城外军民刍粮入城,焚其余积</text>
     </g>
 
-    <!-- 阶段二:红夷大炮却敌 -->
+    <!-- ══════════ 阶段二:渡辽河 · 号十三万围城 ══════════ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="360" cy="300" r="30"/>
-      <path class="march q" marker-end="url(#aq)" d="M 420,286 C 402,290 386,294 376,298"/>
-      <path class="march q" marker-end="url(#aq)" d="M 414,320 C 398,318 384,312 376,306"/>
-      <text class="mlabel q" x="416" y="276">后金冒死凿城,穿穴攻具</text>
-      <circle class="star" cx="360" cy="300" r="15"/>
-      <text class="mlabel j" x="200" y="298">红夷大炮列城上,循环轰击</text>
-      <text class="anno" x="200" y="330">炮过糜烂数里,后金死伤累累,凿城者被却</text>
+      <path class="march q" marker-end="url(#aq)" d="M 960,80 C 900,150 860,210 902,236"/>
+      <text class="mlabel q" x="820" y="150">正月,努尔哈赤自沈阳率大军渡辽河西攻</text>
+      <path class="march q" marker-end="url(#aq)" d="M 892,240 C 740,300 600,318 470,308"/>
+      <text class="mlabel q" x="560" y="288">号十三万(实约五六万),乘明尽撤以为孤城可下</text>
+      <text class="anno" x="470" y="270">先取右屯·大凌河诸弃城,得高第所委粟十余万石</text>
+      <circle class="siege" cx="420" cy="300" r="62"/>
+      <rect class="camp" x="317" y="373" width="10" height="10" transform="rotate(45 322 378)"/>
+      <text class="mlabel q" x="150" y="430">进营首山·环围宁远,列楯车攻具于城下</text>
+      <text class="mlabel j" x="150" y="200">袁崇焕偃旗死守,拒不出战,专恃坚城巨炮</text>
     </g>
 
-    <!-- 阶段三:攻城不克·退掠觉华 -->
+    <!-- ══════════ 阶段三:凭坚城 · 红夷大炮猛轰 · 攻城两日不克 ══════════ -->
     <g id="ph3" class="ph">
-      <text class="mlabel j" x="250" y="288">相持数日,城终不拔</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 380,292 C 460,250 560,200 640,150"/>
-      <text class="mlabel r" x="470" y="222">努尔哈赤攻城不克,愤懑而退</text>
-      <path class="march q" marker-end="url(#aq)" d="M 384,308 C 410,360 430,420 440,458"/>
-      <text class="mlabel q" x="446" y="400">转掠觉华岛,屠军民、焚粮船</text>
-      <text class="anno" x="470" y="180">旋以创病殁,是年八月卒</text>
+      <!-- 后金蜂拥攻城·凿城 -->
+      <path class="march q" marker-end="url(#aq)" d="M 300,430 C 336,400 362,382 384,362"/>
+      <path class="march q" marker-end="url(#aq)" d="M 356,438 C 372,412 386,392 398,372"/>
+      <text class="mlabel q" x="200" y="470">后金冒死凿城,楯车穴城,迫于雉堞之下</text>
+      <!-- 红夷大炮齐发·糜烂数里 -->
+      <g class="gun" transform="translate(352,360) rotate(206)"><rect class="barrel" x="-2.6" y="-17" width="5.4" height="19"/><g class="blast" transform="translate(0,-17)"><path class="core" d="M 0,0 l 4,-8 l 3,6 l 6,-1 l -5,6 l 4,7 l -8,-3 z"/><line x1="0" y1="0" x2="-2" y2="-12"/><line x1="0" y1="0" x2="5" y2="-11"/><line x1="0" y1="0" x2="11" y2="-4"/></g></g>
+      <g class="gun" transform="translate(392,362) rotate(184)"><rect class="barrel" x="-2.6" y="-17" width="5.4" height="19"/><g class="blast" transform="translate(0,-17)"><path class="core" d="M 0,0 l 3,-9 l 3,7 l 7,-1 l -6,6 l 4,7 l -8,-3 l -6,4 l 1,-8 z"/><line x1="0" y1="0" x2="-2" y2="-13"/><line x1="0" y1="0" x2="4" y2="-12"/></g></g>
+      <g class="gun" transform="translate(438,362) rotate(172)"><rect class="barrel" x="-2.6" y="-17" width="5.4" height="19"/><g class="blast" transform="translate(0,-17)"><path class="core" d="M 0,0 l -4,-8 l -3,6 l -6,-1 l 5,6 l -4,7 l 8,-3 z"/><line x1="0" y1="0" x2="2" y2="-12"/><line x1="0" y1="0" x2="-5" y2="-11"/></g></g>
+      <!-- 糜烂数里:轰击带扫过密集队伍 -->
+      <path class="havoc band" d="M 378,356 C 344,384 314,410 286,432"/>
+      <path class="havoc core" d="M 378,356 C 344,384 314,410 286,432"/>
+      <ellipse class="smoke" cx="330" cy="404" rx="40" ry="18"/>
+      <g class="fallen" transform="translate(300,426)"><line x1="0" y1="0" x2="12" y2="4"/><line x1="2" y1="8" x2="14" y2="6"/><line x1="-4" y1="12" x2="9" y2="13"/><line x1="18" y1="2" x2="30" y2="7"/><line x1="20" y1="10" x2="31" y2="12"/></g>
+      <circle class="star" cx="380" cy="356" r="12"/>
+      <circle class="star" cx="352" cy="362" r="10"/>
+      <text class="mlabel g" x="150" y="500">袁登陴督发红夷大炮,循环轰击</text>
+      <text class="anno" x="150" y="518">火星所及无不糜烂,炮过处糜烂数里,后金死伤枕籍</text>
+      <text class="mlabel j" x="470" y="220">相持两日,坚城屹然不拔,凿城者尽却</text>
+      <text class="anno" x="470" y="238">传后金一大头目中炮,舁去(或即努尔哈赤,说详注五)</text>
     </g>
 
-    <g class="compass" transform="translate(944,120)">
+    <!-- ══════════ 阶段四:掠觉华 · 受挫撤军 · 努尔哈赤旋殁 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 觉华岛之屠:乘海冰破岛 -->
+      <ellipse class="ice" cx="512" cy="404" rx="70" ry="30" transform="rotate(-16 512 404)"/>
+      <path class="march raid" marker-end="url(#aq)" d="M 438,344 C 486,378 526,406 558,428"/>
+      <text class="mlabel q" x="470" y="360">分兵乘海冰攻觉华岛</text>
+      <text class="mlabel q" x="588" y="452">屠岛上军民七千余</text>
+      <text class="anno" x="588" y="470">焚粮船积粟,水营尽毁</text>
+      <!-- 主攻受挫·退营龙宫寺·撤军 -->
+      <rect class="camp" x="356" y="404" width="9" height="9" transform="rotate(45 360 408)"/>
+      <text class="anno" x="230" y="440">攻城不克,退营城西南龙宫寺(去城五里)</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 470,278 C 640,232 800,180 912,128"/>
+      <text class="mlabel r" x="640" y="176">努尔哈赤攻两日不能拔,愤懑而退,东渡辽河北还</text>
+      <text class="mlabel j" x="150" y="200">宁远大捷 —— 明起兵以来对后金之首捷</text>
+      <text class="anno" x="150" y="220">努尔哈赤自二十五起兵四十四年未尝败,至此大挫</text>
+      <text class="anno" x="150" y="238">是年八月十一,以创病(一说抑郁)殁于叆鸡堡,年六十八</text>
+    </g>
+
+    <g class="compass" transform="translate(946,110)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -178,34 +291,87 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(袁崇焕)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后金军(八旗)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>受创而退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>炮却敌</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>后金围攻</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>后金</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后金军(努尔哈赤)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="7 4"/></svg>掠觉华岛(海冰)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>后金受挫撤军</span>
+    <span class="item"><svg width="22" height="16"><rect x="9" y="3" width="4" height="10" fill="#3a3327"/><path d="M 11,3 l 3,-3 l 4,2 l -3,3 z" fill="#c8641e"/><line x1="11" y1="2" x2="18" y2="-2" stroke="#9c7a2c" stroke-width="1.4"/></svg>红夷大炮</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="8" opacity=".2"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="1 6"/></svg>糜烂数里(炮轰)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>却敌·大捷</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>后金围城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>后金·辽东</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明·关宁</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 凭坚城 · 用大炮 · 挫努尔哈赤</h3>
+    <div class="lead">何以万余之众能守孤城而挫四十四年不败之劲敌 —— 不与之野战,凭坚城以困其骑;据城列炮,以巨炮碎其密集攻城之众</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="宁远制胜示意:后金恃八旗铁骑野战无敌、四十四年未尝败、兵众号十三万;袁崇焕不出城野战,凭坚城据守使骑兵无所骋,又以红夷大炮十一门据城头猛轰密集攻城之后金军,炮过糜烂数里,遂使攻城两日不克而退">
+      <!-- 上:后金之恃 下:袁崇焕之应 -->
+      <text x="24" y="30" fill="#9a2b1e" font-size="12" font-weight="700">后金之恃 · 铁骑野战</text>
+      <line x1="22" y1="42" x2="838" y2="42" stroke="#9a2b1e" stroke-width="2" opacity=".32" stroke-dasharray="3 4"/>
+      <text x="24" y="232" fill="#1f4e54" font-size="12" font-weight="700">袁崇焕之应 · 凭坚城 · 用大炮</text>
+      <line x1="22" y1="208" x2="838" y2="208" stroke="#1f4e54" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+
+      <!-- 左路:野战 → 凭坚城不出 -->
+      <rect x="40" y="54" width="196" height="40" rx="4" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="52" y="72" fill="#9a2b1e" font-size="11.5" font-weight="700">八旗铁骑,野战无敌</text>
+      <text x="52" y="88" fill="#9a2b1e" font-size="11.5" font-weight="700">四十四年未尝一败</text>
+      <path d="M 138,96 L 138,150" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="4 4" opacity=".7"/>
+      <rect x="40" y="150" width="210" height="44" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="52" y="168" fill="#1f4e54" font-size="11.5" font-weight="700">偃旗死守,拒不出战</text>
+      <text x="52" y="184" fill="#1f4e54" font-size="11.5" font-weight="700">坚壁清野,骑兵无所骋其锋</text>
+      <text x="150" y="120" fill="#1f4e54" font-size="10.5" font-weight="700">不野战 → 长技尽废</text>
+
+      <!-- 右路:攻城 → 据城列炮 -->
+      <rect x="360" y="54" width="210" height="40" rx="4" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="372" y="72" fill="#9a2b1e" font-size="11.5" font-weight="700">舍骑就步,蜂拥凿城</text>
+      <text x="372" y="88" fill="#9a2b1e" font-size="11.5" font-weight="700">密集队伍迫于城下</text>
+      <!-- 城·炮 -->
+      <rect x="410" y="150" width="86" height="46" rx="3" fill="rgba(110,93,60,.06)" stroke="#5c4f38" stroke-width="1.6"/>
+      <text x="424" y="178" fill="#5c4f38" font-size="11" font-weight="700">宁远坚城</text>
+      <!-- 红夷炮 -->
+      <g transform="translate(453,138)"><rect x="-3" y="-6" width="6" height="14" fill="#3a3327"/><path d="M 0,-6 l -4,-9 l 4,3 l 4,-3 z" fill="#c8641e"/><line x1="0" y1="-8" x2="-3" y2="-20" stroke="#9c7a2c" stroke-width="1.6"/><line x1="0" y1="-8" x2="3" y2="-20" stroke="#9c7a2c" stroke-width="1.6"/></g>
+      <!-- 糜烂带 -->
+      <path d="M 448,128 C 400,120 340,116 300,116" fill="none" stroke="#9c7a2c" stroke-width="7" opacity=".2"/>
+      <path d="M 448,128 C 400,120 340,116 300,116" fill="none" stroke="#9c7a2c" stroke-width="1.8" stroke-dasharray="1 6"/>
+      <g stroke="#9a2b1e" stroke-width="1.8" opacity=".8"><line x1="300" y1="112" x2="312" y2="116"/><line x1="298" y1="122" x2="310" y2="124"/><line x1="322" y1="110" x2="334" y2="114"/></g>
+      <text x="270" y="104" fill="#9c7a2c" font-size="10.5" font-weight="700" text-anchor="end">炮过糜烂数里</text>
+      <text x="590" y="150" fill="#9a2b1e" font-size="12" font-weight="700">攻城两日 → 不克而退</text>
+      <text x="590" y="170" fill="#7a5a23" font-size="10.5">大头目中炮 · 努尔哈赤旋殁</text>
+    </svg>
+    <p class="intro">宁远之守,不在与后金争一日之勇,而在<b>使其长技无所施</b>。后金所恃者,八旗铁骑野战驰突、四十四年未尝一败;宁远既是关外仅存之孤城,努尔哈赤遂以为无城敢守、一鼓可下。袁崇焕之谋,正与之反其道:一则<b>偃旗死守、坚壁清野,拒不出战</b>——不野战,则铁骑纵横之利尽废;二则<b>据坚城之高,列红夷大炮以轰其密集攻城之众</b>——骑兵舍马就步、蜂拥凿城,恰为巨炮之的。非徒守之坚,乃以火器易攻守之势。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>凭坚城 · 不与野战</h4>
+        <p>广宁失守、辽沈尽陷,经略高第主尽撤关外、退保山海关;独袁崇焕抗命请守,以万余之众守宁远孤城。城既固,则崇焕偃旗息鼓、拒不出战,又坚壁清野、徙城外军民刍粮入城,使后金深入而无所因粮。后金铁骑虽悍,临坚城而不得野战之利,乃不得不舍其所长、就攻城之所短——此以「不战」制其「善战」也。</p>
+      </div>
+      <div class="c b">
+        <h4>用大炮 · 碎其攻众</h4>
+        <p>崇焕先购西洋红夷大炮十一门,置城头分守四隅,遣孙元化等教习炮手,以城护炮、以炮卫城。后金蜂拥凿城,密集迫于雉堞之下,正入炮火之的;崇焕登陴督发,循环轰击,「火星所及无不糜烂」,炮过之处糜烂数里,死伤枕籍,凿城者尽却。相持两日,坚城不拔,传后金一大头目亦中炮舁去——「凭坚城、用大炮」之效,于此立见。</p>
+      </div>
+    </div>
+    <p class="kicker">故宁远之全,不在城之独坚,而在<b>易攻守之势</b>:不出战以废敌骑野战之长,据城列炮以碎敌步众攻城之势——巨炮之下,骑射无所用,人多反为炮的。努尔哈赤攻两日不能下一城,转掠觉华岛屠其军民而主攻终挫,愤懑东还,数月而殁。<b>「凭坚城、用大炮」自此定为关宁守御之法</b>,明人赖以支撑辽西二十年——宁远一炮,实开关宁防线之局。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·袁崇焕传》《清太祖实录》约略绘出。宁远即今辽宁兴城,觉华岛(今菊花岛)在城东南海中,山海关在其西南,锦州、右屯·大凌河诸堡在其东北;渤海岸线、辽河、大凌河及城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为天启六年辽东形势示意:广宁失守后辽沈尽入后金,明尽弃关外,独宁远一城孤悬,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>红夷大炮乃泛西洋葡制前装炮,袁崇焕置十一门于宁远城上,「凭坚城、用大炮」遂为关宁守御之法。努尔哈赤自二十五岁起兵四十余年未尝败绩,至宁远大挫,愤懑而退,是年八月病殁——此为明军对后金之首捷。</p>
+    <p><span class="n">注一</span>本图为示意图。城邑水道按今地经纬度作线性投影(x=420+(经度−120.72)·760,y=300−(纬度−40.61)·1000,北上东右),几何方位力求近实:觉华岛在宁远东南海中,首山在城西南,渤海岸线在东南;山海关在西南、锦州·右屯·大凌河及辽河·辽沈在东北,俱远出图外,以边缘箭头示之。惟宁远城周仅约六里,若按同一比例则聚为一点,故<b>中央方城系放大之示意</b>,城门(春和·延辉·永宁·威远)依真实相对方位环列,红夷大炮列城头亦为夸大之象征,非实测位置。</p>
+    <p><span class="n">注二</span>晕染疆界为天启六年正月辽东形势示意:天启初广宁失守,辽沈尽入后金;经略高第主尽撤关外之守,弃锦州、右屯、大凌河诸城退保山海关,独宁远一城孤悬关外,故以点划「约界」略标辽河—锦州一线,非实有画界。城邑经纬:宁远即今辽宁兴城(约120.72E/40.61N),觉华岛即今兴城东南海中之菊花岛(约120.92E/40.47N),首山在城西南(约120.60E/40.52N);山海关约119.75E/40.01N(今河北秦皇岛),锦州约121.13E/41.10N,右屯·大凌河约121.4E/41.2N(今辽宁凌海一带),沈阳约123.43E/41.80N、辽阳约123.17E/41.27N(后金都会,图外东北)。</p>
+    <p><span class="n">注三</span>行军皆由陆路:后金自沈阳西出,渡辽河、循辽西走廊而西,连下右屯·大凌河诸弃城以逼宁远;明军则专守孤城,无出战之举。惟<b>觉华岛一路特异</b>:该岛为明军水营与屯粮之所,时值隆冬海面封冻,后金乃遣蒙古骑兵(将佟养性·武纳格部)踏海冰登岛,故图中以虚线「海冰」标之——是役后金之「水路」实为冰路。军食一节:高第撤兵时委弃粟十余万石于右屯,尽资后金;而宁远则坚壁清野、并力守城,粮械先备,故围而不匮。</p>
+    <p><span class="n">注四</span>制胜之枢在「凭坚城、用大炮」(见上「释要」):袁崇焕先事购西洋红夷大炮十一门(泛指葡人所铸前装重炮,时称「红夷」),置宁远城头、分守四隅,遣孙元化等教习炮法,以城护炮、以炮卫城。正月二十四、二十五,后金蜂拥攻城,冒死凿城穿穴,楯车迫于堞下;崇焕登陴督发,炮循环轰击,「火星所及,无不糜烂」,炮过糜烂数里,后金军密集队伍死伤枕籍,凿城者尽却。攻两日不能拔,乃退营城西南五里之龙宫寺,复分兵掠觉华岛。此为明军以据城重炮挫后金锐骑之首例,「凭坚城、用大炮」遂定为关宁守御之法。</p>
+    <p><span class="n">注五</span>异说与考订。兵数:后金军号十三万,史家多以为夸,实约五六万;明守军万余(一作九千余)。伤亡:后金攻城折损甚众,《明史》谓「炮过处打死北骑无算」;觉华岛军民被屠约七千余(一作万余),焚粮八万余石、船二千余艘。<b>努尔哈赤中炮之说</b>:朝鲜《春坡堂日月录》等载后金一「大头目」中炮舁去,或即努尔哈赤,清人亦多信之;然袁崇焕奏捷未尝明言炮中努尔哈赤,努尔哈赤撤宁远后犹征蒙古喀尔喀,至是年八月十一始殁于叆鸡堡(年六十八),或死于疽发、抑郁,是否直缘宁远炮创,史无定论,姑并志之。战期:后金正月十四渡辽河、二十三、四抵宁远,攻二日;斩获献首二百六十有九级送京。依《明史·袁崇焕传》《清太祖实录》《国榷》及朝鲜史料绘出。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"努尔哈赤西攻",d:"天启六年正月",p:["广宁失守后,明尽弃关外,独袁崇焕请守宁远。崇焕缮城储械,置葡制红夷大炮十一门于城上,与将士刺血为盟、誓死守。","天启六年正月,努尔哈赤乘辽东经略高第尽撤关外兵之机,率大军号十三万渡辽河西攻,连陷右屯、大凌河诸堡,直逼宁远孤城。"]},
-  "1":{t:"缮城誓守·列炮清野",d:"天启六年正月",p:["崇焕缮城储械,列红夷大炮十一门于城上,分守四隅;与将士刺血为盟,偃旗息鼓,坚壁死守,拒不出战。","并行坚壁清野,尽徙城外军民、刍粮入城,焚其余积,使后金无所因粮。后金军进列营于首山,进逼宁远城下。"]},
-  "2":{t:"红夷大炮却敌",d:"天启六年正月廿四—廿五",p:["后金军蜂拥攻城,冒死凿城穿穴,楯车攻具迫于雉堞之下。崇焕亲登陴督战,发红夷大炮循环轰击。","炮过之处糜烂数里,后金死伤累累,凿城者亦被击退,城下积尸相枕。相持数日,坚城屹然不拔。"]},
-  "3":{t:"攻城不克·退掠觉华",d:"天启六年正月—八月",p:["努尔哈赤自二十五岁起兵,四十余年未尝败绩,至宁远攻城不克,大挫锐气,愤懑而退。转兵掠觉华岛,岛上明军水寨凭冰而阵,后金乘海冰破之,屠戮岛上军民、焚其粮船。","努尔哈赤旋以创发(一说愤郁成疾),是年八月病殁。此为明军对后金之首捷,「凭坚城、用大炮」遂定为关宁守御之法。"]}
+  all:{t:"孤城却敌 · 宁远大捷",d:"明天启六年(1626)正月",p:["辽东经略高第主尽撤关外之守,弃锦州、右屯、大凌河诸城退保山海关;独宁前道袁崇焕抗命请守,以万余之众守宁远孤城,缮城储械,列西洋红夷大炮十一门于城上,刺血为盟、誓与城存亡。","努尔哈赤乘明尽撤、以为孤城可下,率大军号十三万渡辽河西攻,连下右屯诸弃城,直逼宁远、环城而围。崇焕偃旗死守、坚壁清野,专恃坚城巨炮;后金蜂拥攻城,崇焕以红夷大炮循环猛轰,炮过糜烂数里、死伤枕籍,攻两日不克。后金转掠觉华岛、乘海冰屠其军民而主攻终挫,努尔哈赤受创愤懑而退,数月后八月病殁——是为明起兵以来对后金之首捷。"]},
+  "1":{t:"高第尽撤关外 · 袁崇焕独守宁远",d:"天启六年正月(战前)",p:["天启初广宁失守,辽沈尽陷。新任辽东经略高第怯于后金之势,主尽撤关外之兵,尽弃锦州、右屯、大凌河及松山、杏山诸城堡,退守山海关;所委粟十余万石弃于右屯,后皆资敌。关外守御,一朝瓦解。","独宁前道袁崇焕抗命不撤,曰「我宁前道也,官此当死此,我必不去!」乃独守宁远孤城。刺血为书、集将士盟誓,誓与城存亡;缮城储械,购置西洋红夷大炮十一门,分置城头四隅,遣孙元化等教习炮手，以城护炮、以炮卫城;又坚壁清野,徙城外军民刍粮入城,焚其余积,使后金深入而无所因粮。"]},
+  "2":{t:"渡辽河 · 号十三万围城",d:"天启六年正月十四—二十三",p:["努尔哈赤自二十五岁起兵,四十四年未尝一败;闻明尽撤关外,以为宁远孤悬无援、一鼓可下,遂决意西攻。正月十四,亲率大军自沈阳出师,渡辽河而西,号十三万(史家多以为夸,实约五六万)。","大军先取右屯、大凌河诸弃城,得高第所委之粟以自资,长驱直逼宁远。二十三、四日抵城,环城为营、进列楯车攻具,别营于城西南之首山。袁崇焕则偃旗息鼓、拒不出战,尽敛军民入城,专恃坚城与红夷大炮以待其攻。"]},
+  "3":{t:"凭坚城 · 红夷大炮猛轰 · 攻城两日不克",d:"天启六年正月二十四—二十五",p:["后金军蜂拥攻城,冒死凿城穿穴,楯车、攻具迫于雉堞之下,填壕陷堞,势甚危急。袁崇焕亲登陴督战,令城头红夷大炮循环轰击,当其密集之众。","「火星所及,无不糜烂」,炮过之处糜烂数里,后金军密集队伍死伤枕籍,凿城者亦被击退,城下积尸相枕。相持两日,坚城屹然不拔;朝鲜史料且载后金一「大头目」中炮被舁去,或即努尔哈赤(说详注)。此以据城重炮挫后金锐骑之首例——凭坚城、用大炮之效,于此立见。"]},
+  "4":{t:"掠觉华 · 受挫撤军 · 努尔哈赤旋殁",d:"天启六年正月二十六—八月",p:["攻城既不克,努尔哈赤退营城西南五里之龙宫寺,复分兵掠觉华岛。岛为明军水营、屯粮之所,时值隆冬海冻,后金遣蒙古骑兵踏海冰登岛,明水兵凭冰而阵不能拒,遂被屠军民七千余,焚粮八万余石、船二千余艘。然主攻宁远终挫,努尔哈赤不得已东渡辽河北还。","努尔哈赤起兵四十四年未尝败绩,至宁远一城不能下,大挫锐气,愤懑而归;是年八月十一,以创病(一说抑郁成疾)殁于叆鸡堡,年六十八。宁远之捷,乃明起兵以来对后金之首捷;袁崇焕声名大振,「凭坚城、用大炮」遂定为关宁守御之法,明人赖以支撑辽西二十年。"]}
 };
 const CITY={
-  ningyuan:{t:"宁远",d:"今辽宁兴城,时属关外孤城",p:["袁崇焕死守之地。缮城储械,列红夷大炮十一门于城上,凭坚拒守,炮却努尔哈赤,成明军对后金首捷。"]},
-  juehua:{t:"觉华岛",d:"今辽宁兴城东南海中(菊花岛)",p:["明军水寨、屯粮之所。努尔哈赤攻宁远不克,乘海冰破岛,屠戮岛上军民、焚其粮船。"]},
-  shanhaiguan:{t:"山海关",d:"关宁防线后盾,今河北秦皇岛",p:["天下第一关,京师门户。经略高第尽撤关外兵,退守于此;宁远既捷,遂为关宁防线之依托。"]},
-  jinzhou:{t:"锦州",d:"宁远之北屏,今辽宁锦州",p:["宁远以北之要冲。此役中已在后金锋镝之下;宁远捷后明复图修守,数年后有大凌河、松锦诸役。"]},
-  youtun:{t:"右屯·大凌河",d:"后金南下必经,今辽宁凌海一带",p:["高第撤兵时委弃粮械十余万石于此。努尔哈赤西攻,先取右屯、大凌河诸堡,乃逼宁远。"]},
-  shoushan:{t:"首山",d:"宁远城北近郊之山",p:["后金列营处。大军进逼,营于首山,自此环攻宁远,终不能拔。"]}
+  ningyuan:{t:"宁远(孤城)",d:"今辽宁兴城,时属关外仅存之孤城(约120.72E,40.61N)",p:["袁崇焕死守之地。高第尽撤关外,独崇焕抗命守此。缮城储械,列西洋红夷大炮十一门于城头分守四隅,偃旗死守、坚壁清野;后金蜂拥攻城,崇焕以巨炮循环猛轰,炮过糜烂数里,攻两日不克,遂成明对后金之首捷。此后「凭坚城、用大炮」为关宁防线之本。"]},
+  juehua:{t:"觉华岛",d:"今辽宁兴城东南海中之菊花岛(约120.92E,40.47N)",p:["明军水营与屯粮之所,宁远之海上仓储。努尔哈赤攻宁远不克,分兵掠此;时隆冬海面封冻,后金遣蒙古骑兵踏海冰登岛,明水兵凭冰列阵不能拒,岛上军民七千余被屠,焚粮八万余石、船二千余艘。宁远既捷而觉华被屠,故是役明人谓之惨胜。"]},
+  shoushan:{t:"首山",d:"宁远城西南之山(约120.60E,40.52N)",p:["后金列营之地。大军围宁远,营于城西南首山一带;攻城不克后,又退营城西南五里之龙宫寺。首山、龙宫寺皆在城之西南,故图中后金攻势与炮火皆自城之南、西南相向。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

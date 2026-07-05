@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,11 +27,11 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .sea{fill:var(--water);opacity:.17}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:1 5 7 5;opacity:.55;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .isle{fill:var(--ink2);opacity:.5}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,26 +40,52 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.qsea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.jsea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.92}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.fship{stroke:var(--fire);stroke-width:3.4}
+  .barrier{fill:none;stroke:var(--advance);stroke-width:4;stroke-linecap:round;opacity:.92}
+  .barrier.tick{stroke-width:1.6;opacity:.8}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--fire)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .camp{fill:var(--enemy);opacity:.9}
+  .chain{stroke:var(--enemy);stroke-width:1.3;opacity:.85}
+  .ship{fill:none;stroke:var(--enemy);stroke-width:1.8}
+  .wind{fill:none;stroke:var(--gold);stroke-width:2.4;opacity:.9}
+  .wlabel{fill:var(--gold);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(192,73,31,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--fire);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--fire)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--fire)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qsea):not(.jsea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,103 +95,170 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>鄱</span><span>阳</span><span>之</span><span>役</span></div>
   <header>
     <h1>鄱阳湖之战</h1>
-    <div class="sub">元至正二十三年(1363)　　<i>朱元璋 · 俞通海</i> 火焚汉舟 · <b>陈友谅</b>中矢殒于泾江</div>
+    <div class="sub">元至正二十三年(1363)　　<i>朱元璋 · 俞通海</i> 以小舟乘东北风火焚巨舰,大破 <b>陈友谅</b>六十万　·　友谅中矢殒于泾江口</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 汉围洪都 · 明师来援</button>
-    <button data-p="1">康郎山初战 · 巨舰难攻</button>
-    <button data-p="2">东北风起 · 火焚汉舟</button>
-    <button data-p="3">汉军粮尽 · 友谅殒泾江</button>
+    <button class="on" data-p="all">全图 · 汉围洪都 · 明师入湖</button>
+    <button data-p="1">巨舰围洪都 · 来援入湖</button>
+    <button data-p="2">康郎山决战 · 巨舰联锁</button>
+    <button data-p="3">东北风火攻 · 焚楼船数百</button>
+    <button data-p="4">扼守湖口 · 困敌 · 殒泾江</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="鄱阳湖之战形势图,含陈汉朱明疆界、长江赣江与鄱阳湖水面、康郎山泾江口洪都湖口等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="鄱阳湖之战形势图,含长江赣江与鄱阳湖水面、陈汉据西朱明据东之约界,及南昌洪都、康郎山、湖口、泾江口、江州九江诸地,与陈友谅巨舰联锁围洪都、朱元璋舟师入湖、康郎山决战、东北风火攻焚楼船数百、扼守湖口泾江口断归路、陈友谅突围中矢死">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
     </defs>
 
-    <!-- 疆界:陈汉据西(武昌·江州),朱明据东(应天·南昌) -->
-    <path d="M 300,0 C 320,120 300,220 280,320 C 262,410 250,510 270,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 300,0 C 320,120 300,220 280,320 C 262,410 250,510 270,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 300,0 C 320,120 300,220 280,320 C 262,410 250,510 270,640"/>
-    <text class="realm q" x="70" y="120" font-size="30">陈 汉(西)</text>
-    <text class="realm j" x="820" y="580" font-size="30">朱 明(东)</text>
+    <!-- ══ 疆界:陈汉据西(武昌·江州),朱明据东(应天·洪都),约以赣鄱之西为限 ══ -->
+    <path d="M 470,0 C 450,140 420,250 380,340 C 340,430 300,540 258,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 450,140 420,250 380,340 C 340,430 300,540 258,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 450,140 420,250 380,340 C 340,430 300,540 258,640"/>
+    <text class="realm q" x="96" y="96" font-size="30">陈 汉 · 西</text>
+    <text class="realm j" x="800" y="602" font-size="30">朱 明 · 东</text>
+    <text class="rname" x="150" y="430" style="font-size:10.5px;opacity:.8">约界 · 二雄夹江对峙</text>
 
-    <!-- 鄱阳湖(主水面) -->
-    <path class="sea" d="M 560,120 C 640,140 690,200 700,280 C 712,360 700,440 660,510 C 620,560 560,580 520,560 C 490,540 486,490 500,440 C 512,398 508,360 496,326 C 484,290 486,250 512,200 C 528,168 536,138 560,120 Z"/>
-    <text class="rname" x="600" y="360" style="font-size:15px;letter-spacing:.3em">鄱 阳 湖</text>
+    <!-- ══ 长江:自西(武昌·江州)东下,过湖口北折,趋安庆·应天 ══ -->
+    <g>
+      <path class="sea" d="M 0,246 C 130,226 270,194 395,178 C 440,172 470,170 483,158 C 500,142 500,112 500,84 C 500,46 526,16 575,-8 L 596,4 C 550,26 522,54 522,88 C 522,120 522,152 502,178 C 484,200 452,200 400,206 C 272,222 132,250 4,270 Z"/>
+      <path class="river" stroke-width="6" d="M 0,258 C 130,238 270,206 395,190 C 440,184 470,184 486,168 C 502,150 500,116 500,86 C 500,48 536,18 585,-6"/>
+    </g>
+    <text class="rname" x="150" y="228" style="font-size:15px">长　江</text>
 
-    <!-- 长江:自西(江州·湖口)东下,北缘 -->
-    <path class="river" stroke-width="5.5" d="M 0,150 C 140,158 280,168 380,180 C 470,192 520,206 560,240 C 610,282 660,300 740,306 C 840,314 920,320 1000,326"/>
-    <!-- 赣江:自南(南昌)北注鄱阳湖 -->
-    <path class="river" stroke-width="3" d="M 560,600 C 556,540 552,480 548,430 C 544,390 548,350 560,320"/>
-    <text class="rname" x="120" y="172" style="font-size:13px">长 江</text>
-    <text class="rname" x="540" y="520" transform="rotate(-84 540 520)" style="font-size:11px">赣 江</text>
+    <!-- 赣江:自南注洪都·入鄱阳湖 -->
+    <path class="river" stroke-width="3" d="M 345,600 C 350,562 358,536 366,518 C 378,498 405,482 436,474"/>
+    <text class="rname" x="330" y="566" transform="rotate(-80 330 566)" style="font-size:11px">赣　江</text>
 
-    <!-- 康郎山(湖中小屿) -->
-    <g class="mtn"><path d="M 572,378 l 7,-12 l 7,12 M 586,372 l 7,-12 l 7,12"/></g>
+    <!-- ══ 鄱阳湖:北狭(湖口)南阔(康郎山·余干) ══ -->
+    <path class="sea" d="M 462,195 C 505,235 548,290 568,350 C 575,395 560,435 535,458 C 500,480 452,480 438,472 C 405,455 390,405 392,355 C 394,310 408,262 445,210 C 452,200 456,197 462,195 Z"/>
+    <text class="rname" x="452" y="330" style="font-size:16px;letter-spacing:.3em">鄱　阳　湖</text>
 
-    <!-- 城邑 -->
+    <!-- 康郎山(湖中之屿) -->
+    <g class="isle"><ellipse cx="538" cy="430" rx="11" ry="6.5"/></g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="kanglang"><circle cx="590" cy="392" r="5"/><text class="cname" x="600" y="388">康郎山<tspan class="cname s" dx="2">(初战)</tspan></text></g>
-      <g class="city" data-city="jingjiang"><circle cx="676" cy="286" r="5"/><text class="cname" x="686" y="282">泾江口<tspan class="cname s" dx="2">(友谅殁)</tspan></text></g>
-      <g class="city cap" data-city="nanchang"><circle cx="548" cy="470" r="6"/><text class="cname" x="472" y="490">南昌<tspan class="cname s" dx="2">(洪都)</tspan></text></g>
-      <g class="city" data-city="hukou"><circle cx="560" cy="240" r="5"/><text class="cname" x="500" y="222">江州·湖口</text></g>
-      <g class="city cap" data-city="wuchang"><circle cx="120" cy="300" r="6"/><text class="cname" x="132" y="296">武昌<tspan class="cname s" dx="2">(汉都)</tspan></text></g>
-      <g class="city cap" data-city="yingtian"><circle cx="900" cy="200" r="6"/><text class="cname" x="820" y="196">应天<tspan class="cname s" dx="2">(明基)</tspan></text></g>
+      <g class="city cap" data-city="nanchang"><circle cx="365" cy="520" r="6.5"/><text class="cname" x="290" y="512">南昌<tspan class="cname s" dx="2">(洪都)</tspan></text></g>
+      <g class="city cap" data-city="kanglang"><circle cx="538" cy="430" r="6"/><text class="cname" x="548" y="426">康郎山<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="hukou"><circle cx="472" cy="179" r="6"/><text class="cname" x="482" y="176">湖口<tspan class="cname s" dx="2">(入江口)</tspan></text></g>
+      <g class="city" data-city="jingjiang"><circle cx="498" cy="84" r="5.5"/><text class="cname" x="508" y="80">泾江口<tspan class="cname s" dx="2">(友谅殁)</tspan></text></g>
+      <g class="city" data-city="jiangzhou"><circle cx="401" cy="185" r="5.5"/><text class="cname" x="332" y="182">江州<tspan class="cname s" dx="2">(九江)</tspan></text></g>
+      <g class="city" data-city="nanhuzui"><circle cx="443" cy="149" r="3.5"/><text class="cname s" x="378" y="140">南湖嘴</text></g>
     </g>
 
-    <!-- 全图 · 汉围洪都 · 明师来援 -->
+    <!-- 图外来向 -->
+    <g transform="translate(8,300)">
+      <path class="march qsea" marker-end="url(#aq)" d="M 30,0 L 4,0"/>
+      <text class="mlabel q" x="0" y="-8" style="font-size:10px">⟵ 武昌 · 江州(图外西)</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--enemy);font-size:9.5px">陈汉根本,巨舰顺流东下</text>
+    </g>
+    <g transform="translate(846,96)">
+      <path class="march jsea" marker-end="url(#aj)" d="M 120,0 L 146,0"/>
+      <text class="mlabel j" x="118" y="-8" style="font-size:10px;text-anchor:end">应天 · 南京(图外东北) ⟶</text>
+      <text class="cname s" x="118" y="16" style="fill:var(--advance);font-size:9.5px;text-anchor:end">朱明根本,舟师溯江来援</text>
+    </g>
+
+    <!-- ══ 全图 · 汉围洪都 · 明师入湖 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 132,300 C 260,320 400,360 520,450"/>
-      <text class="mlabel q" x="200" y="360">陈友谅倾国六十万,载家属百官,巨舰围洪都</text>
-      <rect class="camp" x="540" y="500" width="9" height="9" transform="rotate(45 544 504)"/>
-      <text class="anno" x="460" y="524">朱文正婴城死守八十五日不下</text>
-      <path class="march sea" marker-end="url(#aj)" d="M 888,208 C 780,238 700,258 596,270"/>
-      <text class="mlabel j" x="640" y="238">朱元璋率舟师二十万入湖来援</text>
-      <text class="anno" x="600" y="330">友谅解围东出,两军遇于鄱阳</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 60,296 C 180,320 300,420 360,500"/>
+      <text class="mlabel q" x="120" y="356">陈友谅倾国六十万,巨舰联舟,围洪都</text>
+      <g class="siege"><circle cx="365" cy="520" r="20"/><circle cx="365" cy="520" r="27" style="opacity:.5"/></g>
+      <text class="anno" x="250" y="556">朱文正婴城死守八十五日不下</text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 966,102 C 700,150 560,166 486,176"/>
+      <text class="mlabel j" x="560" y="140">朱元璋率舟师二十万溯江入湖来援</text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 476,190 C 500,280 520,360 534,414"/>
+      <text class="anno" x="546" y="360">友谅解围东出,决战于康郎山</text>
+      <circle class="star" cx="538" cy="430" r="9"/>
     </g>
 
-    <!-- 阶段一:康郎山初战 · 巨舰难攻 -->
+    <!-- ══ 阶段一:巨舰围洪都 · 来援入湖 ══ -->
     <g id="ph1" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 556,430 C 570,414 580,404 588,398"/>
-      <text class="mlabel q" x="500" y="426">汉军巨舰联锁为阵,高大如城</text>
-      <path class="march sea" marker-end="url(#aj)" d="M 620,352 C 610,368 602,378 596,386"/>
-      <text class="mlabel j" x="620" y="344">明舟小,不能仰攻</text>
-      <circle class="star" cx="590" cy="392" r="8"/>
-      <text class="anno" x="470" y="410">初战失利,徐达焚一舰,俞通海冒火突进</text>
-      <text class="anno" x="520" y="424">死伤颇众,元璋座舟胶浅几危</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 60,300 C 180,326 280,430 356,502"/>
+      <text class="mlabel q" x="90" y="360">友谅乘明救安丰、后方空虚,巨舰围洪都</text>
+      <g class="siege"><circle cx="365" cy="520" r="20"/><circle cx="365" cy="520" r="27" style="opacity:.5"/></g>
+      <rect class="camp" x="361" y="516" width="9" height="9" transform="rotate(45 365 520)"/>
+      <text class="anno" x="250" y="556">朱文正、邓愈死守八十五日,城几陷复完</text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 966,104 C 720,152 560,168 486,178"/>
+      <text class="mlabel j" x="556" y="150">元璋自将舟师二十万,溯江径趋湖口</text>
+      <path class="barrier tick" d="M 486,96 L 512,90 M 452,158 L 476,150"/>
+      <text class="anno" x="512" y="112">先遣兵守泾江口、南湖嘴,断汉军归路</text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 472,192 C 492,270 512,352 528,414"/>
+      <text class="mlabel j" x="536" y="300">舟师南入,趋康郎山</text>
     </g>
 
-    <!-- 阶段二:东北风起 · 火焚汉舟 -->
+    <!-- ══ 阶段二:康郎山决战 · 巨舰联锁 ══ -->
     <g id="ph2" class="ph">
-      <path class="march sea" marker-end="url(#aj)" d="M 640,300 C 626,332 610,362 598,384"/>
-      <text class="mlabel j" x="630" y="300">元璋用郭兴计,乘东北风纵火</text>
-      <path d="M 590,392 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="470" y="400">汉巨舰联锁,焰延不能解,烈焰涨天</text>
-      <text class="anno" x="480" y="416">焚溺死者大半,友谅弟友仁·友贵皆死</text>
+      <!-- 汉巨舰联锁为阵 -->
+      <g>
+        <rect class="ship" x="486" y="404" width="26" height="14" rx="2"/>
+        <rect class="ship" x="512" y="416" width="26" height="14" rx="2"/>
+        <rect class="ship" x="538" y="428" width="26" height="14" rx="2"/>
+        <rect class="ship" x="510" y="442" width="26" height="14" rx="2"/>
+        <line class="chain" x1="512" y1="411" x2="512" y2="423"/>
+        <line class="chain" x1="538" y1="423" x2="538" y2="435"/>
+        <line class="chain" x1="536" y1="435" x2="536" y2="449"/>
+      </g>
+      <text class="mlabel q" x="556" y="452">汉巨舰联锁为阵,高数丈,望之如山如城</text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 470,300 C 480,340 490,378 502,406"/>
+      <text class="mlabel j" x="416" y="316">明舟小,分二十队,火器薄之,不能仰攻</text>
+      <circle class="star" cx="528" cy="428" r="12"/>
+      <text class="anno" x="320" y="470">初战不利,元璋座舟胶浅,几为张定边所乘</text>
+      <text class="anno" x="356" y="486">常遇春射定边,俞通海来援,乃得脱</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 486,414 C 448,406 420,400 400,398"/>
+      <text class="mlabel q" x="356" y="392">定边直犯帅舟</text>
     </g>
 
-    <!-- 阶段三:汉军粮尽 · 友谅殒泾江 -->
+    <!-- ══ 阶段三:东北风火攻 · 焚楼船数百 ══ -->
     <g id="ph3" class="ph">
-      <text class="anno" x="470" y="404">相持月余,汉军粮尽,谋出湖</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 584,384 C 572,340 566,296 562,256"/>
-      <text class="mlabel r" x="500" y="316">友谅突围,趋湖口</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 566,236 C 600,224 640,220 668,268"/>
-      <text class="mlabel r" x="560" y="216">出湖口趋泾江口</text>
-      <circle class="star" cx="676" cy="286" r="8"/>
-      <text class="mlabel q" x="686" y="308">中流矢贯睛及颅而死</text>
-      <text class="anno" x="600" y="330">汉军遂溃,余部尽降;江南定,明基奠</text>
+      <!-- 东北风:自东北来,吹向西南汉阵 -->
+      <path class="wind" marker-end="url(#af)" d="M 690,300 C 620,338 560,378 522,414"/>
+      <text class="wlabel" x="628" y="300" font-size="20">东北风</text>
+      <!-- 火船:敢死士载荻苇火药,顺风冲汉阵 -->
+      <path class="march fship" marker-end="url(#af)" d="M 470,320 C 486,356 500,388 514,414"/>
+      <path class="march fship" marker-end="url(#af)" d="M 448,346 C 468,376 486,402 500,424"/>
+      <text class="mlabel f" x="400" y="332">元璋遣敢死士驾火船,乘风纵火</text>
+      <!-- 火焰:延烧联锁巨舰 -->
+      <g class="fire">
+        <path d="M 500,412 q -6,-14 2,-24 q 3,10 8,6 q -2,12 4,18"/>
+        <path d="M 522,424 q -5,-13 2,-22 q 3,10 7,5 q -2,12 3,16"/>
+        <path d="M 478,420 q -5,-12 1,-20 q 3,8 7,5 q -2,10 3,14"/>
+      </g>
+      <path class="fire" d="M 468,410 q 22,-22 44,-14 q 22,-12 42,8" stroke-dasharray="2 4"/>
+      <text class="flabel" x="556" y="384" font-size="22">烈焰涨天</text>
+      <circle class="star" cx="520" cy="424" r="12"/>
+      <text class="anno" x="360" y="474">风急火烈,联舟不得解,焚汉楼船数百</text>
+      <text class="anno" x="380" y="490">焚溺死者大半,友谅弟友仁、友贵皆死</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:扼守湖口 · 困敌 · 殒泾江 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 明师移扼湖口·泾江口封锁线 -->
+      <path class="barrier" d="M 446,168 C 470,158 492,158 512,170"/>
+      <path class="barrier tick" d="M 452,162 L 460,148 M 478,156 L 486,142 M 502,162 L 510,148"/>
+      <text class="mlabel j" x="514" y="196">元璋移军扼湖口,又守泾江口、南湖嘴</text>
+      <g class="siege"><circle cx="500" cy="380" r="24"/><circle cx="500" cy="380" r="32" style="opacity:.5"/></g>
+      <rect class="camp" x="496" y="376" width="9" height="9" transform="rotate(45 500 380)"/>
+      <text class="anno" x="360" y="352">相持月余,汉军粮尽,士卒多叛</text>
+      <!-- 陈友谅突围:自湖出湖口,冲长江趋泾江口 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 502,362 C 490,300 480,240 476,196"/>
+      <text class="mlabel r" x="404" y="268">友谅冒死突围,趋湖口</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 476,172 C 484,140 490,112 496,96"/>
+      <text class="mlabel r" x="382" y="120">出湖口,冲长江</text>
+      <circle class="star" cx="498" cy="84" r="10"/>
+      <text class="mlabel q" x="512" y="60">中流矢贯睛及颅而死</text>
+      <text class="anno" x="360" y="540">汉军遂溃,余众尽降;江南大定,明基奠焉</text>
+    </g>
+
+    <g class="compass" transform="translate(948,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -174,35 +267,100 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(朱元璋)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>汉军(陈友谅)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>舟师·水战</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军溃走</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>明军 · 朱元璋舟师</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>汉军 · 陈友谅巨舰</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#c0491f" stroke-width="3.4"/></svg>火船 · 火攻</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="4"/></svg>扼湖口封锁线</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>汉军突围溃走</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,11 C 12,4 20,4 26,10" fill="none" stroke="#9c7a2c" stroke-width="2.2"/></svg>东北风</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战 / 火攻</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>陈汉</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>朱明</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>陈汉(西)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>朱明(东)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>火攻释要 · 以小制大 · 火焚联舟 · 扼口绝归</h3>
+    <div class="lead">何以六十万巨舰一炬而溃 —— 舟小则灵,乘东北风火焚联锁楼船;既胜复扼湖口以绝其归,困而歼之</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="鄱阳湖释要示意:陈友谅联锁巨舰列于湖中,朱元璋以小舟乘东北风纵火船焚之,复以战船扼守湖口断其归路">
+      <!-- 鄱阳湖(横贯) -->
+      <rect x="24" y="40" width="620" height="150" rx="10" fill="#5f7f88" opacity=".14"/>
+      <text x="300" y="30" fill="#5f7f88" font-size="11" font-style="italic" opacity=".85">鄱　阳　湖</text>
+      <!-- 湖口(右侧狭口,通长江) -->
+      <path d="M 644,86 L 720,60 L 720,170 L 644,144 Z" fill="#5f7f88" opacity=".14"/>
+      <text x="654" y="212" fill="#5f7f88" font-size="10.5" font-style="italic" opacity=".85">湖口 → 长江</text>
+      <!-- 陈:联锁巨舰(大而相连) -->
+      <g>
+        <rect x="360" y="96" width="46" height="26" rx="2" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+        <rect x="418" y="96" width="46" height="26" rx="2" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+        <rect x="476" y="96" width="46" height="26" rx="2" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+        <rect x="534" y="96" width="46" height="26" rx="2" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+        <line x1="406" y1="109" x2="418" y2="109" stroke="#9a2b1e" stroke-width="1.6"/>
+        <line x1="464" y1="109" x2="476" y2="109" stroke="#9a2b1e" stroke-width="1.6"/>
+        <line x1="522" y1="109" x2="534" y2="109" stroke="#9a2b1e" stroke-width="1.6"/>
+      </g>
+      <text x="360" y="88" fill="#9a2b1e" font-size="10.5" font-weight="700">陈 六十万 · 巨舰联锁,首尾相接,不能骤动</text>
+      <!-- 火焰延烧 -->
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 432,96 q -5,-13 2,-22 q 3,9 7,5 q -2,11 3,15"/>
+        <path d="M 490,96 q -5,-13 2,-22 q 3,9 7,5 q -2,11 3,15"/>
+        <path d="M 548,96 q -5,-13 2,-22 q 3,9 7,5 q -2,11 3,15"/>
+      </g>
+      <!-- 朱:小舟·火船自左(西北)乘风冲入 -->
+      <g fill="none" stroke="#1f4e54" stroke-width="1.6">
+        <path d="M 150,150 l 26,0 l -5,10 l -16,0 Z"/>
+        <path d="M 186,164 l 26,0 l -5,10 l -16,0 Z"/>
+      </g>
+      <text x="120" y="188" fill="#1f4e54" font-size="10.5" font-weight="700">朱 二十万 · 舟小灵,分二十队</text>
+      <path d="M 214,150 l 30,0 l -6,12 l -18,0 Z" fill="#c0491f" opacity=".9"/>
+      <path d="M 216,140 q 6,-12 13,-6 q 7,-8 13,4" fill="none" stroke="#c0491f" stroke-width="1.8"/>
+      <text x="196" y="132" fill="#c0491f" font-size="10.5" font-weight="700">火船</text>
+      <path d="M 250,150 C 300,132 350,118 400,110" fill="none" stroke="#c0491f" stroke-width="2.6" marker-end="url(#af)"/>
+      <!-- 东北风:自右上(东北)吹向左下(西南) -->
+      <path d="M 620,44 C 540,66 460,84 396,100" fill="none" stroke="#9c7a2c" stroke-width="3" opacity=".85" marker-end="url(#af)"/>
+      <text x="548" y="52" fill="#9c7a2c" font-size="13" font-weight="700" font-family="'Ma Shan Zheng',serif">东北风</text>
+      <!-- 扼湖口:朱战船横江封口 -->
+      <g stroke="#1f4e54" stroke-width="4" fill="none">
+        <path d="M 656,72 C 668,84 668,146 656,158"/>
+      </g>
+      <path d="M 700,116 C 760,116 800,116 836,116" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="694" y="242" fill="#7a5a23" font-size="10.5" font-weight="700">扼湖口 · 断归路,友谅突围中矢死 ✕</text>
+    </svg>
+    <p class="intro">陈友谅乘朱元璋北救安丰、后方空虚,倾国六十万,载家属百官,以<b>楼船高数丈、上下三层、联舟布阵</b>顺流围洪都;朱文正死守八十五日不下。元璋自将舟师二十万溯江来援,入鄱阳湖决战于康郎山。汉舰高大而<b>联锁不能骤动</b>,明舟小,仰攻不能及,初战失利——此其致命之隙。相持数日,东北风急,机至矣。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>以小制大 · 火攻焚舟</h4>
+        <p>元璋察汉舰联锁难动,乃法赤壁故事:分舟师为二十队,各具火器;候东北风急,遣敢死士驾载荻苇火药之小舟,顺风直冲汉阵纵火。汉巨舰联锁不得解,风急火烈,须臾烈焰涨天,湖水尽赤,焚楼船数百,焚溺死者大半,友谅弟友仁、友贵皆死。舟小之灵,恰以制巨舰之重。</p>
+      </div>
+      <div class="c b">
+        <h4>扼口绝归 · 困而歼之</h4>
+        <p>火攻之后,元璋不急于战,而移军扼守湖口,又分兵守泾江口、南湖嘴,尽断汉军出湖归武昌之路。相持月余,汉军粮尽援绝,士卒多叛。友谅计穷,冒死拥余众突围,出湖口冲入长江;至泾江口,自舟中引首出,中流矢贯睛及颅而死。汉军遂溃,余众尽降。</p>
+      </div>
+    </div>
+    <p class="kicker">故鄱阳之胜,不在众寡,而在<b>以短制长</b>:友谅恃巨舰之高大,反受联锁不能解、一炬俱焚之祸;元璋以舟小之灵、火攻之烈破其舰,复以<b>扼湖口</b>断其归、困其粮而毕其功。此役水火交攻,略同赤壁;既胜,元璋尽有江南,遂得专意经略——<b>有明开国之基,实奠于此一战</b>。越五年而称帝,是为洪武。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·太祖本纪》《明史·陈友谅传》《国初群雄事略》约略绘出。鄱阳湖在今江西,康郎山、泾江口位置为相对示意;江州即今九江,湖口在鄱阳湖入江之口,南昌即元之洪都。湖面、水道经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为至正末形势示意:陈友谅建汉据西,都武昌,兼有江州;朱元璋据东,基应天,南略洪都。二雄夹江对峙,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>陈友谅乘朱元璋救援安丰、后方空虚,倾巢六十万众围洪都。朱文正死守八十五日不下,元璋亲援。汉军巨舰高大联锁,明舟小不能仰攻,初战失利;赖东北风纵火,焚溺过半——胜负之间,系于一风。相持粮尽,友谅出湖口趋泾江口中矢死,江南遂定,有明开国之基于此奠焉。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(投影式 x=40+(经度−114.89)·325,y=611−(纬度−28.40)·325):南昌(洪都,约115.89°E/28.68°N)、康郎山(鄱阳湖中,今余干西北,约116.45°E/28.95°N)、湖口(鄱阳湖入长江之口,约116.22°E/29.73°N)、泾江口(今安徽宿松南、湖口下游长江上,约116.30°E/30.02°N)、江州(今江西九江,约116.00°E/29.71°N)、南湖嘴(湖口西北,约116.13°E/29.82°N)。武昌(陈汉都,约114.30°E)在图外西、应天(朱明基,今南京约118.79°E)在图外东北,俱以边缘箭头示来向。鄱阳湖、长江、赣江形貌皆经简化。</p>
+    <p><span class="n">注二</span>疆界与来路:是役唯陈、朱两方。<b>陈友谅</b>(大汉皇帝,朱)据长江中游,都武昌,兼有江州,乘明救安丰而空虚,倾国六十万东出围洪都(图外西来,巨舰顺流);<b>朱元璋</b>(朱明,青)基应天,舟师二十万溯江来援(图外东北来),入鄱阳湖决战。晕染之约界(陈据西、朱据东)仅示二雄夹江对峙之大势,非实有画界;江州时为汉军前据,虽绘于近界之处,聊示形势耳。</p>
+    <p><span class="n">注三</span>行军之水陆:两军皆以舟师水战为主。陈以<b>巨舰联锁</b>(水),朱以<b>小舟灵动、火船火攻</b>(水)破之;既胜,朱<b>移舟扼守湖口、泾江口</b>断汉归路(水);汉军粮尽,<b>突围出湖冲江</b>(水)而友谅殒。此役无漕运粮道之争,其「命脉」乃在<b>扼湖口之封锁</b>:封锁在则汉困于湖、粮尽而歼;此以水军扼江口、困敌于死湖之奇功也(详见上『火攻释要』)。</p>
+    <p><span class="n">注四</span>兵力与异说:陈友谅号六十万(《明史·陈友谅传》),朱元璋号二十万,实数当略逊。相持之日,《明史·太祖本纪》系是役于至正二十三年七月至八月,前后约月余;或云自七月二十战康郎山,至八月二十六友谅殒,凡三十余日。火攻乘东北风,《太祖本纪》《俞通海传》皆载舟师冒死突进、纵火焚汉舟事;友谅弟友仁、友贵及其太尉张定边并见史传。友谅中矢之地,诸书作泾江口,今属安徽宿松。</p>
+    <p><span class="n">注五</span>本图据《明史·太祖本纪》《明史·陈友谅传》《明史·俞通海传》《明太祖实录》及《国初群雄事略》约略绘出。《太祖本纪》云「戊戌,友谅兵大败……乘风纵火,焚其舟数百,烟焰涨天,湖水尽赤」;又「友谅计穷……乃悉兵突出湖口,诸将邀击之,友谅中流矢贯睛及颅死」——是役以少胜多、水火并用、扼口困敌之枢,略见于此。俞通海冒火突阵、常遇春射张定边以救帅舟,并《俞通海传》《常遇春传》所载。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"汉围洪都 · 明师来援",d:"至正二十三年(1363)夏",p:["陈友谅乘朱元璋北救安丰、后方空虚,倾国六十万众,载家属百官,以巨舰溯江东下,围攻洪都(南昌)。都督朱文正婴城死守,八十五日不下。","朱元璋闻警,自将舟师二十万溯流来援。友谅闻明师至,解洪都之围,东出鄱阳湖迎战。八月,两军相遇于康郎山下,决战于湖上。"]},
-  "1":{t:"康郎山初战 · 巨舰难攻",d:"至正二十三年八月",p:["汉军巨舰高数丈,上下三级,联锁为阵,望之如山如城。明军舟小,仰攻不能及,冒矢石而进,初战失利,诸将多伤。","徐达身先士卒,焚汉舟一艘,俞通海乘风纵火,连焚数舟。然汉舰坚大,明师死伤颇众;元璋座舟胶浅,几为汉将张定边所乘,赖常遇春射定边、通海来援乃解。"]},
-  "2":{t:"东北风起 · 火焚汉舟",d:"至正二十三年八月",p:["相持数日,明军以巨舰难破,乃用郭兴之计:候东北风急,选敢死士载荻苇火药之舟,顺风纵火,直冲汉阵。","汉军巨舰联锁不得解,焰乘风延,须臾烈焰涨天,湖水尽赤。汉军焚溺死者大半,友谅弟友仁、友贵及平章陈普略等皆死。汉师夺气,不敢复出。"]},
-  "3":{t:"汉军粮尽 · 友谅殒泾江",d:"至正二十三年八—九月",p:["火攻之后,两军犹相持月余。汉军粮尽援绝,士卒多叛。友谅计穷,乃拥余众突围,出湖口,溯江欲趋武昌。","明师邀击于泾江口。汉军且战且走,友谅从舟中引首出,中流矢贯睛及颅而死。汉军遂溃,太尉张定边奉其子理夜遁武昌,余部尽降。江南自是大定,元璋乃得专意北伐,有明开国之基,实奠于此役。"]}
+  all:{t:"汉围洪都 · 明师入湖",d:"至正二十三年(1363)夏秋",p:["陈友谅乘朱元璋北救安丰、后方空虚,倾国六十万众,载家属百官,以楼船巨舰联舟布阵,溯赣江围攻洪都(南昌)。都督朱文正、参政邓愈婴城死守,八十五日不下。","元璋闻警,自将舟师二十万,溯江径入鄱阳湖来援。友谅闻明师至,解洪都之围,东出湖中迎战。七月,两军会于康郎山下,决死战于湖上——此中世纪世界最大之水战也。"]},
+  "1":{t:"巨舰围洪都 · 来援入湖",d:"至正二十三年四月—七月",p:["友谅巨舰高数丈,上下三层,联舟为阵,望之如山如城。乘明师方救安丰、江西空虚,倾国东下,四月围洪都。朱文正、邓愈死守,城垣屡陷屡完,凡八十五日不能下。","元璋自将舟师二十万溯江而上,七月径趋湖口。既入,先分兵扼守泾江口、南湖嘴,沉舟以断汉军出湖归武昌之路,而后引大军南入,趋康郎山迎敌。友谅乃解洪都之围,东出决战。"]},
+  "2":{t:"康郎山决战 · 巨舰联锁",d:"至正二十三年七月二十",p:["两军遇于康郎山。汉军巨舰联锁为阵,高大坚厚,弓弩火炮自上而下;明军舟小,仰攻不能及,冒矢石而进,初战失利,诸将多伤。元璋分舟师为二十队,各具火器,薄而击之,犹未能破。","汉骁将张定边望见帅旗,直犯元璋座舟;舟适胶浅,几为所乘。赖常遇春引弓射定边,俞通海冒火来援,以巨舰撞之,水涌舟脱,元璋乃免。是日苦战,汉舰坚不可破,明师死伤颇众。"]},
+  "3":{t:"东北风火攻 · 焚楼船数百",d:"至正二十三年七月",p:["相持数日,明军以巨舰联锁难破,乃法赤壁故事:候东北风急,选敢死士,驾小舟满载荻苇火药,顺风直冲汉阵纵火。","汉军巨舰联锁,首尾相接不得骤解,风急火烈,须臾烈焰涨天,湖水尽赤。焚汉楼船数百,焚溺死者大半,友谅弟友仁、友贵及平章陈普略等皆死。汉师夺气,敛舟自守,不敢复出。"]},
+  "4":{t:"扼守湖口 · 困敌 · 殒泾江",d:"至正二十三年七—八月",p:["火攻既胜,元璋不急于决,而移军扼守湖口,复守泾江口、南湖嘴,尽断汉军出湖归武昌之路。汉军困于湖中,相持月余,粮尽援绝,士卒多叛降。","友谅计穷,乃拥余众冒死突围,出湖口冲入长江,欲溯流趋武昌。明诸将邀击于泾江口;友谅从舟中引首出观,中流矢贯睛及颅而死。汉军遂大溃,太尉张定边奉其子理夜遁武昌,余众尽降。江南自是大定,有明开国之基,实奠于此役。"]}
 };
 const CITY={
-  kanglang:{t:"康郎山",d:"鄱阳湖中,今江西余干北",p:["两军初战决战之地。汉军巨舰联锁列阵,明舟小不能仰攻,初战失利,徐达、俞通海冒火苦战。"]},
-  jingjiang:{t:"泾江口",d:"近长江,今安徽宿松境",p:["友谅突围出湖口,趋泾江口,中流矢贯睛及颅而死。汉军遂溃降,战局遂定。"]},
-  nanchang:{t:"南昌(洪都)",d:"今江西南昌",p:["元之洪都。陈友谅倾国巨舰围攻,朱文正婴城死守八十五日不下,遂致友谅东出与明师决战于湖。"]},
-  hukou:{t:"江州·湖口",d:"今江西九江·湖口",p:["江州即友谅所据重镇;湖口为鄱阳湖入江之口。相持后明师扼湖口断汉军归路,友谅突围出此趋泾江。"]},
-  wuchang:{t:"武昌",d:"陈汉都城,今湖北武汉",p:["陈友谅称帝建汉之都。战败后张定边奉其子陈理奔还于此;明年武昌降,汉亡。"]},
-  yingtian:{t:"应天",d:"朱明根本,今江苏南京",p:["朱元璋起兵根本之地。此战既胜,江南大定,元璋乃得专意经略,遂开有明一代之基。"]}
+  nanchang:{t:"南昌(洪都)",d:"今江西南昌(约115.89°E/28.68°N)",p:["元之洪都。陈友谅乘明军空虚,倾国六十万巨舰溯赣江围之;朱文正、邓愈婴城死守八十五日不下,遂致友谅东出,与明师决战于鄱阳湖。"]},
+  kanglang:{t:"康郎山",d:"鄱阳湖中,今江西余干西北(约116.45°E/28.95°N)",p:["两军决战之地。汉军巨舰联锁列阵如城,明舟小不能仰攻,初战失利;元璋座舟胶浅,几为张定边所乘,赖常遇春、俞通海力救乃免。继而乘东北风纵火,焚汉楼船数百于此。"]},
+  hukou:{t:"湖口",d:"鄱阳湖入长江之口,今江西湖口(约116.22°E/29.73°N)",p:["鄱阳湖北出长江之咽喉。火攻既胜,元璋移军扼守此口,沉舟断汉军归路;友谅困湖中月余,粮尽,冒死突围出此,冲入长江而趋泾江口。"]},
+  jingjiang:{t:"泾江口",d:"湖口下游长江上,今安徽宿松南(约116.30°E/30.02°N)",p:["朱元璋预遣兵扼守以断汉归路之要口。友谅突围出湖口、冲入长江,至此为明师邀击;友谅自舟中引首出观,中流矢贯睛及颅而死,汉遂亡。"]},
+  jiangzhou:{t:"江州(九江)",d:"今江西九江(约116.00°E/29.71°N)",p:["长江要津,时为陈汉前据之重镇。友谅尝都于此,后徙武昌;鄱阳战前,汉军巨舰多自江州、武昌顺流而下以围洪都。"]},
+  nanhuzui:{t:"南湖嘴",d:"湖口西北,鄱阳湖入江别口",p:["朱元璋分兵屯守以断汉军归路之一。与泾江口相为犄角,尽塞鄱阳湖出江之诸口,困友谅于湖中。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

@@ -31,6 +31,21 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.28em;opacity:.7;font-weight:500}
+  /* 粮道:金色串珠动脉,自宁远经塔山·杏山至松山,并笔架山海储,示明军军粮所经 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 清军长壕:朱色带齿之围壕线 */
+  .trench{fill:none;stroke:var(--enemy);stroke-width:2.2;opacity:.85;stroke-linejoin:round}
+  .trench.ticks{stroke-width:1.4;opacity:.75}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -44,10 +59,13 @@
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .campj{fill:var(--advance);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .fall line{stroke:var(--enemy);stroke-width:2.4;stroke-linecap:round}
+  .fall circle{fill:rgba(154,43,30,.85);stroke:var(--paper);stroke-width:1}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +74,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:720;stroke-dashoffset:720;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +105,17 @@
   <div class="seal" aria-hidden="true"><span>松</span><span>锦</span><span>之</span><span>役</span></div>
   <header>
     <h1>松锦之战</h1>
-    <div class="sub">崇祯十三至十五年(1640–1642)　　<i>明 洪承畴 十三万往援</i> 粮断夜溃 · <b>清 皇太极</b>断粮围歼</div>
+    <div class="sub">明崇祯十三至十五年(1640–1642)　　<i>明 洪承畴 十三万·八总兵往援</i> 　·　 <b>清 皇太极</b> 掘壕断粮 · 粮尽而溃</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 清围锦 · 明往援</button>
-    <button data-p="1">松山相持</button>
-    <button data-p="2">皇太极断粮道</button>
-    <button data-p="3">松山夜溃 · 洪督被俘</button>
+    <button class="on" data-p="all">全图 · 断粮致溃</button>
+    <button data-p="1">清围锦州 · 洪督驻松山</button>
+    <button data-p="2">催战冒进 · 粮屯笔架山</button>
+    <button data-p="3">皇太极掘壕断粮道</button>
+    <button data-p="4">夜遁中伏 · 松锦沦陷</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="松锦之战形势图,含明清疆界、渤海女儿河小凌河与松山锦州杏山塔山等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="松锦之战形势图,含明清疆界、渤海、小凌河女儿河,与锦州松山杏山塔山高桥笔架山宁远义州诸城,及明军自宁远经塔山杏山至松山之金色粮道、笔架山海储,皇太极掘长壕断粮道之朱色截断记号与明军夜遁高桥中伏之溃退">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,122 +124,244 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:清据东北(盛京·义州,北东),明据辽西(宁远·山海,南西),约以小凌河、松锦堡垒线为界 -->
-    <path d="M 1000,0 L 1000,300 C 860,300 720,320 620,360 C 520,400 440,460 360,540 C 300,600 280,640 280,640 L 1000,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,0 L 1000,0 C 860,90 720,150 620,210 C 520,270 440,340 360,430 C 300,500 260,570 240,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 1000,300 C 860,300 720,320 620,360 C 520,400 440,460 360,540 C 300,600 280,640 280,640"/>
-    <text class="realm q" x="720" y="150" font-size="32">清(盛京)</text>
-    <text class="realm j" x="140" y="470" font-size="30">明(辽西)</text>
+    <!-- 疆界:清据辽东(北·东北,盛京),明守辽西走廊(西南沿海一线);渤海在东南 -->
+    <path d="M 0,0 L 520,0 C 500,50 470,80 445,100 C 410,130 380,170 356,214 C 348,255 320,292 280,296 C 190,302 90,320 0,352 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,352 C 90,320 190,302 280,296 C 320,292 348,255 356,214 C 380,170 410,130 445,100 C 470,80 500,50 520,0 L 1000,0 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <!-- 明清约界(松·锦前线一线) -->
+    <path class="border" d="M 0,352 C 90,320 190,302 280,296 C 320,292 348,255 356,214 C 380,170 410,130 445,100 C 470,80 500,50 520,0"/>
+    <text class="realm q" x="70" y="150" font-size="30">清 · 辽东(盛京)</text>
+    <text class="realm j" x="70" y="470" font-size="28">明 · 辽西走廊</text>
 
-    <!-- 渤海:南 -->
-    <path class="river" stroke-width="0" fill="rgba(95,127,136,.14)" d="M 1000,560 C 820,540 640,560 480,600 C 360,628 240,636 120,640 L 1000,640 Z"/>
-    <text class="rname" x="560" y="616" style="font-size:15px;letter-spacing:.3em">渤　海</text>
+    <!-- 渤海(辽东湾):东南沿海,笔架山在海中 -->
+    <path fill="rgba(95,127,136,.15)" stroke="none" d="M -20,560 C 100,548 200,545 239,534 C 317,446 380,397 427,339 C 450,300 465,250 475,200 L 1000,300 L 1000,640 L -20,640 Z"/>
+    <path class="river" stroke-width="1.4" style="opacity:.55" d="M -20,560 C 100,548 200,545 239,534 C 317,446 380,397 427,339 C 450,300 465,250 475,200"/>
+    <text class="rname" x="640" y="520" style="font-size:16px;letter-spacing:.34em">渤　海</text>
+    <text class="cname s" x="612" y="540" style="opacity:.7">(辽东湾)</text>
 
-    <!-- 小凌河:自北绕锦州东南入海 -->
-    <path class="river" stroke-width="3.4" d="M 720,120 C 700,200 660,280 620,340 C 588,388 560,440 540,540"/>
-    <!-- 女儿河:自西经义州南下会小凌河 -->
-    <path class="river" stroke-width="2.6" d="M 800,220 C 760,280 700,320 640,352"/>
-    <text class="rname" x="628" y="300" transform="rotate(64 628 300)" style="font-size:11px">小凌河</text>
-    <text class="rname" x="712" y="292" transform="rotate(34 712 292)" style="font-size:10.5px">女儿河</text>
+    <!-- 山脉:走廊西北之松岭·医巫闾,束辽西为一线 -->
+    <path class="mtn fill" d="M 40,300 L 60,270 L 78,290 L 100,258 L 122,286 L 144,262 L 166,288 Z"/>
+    <path class="mtn" d="M 66,286 l 14,-20 l 12,15 l 15,-22 l 12,17"/>
+    <text class="mname" x="52" y="256" transform="rotate(-30 52 256)">医巫闾 · 松岭</text>
 
-    <!-- 松山·杏山·塔山堡垒线 -->
-    <g class="mtn"><path d="M 470,420 l 8,-13 l 8,13 M 486,414 l 8,-13 l 8,13 M 400,470 l 7,-12 l 7,12 M 330,516 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="452" y="392">松·杏·塔堡垒线</text>
+    <!-- 水系:小凌河自西北绕锦州东南入海;女儿河自西会之 -->
+    <path class="river" stroke-width="3.4" d="M 328,132 C 358,182 384,228 405,272 C 420,300 434,320 448,336"/>
+    <path class="river" stroke-width="2.6" d="M 150,300 C 240,286 320,280 380,274 C 393,272 400,270 406,276"/>
+    <text class="rname" x="408" y="222" transform="rotate(58 408 222)" style="font-size:11px">小凌河</text>
+    <text class="rname" x="210" y="286" style="font-size:10.5px">女儿河</text>
+
+    <!-- ══ 粮道:金色串珠动脉,自宁远出援基,循塔山·杏山至松山前营;并笔架山海储一支 ══ -->
+    <path class="supply band" d="M 184,479 C 220,440 245,415 262,391 C 290,372 312,358 330,347 C 352,332 370,312 382,294"/>
+    <path class="supply band" d="M 450,343 C 425,325 400,308 382,294"/>
+    <path class="supply core" d="M 184,479 C 220,440 245,415 262,391 C 290,372 312,358 330,347 C 352,332 370,312 382,294"/>
+    <path class="supply core" d="M 450,343 C 425,325 400,308 382,294"/>
+    <g class="grain">
+      <rect x="216" y="440" width="7" height="7" transform="rotate(45 219.5 443.5)"/>
+      <rect x="292" y="368" width="7" height="7" transform="rotate(45 295.5 371.5)"/>
+      <rect x="352" y="328" width="7" height="7" transform="rotate(45 355.5 331.5)"/>
+      <rect x="447" y="340" width="7" height="7" transform="rotate(45 450.5 343.5)"/>
+    </g>
+    <text class="slabel" x="150" y="430">粮道</text>
+    <text class="slabel" x="120" y="444" style="font-size:9.5px;opacity:.85">宁远→塔·杏→松山</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="songshan"><circle cx="512" cy="366" r="6"/><text class="cname" x="524" y="362">松山<tspan class="cname s" dx="2">(洪督被围)</tspan></text></g>
-      <g class="city" data-city="jinzhou"><circle cx="618" cy="300" r="6"/><text class="cname" x="630" y="296">锦州<tspan class="cname s" dx="2">(祖大寿降)</tspan></text></g>
-      <g class="city" data-city="xingshan"><circle cx="428" cy="452" r="4"/><text class="cname s" x="360" y="448">杏山</text></g>
-      <g class="city" data-city="tashan"><circle cx="356" cy="512" r="4"/><text class="cname s" x="290" y="528">塔山</text></g>
-      <g class="city" data-city="bijiashan"><circle cx="560" cy="520" r="4.5"/><text class="cname s" x="572" y="516">笔架山(粮储)</text></g>
-      <g class="city" data-city="ningyuan"><circle cx="240" cy="560" r="5"/><text class="cname" x="120" y="556">宁远<tspan class="cname s" dx="2">(出援基)</tspan></text></g>
-      <g class="city" data-city="yizhou"><circle cx="800" cy="220" r="5"/><text class="cname" x="812" y="216">义州<tspan class="cname s" dx="2">(清屯田基)</tspan></text></g>
+      <g class="city" data-city="jinzhou"><circle cx="398" cy="264" r="6"/><text class="cname" x="410" y="260">锦州<tspan class="cname s" dx="2">(祖大寿守)</tspan></text></g>
+      <g class="city cap" data-city="songshan"><circle cx="382" cy="294" r="6.5"/><text class="cname" x="394" y="308">松山<tspan class="cname s" dx="2">(洪督大营)</tspan></text></g>
+      <g class="city" data-city="xingshan"><circle cx="330" cy="347" r="4.5"/><text class="cname" x="296" y="343">杏山</text></g>
+      <g class="city" data-city="gaoqiao"><circle cx="283" cy="374" r="3.5"/><text class="cname s" x="240" y="366">高桥</text></g>
+      <g class="city" data-city="tashan"><circle cx="262" cy="391" r="4.5"/><text class="cname" x="228" y="405">塔山</text></g>
+      <g class="city" data-city="bijiashan"><circle cx="450" cy="343" r="5"/><text class="cname" x="462" y="339">笔架山<tspan class="cname s" dx="2">(粮储)</tspan></text></g>
+      <g class="city" data-city="ningyuan"><circle cx="184" cy="479" r="5.5"/><text class="cname" x="108" y="497">宁远<tspan class="cname s" dx="2">(出援基)</tspan></text></g>
+      <g class="city" data-city="yizhou"><circle cx="455" cy="74" r="5"/><text class="cname" x="467" y="70">义州<tspan class="cname s" dx="2">(清屯田围锦基)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 清围锦 · 明往援 -->
+    <!-- 盛京(图外·东北) -->
+    <g transform="translate(902,64)">
+      <path class="march q" marker-end="url(#aq)" d="M 74,26 L 30,4"/>
+      <text class="mlabel q" x="8" y="-4" style="font-size:10px">盛京·沈阳(图外东北) ⟶</text>
+      <text class="cname s" x="30" y="40" style="fill:var(--enemy);font-size:9.5px">皇太极带病自此驰援</text>
+    </g>
+    <!-- 山海关(图外·西南) -->
+    <g transform="translate(18,588)">
+      <path class="march j" marker-end="url(#aj)" d="M 30,4 L 74,26"/>
+      <text class="mlabel j" x="0" y="-6" style="font-size:10px">⟵ 山海关·关内(图外西南)</text>
+      <text class="cname s" x="0" y="48" style="fill:var(--advance);font-size:9.5px">明军出关来路 · 亦为归路</text>
+    </g>
+
+    <!-- 全图 · 断粮致溃 -->
     <g id="phAll" class="ph">
-      <circle class="siege" cx="618" cy="300" r="34"/>
-      <text class="mlabel q" x="640" y="256">清久围锦州,祖大寿告急</text>
-      <rect class="camp" x="796" y="216" width="9" height="9" transform="rotate(45 800 220)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 250,552 C 320,500 400,440 470,392"/>
-      <text class="mlabel j" x="300" y="470">洪承畴率九边精锐十三万,自宁远往援</text>
-      <text class="anno" x="440" y="410">进军松山,列阵松山·乳峰山间</text>
+      <circle class="siege" cx="398" cy="264" r="30"/>
+      <text class="mlabel q" x="420" y="222">清久围锦州,祖大寿告急</text>
+      <path class="march j" marker-end="url(#aj)" d="M 190,472 C 250,422 322,358 378,300"/>
+      <text class="mlabel j" x="168" y="452">洪承畴率十三万·八总兵出关往援,进驻松山</text>
+      <path class="march q" marker-end="url(#aq)" d="M 466,96 C 448,150 420,206 396,248"/>
+      <text class="mlabel q" x="470" y="150">皇太极亲督大军南下</text>
+      <text class="anno" x="360" y="330">决于粮道:清掘长壕断松·杏,夺笔架山积粟</text>
+      <circle class="star" cx="283" cy="374" r="7"/>
+      <text class="anno" x="150" y="392">明军夜遁,高桥·杏塔间中伏大溃</text>
     </g>
 
-    <!-- 阶段一:松山相持 · 步步为营 -->
+    <!-- 阶段一:清围锦州 · 洪督出关驻松山 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 252,552 C 330,496 420,432 500,378"/>
-      <text class="mlabel j" x="320" y="452">洪督主持重,步步为营</text>
-      <path class="march j" marker-end="url(#aj)" d="M 520,360 C 552,340 578,326 604,312"/>
-      <text class="anno" x="470" y="340">列阵松山·乳峰山间,与清相持</text>
-      <text class="mlabel q" x="640" y="230">清据锦州为饵,坚壁待之</text>
-      <text class="anno" x="500" y="440">然陈新甲促战,朝命屡催速进</text>
+      <circle class="siege" cx="398" cy="264" r="30"/>
+      <circle class="siege" cx="398" cy="264" r="38"/>
+      <text class="mlabel q" x="420" y="216">清掘壕筑垒长围锦州,祖大寿势孤</text>
+      <rect class="camp" x="451" y="70" width="9" height="9" transform="rotate(45 455 74)"/>
+      <text class="mlabel q" x="360" y="52">清以义州屯田为围锦之本</text>
+      <path class="march j" marker-end="url(#aj)" d="M 190,472 C 252,420 320,356 378,300"/>
+      <text class="mlabel j" x="200" y="452">洪承畴督八总兵·九边精锐十三万,自宁远往援</text>
+      <rect class="campj" x="378" y="290" width="9" height="9" transform="rotate(45 382 294)"/>
+      <text class="anno" x="300" y="336">进驻松山,列阵松山·乳峰山间,与清相持</text>
     </g>
 
-    <!-- 阶段二:皇太极断粮道 -->
+    <!-- 阶段二:催战冒进 · 大军集松山 · 粮屯笔架山 -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 810,150 C 760,200 700,250 650,300"/>
-      <text class="mlabel q" x="700" y="150">皇太极自盛京急驰亲督</text>
-      <path class="march q" marker-end="url(#aq)" d="M 632,320 C 600,380 580,450 566,506"/>
-      <text class="anno" x="600" y="420">掘长壕绕锦州西至海,横截明后</text>
-      <rect class="camp" x="636" y="348" width="8" height="8" transform="rotate(45 640 352)"/>
-      <text class="mlabel q" x="574" y="540">夺笔架山屯粮,断明饷道</text>
-      <text class="anno" x="440" y="560">明军粮尽,军心动摇</text>
+      <rect class="campj" x="378" y="290" width="10" height="10" transform="rotate(45 383 295)"/>
+      <text class="mlabel j" x="300" y="330">洪督本主持重、步步为营</text>
+      <path class="march j" marker-end="url(#aj)" d="M 388,288 C 396,278 400,272 404,266"/>
+      <text class="mlabel q" x="360" y="238">陈新甲趣战,朝命屡催速进</text>
+      <text class="anno" x="250" y="358">承畴不得已尽师前压松山,饷道益长、后路益单</text>
+      <!-- 粮道重点:笔架山海储 -->
+      <circle class="star" cx="450" cy="343" r="8"/>
+      <text class="slabel" x="462" y="366">军粮屯笔架山·宁远,由塔·杏前输松山</text>
     </g>
 
-    <!-- 阶段三:松山夜溃 · 洪督被俘 -->
+    <!-- 阶段三:皇太极掘壕断粮道 · 夺笔架山粮储 -->
     <g id="ph3" class="ph">
-      <circle class="siege" cx="512" cy="366" r="30"/>
-      <circle class="star" cx="512" cy="366" r="9"/>
-      <text class="mlabel q" x="524" y="336">清反围松山,掘长壕困之半年</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 500,378 C 448,420 400,458 366,498"/>
-      <text class="mlabel r" x="380" y="440">诸将夜遁,清掩杀于杏山塔山</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 350,516 C 310,540 275,552 250,558"/>
-      <text class="anno" x="300" y="500">明军自相践踏,死者五万余,浮尸海上</text>
-      <path class="march r" stroke="#7a5a23" stroke-width="2" stroke-dasharray="2 5" fill="none" marker-end="url(#ar)" d="M 528,362 C 570,336 596,318 610,308"/>
-      <text class="mlabel r" x="560" y="298">洪承畴城破被俘降清 · 祖大寿献锦州</text>
+      <path class="march q" marker-end="url(#aq)" d="M 466,96 C 446,150 416,206 392,246"/>
+      <text class="mlabel q" x="470" y="150">皇太极带病昼夜五百里驰援,屯松·杏间</text>
+      <!-- 清军长壕:自锦州西绕松·杏之间抵海,三道 -->
+      <path class="trench" d="M 356,236 C 344,272 330,312 322,352 C 316,382 320,404 340,420"/>
+      <path class="trench ticks" d="M 356,236 l -12,5 M 344,268 l -12,4 M 334,300 l -12,3 M 326,332 l -12,3 M 320,364 l -11,5 M 326,396 l -9,8"/>
+      <g class="cut" transform="translate(356,321)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="366" y="300">掘三道长壕,自锦州西绕松·杏抵海,断明饷道 ✕</text>
+      <!-- 阿济格乘潮夺笔架山积粟 -->
+      <path class="march q" marker-end="url(#aq)" d="M 412,214 C 440,258 452,300 452,332"/>
+      <g class="cut" transform="translate(450,343)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="462" y="346">阿济格乘潮夺笔架山积粟十二堆 ✕</text>
+      <text class="anno" x="250" y="452">明军饷道·归路俱绝,军中乏粮,人心大乱</text>
     </g>
 
-    <g class="compass" transform="translate(944,120)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- 阶段四:明军乏粮夜遁 · 高桥中伏大溃 · 松锦沦陷降清 -->
+    <g id="ph4" class="ph">
+      <circle class="siege" cx="382" cy="294" r="26"/>
+      <text class="mlabel q" x="418" y="300">清反围松山,困守半年余</text>
+      <!-- 夜遁南溃:松山→杏山→高桥→塔山→宁远 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 372,302 C 350,326 338,338 330,347 C 312,362 296,368 288,372"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 278,378 C 258,398 232,430 208,456 C 200,464 194,470 188,474"/>
+      <text class="mlabel r" x="196" y="500">诸将夜先遁,各军争奔南走宁远</text>
+      <!-- 高桥设伏 -->
+      <path class="march q" marker-end="url(#aq)" d="M 250,336 C 262,352 272,362 279,370"/>
+      <path class="march q" marker-end="url(#aq)" d="M 318,414 C 302,398 292,386 286,378"/>
+      <circle class="star" cx="283" cy="374" r="9"/>
+      <text class="mlabel q" x="120" y="352">清早伏高桥·杏塔间邀击</text>
+      <text class="anno" x="120" y="428">明军自相践踏,死者五万余,浮尸海上,精锐尽丧</text>
+      <!-- 终:松山城破被俘、锦州降 -->
+      <g class="fall" transform="translate(382,294)"><circle r="6"/><line x1="-3.5" y1="-3.5" x2="3.5" y2="3.5"/><line x1="-3.5" y1="3.5" x2="3.5" y2="-3.5"/></g>
+      <text class="clabel" x="222" y="300" style="font-size:10.5px">松山城破·洪承畴被俘降清 终</text>
+      <g class="fall" transform="translate(398,264)"><circle r="6"/><line x1="-3.5" y1="-3.5" x2="3.5" y2="3.5"/><line x1="-3.5" y1="3.5" x2="3.5" y2="-3.5"/></g>
+      <text class="clabel" x="416" y="252" style="font-size:10.5px">祖大寿献锦州降 终</text>
+      <text class="clabel" x="300" y="418" style="font-size:10px">塔山·杏山继陷 ✕</text>
+    </g>
+
+    <g class="compass" transform="translate(78,96)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>清军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>明军溃退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>溃败·被围</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 4"/></svg>清围困</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>清</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(洪承畴)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>清军(皇太极)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>明军夜遁南溃</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断粮道</span>
+    <span class="item"><svg width="30" height="14"><path d="M 3,3 C 6,7 9,11 11,13" fill="none" stroke="#9a2b1e" stroke-width="2"/><path d="M 3,3 l 5,-1 M 6,7 l 5,-1 M 9,11 l 5,-1" stroke="#9a2b1e" stroke-width="1.2"/></svg>清军长壕</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·中伏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 4"/></svg>围困</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>清</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>明</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>粮道释要 · 松·杏之间一壕</h3>
+    <div class="lead">何以松锦之败,系于一壕一储 —— 关外精锐尽丧之枢</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="粮道示意:明军前营松山悬于辽西一线,军粮自宁远经塔山杏山前输、并笔架山海储;皇太极掘长壕断松杏间粮道,又夺笔架山积粟,明军粮尽夜遁而于高桥中伏大溃">
+      <!-- 前线(北) -->
+      <text x="26" y="34" fill="#1f4e54" font-size="12" font-weight="700">松山前营 · 十三万大军(洪承畴)</text>
+      <line x1="24" y1="44" x2="836" y2="44" stroke="#1f4e54" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <!-- 后方(南) -->
+      <text x="26" y="228" fill="#9c7a2c" font-size="12" font-weight="700">后方粮本 · 宁远 · 塔山 · 杏山 · 笔架山海储</text>
+      <line x1="24" y1="206" x2="836" y2="206" stroke="#9c7a2c" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <!-- 陆路粮道:宁远经塔·杏前输松山(金) -->
+      <path d="M 232,206 C 232,150 232,110 232,52" fill="none" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 232,206 L 232,52" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="228" y="150" width="8" height="8" transform="rotate(45 232 154)" fill="#9c7a2c"/>
+      <rect x="228" y="100" width="8" height="8" transform="rotate(45 232 104)" fill="#9c7a2c"/>
+      <circle cx="232" cy="208" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <circle cx="232" cy="50" r="5.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="106" y="204" fill="#2b2418" font-size="11" font-weight="700">宁远·塔·杏(粮本)</text>
+      <text x="242" y="46" fill="#2b2418" font-size="11.5" font-weight="700">松山(前营)</text>
+      <text x="150" y="150" fill="#9c7a2c" font-size="10.5" font-weight="700">陆路饷道 ↑</text>
+      <!-- 长壕断粮:松·杏间 -->
+      <g><circle cx="232" cy="128" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="226" y1="122" x2="238" y2="134" stroke="#9a2b1e" stroke-width="2.6"/><line x1="226" y1="134" x2="238" y2="122" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <path d="M 150,128 C 200,128 264,128 320,128" fill="none" stroke="#9a2b1e" stroke-width="2" opacity=".7"/>
+      <path d="M 150,128 l 6,-6 M 186,128 l 6,-6 M 222,128 l 6,-6 M 268,128 l 6,-6 M 304,128 l 6,-6" stroke="#9a2b1e" stroke-width="1.2" opacity=".7"/>
+      <text x="252" y="120" fill="#9a2b1e" font-size="10.5" font-weight="700">清掘长壕 · 断松·杏饷道 ✕</text>
+      <!-- 海路粮储:笔架山(金) -->
+      <path d="M 470,206 C 470,150 400,150 320,140" fill="none" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 470,206 C 470,150 400,150 320,140" fill="none" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <circle cx="470" cy="208" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="452" y="228" fill="#2b2418" font-size="11" font-weight="700">笔架山积粟十二堆</text>
+      <g><circle cx="470" cy="175" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="464" y1="169" x2="476" y2="181" stroke="#9a2b1e" stroke-width="2.6"/><line x1="464" y1="181" x2="476" y2="169" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="484" y="178" fill="#9a2b1e" font-size="10.5" font-weight="700">阿济格乘潮夺之 ✕</text>
+      <!-- 结果 -->
+      <text x="600" y="96" fill="#9a2b1e" font-size="12.5" font-weight="700">粮尽 → 夜遁</text>
+      <text x="600" y="118" fill="#9a2b1e" font-size="12.5" font-weight="700">高桥中伏 → 大溃</text>
+      <text x="600" y="140" fill="#5c4f38" font-size="10.5">死五万余,浮尸海上</text>
+      <text x="600" y="160" fill="#5c4f38" font-size="10.5">松·锦·塔·杏尽陷,洪·祖俱降</text>
+      <path d="M 548,110 C 572,110 582,108 594,104" fill="none" stroke="#9a2b1e" stroke-width="1.4" opacity=".6" stroke-dasharray="3 3"/>
+    </svg>
+    <p class="intro">松锦之役,明倾九边精锐十三万以救锦州,兵非不多、将非不精。然大军云集松山一隅,<b>日食浩繁,而其命全悬于自宁远经塔山·杏山前输之一线陆路饷道,并笔架山海储一处</b>——兵愈聚则食愈重,粮道愈不可失。此明之至弱处,恰藏于其倾国而来之至强处之中。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>洪承畴 · 持重反成冒进</h4>
+        <p>承畴老于兵事,本主『且战且守、步步为营、持重缓进』,据宁远、松、杏为节次之守,使饷道有所凭依。然兵部尚书陈新甲及监军促战,崇祯屡诏责其逗留,承畴不得已尽驱十三万前压松山,后路空虚、饷道悬长——持重之算既废,大军遂成悬军。</p>
+      </div>
+      <div class="c b">
+        <h4>皇太极 · 掘壕以断其食</h4>
+        <p>皇太极带病昼夜驰五百里,观明军『首尾不相顾』,遂定掘壕断粮之策:自锦州西绕松山·杏山之间连掘三道长壕直抵海口,深八尺、广丈二,横截明军饷道与归路;复令阿济格乘潮夺笔架山积粟十二堆。陆储既断、海储又失,松山十三万顿失所仰。</p>
+      </div>
+    </div>
+    <p class="kicker">粮道两截、军中乏食,则十三万之众不战自乱:<b>王朴、吴三桂诸将不待军令,夜各突围南遁,而清军早伏于高桥、杏·塔之间邀击</b>,明军自相践踏,死者五万余,浮尸海上,九边精锐一夕尽丧。洪承畴退守松山孤城,围半年,城破被俘降清;祖大寿以锦州降,塔山·杏山继陷。故松锦之败,非战之罪,实<b>断粮道之败</b>——催战浪战以致悬军,断粮夺储以致自溃,关外由是空,明亡之局遂定。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·洪承畴传》《清太宗实录》约略绘出。松山、锦州在今辽宁锦州一带,松山、杏山、塔山、笔架山、义州诸堡与女儿河、小凌河、渤海之相对位置为简化示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为崇祯末辽西形势示意:清据辽东,以义州屯田久围锦州;明守辽西走廊,唯宁远、松、杏、塔诸堡相联。堡垒线以险相守,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>洪承畴本主持重、步步为营,而兵部尚书陈新甲及监军促战,朝命屡催速进。皇太极亲督大军掘长壕绕海断饷,夺笔架山屯粮;明军粮尽夜溃,九边精锐尽丧于杏山、塔山间——败于急进与断粮,非一夕之失。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=70+(经度−120.50)·520,y=620−(纬度−40.30)·440),几何关系力求近实:锦州在北,松山南距锦州约十八里,杏山又南,塔山最南,笔架山悬于东南海中,宁远居西南为出援之基,义州在北为清屯田围锦之本;渤海(辽东湾)在东南。江河、疆界经简化,点划『约界』依松·锦前线一线,非实有画界。依《明史·洪承畴传》《祖大寿传》《清太宗实录》崇德五至七年绘出。</p>
+    <p><span class="n">注二</span>地望与今地(经纬度):锦州今辽宁锦州(121.13E,41.11N),祖大寿守;松山今锦州松山(121.10E,41.04N),洪承畴大营;杏山今凌海杏山(121.00E,40.92N);塔山今葫芦岛连山塔山(120.87E,40.82N);高桥今连山高桥(120.91E,40.86N),清设伏处;笔架山今锦州笔架山(121.23E,40.93N),明军海储;宁远今兴城(120.72E,40.62N);义州今义县(121.24E,41.54N)。盛京(今沈阳,123.4E,41.8N)、山海关(119.75E,40.0N)俱在图外,以边缘箭示之。</p>
+    <p><span class="n">注三</span><b>决胜之枢在断粮</b>(图中金色粮道、朱色 ✕):明军十三万集于松山,饷仰自宁远经塔·杏之陆路饷道,并屯粮于笔架山海储。皇太极自锦州西绕松·杏之间连掘三道长壕抵海(『壕深八尺,上广一丈二尺』),横断明军饷道与归路;又遣阿济格乘潮落夺笔架山积粟十二堆。粮道既绝、储又被夺,遂粮尽而溃——此役成败,系于此一壕一储,非在兵力多寡。</p>
+    <p><span class="n">注四</span><b>行军之势与两方来路</b>:此役无水战,进退皆循辽西走廊陆路;明军军粮以陆运为主(宁远→塔·杏→松山),辅以笔架山之海储(舟运积于海隅),此海陆并输之储,正为皇太极所并夺。及粮尽,明军焚屯夜遁,亦走陆路南奔宁远,而中伏于高桥。两方仅明、清:明军自关内经山海关、宁远出援(图西南边缘箭),清军自盛京经义州南下围锦、断粮(图东北边缘箭);诸镇援军(大同王朴、宣府杨国柱、密云唐通及吴三桂等八总兵)俱汇于宁远、松山一线。</p>
+    <p><span class="n">注五</span>异说与考订:明援军兵数,《明史》作十三万、八总兵,本图从之;高桥·松山间明军死伤,《清太宗实录》记斩获五万三千余,故图注作『死五万余』。松山内应之副将,史或作夏承德、或作夏成德,本图从『夏承德』。崇祯十五年(清崇德七年)二月十八日夜松山城破,洪承畴、祖大乐被俘,巡抚邱民仰、总兵王廷臣·曹变蛟死之;三月祖大寿以锦州降,四月塔山(红衣炮破,守军七千尽殁)、杏山(吕品奇以六千八百降)继陷。松山南距锦州『十八里』,诸书小异,并此志之。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"清围锦 · 明往援",d:"崇祯十三年(1640)",p:["清军围锦州,掘壕筑垒,久困不解,守将祖大寿势孤告急。崇祯以洪承畴为蓟辽总督,督八总兵、九边精锐十三万往援。","洪承畴自宁远出师,进军松山,列阵于松山、乳峰山间,与清军相持。援锦之役,遂开松锦大战之端。"]},
-  "1":{t:"松山相持 · 步步为营",d:"崇祯十四年(1641)",p:["洪承畴老于兵事,主张持重,步步为营,列大军于松山、乳峰山间,以火器坚阵与清相持,不欲轻进。","然兵部尚书陈新甲及监军促战,朝命屡催速进。承畴不得已弃持重之计,悉师前压松山,饷道渐长,后路单薄,埋败机于此。"]},
-  "2":{t:"皇太极断粮道",d:"崇祯十四年八月",p:["皇太极闻锦围将解,自盛京急驰赴援,亲督大军。乃掘长壕,自锦州之西绕至海滨,横截明军之后,断其饷道。","又遣兵夺明军屯粮于笔架山。军中粮尽,人心动摇,诸将各谋自保,大军困于松、杏之间,进退失据。"]},
-  "3":{t:"松山夜溃 · 洪督被俘",d:"崇祯十四年九月—十五年二月",p:["夜,大同总兵王朴先遁,各军争奔,清军乘乱掩杀于杏山、塔山间。明军自相践踏,死者五万余,浮尸海上,九边精锐一夕丧尽。","洪承畴退守松山孤城,清反围之,掘长壕困守半年。城中粮绝,副将夏成德潜纳款于清。崇祯十五年二月松山城破,承畴被俘,后降清;锦州祖大寿势穷献城降,塔山、杏山亦陷。明关外唯余宁远一城,再无力出关。"]}
+  all:{t:"断粮致溃 · 松锦大势",d:"明崇祯十三至十五年(1640–1642)",p:["清自崇德五年(崇祯十三年)以义州屯田为基,掘壕筑垒长围锦州,祖大寿死守告急。崇祯以蓟辽总督洪承畴督八总兵、九边精锐十三万出山海关往援,进驻锦州南十八里之松山,列阵松山、乳峰山间。","此役无水战,进退皆循辽西沿海一线陆路。明军之命,悬于自宁远经塔山、杏山前输之饷道,并笔架山海储一处。皇太极带病亲督大军,掘长壕断其饷道、夺其海储;明军粮尽夜遁,高桥中伏大溃,死五万余。关外精锐尽丧,松、锦、塔、杏尽失,明亡之局遂定。"]},
+  "1":{t:"清围锦州 · 洪督出关驻松山",d:"崇祯十三年(1640)—十四年七月",p:["清军以义州屯田积谷为本,自崇德五年掘壕筑垒,重重长围锦州;守将祖大寿告急乞援,声援不绝。崇祯诏蓟辽总督洪承畴统大同王朴、宣府杨国柱、密云唐通、宁远吴三桂等八总兵、九边精锐十三万往援。","承畴自宁远出师,循辽西走廊北上,进驻锦州南十八里之松山,列阵松山、乳峰山间,以火器坚阵与清军相持。援锦之役,遂开松锦大战之端——此时明军尚据宁远、塔、杏为节次之守,饷道有所凭依。"]},
+  "2":{t:"催战冒进 · 大军集松山 · 粮屯笔架山",d:"崇祯十四年(1641)七—八月",p:["洪承畴老于兵事,主持重、步步为营,欲以宁远、松、杏节节为守,不轻与清野战。然兵部尚书陈新甲及监军趣战,崇祯屡诏责其逗留、催令速进。承畴不得已弃持重之计,尽驱十三万前压松山。","大军云集一隅,日食浩繁;而军粮屯于后方之宁远及东南海中之笔架山,由塔山、杏山之陆路前输松山。饷道益长、后路益单薄,悬军之势成,败机已伏于此。"]},
+  "3":{t:"皇太极掘壕断粮道 · 夺笔架山粮储",d:"崇祯十四年(1641)八月",p:["皇太极闻锦围将解,带病自盛京昼夜驰援五百余里,至锦州北之戚家堡观明军阵,见其『重兵在前,后队疏漏,首尾不相顾』,遂定掘壕断粮之策。命清兵自锦州之西绕松山、杏山之间连掘三道长壕直抵海口(壕深八尺、上广一丈二尺),横截明军饷道与归路。","复令武英郡王阿济格乘潮落之际突袭,夺明军屯于笔架山之积粟十二堆。陆路饷道既绝、海储又失,松山十三万大军饷道与归路俱断,军中乏粮,人心大乱,诸将各谋自保。"]},
+  "4":{t:"明军乏粮夜遁 · 高桥中伏大溃 · 松锦沦陷降清",d:"崇祯十四年八月—十五年二月",p:["粮尽势迫,大同总兵王朴、宁远总兵吴三桂等不待军令,夜各焚屯突围,争奔南走宁远。清军早伏于高桥及杏山、塔山之间邀击,明军前遇伏、后遭追,自相践踏,死者五万余,浮尸海上,九边精锐一夕尽丧。","洪承畴率残部万余退守松山孤城,清反围之、掘壕困守半年余。崇祯十五年(崇德七年)二月十八日夜,副将夏承德潜纳款为内应,清军登城,松山陷,承畴、祖大乐被俘,巡抚邱民仰、总兵王廷臣、曹变蛟死之;承畴后降清。三月祖大寿以锦州降,四月塔山、杏山继陷。明关外唯余宁远一城,再无力出关,亡局遂定。"]}
 };
 const CITY={
-  songshan:{t:"松山",d:"今辽宁锦州松山,战役中枢",p:["洪承畴列阵松山、乳峰山间与清相持。粮断夜溃后,退守松山孤城,被清反围掘壕困守半年。崇祯十五年二月城破被俘,后降清。"]},
-  jinzhou:{t:"锦州",d:"今辽宁锦州,祖大寿守",p:["清军久围之城,援锦即松锦之战之由。祖大寿困守告急,及松山破、援绝,势穷,遂献城降清。"]},
-  xingshan:{t:"杏山",d:"松锦堡垒线要堡",p:["明军夜溃南奔之途。清军乘乱掩杀于杏山、塔山间,明军自相践踏。松山破后,杏山亦陷。"]},
-  tashan:{t:"塔山",d:"松锦堡垒线南堡",p:["溃军奔逃所经,清骑蹑杀,死者枕藉,浮尸海上。松山既陷,塔山继没,关外堡垒线尽失。"]},
-  bijiashan:{t:"笔架山",d:"南海边,明军屯粮之所",p:["明援军粮储所在。皇太极掘壕断饷,复夺笔架山屯粮,明军粮尽军心遂溃——断粮道之枢在此。"]},
-  ningyuan:{t:"宁远",d:"辽西走廊要城,明军出援基地",p:["洪承畴督师往援之出发地。松锦既败,九边尽丧,明关外唯余宁远一城,再无力出关,坐待覆亡。"]},
-  yizhou:{t:"义州",d:"清军屯田围锦基地",p:["清于义州屯田积谷,为久围锦州之根本。皇太极亲督之师亦由此一带南下,掘壕绕海以断明饷。"]}
+  jinzhou:{t:"锦州",d:"今辽宁锦州(121.13E,41.11N),祖大寿守",p:["清军久围之城,援锦即松锦之战之由。祖大寿以义州屯田之清军重重长围,困守告急。松山既破、援绝势穷,崇祯十五年三月祖大寿率部献城降清。"]},
+  songshan:{t:"松山",d:"锦州南十八里,今锦州松山(121.10E,41.04N)",p:["洪承畴大营。列阵松山、乳峰山间与清相持;后尽师前压于此,饷道悬长。皇太极掘长壕断粮、夺笔架山储后,明军夜溃;承畴退守松山孤城,围半年。十五年二月夏承德内应,城破被俘,后降清——此役之中枢。"]},
+  xingshan:{t:"杏山",d:"松山南,今凌海杏山(121.00E,40.92N)",p:["松·塔之间要堡,亦为陆路饷道所经。皇太极长壕即绕松山、杏山之间抵海以断粮。明军夜遁经此中伏。松山破后,守将吕品奇以六千八百降,杏山陷。"]},
+  gaoqiao:{t:"高桥",d:"杏山塔山间,今连山高桥(120.91E,40.86N)",p:["明军夜遁南奔之要冲。清军早设伏于此邀击,王朴、吴三桂等前遇伏、后遭追,狼狈南走;明军自相践踏,溃败之惨,此为最烈。"]},
+  tashan:{t:"塔山",d:"杏山南,今连山塔山(120.87E,40.82N)",p:["辽西走廊南段要堡,饷道所经。溃军奔逃所经,清骑蹑杀,死者枕藉。松山既陷,四月清以红衣大炮破塔山,守军七千尽殁,关外堡垒线尽失。"]},
+  bijiashan:{t:"笔架山",d:"松山东南海中,今锦州笔架山(121.23E,40.93N)",p:["明援军海储之所,积粟十二堆屯于此。皇太极掘壕断陆路饷道后,复令阿济格乘潮落突袭夺之——海陆之储俱失,明军粮尽军心遂溃,断粮之枢在此。"]},
+  ningyuan:{t:"宁远",d:"今辽宁兴城(120.72E,40.62N),明军出援基地",p:["洪承畴督师往援之出发地、后方粮本所在,亦为溃军南奔之归宿。松锦既败,九边尽丧,明关外唯余宁远一城,再无力出关,坐待覆亡。"]},
+  yizhou:{t:"义州",d:"锦州北,今辽宁义县(121.24E,41.54N)",p:["清军屯田积谷、久围锦州之根本。崇德五年清于此屯田筑城,以为围锦之基;皇太极亲督之师亦经此一带南下,掘壕绕海以断明军饷道。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

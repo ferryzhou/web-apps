@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -30,13 +30,32 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 城墙·九门 */
+  .wall{fill:rgba(110,93,60,.05);stroke:var(--ink2);stroke-width:2.2;opacity:.9}
+  .gate circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+  /* 背城列阵:九门外之明军阵列(青色阵栅) */
+  .array{fill:none;stroke:var(--advance);stroke-width:4;stroke-linecap:round;opacity:.92}
+  .array.t{stroke-width:2}
+  /* 通州漕粮:金色串珠动脉,抢运入城 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 神机营火器齐发 */
+  .volley line{stroke:var(--fire);stroke-width:2;stroke-linecap:round}
+  .flame{stroke:var(--paper);stroke-width:.5}
+  .brick{fill:var(--ink2);opacity:.75}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .gname{font-size:11px;font-weight:700;fill:var(--ink);pointer-events:none}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
@@ -45,9 +64,10 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .xmark line{stroke:var(--enemy);stroke-width:2.4;stroke-linecap:round}
+  .xmark circle{fill:none;stroke:var(--enemy);stroke-width:1.5}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +76,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +107,17 @@
   <div class="seal" aria-hidden="true"><span>京</span><span>师</span><span>保</span><span>卫</span></div>
   <header>
     <h1>北京保卫战</h1>
-    <div class="sub">正统十四年(1449)　　<i>明 于谦</i> 背城却敌 · <b>瓦剌 也先</b>挟质无功而退</div>
+    <div class="sub">明正统十四年(1449)　　<i>明 兵部尚书 于谦</i> 背城列阵 · 九门却敌　·　<b>瓦剌 也先</b> 挟英宗为质而无功西退 —— 社稷再造</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 也先逼京</button>
-    <button data-p="1">议守 · 背城列阵</button>
-    <button data-p="2">德胜门设伏</button>
-    <button data-p="3">挟质北遁</button>
+    <button class="on" data-p="all">全图 · 社稷为重</button>
+    <button data-p="1">土木惊变 · 议南迁 · 立新君</button>
+    <button data-p="2">调兵运粮 · 背城列阵九门</button>
+    <button data-p="3">德胜门设伏 · 火器却敌</button>
+    <button data-p="4">攻五日不克 · 挟英宗西退</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="北京保卫战形势图,含瓦剌与明京师疆界、北京九门护城河与卢沟永定河等">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="北京保卫战形势图,以放大之北京内城九门为中心,含瓦剌塞外与明京畿疆界、永定河卢沟、终南余脉与居庸紫荆之关塞,及通州良乡紫荆关居庸关土木堡等地;瓦剌自紫荆关破关逼京、九门列阵却之、也先挟英宗经良乡西退,通州仓粮抢运入城以金色漕粮动脉示之">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,94 +126,182 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:瓦剌据塞北(北,城外),明据京师(南),约以边墙关塞为界 -->
-    <path d="M 0,236 C 160,220 320,214 480,222 C 640,230 820,228 1000,214 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,236 C 160,220 320,214 480,222 C 640,230 820,228 1000,214 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,236 C 160,220 320,214 480,222 C 640,230 820,228 1000,214"/>
-    <text class="realm q" x="120" y="130" font-size="32">瓦 剌(塞北)</text>
-    <text class="realm j" x="640" y="600" font-size="30">明 · 京 师</text>
+    <!-- ══ 疆界:瓦剌据塞外(西北,居庸·紫荆诸关之外),明据京畿(东南);约以关塞一线为界(示意) ══ -->
+    <path d="M 470,0 C 445,70 420,120 403,160 C 355,255 275,360 210,432 C 178,470 152,492 136,507 C 96,548 52,596 0,616 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 C 445,70 420,120 403,160 C 355,255 275,360 210,432 C 178,470 152,492 136,507 C 96,548 52,596 0,616 L 0,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 445,70 420,120 403,160 C 355,255 275,360 210,432 C 178,470 152,492 136,507 C 96,548 52,596 0,616"/>
+    <text class="realm q" x="70" y="120" font-size="27">瓦 剌(塞外)</text>
+    <text class="realm j" x="690" y="560" font-size="28">明 · 京 畿</text>
 
-    <!-- 卢沟·永定河:自西北山峡东南下 -->
-    <path class="river" stroke-width="5" d="M 150,150 C 210,220 250,290 288,346 C 330,406 372,458 430,500 C 500,548 600,566 700,566"/>
-    <!-- 护城河:环北京城 -->
-    <path class="river" stroke-width="2.2" d="M 512,344 C 560,338 604,352 620,398 C 632,442 616,486 570,502 C 522,516 470,504 452,458 C 438,414 460,360 512,344 Z"/>
-    <text class="rname" x="352" y="418" transform="rotate(38 352 418)" style="font-size:12px">永定河(卢沟)</text>
+    <!-- ══ 关塞·山脉:居庸—紫荆一线,京师西北之险 ══ -->
+    <path class="mtn fill" d="M 360,196 L 380,168 L 398,190 L 418,164 L 436,188 L 452,166 L 468,190 Z"/>
+    <path class="mtn" d="M 372,190 l 14,-19 l 12,15 l 16,-21 l 12,16"/>
+    <g class="mtn"><path d="M 250,398 l 8,-13 l 8,13 M 266,392 l 8,-13 l 8,13 M 282,398 l 7,-12 l 7,12"/></g>
+    <g class="mtn"><path d="M 150,478 l 8,-13 l 8,13 M 166,472 l 8,-13 l 8,13"/></g>
+    <text class="mname" x="300" y="352" transform="rotate(37 300 352)">太 行 · 关 山</text>
 
-    <!-- 山峡·关塞(西北) -->
-    <g class="mtn"><path d="M 180,196 l 8,-13 l 8,13 M 196,190 l 8,-13 l 8,13 M 212,196 l 7,-12 l 7,12"/></g>
-    <g class="mtn"><path d="M 320,204 l 7,-11 l 7,11 M 334,200 l 7,-11 l 7,11"/></g>
+    <!-- ══ 水系:永定河(卢沟),自西北山峡东南下,绕京师之西南 ══ -->
+    <path class="river" stroke-width="4.4" d="M 280,140 C 302,236 330,326 372,398 C 406,456 452,508 506,552"/>
+    <text class="rname" x="330" y="428" transform="rotate(52 330 428)" style="font-size:12px">永定河(卢沟)</text>
 
-    <!-- 北京城·九门(示意方城) -->
-    <rect x="472" y="368" width="128" height="112" fill="none" stroke="var(--ink2)" stroke-width="1.4" opacity=".8"/>
-    <!-- 九门门位标注 -->
-    <text class="cname s" x="486" y="362">德胜门</text>
-    <text class="cname s" x="556" y="362">安定门</text>
-    <text class="cname s" x="602" y="410" style="letter-spacing:0">朝阳门</text>
-    <text class="cname s" x="602" y="452" style="letter-spacing:0">东直门</text>
-    <text class="cname s" x="418" y="404">西直门</text>
-    <text class="cname s" x="418" y="470">彰义门</text>
-    <text class="cname s" x="500" y="502">正阳门</text>
+    <!-- ══ 北京内城·九门(放大示意方城;实内城约四十里周,图中夸大以标九门) ══ -->
+    <rect class="wall" x="425" y="245" width="150" height="130" rx="4"/>
+    <!-- 护城河 -->
+    <path class="river" stroke-width="1.8" d="M 425,235 L 575,235 Q 585,235 585,245 L 585,375 Q 585,385 575,385 L 425,385 Q 415,385 415,375 L 415,245 Q 415,235 425,235 Z"/>
+    <!-- 土城(元大都北垣旧址,德胜门外,设伏之地) -->
+    <path d="M 442,222 C 470,214 502,214 530,222" fill="none" stroke="var(--ink2)" stroke-width="1.2" stroke-dasharray="4 4" opacity=".6"/>
+    <text class="cname s" x="500" y="212" style="font-size:9.5px;opacity:.8">元大都北垣旧址(土城)</text>
 
-    <!-- 城邑·关口 -->
+    <!-- 九门门名(不可点,示位) -->
+    <text class="gname" x="440" y="238">德胜门</text>
+    <text class="gname" x="524" y="238">安定门</text>
+    <text class="gname" x="371" y="279">西直门</text>
+    <text class="gname" x="371" y="346">阜成门</text>
+    <text class="gname" x="588" y="279">东直门</text>
+    <text class="gname" x="588" y="346">朝阳门</text>
+    <text class="gname" x="470" y="403">正阳门</text>
+    <text class="gname" x="542" y="403">崇文门</text>
+    <text class="gname" x="392" y="403">宣武门</text>
+
+    <!-- ══ 城邑·关口(可点) ══ -->
     <g id="cities">
-      <g class="city" data-city="desheng"><circle cx="500" cy="368" r="5.5"/><text class="cname" x="472" y="352">德胜门</text></g>
-      <g class="city" data-city="xizhi"><circle cx="472" cy="404" r="4.5"/><text class="cname" x="426" y="392">西直门</text></g>
-      <g class="city" data-city="zhangyi"><circle cx="472" cy="464" r="4"/><text class="cname s" x="416" y="482">彰义门</text></g>
-      <g class="city" data-city="zijing"><circle cx="196" cy="330" r="4.5"/><text class="cname" x="130" y="326">紫荆关</text></g>
-      <g class="city cap" data-city="jingshi"><circle cx="536" cy="424" r="6.5"/><text class="cname" x="548" y="422">京师<tspan class="cname s" dx="2">(守御中枢)</tspan></text></g>
-      <g class="city" data-city="juyong"><circle cx="380" cy="220" r="4.5"/><text class="cname" x="360" y="210">居庸关</text></g>
+      <!-- 九门:德胜门·西直门·彰义门为战之要,余门以小点示之 -->
+      <g class="city gate" data-city="desheng"><circle cx="468" cy="245" r="5.5"/></g>
+      <g class="city gate" data-city="xizhi"><circle cx="425" cy="282" r="4.5"/></g>
+      <g class="city gate" data-city="zhangyi"><circle cx="452" cy="404" r="4.5"/><text class="cname s" x="428" y="422">彰义门</text></g>
+      <g class="gate"><circle cx="535" cy="245" r="3.5"/></g>
+      <g class="gate"><circle cx="425" cy="340" r="3.5"/></g>
+      <g class="gate"><circle cx="575" cy="282" r="3.5"/></g>
+      <g class="gate"><circle cx="575" cy="340" r="3.5"/></g>
+      <g class="gate"><circle cx="500" cy="375" r="3.5"/></g>
+      <g class="gate"><circle cx="540" cy="375" r="3.5"/></g>
+      <g class="gate"><circle cx="462" cy="375" r="3.5"/></g>
+      <g class="city cap" data-city="jingshi"><circle cx="500" cy="312" r="6"/><text class="cname" x="474" y="304">京师<tspan class="cname s" dx="2">(内城)</tspan></text></g>
+      <g class="city" data-city="tongzhou"><circle cx="580" cy="312" r="5.5"/><text class="cname" x="592" y="308">通州<tspan class="cname s" dx="2">(粮仓)</tspan></text></g>
+      <g class="city" data-city="liangxiang"><circle cx="400" cy="420" r="4.5"/><text class="cname" x="342" y="424">良乡</text></g>
+      <g class="city" data-city="zijing"><circle cx="136" cy="507" r="5"/><text class="cname" x="148" y="512">紫荆关</text></g>
+      <g class="city" data-city="juyong"><circle cx="403" cy="160" r="5"/><text class="cname" x="414" y="156">居庸关</text></g>
+      <g class="city" data-city="tumu"><circle cx="232" cy="117" r="4.5"/><text class="cname" x="180" y="108">土木堡</text></g>
     </g>
 
-    <!-- 全图 · 也先逼京 -->
+    <!-- 大同·塞外(图外西北,也先入犯之始) -->
+    <g transform="translate(10,150)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,6 L 30,16"/>
+      <text class="mlabel q" x="-4" y="-2" style="font-size:10px">大同·塞外 ↘</text>
+      <text class="cname s" x="-4" y="30" style="fill:var(--enemy);font-size:9.5px">也先入犯之始(图外西北)</text>
+    </g>
+
+    <!-- ══════════ 全图 · 社稷为重 ══════════ -->
     <g id="phAll" class="ph">
-      <rect class="camp" x="486" y="308" width="9" height="9" transform="rotate(45 490 312)"/>
-      <rect class="camp" x="440" y="330" width="9" height="9" transform="rotate(45 444 334)"/>
-      <text class="mlabel q" x="368" y="300">也先挟英宗,破紫荆关入犯</text>
-      <path class="march q" marker-end="url(#aq)" d="M 204,336 C 300,364 400,382 480,398"/>
-      <text class="anno" x="230" y="360">土木败后,乘胜长驱直逼京师</text>
-      <path class="siege" d="M 448,344 C 520,320 604,336 628,404 C 646,458 620,506 560,520 C 496,532 440,514 424,456 C 412,410 420,364 448,344"/>
-      <text class="anno" x="600" y="356">瓦剌逼九门</text>
-      <text class="mlabel j" x="560" y="560">于谦请固守,立景帝以绝要挟</text>
+      <path class="march q" marker-end="url(#aq)" d="M 150,498 C 250,438 350,382 428,338"/>
+      <text class="mlabel q" x="196" y="452">也先挟英宗破紫荆关,长驱直逼京师</text>
+      <!-- 通州漕粮:抢运入城 -->
+      <path class="supply band" d="M 574,314 C 552,320 534,322 552,330"/>
+      <path class="supply core" d="M 574,314 C 552,320 534,322 552,330"/>
+      <g class="grain"><rect x="561" y="315" width="7" height="7" transform="rotate(45 564.5 318.5)"/></g>
+      <text class="slabel" x="596" y="330" style="font-size:10px">通州仓粮·抢运入城</text>
+      <!-- 九门列阵:城外青栅示意 -->
+      <line class="array" x1="450" y1="230" x2="486" y2="230"/>
+      <line class="array" x1="410" y1="266" x2="410" y2="300"/>
+      <line class="array" x1="590" y1="266" x2="590" y2="300"/>
+      <line class="array" x1="470" y1="392" x2="532" y2="392"/>
+      <text class="mlabel j" x="606" y="404">于谦立景帝以夺其质,背城列阵九门</text>
+      <circle class="star" cx="468" cy="245" r="8"/>
+      <circle class="star" cx="425" cy="282" r="6.5"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 430,360 C 400,392 380,410 372,430 C 320,470 240,500 158,510"/>
+      <text class="mlabel r" x="196" y="536">攻五日不克,挟英宗由良乡西退</text>
     </g>
 
-    <!-- 阶段一:议守 · 背城列阵 -->
+    <!-- ══════════ 阶段一:土木惊变 · 议南迁 · 立新君 ══════════ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 540,410 C 528,394 516,382 504,374"/>
-      <path class="march j" marker-end="url(#aj)" d="M 528,414 C 516,410 500,408 480,406"/>
-      <path class="march j" marker-end="url(#aj)" d="M 532,432 C 520,444 502,456 480,462"/>
-      <text class="mlabel j" x="360" y="530">分遣诸将列阵九门之外,背城决战</text>
-      <text class="anno" x="380" y="548">于谦总督军务,急调两京、山东援军入卫</text>
-      <text class="anno" x="560" y="446">闭城门以示必死</text>
-      <text class="mlabel j" x="352" y="512">修城浚壕、造兵器、募民兵,人心稍定</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,168 C 110,150 170,132 214,122"/>
+      <rect class="camp" x="226" y="110" width="12" height="12" transform="rotate(45 232 116)"/>
+      <text class="mlabel q" x="150" y="86">八月,土木之变:英宗被俘,京军五十万覆没</text>
+      <g class="xmark" transform="translate(232,117)"><circle r="10"/><line x1="-7" y1="-7" x2="7" y2="7"/><line x1="-7" y1="7" x2="7" y2="-7"/></g>
+      <text class="mlabel j" x="470" y="452">京师大震,朝议汹汹,有主南迁者</text>
+      <text class="anno" x="470" y="470">于谦厉声:「言南迁者可斩!京师天下根本,一动则大事去矣」</text>
+      <text class="mlabel j" x="470" y="500">乃奉郕王即帝位(景泰帝),遥尊英宗为太上皇</text>
+      <text class="anno" x="470" y="518">名分既定,也先挟质邀利之谋,先失其半</text>
     </g>
 
-    <!-- 阶段二:德胜门设伏 · 炮毙孛罗 -->
+    <!-- ══════════ 阶段二:调兵运粮 · 背城列阵九门 ══════════ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="486" y="316" width="9" height="9" transform="rotate(45 490 320)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 494,330 C 496,342 498,352 500,360"/>
-      <text class="mlabel q" x="440" y="316">也先攻德胜门</text>
-      <circle class="star" cx="500" cy="368" r="9"/>
-      <text class="mlabel j" x="352" y="352">于谦石亨设伏,以火器夹击</text>
-      <text class="anno" x="356" y="368">也先弟孛罗(平章)中炮死</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 494,360 C 486,378 478,392 474,400"/>
-      <text class="mlabel q" x="418" y="424">转攻西直门,孙镗力战</text>
-      <circle class="star" cx="472" cy="404" r="7.5"/>
-      <path class="march q rout" marker-end="url(#aq)" d="M 468,410 C 466,432 466,450 470,460"/>
-      <text class="mlabel r" x="392" y="490">彰义门亦却之</text>
+      <!-- 勤王援军自东南入卫 -->
+      <path class="march j" marker-end="url(#aj)" d="M 760,600 C 700,540 640,470 560,400"/>
+      <text class="mlabel j" x="628" y="560">调两京·河南备操军、山东备倭军、江北运粮军入卫</text>
+      <text class="anno" x="700" y="612">旬月之间,得众二十二万</text>
+      <!-- 通州漕粮:金色串珠动脉,抢运入城 -->
+      <path class="supply band" d="M 574,314 C 548,318 528,320 520,320 C 512,322 506,326 502,330"/>
+      <path class="supply core" d="M 574,314 C 548,318 528,320 520,320 C 512,322 506,326 502,330"/>
+      <g class="grain">
+        <rect x="558" y="313" width="7" height="7" transform="rotate(45 561.5 316.5)"/>
+        <rect x="532" y="315" width="7" height="7" transform="rotate(45 535.5 318.5)"/>
+      </g>
+      <text class="slabel" x="592" y="298">通州仓 · 抢运入城</text>
+      <text class="slabel" x="592" y="312" style="font-size:9.5px;opacity:.85">军民自诣通州支粮,数百万石尽入京</text>
+      <!-- 九门背城列阵(青栅环城) -->
+      <line class="array" x1="450" y1="230" x2="486" y2="230"/>
+      <line class="array" x1="516" y1="230" x2="552" y2="230"/>
+      <line class="array" x1="410" y1="264" x2="410" y2="300"/>
+      <line class="array" x1="410" y1="322" x2="410" y2="358"/>
+      <line class="array" x1="590" y1="264" x2="590" y2="300"/>
+      <line class="array" x1="590" y1="322" x2="590" y2="358"/>
+      <line class="array" x1="444" y1="392" x2="480" y2="392"/>
+      <line class="array" x1="484" y1="392" x2="520" y2="392"/>
+      <text class="mlabel j" x="150" y="298">于谦不据城株守,悉数出师,列阵九门之外</text>
+      <text class="anno" x="150" y="316">谦自被甲督战德胜门,当也先之锋</text>
+      <text class="anno" x="150" y="576">下令:临阵先退者斩其将、后队斩前队;军既出,尽闭九门,示以死战</text>
+      <circle class="star" cx="468" cy="245" r="7" opacity=".7"/>
     </g>
 
-    <!-- 阶段三:挟质无功 · 瓦剌北遁 -->
+    <!-- ══════════ 阶段三:德胜门设伏 · 火器却敌 ══════════ -->
     <g id="ph3" class="ph">
-      <text class="mlabel j" x="440" y="540">相持五日,瓦剌攻掠无功</text>
-      <text class="anno" x="420" y="558">恐勤王师集、退路被断</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 480,398 C 400,378 300,360 208,340"/>
-      <text class="mlabel r" x="240" y="322">也先挟英宗北遁</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 200,326 C 210,290 240,254 300,226"/>
-      <text class="anno" x="200" y="272">经紫荆、居庸出塞</text>
-      <text class="mlabel j" x="560" y="576">京师围解,明祚得延</text>
+      <rect class="camp" x="462" y="192" width="11" height="11" transform="rotate(45 467 197)"/>
+      <text class="mlabel q" x="486" y="196">十月十三,也先集众力攻德胜门</text>
+      <path class="march q" marker-end="url(#aq)" d="M 468,208 C 468,220 468,228 468,236"/>
+      <!-- 设伏空舍·诱敌 -->
+      <path class="march j" marker-end="url(#aj)" d="M 458,238 C 452,226 448,218 448,210" opacity=".85"/>
+      <text class="anno" x="300" y="200">石亨伏兵空舍,数骑佯败诱敌</text>
+      <!-- 神机营火器齐发 -->
+      <g class="volley" transform="translate(468,232)">
+        <line x1="0" y1="0" x2="-14" y2="-12"/><line x1="0" y1="0" x2="-4" y2="-18"/><line x1="0" y1="0" x2="6" y2="-17"/><line x1="0" y1="0" x2="16" y2="-11"/><line x1="0" y1="0" x2="-18" y2="-4"/>
+      </g>
+      <circle class="star" cx="468" cy="245" r="9"/>
+      <text class="mlabel j" x="150" y="248">神机营火器齐发,伏起夹击</text>
+      <text class="anno" x="150" y="266">也先弟孛罗(平章)、卯那孩中炮死,瓦剌大败</text>
+      <!-- 转攻西直门 -->
+      <path class="march q" marker-end="url(#aq)" d="M 448,272 C 438,276 430,278 424,280"/>
+      <text class="mlabel q" x="352" y="268">转攻西直门</text>
+      <circle class="star" cx="425" cy="282" r="7"/>
+      <text class="anno" x="332" y="300">都督孙镗力战,毛福寿等来援,复却之</text>
+      <!-- 彰义门:居民登屋掷砖 -->
+      <path class="march q" marker-end="url(#aq)" d="M 430,438 C 440,428 448,418 452,410"/>
+      <circle class="star" cx="452" cy="404" r="7"/>
+      <text class="mlabel q" x="286" y="452">又攻彰义门(城西南)</text>
+      <g class="brick"><rect x="470" y="360" width="4" height="3"/><rect x="478" y="356" width="4" height="3"/><rect x="486" y="360" width="4" height="3"/><rect x="474" y="366" width="4" height="3"/><rect x="482" y="364" width="4" height="3"/></g>
+      <text class="anno" x="470" y="352">京城居民升屋号呼,掷砖石助战</text>
+      <text class="mlabel j" x="470" y="588">九门皆坚,瓦剌攻掠无功</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══════════ 阶段四:攻五日不克 · 挟英宗西退 ══════════ -->
+    <g id="ph4" class="ph">
+      <text class="mlabel j" x="470" y="440">相持五日,瓦剌屡攻不克,士马疲弊</text>
+      <text class="anno" x="470" y="458">又闻各路勤王师大集,恐退路被断</text>
+      <!-- 居庸别部受阻 -->
+      <g class="xmark" transform="translate(403,160)"><circle r="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="anno" x="416" y="176">别部攻居庸,罗通灌冰坚城,不能拔</text>
+      <!-- 也先挟英宗西退:经良乡,出紫荆关 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 430,360 C 400,392 384,408 374,428 C 344,462 320,478 300,486"/>
+      <text class="mlabel r" x="300" y="452">也先挟英宗夜拔营,由良乡西退</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 392,428 C 320,464 232,496 152,508"/>
+      <text class="anno" x="196" y="524">出紫荆关,十一月初八尽退塞外</text>
+      <!-- 明军追击 -->
+      <path class="march j" marker-end="url(#aj)" d="M 448,368 C 420,398 400,418 388,436"/>
+      <text class="mlabel j" x="470" y="490">石亨等追击,于谦发火炮夜击其营,斩获甚众</text>
+      <text class="mlabel j" x="470" y="588">京师围解,明祚得延 —— 社稷再造之功,系于于谦一身</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -188,32 +312,100 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(于谦)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>瓦剌(也先)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>攻门不克·北遁</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>大捷</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>挟英宗西退</span>
+    <span class="item"><svg width="30" height="12"><line x1="4" y1="2" x2="4" y2="10" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/><line x1="14" y1="6" x2="26" y2="6" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/></svg>九门列阵</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>通州漕粮·入城</span>
+    <span class="item"><svg width="18" height="16"><g transform="translate(9,12)" stroke="#c8641e" stroke-width="2" stroke-linecap="round"><line x1="0" y1="0" x2="-6" y2="-8"/><line x1="0" y1="0" x2="0" y2="-9"/><line x1="0" y1="0" x2="6" y2="-8"/></g></svg>神机火器</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·却敌</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>瓦剌</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>明</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 社稷为重 · 背城却敌</h3>
+    <div class="lead">何以京师之全,系于一立君、一出战 —— 立新君以夺其质,背城战以夺其气</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="北京保卫战庙算示意:也先挟英宗为质以邀利、赚开城门,于谦奉郕王即帝位而质失其用;又不据城株守,背城列阵九门之外,德胜门设伏、神机火器毙孛罗,勤王师集恐断归路,也先攻五日不克而挟质西退">
+      <!-- 上:也先之恃(质) 下:于谦之应(君·战) -->
+      <text x="24" y="30" fill="#9a2b1e" font-size="12" font-weight="700">也先之恃 · 挟英宗为质</text>
+      <line x1="22" y1="42" x2="838" y2="42" stroke="#9a2b1e" stroke-width="2" opacity=".32" stroke-dasharray="3 4"/>
+      <text x="24" y="232" fill="#1f4e54" font-size="12" font-weight="700">于谦之应 · 社稷为重</text>
+      <line x1="22" y1="208" x2="838" y2="208" stroke="#1f4e54" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+
+      <!-- 左路:质 → 立君夺其质 -->
+      <rect x="40" y="54" width="176" height="40" rx="4" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="52" y="72" fill="#9a2b1e" font-size="11.5" font-weight="700">挟太上皇邀金帛</text>
+      <text x="52" y="88" fill="#9a2b1e" font-size="11.5" font-weight="700">赚开关门·索土地</text>
+      <path d="M 128,96 L 128,150" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 4" opacity=".7"/>
+      <rect x="40" y="150" width="200" height="44" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="52" y="168" fill="#1f4e54" font-size="11.5" font-weight="700">奉郕王即帝位(景泰帝)</text>
+      <text x="52" y="184" fill="#1f4e54" font-size="11.5" font-weight="700">遥尊英宗为太上皇</text>
+      <!-- ✕ 覆质 -->
+      <g transform="translate(128,123)"><circle r="14" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="-9" y1="-9" x2="9" y2="9" stroke="#9a2b1e" stroke-width="2.6"/><line x1="-9" y1="9" x2="9" y2="-9" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="150" y="120" fill="#9a2b1e" font-size="10.5" font-weight="700">名分既正 → 质无所用</text>
+
+      <!-- 右路:背城出战 -->
+      <rect x="330" y="54" width="200" height="40" rx="4" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="342" y="72" fill="#9a2b1e" font-size="11.5" font-weight="700">瓦剌乘胜逼九门</text>
+      <text x="342" y="88" fill="#9a2b1e" font-size="11.5" font-weight="700">全力攻德胜门</text>
+      <!-- 城·九门 -->
+      <rect x="392" y="150" width="72" height="46" rx="3" fill="rgba(110,93,60,.06)" stroke="#5c4f38" stroke-width="1.6"/>
+      <text x="404" y="178" fill="#5c4f38" font-size="11" font-weight="700">京师</text>
+      <!-- 城外列阵(青栅) -->
+      <g stroke="#1f4e54" stroke-width="3.5" stroke-linecap="round">
+        <line x1="404" y1="142" x2="452" y2="142"/><line x1="384" y1="158" x2="384" y2="188"/><line x1="472" y1="158" x2="472" y2="188"/><line x1="404" y1="204" x2="452" y2="204"/>
+      </g>
+      <text x="330" y="230" fill="#1f4e54" font-size="10.5">不据城株守,背城列阵九门外,闭门死战</text>
+      <!-- 火器毙孛罗 -->
+      <g class="volley" transform="translate(428,132)"><line x1="0" y1="0" x2="-9" y2="-11" stroke="#c8641e" stroke-width="2"/><line x1="0" y1="0" x2="0" y2="-13" stroke="#c8641e" stroke-width="2"/><line x1="0" y1="0" x2="9" y2="-11" stroke="#c8641e" stroke-width="2"/></g>
+      <text x="472" y="120" fill="#c8641e" font-size="10.5" font-weight="700">德胜门设伏·神机火器</text>
+      <text x="472" y="135" fill="#9a2b1e" font-size="10.5" font-weight="700">毙也先弟孛罗</text>
+
+      <!-- 断归路 -->
+      <text x="600" y="150" fill="#7a5a23" font-size="11.5" font-weight="700">勤王师大集</text>
+      <text x="600" y="168" fill="#7a5a23" font-size="10.5">恐退路被断</text>
+      <path d="M 592,158 C 620,158 700,158 726,158" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 6"/>
+      <path d="M 726,158 L 716,153 L 716,163 Z" fill="#7a5a23"/>
+      <text x="600" y="196" fill="#9a2b1e" font-size="12" font-weight="700">攻五日不克 → 挟质西退</text>
+    </svg>
+    <p class="intro">土木之败,京军尽覆、天子被俘,以形势论,明几不可国。也先所恃者,一曰<b>手握天子,可挟以邀利、赚城索地</b>;二曰<b>乘破军之威,可一鼓而下空虚之京师</b>。二恃俱在,故南迁之议汹汹。于谦所谋,正在<b>逐一夺其所恃</b>:先立新君以废其质,再背城出战以折其锋 —— 非坚城之能守,乃庙算之先胜。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>立新君 · 夺其质</h4>
+        <p>英宗既为也先所挟,瓦剌辄拥之临关索赂、赚门。于谦力排南迁之议(「言南迁者可斩」),奉郕王即帝位,是为景泰帝,遥尊英宗为太上皇。名分一正,则手中天子降为「太上皇」,也先挟质邀利之谋顿成虚著 —— 此不战而先夺敌之半也。</p>
+      </div>
+      <div class="c b">
+        <h4>背城出战 · 夺其气</h4>
+        <p>石亨请敛兵入城、闭门固守,于谦以为示弱适以长寇;乃悉出二十二万众,列阵九门之外,背城决战,自被甲督德胜门。军既出而尽闭城门,令先退者斩,将士知无所逃。德胜门设伏、神机火器齐发,毙也先弟孛罗;西直、彰义诸门皆坚,居民且登屋掷砖助战。</p>
+      </div>
+    </div>
+    <p class="kicker">质既无用,战又不利,则也先深入之师进退失据:攻五日不能下一门,勤王之师四集,<b>惧归路见断,遂挟英宗夜遁,由良乡西退,出紫荆关</b>。故京师之全,不在城之能守,而在<b>立君以夺其所挟、出战以折其所乘、断路以促其所遁</b> —— 于谦以一身系社稷,再造之功,信不诬也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·于谦传》《景帝纪》《瓦剌传》约略绘出。北京九门(德胜、安定、东直、朝阳、正阳、崇文、宣武、阜成、西直)位置为相对示意;彰义门乃元大都旧门(约当明代西南),紫荆关今河北易县西北,居庸关今北京昌平西北。护城河、永定(卢沟)河经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为正统末年形势示意:瓦剌据塞北,乘土木之变南下逼京;边墙关塞为险,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>土木之变,英宗被俘,京师大震,朝议有主南迁者。于谦力排众议,曰「言南迁者可斩」,请固守;乃立郕王为帝(景帝),尊英宗为太上皇,以绝也先要挟之资。背城列阵、神机火器,遂成一代之功。</p>
+    <p><span class="n">注一</span>本图为示意图。外围诸地按今地经纬度作线性投影(x=500+(经度−116.395)·300,y=310−(纬度−39.905)·390,北上东右),几何方位力求近实:通州在东,良乡在西南,紫荆关在西南远,居庸关在北,土木堡在西北,大同更在西北(图外,以边缘箭头示之)。惟北京内城仅约四十里周,若按同一比例则九门聚为一点,故<b>中央方城系放大之示意</b>,九门依真实相对方位环列(德胜、安定居北垣,正阳、崇文、宣武居南垣,朝阳、东直居东垣,阜成、西直居西垣),外围之地则方位从真而距离经压缩。</p>
+    <p><span class="n">注二</span>晕染疆界为正统末形势示意:瓦剌本居塞外,以居庸—紫荆诸关及边墙为险;也先破紫荆关而入,故战场实在明之京畿。点划「约界」依关塞一线,非实有画界;永定河(卢沟)、护城河、太行关山皆经简化。城邑经纬:北京内城中心约116.39E/39.90N、通州约116.66E/39.90N、良乡约116.13E/39.73N、紫荆关约115.18E/39.40N(今河北易县西北)、居庸关约116.07E/40.29N(今北京昌平)、土木堡约115.50E/40.40N(今河北怀来)。</p>
+    <p><span class="n">注三</span>行军皆由陆路,无水运漕转之事。惟军食一节最要:通州仓积粟数百万石,足支京军岁余,论者惧为也先所资,或请焚之。于谦令入卫官军「自诣通州支粮」,又调顺天府大车转运,遂使仓粟尽入京城 —— 既足守御,又不遗敌(图中金色漕粮动脉即此)。援军所出:两京、河南之备操军,山东、沿海之备倭军,江北及北京诸府之运粮军,皆自东南入卫,旬月得众二十二万;瓦剌则自西北(大同→紫荆关)入,别部攻居庸关为罗通所拒。</p>
+    <p><span class="n">注四</span>制胜之枢,不在守城而在庙算(见上「释要」):一曰立景帝以废也先手中之质,二曰背城列阵九门、不为坚壁清野之守而出与之战,三曰德胜门设伏、神机营火器夹击以毙其锐(也先弟孛罗、平章卯那孩中炮死),四曰勤王师集、断其归路以促其遁。于谦自督德胜门,下令「临阵将不顾军先退者斩其将,军不顾将先退者后队斩前队」,又尽闭九门以示死战 —— 此背城出战之所以能成。</p>
+    <p><span class="n">注五</span>异说与考订。战期:也先破紫荆关在十月初,德胜门大战在十月十三,越二日(十五)西退,至十一月初八瓦剌尽出塞。兵数:「二十二万列阵九门」本《明史·于谦传》,土木「五十万」京军之数,史家多疑为号称。彰义门本金中都旧门,约当明内城西南(后嘉靖筑外城,乃有广宁门/广安门,一四四九时外城未建);此从旧称,置于城西南以示方位。孛罗、卯那孩之名与身分,诸书小异(孛罗一作「勃罗」,或称也先弟、或称其部平章),并志之。依《明史·于谦传》《景帝纪》《瓦剌传》及《明英宗实录》绘出。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"也先逼京",d:"正统十四年八月 — 十月",p:["土木之变,英宗被俘,五十万京军覆没,京师大震,朝议汹汹,有主南迁者。兵部侍郎于谦力排众议,曰「言南迁者可斩」,请固守;乃立郕王为帝(景帝),尊英宗为太上皇,以绝也先要挟之资。","也先挟英宗,自大同南下,破紫荆关入犯,长驱直逼京师,分道逼九门。于谦总督军务,亟调两京、河南备操军、山东沿海备倭军入卫,人心稍定,一场都城决战遂张。"]},
-  "1":{t:"背城列阵",d:"正统十四年十月",p:["于谦总督军务,亟调援军入卫,修城浚壕、造兵器、募民兵,数日之间守具略备。乃分遣诸将列阵九门之外,背城决战:自与石亨阵于德胜门,以身督战。","下令「临阵将不顾军先退者斩其将,军不顾将先退者后队斩前队」,又尽闭城门以示必死。将士知无退路,人思效死,而援兵四集,气势复振。"]},
-  "2":{t:"德胜门设伏·炮毙孛罗",d:"正统十四年十月",p:["也先麾众攻德胜门。于谦预设伏兵于空舍,先以数骑诱敌;瓦剌万骑逐至,伏发,以神机火器夹击,大破之,也先弟孛罗(平章)、卯那孩中炮死。","也先转攻西直门,都督孙镗力战,毛福寿等来援,又却之;彰义门守军亦拒退瓦剌。三门皆挫,瓦剌攻掠无功。"]},
-  "3":{t:"挟质无功·瓦剌北遁",d:"正统十四年十月",p:["瓦剌逼城相持五日,攻掠无所得,士马疲弊;也先又恐各路勤王师大集、退路被断,挟质邀利之谋尽废。","乃挟英宗夜拔营北去,经紫荆、居庸出塞。诸将追击,复有斩获。京师之围遂解,明祚得延——于谦以社稷为重,功在一时。"]}
+  all:{t:"社稷为重",d:"明正统十四年(1449)八月—十一月",p:["正统十四年八月,土木之变,英宗北狩,京军精锐尽覆,京师大震,朝有主南迁者。兵部侍郎(寻迁尚书)于谦力排众议,曰「言南迁者可斩」,请固守;乃奉郕王即帝位,是为景泰帝,遥尊英宗为太上皇,使也先挟质邀利之谋落空。","于谦亟调两京、河南备操军,山东、沿海备倭军,江北诸府运粮军入卫,又抢运通州仓粮入城,修城浚壕、缮甲造器。及也先破紫荆关直逼京师,谦不据城株守,悉出诸军背城列阵九门之外,自督德胜门;设伏火器却敌,九门皆坚。瓦剌攻五日不克,恐勤王师断其归路,遂挟英宗西退,京师之围乃解。"]},
+  "1":{t:"土木惊变 · 议南迁 · 立新君",d:"正统十四年八月—九月",p:["也先自大同分道入犯,王振挟英宗亲征,进退失据。八月,师溃于土木堡,英宗被俘,从征公卿死者数十人,五十万京军一朝覆没,甲仗辎重尽失。凶问至京,人情汹汹,群臣聚哭于朝,侍讲徐珵倡星象之说,请南迁。","于谦厉声曰:「言南迁者可斩!京师天下根本,一动则大事去矣,独不见宋南渡事乎?」议遂定。时英宗在也先手,动辄被拥以临关索赂;于谦乃与群臣请皇太后立郕王,九月郕王即帝位(景泰帝),遥尊英宗为太上皇。名分既正,也先手中之质顿失其重 —— 保卫之局,自此立其根本。"]},
+  "2":{t:"调兵运粮 · 背城列阵九门",d:"正统十四年九月—十月",p:["于谦总督军务,分遣御史往诸府征兵:两京、河南之备操军,山东、沿海之备倭军,江北及北京诸府之运粮军,亟驰入卫,旬月之间得众二十二万。通州仓积粟数百万石,或请焚之以免资敌;谦令入卫将士径诣通州支粮,又发顺天府大车转运,仓粟尽入京城,守具乃备。","也先挟英宗破紫荆关,长驱逼京。石亨议敛兵闭门坚守,谦以为示弱长寇,乃悉出诸军,列阵九门之外,背城决战:都督陶瑾等分守安定、东直、朝阳、西直、阜成、正阳、崇文、宣武诸门,而谦自与石亨阵德胜门外,当也先。军既出,尽闭城门;下令「临阵将不顾军先退者斩其将,军不顾将先退者后队斩前队」,将士知必死,人思效命。"]},
+  "3":{t:"德胜门设伏 · 火器却敌",d:"正统十四年十月十三日",p:["十月十三,也先集全力攻德胜门。于谦令石亨设伏兵于道旁空舍,先遣数骑诱敌;也先果亲率万骑穷追,及入伏中,伏发,神机营火器齐发,火箭弓弩如飞蝗,前后夹击,瓦剌大败,也先弟孛罗(平章)、卯那孩中炮死。","也先转攻西直门,都督孙镗力战,毛福寿等引兵来援,复却之。又攻彰义门(城西南),明军以火器列拒,虽都督武兴中流矢殁,而京城居民升屋号呼、争掷砖石以助官军,援兵继至,瓦剌又退。相攻数日,九门皆坚,瓦剌攻掠无所得。"]},
+  "4":{t:"攻五日不克 · 挟英宗西退",d:"正统十四年十月十五日—十一月初八",p:["瓦剌逼城相持五日,屡攻不下,士马疲弊,又别部攻居庸关为罗通灌冰坚城所拒,内外皆无所得。也先闻各路勤王之师大集,惧退路被断、深入难返,挟质邀利之谋既废,遂决意北还。","十月十五,也先挟英宗夜拔营,由良乡西退,出紫荆关。石亨等纵兵追击,于谦发火炮夜击其营,斩获甚众;至十一月初八,瓦剌尽退塞外,京师之围遂解。于谦以社稷为重,力挽既倒之澜,明祚赖以再延 —— 一代之功,系于其一身。"]}
 };
 const CITY={
-  desheng:{t:"德胜门",d:"北京城北门",p:["主战场。于谦自与石亨阵于此,设伏空舍,以神机火器夹击也先大军,也先弟孛罗中炮死,瓦剌大败。"]},
-  xizhi:{t:"西直门",d:"北京城西门",p:["也先自德胜门败退后转攻此门,都督孙镗力战,毛福寿等来援,瓦剌复被却退。"]},
-  zhangyi:{t:"彰义门",d:"城西南(元大都旧门)",p:["初战之地。城西南要冲,明军于此拒退瓦剌进攻,九门之外背城列阵之一。"]},
-  zijing:{t:"紫荆关",d:"今河北易县西北",p:["瓦剌破关入犯之路。也先挟英宗自大同南下,破紫荆关,长驱直逼京师;北遁亦由此出塞。"]},
-  jingshi:{t:"北京·京师",d:"明京师,守御中枢",p:["于谦总督军务,坐镇调度;修城浚壕、募兵造器,分遣诸将列阵九门之外,闭门背城以决死战。"]},
-  juyong:{t:"居庸关",d:"今北京昌平西北",p:["瓦剌另路进犯之要塞,罗通守御,以水浇城结冰,坚不可拔;也先北遁亦道出此关。"]}
+  jingshi:{t:"北京 · 内城(京师)",d:"明京师,今北京城区(约116.39E,39.90N)",p:["守御中枢。土木后京军尽覆,于谦总督军务,坐镇调度:修城浚壕、募兵造器,抢运通州仓粮入城;不据城株守,分遣诸将列阵九门之外,闭门背城以决死战。内城九门(德胜、安定、东直、朝阳、崇文、正阳、宣武、阜成、西直)环列,皆为战守之所。"]},
+  desheng:{t:"德胜门(北垣·西)",d:"内城北垣西门,主战场",p:["京师保卫战之决战地。也先十月十三集众力攻此门。于谦自与石亨阵于门外,设伏空舍,以数骑诱敌;瓦剌万骑逐至,伏起,神机营火器齐发,前后夹击,也先弟孛罗(平章)、卯那孩中炮死,瓦剌大败。门外土城即元大都北垣旧址,伏兵所在。"]},
+  xizhi:{t:"西直门(西垣·北)",d:"内城西垣北门",p:["也先自德胜门败退后转攻此门。都督孙镗力战不支,毛福寿等引兵来援,又却退瓦剌。九门背城列阵之要冲。"]},
+  zhangyi:{t:"彰义门(城西南)",d:"金中都旧门,约当内城西南",p:["瓦剌又攻此门。明军以火器列拒,都督武兴中流矢殁,而京城居民升屋号呼、掷砖石助战,援兵继至,复却之。按彰义门本金中都旧门,明嘉靖筑外城后此地近广宁门(广安门);一四四九时外城未建,此以旧称示城西南之战。"]},
+  tongzhou:{t:"通州(粮仓)",d:"京师东,今北京通州(约116.66E,39.90N)",p:["京师东之粮仓,积粟数百万石,足支京军岁余。土木后论者惧为也先所资,或请焚之;于谦令入卫官军自诣通州支粮,又调大车转运,使仓粟尽入京城 —— 既足守御,又不遗敌。此役军食之命脉所系。"]},
+  liangxiang:{t:"良乡",d:"京师西南,今北京房山良乡(约116.13E,39.73N)",p:["也先西退所经。攻京五日不克,惧断归路,乃挟英宗夜拔营,由良乡而西,出紫荆关北还。明军追击于其后。"]},
+  zijing:{t:"紫荆关",d:"今河北易县西北(约115.18E,39.40N)",p:["京师西南之险关,也先破关入犯之路。都指挥韩青、右副都御史孙祥等力拒而没,关破,瓦剌乃长驱逼京;其挟英宗北遁,亦由良乡出此关而去。"]},
+  juyong:{t:"居庸关",d:"今北京昌平(约116.07E,40.29N)",p:["京师之北险关。瓦剌别部(阿剌知院等)来攻,守将罗通以水灌城,天寒冰坚,墙滑不可上,坚守不拔;也先主力既退,北路之犯亦解。"]},
+  tumu:{t:"土木堡",d:"今河北怀来(约115.50E,40.40N)",p:["土木之变所在。正统十四年八月,王振挟英宗亲征还师,顿兵土木,为也先所围,乏水人渴,师溃,英宗被俘,五十万京军一朝覆没 —— 北京保卫战之由起。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
