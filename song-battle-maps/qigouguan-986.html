@@ -30,7 +30,19 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 饷道:金色串珠动脉,叠于雄州—涿州转输之道,示东路军粮所仰 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 乏粮·断汲:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,9 +57,10 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .fall line{stroke:var(--enemy);stroke-width:2.8;stroke-linecap:round}
+  .fall circle{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +69,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +100,17 @@
   <div class="seal" aria-hidden="true"><span>岐</span><span>沟</span><span>关</span><span>役</span></div>
   <header>
     <h1>雍熙北伐 · 岐沟关之役</h1>
-    <div class="sub">宋雍熙三年(986)　　<i>北宋 曹彬 · 杨业</i> 三路北伐 · 败于 <b>辽</b></div>
+    <div class="sub">宋雍熙三年(986)　　<i>北宋 曹彬 · 潘美 · 杨业</i> 三路北伐 · 败于 <b>辽 耶律休哥 · 萧太后</b>　·　分进无继 · 东路乏粮先溃 · 全局遂坏</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 三路北伐</button>
-    <button data-p="1">曹彬进退</button>
-    <button data-p="2">岐沟关溃</button>
-    <button data-p="3">陈家谷 · 杨业死</button>
+    <button data-p="1">三路并进 · 连克州县</button>
+    <button data-p="2">东路乏粮 · 岐沟关大溃</button>
+    <button data-p="3">诸路班师 · 迁云应之民</button>
+    <button data-p="4">陈家谷 · 杨业死难</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="雍熙北伐岐沟关之役形势图,含辽宋疆界、拒马河沙河与幽州涿州雄州雁门等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="雍熙北伐岐沟关之役形势图,含辽宋疆界、拒马河桑干河诸水与幽州涿州岐沟关雄州飞狐雁门云应寰朔陈家谷等城邑,及东路自雄州转输涿州之金色饷道与乏粮断汲记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,128 +119,247 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:辽据燕云(北),北宋据河北河东(南),约以拒马河、沙河为界 -->
-    <path d="M 0,300 C 120,290 240,280 360,282 C 500,285 620,275 760,262 C 860,254 940,250 1000,250 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 120,290 240,280 360,282 C 500,285 620,275 760,262 C 860,254 940,250 1000,250 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 120,290 240,280 360,282 C 500,285 620,275 760,262 C 860,254 940,250 1000,250"/>
-    <text class="realm q" x="150" y="130" font-size="34">辽(燕 云)</text>
-    <text class="realm j" x="560" y="560" font-size="30">北 宋(河北·河东)</text>
+    <!-- ══ 疆界:辽据燕云(北),北宋据河北·河东(南),约以雁门—拒马—界河一线为界(示意) ══ -->
+    <path d="M 0,355 C 200,360 400,372 600,382 C 760,390 880,394 1000,398 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,355 C 200,360 400,372 600,382 C 760,390 880,394 1000,398 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,355 C 200,360 400,372 600,382 C 760,390 880,394 1000,398"/>
+    <text class="realm q" x="470" y="95" font-size="30">辽 · 燕 云</text>
+    <text class="cname s" x="486" y="120" style="fill:var(--enemy);opacity:.55">南京道 · 西京诸州</text>
+    <text class="realm j" x="470" y="590" font-size="27">北 宋 · 河北 河东</text>
 
-    <!-- 拒马河:自太行东出,东路辽宋之界,岐沟关溃师溺此 -->
-    <path class="river" stroke-width="5" d="M 560,300 C 640,320 700,338 760,352 C 830,368 900,378 1000,384"/>
-    <!-- 沙河:雄州南 -->
-    <path class="river" stroke-width="2.6" d="M 700,440 C 780,448 860,452 960,456"/>
-    <!-- 桑干河:河东,自朔州东南下 -->
-    <path class="river" stroke-width="2.8" d="M 150,160 C 200,210 250,258 300,300"/>
-    <text class="rname" x="770" y="342" style="font-size:13px">拒 马 河</text>
-    <text class="rname" x="800" y="446" style="font-size:10.5px">沙 河</text>
-    <text class="rname" x="196" y="204" transform="rotate(42 196 204)" style="font-size:10.5px">桑干河</text>
+    <!-- ══ 山脉:太行纵峙,分河北(东)河东(西);句注·雁门扼西路之口 ══ -->
+    <path class="mtn fill" d="M 430,150 L 448,180 L 432,196 L 452,224 L 434,242 L 454,272 L 436,290 L 456,318 L 438,336 Z"/>
+    <path class="mtn" d="M 442,178 l -16,14 l 18,20 l -16,14 l 18,20"/>
+    <text class="mname" x="410" y="250" transform="rotate(90 410 250)">太 行 山</text>
+    <path class="mtn fill" d="M 168,392 L 196,378 L 210,394 L 238,380 L 252,396 L 224,410 Z"/>
+    <path class="mtn" d="M 176,392 l 14,-12 l 12,10 l 14,-12 l 12,10"/>
+    <text class="mname" x="150" y="416" style="font-size:10px">句注·雁门陉</text>
 
-    <!-- 太行山:纵贯南北,分河北(东)河东(西) -->
-    <g class="mtn"><path d="M 350,220 l 8,-13 l 8,13 M 358,300 l 8,-13 l 8,13 M 350,380 l 8,-13 l 8,13 M 358,460 l 8,-13 l 8,13"/></g>
-    <text class="cname s" x="330" y="330" transform="rotate(90 330 330)">太行山</text>
-    <!-- 雁门:河东西陉之险 -->
-    <g class="mtn"><path d="M 120,300 l 7,-12 l 7,12 M 134,300 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="96" y="322">雁门·西陉</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 拒马河(界河):源出涞源,东北经岐沟关、涿州,折东南下雄州为宋辽界河——溃师争渡溺死之处 -->
+    <path class="river" stroke-width="5" d="M 570,376 C 660,352 742,338 818,332 C 858,330 892,356 916,398 C 934,428 946,442 960,456"/>
+    <!-- 桑干河:河东西京,自朔州东北流贯应、云 -->
+    <path class="river" stroke-width="2.8" d="M 108,372 C 170,332 232,300 276,290 C 300,284 300,210 296,156"/>
+    <!-- 滹沱河:自代北东南流,经定州 -->
+    <path class="river" stroke-width="2.4" d="M 214,384 C 340,432 500,502 646,560"/>
+    <text class="rname" x="700" y="360" transform="rotate(30 700 360)" style="font-size:13px">拒 马 河</text>
+    <text class="rname" x="176" y="250" transform="rotate(-72 176 250)" style="font-size:10.5px">桑干河</text>
+    <text class="rname" x="470" y="486" transform="rotate(30 470 486)" style="font-size:10px">滹沱河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="youzhou"><circle cx="760" cy="200" r="6"/><text class="cname" x="772" y="196">幽州<tspan class="cname s" dx="2">(辽南京)</tspan></text></g>
-      <g class="city" data-city="zhuozhou"><circle cx="720" cy="290" r="5"/><text class="cname" x="732" y="286">涿州</text></g>
-      <g class="city" data-city="qigou"><circle cx="648" cy="316" r="5"/><text class="cname" x="560" y="312">岐沟关</text></g>
-      <g class="city" data-city="xiongzhou"><circle cx="760" cy="430" r="5"/><text class="cname" x="772" y="426">雄州<tspan class="cname s" dx="2">(东路基地)</tspan></text></g>
-      <g class="city" data-city="yanmen"><circle cx="140" cy="288" r="5"/><text class="cname" x="90" y="280">雁门关</text></g>
-      <g class="city" data-city="chenjiagu"><circle cx="180" cy="360" r="4.5"/><text class="cname s" x="118" y="378">陈家谷口</text></g>
-      <g class="city" data-city="shuozhou"><circle cx="160" cy="210" r="4.5"/><text class="cname s" x="168" y="206">朔州</text></g>
+      <!-- 辽·燕云(北) -->
+      <g class="city cap" data-city="youzhou"><circle cx="927" cy="202" r="6.5"/><text class="cname" x="852" y="196">幽州<tspan class="cname s" dx="2">(辽南京)</tspan></text></g>
+      <g class="city" data-city="zhuozhou"><circle cx="845" cy="311" r="5"/><text class="cname" x="857" y="307">涿州</text></g>
+      <g class="city" data-city="qigou"><circle cx="818" cy="330" r="5.5"/><text class="cname" x="726" y="326">岐沟关</text></g>
+      <!-- 西路四州(河东西京·辽) -->
+      <g class="city" data-city="yunzhou"><circle cx="295" cy="152" r="5"/><text class="cname" x="307" y="148">云州<tspan class="cname s" dx="2">(大同)</tspan></text></g>
+      <g class="city" data-city="yingzhou"><circle cx="273" cy="295" r="4.5"/><text class="cname" x="285" y="291">应州</text></g>
+      <g class="city" data-city="huanzhou"><circle cx="152" cy="308" r="4"/><text class="cname s" x="108" y="302">寰州</text></g>
+      <g class="city" data-city="shuozhou"><circle cx="117" cy="354" r="5"/><text class="cname" x="60" y="348">朔州</text></g>
+      <g class="city" data-city="chenjiagu"><circle cx="183" cy="401" r="5"/><text class="cname s" x="195" y="405">陈家谷口</text></g>
+      <!-- 中路(飞狐·蔚州·辽) -->
+      <g class="city" data-city="weizhou"><circle cx="558" cy="218" r="4.5"/><text class="cname s" x="570" y="214">蔚州</text></g>
+      <g class="city" data-city="feihu"><circle cx="580" cy="346" r="4.5"/><text class="cname" x="512" y="342">飞狐口</text></g>
+      <!-- 宋·河北河东出发地(南) -->
+      <g class="city cap" data-city="xiongzhou"><circle cx="870" cy="444" r="6"/><text class="cname" x="882" y="440">雄州<tspan class="cname s" dx="2">(东路基地)</tspan></text></g>
+      <g class="city" data-city="dingzhou"><circle cx="642" cy="571" r="5"/><text class="cname" x="654" y="567">定州<tspan class="cname s" dx="2">(中路出)</tspan></text></g>
+      <g class="city" data-city="yanmen"><circle cx="207" cy="367" r="5"/><text class="cname" x="150" y="386">雁门关<tspan class="cname s" dx="2">(西路出)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 三路北伐 -->
+    <!-- ══ 全图 · 三路北伐 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 758,418 C 748,380 736,336 724,300"/>
-      <text class="mlabel j" x="620" y="392">东路 曹彬(主力)出雄州</text>
-      <path class="march j" marker-end="url(#aj)" d="M 470,470 C 470,420 480,370 500,332"/>
-      <text class="mlabel j" x="404" y="470">中路 田重进出定州·飞狐</text>
-      <path class="march j" marker-end="url(#aj)" d="M 150,470 C 150,410 148,350 142,300"/>
-      <text class="mlabel j" x="70" y="470">西路 潘美·杨业出雁门</text>
-      <rect class="camp" x="756" y="196" width="9" height="9" transform="rotate(45 760 200)"/>
-      <text class="mlabel q" x="620" y="176">辽萧太后、圣宗亲御,以休哥当东路</text>
+      <path class="march j" marker-end="url(#aj)" d="M 866,438 C 856,398 850,350 846,318"/>
+      <text class="mlabel j" x="700" y="470">东路 曹彬·米信(主力)出雄州趋幽州</text>
+      <path class="march j" marker-end="url(#aj)" d="M 640,564 C 618,470 590,330 562,226"/>
+      <text class="mlabel j" x="600" y="520">中路 田重进出定州·飞狐</text>
+      <path class="march j" marker-end="url(#aj)" d="M 210,360 C 232,298 262,228 292,162"/>
+      <text class="mlabel j" x="60" y="470">西路 潘美·杨业出雁门,取云应寰朔</text>
+      <rect class="camp" x="923" y="198" width="9" height="9" transform="rotate(45 927 202)"/>
+      <text class="mlabel q" x="700" y="176">辽萧太后、圣宗亲御,以休哥当东路</text>
+      <text class="anno" x="360" y="330">初期三道并进,连克州县,声势甚盛</text>
     </g>
 
-    <!-- 阶段一:曹彬进退 -->
+    <!-- ══ 阶段一:三路并进 · 连克州县 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 758,418 C 748,378 736,332 724,298"/>
-      <text class="mlabel j" x="640" y="360">曹彬克涿州</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 722,300 C 736,342 748,388 758,420"/>
-      <text class="mlabel r" x="768" y="360">乏粮,退雄州就食</text>
-      <path class="march j" marker-end="url(#aj)" d="M 756,420 C 746,378 734,334 722,300"/>
-      <text class="anno" x="600" y="316">闻中西捷,诸将耻功不己出,复裹粮进涿州</text>
-      <rect class="camp" x="716" y="286" width="8" height="8" transform="rotate(45 720 290)"/>
-      <text class="mlabel q" x="640" y="270">时暑雨,辽兵尾击、绝其汲道</text>
+      <path class="march j" marker-end="url(#aj)" d="M 866,438 C 858,396 852,346 848,318"/>
+      <text class="mlabel j" x="756" y="392">东路取新城、涿州</text>
+      <circle class="star" cx="845" cy="311" r="7"/>
+      <path class="march j" marker-end="url(#aj)" d="M 640,564 C 616,468 588,320 562,226"/>
+      <circle class="star" cx="580" cy="346" r="6"/>
+      <circle class="star" cx="558" cy="218" r="6"/>
+      <text class="mlabel j" x="592" y="300">田重进克飞狐、下灵丘、蔚州</text>
+      <path class="march j" marker-end="url(#aj)" d="M 210,360 C 232,298 262,228 292,162"/>
+      <circle class="star" cx="117" cy="354" r="6"/>
+      <circle class="star" cx="273" cy="295" r="6"/>
+      <circle class="star" cx="295" cy="152" r="6"/>
+      <text class="mlabel j" x="60" y="440">潘美·杨业下寰、朔、云、应四州</text>
+      <text class="anno" x="360" y="470">中、西两路捷报交驰,东路诸将耻功不己出</text>
     </g>
 
-    <!-- 阶段二:岐沟关溃 -->
+    <!-- ══ 阶段二:东路乏粮 · 岐沟关大溃 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 716,292 C 696,300 672,308 656,314"/>
-      <text class="mlabel j" x="608" y="286">曹彬自涿州引还</text>
-      <path class="march q" marker-end="url(#aq)" d="M 758,204 C 720,250 686,288 660,310"/>
-      <text class="mlabel q" x="700" y="250">耶律休哥追击</text>
-      <circle class="star" cx="648" cy="316" r="8"/>
-      <text class="anno" x="500" y="336">大战岐沟关,宋军大败</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 640,320 C 660,336 700,350 760,354"/>
-      <text class="mlabel r" x="600" y="366">夜渡拒马河,溺死及为辽所歼者不可胜计</text>
-      <text class="anno" x="500" y="500">东路既覆,三路之谋遂沮,诏诸军皆退</text>
+      <!-- 东路饷道:雄州转输涿州,道远汲艰 -->
+      <path class="supply band" d="M 864,438 C 856,394 850,348 846,320"/>
+      <path class="supply core" d="M 864,438 C 856,394 850,348 846,320"/>
+      <g class="grain"><rect x="856" y="404" width="7" height="7" transform="rotate(45 859.5 407.5)"/><rect x="850" y="360" width="7" height="7" transform="rotate(45 853.5 363.5)"/></g>
+      <text class="slabel" x="878" y="384">东路饷道</text>
+      <text class="slabel" x="878" y="398" style="font-size:9.5px;opacity:.85">雄州转输 · 道远汲艰</text>
+      <!-- 进抵涿州→乏粮退雄州就食→复裹粮再进 -->
+      <path class="march j" marker-end="url(#aj)" d="M 866,438 C 858,398 852,350 848,320"/>
+      <text class="mlabel j" x="690" y="300">深入克涿州</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 842,320 C 850,358 858,404 866,440"/>
+      <text class="mlabel r" x="876" y="356">乏粮,退雄州就食</text>
+      <g class="cut" transform="translate(852,372)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="700" y="416">辽尾击 · 绝其汲道 · 东路乏粮 ✕</text>
+      <!-- 休哥追击 -->
+      <path class="march q" marker-end="url(#aq)" d="M 922,210 C 892,252 852,300 826,324"/>
+      <text class="mlabel q" x="838" y="256">耶律休哥率精骑尾击</text>
+      <!-- 曹彬自涿州引还岐沟关 -->
+      <path class="march j" marker-end="url(#aj)" d="M 843,316 C 836,320 827,325 823,329"/>
+      <text class="mlabel j" x="720" y="308">粮尽,自涿州引还</text>
+      <circle class="star" cx="818" cy="330" r="8.5"/>
+      <text class="anno" x="616" y="352">大战岐沟关,宋师一日而溃</text>
+      <!-- 溃退渡拒马河 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 815,335 C 828,372 858,410 896,442"/>
+      <text class="mlabel r" x="700" y="470">夜渡拒马河,溺死者不可胜计,弃甲蔽野</text>
+      <text class="anno" x="360" y="560">东路主力既覆,三路之谋遂沮</text>
     </g>
 
-    <!-- 阶段三:陈家谷 · 杨业死 -->
+    <!-- ══ 阶段三:诸路班师 · 迁云应之民 ══ -->
     <g id="ph3" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 158,300 C 148,320 150,346 168,356"/>
-      <text class="mlabel r" x="60" y="336">西路奉诏护云应寰朔四州民内徙</text>
-      <path class="march j" marker-end="url(#aj)" d="M 148,296 C 160,318 172,340 178,356"/>
-      <text class="mlabel j" x="60" y="272">监军王侁强杨业出战</text>
-      <circle class="star" cx="180" cy="360" r="8"/>
-      <text class="anno" x="196" y="396">力战南还至谷口,侁等已擅退无援</text>
-      <text class="mlabel r" x="70" y="420">转战陈家谷,士卒殆尽</text>
-      <text class="anno" x="70" y="440">身被数十创被擒,绝食三日死之</text>
+      <text class="mlabel r" x="560" y="200">东路一败,全局崩坏,诏诸路班师</text>
+      <!-- 中路班师 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 560,224 C 588,340 616,468 640,562"/>
+      <text class="mlabel r" x="600" y="430">中路田重进引还定州</text>
+      <!-- 西路奉诏护云应寰朔四州民南徙 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 293,162 C 282,232 250,318 212,362"/>
+      <text class="mlabel r" x="300" y="230">西路护云应寰朔四州民内徙</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,300 C 260,320 220,346 190,388"/>
+      <text class="mlabel j" x="60" y="330">潘美·杨业为殿以掩其后</text>
+      <text class="anno" x="360" y="600">徙四州之民于河东南境,辽兵复大至</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:陈家谷 · 杨业死难 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 王侁逼杨业出战 -->
+      <path class="march j" marker-end="url(#aj)" d="M 118,348 C 134,322 154,302 170,294"/>
+      <text class="mlabel j" x="60" y="300">监军王侁逼杨业出战</text>
+      <!-- 辽兵大至 -->
+      <path class="march q" marker-end="url(#aq)" d="M 296,162 C 250,228 202,278 176,294"/>
+      <text class="mlabel q" x="300" y="176">辽兵乘胜大至</text>
+      <!-- 力战南还至陈家谷 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 170,298 C 172,332 178,368 182,394"/>
+      <text class="mlabel r" x="60" y="356">力战南还至谷口</text>
+      <!-- 陈家谷之援擅退,业至无援 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 188,404 C 214,420 246,428 286,432"/>
+      <text class="mlabel r" x="196" y="452">侁、美闻败,争功先退</text>
+      <!-- 杨业殉难 -->
+      <g class="fall" transform="translate(183,401)"><circle r="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="120" y="428">谷口无援 · 杨业死难 ✕</text>
+      <text class="anno" x="60" y="478">转战陈家谷,士卒殆尽,身被数十创被擒</text>
+      <text class="anno" x="60" y="496">叹「为奸臣所迫」,绝食三日死之</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(三路)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>辽军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋军溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>辽军(耶律休哥)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋军溃退·班师</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>东路饷道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>乏粮·断汲</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.6"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.6"/></svg>杨业殉难</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>辽</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>北宋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 三路无继 · 一路乏粮而全局崩</h3>
+    <div class="lead">何以雍熙北伐之败,系于东路一军之进止 —— 分进无继,主力乏粮先溃,全局遂坏</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="三路北伐示意:东中西三路并进伐辽,东路为主力而独乏粮先溃于岐沟关,溃则中西两路失恃,奉诏班师,西路掩护迁民而杨业死于陈家谷">
+      <!-- 北:幽云(目标) / 南:宋境三路之本 -->
+      <text x="24" y="34" fill="#9a2b1e" font-size="12" font-weight="700">幽 云 · 辽(北,北伐所欲复)</text>
+      <line x1="24" y1="44" x2="836" y2="44" stroke="#9a2b1e" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <text x="24" y="228" fill="#1f4e54" font-size="12" font-weight="700">河北 · 河东 · 宋(南,三路之本)</text>
+      <line x1="24" y1="206" x2="836" y2="206" stroke="#1f4e54" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <!-- 西路(左) -->
+      <path d="M 120,200 L 120,70" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 120,58 L 114,72 L 126,72 Z" fill="#1f4e54"/>
+      <text x="86" y="230" fill="#1f4e54" font-size="11" font-weight="700">西路 潘·杨</text>
+      <!-- 中路(中) -->
+      <path d="M 300,200 L 300,70" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 300,58 L 294,72 L 306,72 Z" fill="#1f4e54"/>
+      <text x="272" y="230" fill="#1f4e54" font-size="11" font-weight="700">中路 田重进</text>
+      <!-- 东路(右,主力,加粗) — 乏粮先溃 -->
+      <path d="M 560,200 L 560,132" stroke="#1f4e54" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 560,132 C 560,120 560,110 560,104" stroke="#7a5a23" stroke-width="4" stroke-dasharray="3 5"/>
+      <text x="512" y="230" fill="#1f4e54" font-size="11" font-weight="700">东路 曹彬(主力)</text>
+      <!-- 东路乏粮 ✕ -->
+      <g><circle cx="560" cy="120" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="554" y1="114" x2="566" y2="126" stroke="#9a2b1e" stroke-width="2.6"/><line x1="554" y1="126" x2="566" y2="114" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="574" y="112" fill="#9a2b1e" font-size="11" font-weight="700">冒进乏粮 → 岐沟关大溃</text>
+      <text x="574" y="128" fill="#5c4f38" font-size="9.5">争渡拒马河,溺死蔽野</text>
+      <!-- 溃则中西失恃:横箭示牵动 -->
+      <path d="M 548,120 C 460,120 380,110 314,90" fill="none" stroke="#7a5a23" stroke-width="2.2" stroke-dasharray="3 6"/>
+      <path d="M 322,94 L 308,88 L 318,80 Z" fill="#7a5a23"/>
+      <path d="M 300,86 C 240,80 180,78 132,76" fill="none" stroke="#7a5a23" stroke-width="2.2" stroke-dasharray="3 6"/>
+      <path d="M 140,79 L 126,74 L 136,66 Z" fill="#7a5a23"/>
+      <text x="360" y="70" fill="#7a5a23" font-size="10.5" font-weight="700">主力既覆,中西失恃,奉诏班师</text>
+      <!-- 西路掩护迁民,杨业死 -->
+      <g class="fall"><circle cx="120" cy="120" r="8" fill="none" stroke="#9c7a2c" stroke-width="2"/><line x1="114" y1="114" x2="126" y2="126" stroke="#9a2b1e" stroke-width="2.6"/><line x1="114" y1="126" x2="126" y2="114" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="24" y="108" fill="#9a2b1e" font-size="10.5" font-weight="700">陈家谷无援 ✕</text>
+      <text x="24" y="150" fill="#5c4f38" font-size="9.5">王侁背约先退,杨业死难</text>
+    </svg>
+    <p class="intro">雍熙三年之北伐,兵力雄盛、三道并进,而<b>败机不在敌之强,在己之分进无继</b>:三路各出,声援不相及,而其成败之枢,全系于东路曹彬一军。曹彬提十余万主力,冒进深入,而<b>本恃雄州转输之一线饷道,道远汲艰</b>——此至弱处,正藏于长驱直入之至锐处中。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>东路主力 · 乏粮而溃</h4>
+        <p>曹彬深入克涿州,而资粮不继,乃退雄州就食;既而闻中、西两路连捷,诸将耻大功不己出,复裹粮再进,士卒疲乏、携粮缓行。辽耶律休哥尾击抄掠、绝其汲道,曹彬粮尽自涿州引还,大溃于岐沟关,夜渡拒马河,溺死及为辽所歼者不可胜计,弃甲蔽野。</p>
+      </div>
+      <div class="c b">
+        <h4>全局崩坏 · 名将殒落</h4>
+        <p>东路主力一覆,三路之谋遂沮,太宗诏诸军皆退。西路潘美、杨业奉诏护云、应、寰、朔四州之民内徙;监军王侁不知兵而好功,逼杨业出战、又背陈家谷之约先撤其援。杨业力战南还至谷口,无援被擒,绝食三日而死——北伐彻底败矣。</p>
+      </div>
+    </div>
+    <p class="kicker">故此役之败,<b>非兵寡,非将怯,实分进无继而一路乏粮先溃</b>:曹彬东路以乏粮反覆、锐气先沮,遂大溃于岐沟;主力既覆,中、西两路失恃而俱退;王侁背约,复戕名将杨业于陈家谷。<b>一军乏粮而全局崩</b>,宋自是取守势,不复言北伐。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·曹彬传》《潘美传》《杨业传》《辽史·圣宗纪》及《续资治通鉴长编》卷二七约略绘出。疆界、水道经简化,城关方位取其大略,非实测。</p>
-    <p><span class="n">注二</span>岐沟关在今河北涿州西南,陈家谷在今山西宁武境。晕染疆界为雍熙三年燕云形势示意:辽据幽云(北),北宋据河北、河东(南),约以拒马、沙河为界,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>曹彬轻退复进、士气先沮;王侁妒功背约,不为陈家谷之援,致杨业父子之死,论者痛之。北伐再挫,宋自是取守势。本图以宋为本方(青),辽为敌(红),溃退用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=70+(经度−112.20)·205,y=600−(纬度−38.40)·265),几何关系力求近实:幽州在东北,涿州、岐沟关在其西南,雄州更南为东路之基;西路云、应、寰、朔与陈家谷在西端河东,雁门为其口;中路飞狐、蔚州居中,定州在南。疆界、水道经简化,晕染之约界仅示辽据燕云(北)、宋据河北河东(南)之大势,雍熙间云应寰朔曾为西路暂取旋弃,战线屡有进退,非实有画界。依《宋史·太宗本纪》《曹彬传》《潘美传》《杨业传》《辽史·圣宗纪》《耶律休哥传》及《续资治通鉴长编》卷二七绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:幽州(辽南京析津府,今北京,116.38E/39.90N)、涿州(今河北涿州,115.98E/39.49N)、岐沟关(涿州西南,今涿州西南岐沟村一带,115.85E/39.42N)、雄州(今河北雄县,116.10E/38.99N)、定州(今河北定州,114.99E/38.51N)、飞狐口(今河北涞源北飞狐陉,114.69E/39.36N)、蔚州(今河北蔚县,114.58E/39.84N)、雁门关(今山西代县北句注山,112.87E/39.28N)、朔州(今山西朔州,112.43E/39.33N)、寰州(今朔州东马邑一带,112.60E/39.50N)、应州(今山西应县,113.19E/39.55N)、云州(今山西大同,113.30E/40.09N)、陈家谷口(今山西朔州南,112.75E/39.15N)。</p>
+    <p><span class="n">注三</span>行军皆由陆路,无水运之利:三路各循太行南北孔道进退,东路自雄州循平川趋涿、幽,惟隔拒马河(界河)与辽相持——溃师夜『争渡拒马河,溺死者众』,水乃为陷军之厄,非运兵之便。制胜之枢在乏粮(图中金色饷道、朱色 ✕):曹彬主力悬军深入,本恃雄州一线转输,道远汲艰;辽休哥『尾击、绝其汲道』,粮尽则势穷,故克涿州而不能守,退就食、复裹粮,进退反覆,锐气先沮。</p>
+    <p><span class="n">注四</span>两方与各路所出:宋以本方(青),三路皆自河北、河东南境北出——东路曹彬、米信自雄州(东),中路田重进自定州经飞狐(中),西路潘美、杨业自雁门(西);辽为敌(红),萧太后与圣宗亲御戎事,自幽州(南京)督战,遣名将耶律休哥专当东路之冲,坚壁清野以待其隙。溃退、班师用褐。</p>
+    <p><span class="n">注五</span>异说与考订:岐沟关之溃在雍熙三年五月,杨业之死在其后西路班师掩护迁民之际(约六、七月间)。陈家谷口地望有异说,或指今山西朔州南、或指宁武阳方口(古楼烦关道)一带,本图从『朔州南』之说而以点线约标,不为定谳。杨业之死,监军王侁逼战背约实为祸首,主将潘美不能制、坐视先退,《宋史》并论之;溃师溺死之数,史称『不可胜计』,为约举之辞,不得确数,故图中不标兵额。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"三路北伐",d:"雍熙三年 春正月",p:["雍熙三年,宋太宗大举北伐,期复燕云十六州。分军三道:东路曹彬为主力,出雄州趋涿州、幽州;中路田重进出定州、飞狐;西路潘美、杨业出雁门,取云、应、寰、朔诸州。三道并进,声势甚盛。","辽承天萧太后与圣宗亲御戎事,遣名将耶律休哥当东路之冲,坚壁清野,专候宋师之隙。是役成败,系于东路曹彬一军之进止。"]},
-  "1":{t:"曹彬进退",d:"雍熙三年 春",p:["东路曹彬引大军深入,克涿州。然孤军远出,资粮不继,乃引还雄州就食。既而闻中路、西路连捷,诸将耻大功不出于己,复议北进。","彬不能制,乃裹粮再趋涿州。时方盛夏,暑雨蒸溽,士卒疲乏;辽兵尾其后,轻骑抄掠,绝其汲道，宋军进退失据，锐气先沮。"]},
-  "2":{t:"岐沟关溃",d:"雍熙三年 五月",p:["曹彬粮尽势穷,自涿州引军而还。耶律休哥率精骑尾追,大战于岐沟关。宋师阵乱,一日而溃,自相蹂躏。","是夜宋军仓皇渡拒马河,溺死及为辽军所歼者不可胜计,委弃兵甲铠仗如山。东路主力既覆,三路之谋遂沮,太宗诏诸军皆退,北伐大计一朝倾坏。"]},
-  "3":{t:"陈家谷 · 杨业死",d:"雍熙三年 六月",p:["东路既败,西路奉诏护云、应、寰、朔四州之民内徙。监军王侁不知兵而好功,强杨业出战,约以强弩接应于陈家谷口。业知势必败,泣而行,请诸公勿失约。","业力战南还至谷口,而王侁等谓辽已败,争功先退,业至无援。乃转战陈家谷,士卒殆尽,身被数十创,马重伤不能进,为辽所擒。业叹「上遇我厚,期讨贼捍边以报,乃为奸臣所迫」,绝食三日而死。"]}
+  all:{t:"三路北伐",d:"雍熙三年 春正月",p:["雍熙三年,宋太宗大举北伐,期复燕云十六州。分军三道:东路曹彬为主力,与米信出雄州,趋涿州、幽州;中路田重进出定州、飞狐;西路潘美、杨业出雁门,取云、应、寰、朔诸州。三道并进,声势甚盛。","辽承天萧太后与圣宗亲御戎事,遣名将耶律休哥当东路之冲,坚壁清野,专候宋师之隙。是役成败,系于东路曹彬一军之进止;三路虽众,而声援不相及,已伏『分进无继』之患。"]},
+  "1":{t:"三路并进 · 连克州县",d:"雍熙三年 春",p:["北伐初期,三道皆捷。东路曹彬拔新城、下涿州;中路田重进出飞狐,克灵丘、下蔚州;西路潘美、杨业出雁门,连下寰、朔、云、应四州,兵锋直抵桑干河北。","中、西两路捷报交驰,而东路曹彬主力深入涿州后,资粮已不能继。诸将耻大功不出于己,议复北进——祸机即伏于此『连克』之中:州县虽下,而东路之粮道已不足支其锐。"]},
+  "2":{t:"东路乏粮 · 岐沟关大溃",d:"雍熙三年 五月",p:["东路曹彬引大军克涿州,然孤军远出,本恃雄州一线转输,道远汲艰,资粮不继,乃退雄州就食。既而闻中、西连捷,诸将复议北进,彬不能制,乃裹粮再趋涿州。时方盛夏,士卒疲乏、携粮缓行;辽耶律休哥尾击抄掠,绝其汲道,宋军进退失据,锐气先沮。","彬粮尽势穷,自涿州引军而还。休哥率精骑尾追,大战于岐沟关,宋师阵乱,一日而溃,自相蹂躏。是夜仓皇渡拒马河,溺死及为辽所歼者不可胜计,委弃兵甲铠仗如山。东路主力既覆,三路之谋遂沮,太宗诏诸军皆退,北伐大计一朝倾坏。"]},
+  "3":{t:"诸路班师 · 迁云应之民",d:"雍熙三年 五 — 六月",p:["东路一败,全局崩坏。太宗诏诸路班师:中路田重进引兵还定州;西路潘美、杨业既克四州,亦奉诏南撤,且受命护云、应、寰、朔四州之民内徙于河东南境。","方迁民之际,辽兵乘胜复大至,压云、应之境。潘美、杨业为诸军殿以掩其后。西路本已全捷,徒以东路之覆而不得不弃地迁民、拔军南还——一军先溃,遂牵动全局,此『分进无继』之验也。"]},
+  "4":{t:"陈家谷 · 杨业死难",d:"雍熙三年 六 — 七月",p:["护民南徙,杨业请避辽锋、以强弩伏陈家谷口为援,徐引兵出。监军王侁不知兵而好功,强杨业出战,讥其号『杨无敌』而逗挠;业不得已,泣而行,请诸公勿失谷口之约。","业力战南还至谷口,而王侁、潘美闻其小却,谓辽已败,争功先退,业至而无援。乃转战陈家谷,士卒殆尽,身被数十创,马重伤不能进,为辽所擒。业叹『上遇我厚,期讨贼捍边以报,乃为奸臣所迫,致王师败绩』,绝食三日而死。名将殒落,北伐彻底失败,宋自是不复言取幽云。"]}
 };
 const CITY={
-  youzhou:{t:"幽州(辽南京)",d:"辽南京析津府,今北京",p:["辽燕云重镇,北伐所欲复者。萧太后、圣宗亲驻近畿督战,耶律休哥受命拒东路宋师于此南。"]},
-  zhuozhou:{t:"涿州",d:"东路,今河北涿州",p:["东路曹彬两取之地。初克而以乏粮退,复裹粮再进;及引还,遂酿岐沟关之败。"]},
-  qigou:{t:"岐沟关",d:"曹彬败地,涿州西南",p:["东路决战之地。曹彬自涿州引还,耶律休哥追及,大破宋军,夜渡拒马河，溺死者甚众。"]},
-  xiongzhou:{t:"雄州",d:"东路基地,今河北雄县",p:["东路宋军之前进基地与就食之所。曹彬克涿州后一度退此，士气反覆之枢。"]},
-  yanmen:{t:"雁门关",d:"河东西陉之险,今山西代县北",p:["西路潘美、杨业出师之门户。杨业尝以数千骑破辽于此，威震一时；此番却折于陈家谷。"]},
-  chenjiagu:{t:"陈家谷口",d:"杨业死处,今山西宁武境",p:["王侁约以强弩接应之地。业力战南还至此,援兵已擅退,遂转战被擒,绝食三日死之。"]},
-  shuozhou:{t:"朔州",d:"西路四州之一,今山西朔州",p:["西路所取云、应、寰、朔四州之一。东路既覆,诏西路护四州之民内徙,遂启陈家谷之役。"]}
+  youzhou:{t:"幽州(辽南京)",d:"辽南京析津府,今北京(116.38E,39.90N)",p:["辽燕云重镇,北伐所欲复者。萧太后、圣宗亲驻近畿督战,耶律休哥受命拒东路宋师于此南。"]},
+  zhuozhou:{t:"涿州",d:"东路进抵之地,今河北涿州(115.98E,39.49N)",p:["东路曹彬两取之地。初克而以乏粮退雄州就食,复裹粮再进;及粮尽引还,遂酿岐沟关之败。"]},
+  qigou:{t:"岐沟关",d:"曹彬败地,涿州西南(115.85E,39.42N)",p:["东路决战之地。曹彬自涿州引还,耶律休哥追及,大破宋军;夜渡拒马河,溺死者甚众,弃甲蔽野。东路主力于此覆没。"]},
+  xiongzhou:{t:"雄州",d:"东路基地,今河北雄县(116.10E,38.99N)",p:["东路宋军之前进基地与转输、就食之所。曹彬克涿州后一度退此就食,士气反覆之枢;其一线饷道道远汲艰,东路乏粮之根即在于此。"]},
+  dingzhou:{t:"定州",d:"中路出师地,今河北定州(114.99E,38.51N)",p:["中路田重进出师之本。由此北出飞狐陉,克灵丘、下蔚州;东路既败,奉诏引还于此。"]},
+  feihu:{t:"飞狐口",d:"中路要隘,今河北涞源北飞狐陉(114.69E,39.36N)",p:["太行八陉之一,河北通代北之孔道。田重进出定州,克飞狐,进拔灵丘、蔚州——中路连捷之枢。"]},
+  weizhou:{t:"蔚州",d:"中路所取,今河北蔚县(114.58E,39.84N)",p:["中路田重进所下。既克,中路势成;然东路一败,诸路皆奉诏班师,蔚州复弃。"]},
+  yanmen:{t:"雁门关",d:"西路出师之口,今山西代县北句注山(112.87E,39.28N)",p:["西路潘美、杨业出师之门户。杨业尝以数千骑破辽于此,号『杨无敌』;此番出雁门连下四州,终折于陈家谷。"]},
+  shuozhou:{t:"朔州",d:"西路四州之一,今山西朔州(112.43E,39.33N)",p:["西路所取云、应、寰、朔四州之一。东路既覆,诏西路护四州之民内徙;杨业自朔州南退至陈家谷,遂殉。"]},
+  huanzhou:{t:"寰州",d:"西路四州之一,今朔州东马邑一带(112.60E,39.50N)",p:["西路杨业所下。迁民之际辽兵复陷之,杨业本欲避其锋、出大石路以护民,为王侁所沮。"]},
+  yingzhou:{t:"应州",d:"西路四州之一,今山西应县(113.19E,39.55N)",p:["西路所取四州之一。桑干河贯其境,与云州同为西京要地;班师后并弃之。"]},
+  yunzhou:{t:"云州",d:"西路四州之一,辽西京,今山西大同(113.30E,40.09N)",p:["辽西京大同府,西路兵锋所及之最北。潘美、杨业下之;东路败后,四州之民皆徙,云州复归辽。"]},
+  chenjiagu:{t:"陈家谷口",d:"杨业死处,今山西朔州南(112.75E,39.15N)",p:["王侁约以强弩接应之地。业力战南还至此,援兵已擅退,遂转战被擒,绝食三日死之。地望或以为在宁武阳方口一带,说见注五。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

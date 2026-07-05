@@ -30,15 +30,15 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
-  .city.cap circle{stroke-width:2}
+  .city.cap circle{stroke-width:2.4}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.wj{stroke:var(--advance);stroke-width:3.4;stroke-dasharray:8 5;opacity:.92}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
@@ -46,19 +46,46 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 凿沉舟:自沉舟楫以绝归意 */
+  .sink .hull{fill:rgba(122,90,35,.55);stroke:var(--ret);stroke-width:1}
+  .sink .crack{stroke:var(--enemy);stroke-width:1.3;stroke-linecap:round}
+  .sink .wave{fill:none;stroke:var(--water);stroke-width:1.1;opacity:.8}
+  /* 颍水置毒:上流置毒草绝其汲 */
+  .poison .drop{fill:rgba(95,127,136,.5);stroke:var(--ink2);stroke-width:1.1}
+  .poison .skull{stroke:var(--ink);stroke-width:.9;fill:none}
+  .pdiff{fill:none;stroke:var(--water);stroke-width:2.4;stroke-dasharray:2 5;opacity:.7}
+  /* 铁浮图:重甲连缀之骑 */
+  .armor rect{fill:var(--enemy);opacity:.88}
+  .armor line{stroke:var(--enemy);stroke-width:1.4}
+  /* 盛暑:烈日以逸待劳 */
+  .sun circle{fill:none;stroke:var(--gold);stroke-width:1.6;opacity:.85}
+  .sun line{stroke:var(--gold);stroke-width:1.4;opacity:.7;stroke-linecap:round}
+  /* 长斧:步卒长斧朴刀专斫马足 */
+  .axe{stroke:var(--advance);stroke-width:2.2;stroke-linecap:round;fill:none}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.wj){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +99,17 @@
   <div class="seal" aria-hidden="true"><span>顺</span><span>昌</span><span>之</span><span>役</span></div>
   <header>
     <h1>顺昌之战</h1>
-    <div class="sub">宋绍兴十年(1140)　　<i>南宋 刘锜</i> 大破 <b>金 兀术</b>于顺昌</div>
+    <div class="sub">宋绍兴十年(1140)　　<i>南宋 刘锜「八字军」</i> 婴孤城破 <b>金 兀术 · 铁浮图 · 拐子马</b>　·　凿沉舟死守 · 乘暑折铁骑</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 婴城拒金</button>
-    <button data-p="1">沉舟死守</button>
-    <button data-p="2">兀术来援</button>
-    <button data-p="3">破铁浮图</button>
+    <button class="on" data-p="all">全图 · 孤城拒金</button>
+    <button data-p="1">赴任守城 · 凿沉舟</button>
+    <button data-p="2">挫其先锋 · 铁浮图大至</button>
+    <button data-p="3">据颍置毒 · 乘暑以逸待劳</button>
+    <button data-p="4">长斧破铁浮图 · 围解</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="顺昌之战形势图,含金宋疆界、颍河淮河水道与顺昌东京陈州等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="顺昌之战形势图,含金宋约界、颍河淮河水道,及顺昌颍州陈州东京汴梁等城邑,刘锜溯淮北上守顺昌、凿沉舟、颍水置毒、长斧破铁浮图、兀术北遁开封之路">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,115 +118,215 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:金据河南(北,东京汴梁),南宋守淮西(南),约以淮河一线为界 -->
-    <path d="M 0,392 C 130,380 260,398 400,388 C 540,378 660,404 800,392 C 880,386 940,392 1000,388 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,392 C 130,380 260,398 400,388 C 540,378 660,404 800,392 C 880,386 940,392 1000,388 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,392 C 130,380 260,398 400,388 C 540,378 660,404 800,392 C 880,386 940,392 1000,388"/>
-    <text class="realm q" x="120" y="90" font-size="32">金(据东京)</text>
-    <text class="realm j" x="640" y="590" font-size="30">南 宋(淮西)</text>
+    <!-- ══ 约界:金据河南(北·东京汴梁),南宋守淮南(南),约以战线为界;顺昌孤悬金占之淮北 ══ -->
+    <path d="M 0,440 C 170,428 340,442 500,436 C 650,430 800,448 1000,440 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,440 C 170,428 340,442 500,436 C 650,430 800,448 1000,440 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,440 C 170,428 340,442 500,436 C 650,430 800,448 1000,440"/>
+    <text class="realm q" x="742" y="86" font-size="27">金 · 据河南</text>
+    <text class="realm j" x="96" y="612" font-size="24">南 宋 · 淮南</text>
 
-    <!-- 颍河:自西北经陈州、顺昌东南入淮 -->
-    <path class="river" stroke-width="4" d="M 300,120 C 360,190 440,250 500,300 C 560,350 620,400 690,440"/>
-    <!-- 淮河:南境自西向东 -->
-    <path class="river" stroke-width="5.5" d="M 60,520 C 200,500 340,512 480,500 C 620,488 760,512 940,498"/>
-    <text class="rname" x="452" y="272" transform="rotate(40 452 272)">颍 河</text>
-    <text class="rname" x="640" y="486" style="font-size:13px">淮 河</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 颍河(颍水):自西北经陈州、顺昌东南入淮;上流置毒处 -->
+    <path class="river" stroke-width="4" d="M 317,32 C 345,95 380,155 413,220 C 452,290 502,325 535,360 C 588,420 648,478 700,540"/>
+    <!-- 淮河:宋之南境后方,自西向东 -->
+    <path class="river" stroke-width="5.5" d="M 30,580 C 210,572 380,574 540,562 C 680,552 800,545 975,536"/>
+    <text class="rname" x="360" y="150" transform="rotate(60 360 150)" style="font-size:12px">颍 河(颍水)</text>
+    <text class="rname" x="360" y="556" transform="rotate(-4 360 556)">淮 河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="dongjing"><circle cx="300" cy="120" r="6"/><text class="cname" x="312" y="116">东京·汴梁<tspan class="cname s" dx="2">(金据)</tspan></text></g>
-      <g class="city" data-city="chenzhou"><circle cx="404" cy="222" r="5"/><text class="cname" x="416" y="218">陈州</text></g>
-      <g class="city" data-city="shunchang"><circle cx="512" cy="332" r="6.5"/><text class="cname" x="524" y="328">顺昌·颍州<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="yinghe"><circle cx="452" cy="272" r="3.5"/><text class="cname s" x="360" y="300">颍河上流(置毒草)</text></g>
-      <g class="city" data-city="taihe"><circle cx="620" cy="410" r="4"/><text class="cname s" x="632" y="406">太和</text></g>
-      <g class="city" data-city="huaihe"><circle cx="480" cy="500" r="4"/><text class="cname s" x="452" y="522">淮河(宋后方)</text></g>
+      <g class="city" data-city="chenzhou"><circle cx="291" cy="102" r="5"/><text class="cname" x="303" y="98">陈州<tspan class="cname s" dx="2">(金军所经)</tspan></text></g>
+      <g class="city cap" data-city="shunchang"><circle cx="535" cy="360" r="6.5"/><text class="cname" x="547" y="356">顺昌 · 颍州<tspan class="cname s" dx="2">(孤城决战)</tspan></text></g>
+      <g class="city" data-city="zhidu"><circle cx="413" cy="220" r="4"/><text class="cname s" x="425" y="216">颍水上流(置毒处)</text></g>
+      <g class="city" data-city="yingkou"><circle cx="700" cy="540" r="4"/><text class="cname s" x="620" y="558">颍口 · 正阳关(入淮)</text></g>
     </g>
 
-    <!-- 全图 · 婴城拒金 -->
+    <!-- 东京·汴梁(图外·西北,金据,兀术根本·来向) -->
+    <g transform="translate(96,20)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,4 L 34,26"/>
+      <text class="mlabel q" x="-6" y="-2" style="font-size:10px">东京·汴梁 ↘</text>
+      <text class="cname s" x="-6" y="40" style="fill:var(--enemy);font-size:9.5px">金据(图外西北) · 兀术自此南下</text>
+    </g>
+
+    <!-- ══ 全图 · 孤城拒金 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 312,132 C 380,180 440,250 500,312"/>
-      <text class="mlabel q" x="330" y="176">金四路南侵,前锋自东京、陈州趋顺昌</text>
-      <path class="march j" marker-end="url(#aj)" d="M 490,486 C 500,440 506,392 510,346"/>
-      <text class="mlabel j" x="516" y="446">刘锜赴东京副留守,行至顺昌闻京陷</text>
-      <circle class="siege" cx="512" cy="332" r="20"/>
-      <circle class="siege" cx="512" cy="332" r="27"/>
-      <text class="anno" x="440" y="378">凿沉舟楫死守,众才万八千,当金十余万</text>
+      <path class="march wj" marker-end="url(#aj)" d="M 700,540 C 648,478 588,420 540,368"/>
+      <text class="mlabel j" x="560" y="470">刘锜溯淮·颍舟师北上,赴东京副留守</text>
+      <path class="march q" marker-end="url(#aq)" d="M 300,120 C 360,180 430,250 508,326"/>
+      <text class="mlabel q" x="150" y="196">金败盟南侵,兀术十余万自汴梁经陈州而下</text>
+      <g class="sink" transform="translate(516,392) rotate(-16)"><path class="hull" d="M -15,0 Q 0,11 15,0 L 11,-5 L -11,-5 Z"/><line class="crack" x1="-4" y1="-5" x2="4" y2="6"/><path class="wave" d="M -20,3 q 5,-4 10,0 q 5,4 10,0 q 5,-4 10,0"/></g>
+      <text class="anno" x="452" y="416">凿沉舟楫死守,众不满二万,当金十余万</text>
+      <circle class="siege" cx="535" cy="360" r="22"/>
+      <circle class="siege" cx="535" cy="360" r="29"/>
+      <circle class="star" cx="535" cy="360" r="13"/>
     </g>
 
-    <!-- 阶段一:沉舟死守 -->
+    <!-- ══ 阶段一:赴任守城 · 凿沉舟 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 416,232 C 452,266 484,296 500,314"/>
-      <text class="mlabel q" x="420" y="262">金韩常等先至围城</text>
-      <circle class="siege" cx="512" cy="332" r="20"/>
-      <circle class="siege" cx="512" cy="332" r="27"/>
-      <rect class="camp" x="558" y="304" width="8" height="8" transform="rotate(45 562 308)"/>
-      <text class="anno" x="536" y="300">金军营</text>
-      <path class="march j" marker-end="url(#aj)" d="M 520,326 C 546,314 566,306 578,300"/>
-      <text class="mlabel j" x="524" y="356">锜屡出奇兵夜袭昼扰,数败之,金前锋气沮</text>
-      <text class="anno" x="430" y="404">尽凿沉舟以绝归意,家属置寺中、积薪誓与俱焚</text>
+      <path class="march wj" marker-end="url(#aj)" d="M 700,540 C 648,478 588,420 540,368"/>
+      <text class="mlabel j" x="556" y="486">刘锜将「八字军」王彦旧部及家属,</text>
+      <text class="mlabel j" x="556" y="502">溯淮·颍舟行,赴东京充副留守</text>
+      <g class="sink" transform="translate(510,394) rotate(-16)"><path class="hull" d="M -16,0 Q 0,12 16,0 L 12,-5 L -12,-5 Z"/><line class="crack" x1="-5" y1="-6" x2="5" y2="7"/><path class="wave" d="M -22,3 q 6,-4 11,0 q 5,4 11,0 q 5,-4 11,0"/></g>
+      <text class="mlabel j" x="392" y="410">行至顺昌,闻金陷东京,乃止而决守</text>
+      <text class="anno" x="404" y="428">尽凿沉舟以绝归意 · 家属置寺中积薪</text>
+      <text class="anno" x="424" y="444">誓与城存亡</text>
+      <circle class="siege" cx="535" cy="360" r="21"/>
     </g>
 
-    <!-- 阶段二:兀术来援 -->
+    <!-- ══ 阶段二:挫其先锋 · 铁浮图大至 ══ -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 306,132 C 360,196 420,262 486,314"/>
-      <text class="mlabel q" x="316" y="200">兀术自将十余万精锐,倍道来救</text>
-      <rect class="camp" x="556" y="300" width="10" height="10" transform="rotate(45 561 305)"/>
-      <rect class="camp" x="580" y="330" width="9" height="9" transform="rotate(45 584 334)"/>
-      <text class="mlabel q" x="556" y="356">「铁浮图」当前,两翼「拐子马」翼之</text>
-      <circle class="siege" cx="512" cy="332" r="22"/>
-      <circle class="siege" cx="512" cy="332" r="29"/>
-      <text class="anno" x="440" y="384">号「常胜军」,营垒相望,志在必拔</text>
+      <path class="march q" marker-end="url(#aq)" d="M 297,110 C 360,175 430,255 502,328"/>
+      <text class="mlabel q" x="150" y="176">金韩常等先锋先至围城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 528,346 C 500,318 476,300 452,286"/>
+      <text class="mlabel j" x="360" y="298">锜屡出奇兵,夜袭昼扰,数挫其前锋</text>
+      <path class="march q" marker-end="url(#aq)" d="M 128,44 C 240,150 400,260 512,336"/>
+      <text class="mlabel q" x="150" y="90">兀术自将精锐十余万倍道来救</text>
+      <g class="armor" transform="translate(560,300)"><rect x="0" y="0" width="9" height="9"/><rect x="13" y="0" width="9" height="9"/><rect x="26" y="0" width="9" height="9"/><line x1="9" y1="4.5" x2="13" y2="4.5"/><line x1="22" y1="4.5" x2="26" y2="4.5"/></g>
+      <text class="mlabel q" x="580" y="298">铁浮图(重甲连缀)</text>
+      <rect class="camp" x="500" y="296" width="8" height="8" transform="rotate(45 504 300)"/>
+      <rect class="camp" x="588" y="330" width="8" height="8" transform="rotate(45 592 334)"/>
+      <text class="mlabel q" x="556" y="348">两翼「拐子马」翼之 · 号常胜军</text>
+      <circle class="siege" cx="535" cy="360" r="23"/>
+      <circle class="siege" cx="535" cy="360" r="30"/>
     </g>
 
-    <!-- 阶段三:破铁浮图 -->
+    <!-- ══ 阶段三:据颍置毒 · 乘暑以逸待劳 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="512" cy="332" r="9"/>
-      <circle class="star" cx="512" cy="332" r="15"/>
-      <path class="march j" marker-end="url(#aj)" d="M 522,330 C 544,326 562,322 576,318"/>
-      <text class="mlabel j" x="516" y="360">开门出击,长斧朴刀专斫马足与重甲之胫</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 556,316 C 480,270 400,200 320,138"/>
-      <text class="mlabel r" x="360" y="240">兀术拔营北遁</text>
-      <text class="anno" x="356" y="286">颍河上流置毒草绝汲,俟其惫而击</text>
-      <text class="anno" x="424" y="366">铁浮图、拐子马自相牵陷,大溃;东南大震</text>
+      <g class="poison" transform="translate(413,220)"><path class="drop" d="M 0,-10 C 7,-2 7,4 0,7 C -7,4 -7,-2 0,-10 Z"/><path class="skull" d="M -3,-3 a 3,3 0 1 0 6,0 a 3,3 0 1 0 -6,0 M -2,2 l 4,0"/></g>
+      <path class="pdiff" d="M 416,226 C 452,292 500,326 532,358"/>
+      <text class="mlabel j" x="220" y="212">以毒草置颍水上流及草中,绝金之汲</text>
+      <text class="anno" x="300" y="256">金人马饮者中毒,渴而不敢饮</text>
+      <g class="sun" transform="translate(626,150)"><circle r="11"/><line x1="0" y1="-16" x2="0" y2="-22"/><line x1="0" y1="16" x2="0" y2="22"/><line x1="-16" y1="0" x2="-22" y2="0"/><line x1="16" y1="0" x2="22" y2="0"/><line x1="-11" y1="-11" x2="-16" y2="-16"/><line x1="11" y1="11" x2="16" y2="16"/><line x1="-11" y1="11" x2="-16" y2="16"/><line x1="11" y1="-11" x2="16" y2="-16"/></g>
+      <text class="mlabel q" x="586" y="182">时值盛暑,金军远来被重铠,人困马乏</text>
+      <rect class="camp" x="498" y="292" width="9" height="9" transform="rotate(45 502 296)"/>
+      <rect class="camp" x="580" y="312" width="9" height="9" transform="rotate(45 584 316)"/>
+      <rect class="camp" x="596" y="360" width="9" height="9" transform="rotate(45 600 364)"/>
+      <text class="mlabel j" x="392" y="410">锜坚壁·番休于羊马垣下,以逸待劳</text>
+      <text class="anno" x="416" y="428">外若怯守,而实蓄锋待其惫</text>
+      <circle class="siege" cx="535" cy="360" r="23"/>
+      <circle class="siege" cx="535" cy="360" r="30"/>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:长斧破铁浮图 · 大破金军 · 围解 ══ -->
+    <g id="ph4" class="ph">
+      <g class="sun" transform="translate(636,150)"><circle r="10"/><line x1="0" y1="-15" x2="0" y2="-20"/><line x1="0" y1="15" x2="0" y2="20"/><line x1="-15" y1="0" x2="-20" y2="0"/><line x1="15" y1="0" x2="20" y2="0"/><line x1="-10" y1="-10" x2="-14" y2="-14"/><line x1="10" y1="10" x2="14" y2="14"/></g>
+      <path class="march j" marker-end="url(#aj)" d="M 540,352 C 560,330 578,314 594,302"/>
+      <path class="march j" marker-end="url(#aj)" d="M 546,362 C 568,354 586,346 602,340"/>
+      <text class="mlabel j" x="516" y="392">俟午·金惫,开门纵精锐步卒出击</text>
+      <text class="anno" x="516" y="410">以长斧·朴刀专斫马足,挑其兜鍪</text>
+      <g class="armor" transform="translate(566,296)"><rect x="0" y="0" width="9" height="9"/><rect x="13" y="0" width="9" height="9"/><rect x="26" y="0" width="9" height="9"/><line x1="9" y1="4.5" x2="13" y2="4.5"/><line x1="22" y1="4.5" x2="26" y2="4.5"/></g>
+      <g class="axe"><path d="M 600,326 l 14,-10"/><path d="M 610,320 a 5,5 0 0 1 6,-3"/></g>
+      <text class="mlabel q" x="592" y="292">铁浮图仆,数骑不能行</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 560,320 C 440,236 300,150 150,58"/>
+      <text class="mlabel r" x="270" y="150">兀术拔营北遁,退还开封</text>
+      <text class="anno" x="360" y="286">拐子马自相牵陷,大溃</text>
+      <circle class="star" cx="535" cy="360" r="11"/>
+      <circle class="star" cx="535" cy="360" r="17"/>
+      <text class="anno" x="426" y="456">顺昌围解 · 东南大震 · 绍兴抗金第一捷</text>
+    </g>
+
+    <g class="compass" transform="translate(946,596)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(刘锜)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(兀术)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军北遁</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(刘锜·八字军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3.4" stroke-dasharray="8 5"/></svg>刘锜舟师(水路)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(兀术·铁浮图拐子马)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>兀术北遁开封</span>
+    <span class="item"><svg width="26" height="14"><rect x="0" y="3" width="6" height="6" fill="#9a2b1e"/><rect x="9" y="3" width="6" height="6" fill="#9a2b1e"/><rect x="18" y="3" width="6" height="6" fill="#9a2b1e"/><line x1="6" y1="6" x2="9" y2="6" stroke="#9a2b1e"/><line x1="15" y1="6" x2="18" y2="6" stroke="#9a2b1e"/></svg>铁浮图(重甲连缀)</span>
+    <span class="item"><svg width="18" height="16"><path d="M 9,2 C 14,7 14,11 9,13 C 4,11 4,7 9,2 Z" fill="rgba(95,127,136,.5)" stroke="#5c4f38"/></svg>颍水置毒</span>
+    <span class="item"><svg width="22" height="14"><path d="M -13,3 Q -8,-1 -3,3" transform="translate(15,3)" fill="rgba(122,90,35,.55)" stroke="#7a5a23"/><path d="M 1,6 Q 8,11 15,6 L 12,3 L 4,3 Z" fill="rgba(122,90,35,.55)" stroke="#7a5a23"/></svg>凿沉舟</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>破铁浮图</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>南宋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 孤城死守 · 乘暑折铁骑</h3>
+    <div class="lead">何以万八千步卒破十余万铁骑 —— 上以死守绝退、置毒乘暑而困之,下以长斧朴刀斫其马足而破之</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:刘锜凿沉舟死守顺昌孤城、颍水上流置毒又乘盛暑以逸待劳,俟金军人马饥渴疲惫,开门纵步卒以长斧专斫铁浮图之马足,重甲连缀之骑一仆则数骑俱陷而大溃">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 凿沉舟 · 死守孤城</text>
+      <text x="336" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 置毒 · 乘暑困之</text>
+      <text x="648" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 长斧斫马足</text>
+
+      <!-- ① 凿沉舟死守:城 + 沉舟 + 积薪 -->
+      <rect x="70" y="96" width="120" height="70" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <line x1="70" y1="112" x2="190" y2="112" stroke="#1f4e54" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <text x="98" y="140" fill="#1f4e54" font-size="12" font-weight="700">顺昌</text>
+      <g transform="translate(96,190) rotate(-14)"><path d="M -16,0 Q 0,12 16,0 L 12,-5 L -12,-5 Z" fill="rgba(122,90,35,.55)" stroke="#7a5a23"/><line x1="-5" y1="-6" x2="5" y2="7" stroke="#9a2b1e" stroke-width="1.3"/></g>
+      <text x="130" y="196" fill="#7a5a23" font-size="10">尽凿沉舟 · 绝归意</text>
+      <path d="M 130,80 l 4,-10 l 4,10 M 138,80 l 4,-10 l 4,10" fill="none" stroke="#9a2b1e" stroke-width="1.3"/>
+      <text x="132" y="66" fill="#9a2b1e" font-size="9.5">家属积薪 · 誓与俱焚</text>
+
+      <!-- ② 置毒·乘暑:颍水毒 + 烈日 + 金渴 -->
+      <path d="M 372,60 C 388,110 404,150 420,210" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".8"/>
+      <text x="330" y="76" fill="#5f7f88" font-size="10">颍水上流</text>
+      <path d="M 388,96 C 395,104 395,110 388,114 C 381,110 381,104 388,96 Z" fill="rgba(95,127,136,.5)" stroke="#5c4f38" stroke-width="1.1"/>
+      <text x="398" y="110" fill="#5c4f38" font-size="10" font-weight="700">置毒草 · 绝汲</text>
+      <g transform="translate(510,80)" stroke="#9c7a2c" stroke-width="1.5"><circle r="11" fill="none"/><line x1="0" y1="-16" x2="0" y2="-21"/><line x1="0" y1="16" x2="0" y2="21"/><line x1="-16" y1="0" x2="-21" y2="0"/><line x1="16" y1="0" x2="21" y2="0"/><line x1="-11" y1="-11" x2="-15" y2="-15"/><line x1="11" y1="11" x2="15" y2="15"/><line x1="-11" y1="11" x2="-15" y2="15"/><line x1="11" y1="-11" x2="15" y2="-15"/></g>
+      <text x="482" y="120" fill="#9c7a2c" font-size="10" font-weight="700">盛暑烈日</text>
+      <text x="452" y="176" fill="#9a2b1e" font-size="10.5" font-weight="700">金远来·被重铠·渴而不得饮</text>
+      <text x="452" y="194" fill="#5c4f38" font-size="9.5">锜坚壁番休,以逸待劳,俟其惫</text>
+
+      <!-- ③ 长斧斫马足:铁浮图连骑 + 步卒长斧砍马腿 -->
+      <g transform="translate(662,86)">
+        <g fill="#9a2b1e" opacity=".9"><rect x="0" y="0" width="16" height="14" rx="2"/><rect x="22" y="0" width="16" height="14" rx="2"/><rect x="44" y="0" width="16" height="14" rx="2"/></g>
+        <line x1="16" y1="7" x2="22" y2="7" stroke="#9a2b1e" stroke-width="2"/><line x1="38" y1="7" x2="44" y2="7" stroke="#9a2b1e" stroke-width="2"/>
+        <g stroke="#9a2b1e" stroke-width="1.6"><line x1="4" y1="14" x2="4" y2="24"/><line x1="12" y1="14" x2="12" y2="24"/><line x1="26" y1="14" x2="26" y2="24"/><line x1="34" y1="14" x2="34" y2="24"/><line x1="48" y1="14" x2="48" y2="24"/><line x1="56" y1="14" x2="56" y2="24"/></g>
+      </g>
+      <text x="656" y="70" fill="#9a2b1e" font-size="9.5" font-weight="700">铁浮图 · 三骑连缀</text>
+      <!-- 步卒长斧上斫马足 -->
+      <g stroke="#1f4e54" stroke-width="2.6" stroke-linecap="round" fill="none">
+        <path d="M 668,150 l 14,-32"/><path d="M 678,120 a 6,6 0 0 1 8,-3"/>
+        <path d="M 700,152 l 14,-32"/><path d="M 710,122 a 6,6 0 0 1 8,-3"/>
+      </g>
+      <text x="656" y="172" fill="#1f4e54" font-size="10.5" font-weight="700">步卒长斧 · 专斫马足</text>
+      <path d="M 730,132 l 16,4" stroke="#9a2b1e" stroke-width="2" marker-end="none"/>
+      <text x="700" y="206" fill="#9a2b1e" font-size="10.5" font-weight="700">一马仆 → 连骑俱陷 · 大溃</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 254,120 L 300,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+      <path d="M 588,120 L 634,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+    </svg>
+    <p class="intro">顺昌之捷,不在众寡之力斗,而在<b>以死守困敌、以奇兵破骑</b>:刘锜<b>凿沉舟以绝退</b>、置家属积薪誓死,士无二志;既据颍水<b>置毒绝汲</b>、又<b>乘盛暑以逸待劳</b>,使金重甲远来者饥渴疲惫;然后开门纵步卒,以<b>长斧朴刀专斫马足</b>。铁浮图人马皆重铠连缀,恃其不动如山,而一马仆则数骑俱陷 —— 其所长者,正其所以败也。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>孤城死守 · 困其锐(上)</h4>
+        <p>锜赴东京副留守,行至顺昌闻京陷,乃止而决守:尽凿沉舟楫以绝归意,家属置佛寺、积薪于侧,誓与城俱焚,示必死之心,故万八千之众无一叛去。又以毒草置颍水上流及草间,金人马饮者辄病;时正盛暑,金军远来被重铠,渴而不敢饮。锜则坚壁,番休于羊马垣下以逸待劳,外若怯守而实蓄锋 —— 敌之疲、渴、暑,皆锜之所养也。</p>
+      </div>
+      <div class="c b">
+        <h4>长斧折铁骑 · 破其长(下)</h4>
+        <p>兀术恃「铁浮图」重甲连缀之骑当前、两翼「拐子马」翼之,号常胜军,志在必拔。锜俟金军饥渴疲惫之午,开门纵精锐步卒,不与之驰逐,而<b>以长斧·朴刀自下斫其马足、挑其兜鍪</b>。铁浮图三人为伍、贯以韦索,一马仆则牵连数骑不得行,拐子马自相践陷,遂大溃。兀术拔营北遁,退还开封,顺昌之围以解 —— 重甲连环之利,反成聚歼之因。</p>
+      </div>
+    </div>
+    <p class="kicker">故顺昌之克,系于<b>凿沉舟以死守、置毒乘暑以困敌、长斧朴刀以破铁骑</b>:非宋之众,实锜之谋。时与岳飞郾城·颍昌之捷同岁(绍兴十年),同破金之「铁浮图」「拐子马」,金人自是夺气,而「撼山易,撼岳家军难」「顺昌之捷」并传为绍兴抗金之最。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·刘锜传》《金史·宗弼传》《建炎以来系年要录》卷一三五至一三六、《三朝北盟会编》约略绘出。疆界、水道经简化;金宋界以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注二</span>顺昌即今安徽阜阳,颍州治所,滨颍河而当淮西之冲。金废伪齐、兀术败盟,绍兴十年四路大举南侵,顺昌当东京南下之要道。</p>
-    <p><span class="n">注三</span>刘锜以万八千破兀术十余万,专斫「铁浮图」「拐子马」之足,为绍兴十年抗金第一捷,与岳飞郾城之战同时,金人夺气。本图以宋为本方(青),金军败退用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(近墨卡托)投影:<b>x=140+(经度−114.30)×260,y=640−(纬度−32.00)×311</b>(viewBox 1000×640)。几何关系力求近实:顺昌(颍州)居中,陈州在其西北,颍水上流置毒处在其间;颍河自西北经陈州、顺昌东南,于颍口(正阳关)入淮;淮河横亘南境为宋之后方;东京汴梁远在西北二百余里之外,置于图外,以边缘箭头示兀术来向。疆界、水道皆经简化;金宋以点划「约界」示大势 —— 绍兴十年金败盟南侵、河南新复即失,战线随攻守屡迁,顺昌实孤悬于金占之淮北,非实有画界。依《宋史·刘锜传》《金史·宗弼传》《建炎以来系年要录》卷一三五至一三六、《三朝北盟会编》约略绘出。</p>
+    <p><span class="n">注二</span>今地与经纬:顺昌府(颍州,今安徽阜阳,约115.82E/32.90N),刘锜守城决战地;陈州(今河南淮阳,约114.88E/33.73N),金军自汴梁南下所经;东京汴梁(今河南开封,约114.30E/34.80N),北宋旧都,时陷于金,兀术自此发兵,在图外西北;颍水上流置毒处约在顺昌西北颍河中上游(115.3E/33.4N一带,示意);颍口(颍水入淮处,今安徽颍上正阳关一带,约116.4E/32.4N)。淮河为南宋淮南防线所倚。</p>
+    <p><span class="n">注三</span>「凿沉舟·置毒·以逸待劳」为死守困敌之枢(图中沉舟、颍水毒滴、烈日诸记):刘锜本溯淮、颍舟行赴东京充副留守,率「八字军」(王彦旧部,面刺「赤心报国,誓杀金贼」八字)及其家属北上;行至顺昌闻东京已陷,与知府陈规决计死守,尽凿沉所乘舟楫以绝归路,家属置佛寺、积薪誓与城俱焚。又以毒草置颍水上流及草中,金人马饮者中毒;时值盛暑,金军远来被重铠,人马饥渴疲困,锜坚壁番休于羊马垣下,以逸待劳而伺其惫。</p>
+    <p><span class="n">注四</span>「铁浮图」「拐子马」与破法:铁浮图(一作铁浮屠)乃兀术亲将之重甲牙兵,人马皆披重铠,史载「三人为伍,贯以韦索」,恃其厚甲坚阵、进而不退;拐子马则分列左右两翼之骑,以为包抄。刘锜破之之法,在不与驰逐,而纵步卒以长斧、大刀(朴刀)自下专斫马足、挑其兜鍪;重甲连缀,一马仆则牵连数骑俱陷,遂大溃。惟「拐子马是否即连环马」自宋以来聚讼:南宋人多以连环相属为言,清人以下考订则或以「拐子马」本指两翼之骑、未必贯索,今两说并存以俟考。本图以宋为本方(青)、金为攻方(赤),兀术败遁用褐;铁浮图以红连缀方块示之。</p>
+    <p><span class="n">注五</span>史事互异:宋军之数,《宋史·刘锜传》系诸说,通言「不满二万」(约万八千),八字军为骨干;金军之众,诸书或云「十余万」,兀术亲将精锐,铁浮图约三千至五千、拐子马数为约举,不必尽为实数。战在绍兴十年五月(1140,约当阳历六月),金先锋先至、兀术继以大军亲临,凡数日而败,退还开封;顺昌一捷与岳飞郾城、颍昌之战同岁,并为绍兴抗金之最。地名、日次、人数,史传微有出入,并存以俟考。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"婴城拒金",d:"宋绍兴十年(1140)五月",p:["金废伪齐、兀术败盟,绍兴十年四路大举南侵。刘锜奉命赴东京充副留守,溯淮而上,行至顺昌,闻东京已陷,乃与知府陈规决计守顺昌,尽凿沉舟楫以示死守。","家属置寺中、积薪誓与俱焚,众才一万八千,「八字军」王彦旧部为骨干,当金十余万之冲。金将韩常等先围城,刘锜屡出奇兵败之;兀术乃自将精锐来援。"]},
-  "1":{t:"沉舟死守",d:"绍兴十年五月·围城",p:["刘锜至顺昌,闻东京已陷,与陈规谋守,尽凿沉舟以绝归意,家属置寺中、积薪誓与俱焚,示士卒以必死。","金韩常等先至围城,锜择精锐屡出奇兵,夜袭昼扰,数败之,金前锋气沮。锜料重敌将至,益缮守具,择死士,伺间而动。"]},
-  "2":{t:"兀术来援",d:"绍兴十年五月·大军至",p:["兀术闻前锋屡败,自将十余万精锐,倍道来救,以「铁浮图」重甲当前、两翼「拐子马」翼之,号「常胜军」。","金营垒相望,志在必拔顺昌。时锜按兵不出,坚壁养锐,以待其疲——外若怯守,而实蓄锋以图一击。"]},
-  "3":{t:"破铁浮图",d:"绍兴十年五月·决战",p:["时盛暑,金人被重铠、远来疲困;锜按兵养锐,又以毒草置颍河上流绝其汲。俟其惫,乃开门出击,以长斧、朴刀专斫马足与重甲之胫。","铁浮图人马皆重甲连缀,一马仆则数骑不能行,拐子马自相牵陷,遂大溃。兀术拔营北遁,顺昌之围遂解,东南大震——是为绍兴抗金第一捷。"]}
+  all:{t:"孤城拒金",d:"宋绍兴十年(1140)五月",p:["金废伪齐、兀术败盟,绍兴十年大举南侵,新复之河南旋失。刘锜奉命赴东京充副留守,率「八字军」王彦旧部及家属,溯淮、颍舟行而上;比至顺昌,闻东京已陷,乃与知府陈规决计死守,尽凿沉舟楫以绝归意,家属置佛寺、积薪誓与城俱焚。","众不满二万,当金十余万之冲。金将韩常等先锋先至围城,锜屡出奇兵挫之;兀术乃自将精锐,以「铁浮图」重甲当前、两翼「拐子马」翼之而大至。锜据颍水置毒、乘盛暑以逸待劳,俟其饥渴疲惫,开门纵步卒以长斧斫马足,大破之,兀术遁还开封,顺昌围解。"]},
+  "1":{t:"赴任守城 · 凿沉舟",d:"绍兴十年五月 · 至顺昌",p:["刘锜将「八字军」(王彦旧部,面刺八字者)及军中家属,自江、淮溯流舟行,赴东京充副留守。行至顺昌,闻金败盟、东京已陷,前不可往,乃与知府陈规谋守此城。","为示死守,尽凿沉所乘舟楫以绝归路;置家属于佛寺,积薪于侧,誓曰城不守则焚之,与之俱亡。士卒感其必死之心,万八千之众无一叛去 —— 孤城拒敌之局,自兹定矣。"]},
+  "2":{t:"挫其先锋 · 铁浮图大至",d:"绍兴十年五月 · 围城",p:["金将韩常等先锋先至,围顺昌。刘锜择精锐,夜袭昼扰,屡出奇兵,数挫其前锋,金人气沮,而料重敌将继至,益缮守具、蓄死士以待。","兀术闻前锋屡败,自将精锐十余万,倍道来救。以亲军「铁浮图」重甲连缀之骑当前,两翼「拐子马」翼之,号「常胜军」,营垒相望,志在必拔顺昌。锜按兵不出,坚壁以观其变。"]},
+  "3":{t:"据颍置毒 · 乘暑以逸待劳",d:"绍兴十年五月 · 相持",p:["锜据颍水之利,以毒草置其上流及草间,金人马饮者辄中毒、病者甚众,渴而不敢饮。时正盛暑,金军远来、被重铠,顿于坚城之下,人困马乏。","锜则坚壁,分番休息于羊马垣下,以逸待劳;外示怯守,而实蓄锋以待其惫。金屡攻不下,人马益疲、暑渴交困,而不知锜之一击已伏于此 —— 待劳之谋,至是将成。"]},
+  "4":{t:"长斧破铁浮图 · 围解",d:"绍兴十年五月 · 决战",p:["择晴热之午,俟金军饥渴疲惫,锜开门纵精锐步卒出击,不与之驰逐,而以长斧、朴刀自下专斫马足、挑其兜鍪。铁浮图人马皆重甲连缀、三骑相贯,一马仆则数骑不能行。","拐子马自相牵陷,金军遂大溃。兀术拔营北遁,退还开封,顺昌之围以解。东南大震,金人夺气 —— 是役与岳飞郾城之捷同岁,并称绍兴抗金之最。"]}
 };
 const CITY={
-  shunchang:{t:"顺昌·颍州",d:"今安徽阜阳",p:["刘锜守城决战之地。锜与陈规凿沉舟楫、积薪誓死,以万八千当金十余万,破铁浮图、拐子马于城下。"]},
-  yinghe:{t:"颍河上流",d:"顺昌置毒草绝汲处",p:["刘锜以毒草置颍河上流,绝金军之汲。金人当盛暑、被重铠、远来疲困,渴而不得饮,士气益沮。"]},
-  chenzhou:{t:"陈州",d:"今河南淮阳",p:["金军自此南来趋顺昌。韩常等前锋先至围城,继而兀术大军亦由是道倍进而下。"]},
-  dongjing:{t:"东京·汴梁",d:"今河南开封,金据",p:["北宋旧都,时已陷于金。刘锜本赴此充副留守,行至顺昌闻京陷,乃止而决计死守。"]},
-  huaihe:{t:"淮河",d:"宋之后方水道",p:["南宋淮西防线所倚。刘锜溯淮北上抵顺昌;顺昌一捷,淮西之冲得固,东南大震而金人夺气。"]},
-  taihe:{t:"太和",d:"顺昌东南,今安徽太和一带",p:["颍河下流近淮之地,顺昌东南屏障。为宋军后路与金军窥淮所必经。"]}
+  shunchang:{t:"顺昌 · 颍州",d:"今安徽阜阳(约115.82E,32.90N)",p:["刘锜守城决战之地,滨颍河而当淮西之冲。锜与陈规凿沉舟楫、积薪誓死,以万八千当金十余万,据颍水置毒、乘暑以逸待劳,终以长斧破铁浮图、拐子马于城下,金遁而围解。"]},
+  chenzhou:{t:"陈州",d:"今河南淮阳(约114.88E,33.73N)",p:["金军自东京南下趋顺昌所经。韩常等前锋先至围城,继而兀术亲率铁浮图、拐子马大军亦由是道倍进而下。"]},
+  zhidu:{t:"颍水上流 · 置毒处",d:"顺昌西北颍河中上游(示意)",p:["刘锜以毒草置于颍水上流及草中,绝金军之汲。金人当盛暑、被重铠、远来疲困,渴而不得饮,人马饮者中毒病倒者甚众,士气益沮 —— 乘暑困敌之一著。"]},
+  yingkou:{t:"颍口 · 正阳关",d:"颍水入淮处,今安徽颍上正阳关一带",p:["颍河下流入淮之口,顺昌之南、通淮之道。刘锜溯淮、颍舟行北上抵顺昌即由此水路;顺昌一捷,淮南之冲得固。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -16,8 +16,9 @@
   .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
   header{margin-bottom:14px;padding-right:74px}
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
-  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.08em;line-height:1.7}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,7 +31,8 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,6 +41,7 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.threat{stroke:var(--enemy);stroke-width:2.4;stroke-dasharray:7 5;opacity:.72}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
@@ -46,8 +49,18 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 床子弩:朱色弩矢,金色迸射 */
+  .bolt{stroke:var(--gold);stroke-width:2.6;stroke-linecap:round}
+  .spark{fill:var(--gold);stroke:var(--paper);stroke-width:.7}
+  .blabel{fill:var(--gold);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 御盖·亲征:青色 */
+  .canopy{fill:var(--advance);opacity:.9}
+  .canopy .pole{stroke:var(--advance);stroke-width:1.6}
+  /* 澶渊之盟:朱印 */
+  .treaty{fill:rgba(154,43,30,.08);stroke:var(--seal);stroke-width:1.8}
+  .treaty text{fill:var(--seal);font-family:"Ma Shan Zheng",serif}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +69,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.threat){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +100,17 @@
   <div class="seal" aria-hidden="true"><span>澶</span><span>渊</span><span>之</span><span>盟</span></div>
   <header>
     <h1>澶州之战 · 澶渊之盟</h1>
-    <div class="sub">宋景德元年(1004)　　<i>北宋 真宗 · 寇准</i> 御 <b>辽 萧太后</b> · 遂订澶渊之盟</div>
+    <div class="sub">宋景德元年(1004)　<b>辽 萧太后·圣宗</b>(号二十万南侵) 长驱深入澶州,直逼东京　御之者 <i>北宋 真宗·寇准</i>　·　深入无继 · 一弩夺气 · 亲征成盟</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 辽师深入</button>
-    <button data-p="1">深入抵澶</button>
-    <button data-p="2">射杀挞凛</button>
-    <button data-p="3">澶渊定盟</button>
+    <button data-p="1">辽军南侵 · 绕城深入</button>
+    <button data-p="2">兵临澶州 · 直逼汴京</button>
+    <button data-p="3">床子弩射杀萧挞凛</button>
+    <button data-p="4">真宗亲征 · 澶渊之盟</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="澶州之战形势图,含辽宋疆界、黄河水道与幽州瀛州澶州东京等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="澶州之战(澶渊之盟)形势图,含辽据幽云与宋据中原之旧界、黄河白沟河诸水与太行山,及澶州德清军大名瀛州定州东京诸城、幽州图外北边箭,辽军自幽州绕坚城长驱深入至澶州直逼汴京、宋以床子弩射杀萧挞凛、真宗渡黄河亲征登北城、澶渊定盟诸记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,80 +119,127 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:辽据河北之北(上),宋据中原(下),战后以白沟河为界;此处以辽师深入之势晕染 -->
-    <path d="M 0,0 L 1000,0 L 1000,150 C 860,168 720,150 600,182 C 520,204 470,238 470,290 C 470,240 400,232 340,236 C 220,244 110,220 0,208 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,208 C 110,220 220,244 340,236 C 400,232 470,240 470,290 C 470,238 520,204 600,182 C 720,150 860,168 1000,150 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,208 C 110,220 220,244 340,236 C 400,232 470,240 470,290 C 470,238 520,204 600,182 C 720,150 860,168 1000,150"/>
-    <text class="realm q" x="120" y="90" font-size="32">辽(契丹)</text>
-    <text class="realm j" x="700" y="470" font-size="32">北 宋</text>
+    <!-- ══ 旧界:辽据幽云(极北一线,白沟为界),宋据河北·中原;辽师深入之地皆宋境 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,90 C 820,96 640,100 470,102 C 300,104 150,100 0,94 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,94 C 150,100 300,104 470,102 C 640,100 820,96 1000,90 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <!-- 宋辽旧界(白沟·雄霸一线,战前分界,示意) -->
+    <path class="border" d="M 0,94 C 150,100 300,104 470,102 C 640,100 820,96 1000,90"/>
+    <text class="realm q" x="118" y="52" font-size="26">辽 · 契丹(幽云)</text>
+    <text class="realm j" x="120" y="330" font-size="30">北 　 宋(河北·中原)</text>
 
-    <!-- 黄河:自西向东,横贯澶州,澶州跨河南北二城 -->
-    <path class="river" stroke-width="5.5" d="M 0,352 C 130,346 260,356 380,372 C 470,384 540,394 610,392 C 700,390 800,374 900,378 C 950,380 980,382 1000,384"/>
-    <!-- 白沟河:宋辽新界,近幽州之南 -->
-    <path class="river" stroke-width="2.4" d="M 470,146 C 560,132 660,138 760,128"/>
-    <text class="rname" x="220" y="342" style="font-size:14px">黄 河</text>
-    <text class="rname" x="540" y="120" style="font-size:10.5px;letter-spacing:.12em">白沟河</text>
+    <!-- ══ 太行山:河北之西垣 ══ -->
+    <path class="mtn" d="M 60,300 l 12,-20 l 12,20 M 80,288 l 12,-20 l 12,20 M 66,250 l 12,-20 l 12,20 M 84,238 l 12,-20 l 12,20 M 72,200 l 12,-20 l 12,20 M 60,164 l 12,-20 l 12,20"/>
+    <text class="mname" x="34" y="330" transform="rotate(-68 34 330)">太 行 山</text>
 
-    <!-- 太行山:河北之西 -->
-    <g class="mtn"><path d="M 120,300 l 8,-13 l 8,13 M 136,294 l 8,-13 l 8,13 M 152,300 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="118" y="322">太行</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西东流,横贯澶州(跨河南北二城),折而东北趋大名、乾宁 -->
+    <path class="river" stroke-width="5.5" d="M 0,468 C 140,460 300,452 420,444 C 452,442 476,440 500,438 C 620,430 742,404 862,372 C 922,356 972,348 1000,344"/>
+    <!-- 白沟河:澶渊之盟所定新界,近幽州之南 -->
+    <path class="river" stroke-width="2.4" d="M 470,66 C 560,56 650,54 742,46"/>
+    <text class="rname" x="230" y="462" style="font-size:14px">黄 　 河</text>
+    <text class="rname" x="560" y="46" transform="rotate(-4 560 46)" style="font-size:10.5px;letter-spacing:.1em">白沟河(盟后新界)</text>
+
+    <!-- 幽州·辽南京(图外·北):辽南伐之根本、北还所归 -->
+    <g transform="translate(659,6)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,4 L 0,30"/>
+      <text class="mlabel q" x="6" y="16" style="font-size:10px">幽州·辽南京 ↓</text>
+      <text class="cname s" x="-118" y="16" style="fill:var(--enemy);font-size:9.5px">辽本(图外北) · 二十万自此南下</text>
+    </g>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="youzhou"><circle cx="620" cy="70" r="6"/><text class="cname" x="632" y="66">幽州<tspan class="cname s" dx="2">(辽南京)</tspan></text></g>
-      <g class="city" data-city="yingzhou"><circle cx="520" cy="210" r="5"/><text class="cname" x="532" y="206">瀛州</text></g>
-      <g class="city" data-city="daming"><circle cx="300" cy="404" r="5"/><text class="cname" x="228" y="400">大名府<tspan class="cname s" dx="2">(北京)</tspan></text></g>
-      <g class="city" data-city="chanzhou"><circle cx="600" cy="392" r="6.5"/><text class="cname" x="612" y="374">澶州<tspan class="cname s" dx="2">(跨河南北城)</tspan></text></g>
-      <g class="city cap" data-city="dongjing"><circle cx="560" cy="520" r="6.5"/><text class="cname" x="572" y="516">东京·汴京<tspan class="cname s" dx="2">(宋都)</tspan></text></g>
-      <g class="city" data-city="baigou"><circle cx="700" cy="132" r="3.5"/><text class="cname s" x="712" y="128">白沟河(新界)</text></g>
+      <g class="city" data-city="dingzhou"><circle cx="496" cy="121" r="5"/><text class="cname" x="452" y="116">定州<tspan class="cname s" dx="2">(宋重兵)</tspan></text></g>
+      <g class="city" data-city="yingzhou"><circle cx="625" cy="133" r="5.5"/><text class="cname" x="636" y="129">瀛州<tspan class="cname s" dx="2">(攻不下)</tspan></text></g>
+      <g class="city" data-city="daming"><circle cx="515" cy="375" r="5"/><text class="cname" x="527" y="371">大名府<tspan class="cname s" dx="2">(北京)</tspan></text></g>
+      <g class="city" data-city="deqing"><circle cx="509" cy="416" r="4"/><text class="cname s" x="430" y="410">德清军(破)</text></g>
+      <g class="city cap" data-city="chanzhou"><circle cx="500" cy="438" r="7"/><text class="cname" x="512" y="454">澶州·澶渊<tspan class="cname s" dx="2">(跨河南北城)</tspan></text></g>
+      <g class="city cap" data-city="dongjing"><circle cx="417" cy="549" r="6.5"/><text class="cname" x="360" y="566">东京·汴梁<tspan class="cname s" dx="2">(宋都)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 辽师深入 -->
+    <!-- ══════ 全图 · 辽师深入 ══════ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 616,80 C 590,120 560,160 528,200"/>
-      <path class="march q" marker-end="url(#aq)" d="M 516,220 C 500,280 540,340 592,382"/>
-      <text class="mlabel q" x="360" y="180">辽萧太后、圣宗大举南下,越诸城直抵澶州</text>
-      <text class="anno" x="470" y="256">攻瀛州不下,乃绕坚城纵兵南掠</text>
-      <text class="mlabel j" x="360" y="470">寇准力排南迁之议,请真宗亲征</text>
-      <path class="march j" marker-end="url(#aj)" d="M 566,510 C 580,470 590,440 596,406"/>
-      <text class="anno" x="440" y="500">王钦若请幸金陵、陈尧叟请幸成都,准叱之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 655,40 C 648,72 640,102 632,124"/>
+      <circle class="siege" cx="625" cy="133" r="15"/>
+      <path class="march q" marker-end="url(#aq)" d="M 616,148 C 576,236 536,340 512,406"/>
+      <text class="mlabel q" x="330" y="210">辽萧太后·圣宗号二十万南侵,绕坚城长驱直入</text>
+      <text class="anno" x="400" y="292">攻瀛州不下,破德清军,兵临澶州,直逼东京</text>
+      <rect class="camp" x="508" y="404" width="9" height="9" transform="rotate(45 512 408)"/>
+      <path class="march threat" marker-end="url(#aq)" d="M 500,452 C 470,490 448,516 432,536"/>
+      <text class="mlabel q" x="438" y="512">兵锋直逼汴京</text>
+      <path class="march j" marker-end="url(#aj)" d="M 424,542 C 458,502 482,472 496,448"/>
+      <text class="mlabel j" x="300" y="512">寇准力排南迁,请真宗渡河亲征</text>
+      <circle class="star" cx="504" cy="418" r="8"/>
+      <text class="anno" x="196" y="356">定州·大名宋军重兵在辽师侧后,深入而后路空虚</text>
     </g>
 
-    <!-- 阶段一:深入抵澶 -->
+    <!-- ══════ 阶段一 · 辽军南侵 · 绕城深入 ══════ -->
     <g id="ph1" class="ph">
-      <g class="siege"><circle cx="520" cy="210" r="16"/></g>
-      <text class="mlabel q" x="440" y="188">攻瀛州二十日不克</text>
-      <path class="march q" marker-end="url(#aq)" d="M 524,224 C 512,290 548,346 590,382"/>
-      <text class="mlabel q" x="556" y="300">纵兵南掠,绕坚城而进</text>
-      <text class="anno" x="470" y="332">前锋直抵澶州北城,距东京不过数驿</text>
-      <rect class="camp" x="618" y="356" width="9" height="9" transform="rotate(45 622 360)"/>
-      <text class="mlabel r" x="636" y="352">辽军营</text>
-      <text class="anno" x="360" y="548">中外震骇,或请幸金陵、成都,寇准固请帝亲征</text>
+      <path class="march q" marker-end="url(#aq)" d="M 655,40 C 648,74 640,104 632,124"/>
+      <g class="siege"><circle cx="625" cy="133" r="16"/></g>
+      <text class="mlabel q" x="646" y="120">攻瀛州二十日不克</text>
+      <path class="march q" marker-end="url(#aq)" d="M 614,150 C 572,236 534,326 512,398"/>
+      <text class="mlabel q" x="556" y="250">纵兵南掠,绕坚城而进,不复顿兵坚城</text>
+      <text class="anno" x="560" y="270">深入千里,不攻城而径趋澶州</text>
+      <!-- 定州宋军在侧后 -->
+      <rect class="camp" x="492" y="117" width="8" height="8" transform="rotate(45 496 121)" style="fill:var(--advance)"/>
+      <text class="mlabel j" x="360" y="104">定州宋军按兵观衅,踞辽师侧翼</text>
+      <text class="anno" x="196" y="360">辽师长驱,而定州·大名重兵在其侧后,后路可虞</text>
     </g>
 
-    <!-- 阶段二:射杀挞凛 -->
+    <!-- ══════ 阶段二 · 兵临澶州 · 直逼汴京 ══════ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 562,512 C 574,472 584,436 592,404"/>
-      <text class="mlabel j" x="440" y="474">真宗至澶州,寇准请渡河登北城</text>
-      <text class="anno" x="440" y="492">张黄龙旗,诸军望御盖,踊跃呼万岁,声闻数十里</text>
-      <rect class="camp" x="620" y="356" width="9" height="9" transform="rotate(45 624 360)"/>
-      <circle class="star" cx="612" cy="378" r="8"/>
-      <path d="M 612,367 l 3,-7 l 2,5 l 6,-3 l -3,6 l 7,2 l -7,3 l 3,6 l -6,-3 l -2,5 l -3,-7 l -6,3 l 3,-6 l -7,-2 l 7,-3 l -3,-6 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".7"/>
-      <text class="mlabel j" x="628" y="392">床子弩伏发,一矢中挞凛额</text>
-      <text class="anno" x="628" y="410">辽统军萧挞凛督战,威虎军头张瓌射杀之,辽军夺气</text>
+      <path class="march q" marker-end="url(#aq)" d="M 616,150 C 574,240 534,352 512,404"/>
+      <g class="star" style="stroke:var(--enemy)"><circle cx="509" cy="416" r="8"/></g>
+      <text class="mlabel q" x="392" y="404">破德清军</text>
+      <rect class="camp" x="508" y="404" width="10" height="10" transform="rotate(45 513 409)"/>
+      <text class="mlabel q" x="524" y="404">辽军营 · 三面围澶州北城</text>
+      <text class="anno" x="524" y="420">前锋直抵黄河北岸,距东京不过数驿</text>
+      <!-- 兵锋直逼汴京 -->
+      <path class="march threat" marker-end="url(#aq)" d="M 500,452 C 468,492 444,520 428,540"/>
+      <text class="mlabel q" x="430" y="516">兵锋直逼东京</text>
+      <text class="mlabel j" x="300" y="574">王钦若请幸金陵,陈尧叟请幸成都</text>
+      <text class="anno" x="300" y="590">寇准叱之:「谋此策者罪可斩」,固请帝亲征</text>
     </g>
 
-    <!-- 阶段三:澶渊定盟 -->
+    <!-- ══════ 阶段三 · 床子弩射杀萧挞凛 · 辽气夺 ══════ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="600" cy="392" r="11"/>
-      <text class="mlabel j" x="500" y="420">十二月成盟于澶州</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 606,380 C 580,300 540,240 520,222"/>
-      <text class="mlabel r" x="540" y="272">辽以孤军深入、挞凛死,遣使议和北还</text>
-      <text class="anno" x="460" y="200">约为兄弟之国;宋岁遗绢二十万匹、银十万两</text>
-      <text class="anno" x="470" y="160">以白沟河为界,罢兵通好,百二十年不战</text>
+      <rect class="camp" x="508" y="404" width="10" height="10" transform="rotate(45 513 409)"/>
+      <text class="mlabel q" x="522" y="398">挞凛督战,轻骑出阵察地形</text>
+      <!-- 床子弩自澶州北城伏发,一矢中挞凛额 -->
+      <path class="bolt" marker-end="url(#ar)" d="M 494,430 L 511,412" style="stroke:var(--gold)"/>
+      <circle class="star" cx="512" cy="411" r="10"/>
+      <path class="spark" d="M 512,398 l 3,-8 l 2.4,6 l 7,-3.4 l -3.4,7 l 8,2.4 l -8,2.4 l 3.4,7 l -7,-3.4 l -2.4,6 l -3,-8 l -7,3.4 l 3.4,-7 l -8,-2.4 l 8,-2.4 l -3.4,-7 z"/>
+      <text class="blabel" x="524" y="416">威虎军头张瓌 · 床子弩伏发,一矢中额</text>
+      <text class="mlabel j" x="360" y="450">李继隆守澶州,主床子弩于城上</text>
+      <text class="mlabel q" x="392" y="470">挞凛当晚死,辽军夺气</text>
+      <text class="anno" x="392" y="486">萧太后痛哭,辍朝五日;先锋主将既殒,锐气顿挫</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══════ 阶段四 · 真宗亲征 · 士气大振 · 澶渊之盟 ══════ -->
+    <g id="ph4" class="ph">
+      <!-- 真宗渡黄河亲征,登澶州北城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 424,542 C 458,502 482,470 496,446"/>
+      <text class="mlabel j" x="300" y="520">真宗渡黄河,登澶州北城</text>
+      <!-- 御盖 -->
+      <g transform="translate(490,414)">
+        <line class="pole" x1="0" y1="0" x2="0" y2="-16"/>
+        <path class="canopy" d="M -11,-16 Q 0,-26 11,-16 Z"/>
+        <circle class="canopy" cx="0" cy="-27" r="1.8"/>
+      </g>
+      <text class="mlabel j" x="384" y="404">张黄龙旗,诸军望御盖,呼万岁声闻数十里</text>
+      <!-- 辽以孤军深入、挞凛死,议和北还 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 520,404 C 560,300 600,190 640,66"/>
+      <text class="mlabel r" x="556" y="230">辽惧宋断归路,遣使议和,北还</text>
+      <!-- 澶渊之盟朱印 -->
+      <g class="treaty" transform="translate(452,470) rotate(-6)">
+        <rect x="0" y="0" width="46" height="46" rx="3"/>
+        <text x="9" y="21" font-size="17">澶渊</text>
+        <text x="9" y="41" font-size="17">之盟</text>
+      </g>
+      <text class="anno" x="300" y="586">约为兄弟之国 · 宋岁遗辽银十万两·绢二十万匹 · 以白沟河为界</text>
+    </g>
+
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -172,34 +248,105 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>辽军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>辽军北还</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>射杀挞凛·定盟</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>辽</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>辽军(南侵深入)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="7 5"/></svg>兵锋直逼汴京</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军·真宗亲征</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>辽军议和北还</span>
+    <span class="item"><svg width="24" height="16"><line x1="2" y1="13" x2="15" y2="4" stroke="#9c7a2c" stroke-width="2.4"/><circle cx="16" cy="4" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>床子弩射杀挞凛</span>
+    <span class="item"><svg width="18" height="16"><line x1="9" y1="15" x2="9" y2="5" stroke="#1f4e54" stroke-width="1.6"/><path d="M 2,5 Q 9,-2 16,5 Z" fill="#1f4e54" opacity=".9"/></svg>御盖·亲征</span>
+    <span class="item"><svg width="16" height="16"><rect x="1" y="1" width="14" height="14" rx="2" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.6"/></svg>澶渊之盟</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>辽(幽云)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋(中原)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>战局释要 · 深入无继 · 一弩夺气 · 亲征成盟</h3>
+    <div class="lead">何以二十万之众深入千里,反成城下之盟 —— 孤军无继于前,主将中弩于中,天子亲临于后</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="澶渊成盟示意:辽军自幽州绕坚城长驱深入澶州,而瀛州定州大名诸城未下、宋军重兵在其侧后,故深入而无继、后路可虞;先锋主将萧挞凛为宋床子弩射杀,辽军夺气;宋真宗渡黄河亲征登北城,士气大振;辽惧断归路,遂议和成澶渊之盟">
+      <!-- 左:辽孤军深入,后路空虚 -->
+      <text x="20" y="24" fill="#9a2b1e" font-size="12" font-weight="700">辽 · 号二十万 · 绕城深入</text>
+      <text x="20" y="40" fill="#5c4f38" font-size="10">幽州(本)</text>
+      <circle cx="46" cy="58" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/>
+      <!-- 渐细之深入箭:示无继 -->
+      <path d="M 52,60 C 130,96 210,150 286,196" fill="none" stroke="#9a2b1e" stroke-width="9" opacity=".85" stroke-linecap="round"/>
+      <path d="M 286,196 l -16,-2 l 8,-13 z" fill="#9a2b1e"/>
+      <!-- 侧后宋军(青),后路可虞 -->
+      <g fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.3">
+        <rect x="150" y="44" width="30" height="18" rx="2"/>
+        <rect x="120" y="150" width="30" height="18" rx="2"/>
+      </g>
+      <text x="150" y="38" fill="#1f4e54" font-size="9.5">定州兵</text>
+      <text x="96" y="146" fill="#1f4e54" font-size="9.5">大名兵</text>
+      <text x="66" y="120" fill="#9a2b1e" font-size="10.5" font-weight="700">绕坚城 · 后路空虚</text>
+      <text x="70" y="136" fill="#5c4f38" font-size="9.5">瀛州不下 · 深入无继</text>
+      <!-- 中:澶州城下,一弩夺气 -->
+      <rect x="300" y="150" width="128" height="72" rx="4" fill="rgba(154,43,30,.05)" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="364" y="176" fill="#2b2418" font-size="13" font-weight="700" text-anchor="middle">澶　州</text>
+      <text x="364" y="194" fill="#5c4f38" font-size="9.5" text-anchor="middle">跨河南北城</text>
+      <text x="364" y="210" fill="#1f4e54" font-size="9.5" text-anchor="middle">李继隆主床子弩</text>
+      <!-- 床子弩射挞凛 -->
+      <line x1="336" y1="150" x2="316" y2="120" stroke="#9c7a2c" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M 316,120 l 2,14 l 11,-6 z" fill="#9c7a2c"/>
+      <circle cx="312" cy="114" r="9" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <path d="M 312,104 l 2,-6 l 1.6,4.4 l 5,-2.4 l -2.4,5 l 6,1.6 l -6,1.6 l 2.4,5 l -5,-2.4 l -1.6,4.4 l -2,-6 l -5,2.4 l 2.4,-5 l -6,-1.6 l 6,-1.6 l -2.4,-5 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".6"/>
+      <text x="286" y="98" fill="#9c7a2c" font-size="11" font-weight="700">挞凛中弩 ✕</text>
+      <text x="286" y="82" fill="#9a2b1e" font-size="10" font-weight="700">辽军夺气</text>
+      <!-- 右:真宗亲征,城下成盟 -->
+      <g transform="translate(560,150)">
+        <line x1="0" y1="0" x2="0" y2="-22" stroke="#1f4e54" stroke-width="2"/>
+        <path d="M -15,-22 Q 0,-36 15,-22 Z" fill="#1f4e54" opacity=".9"/>
+        <circle cx="0" cy="-38" r="2.4" fill="#1f4e54"/>
+      </g>
+      <text x="560" y="176" fill="#1f4e54" font-size="11" font-weight="700" text-anchor="middle">真宗登北城</text>
+      <text x="560" y="192" fill="#5c4f38" font-size="9.5" text-anchor="middle">呼万岁·声闻数十里</text>
+      <text x="560" y="208" fill="#5c4f38" font-size="9.5" text-anchor="middle">士气大振</text>
+      <path d="M 456,120 C 500,120 528,120 552,118" fill="none" stroke="#1f4e54" stroke-width="1.4" stroke-dasharray="3 3" opacity=".55"/>
+      <g transform="translate(690,96) rotate(-6)">
+        <rect x="0" y="0" width="72" height="72" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.8"/>
+        <text x="36" y="34" fill="#9a2b1e" font-size="20" font-weight="700" text-anchor="middle" font-family="'Ma Shan Zheng',serif">澶渊</text>
+        <text x="36" y="60" fill="#9a2b1e" font-size="20" font-weight="700" text-anchor="middle" font-family="'Ma Shan Zheng',serif">之盟</text>
+      </g>
+      <path d="M 610,120 C 648,124 668,128 686,132" fill="none" stroke="#7a5a23" stroke-width="1.6" stroke-dasharray="3 4" opacity=".55"/>
+      <text x="726" y="184" fill="#5c4f38" font-size="9.5" text-anchor="middle">兄弟之国 · 岁币</text>
+      <text x="726" y="198" fill="#5c4f38" font-size="9.5" text-anchor="middle">白沟为界 · 百年息兵</text>
+    </svg>
+    <p class="intro">辽以倾国之师南下,越诸城、长驱千里而抵澶州,兵锋直指东京——形势之危,宋人以为祖宗以来所未有。然细审之,此正<b>孤注之势</b>:攻瀛州二十日不下,坚城皆未拔,徒恃一线深入;定州、大名宋军重兵俨在其侧后,一旦断其归路,则数十万骑悬于河朔而无所归。故辽虽深入而实无继,胜负之枢并不在澶州城下之一战,而在这条<b>又长又空的补给与退路</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>亲征夺气 · 一弩成盟</h4>
+        <p>寇准力排王钦若幸金陵、陈尧叟幸成都之议,叱之曰「谋此策者罪可斩」,固请真宗北渡黄河、登澶州北城。诸军望见御盖黄龙旗,踊跃呼万岁,声闻数十里,士气百倍。当此之际,辽先锋主将萧挞凛出阵督战、轻骑察地形,为宋威虎军头张瓌以城上床子弩伏射中额,当晚死——辽军主帅既殒,锐气顿夺,萧太后痛哭辍朝。</p>
+      </div>
+      <div class="c b">
+        <h4>深入无继 · 后路可虞</h4>
+        <p>辽军之危,不在其寡而在其孤:绕坚城而进,则瀛州、大名、定州诸镇皆完聚于后;深入千里,则粮秣、归路皆系于一线。挞凛既死,辽人始惧宋乘胜断其北归之道,遂不待再战而急议和。于是有澶渊之盟:约为兄弟之国,宋岁遗辽银十万两、绢二十万匹,以白沟河为界。以岁币三十万易百年之安,是役之解,不在能战而在能和。</p>
+      </div>
+    </div>
+    <p class="kicker">故澶州之役,<b>辽非败于战,宋亦非胜于战</b>:辽师深入无继,悬军河上;宋以床子弩夺其主将之气,以天子亲临振三军之心。挞凛一死而辽气先夺,御盖一临而宋势顿张,遂能于兵临城下之际反订城下之盟。<b>深入无继·一弩夺气·亲征成盟</b>——此后宋辽百二十年不交兵,使人相聘者三百八十余次,岁币之费远轻于用兵,遂成中古罕见之长和。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·真宗纪》《寇准传》《辽史·圣宗纪》《续资治通鉴长编》卷五八约略绘出。疆界、水道经简化,「白沟河」新界及黄河河道皆取其概势,非实测画界。</p>
-    <p><span class="n">注二</span>澶州在今河南濮阳,跨黄河有南北二城;真宗所登者为北城。瀛州今河北河间,大名府今河北大名东,幽州即辽南京,今北京。</p>
-    <p><span class="n">注三</span>挞凛之死、真宗登城为和议之关键;澶渊之盟以岁币易百年之安,褒贬不一,然南北息兵、生民得养亦其效。本图以宋为本方(青),守成和议,总目列金色。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x = 382 + (经度 − 114.0) × 115.6,y = 595 − (纬度 − 34.4) × 115.6</b>(视窗约经度114.0°–116.6°E、纬度34.4°–38.9°N)。几何力求近实:澶州(濮阳)居中,黄河横贯而澶州跨河有南北二城;东京汴梁在其南,德清军·大名府在其北,定州·瀛州更在北陲;幽州(辽南京)远在东北(约116.4°E,39.9°N),出视窗以北,以边外箭标示,不入图以免挤压战场。疆界、水道经简化;点划「旧界」依白沟·雄霸一线示战前分界之大势,非实有画界。依《宋史·真宗本纪》《寇准传》《辽史·圣宗纪》《萧挞凛传》《续资治通鉴长编》卷五八绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:澶州即澶渊,今河南濮阳(约115.02°E,35.76°N),跨黄河有南北二城,真宗所登者为北城,城下即成盟之地。德清军今河南清丰,在澶州北(约115.1°E,35.95°N),辽破之而后临澶。瀛州今河北河间(约116.1°E,38.4°N),辽攻二十日不克。定州今河北定州(约114.99°E,38.5°N)、大名府今河北大名(时为北京,约115.15°E,36.3°N),皆宋北方重镇,踞辽师侧后。东京汴梁今河南开封(约114.3°E,34.8°N),辽兵锋所指。北宋黄河此时行「北流」,自澶州东北趋大名、乾宁军入海,图中取其概势。</p>
+    <p><span class="n">注三</span>行军皆由陆路,无漕运舟师之事:辽以骑兵自幽州南下,绕坚城长驱,不攻城而径趋澶州;宋真宗自东京渡黄河北上亲征,登澶州北城。<b>制胜之枢不在一战而在「势」</b>:辽军攻瀛州不下(图中虚圈)、破德清军(图中朱星),深入千里而瀛州·定州·大名诸镇完聚于后,粮道与归路悬于一线——此即「深入无继·后路空虚」,为辽急和之根。故图以辽军长驱之路为主线,而以定州·大名宋军之「侧后」志其孤危。</p>
+    <p><span class="n">注四</span>转捩在「一弩夺气」:辽先锋主将萧挞凛(《辽史》作挞凛,或书挞览)恃勇轻骑出阵督战、察看澶州地形,宋知州李继隆·魏能等主城上三弓床子弩,威虎军头张瓌(一作张环)伺发,一矢中挞凛额,当晚死。《辽史·圣宗纪》谓「挞凛中弩,我兵失倚」,萧太后痛哭,辍朝五日。主帅既殒,辽人惧宋断其归路,议和遂决。床子弩即三弓床弩,射程远及数百步,守城利器,此役一发而系两国之和战,故图以金色弩矢·迸射记之,为全役之枢。</p>
+    <p><span class="n">注五</span>盟约与影响:景德元年十二月(1005年1月)成盟于澶州:宋辽约为兄弟之国,宋每岁遗辽绢二十万匹、银十万两(合三十万),以白沟河为界,各守疆场、通商互市。是为「澶渊之盟」。褒贬历来不一——或讥以岁币啖敌、开输币之端,或称以小费易大安。然自是宋辽罢兵通好百二十年,遣使相聘三百八十余次,凶年且相赒恤,河北生民得以休养,亦不可诬。本图以辽为深入之动方(朱)、宋为守成御敌之本方(青);两宋总目列此役为金色(和局)。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"全图 · 辽师深入",d:"景德元年闰九月 — 十一月",p:["辽萧太后、圣宗率大军深入,攻瀛州不克,绕道南下,越诸城而进,直抵澶州(黄河北岸),逼近东京。朝廷震恐,王钦若请幸金陵,陈尧叟请幸成都,人心汹汹。","寇准独排南迁之议,叱其说而固请真宗亲征。帝乃北幸澶州,与辽师隔河相持——南北之势,决于此一渡。"]},
-  "1":{t:"深入抵澶",d:"景德元年闰九月至十一月",p:["辽军攻瀛州二十日不下,城坚兵劲,乃纵兵南掠、绕坚城而进,不复顿兵坚城之下。前锋长驱,直抵澶州北城,距东京不过数驿。","中外震骇,或请幸金陵,或请幸成都。寇准叱之曰:「谁为陛下画此策者,罪可斩也!」固请帝亲征,以系天下之望。"]},
-  "2":{t:"射杀挞凛",d:"景德元年十一月",p:["真宗至澶州,寇准请渡河登北城,张黄龙旗。诸军望见御盖,踊跃呼万岁,声闻数十里,气势百倍。","辽统军萧挞凛(挞览)恃勇出阵督战,宋威虎军头张瓌以床子弩伏发,一矢中其额,挞凛死。辽军主将既殒,锐气顿夺。"]},
-  "3":{t:"澶渊定盟",d:"景德元年十二月",p:["辽以孤军深入、挞凛死、锐气已挫,又惧宋断其归路,遣使议和;宋亦厌兵,真宗许之。","十二月成盟:约为兄弟之国,宋岁遗辽绢二十万匹、银十万两,以白沟河为界。自是宋辽通好百二十年,兵革不试,史称「澶渊之盟」。"]}
+  all:{t:"辽师深入 · 决于一渡",d:"景德元年闰九月 — 十二月(1004)",p:["景德元年,辽萧太后与圣宗亲率大军号二十万南侵。绕坚城、长驱直入:攻瀛州二十日不克,遂舍之南掠,破德清军,兵临澶州(黄河北岸),前锋距东京不过数驿,中外震骇。","辽虽深入,而瀛州、定州、大名诸镇完聚于其侧后,孤军悬于河朔,后路可虞。宋廷王钦若请幸金陵、陈尧叟请幸成都,人心汹汹;独宰相寇准叱南迁之议,固请真宗北渡黄河亲征——南北之势,决于此一渡。"]},
+  "1":{t:"辽军南侵 · 绕城深入",d:"景德元年闰九月 — 十一月",p:["辽师自幽州(辽南京)大举南下,取「绕坚城、长驱直入」之策:攻瀛州二十日,城坚兵劲不能克,乃纵兵南掠,不复顿兵坚城之下,径趋澶州。","此策速则速矣,而隐患已伏:诸城未下,粮秣、归路皆系于一线;定州、大名之宋军重兵按兵观衅,俨在辽师侧后。深入千里而无继,后路一断,则数十万骑无所归——辽之孤危,自绕城之日已定。"]},
+  "2":{t:"兵临澶州 · 直逼汴京",d:"景德元年十一月",p:["辽军破德清军(今河南清丰),直抵黄河北岸,三面围澶州北城,前锋距东京不过数驿,兵锋直逼汴梁。都下震恐。","参知政事王钦若(江南人)请幸金陵,签署枢密院事陈尧叟(蜀人)请幸成都。寇准叱之曰:「为陛下画此策者,罪可斩也!今陛下神武,将臣协和,若大驾亲征,贼自当遁去。」固请真宗北幸澶州,以系天下之望。"]},
+  "3":{t:"床子弩射杀萧挞凛 · 辽气夺",d:"景德元年十一月",p:["辽先锋都统、南京统军使萧挞凛(《辽史》或书挞览)恃勇,轻骑出阵督战,亲察澶州城下地形。宋知澶州事李继隆、魏能等严阵城上,主三弓床子弩。","威虎军头张瓌(一作张环)伺挞凛入弩程,发床子弩,一矢中其额,挞凛当晚死。辽军先锋主将既殒,锐气顿夺;萧太后闻之痛哭,为之辍朝五日。一弩之发,而辽人始有和意——此为全役之枢。"]},
+  "4":{t:"真宗亲征 · 士气大振 · 澶渊之盟",d:"景德元年十一月 — 十二月",p:["寇准固请,真宗乃渡黄河、登澶州北城,张黄龙旗。诸军望见御盖,踊跃欢呼万岁,声闻数十里,士气百倍。辽师方以挞凛之死夺气,又见宋天子亲临、诸路勤王之师渐集,复惧宋断其北归之路,遂遣使议和。","十二月,宋辽成盟于澶州:约为兄弟之国,宋每岁遗辽绢二十万匹、银十万两,以白沟河为界,罢兵通好、互开榷场。是为「澶渊之盟」。辽师北还,自是宋辽百二十年不交兵,遣使相聘三百八十余次——兵临城下,反成城下之和。"]}
 };
 const CITY={
-  chanzhou:{t:"澶州",d:"今河南濮阳,跨黄河有南北二城",p:["真宗亲征所至。寇准请渡河登北城,张黄龙旗,诸军呼万岁,声闻数十里。辽将萧挞凛督战城下,为宋床子弩射杀于此,遂成和议之地。"]},
-  daming:{t:"大名府",d:"今河北大名东,时为北京",p:["河北宋军后方重镇,王钦若尝守之。辽师南下时朝议欲幸金陵、成都,寇准以为不可弃河北而南。"]},
-  yingzhou:{t:"瀛州",d:"今河北河间",p:["辽军南下所攻。守将李延渥拒守,辽攻二十日不克,乃舍之南掠,绕坚城而趋澶州——辽师虽深入而后路可虞,伏此败机。"]},
-  dongjing:{t:"东京·汴京",d:"北宋都城,今河南开封",p:["辽前锋抵澶州,距东京不过数驿,中外震恐。王钦若请幸金陵、陈尧叟请幸成都,寇准叱其议,固请真宗北幸亲征。"]},
-  youzhou:{t:"幽州",d:"辽南京,今北京",p:["辽之南京、南伐之根本。萧太后、圣宗自此发兵深入;和议既成,辽师亦由此路北还。"]},
-  baigou:{t:"白沟河",d:"宋辽新界,今河北境",p:["澶渊之盟所定疆界。约为兄弟之国,以白沟河为界,罢兵通好,自是百二十年南北不交兵。"]}
+  chanzhou:{t:"澶州 · 澶渊",d:"今河南濮阳(约115.02E,35.76N),跨黄河有南北二城",p:["决战与会盟之地。辽军深入至此,三面围其北城,距东京不过数驿。宋李继隆守城,主床子弩;辽将萧挞凛督战城下,为威虎军头张瓌一矢射杀。真宗渡河登北城,诸军呼万岁声闻数十里。十二月宋辽成盟于此,史称澶渊之盟。"]},
+  deqing:{t:"德清军",d:"今河南清丰,在澶州北(约115.1E,35.95N)",p:["澶州以北之屏。辽军破之,遂长驱直抵黄河北岸、逼临澶州北城。其陷为辽师兵临澶州之先声。"]},
+  yingzhou:{t:"瀛州",d:"今河北河间(约116.1E,38.4N)",p:["辽军南下所急攻。守将李延渥拒守,辽攻二十日、伤亡甚众而不能克，乃舍之南掠、绕城而趋澶州——坚城不下而径行深入，辽师后路可虞之始。"]},
+  dingzhou:{t:"定州",d:"今河北定州(约114.99E,38.5N)",p:["宋河北西路重镇,屯有重兵(王超等所将大军)。辽师绕城南下,而定州大军踞其侧后,按兵观衅;辽人深入而惧此军断其归路,为议和之一因。"]},
+  daming:{t:"大名府 · 北京",d:"今河北大名(约115.15E,36.3N)",p:["宋北京、河北后方重镇。辽师深入澶州,而大名重兵在其侧后。朝议欲幸金陵、成都,寇准以为不可弃河北而南遁。"]},
+  dongjing:{t:"东京 · 汴梁",d:"北宋都城,今河南开封(约114.3E,34.8N)",p:["辽兵锋所指。辽前锋抵澶州,距此不过数驿,中外震恐。王钦若请幸金陵、陈尧叟请幸成都,寇准叱其议,固请真宗北渡黄河亲征。"]},
+  youzhou:{t:"幽州 · 辽南京",d:"今北京(约116.4E,39.9N,图外东北)",p:["辽南京,南伐之根本。萧太后、圣宗自此发兵深入;挞凛既死、和议既成,辽师亦由此路北还。澶渊之盟以白沟河为界,幽云自此长属于辽。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
