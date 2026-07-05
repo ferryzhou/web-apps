@@ -31,6 +31,7 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .wall{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:2 4;opacity:.72}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +40,15 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.spear{stroke:var(--advance);stroke-width:6.5;opacity:.95}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +57,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +84,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>野</span><span>狐</span><span>岭</span><span>役</span></div>
   <header>
     <h1>野狐岭之战</h1>
-    <div class="sub">金大安三年·蒙古六年(1211)　　<i>蒙古 成吉思汗·木华黎</i> 集骑破中坚 · <b>金 完颜承裕</b>四十万崩于野狐岭</div>
+    <div class="sub">金大安三年·蒙古六年(1211)　　<i>蒙古 成吉思汗·木华黎</i> 集骑洞穿中坚 · <b>金 完颜承裕</b> 号四十五万分守野狐岭而崩</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 蒙古南伐</button>
-    <button data-p="1">金分兵守险</button>
-    <button data-p="2">集骑冲中坚</button>
-    <button data-p="3">浍河堡追歼</button>
+    <button class="on" data-p="all">全图 · 蒙古南下</button>
+    <button data-p="1">南下·重兵守岭</button>
+    <button data-p="2">分兵扼隘·不出</button>
+    <button data-p="3">集中·洞穿中坚</button>
+    <button data-p="4">追歼浍河堡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="野狐岭之战形势图,含蒙古金疆界、野狐岭分水岭桑干河长城界壕与中都抚州等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="野狐岭之战形势图,含蒙古与金疆界、金界壕长城、野狐岭分水岭险隘、洋河浍河诸水,及乌沙堡抚州浍河堡宣德等城邑与中都图外东南边箭">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,87 +107,117 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:蒙古据漠南草原(北),金据中都河北(南),约以长城界壕野狐岭为界 -->
-    <path d="M 0,300 C 160,290 320,278 470,262 C 600,250 720,246 840,258 C 920,266 970,280 1000,296 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path d="M 0,300 C 160,290 320,278 470,262 C 600,250 720,246 840,258 C 920,266 970,280 1000,296 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 0,300 C 160,290 320,278 470,262 C 600,250 720,246 840,258 C 920,266 970,280 1000,296"/>
-    <text class="realm j" x="120" y="150" font-size="32">蒙 古(漠南)</text>
-    <text class="realm q" x="640" y="560" font-size="32">金(中都·河北)</text>
+    <!-- 疆界:蒙古据漠南草原(北),金据河北中都(南),约以金界壕·野狐岭一线为界 -->
+    <path d="M 0,150 C 200,164 340,150 480,190 C 620,230 760,282 1000,300 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,150 C 200,164 340,150 480,190 C 620,230 760,282 1000,300 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,150 C 200,164 340,150 480,190 C 620,230 760,282 1000,300"/>
+    <text class="realm j" x="70" y="92" font-size="30">蒙 古(漠南)</text>
+    <text class="realm q" x="600" y="600" font-size="30">金(河北·中都)</text>
 
-    <!-- 桑干河:自西北经宣德德兴东南下 -->
-    <path class="river" stroke-width="4.5" d="M 300,360 C 400,400 500,438 600,466 C 700,492 800,504 900,506"/>
-    <text class="rname" x="640" y="500" style="font-size:13px">桑 干 河</text>
+    <!-- 金界壕·长城:沿北境一线,乌沙堡为其要塞 -->
+    <path class="wall" d="M 250,158 C 360,150 430,150 500,168 C 600,192 680,236 770,300"/>
+    <text class="cname s" x="150" y="150" style="opacity:.8">金界壕 · 长城</text>
 
-    <!-- 长城·界壕:沿分水岭一线 -->
-    <path class="mtn" style="stroke-dasharray:2 4;stroke-width:1.4;opacity:.7" d="M 60,318 C 220,308 380,296 520,284 C 660,274 780,272 940,286"/>
-    <text class="cname s" x="720" y="300" style="opacity:.75">长城·界壕</text>
-
-    <!-- 野狐岭·分水岭:决战主脊,横亘中部 -->
+    <!-- 野狐岭·分水岭:决战主脊,坝头险隘,横亘中部 -->
     <g class="mtn" style="stroke-width:1.6">
-      <path d="M 380,296 l 14,-26 l 14,26 M 404,290 l 15,-30 l 15,30 M 430,296 l 14,-24 l 14,24 M 456,292 l 13,-24 l 13,24 M 480,296 l 12,-20 l 12,20"/>
+      <path d="M 396,428 l 14,-28 l 14,28 M 420,422 l 15,-32 l 15,32 M 448,428 l 14,-26 l 14,26 M 476,424 l 14,-28 l 14,28 M 502,428 l 13,-24 l 13,24 M 526,424 l 13,-24 l 13,24"/>
     </g>
-    <text class="cname s" x="392" y="256" style="font-size:12.5px;font-weight:700;fill:var(--ink2)">野狐岭 · 分水岭</text>
+    <text class="cname s" x="392" y="448" style="font-size:12.5px;font-weight:700;fill:var(--ink2)">野狐岭 · 分水岭(坝头险隘)</text>
+
+    <!-- 水系:洋河自西北经万全宣化东南下,浍河(会河)在浍河堡侧 -->
+    <path class="river" stroke-width="4" d="M 330,470 C 440,486 540,510 660,536 C 780,560 880,574 970,580"/>
+    <text class="rname" x="700" y="560" style="font-size:12px">洋 河</text>
+    <path class="river" stroke-width="2.4" d="M 352,470 C 360,482 362,490 364,498"/>
+    <text class="rname" x="300" y="470" style="font-size:10.5px">浍河(会河川)</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="jingzhou"><circle cx="200" cy="180" r="4"/><text class="cname s" x="150" y="176">净州·汪古部</text></g>
-      <g class="city" data-city="fuzhou"><circle cx="392" cy="352" r="5"/><text class="cname" x="330" y="356">抚州</text></g>
-      <g class="city cap" data-city="yehuling"><circle cx="446" cy="300" r="6.5"/><text class="cname" x="458" y="296">野狐岭<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="huihebao"><circle cx="558" cy="418" r="5"/><text class="cname" x="570" y="422">浍河堡<tspan class="cname s" dx="2">(追歼)</tspan></text></g>
-      <g class="city" data-city="xuande"><circle cx="470" cy="470" r="4"/><text class="cname s" x="410" y="486">宣德·德兴</text></g>
-      <g class="city cap" data-city="zhongdu"><circle cx="800" cy="512" r="6.5"/><text class="cname" x="700" y="516">中都<tspan class="cname s" dx="2">(金都·今北京)</tspan></text></g>
+      <g class="city" data-city="changzhou"><circle cx="552" cy="86" r="3.5"/><text class="cname s" x="562" y="82">昌州·桓州</text></g>
+      <g class="city" data-city="wushabao"><circle cx="341" cy="150" r="5"/><text class="cname" x="252" y="146">乌沙堡<tspan class="cname s" dx="2">(界壕要塞)</tspan></text></g>
+      <g class="city" data-city="fuzhou"><circle cx="489" cy="232" r="5"/><text class="cname" x="500" y="228">抚州<tspan class="cname s" dx="2">(三州)</tspan></text></g>
+      <g class="city cap" data-city="yehuling"><circle cx="480" cy="417" r="6.5"/><text class="cname" x="492" y="412">野狐岭<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="huanerzui"><circle cx="503" cy="384" r="3.5"/><text class="cname s" x="513" y="380">獾儿嘴</text></g>
+      <g class="city" data-city="huihebao"><circle cx="362" cy="495" r="5.5"/><text class="cname" x="238" y="500">浍河堡<tspan class="cname s" dx="2">(追歼)</tspan></text></g>
+      <g class="city" data-city="xuande"><circle cx="658" cy="540" r="4.5"/><text class="cname" x="608" y="558">宣德·德兴府</text></g>
     </g>
 
-    <!-- 全图 · 蒙古南伐 -->
+    <!-- 中都·燕京(图外·东南):兵锋所指 -->
+    <g transform="translate(902,556)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,0 L 30,24"/>
+      <text class="mlabel j" x="-118" y="18" style="font-size:10.5px">中都·燕京(图外东南)⟶</text>
+      <text class="cname s" x="-96" y="34" style="fill:var(--advance);font-size:9.5px">金都·兵锋所指(今北京)</text>
+    </g>
+
+    <!-- 全图 · 蒙古南下 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 220,40 C 240,110 280,180 340,260 C 366,296 392,320 424,306"/>
-      <text class="mlabel j" x="150" y="60">成吉思汗誓师伐金,自漠南·克鲁伦南下</text>
-      <text class="anno" x="220" y="130">取大水泺、丰利诸城,进逼野狐岭</text>
-      <path class="march j" marker-end="url(#aj)" d="M 210,190 C 280,240 340,300 386,346"/>
-      <text class="anno" x="230" y="230">先取抚州,逼野狐岭</text>
-      <text class="mlabel q" x="560" y="360">金以四十万众(号)依险分守</text>
-      <text class="anno" x="600" y="392">完颜承裕·胡沙虎督诸军扼隘</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,44 C 470,92 402,120 345,152 C 402,186 456,210 486,232 C 494,300 486,362 481,408"/>
+      <text class="mlabel j" x="512" y="70">成吉思汗誓师伐金,自漠南南下</text>
+      <text class="anno" x="360" y="196">连破乌沙堡·乌月营,越界壕而入</text>
+      <circle class="star" cx="480" cy="417" r="8"/>
+      <text class="mlabel q" x="512" y="360">完颜承裕率主力弃三州,退守野狐岭</text>
+      <text class="anno" x="512" y="382">依险分兵扼隘,号四十五万</text>
+      <path class="march q" marker-end="url(#aq)" d="M 489,246 C 486,300 484,352 482,404"/>
     </g>
 
-    <!-- 阶段一:金分兵守险 -->
+    <!-- 阶段一:蒙古南下 · 金重兵守野狐岭 -->
     <g id="ph1" class="ph">
-      <text class="mlabel q" x="330" y="238">金军分守险隘各营,列戍相望而兵散</text>
-      <rect class="camp" x="404" y="288" width="8" height="8" transform="rotate(45 408 292)"/>
-      <rect class="camp" x="438" y="286" width="8" height="8" transform="rotate(45 442 290)"/>
-      <rect class="camp" x="472" y="290" width="8" height="8" transform="rotate(45 476 294)"/>
-      <rect class="camp" x="368" y="292" width="8" height="8" transform="rotate(45 372 296)"/>
-      <rect class="camp" x="506" y="290" width="8" height="8" transform="rotate(45 510 294)"/>
-      <text class="anno" x="330" y="330">完颜承裕分兵扼野狐岭一带隘口</text>
-      <text class="anno" x="500" y="330">将帅怯懦,进止失据</text>
-      <path class="march j" marker-end="url(#aj)" d="M 392,344 C 408,332 420,320 432,310"/>
-      <text class="mlabel j" x="330" y="368">蒙古军进逼,不攻其守险之部</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,52 C 440,92 392,122 348,150"/>
+      <text class="mlabel j" x="356" y="120">蒙古破乌沙堡·乌月营</text>
+      <text class="anno" x="150" y="176">独吉思忠筑界壕三百里,用工七十五万,一战而溃</text>
+      <path class="march j" marker-end="url(#aj)" d="M 350,158 C 400,186 452,208 484,228"/>
+      <text class="anno" x="356" y="214">思忠罢,完颜承裕代之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 489,246 C 486,300 484,352 482,404"/>
+      <text class="mlabel q" x="512" y="300">承裕弃桓·昌·抚三州,尽退野狐岭</text>
+      <rect class="camp" x="474" y="404" width="10" height="10" transform="rotate(45 479 409)"/>
+      <text class="mlabel q" x="360" y="470">集主力号四十五万,依岭险重兵屯守</text>
     </g>
 
-    <!-- 阶段二:集骑冲中坚·野狐岭破 -->
+    <!-- 阶段二:金分兵扼隘 · 承裕不出 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 400,346 C 416,332 428,318 438,306"/>
-      <path class="march j" marker-end="url(#aj)" d="M 386,352 C 404,340 420,324 434,308"/>
-      <path class="march j" marker-end="url(#aj)" d="M 414,344 C 426,330 436,316 444,304"/>
-      <text class="mlabel j" x="300" y="376">成吉思汗集精骑为锋,万骑并进</text>
-      <text class="anno" x="330" y="398">用木华黎策:彼众我寡,非死战不能破</text>
-      <circle class="star" cx="446" cy="300" r="9"/>
-      <text class="mlabel q" x="470" y="272">金军中坚一动即溃</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 458,306 C 500,340 530,376 552,410"/>
-      <text class="mlabel r" x="520" y="356">阵动即溃,蒙古乘胜掩杀</text>
+      <text class="mlabel q" x="332" y="360">完颜承裕分兵扼守各隘口,列戍相望而兵散</text>
+      <rect class="camp" x="392" y="410" width="8" height="8" transform="rotate(45 396 414)"/>
+      <rect class="camp" x="424" y="404" width="8" height="8" transform="rotate(45 428 408)"/>
+      <rect class="camp" x="456" y="408" width="8" height="8" transform="rotate(45 460 412)"/>
+      <rect class="camp" x="488" y="406" width="8" height="8" transform="rotate(45 492 410)"/>
+      <rect class="camp" x="520" y="410" width="8" height="8" transform="rotate(45 524 414)"/>
+      <rect class="camp" x="552" y="416" width="8" height="8" transform="rotate(45 556 420)"/>
+      <text class="anno" x="360" y="386">处处设防,即处处兵寡</text>
+      <text class="mlabel q" x="360" y="470">主帅怯懦,进止失据,坐守不出</text>
+      <path class="march j" marker-end="url(#aj)" d="M 486,240 C 490,296 492,340 496,372"/>
+      <text class="mlabel j" x="512" y="300">蒙古进逼,不攻其守险之部</text>
+      <text class="anno" x="512" y="322">而觇其中坚薄处</text>
     </g>
 
-    <!-- 阶段三:浍河堡追歼·金精锐尽 -->
+    <!-- 阶段三:集中精锐 · 中路洞穿金阵 -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 452,308 C 494,344 526,380 550,410"/>
-      <text class="mlabel j" x="470" y="352">蒙古乘胜追至浍河堡</text>
-      <circle class="star" cx="558" cy="418" r="9"/>
-      <text class="mlabel q" x="470" y="440">鏖战三日,金军大溃</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 552,426 C 620,466 700,494 782,506"/>
-      <text class="mlabel r" x="600" y="452">横尸百里,精锐尽丧,退保中都</text>
-      <text class="anno" x="560" y="478">金遂无野战之力,渐失河北</text>
+      <path class="march j" marker-end="url(#aj)" d="M 452,300 C 468,330 486,356 500,378"/>
+      <path class="march j" marker-end="url(#aj)" d="M 540,300 C 524,332 512,356 506,378"/>
+      <path class="march j" marker-end="url(#aj)" d="M 496,286 C 498,320 500,352 502,376"/>
+      <text class="mlabel j" x="300" y="292">成吉思汗合中·左二军为一锋</text>
+      <text class="anno" x="300" y="314">用木华黎策:非死战不能破</text>
+      <path class="march j spear" marker-end="url(#aj)" d="M 503,388 C 498,404 490,420 480,436"/>
+      <text class="mlabel j" x="512" y="404">木华黎率八鲁营敢死士,下马挺枪冲阵</text>
+      <circle class="star" cx="480" cy="417" r="10"/>
+      <text class="mlabel q" x="330" y="446">金中坚一点被洞穿</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 468,428 C 430,452 396,472 372,486"/>
+      <text class="mlabel r" x="330" y="474">阵动即溃,守隘各部不相救</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:追歼浍河堡 · 金精锐尽丧 -->
+    <g id="ph4" class="ph">
+      <path class="march j spear" marker-end="url(#aj)" d="M 470,428 C 434,452 400,474 372,490"/>
+      <text class="mlabel j" x="238" y="452">蒙古乘胜追至浍河堡</text>
+      <circle class="star" cx="362" cy="495" r="10"/>
+      <text class="mlabel q" x="240" y="524">承裕收溃卒数万,退保浍河堡</text>
+      <text class="anno" x="240" y="542">鏖战三日,汗亲率精骑三千突击</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 372,504 C 470,528 560,540 648,540"/>
+      <text class="mlabel r" x="440" y="518">金军全军覆没,死者二十余万,横尸蔽野</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 372,502 C 340,470 328,440 340,410"/>
+      <text class="anno" x="270" y="410">承裕仅以身免,奔宣德</text>
+      <text class="mlabel j" x="640" y="576">金无野战之力,蒙古长驱逼中都 ⟶</text>
+    </g>
+
+    <g class="compass" transform="translate(944,120)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -180,33 +227,85 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙古军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="6.5"/></svg>集中·突破锋</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>崩溃·追歼</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军溃退·追歼</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>金营·分守隘</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蒙古</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 分兵者弱 · 集中一点 · 中路洞穿</h3>
+    <div class="lead">何以四十五万溃于万骑 —— 非金弱蒙强,实分兵之败</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="集中破分散示意:金号四十五万分兵守九隘,处处兵寡;蒙古合中左二军为一锋,专冲一点,一举洞穿而全线崩">
+      <!-- 金:分兵守隘,一线薄摊 -->
+      <text x="26" y="30" fill="#9a2b1e" font-size="12.5" font-weight="700">金 · 号四十五万 —— 分兵扼守各隘,列戍相望</text>
+      <line x1="40" y1="150" x2="820" y2="150" stroke="#9a2b1e" stroke-width="2" opacity=".5" stroke-dasharray="4 4"/>
+      <g fill="#9a2b1e" opacity=".85">
+        <rect x="74" y="142" width="9" height="9" transform="rotate(45 78.5 146.5)"/>
+        <rect x="174" y="142" width="9" height="9" transform="rotate(45 178.5 146.5)"/>
+        <rect x="274" y="142" width="9" height="9" transform="rotate(45 278.5 146.5)"/>
+        <rect x="374" y="142" width="9" height="9" transform="rotate(45 378.5 146.5)"/>
+        <rect x="474" y="142" width="9" height="9" transform="rotate(45 478.5 146.5)"/>
+        <rect x="574" y="142" width="9" height="9" transform="rotate(45 578.5 146.5)"/>
+        <rect x="674" y="142" width="9" height="9" transform="rotate(45 678.5 146.5)"/>
+        <rect x="774" y="142" width="9" height="9" transform="rotate(45 778.5 146.5)"/>
+      </g>
+      <text x="40" y="178" fill="#5c4f38" font-size="10.5">兵散于九隘,每隘之兵寡 · 主帅坐守不出,不相救援</text>
+      <!-- 蒙古:合为一锋,专冲一点 -->
+      <text x="360" y="216" fill="#1f4e54" font-size="12.5" font-weight="700">蒙古 · 合中左二军为一锋,专冲一点(獾儿嘴)</text>
+      <path d="M 300,232 C 360,206 396,180 412,152" fill="none" stroke="#1f4e54" stroke-width="2.4" opacity=".85"/>
+      <path d="M 520,232 C 460,206 428,180 412,152" fill="none" stroke="#1f4e54" stroke-width="2.4" opacity=".85"/>
+      <path d="M 412,238 L 412,158" stroke="#1f4e54" stroke-width="8" stroke-linecap="round"/>
+      <path d="M 412,146 L 404,164 L 420,164 Z" fill="#1f4e54"/>
+      <path d="M 412,112 L 405,126 L 419,126 Z" fill="#1f4e54"/>
+      <line x1="412" y1="150" x2="412" y2="120" stroke="#1f4e54" stroke-width="8" stroke-linecap="round"/>
+      <g><circle cx="412" cy="150" r="11" fill="none" stroke="#9c7a2c" stroke-width="2.2"/></g>
+      <text x="428" y="118" fill="#1f4e54" font-size="11" font-weight="700">洞穿 →</text>
+      <!-- 崩溃:自破点两侧散溃 -->
+      <path d="M 400,140 C 340,120 260,116 200,120" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 6"/>
+      <path d="M 424,140 C 500,120 600,116 700,120" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 6"/>
+      <text x="150" y="112" fill="#7a5a23" font-size="10" font-weight="700">全线崩 ✕</text>
+      <text x="628" y="112" fill="#7a5a23" font-size="10" font-weight="700">✕ 各隘尽溃</text>
+    </svg>
+    <p class="intro">野狐岭之役,金<b>号四十五万</b>而蒙古兵不过八九万。以众寡论,金本无败理。然完颜承裕依野狐岭之险,<b>分兵扼守各隘口、列戍相望</b>——兵愈分则每一隘之兵愈寡;主帅怯懦坐守、进止失据,各部不相救援。众多之利,尽销于『处处设防即处处力薄』之中。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>蒙古 · 集中一点</h4>
+        <p>成吉思汗用木华黎之策『彼众我寡,非致死力战不能破』,合中、左二军为一锋,不攻其守险之部,而专冲金军中坚之獾儿嘴。木华黎亲率八鲁营敢死士,下马挺枪死战,一举洞穿金阵——以全军之厚,击一点之薄。</p>
+      </div>
+      <div class="c b">
+        <h4>金 · 分兵守隘</h4>
+        <p>完颜承裕弃桓、昌、抚三州,尽退野狐岭,依险列营分守诸隘。号四十五万,然摊于百里山险,每隘不过数千;主帅坐守不出,一隘被穿,余部望风而溃、不相救援。数十万之众,遂如沙聚而风散。</p>
+      </div>
+    </div>
+    <p class="kicker">兵散于九隘,则一隘不足以当其锋;兵合于一锋,则九隘不足以救其溃。及獾儿嘴中坚既穿,金军全线崩,蒙古乘胜追歼于浍河堡(会河川),鏖战三日,金精锐<b>二十余万尽没</b>。故野狐岭之败,不在兵之寡,而在兵之<b>分</b>——集中破分散,此以少胜多之枢,亦蒙古灭金之肇。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·太祖本纪》《元史·木华黎传》《金史》《蒙古秘史》约略绘出。野狐岭在今河北万全、张家口以北,浍河堡在其南,中都今北京。长城界壕、桑干河及诸城邑水道为相对示意,非实测画界。</p>
-    <p><span class="n">注二</span>金号称四十万众,乃据险分守、列戍相望而兵力分散;蒙古兵寡,反集精骑为一锋,专冲金军中坚。集中破分散,乃此役胜负之枢。</p>
-    <p><span class="n">注三</span>野狐岭一败,金精锐几尽,自是无野战之力,徒守中都及河北坚城,渐失河北,终不得不南迁汴梁——此为蒙金战争之转捩,奠蒙古灭金之基。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=256+(经度−114.15)·423,y=596−(纬度−40.50)·560),几何关系力求近实:野狐岭在中,乌沙堡·界壕在北,抚州在其北,浍河堡在西南,宣德在东南,中都远在东南(图外,以边箭示之)。今地:野狐岭在今河北张家口万全区西北,浍河堡即会河川、今怀安旧城附近,抚州今张北,宣德·德兴府今宣化,乌沙堡在张北北境界壕上,中都今北京。金界壕、洋河浍河及疆界经简化描绘,非实测画界。依《元史·太祖纪》《元史·木华黎传》《金史·完颜承裕传》《续资治通鉴》绘出。</p>
+    <p><span class="n">注二</span>金兵数异说:『号四十五万』《元朝名臣事略》作『号四十万』,《元史·太祖纪》则云金将『三十万』。皆冠一『号』字,水分甚大。又野狐岭岭上险隘狭长,《金史》谓当其冲者仅七千,金主力实布于岭后诸隘;蒙古洞穿中坚后,金溃兵退聚浍河堡(会河川),两军乃大战于此,金精锐二十余万尽没。号数与实数、岭上与浍河两场,姑并存而志其异。</p>
+    <p><span class="n">注三</span>决胜之枢在『集中破分散』(图中金色会战环、加粗突破锋):金分兵守隘、处处力薄而主帅不出,蒙古反合中左二军为一锋,用木华黎策专冲獾儿嘴一点,下马死战,一举洞穿;金全线崩,追歼于浍河。众寡易势之关键,不在兵力多寡,而在集中与分散之别。</p>
+    <p><span class="n">注四</span>野狐岭·浍河一败,金精锐几尽,自是无野战之力,徒守中都及河北坚城,渐失河北,终不得不南迁汴梁——此为蒙金战争之转捩,奠蒙古灭金之基。西京留守胡沙虎(纥石烈执中)拥兵不救,亦金师速溃之一因。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"蒙古南伐",d:"金大安三年·蒙古六年(1211)",p:["成吉思汗既统一漠北,以金杀其先世、岁责贡赋为恨,誓师南伐。蒙古军入金境,取大水泺、丰利等城,进逼野狐岭。","金以四十万众(号)命完颜承裕(胡沙虎)督诸军,依野狐岭一带山险分兵扼守隘口,列戍相望而兵力分散,将帅怯懦、进止失据。"]},
-  "1":{t:"金分兵守险",d:"蒙古六年(1211)秋",p:["金完颜承裕分兵扼野狐岭一带隘口,依山险列营戍守,营垒相望而兵力四散。","将帅怯懦,进止失据。守险之势看似周密,然处处设防即处处力薄,给蒙古以集中一点、各个击破之机。"]},
-  "2":{t:"集骑冲中坚·野狐岭破",d:"蒙古六年(1211)秋",p:["成吉思汗用木华黎策:「彼众我寡,非死战不能破」,乃集中精锐骑兵为锋,不攻其守险之部,而直冲金军中坚,万骑并进、势如破竹。","金军阵动即溃,蒙古乘胜掩杀。守险各营顿失所恃,金军自野狐岭一线全线崩溃。"]},
-  "3":{t:"浍河堡追歼·金精锐尽",d:"蒙古六年(1211)秋",p:["金军退至浍河堡,蒙古追及,鏖战三日,金军大溃,死者蔽野,横尸百里,精锐几尽。","自是金无野战之力,徒守中都及河北坚城,渐失河北,不得不南迁汴梁。此为蒙金战争之转捩,奠蒙古灭金之基。"]}
+  all:{t:"蒙古南下",d:"金大安三年·蒙古六年(1211)秋",p:["成吉思汗既统一漠北,以金杀其先世、岁责贡赋为恨,誓师南伐。蒙古军越金界壕,连破乌沙堡、乌月营,长驱而入。","金以主力号四十五万,命完颜承裕(初为独吉思忠)督诸军,弃桓、昌、抚三州,尽退野狐岭,依山险分兵扼守各隘口,列戍相望而兵力分散。"]},
+  "1":{t:"蒙古南下 · 金重兵守野狐岭",d:"蒙古六年(1211)秋 · 前段",p:["金丞相独吉思忠先率主力至西北路,筑界壕三百里,号用工七十五万,欲以土木阻蒙古南下。成吉思汗集七八万之众,重点突破乌沙堡,复取乌月营,界壕之防一战而溃,思忠罢,完颜承裕代之。","承裕怯于野战,弃桓、昌、抚三州,尽退野狐岭,集主力号四十五万,依岭险重兵屯守——欲以守险代野战,金之败机已伏于此。"]},
+  "2":{t:"金分兵扼隘 · 承裕不出",d:"蒙古六年(1211)秋 · 相持",p:["完颜承裕分兵扼守野狐岭一带各隘口,依山险列营戍守,营垒相望而兵力四散。号四十五万之众,摊于百里山险,每隘不过数千。","主帅怯懦,进止失据,坐守不出。处处设防,即处处力薄;各部分守而不相救援,正予蒙古以集中一点、洞穿而破之机。"]},
+  "3":{t:"集中精锐 · 中路洞穿金阵",d:"蒙古六年(1211)秋 · 决战",p:["成吉思汗用木华黎策『彼众我寡,非致死力战不能破』,合中、左二军为一锋,不攻其守险之部,而直冲金军中坚之獾儿嘴(野狐岭北山嘴)。","木华黎立誓『不破金军,不生返』,亲率八鲁营敢死士,下马挺枪死战,一举洞穿金阵。金中坚一点既破,守隘各部顿失所恃,全线崩溃、不相救援。"]},
+  "4":{t:"追歼浍河堡 · 金精锐尽丧",d:"蒙古六年(1211)秋 · 追歼",p:["金军自野狐岭崩,完颜承裕收溃卒数万,退保浍河堡(会河川)。蒙古乘胜追及,围而攻之,鏖战三日;成吉思汗亲率精骑三千突击,继以大军总攻。","金军全军覆没,死者二十余万,横尸蔽野,承裕仅以身免、奔宣德。自是金无野战之力,徒守中都及河北坚城,渐失河北,终南迁汴梁。此为蒙金战争之转捩,奠蒙古灭金之基。"]}
 };
 const CITY={
-  yehuling:{t:"野狐岭·分水岭",d:"今河北万全、张家口北",p:["决战之地。金依岭险分兵扼隘,成吉思汗集精骑直冲其中坚,金阵一动即溃。"]},
-  huihebao:{t:"浍河堡",d:"野狐岭以南",p:["金军崩溃后退保之地。蒙古乘胜追及,鏖战三日,金军大溃,横尸百里,精锐尽丧。"]},
-  zhongdu:{t:"中都",d:"金都,今北京",p:["金之国都。野狐岭败后金无野战之力,徒守中都及河北坚城,渐失河北,终南迁汴梁。"]},
-  fuzhou:{t:"抚州",d:"野狐岭以北要冲",p:["蒙古先取此城,遂逼野狐岭,为南下决战之门户。"]},
-  xuande:{t:"宣德·德兴",d:"桑干河一带",p:["金军退守之地。野狐岭、浍河堡既溃,河北诸险相继失守。"]},
-  jingzhou:{t:"净州·汪古部",d:"漠南南下门户",p:["汪古部世守金界壕,后附蒙古为向导,成吉思汗由此南下入金境。"]}
+  wushabao:{t:"乌沙堡",d:"金界壕要塞,今张北北境",p:["独吉思忠所筑界壕防线之要塞。成吉思汗集兵重点突破于此,复取乌月营,金三百里界壕之防一战而溃,思忠遂罢。"]},
+  fuzhou:{t:"抚州",d:"野狐岭以北,今河北张北",p:["桓、昌、抚三州之一。完颜承裕怯于野战,尽弃三州,退守野狐岭——门户既撤,蒙古长驱而南。"]},
+  changzhou:{t:"昌州·桓州",d:"抚州以北,金西北路诸州",p:["与抚州同为金西北路屏障。承裕退守野狐岭时一并放弃,金遂失坝上诸州之地。"]},
+  yehuling:{t:"野狐岭·分水岭",d:"决战地,今张家口万全区西北",p:["坝头险隘,金依岭险分兵扼守各隘口。成吉思汗集精锐为一锋,专冲其中坚,金阵一动即溃——此役以少胜多之决战地。"]},
+  huanerzui:{t:"獾儿嘴",d:"野狐岭北山嘴",p:["蒙古集中突破之一点。木华黎率八鲁营敢死士下马死战,自此洞穿金军中坚,金全线崩溃。"]},
+  huihebao:{t:"浍河堡(会河川)",d:"野狐岭西南,今河北怀安旧城",p:["金军崩溃后退保之地。承裕收溃卒数万屯此,蒙古追及,鏖战三日,汗亲率精骑三千突击,金军全军覆没,死者二十余万,精锐尽丧。"]},
+  xuande:{t:"宣德·德兴府",d:"桑干河一带,今河北宣化",p:["金后方重镇。野狐岭、浍河既溃,完颜承裕奔此;河北诸险相继失守,蒙古兵锋直指中都。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
