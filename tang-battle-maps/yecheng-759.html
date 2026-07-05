@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>邺城之战 · 乾元二年(759)</title>
+<title>邺城之战(相州) · 乾元二年(759)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--flood:#3f6d7a;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -16,8 +16,9 @@
   .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
   header{margin-bottom:14px;padding-right:74px}
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
-  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.08em;line-height:1.7}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,7 +31,24 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 唐军粮道:自河南陆运而北,顿兵坚城之命脉 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 史思明游兵断粮运:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 引漳水灌城:水色泛滥 */
+  .siegeflood{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:5 4;opacity:.9}
+  .flood{fill:var(--flood);opacity:.16}
+  .floodwave{fill:none;stroke:var(--flood);stroke-width:1.4;opacity:.55;stroke-linecap:round}
+  .floodchan{fill:none;stroke:var(--flood);stroke-width:3;opacity:.6;stroke-linecap:round}
+  .flabel{fill:var(--flood);font-size:11px;font-weight:700;letter-spacing:.06em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +57,19 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sm{stroke:var(--qin);stroke-width:3}
+  .march.raid{stroke:var(--qin);stroke-width:2.2;stroke-dasharray:5 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .camp.f{fill:var(--qin)}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--advance);stroke-width:1.6;stroke-dasharray:2 4}
+  .gust{fill:var(--ret);stroke:var(--paper);stroke-width:.8;opacity:.92}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +78,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--qin)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--qin)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.raid){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,107 +106,169 @@
 <body data-ph="all">
 <div class="frame">
   <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>邺</span><span>城</span><span>之</span><span>败</span></div>
+  <div class="seal" aria-hidden="true"><span>邺</span><span>城</span><span>之</span><span>溃</span></div>
   <header>
-    <h1>邺城之战</h1>
-    <div class="sub">唐乾元二年(759)　　<b>燕 史思明</b> 大破 <i>唐 九节度</i>(六十万) · 围邺溃师</div>
+    <h1>邺城之战 · 相州溃师</h1>
+    <div class="sub">唐乾元二年(759)　九节度使围邺　<i>唐 郭子仪·李光弼等九节度(步骑二十万·号六十万)</i> 攻 <b>燕 安庆绪</b>(据邺)　·　<em>史思明</em>自范阳来援 · 断粮相持 · 大风昼晦 · 无帅而溃</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 九帅围邺</button>
-    <button data-p="1">围邺灌城</button>
-    <button data-p="2">思明赴援</button>
-    <button data-p="3">大风溃师</button>
+    <button data-p="1">九节度围邺 · 引漳水灌城</button>
+    <button data-p="2">城中粮尽 · 思明自范阳来援</button>
+    <button data-p="3">游兵断粮运 · 相持洹水</button>
+    <button data-p="4">大风昼晦 · 无帅而溃</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邺城之战形势图,含燕唐疆界、漳水洹水黄河与范阳魏州邺城安阳河河阳洛阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="邺城之战(相州之战)形势图,含燕据河北与唐据河南之约界、漳水洹水黄河与太行山,及邺城相州魏州诸城、范阳与河阳洛阳之图外边箭,唐九节度围邺引漳水灌城、史思明自范阳南下游兵断唐军粮道、大风昼晦而唐军南溃断河阳桥诸记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:燕据河北(北),唐据河南以南(南),约以黄河为界 -->
-    <path d="M 0,300 C 120,296 260,304 400,318 C 540,332 680,338 820,330 C 900,326 960,326 1000,330 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 120,296 260,304 400,318 C 540,332 680,338 820,330 C 900,326 960,326 1000,330 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 120,296 260,304 400,318 C 540,332 680,338 820,330 C 900,326 960,326 1000,330"/>
-    <text class="realm q" x="120" y="120" font-size="34">燕(河北)</text>
-    <text class="realm j" x="640" y="590" font-size="32">唐(河南)</text>
+    <!-- ══ 疆界:燕据河北(北),唐自河南渡河北讨(南),约以黄河为界(示意) ══ -->
+    <path d="M 0,470 C 200,478 420,486 620,484 C 760,483 880,480 1000,482 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,470 C 200,478 420,486 620,484 C 760,483 880,480 1000,482 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,470 C 200,478 420,486 620,484 C 760,483 880,480 1000,482"/>
+    <text class="realm q" x="120" y="86" font-size="30">燕 · 河北(安史)</text>
+    <text class="realm j" x="150" y="600" font-size="22">唐 · 河南(自河阳渡河来讨)</text>
 
-    <!-- 黄河:横贯南部,河阳桥所在 -->
-    <path class="river" stroke-width="5.5" d="M 40,470 C 200,458 360,470 520,486 C 640,498 760,494 880,470 C 940,458 980,452 1000,450"/>
-    <!-- 漳水:自西北环邺,围邺灌城 -->
-    <path class="river" stroke-width="3" d="M 300,120 C 340,180 380,240 420,286 C 452,322 476,342 500,352"/>
-    <!-- 洹水·安阳河:出西山,经邺南东流,会战之地 -->
-    <path class="river" stroke-width="2.6" d="M 360,360 C 420,372 470,384 512,398 C 560,414 610,420 660,414"/>
-    <text class="rname" x="700" y="466" style="font-size:13px">黄 河</text>
-    <text class="rname" x="330" y="210" transform="rotate(58 330 210)" style="font-size:11px">漳 水</text>
-    <text class="rname" x="440" y="410" style="font-size:11px">洹水·安阳河</text>
+    <!-- ══ 太行山:河北之西垣 ══ -->
+    <path class="mtn" d="M 96,320 l 12,-20 l 12,20 M 116,308 l 12,-20 l 12,20 M 96,262 l 12,-20 l 12,20 M 116,250 l 12,-20 l 12,20 M 104,208 l 12,-20 l 12,20 M 92,172 l 12,-20 l 12,20"/>
+    <text class="mname" x="66" y="356" transform="rotate(-66 66 356)">太 行 山</text>
 
-    <!-- 太行山:河北西缘 -->
-    <g class="mtn"><path d="M 250,300 l 8,-13 l 8,13 M 266,294 l 8,-13 l 8,13 M 282,300 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="248" y="322">太行山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:横于南境,河阳桥所系 -->
+    <path class="river" stroke-width="5.5" d="M 60,494 C 260,502 480,512 700,514 C 800,515 860,516 940,520"/>
+    <!-- 漳水:邺北,唐军壅之以灌城 -->
+    <path class="river" stroke-width="3.4" d="M 150,120 C 320,132 470,150 620,166 C 672,171 706,173 748,174"/>
+    <!-- 洹水·安阳河:邺城之南,决战之地 -->
+    <path class="river" stroke-width="2.6" d="M 231,232 C 330,240 430,248 540,252 C 590,254 632,255 668,260"/>
+    <text class="rname" x="720" y="500" style="font-size:13px">黄 　 河</text>
+    <text class="rname" x="300" y="130" transform="rotate(4 300 130)">漳 水</text>
+    <text class="rname" x="286" y="252" transform="rotate(3 286 252)" style="font-size:11px">洹水·安阳河</text>
+
+    <!-- ══ 唐军粮道:自河南陆运而北,顿兵坚城之命脉(图外西南来) ══ -->
+    <path class="supply band" d="M 60,556 C 170,500 290,398 360,320 C 380,298 394,282 400,270"/>
+    <path class="supply core" d="M 60,556 C 170,500 290,398 360,320 C 380,298 394,282 400,270"/>
+    <g class="grain">
+      <rect x="150" y="500" width="7" height="7" transform="rotate(45 153.5 503.5)"/>
+      <rect x="268" y="410" width="7" height="7" transform="rotate(45 271.5 413.5)"/>
+      <rect x="360" y="322" width="7" height="7" transform="rotate(45 363.5 325.5)"/>
+    </g>
+    <text class="slabel" x="126" y="470">唐军粮道</text>
+    <text class="slabel" x="126" y="484" style="font-size:9.5px;opacity:.85">河南陆运 · 馈邺之饷</text>
+
+    <!-- 河阳·洛阳(图外·西南):唐军来路,亦溃退所归 -->
+    <g transform="translate(4,520)">
+      <path class="supply core" d="M 54,36 L 8,54" style="opacity:.6"/>
+      <text class="slabel" x="0" y="20" style="font-size:10px">⟸ 河阳 · 洛阳</text>
+      <text class="cname s" x="0" y="70" style="fill:var(--ink2);font-size:9.5px">图外西南 · 郭子仪断河阳桥保东京</text>
+    </g>
+
+    <!-- 范阳(图外·东北):史思明来援之本 -->
+    <g transform="translate(748,20)">
+      <text class="mlabel f" x="-30" y="-2" style="font-size:10px">范阳 ↓</text>
+      <text class="cname s" x="-92" y="14" style="fill:var(--qin);font-size:9.5px">安史根本(图外东北) · 思明自此南下</text>
+    </g>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="ye"><circle cx="470" cy="300" r="6.5"/><text class="cname" x="482" y="296">邺城<tspan class="cname s" dx="2">(相州·被围)</tspan></text></g>
-      <g class="city" data-city="anyang"><circle cx="520" cy="392" r="4"/><text class="cname s" x="530" y="406">安阳河·洹水</text></g>
-      <g class="city" data-city="fanyang"><circle cx="740" cy="90" r="6"/><text class="cname" x="752" y="86">范阳<tspan class="cname s" dx="2">(燕根本)</tspan></text></g>
-      <g class="city" data-city="weizhou"><circle cx="560" cy="240" r="4.5"/><text class="cname" x="572" y="236">魏州</text></g>
-      <g class="city" data-city="heyang"><circle cx="470" cy="486" r="5"/><text class="cname" x="386" y="482">河阳<tspan class="cname s" dx="2">(断桥)</tspan></text></g>
-      <g class="city cap" data-city="luoyang"><circle cx="430" cy="560" r="6"/><text class="cname" x="442" y="556">洛阳<tspan class="cname s" dx="2">(东京)</tspan></text></g>
+      <g class="city cap" data-city="ye"><circle cx="405" cy="258" r="7"/><text class="cname" x="416" y="254">邺城<tspan class="cname s" dx="2">(相州·被围)</tspan></text></g>
+      <g class="city" data-city="weizhou"><circle cx="737" cy="179" r="5"/><text class="cname" x="748" y="175">魏州<tspan class="cname s" dx="2">(思明先取)</tspan></text></g>
+      <g class="city" data-city="huanshui"><circle cx="512" cy="238" r="4"/><text class="cname s" x="522" y="230">安阳河北(决战)</text></g>
+      <g class="city" data-city="fanyang"><circle cx="744" cy="44" r="5.5"/><text class="cname" x="700" y="40">范阳<tspan class="cname s" dx="2">(燕本)</tspan></text></g>
+      <g class="city" data-city="heyang"><circle cx="88" cy="540" r="5"/><text class="cname" x="98" y="556">河阳<tspan class="cname s" dx="2">(断桥)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 九帅围邺 -->
+    <!-- ══════ 全图 · 九帅围邺 ══════ -->
     <g id="phAll" class="ph">
-      <circle class="siege" cx="470" cy="300" r="30"/>
-      <circle class="siege" cx="470" cy="300" r="42"/>
-      <text class="mlabel j" x="150" y="360">郭子仪、李光弼等九节度以六十万围邺</text>
-      <text class="anno" x="160" y="378">不立元帅,以宦者鱼朝恩为观军容使</text>
-      <path class="march q" marker-end="url(#aq)" d="M 736,100 C 660,150 590,210 530,262"/>
-      <text class="mlabel q" x="600" y="180">史思明自范阳引众南援</text>
-      <text class="mlabel q" x="560" y="330">安庆绪困守邺城,求救于思明</text>
+      <circle class="siege" cx="405" cy="258" r="30"/>
+      <circle class="siege" cx="405" cy="258" r="42"/>
+      <rect class="camp" x="401" y="254" width="9" height="9" transform="rotate(45 405 258)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 92,528 C 200,470 320,362 396,272"/>
+      <text class="mlabel j" x="150" y="360">郭子仪·李光弼等九节度以二十万(号六十万)围邺</text>
+      <text class="anno" x="160" y="378">不置元帅,以宦者鱼朝恩为观军容使 · 诸军无统一节制</text>
+      <path class="march sm" marker-end="url(#af)" d="M 744,54 C 742,100 740,146 738,170"/>
+      <path class="march sm" marker-end="url(#af)" d="M 728,184 C 640,196 560,210 522,224"/>
+      <text class="mlabel f" x="556" y="120">史思明自范阳南下,先取魏州,进逼邺城</text>
+      <text class="mlabel q" x="300" y="300">安庆绪困守,求救于思明,许以让位</text>
     </g>
 
-    <!-- 阶段一:围邺灌城 -->
+    <!-- ══════ 阶段一 · 九节度围邺 · 引漳水灌城 ══════ -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="470" cy="300" r="28"/>
-      <circle class="siege" cx="470" cy="300" r="40"/>
-      <path class="march j" marker-end="url(#aj)" d="M 430,286 C 445,288 458,292 468,296"/>
-      <path class="march j" marker-end="url(#aj)" d="M 512,352 C 500,336 486,322 476,308"/>
-      <text class="mlabel j" x="150" y="250">诸军围邺数月,壅漳水灌城</text>
-      <text class="anno" x="160" y="268">城中井泉皆溢,粮尽人相食,而犹不下</text>
-      <text class="mlabel q" x="500" y="292">庆绪坚壁待援</text>
-      <text class="anno" x="150" y="390">九军无统一号令,顿兵坚城,师老气衰</text>
+      <!-- 引漳水灌城:自漳水(北)导渠灌邺,水色泛滥 -->
+      <path class="floodchan" d="M 402,170 C 404,196 405,220 405,238"/>
+      <circle class="flood" cx="405" cy="258" r="26"/>
+      <path class="floodwave" d="M 384,250 q 10,-8 21,0 q 10,8 21,0"/>
+      <path class="floodwave" d="M 384,264 q 10,-8 21,0 q 10,8 21,0"/>
+      <circle class="siege" cx="405" cy="258" r="30"/>
+      <circle class="siegeflood" cx="405" cy="258" r="43"/>
+      <!-- 九路围合(示意) -->
+      <path class="march j" marker-end="url(#aj)" d="M 150,300 C 250,290 320,282 372,270"/>
+      <path class="march j" marker-end="url(#aj)" d="M 250,430 C 320,380 360,320 392,280"/>
+      <path class="march j" marker-end="url(#aj)" d="M 620,360 C 520,330 470,300 440,278"/>
+      <text class="flabel" x="416" y="196">壅漳水灌城</text>
+      <text class="mlabel j" x="150" y="288">乾元元年冬,九节度合围相州(邺)</text>
+      <text class="mlabel q" x="418" y="240">庆绪坚壁待援</text>
+      <text class="anno" x="150" y="446">壅漳水灌之,城中井泉皆溢;然九军无元帅,顿兵坚城,师老气衰</text>
     </g>
 
-    <!-- 阶段二:思明赴援 -->
+    <!-- ══════ 阶段二 · 城中粮尽 · 思明自范阳来援 ══════ -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 736,100 C 640,150 560,200 528,240"/>
-      <text class="mlabel q" x="600" y="150">思明引范阳精兵南下</text>
-      <rect class="camp" x="466" y="234" width="9" height="9" transform="rotate(45 470 238)"/>
-      <text class="mlabel q" x="480" y="220">自将精兵屯邺城之北</text>
-      <path class="march q" marker-end="url(#aq)" d="M 560,240 C 500,260 440,270 400,272"/>
-      <path class="march q" marker-end="url(#aq)" d="M 600,280 C 540,300 480,320 440,340"/>
-      <text class="mlabel q" x="150" y="240">分兵屯诸道,绝唐军粮运</text>
-      <text class="anno" x="150" y="258">且战且却以骄唐军;唐军馈运不继,人马疲乏</text>
+      <circle class="flood" cx="405" cy="258" r="24"/>
+      <circle class="siege" cx="405" cy="258" r="30"/>
+      <circle class="siegeflood" cx="405" cy="258" r="43"/>
+      <text class="mlabel q" x="300" y="308">城中粮尽,人相食,一鼠值钱数千</text>
+      <path class="march q" marker-end="url(#aq)" d="M 420,278 C 470,300 520,318 560,326"/>
+      <text class="mlabel q" x="470" y="346">庆绪求救于思明,许以让位</text>
+      <!-- 思明自范阳→魏州→逼邺 -->
+      <path class="march sm" marker-end="url(#af)" d="M 744,54 C 742,104 740,150 738,170"/>
+      <rect class="camp f" x="733" y="175" width="9" height="9" transform="rotate(45 737 179)"/>
+      <path class="march sm" marker-end="url(#af)" d="M 728,186 C 660,208 590,224 552,232"/>
+      <rect class="camp f" x="520" y="192" width="9" height="9" transform="rotate(45 524 196)"/>
+      <text class="mlabel f" x="556" y="118">思明引范阳精兵南下,先取魏州</text>
+      <text class="mlabel f" x="540" y="210">进屯邺城之北,按兵未战</text>
     </g>
 
-    <!-- 阶段三:大风溃师 -->
+    <!-- ══════ 阶段三 · 游兵断粮运 · 相持洹水 ══════ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="520" cy="392" r="9"/>
-      <path d="M 520,392 l 6,-14 l 5,10 l 11,-6 l -6,11 l 14,5 l -14,5 l 6,11 l -11,-6 l -5,10 l -6,-14 l -11,6 l 6,-11 l -14,-5 l 14,-5 l -6,-11 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8" opacity=".92"/>
-      <text class="mlabel j" x="540" y="376">会战安阳河北,忽大风飞沙拔木,昼晦如夜</text>
-      <text class="anno" x="548" y="392">两军皆惊,各敛兵溃走</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 500,404 C 480,436 466,462 460,478"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 470,486 C 455,512 445,534 436,550"/>
-      <text class="mlabel r" x="200" y="440">唐军南溃,委弃甲仗辎重蔽野</text>
-      <text class="mlabel r" x="300" y="510">郭子仪断河阳桥以保东京</text>
-      <text class="anno" x="200" y="580">九节度之众一朝瓦解,河北复为思明所有</text>
+      <circle class="siege" cx="405" cy="258" r="30"/>
+      <circle class="siege" cx="405" cy="258" r="42"/>
+      <rect class="camp f" x="520" y="192" width="9" height="9" transform="rotate(45 524 196)"/>
+      <!-- 游兵抄掠、断唐军粮运:自思明大营出游骑,截粮道 -->
+      <path class="march raid" marker-end="url(#af)" d="M 516,206 C 440,300 360,400 300,470"/>
+      <path class="march raid" marker-end="url(#af)" d="M 512,208 C 440,270 380,360 340,430"/>
+      <g class="cut" transform="translate(300,470)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(268,413)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="150" y="516">思明游兵抄掠 · 断唐军粮运 ✕</text>
+      <text class="mlabel f" x="540" y="180">思明按兵不战,以逸待劳</text>
+      <text class="mlabel j" x="130" y="300">六十万顿兵坚城下,馈运艰难</text>
+      <text class="anno" x="130" y="318">樵采者不敢出,人马乏食,人心已离 · 相持洹水之间</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══════ 阶段四 · 大风昼晦 · 无帅而溃 · 思明入邺 ══════ -->
+    <g id="ph4" class="ph">
+      <circle class="star" cx="500" cy="220" r="9"/>
+      <path class="gust" d="M 500,220 l 6,-15 l 5,11 l 12,-7 l -6,12 l 15,5 l -15,5 l 6,12 l -12,-7 l -5,11 l -6,-15 l -12,7 l 6,-12 l -15,-5 l 15,-5 l -6,-12 z"/>
+      <path class="march sm" marker-end="url(#af)" d="M 738,182 C 660,196 580,208 528,214"/>
+      <text class="mlabel j" x="510" y="200">会战安阳河北 · 忽大风飞沙拔木,昼晦如夜</text>
+      <text class="anno" x="516" y="216">两军皆惊 · 我师溃而南 · 贼军溃而北</text>
+      <!-- 唐军南溃(褐虚线),弃辎重,断河阳桥 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 470,246 C 380,330 240,430 120,520"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 500,250 C 520,340 540,420 560,486"/>
+      <text class="mlabel r" x="200" y="420">唐军南溃,委弃甲仗辎重,累积于路</text>
+      <text class="mlabel r" x="120" y="576">郭子仪断河阳桥以保东京</text>
+      <text class="anno" x="470" y="470">诸节度各溃归本镇</text>
+      <!-- 思明入邺,还范阳 -->
+      <path class="march sm" marker-end="url(#af)" d="M 500,232 C 470,244 440,252 424,256"/>
+      <text class="mlabel f" x="430" y="290">思明入邺,杀庆绪,并其众,还范阳称帝</text>
+    </g>
+
+    <g class="compass" transform="translate(946,588)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -179,34 +278,106 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(九节度)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>燕军(史思明)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军溃退</span>
-    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="6" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="2 4"/></svg>唐围邺</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>安庆绪(据邺)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="3"/></svg>史思明(自范阳来援)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.2" stroke-dasharray="5 5"/></svg>思明游兵抄掠</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军大溃</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>唐军粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断粮运</span>
+    <span class="item"><svg width="20" height="16"><circle cx="10" cy="8" r="6" fill="#3f6d7a" opacity=".18"/><path d="M 4,8 q 3,-3 6,0 q 3,3 6,0" fill="none" stroke="#3f6d7a" stroke-width="1.4" opacity=".7"/></svg>引漳水灌城</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>燕</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>燕(河北)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐(河南)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>战局释要 · 师出无帅 · 虽众必溃</h3>
+    <div class="lead">何以六十万之众一朝瓦解 —— 九节度并列而无元帅,顿兵坚城,断粮离心,大风特其末因</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="邺城之败示意:唐九节度各将其众二十万号六十万而不置元帅,惟以宦者鱼朝恩监军,顿兵坚城灌邺不下;史思明自范阳来援按兵断唐军粮运,唐军人心已离;大风昼晦一惊而全军溃,非战之罪实无帅之败">
+      <!-- 左:九节度无元帅 -->
+      <text x="24" y="26" fill="#1f4e54" font-size="12" font-weight="700">唐 · 九节度 二十万(号六十万)</text>
+      <g fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.3">
+        <rect x="26" y="40" width="34" height="20" rx="2"/>
+        <rect x="70" y="38" width="34" height="20" rx="2"/>
+        <rect x="30" y="66" width="34" height="20" rx="2"/>
+        <rect x="76" y="66" width="34" height="20" rx="2"/>
+        <rect x="24" y="92" width="34" height="20" rx="2"/>
+        <rect x="72" y="94" width="34" height="20" rx="2"/>
+        <rect x="120" y="42" width="34" height="20" rx="2"/>
+        <rect x="124" y="72" width="34" height="20" rx="2"/>
+        <rect x="118" y="102" width="34" height="20" rx="2"/>
+      </g>
+      <rect x="52" y="128" width="86" height="40" rx="3" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <text x="95" y="146" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">阙 · 元帅</text>
+      <text x="95" y="162" fill="#9a2b1e" font-size="9" text-anchor="middle">鱼朝恩监军(宦官)</text>
+      <text x="24" y="192" fill="#5c4f38" font-size="10">九节度各将其众 · 号令不一</text>
+      <text x="24" y="208" fill="#5c4f38" font-size="10">顿兵坚城 · 师老气衰</text>
+      <!-- 中:邺城被围·灌城·断粮 -->
+      <rect x="330" y="70" width="140" height="96" rx="4" fill="rgba(154,43,30,.06)" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="400" y="104" fill="#9a2b1e" font-size="14" font-weight="700" text-anchor="middle">邺　城</text>
+      <text x="400" y="124" fill="#9a2b1e" font-size="9.5" text-anchor="middle">安庆绪坚守</text>
+      <text x="400" y="140" fill="#9a2b1e" font-size="9.5" text-anchor="middle">粮尽 · 一鼠数千</text>
+      <text x="400" y="156" fill="#9a2b1e" font-size="9.5" text-anchor="middle">而终不下</text>
+      <!-- 引漳水灌城 -->
+      <path d="M 300,36 C 340,52 372,58 396,70" fill="none" stroke="#3f6d7a" stroke-width="3.2" opacity=".7" stroke-linecap="round"/>
+      <path d="M 392,62 L 400,74 L 386,74 Z" fill="#3f6d7a" opacity=".8"/>
+      <text x="286" y="32" fill="#3f6d7a" font-size="10.5" font-weight="700">引漳水灌城</text>
+      <!-- 无帅→顿兵(青虚箭) -->
+      <path d="M 162,120 C 220,116 280,112 326,112" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="3 3" opacity=".6"/>
+      <!-- 断粮(紫→金线上✕) -->
+      <path d="M 400,220 L 400,168" fill="none" stroke="#9c7a2c" stroke-width="4" opacity=".7"/>
+      <text x="356" y="238" fill="#9c7a2c" font-size="10" font-weight="700">唐军粮道</text>
+      <g transform="translate(400,196)"><circle r="8" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5" stroke="#9a2b1e" stroke-width="2.4"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <path d="M 520,150 C 470,164 440,176 412,192" fill="none" stroke="#5c4a6e" stroke-width="2.4" stroke-dasharray="5 5"/>
+      <text x="486" y="140" fill="#5c4a6e" font-size="10" font-weight="700">思明游兵断粮</text>
+      <!-- 右:大风→大溃 -->
+      <path d="M 640,96 l 8,-18 l 6,13 l 15,-8 l -8,15 l 18,6 l -18,6 l 8,15 l -15,-8 l -6,13 l -8,-18 l -15,8 l 8,-15 l -18,-6 l 18,-6 l -8,-15 z" fill="#7a5a23" opacity=".9"/>
+      <text x="610" y="58" fill="#7a5a23" font-size="11" font-weight="700">大风 · 昼晦</text>
+      <path d="M 472,118 C 540,112 590,106 618,100" fill="none" stroke="#7a5a23" stroke-width="1.6" opacity=".55" stroke-dasharray="3 3"/>
+      <text x="742" y="86" fill="#9a2b1e" font-size="20" font-weight="700" text-anchor="middle" font-family="'Ma Shan Zheng',serif">溃</text>
+      <path d="M 690,96 C 710,92 724,90 730,90" fill="none" stroke="#7a5a23" stroke-width="2" opacity=".6"/>
+      <text x="700" y="122" fill="#5c4f38" font-size="10" text-anchor="middle">弃甲仗辎重</text>
+      <text x="742" y="150" fill="#5c4f38" font-size="10" text-anchor="middle">断河阳桥保东京</text>
+      <text x="742" y="168" fill="#5c4a6e" font-size="10" text-anchor="middle" font-weight="700">思明入邺杀庆绪</text>
+      <text x="742" y="184" fill="#5c4a6e" font-size="10" text-anchor="middle">还范阳称帝</text>
+      <!-- 三因汇于溃 -->
+      <path d="M 95,210 C 200,232 560,236 700,110" fill="none" stroke="#7a5a23" stroke-width="1.4" opacity=".4" stroke-dasharray="2 4"/>
+    </svg>
+    <p class="intro">邺城之役,唐以九节度、二十万之众(号六十万)围一垂亡之安庆绪,壅漳灌城,粮尽人相食而城几下——形势之顺,盖安史乱起以来所未有。然<b>肃宗以郭子仪、李光弼皆元勋难相统属,竟不置元帅,惟以宦者鱼朝恩为观军容使监之</b>:九军并列而无所归一,进退无主。既顿兵坚城,师老气衰;史思明自范阳按兵来援,复以游兵断其粮运,唐军人心先离。及大风骤起、昼晦如夜,一惊而全军瓦解——败之根,不在风,而在无帅。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>无帅之弊 · 结构之败</h4>
+        <p>九节度使各将其众,官皆钧敌,谁相统摄?肃宗虑元勋难制,乃不立元帅,以宦官鱼朝恩监军「观军容」——不知兵而秉节制。故围邺数月而无统一号令:攻则不并力,守则不相救,顿兵坚城之下,徒老其师。二十万之众貌合而神离,胜势方张而根本已蠹。此非一时之失,乃庙算授敌之败。</p>
+      </div>
+      <div class="c b">
+        <h4>断粮·大风 · 触发之末</h4>
+        <p>史思明得计:不与唐军争锋,自将屯邺北按兵不战,别遣游兵四出抄掠,断其粮运,樵采不敢出,六十万之众坐困于馈运。相持既久,人心已离。三月决战安阳河北,鏖战方酣,忽大风飞沙拔木、天地昼晦,两军皆惊——然唐军无帅无以约众,遂溃而南,弃甲仗辎重于路;贼溃而北,思明独收其军。风者偶也,唯无帅者乃因之而溃。</p>
+      </div>
+    </div>
+    <p class="kicker">故邺城之败,<b>非战之罪,实师出无帅之败</b>:六十万并列而无所统一,鱼朝恩监军而不知兵,顿兵坚城则师老,断粮离心则气丧,大风昼晦特假手以成其溃耳。兵不在众而在治,<b>无帅则虽众必溃</b>。是役既败,郭子仪断河阳桥以保洛阳,史思明入邺杀安庆绪、并其众,还范阳称大燕皇帝——安史之乱由是复炽,更延四年而后定。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二二一、《旧唐书·郭子仪传》《李光弼传》《史思明传》约略绘出。邺城即相州,今河南安阳;安阳河即古洹水,在邺城之南;河阳今河南孟州,黄河南北津渡所系。疆界、水道经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为乾元二年河北形势示意:燕据河北,唐据河南以南,约以黄河为界;安庆绪据邺、史思明据范阳,皆安史余燼。故以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注三</span>邺城之败,由九军不立元帅、宦官监军、号令不一,顿兵坚城而师老;大风特其末因耳。此后安庆绪为思明所杀,思明复陷洛阳,河北复乱;李光弼代领朔方,战守河洛,安史之乱复延数年。本图以唐为本方(青),唐军溃退用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x = 55 + (经度 − 113.6) × 440,y = 610 − (纬度 − 35.3) × 440</b>(视窗约经度113.6°–115.6°E、纬度35.3°–36.7°N)。几何力求近实:邺城(相州)居中,漳水径其北、洹水(安阳河)径其南,魏州在东北,黄河横于南境;范阳远在东北(图外)、河阳洛阳在西南(图外),皆以边外箭标示,不入视窗以免挤压战场。疆界、水道经简化;点划『约界』依黄河一线示燕据河北、唐自河南渡河来讨之大势,非实有画界。依《资治通鉴》卷二二一、《旧唐书·郭子仪传》《李光弼传》《史思明传》《新唐书》诸传绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:邺城即相州(邺郡),唐治安阳,今河南安阳(约114.4E/36.1N);古邺都在其北临漳一带(114.6E/36.3N),此役围城、灌城、决战皆在安阳—临漳之间,史文互称邺城、相州、安阳河，本图从其大略置之。漳水(漳河)径邺北,唐军壅之以灌城;洹水即安阳河,径邺南,三月决战于其北岸。魏州治贵乡,今河北大名东北(约115.15E/36.28N),史思明南下先取之。范阳即幽州,今北京(约116.4E/39.9N),在图外东北,思明来援之本。河阳今河南孟州(约112.8E/34.9N)、洛阳今河南洛阳(约112.5E/34.7N),在图外西南,黄河南北津渡与东京所系,郭子仪断河阳桥以保之。</p>
+    <p><span class="n">注三</span>行军皆由陆路,无漕运舟师之事:唐军自河南(河阳、洛阳、汴)渡黄河北上围邺,其粮饷亦由河南陆运而北(图中金色粮道);史思明自范阳陆行南下,先取魏州,进屯邺北。<b>制胜之枢在粮与帅</b>:六十万顿兵坚城,馈运艰难,史思明不与争锋,别遣游兵抄掠、断其粮运(图中紫色游兵、朱色 ✕),唐军樵采不敢出、人马乏食,人心先离——故图以唐军粮道为一层,断粮为决胜之著。又『引漳水灌城』(图中水色泛滥)乃攻城之术,非运兵运粮之水路,与曹操建安九年决漳灌邺同一故智,而此番用之者反为败军,志其反覆。</p>
+    <p><span class="n">注四</span>凡三方之力与所出:一曰唐九节度(青),自河南渡河北讨,围安庆绪于邺;二曰安庆绪(朱),据邺坚守,粮尽求救于思明,许以让位;三曰史思明(紫),本已降唐,乾元二年正月复叛,称燕王于魏州,自范阳(图外东北)将精兵南援。三月六日,李光弼、王思礼、许叔冀、鲁炅先与思明战于安阳河北,杀伤相当,鲁炅中流矢;郭子仪承其后,未及布陈,而大风忽起,吹沙拔木,天地晦暝,跬步不辨物色,两军皆惊——我师溃而南,贼军溃而北,委弃兵仗辎重累积于路。郭子仪以朔方军断河阳桥保东京,诸节度各溃归本镇。思明入邺,杀安庆绪及其四弟,并其众,还范阳,称大燕皇帝。</p>
+    <p><span class="n">注五</span>异说与考订:围邺诸帅,《通鉴》举九节度使——朔方郭子仪、河东李光弼、关内泽潞王思礼、镇西北庭李嗣业、淮西鲁炅、兴平李奂、滑濮许叔冀、郑蔡季广琛、河南崔光远,又益以平卢兵马使董秦(即李忠臣),故或称『九节度』或兼数董秦而言之;李嗣业先于围城中中流矢卒。兵数,《通鉴》作步骑二十万,后益之号六十万,史文里数、人数多约举,不必尽实,本图从『二十万·号六十万』并存之。史思明援军,《通鉴》称精兵五万。围城起讫,乾元元年(758)九、十月合围,二年(759)三月溃,凡历一冬。鱼朝恩归罪郭子仪,肃宗召还,以李光弼代为朔方节度使、天下兵马副元帅——不置元帅之弊,至此始有所补,而邺下之众已不可复矣。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"九帅围邺",d:"唐乾元元年冬 — 二年三月",p:["乾元元年,唐以郭子仪、李光弼等九节度使将步骑二十万(后增至六十万)讨安庆绪于邺城(相州);以宦官鱼朝恩为观军容使,不立元帅,诸军无统一节度。","围邺数月,壅漳水灌城,城中粮尽人相食而不下。史思明自范阳引兵来援,遂成两雄相持之势——一以困守待援,一以骄兵蹙敌。"]},
-  "1":{t:"围邺灌城",d:"乾元元年冬 — 二年春",p:["诸军围邺数月,壅漳水灌之,城中井泉皆溢,粮尽人相食,而安庆绪坚壁固守,城终不下。","然九节度各将其众,无统一号令,顿兵坚城之下,师老气衰。宦者监军,进退无主,围久而无功,已伏溃败之机。"]},
-  "2":{t:"思明赴援",d:"乾元二年正月 — 三月",p:["史思明引范阳之众南下,分兵屯诸道,绝唐军粮运,自将精兵屯邺城之北,且战且却以骄唐军。","唐军馈运不继,人马疲乏,士气日堕;思明养锐蓄势,以逸待劳。相持既久,胜负之势已隐然移易。"]},
-  "3":{t:"大风溃师",d:"乾元二年三月",p:["三月,两军会战于安阳河(洹水)北,鏖战未决;忽大风骤起,飞沙拔木,天地昼晦如夜,两军皆大惊,各敛兵溃走。","唐军南溃,委弃甲仗辎重蔽野;郭子仪断河阳桥以保东京。九节度之众一朝瓦解,河北复为思明所有。安庆绪寻为思明所杀,思明复陷洛阳。鱼朝恩归罪郭子仪,夺其兵权,李光弼代领朔方。"]}
+  all:{t:"九帅围邺",d:"唐乾元元年冬 — 二年三月(758—759)",p:["安史之乱,安庆绪弑父自立,兵败退保邺城(相州)。乾元元年,肃宗命郭子仪、李光弼等九节度使将步骑二十万(号六十万)讨之;然以郭、李皆元勋难相统属,竟不置元帅,惟以宦者鱼朝恩为观军容宣慰处置使监军——诸军无统一节制,此一役成败之枢。","唐军围邺,壅漳水灌城,城中粮尽人相食而不下。安庆绪求救于史思明,许以让位;思明自范阳率众南援,先取魏州,进逼邺城,按兵不战而以游兵断唐军粮运。相持既久,顿兵坚城之六十万,人心已离。"]},
+  "1":{t:"九节度围邺 · 引漳水灌城",d:"乾元元年冬 — 二年春",p:["九节度合围相州(邺),壅漳水灌之,城中井泉皆溢,粮储将竭,而安庆绪坚壁固守,城终不下。曹操昔决漳灌邺以成霸业,今唐军踵其故智,而所临者已是垂亡之敌。","然九节度各将其众,官皆钧敌,无元帅以一之;鱼朝恩以宦官监军,不知兵而秉节制。故围久而号令不一:攻不并力,守不相救,顿兵坚城之下,师老气衰——胜势方张而败机已伏。"]},
+  "2":{t:"城中粮尽 · 思明自范阳来援",d:"乾元二年正月 — 三月",p:["邺城被围既久,城中粮尽,人相食,一鼠值钱数千,安庆绪危急,遣使求救于史思明,许以让位。","史思明本已降唐,是岁正月复叛,称燕王于魏州。乃引范阳精兵南下,先取魏州,进屯邺城之北,按兵未战。一以困守待援,一以生力乘敝——两雄相持之势遂成,而主动已隐操于思明之手。"]},
+  "3":{t:"游兵断粮运 · 相持洹水",d:"乾元二年正月 — 三月",p:["史思明知唐军众而无帅、顿兵日久,乃不与争锋,自将屯邺北以逸待劳,别遣游兵四出抄掠,断唐军粮运。唐军樵采者不敢出,馈运艰难,人马乏食。","六十万之众坐困于坚城之下,相持于洹水之间,士气日堕,人心已离。思明养锐蓄势,唐军师老气衰——胜负之势,至此已隐然移易于未战之先。"]},
+  "4":{t:"大风昼晦 · 无帅而溃 · 思明入邺",d:"乾元二年三月",p:["三月,两军会战于安阳河(洹水)之北。李光弼、王思礼、许叔冀、鲁炅先与思明血战,杀伤相当,鲁炅中流矢;郭子仪承其后,未及布陈。忽大风骤起,飞沙拔木,天地昼晦如夜,跬步不辨物色,两军皆大惊——我师溃而南,贼军溃而北,委弃甲仗辎重,累积于路。","唐军无帅无以约众,遂一朝瓦解;郭子仪以朔方军断河阳桥以保东京,诸节度各溃归本镇。史思明独收其军,入邺,杀安庆绪及其四弟,并其众,还范阳,称大燕皇帝。鱼朝恩归罪郭子仪,夺其兵权,以李光弼代领朔方——师出无帅之败,至此乃彰,而安史之乱由是复延数年。"]}
 };
 const CITY={
-  ye:{t:"邺城·相州",d:"今河南安阳",p:["安庆绪所据,唐九节度围而不下之地。壅漳水灌城,城中人相食;卒赖史思明来援得全,寻杀庆绪。"]},
-  anyang:{t:"安阳河·洹水",d:"邺城之南",p:["两军会战之处。方接战而大风骤起,飞沙拔木,昼晦如夜,两军皆惊溃——唐师大败,实溃于此。"]},
-  fanyang:{t:"范阳",d:"今北京一带",p:["史思明南援之本,安史根本重镇。思明自此引精兵赴邺,骄唐军而破之,遂复雄河北。"]},
-  weizhou:{t:"魏州",d:"今河北大名一带",p:["河北要冲,唐军围邺之侧后。思明分兵屯诸道以绝唐军粮运,魏博之间尽为其扰。"]},
-  heyang:{t:"河阳",d:"今河南孟州",p:["黄河南北津渡所系,东京之屏。唐军既溃,郭子仪断河阳桥以保东京,河洛得以暂安。"]},
-  luoyang:{t:"洛阳",d:"东京",p:["唐之东京。邺城既败,郭子仪断桥自保;然思明其后仍陷洛阳,河南复乱,乱事延绵数年。"]}
+  ye:{t:"邺城 · 相州",d:"唐相州(邺郡)治安阳,今河南安阳(约114.4E,36.1N)",p:["安庆绪所据,唐九节度围而不下之地。唐军壅漳水灌城,城中粮尽人相食、一鼠值钱数千;卒赖史思明来援得延,寻为思明所杀。古邺都在其北临漳一带,此役围城、灌城、决战皆在安阳—临漳之间。"]},
+  weizhou:{t:"魏州",d:"唐魏州治贵乡,今河北大名东北(约115.15E,36.28N)",p:["河北要冲。史思明乾元二年正月复叛,称燕王于此;自范阳南下先取之,以为进逼邺城、断唐军粮运之基。"]},
+  huanshui:{t:"安阳河 · 洹水",d:"邺城之南,决战之地",p:["三月决战于安阳河北。李光弼、王思礼、许叔冀、鲁炅先与思明血战;方接战而大风骤起,飞沙拔木,昼晦如夜,两军皆惊——我师溃而南,贼军溃而北。唐师大败,实溃于此。"]},
+  fanyang:{t:"范阳",d:"即幽州,今北京一带(约116.4E,39.9N,图外东北)",p:["安史根本重镇,史思明南援之本。思明自此引精兵赴邺;既破唐军、杀安庆绪,复还范阳,称大燕皇帝,河北复为所有。"]},
+  heyang:{t:"河阳",d:"今河南孟州(约112.8E,34.9N,图外西南)",p:["黄河南北津渡所系,东京洛阳之屏。唐军既溃,郭子仪以朔方军断河阳桥以保东京,河洛得以暂安;其后李光弼移镇河阳,战守以拒思明。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
