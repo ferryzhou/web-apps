@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke:rgba(92,79,56,.5);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,20 +47,47 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 据险台地:和尚原高原,青染平台 */
+  .platform{fill:rgba(31,78,84,.12);stroke:var(--advance);stroke-width:1.4}
+  .platform.edge{fill:none;stroke:var(--advance);stroke-width:1;opacity:.55}
+  /* 驻队矢:分番迭射,矢如雨注下坡 */
+  .volley{stroke:var(--advance);stroke-width:1.5;stroke-linecap:round;opacity:.9}
+  /* 浮梁跨渭 */
+  .bridge{stroke:var(--ret);stroke-width:1.2;stroke-linecap:round}
+  /* 粮道:金自凤翔·宝鸡饷道 */
+  .supply{fill:none}
+  .supply.band{stroke:var(--gold);stroke-width:7;opacity:.22;stroke-linecap:round}
+  .supply.core{stroke:var(--gold);stroke-width:2;stroke-dasharray:1 5;stroke-linecap:round}
+  .grain rect{fill:var(--gold);opacity:.9}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:2}.cut line{stroke:var(--enemy);stroke-width:2}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700}
+  /* 兀术中矢:阵伤之记 */
+  .hit circle{fill:rgba(154,43,30,.14);stroke:var(--enemy);stroke-width:1.5}
+  .hit line{stroke:var(--ink);stroke-width:2.2;stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,133 +101,275 @@
   <div class="seal" aria-hidden="true"><span>和</span><span>尚</span><span>原</span><span>役</span></div>
   <header>
     <h1>和尚原之战</h1>
-    <div class="sub">宋绍兴元年(1131)　　<i>南宋 吴玠 · 吴璘</i> 大破 <b>金 兀术</b></div>
+    <div class="sub">宋绍兴元年(1131)　　<i>南宋 吴玠 · 吴璘</i> 据险大破 <b>金 兀术(号十万)</b>　·　驻队矢迭射 · 山地折骑</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 扼守和尚原</button>
-    <button data-p="1">驻队矢挫敌</button>
-    <button data-p="2">兀术倾兵</button>
-    <button data-p="3">神岔设伏 · 大捷</button>
+    <button class="on" data-p="all">全图 · 据和尚原扼大散关</button>
+    <button data-p="1">兀术十万仰攻险原</button>
+    <button data-p="2">驻队矢番射 · 矢如雨注</button>
+    <button data-p="3">断其粮道 · 邀其归路</button>
+    <button data-p="4">神岔夜击 · 兀术剃须遁</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="和尚原之战形势图,含金宋疆界、渭水与和尚原大散关宝鸡凤翔等险要">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="和尚原之战形势图,含金宋约界、渭水、秦岭山脉与大散关和尚原险口,及宝鸡凤翔神岔沟黄牛堡等地,南缘川陕汉中图外箭头">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="va" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#1f4e54" stroke-width="1.8"/></marker>
     </defs>
 
-    <!-- 疆界:金据关中(北),宋据川陕(南),约以秦岭为界 -->
-    <path d="M 0,300 C 140,286 300,296 440,320 C 560,340 700,326 1000,318 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 140,286 300,296 440,320 C 560,340 700,326 1000,318 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,286 300,296 440,320 C 560,340 700,326 1000,318"/>
-    <text class="realm q" x="120" y="120" font-size="32">金(关中)</text>
-    <text class="realm j" x="640" y="560" font-size="32">宋(川陕)</text>
+    <!-- ══ 约界:金据关中(北),宋据川陕蜀口(南);和尚原·大散关为宋据险突出之垒 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,366 C 760,372 580,372 448,344 C 404,322 388,300 360,292 C 336,286 296,296 275,326 C 210,336 120,344 0,352 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,352 C 120,344 210,336 275,326 C 296,296 336,286 360,292 C 388,300 404,322 448,344 C 580,372 760,372 1000,366 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 1000,366 C 760,372 580,372 448,344 C 404,322 388,300 360,292 C 336,286 296,296 275,326 C 210,336 120,344 0,352"/>
+    <text class="realm q" x="120" y="98" font-size="30">金 · 关 中</text>
+    <text class="cname s" x="122" y="120" style="fill:var(--enemy);opacity:.6">(据凤翔·宝鸡,自渭北南压)</text>
+    <text class="realm j" x="600" y="600" font-size="28">宋 · 蜀 口</text>
+    <text class="cname s" x="602" y="620" style="fill:var(--advance);opacity:.62">(吴玠·吴璘保川陕)</text>
 
-    <!-- 渭水:自西向东,横贯关中 -->
-    <path class="river" stroke-width="5" d="M 40,210 C 200,220 340,232 470,236 C 620,240 760,236 960,232"/>
-    <text class="rname" x="700" y="222" style="font-size:13px">渭 水</text>
+    <!-- ══ 水系:渭水横贯关中,自西而东,金结营跨渭之所 ══ -->
+    <path class="river" stroke-width="5" d="M 96,212 C 260,224 400,238 558,250 C 700,260 780,262 900,262"/>
+    <text class="rname" x="690" y="244" style="font-size:13px">渭 水</text>
 
-    <!-- 秦岭:横亘南北之界,大散关当其险口 -->
+    <!-- ══ 秦岭:南北入蜀之天险,大散关当其口,和尚原据其北麓台地 ══ -->
+    <path class="mtn fill" d="M 150,470 L 190,392 L 226,432 L 262,388 L 297,418 L 330,384 L 372,416 L 416,382 L 470,420 L 540,388 L 610,422 L 690,388 L 770,424 L 840,394 L 902,452 L 902,500 L 150,500 Z"/>
     <g class="mtn">
-      <path d="M 90,330 l 12,-20 l 12,20 M 150,336 l 12,-22 l 12,22 M 214,330 l 12,-20 l 12,20 M 300,340 l 14,-24 l 14,24 M 380,344 l 12,-22 l 12,22 M 470,346 l 14,-24 l 14,24 M 560,340 l 12,-22 l 12,22 M 640,338 l 12,-20 l 12,20 M 720,336 l 12,-22 l 12,22 M 800,338 l 12,-20 l 12,20 M 880,336 l 12,-22 l 12,22"/>
+      <path d="M 210,430 l 14,-24 l 14,24 M 396,414 l 14,-24 l 14,24 M 588,420 l 14,-24 l 14,24 M 760,422 l 14,-26 l 14,26"/>
     </g>
-    <text class="realm" x="330" y="392" font-size="20" fill="var(--ink2)" opacity=".5" letter-spacing=".3em">秦 岭</text>
+    <text class="mname" x="520" y="474" style="font-size:16px;letter-spacing:.34em">秦　岭</text>
+    <text class="cname s" x="612" y="474" style="opacity:.62">入蜀天险</text>
 
-    <!-- 城邑险要 -->
+    <!-- 川陕·汉中(图外·正南,吴玠所保) -->
+    <g transform="translate(300,632)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,-30 L 0,-6"/>
+      <text class="mlabel j" x="8" y="-18" style="font-size:10px">↓ 川陕 · 汉中</text>
+      <text class="cname s" x="8" y="-4" style="fill:var(--advance);font-size:9.5px">吴玠所保(图外正南)</text>
+    </g>
+
+    <!-- ══ 城邑险要 ══ -->
     <g id="cities">
-      <g class="city" data-city="baoji"><circle cx="360" cy="248" r="5"/><text class="cname" x="372" y="244">宝鸡<tspan class="cname s" dx="2">(金军结营跨渭)</tspan></text></g>
-      <g class="city" data-city="fengxiang"><circle cx="600" cy="188" r="5"/><text class="cname" x="612" y="184">凤翔<tspan class="cname s" dx="2">(金军基地)</tspan></text></g>
-      <g class="city cap" data-city="heshangyuan"><circle cx="430" cy="378" r="6.5"/><text class="cname" x="444" y="374">和尚原<tspan class="cname s" dx="2">(决战险地)</tspan></text></g>
-      <g class="city" data-city="dasanguan"><circle cx="352" cy="352" r="4.5"/><text class="cname s" x="248" y="348">大散关(秦岭险口)</text></g>
-      <g class="city" data-city="shenchagou"><circle cx="540" cy="420" r="4"/><text class="cname s" x="552" y="424">神岔沟(设伏处)</text></g>
-      <g class="city" data-city="weishui"><circle cx="470" cy="236" r="3"/><text class="cname s" x="480" y="256">渭水津渡</text></g>
+      <g class="city cap" data-city="heshangyuan"><circle cx="360" cy="310" r="6.5"/><text class="cname" x="372" y="306">和尚原<tspan class="cname s" dx="2">(据险决战)</tspan></text></g>
+      <g class="city" data-city="dasanguan"><circle cx="297" cy="319" r="5"/><text class="cname s" x="180" y="322">大散关(秦岭险口)</text></g>
+      <g class="city" data-city="shenchagou"><circle cx="405" cy="279" r="4.5"/><text class="cname s" x="416" y="276">神岔沟(设伏·夜击)</text></g>
+      <g class="city" data-city="baoji"><circle cx="558" cy="265" r="5.5"/><text class="cname" x="570" y="261">宝鸡<tspan class="cname s" dx="2">(金结营跨渭)</tspan></text></g>
+      <g class="city" data-city="fengxiang"><circle cx="792" cy="130" r="5.5"/><text class="cname" x="804" y="126">凤翔<tspan class="cname s" dx="2">(金军基地)</tspan></text></g>
+      <g class="city" data-city="huangniu"><circle cx="270" cy="391" r="3.5"/><text class="cname s" x="180" y="406">黄牛堡</text></g>
     </g>
 
-    <!-- 全图 · 扼守和尚原 -->
+    <!-- ══ 全图 · 据和尚原扼大散关 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 360,360 C 400,368 418,372 424,376"/>
-      <text class="mlabel j" x="230" y="368">吴玠、吴璘收散卒扼和尚原,当川陕之冲</text>
-      <path class="march q" marker-end="url(#aq)" d="M 360,256 C 380,296 400,338 420,368"/>
-      <text class="mlabel q" x="380" y="300">兀术倾兵十余万,悉锐来攻</text>
-      <text class="anno" x="120" y="150">富平新败,关陇尽失;和尚原一垒,独扼蜀口</text>
+      <ellipse class="platform" cx="362" cy="312" rx="46" ry="20"/>
+      <path class="march j" marker-end="url(#aj)" d="M 336,430 C 348,388 356,346 360,326"/>
+      <text class="mlabel j" x="120" y="418">吴玠·吴璘收散卒,据和尚原为垒</text>
+      <text class="anno" x="150" y="438">扼大散关,当川陕孔道之冲</text>
+      <path class="march q" marker-end="url(#aq)" d="M 720,160 C 620,220 490,272 400,300"/>
+      <text class="mlabel q" x="470" y="212">金志在必取蜀口,屡犯和尚原</text>
+      <circle class="star" cx="360" cy="310" r="11"/>
+      <text class="anno" x="470" y="330">五月:没立·乌鲁·折合分道先犯</text>
+      <text class="anno" x="470" y="348">山险骑不得驰,为杨政·二吴所却,退黄牛堡遇风雨溃走</text>
+      <text class="anno" x="120" y="150">富平新败,关陇尽失;和尚原一垒,独扼川陕之门</text>
     </g>
 
-    <!-- 阶段一:驻队矢挫敌 -->
+    <!-- ══ 阶段一:兀术十万仰攻险原 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 600,200 C 540,260 480,320 448,364"/>
-      <text class="mlabel q" x="470" y="270">没立、乌鲁折合分道先攻</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 444,368 C 486,336 528,300 560,262"/>
-      <text class="mlabel r" x="520" y="330">仰攻不能上,先挫其锋</text>
-      <circle class="star" cx="430" cy="378" r="10"/>
-      <text class="mlabel j" x="130" y="360">吴玠据险,选劲弩分番迭射</text>
-      <text class="anno" x="150" y="410">矢下如雨,号「驻队矢」;金军相蹂而退</text>
+      <!-- 兀术自凤翔进次宝鸡 -->
+      <path class="march q" marker-end="url(#aq)" d="M 780,142 C 700,190 624,232 568,256"/>
+      <text class="mlabel q" x="612" y="196">兀术亲督十万,自凤翔进次宝鸡</text>
+      <!-- 连珠营·垒石为道,跨渭列营 -->
+      <rect class="camp" x="486" y="238" width="9" height="9" transform="rotate(45 490 242)"/>
+      <rect class="camp" x="520" y="236" width="9" height="9" transform="rotate(45 524 240)"/>
+      <rect class="camp" x="556" y="236" width="9" height="9" transform="rotate(45 560 240)"/>
+      <rect class="camp" x="592" y="238" width="9" height="9" transform="rotate(45 596 242)"/>
+      <text class="mlabel q" x="470" y="228">结连珠营,垒石为道,绵亘数十里</text>
+      <!-- 浮梁跨渭 -->
+      <g class="bridge"><line x1="548" y1="248" x2="548" y2="270"/><line x1="560" y1="248" x2="560" y2="270"/><line x1="548" y1="253" x2="560" y2="253"/><line x1="548" y1="259" x2="560" y2="259"/><line x1="548" y1="265" x2="560" y2="265"/></g>
+      <!-- 悉锐仰攻和尚原 -->
+      <path class="march q" marker-end="url(#aq)" d="M 548,276 C 480,292 420,300 378,306"/>
+      <text class="anno" x="452" y="300">造浮梁跨渭,悉锐仰攻和尚原</text>
+      <ellipse class="platform" cx="362" cy="312" rx="46" ry="20"/>
+      <text class="mlabel j" x="150" y="336">二吴凭险列阵,誓与原共存亡</text>
+      <text class="anno" x="150" y="356">山道险狭,金骑不得驰,弃马步战仰攻</text>
+      <circle class="star" cx="360" cy="310" r="10"/>
     </g>
 
-    <!-- 阶段二:兀术倾兵 -->
+    <!-- ══ 阶段二:驻队矢番射 · 矢如雨注 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="352" y="240" width="9" height="9" transform="rotate(45 356 244)"/>
-      <rect class="camp" x="392" y="236" width="9" height="9" transform="rotate(45 396 240)"/>
-      <rect class="camp" x="432" y="234" width="9" height="9" transform="rotate(45 436 238)"/>
-      <rect class="camp" x="472" y="234" width="9" height="9" transform="rotate(45 476 238)"/>
-      <rect class="camp" x="512" y="236" width="9" height="9" transform="rotate(45 516 240)"/>
-      <text class="mlabel q" x="340" y="226">自宝鸡结连珠营,垒石为道,绵亘数十里</text>
-      <path class="march q" marker-end="url(#aq)" d="M 460,246 C 452,296 444,340 436,368"/>
-      <text class="anno" x="466" y="300">造浮梁跨渭而进,悉锐攻和尚原</text>
-      <path class="march j" marker-end="url(#aj)" d="M 415,384 C 408,404 400,420 396,432"/>
-      <text class="mlabel j" x="240" y="440">吴玠、吴璘分军轮战,昼夜拒守</text>
+      <ellipse class="platform" cx="362" cy="312" rx="46" ry="20"/>
+      <path class="platform edge" d="M 320,306 C 336,296 388,296 404,306"/>
+      <!-- 金军仰攻上坡 -->
+      <path class="march q" marker-end="url(#aq)" d="M 470,246 C 436,270 404,290 380,304"/>
+      <text class="mlabel q" x="474" y="238">金军蚁附仰攻</text>
+      <!-- 驻队矢:分番迭射,矢如雨注下坡 -->
+      <g class="volley">
+        <path marker-end="url(#va)" d="M 356,300 L 412,252"/>
+        <path marker-end="url(#va)" d="M 362,302 L 442,248"/>
+        <path marker-end="url(#va)" d="M 368,300 L 472,252"/>
+        <path marker-end="url(#va)" d="M 360,306 L 430,262"/>
+        <path marker-end="url(#va)" d="M 366,306 L 460,258"/>
+        <path marker-end="url(#va)" d="M 372,304 L 492,256"/>
+      </g>
+      <circle class="star" cx="360" cy="310" r="11"/>
+      <text class="mlabel j" x="120" y="336">吴玠命诸将选硬弓强弩,分番迭射</text>
+      <text class="anno" x="150" y="356">号「驻队矢」:一番矢尽,一番继之,箭注不绝</text>
+      <text class="anno" x="150" y="376">弩如雨注,金军仰攻不能上,死伤山积,相蹂而退</text>
     </g>
 
-    <!-- 阶段三:神岔设伏 · 大捷 -->
+    <!-- ══ 阶段三:断其粮道 · 邀其归路 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 442,384 C 480,398 512,410 530,416"/>
-      <text class="mlabel j" x="470" y="452">奇兵断金粮道,设伏神岔沟,乘惫夜击</text>
-      <circle class="star" cx="540" cy="420" r="9"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 452,372 C 500,320 552,260 596,208"/>
-      <text class="mlabel r" x="500" y="300">金军大溃,自相蹂践,死者山积</text>
-      <text class="anno" x="150" y="470">兀术身中流矢,剃须易服而遁,仅以身免</text>
-      <text class="anno" x="150" y="490">此为宋兴以来对金第一大捷,蜀口以安</text>
+      <ellipse class="platform" cx="362" cy="312" rx="46" ry="20"/>
+      <!-- 金粮道:自凤翔·宝鸡输饷至前 -->
+      <path class="supply band" d="M 800,140 C 704,196 616,238 560,258 C 512,274 470,284 440,292"/>
+      <path class="supply core" d="M 800,140 C 704,196 616,238 560,258 C 512,274 470,284 440,292"/>
+      <g class="grain">
+        <rect x="686" y="196" width="7" height="7" transform="rotate(45 689.5 199.5)"/>
+        <rect x="606" y="240" width="7" height="7" transform="rotate(45 609.5 243.5)"/>
+        <rect x="520" y="270" width="7" height="7" transform="rotate(45 523.5 273.5)"/>
+      </g>
+      <text class="clabel" x="620" y="180" style="fill:var(--gold)">金饷道:凤翔·宝鸡输粮</text>
+      <!-- 吴玠遣奇兵从间道绕出敌后 -->
+      <path class="march j" marker-end="url(#aj)" d="M 344,320 C 300,300 320,252 402,238 C 456,229 508,240 532,252"/>
+      <text class="mlabel j" x="150" y="440">玠遣别将,从间道绕出敌后</text>
+      <!-- 断粮 ✕ -->
+      <g class="cut" transform="translate(520,266)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="452" y="300">断其饷道 · 邀其归路</text>
+      <text class="anno" x="150" y="460">金师顿兵坚原,师老粮匮,锐气日衰</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:神岔夜击 · 兀术剃须遁 · 川陕以全 ══ -->
+    <g id="ph4" class="ph">
+      <ellipse class="platform" cx="362" cy="312" rx="46" ry="20"/>
+      <!-- 吴璘三千骑设伏神岔沟 -->
+      <path class="march j" marker-end="url(#aj)" d="M 356,328 C 372,308 388,292 400,284"/>
+      <text class="mlabel j" x="120" y="360">吴璘引三千骑,设伏原北神岔沟</text>
+      <!-- 金军粮尽夜退,至神岔沟遇伏 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 372,304 C 392,296 400,290 404,285"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 412,274 C 520,222 660,176 780,140"/>
+      <text class="mlabel r" x="470" y="212">金军粮尽夜遁,璘乘夜掩击</text>
+      <!-- 兀术中矢 -->
+      <g class="hit" transform="translate(405,279)"><circle r="9"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <circle class="star" cx="405" cy="279" r="13"/>
+      <text class="anno" x="430" y="332">连破金营十余,金军大溃,自相蹂践</text>
+      <text class="mlabel r" x="150" y="384">兀术身中两矢,剃须易服,仅以身免,遁归燕山</text>
+      <text class="anno" x="150" y="404">宋兴以来对金第一大捷,大散关·川陕以全</text>
+      <!-- 燕山(图外东北,兀术遁归) -->
+      <g transform="translate(958,120)">
+        <path class="march rout" marker-end="url(#ar)" d="M 4,0 L 30,0"/>
+        <text class="mlabel r" x="-2" y="-8" style="font-size:10px">⟶ 燕山</text>
+        <text class="cname s" x="-2" y="16" style="fill:var(--ret);font-size:9.5px">兀术遁归(图外东北)</text>
+      </g>
+    </g>
+
+    <g class="compass" transform="translate(946,596)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(吴玠·吴璘)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(兀术)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军溃退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战 · 设伏</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(兀术·号十万)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军溃遁</span>
+    <span class="item"><svg width="30" height="14"><line x1="2" y1="12" x2="24" y2="3" stroke="#1f4e54" stroke-width="1.5"/><line x1="2" y1="7" x2="20" y2="1" stroke="#1f4e54" stroke-width="1.5"/></svg>驻队矢(分番迭射)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".25"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="1 4"/></svg>金饷道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="2"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2"/></svg>断粮邀归</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战 · 夜击</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" fill="#9a2b1e" transform="rotate(45 6.5 6.5)"/></svg>连珠营</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金(关中)</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋(川陕)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 据险扼隘 · 驻队矢折骑</h3>
+    <div class="lead">何以十万之众仰攻三日而大败 —— 系于据险迭射、断粮邀归,以山地折其骑</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:秦岭险隘骑不得驰而弃马步战,和尚原以驻队矢分番迭射矢如雨注,复断金粮道邀归路,乃于神岔沟夜击折其骑">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 据险扼隘</text>
+      <text x="332" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 驻队矢番射</text>
+      <text x="640" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 断粮 · 夜击</text>
+
+      <!-- ① 据险:秦岭险口,骑不得驰,弃马步战 -->
+      <path d="M 40,190 L 90,120 L 120,164 L 150,116 L 180,168 L 236,190 Z" fill="rgba(92,79,56,.2)" stroke="#5c4f38" stroke-width="1.2"/>
+      <text x="88" y="112" fill="#5c4f38" font-size="10" font-weight="700">秦岭 · 大散关</text>
+      <path d="M 44,196 C 90,182 130,168 156,150" fill="none" stroke="#9a2b1e" stroke-width="2.2" stroke-dasharray="5 4" marker-end="url(#aq)"/>
+      <text x="30" y="214" fill="#9a2b1e" font-size="10">金骑仰攻</text>
+      <line x1="150" y1="126" x2="150" y2="176" stroke="#1f4e54" stroke-width="2.6"/>
+      <text x="158" y="150" fill="#1f4e54" font-size="10" font-weight="700">险隘扼守</text>
+      <text x="60" y="234" fill="#5c4f38" font-size="9.5" font-style="italic">路狭石立,骑不得驰,弃马步战</text>
+
+      <!-- ② 驻队矢:三番轮射,矢如雨注 -->
+      <line x1="322" y1="86" x2="418" y2="86" stroke="#1f4e54" stroke-width="2.6"/>
+      <line x1="322" y1="112" x2="418" y2="112" stroke="#1f4e54" stroke-width="2.6"/>
+      <line x1="322" y1="138" x2="418" y2="138" stroke="#1f4e54" stroke-width="2.6"/>
+      <text x="322" y="76" fill="#1f4e54" font-size="9.5" font-weight="700">一番 · 二番 · 三番</text>
+      <g stroke="#1f4e54" stroke-width="1.5">
+        <path d="M 430,92 L 500,120" marker-end="url(#va)"/>
+        <path d="M 430,110 L 502,140" marker-end="url(#va)"/>
+        <path d="M 430,128 L 500,160" marker-end="url(#va)"/>
+        <path d="M 430,146 L 498,178" marker-end="url(#va)"/>
+      </g>
+      <path d="M 546,200 C 520,182 505,168 500,150" fill="none" stroke="#9a2b1e" stroke-width="2.2" marker-end="url(#aq)"/>
+      <text x="520" y="216" fill="#9a2b1e" font-size="10">仰攻不能上</text>
+      <text x="474" y="128" fill="#1f4e54" font-size="10" font-weight="700">矢注不绝</text>
+      <text x="330" y="234" fill="#5c4f38" font-size="9.5" font-style="italic">一番矢尽,一番继之,箭下如雨</text>
+
+      <!-- ③ 断粮·邀归·夜击 -->
+      <line x1="644" y1="70" x2="828" y2="70" stroke="#9c7a2c" stroke-width="6" opacity=".25"/>
+      <line x1="644" y1="70" x2="828" y2="70" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="1 4"/>
+      <text x="742" y="60" fill="#9c7a2c" font-size="9.5" font-weight="700">凤翔·宝鸡饷道</text>
+      <g transform="translate(736,70)"><circle r="8" fill="none" stroke="#9a2b1e" stroke-width="2"/><line x1="-5" y1="-5" x2="5" y2="5" stroke="#9a2b1e" stroke-width="2"/><line x1="-5" y1="5" x2="5" y2="-5" stroke="#9a2b1e" stroke-width="2"/></g>
+      <text x="656" y="96" fill="#9a2b1e" font-size="10" font-weight="700">断粮邀归</text>
+      <circle cx="744" cy="164" r="14" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="716" y="200" fill="#9c7a2c" font-size="10" font-weight="700">神岔沟夜击</text>
+      <g stroke="#1f4e54" stroke-width="2.2" fill="none">
+        <path d="M 690,120 C 706,136 720,148 730,158" marker-end="url(#aj)"/>
+        <path d="M 800,124 C 782,140 766,150 758,158" marker-end="url(#aj)"/>
+      </g>
+      <path d="M 744,182 C 760,206 788,220 828,228" fill="none" stroke="#7a5a23" stroke-width="2.2" stroke-dasharray="4 5" marker-end="url(#ar)"/>
+      <text x="792" y="242" fill="#7a5a23" font-size="9.5">兀术遁</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 250,120 L 292,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+      <path d="M 570,120 L 612,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+    </svg>
+    <p class="intro">和尚原之胜,不在众寡而在<b>地利与战术相因</b>:原当大散关之口、秦岭之险,山道窄隘、怪石壁立,金军所恃之铁骑至此<b>不得驰</b>,乃弃马步战、仰攻高原——已先失其长。二吴复以<b>「驻队矢」分番迭射</b>,矢注不绝,金军蚁附而不能上;终<b>断其粮道、邀其归路</b>,乘其师老,夜击于神岔沟。三者环环相扣,故十万之众一举而溃。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>据险 · 迭射(宋之所以胜)</h4>
+        <p>富平既败,二吴收散卒据和尚原,积粟缮兵,誓死守险。原扼大散关、当川陕孔道:守之则蜀口有蔽。金骑入险隘则失其驰突之利,弃马步战;吴玠选硬弓强弩,分为数番更迭而射,号「驻队矢」——前番矢尽,后番继之,箭注如雨,金军仰攻竟日不能登。</p>
+      </div>
+      <div class="c b">
+        <h4>仰攻 · 折骑(金之所以败)</h4>
+        <p>兀术恃十万之众、结连珠营、造浮梁跨渭,悉锐仰攻,而地形夺其所长:骑不得展、粮道且长。玠遣奇兵绝其饷道、邀其归路,金军师老粮匮,不得不退;吴璘伏三千骑于神岔沟,乘夜掩击,连破十余营。兀术身中两矢,剃须易服,仅以身免。</p>
+      </div>
+    </div>
+    <p class="kicker">故和尚原之捷,<b>据险扼隘以折其骑、驻队迭射以竭其锐、断粮邀归以覆其军</b>,三策相济,非幸胜也。此为宋兴以来对金第一大捷,大散关既固,<b>川陕蜀口以全</b>,南宋西陲自是有屏。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·吴玠传》《吴璘传》《金史·宗弼传》及《建炎以来系年要录》卷四四至四七约略绘出。疆界、水道、连珠营位置皆经简化,非实测画界。</p>
-    <p><span class="n">注二</span>和尚原在今陕西宝鸡西南、大散关之东,当川陕孔道之冲;凤翔、宝鸡在渭水之北,为金军基地与结营跨渭之所。</p>
-    <p><span class="n">注三</span>吴玠据险不出,以「驻队矢」分番迭射,又断粮设伏,以少破众;和尚原、仙人关之守,保全蜀口,南宋西陲赖以安。本图以宋为本方(青),金军溃退用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(x=90+(经度−106.62)×900,y=580−(纬度−34.02)×900),几何关系力求近实:和尚原居中,大散关在其西南、当秦岭之口,神岔沟在原北,宝鸡在东北渭水之滨,凤翔更在东北为金军基地,黄牛堡在原南入蜀道上;渭水自西而东横贯关中之北,秦岭南北横亘、为入蜀天险。约界晕染、水道皆经简化,点划「约界」非实有画界。依《宋史·吴玠传》《宋史·吴璘传》《金史·宗弼传》及《建炎以来系年要录》卷四十八约略绘出。</p>
+    <p><span class="n">注二</span>今地考:和尚原在今陕西宝鸡西南、大散关之东,为秦岭北麓之高原台地,扼川陕孔道之冲;大散关为秦岭入蜀之要隘,与和尚原相为唇齿;神岔沟在和尚原之北,吴璘设伏夜击、金军溃败之处;宝鸡在渭水之滨,金军结连珠营、造浮梁跨渭之所;凤翔为金人经营关中之重镇、兀术进兵之基;黄牛堡在和尚原南入蜀道上,五月金军先锋败退之地。川陕(汉中)在图外正南,吴玠所保,以边缘箭头示之;燕山在图外东北,兀术遁归之所。</p>
+    <p><span class="n">注三</span>「驻队矢」本《宋史·吴玠传》:金军仰攻,玠命诸将「选硬弓强弩,分番迭射」,弩矢如雨注不绝——盖分兵为数番,前番发矢毕即退,后番继之,更迭不停,故箭注常密。复遣别将从间道绕出敌后、断其粮道、邀其归路,金军师老粮匮而退。吴璘引骑三千伏于原北神岔沟,乘夜掩击,连破金营十余;兀术身中两矢(流矢),剃其须髯、易服遁走,仅以身免,归于燕山。本图以宋为本方(青)、金为攻方(赭),金军溃遁用褐,断粮以✕记,兀术中矢别以朱环✕标之。</p>
+    <p><span class="n">注四</span>史事互异:是役凡两阶段——绍兴元年五月,金将没立自凤翔、乌鲁·折合出大散关分道先犯,为杨政及二吴所却,退黄牛堡遇大风雨溃走,是为前哨;十月,兀术亲督大军(号十万,实数史无确载)倾力来攻,乃有驻队矢·神岔沟之大捷。本图以十月主战为经,五月先挫为纬,并见于全图。金军之众「十万」为约举之数;斩获、中矢「两箭」诸细,史传微有出入,并存以俟考。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"扼守和尚原",d:"宋绍兴元年(1131)",p:["富平之败,关陇尽失,宋师星散。吴玠、吴璘收合散卒,据和尚原为垒——原当大散关之东,扼川陕孔道之冲,得之则蜀口有蔽,失之则全蜀动摇,故必死守之。","金兀术不欲留此一梗,倾兵十余万,自宝鸡而进,悉锐来攻。二吴凭险列阵,誓与此原共存亡,遂成宋金相持之大战。"]},
-  "1":{t:"驻队矢挫敌",d:"绍兴元年·先锋来犯",p:["金将没立自凤翔、乌鲁折合自阶成,分道先攻和尚原。吴玠据险不轻出,选劲弩数千,分为数番,更迭而射,矢下如雨,谓之「驻队矢」——一番矢尽,一番继之,箭注不绝。","金军仰攻险隘,不能上,死伤山积,先挫其锋。没立、折合两军皆败,不能合。金人始知此原之不易拔,兀术乃自将大兵继之。"]},
-  "2":{t:"兀术倾兵",d:"绍兴元年·十月",p:["兀术自将十余万众,自宝鸡结连珠之营,垒石为道,绵亘数十里,又造浮梁跨渭水而进,尽锐悉攻和尚原,声势极盛。","吴玠、吴璘据险分军,更番轮战,昼夜拒守。金军攻围日急,而原上宋师坚忍不动,弩矢迭发,金人虽众,顿兵坚城之下,锐气渐衰,粮道且长。"]},
-  "3":{t:"神岔设伏 · 大捷",d:"绍兴元年·十月",p:["吴玠察金军师老粮匮,乃遣奇兵绝其粮道,又设伏于神岔沟险要;俟金军疲惫,乘夜纵击。金军仓皇不能成列,自相蹂践,死者山积,弃甲如丘。","兀术身中流矢,狼狈剃须易服,仅以身免而遁。是役,金人自南下以来未有此败,为宋兴以来对金第一大捷。蜀口以此获安,二吴之名遂震天下。"]}
+  all:{t:"据和尚原 · 扼大散关",d:"宋绍兴元年(1131)",p:["富平之败,关陇尽失,宋师星散。吴玠、吴璘收合散卒,据和尚原为垒——原当大散关之东、秦岭之口,扼川陕孔道之冲,得之则蜀口有蔽,失之则全蜀动摇,故积粟缮兵,誓死守之。","五月,金将没立自凤翔、乌鲁·折合出大散关,分道先犯,欲会师于原。然山道窄隘、怪石壁立,金骑不得驰,为杨政及二吴分击而败,退黄牛堡,又遇大风雨,狼狈溃走——金人始知此原之不易拔。"]},
+  "1":{t:"兀术十万仰攻险原",d:"绍兴元年 · 十月",p:["兀术闻先锋败报,震怒,亲督大军(号十万)自凤翔进次宝鸡,结连珠之营、垒石为道,绵亘数十里,又造浮梁跨渭水而南,声势极盛,悉锐来攻和尚原。","二吴凭险列阵,誓与此原共存亡。然和尚原一带山道险狭,金军所恃之铁骑至此不得驰突,只得弃马步战、仰攻高原——地形已先夺其所长,顿兵坚垒之下。"]},
+  "2":{t:"驻队矢番射 · 矢如雨注",d:"绍兴元年 · 十月",p:["金军蚁附仰攻,吴玠命诸将「选硬弓强弩,分番迭射」:分兵为数番,前番发矢毕即退,后番继之,更迭不停,谓之「驻队矢」——一番矢尽,一番继之,箭注不绝,弩如雨注。","金军居下仰攻,进则矢集如雨、退则山道壅塞,竟日不能登,死伤山积,自相蹂践而退。锐气既挫,而原上宋师坚忍不动,金人虽众,徒顿于险垒之前。"]},
+  "3":{t:"断其粮道 · 邀其归路",d:"绍兴元年 · 十月",p:["吴玠察金军师老、粮道且长,乃遣别将从间道绕出敌后,断其饷道,又扼其归路。金自凤翔、宝鸡转输之粮既绝,十万之众坐困于坚原之下,人马乏食,锐气日衰。","连珠之营虽固,而无粮不可久留;金军进不能拔和尚原,退则归路见邀,遂陷于欲战不能、欲退无门之境。玠不与力争,而以断粮邀归,徐待其毙。"]},
+  "4":{t:"神岔夜击 · 兀术剃须遁",d:"绍兴元年 · 十月",p:["金军粮尽,不得不夜退。吴玠预遣吴璘引骑三千,伏于原北神岔沟险要;俟金军疲惫夜遁,乘暗掩击,连破金营十余座,金军仓皇不能成列,自相蹂践,死者山积。","兀术身中两矢(流矢),狼狈剃其须髯、易服而遁,仅以身免,归于燕山。是役,金人自南下以来未有此败,为宋兴以来对金第一大捷;大散关既固,川陕蜀口以全,二吴之名遂震天下。"]}
 };
 const CITY={
-  heshangyuan:{t:"和尚原",d:"决战险地,今陕西宝鸡西南",p:["当大散关之东,扼川陕之冲。吴玠、吴璘据以为垒,以「驻队矢」迭射破金先锋,又拒兀术十余万之众,卒成大捷。"]},
-  dasanguan:{t:"大散关",d:"秦岭险口",p:["秦岭入蜀之要隘,和尚原在其东。守此则蜀口有蔽;二吴据原扼关,金军虽众而不得逾。"]},
-  baoji:{t:"宝鸡",d:"金军结营跨渭,渭水之北",p:["兀术自此进兵,结连珠营、垒石为道、造浮梁跨渭而南,绵亘数十里,悉锐攻和尚原。"]},
-  weishui:{t:"渭水",d:"横贯关中,自西而东",p:["关中大川。金军造浮梁跨渭而进,以通宝鸡之师;吴玠断其粮道,即扼此水陆之运。"]},
-  fengxiang:{t:"凤翔",d:"金军基地,渭水之北",p:["金人经营关中之重镇。没立自凤翔来攻和尚原,先为吴玠「驻队矢」所败。"]},
-  shenchagou:{t:"神岔沟",d:"吴玠设伏处",p:["和尚原东南险沟。吴玠断金粮道后,设伏于此,乘金军疲惫夜击之,金师大溃,兀术中矢遁走。"]}
+  heshangyuan:{t:"和尚原",d:"据险决战地,今陕西宝鸡西南",p:["秦岭北麓之高原台地,当大散关之东、扼川陕之冲。吴玠、吴璘据以为垒,以「驻队矢」分番迭射,拒兀术十万之众;又断粮邀归、夜击神岔沟,卒成大捷。"]},
+  dasanguan:{t:"大散关",d:"秦岭险口,和尚原之西南",p:["秦岭入蜀之要隘,与和尚原相为唇齿。守此则蜀口有蔽;二吴据原扼关,金骑虽众而不得逾。五月金将乌鲁·折合尝出此关来犯,为二吴所却。"]},
+  shenchagou:{t:"神岔沟",d:"和尚原之北,吴璘设伏处",p:["原北险沟。吴玠断金粮道后,遣吴璘引三千骑伏于此;金军粮尽夜退,璘乘夜掩击,连破十余营,兀术中矢剃须而遁。"]},
+  baoji:{t:"宝鸡",d:"渭水之滨,金军结营跨渭",p:["兀术自凤翔进次于此,结连珠营、垒石为道、造浮梁跨渭而南,绵亘数十里,悉锐仰攻和尚原;其转输之饷,后为吴玠所断。"]},
+  fengxiang:{t:"凤翔",d:"金军基地,渭水之北",p:["金人经营关中之重镇、兀术进兵之基。五月没立自此来攻和尚原,先为二吴、杨政所败;十月兀术复自此大举南下。"]},
+  huangniu:{t:"黄牛堡",d:"和尚原之南,入蜀道上",p:["绍兴元年五月,金军先锋乌鲁·折合仰攻不利,退屯于此,立足未稳,又遇大风雨,士气尽丧而狼狈溃走。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

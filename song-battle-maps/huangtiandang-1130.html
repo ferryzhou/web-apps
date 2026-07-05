@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,39 +27,66 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .sea{fill:var(--water);opacity:.17}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:1 5 7 5;opacity:.55;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .isle{fill:var(--ink2);opacity:.5}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.qsea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.jsea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.92}
+  .march.canal{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:2 4;opacity:.95}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.fship{stroke:var(--fire);stroke-width:3.4}
+  .barrier{fill:none;stroke:var(--advance);stroke-width:4;stroke-linecap:round;opacity:.92}
+  .barrier.tick{stroke-width:1.6;opacity:.8}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--fire)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .siege{fill:none;stroke:var(--advance);stroke-width:1.6;stroke-dasharray:2 4}
   .camp{fill:var(--enemy);opacity:.9}
+  .calm{fill:none;stroke:var(--gold);stroke-width:1.8;opacity:.85}
+  .wlabel{fill:var(--gold);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .drum{fill:var(--gold);opacity:.9;stroke:var(--ink);stroke-width:1}
+  .dlabel{fill:var(--gold);font-family:"Ma Shan Zheng",serif;letter-spacing:.1em;font-weight:400}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--advance);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--fire)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--fire)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qsea):not(.jsea):not(.canal){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -73,106 +100,159 @@
   <div class="seal" aria-hidden="true"><span>黄</span><span>天</span><span>荡</span><span>役</span></div>
   <header>
     <h1>黄天荡之战</h1>
-    <div class="sub">宋建炎四年(1130)　　<i>南宋 韩世忠</i> 困 <b>金 兀术</b>于黄天荡</div>
+    <div class="sub">宋建炎四年(1130)　　<i>南宋 韩世忠 · 梁红玉</i> 以八千水军困 <b>金 兀术</b>十万于长江　·　扼江死荡四十八日</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 邀击北归</button>
-    <button data-p="1">扼江困兀术</button>
-    <button data-p="2">凿渠求出</button>
-    <button data-p="3">火攻脱围</button>
+    <button class="on" data-p="all">全图 · 扼江邀击</button>
+    <button data-p="1">兀术北还 · 焦山扼江</button>
+    <button data-p="2">困黄天荡 · 击鼓四十八日</button>
+    <button data-p="3">凿老鹳河脱困</button>
+    <button data-p="4">无风火箭 · 得渡北去</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="黄天荡之战形势图,含长江水道、金宋江北江南疆界与镇江金山黄天荡建康老鹳河等地">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="黄天荡之战形势图,含长江镇江建康一段水道、金据江北宋据江南之约界,及镇江焦山金山黄天荡老鹳河静安镇瓜步瓜洲扬州诸地,与韩世忠扼江封锁、困兀术于黄天荡死港四十八日、兀术凿老鹳河脱困、无风火箭焚宋大舰帆篷而得渡北去">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
     </defs>
 
-    <!-- 疆界:金据江北,宋据江南,约以长江为界 -->
-    <path d="M 0,0 L 1000,0 L 1000,232 C 900,262 780,282 640,290 C 460,300 300,292 120,268 C 78,262 38,254 0,244 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,244 C 38,254 78,262 120,268 C 300,292 460,300 640,290 C 780,282 900,262 1000,232 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <text class="realm q" x="120" y="120" font-size="32">金(江 北)</text>
-    <text class="realm j" x="120" y="470" font-size="30">南 宋(江 南)</text>
+    <!-- ══ 疆界:金据江北(北),宋据江南(南),约以大江为限 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,292 C 720,310 580,324 430,344 C 280,364 140,394 0,410 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,410 C 140,394 280,364 430,344 C 580,324 720,310 1000,292 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,410 C 140,394 280,364 430,344 C 580,324 720,310 1000,292"/>
+    <text class="realm q" x="150" y="96" font-size="30">金 · 江 北</text>
+    <text class="realm j" x="470" y="560" font-size="30">南 宋 · 江 南</text>
 
-    <!-- 长江:自西(建康)而东(黄天荡、入海)的宽阔水带 -->
+    <!-- ══ 长江:自建康(西)东下,过黄天荡、镇江焦山金山,趋海 ══ -->
     <g>
-      <path class="sea" d="M 0,214 C 160,244 340,268 520,264 C 700,258 860,236 1000,200 L 1000,296 C 860,326 700,344 520,346 C 340,346 160,326 0,300 Z"/>
-      <path class="river" stroke-width="6" d="M 0,258 C 180,286 360,304 540,302 C 720,298 880,278 1000,248"/>
+      <path class="sea" d="M 0,392 C 140,376 280,346 430,326 C 580,306 720,292 1000,274 L 1000,310 C 720,328 580,342 430,362 C 280,382 140,412 0,428 Z"/>
+      <path class="river" stroke-width="6" d="M 0,410 C 140,394 280,364 430,344 C 580,324 720,310 1000,292"/>
     </g>
-    <text class="rname" x="330" y="322" style="font-size:15px">长　　江</text>
-    <!-- 秦淮/老鹳河故道:自建康北通入江 -->
-    <path class="river" stroke-width="2.4" d="M 210,470 C 224,410 236,360 256,300"/>
-    <text class="rname" x="200" y="420" transform="rotate(80 200 420)" style="font-size:10.5px">秦淮·老鹳河</text>
+    <text class="rname" x="560" y="330" style="font-size:16px">长　　江</text>
 
-    <!-- 金山(江中沙洲) -->
-    <g class="isle"><ellipse cx="612" cy="292" rx="14" ry="8"/></g>
+    <!-- 黄天荡(死港:江南岸内凹之港汊,今南京东北八十里) -->
+    <path class="sea" d="M 392,346 C 404,372 420,392 448,402 C 470,408 486,394 482,372 C 478,352 462,342 442,342 C 420,342 404,344 392,346 Z"/>
+    <text class="cname s" x="452" y="392" style="fill:var(--water)">死　港</text>
 
-    <!-- 黄天荡(死港:江南岸内凹之港汊) -->
-    <path class="sea" d="M 740,300 C 776,318 812,336 838,376 C 852,400 850,424 826,432 C 800,438 782,416 776,392 C 770,360 756,330 736,314 Z"/>
-    <text class="cname s" x="806" y="410">死　港</text>
+    <!-- 老鹳河(建康东北淤塞故道,兀术凿以出江者) -->
+    <path class="river" stroke-width="2.6" d="M 438,360 C 396,378 356,382 326,372 C 308,366 296,356 288,344" opacity=".7"/>
+    <text class="rname" x="300" y="392" transform="rotate(-18 300 392)" style="font-size:10px">老 鹳 河 故 道</text>
 
-    <!-- 城邑 -->
+    <!-- 金山·焦山(江中之山) -->
+    <g class="isle"><ellipse cx="791" cy="298" rx="12" ry="7"/><ellipse cx="843" cy="306" rx="10" ry="6"/></g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="zhenjiang"><circle cx="452" cy="332" r="6"/><text class="cname" x="390" y="352">镇江<tspan class="cname s" dx="2">(扼江)</tspan></text></g>
-      <g class="city" data-city="jinshan"><circle cx="612" cy="292" r="4"/><text class="cname s" x="590" y="278">金山</text></g>
-      <g class="city cap" data-city="huangtiandang"><circle cx="792" cy="356" r="6"/><text class="cname" x="800" y="352">黄天荡<tspan class="cname s" dx="2">(死港)</tspan></text></g>
-      <g class="city cap" data-city="jiankang"><circle cx="196" cy="470" r="6"/><text class="cname" x="140" y="490">建康<tspan class="cname s" dx="2">(江宁)</tspan></text></g>
-      <g class="city" data-city="laoguanhe"><circle cx="256" cy="300" r="3.5"/><text class="cname s" x="262" y="294">老鹳河口</text></g>
-      <g class="city" data-city="guazhou"><circle cx="520" cy="152" r="4.5"/><text class="cname s" x="470" y="146">瓜洲·扬州</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="266" cy="456" r="6.5"/><text class="cname" x="208" y="476">建康<tspan class="cname s" dx="2">(江宁·南京)</tspan></text></g>
+      <g class="city" data-city="jingan"><circle cx="155" cy="384" r="5"/><text class="cname s" x="86" y="380">静安镇(渡江处)</text></g>
+      <g class="city" data-city="guabu"><circle cx="292" cy="312" r="4.5"/><text class="cname s" x="238" y="304">瓜步(弃舟处)</text></g>
+      <g class="city cap" data-city="huangtiandang"><circle cx="440" cy="352" r="6.5"/><text class="cname" x="450" y="344">黄天荡<tspan class="cname s" dx="2">(死港)</tspan></text></g>
+      <g class="city" data-city="laoguanhe"><circle cx="326" cy="372" r="3.5"/><text class="cname s" x="300" y="366">老鹳河口</text></g>
+      <g class="city" data-city="jinshan"><circle cx="791" cy="298" r="4"/><text class="cname s" x="736" y="286">金山</text></g>
+      <g class="city" data-city="zhenjiang"><circle cx="825" cy="321" r="6.5"/><text class="cname" x="782" y="342">镇江<tspan class="cname s" dx="2">(京口·焦山)</tspan></text></g>
+      <g class="city" data-city="guazhou"><circle cx="808" cy="258" r="4.5"/><text class="cname s" x="816" y="252">瓜洲</text></g>
+      <g class="city" data-city="yangzhou"><circle cx="808" cy="159" r="5"/><text class="cname s" x="816" y="154">扬州</text></g>
     </g>
 
-    <!-- 全图 · 邀击北归 -->
+    <!-- 图外来向:兀术自杭州·秀州搜山检海而还(东南越境北归) -->
+    <g transform="translate(986,600)">
+      <path class="march qsea" marker-end="url(#aq)" d="M 4,4 L -24,-8"/>
+      <text class="mlabel q" x="-142" y="26" style="font-size:10px">兀术自杭州·秀州北还 ⟶</text>
+      <text class="cname s" x="-142" y="10" style="fill:var(--enemy);font-size:9.5px">搜山检海追宋帝而还(图外东南)</text>
+    </g>
+
+    <!-- ══ 全图 · 扼江邀击 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 176,486 C 300,440 400,376 452,338"/>
-      <text class="mlabel q" x="220" y="430">兀术掠江南,自建康北还,趋瓜洲渡江</text>
-      <path class="march j" marker-end="url(#aj)" d="M 452,344 C 470,338 480,332 486,326"/>
-      <text class="mlabel j" x="360" y="372">世忠以八千众扼长江于镇江以邀之</text>
-      <circle class="star" cx="500" cy="316" r="8"/>
-      <text class="anno" x="560" y="250">梁红玉亲执桴鼓助战,金舟不得渡</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 960,600 C 900,520 860,440 832,342"/>
+      <text class="mlabel q" x="690" y="500">兀术掠江南而北,沿运河趋镇江,欲渡江北归</text>
+      <path class="barrier" d="M 820,352 C 832,326 832,298 818,270"/>
+      <path class="barrier tick" d="M 806,338 L 834,332 M 804,314 L 832,308 M 806,292 L 832,288"/>
+      <text class="mlabel j" x="600" y="360">韩世忠以八千水军扼长江于镇江焦山</text>
+      <g class="drum" transform="translate(770,276)"><ellipse cx="0" cy="0" rx="8" ry="6"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#2b2418" stroke-width="1"/></g>
+      <text class="dlabel" x="700" y="240" font-size="14">梁红玉击鼓</text>
+      <path d="M 762,270 C 750,256 738,248 726,242" fill="none" stroke="var(--gold)" stroke-width="1.2" opacity=".7"/>
+      <circle class="star" cx="828" cy="312" r="8"/>
+      <text class="anno" x="628" y="392">舟师夹江邀击,金人不得径渡</text>
     </g>
 
-    <!-- 阶段一:扼江困兀术 -->
+    <!-- ══ 阶段一:兀术北还 · 焦山扼江 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 460,326 C 490,310 520,300 556,296"/>
-      <text class="mlabel j" x="440" y="300">世忠列海船于江,以铁绠贯大钩钩连</text>
-      <text class="anno" x="420" y="284">金舟小不能敌,舟过则掷钩钩之,多覆</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 574,300 C 640,308 710,326 762,344"/>
-      <text class="mlabel q" x="620" y="288">兀术屡欲渡不得,退入死港</text>
-      <circle class="star" cx="792" cy="356" r="9"/>
-      <rect class="camp" x="796" y="368" width="9" height="9" transform="rotate(45 800 372)"/>
-      <text class="anno" x="700" y="400">首尾不得出,相持四十八日,江南大震</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 958,596 C 898,516 858,438 830,344"/>
+      <text class="mlabel q" x="700" y="486">兀术自秀州沿浙西运河<tspan x="700" dy="15">北趋镇江,将自瓜洲渡江</tspan></text>
+      <path class="barrier" d="M 818,354 C 832,326 832,296 816,268"/>
+      <path class="barrier tick" d="M 804,340 L 832,334 M 802,314 L 830,308 M 804,290 L 830,286"/>
+      <text class="mlabel j" x="596" y="356">世忠先屯焦山,沉舟闸口以拒之</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 820,338 C 812,314 802,290 794,272"/>
+      <text class="anno" x="640" y="286">金舟小,数渡不得,为宋巨舰所却</text>
+      <g class="drum" transform="translate(770,276)"><ellipse cx="0" cy="0" rx="8" ry="6"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#2b2418" stroke-width="1"/></g>
+      <text class="dlabel" x="698" y="240" font-size="14">梁红玉登金山击鼓</text>
+      <path d="M 762,270 C 752,258 742,250 732,244" fill="none" stroke="var(--gold)" stroke-width="1.2" opacity=".7"/>
+      <circle class="star" cx="828" cy="312" r="8"/>
     </g>
 
-    <!-- 阶段二:凿渠求出 -->
+    <!-- ══ 阶段二:困黄天荡 · 击鼓四十八日 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="788" y="352" width="9" height="9" transform="rotate(45 792 356)"/>
-      <text class="mlabel q" x="700" y="336">兀术穷蹙,张榜购策;有献凿渠者</text>
-      <path class="march q" marker-end="url(#aq)" d="M 776,368 C 620,410 400,440 268,436"/>
-      <text class="anno" x="380" y="470">一夜发卒凿老鹳河故道三十里</text>
-      <path class="march q" marker-end="url(#aq)" d="M 258,428 C 252,388 254,344 256,312"/>
-      <text class="mlabel q" x="150" y="380">上通秦淮,得舟出江</text>
-      <path class="march q" marker-end="url(#aq)" d="M 250,306 C 224,362 208,414 200,458"/>
-      <text class="mlabel q" x="120" y="440">趋建康</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 812,332 C 680,344 560,346 470,350"/>
+      <text class="mlabel q" x="560" y="330">兀术屡渡不得,改道西上,退入黄天荡</text>
+      <g class="siege"><circle cx="440" cy="352" r="20"/><circle cx="440" cy="352" r="27" style="opacity:.5"/></g>
+      <path class="barrier" d="M 486,338 C 500,356 498,382 480,398"/>
+      <text class="mlabel j" x="486" y="420">世忠扼其港口,首尾不得出</text>
+      <rect class="camp" x="436" y="348" width="9" height="9" transform="rotate(45 440 352)"/>
+      <g class="drum" transform="translate(408,332)"><ellipse cx="0" cy="0" rx="8" ry="6"/><line x1="-8" y1="0" x2="8" y2="0" stroke="#2b2418" stroke-width="1"/></g>
+      <text class="dlabel" x="330" y="300" font-size="14">梁红玉桴鼓督战</text>
+      <path d="M 400,326 C 388,314 376,306 366,302" fill="none" stroke="var(--gold)" stroke-width="1.2" opacity=".7"/>
+      <circle class="star" cx="440" cy="352" r="10"/>
+      <text class="anno" x="500" y="470">八千困十万,相持四十有八日,江南大震</text>
     </g>
 
-    <!-- 阶段三:火攻脱围 -->
+    <!-- ══ 阶段三:凿老鹳河脱困 ══ -->
     <g id="ph3" class="ph">
-      <text class="mlabel q" x="360" y="300">会连日无风,金人以小舟载火纵射</text>
-      <path class="march q" marker-end="url(#aq)" d="M 220,470 C 320,420 380,370 442,338"/>
-      <text class="anno" x="300" y="356">巨舰无风不能动,帆篷被焚</text>
-      <path d="M 500,308 l 5,-12 l 4,9 l 9,-6 l -5,10 l 12,4 l -12,4 l 5,10 l -9,-6 l -4,9 l -5,-12 l -9,6 l 5,-10 l -12,-4 l 12,-4 l -5,-10 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="520" y="300">纵火焚宋海船</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 490,318 C 480,326 470,330 462,332"/>
-      <text class="mlabel r" x="360" y="356">世忠仅以馀舟走还镇江</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 496,314 C 508,250 512,200 518,164"/>
-      <text class="mlabel q" x="530" y="220">兀术乃得渡江北去</text>
-      <text class="anno" x="120" y="510">然此后金人惮宋水军,不敢轻渡大江</text>
+      <rect class="camp" x="436" y="348" width="9" height="9" transform="rotate(45 440 352)"/>
+      <text class="mlabel q" x="470" y="318">兀术穷蹙,张榜购策,有献凿渠者</text>
+      <path class="march canal" marker-end="url(#aq)" d="M 440,362 C 398,380 358,384 328,374 C 310,368 298,358 290,346"/>
+      <text class="anno" x="300" y="410">一夜凿老鹳河故道三十里,上通大江</text>
+      <path class="march q" marker-end="url(#aq)" d="M 284,340 C 250,356 210,376 180,390"/>
+      <text class="mlabel q" x="140" y="416">得舟出江,西趋静安镇</text>
+      <circle class="star" cx="326" cy="372" r="8"/>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:无风火箭 · 得渡北去 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 韩世忠复以战船封锁江面(西段) -->
+      <path class="barrier" d="M 236,410 C 250,378 250,346 234,318"/>
+      <text class="mlabel j" x="120" y="440">世忠复以战船封锁江面</text>
+      <!-- 无风:丽日无风,宋大舰失其动力 -->
+      <g class="calm"><path d="M 300,300 q 26,-6 52,0" /><path d="M 300,314 q 26,-6 52,0"/><line x1="352" y1="296" x2="360" y2="304" stroke="var(--enemy)" stroke-width="1.4"/><line x1="360" y1="296" x2="352" y2="304" stroke="var(--enemy)" stroke-width="1.4"/></g>
+      <text class="wlabel" x="290" y="286" font-size="15">连日无风</text>
+      <!-- 宋大舰:恃风,无风不能动,帆篷被焚 -->
+      <g fill="none" stroke="var(--advance)" stroke-width="1.8">
+        <rect x="196" y="352" width="26" height="14" rx="2"/>
+        <rect x="232" y="360" width="26" height="14" rx="2"/>
+      </g>
+      <g class="fire">
+        <path d="M 210,352 q -5,-13 2,-22 q 3,10 7,5 q -2,12 3,16"/>
+        <path d="M 246,360 q -5,-13 2,-22 q 3,10 7,5 q -2,12 3,16"/>
+      </g>
+      <text class="flabel" x="150" y="330" font-size="16">火箭焚帆</text>
+      <!-- 金人小舟射火箭 -->
+      <path class="march fship" marker-end="url(#af)" d="M 300,336 C 268,340 240,348 224,356"/>
+      <path class="march fship" marker-end="url(#af)" d="M 300,348 C 272,356 252,362 240,366"/>
+      <text class="mlabel f" x="332" y="386">金人以小舟乘无风纵火箭</text>
+      <circle class="star" cx="230" cy="360" r="9"/>
+      <!-- 世忠弃舟瓜步,陆走还镇江 -->
+      <path class="march jsea" marker-end="url(#aj)" d="M 302,318 C 480,326 660,326 806,324"/>
+      <text class="mlabel j" x="470" y="316">世忠弃舟瓜步,陆走还镇江</text>
+      <!-- 兀术自静安镇渡江北去 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 158,376 C 168,338 176,300 184,262"/>
+      <text class="mlabel r" x="120" y="240">兀术自静安镇渡江北归</text>
+      <text class="anno" x="470" y="512">然金自是惮宋水军,不敢轻渡大江</text>
+    </g>
+
+    <g class="compass" transform="translate(948,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -181,35 +261,101 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(韩世忠)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(兀术)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>舟师水路</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋军败退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>困敌 / 火攻</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋 · 韩世忠水军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>金 · 兀术舟师</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="4"/></svg>扼江封锁线</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="2 4"/></svg>凿老鹳河脱困</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#c0491f" stroke-width="3.4"/></svg>无风火箭</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军渡江北去</span>
+    <span class="item"><svg width="16" height="16"><ellipse cx="8" cy="8" rx="6" ry="4.5" fill="#9c7a2c" stroke="#2b2418" stroke-width="1"/></svg>梁红玉击鼓</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 / 围困</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金(江北)</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋(江南)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>扼江释要 · 死荡困敌 · 无风火箭</h3>
+    <div class="lead">何以八千能困十万于大江四十八日 —— 恃巨舰扼江、驱敌入死港;而其败,则败于恃风之舰一遇无风</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="黄天荡释要示意:金军欲北渡长江,韩世忠以巨舰扼江封锁,逼金入黄天荡死港,相持四十八日;金凿老鹳河脱困,复乘无风以火箭焚宋帆篷而得渡">
+      <!-- 大江(横贯) -->
+      <line x1="24" y1="120" x2="836" y2="120" stroke="#5f7f88" stroke-width="6" opacity=".5"/>
+      <text x="386" y="112" fill="#5f7f88" font-size="11" font-style="italic" opacity=".85">大　江</text>
+      <text x="26" y="28" fill="#9a2b1e" font-size="12" font-weight="700">江北 · 金欲渡而归</text>
+      <text x="26" y="238" fill="#1f4e54" font-size="12" font-weight="700">江南 · 宋水军扼江</text>
+      <!-- 韩:巨舰扼江封锁线 -->
+      <g stroke="#1f4e54" stroke-width="4" fill="none">
+        <line x1="150" y1="120" x2="150" y2="120"/>
+        <path d="M 120,140 C 132,128 168,128 180,140"/>
+        <path d="M 200,140 C 212,128 248,128 260,140"/>
+        <path d="M 280,140 C 292,128 328,128 340,140"/>
+      </g>
+      <text x="120" y="168" fill="#1f4e54" font-size="10.5" font-weight="700">韩 八千 · 巨舰扼江,金舟不得渡</text>
+      <!-- 金:小舟拥于死港 -->
+      <g fill="none" stroke="#9a2b1e" stroke-width="1.5">
+        <rect x="150" y="66" width="16" height="10"/><rect x="172" y="66" width="16" height="10"/><rect x="194" y="66" width="16" height="10"/>
+        <rect x="161" y="82" width="16" height="10"/><rect x="183" y="82" width="16" height="10"/>
+      </g>
+      <path d="M 138,60 q 40,-16 80,0 q 8,26 -6,44 q -34,10 -68,0 q -14,-18 -6,-44 Z" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="3 4"/>
+      <text x="130" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700">金 十万 · 困于黄天荡死港 · 四十八日</text>
+      <!-- 凿老鹳河脱困 -->
+      <path d="M 216,96 C 320,104 420,110 508,116" fill="none" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="2 4" marker-end="url(#aq)"/>
+      <text x="330" y="90" fill="#9a2b1e" font-size="10.5" font-weight="700">凿老鹳河三十里,脱死港</text>
+      <!-- 无风 -->
+      <g stroke="#9c7a2c" stroke-width="1.8" fill="none" opacity=".85"><path d="M 560,150 q 30,-6 60,0"/><path d="M 560,164 q 30,-6 60,0"/></g>
+      <line x1="620" y1="146" x2="630" y2="156" stroke="#9a2b1e" stroke-width="1.6"/><line x1="630" y1="146" x2="620" y2="156" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="556" y="188" fill="#9c7a2c" font-size="12" font-weight="700" font-family="'Ma Shan Zheng',serif">连日无风</text>
+      <!-- 宋大舰恃风,无风不动,被焚 -->
+      <g fill="none" stroke="#1f4e54" stroke-width="1.8">
+        <rect x="640" y="66" width="30" height="18" rx="2"/>
+        <rect x="686" y="66" width="30" height="18" rx="2"/>
+      </g>
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 655,66 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 701,66 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+      </g>
+      <path d="M 560,110 C 600,98 640,84 668,72" fill="none" stroke="#c0491f" stroke-width="2.6" marker-end="url(#af)"/>
+      <text x="628" y="112" fill="#c0491f" font-size="10.5" font-weight="700">金小舟射火箭,焚宋巨舰帆篷 ✕</text>
+      <text x="644" y="50" fill="#1f4e54" font-size="10.5" font-weight="700">宋巨舰恃风 · 无风失动力</text>
+    </svg>
+    <p class="intro">兀术破杭州、掠江南而北,舟车所载,悉江南金帛子女,不得不循江北渡。韩世忠预以八千水军屯镇江焦山,沉舟闸口,<b>以巨舰扼大江之口</b>——金舟低小,不能敌宋之海舰,数渡不得,反被逼西上,退入黄天荡死港。世忠扼其港口,金军首尾不得出,相持<b>四十有八日</b>:此以水军扼江、驱敌入死地之奇功也。然黄天荡之扼,终以两事而解。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>扼江 · 死荡 · 击鼓</h4>
+        <p>世忠列海船于江,舰高大而金舟低小,一过则以铁绠贯钩掷而覆之。梁红玉亲执桴鼓,登金山楼望敌进止而鸣鼓督军,士气大振。金人退入黄天荡,港汊无路可出,世忠扼口以困之,八千困十万,四十八日不得渡,江南为之一震——金人南下以来,未有此挫。</p>
+      </div>
+      <div class="c b">
+        <h4>凿河 · 无风 · 火箭</h4>
+        <p>兀术穷蹙,张榜购策。有闽人献计:凿老鹳河故道三十里,一夜通江以出死港。既出,复有献者曰:宋海舰恃风,无风则不能动,可俟无风以火箭射其帆篷。兀术连夜制箭。会丽日无风,金以小舟纵火箭,宋巨舰坐困水上,帆篷尽焚,烧溺者众;世忠弃舟瓜步,陆走还镇江,兀术乃得渡江北去。</p>
+      </div>
+    </div>
+    <p class="kicker">故黄天荡之役,<b>以八千阻十万于大江四十八日</b>,挫金人不可胜之锋,乃南宋立国江左之一大关捩。其困敌,系于<b>扼江之巨舰</b>;其终失,亦系于<b>巨舰之恃风</b>——一遇无风火箭,遂坐而受焚。虽兀术卒渡,然金自是惮宋水军,数年不敢轻犯大江。梁红玉桴鼓之事,传为千古佳话。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·韩世忠传》《金史·宗弼传》《建炎以来系年要录》卷三一至三二、《三朝北盟会编》约略绘出。水道、江岸、死港位置皆经简化,非实测形貌。</p>
-    <p><span class="n">注二</span>黄天荡在今南京东北、镇江之间大江之南汊;老鹳河故道上通秦淮,兀术凿以出江者。金山在江中,梁红玉击鼓处。</p>
-    <p><span class="n">注三</span>世忠以八千困兀术十万,相持四十八日,虽终以火攻失利、兀术脱去,然金自是不敢轻渡大江,南宋赖以立国江左;梁红玉桴鼓事传为佳话。本图以宋为本方(青),先胜后挫,总目列褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(投影式 x=60+(经度−118.55)·860,y=600−(纬度−31.90)·900):建康(江宁,今南京约118.79°E/32.06°N)、镇江(京口,焦山约119.44°E/32.21°N)、黄天荡(今南京东北八十里、龙潭栖霞一带大江南汊约118.98°E/32.19°N)、静安镇(今南京西北长江边约118.66°E/32.14°N,兀术渡江处)、瓜步(今南京六合东南江北约118.82°E/32.22°N,世忠弃舟处)、瓜洲扬州在江北(约119.42°E)。长江、死港、老鹳河形貌皆经简化,晕染之约界(以大江为限)仅示金宋控地大势,非实有画界。</p>
+    <p><span class="n">注二</span>两方与来路:<b>宋</b>(韩世忠、梁红玉,青)以八千水军扼江于镇江焦山;<b>金</b>(完颜宗弼,即兀术,朱)号十万,搜山检海追宋高宗而还,自杭州经秀州、平江、常州沿浙西运河北趋镇江(图外东南来,以红虚线示之),欲自瓜洲渡江北归。黄天荡在镇江上游、建康东北之江南死港;兀术改道西上而误入之。是役唯宋、金两方,无第三国。</p>
+    <p><span class="n">注三</span>行军之水陆:两军皆以舟师为主。韩世忠恃<b>海船巨舰</b>扼江(水),金则以<b>低小之舟</b>屡渡不得(水),兀术凿<b>老鹳河</b>行舟脱困(水),终乘无风以<b>火箭</b>焚宋帆篷而<b>渡江</b>(水);世忠败后<b>弃舟瓜步、陆走还镇江</b>(由水转陆)。此役无漕运粮道之争,其「命脉」乃在<b>扼江封锁</b>之一线:封锁在则金困,封锁破(火箭焚舰)则金渡——故以扼江封锁线为决胜之枢(详见上『扼江释要』)。</p>
+    <p><span class="n">注四</span>兵力与异说:韩世忠水军约八千,金兀术号十万(《宋史》云「兀术十万」,实数当不及此,姑存旧说)。相持之日,《宋史·韩世忠传》作四十八日,他书或作四十余日。梁红玉击鼓之地,或系金山,或系焦山,史传小异,今从「登金山楼」之说。兀术脱困,一夜凿老鹳河故道三十里;渡江之处,诸书或作静安镇(今南京西北)、或作瓜步,今从静安镇渡、瓜步弃舟之说。献火攻之策者,《说郛》诸书作闽人王某,姑记之。</p>
+    <p><span class="n">注五</span>本图据《宋史·韩世忠传》《宋史·梁氏(红玉)传》《金史·宗弼传》《建炎以来系年要录》卷三二、《三朝北盟会编》约略绘出。《宋史》云「世忠以海舰进泊金山下……夫人梁氏亲执桴鼓,金兵终不得渡」;又「兀术穷蹙,凿老鹳河故道三十里,一夕遁去」;及「兀术求人献策,教其舟中载土,上铺平板,穴船板以棹桨,俟无风则出江,有风则勿出;又以火箭射篷樯,烟焰蔽天,世忠军乱」——是役困敌之奇、脱围之诡,略见于此。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"邀击北归",d:"建炎四年(1130)三月",p:["金兀术破杭州、掠江南,大掠而北,自建康趋瓜洲,将渡江以归江北。韩世忠时驻镇江,以八千之众扼守长江,邀击北还之金军。","世忠列舟江中,夫人梁红玉亲执桴鼓,登楼助战,望敌进止而鸣鼓督军。金人舟小,数与宋海船战不利,不得径渡,乃相持于大江之上。"]},
-  "1":{t:"扼江困兀术",d:"建炎四年三月",p:["世忠列海船于江,舰高大而金舟低小,不能相敌。宋人以铁绠贯大钩,金舟一过则掷钩钩之,举而覆之,金舟多沉。","兀术屡欲渡而不得,遂退入黄天荡——死港也,首尾不得出。世忠扼其口,相持四十有八日,金军困蹙,江南为之大震。"]},
-  "2":{t:"凿渠求出",d:"建炎四年",p:["兀术穷蹙无计,乃张榜购策,有能出师者厚赏之。或有献「凿渠」之议者,言老鹳河故道可通秦淮以出江。","兀术从之,一夜发卒凿故道三十里,上通秦淮,得引舟而出,遂脱黄天荡之困,趋建康而去,复谋渡江。"]},
-  "3":{t:"火攻脱围",d:"建炎四年四月",p:["会连日无风,宋海船巨大而无风不能动。金人以小舟载火,纵而射之,风帆篷幔皆被焚烧,宋军巨舰坐困于水而不能救。","宋军遂大败,世忠仅以馀舟走还镇江。兀术乃得渡江北去。然此役之后,金人惮宋之水军,不敢轻渡大江,南宋赖以立国江左。"]}
+  all:{t:"扼江邀击",d:"建炎四年(1130)三月",p:["金兀术破杭州、掠江南,以所获金帛子女甚众,乃循江北渡以归。韩世忠时驻镇江,预以八千水军扼守长江,屯焦山,沉舟闸口,以邀北还之金军。","世忠列海舰于江,夫人梁红玉亲执桴鼓,登金山楼望敌进止而鸣鼓督军。金人舟小,数与宋海舰战不利,不得径渡,乃相持于大江之上——八千之众,遂当十万之锋。"]},
+  "1":{t:"兀术北还 · 焦山扼江",d:"建炎四年三月",p:["兀术自秀州沿浙西运河北趋镇江,欲自瓜洲渡江北归。韩世忠先屯焦山,以战船沉于闸口，拒金人之出,复列海舰于江以待。","金舟低小,不能敌宋之巨舰;宋人以铁绠贯大钩,金舟一过则掷钩钩而覆之,金舟多沉。兀术数渡不得,为宋水军所却。梁红玉登金山楼,亲执桴鼓助战,士气大振。"]},
+  "2":{t:"困黄天荡 · 击鼓四十八日",d:"建炎四年三月",p:["兀术屡渡不得,乃改道西上,趋建康以谋别渡,而误入黄天荡——死港也,港汊纡曲,无路可出。世忠扼其港口,金军首尾不得出。","梁红玉桴鼓不辍,督军相持。八千困十万,凡四十有八日,金军困蹙,江南为之大震——自金人南下以来,未有如此之挫也。"]},
+  "3":{t:"凿老鹳河脱困",d:"建炎四年三月末",p:["兀术穷蹙无计,乃张榜购策,厚赏能出师者。或有闽人献计:老鹳河故道久淤,若凿而通之,可上达大江以出死港。","兀术从之,一夜发卒凿故道三十里,引舟而出,遂脱黄天荡之困,西趋静安镇,复谋渡江。世忠之扼,至此始解。"]},
+  "4":{t:"无风火箭 · 得渡北去",d:"建炎四年四月",p:["兀术既出死港,韩世忠复以战船封锁江面。又有献策者曰:宋之海舰高大,恃风而行,无风则不能动;可俟无风,以火箭射其帆篷。兀术连夜赶制火箭。","会丽日连日无风,金人以小舟纵火箭,射宋巨舰之帆篷,烟焰蔽天,宋舰坐困水上不能动,将士烧溺死者甚众。世忠弃舟于瓜步,陆走还镇江,兀术乃自静安镇渡江北去。然自是金人惮宋水军,数年不敢轻渡大江,南宋赖以立国江左。"]}
 };
 const CITY={
-  zhenjiang:{t:"镇江",d:"今江苏镇江",p:["韩世忠扼江之处。世忠驻此,以八千众邀击北归之金军,列海船于江,困兀术于黄天荡。"]},
-  jinshan:{t:"金山",d:"江中沙洲,今镇江金山",p:["江中之山。相传梁红玉登金山之楼,亲执桴鼓助战,望敌进止而督军,士气大振。"]},
-  huangtiandang:{t:"黄天荡",d:"今南京东北大江之南汊",p:["死港也,无路可出。兀术退入其中,为世忠所困,首尾不得出,相持四十八日,江南大震。"]},
-  jiankang:{t:"建康",d:"今江苏南京",p:["兀术凿渠出江所趋之地。既脱死港,趋建康而北,复谋渡江以归。"]},
-  laoguanhe:{t:"老鹳河",d:"故道通秦淮,今南京北",p:["兀术遁出之渠。一夜发卒凿其故道三十里,上通秦淮,引舟出江,遂脱黄天荡之困。"]},
-  guazhou:{t:"瓜洲·扬州",d:"江北,今扬州南",p:["江北渡口。兀术北归本欲自此渡江,为世忠扼于镇江,不得径渡,乃入死港。"]}
+  jiankang:{t:"建康",d:"江宁府,今江苏南京(约118.79°E/32.06°N)",p:["兀术西上所趋之地。金军误入黄天荡后,兀术凿老鹳河脱困,西趋建康、静安镇一带,复谋渡江北归。"]},
+  jingan:{t:"静安镇",d:"今南京西北长江边",p:["兀术渡江北归之处。既脱黄天荡、复破宋之江面封锁,乃自静安镇渡江北去。"]},
+  guabu:{t:"瓜步",d:"今南京六合东南、江北岸(古瓜埠)",p:["韩世忠弃舟之处。无风火箭之败,世忠军乱,弃舟于瓜步,由陆路走还镇江。"]},
+  huangtiandang:{t:"黄天荡",d:"今南京东北八十里、龙潭栖霞间大江南汊",p:["死港也,港汊纡曲,无路可出。兀术改道西上误入其中,为世忠扼口所困,首尾不得出,相持四十八日,江南大震。旧名老鹳河,今谓之黄天荡。"]},
+  laoguanhe:{t:"老鹳河",d:"建康东北淤塞故道,上通大江",p:["兀术脱困之渠。故道久淤,兀术一夜发卒凿三十里,引舟出江,遂脱黄天荡之困。"]},
+  jinshan:{t:"金山",d:"江中之山,今镇江金山",p:["江中之山,相传梁红玉登金山楼,亲执桴鼓助战,望敌进止而督军,士气大振,故有『击鼓战金山』之传。"]},
+  zhenjiang:{t:"镇江(京口·焦山)",d:"今江苏镇江(约119.44°E/32.21°N)",p:["韩世忠扼江之处。世忠驻此,屯焦山,沉舟闸口,以八千水军邀击北归之金军,列海舰以困兀术。焦山在江中,为扼江之要。"]},
+  guazhou:{t:"瓜洲",d:"江北渡口,今扬州南",p:["江北渡口,与镇江隔江相望。兀术北归本欲自此渡江,为世忠扼于焦山,不得径渡,乃改道西上而入死港。"]},
+  yangzhou:{t:"扬州",d:"江北,今江苏扬州",p:["江北重镇。金军渡江之后所趋之地,时为金人所据之淮南要冲。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

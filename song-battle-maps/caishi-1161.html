@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,8 +27,8 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .sea{fill:var(--water);opacity:.16}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:1 5 7 5;opacity:.55;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .city{cursor:pointer}
@@ -39,26 +39,48 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.cship{stroke:var(--advance);stroke-width:3.6;stroke-linecap:round}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--fire)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .boat{fill:none;stroke:var(--enemy);stroke-width:1.5;opacity:.9}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .redsea{fill:rgba(154,43,30,.22);stroke:rgba(154,43,30,.4);stroke-width:1;stroke-dasharray:2 3}
+  .redlabel{fill:var(--enemy);font-weight:700;font-style:normal}
+  .kill{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--advance);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--fire)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--fire)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,97 +94,150 @@
   <div class="seal" aria-hidden="true"><span>采</span><span>石</span><span>之</span><span>战</span></div>
   <header>
     <h1>采石之战</h1>
-    <div class="sub">宋绍兴三十一年(1161)　　<i>南宋 虞允文</i> 大破 <b>金 完颜亮</b>于采石</div>
+    <div class="sub">宋绍兴三十一年(1161)　　<i>南宋 虞允文</i> 大破 <b>金 完颜亮</b>于采石　·　书生督战 · 车船破渡 · 半渡而歼</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 完颜亮南侵</button>
-    <button data-p="1">军溃江岸</button>
-    <button data-p="2">车船破渡</button>
-    <button data-p="3">采石大捷</button>
+    <button data-p="1">屯杨林渡 · 欲渡采石</button>
+    <button data-p="2">江防溃散 · 书生督战</button>
+    <button data-p="3">车船破渡 · 半渡大捷</button>
+    <button data-p="4">移师瓜洲 · 完颜亮见弑</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="采石之战形势图,含金宋隔长江对峙、采石矶和州瓜洲建康京口等城邑与江北金营">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="采石之战形势图,含长江采石至瓜洲一段、金据江北宋据江南、和州杨林渡采石矶建康京口镇江瓜洲扬州诸地,及完颜亮渡江受阻、虞允文车船火攻半渡破金、金军移师瓜洲完颜亮见弑北撤">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
     </defs>
 
-    <!-- 疆界:金据江北(北),南宋据江南(南),以长江为界 -->
-    <path d="M 0,0 L 1000,0 L 1000,300 C 860,318 700,326 520,320 C 360,314 180,306 0,300 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,340 C 180,346 360,354 520,360 C 700,366 860,358 1000,340 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <text class="realm q" x="120" y="130" font-size="32">金 国(江北)</text>
-    <text class="realm j" x="640" y="560" font-size="32">南 宋(江南)</text>
+    <!-- ══ 疆界:金据江北(西北),南宋据江南(东南),约以长江采石—瓜洲一段为限 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,168 L 970,168 C 940,169 880,171 800,175 C 620,183 470,198 378,255 C 330,318 275,398 195,452 C 155,482 110,505 20,545 L 0,545 Z" fill="url(#qinHatch)"/>
+    <path d="M 20,545 C 110,505 155,482 195,452 C 275,398 330,318 378,255 C 470,198 620,183 800,175 C 880,171 940,169 970,168 L 1000,168 L 1000,640 L 0,640 L 0,545 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 20,545 C 110,505 155,482 195,452 C 275,398 330,318 378,255 C 470,198 620,183 800,175 C 880,171 940,169 970,168"/>
+    <text class="realm q" x="360" y="92" font-size="28">金 国(江北)</text>
+    <text class="realm j" x="470" y="560" font-size="28">南 宋(江南)</text>
+    <text class="rname" x="120" y="500" style="font-size:10.5px;opacity:.8">约界 · 大江</text>
 
-    <!-- 长江:自西阔水东下,横贯全图 -->
-    <path class="sea" d="M 0,300 C 180,306 360,314 520,320 C 700,326 860,318 1000,300 L 1000,340 C 860,358 700,366 520,360 C 360,354 180,346 0,340 Z"/>
-    <path class="river" stroke-width="6" d="M 0,320 C 180,326 360,334 520,340 C 700,346 860,338 1000,320"/>
-    <text class="rname" x="150" y="316" style="font-size:14px">长　江</text>
-    <text class="rname" x="820" y="336" style="font-size:12px">大江东下</text>
+    <!-- ══ 长江:自西南采石一段东北下建康,折而东趋京口瓜洲入海 ══ -->
+    <path class="river" stroke-width="15" style="opacity:.15" d="M 20,545 C 110,505 155,482 195,452 C 275,398 330,318 378,255 C 470,198 620,183 800,175 C 880,171 940,169 970,168"/>
+    <path class="river" stroke-width="6" d="M 20,545 C 110,505 155,482 195,452 C 275,398 330,318 378,255 C 470,198 620,183 800,175 C 880,171 940,169 970,168"/>
+    <text class="rname" x="255" y="392" transform="rotate(-44 255 392)" style="font-size:14px">长　江</text>
+    <text class="rname" x="600" y="205" style="font-size:11px">大江东下 · 趋京口</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="hezhou"><circle cx="300" cy="238" r="5"/><text class="cname" x="240" y="234">和州<tspan class="cname s" dx="2">·杨林渡</tspan></text></g>
-      <g class="city cap" data-city="caishi"><circle cx="360" cy="400" r="6"/><text class="cname" x="372" y="396">采石矶<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="guazhou"><circle cx="760" cy="236" r="5"/><text class="cname" x="716" y="228">瓜洲</text></g>
-      <g class="city" data-city="jingkou"><circle cx="740" cy="404" r="4.5"/><text class="cname s" x="748" y="400">京口·镇江</text></g>
-      <g class="city cap" data-city="jiankang"><circle cx="520" cy="470" r="6"/><text class="cname" x="470" y="490">建康(宋后方)</text></g>
-      <g class="city" data-city="changjiang"><circle cx="600" cy="343" r="3.5"/><text class="cname s" x="608" y="360">长江</text></g>
+      <g class="city" data-city="hezhou"><circle cx="122" cy="460" r="5"/><text class="cname" x="70" y="456">和州</text></g>
+      <g class="city" data-city="yanglin"><circle cx="172" cy="437" r="4.5"/><text class="cname s" x="182" y="430">杨林渡(金渡口)</text></g>
+      <g class="city cap" data-city="caishi"><circle cx="203" cy="482" r="6.5"/><text class="cname" x="214" y="486">采石矶<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="395" cy="269" r="6"/><text class="cname" x="405" y="286">建康<tspan class="cname s" dx="2">(宋后方)</tspan></text></g>
+      <g class="city" data-city="jingkou"><circle cx="804" cy="197" r="4.5"/><text class="cname s" x="740" y="214">京口·镇江</text></g>
+      <g class="city" data-city="guazhou"><circle cx="792" cy="152" r="5.5"/><text class="cname" x="802" y="150">瓜洲<tspan class="cname s" dx="2">(亮见弑)</tspan></text></g>
+      <g class="city" data-city="yangzhou"><circle cx="785" cy="85" r="5"/><text class="cname" x="795" y="82">扬州</text></g>
     </g>
 
-    <!-- 全图 · 完颜亮南侵 -->
+    <!-- ══ 图外来向:完颜亮大军自淮西(西北)南下 ══ -->
+    <g transform="translate(4,150)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,-4 L 30,10"/>
+      <text class="mlabel q" x="6" y="-10" style="font-size:10px">⟵ 完颜亮大军</text>
+      <text class="cname s" x="6" y="24" style="fill:var(--enemy);font-size:9.5px">自淮西南下(图外西北)</text>
+    </g>
+
+    <!-- ══ 全图 · 完颜亮南侵 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 60,120 C 140,150 220,190 292,228"/>
-      <text class="mlabel q" x="70" y="110">完颜亮毁盟,倾国六十万分道南侵</text>
-      <rect class="camp" x="296" y="228" width="9" height="9" transform="rotate(45 300 232)"/>
-      <text class="anno" x="150" y="256">自将大军趋淮,抵和州杨林渡,将自采石渡江</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 306,246 C 322,300 338,344 356,388"/>
-      <text class="mlabel q" x="316" y="330">列舟将渡采石</text>
-      <text class="mlabel j" x="380" y="440">宋淮西军溃,士卒散坐江岸,江防几不守</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,166 C 80,270 108,368 128,448"/>
+      <text class="mlabel q" x="46" y="248">完颜亮毁盟,号六十万南侵,<tspan x="46" dy="15">自将大军趋和州杨林渡</tspan></text>
+      <rect class="camp" x="167" y="432" width="9" height="9" transform="rotate(45 172 437)"/>
+      <path class="march sea" marker-end="url(#aq)" d="M 178,442 C 186,452 192,460 198,468"/>
+      <text class="mlabel q" x="120" y="410">列舟采石,欲渡江直取建康</text>
+      <path class="march cship" marker-end="url(#aj)" d="M 388,278 C 320,352 258,420 214,470"/>
+      <text class="mlabel j" x="300" y="392">虞允文督师往采石</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 150,448 C 360,300 600,196 776,152"/>
+      <text class="mlabel r" x="470" y="238">渡不得,移师扬州瓜洲</text>
+      <text class="anno" x="470" y="520">采石一捷,南宋转危为安</text>
     </g>
 
-    <!-- 阶段一:军溃江岸 -->
+    <!-- ══ 阶段一:屯杨林渡 · 欲渡采石 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="296" y="228" width="9" height="9" transform="rotate(45 300 232)"/>
-      <text class="mlabel q" x="230" y="216">金主亮抵杨林渡,列舟将渡</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 360,392 C 420,420 480,448 512,462"/>
-      <text class="mlabel r" x="400" y="452">主帅王权先逃,新帅未至</text>
-      <text class="anno" x="230" y="426">士卒无主,散坐江岸</text>
-      <path class="march j" marker-end="url(#aj)" d="M 560,468 C 480,440 420,418 372,404"/>
-      <text class="mlabel j" x="430" y="500">督视军马虞允文适犒师至,慨然自任</text>
-      <text class="anno" x="300" y="428">「危及社稷,吾将安避」,收合散卒万八千,列阵江岸</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,166 C 80,270 110,368 130,446"/>
+      <text class="mlabel q" x="46" y="250">金主亮自将大军<tspan x="46" dy="15">趋和州,屯杨林渡</tspan></text>
+      <rect class="camp" x="167" y="432" width="10" height="10" transform="rotate(45 172 437)"/>
+      <!-- 金渡船列于北岸 -->
+      <g class="boat">
+        <path d="M 150,448 l 14,0 l -3,6 l -8,0 Z"/>
+        <path d="M 168,454 l 14,0 l -3,6 l -8,0 Z"/>
+        <path d="M 158,462 l 14,0 l -3,6 l -8,0 Z"/>
+      </g>
+      <text class="mlabel q" x="120" y="418">列舟数百艘,将自采石渡江</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 178,444 C 186,454 192,462 198,470"/>
+      <text class="anno" x="205" y="452">江面阔而流急</text>
+      <text class="anno" x="230" y="510">采石当江南,建康门户,渡此则宋危</text>
     </g>
 
-    <!-- 阶段二:车船破渡 -->
+    <!-- ══ 阶段二:江防溃散 · 书生督战 ══ -->
     <g id="ph2" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 306,248 C 322,300 336,344 352,386"/>
-      <text class="mlabel q" x="310" y="330">亮驱兵数百艘渡江,将薄南岸</text>
-      <path class="march j" marker-end="url(#aj)" d="M 384,404 C 372,384 362,364 356,344"/>
-      <text class="mlabel j" x="386" y="378">宋「海鳅」车船横冲之</text>
-      <circle class="star" cx="356" cy="352" r="8"/>
-      <text class="anno" x="380" y="356">船高势捷,撞碎金舟</text>
-      <text class="mlabel j" x="200" y="450">强弩、霹雳炮迭击</text>
-      <text class="anno" x="150" y="470">纸裹石灰硫磺,落水炸裂,烟焰蔽江</text>
-      <text class="anno" x="360" y="422">金舟多覆没,渡者半溺</text>
+      <rect class="camp" x="167" y="432" width="9" height="9" transform="rotate(45 172 437)"/>
+      <text class="mlabel q" x="120" y="422">金人临江,鼓噪将渡</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 210,476 C 300,398 360,338 388,282"/>
+      <text class="mlabel r" x="300" y="336">主帅王权先遁,李显忠未至</text>
+      <text class="anno" x="215" y="500">士卒无主,三五星散,坐待败亡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 388,278 C 322,352 262,420 216,470"/>
+      <text class="mlabel j" x="330" y="404">督视军马虞允文犒师至,慨然自任</text>
+      <circle class="star" cx="203" cy="482" r="11"/>
+      <text class="anno" x="215" y="470">「危及社稷,吾将安避」</text>
+      <text class="anno" x="215" y="522">收合散卒一万八千,部分列阵江岸</text>
     </g>
 
-    <!-- 阶段三:采石大捷 -->
+    <!-- ══ 阶段三:车船破渡 · 半渡大捷 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="358" cy="356" r="8"/>
-      <text class="mlabel j" x="120" y="392">宋军乘胜纵火,鼓噪奋击</text>
-      <text class="anno" x="120" y="410">又遣旗鼓诱金败卒,自午至暮,大破之</text>
-      <text class="anno" x="200" y="374">渡江者歼焉,江为之赤</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 314,232 C 460,206 620,214 748,232"/>
-      <text class="mlabel r" x="470" y="204">亮不得渡,移军瓜洲</text>
-      <path d="M 760,236 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="700" y="212">督战益急,众怨,亮为部将所弑</text>
-      <text class="anno" x="700" y="256">完颜元宜等弑之于龟山,金军北还</text>
-      <text class="anno" x="520" y="510">南宋转危为安</text>
+      <!-- 金渡船半渡 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 176,444 C 182,454 187,462 192,469"/>
+      <text class="mlabel q" x="70" y="372">亮驱数百艘强渡,半济于江</text>
+      <!-- 宋海鳅车船横冲 -->
+      <path class="march cship" marker-end="url(#aj)" d="M 214,474 C 208,464 202,456 196,450"/>
+      <path class="march cship" marker-end="url(#aj)" d="M 232,468 C 220,458 208,452 200,448"/>
+      <text class="mlabel j" x="246" y="506">宋「海鳅」车船横冲之</text>
+      <text class="anno" x="246" y="522">踏轮如飞,船高势捷,撞碎金舟</text>
+      <!-- 火攻焚船 -->
+      <g class="fire">
+        <path d="M 188,450 q -6,-14 2,-24 q 3,10 8,6 q -2,12 4,18"/>
+        <path d="M 202,446 q -5,-12 2,-22 q 3,9 7,5 q -2,11 3,16"/>
+        <path d="M 176,452 q -5,-12 1,-20 q 3,8 7,5 q -2,10 3,14"/>
+      </g>
+      <path class="fire" d="M 162,446 q 18,-20 38,-14 q 18,-12 36,4" stroke-dasharray="2 4"/>
+      <text class="flabel" x="70" y="400" font-size="18">强弩·霹雳炮·火攻</text>
+      <path d="M 150,420 C 162,430 172,438 180,446" stroke="var(--fire)" stroke-width="1.4" fill="none" opacity=".7"/>
+      <text class="anno" x="70" y="416" style="fill:var(--fire)">纸裹石灰硫磺,落水炸裂,烟焰蔽江</text>
+      <circle class="star" cx="192" cy="458" r="10"/>
+      <text class="flabel" x="212" y="440" font-size="15">半渡而击</text>
+      <path class="redsea" d="M 150,486 C 168,456 206,448 236,462 C 258,472 252,496 228,504 C 196,514 158,510 150,486 Z"/>
+      <text class="redlabel" x="98" y="550" style="font-size:12px">金舟多覆,渡者半溺,江为之赤</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:移师瓜洲 · 完颜亮见弑 · 金军北撤 ══ -->
+    <g id="ph4" class="ph">
+      <text class="anno" x="120" y="470">攻采石不得渡</text>
+      <!-- 移师扬州瓜洲(沿江北东下) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 150,448 C 360,300 600,196 776,150"/>
+      <text class="mlabel r" x="430" y="232">亮移师扬州,欲自瓜洲别渡</text>
+      <text class="anno" x="470" y="278">督战益急,刑罚酷滥,众怨</text>
+      <!-- 完颜亮见弑:✕/终 -->
+      <g transform="translate(792,152)">
+        <circle r="10" fill="none" stroke="var(--ink)" stroke-width="2"/>
+        <line class="kill" x1="-6" y1="-6" x2="6" y2="6"/>
+        <line class="kill" x1="-6" y1="6" x2="6" y2="-6"/>
+      </g>
+      <text class="mlabel r" x="640" y="128">完颜元宜等弑亮于瓜洲龟山</text>
+      <!-- 金军北撤 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 786,140 C 800,90 812,50 820,18"/>
+      <text class="mlabel r" x="810" y="70" style="font-size:10px">金军北还(图外)</text>
+      <text class="anno" x="470" y="520">南宋转危为安,江南以全</text>
+    </g>
+
+    <g class="compass" transform="translate(948,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -172,34 +247,89 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(虞允文)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3.6"/></svg>海鳅车船(踏轮·冲撞)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军(完颜亮)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>舟师渡江</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军败退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>金渡船(强渡)</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,11 q 6,-9 10,-4 q 5,-6 9,3" fill="none" stroke="#c0491f" stroke-width="2"/></svg>火攻·焚金船</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军移师·北撤</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金(江北)</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋(江南)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 书生督战 · 车船破渡 · 半渡而歼</h3>
+    <div class="lead">何以六十万南侵之师折于采石一江 —— 无帅而立帅,以车船冲金舟,乘半渡而歼之</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="采石破渡示意:金军平底渡船自北岸半济,宋海鳅车船踏轮高捷横冲之,又强弩霹雳炮火攻焚船,乘半渡而击,金舟多覆江为之赤">
+      <line x1="24" y1="126" x2="836" y2="126" stroke="#5f7f88" stroke-width="5" opacity=".5"/>
+      <text x="366" y="120" fill="#5f7f88" font-size="11" font-style="italic" opacity=".85">大　江</text>
+      <text x="26" y="30" fill="#9a2b1e" font-size="12" font-weight="700">北岸 · 杨林渡(金 · 平底渡船)</text>
+      <text x="26" y="238" fill="#1f4e54" font-size="12" font-weight="700">南岸 · 采石(宋 · 海鳅车船)</text>
+      <!-- 金平底渡船:半渡 -->
+      <g fill="none" stroke="#9a2b1e" stroke-width="1.6">
+        <path d="M 300,60 l 26,0 l -5,11 l -16,0 Z"/>
+        <path d="M 350,60 l 26,0 l -5,11 l -16,0 Z"/>
+        <path d="M 400,60 l 26,0 l -5,11 l -16,0 Z"/>
+        <path d="M 325,86 l 26,0 l -5,11 l -16,0 Z"/>
+        <path d="M 375,86 l 26,0 l -5,11 l -16,0 Z"/>
+      </g>
+      <text x="300" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700">金舟平底不安,乘风竞渡,半济于江</text>
+      <!-- 金船南渡箭头 -->
+      <path d="M 380,100 C 384,110 388,116 392,122" fill="none" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="7 5" marker-end="url(#aq)"/>
+      <!-- 宋海鳅车船:自南岸踏轮上冲 -->
+      <g fill="none" stroke="#1f4e54" stroke-width="2.2">
+        <path d="M 470,196 l 40,0 l -8,14 l -24,0 Z"/>
+        <circle cx="472" cy="204" r="4"/><circle cx="508" cy="204" r="4"/>
+      </g>
+      <text x="440" y="228" fill="#1f4e54" font-size="10.5" font-weight="700">海鳅车船 · 踏轮如飞,船高势捷</text>
+      <path d="M 470,192 C 448,168 424,148 402,130" fill="none" stroke="#1f4e54" stroke-width="3.4" marker-end="url(#aj)"/>
+      <text x="360" y="164" fill="#1f4e54" font-size="11" font-weight="700">横冲撞碎金舟</text>
+      <!-- 火攻焚船 -->
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 356,60 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 406,60 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 331,86 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+      </g>
+      <path d="M 690,150 C 620,130 540,96 434,74" fill="none" stroke="#c0491f" stroke-width="2.6" marker-end="url(#af)"/>
+      <text x="600" y="168" fill="#c0491f" font-size="11" font-weight="700">强弩·霹雳炮·纵火焚船</text>
+      <text x="600" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700">金舟多覆 · 渡者半溺 · 江为之赤 ✕</text>
+    </svg>
+    <p class="intro">完颜亮毁盟,号六十万南侵,主力抵和州杨林渡,欲自采石渡江直取建康以灭宋。会宋淮西主帅<b>王权先遁、李显忠未至</b>,江防溃散,军无统帅,士卒三五星散,坐待败亡——此正南宋存亡一线之际。朝廷所遣不过一书生:中书舍人、督视军马<b>虞允文</b>,本奉命犒师而已,竟当此存亡之交。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>书生 · 立帅 · 车船</h4>
+        <p>虞允文见军无主将,慨然自任曰「危及社稷,吾将安避」,收合散卒一万八千,部分诸将,列阵江岸。所恃者宋之「海鳅」车船——踏车轮激水而行,行驶如飞,船身高大;金人渡船平底不安,方半济于江,宋车船乘势横冲,一撞而金舟碎。</p>
+      </div>
+      <div class="c b">
+        <h4>火攻 · 半渡 · 而歼</h4>
+        <p>又以强弩、霹雳炮迭击之:霹雳炮者,纸裹石灰硫磺,落水炸裂,烟焰蔽江,金人震骇;继以纵火焚其舟。金军半渡受击,进退失据,舟多覆没,渡者半溺,江为之赤。亮攻采石竟不得渡,移师扬州,终为部将所弑。</p>
+      </div>
+    </div>
+    <p class="kicker">故采石之捷,不在众寡,而在<b>无帅而立帅、以长击短、乘敌半渡</b>:金舟平底不习水战,又当半济不可回旋之隙;宋以车船之高捷冲之、以火攻焚之、以强弩霹雳炮乱之,遂以万八千之众折六十万南侵之锋。一书生临危督战,而南宋社稷赖以不亡——「书生退敌」之称,自此役始。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·虞允文传》《金史·海陵纪》《建炎以来系年要录》卷一九一至一九二约略绘出。长江水道、南北江岸经简化,城邑方位取其大概,非按实测比例。</p>
-    <p><span class="n">注二</span>采石在今安徽马鞍山,和州在今和县,瓜洲在今扬州南江滨,京口即今镇江,建康即今南京。金人自江北渡江,故以点划江岸约标金宋之界。</p>
-    <p><span class="n">注三</span>虞允文以中书舍人督视军马之文臣,收散卒万八千,以「海鳅」车船、强弩霹雳炮破金六十万渡江之师,为南宋存亡所系;完颜亮攻采石不得渡,移军瓜洲,督战酷急,终见弑于部将,金人北还。本图以宋为本方(青),金军败退用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(投影式 x=60+(经度−118.25)·620,y=555−(纬度−31.55)·560):采石矶今安徽马鞍山(约118.48°E/31.68°N),和州今和县(约118.35°E/31.72°N),杨林渡在其东江北,建康今南京(约118.79°E/32.06°N),京口今镇江(约119.45°E/32.19°N),瓜洲在江北与镇江隔江相望(约119.43°E/32.27°N),扬州(约119.42°E/32.39°N)。长江采石—瓜洲一段本自西南东北斜下、折而东趋,此为绘作大体斜轴以清眉目,水道、江岸及晕染之约界经简化,非按实测比例;金人踞江北,宋守江南,故以点划江为约界。</p>
+    <p><span class="n">注二</span>兵力众说不一:完颜亮自号六十万,分四道南侵,当采石之当面者约十五万;虞允文所收王权溃卒仅一万八千。宋以寡御众,以车船火攻破金渡师,史称「书生退敌」,为南宋转危为安之枢。</p>
+    <p><span class="n">注三</span>「海鳅」车船者,踏车快船也:船设踏轮激水,以人力踏之,行驶如飞,船身高大,故能横冲金人平底渡船而碎之。此为决胜之器(详见上「释要」);又以强弩、霹雳炮(纸裹石灰硫磺,落水炸裂)助之火攻,乘金军半渡而击,遂大破之。</p>
+    <p><span class="n">注四</span>据《宋史·虞允文传》《金史·海陵纪》《续资治通鉴》卷一三四(绍兴三十一年)约略绘出。允文本以中书舍人充督视江淮军马府参谋军事,奉命犒师采石,值主帅王权罢遁、新帅李显忠未至,乃临危督战。亮攻采石不得渡,移师扬州,欲自瓜洲别渡;十一月己丑(二十七日)为部将完颜元宜等弑于瓜洲龟山,金军遂北还。龟山在瓜洲近侧,此图以瓜洲一点约标弑地。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"完颜亮南侵",d:"绍兴三十一年(1161)九月—十一月",p:["金主完颜亮毁绍兴之盟,倾国六十万,分道南侵,欲一举灭宋。亮自将大军趋淮,抵和州杨林渡,列舟将自采石渡江。","宋淮西主帅王权先逃,军无所主,士卒溃散于采石江岸,江防几不能守。中书舍人、督视军马虞允文适犒师至采石,遂当此存亡之交。"]},
-  "1":{t:"军溃江岸",d:"十一月 · 采石",p:["金主亮抵和州杨林渡,列舟将渡采石。宋主帅王权先逃,新帅李显忠未至,士卒无主,散坐江岸,望之若无人。","督视军马虞允文适犒师至,见状慨然以身任之,曰「危及社稷,吾将安避」,乃收合散卒一万八千,勉以忠义,部分列阵于江岸,以待金人之渡。"]},
-  "2":{t:"车船破渡",d:"十一月 · 采石江中",p:["亮驱兵数百艘渡江,鼓噪竞进,将薄南岸。允文命以「海鳅」车船——踏车快船——横冲之,船高势捷,一撞而碎金舟。","又以强弩、霹雳炮迭击之。霹雳炮者,纸裹石灰硫磺,落水炸裂,烟焰蔽江,金人震骇;金舟多覆没,渡者半溺于江。"]},
-  "3":{t:"采石大捷",d:"十一月至十二月",p:["宋军乘胜纵火,鼓噪奋击,又遣旗鼓诱金败卒登岸而歼之。自午至暮,大破金军,渡江者歼焉,江为之赤。","亮攻采石不得渡,移军瓜洲,督战益急,刑罚酷滥,众怨。会为部将完颜元宜等所弑于龟山,金军遂北还,南宋转危为安。"]}
+  all:{t:"完颜亮南侵",d:"绍兴三十一年(1161)九月—十一月",p:["金主完颜亮毁绍兴之盟,倾国号六十万,分四道南侵,欲一举灭宋。亮自将大军趋淮,抵和州杨林渡,列舟数百艘,将自采石渡江,直取建康。","会宋淮西主帅王权先遁,新帅李显忠未至,江防溃散,军无统帅。中书舍人、督视军马虞允文奉命犒师适至采石,遂当此存亡之交:收溃卒万八千,以海鳅车船、强弩火攻破金渡师;亮渡不成,移师扬州,终为部将所弑,金军北还,南宋转危为安。"]},
+  "1":{t:"屯杨林渡 · 欲渡采石",d:"十一月 · 和州江北",p:["金主亮自将大军趋和州,屯杨林渡,列战舰渡船数百艘于江北,将自采石渡江。采石当江南,为建康门户,渡此则宋之江防尽溃。","时江面阔而流急。亮驱兵临江,鼓噪将渡,声势甚盛;南岸宋军望之,几无以御。"]},
+  "2":{t:"江防溃散 · 书生督战",d:"十一月 · 采石",p:["宋淮西主帅王权坐失利先遁,新帅李显忠未至,士卒无主,三五星散,坐于江岸,望之若无人,江防几不能守。","督视军马虞允文本奉命犒师,至采石见状,慨然以身任之,曰「危及社稷,吾将安避」,乃召诸将,宣朝廷抗金之命,收合散卒一万八千,勉以忠义,部分列阵于江岸,以待金人之渡。"]},
+  "3":{t:"车船破渡 · 半渡大捷",d:"十一月 · 采石江中",p:["亮驱兵数百艘强渡,鼓噪竞进,方半济于江。允文命以「海鳅」车船——踏车快船,行驶如飞——横冲之;船高势捷,一撞而金舟碎。","又以强弩、霹雳炮迭击之:霹雳炮者,纸裹石灰硫磺,落水炸裂,烟焰蔽江,金人震骇;继以纵火焚其舟。金军半渡受击,舟多覆没,渡者半溺,江为之赤,竟不得渡。"]},
+  "4":{t:"移师瓜洲 · 完颜亮见弑",d:"十一月至十二月",p:["亮攻采石不得渡,退和州,移师扬州,欲自瓜洲别渡。督战益急,刑罚酷滥,士卒离心,众怨已深。","十一月己丑(二十七日),部将完颜元宜等作乱,弑亮于瓜洲龟山。金军遂北还,南宋转危为安,江南以全。一书生临危督战,而社稷赖以不亡。"]}
 };
 const CITY={
-  caishi:{t:"采石矶",d:"今安徽马鞍山,长江南岸",p:["决战之地。虞允文收散卒万八千列阵江岸,以海鳅车船、霹雳炮迎击金军渡江之舟,撞碎金舟,大破之,江为之赤。"]},
-  hezhou:{t:"和州·杨林渡",d:"今安徽和县,长江北岸",p:["金军渡江处。完颜亮自将大军抵此,列舟将自采石渡江;渡战不利,乃移军瓜洲。"]},
-  guazhou:{t:"瓜洲",d:"今扬州南江滨",p:["完颜亮移军之处,亦其被弑之地。攻采石不得渡,亮移营于此,督战酷急,终为部将完颜元宜等所弑于龟山。"]},
-  jiankang:{t:"建康",d:"宋后方,今江苏南京",p:["南宋江防重镇、后方所倚。采石既捷,金人不得南下,建康以安,东南得全。"]},
-  jingkou:{t:"京口·镇江",d:"今江苏镇江",p:["长江下游要津,宋水军所据。金军移瓜洲后,复图自此渡江,亦为宋所备而未逞。"]},
-  changjiang:{t:"长江",d:"金宋分界之天堑",p:["采石之战即隔此江而战。虞允文以车船霹雳炮拒金舟于中流,金人竟不得渡,「江为之赤」;长江之险,南宋所恃以立国者也。"]}
+  caishi:{t:"采石矶",d:"今安徽马鞍山(约118.48°E/31.68°N),长江南岸",p:["决战之地。虞允文收散卒万八千列阵江岸,以海鳅车船横冲金舟,又以强弩霹雳炮火攻焚船,乘金军半渡而击之,金舟多覆,渡者半溺,江为之赤,大破之。"]},
+  hezhou:{t:"和州",d:"今安徽和县(约118.35°E/31.72°N),长江北岸",p:["完颜亮南侵所趋。亮自将大军抵此,屯杨林渡,列舟将渡采石;渡战不利,退和州,乃移师扬州。"]},
+  yanglin:{t:"杨林渡",d:"和州东,长江北岸金军渡口",p:["金军渡江处。完颜亮列战舰渡船数百艘于此,乘风强渡采石,方半济而为宋车船火攻所破,舟多覆没。"]},
+  jiankang:{t:"建康",d:"宋后方,今江苏南京(约118.79°E/32.06°N)",p:["南宋江防重镇、东南所倚。金人欲渡采石以取之。采石既捷,金人不得南下,建康以安,东南得全;虞允文亦自建康一带往采石督师。"]},
+  jingkou:{t:"京口·镇江",d:"今江苏镇江(约119.45°E/32.19°N)",p:["长江下游要津,与瓜洲隔江相望,宋水军所据。金军移瓜洲后,复图自此别渡,亦为宋所备而未逞。"]},
+  guazhou:{t:"瓜洲",d:"江北,今扬州南江滨(约119.43°E/32.27°N)",p:["完颜亮移师之处,亦其被弑之地。攻采石不得渡,亮移营扬州,欲自瓜洲别渡;督战酷急,众怨,终为部将完颜元宜等所弑于瓜洲龟山。"]},
+  yangzhou:{t:"扬州",d:"今江苏扬州(约119.42°E/32.39°N)",p:["完颜亮移师之地。渡采石不成,亮引军至扬州,屯兵瓜洲江上,督战益急,终致部将之变。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
