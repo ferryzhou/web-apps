@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#bf5a2a;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.17);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +41,23 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.feint{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:10 6;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  /* 车营 waggenburg:环车为垒 */
+  .wfort{fill:rgba(154,43,30,.10);stroke:var(--enemy);stroke-width:1.8}
+  .wagon{fill:var(--enemy);opacity:.85;stroke:var(--paper);stroke-width:.5}
+  /* 抛石机·火药 */
+  .engine{fill:none;stroke:var(--advance);stroke-width:1.7;stroke-linecap:round}
+  .fire{fill:var(--fire);opacity:.9}
+  .bridge{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .siege{fill:none;stroke:var(--advance);stroke-width:1.8;stroke-dasharray:2 5;opacity:.85}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +66,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--ret)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--ret)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +93,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>赛</span><span>约</span><span>河</span><span>役</span></div>
   <header>
-    <h1>赛约河之战</h1>
-    <div class="sub">蒙古十三年·宋淳祐元年(1241)　<i>蒙古 拔都·速不台</i> 夹击破匈 · <b>匈牙利 贝拉四世</b>大军尽覆·前锋饮马多瑙</div>
+    <h1>赛约河之战 · 穆希</h1>
+    <div class="sub">蒙古十三年 · 宋淳祐元年(1241)　　<i>蒙古 拔都 · 速不台</i> 夹河迂回破 <b>匈牙利 贝拉四世</b>大军 · 纵溃而歼 · 汗讣班师</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 长子西征入欧</button>
-    <button data-p="1">匈王结营赛约河</button>
-    <button data-p="2">偷渡迂回·炮石攻桥</button>
-    <button data-p="3">开路纵敌·邀击尽歼</button>
+    <button data-p="1">越喀尔巴阡 · 逼佩斯 · 佯退诱敌</button>
+    <button data-p="2">匈军渡赛约河 · 结车营守桥</button>
+    <button data-p="3">强攻桥 · 下游潜渡迂回</button>
+    <button data-p="4">围三阙一 · 纵溃而歼</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="蒙古长子西征赛约河之战形势图,含匈牙利与蒙古疆界、多瑙河蒂萨河赛约河与佩斯里格尼茨等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="蒙古长子西征赛约河(穆希)之战形势图,含匈牙利王国与蒙古钦察草原疆界、喀尔巴阡山脉、多瑙河蒂萨河赛约河诸水,及佩斯穆希列格尼卡克拉科夫等地,横跨中欧">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,84 +116,153 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:匈牙利据中欧大平原(西),蒙古自罗斯钦察而来(东),约以喀尔巴阡山为界 -->
-    <path d="M 700,0 C 690,90 700,150 680,230 C 660,310 650,380 660,460 C 668,540 690,590 700,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 700,0 C 690,90 700,150 680,230 C 660,310 650,380 660,460 C 668,540 690,590 700,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 700,0 C 690,90 700,150 680,230 C 660,310 650,380 660,460 C 668,540 690,590 700,640"/>
-    <text class="realm q" x="150" y="120" font-size="30">匈 牙 利(欧洲)</text>
-    <text class="realm j" x="770" y="120" font-size="30">蒙 古(罗斯钦察)</text>
+    <!-- ══ 疆界:匈牙利王国据喀尔巴阡山内之大平原(西·南),蒙古自钦察草原东来(东·北),约以喀尔巴阡山一线为界(示意) ══ -->
+    <path d="M 545,0 C 590,90 620,170 640,250 C 660,320 672,362 685,410 C 700,472 722,548 745,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 545,0 C 590,90 620,170 640,250 C 660,320 672,362 685,410 C 700,472 722,548 745,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 545,0 C 590,90 620,170 640,250 C 660,320 672,362 685,410 C 700,472 722,548 745,640"/>
+    <text class="realm q" x="150" y="430" font-size="27">匈 牙 利 王 国</text>
+    <text class="cname s" x="156" y="456" style="fill:var(--enemy);opacity:.55">喀尔巴阡山内 · 潘诺尼亚大平原</text>
+    <text class="realm j" x="812" y="150" font-size="24">蒙　古</text>
+    <text class="cname s" x="812" y="174" style="fill:var(--advance);opacity:.55">钦察草原 · 罗斯(图外东)</text>
+    <text class="cname s" x="150" y="180" style="fill:var(--ink2);opacity:.7;letter-spacing:.2em">波 兰 · 西 里 西 亚</text>
 
-    <!-- 多瑙河:自西北南下,经佩斯 -->
-    <path class="river" stroke-width="5.5" d="M 210,40 C 224,120 234,190 232,270 C 230,340 214,400 200,470 C 190,530 190,590 196,640"/>
-    <!-- 蒂萨河:自东北南下贯匈牙利大平原 -->
-    <path class="river" stroke-width="4" d="M 560,150 C 540,230 512,300 500,380 C 490,450 480,520 466,600"/>
-    <!-- 赛约河(绍约河):自东北汇入蒂萨河,决战桥畔 -->
-    <path class="river" stroke-width="2.8" d="M 660,210 C 620,270 588,320 556,368 C 532,404 512,392 500,378"/>
-    <text class="rname" x="196" y="200" transform="rotate(80 196 200)">多 瑙 河</text>
-    <text class="rname" x="512" y="290" transform="rotate(80 512 290)" style="font-size:11px">蒂 萨 河</text>
-    <text class="rname" x="600" y="288" transform="rotate(56 600 288)" style="font-size:10.5px">赛约河</text>
+    <!-- ══ 喀尔巴阡山脉:框限匈牙利大平原之东北弧,蒙古越此入匈 ══ -->
+    <path class="mtn fill" d="M 560,232 L 578,196 L 594,216 L 614,180 L 634,214 L 652,190 L 670,224 L 688,200 L 704,232 Z"/>
+    <path class="mtn" d="M 578,214 l 14,-20 l 12,14 l 16,-24 l 13,18 l 15,-22 l 14,20"/>
+    <path class="mtn fill" d="M 640,340 L 656,308 L 670,326 L 688,296 L 706,324 L 724,302 L 740,332 Z"/>
+    <path class="mtn" d="M 656,324 l 12,-16 l 10,11 l 14,-20 l 12,16"/>
+    <text class="mname" x="596" y="184" transform="rotate(30 596 184)">喀 尔 巴 阡 山</text>
 
-    <!-- 喀尔巴阡山:东,蒙古入匈之隘 -->
-    <g class="mtn"><path d="M 760,200 l 9,-15 l 9,15 M 778,193 l 9,-15 l 9,15 M 796,200 l 8,-14 l 8,14 M 812,196 l 8,-13 l 8,13"/></g>
-    <text class="cname s" x="756" y="222">喀尔巴阡山脉</text>
-    <!-- 匈牙利大平原示意 -->
-    <text class="cname s" x="360" y="360" style="opacity:.7">匈 牙 利 大 平 原</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 多瑙河:自西北(维也纳)东流,至佩斯折而南下 -->
+    <path class="river" stroke-width="5" d="M 118,464 C 210,472 280,500 323,519 C 340,527 346,545 346,556 C 344,590 340,616 336,640"/>
+    <!-- 蒂萨河:自东北南下,贯匈牙利大平原东部 -->
+    <path class="river" stroke-width="3.6" d="M 592,442 C 560,462 534,480 505,506 C 480,530 466,562 458,640"/>
+    <!-- 赛约河(绍约河):自东北汇入蒂萨河,穆希桥畔决战 -->
+    <path class="river" stroke-width="2.6" d="M 466,428 C 476,452 486,472 496,496 C 500,502 502,504 506,507"/>
+    <text class="rname" x="238" y="502" transform="rotate(18 238 502)" style="font-size:12px">多 瑙 河</text>
+    <text class="rname" x="524" y="500" transform="rotate(62 524 500)" style="font-size:11px">蒂 萨 河</text>
+    <text class="rname" x="452" y="470" transform="rotate(66 452 470)" style="font-size:10.5px">赛约河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 地望(西→东) ══ -->
     <g id="cities">
-      <g class="city" data-city="saiyuebridge"><circle cx="556" cy="368" r="6"/><text class="cname" x="566" y="364">赛约河桥<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city cap" data-city="pest"><circle cx="232" cy="300" r="6"/><text class="cname" x="150" y="296">佩斯<tspan class="cname s" dx="2">(匈集兵)</tspan></text></g>
-      <g class="city" data-city="danube"><circle cx="200" cy="470" r="4"/><text class="cname s" x="140" y="488">多瑙河(前锋饮马)</text></g>
-      <g class="city" data-city="carpathian"><circle cx="800" cy="188" r="4.5"/><text class="cname s" x="720" y="176">喀尔巴阡山口</text></g>
-      <g class="city" data-city="legnica"><circle cx="470" cy="70" r="5"/><text class="cname" x="480" y="66">里格尼茨<tspan class="cname s" dx="2">(偏师破波兰)</tspan></text></g>
-      <g class="city" data-city="tisza"><circle cx="500" cy="378" r="3.5"/><text class="cname s" x="452" y="400">蒂萨河</text></g>
+      <g class="city" data-city="legnica"><circle cx="115" cy="109" r="5.5"/><text class="cname" x="125" y="106">列格尼卡<tspan class="cname s" dx="2">(偏师破波兰)</tspan></text></g>
+      <g class="city" data-city="krakow"><circle cx="417" cy="247" r="4.5"/><text class="cname" x="427" y="244">克拉科夫</text></g>
+      <g class="city" data-city="vienna"><circle cx="132" cy="469" r="3.5"/><text class="cname s" x="82" y="462">维也纳</text></g>
+      <g class="city cap" data-city="pest"><circle cx="346" cy="554" r="6.5"/><text class="cname" x="266" y="552">佩斯 · 布达<tspan class="cname s" dx="2">(匈都)</tspan></text></g>
+      <g class="city" data-city="mohi"><circle cx="496" cy="496" r="6.5"/><text class="cname" x="506" y="492">穆希 · 赛约河桥<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="verecke"><circle cx="677" cy="390" r="4.5"/><text class="cname" x="687" y="388">佛烈克山口<tspan class="cname s" dx="2">(蒙古入匈之隘)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 长子西征入欧 -->
+    <!-- 亚得里亚海(图外·西南) -->
+    <g transform="translate(6,600)">
+      <path class="march rout" marker-end="url(#ar)" d="M 34,30 L 6,36"/>
+      <text class="mlabel r" x="40" y="20" style="font-size:10px">⟵ 亚得里亚海</text>
+      <text class="cname s" x="40" y="34" style="fill:var(--ret);font-size:9.5px">贝拉四世逃亡之终(图外西南)</text>
+    </g>
+    <!-- 钦察草原 · 蒙古来向/东返(图外·东) -->
+    <g transform="translate(958,300)">
+      <path class="march j" marker-end="url(#aj)" d="M 38,0 L 8,0"/>
+      <text class="mlabel j" x="34" y="-8" text-anchor="end" style="font-size:10px">钦察草原 · 罗斯 ⟶</text>
+      <text class="cname s" x="34" y="16" text-anchor="end" style="fill:var(--advance);font-size:9.5px">拔都来向 · 汗讣东返(图外东)</text>
+    </g>
+
+    <!-- ══ 全图 · 长子西征入欧 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 990,300 C 900,270 850,230 808,196"/>
-      <text class="mlabel j" x="812" y="256">主力越喀尔巴阡入匈</text>
-      <path class="march j" marker-end="url(#aj)" d="M 940,140 C 780,90 620,70 484,72"/>
-      <text class="mlabel j" x="600" y="52">拜答儿、海都偏师北出波兰</text>
-      <path class="march j" marker-end="url(#aj)" d="M 794,196 C 720,240 640,300 566,362"/>
-      <text class="anno" x="640" y="330">既破钦察、灭罗斯诸公国、下基辅,分道入欧</text>
-      <text class="mlabel q" x="150" y="260">匈王贝拉四世集兵于佩斯以御</text>
+      <path class="march j" marker-end="url(#aj)" d="M 950,306 C 860,340 760,368 692,388"/>
+      <path class="march j" marker-end="url(#aj)" d="M 664,392 C 560,438 452,500 360,548"/>
+      <text class="mlabel j" x="700" y="428">拔都 · 速不台主力越喀尔巴阡入匈</text>
+      <path class="march j" marker-end="url(#aj)" d="M 950,282 C 780,210 600,190 432,236"/>
+      <path class="march j" marker-end="url(#aj)" d="M 404,250 C 320,196 210,146 128,116"/>
+      <text class="mlabel j" x="470" y="200">拜达尔 · 合丹偏师北扫波兰</text>
+      <circle class="star" cx="115" cy="109" r="8"/>
+      <text class="anno" x="130" y="130">四月九日破波德联军 · 亨利二世战死</text>
+      <circle class="star" cx="496" cy="496" r="9"/>
+      <text class="mlabel q" x="150" y="512">贝拉四世号十万出佩斯拒战</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 480,506 C 420,540 320,566 180,588 C 130,596 90,608 60,624"/>
+      <text class="mlabel r" x="196" y="612">四月十一日大败 · 贝拉仅以身免 · 西奔亚得里亚海</text>
     </g>
 
-    <!-- 阶段一:匈王结营赛约河 -->
+    <!-- ══ 阶段一:越喀尔巴阡 · 逼佩斯 · 佯退诱敌 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 244,300 C 340,320 440,344 544,364"/>
-      <text class="mlabel q" x="300" y="336">贝拉四世自佩斯东进,扼守桥梁</text>
-      <rect class="camp" x="520" y="388" width="10" height="10" transform="rotate(45 525 393)"/>
-      <text class="mlabel q" x="470" y="424">马扎尔人环车为营(车营)</text>
-      <path class="march j" marker-end="url(#aj)" d="M 640,300 C 620,330 600,352 574,368"/>
-      <text class="anno" x="600" y="420">蒙古佯示怯弱、退军诱之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 950,306 C 860,340 762,366 692,388"/>
+      <text class="mlabel j" x="740" y="356">既灭罗斯 · 下基辅,越喀尔巴阡山口入匈</text>
+      <path class="march j" marker-end="url(#aj)" d="M 662,396 C 560,442 452,502 366,548"/>
+      <text class="mlabel j" x="470" y="486">长驱兵锋直逼佩斯 · 多瑙河东</text>
+      <rect class="camp" x="341" y="549" width="10" height="10" transform="rotate(45 346 554)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 362,548 C 420,528 466,512 486,504"/>
+      <text class="mlabel q" x="150" y="580">贝拉四世率大军(号十万)出佩斯东击</text>
+      <!-- 佯退诱敌:蒙古佯退回赛约河 -->
+      <path class="march feint" marker-end="url(#aj)" d="M 470,510 C 512,494 546,484 566,478"/>
+      <text class="mlabel j" x="470" y="452">蒙古佯示怯弱 · 徐退赛约河东以骄之</text>
+      <text class="anno" x="470" y="468">诱匈军东出百余里 · 就我预设之地</text>
     </g>
 
-    <!-- 阶段二:偷渡迂回·炮石攻桥 -->
+    <!-- ══ 阶段二:匈军渡赛约河 · 结车营守桥 ══ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="540" cy="378" r="42"/>
-      <text class="anno" x="470" y="330">蒙古半围匈营·纵一路诱之</text>
-      <path class="march j" marker-end="url(#aj)" d="M 630,320 C 604,340 582,356 566,366"/>
-      <text class="mlabel j" x="586" y="316">拔都以炮石火器强攻桥头</text>
-      <path class="march j" marker-end="url(#aj)" d="M 640,360 C 600,420 552,448 508,432 C 480,422 470,408 486,392"/>
-      <text class="mlabel j" x="560" y="460">速不台潜自下游偷渡·绕出匈军之后</text>
+      <path class="march q" marker-end="url(#aq)" d="M 366,548 C 410,528 450,510 476,500"/>
+      <text class="mlabel q" x="260" y="536">匈军追至赛约河 · 渡河扎营于西岸</text>
+      <!-- 桥 -->
+      <line class="bridge" x1="488" y1="500" x2="504" y2="492"/>
+      <text class="cname s" x="508" y="476" style="fill:var(--ink)">石桥</text>
+      <!-- 车营 waggenburg:环车为垒于西岸 -->
+      <ellipse class="wfort" cx="456" cy="500" rx="30" ry="22"/>
+      <g class="wagon">
+        <rect x="450" y="474" width="6" height="4"/><rect x="470" y="480" width="6" height="4"/><rect x="482" y="498" width="6" height="4"/><rect x="470" y="516" width="6" height="4"/><rect x="450" y="522" width="6" height="4"/><rect x="430" y="516" width="6" height="4"/><rect x="422" y="498" width="6" height="4"/><rect x="430" y="480" width="6" height="4"/>
+      </g>
+      <text class="mlabel q" x="352" y="500" text-anchor="end">连车为垒 · 结车营(waggenburg)</text>
+      <text class="mlabel q" x="352" y="516" text-anchor="end" style="font-weight:400;font-style:italic">扼守赛约河石桥 · 恃固自守</text>
+      <!-- 蒙古东岸列阵 -->
+      <rect class="camp" x="537" y="487" width="10" height="10" transform="rotate(45 542 492)"/>
+      <text class="mlabel j" x="556" y="500">蒙古军潜屯赛约河东 · 匿其众</text>
     </g>
 
-    <!-- 阶段三:开路纵敌·邀击尽歼 -->
+    <!-- ══ 阶段三:强攻桥 · 下游潜渡迂回 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="556" cy="368" r="9"/>
-      <path class="march j" marker-end="url(#aj)" d="M 574,362 C 562,372 550,382 538,388"/>
-      <path class="march j" marker-end="url(#aj)" d="M 500,428 C 512,410 522,398 532,390"/>
-      <text class="mlabel j" x="470" y="352">黎明合击·夹击匈营</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 512,384 C 420,410 320,420 244,398"/>
-      <text class="mlabel r" x="300" y="440">故开西向一路,纵匈军奔溃</text>
-      <text class="anno" x="230" y="416">轻骑夹道邀击、驱杀百余里,匈军几于尽覆</text>
-      <path class="march j" marker-end="url(#aj)" d="M 232,414 C 216,442 206,458 202,468"/>
-      <text class="mlabel j" x="120" y="510">前锋进抵多瑙河·欧洲震恐</text>
+      <ellipse class="wfort" cx="456" cy="500" rx="30" ry="22"/>
+      <text class="mlabel q" x="424" y="500" text-anchor="end" style="font-style:italic">车营</text>
+      <!-- 拔都正面强攻桥:抛石机·火药 -->
+      <g class="engine" transform="translate(556,470)">
+        <line x1="-8" y1="8" x2="8" y2="8"/><line x1="-6" y1="8" x2="0" y2="-8"/><line x1="6" y1="8" x2="0" y2="-8"/><line x1="0" y1="-8" x2="12" y2="-2"/>
+      </g>
+      <g class="fire"><circle cx="500" cy="493" r="3"/><circle cx="494" cy="499" r="2.2"/><circle cx="505" cy="499" r="2"/></g>
+      <path class="march j" marker-end="url(#aj)" d="M 540,486 C 522,490 512,493 504,495"/>
+      <text class="mlabel j" x="536" y="454">拔都亲率主力正面强攻桥</text>
+      <text class="anno" x="536" y="470">以抛石机 · 火药 · 火器轰守桥匈军</text>
+      <!-- 速不台下游潜渡迂回 -->
+      <path class="march j" marker-end="url(#aj)" d="M 545,506 C 552,528 540,548 516,552 C 490,556 470,540 456,522"/>
+      <text class="mlabel j" x="524" y="576">速不台别将一军 · 下游潜渡(或架浮桥)</text>
+      <text class="anno" x="524" y="592">绕出匈军侧后 · 与拔都成夹击</text>
+      <circle class="star" cx="496" cy="496" r="9"/>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:围三阙一 · 纵溃而歼 ══ -->
+    <g id="ph4" class="ph">
+      <ellipse class="wfort" cx="456" cy="500" rx="30" ry="22"/>
+      <!-- 两面夹击 -->
+      <path class="march j" marker-end="url(#aj)" d="M 528,490 C 510,494 500,496 490,498"/>
+      <path class="march j" marker-end="url(#aj)" d="M 466,528 C 462,518 460,512 458,506"/>
+      <text class="mlabel j" x="540" y="474">拔都攻桥</text>
+      <text class="mlabel j" x="470" y="546">速不台蹑后</text>
+      <!-- 围三阙一:半围匈营,独开西向一路 -->
+      <path class="siege" d="M 430,478 C 470,466 508,478 522,500 C 532,518 522,536 500,544 C 480,550 462,548 448,540"/>
+      <text class="anno" x="500" y="470">围其三面 · 独阙西向一路</text>
+      <circle class="star" cx="496" cy="496" r="9"/>
+      <!-- 纵溃军奔佩斯,轻骑夹道邀击 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 434,494 C 400,506 372,522 356,540"/>
+      <text class="mlabel r" x="336" y="486" text-anchor="end">匈军以为得生 · 弃营奔溃向佩斯</text>
+      <path class="march j" marker-end="url(#aj)" d="M 440,478 C 408,490 384,504 366,522"/>
+      <path class="march j" marker-end="url(#aj)" d="M 450,514 C 418,528 392,540 374,552"/>
+      <text class="mlabel j" x="316" y="530" text-anchor="end">蒙古轻骑夹道邀击 · 驱杀数十里</text>
+      <!-- 贝拉西逃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 336,556 C 260,578 160,592 60,616"/>
+      <text class="mlabel r" x="150" y="606">贝拉四世仅以身免 · 西奔亚得里亚海岛</text>
+      <!-- 汗讣东返 -->
+      <path class="march feint" marker-end="url(#aj)" d="M 560,470 C 720,420 860,368 946,320"/>
+      <text class="mlabel j" x="700" y="404">1242 窝阔台汗讣至 · 拔都引军东返争位</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -176,35 +271,98 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙古军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈牙利军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃奔</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙古军(拔都·速不台)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="10 5"/></svg>佯退诱敌 · 东返</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>匈牙利军(贝拉四世)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>匈军溃逃 · 贝拉西逃</span>
+    <span class="item"><svg width="30" height="16"><ellipse cx="15" cy="8" rx="11" ry="6" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.6"/><rect x="12" y="1" width="5" height="3" fill="#9a2b1e"/><rect x="12" y="12" width="5" height="3" fill="#9a2b1e"/></svg>车营 waggenburg</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围三阙一</span>
+    <span class="item"><svg width="18" height="16"><line x1="1" y1="13" x2="17" y2="13" stroke="#1f4e54" stroke-width="1.6"/><line x1="3" y1="13" x2="9" y2="2" stroke="#1f4e54" stroke-width="1.6"/><line x1="15" y1="13" x2="9" y2="2" stroke="#1f4e54" stroke-width="1.6"/><circle cx="6" cy="6" r="1.6" fill="#bf5a2a"/></svg>抛石·火药攻桥</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>半围</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>匈牙利</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蒙古</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>匈牙利</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>蒙古</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 夹河迂回 · 纵溃而歼 · 汗讣班师</h3>
+    <div class="lead">何以匈牙利十万之师一朝尽覆 —— 非恃众寡,恃夹河之两攻、阙面之诱溃</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:赛约河一水中分,匈军结车营于西岸守桥;拔都以抛石火药正面攻桥吸其锋,速不台自下游潜渡绕出匈军侧后,两面夹击;又围三阙一,独开西路纵匈军奔溃,轻骑夹道邀击尽歼;终以窝阔台汗讣东返班师">
+      <!-- 赛约河(纵贯) -->
+      <path d="M 360,20 C 372,80 372,160 360,230" fill="none" stroke="#5f7f88" stroke-width="6" opacity=".85"/>
+      <text x="352" y="16" fill="#5f7f88" font-size="11" font-weight="700" text-anchor="end">赛约河</text>
+      <!-- 石桥 -->
+      <line x1="352" y1="118" x2="374" y2="112" stroke="#2b2418" stroke-width="3"/>
+      <text x="366" y="104" fill="#2b2418" font-size="9.5">石桥</text>
+      <!-- 匈军车营(西岸) -->
+      <ellipse cx="250" cy="118" rx="40" ry="30" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="2"/>
+      <g fill="#9a2b1e"><rect x="244" y="84" width="7" height="5"/><rect x="278" y="102" width="7" height="5"/><rect x="278" y="130" width="7" height="5"/><rect x="244" y="148" width="7" height="5"/><rect x="212" y="130" width="7" height="5"/><rect x="212" y="102" width="7" height="5"/></g>
+      <text x="250" y="122" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">匈军车营</text>
+      <text x="250" y="166" fill="#9a2b1e" font-size="10" text-anchor="middle">连车为垒 · 守桥自固</text>
+      <!-- 拔都正面攻桥(青,东→西) -->
+      <path d="M 470,116 C 430,116 405,116 386,116" fill="none" stroke="#1f4e54" stroke-width="3.4"/><path d="M 392,110 L 380,116 L 392,122 Z" fill="#1f4e54"/>
+      <circle cx="470" cy="110" r="7" fill="none" stroke="#1f4e54" stroke-width="1.6"/><line x1="466" y1="110" x2="466" y2="102" stroke="#1f4e54" stroke-width="1.5"/><line x1="474" y1="110" x2="470" y2="102" stroke="#1f4e54" stroke-width="1.5"/>
+      <circle cx="384" cy="114" r="2.6" fill="#bf5a2a"/><circle cx="390" cy="120" r="2" fill="#bf5a2a"/>
+      <text x="484" y="104" fill="#1f4e54" font-size="10.5" font-weight="700">拔都</text>
+      <text x="484" y="120" fill="#1f4e54" font-size="10">抛石·火药<tspan x="484" dy="13">正面强攻桥</tspan></text>
+      <!-- 速不台下游潜渡迂回(青,绕南而西) -->
+      <path d="M 470,180 C 440,214 380,222 320,206 C 290,198 270,182 258,162" fill="none" stroke="#1f4e54" stroke-width="3" stroke-dasharray="0"/><path d="M 264,170 L 254,158 L 270,158 Z" fill="#1f4e54"/>
+      <text x="484" y="184" fill="#1f4e54" font-size="10.5" font-weight="700">速不台</text>
+      <text x="484" y="200" fill="#1f4e54" font-size="10">下游潜渡<tspan x="484" dy="13">迂回侧后</tspan></text>
+      <!-- 围三阙一:阙西一路 -->
+      <text x="180" y="70" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="end">阙一面 ⟶</text>
+      <!-- 匈军溃逃(红/棕,西向出缺口) -->
+      <path d="M 210,110 C 160,110 110,120 66,138" fill="none" stroke="#7a5a23" stroke-width="2.8" stroke-dasharray="3 6"/><path d="M 74,130 L 60,138 L 76,144 Z" fill="#7a5a23"/>
+      <text x="120" y="98" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">纵溃军奔佩斯</text>
+      <!-- 轻骑夹道邀击 -->
+      <path d="M 208,138 C 160,140 112,150 74,166" fill="none" stroke="#1f4e54" stroke-width="2.2"/><path d="M 82,158 L 68,166 L 84,172 Z" fill="#1f4e54"/>
+      <text x="120" y="188" fill="#1f4e54" font-size="10" text-anchor="middle">轻骑夹道 · 驱杀数十里</text>
+      <!-- 分隔 -->
+      <line x1="612" y1="24" x2="612" y2="226" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+      <!-- 右半:汗讣班师 -->
+      <text x="732" y="40" fill="#2b2418" font-size="12.5" font-weight="700" text-anchor="middle">汗 讣 班 师</text>
+      <circle cx="672" cy="120" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="672" y="142" fill="#2b2418" font-size="9.5" text-anchor="middle">赛约河</text>
+      <path d="M 682,116 C 740,100 790,92 820,88" fill="none" stroke="#1f4e54" stroke-width="3" stroke-dasharray="10 5"/><path d="M 812,82 L 826,88 L 812,94 Z" fill="#1f4e54"/>
+      <text x="740" y="82" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">拔都东返</text>
+      <text x="740" y="168" fill="#5c4f38" font-size="10" font-style="italic" text-anchor="middle">1242 窝阔台汗崩讯至</text>
+      <text x="740" y="186" fill="#5c4f38" font-size="10" font-style="italic" text-anchor="middle">诸王争位 · 引军东还</text>
+      <text x="740" y="212" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">欧洲得免</text>
+    </svg>
+    <p class="intro">赛约河之役,匈牙利以<b>号十万</b>之众、结车营固守,兵非不多、地非不险;而蒙古一夕破之、大军几于尽覆。所恃者三:一曰<b>夹河两攻</b>,一曰<b>阙面诱溃</b>,一曰<b>纵骑穷追</b>——皆非以力胜,而以谋胜、以势胜。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>夹河迂回 · 正奇两攻</h4>
+        <p>匈军渡赛约河、结车营于西岸,专守一桥,自谓可恃。拔都乃亲率主力正面强攻桥头,以抛石机、火药、火器轰其守桥之众,矢石雷震,吸其锋锐、使尽萃于桥;而阴遣速不台别将一军,潜自下游浅处潜渡(或架浮桥而济),绕出匈军侧后。正面吸之于前,奇兵出之于后,黎明两面合击——匈军犹未觉后路已断,而营已被围。</p>
+      </div>
+      <div class="c b">
+        <h4>围三阙一 · 纵溃而歼</h4>
+        <p>蒙古围匈营三面,而故开西向一路——匈军见有生路,遂争弃车营、奔溃向佩斯,阵形自乱。蒙古乃纵轻骑夹道邀击,沿溃逃之路驱杀数十里,匈牙利大军几于尽覆,贝拉四世仅以身免、西奔亚得里亚海岛。围而不合、纵而歼之,正孙子『围师必阙』之用,亦草原骑兵歼敌之常法。</p>
+      </div>
+    </div>
+    <p class="kicker">故赛约河之克,<b>不在兵之寡,而在谋与势</b>:夹河两攻以破其守,阙面诱溃以乱其阵,纵骑穷追以绝其聚——一战而匈牙利之师尽,兵锋遂抵多瑙河,欧洲震恐,谓蒙古为『上帝之鞭』。然<b>成吉思汗诸孙之西征,终以窝阔台之崩而止</b>:1242年汗讣传至,拔都为争汗位引军东返,中欧、西欧乃得幸免——赛约河之胜,竟成蒙古西征之极点。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·速不台传》《元史·太宗纪》、拉施特《史集》及欧洲编年史(罗杰里乌斯《哀歌》等)约略绘出。赛约河(绍约河,Sajó)为蒂萨河支流,在今匈牙利东北,近莫希(Mohi)。喀尔巴阡山、多瑙河、蒂萨诸水及欧洲地望皆为相对示意,非实测画界。</p>
-    <p><span class="n">注二</span>晕染疆界为长子西征时形势示意:蒙古自罗斯、钦察草原东来,越喀尔巴阡山口入匈牙利大平原;点划「约界」标之,非实有画界。拜答儿、海都偏师北出波兰,大破波德联军于里格尼茨(1241),与主力遥相策应。</p>
-    <p><span class="n">注三</span>赛约河之役,蒙古以速不台潜自下游偷渡绕后、拔都以炮石火器正面攻桥,黎明合击;又故开一面纵匈军奔溃,而以轻骑夹道邀击,驱杀百余里,匈牙利大军尽覆,贝拉四世仅以身免、亡命亚得里亚海岛。前锋饮马多瑙,欧洲谓蒙古为「上帝之鞭」。会窝阔台崩讯至,拔都引军东还,欧洲乃免。</p>
+    <p><span class="n">注一</span>本图为示意图,横跨中欧,城邑按今地经纬度作线性(墨卡托)投影:<b>x=70+(经度−15.6)·80,y=590−(纬度−47.2)·120</b>,几何关系力求近实——列格尼卡最西北(另一路),佩斯·布达居西南(多瑙河东岸,匈都),穆希·赛约河在其东(决战),喀尔巴阡山口在东北(蒙古入匈之隘);亚得里亚海远在图外西南,钦察草原·罗斯远在图外东,并以边缘箭头示之。因纬度跨度较广,东西略作拉伸(约三成),以合图幅。疆界、山川经简化,晕染之『约界』仅示蒙古自钦察东来、越喀尔巴阡入匈之大势,非实有画界;山内亦兼含波兰、西里西亚诸邦。</p>
+    <p><span class="n">注二</span>地望与经纬:列格尼卡(Legnica/Liegnitz,今波兰西南,约16.2E/51.2N)、克拉科夫(Kraków,约19.9E/50.1N)、佩斯·布达(Pest/Buda,今布达佩斯,多瑙河东岸,匈都,约19.0E/47.5N)、穆希(Mohi/Muhi,赛约河畔,今匈牙利东北,近蒂萨河与赛约河汇口,约20.9E/48.0N)、佛烈克山口(Verecke,喀尔巴阡山口,约23.2E/48.9N,蒙古主力入匈之隘)。赛约河(Sajó,绍约河)为蒂萨河(Tisza)支流;多瑙河(Danube)自西北维也纳东流,至佩斯折而南下。贝拉四世西逃,经克罗地亚趋亚得里亚海,匿于近海岛屿(今斯普利特一带)。</p>
+    <p><span class="n">注三</span>本役之枢,《元史·速不台传》记之甚明:速不台为先锋,与诸王拔都、昔班、合丹等五道分进,攻马札儿部(即匈牙利,Magyar);『速不台出奇计,诱其军至漷宁河』(即赛约河)。『诸王军于上流,水浅,马可涉,中复有桥;下流水深,速不台欲结筏潜渡,绕出敌后』——正、奇夹河之势也。『拔都军争桥,反为所乘,没甲士三十人,并亡其麾下将八哈秃』(初攻桥为匈将卡尔曼(Coloman,贝拉之弟)、大主教乌格林所却);既渡,拔都以救迟责速不台,速不台答以下流结筏未成、迟非其罪,『拔都亦悟』。终驰至马茶城(即佩斯)而拔之。又《史集》(拉施特)及欧洲编年史(罗杰里乌斯《哀歌》、斯普利特之托马斯《大事记》)载:匈军渡赛约河、于西岸连车结营(Wagenburg)守桥;蒙古夜以石炮、火器攻桥,速不台潜渡绕后,黎明合击;复故开一面,纵匈军奔溃而以骑追杀。史家于是否真用『火药』(或谓乃火油/石脑油,抑或即火药兵器传入欧洲之始)、潜渡之确址(浅滩抑或结筏浮桥)、缺口是否有意『围师必阙』,均略有异说,姑存之。</p>
+    <p><span class="n">注四</span>兵额与并战:匈牙利军号十万,近人考实数约二三万(或至三万余),众而不整(封建之师、诸侯相龃);蒙古主力约二至四万骑,速不台迂回一军史称三万(数或夸)。众寡未必如史所夸,而以谋制胜。1241年三月十二日,蒙古破佛烈克山口入匈;三月下旬拜达尔、合丹别将一军北扫波兰,焚克拉科夫;四月九日大破波兰、西里西亚及条顿骑士之波德联军于列格尼卡(Legnica,又称瓦尔施塔特/Wahlstatt),西里西亚公亨利二世战死;越二日(四月十一日),主力破匈军于赛约河——南北二捷相距仅一河一日,盖以北路牵制波兰、使不得援匈。战后匈军死者,编年史称四万至六万,近人考约万余至一万五千;大主教乌格林、卡尔曼(旋以创卒)俱没,匈之贵胄教士为之一空。蒙古兵锋遂抵多瑙河、维也纳近郊、亚得里亚海之滨;贝拉四世西奔,匿于亚得里亚海之特罗吉尔(Trogir)海岛,合丹追之而不能下。1241年十二月十一日窝阔台汗崩,讯于次年(1242)春传至军中,拔都为争汗位引军东返,遂罢西征,中西欧得免。里数、兵数为史家约举,不必尽为实数。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"长子西征入欧",d:"蒙古十三年·宋淳祐元年(1241)",p:["窝阔台命拔都为长,统诸王长子西征。蒙古既破钦察、灭斡罗思(罗斯)诸公国、下基辅,遂分道入欧:拜答儿、海都一军北出波兰,破克拉科夫,大破波德联军于里格尼茨;拔都、速不台主力越喀尔巴阡山入匈牙利。","匈牙利王贝拉四世闻蒙古入境,集兵于佩斯以御。蒙古前锋深入,示弱退军,诱匈军东出。两军相值于赛约河(绍约河)——蒂萨河之支流,东北之要津。"]},
-  "1":{t:"匈王结营赛约河",d:"1241年·四月",p:["贝拉四世率大军自佩斯东进,进至赛约河东岸,扼守河上桥梁。马扎尔人环车为营,连车结阵,以为坚固可恃。","蒙古前锋佯示怯弱、稍稍退军以骄之。匈军见蒙古退,以为可乘,遂顿兵桥畔、专守一桥——不虞蒙古之别有奇谋也。"]},
-  "2":{t:"偷渡迂回·炮石攻桥",d:"1241年·四月十日夜至黎明",p:["蒙古半围匈营,独纵一路以诱之。拔都亲以炮石、火器强攻桥头,矢石雷震,正面吸其锋锐,使匈军尽萃于桥。","速不台别将一军,潜自下游偷渡赛约河,绕出匈军之后。渡毕列阵,与拔都成夹击之势——匈军犹未觉后路已断。"]},
-  "3":{t:"开路纵敌·邀击尽歼",d:"1241年·四月十一日",p:["黎明,两军合击,前后夹攻。匈军仓皇结阵,车营被围,人马腾踏,不能成列。蒙古故开西向一路,纵匈军奔溃向佩斯。","匈军争路而逃,自谓得生;蒙古乃以轻骑夹道邀击、驱杀百余里,匈牙利大军几于尽覆,贝拉四世仅以身免,亡命亚得里亚海岛。蒙古前锋进抵多瑙河,欧洲震恐,谓之「上帝之鞭」。会窝阔台崩讯至,拔都引军东还,欧洲得免。"]}
+  all:{t:"长子西征入欧",d:"蒙古十三年 · 宋淳祐元年(1241)",p:["窝阔台命拔都为长,统诸王长子西征(第二次西征)。蒙古既破钦察、灭斡罗思(罗斯)诸公国、下基辅,遂分道入欧:拜达尔、合丹一军北扫波兰,四月九日大破波德联军于列格尼卡,亨利二世战死;拔都、速不台主力越喀尔巴阡山入匈牙利大平原,兵锋直逼佩斯。","匈牙利王贝拉四世率大军(号十万)出佩斯东击。蒙古佯退,诱匈军至赛约河(绍约河)——蒂萨河之支流,东北之要津。四月十一日决战于穆希(Mohi)平原,蒙古夹河迂回、纵溃而歼,匈军几于尽覆,贝拉四世仅以身免、西奔亚得里亚海岛。"]},
+  "1":{t:"越喀尔巴阡 · 逼佩斯 · 佯退诱敌",d:"1241年 · 三 — 四月",p:["蒙古主力越喀尔巴阡山口(佛烈克等隘)入匈牙利大平原,长驱直逼佩斯——匈都,多瑙河东岸。匈牙利王贝拉四世乃率大军(号十万)出佩斯东击,欲御蒙古于境。","蒙古前锋佯示怯弱、徐徐退军,退过赛约河之东以骄之。匈军见蒙古退,以为可乘,遂东追百余里,直至赛约河畔——不虞蒙古之诱敌深入、别有奇谋也。"]},
+  "2":{t:"匈军渡赛约河 · 结车营守桥",d:"1241年 · 四月十日",p:["贝拉四世率大军追至赛约河,渡河扎营于西岸穆希(Mohi)平原。马札儿人连车结阵、环车为垒(waggenburg),扼守河上石桥,以为坚固可恃。","蒙古军潜屯赛约河之东,匿其众而不尽出。匈军但见河东蒙古稀疏,益骄而弛备,专守一桥;蒙古则夜谋夹河之攻——正面强攻桥、下游潜渡绕后,分道并进。"]},
+  "3":{t:"强攻桥 · 下游潜渡迂回",d:"1241年 · 四月十日夜至十一日黎明",p:["拔都亲率主力正面强攻赛约河石桥,以抛石机、火药、火器轰击守桥匈军,矢石雷震,正面吸其锋锐,使匈军尽萃于桥头。","速不台别将一军,潜自下游浅处量水直渡(一云架浮桥而济),绕出匈军侧后。渡毕列阵,与拔都成夹击之势——匈军犹未觉后路已断。据《元史·速不台传》,拔都尝以攻桥不利责速不台后期,速不台则自陈下游潜渡之功。"]},
+  "4":{t:"围三阙一 · 纵溃而歼",d:"1241年 · 四月十一日",p:["黎明,拔都自桥、速不台自后,两军合击。匈军仓皇结阵,车营被围,人马腾踏,不能成列。蒙古故围其三面而独开西向一路,纵匈军奔溃向佩斯——围师必阙之法也。","匈军争路而逃,自谓得生;蒙古乃以轻骑夹道邀击、沿溃逃之路驱杀数十里,匈牙利大军几于尽覆,贝拉四世仅以身免,西奔亚得里亚海岛。蒙古前锋进抵多瑙河,欧洲震恐,谓之『上帝之鞭』。会1242年窝阔台崩讯传至,拔都为争汗位引军东返,中西欧乃得免。"]}
 };
 const CITY={
-  saiyuebridge:{t:"赛约河桥",d:"赛约河(绍约河)上,近今莫希(Mohi)",p:["决战之地。匈军扼桥,蒙古以炮石正面攻桥、速不台下游偷渡绕后,黎明夹击而破之。"]},
-  pest:{t:"佩斯",d:"多瑙河东岸,今布达佩斯之半",p:["贝拉四世集兵出师之城。赛约河败后,匈军残卒溃奔于此;蒙古继掠多瑙河东之地。"]},
-  danube:{t:"多瑙河",d:"欧洲巨川,南北贯匈牙利",p:["蒙古前锋饮马之所。渡河而西则中欧洞开,欧洲震恐,谓蒙古为「上帝之鞭」。"]},
-  carpathian:{t:"喀尔巴阡山口",d:"匈牙利东境群山之隘",p:["蒙古主力入匈之隘。拔都、速不台越此山口而下匈牙利大平原,长驱赴赛约河。"]},
-  legnica:{t:"里格尼茨",d:"今波兰西南,李格尼茨/瓦尔施塔特",p:["拜答儿、海都偏师北路。破克拉科夫后,大破波兰、条顿骑士等波德联军于此(1241),与主力遥相策应。"]},
-  tisza:{t:"蒂萨河",d:"匈牙利大平原之主川",p:["赛约河汇入蒂萨河。蒙古军沿其支流布势,速不台即自下游水浅处偷渡而绕匈军之后。"]}
+  legnica:{t:"列格尼卡",d:"Legnica/Liegnitz,今波兰西南(约16.2E/51.2N)",p:["拜达尔、合丹偏师北路。破克拉科夫后,1241年四月九日大破波兰、西里西亚及条顿骑士之波德联军于此(又称瓦尔施塔特之战),西里西亚公亨利二世战死。与主力破匈之捷相距仅二日,遥相策应。"]},
+  krakow:{t:"克拉科夫",d:"Kraków,今波兰(约19.9E/50.1N)",p:["波兰旧都。蒙古北路偏师拜达尔、合丹先破克拉科夫,焚其城,乃西趋列格尼卡。此为长子西征北翼扫荡波兰之要点。"]},
+  vienna:{t:"维也纳",d:"今奥地利,多瑙河上(约16.4E/48.2N)",p:["蒙古前锋一度进抵维也纳近郊,西欧震恐。赖窝阔台汗崩、拔都东返,中西欧乃免于蒙古之祸。"]},
+  pest:{t:"佩斯 · 布达",d:"匈都,多瑙河东岸,今布达佩斯(约19.0E/47.5N)",p:["贝拉四世集兵出师之城。蒙古逼佩斯,贝拉率大军东出御之;赛约河败后,匈军残卒溃奔于此,蒙古继掠多瑙河东之地,进抵多瑙河西岸。"]},
+  mohi:{t:"穆希 · 赛约河桥",d:"Mohi/Muhi,赛约河畔,今匈牙利东北(约20.9E/48.0N)",p:["决战之地。匈军渡赛约河、结车营守桥;蒙古以抛石火药正面攻桥、速不台下游潜渡绕后,黎明夹击而破之;复围三阙一,纵匈军奔溃而以轻骑追杀数十里。《元史·速不台传》所谓漷宁河之战即此,速不台『结筏潜渡,绕出敌后』。"]},
+  verecke:{t:"佛烈克山口",d:"Verecke,喀尔巴阡山口,今乌克兰—匈边境(约23.2E/48.9N)",p:["蒙古主力入匈之隘。拔都、速不台越喀尔巴阡诸口而下匈牙利大平原,长驱直逼佩斯;喀尔巴阡山弧本为匈牙利之东北屏障,一朝为蒙古所越。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
