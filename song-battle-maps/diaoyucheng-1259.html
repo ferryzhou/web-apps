@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>钓鱼城之战 · 开庆元年(1259)</title>
+<title>钓鱼城之战 · 宋开庆元年(1259)蒙哥折鞭</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -30,7 +30,11 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .fort{fill:rgba(31,78,84,.14);stroke:var(--advance);stroke-width:1.6;stroke-linejoin:round}
+  .wall{fill:none;stroke:var(--advance);stroke-width:2.4;stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -46,8 +50,9 @@
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .stone{fill:var(--gold);stroke:var(--paper);stroke-width:.5}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +61,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +92,17 @@
   <div class="seal" aria-hidden="true"><span>钓</span><span>鱼</span><span>城</span><span>役</span></div>
   <header>
     <h1>钓鱼城之战</h1>
-    <div class="sub">宋开庆元年(1259)　　<i>南宋 王坚 · 张珏</i> 苦守钓鱼城 · <b>蒙古 蒙哥</b>汗死于城下</div>
+    <div class="sub">宋开庆元年 · 蒙古蒙哥九年(1259)　　<i>南宋 王坚 · 张珏</i> 死守钓鱼城 · <b>蒙古 蒙哥汗</b> 亲征毙命城下　·　弹丸山城 · 折上帝之鞭</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 蒙哥入蜀</button>
-    <button data-p="1">据险婴城</button>
-    <button data-p="2">顿兵坚城</button>
-    <button data-p="3">蒙哥折鞭</button>
+    <button data-p="1">进围钓鱼城</button>
+    <button data-p="2">凭险死守 · 屡攻不克</button>
+    <button data-p="3">盛暑疫疠 · 飞石毙帅</button>
+    <button data-p="4">蒙哥死 · 全线撤军折鞭</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="钓鱼城之战形势图,含蒙古南宋疆界、嘉陵渠涪三江与钓鱼城重庆成都等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="钓鱼城之战形势图,含蒙古南宋约界、嘉陵渠涪三江于合川交汇、钓鱼城重庆北碚温汤峡诸地,及蒙哥入蜀进围、凭险死守、飞石毙帅、蒙哥死后蒙古全线撤军折鞭之势">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,120 +111,233 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:蒙古已破川西(北/西),南宋据重庆(南),约以钓鱼城三江为界 -->
-    <path d="M 0,300 C 140,290 280,300 400,330 C 470,348 520,330 560,270 C 600,210 640,150 720,120 C 800,92 900,86 1000,90 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 140,290 280,300 400,330 C 470,348 520,330 560,270 C 600,210 640,150 720,120 C 800,92 900,86 1000,90 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,290 280,300 400,330 C 470,348 520,330 560,270 C 600,210 640,150 720,120 C 800,92 900,86 1000,90"/>
-    <text class="realm q" x="120" y="140" font-size="30">蒙 古(已破川西)</text>
-    <text class="realm j" x="620" y="560" font-size="30">南 宋(重庆)</text>
+    <!-- ══ 疆界:蒙古已破川西(北·西),南宋据川东·重庆(南·东),钓鱼城为孤悬敌前之堡 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,296 C 940,300 860,312 780,330 C 660,360 560,395 470,410 C 340,430 180,455 0,470 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,470 C 180,455 340,430 470,410 C 560,395 660,360 780,330 C 860,312 940,300 1000,296 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,470 C 180,455 340,430 470,410 C 560,395 660,360 780,330 C 860,312 940,300 1000,296"/>
+    <text class="realm q" x="120" y="150" font-size="27">蒙 古(已破川西)</text>
+    <text class="realm j" x="690" y="585" font-size="27">南 宋(川东·重庆)</text>
 
-    <!-- 嘉陵江:自利州(北)南下,经合州钓鱼城入重庆 -->
-    <path class="river" stroke-width="5" d="M 470,60 C 460,140 448,220 452,300 C 456,360 470,410 500,440 C 540,478 590,500 640,520"/>
-    <!-- 渠江:自东北汇入钓鱼城 -->
-    <path class="river" stroke-width="3" d="M 660,150 C 620,210 570,270 500,330 C 480,348 465,360 458,372"/>
-    <!-- 涪江:自西北汇入钓鱼城 -->
-    <path class="river" stroke-width="3" d="M 250,200 C 300,260 360,310 420,350 C 435,360 448,368 456,376"/>
-    <text class="rname" x="440" y="200" transform="rotate(84 440 200)">嘉 陵 江</text>
-    <text class="rname" x="600" y="216" transform="rotate(50 600 216)" style="font-size:11px">渠 江</text>
-    <text class="rname" x="300" y="252" transform="rotate(40 300 252)" style="font-size:11px">涪 江</text>
+    <!-- ══ 山脉:川东平行岭谷·钓鱼山 ══ -->
+    <path class="mtn fill" d="M 690,250 L 706,220 L 720,238 L 738,208 L 756,236 L 772,214 L 788,242 Z"/>
+    <path class="mtn" d="M 700,236 l 12,-16 l 10,11 l 13,-18 l 11,14"/>
+    <text class="mname" x="700" y="272" style="font-size:10px">川东山岭</text>
+    <path class="mtn fill" d="M 250,352 L 264,330 L 278,344 L 294,324 L 310,342 L 326,326 L 340,346 Z"/>
+    <text class="mname" x="256" y="372" style="font-size:10px">巴岳诸山</text>
 
-    <!-- 川东山地 -->
-    <g class="mtn"><path d="M 560,420 l 8,-13 l 8,13 M 576,414 l 8,-13 l 8,13 M 340,470 l 8,-13 l 8,13 M 356,464 l 8,-13 l 8,13"/></g>
-    <text class="cname s" x="556" y="440">川东山险</text>
+    <!-- ══ 水系:嘉陵·渠·涪三江于合川交汇,合流南下重庆 ══ -->
+    <!-- 嘉陵江:自北(利州·南充)南下,经合川钓鱼城,合流东南趋重庆 -->
+    <path class="river" stroke-width="5" d="M 440,58 C 452,140 470,220 495,272 C 505,292 515,300 522,306 C 545,342 565,364 577,389 C 596,432 610,468 620,501 C 633,542 650,578 666,612"/>
+    <!-- 渠江:自东北(广安·渠县)汇入合川 -->
+    <path class="river" stroke-width="3" d="M 651,116 C 616,168 578,222 550,262 C 538,280 528,294 521,302"/>
+    <!-- 涪江:自西北(遂宁·潼南)汇入合川 -->
+    <path class="river" stroke-width="3" d="M 150,175 C 240,215 340,258 440,290 C 470,300 498,306 514,308"/>
+    <text class="rname" x="452" y="180" transform="rotate(80 452 180)">嘉 陵 江</text>
+    <text class="rname" x="620" y="470" transform="rotate(66 620 470)" style="font-size:11px">嘉陵江</text>
+    <text class="rname" x="600" y="196" transform="rotate(52 600 196)" style="font-size:11px">渠 江</text>
+    <text class="rname" x="270" y="238" transform="rotate(22 270 238)" style="font-size:11px">涪 江</text>
+    <text class="cname s" x="474" y="330" style="fill:var(--water);opacity:.9">三江口</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="diaoyu"><circle cx="470" cy="366" r="7"/><text class="cname" x="484" y="356">钓鱼城<tspan class="cname s" dx="2">(合州)</tspan></text></g>
-      <g class="city" data-city="hezhou"><circle cx="500" cy="410" r="4"/><text class="cname s" x="512" y="422">合州(州治)</text></g>
-      <g class="city" data-city="chongqing"><circle cx="648" cy="524" r="6"/><text class="cname" x="600" y="546">重庆<tspan class="cname s" dx="2">(宋后方)</tspan></text></g>
-      <g class="city" data-city="chengdu"><circle cx="220" cy="316" r="5"/><text class="cname" x="150" y="312">成都<tspan class="cname s" dx="2">(已破)</tspan></text></g>
-      <g class="city" data-city="jialing"><circle cx="452" cy="150" r="3.5"/><text class="cname s" x="462" y="150">嘉陵江渡</text></g>
-      <g class="city" data-city="lizhou"><circle cx="470" cy="70" r="4"/><text class="cname s" x="482" y="66">利州(入蜀路)</text></g>
+      <!-- 钓鱼城:山城据险,三江环卫 -->
+      <path class="fort" d="M 505,296 L 518,289 L 533,293 L 540,306 L 534,320 L 520,325 L 507,318 L 503,306 Z"/>
+      <g class="city cap" data-city="diaoyu"><circle cx="522" cy="306" r="7"/><text class="cname" x="536" y="298">钓鱼城<tspan class="cname s" dx="2">(合州·钓鱼山)</tspan></text></g>
+      <g class="city" data-city="chongqing"><circle cx="620" cy="501" r="6"/><text class="cname" x="634" y="505">重庆<tspan class="cname s" dx="2">(宋四川制置司)</tspan></text></g>
+      <g class="city" data-city="beibei"><circle cx="577" cy="389" r="4.5"/><text class="cname s" x="590" y="393">北碚 · 温汤峡</text></g>
+      <g class="city" data-city="sanjiang"><circle cx="502" cy="317" r="3"/><text class="cname s" x="452" y="352">合川(州城)</text></g>
     </g>
 
-    <!-- 全图 · 蒙哥入蜀 -->
+    <!-- 成都·川西(图外·西,蒙古已破,主力来路) -->
+    <g transform="translate(6,332)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,0 L 32,-6"/>
+      <text class="mlabel q" x="0" y="-12" style="font-size:10px">成都·川西 ⟶</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--enemy);font-size:9.5px">蒙古已破(图外西)</text>
+    </g>
+    <!-- 利州·剑门(图外·北,蒙哥入蜀路·嘉陵江源) -->
+    <g transform="translate(430,8)">
+      <path class="march q" marker-end="url(#aq)" d="M 6,2 L 10,30"/>
+      <text class="mlabel q" x="-40" y="-2" style="font-size:10px">利州·剑门道 ↓</text>
+      <text class="cname s" x="18" y="22" style="fill:var(--enemy);font-size:9.5px">蒙哥入蜀路(图外北)</text>
+    </g>
+    <!-- 鄂州(图外·东,忽必烈围城·闻丧北归) -->
+    <g transform="translate(902,300)">
+      <path class="march rout" marker-end="url(#ar)" d="M 40,40 C 30,20 26,4 30,-16"/>
+      <text class="mlabel r" x="-8" y="60" style="font-size:10px">鄂州 ⟶ 图外东</text>
+      <text class="cname s" x="-70" y="20" style="fill:var(--ret);font-size:9.5px">忽必烈围鄂 · 闻丧北归争位 ↑</text>
+    </g>
+
+    <!-- ══ 全图 · 蒙哥入蜀 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 470,78 C 380,120 280,200 232,306"/>
-      <text class="mlabel q" x="240" y="230">蒙哥自将主力入蜀,破成都诸城</text>
-      <path class="march q" marker-end="url(#aq)" d="M 232,326 C 300,352 380,364 456,368"/>
-      <text class="anno" x="300" y="392">循江东下,进围合州钓鱼城</text>
-      <text class="mlabel q" x="640" y="140">忽必烈趋鄂州</text>
-      <text class="anno" x="600" y="118">兀良合台自云南北上,期会师灭宋</text>
-      <text class="mlabel j" x="580" y="500">王坚、张珏据钓鱼城死守</text>
+      <path class="march q" marker-end="url(#aq)" d="M 440,64 C 452,150 470,230 500,280"/>
+      <text class="mlabel q" x="360" y="150">蒙哥自将主力入蜀,连破川西诸城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 60,326 C 200,318 340,304 500,300"/>
+      <text class="anno" x="150" y="300">循嘉陵江东下,进围合州钓鱼城</text>
+      <circle class="siege" cx="522" cy="306" r="24"/>
+      <text class="mlabel j" x="546" y="330">王坚 · 张珏 据钓鱼城死守</text>
+      <text class="mlabel q" x="792" y="360">忽必烈趋鄂州</text>
+      <text class="anno" x="720" y="410">兀良合台自云南北上,期会师灭宋</text>
+      <text class="anno" x="470" y="560">一城之守,系天下安危</text>
     </g>
 
-    <!-- 阶段一:据险婴城 -->
+    <!-- ══ 阶段一:进围钓鱼城 ══ -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="470" cy="366" r="26"/>
-      <circle class="siege" cx="470" cy="366" r="38"/>
-      <text class="mlabel q" x="300" y="300">蒙古围之,攻具毕张而仰攻不能上</text>
-      <text class="mlabel j" x="486" y="384">王坚、张珏缮城积粮,迁民入保</text>
-      <path class="march j" marker-end="url(#aj)" d="M 476,378 C 490,392 500,404 508,414"/>
-      <text class="anno" x="500" y="432">炮石礌木下击,前锋汪德臣招降,为飞石毙</text>
+      <path class="march q" marker-end="url(#aq)" d="M 440,64 C 452,150 468,228 496,282"/>
+      <text class="mlabel q" x="356" y="140">蒙哥由利州道入蜀,破成都·川西诸城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 60,330 C 210,320 360,306 498,302"/>
+      <text class="anno" x="140" y="356">开庆元年二月,循嘉陵江进抵合州</text>
+      <circle class="siege" cx="522" cy="306" r="22"/>
+      <circle class="siege" cx="522" cy="306" r="34"/>
+      <rect class="camp" x="474" y="270" width="9" height="9" transform="rotate(45 478 274)"/>
+      <rect class="camp" x="566" y="300" width="9" height="9" transform="rotate(45 570 304)"/>
+      <text class="mlabel q" x="556" y="262">合围钓鱼城,攻具毕张</text>
+      <text class="mlabel j" x="404" y="404">迁民入保 · 缮城积粮 · 婴城固守</text>
     </g>
 
-    <!-- 阶段二:顿兵坚城 -->
+    <!-- ══ 阶段二:凭险死守 · 屡攻不克 ══ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="470" cy="366" r="26"/>
-      <rect class="camp" x="418" y="332" width="9" height="9" transform="rotate(45 422 336)"/>
-      <rect class="camp" x="520" y="358" width="9" height="9" transform="rotate(45 524 362)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 428,340 C 442,350 452,356 458,360"/>
-      <path class="march q" marker-end="url(#aq)" d="M 516,362 C 500,362 490,364 482,366"/>
-      <text class="mlabel q" x="340" y="316">分道并攻马鞍、镇西诸门,皆不能拔</text>
-      <text class="anno" x="300" y="450">相持五月;盛暑霖雨、军中疾疫,北人不服水土</text>
-      <text class="mlabel q" x="560" y="480">顿兵日久,锐气渐消</text>
+      <circle class="siege" cx="522" cy="306" r="22"/>
+      <!-- 一字城墙:自山城下抵江岸,控水道 -->
+      <path class="wall" d="M 522,320 C 516,340 512,356 514,376"/>
+      <text class="anno" x="480" y="372" style="fill:var(--advance)">一字城墙 · 控江道</text>
+      <!-- 分道并攻诸门 -->
+      <rect class="camp" x="470" y="286" width="8" height="8" transform="rotate(45 474 290)"/>
+      <rect class="camp" x="560" y="288" width="8" height="8" transform="rotate(45 564 292)"/>
+      <rect class="camp" x="524" y="252" width="8" height="8" transform="rotate(45 528 256)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 480,292 C 492,298 500,302 506,304"/>
+      <path class="march q" marker-end="url(#aq)" d="M 556,294 C 544,298 536,300 530,302"/>
+      <path class="march q" marker-end="url(#aq)" d="M 528,262 C 526,276 524,286 523,294"/>
+      <text class="mlabel q" x="330" y="248">昼夜环攻外城·护国门·镇西门,皆不能拔</text>
+      <!-- 炮石礌木下击 -->
+      <g class="stone"><circle cx="500" cy="326" r="2.6"/><circle cx="492" cy="338" r="2.2"/><circle cx="510" cy="342" r="2"/></g>
+      <text class="anno" x="452" y="360" style="fill:var(--gold)">城上炮石·礌木下击</text>
+      <text class="mlabel j" x="560" y="352">仰攻峭壁不能上,相持凡五月</text>
     </g>
 
-    <!-- 阶段三:蒙哥折鞭 -->
+    <!-- ══ 阶段三:盛暑疫疠 · 飞石毙帅 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="470" cy="366" r="9"/>
-      <path d="M 470,349 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8" transform="translate(0,17)"/>
-      <text class="mlabel q" x="490" y="356">蒙哥亲临督战,为城中炮石所中,寻死于军</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 456,360 C 380,300 300,230 250,180"/>
-      <text class="mlabel r" x="270" y="250">忽必烈北归争立</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 470,354 C 460,260 466,160 470,84"/>
-      <text class="anno" x="482" y="210">旭烈兀自西亚东还,西征遂止</text>
-      <text class="anno" x="300" y="500">一城之守,延宋二十年,西人谓「上帝折鞭之处」</text>
+      <circle class="siege" cx="522" cy="306" r="22"/>
+      <!-- 酷暑疫疠:军中疾疫,北人不服水土 -->
+      <path d="M 588,300 q 8,-8 16,0 t 16,0 M 588,312 q 8,-8 16,0 t 16,0 M 588,324 q 8,-8 16,0 t 16,0" fill="none" stroke="var(--enemy)" stroke-width="1.4" opacity=".55"/>
+      <text class="mlabel q" x="612" y="316">盛暑霖雨 · 军中疾疫</text>
+      <text class="anno" x="612" y="332">北人不服水土,士卒病疲</text>
+      <!-- 汪德臣单骑招降,为飞石毙 -->
+      <path class="march q" marker-end="url(#aq)" d="M 566,352 C 552,338 542,328 534,320"/>
+      <g class="stone"><path d="M 522,289 l 3,-8 l 2.5,6 l 6,-3 l -3,6 l 7,2.5 l -7,2.5 l 3,6 l -6,-3 l -2.5,6 l -3,-8 l -6,3 l 3,-6 l -7,-2.5 l 7,-2.5 l -6,-3 z" transform="translate(0,0)"/></g>
+      <text class="mlabel q" x="360" y="392">汪德臣单骑至城下招降,为飞石击毙</text>
+      <!-- 蒙哥亲临督战,为炮风所伤 -->
+      <circle class="star" cx="522" cy="306" r="11"/>
+      <path class="march q" marker-end="url(#aq)" d="M 470,246 C 486,270 500,286 510,296"/>
+      <text class="mlabel q" x="352" y="238">蒙哥督战东新门外脑顶坪,为城中飞石所伤</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:蒙哥死 · 蒙古全线撤军折鞭 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 蒙哥退温汤峡,寻崩 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 520,314 C 540,340 558,362 572,384"/>
+      <circle class="star" cx="577" cy="389" r="9"/>
+      <path d="M 577,373 l 4,-9 l 3,7 l 7,-4 l -4,7 l 8,3 l -8,3 l 4,7 l -7,-4 l -3,7 l -4,-9 l -7,4 l 4,-7 l -8,-3 l 8,-3 l -7,-4 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8" transform="translate(0,16)"/>
+      <text class="mlabel q" x="592" y="384">蒙哥退温汤峡,七月崩于军</text>
+      <!-- 全线撤军:主力北归 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 512,300 C 460,244 448,150 440,70"/>
+      <text class="mlabel r" x="360" y="120">蒙古以国丧,主力北撤</text>
+      <!-- 忽必烈自鄂州北归争位(东) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 640,470 C 760,420 860,360 916,300"/>
+      <text class="mlabel r" x="662" y="452">忽必烈自鄂州撤围北归争立</text>
+      <!-- 旭烈兀自西亚东返(东) -->
+      <text class="anno" x="700" y="500">旭烈兀闻丧,自西亚东返,第三次西征遂止</text>
+      <text class="anno" x="360" y="440">一城折鞭 · 延宋二十年 · 西人谓「上帝折鞭之处」</text>
+    </g>
+
+    <g class="compass" transform="translate(950,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>南宋军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>蒙古军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>罢兵回师</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>蒙哥死处</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>南宋守军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>蒙古军(攻围)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>蒙古撤军·折鞭</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>飞石毙命·关键</span>
     <span class="item"><svg width="20" height="16"><circle cx="10" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>蒙古</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>南宋</span>
+    <span class="item"><svg width="34" height="12"><path d="M 4,10 L 10,3 L 16,7 L 24,2" fill="none" stroke="#5f7f88" stroke-width="2"/></svg>三江·环卫</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>蒙古</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>南宋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 弹丸山城 · 折上帝之鞭</h3>
+    <div class="lead">何以横扫欧亚、举世无当之蒙古大军,顿于一弹丸山城而折其汗 —— 系于据险·顿兵·疫疠·毙帅四事相因</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="释要示意:钓鱼城三江环卫·悬崖峭壁·城内有田有池可自给,故蒙古顿兵五月不克;会盛暑疫疠、飞石毙汪德臣、蒙哥中飞石而崩,蒙古遂全线撤军,忽必烈北归、旭烈兀西返,折上帝之鞭">
+      <!-- 左:山城之固(青) -->
+      <text x="24" y="30" fill="#1f4e54" font-size="12.5" font-weight="700">其固 · 山城据险,难攻可久(青)</text>
+      <rect x="40" y="52" width="150" height="120" rx="6" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="2.2"/>
+      <text x="78" y="98" fill="#1f4e54" font-size="14" font-weight="700">钓鱼城</text>
+      <text x="58" y="122" fill="#2b2418" font-size="10.5">三面环江 · 悬崖峭壁</text>
+      <text x="58" y="140" fill="#2b2418" font-size="10.5">城内有田有池</text>
+      <text x="58" y="158" fill="#2b2418" font-size="10.5">可耕可汲 · 自给可久</text>
+      <!-- 三江环卫水波 -->
+      <path d="M 30,180 q 10,-8 20,0 t 20,0 t 20,0 t 20,0 t 20,0 t 20,0 t 20,0" fill="none" stroke="#5f7f88" stroke-width="2" opacity=".7"/>
+      <text x="196" y="110" fill="#9a2b1e" font-size="10.5" font-weight="700">蒙古环攻</text>
+      <text x="196" y="126" fill="#9a2b1e" font-size="10.5" font-weight="700">仰攻不能上</text>
+      <path d="M 232,96 C 214,100 206,104 200,110" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="4 4"/>
+      <path d="M 206,106 L 199,111 L 208,115 Z" fill="#9a2b1e"/>
+      <!-- 分界 -->
+      <line x1="300" y1="16" x2="300" y2="234" stroke="#5c4f38" stroke-width="1.2" stroke-dasharray="3 5" opacity=".55"/>
+      <!-- 右:顿兵→疫→毙帅→折鞭(赭/金) -->
+      <text x="322" y="30" fill="#9a2b1e" font-size="12.5" font-weight="700">其折 · 顿兵坚城,四事相因而汗毙</text>
+      <line x1="330" y1="96" x2="720" y2="96" stroke="#9a2b1e" stroke-width="1.6" opacity=".8"/>
+      <g fill="#9a2b1e"><circle cx="360" cy="96" r="5"/><circle cx="470" cy="96" r="5"/></g>
+      <circle cx="580" cy="96" r="8" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <circle cx="690" cy="96" r="9" fill="none" stroke="#9c7a2c" stroke-width="2.6"/>
+      <text x="336" y="122" fill="#2b2418" font-size="10.5">顿兵五月</text>
+      <text x="440" y="122" fill="#2b2418" font-size="10.5">盛暑疫疠</text>
+      <text x="540" y="122" fill="#9c7a2c" font-size="10.5" font-weight="700">飞石毙汪德臣</text>
+      <text x="656" y="122" fill="#9c7a2c" font-size="10.5" font-weight="700">蒙哥中飞石·崩</text>
+      <!-- 折鞭:全线撤军 -->
+      <text x="322" y="168" fill="#7a5a23" font-size="12" font-weight="700">折鞭 · 蒙古全线撤军</text>
+      <path d="M 690,110 C 710,140 700,168 660,182" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/>
+      <path d="M 668,176 L 658,184 L 670,187 Z" fill="#7a5a23"/>
+      <text x="330" y="192" fill="#7a5a23" font-size="10.5">忽必烈自鄂州北归争位</text>
+      <text x="330" y="210" fill="#7a5a23" font-size="10.5">旭烈兀自西亚东返,西征止</text>
+      <text x="330" y="228" fill="#9a2b1e" font-size="10.5" font-weight="700">欧亚战局为之一转 · 上帝折鞭</text>
+    </svg>
+    <p class="intro">钓鱼城非以兵众取胜,乃以<b>地利与天时</b>破举世无当之师。其城依钓鱼山而筑,扼嘉陵、渠、涪三江之会,<b>三面环江、悬崖峭壁</b>,登城之路仅一线;城内更<b>有田有池,可耕可汲</b>,故能婴城自给、久守不困。蒙古战法长于野战奔突、短于攻此绝险之山城,遂顿兵城下五月,而致命之变皆生于「顿」——疫疠、毙将、汗崩,环环相因。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>其固 · 山城据险,三江环卫</h4>
+        <p>余玠经营四川山城防御,徙合州治于钓鱼山,据险为堡,为川东锁钥。城三面临嘉陵、渠、涪三江,一面倚山,悬崖峭壁,舟师难施、云梯不及;守将王坚、张珏迁民入保、缮城积粮,自城上以炮石、礌木下击。城内有田可耕、有池可汲,守军军民数万可以自给,故能死守五月而气不衰——此蒙古百战之师所未尝遇之坚城。</p>
+      </div>
+      <div class="c b">
+        <h4>其折 · 顿兵疫疠,飞石毙帅</h4>
+        <p>蒙古环攻外城、护国门、镇西门,仰攻不能上,顿兵日久。会川东盛暑霖雨,军中疾疫大作,北人不服水土,士卒病疲。前锋大将汪德臣单骑至城下招降,为城中飞石击毙;蒙哥不甘顿挫,亲临东新门外脑顶坪督战,亦为飞石(炮风)所伤,退温汤峡,七月崩于军。大汗既死,蒙古以国丧全线撤军。</p>
+      </div>
+    </div>
+    <p class="kicker">故此役之奇,<b>非攻之不力,实据险之坚、天时之疠、飞石之毙帅三者相因</b>,令横扫欧亚之师折鞭于一弹丸山城。蒙哥既崩,<b>忽必烈自鄂州撤围北归夺位、旭烈兀自西亚东返、第三次西征遂止</b>——一城之守,间接止蒙古西侵之势、改欧亚世界之局,西人谓之「<b>上帝折鞭之处</b>」;而钓鱼城更坚守至一二七九年宋亡后,乃以不杀军民为约而降,为古今守城之奇。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·王坚传》《张珏传》、《元史·宪宗纪》、《钓鱼城志》约略绘出。钓鱼城在合州(今重庆合川),据嘉陵、渠、涪三江之会,山险城坚。疆界、水道经简化,点划"约界"以示蒙古已破川西、宋守川东之大势,非实有画界。</p>
-    <p><span class="n">注二</span>钓鱼城即今重庆市合川区钓鱼山。蒙哥死状史有异说:或谓中炮石,或谓病疫,或谓中矢;要皆死于钓鱼城下。前锋汪德臣招降被飞石击死,不久亦亡。</p>
-    <p><span class="n">注三</span>蒙哥死于城下、诸路皆罢兵回师:忽必烈北归夺位,旭烈兀止西征东还,世界史为之一转。钓鱼城守至南宋亡后,乃以不杀城中军民为约而降,为古今守城之奇。本图以南宋为本方(青),苦守折鞭,总目列金色。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x=260+(经度−105.55)·360,y=588−(纬度−29.35)·415</b>,几何力求近实:嘉陵江自北南下、涪江自西北、渠江自东北,三江会于合川,合流东南趋重庆。蒙古已破川西(北·西),南宋据川东·重庆(南·东),故以点划「约界」标其大势,非实有画界;钓鱼城为孤悬敌前之堡,非在宋境之内。依《宋史·王坚传》《张珏传》、《元史·宪宗纪》、《钓鱼城志》、《续资治通鉴》卷一七五约略绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:钓鱼城即合州治所,今重庆合川东钓鱼山(约106.28E/30.03N),据嘉陵、渠、涪三江之会;重庆(宋四川制置司·后方,约106.55E/29.56N)在其东南;北碚·温汤峡(蒙哥退死处一带,约106.43E/29.83N)在合川、重庆之间嘉陵江上。利州·剑门(蒙哥入蜀路,今广元,约105.84E/32.43N)远在图外北,嘉陵江之源;成都·川西(蒙古已破,约104.07E/30.67N)在图外西;鄂州(忽必烈围城,今武昌,约114.3E/30.55N)远在图外东南,以图外箭头示之;旭烈兀所在之西亚(叙利亚方向)远在图外西,仅志于文。</p>
+    <p><span class="n">注三</span>蒙哥死状、死地史有异说,自宋至清凡十余种:或谓中炮石(炮风所伤)、或谓中矢、或谓染疫病殁、或谓中暑。《元史·宪宗纪》但云「(七月)癸亥,帝崩于钓鱼山」;万历《合州志·钓鱼城记》则谓过金剑山温汤峡而卒,盖伤后退至温汤峡(温泉寺)不治;要皆死于钓鱼城役。前锋汪德臣(汪田哥)单骑至城下招降,为城中飞石击毙,寻亦亡。王坚斩蒙古招降之使以拒,张珏副之——后守钓鱼城者即张珏。</p>
+    <p><span class="n">注四</span>制胜之枢在「据险·顿兵·疫疠·毙帅」而不在断粮:此为守方之役,水非漕运而为环卫之天堑,城内有田有池可自给,守久而不困;攻方顿兵坚城、值酷暑疫疠、主帅中飞石而崩,遂不得不撤(图中「释要」以青示山城之固、以赭金示顿兵毙帅之折)。蒙哥既死,蒙古分道大举伐宋之势尽解:忽必烈自鄂州撤围北归,与阿里不哥争立而后自立;旭烈兀自西亚东返,留怯的不花守叙利亚,次年(1260)败于埃及马木留克之艾因贾鲁,蒙古西侵之锋遂止;兀良合台亦自云南北撤。钓鱼城一役,间接改欧亚世界史之走向。图中蒙古三道之兵皆同属,故以赭色为攻、褐色虚线为撤,不别为第三方。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"蒙哥入蜀",d:"宋开庆元年(1259)",p:["蒙哥汗分三道大举伐宋:自将主力入蜀,忽必烈趋鄂州,兀良合台自云南北上,期会师江淮以灭宋。蒙哥军入蜀,破成都及川西诸城,长驱而下,进围合州钓鱼城。","钓鱼城据嘉陵、渠、涪三江之会,山险城坚,为川东屏障。守将王坚、副将张珏婴城死守。一城之得失,遂系天下之安危,而蒙古三道会师之谋,亦顿于此坚城之下。"]},
-  "1":{t:"据险婴城",d:"开庆元年二月起",p:["钓鱼城据三江之会,山峭城坚。王坚、张珏先事缮城积粮、迁民入保,凭险而守。蒙哥军围之,攻具毕张,然仰攻峭壁不能上,屡攻屡挫。","守军自城上以炮石、礌木下击,蒙军死伤枕藉。蒙古前锋大将汪德臣单骑至城下招降,为城中飞石击中,不久毙——蒙军锐气自此顿挫。"]},
-  "2":{t:"顿兵坚城",d:"围城凡五月",p:["蒙古分道并攻,昼夜环击马鞍、镇西诸门,皆坚不能拔,相持凡五月之久。坚城之下,顿兵日久,攻守之势渐移。","会盛暑霖雨,军中疾疫大作,北人不服水土,死伤益众。顿兵坚城，师老气衰,蒙哥之锐,消于合州一隅。"]},
-  "3":{t:"蒙哥折鞭",d:"开庆元年七月",p:["蒙哥不甘顿挫,亲临城下督战,为城中炮石所中(一说病、一说中矢),寻死于军。大汗之丧,震动全军。","蒙古以国有大丧,诸路皆罢兵回师:忽必烈自鄂州北归争立,旭烈兀自西亚东还,西征遂止。一城之守,延宋祚二十年,西人谓「上帝折鞭之处」。"]}
+  all:{t:"蒙哥入蜀 · 三道伐宋",d:"宋开庆元年 · 蒙古蒙哥九年(1259)",p:["蒙哥汗分三道大举伐宋:自将主力(西路)入四川,忽必烈趋鄂州(中路),兀良合台自云南北上(南路),期会师江淮以灭宋。蒙哥军入蜀,破成都及川西诸城,长驱东下,进围合州钓鱼城。","钓鱼城依钓鱼山而筑,扼嘉陵、渠、涪三江之会,三面环江、悬崖峭壁,城内有田有池可自给,为余玠所营川东山城之核心。守将王坚、副将张珏率军民婴城死守。一城之得失,遂系天下之安危,而蒙古三道会师之谋,亦顿于此坚城之下。"]},
+  "1":{t:"进围钓鱼城",d:"开庆元年二月",p:["蒙哥大军自利州道入蜀,沿嘉陵江南下,连破成都及川西诸城。开庆元年二月,循江东进抵合州,合围钓鱼城,攻具毕张,列营江上。","守将王坚、张珏先事缮城积粮、迁民入保,据三江之险而守。钓鱼城孤悬敌前,而山峭城坚,三面环江,蒙古舟骑虽众,一时未能骤下——攻守之势,遂集于此一山城。"]},
+  "2":{t:"凭险死守 · 屡攻不克",d:"开庆元年二月 — 六月",p:["蒙古分道并攻,昼夜环击外城、护国门、镇西门诸险,皆坚不能拔。守军凭悬崖峭壁,自城上以炮石、礌木下击,又筑一字城墙下抵江岸以控水道、绝其樵汲，蒙军仰攻不能上,死伤枕藉,相持凡五月。","城内有田可耕、有池可汲,军民数万足以自给,故久守而气不衰;蒙古百战之师长于野战奔突,独短于攻此绝险之山城。顿兵坚城日久,攻守之势渐移。"]},
+  "3":{t:"盛暑疫疠 · 飞石毙帅",d:"开庆元年六 — 七月",p:["会川东盛暑霖雨,军中疾疫大作,北人不服水土,士卒病疲,死伤益众。蒙古前锋大将汪德臣(汪田哥)单骑至城下招降,为城中飞石击毙——蒙军锐气自此顿挫。","蒙哥不甘顿于坚城,七月亲临东新门外脑顶坪督战,为城中飞石(炮风)所伤。顿兵、疫疠、毙将、伤汗,四事相因,合州一隅遂成蒙古全军之转捩。"]},
+  "4":{t:"蒙哥死 · 蒙古全线撤军折鞭",d:"开庆元年七月",p:["蒙哥伤病笃,退至温汤峡,七月癸亥崩于军(死状史有异说:或中炮石、或病疫、或中矢)。大汗之丧,震动全军,蒙古遂以国丧全线撤军。","忽必烈自鄂州撤围北归,与阿里不哥争立而后自立;旭烈兀自西亚东返,第三次西征遂止;兀良合台亦自云南北撤。一城之守,延宋祚二十年,间接改欧亚世界史之走向,西人谓之「上帝折鞭之处」。钓鱼城更坚守至一二七九年宋亡后,乃以不杀军民为约而降。"]}
 };
 const CITY={
-  diaoyu:{t:"钓鱼城",d:"合州,今重庆合川钓鱼山",p:["据嘉陵、渠、涪三江之会,山险城坚。王坚、张珏婴城死守凡五月,蒙哥汗死于城下。","苦守折鞭,延宋二十年;城守至宋亡后,以不杀军民为约乃降,为古今守城之奇。"]},
-  hezhou:{t:"合州",d:"钓鱼城所倚之州治",p:["余玠经营川蜀,徙合州治于钓鱼山,据险为堡,遂成川东重镇、蜀口锁钥。"]},
-  chongqing:{t:"重庆",d:"宋川东后方重镇",p:["钓鱼城扼三江之上游,为重庆之屏障;城存则重庆安,故守之不遗余力。"]},
-  chengdu:{t:"成都",d:"蒙古已破之川西大城",p:["蒙哥入蜀,先破成都及川西诸城,然后东向合州——川西已失,而川东以钓鱼城独完。"]},
-  jialing:{t:"嘉陵江",d:"三江之一",p:["自利州南下,经合州钓鱼城入重庆。与渠、涪二水会于城下,三江环抱,舟师难施,城以水险为固。"]},
-  lizhou:{t:"利州",d:"蒙哥入蜀之路,今四川广元",p:["蒙哥大军自利州道入蜀,沿嘉陵江南下,破川西而围钓鱼城。"]}
+  diaoyu:{t:"钓鱼城",d:"合州治,今重庆合川东钓鱼山",p:["依钓鱼山而筑,扼嘉陵、渠、涪三江之会,三面环江、悬崖峭壁,城内有田有池可自给。王坚、张珏率军民婴城死守五月,蒙哥汗死于城下。","苦守折鞭,延宋二十年;城守至宋亡(1279)后,以不杀军民为约乃降,为古今守城之奇。"]},
+  chongqing:{t:"重庆",d:"宋四川制置司 · 川东后方,今重庆渝中",p:["南宋四川军政中枢、川东后方重镇。钓鱼城扼三江之上游,为重庆之屏障;城存则重庆安,故守之不遗余力。"]},
+  beibei:{t:"北碚 · 温汤峡",d:"合川、重庆间嘉陵江上,今重庆北碚",p:["蒙哥于钓鱼城下中飞石受伤后,退至温汤峡(温泉寺)一带,七月不治而崩(万历《合州志·钓鱼城记》说);《元史·宪宗纪》则云崩于钓鱼山。要皆死于钓鱼城役。"]},
+  sanjiang:{t:"合川(合州州城·三江口)",d:"嘉陵、渠、涪三江交汇处,今重庆合川",p:["余玠经营川蜀,徙合州治于钓鱼山,据险为堡。嘉陵江自北、涪江自西北、渠江自东北会于此,合流东南入重庆——三江环卫,舟师难施,城以水险为固。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
