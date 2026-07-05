@@ -30,7 +30,14 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 土木堡绝地:等高线示高亢地势,枯井示掘井不得水 */
+  .contour{fill:none;stroke:var(--ink2);stroke-width:1;opacity:.5}
+  .dry .well{fill:var(--paper2);stroke:var(--ink);stroke-width:1.3}
+  .dry .crack{stroke:var(--enemy);stroke-width:1.3;fill:none;opacity:.85}
+  .dry .dl{fill:var(--enemy);font-size:10px;font-weight:700}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +46,21 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  /* 佯退诈和 / 移营就水:细虚线,不入描画动画 */
+  .march.feint{stroke-width:2.2;stroke-dasharray:5 4;opacity:.92}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 英宗被俘:金环内朱方,示天子北狩 */
+  .capmark .ring{fill:none;stroke:var(--gold);stroke-width:2.6}
+  .capmark .sq{fill:var(--seal);opacity:.92}
+  .capmark .ct{fill:var(--paper);font-family:"Ma Shan Zheng",serif;font-size:12px}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +69,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +96,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>土</span><span>木</span><span>之</span><span>变</span></div>
   <header>
     <h1>土木之变</h1>
-    <div class="sub">正统十四年(1449)　　<i>明英宗 · 王振</i> 进退失据 · <b>瓦剌 也先</b>围歼于土木</div>
+    <div class="sub">正统十四年(1449) · 明英宗亲征　　<i>明英宗 · 权阉王振</i> 号五十万而覆没 · <b>瓦剌 也先</b>顿之绝地、诱就水而围歼 · 天子北狩</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 英宗亲征</button>
-    <button data-p="1">抵大同 · 闻败回师</button>
-    <button data-p="2">迂回误期 · 瓦剌追及</button>
-    <button data-p="3">土木乏水 · 围歼被俘</button>
+    <button class="on" data-p="all">全图 · 亲征之覆</button>
+    <button data-p="1">怂恿亲征 · 出居庸趋大同</button>
+    <button data-p="2">前线惨败 · 惊惧回师 · 迂回耽搁</button>
+    <button data-p="3">顿兵土木 · 绝地无水 · 也先合围</button>
+    <button data-p="4">佯退诱就水 · 阵乱全歼 · 英宗被俘</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="土木之变形势图,含瓦剌明疆界、长城桑干河洋河与大同宣府土木堡北京等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="土木之变形势图,含瓦剌漠南与大明塞内之疆界、长城一线、桑干河洋河永定河诸水、军都山太行山,及大同阳和宣府土木堡怀来居庸关北京蔚州紫荆关等城邑;示英宗号五十万北出居庸历宣府趋大同、闻前线阳和惨败而惊惧回师、王振迂回蔚州复改道东出而贻误军机、大军顿于土木堡绝地无水掘井不得泉、也先四面合围、佯退诈和诱明军移营就水而阵乱、铁骑四面冲杀全歼、英宗被俘">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,126 +119,252 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:瓦剌据漠南(北),明据长城内(南),约以长城为界 -->
-    <path d="M 0,236 C 130,224 260,214 380,222 C 520,232 640,214 760,196 C 850,184 930,190 1000,204 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,236 C 130,224 260,214 380,222 C 520,232 640,214 760,196 C 850,184 930,190 1000,204 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,236 C 130,224 260,214 380,222 C 520,232 640,214 760,196 C 850,184 930,190 1000,204"/>
-    <text class="realm q" x="120" y="120" font-size="32">瓦 剌(漠南)</text>
-    <text class="realm j" x="600" y="560" font-size="32">大 明(塞内)</text>
+    <!-- 疆界:瓦剌据漠南(北),明守长城内塞防(南),约以长城为界 -->
+    <path d="M 0,130 C 180,120 380,114 560,112 C 720,110 880,114 1000,120 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,130 C 180,120 380,114 560,112 C 720,110 880,114 1000,120 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,130 C 180,120 380,114 560,112 C 720,110 880,114 1000,120"/>
+    <text class="realm q" x="70" y="66" font-size="26">瓦 剌 · 漠 南</text>
+    <text class="cname s" x="74" y="88" style="fill:var(--enemy);opacity:.55">太师也先 · 脱脱不花可汗 · 分道犯边</text>
+    <text class="realm j" x="120" y="602" font-size="24">大 明 · 塞 内</text>
+    <text class="cname s" x="124" y="622" style="fill:var(--advance);opacity:.6">九边诸镇 · 京营三大营出征</text>
 
     <!-- 长城:沿疆界之南,东西横亘 -->
-    <path class="river" stroke="var(--ink2)" stroke-width="2.4" style="opacity:.6;stroke-dasharray:6 3 2 3" d="M 0,262 C 140,250 260,244 380,252 C 520,262 640,246 760,228 C 850,216 930,222 1000,236"/>
-    <text class="rname" x="470" y="240" style="fill:var(--ink2);opacity:.7;font-size:11.5px">长　城</text>
+    <path class="river" stroke="var(--ink2)" stroke-width="2.4" style="opacity:.55;stroke-dasharray:6 3 2 3" d="M 0,152 C 180,142 380,136 560,134 C 720,132 880,136 1000,142"/>
+    <text class="rname" x="320" y="148" style="fill:var(--ink2);opacity:.7;font-size:11.5px">长　城</text>
 
-    <!-- 桑干河:自大同东流,经宣府南 -->
-    <path class="river" stroke-width="4" d="M 120,420 C 240,408 340,396 440,388 C 560,378 660,378 760,398"/>
-    <!-- 洋河:自宣府东南汇于怀来、土木一带 -->
-    <path class="river" stroke-width="3" d="M 620,336 C 660,362 700,384 748,402 C 790,418 830,430 872,440"/>
-    <text class="rname" x="300" y="418" transform="rotate(-4 300 418)">桑 干 河</text>
-    <text class="rname" x="662" y="360" transform="rotate(30 662 360)" style="font-size:11px">洋　河</text>
+    <!-- 桑干河:自大同盆地东北流,趋怀来 -->
+    <path class="river" stroke-width="4" d="M 132,368 C 300,346 460,318 596,278 C 646,260 676,252 706,248"/>
+    <!-- 洋河:自宣府东南流,会桑干于怀来、土木一带 -->
+    <path class="river" stroke-width="3" d="M 560,168 C 604,202 646,232 690,252"/>
+    <!-- 永定河:自怀来官厅峡东南出,趋京师 -->
+    <path class="river" stroke-width="3.4" d="M 707,252 C 742,292 782,340 820,378"/>
+    <text class="rname" x="330" y="330" transform="rotate(-15 330 330)">桑 干 河</text>
+    <text class="rname" x="596" y="212" transform="rotate(36 596 212)" style="font-size:11px">洋　河</text>
+    <text class="rname" x="770" y="332" transform="rotate(44 770 332)" style="font-size:10.5px">永定河</text>
 
-    <!-- 燕山群峰 -->
-    <g class="mtn"><path d="M 820,300 l 8,-13 l 8,13 M 836,294 l 8,-13 l 8,13 M 852,300 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="820" y="320">燕山</text>
+    <!-- 军都山·燕山:居庸关所贯,怀来与京师之间 -->
+    <path class="mtn fill" d="M 756,320 L 772,296 L 786,312 L 802,288 L 818,314 L 834,294 L 846,318 Z"/>
+    <path class="mtn" d="M 764,312 l 12,-18 l 10,12 l 14,-20 l 12,16"/>
+    <text class="mname" x="758" y="340" style="font-size:10px">军都山 · 居庸</text>
+    <!-- 太行山·恒山余脉:西南,蔚州、紫荆关一带 -->
+    <path class="mtn fill" d="M 372,452 L 396,414 L 412,432 L 434,404 L 456,434 L 478,410 L 500,438 L 520,416 L 540,446 Z"/>
+    <path class="mtn" d="M 400,436 l 16,-24 l 13,16 l 18,-26 l 15,20 l 14,-18"/>
+    <text class="mname" x="392" y="470" style="letter-spacing:.24em">太 行 · 恒 山</text>
+
+    <!-- 土木堡绝地:高亢地势(等高线)与枯井(掘井不得水) -->
+    <g id="height">
+      <ellipse class="contour" cx="689" cy="206" rx="54" ry="30"/>
+      <ellipse class="contour" cx="689" cy="205" rx="37" ry="20"/>
+      <ellipse class="contour" cx="689" cy="204" rx="21" ry="11"/>
+      <g class="dry" transform="translate(650,190)">
+        <ellipse class="well" cx="0" cy="0" rx="5.5" ry="3.2"/>
+        <path class="crack" d="M 0,3 l -2,7 M 0,3 l 2,6"/>
+        <text class="dl" x="-92" y="3">掘井二丈不得泉</text>
+      </g>
+    </g>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="datong"><circle cx="128" cy="392" r="5.5"/><text class="cname" x="66" y="388">大同<tspan class="cname s" dx="2">(前进最远)</tspan></text></g>
-      <g class="city" data-city="xuanfu"><circle cx="560" cy="360" r="5.5"/><text class="cname" x="512" y="344">宣府</text></g>
-      <g class="city" data-city="tumu"><circle cx="748" cy="410" r="6"/><text class="cname" x="700" y="398">土木堡</text></g>
-      <g class="city" data-city="huailai"><circle cx="800" cy="428" r="4"/><text class="cname s" x="808" y="426">怀来城</text></g>
-      <g class="city" data-city="juyong"><circle cx="868" cy="472" r="5"/><text class="cname" x="820" y="490">居庸关</text></g>
-      <g class="city cap" data-city="beijing"><circle cx="900" cy="540" r="6.5"/><text class="cname" x="838" y="558">北京<tspan class="cname s" dx="2">(京师)</tspan></text></g>
+      <g class="city" data-city="datong"><circle cx="171" cy="329" r="5.5"/><text class="cname" x="110" y="326">大同<tspan class="cname s" dx="2">(前进最远)</tspan></text></g>
+      <g class="city" data-city="yanghe"><circle cx="267" cy="240" r="4.5"/><text class="cname s" x="278" y="236">阳和口</text></g>
+      <g class="city" data-city="xuanfu"><circle cx="546" cy="158" r="5.5"/><text class="cname" x="558" y="154">宣府</text></g>
+      <g class="city" data-city="tumu"><circle cx="689" cy="220" r="6.5"/><text class="cname" x="640" y="246">土木堡</text></g>
+      <g class="city" data-city="huailai"><circle cx="717" cy="227" r="4"/><text class="cname s" x="726" y="224">怀来城</text></g>
+      <g class="city" data-city="juyong"><circle cx="764" cy="263" r="5"/><text class="cname" x="776" y="260">居庸关</text></g>
+      <g class="city cap" data-city="beijing"><circle cx="834" cy="392" r="6.5"/><text class="cname" x="846" y="388">北京<tspan class="cname s" dx="2">(京师)</tspan></text></g>
+      <g class="city" data-city="yuzhou"><circle cx="447" cy="412" r="4.5"/><text class="cname" x="459" y="416">蔚州<tspan class="cname s" dx="2">(王振乡)</tspan></text></g>
+      <g class="city" data-city="zijingguan"><circle cx="573" cy="550" r="4"/><text class="cname s" x="584" y="547">紫荆关</text></g>
     </g>
 
-    <!-- 全图 · 英宗亲征 -->
+    <!-- 全图 · 亲征之覆 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 892,534 C 856,504 828,486 812,468"/>
-      <path class="march j" marker-end="url(#aj)" d="M 858,466 C 780,440 660,404 572,368"/>
-      <path class="march j" marker-end="url(#aj)" d="M 548,362 C 400,382 240,390 140,392"/>
-      <text class="mlabel j" x="300" y="360">英宗信王振,率京营五十万仓促亲征</text>
-      <text class="anno" x="330" y="376">北出居庸、宣府,直趋大同</text>
-      <rect class="camp" x="90" y="150" width="9" height="9" transform="rotate(45 94 154)"/>
-      <text class="mlabel q" x="110" y="150">也先大举犯边,分道入寇</text>
-      <text class="anno" x="560" y="200">阿剌知院攻宣府、赤城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 828,384 C 806,346 786,304 770,272"/>
+      <path class="march j" marker-end="url(#aj)" d="M 756,258 C 700,220 620,180 556,164"/>
+      <path class="march j" marker-end="url(#aj)" d="M 534,166 C 420,196 300,255 184,320"/>
+      <text class="mlabel j" x="470" y="304" text-anchor="middle">英宗信王振,率京营号五十万仓促亲征</text>
+      <text class="anno" x="470" y="322" text-anchor="middle">北出居庸,历宣府,趋大同</text>
+      <path class="march q" marker-end="url(#aq)" d="M 176,120 C 172,180 173,240 177,300"/>
+      <text class="mlabel q" x="150" y="176">也先分道犯边</text>
+      <circle class="star" cx="267" cy="240" r="8"/>
+      <text class="anno" x="228" y="216" text-anchor="middle">阳和之覆</text>
+      <circle class="star" cx="689" cy="220" r="11"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 178,336 C 300,370 402,398 438,406"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 452,402 C 476,318 512,238 544,172"/>
+      <text class="mlabel r" x="360" y="392">迂回耽搁</text>
+      <text class="mlabel q" x="700" y="196">顿于绝地,四面围歼</text>
     </g>
 
-    <!-- 阶段一:抵大同 · 闻败回师 -->
+    <!-- 阶段一:怂恿亲征 · 出居庸趋大同 -->
     <g id="ph1" class="ph">
-      <circle class="star" cx="128" cy="392" r="9"/>
-      <text class="mlabel j" x="66" y="420">至大同,闻前锋覆没</text>
-      <text class="anno" x="66" y="436">诸军死亡山积,王振惧</text>
-      <path class="march q" marker-end="url(#aq)" d="M 108,200 C 116,268 122,330 126,378"/>
-      <text class="mlabel q" x="60" y="250">瓦剌前锋大破明军于阳和</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 144,388 C 260,378 400,372 540,362"/>
-      <text class="mlabel r" x="300" y="336">王振议回师东归</text>
+      <path class="march j" marker-end="url(#aj)" d="M 828,384 C 806,346 786,304 770,272"/>
+      <text class="mlabel j" x="784" y="330">京营三大营出师</text>
+      <path class="march j" marker-end="url(#aj)" d="M 756,258 C 700,220 620,180 556,164"/>
+      <text class="anno" x="640" y="214">历宣府而西</text>
+      <path class="march j" marker-end="url(#aj)" d="M 534,166 C 420,196 300,255 184,320"/>
+      <text class="mlabel j" x="360" y="272" text-anchor="middle">仓卒亲征,直趋大同前线</text>
+      <path class="march q" marker-end="url(#aq)" d="M 176,120 C 172,178 173,232 177,300"/>
+      <text class="mlabel q" x="150" y="172">也先自将攻大同</text>
+      <path class="march q" marker-end="url(#aq)" d="M 470,120 C 492,135 514,148 532,156"/>
+      <text class="mlabel q" x="384" y="118">阿剌知院别攻宣府、赤城</text>
+      <text class="anno" x="470" y="360" text-anchor="middle">七月十六诏亲征,群谏不能止</text>
     </g>
 
-    <!-- 阶段二:迂回误期 · 瓦剌追及 -->
+    <!-- 阶段二:前线惨败 · 惊惧回师 · 迂回耽搁 -->
     <g id="ph2" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 148,392 C 260,388 360,384 452,382"/>
-      <text class="anno" x="220" y="370">王振欲邀帝幸蔚州耀乡,复恐损田禾</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 456,382 C 500,382 528,374 550,366"/>
-      <text class="mlabel r" x="410" y="404">中途改道,迂回宣府</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 572,364 C 640,376 700,392 736,406"/>
-      <text class="anno" x="580" y="420">迁延误期</text>
-      <path class="march q" marker-end="url(#aq)" d="M 470,300 C 540,320 620,344 700,388"/>
-      <text class="mlabel q" x="430" y="296">瓦剌铁骑追及,且战且退</text>
-      <rect class="camp" x="596" y="308" width="8" height="8" transform="rotate(45 600 312)"/>
+      <circle class="star" cx="267" cy="240" r="9"/>
+      <path class="march q" marker-end="url(#aq)" d="M 214,150 C 234,178 252,206 262,228"/>
+      <text class="mlabel q" x="186" y="150">也先破明军于阳和口</text>
+      <text class="anno" x="186" y="166">宋瑛、朱冕等全军覆没</text>
+      <rect class="camp" x="167" y="325" width="9" height="9" transform="rotate(45 171 329)"/>
+      <text class="anno" x="118" y="352">大同 · 郭敬密告败状</text>
+      <!-- 迂回:大同南趋蔚州,复折返宣府东出 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 178,336 C 268,364 360,392 436,406"/>
+      <text class="mlabel r" x="250" y="392">①欲幸蔚州耀乡</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 452,402 C 474,320 510,240 542,172"/>
+      <text class="mlabel r" x="466" y="300">②恐蹂田禾,复改道</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 558,166 C 600,182 636,200 664,214"/>
+      <text class="anno" x="596" y="196">③东出居庸,迁延误期</text>
+      <path class="march q" marker-end="url(#aq)" d="M 262,144 C 380,178 500,200 610,208"/>
+      <text class="mlabel q" x="360" y="140" text-anchor="middle">也先铁骑蹑迹尾追,后军屡败</text>
     </g>
 
-    <!-- 阶段三:土木乏水 · 围歼被俘 -->
+    <!-- 阶段三:顿兵土木 · 绝地无水 · 也先合围 -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="748" cy="410" r="11"/>
-      <path class="siege" d="M 748,410 m -26,0 a 26,26 0 1,0 52,0 a 26,26 0 1,0 -52,0"/>
-      <text class="mlabel r" x="640" y="392">退至土木堡,地高无水</text>
-      <text class="anno" x="640" y="376">掘井二丈不得泉,人马饥渴</text>
-      <path class="march q" marker-end="url(#aq)" d="M 690,340 C 712,362 728,382 740,400"/>
-      <path class="march q" marker-end="url(#aq)" d="M 812,352 C 792,372 776,388 762,402"/>
-      <path class="march q" marker-end="url(#aq)" d="M 700,470 C 718,448 732,430 742,418"/>
-      <text class="mlabel q" x="770" y="356">也先佯和诱移营,铁骑四面冲之</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 758,418 C 776,430 792,438 806,442"/>
-      <text class="mlabel r" x="616" y="446">明军大溃,王振为樊忠所杀</text>
-      <text class="anno" x="616" y="462">勋臣宿将战死殆尽,英宗突围不得被俘</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 558,166 C 600,184 640,204 676,216"/>
+      <text class="anno" x="596" y="182">退趋土木</text>
+      <rect class="camp" x="685" y="216" width="9" height="9" transform="rotate(45 689 220)" style="fill:var(--advance)"/>
+      <path class="siege" d="M 689,220 m -34,0 a 34,34 0 1,0 68,0 a 34,34 0 1,0 -68,0"/>
+      <path class="march q" marker-end="url(#aq)" d="M 689,150 C 689,168 689,182 689,196"/>
+      <path class="march q" marker-end="url(#aq)" d="M 778,214 C 752,217 730,219 710,220"/>
+      <path class="march q" marker-end="url(#aq)" d="M 689,300 C 689,278 689,262 689,246"/>
+      <path class="march q" marker-end="url(#aq)" d="M 600,232 C 632,228 656,224 676,222"/>
+      <text class="mlabel q" x="700" y="138" text-anchor="middle">也先追及,四面合围,据泉扼汲</text>
+      <text class="mlabel j" x="474" y="338" text-anchor="middle">顿兵土木堡,地高亢而无水</text>
+      <text class="anno" x="474" y="355" text-anchor="middle">距怀来仅二十里,辎重未至,拒不入城</text>
+      <text class="anno" x="474" y="372" text-anchor="middle">掘井二丈不得泉,人马饥渴者二日,气夺而困</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- 阶段四:佯退诱就水 · 阵乱全歼 · 英宗被俘 -->
+    <g id="ph4" class="ph">
+      <!-- 也先佯退诈和,让开南面水源 -->
+      <path class="march q feint" marker-end="url(#aq)" d="M 700,244 C 704,266 710,286 720,304"/>
+      <text class="mlabel q" x="732" y="318">也先佯退诈和,让开水源</text>
+      <!-- 明军矫命拔营就水 -->
+      <path class="march j feint" marker-end="url(#aj)" d="M 689,232 C 692,244 695,254 698,264"/>
+      <text class="mlabel j" x="598" y="258" text-anchor="middle">明军矫命移营就水</text>
+      <!-- 阵乱,铁骑四面冲杀 -->
+      <path class="march q" marker-end="url(#aq)" d="M 700,188 C 700,212 700,234 700,252"/>
+      <path class="march q" marker-end="url(#aq)" d="M 784,272 C 758,269 734,266 714,266"/>
+      <path class="march q" marker-end="url(#aq)" d="M 622,300 C 648,290 672,278 690,270"/>
+      <!-- 五十万大溃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 704,278 C 730,300 762,326 796,352"/>
+      <text class="mlabel q" x="486" y="326" text-anchor="middle">行未三四里而阵大乱,铁骑四面冲杀</text>
+      <text class="mlabel r" x="486" y="350" text-anchor="middle">五十万一时土崩,死伤数十万</text>
+      <text class="anno" x="486" y="367" text-anchor="middle">王振为樊忠椎杀,勋臣宿将五十余人死难</text>
+      <!-- 英宗被俘·终-mark -->
+      <g class="capmark" transform="translate(700,266)">
+        <circle class="ring" r="13"/>
+        <rect class="sq" x="-8" y="-8" width="16" height="16" rx="2"/>
+        <text class="ct" x="0" y="4.5" text-anchor="middle">俘</text>
+      </g>
+      <text class="mlabel g" x="640" y="392" text-anchor="middle">英宗突围不得,遂被俘 · 天子北狩</text>
+    </g>
+
+    <g class="compass" transform="translate(946,596)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(亲征)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>瓦剌军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>明军溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(亲征进军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.2" stroke-dasharray="5 4"/></svg>明军移营就水</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>瓦剌军(也先)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.2" stroke-dasharray="5 4"/></svg>也先佯退诈和</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>明军迂回·溃退</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·围歼</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>瓦剌</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大明</span>
+    <span class="item"><svg width="18" height="16"><ellipse cx="9" cy="7" rx="4.6" ry="2.8" fill="#e0d3b3" stroke="#2b2418" stroke-width="1.2"/><path d="M 9,10 l -2,5 M 9,10 l 2,4" stroke="#9a2b1e" stroke-width="1.2" fill="none"/></svg>绝地枯井·掘井不得水</span>
+    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6.5" fill="none" stroke="#9c7a2c" stroke-width="2"/><rect x="5" y="4" width="8" height="8" rx="1.5" fill="#9a2b1e"/></svg>英宗被俘</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>瓦剌·漠南</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大明·塞内</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 顿于绝地 · 移营就水而溃</h3>
+    <div class="lead">何以五十万之众一朝而覆 —— 不在瓦剌之众,而在自蹈无水之绝地、一动就水而自乱</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="致败机理示意:明军顿于土木堡高亢无水之地,掘井不得泉;也先据南面水源,佯退诈和让开水道以诱之;明军矫命拔营就水,行伍未数里而大乱,瓦剌铁骑四面冲杀而围歼,英宗被俘">
+      <!-- 土木堡·高亢无水之地(左) -->
+      <path d="M 60,168 C 90,110 150,96 200,120 C 250,142 250,168 250,168 Z" fill="rgba(92,79,56,.16)" stroke="#5c4f38" stroke-width="1.1" opacity=".85"/>
+      <ellipse cx="150" cy="150" rx="46" ry="16" fill="none" stroke="#5c4f38" stroke-width="1" opacity=".45"/>
+      <rect x="126" y="106" width="16" height="16" transform="rotate(45 134 114)" fill="#1f4e54" opacity=".9"/>
+      <g transform="translate(178,132)"><ellipse cx="0" cy="0" rx="6" ry="3.4" fill="#e0d3b3" stroke="#2b2418" stroke-width="1.2"/><path d="M 0,3.4 l -2,8 M 0,3.4 l 2,7" stroke="#9a2b1e" stroke-width="1.3" fill="none"/></g>
+      <text x="150" y="92" text-anchor="middle" fill="#2b2418" font-size="11.5" font-weight="700">土木堡 · 地高无水</text>
+      <text x="200" y="140" fill="#9a2b1e" font-size="10" font-weight="700">掘井不得泉</text>
+      <text x="150" y="188" text-anchor="middle" fill="#5c4f38" font-size="10">辎重未至,拒入怀来 → 自陷绝地</text>
+      <!-- 水源(右),也先据之 -->
+      <path d="M 640,60 C 700,72 760,72 820,64" fill="none" stroke="#5f7f88" stroke-width="6" opacity=".8"/>
+      <path d="M 640,84 C 700,96 760,96 820,88" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".55"/>
+      <text x="730" y="46" text-anchor="middle" fill="#5f7f88" font-size="11.5" font-weight="700">水源(河泉)</text>
+      <rect x="612" y="96" width="14" height="14" transform="rotate(45 619 103)" fill="#9a2b1e" opacity=".9"/>
+      <text x="560" y="108" text-anchor="end" fill="#9a2b1e" font-size="10" font-weight="700">也先据水扼汲</text>
+      <!-- 也先佯退,让开水道 -->
+      <path d="M 626,112 C 640,128 660,140 690,150" fill="none" stroke="#9a2b1e" stroke-width="2.2" stroke-dasharray="5 4"/>
+      <path d="M 690,150 l -13,-2 l 5,-7 z" fill="#9a2b1e"/>
+      <text x="600" y="176" fill="#9a2b1e" font-size="10.5" font-weight="700">佯退诈和 · 让开水源</text>
+      <!-- 明军就水 -->
+      <path d="M 208,120 C 320,150 460,182 590,196" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="5 4"/>
+      <path d="M 590,196 l -13,-4 l 3,-8 z" fill="#1f4e54"/>
+      <text x="366" y="150" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">明军矫命拔营就水</text>
+      <!-- 阵乱·四面冲杀 -->
+      <g transform="translate(560,200)">
+        <path d="M 0,-16 l 4,10 l 10,-6 l -6,10 l 12,3 l -12,3 l 6,10 l -10,-6 l -4,10 l -4,-10 l -10,6 l 6,-10 l -12,-3 l 12,-3 l -6,-10 l 10,6 z" fill="#9a2b1e" opacity=".9"/>
+      </g>
+      <path d="M 560,140 C 560,158 560,172 560,186" fill="none" stroke="#9a2b1e" stroke-width="2.4"/><path d="M 560,190 l -4,-12 l 8,0 z" fill="#9a2b1e"/>
+      <path d="M 640,214 C 616,210 598,206 582,204" fill="none" stroke="#9a2b1e" stroke-width="2.4"/><path d="M 578,203 l 12,-2 l -3,8 z" fill="#9a2b1e"/>
+      <path d="M 490,238 C 512,226 528,216 542,210" fill="none" stroke="#9a2b1e" stroke-width="2.4"/><path d="M 546,208 l -12,4 l 0,-8 z" fill="#9a2b1e"/>
+      <text x="560" y="238" text-anchor="middle" fill="#9a2b1e" font-size="10.5" font-weight="700">行未数里而阵大乱 · 铁骑四面冲杀</text>
+    </svg>
+    <p class="intro">土木之败,不系于兵之多寡,而系于<b>『地』与『水』</b>。英宗轻举亲征、部伍无谋于前;及回师,王振反复迂回、坐失时机于中;终则顿兵土木堡——一片高亢无水之绝地,去有城有水之怀来仅二十里而不得入。既失水泉,则五十万之众不待接战而气已夺。也先深知其弊,乃<b>据水扼汲、佯退诈和以让开水道</b>;明军渴极,矫命拔营就水,<b>阵形一动则不可复整</b>,瓦剌铁骑遂乘乱四面冲杀,一举而歼。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>明 · 自蹈绝地 · 一动就水而自溃</h4>
+        <p>轻率亲征,部伍不整;闻败仓皇,回师又因王振欲幸蔚州耀乡、复恐蹂田禾而迂回改道,往返坐误。及退土木,群臣请入保怀来,王振以辎重千余辆未至,拒不入城,令驻高亢无水之堡以待——掘井二丈不得泉,人马饥渴二日。终为敌诱,拔营争水,行未三四里而行阵大乱,不待血战而自崩。</p>
+      </div>
+      <div class="c b">
+        <h4>瓦剌 · 据水扼汲 · 诱就水而围歼</h4>
+        <p>也先铁骑蹑迹尾追,不与明军争锋于城,而俟其自陷绝地。既四面合围,据水泉以扼明军之汲,坐困之二日;复佯退诈和、让开南面水道以为饵。俟明军拔营就水、行伍方乱,乃纵铁骑四面冲突,呼声动天。此不以力取而以势取、以『渴』破敌之著例。</p>
+      </div>
+    </div>
+    <p class="kicker">故土木之覆,<b>非战之罪,实自蹈绝地之败</b>:轻举亲征、迂回耽搁而失机于前,顿兵无水之高、拒入怀来而失地于中,受诱就水、一动而自乱于后——<b>顿于绝地则不战而困,移营就水则不击而溃</b>。京营三大营精锐尽丧,天子北狩,明由盛转衰之枢,系于王振一人之愚。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·英宗前纪》《明史·王振传》《明史·外国·瓦剌传》及《明史纪事本末·王振用事》约略绘出。土木堡在今河北怀来,城邑水道及长城位置为相对示意,非实测画界。</p>
-    <p><span class="n">注二</span>晕染疆界为正统末年形势示意:瓦剌也先据漠南、屡犯大同宣府一线,明守长城内诸镇;塞防为险,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>京营出征号称五十万,实数史无确载。土木堡近洋河而地高无水,「掘井二丈不得泉」,遂为也先佯和诱移营就水而围歼——一败而勋旧宿将殆尽,天子北狩,明由盛转衰之枢。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=64+(经度−112.8)·214,y=590−(纬度−39.3)·330),几何关系力求近实:大同在西,阳和口居其东北,宣府更东北,土木堡·怀来在东,居庸关、北京在东南,蔚州在西南、紫荆关更南。今地:大同(山西大同),阳和口(山西阳高),宣府(河北宣化),土木堡(河北怀来土木镇),怀来城(河北怀来,去土木约二十里),居庸关(北京昌平北),蔚州(河北蔚县),紫荆关(河北易县西)。江河、长城、疆界皆经简化描绘,非实测画界。依《明史·英宗前纪》《明史·王振传》《明史·外国·瓦剌传》《明史纪事本末·王振用事》及《明英宗实录》约略绘出。</p>
+    <p><span class="n">注二</span>晕染疆界为正统末年形势示意:瓦剌也先据漠南、奉脱脱不花为可汗而自专,屡犯大同、宣府、辽东、甘肃诸边;明守长城内九边诸镇。塞防为险,故以点划「约界」及长城一线标之,非实有画界。桑干、洋河会于怀来官厅一带而为永定河东出京师,土木堡正当其高亢台地,傍水而地高无泉——此绝地无水之所本。</p>
+    <p><span class="n">注三</span>兵数与日程:京营出征号称五十万,实数史无确载,今人考订约二十余万至三十万不等,姑存「号五十万」之旧文而识其疑。要目:七月十六日英宗诏亲征、留郕王居守;八月初一至大同,闻阳和之覆而议回师;八月十三退至土木,拒入怀来;八月十四也先追及合围;八月十五(1449年9月1日)也先佯退诱移营就水,明军大溃,英宗被俘。</p>
+    <p><span class="n">注四</span>制胜之枢在「绝地无水」与「诱就水」(图中枯井、青色就水虚线、朱色佯退虚线、四面朱箭、被俘终记):土木堡地高亢,掘井二丈不得泉,也先据水扼汲,困之二日;乃佯退伪许议和,让开水道。王振见敌退,矫命拔营移就近水;军方移,行未三四里而行伍大乱,士卒争水不可复止,瓦剌铁骑乘乱四面冲之,五十万一时土崩。护卫将军樊忠愤椎杀王振,曰「吾为天下诛此贼」;英国公张辅、驸马都尉井源、兵部尚书邝埜、户部尚书王佐等文武大臣五十余人皆死难;英宗突围不得,下马盘膝而坐,遂为也先所俘。京营三大营精锐尽丧,史称「土木之变」。</p>
+    <p><span class="n">注五</span>迂回耽搁之说,本《明史·王振传》《明史纪事本末》:王振初欲邀帝幸其乡蔚州以耀乡里,大军已南行四十里,振复恐大军过蔚而蹂其乡田禾,遽令回辙,改道东出居庸;往返折腾,坐失时机,予也先追及之隙。阳和之战在亲征前,西宁侯宋瑛、武进伯朱冕、都督石亨等御也先,监军太监郭敬掣其节制,明军全军覆没,朱冕、宋瑛死之,石亨单骑遁还——此大同前线之覆,亦回师之由。变后也先寻由紫荆关道破关深入,直薄北京,遂有于谦所主之北京保卫战。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"英宗亲征",d:"正统十四年七月",p:["瓦剌也先大举犯边,分道入寇,直薄大同、宣府一线。英宗宠信宦官王振,不听群臣谏阻,仓促决意亲征,率京营号五十万北出。","大军经居庸、宣府趋大同,仓卒无谋,部伍不整。时诸边告急,阿剌知院别攻宣府、赤城,声势相逼,而王振独主速进。"]},
-  "1":{t:"抵大同·闻败回师",d:"正统十四年七至八月",p:["八月初,大军抵大同。前锋诸军已覆没于阳和口一带,死亡山积,尸填谷堑。","王振见败状大惧,又惑于镇守中官郭敬阴言,乃决议回师东归——出征旬日而无功,反自乱其谋。"]},
-  "2":{t:"迂回误期·瓦剌追及",d:"正统十四年八月",p:["归途,王振欲邀帝幸其乡蔚州以耀乡里,行数十里,复恐大军蹂其田禾,中途改道,迂回宣府一路。","如是迁延改辙,坐失时机。瓦剌铁骑蹑迹追及,后军接战屡败,明军且战且退,狼狈东趋。"]},
-  "3":{t:"土木乏水·围歼被俘",d:"正统十四年八月十五",p:["大军退至土木堡,去怀来城仅二十里而不得入。堡地高亢无水,掘井二丈不得泉,人马饥渴,士气涣然。","也先佯退伪许议和,诱明军移营就水;行伍方乱,瓦剌铁骑四面冲击,明军大溃,死伤数十万。护卫将军樊忠愤击杀王振,英国公张辅等勋臣宿将战死殆尽,英宗突围不得,遂被俘。史称「土木之变」。"]}
+  all:{t:"亲征之覆 · 土木之变",d:"正统十四年(1449)七 — 八月",p:["瓦剌太师也先奉脱脱不花为可汗而自专,正统十四年分道大举犯边:自将攻大同,别遣阿剌知院攻宣府、赤城,脱脱不花攻辽东。大同前线明军屡败。宦官王振怂恿英宗亲征,不听群臣谏阻,七月十六日仓促下诏,率京营三大营号五十万北出居庸,历宣府趋大同。","八月初一抵大同,始闻前线阳和惨败、诸军覆没,惊惧而议回师。归途王振反复无常,欲幸蔚州耀乡复恐蹂田禾,迂回改道,贻误军机;大军顿于土木堡绝地无水,也先追及合围,佯退诈和诱明军移营就水而阵乱,遂四面冲杀,五十万众一朝土崩,王振被杀,勋臣宿将殆尽,英宗被俘。史称『土木之变』,明由盛转衰之枢。"]},
+  "1":{t:"怂恿亲征 · 出居庸趋大同",d:"正统十四年七月十六日",p:["瓦剌也先分道入寇:自将攻大同,别遣阿剌知院攻宣府、赤城,脱脱不花攻辽东,声势并逼。大同前线明军屡败,右参将吴浩战死于猫儿庄。宦官王振挟宠专断,怂恿英宗亲征,朝议汹汹而不能止。","七月十六日,英宗诏亲征,以皇弟郕王朱祁钰居守。仓卒之间,英国公张辅、兵部尚书邝埜、户部尚书王佐等文武扈从,率京营三大营号五十万,北出居庸关,历宣府而趋大同。部伍不整,人心已惧,粮糗不继,军中多怨。"]},
+  "2":{t:"前线惨败 · 惊惧回师 · 迂回耽搁",d:"正统十四年八月初一 — 十三",p:["先是,西宁侯宋瑛、武进伯朱冕、都督石亨等御也先于阳和口,监军太监郭敬掣其节制,明军全军覆没,朱冕、宋瑛死之,石亨单骑遁还。八月初一大军抵大同,镇守太监郭敬密告前线惨状,王振始惧,遽决回师东归——出征旬日无功,反自乱其谋。","归途,王振欲邀帝幸其乡蔚州以耀乡里,大军已南行四十里,振复恐大军蹂其乡田禾,遽令改道,回趋宣府而东出居庸——往返折腾,坐失时机。也先铁骑乘隙蹑迹尾追,后军朱勇、薛绶等三万骑覆于鹞儿岭,大军且战且退,狼狈东趋。"]},
+  "3":{t:"顿兵土木 · 绝地无水 · 也先合围",d:"正统十四年八月十三 — 十四",p:["八月十三,大军退至土木堡,去怀来城仅二十里。诸臣请入保怀来城,王振以辎重千余辆未至,拒不入城,令驻土木以待。堡地高亢,傍无泉源,掘井二丈犹不得水,人马饥渴者二日,士气涣然。","十四日,也先铁骑追及,四面合围,据河泉以扼明军之汲。明军困于绝地,进退失据,不得水而气夺,阵脚未接而已乱——胜负之势,至此已成。"]},
+  "4":{t:"佯退诱就水 · 阵乱全歼 · 英宗被俘",d:"正统十四年八月十五(1449年9月1日)",p:["也先诡遣使伪许议和,佯退让开南面水源以诱之。王振见敌退,矫命拔营移就近水。军方移,行未三四里而行伍大乱,士卒争先就水,不可复止。","也先铁骑乘乱四面冲突,呼声动天,明军五十万一时土崩,死伤数十万,骡马衣甲辎重尽为所掠。护卫将军樊忠愤极,以所持棰击杀王振,曰『吾为天下诛此贼』;英国公张辅、驸马都尉井源、兵部尚书邝埜、户部尚书王佐等文武大臣五十余人皆死难。英宗突围不得,下马盘膝而坐,遂为也先所俘。京营三大营精锐尽丧,天子北狩,史称『土木之变』。"]}
 };
 const CITY={
-  datong:{t:"大同",d:"九边重镇,今山西大同",p:["明军亲征前进最远之地。至此闻前锋覆没、死亡山积,王振惧而议回师东归。"]},
-  xuanfu:{t:"宣府",d:"九边重镇,今河北宣化",p:["回师东归必经之地。王振改道迂回于此,迁延误期;瓦剌追军由此蹑及。"]},
-  tumu:{t:"土木堡",d:"今河北怀来境,近洋河而地高",p:["被围乏水之处。掘井二丈不得泉,也先佯和诱明移营,铁骑围歼,英宗于此被俘,王振死。"]},
-  huailai:{t:"怀来城",d:"今河北怀来,去土木堡约二十里",p:["有城可守,近在咫尺。明军若得入城即安,然瓦剌追急,竟不及入而覆于土木。"]},
-  juyong:{t:"居庸关",d:"京师北门锁钥,今北京昌平北",p:["大军出塞、亲征所经之要隘。变后瓦剌挟英宗欲叩关,赖守将坚拒,京师得以为备。"]},
-  beijing:{t:"北京",d:"明京师",p:["英宗亲征所自出。土木败讯至,举朝震骇;赖兵部侍郎于谦力主固守,立郕王为帝,督师御敌,京师获全。"]}
+  datong:{t:"大同",d:"九边重镇,今山西大同",p:["也先自将所攻之的,亲征前进最远之地。八月初一大军至此,镇守太监郭敬密告前线阳和惨败之状,王振始惧而议回师东归——回辙之谋,由此而起。"]},
+  yanghe:{t:"阳和口",d:"今山西阳高,大同东北",p:["亲征前,西宁侯宋瑛、武进伯朱冕、都督石亨等御也先于此,监军太监郭敬掣肘乱其节制,明军全军覆没,朱冕、宋瑛战死,石亨单骑遁还——大同前线之覆,英宗惊惧回师之由。"]},
+  xuanfu:{t:"宣府",d:"九边重镇,今河北宣化",p:["亲征往返所必经。也先别遣阿剌知院攻此。回师时王振迂回改道于此,迁延误期;也先追军由此蹑及。变后总兵杨洪坚壁守宣府,不为也先所下。"]},
+  tumu:{t:"土木堡",d:"今河北怀来土木镇 · 地高无水之绝地",p:["八月十三明军退顿于此,去怀来仅二十里而拒不入城。堡地高亢,掘井二丈不得泉,人马饥渴二日。也先四面合围、据水扼汲,佯退诱明军移营就水,乘乱冲杀。英宗于此被俘,王振为樊忠椎杀——『土木之变』所由名。"]},
+  huailai:{t:"怀来城",d:"今河北怀来,去土木堡约二十里",p:["有城可守、近水而安。明军退至土木,群臣请入保怀来,王振以辎重千余辆未至,拒不入城——咫尺之城而不得入,遂陷土木绝地。此进退一失,而五十万之命系焉。"]},
+  juyong:{t:"居庸关",d:"京师北门锁钥,今北京昌平北",p:["亲征大军出塞、回师所经之要隘。变后也先挟英宗欲叩关而入,赖守将罗通坚拒、以水浇城结冰,京师得以为备。"]},
+  beijing:{t:"北京",d:"明京师,今北京",p:["英宗亲征所自出。土木败讯至,举朝震骇,或议南迁;赖兵部侍郎于谦力主固守,立郕王为帝(景帝),督师御敌,寻有北京保卫战,京师获全。"]},
+  yuzhou:{t:"蔚州",d:"王振家乡,今河北蔚县",p:["回师时王振欲邀英宗幸此以耀乡里,大军南行四十里,振又恐大军蹂其乡田禾,遽令改道东还——一念之私,反复折腾,贻误军机,土木之祸伏于此。"]},
+  zijingguan:{t:"紫荆关",d:"太行八陉之一,今河北易县西",p:["京师西南门户。土木既败,也先寻由此道破关深入,直薄北京,遂有于谦所主之北京保卫战。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
