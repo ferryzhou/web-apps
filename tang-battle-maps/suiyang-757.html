@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>睢阳之战 · 至德二载(757)</title>
+<title>睢阳之战 · 屏江淮(757)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -31,6 +31,22 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  /* 漕运·粮道:金色串珠动脉,叠于汴河之上,示江淮财赋北输之命脉 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 汴河锁钥:睢阳如塞,金色栓记 */
+  .cork circle{fill:none;stroke:var(--gold);stroke-width:2.4}
+  .cork line{stroke:var(--gold);stroke-width:2.4;stroke-linecap:round}
+  /* 断绝/援不至:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 粮尽:城中困竭记号 */
+  .starve{fill:none;stroke:var(--ret);stroke-width:2}
+  .starve line{stroke:var(--ret);stroke-width:2;stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -47,7 +63,7 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +72,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:820;stroke-dashoffset:820;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -71,17 +102,18 @@
   <a class="navback" href="index.html" aria-label="返回唐朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>睢</span><span>阳</span><span>死</span><span>守</span></div>
   <header>
-    <h1>睢阳之战</h1>
-    <div class="sub">唐至德二载(757)　　<i>唐 张巡 · 许远</i> 死守 · <b>燕 尹子奇</b>(十三万)围睢阳</div>
+    <h1>睢阳之战 · 屏江淮</h1>
+    <div class="sub">唐至德二载(757)　　<i>唐 张巡 · 许远 · 南霁云 · 雷万春</i>(兵不满七千)死守 · <b>安史叛军 尹子奇</b>(号十三万)围睢阳　·　守孤城 · 屏蔽江淮 · 粮尽而陷</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 孤城当冲</button>
-    <button data-p="1">婴城拒守</button>
-    <button data-p="2">苦战乞师</button>
-    <button data-p="3">城陷殉国</button>
+    <button class="on" data-p="all">全图 · 孤城屏江淮</button>
+    <button data-p="1">尹子奇围睢阳 · 张许死守</button>
+    <button data-p="2">四百余战 · 奇兵挫敌(射尹子奇目)</button>
+    <button data-p="3">粮尽罗雀掘鼠 · 南霁云突围乞师</button>
+    <button data-p="4">城破死节 · 然江淮以全</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="睢阳之战形势图,含燕叛军与唐江淮疆界、汴水与睢阳临淮彭城等城邑及围城示意">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="睢阳之战形势图,含安史叛军(燕)据河南之北与唐江淮在南之疆界、汴河(通济渠)自西北经睢阳而东南入淮之漕运干线、及睢阳宁陵雍丘汴州彭城谯郡永城临淮江淮等地;金色漕运动脉示江淮财赋北输之命脉,睢阳为其锁钥,叛军自西北来围,南霁云突围乞师而援不至,城破而江淮以全">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,77 +122,139 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:燕叛军据河南之北,唐江淮在南,约以睢阳一线为冲 -->
-    <path d="M 0,232 C 160,224 320,238 470,246 C 620,254 780,244 1000,236 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,232 C 160,224 320,238 470,246 C 620,254 780,244 1000,236 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,232 C 160,224 320,238 470,246 C 620,254 780,244 1000,236"/>
-    <text class="realm q" x="150" y="120" font-size="34">燕(叛军)</text>
-    <text class="realm j" x="640" y="560" font-size="32">唐(江淮)</text>
-    <text class="realm j" x="150" y="600" font-size="26" style="opacity:.34">江 淮 财 赋</text>
+    <!-- 疆界:叛军(燕)据河南之北,唐江淮在南,约以睢阳一线为冲 -->
+    <path d="M 0,196 C 120,200 200,214 300,232 C 360,244 430,250 520,250 C 640,250 780,236 1000,224 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,196 C 120,200 200,214 300,232 C 360,244 430,250 520,250 C 640,250 780,236 1000,224 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,196 C 120,200 200,214 300,232 C 360,244 430,250 520,250 C 640,250 780,236 1000,224"/>
+    <text class="realm q" x="120" y="110" font-size="30">燕(安史叛军)</text>
+    <text class="realm j" x="150" y="600" font-size="30">唐 · 江淮</text>
+    <text class="realm j" x="600" y="470" font-size="22" style="opacity:.34">江 淮 财 赋 之 区</text>
 
-    <!-- 汴水:自西北经睢阳而东南,通江淮漕运 -->
-    <path class="river" stroke-width="5" d="M 120,150 C 250,180 360,220 470,270 C 560,310 640,338 740,352 C 830,364 920,368 1000,364"/>
-    <text class="rname" x="230" y="196" transform="rotate(20 230 196)">汴 水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 汴河(通济渠):自西北汴州经睢阳折东南,历永城宿泗,盱眙北入淮;江淮漕运之干线 -->
+    <path class="river" stroke-width="4.6" d="M 118,172 C 145,183 160,190 165,194 C 195,206 210,220 225,229 C 255,238 280,241 299,243 C 320,245 335,246 347,247 C 392,272 432,298 459,316 C 500,342 520,352 533,358 C 582,368 632,374 662,379 C 700,400 730,428 746,449"/>
+    <!-- 淮水:南境东西大川,盱眙泗州在其上,东折趋淮安 -->
+    <path class="river" stroke-width="3.6" d="M 210,456 C 360,450 520,448 660,451 C 706,452 730,451 746,449 C 782,441 802,410 808,380"/>
+    <!-- 邗沟:自山阳(淮安)南通江都,连淮于江 -->
+    <path class="river" stroke-width="2.4" d="M 810,384 C 828,430 850,486 868,528"/>
+    <!-- 长江:极南,江都在其北岸 -->
+    <path class="river" stroke-width="4.4" d="M 380,590 C 560,582 700,568 830,554 C 892,548 950,545 1000,542"/>
+    <text class="rname" x="240" y="222" transform="rotate(24 240 222)" style="font-size:13px">汴河(通济渠)</text>
+    <text class="rname" x="300" y="470" style="font-size:12.5px">淮 水</text>
+    <text class="rname" x="826" y="470" transform="rotate(74 826 470)" style="font-size:10px">邗沟</text>
+    <text class="rname" x="440" y="584" style="font-size:13px">长 江</text>
+
+    <!-- ══ 漕运·粮道:金色串珠动脉,叠于汴河—淮—邗沟,自江淮北输中原之命脉 ══ -->
+    <path class="supply band" d="M 872,522 C 812,472 760,436 700,404 C 560,330 430,282 347,247 C 288,222 212,204 165,194 C 148,190 133,181 120,174"/>
+    <path class="supply core" d="M 872,522 C 812,472 760,436 700,404 C 560,330 430,282 347,247 C 288,222 212,204 165,194 C 148,190 133,181 120,174"/>
+    <g class="grain">
+      <rect x="826" y="486" width="7" height="7" transform="rotate(45 829.5 489.5)"/>
+      <rect x="716" y="410" width="7" height="7" transform="rotate(45 719.5 413.5)"/>
+      <rect x="560" y="326" width="7" height="7" transform="rotate(45 563.5 329.5)"/>
+      <rect x="430" y="278" width="7" height="7" transform="rotate(45 433.5 281.5)"/>
+      <rect x="252" y="212" width="7" height="7" transform="rotate(45 255.5 215.5)"/>
+      <rect x="150" y="184" width="7" height="7" transform="rotate(45 153.5 187.5)"/>
+    </g>
+    <text class="slabel" x="614" y="356">汴河漕运 · 江淮财赋北输之命脉</text>
+    <text class="slabel" x="614" y="370" style="font-size:9.5px;opacity:.85">岁漕四百万石,给关中·中原</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city cap" data-city="suiyang"><circle cx="470" cy="322" r="7"/><text class="cname" x="482" y="318">睢阳<tspan class="cname s" dx="2">(宋州·孤城)</tspan></text></g>
-      <g class="city" data-city="ningling"><circle cx="330" cy="300" r="4.5"/><text class="cname" x="270" y="296">宁陵</text></g>
-      <g class="city" data-city="linhuai"><circle cx="560" cy="500" r="5"/><text class="cname" x="572" y="504">临淮<tspan class="cname s" dx="2">(贺兰进明屯)</tspan></text></g>
-      <g class="city" data-city="pengcheng"><circle cx="700" cy="250" r="5"/><text class="cname" x="712" y="246">彭城</text></g>
-      <g class="city" data-city="qiaojun"><circle cx="600" cy="380" r="4"/><text class="cname s" x="612" y="384">谯郡</text></g>
-      <g class="city" data-city="jianghuai"><circle cx="620" cy="580" r="4"/><text class="cname" x="632" y="584">江淮<tspan class="cname s" dx="2">(财赋区)</tspan></text></g>
+      <g class="city" data-city="bianzhou"><circle cx="165" cy="194" r="4.5"/><text class="cname s" x="126" y="188">汴州(叛)</text></g>
+      <g class="city" data-city="yongqiu"><circle cx="225" cy="229" r="4"/><text class="cname s" x="186" y="224">雍丘</text></g>
+      <g class="city" data-city="ningling"><circle cx="299" cy="243" r="4.5"/><text class="cname" x="250" y="238">宁陵</text></g>
+      <g class="city cap" data-city="suiyang"><circle cx="347" cy="247" r="7.5"/><text class="cname" x="359" y="243">睢阳<tspan class="cname s" dx="2">(宋州·孤城)</tspan></text></g>
+      <g class="city" data-city="yongcheng"><circle cx="459" cy="316" r="3.5"/><text class="cname s" x="470" y="320">永城</text></g>
+      <g class="city" data-city="qiaojun"><circle cx="365" cy="324" r="4"/><text class="cname s" x="324" y="338">谯郡</text></g>
+      <g class="city" data-city="pengcheng"><circle cx="561" cy="270" r="5"/><text class="cname" x="573" y="266">彭城</text></g>
+      <g class="city" data-city="linhuai"><circle cx="704" cy="404" r="5.5"/><text class="cname" x="646" y="424">临淮<tspan class="cname s" dx="2">(贺兰进明屯)</tspan></text></g>
+      <g class="city" data-city="jianghuai"><circle cx="820" cy="505" r="4.5"/><text class="cname" x="740" y="500">江淮<tspan class="cname s" dx="2">(江都·财赋)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 孤城当冲:围城示意 -->
+    <!-- 洛阳·陈留(图外·西北,叛军来向) -->
+    <g transform="translate(6,150)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,2 L 30,14"/>
+      <text class="mlabel q" x="0" y="-6" style="font-size:10px">⟵ 洛阳 · 陈留</text>
+      <text class="cname s" x="0" y="32" style="fill:var(--enemy);font-size:9.5px">叛军来向(图外西北)</text>
+    </g>
+
+    <!-- 全图 · 孤城屏江淮 -->
     <g id="phAll" class="ph">
-      <circle class="siege" cx="470" cy="322" r="30"/>
-      <circle class="siege" cx="470" cy="322" r="42"/>
-      <path class="march q" marker-end="url(#aq)" d="M 300,150 C 360,200 410,250 452,300"/>
-      <text class="mlabel q" x="200" y="170">尹子奇将兵十三万,南下围睢阳</text>
-      <path class="march j" marker-end="url(#aj)" d="M 336,296 C 372,300 410,308 448,316"/>
-      <text class="mlabel j" x="256" y="284">张巡自宁陵引兵入睢阳</text>
-      <text class="anno" x="352" y="352">与许远合,兵共不满七千,婴城死守</text>
-      <text class="anno" x="470" y="440">睢阳扼汴,蔽遮江淮之冲</text>
+      <circle class="siege" cx="347" cy="247" r="26"/>
+      <circle class="siege" cx="347" cy="247" r="37"/>
+      <path class="march q" marker-end="url(#aq)" d="M 60,168 C 140,196 230,222 320,240"/>
+      <text class="mlabel q" x="90" y="184">尹子奇号十三万,自陈留南下围睢阳</text>
+      <path class="march j" marker-end="url(#aj)" d="M 305,247 C 320,247 332,247 340,247"/>
+      <text class="mlabel j" x="220" y="264">张巡自宁陵入城,与许远合,不满七千</text>
+      <!-- 汴河锁钥:睢阳如塞,叛军不得循汴南下江淮 -->
+      <g class="cork" transform="translate(347,247)"><circle r="15"/><line x1="0" y1="-15" x2="0" y2="15"/></g>
+      <path class="march q" marker-end="url(#aq)" d="M 300,300 C 322,300 336,290 344,268"/>
+      <text class="mlabel q" x="196" y="316">叛军欲循汴南趋江淮,睢阳塞其冲</text>
+      <text class="anno" x="470" y="430">睢阳守一日,则江淮财赋北输不绝</text>
+      <text class="slabel" x="356" y="228" style="font-size:10.5px">汴河锁钥</text>
     </g>
 
-    <!-- 阶段一:婴城拒守 -->
+    <!-- 阶段一:尹子奇围睢阳 · 张许死守 -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="470" cy="322" r="30"/>
-      <rect class="camp" x="424" y="286" width="9" height="9" transform="rotate(45 428 290)"/>
-      <rect class="camp" x="506" y="290" width="9" height="9" transform="rotate(45 510 294)"/>
-      <rect class="camp" x="460" y="358" width="9" height="9" transform="rotate(45 464 362)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 336,296 C 380,300 420,308 448,314"/>
-      <text class="mlabel j" x="250" y="286">巡自宁陵引兵合许远,众不满七千</text>
-      <text class="mlabel q" x="360" y="238">尹子奇十三万环攻</text>
-      <text class="anno" x="360" y="384">夜缒擂鼓佯出以疲敌,昼伏精兵突击</text>
-      <text class="anno" x="360" y="400">草人赚箭数十万,飞矢中尹子奇左目</text>
+      <path class="march q" marker-end="url(#aq)" d="M 60,168 C 140,196 240,220 322,240"/>
+      <text class="mlabel q" x="96" y="182">安庆绪遣尹子奇合同罗·突厥·奚兵十三万</text>
+      <circle class="siege" cx="347" cy="247" r="26"/>
+      <rect class="camp" x="300" y="212" width="9" height="9" transform="rotate(45 304 216)"/>
+      <rect class="camp" x="384" y="216" width="9" height="9" transform="rotate(45 388 220)"/>
+      <rect class="camp" x="342" y="286" width="9" height="9" transform="rotate(45 346 290)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 303,247 C 318,247 330,247 340,247"/>
+      <text class="mlabel j" x="196" y="266">张巡将三千自宁陵入睢阳,合许远之众</text>
+      <text class="anno" x="230" y="292">兵共六千八百,推巡主军事,婴城拒守</text>
+      <text class="mlabel q" x="360" y="200">环城昼夜苦攻,凡十六日</text>
     </g>
 
-    <!-- 阶段二:苦战乞师 -->
+    <!-- 阶段二:四百余战 · 奇兵挫敌(射尹子奇目) -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="470" cy="322" r="30"/>
-      <circle class="siege" cx="470" cy="322" r="42"/>
-      <text class="mlabel q" x="330" y="260">相持累月,杀伤燕兵十余万</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 486,340 C 512,400 536,450 556,486"/>
-      <text class="mlabel r" x="512" y="400">南霁云突围乞师</text>
-      <text class="anno" x="530" y="474">临淮贺兰进明忌其功,不出兵</text>
-      <text class="anno" x="440" y="360">城中粮尽,罗雀掘鼠、煮铠弩、继食妇孺</text>
-      <text class="anno" x="562" y="520">霁云断指、射浮图塔明志而还</text>
+      <circle class="siege" cx="347" cy="247" r="26"/>
+      <circle class="siege" cx="347" cy="247" r="37"/>
+      <rect class="camp" x="300" y="212" width="9" height="9" transform="rotate(45 304 216)"/>
+      <rect class="camp" x="384" y="216" width="9" height="9" transform="rotate(45 388 220)"/>
+      <circle class="star" cx="347" cy="247" r="12"/>
+      <text class="mlabel j" x="360" y="200">夜擂鼓佯出以疲敌,昼伏精兵突击</text>
+      <text class="mlabel j" x="360" y="216">束草人千余缒城,赚箭数十万</text>
+      <text class="mlabel q" x="130" y="304">南霁云一箭射中尹子奇左目,贼几获之</text>
+      <text class="anno" x="150" y="322">雷万春面中六矢而不动,贼疑为木人</text>
+      <text class="mlabel q" x="360" y="300">自正月至秋,大小四百余战,杀敌十二万</text>
+      <text class="anno" x="360" y="316">叛军顿兵坚城,终不得全力南向江淮</text>
     </g>
 
-    <!-- 阶段三:城陷殉国 -->
+    <!-- 阶段三:粮尽罗雀掘鼠 · 南霁云突围乞师 -->
     <g id="ph3" class="ph">
-      <circle class="siege" cx="470" cy="322" r="24"/>
-      <path d="M 470,304 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="360" y="286">十月城陷,余卒才四百</text>
-      <text class="mlabel j" x="360" y="360">巡、远、霁云、雷万春等三十六人骂贼不屈死</text>
-      <path class="march j" marker-end="url(#aj)" d="M 480,400 C 520,470 560,520 600,566"/>
-      <text class="mlabel j" x="490" y="452">守十月,蔽遮江淮,唐赖以全财赋</text>
-      <text class="anno" x="470" y="416">旬日后官军即复睢阳</text>
+      <circle class="siege" cx="347" cy="247" r="26"/>
+      <circle class="siege" cx="347" cy="247" r="37"/>
+      <!-- 粮尽:城中困竭记号 -->
+      <g class="starve" transform="translate(347,247)"><path d="M 0,-11 L 10,0 L 0,11 L -10,0 Z"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel r" x="176" y="220">城中粮尽:罗雀掘鼠 · 煮铠弩皮 · 食马</text>
+      <text class="anno" x="196" y="236">继以食人,而众心不离,无一叛者</text>
+      <!-- 南霁云突围乞师于临淮 -->
+      <path class="march j" marker-end="url(#aj)" d="M 362,258 C 480,302 600,352 690,398"/>
+      <text class="mlabel j" x="430" y="316">南霁云将三十骑突围,乞师于临淮</text>
+      <!-- 贺兰进明拥兵不救:援不至,夹击而止 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 690,398 C 640,376 600,358 566,344"/>
+      <g class="cut" transform="translate(566,344)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="540" y="392">贺兰进明拥兵不救,不发一卒,援不至 ✕</text>
+      <text class="anno" x="628" y="424">霁云断指、射浮图寺塔以志愤而还</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:城破死节 · 然江淮以全 -->
+    <g id="ph4" class="ph">
+      <path d="M 347,229 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel q" x="196" y="200">十月乙丑城陷,余卒才四百,饥病不能战</text>
+      <text class="mlabel j" x="196" y="292">巡·远·霁云·雷万春等三十六将骂贼不屈死</text>
+      <!-- 江淮以全:漕运锁钥虽破而江淮未失,南面财赋区安 -->
+      <g class="cork" transform="translate(347,247)"><circle r="15"/><line x1="0" y1="-15" x2="0" y2="15"/></g>
+      <path class="march j" marker-end="url(#aj)" d="M 486,470 C 442,410 400,338 366,266"/>
+      <text class="mlabel j" x="440" y="452">旬日后张镐率军至,复睢阳 —— 援之迟也</text>
+      <text class="anno" x="470" y="500">守十月,蔽遮江淮;唐赖以全财赋、成中兴</text>
+      <text class="slabel" x="612" y="628" style="font-size:11px">江淮财赋区始终未失 ✓</text>
+    </g>
+
+    <g class="compass" transform="translate(944,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -170,33 +264,86 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(张巡·许远)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>燕军(尹子奇)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>突围乞师</span>
-    <span class="item"><svg width="30" height="16"><circle cx="15" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>燕(叛军)</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐(江淮)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>安史叛军(尹子奇)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>援不至(贺兰不救)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>汴河漕运·江淮命脉</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><line x1="9" y1="2" x2="9" y2="16" stroke="#9c7a2c" stroke-width="2.2"/></svg>睢阳·汴河锁钥</span>
+    <span class="item"><svg width="18" height="18"><path d="M 9,2 L 16,9 L 9,16 L 2,9 Z" fill="none" stroke="#7a5a23" stroke-width="1.8"/><line x1="5" y1="5" x2="13" y2="13" stroke="#7a5a23" stroke-width="1.8"/><line x1="5" y1="13" x2="13" y2="5" stroke="#7a5a23" stroke-width="1.8"/></svg>粮尽</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·奇兵</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>燕(叛军)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>唐(江淮)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>形势释要 · 守孤城以屏江淮</h3>
+    <div class="lead">何以天下之安,系于一城一渠 —— 睢阳者,江淮漕运之锁钥也</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="漕运示意:江淮为唐之财赋之源,粮帛溯汴河北输关中中原;睢阳当汴河之中,如塞如锁;叛军自北欲循汴南下江淮,为睢阳所塞;睢阳一破则汴道洞开,叛军长驱江淮,财源立断">
+      <!-- 左:关中·中原(唐廷,受粮) / 右:江淮(财赋之源) -->
+      <circle cx="70" cy="126" r="30" fill="none" stroke="#5c4f38" stroke-width="1.6"/>
+      <text x="70" y="122" fill="#2b2418" font-size="12" font-weight="700" text-anchor="middle">关中</text>
+      <text x="70" y="138" fill="#2b2418" font-size="12" font-weight="700" text-anchor="middle">中原</text>
+      <text x="70" y="176" fill="#5c4f38" font-size="10" text-anchor="middle">唐廷·中兴之资</text>
+      <circle cx="790" cy="126" r="30" fill="none" stroke="#5c4f38" stroke-width="1.6"/>
+      <text x="790" y="130" fill="#2b2418" font-size="12" font-weight="700" text-anchor="middle">江淮</text>
+      <text x="790" y="176" fill="#5c4f38" font-size="10" text-anchor="middle">唐之财赋根本</text>
+      <!-- 汴河漕运之管(金),自江淮西输关中 -->
+      <path d="M 758,120 L 400,120 L 102,120" fill="none" stroke="#9c7a2c" stroke-width="12" opacity=".2" stroke-linecap="round"/>
+      <path d="M 758,120 L 102,120" fill="none" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <path d="M 120,120 L 138,112 L 138,128 Z" fill="#9c7a2c"/>
+      <rect x="620" y="116" width="8" height="8" transform="rotate(45 624 120)" fill="#9c7a2c"/>
+      <rect x="520" y="116" width="8" height="8" transform="rotate(45 524 120)" fill="#9c7a2c"/>
+      <text x="560" y="104" fill="#9c7a2c" font-size="11" font-weight="700">汴河漕运 → 江淮财赋北输</text>
+      <!-- 睢阳:汴河之锁钥(金栓) -->
+      <g transform="translate(430,120)"><circle r="20" fill="#e9dec4" stroke="#9c7a2c" stroke-width="2.6"/><line x1="0" y1="-20" x2="0" y2="20" stroke="#9c7a2c" stroke-width="2.6"/></g>
+      <text x="430" y="168" fill="#2b2418" font-size="12" font-weight="700" text-anchor="middle">睢阳(汴河锁钥)</text>
+      <text x="430" y="184" fill="#5c4f38" font-size="9.5" text-anchor="middle">张巡·许远死守其中</text>
+      <!-- 叛军自北压下,欲循汴南趋江淮,为睢阳所塞 -->
+      <path d="M 430,40 C 430,62 430,78 430,94" fill="none" stroke="#9a2b1e" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 430,102 L 424,86 L 436,86 Z" fill="#9a2b1e"/>
+      <text x="446" y="58" fill="#9a2b1e" font-size="11" font-weight="700">叛军十三万</text>
+      <text x="446" y="74" fill="#9a2b1e" font-size="9.5">欲循汴南下江淮</text>
+      <text x="454" y="120" fill="#9a2b1e" font-size="10.5" font-weight="700">← 塞而不得进</text>
+    </svg>
+    <p class="intro">睢阳非以其大,而以其位:它正当<b>汴河(通济渠)之中</b>——这条运河是江淮财赋溯流北输关中、中原的唯一大动脉,岁漕四百万石,乃唐廷养军、中兴之命脉。叛军若得睢阳,则汴道洞开,可长驱江淮,尽断唐之财源;唐若守之,则以一城如塞,<b>塞住叛军南向之路,亦护住北输之漕</b>。故一城之存亡,系于天下之安危。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>睢阳 · 汴河之锁钥</h4>
+        <p>睢阳(宋州)居汴河河段之中,西北接汴州、洛阳,东南历永城、宿、泗而入淮,下通邗沟以达江都。江淮之粟帛由此一线北输,叛军之兵锋亦由此一线南窥。张巡、许远以不满七千之众,当尹子奇号十三万之围,内无粮援、外无救兵,而自正月至十月,大小四百余战,前后杀敌十二万——叛军顿兵坚城,终不能越睢阳而南。</p>
+      </div>
+      <div class="c b">
+        <h4>死守 · 屏蔽江淮</h4>
+        <p>睢阳每守一日,江淮之赋即得溯汴北给朝廷一日。守之十月之间,唐廷完成了由恢复、备战到反攻的全程:九月收西京长安,睢阳陷后旬日又复东京洛阳。城虽终以粮尽而破、巡远以身殉,然其蔽遮江淮、保全财赋、以成中兴之功,史多与之。韩愈曰:『守一城,捍天下……蔽遮江淮,沮遏其势,天下之不亡,其谁之功也!』</p>
+      </div>
+    </div>
+    <p class="kicker">故睢阳之守,其枢不在克敌,而在<b>塞</b>:以孤城为汴河之塞子,叛军不得循汴南下,则江淮财赋之源不断、中兴之资不绝。及粮尽城破,叛军虽入,而唐已收两京、大势已定——<b>守一城 · 捍天下 · 屏蔽江淮</b>,巡、远之死,天下赖以再造。城陷之惨(罗雀掘鼠以至食人)与全局之功,并存于此一役,后世论者所以既哀之、又壮之也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二一九至二二〇、《旧唐书·张巡传》《忠义传》及韩愈《张中丞传后叙》约略绘出。疆界、水道经简化,睢阳围城以点线虚示,非实测方位。</p>
-    <p><span class="n">注二</span>睢阳即今河南商丘。守城食人事载于正史,论者或讥或恕;然其蔽遮江淮、再造唐室之功,史多与之,故列“城陷·殉国”。</p>
-    <p><span class="n">注三</span>睢阳一日不下,则叛军不能全力南向江淮;唐之财赋、中兴根本赖此以全。守之十月,大小四百余战,杀伤燕兵累十余万,可谓以孤城蔽天下。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=60+(经度−113.6)·140,y=600−(纬度−31.9)·140),几何关系力求近实:睢阳(商丘)居中,宁陵·雍丘·汴州在其西北、循汴河上溯,永城·宿·泗在其东南、循汴河下达入淮,彭城在东北,谯郡在南,临淮·江淮在东南。汴河(通济渠)自西北汴州经睢阳折东南、盱眙北入淮,复由邗沟连淮于江,构成江淮—中原之漕运大动脉。疆界、水道经简化;晕染之约界仅示叛军据河南以北、唐据江淮之大势,睢阳实为深入叛境之孤城,战线随攻守屡有进退,非实有画界。依《旧唐书·张巡传》《忠义传》、《新唐书·张巡许远传》、韩愈《张中丞传后叙》及《资治通鉴》卷二一九至二二〇绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:睢阳(宋州治,今河南商丘,约115.65E/34.42N)、宁陵(今河南宁陵,约115.31E/34.45N)、雍丘(今河南杞县,约114.78E/34.55N)、汴州(今河南开封,约114.35E/34.80N,时陷于叛军)、永城(今河南永城,约116.45E/33.93N)、谯郡(今安徽亳州,约115.78E/33.87N)、彭城(今江苏徐州,约117.18E/34.26N)、临淮(泗州治,贺兰进明屯,约118.2E/33.3N)、江淮(以江都·扬州为财赋总汇,约119.4E/32.4N)。洛阳·陈留在西北(图外),为叛军来向,以图外西北向箭头示之。</p>
+    <p><span class="n">注三</span>兵数与战况:张巡自宁陵引兵三千入睢阳,与太守许远之众(约三千八百)合,兵共六千八百,不满七千;尹子奇合同罗·突厥·奚之众号十三万。自至德二载正月起围,大小四百余战,前后杀伤叛军十二万。守城之奇:夜缒擂鼓佯出以疲敌、昼伏精兵突击;束草为人千余、夜缒城下赚箭数十万;南霁云一箭射中尹子奇左目;雷万春面中六矢而不动。号称之兵数、里数、斩获多约举,不必尽为实数。</p>
+    <p><span class="n">注四</span>制胜之枢在『守孤城以屏江淮』(图中金色汴河漕运动脉、睢阳金栓之锁钥):睢阳当汴河之中,为江淮财赋北输、叛军兵锋南下之共道。守之则塞叛军南向、护漕运不绝;睢阳一破则汴道洞开,叛军可长驱江淮、尽断唐之财源。故守睢阳者,守江淮之锁钥、天下之命脉也。及城中粮尽(图中褐色粮尽记号),南霁云突围乞师于临淮贺兰进明,进明拥兵嫉功、又惧敌,不发一卒(图中援不至之朱色 ✕),霁云断一指、射浮图寺塔以志愤而还——外援之绝,遂成孤城之陷。</p>
+    <p><span class="n">注五</span>食人之事与功罪之议:城中粮尽,罗雀掘鼠、煮铠弩之皮以食,继而张巡杀爱妾、许远杀奴以飨士卒,终至食城中妇孺老弱,所食约二三万口——此正史所载而后世聚讼之惨事,论者或讥其残、或恕其义,当以史笔平心录之,不为讳、亦不为张。然睢阳坚守十月,蔽遮江淮,使唐之财赋根本得全、两京以复、中兴以成;城陷旬日,张镐等即率官军收复睢阳。韩愈《张中丞传后叙》力辨其功,谓『守一城,捍天下』,后世遂以巡、远并祀为『双忠』。功之伟与事之惨并存,读史者两识之可也。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"孤城当冲",d:"唐至德二载 正月",p:["安庆绪遣尹子奇将兵十三万南攻睢阳。张巡自宁陵引兵入城,与太守许远合,兵共不满七千。睢阳当汴水之冲,扼江淮咽喉,一城系天下之安危。","巡、远以七千之众婴城死守,内无粮援、外无救兵,而当十三万之围。自正月至十月,大小四百余战,屡出奇制胜,遂使叛军顿兵坚城之下,不得全力南向。"]},
-  "1":{t:"婴城拒守",d:"至德二载 正月—夏",p:["张巡自宁陵引兵入睢阳,与许远合,众不满七千。尹子奇十三万环城而攻,巡设奇拒之:夜缒擂鼓佯出以疲敌,昼则伏精兵突击,敌不能测。","又束草为人千余,夜缒城下,叛军竞射之,得箭数十万;复以真兵缒下,趁其不备突营。南霁云一箭射中尹子奇左目,雷万春面中六矢而不动。大小数十战,屡挫其锋。"]},
-  "2":{t:"苦战乞师",d:"至德二载 夏—秋",p:["相持累月,杀伤燕兵十余万,而城中粮且尽。南霁云突围乞师于临淮,贺兰进明忌张巡之功、又惧敌,不肯出兵;为留霁云,大飨之。","霁云慷慨陈词,拔佩刀断一指以示之,一座皆泣;去时射浮图塔以志愤,誓灭贺兰而还。城中粮尽,罗雀掘鼠、煮铠弩以食,继以妇孺老弱,而众心不离,无一叛者。"]},
-  "3":{t:"城陷殉国",d:"至德二载 十月",p:["至十月,城中余卒才四百,饥病不能执兵,睢阳遂陷。张巡、许远、南霁云、雷万春等三十六人皆被执,巡骂贼不屈,慷慨就死,远亦不降。","然睢阳坚守十月,大小四百余战,蔽遮江淮,使唐之财赋根本得全,朝廷赖以再造。城陷旬日,张镐等即率官军收复睢阳——守者之功,岂在克敌之下。"]}
+  all:{t:"孤城屏江淮",d:"唐至德二载(757)正月—十月",p:["安禄山既死,其子安庆绪遣部将尹子奇合同罗·突厥·奚之精锐与杨朝宗之众,号十三万,自陈留南下攻睢阳。张巡自宁陵引兵三千入城,与太守许远合,兵共六千八百,不满七千,推巡主军事,婴城死守。","睢阳正当汴河(通济渠)之中,乃江淮财赋溯流北输关中·中原之命脉,亦叛军南趋江淮之必由。一城如塞:睢阳守一日,则叛军不得循汴而南、江淮之赋北输不绝。巡、远以孤军当十三万之围,自正月至十月,大小四百余战,前后杀敌十二万,遂使叛军顿兵坚城,不得全力南向——以一城蔽天下之势成焉。"]},
+  "1":{t:"尹子奇围睢阳 · 张许死守",d:"至德二载 正月",p:["至德二载正月,尹子奇将兵十三万趋睢阳。太守许远告急于宁陵,张巡自宁陵引兵三千驰入睢阳,与远合军,众共六千八百。远自以才不及巡,推巡主军事,而己居中调护军食、修战具,二人协力无间。","叛军十三万环城昼夜苦攻,凡十六日,前后擒贼将六十余人、杀士卒二万,而睢阳屹然不动。睢阳者,江淮之咽喉、汴河之锁钥;巡、远知其所系,故以七千之众,誓与此城相存亡。"]},
+  "2":{t:"四百余战 · 奇兵挫敌(射尹子奇目)",d:"至德二载 春—秋",p:["巡善用奇:夜则缒兵擂鼓、若将出击,叛军彻夜为备,及旦乃止;巡遂昼遣精兵掩其不意,叛军屡为所破。又束草为人千余,被以黑衣,夜缒城下,叛军争射之,得箭数十万;复以真兵缒下,趁其无备突营,焚垒溃卒。","一日欲射尹子奇而不识其面,巡削蒿为矢射之,中者喜谓城中矢尽,走白子奇,巡遂识其麾下,令南霁云射之,一箭中子奇左目,几为所擒。雷万春立城上与子奇语,面中六矢而不动,叛军疑为木刻。自正月至秋,大小四百余战,前后杀伤叛军十二万,叛军顿兵坚城之下,终不能越睢阳而南略江淮。"]},
+  "3":{t:"粮尽罗雀掘鼠 · 南霁云突围乞师",d:"至德二载 夏—秋",p:["相持既久,睢阳粮尽。初食马,马尽,罗雀掘鼠、煮铠弩之皮筋以食;终至张巡杀爱妾、许远杀奴以飨士,继食城中妇孺老弱,而众心不离,无一叛降者——盖知睢阳一失,则江淮尽为叛有。","巡遣南霁云将三十骑突围而出,乞师于临淮节度使贺兰进明。进明忌巡·远之声威、又惮敌锋,拥兵不肯出一卒,而爱霁云之勇,欲留之,大飨之。霁云慷慨曰:『昨出睢阳时,士卒不食月余矣!』乃拔佩刀断一指以示,一座皆泣;去时抽矢射寺浮图,矢著塔砖半箭,曰:『吾归破贼,必灭贺兰,此矢所以志也!』竟无援而还。"]},
+  "4":{t:"城破死节 · 然江淮以全",d:"至德二载 十月",p:["十月乙丑,睢阳食尽,士病不能战,城遂陷,余卒才四百。张巡、许远、南霁云、雷万春等三十六将皆被执。子奇问巡:『闻公督战,大呼辄眦裂血面、嚼齿皆碎,何至是?』巡曰:『吾欲气吞逆贼,顾力不能耳!』骂不绝口,慷慨就死,颜色不乱;远亦不屈而死。","然睢阳自正月守至十月,凡十阅月、四百余战,蔽遮江淮,使唐之财赋根本得全:是岁九月已复西京长安,睢阳陷后旬日,张镐率军至,即复睢阳,继复东京洛阳。守者之死,而中兴之业赖以奠。韩愈论之曰:『守一城,捍天下……蔽遮江淮,沮遏其势,天下之不亡,其谁之功也!』"]}
 };
 const CITY={
-  suiyang:{t:"睢阳",d:"宋州治,今河南商丘",p:["安史之乱中唐军死守之孤城,当汴水之冲、江淮之咽喉。张巡、许远以不满七千之众婴城十月,大小四百余战,终以粮尽城陷。"]},
-  ningling:{t:"宁陵",d:"睢阳以西",p:["张巡先守之地。至德二载引兵自此东入睢阳,与许远合军拒尹子奇。"]},
-  linhuai:{t:"临淮",d:"睢阳以南,今江苏盱眙一带",p:["御史大夫贺兰进明屯兵于此。南霁云突围至此乞师,进明忌张巡之功、又惧敌锋,不肯出一卒。"]},
-  pengcheng:{t:"彭城",d:"今江苏徐州",p:["睢阳东北要镇,汴泗交会。睢阳若失,叛军可东略淮泗、南下江淮,故睢阳之守所以蔽此。"]},
-  qiaojun:{t:"谯郡",d:"今安徽亳州一带",p:["睢阳东南邻郡。睢阳既为江淮屏障,谯、宋一线亦赖以不陷于叛军。"]},
-  jianghuai:{t:"江淮",d:"唐之财赋根本区",p:["安史乱后唐廷军资所仰。睢阳一日不下,叛军即不能全力南侵;守睢阳十月,蔽遮江淮,唐赖以再造。"]}
+  suiyang:{t:"睢阳(宋州·孤城)",d:"宋州治,今河南商丘(约115.65E,34.42N)",p:["安史之乱中唐军死守之孤城,正当汴河(通济渠)之中、江淮之咽喉。张巡、许远以不满七千之众婴城十月,大小四百余战,前后杀敌十二万,屡出奇兵挫敌;终以粮尽城陷,三十六将死节。守此一城,塞叛军南下之路、护江淮北输之漕,唐赖以再造,韩愈所谓『守一城,捍天下』。"]},
+  ningling:{t:"宁陵",d:"睢阳以西,今河南宁陵(约115.31E,34.45N)",p:["张巡先前守御之地。至德二载正月,闻尹子奇趋睢阳,巡自此引兵三千东入睢阳,与许远合军拒守。"]},
+  yongqiu:{t:"雍丘",d:"今河南杞县(约114.78E,34.55N)",p:["张巡起兵拒叛之首功地。至德元载,巡以数千众守雍丘,拒叛将令狐潮数万之围经年,大小数百战而城全,声名由是著;后为势所迫,乃退保宁陵、睢阳。雍丘正当汴河上游,与睢阳同扼漕道。"]},
+  bianzhou:{t:"汴州(叛军据)",d:"今河南开封(约114.35E,34.80N)",p:["汴河要冲,时已陷于叛军。尹子奇之众自陈留·汴州一线南下围睢阳。睢阳若失,则汴州—睢阳—泗州一线尽通,叛军可循汴长驱江淮。"]},
+  yongcheng:{t:"永城",d:"睢阳东南,今河南永城(约116.45E,33.93N)",p:["汴河(通济渠)自睢阳折东南所历之地,下接宿州、泗州而入淮。永城一线,即江淮漕船北上睢阳所必经。"]},
+  qiaojun:{t:"谯郡",d:"睢阳以南,今安徽亳州(约115.78E,33.87N)",p:["睢阳南邻之郡。睢阳既为江淮屏障,谯、宋一线亦赖以不陷于叛军;睢阳若破,谯郡首当叛军南下之冲。"]},
+  pengcheng:{t:"彭城",d:"睢阳东北,今江苏徐州(约117.18E,34.26N)",p:["汴泗交会之要镇。睢阳若失,叛军可东略淮泗、南下江淮,故睢阳之守所以并蔽此一方。"]},
+  linhuai:{t:"临淮(泗州)",d:"睢阳东南,泗州治,今江苏盱眙·泗洪一带(约118.2E,33.3N)",p:["御史大夫、河南节度使贺兰进明屯兵之所,当汴河入淮之口。南霁云突围至此乞师,进明忌张巡之功、又惧敌锋,拥兵不发一卒;霁云断指、射浮图塔以志愤而还——外援之绝,遂成睢阳之陷。"]},
+  jianghuai:{t:"江淮(财赋区)",d:"以江都·扬州为总汇,今江苏中南部(约119.4E,32.4N)",p:["安史乱后唐廷军资所仰之财赋根本。江淮之粟帛,由邗沟入淮、溯汴河北输关中·中原,岁漕四百万石。睢阳一日不下,叛军即不能全力南侵;守睢阳十月,蔽遮江淮,唐赖以全财赋、成中兴。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
