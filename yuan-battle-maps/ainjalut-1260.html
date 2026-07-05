@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>艾因贾鲁之战 · 蒙古庚申年(1260)</title>
+<title>艾因贾鲁之战 · 蒙哥汗殁之次年(1260)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--qin:#5c4a6e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -25,12 +25,17 @@
   .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
   svg.map{display:block;width:100%;height:auto}
+  .sea{fill:var(--water);opacity:.13}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.2;opacity:.5}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .lake{fill:var(--water);opacity:.4;stroke:var(--water);stroke-width:.8}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,25 +45,43 @@
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.feint{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .hide{fill:var(--advance);opacity:.88}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 火器惊马:midfa/手铳,存疑 */
+  .fire{stroke:var(--gold);stroke-width:1.7;stroke-linecap:round}
+  .fire .core{fill:var(--gold);stroke:none;opacity:.85}
+  /* 怯的不花死:阵殁之记 */
+  .martyr circle{fill:rgba(154,43,30,.14);stroke:var(--enemy);stroke-width:1.5}
+  .martyr line{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,146 +91,287 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>艾</span><span>因</span><span>贾</span><span>鲁</span></div>
   <header>
     <h1>艾因贾鲁之战</h1>
-    <div class="sub">蒙古庚申年·宋景定元年(1260)　　<b>埃及 忽都思·拜巴尔斯</b> 设伏破蒙 · <i>蒙古 怯的不花</i>战死歌利亚泉</div>
+    <div class="sub">蒙哥汗殁之次年 · 回历六五八年(1260年9月)　　<b>蒙古 怯的不花(旭烈兀留守叙利亚之偏师)</b> 折于 <i>埃及马穆鲁克 忽都斯 · 拜巴尔</i>　·　主力东返 · 佯退诱敌 · 谷中伏歼</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 蒙哥死·旭烈兀东还</button>
-    <button data-p="1">马木留克北拒·假道</button>
-    <button data-p="2">诱敌佯退·轻进</button>
-    <button data-p="3">伏兵夹击·蒙古大败</button>
+    <button class="on" data-p="all">全图 · 折戟于此</button>
+    <button data-p="1">汗死 · 偏师孤守叙利亚</button>
+    <button data-p="2">斩使 · 马穆鲁克北上</button>
+    <button data-p="3">佯退 · 诱蒙古入谷</button>
+    <button data-p="4">伏兵夹攻 · 怯的不花死</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="艾因贾鲁之战形势图,含蒙古伊利与埃及马木留克疆界、约旦河加利利地中海及大马士革艾因贾鲁开罗等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="艾因贾鲁之战形势图,含蒙古已占叙利亚(北)、马穆鲁克自埃及北上(西南)、十字军阿卡沿海(中立)三方,及地中海、约旦河、加利利海、基尔波亚山伏兵山地,与艾因贾鲁、拜桑、大马士革、阿勒颇、阿卡、加沙等地。图外西南开罗为马穆鲁克本、图外东北为旭烈兀率主力东返。">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:蒙古·伊利据叙利亚(北),埃及马木留克自埃及来(南),约以巴勒斯坦为争地 -->
-    <path d="M 0,300 C 160,286 340,296 500,270 C 660,244 820,258 1000,240 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 160,286 340,296 500,270 C 660,244 820,258 1000,240 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 160,286 340,296 500,270 C 660,244 820,258 1000,240"/>
-    <text class="realm q" x="620" y="120" font-size="30">蒙古·伊利(叙利亚)</text>
-    <text class="realm j" x="470" y="560" font-size="30">埃及 马木留克</text>
+    <!-- ══ 疆域:蒙古已占叙利亚(北·东,阿勒颇大马士革已下),马穆鲁克自埃及北上(南·西南),约以战线为界(示意) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,260 C 650,350 300,430 0,500 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,500 C 300,430 650,350 1000,260 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,500 C 300,430 650,350 1000,260"/>
+    <text class="realm q" x="640" y="150" font-size="26">蒙古 · 叙利亚</text>
+    <text class="cname s" x="642" y="174" style="fill:var(--enemy);opacity:.6">阿勒颇 · 大马士革已下 · 怯的不花偏师镇之</text>
+    <text class="realm j" x="120" y="612" font-size="24">马穆鲁克 · 埃及</text>
+    <text class="cname s" x="122" y="632" style="fill:var(--advance);opacity:.6">自开罗北上迎战(本在图外西南)</text>
 
-    <!-- 地中海(西) -->
-    <path d="M 0,0 L 150,0 C 132,120 120,240 96,360 C 78,460 66,560 60,640 L 0,640 Z" fill="var(--water)" opacity="0.22"/>
-    <path class="river" stroke-width="0" d="M 150,0"/>
-    <text class="rname" x="46" y="330" transform="rotate(-82 46 330)" style="font-size:13px;letter-spacing:.3em">地 中 海</text>
+    <!-- ══ 地中海(西) ══ -->
+    <path class="sea" d="M 0,0 L 320,0 C 300,80 275,180 250,300 C 232,388 210,470 180,560 C 168,596 158,620 150,640 L 0,640 Z"/>
+    <path class="coast" d="M 320,0 C 300,80 275,180 250,300 C 232,388 210,470 180,560 C 168,596 158,620 150,640"/>
+    <text class="rname" x="70" y="330" transform="rotate(-78 70 330)" style="font-size:13px">地 中 海</text>
 
-    <!-- 约旦河:自加利利海(北)南下入死海 -->
-    <path class="river" stroke-width="3" d="M 640,300 C 636,360 628,420 618,470 C 610,506 604,540 606,576"/>
-    <!-- 加利利海 -->
-    <ellipse cx="648" cy="292" rx="16" ry="22" fill="var(--water)" opacity="0.5"/>
-    <text class="rname" x="620" y="440" transform="rotate(86 620 440)" style="font-size:12px">约 旦 河</text>
-    <text class="cname s" x="666" y="292">加利利海</text>
+    <!-- ══ 十字军沿海(阿卡·中立·许马穆鲁克假道) ══ -->
+    <path d="M 250,300 C 268,338 282,372 300,410 C 316,442 328,464 336,478 C 320,470 302,452 288,430 C 268,398 258,352 250,300 Z" fill="url(#fqinHatch)"/>
+    <text class="realm f" x="196" y="352" font-size="13">十字军 · 阿卡</text>
+    <text class="cname s" x="196" y="370" style="fill:var(--qin);opacity:.75">(中立 · 许假道 · 就食阿卡)</text>
 
-    <!-- 加利利山地 -->
-    <g class="mtn"><path d="M 452,352 l 10,-15 l 10,15 M 470,346 l 9,-14 l 9,14 M 486,352 l 9,-13 l 9,13"/></g>
-    <text class="cname s" x="452" y="374">加利利山地</text>
-    <!-- 南部沙漠(纳吉夫) -->
-    <g class="mtn" opacity="0.55"><path d="M 300,540 l 7,-9 l 7,9 M 314,536 l 6,-8 l 6,8"/></g>
-    <text class="cname s" x="300" y="560">纳吉夫沙漠</text>
+    <!-- ══ 山脉:基尔波亚山(Gilboa),艾因贾鲁之南,伏兵山地 ══ -->
+    <path class="mtn fill" d="M 300,470 L 316,452 L 330,466 L 348,448 L 366,464 L 386,450 L 406,466 L 420,452 L 434,470 L 366,486 Z"/>
+    <path class="mtn" d="M 308,464 l 10,-14 l 10,12 l 14,-16 l 12,14 l 14,-14 l 12,14 M 392,462 l 10,-12 l 10,12"/>
+    <text class="mname" x="366" y="504" style="font-size:11.5px" text-anchor="middle">基尔波亚山(Gilboa)</text>
+    <!-- 加利利北丘(伏兵之另一侧) -->
+    <path class="mtn fill" d="M 288,398 L 300,384 L 312,396 L 326,382 L 338,394 L 352,382 L 362,396 L 322,406 Z"/>
+    <path class="mtn" d="M 296,394 l 8,-10 l 9,10 l 12,-12 l 10,12"/>
+    <text class="mname" x="300" y="378" style="font-size:10px" text-anchor="middle">加利利丘</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 水系 ══ -->
+    <!-- 加利利海(太巴列湖) -->
+    <ellipse class="lake" cx="398" cy="402" rx="13" ry="17"/>
+    <text class="rname" x="414" y="398" style="font-size:9.5px">加利利海</text>
+    <!-- 约旦河:自加利利海南流,拜桑之东 -->
+    <path class="river" stroke-width="3.2" d="M 396,420 C 388,448 380,474 372,500 C 368,514 364,528 360,540"/>
+    <text class="rname" x="378" y="470" transform="rotate(74 378 470)" style="font-size:11px">约 旦 河</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="damascus"><circle cx="830" cy="196" r="6"/><text class="cname" x="800" y="184">大马士革<tspan class="cname s" dx="2">(蒙古先取)</tspan></text></g>
-      <g class="city" data-city="ainjalut"><circle cx="540" cy="330" r="6"/><text class="cname" x="552" y="326">艾因贾鲁<tspan class="cname s" dx="2">(歌利亚泉)</tspan></text></g>
-      <g class="city" data-city="acre"><circle cx="330" cy="300" r="5"/><text class="cname" x="242" y="296">阿卡<tspan class="cname s" dx="2">(十字军)</tspan></text></g>
-      <g class="city" data-city="jordan"><circle cx="618" cy="470" r="3.5"/><text class="cname s" x="628" y="474">约旦河渡</text></g>
-      <g class="city" data-city="gaza"><circle cx="300" cy="470" r="4.5"/><text class="cname" x="242" y="486">加沙<tspan class="cname s" dx="2">(前哨)</tspan></text></g>
-      <g class="city cap" data-city="cairo"><circle cx="220" cy="588" r="6"/><text class="cname" x="232" y="592">开罗<tspan class="cname s" dx="2">(马木留克本土)</tspan></text></g>
+      <g class="city" data-city="ainjalut"><circle cx="345" cy="435" r="6.5"/><text class="cname" x="300" y="424" text-anchor="end">艾因贾鲁<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="bisan"><circle cx="378" cy="446" r="4"/><text class="cname s" x="388" y="460">拜桑(贝特谢安)</text></g>
+      <g class="city" data-city="acre"><circle cx="295" cy="398" r="5"/><text class="cname" x="252" y="392" text-anchor="end">阿卡</text></g>
+      <g class="city" data-city="gaza"><circle cx="190" cy="540" r="5.5"/><text class="cname" x="202" y="556">加沙<tspan class="cname s" dx="2">(马穆鲁克所经)</tspan></text></g>
+      <g class="city" data-city="damascus"><circle cx="510" cy="340" r="6"/><text class="cname" x="522" y="336">大马士革<tspan class="cname s" dx="2">(蒙古已占)</tspan></text></g>
+      <g class="city" data-city="baalbek"><circle cx="492" cy="288" r="3.5"/><text class="cname s" x="502" y="284">巴勒贝克(怯的不花基)</text></g>
+      <g class="city" data-city="aleppo"><circle cx="667" cy="70" r="5.5"/><text class="cname" x="655" y="64" text-anchor="end">阿勒颇<tspan class="cname s" dx="2">(蒙古已破 · 远北)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 蒙哥死·旭烈兀东还 -->
+    <!-- 开罗(图外·西南,马穆鲁克本) -->
+    <g transform="translate(6,600)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,28 L 34,2"/>
+      <text class="mlabel j" x="0" y="20" style="font-size:10px">⟋ 开罗 · 马穆鲁克本(图外西南)</text>
+      <text class="cname s" x="0" y="34" style="fill:var(--advance);font-size:9.5px">忽都斯斩蒙古使 · 誓师北上</text>
+    </g>
+
+    <!-- 旭烈兀率主力东返(图外·东北,战略之因) -->
+    <g transform="translate(902,196)">
+      <path class="march q" marker-end="url(#aq)" d="M 8,0 L 90,-14"/>
+      <text class="mlabel q" x="6" y="-20" style="font-size:10.5px">旭烈兀率西征主力东返 · 争汗位 ⟶</text>
+      <text class="cname s" x="6" y="16" style="fill:var(--enemy);font-size:9.5px">(图外东北 · 波斯 · 偏师遂孤)</text>
+    </g>
+
+    <!-- ══ 全图 · 折戟于此 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 830,204 C 780,240 700,270 640,296"/>
-      <text class="mlabel j" x="700" y="234">旭烈兀既下叙利亚,取阿勒颇、大马士革</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 838,190 C 900,150 940,120 968,96"/>
-      <text class="mlabel r" x="856" y="150">会蒙哥死,旭烈兀率主力东还争位</text>
-      <text class="anno" x="640" y="278">仅留怯的不花以偏师(万余骑)镇守叙利亚</text>
-      <text class="mlabel q" x="440" y="520">埃及马木留克拒蒙于境</text>
+      <path class="march j" marker-end="url(#aj)" d="M 196,534 C 245,486 285,452 336,437"/>
+      <text class="mlabel j" x="150" y="500">马穆鲁克自埃及北上迎战</text>
+      <path class="march q" marker-end="url(#aq)" d="M 500,347 C 445,378 395,408 360,430"/>
+      <text class="mlabel q" x="470" y="356">怯的不花偏师南下</text>
+      <text class="anno" x="470" y="374">约二万 · 孤悬无援</text>
+      <circle class="star" cx="345" cy="435" r="10"/>
+      <g class="martyr" transform="translate(345,435)"><circle r="7"/><line x1="-4.5" y1="-4.5" x2="4.5" y2="4.5"/><line x1="-4.5" y1="4.5" x2="4.5" y2="-4.5"/></g>
+      <text class="mlabel r" x="300" y="474" text-anchor="middle">佯退诱敌 · 谷中伏歼 · 蒙古西征折于此</text>
     </g>
 
-    <!-- 阶段一:马木留克北拒·假道十字军 -->
+    <!-- ══ 阶段一:汗死 · 偏师孤守叙利亚 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 226,580 C 260,540 288,510 300,478"/>
-      <text class="mlabel q" x="120" y="540">忽都思、拜巴尔斯自开罗出师北上</text>
-      <path class="march q" marker-end="url(#aq)" d="M 306,462 C 360,410 440,362 522,336"/>
-      <text class="mlabel q" x="320" y="440">经加沙北趋加利利,前哨破蒙</text>
-      <path class="siege" d="M 330,300 C 400,296 470,312 528,328"/>
-      <text class="anno" x="336" y="286">十字军惧蒙古,许马木留克假道其境、供粮秣</text>
-      <rect class="camp" x="524" y="342" width="9" height="9" transform="rotate(45 528 346)"/>
-      <text class="mlabel q" x="470" y="368">两军趋艾因贾鲁</text>
+      <path class="march q" marker-end="url(#aq)" d="M 540,320 C 660,286 800,250 892,222"/>
+      <text class="mlabel q" x="600" y="252">旭烈兀闻蒙哥汗死,率西征主力东返争位</text>
+      <text class="anno" x="600" y="270">叙利亚只留怯的不花偏师约二万镇守</text>
+      <rect class="camp" x="503" y="333" width="9" height="9" transform="rotate(45 507 337)"/>
+      <rect class="camp" x="486" y="282" width="8" height="8" transform="rotate(45 490 286)"/>
+      <rect class="camp" x="661" y="64" width="9" height="9" transform="rotate(45 665 68)"/>
+      <text class="mlabel q" x="524" y="316">怯的不花据大马士革 · 巴勒贝克</text>
+      <text class="anno" x="150" y="586">蒙哥汗殁于钓鱼城(1259) · 蒙古诸王争立 · 西征之势顿挫</text>
     </g>
 
-    <!-- 阶段二:诱敌佯退·怯的不花轻进 -->
+    <!-- ══ 阶段二:斩使 · 马穆鲁克自开罗北上 ══ -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 552,336 C 600,352 640,372 672,392"/>
-      <text class="mlabel q" x="600" y="418">拜巴尔斯以轻骑诱蒙古前军</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 668,388 C 700,410 720,436 726,468"/>
-      <text class="anno" x="690" y="452">佯退,伏兵藏于谷中</text>
-      <path class="march j" marker-end="url(#aj)" d="M 830,204 C 740,250 640,300 556,326"/>
-      <text class="mlabel j" x="640" y="300">怯的不花轻进追击,渐入伏中</text>
-      <rect class="camp" x="536" y="322" width="9" height="9" transform="rotate(45 540 326)" style="fill:var(--advance)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 40,600 C 100,578 152,560 186,545"/>
+      <text class="mlabel j" x="58" y="574">忽都斯斩蒙古招降之使,自开罗誓师北上</text>
+      <path class="march j" marker-end="url(#aj)" d="M 194,530 C 224,482 254,442 288,406"/>
+      <text class="mlabel j" x="206" y="500">经加沙 · 破蒙古戍骑</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,404 C 316,415 330,426 340,436"/>
+      <text class="mlabel j" x="150" y="360">假道十字军阿卡 · 就食休整</text>
+      <text class="anno" x="150" y="378">拜巴尔将前锋先进 · 侦蒙古所在</text>
+      <text class="anno" x="360" y="444">进抵艾因贾鲁 · 耶斯列谷</text>
     </g>
 
-    <!-- 阶段三:伏兵夹击·蒙古大败 -->
+    <!-- ══ 阶段三:佯退 · 诱蒙古入谷 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="540" cy="330" r="9"/>
-      <path class="march q" marker-end="url(#aq)" d="M 470,392 C 500,368 520,350 532,338"/>
-      <path class="march q" marker-end="url(#aq)" d="M 640,400 C 610,372 588,352 552,336"/>
-      <text class="mlabel q" x="410" y="410">伏兵四起,以逸待劳、四面夹击</text>
-      <text class="anno" x="440" y="428">用火器(midfa 火铳之属)惊蒙古之马</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 534,340 C 620,384 700,440 730,510"/>
-      <text class="mlabel r" x="586" y="470">蒙古大败,怯的不花战死歌利亚泉</text>
-      <text class="anno" x="620" y="536">蒙古西征之势遂止于叙利亚,未能再西</text>
+      <path class="march q" marker-end="url(#aq)" d="M 500,347 C 448,378 400,408 366,428"/>
+      <text class="mlabel q" x="470" y="358">怯的不花闻马穆鲁克至,自巴勒贝克南下</text>
+      <text class="anno" x="470" y="376">经加利利海之东,入耶斯列谷</text>
+      <!-- 拜巴尔前锋接触后佯退 -->
+      <path class="march j" marker-end="url(#aj)" d="M 344,436 C 378,424 406,416 428,420"/>
+      <path class="march feint" marker-end="url(#aj)" d="M 428,420 C 402,428 376,436 356,440"/>
+      <text class="mlabel j" x="436" y="414">拜巴尔佯退</text>
+      <!-- 蒙古中计追入谷 -->
+      <path class="march q" marker-end="url(#aq)" d="M 470,404 C 435,416 398,428 368,437"/>
+      <text class="mlabel q" x="482" y="402">蒙古中计 · 轻进追击入谷</text>
+      <!-- 马穆鲁克主力伏于两侧山地 -->
+      <rect class="hide" x="316" y="458" width="9" height="9" transform="rotate(45 320 462)"/>
+      <rect class="hide" x="346" y="462" width="9" height="9" transform="rotate(45 350 466)"/>
+      <rect class="hide" x="298" y="448" width="9" height="9" transform="rotate(45 302 452)"/>
+      <rect class="hide" x="316" y="392" width="9" height="9" transform="rotate(45 320 396)"/>
+      <rect class="hide" x="294" y="408" width="9" height="9" transform="rotate(45 298 412)"/>
+      <text class="mlabel j" x="196" y="430" text-anchor="end">马穆鲁克主力伏于</text>
+      <text class="mlabel j" x="196" y="446" text-anchor="end">基尔波亚山两侧</text>
+      <circle class="star" cx="345" cy="435" r="9"/>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:两侧伏兵夹攻 · 怯的不花死 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 四面伏兵合击(马穆鲁克·青) -->
+      <path class="march j" marker-end="url(#aj)" d="M 340,478 C 342,464 343,454 344,446"/>
+      <path class="march j" marker-end="url(#aj)" d="M 300,466 C 316,454 328,448 336,442"/>
+      <path class="march j" marker-end="url(#aj)" d="M 326,392 C 334,408 339,420 343,428"/>
+      <path class="march j" marker-end="url(#aj)" d="M 292,410 C 310,420 326,428 335,434"/>
+      <path class="march j" marker-end="url(#aj)" d="M 236,462 C 278,452 312,444 336,439"/>
+      <text class="mlabel j" x="150" y="452">忽都斯亲率主力自侧翼夹攻</text>
+      <text class="anno" x="150" y="470">投兜鍪 · 呼「愿主佑穆斯林!」督军力战</text>
+      <!-- 火器惊马(存疑) -->
+      <g class="fire" transform="translate(372,424)">
+        <circle class="core" r="2.2"/>
+        <line x1="0" y1="0" x2="0" y2="-9"/><line x1="0" y1="0" x2="8" y2="-4"/><line x1="0" y1="0" x2="8" y2="4"/><line x1="0" y1="0" x2="0" y2="9"/><line x1="0" y1="0" x2="-8" y2="4"/><line x1="0" y1="0" x2="-8" y2="-4"/>
+      </g>
+      <text class="mlabel r" x="384" y="418">火器(midfa)惊蒙古战马 · 存疑</text>
+      <circle class="star" cx="345" cy="435" r="12"/>
+      <g class="martyr" transform="translate(345,435)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <!-- 蒙古偏师溃走拜桑 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 352,438 C 362,442 370,443 380,443"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 384,444 C 424,436 466,424 508,408"/>
+      <text class="mlabel r" x="470" y="426">蒙古偏师溃走拜桑 · 几全歼</text>
+      <text class="mlabel r" x="150" y="514">怯的不花力战被俘 · 不屈见杀</text>
+      <text class="anno" x="150" y="532">蒙古西征首次决定性败绩 · 西南之界划定于此</text>
+    </g>
+
+    <g class="compass" transform="translate(946,600)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙古军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>埃及马木留克</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>蒙古溃退·东还</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>伏击决战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>蒙古·伊利</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>马木留克</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>马穆鲁克(忽都斯 · 拜巴尔)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>拜巴尔佯退(诱敌)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>蒙古(怯的不花偏师)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 7"/></svg>蒙古溃走拜桑</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" fill="#1f4e54" transform="rotate(45 6.5 6.5)"/></svg>马穆鲁克伏兵(两侧山地)</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" fill="#9a2b1e" transform="rotate(45 6.5 6.5)"/></svg>蒙古营垒</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>艾因贾鲁伏歼</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="rgba(154,43,30,.14)" stroke="#9a2b1e" stroke-width="1.4"/><line x1="4" y1="4" x2="12" y2="12" stroke="#2b2418" stroke-width="2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#2b2418" stroke-width="2"/></svg>怯的不花死</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>蒙古占叙利亚</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>马穆鲁克</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#fqinHatch)"/></svg>十字军(中立)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 主力东返 · 偏师被诱 · 谷中伏歼</h3>
+    <div class="lead">何以蒙古西征折于此 —— 非马穆鲁克之独强,实汗死而偏师孤、佯退而入谷伏歼</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:左为战略之因——蒙哥汗死,旭烈兀率西征主力东返争位,叙利亚只余怯的不花偏师约二万,孤悬无援;右为战术之枢——拜巴尔佯退诱蒙古入艾因贾鲁谷,忽都斯伏主力于两侧山地,四面夹攻、火器惊马,怯的不花死。">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 汗死 · 偏师孤悬(势)</text>
+      <text x="470" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 佯退 · 谷中伏歼(术)</text>
+
+      <!-- ① 主力东返,偏师孤悬 -->
+      <rect x="60" y="70" width="70" height="46" rx="3" fill="rgba(154,43,30,.14)" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="95" y="98" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">西征主力</text>
+      <path d="M 138,92 C 210,80 280,72 340,66" fill="none" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)"/>
+      <text x="240" y="58" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">旭烈兀东返 · 争汗位</text>
+      <text x="240" y="104" fill="#5c4f38" font-size="9.5" text-anchor="middle" font-style="italic">因:蒙哥汗殁于钓鱼城(1259)</text>
+      <rect x="70" y="150" width="52" height="34" rx="3" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="4 3"/>
+      <text x="96" y="171" fill="#9a2b1e" font-size="9.5" font-weight="700" text-anchor="middle">偏师约二万</text>
+      <text x="150" y="167" fill="#5c4f38" font-size="10" text-anchor="start">怯的不花 · 孤悬无援</text>
+      <text x="150" y="184" fill="#5c4f38" font-size="10" text-anchor="start">马穆鲁克遂得以众击寡</text>
+
+      <!-- 分隔 -->
+      <line x1="440" y1="24" x2="440" y2="228" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+
+      <!-- ② 佯退入谷,两侧伏歼 -->
+      <path d="M 500,64 L 560,110 L 500,120 Z" fill="rgba(92,79,56,.22)" stroke="#5c4f38" stroke-width="1.1"/>
+      <path d="M 820,64 L 760,110 L 820,120 Z" fill="rgba(92,79,56,.22)" stroke="#5c4f38" stroke-width="1.1"/>
+      <text x="496" y="58" fill="#5c4f38" font-size="9.5" font-weight="700" text-anchor="start">基尔波亚山</text>
+      <text x="824" y="58" fill="#5c4f38" font-size="9.5" font-weight="700" text-anchor="end">加利利丘</text>
+      <!-- 佯退钩:拜巴尔诱敌 -->
+      <path d="M 560,150 C 610,140 650,142 630,158" fill="none" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/>
+      <path d="M 640,152 L 626,158 L 636,166 Z" fill="#1f4e54"/>
+      <text x="600" y="132" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="middle">拜巴尔佯退</text>
+      <!-- 蒙古追入 -->
+      <path d="M 780,158 C 730,166 700,168 672,166" fill="none" stroke="#9a2b1e" stroke-width="2.6"/>
+      <path d="M 680,160 L 666,166 L 680,172 Z" fill="#9a2b1e"/>
+      <text x="748" y="188" fill="#9a2b1e" font-size="10" font-weight="700" text-anchor="middle">蒙古中计追入谷</text>
+      <!-- 火器惊马 -->
+      <g stroke="#9c7a2c" stroke-width="1.6" stroke-linecap="round" transform="translate(660,150)">
+        <circle r="2" fill="#9c7a2c" stroke="none"/>
+        <line x1="0" y1="0" x2="0" y2="-10"/><line x1="0" y1="0" x2="9" y2="-4"/><line x1="0" y1="0" x2="9" y2="4"/><line x1="0" y1="0" x2="0" y2="10"/><line x1="0" y1="0" x2="-9" y2="4"/><line x1="0" y1="0" x2="-9" y2="-4"/>
+      </g>
+      <!-- 四面夹攻(青) + 怯的不花✕ -->
+      <circle cx="660" cy="150" r="16" fill="none" stroke="#9c7a2c" stroke-width="2.2"/>
+      <g stroke="#1f4e54" stroke-width="2.4" fill="none">
+        <path d="M 600,92 C 622,110 636,124 648,138" marker-end="url(#aj)"/>
+        <path d="M 720,92 C 698,110 684,124 672,138" marker-end="url(#aj)"/>
+        <path d="M 600,208 C 622,190 636,176 648,162" marker-end="url(#aj)"/>
+        <path d="M 720,208 C 698,190 684,176 672,162" marker-end="url(#aj)"/>
+      </g>
+      <line x1="652" y1="143" x2="668" y2="157" stroke="#2b2418" stroke-width="2.4"/>
+      <line x1="652" y1="157" x2="668" y2="143" stroke="#2b2418" stroke-width="2.4"/>
+      <text x="660" y="232" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">两侧伏兵四合 · 聚而歼之 · 怯的不花死</text>
+    </svg>
+    <p class="intro">艾因贾鲁之败,不败于马穆鲁克之独强,而系于一「势」一「术」:<b>蒙哥汗死</b>,旭烈兀提西征主力东返争位,新征服之叙利亚(阿勒颇、大马士革已下)只余<b>怯的不花偏师约二万</b>,孤悬无援(势);忽都斯斩使决战,拜巴尔以<b>佯退诱蒙古入谷</b>,忽都斯伏主力于基尔波亚山两侧,待其入彀,<b>四面夹攻</b>、或以火器惊马,聚而歼之(术)。势孤而术精,蒙古西征遂折于此。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>势 · 主力东返 · 偏师孤悬</h4>
+        <p>蒙哥汗殁于钓鱼城(1259),旭烈兀闻讯即率西征主力东返,以图汗位;新下之叙利亚只留怯的不花偏师约二万(并叙、亚美尼亚、格鲁吉亚附从)镇守。主力既去,偏师无继、无援可待——而马穆鲁克得以埃及本土全力北上,以众击寡。此蒙古之败,先败于「势」,非临阵之失。</p>
+      </div>
+      <div class="c b">
+        <h4>术 · 佯退诱敌 · 谷中伏歼</h4>
+        <p>忽都斯斩蒙古招降之使,率军自开罗经加沙、假道十字军阿卡北上,进抵艾因贾鲁(歌利亚之泉,耶斯列谷)。拜巴尔率前锋与蒙古接触即佯退,诱怯的不花轻进入谷;忽都斯伏主力于基尔波亚山两侧,待其入彀,四面夹攻。马穆鲁克骑射精锐,或以火器(midfa)惊蒙古战马;怯的不花力战被俘、不屈见杀,偏师溃走拜桑,几于全歼。</p>
+      </div>
+    </div>
+    <p class="kicker">故艾因贾鲁之覆,系于<b>势孤与术精之相因</b>:非蒙古不可胜,实主力东返而偏师孤、佯退入谷而伏歼成。此为蒙古西征<b>首次决定性败绩</b>,划定蒙古帝国西南之界(未能入埃及、北非);拜巴尔旋于归途弑忽都斯自立,是为马穆鲁克名主「班都格达尔」。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《史集》(拉施特)及阿拉伯史籍约略绘出。艾因贾鲁(歌利亚泉)在今巴勒斯坦加利利地区,西亚地望为相对示意;地中海、约旦河、加利利海及大马士革、开罗、阿卡诸地位置经简化,晕染疆界非实有画界。</p>
-    <p><span class="n">注二</span>是役蒙古偏师约万余骑,怯的不花(Kitbuqa)为旭烈兀留守叙利亚之大将,乃聂思脱里派景教徒。马木留克算端忽都思(Qutuz)、大将拜巴尔斯(Baybars)以逸待劳,诱敌佯退而以伏兵夹击;所用火器 midfa 之说见阿拉伯史籍,或为惊马之烟火,细节史家尚有异议。</p>
-    <p><span class="n">注三</span>时大汗蒙哥死于钓鱼城下(宋开庆元年·1259),旭烈兀率主力东还争位,西征之力顿减。艾因贾鲁一败,蒙古扩张之势遂止于叙利亚,马木留克由是保有埃及、叙利亚,伊斯兰世界得存——胜负所系,亦在大汗一死。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x=90+(经度−33.9)×175,y=600−(纬度−30.9)×100</b>,几何关系力求近实——艾因贾鲁居中,加沙在其西南,大马士革在东北,阿勒颇远在正北,阿卡在西北临海,拜桑·约旦河在东,地中海在西。因黎凡特南北狭长(加沙至阿勒颇约五百余公里),而东西较窄,图幅左右留白以置地中海、图外箭头。疆界晕染、水道皆经简化,点划「约界」示战线大势(蒙古已占叙利亚之北、马穆鲁克自埃及北进),非实有画界。史事依拉施特《史集》(Jāmiʿ al-tawārīkh)、马克里齐《埃及诸王传》、伊本·泰格里·比尔迪,及今人 Reuven Amitai《Mongols and Mamluks: The Mamluk–Īlkhānid War, 1260–1281》约略绘出。</p>
+    <p><span class="n">注二</span>今地考(问其四:每地皆系今地经纬):艾因贾鲁(Ain Jalut「歌利亚之泉」,今以色列/巴勒斯坦加利利耶斯列谷、哈罗德泉一带,约35.36E/32.55N,决战地);基尔波亚山(Gilboa,艾因贾鲁之南,约35.42E/32.48N,马穆鲁克伏兵山地);拜桑(Bisan/贝特谢安,约35.50E/32.50N,蒙古溃走处);阿卡(Akko/Acre,约35.07E/32.92N,十字军港,许马穆鲁克假道就食);加沙(Gaza,约34.47E/31.50N,马穆鲁克北上所经、先破蒙古戍骑);大马士革(约36.30E/33.50N)、巴勒贝克(约36.20E/34.00N,怯的不花南下之基)、阿勒颇(约37.20E/36.20N)皆蒙古已占;加利利海(太巴列湖,约35.60E/32.80N)、约旦河、地中海为水系。开罗(约31.24E/30.05N)为马穆鲁克本,远在图外西南,以边缘箭头示之。</p>
+    <p><span class="n">注三</span>行军之式与列强(问其一:水陆;问其三:几方、各自何来):此役<b>全为陆战、陆行</b>,无水路一段——地中海虽在侧,而双方皆骑步陆师。马穆鲁克自开罗率军北上,循陆路经加沙、巴勒斯坦(1260年7月出开罗,9月3日决战);蒙古怯的不花偏师自巴勒贝克/大马士革南下,经加利利海之东入耶斯列谷。战场凡三方:<b>马穆鲁克</b>自西南(开罗、加沙)入,<b>蒙古偏师</b>自东北(大马士革)下,<b>十字军</b>据阿卡沿海取中立、许马穆鲁克假道并就食补给(问其二:马穆鲁克之补给赖阿卡休整,蒙古偏师则孤悬无继——其「粮」实为兵源,已因主力东返而绝)。旭烈兀率西征主力东返波斯,为图外东北之出境箭头,乃此败之战略根因。</p>
+    <p><span class="n">注四</span>制胜之枢(图中佯退虚线、两侧青色伏兵菱、四面夹攻、火器星芒、怯的不花✕):一在<b>势</b>——蒙哥汗死、旭烈兀东返,叙利亚偏师孤悬约二万,马穆鲁克得以本土全力(约二万)以众击寡;一在<b>术</b>——拜巴尔前锋佯退,诱怯的不花轻进入艾因贾鲁谷,忽都斯伏主力于基尔波亚山两侧,四面合围。忽都斯于危局投兜鍪、呼「愿主佑其仆战胜鞑靼」(wā islāmāh)督军力战,反败为胜。马穆鲁克或用「midfa」手铳/火器惊蒙古战马,al-Hassan 据14世纪阿拉伯兵书主之,而 Ayalon、Khan、Needham、Andrade、Ágoston 诸家疑之,并存以俟考。</p>
+    <p><span class="n">注五</span>史事互异(问其五:异说存为注,不作暗定):蒙古偏师之数,诸书约万至二万(本部蒙古万余,益以叙利亚、亚美尼亚、格鲁吉亚附从),今从「约二万」;马穆鲁克本部约万二,合附庸约二万。忽都斯离开罗之日,或作7月16日、或7月26日;决战定于1260年9月3日(回历658年斋月25日)。怯的不花或云力战被俘、见忽都斯不屈而遭斩,或云战殁,要之偏师几全歼。战后拜巴尔于归途(10月24日)弑忽都斯自立,一云因求阿勒颇总督不得而怀怨——遂为马穆鲁克(巴赫里)名主。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"蒙哥死·旭烈兀东还",d:"蒙古庚申年·宋景定元年(1260)",p:["旭烈兀西征,既灭报达(巴格达)、下叙利亚,取阿勒颇、大马士革,兵锋逼近埃及。伊斯兰世界震恐,马木留克独当其冲。","会大汗蒙哥死于钓鱼城下(宋开庆元年·1259),旭烈兀闻讣,率主力东还,与诸弟争夺汗位;仅留大将怯的不花以偏师万余骑镇守叙利亚。蒙古之势于西陲遂弱。"]},
-  "1":{t:"马木留克北拒·假道十字军",d:"庚申年七月(1260)",p:["埃及马木留克算端忽都思、大将拜巴尔斯乘蒙古主力东还之隙,出师北上,与蒙古争巴勒斯坦。","十字军诸城虽素敌马木留克,然更惧蒙古,乃许马木留克假道其境、供给粮秣。马木留克军自开罗经加沙北趋,前哨破蒙古戍卒,两军会于加利利之艾因贾鲁(歌利亚泉)。"]},
-  "2":{t:"诱敌佯退·怯的不花轻进",d:"庚申年七月(1260)",p:["拜巴尔斯素习蒙古战法,以少数轻骑诱蒙古前军深入,战而佯退,引之向南。","怯的不花恃勇轻进,率军追击,渐入马木留克预设之伏地。马木留克主力伏于谷中丘后,以逸待劳,静待蒙古之陷围。"]},
-  "3":{t:"伏兵夹击·蒙古大败",d:"庚申年七月(1260)",p:["蒙古军既深入,伏兵四起,马木留克以逸待劳、四面夹击,复用火器(midfa 火铳之属)惊蒙古之马,阵势遂乱。","蒙古军陷重围,力战不支,大败;怯的不花战死于歌利亚泉。此为蒙古西征以来罕有之惨败,蒙古扩张之势遂止于叙利亚,未能再西。马木留克保有埃及、叙利亚,伊斯兰世界得存。"]}
+  all:{t:"折戟于此 · 蒙古西征之界",d:"回历658年 · 1260年9月3日",p:["1260年,蒙古旭烈兀西征,已破巴格达(1258)、下阿勒颇、大马士革,兵锋直指埃及。适蒙哥汗殁于钓鱼城(1259),旭烈兀率西征主力东返争位,叙利亚只留大将怯的不花率偏师约二万镇守。蒙古遣使赴埃及招降;马穆鲁克苏丹忽都斯斩使决战,与大将拜巴尔率军北上迎击。","九月三日,两军会于艾因贾鲁(歌利亚之泉,耶斯列谷)。拜巴尔前锋佯退,诱蒙古入谷;忽都斯伏主力于基尔波亚山两侧,四面夹攻。怯的不花力战被俘见杀,偏师几于全歼。此为蒙古西征首次决定性败绩,蒙古帝国之西南界遂划定于此——世界史之一大枢机。"]},
+  "1":{t:"汗死 · 偏师孤守叙利亚",d:"1259 蒙哥殁 — 1260 旭烈兀东返",p:["旭烈兀第三次西征,连破木剌夷、阿拔斯(巴格达,1258),复下阿勒颇、大马士革,叙利亚全境震动,兵势将及埃及。然1259年蒙哥汗殁于攻宋之钓鱼城,蒙古诸王争立,阿里不哥、忽必烈相持于漠北。","旭烈兀闻讯,即提西征主力东返波斯,以图汗位、观衅中原;新征服之叙利亚,只留亲信大将怯的不花(景教乃蛮人)率偏师约二万镇守,据大马士革、巴勒贝克。主力既去,偏师孤悬、无继无援——蒙古西侵之势,已先自颓于此。"]},
+  "2":{t:"斩使 · 马穆鲁克自开罗北上",d:"1260年7月 · 开罗 — 加沙",p:["蒙古遣使至开罗招降,辞甚倨。马穆鲁克苏丹忽都斯(古突兹)会诸将议,决意迎战,斩蒙古使者以绝退路、坚众心,乃自开罗誓师北上。","大军循陆路经加沙北进,先破蒙古前哨戍骑;复与沿海十字军(阿卡)约,得假道并就食休整。忽都斯以骁将拜巴尔将前锋先行,侦蒙古所在,进抵加利利之艾因贾鲁、耶斯列谷,择地以待。"]},
+  "3":{t:"佯退 · 诱蒙古入谷",d:"1260年9月3日晨",p:["怯的不花闻马穆鲁克北上,自巴勒贝克率偏师南下,经加利利海之东,入耶斯列谷。忽都斯预伏主力于谷南基尔波亚山及两侧山地,而以拜巴尔前锋当其锋。","拜巴尔率前锋与蒙古接触,且战且退,佯为不敌。怯的不花自恃精锐、轻视马穆鲁克,遂麾军追击,尾拜巴尔深入谷地,不觉已陷两侧伏兵之中——游牧诱敌之术,反施于蒙古之身。"]},
+  "4":{t:"伏兵夹攻 · 怯的不花死",d:"1260年9月3日",p:["蒙古既入谷,忽都斯伏兵自基尔波亚山两侧一时并起,四面合围。蒙古骑锐犹力斗,一度冲破马穆鲁克左翼;忽都斯掷兜鍪于地,亲率主力自侧翼夹攻,高呼「愿主佑其仆战胜鞑靼」(wā islāmāh),督军死战。马穆鲁克骑射精锐,或以火器(midfa)惊蒙古战马,阵势遂乱。","蒙古偏师大溃,退走拜桑(贝特谢安);马穆鲁克蹑而追歼,偏师几于全没。怯的不花坐骑蹶而被俘,见忽都斯,辞气不屈,遂遭斩。蒙古西征至是首遭决定性败绩,不复能越叙利亚而西南——帝国之界划定于此。战后拜巴尔弑忽都斯自立,为马穆鲁克一代名主。"]}
 };
 const CITY={
-  ainjalut:{t:"艾因贾鲁·歌利亚泉",d:"今巴勒斯坦加利利地区",p:["伏击决战之地。拜巴尔斯诱怯的不花轻进,伏兵夹击,蒙古大败,怯的不花战死。蒙古西征之势遂止于此。"]},
-  damascus:{t:"大马士革",d:"叙利亚重镇",p:["旭烈兀西征先取之地,怯的不花据以镇守叙利亚。艾因贾鲁败后,叙利亚旋归马木留克。"]},
-  acre:{t:"阿卡",d:"十字军城,地中海滨",p:["十字军虽敌马木留克,然更惧蒙古,许马木留克假道其境、供给粮秣,间接助其破蒙。"]},
-  cairo:{t:"开罗",d:"埃及马木留克本土",p:["算端忽都思、大将拜巴尔斯出师之地。马木留克乘蒙哥死、旭烈兀东还之隙,自此北上拒蒙。"]},
-  gaza:{t:"加沙",d:"巴勒斯坦南境要冲",p:["马木留克北上所经,蒙古于此设前哨戍卒,为马木留克前锋所歼,遂启北趋加利利之路。"]},
-  jordan:{t:"约旦河",d:"两军趋战之地(东)",p:["自加利利海南下入死海。艾因贾鲁近其上游西侧,为两军会战趋赴之要地。"]}
+  ainjalut:{t:"艾因贾鲁(歌利亚之泉)",d:"今以色列/巴勒斯坦加利利耶斯列谷,约35.36E/32.55N",p:["Ain Jalut,「歌利亚之泉」,近哈罗德泉,耶斯列谷中。1260年9月3日决战地:拜巴尔佯退诱蒙古入此谷,忽都斯伏主力于两侧山地,四面夹攻,聚歼怯的不花偏师。蒙古西征折戟之所。"]},
+  gilboa:{t:"基尔波亚山(Gilboa)",d:"艾因贾鲁之南,约35.42E/32.48N",p:["耶斯列谷南缘之山地。忽都斯将马穆鲁克主力伏于此山及谷之两侧,待蒙古入彀而四面下击——伏兵之山。"]},
+  bisan:{t:"拜桑(贝特谢安)",d:"今贝特谢安 Beit She'an,约35.50E/32.50N",p:["艾因贾鲁之东、约旦河谷要邑。蒙古偏师既溃,退走拜桑,马穆鲁克蹑迹追歼,蒙军几于全没。"]},
+  acre:{t:"阿卡(Akko/Acre)",d:"今以色列阿卡,约35.07E/32.92N",p:["十字军(耶路撒冷王国)沿海重镇,临地中海。艾因贾鲁之役取中立,许马穆鲁克假道其境、并就食补给——马穆鲁克北上之一助力。"]},
+  gaza:{t:"加沙(Gaza)",d:"约34.47E/31.50N",p:["马穆鲁克自开罗北上叙利亚之孔道。忽都斯军先破蒙古前哨戍骑于此,遂北进巴勒斯坦,趋耶斯列谷。"]},
+  damascus:{t:"大马士革",d:"约36.30E/33.50N",p:["叙利亚重镇,1260年为蒙古所下。旭烈兀东返后,怯的不花偏师即以此及巴勒贝克为镇守之基;闻马穆鲁克北上,乃自此一线南下迎战。"]},
+  baalbek:{t:"巴勒贝克(Baalbek)",d:"约36.20E/34.00N",p:["黎巴嫩东谷要地,怯的不花驻节之所。1260年八月末,蒙古偏师自此南下,经加利利海之东,入耶斯列谷,趋艾因贾鲁。"]},
+  aleppo:{t:"阿勒颇(Aleppo)",d:"约37.20E/36.20N,叙利亚之北",p:["1260年正月为旭烈兀攻破,叙利亚北门户。蒙古自此南下略地,兵锋及于大马士革、巴勒斯坦——艾因贾鲁之败,则尽复叙利亚,蒙古退出幼发拉底以西。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

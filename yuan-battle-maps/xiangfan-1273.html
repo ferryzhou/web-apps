@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,11 +27,39 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.16em;opacity:.75;font-weight:500}
+  /* 援襄粮道:金色串珠动脉,叠于汉水之上,示南宋赖以入援之军食命脉 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 元断援:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 元长围·堡砦(主角青色) */
+  .ring{fill:none;stroke:var(--advance);stroke-width:1.5;stroke-dasharray:2 5;opacity:.72}
+  .oneline{fill:none;stroke:var(--advance);stroke-width:4;stroke-dasharray:7 4;opacity:.6;stroke-linecap:round}
+  .camp{fill:var(--advance);opacity:.92}
+  /* 元练水军·战船五千:汉水舟师 */
+  .fleet .hull{fill:none;stroke:var(--advance);stroke-width:1.8;stroke-linecap:round}
+  .fleet .mast{stroke:var(--advance);stroke-width:1.3}
+  .fleet .sail{fill:rgba(31,78,84,.5);stroke:none}
+  .flabel{fill:var(--advance);font-size:11px;font-weight:700;letter-spacing:.08em}
+  /* 回回炮·襄阳炮:配重投石机(元之利器,青色) */
+  .treb line,.treb path{fill:none;stroke:var(--advance);stroke-linecap:round}
+  .treb .frame{stroke-width:2.4}
+  .treb .arm{stroke-width:3}
+  .treb .weight{fill:var(--advance);stroke:none;opacity:.92}
+  .treb .rock{fill:var(--ink);stroke:var(--paper);stroke-width:.8}
+  .treb .arc{stroke:var(--advance);stroke-width:1.3;stroke-dasharray:2 3;opacity:.8}
+  .boom{stroke:var(--advance);stroke-width:1.6;opacity:.75;stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,16 +68,14 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.relief{stroke:var(--enemy);stroke-width:2.8;stroke-dasharray:8 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
-  .camp{fill:var(--advance);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -58,9 +84,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--advance)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--advance)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.relief){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -70,20 +111,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>襄</span><span>樊</span><span>之</span><span>役</span></div>
   <header>
     <h1>襄樊之战</h1>
-    <div class="sub">元至元四至十年 · 宋咸淳(1267–1273)　　<i>元 阿术 · 刘整 · 阿里海牙</i> 回回炮破樊城 · <b>宋 吕文焕</b>力尽降元</div>
+    <div class="sub">元至元四至十年 · 宋咸淳三至九年(1267–1273)　　<i>蒙元 忽必烈·阿术·刘整·阿里海牙</i> 练水军断汉·回回炮破城 · <b>南宋 吕文焕</b> 力屈出降　·　灭宋之总枢纽</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 长围襄樊</button>
-    <button data-p="1">筑堡断援 · 长围绝粮</button>
-    <button data-p="2">回回炮碎樊城</button>
-    <button data-p="3">移炮攻襄 · 吕文焕降</button>
+    <button class="on" data-p="all">全图 · 围襄樊</button>
+    <button data-p="1">刘整献策 · 练水军造战船</button>
+    <button data-p="2">筑堡长围 · 断汉水绝援</button>
+    <button data-p="3">二张破封 · 回回炮破樊</button>
+    <button data-p="4">巨炮轰襄 · 顺汉灭宋</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="襄樊之战形势图,含宋元疆界、汉水白河长江与襄阳樊城鹿门万山等城邑堡砦">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="襄樊之战形势图:汉水贯襄阳(南岸)、樊城(北岸)之间,蒙元练水军造战船五千夺宋水战之长,环筑鹿门山白河口万山岘山十余堡与一字城长围断汉水绝援,南宋二张死士溯汉水破封入襄而援终绝,元以回回炮先破樊城继轰襄阳,吕文焕出降,元遂顺汉水入长江以灭宋">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -92,89 +134,179 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:蒙元据中原(北),宋据江汉(南),约以汉水一线相持 -->
-    <path d="M 0,300 C 140,286 300,278 460,300 C 600,318 720,300 820,268 C 900,242 960,236 1000,240 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path d="M 0,300 C 140,286 300,278 460,300 C 600,318 720,300 820,268 C 900,242 960,236 1000,240 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 0,300 C 140,286 300,278 460,300 C 600,318 720,300 820,268 C 900,242 960,236 1000,240"/>
-    <text class="realm j" x="120" y="110" font-size="32">蒙 元(中原)</text>
-    <text class="realm q" x="620" y="580" font-size="32">宋(江汉)</text>
+    <!-- ══ 疆界:元(围城之方,自北与汉水上游而来)据襄樊四周;南宋京湖之众守于东南、自汉水下游来援 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,430 C 862,470 726,556 648,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 1000,430 C 862,470 726,556 648,640 L 1000,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 1000,430 C 862,470 726,556 648,640"/>
+    <text class="realm j" x="70" y="120" font-size="30">大 元(围)</text>
+    <text class="realm q" x="748" y="600" font-size="22">南宋·京湖</text>
+    <text class="cname s" x="742" y="620" style="fill:var(--enemy);opacity:.7">(汉水下游·援兵所自出)</text>
 
-    <!-- 汉水:自西北流经樊北襄南,东南入江 -->
-    <path class="river" stroke-width="5" d="M 60,240 C 200,268 340,300 430,330 C 520,360 600,404 700,452 C 780,490 860,520 960,548"/>
-    <!-- 白河:自东北南下入汉水 -->
-    <path class="river" stroke-width="2.6" d="M 720,120 C 700,200 660,300 560,360"/>
-    <!-- 长江:南境,西向东 -->
-    <path class="river" stroke-width="4.4" d="M 40,600 C 220,590 420,596 600,606 C 740,614 860,616 1000,612"/>
-    <text class="rname" x="300" y="298" transform="rotate(16 300 298)" style="font-size:14px">汉 水</text>
-    <text class="rname" x="704" y="180" transform="rotate(72 704 180)" style="font-size:11px">白 河</text>
-    <text class="rname" x="440" y="602" style="font-size:13px">长 江</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 汉水:自西北来,过万山,穿襄阳(南)樊城(北)之间,折东南下郢州、入江 -->
+    <path class="river" stroke-width="6" d="M 109,151 C 190,190 250,228 300,255 C 340,272 390,286 453,295 C 520,304 560,330 581,359 C 620,410 660,480 699,567"/>
+    <!-- 白河(唐白河):自北来,汇于樊城东北之白河口 -->
+    <path class="river" stroke-width="2.6" d="M 640,70 C 626,118 606,176 586,226"/>
+    <text class="rname" x="205" y="235" transform="rotate(24 205 235)" style="font-size:14px">汉 水</text>
+    <text class="rname" x="636" y="120" transform="rotate(74 636 120)" style="font-size:10.5px">白 河</text>
+    <text class="rname" x="628" y="470" transform="rotate(58 628 470)" style="font-size:11px">汉水下游 →</text>
 
-    <!-- 岘山/万山(襄阳西南诸山) -->
-    <g class="mtn"><path d="M 250,392 l 8,-13 l 8,13 M 266,386 l 8,-13 l 8,13"/></g>
-    <text class="cname s" x="238" y="418">岘山</text>
+    <!-- ══ 山 ══ -->
+    <g class="mtn"><path d="M 344,320 l 8,-14 l 8,14 M 360,314 l 8,-14 l 8,14"/></g>
+    <g class="mtn"><path d="M 420,400 l 7,-12 l 7,12 M 434,394 l 7,-12 l 7,12"/></g>
+    <text class="mname" x="416" y="416" style="font-size:10px">岘山</text>
+    <g class="mtn fill"><path d="M 566,452 L 578,432 L 588,446 L 600,428 L 612,448 Z"/></g>
+    <g class="mtn"><path d="M 570,448 l 8,-13 l 8,13 M 586,442 l 8,-13 l 8,13"/></g>
 
-    <!-- 城邑 -->
+    <!-- ══ 援襄粮道:金色串珠动脉,叠于汉水,自下游郢州溯流入襄,南宋军食命脉——元所必断 ══ -->
+    <path class="supply band" d="M 744,610 C 690,520 648,438 600,378 C 560,336 520,312 456,301"/>
+    <path class="supply core" d="M 744,610 C 690,520 648,438 600,378 C 560,336 520,312 456,301"/>
+    <g class="grain">
+      <rect x="700" y="524" width="7" height="7" transform="rotate(45 703.5 527.5)"/>
+      <rect x="648" y="436" width="7" height="7" transform="rotate(45 651.5 439.5)"/>
+      <rect x="600" y="374" width="7" height="7" transform="rotate(45 603.5 377.5)"/>
+      <rect x="530" y="316" width="7" height="7" transform="rotate(45 533.5 319.5)"/>
+    </g>
+    <text class="slabel" x="688" y="470" transform="rotate(58 688 470)">南宋援襄粮道·汉水水运</text>
+
+    <!-- ══ 元军长围·十余堡砦(环襄樊,主角青色) ══ -->
+    <ellipse class="ring" cx="470" cy="322" rx="168" ry="150"/>
+    <ellipse class="ring" cx="470" cy="322" rx="150" ry="132"/>
+    <!-- 一字城:横亘汉水南岸、断襄阳西路之长堡 -->
+    <path class="oneline" d="M 360,313 L 448,324"/>
+    <g id="forts">
+      <rect class="camp" x="356" y="309" width="10" height="10" transform="rotate(45 361 314)"/>
+      <rect class="camp" x="430" y="390" width="9" height="9" transform="rotate(45 434.5 394.5)"/>
+      <rect class="camp" x="576" y="441" width="11" height="11" transform="rotate(45 581.5 446.5)"/>
+      <rect class="camp" x="581" y="221" width="10" height="10" transform="rotate(45 586 226)"/>
+      <rect class="camp" x="500" y="231" width="8" height="8" transform="rotate(45 504 235)"/>
+      <rect class="camp" x="392" y="234" width="8" height="8" transform="rotate(45 396 238)"/>
+      <rect class="camp" x="388" y="348" width="8" height="8" transform="rotate(45 392 352)"/>
+      <rect class="camp" x="512" y="400" width="8" height="8" transform="rotate(45 516 404)"/>
+      <rect class="camp" x="552" y="296" width="8" height="8" transform="rotate(45 556 300)"/>
+    </g>
+
+    <!-- ══ 元练水军·战船五千:汉水舟师(青色帆船) ══ -->
+    <g id="fleet">
+      <g class="fleet" transform="translate(300,255)"><path class="hull" d="M -9,0 Q 0,6 9,0"/><line class="mast" x1="0" y1="0" x2="0" y2="-11"/><path class="sail" d="M 1,-10 L 7,-2 L 1,-2 Z"/></g>
+      <g class="fleet" transform="translate(420,290)"><path class="hull" d="M -9,0 Q 0,6 9,0"/><line class="mast" x1="0" y1="0" x2="0" y2="-11"/><path class="sail" d="M 1,-10 L 7,-2 L 1,-2 Z"/></g>
+      <g class="fleet" transform="translate(560,352)"><path class="hull" d="M -9,0 Q 0,6 9,0"/><line class="mast" x1="0" y1="0" x2="0" y2="-11"/><path class="sail" d="M 1,-10 L 7,-2 L 1,-2 Z"/></g>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="xiangyang"><circle cx="452" cy="372" r="6.5"/><text class="cname" x="410" y="392">襄阳<tspan class="cname s" dx="2">(吕文焕守)</tspan></text></g>
-      <g class="city" data-city="fancheng"><circle cx="452" cy="308" r="6"/><text class="cname" x="464" y="304">樊城</text></g>
-      <g class="city" data-city="fuqiao"><circle cx="452" cy="340" r="3.5"/><text class="cname s" x="466" y="336">汉水浮桥</text></g>
-      <g class="city" data-city="lumen"><circle cx="600" cy="392" r="4.5"/><text class="cname s" x="612" y="388">鹿门 · 白河口</text></g>
-      <g class="city" data-city="wanshan"><circle cx="292" cy="356" r="4.5"/><text class="cname s" x="212" y="352">万山 · 一字城</text></g>
-      <g class="city" data-city="yingzhou"><circle cx="640" cy="560" r="4.5"/><text class="cname s" x="652" y="556">郢州 · 新郢</text></g>
+      <g class="city" data-city="fancheng"><circle cx="448" cy="278" r="6.5"/><text class="cname" x="460" y="272">樊城<tspan class="cname s" dx="2">(先破·屠)</tspan></text></g>
+      <g class="city cap" data-city="xiangyang"><circle cx="448" cy="324" r="7.5"/><text class="cname" x="460" y="340">襄阳<tspan class="cname s" dx="2">(宋·吕文焕守)</tspan></text></g>
+      <g class="city" data-city="hanshui"><circle cx="453" cy="301" r="3"/><text class="cname s" x="352" y="296">汉水浮桥</text></g>
+      <g class="city" data-city="wanshan"><circle cx="360" cy="313" r="4.5"/><text class="cname s" x="288" y="332">万山·一字城</text></g>
+      <g class="city" data-city="baihe"><circle cx="586" cy="226" r="4.5"/><text class="cname s" x="596" y="222">白河口·白河城</text></g>
+      <g class="city" data-city="lumen"><circle cx="581" cy="446" r="4.5"/><text class="cname s" x="592" y="450">鹿门山堡</text></g>
+      <g class="city" data-city="anyang"><circle cx="504" cy="235" r="3.5"/><text class="cname s" x="514" y="230">安阳滩</text></g>
     </g>
 
-    <!-- 全图 · 长围襄樊 -->
+    <!-- 大都·忽必烈(图外·正北,敕征西域巧匠造炮) -->
+    <g transform="translate(232,12)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,4 L 20,26"/>
+      <text class="cname s" x="24" y="16" style="fill:var(--advance);font-size:9.5px">大都·忽必烈(图外北)</text>
+    </g>
+
+    <!-- 郢州·鄂州·临安(图外·东南,汉水下游) -->
+    <g transform="translate(792,614)">
+      <path class="march q" marker-end="url(#aq)" d="M 22,10 L 0,-14"/>
+      <text class="cname s" x="-72" y="26" style="font-size:10px">郢州·鄂州·临安(图外东南)</text>
+      <text class="cname s" x="-40" y="-20" style="font-size:9px">汉水下游 · 宋援所自出 / 元灭宋之向</text>
+    </g>
+
+    <!-- ══ 全图 · 围襄樊 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 300,120 C 340,200 380,270 430,300"/>
-      <text class="mlabel j" x="230" y="150">刘整降元,献「先取襄阳、浮汉入江」之策</text>
-      <path class="march j" marker-end="url(#aj)" d="M 560,150 C 560,230 540,300 508,352"/>
-      <text class="mlabel j" x="560" y="200">阿术 · 阿里海牙 长围久困</text>
-      <rect class="camp" x="596" y="388" width="8" height="8" transform="rotate(45 600 392)"/>
-      <rect class="camp" x="288" y="352" width="8" height="8" transform="rotate(45 292 356)"/>
-      <circle class="siege" cx="452" cy="372" r="26"/>
-      <circle class="siege" cx="452" cy="308" r="22"/>
-      <text class="anno" x="470" y="440">筑鹿门万山诸堡,断汉水浮桥,绝襄樊内外之援</text>
-      <text class="mlabel q" x="360" y="430">襄阳城坚,吕文焕恃汉水而守</text>
+      <path class="march j" marker-end="url(#aj)" d="M 120,70 C 240,120 380,180 494,232"/>
+      <text class="mlabel j" x="118" y="60">元用刘整策「欲灭宋必先取襄阳」,大治舟师、环城立堡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 690,120 C 640,200 600,300 588,438"/>
+      <text class="mlabel j" x="606" y="330">水陆连络,长围久困</text>
+      <path class="march relief" marker-end="url(#aq)" d="M 736,600 C 686,512 640,432 592,376 C 552,336 512,314 458,303"/>
+      <text class="mlabel q" x="600" y="548">宋援兵屡溯汉水而上,终不能达</text>
+      <text class="anno" x="286" y="472">襄、樊夹汉水为犄角,吕文焕婴城固守凡六年</text>
     </g>
 
-    <!-- 阶段一:筑堡断援 · 长围绝粮 -->
+    <!-- ══ 阶段一:刘整献策 · 练水军造战船 ══ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="596" y="388" width="9" height="9" transform="rotate(45 600 392)"/>
-      <rect class="camp" x="288" y="352" width="9" height="9" transform="rotate(45 292 356)"/>
-      <circle class="siege" cx="452" cy="372" r="26"/>
-      <circle class="siege" cx="452" cy="308" r="22"/>
-      <text class="mlabel j" x="600" y="378">元筑鹿门 · 白河口堡,断东援</text>
-      <text class="mlabel j" x="150" y="342">立万山 · 一字城,长围数十里</text>
-      <path class="march j" marker-end="url(#aj)" d="M 480,332 C 468,338 460,340 458,340"/>
-      <text class="mlabel j" x="474" y="356">断汉水浮桥,隔绝二城</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 700,452 C 600,414 520,392 470,378"/>
-      <text class="mlabel q" x="560" y="446">张顺张贵冒死溯汉水运粮</text>
-      <text class="anno" x="470" y="410">顺战死,贵被执死;范文虎援军皆却</text>
+      <path class="march j" marker-end="url(#aj)" d="M 120,66 C 220,120 330,172 430,232"/>
+      <text class="mlabel j" x="116" y="56">刘整降元:「攻宋方略,宜先从事襄阳」</text>
+      <text class="mlabel j" x="246" y="200">大治战舰五千、练水军七万,以夺宋所擅之水战之利</text>
+      <text class="flabel" x="248" y="258">元舟师控汉水</text>
+      <text class="anno" x="300" y="476">舟师既成、水陆并进,长围合抱之基乃立</text>
     </g>
 
-    <!-- 阶段二:回回炮碎樊城 -->
+    <!-- ══ 阶段二:筑堡长围 · 断汉水绝援 ══ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="452" cy="308" r="22"/>
-      <path class="march j" marker-end="url(#aj)" d="M 520,300 C 500,302 480,304 470,306"/>
-      <text class="mlabel j" x="500" y="286">元得回回巨砲(襄阳炮)</text>
-      <circle class="star" cx="452" cy="308" r="8"/>
-      <text class="mlabel j" x="300" y="270">飞石百五十斤,先碎樊城谯楼</text>
-      <text class="anno" x="470" y="330">樊城遂破,守将范天顺 · 牛富死之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 660,160 C 630,182 606,202 592,220"/>
+      <text class="mlabel j" x="596" y="150">据白河口·筑白河城,断东北路</text>
+      <path class="march j" marker-end="url(#aj)" d="M 620,430 C 606,452 594,456 588,452"/>
+      <text class="mlabel j" x="600" y="486">据鹿门山立堡,扼汉水下游</text>
+      <text class="mlabel j" x="228" y="356">据万山·筑一字城,断西路</text>
+      <!-- 断汉水粮援:朱色截断记号 -->
+      <g class="cut" transform="translate(600,378)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(648,436)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="606" y="404">列战舰栅汉水,绝其粮道水援 ✕</text>
+      <text class="anno" x="286" y="500">环襄樊立堡砦十余处,长围久困,内外遂成绝地</text>
     </g>
 
-    <!-- 阶段三:移炮攻襄 · 吕文焕降 -->
+    <!-- ══ 阶段三:二张破封 · 回回炮破樊 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 452,320 C 452,336 452,350 452,360"/>
-      <text class="mlabel j" x="464" y="344">既破樊,移砲攻襄阳</text>
-      <circle class="star" cx="452" cy="372" r="8"/>
-      <text class="mlabel j" x="300" y="410">砲声所及,城中汹汹</text>
-      <text class="anno" x="470" y="392">阿里海牙许以不杀,招吕文焕降</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 456,382 C 520,440 580,500 632,548"/>
-      <text class="mlabel r" x="510" y="470">文焕势穷援绝,以襄阳降元</text>
-      <text class="anno" x="470" y="520">宋失襄樊,长江上流门户洞开</text>
+      <!-- 范文虎援兵不进/败 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 742,600 C 706,548 676,506 656,470"/>
+      <text class="mlabel r" x="614" y="514">范文虎以舟师来援,逗留不进、为元水军所败</text>
+      <!-- 二张三千死士溯汉水破封入襄(南宋赭色虚线) -->
+      <path class="march relief" marker-end="url(#aq)" d="M 738,596 C 680,506 636,436 600,384 C 566,340 520,318 460,306"/>
+      <text class="mlabel q" x="512" y="404">二张率三千死士,轻舟载火器,冒死破元汉水封锁</text>
+      <circle class="star" cx="600" cy="384" r="8"/>
+      <text class="anno" x="608" y="368">张顺战殁,尸犹执弓怒目</text>
+      <circle class="star" cx="470" cy="306" r="7"/>
+      <text class="mlabel q" x="180" y="300">张贵入城复出,力战被执,不屈死</text>
+      <!-- 回回炮(襄阳炮)攻樊城:配重投石机自城东施放,巨石飞击 -->
+      <g class="treb" transform="translate(556,236)">
+        <line class="frame" x1="-15" y1="8" x2="15" y2="8"/>
+        <path class="frame" d="M -11,8 L 0,-20 L 11,8"/>
+        <line class="arm" x1="-24" y1="-32" x2="15" y2="-4"/>
+        <rect class="weight" x="12" y="-6" width="11" height="11"/>
+        <path class="arc" d="M -24,-32 C -44,-46 -66,-50 -84,-48"/>
+        <circle class="rock" cx="-88" cy="-46" r="5.5"/>
+      </g>
+      <text class="mlabel j" x="484" y="200">元以回回炮(襄阳炮)先攻樊城,巨石所击、声如雷霆</text>
+      <circle class="star" cx="448" cy="278" r="12"/>
+      <circle class="star" cx="448" cy="278" r="17"/>
+      <g class="boom" transform="translate(448,278)"><line x1="0" y1="-20" x2="0" y2="-30"/><line x1="16" y1="-12" x2="24" y2="-18"/><line x1="-16" y1="-12" x2="-24" y2="-18"/><line x1="20" y1="4" x2="30" y2="6"/></g>
+      <!-- 断襄樊浮桥 -->
+      <g class="cut" transform="translate(453,301)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="196" y="348">元断襄樊浮桥,二城不能相救 ✕</text>
+      <text class="mlabel r" x="300" y="242">樊城遂破,元屠其城</text>
     </g>
 
-    <g class="compass" transform="translate(944,110)">
+    <!-- ══ 阶段四:巨炮轰襄 · 顺汉灭宋 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 回回炮移攻襄阳:自城东南施放,巨石飞击襄阳 -->
+      <g class="treb" transform="translate(556,360)">
+        <line class="frame" x1="-15" y1="8" x2="15" y2="8"/>
+        <path class="frame" d="M -11,8 L 0,-20 L 11,8"/>
+        <line class="arm" x1="-24" y1="-32" x2="15" y2="-4"/>
+        <rect class="weight" x="12" y="-6" width="11" height="11"/>
+        <path class="arc" d="M -24,-32 C -52,-42 -78,-40 -96,-30"/>
+        <circle class="rock" cx="-100" cy="-28" r="5.5"/>
+      </g>
+      <text class="mlabel j" x="470" y="388">元移巨炮转轰襄阳,声震城中,所至无不摧陷</text>
+      <circle class="star" cx="448" cy="324" r="12"/>
+      <circle class="star" cx="448" cy="324" r="17"/>
+      <g class="boom" transform="translate(448,324)"><line x1="0" y1="-20" x2="0" y2="-30"/><line x1="18" y1="-8" x2="27" y2="-12"/><line x1="-18" y1="-8" x2="-27" y2="-12"/><line x1="14" y1="16" x2="21" y2="24"/></g>
+      <!-- 吕文焕出降(褐色标记) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 442,336 C 408,360 372,378 340,388"/>
+      <text class="mlabel r" x="176" y="404">外无援、内粮尽,吕文焕力屈出降</text>
+      <!-- 元顺汉水入长江东下灭宋 -->
+      <path class="march j" marker-end="url(#aj)" d="M 460,332 C 540,372 640,458 736,588"/>
+      <text class="mlabel j" x="468" y="470">襄樊既下,元顺汉水入长江,水陆东下</text>
+      <text class="mlabel j" x="588" y="556">三年而亡宋:一二七六临安降·一二七九崖山</text>
+    </g>
+
+    <g class="compass" transform="translate(944,120)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -183,37 +315,112 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙元围城军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>宋守军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>宋汉水运粮</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>吕文焕降元</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>回回炮破城</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>元长围</span>
-    <span class="item"><svg width="14" height="14"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="#1f4e54"/></svg>元军堡砦</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蒙元</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>宋</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙元军(围城·灭宋主力)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.8" stroke-dasharray="8 5"/></svg>南宋二张援兵(破封入襄)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋援败·失城·出降</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>宋援襄粮道·汉水</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>元断汉水绝援·断浮桥</span>
+    <span class="item"><svg width="16" height="14"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="#1f4e54" opacity=".92"/></svg>元堡砦·一字城</span>
+    <span class="item"><svg width="20" height="16"><path d="M 1,10 Q 10,16 19,10" fill="none" stroke="#1f4e54" stroke-width="1.8"/><line x1="10" y1="10" x2="10" y2="1" stroke="#1f4e54" stroke-width="1.3"/><path d="M 11,1.5 L 17,8 L 11,8 Z" fill="rgba(31,78,84,.5)"/></svg>元练水军·战船五千</span>
+    <span class="item"><svg width="30" height="16"><line x1="6" y1="13" x2="20" y2="4" stroke="#1f4e54" stroke-width="2"/><rect x="18" y="2" width="6" height="6" fill="#1f4e54"/><circle cx="4" cy="4" r="2.5" fill="#2b2418"/></svg>回回炮·襄阳炮</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>攻战·炮击</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>元</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>南宋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 练水军夺其长 · 断援困守 · 巨炮摧坚 · 灭宋枢纽</h3>
+    <div class="lead">何以宋元相持之总枢纽系于此一城 —— 夺其水、断其援、摧其坚,而顺汉入江以亡宋</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="示意图:南宋恃汉水水战与水运之长以守襄樊,元先练水军造战船夺其所擅,再环筑十余堡长围断汉水绝援,复以回回炮巨石摧坚破城;襄樊既下,元顺汉水入长江、三年而亡宋">
+      <!-- 左:练水军·长围断汉水 -->
+      <text x="20" y="28" fill="#2b2418" font-size="12.5" font-weight="700">夺其水 · 断其援</text>
+      <!-- 汉水竖贯,自下游(下)上援(上) -->
+      <path d="M 150,232 C 150,180 150,130 150,86" fill="none" stroke="#5f7f88" stroke-width="6" opacity=".8" stroke-linecap="round"/>
+      <text x="158" y="228" fill="#5f7f88" font-size="10">汉水下游·宋援自此来 ↑</text>
+      <!-- 援襄粮道叠于汉水(金) -->
+      <path d="M 150,232 L 150,120" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 150,232 L 150,120" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="146" y="182" width="8" height="8" transform="rotate(45 150 186)" fill="#9c7a2c"/>
+      <!-- 元舟师(青帆船)控汉水 -->
+      <g transform="translate(118,150)"><path d="M -8,0 Q 0,6 8,0" fill="none" stroke="#1f4e54" stroke-width="1.8"/><line x1="0" y1="0" x2="0" y2="-10" stroke="#1f4e54" stroke-width="1.3"/><path d="M 1,-9 L 6,-2 L 1,-2 Z" fill="rgba(31,78,84,.5)"/></g>
+      <text x="24" y="152" fill="#1f4e54" font-size="10" font-weight="700">元练水军·战船五千</text>
+      <!-- 二城 -->
+      <circle cx="132" cy="86" r="6.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="86" y="74" fill="#2b2418" font-size="11" font-weight="700">樊城</text>
+      <circle cx="132" cy="112" r="7" fill="#e9dec4" stroke="#2b2418" stroke-width="2"/>
+      <text x="86" y="130" fill="#2b2418" font-size="11" font-weight="700">襄阳</text>
+      <line x1="132" y1="93" x2="132" y2="105" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="1 2"/>
+      <!-- 元长围·堡环(青虚线) -->
+      <ellipse cx="130" cy="100" rx="58" ry="52" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="2 5" opacity=".85"/>
+      <rect x="70" y="60" width="8" height="8" transform="rotate(45 74 64)" fill="#1f4e54" opacity=".92"/>
+      <rect x="180" y="60" width="8" height="8" transform="rotate(45 184 64)" fill="#1f4e54" opacity=".92"/>
+      <rect x="176" y="136" width="8" height="8" transform="rotate(45 180 140)" fill="#1f4e54" opacity=".92"/>
+      <rect x="72" y="136" width="8" height="8" transform="rotate(45 76 140)" fill="#1f4e54" opacity=".92"/>
+      <text x="26" y="178" fill="#1f4e54" font-size="10.5" font-weight="700">元环筑十余堡·长围</text>
+      <!-- 断汉水援(✕) -->
+      <g><circle cx="150" cy="190" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="144" y1="184" x2="156" y2="196" stroke="#9a2b1e" stroke-width="2.6"/><line x1="144" y1="196" x2="156" y2="184" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="166" y="196" fill="#9a2b1e" font-size="10.5" font-weight="700">断汉水绝援 ✕</text>
+      <!-- 中:回回炮摧坚 -->
+      <text x="360" y="28" fill="#2b2418" font-size="12.5" font-weight="700">摧其坚 · 回回炮</text>
+      <g stroke="#1f4e54" fill="none" stroke-linecap="round">
+        <line x1="372" y1="150" x2="432" y2="150" stroke-width="2.6"/>
+        <path d="M 380,150 L 400,96 L 420,150" stroke-width="2.6"/>
+        <line x1="360" y1="70" x2="436" y2="126" stroke-width="3.2"/>
+      </g>
+      <rect x="430" y="122" width="16" height="16" transform="rotate(45 438 130)" fill="#1f4e54"/>
+      <text x="404" y="176" fill="#1f4e54" font-size="10" font-weight="700">配重投石机</text>
+      <path d="M 360,70 C 320,60 288,72 268,96" fill="none" stroke="#1f4e54" stroke-width="1.4" stroke-dasharray="2 3" opacity=".8"/>
+      <circle cx="266" cy="98" r="7" fill="#2b2418" stroke="#e9dec4" stroke-width="1"/>
+      <!-- 城墙被击 -->
+      <g transform="translate(232,150)">
+        <path d="M -30,0 L -30,-30 L -22,-30 L -22,-38 L -14,-38 L -14,-30 L -6,-30 L -6,-40 L 2,-40 L 2,-30 L 10,-30 L 10,-34 L 18,-34 L 18,0 Z" fill="rgba(92,79,56,.28)" stroke="#5c4f38" stroke-width="1.2"/>
+        <g><circle cx="-6" cy="-30" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="-12" y1="-36" x2="0" y2="-24" stroke="#9a2b1e" stroke-width="2.4"/><line x1="-12" y1="-24" x2="0" y2="-36" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      </g>
+      <text x="196" y="176" fill="#9a2b1e" font-size="10.5" font-weight="700">声如雷霆 · 无不摧陷</text>
+      <!-- 右:灭宋枢纽 -->
+      <path d="M 470,104 C 520,104 548,104 566,104" fill="none" stroke="#1f4e54" stroke-width="1.6" opacity=".8" stroke-dasharray="4 3" marker-end="url(#aj)"/>
+      <text x="600" y="80" fill="#1f4e54" font-size="13" font-weight="700">先破樊城(屠)</text>
+      <text x="600" y="104" fill="#1f4e54" font-size="13" font-weight="700">继轰襄阳 → 吕文焕出降</text>
+      <text x="600" y="140" fill="#2b2418" font-size="12.5" font-weight="700">元顺汉水入长江</text>
+      <text x="600" y="162" fill="#5c4f38" font-size="11">水陆东下,三年而亡宋</text>
+      <text x="600" y="196" fill="#1f4e54" font-size="12.5" font-weight="700">宋元战争之总枢纽</text>
+    </svg>
+    <p class="intro">南宋所以能六年守此二城,恃者有二:<b>汉水之水战、水运之长</b>与<b>襄樊夹江为犄角之固</b>。元之所为,正是逐一夺之——先<b>练水军、造战船五千</b>,夺宋所擅之水战;继<b>环筑十余堡、连一字城长围</b>,列战舰栅汉水,断其粮援之一水;终以<b>回回炮</b>摧其坚墙。三事既备,六年孤城一朝以下;而襄樊既下,元师顺汉入江,遂成灭宋之总枢纽。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>夺其水 · 断援困守</h4>
+        <p>刘整降元,献「攻宋方略,宜先从事襄阳」「欲灭宋必先取襄阳」之策,并请造战船、练水军以夺宋水战之长。元遂大治战舰五千、练水军七万，尽变宋恃水为险之局。阿术不急攻城，而于鹿门山、白河口、万山、岘山四周立堡砦十余处，筑一字城、连长围，列战舰栅汉水，尽断襄樊与外界及下游之粮援水道。宋屡遣范文虎等溯汉水来援皆败；独张顺、张贵率三千死士冒死破封入城，壮烈而终不能解围。援路一绝，坚城遂成绝地。</p>
+      </div>
+      <div class="c b">
+        <h4>摧其坚 · 灭宋枢纽</h4>
+        <p>至元十年，元得西域工匠亦思马因、阿老瓦丁所造<b>回回炮</b>(配重投石机，亦称襄阳炮)，巨石所击「声如雷霆、所至无不摧陷」。先猛攻樊城，碎其谯楼、断襄樊浮桥，樊城破而屠之；樊城既失，襄阳孤悬，巨炮转轰襄阳，吕文焕外无援、内粮尽，力屈出降。襄樊既下，元师顺汉水入长江、水陆东下，一二七六临安降、一二七九崖山亡——是役实为宋元战争之总枢纽。</p>
+      </div>
+    </div>
+    <p class="kicker">故襄樊之取，非徒拔一城：<b>练水军</b>夺其所擅、<b>断汉水</b>绝其所仰、<b>回回炮</b>摧其所恃、而<b>顺汉入江</b>竟其全功。一水之围绝其生路，一石之击摧其坚墙，一江之下成其灭国——<b>襄樊下则宋亡之势成，三年而天下归元</b>。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·世祖本纪》《元史·阿术传》《元史·阿里海牙传》《宋史·吕文焕传》约略绘出。襄阳、樊城在今湖北襄阳,隔汉水相望;鹿门在襄阳东南,万山在城西,郢州在今钟祥。城邑水道为相对示意,非实测画界;晕染疆界示宋元沿汉水相持之势,非实有画界。</p>
-    <p><span class="n">注二</span>回回炮(襄阳炮)乃元世祖征回回巧匠亦思马因、阿老瓦丁所造巨石砲,飞石重百五十斤,声震天地。先碎樊城谯楼,樊破;移攻襄阳,城中汹汹,遂成招降之势。</p>
-    <p><span class="n">注三</span>此图以蒙元视角另绘:围城之元军为主角(青),守城之宋军为敌(红),吕文焕以襄阳降元一线以褐示之。守方视角另见《两宋图录》。</p>
+    <p><span class="n">注一</span>本图为示意图，城邑按今地经纬度作墨卡托投影(x = 60 + (经度−111.75)·983，y = 590 − (纬度−31.78)·1155)，几何关系力求近实：襄阳在汉水南岸，樊城在汉水北岸，二城夹江相望、以浮桥相连；万山·一字城在西，岘山在南，白河口·白河城在东北(唐白河入汉水处)，鹿门山堡在东南(汉水下游)，安阳滩在樊城之北。大都远在正北、郢州·鄂州·临安远在东南下游，俱出于图外，以边缘箭头示之。汉水、白河、疆界、堡砦位置经简化。襄阳、樊城即今湖北襄阳市。</p>
+    <p><span class="n">注二</span>据《元史·世祖本纪》《元史·伯颜传》《元史·阿术传》《元史·刘整传》《元史·阿里海牙传》、《宋史·瀛国公纪》《宋史·吕文焕传》《宋史·张顺张贵传》、《续资治通鉴》卷一七八至一八〇约略绘出。围城起讫，多以始至元四年·咸淳三年(1267)阿术攻安阳滩、迄至元十年·咸淳九年(1273)二月吕文焕降为断，前后凡六年；二城陷落次第，樊城先破(十年正月)、襄阳继降(十年二月)。晕染疆界示大势：元自北与汉水上游而来、环襄樊而围(青)，南宋京湖之众守于东南、自汉水下游(郢州)来援(赭)；界以点划「约界」标之，非实有画界。</p>
+    <p><span class="n">注三</span>此图从<b>蒙元灭宋之视角</b>绘之：围攻之元军为主角，作青色(与《两宋征战图录》守方视角所绘襄阳城相对，彼以南宋为主角作青、元为敌作赭，此图色役相反，请勿混观)。制胜之枢有三，皆元逐一夺宋之所恃：一在<b>夺其水</b>——刘整献策，元大治战舰五千、练水军七万，夺南宋擅长之水战(图中青色帆船示元舟师控汉水)；二在<b>断其援</b>——元于四周立堡十余、筑一字城长围、列战舰栅汉水(图中金色汉水粮道、朱色 ✕)，尽绝襄樊粮援水道。咸淳八年(1272)民兵部将张顺、张贵募三千死士，乘轻舟、载火枪火炮巨斧劲弓，冒炮弩突元军铁索连舟之封锁，转战百二十里，黎明抵城下入援；张顺战殁，尸犹执弓怒目，诸军以为神；张贵入城复出，约郢州兵接应，援失约，力战被执，不屈死——援路终绝。</p>
+    <p><span class="n">注四</span>三在<b>摧其坚</b>：回回炮(襄阳炮)为西域工匠亦思马因、阿老瓦丁所造配重抛石机，巨石所击「声如雷霆、所至无不摧陷」，一举破六年不下之坚城。先攻樊城，碎谯楼、断浮桥，樊城破，元屠其城，守将牛富赴火死、范天顺自缢死；继轰襄阳，声震城中，吕文焕力屈出降。<b>襄樊既下，元顺汉水入长江、水陆东下，三年而亡宋(一二七六临安降、一二七九崖山)——是役实为宋元战争之总枢纽</b>。图中回回炮以配重投石机图记之(青)，失城·援败·出降作褐，攻战·炮击作金环。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"长围襄樊",d:"元至元四年(1267)始",p:["刘整降元,献「先取襄阳、浮汉入江」之策——襄樊为宋之上流门户,得之则长江防线可破。至元四年,阿术、刘整策攻襄阳。","以襄阳城坚、汉水为恃,乃行长围久困之计:筑鹿门、白河口诸堡,立万山、一字城,断襄阳、樊城汉水浮桥,绝其内外之援。"]},
-  "1":{t:"筑堡断援 · 长围绝粮",d:"至元五年 — 九年",p:["元筑鹿门、白河口诸堡,立万山、一字城,长围数十里;又断汉水浮桥,隔绝襄阳、樊城,使二城不能相援。","宋以张顺、张贵冒死驾轻舟溯汉水运粮入城,顺战死,贵亦被执死。宋将范文虎数率援军,皆为元军所却。围凡六年不下。"]},
-  "2":{t:"回回炮碎樊城",d:"至元十年(1273)正月",p:["至元十年,元得回回巧匠亦思马因、阿老瓦丁造巨石砲(回回炮、襄阳炮),飞石重百五十斤,声震天地。","元以巨砲先碎樊城谯楼,城中大骇,樊城遂破。守将范天顺自缢,牛富巷战力尽赴火死之——樊既破,襄阳孤悬。"]},
-  "3":{t:"移炮攻襄 · 吕文焕降",d:"至元十年(1273)二月",p:["既破樊城,元移砲攻襄阳,砲声所及,城中汹汹。元主帅阿里海牙许以不杀,招吕文焕降。","文焕守襄阳凡六年,势穷援绝,遂以襄阳降元。宋失襄樊,长江上流门户洞开,元师顺流东下之势遂成。"]}
+  all:{t:"围襄樊",d:"元至元四至十年·宋咸淳三至九年(1267–1273)",p:["元世祖忽必烈纳降将刘整「欲灭宋必先取襄阳」之策:襄阳、樊城夹汉水为犄角,共扼南宋京湖防线与长江中游门户,取之则宋藩篱撤、上游门户开、可顺汉入江以亡宋。自至元四年,阿术、刘整环襄、樊立堡砦、筑长围,据鹿门山、白河口、万山、岘山十余处,水陆连络,断绝襄樊与外界及汉水下游之粮援水道;又大治战舰五千、练水军七万,以夺南宋擅长之水战之利,围之凡六年。","宋将吕文焕婴城固守。宋屡遣范文虎等以舟师溯汉水来援皆败;民兵张顺、张贵率三千死士冒死破封入城,壮烈而终不能解围。至元十年,元以西域回回炮先破樊城、继轰襄阳,吕文焕力屈出降。襄樊既下,元师顺汉水入长江、水陆东下,三年而亡宋——是役实为宋元战争之总枢纽。"]},
+  "1":{t:"刘整献策 · 练水军造战船",d:"至元四年前后(约1267–1268)",p:["降将刘整为元筹「攻宋方略,宜先从事襄阳」,谓襄阳为宋之上流门户,得之则「浮汉入江,宋可平也」。整又深知南宋所长在水战,乃请造战船、练水军,以夺其长。","元遂大治战舰五千艘、练水军七万,昼夜习于汉水;宋以水为险之势渐夺。舟师既成、水陆并进,阿术、刘整乃得环襄樊而合围——夺水,乃合围与破城之先着。"]},
+  "2":{t:"筑堡长围 · 断汉水绝援",d:"至元五年起(1268–)",p:["阿术不急攻城,而行长围久困:据鹿门山、白河口(筑白河城)立堡以扼汉水东路,据万山、筑一字城以断西路,岘山、安阳滩诸处叠砦相望,环襄、樊立堡砦十余处,水陆连络。又以新练之水军、战舰列栅汉水,尽断襄樊与外界及下游之粮援水道。","襄、樊夹汉水为犄角,吕文焕婴城固守。元人重堡叠砦、长围久困,昼夜相望,襄樊内外遂成绝地。制胜之要,不在拔城,而在先夺其水、后绝其所恃之一水。"]},
+  "3":{t:"二张破封 · 回回炮破樊",d:"至元八年至十年正月(1272–1273)",p:["围城既久,城中衣食俱乏,而援路久为元水军所扼。宋遣范文虎等以舟师来援,逗留不进、屡为元水军所败。民兵部将张顺、张贵募三千死士,乘轻舟、载火器,冒炮弩突元军铁索连舟之封锁,转战百二十里,黎明抵襄阳城下入援;张顺战殁,尸犹执弓怒目,诸军以为神;张贵入城复出,约郢州兵接应,援失约,力战被执,不屈死——外援遂绝。","至元十年正月,元得西域工匠亦思马因、阿老瓦丁所造「回回炮」(配重抛石机,亦称襄阳炮),巨石所击、声如雷霆,所至无不摧陷。阿里海牙先以巨炮猛攻樊城,碎其谯楼,复断襄、樊之间浮桥,使二城不能相救。樊城遂破,元屠其城;守将牛富率死士巷战,力尽赴火死,范天顺自缢死。樊城既失,襄阳孤悬汉水之南。"]},
+  "4":{t:"巨炮轰襄 · 顺汉灭宋",d:"至元十年二月(1273)",p:["樊城既破,元移巨炮转攻襄阳,置炮于城东南,巨石入城,声震天地,所至无不摧陷,城中汹惧。阿里海牙以书谕降,许以不死。吕文焕外无援兵、内则粮尽力屈,登城痛哭,遂以襄阳降元。","襄樊既下,南宋上游门户洞开,元师顺汉水入长江、水陆东下:至元十二年伯颜、阿术破丁家洲、下临安在望,至元十三年(1276)宋帝奉表降,至元十六年(1279)崖山之战宋亡。自襄阳下至天下归元,不过三年有奇——襄樊一役,实决南宋之存亡,为宋元战争之总枢纽。"]}
 };
 const CITY={
-  xiangyang:{t:"襄阳",d:"今湖北襄阳,汉水南岸",p:["宋之上流门户,吕文焕死守凡六年。樊破炮移,势穷援绝,终以城降元。"]},
-  fancheng:{t:"樊城",d:"今襄阳樊城区,汉水北岸",p:["与襄阳隔汉水相望。至元十年回回炮先碎其谯楼,城破,范天顺、牛富死之。"]},
-  fuqiao:{t:"汉水浮桥",d:"襄阳、樊城间汉水上",p:["宋恃以联络二城、济师运粮。元断之,襄樊遂隔绝,不能相援。"]},
-  lumen:{t:"鹿门 · 白河口",d:"襄阳东南,白河入汉处",p:["元于此筑堡,扼白河、汉水,断襄樊东面之援与宋军水道。"]},
-  wanshan:{t:"万山 · 一字城",d:"襄阳城西汉水滨",p:["元筑一字城、立堡砦,连缀长围,西断襄阳出路,合围之势乃成。"]},
-  yingzhou:{t:"郢州 · 新郢",d:"今湖北钟祥一带",p:["宋援军范文虎所出之地。数率舟师北援襄樊,皆为元军邀击而却。"]}
+  xiangyang:{t:"襄阳",d:"汉水南岸,今湖北襄阳(约112.14E,32.01N)",p:["南宋京湖防线、长江中游门户,吕文焕婴城固守六年。回回炮至,声震城中,所击无不摧陷;文焕外无援、内粮尽,力屈,登城痛哭,遂以城降元。城降而元得顺汉入江,灭宋之枢由是启。"]},
+  fancheng:{t:"樊城",d:"汉水北岸,今襄阳樊城区(约112.14E,32.05N)",p:["与襄阳夹汉水为犄角、以浮桥相连,互为唇齿。至元十年正月元以回回炮先攻樊城,碎谯楼、断浮桥,城破,元屠之;守将牛富赴火死、范天顺自缢死。樊城既失,襄阳孤悬。"]},
+  hanshui:{t:"汉水·浮桥",d:"贯襄樊之间,南宋粮援水道",p:["襄、樊恃汉水浮桥相通相救,又恃汉水水运通粮援。元先练水军夺其水战之长,继列战舰、断浮桥:浮桥断则二城不能相救,水道断则援粮不入——一水之绝,乃制胜之枢。二张死士亦由此水道冒死运火器入襄。"]},
+  wanshan:{t:"万山·一字城",d:"襄阳之西",p:["元据万山、筑一字城以断襄阳西路。一字城横亘汉水南岸,长堡绝援,为合围之西翼。"]},
+  baihe:{t:"白河口·白河城",d:"樊城东北,唐白河入汉水处",p:["元筑白河城堡于此,扼白河入汉水之口,断襄樊东北路援兵与粮道,为合围之东北翼。"]},
+  lumen:{t:"鹿门山堡",d:"襄阳东南,汉水下游东岸",p:["至元四年阿术即立堡于鹿门山,扼汉水下游,断下游援兵粮道之上溯,为长围之东南要害。"]},
+  anyang:{t:"安阳滩",d:"樊城之北,汉水滩碛",p:["至元四年阿术攻安阳滩,败宋兵、俘将,为围襄樊发难之始;元由此渐次立堡合围。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

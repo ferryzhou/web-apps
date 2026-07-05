@@ -27,9 +27,11 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
-  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .sea{fill:var(--water);opacity:.17}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.6}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.65;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.26em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.5}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
@@ -39,26 +41,49 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qsea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.jsea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
-  .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .slaughter line{stroke:var(--enemy);stroke-width:2;stroke-linecap:round}
+  .slaughter circle{fill:var(--enemy)}
+  .slabel{fill:var(--enemy);font-weight:700;font-size:11px}
+  .seal-jade{fill:var(--gold);stroke:var(--ink);stroke-width:1.3;opacity:.92}
+  .surrlabel{fill:var(--seal);font-family:"Ma Shan Zheng",serif;font-size:22px}
+  .hold{stroke:var(--ink);stroke-width:2.2;stroke-linecap:round}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(154,43,30,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--enemy);letter-spacing:.12em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--enemy)}.explain .c.b{border-color:var(--advance)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--enemy)}.explain .c.b h4{color:var(--advance)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}.explain .kicker i{color:var(--advance);font-style:normal;font-weight:700}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qsea):not(.jsea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,149 +93,269 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>临</span><span>安</span><span>之</span><span>降</span></div>
   <header>
     <h1>临安之降</h1>
-    <div class="sub">元至元十三年·宋德祐二年(1276)　　<i>元 伯颜</i> 三道趋临安 · <b>宋谢太后</b>奉玺出降·社稷遂亡</div>
+    <div class="sub">元至元十三年 · 宋德祐二年(1276)　　<b>元 丞相伯颜</b> 三道东下 · 兵临皋亭　·　<i>南宋 谢太后 · 恭帝</i> 奉玺出降 · 社稷移于海隅 · 二王南走</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 三道趋临安</button>
-    <button data-p="1">三道并进 · 会于近郊</button>
-    <button data-p="2">皋亭逼城 · 遣使乞和</button>
-    <button data-p="3">奉玺出降 · 二王南走</button>
+    <button data-p="1">丁家洲后 · 伯颜三道东下</button>
+    <button data-p="2">破常州 · 下平江 · 拔独松关</button>
+    <button data-p="3">兵临皋亭 · 谢太后奉玺出降</button>
+    <button data-p="4">恭帝北狩 · 陆张拥二王航海南走</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="临安之降形势图,含宋元疆界、长江钱塘江大运河东海与临安建康诸城邑及元军三道进兵路线">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="临安之降形势图,含长江钱塘江江南运河与东海杭州湾、建康镇江常州平江独松关临安皋亭山温州诸地,及元军三道东下(中道伯颜循运河、右道阿剌罕越独松关、左道董文炳循海道)合围临安、常州屠城、谢太后奉传国玺出降于皋亭山、恭帝北狩大都、二王自温州航海南走福州崖山之迹">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.32)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:元自江东、江淮而来(北·西),宋残据两浙(东南),约以钱塘江下游一带为势界 -->
-    <path d="M 0,0 L 1000,0 L 1000,150 C 820,190 660,230 560,320 C 500,376 470,470 480,560 C 484,600 490,620 500,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path d="M 1000,150 C 820,190 660,230 560,320 C 500,376 470,470 480,560 C 484,600 490,620 500,640 L 1000,640 L 1000,150 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 1000,150 C 820,190 660,230 560,320 C 500,376 470,470 480,560 C 484,600 490,620 500,640"/>
-    <text class="realm j" x="120" y="150" font-size="32">元(自江东来)</text>
-    <text class="realm q" x="720" y="470" font-size="32">宋(两浙)</text>
+    <!-- ══ 疆界:元自江淮江东下(北·西),宋残据两浙(临安·温州一隅),约以钱塘北一线为势界 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,384 C 560,368 545,350 520,330 C 460,300 390,282 320,290 C 240,300 120,312 0,330 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,330 C 120,312 240,300 320,290 C 390,282 460,300 520,330 C 545,350 560,368 1000,384 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,330 C 120,312 240,300 320,290 C 390,282 460,300 520,330 C 545,350 560,368 1000,384"/>
+    <text class="realm q" x="120" y="170" font-size="30">元 · 江淮江东</text>
+    <text class="realm j" x="110" y="470" font-size="26">宋 · 两浙</text>
 
-    <!-- 长江:自建康(西北)东下入海 -->
-    <path class="river" stroke-width="5.5" d="M 150,120 C 260,150 360,178 452,196 C 560,218 660,236 760,250 C 850,262 930,270 1000,272"/>
-    <!-- 钱塘江:自西南来,经临安北,东北入东海(杭州湾) -->
-    <path class="river" stroke-width="4" d="M 470,560 C 540,520 600,486 660,468 C 740,444 820,436 900,438"/>
-    <!-- 大运河:纵贯,自江南运河联嘉兴平江北达长江 -->
-    <path class="river" stroke-width="2.6" d="M 560,470 C 600,410 640,340 700,270 C 728,238 760,214 800,200"/>
-    <text class="rname" x="470" y="184" transform="rotate(11 470 184)">长 江</text>
-    <text class="rname" x="600" y="500" transform="rotate(-16 600 500)" style="font-size:12px">钱 塘 江</text>
-    <text class="rname" x="672" y="360" transform="rotate(-56 672 360)" style="font-size:10.5px">大运河</text>
-    <text class="rname" x="905" y="360" style="font-size:13px">东</text>
-    <text class="rname" x="905" y="378" style="font-size:13px">海</text>
+    <!-- ══ 海域:东海(东)、杭州湾(临安东北,西入之凹) ══ -->
+    <path class="sea" d="M 659,148 C 630,180 600,200 598,222 C 585,245 555,262 520,282 C 470,298 420,308 392,316 C 445,336 500,360 560,384 C 592,412 604,440 600,470 C 594,510 560,536 520,560 C 505,580 512,610 528,640 L 1000,640 L 1000,108 L 700,120 Z"/>
+    <path class="coast" d="M 659,148 C 630,180 600,200 598,222 C 585,245 555,262 520,282 C 470,298 420,308 392,316 C 445,336 500,360 560,384 C 592,412 604,440 600,470 C 594,510 560,536 520,560 C 505,580 512,610 528,640"/>
+    <text class="rname" x="800" y="360" style="font-size:16px;opacity:.7">东　海</text>
+    <text class="rname" x="452" y="330" style="font-size:10.5px;opacity:.85">杭州湾</text>
 
-    <!-- 皋亭山:临安东北屏障 -->
-    <g class="mtn"><path d="M 560,432 l 8,-13 l 8,13 M 576,426 l 8,-13 l 8,13 M 592,432 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="556" y="452">皋亭山</text>
+    <!-- ══ 长江:自上游西下,经建康、镇江东注入海 ══ -->
+    <path class="river" stroke-width="5.5" d="M 40,122 C 90,108 116,101 134,97 C 190,88 220,82 248,80 C 350,82 440,98 510,118 C 575,134 630,144 659,148"/>
+    <text class="rname" x="360" y="86" transform="rotate(8 360 86)">长　江</text>
+    <!-- ══ 钱塘江:自西南来,经临安入杭州湾 ══ -->
+    <path class="river" stroke-width="3.6" d="M 270,478 C 310,420 345,352 366,320 C 375,308 385,312 392,316"/>
+    <text class="rname" x="286" y="410" transform="rotate(-58 286 410)" style="font-size:11px">钱塘江</text>
+    <!-- ══ 江南运河:镇江—常州—平江—嘉兴—临安(中道之脉) ══ -->
+    <path class="river" stroke-width="2.4" d="M 248,84 C 290,104 320,116 335,129 C 380,150 420,168 449,181 C 462,205 470,226 475,243 C 440,262 400,282 372,299" style="opacity:.7;stroke-dasharray:6 4"/>
+    <text class="rname" x="470" y="220" transform="rotate(72 470 220)" style="font-size:10px;opacity:.8">江南运河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 山险:天目山·独松关(临安西北门户)、皋亭山(临安北郊) ══ -->
+    <g class="mtn"><path d="M 258,262 l 8,-15 l 8,15 M 272,256 l 8,-14 l 8,14 M 288,262 l 7,-13 l 7,13"/></g>
+    <g class="mtn"><path d="M 366,286 l 7,-13 l 7,13 M 379,282 l 7,-13 l 7,13 M 392,286 l 6,-12 l 6,12"/></g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="jiankang"><circle cx="150" cy="120" r="5"/><text class="cname" x="98" y="116">建康<tspan class="cname s" dx="2">(元东下基)</tspan></text></g>
-      <g class="city" data-city="dusongguan"><circle cx="360" cy="420" r="4"/><text class="cname s" x="320" y="440">独松关</text></g>
-      <g class="city" data-city="jiaxing"><circle cx="618" cy="308" r="4.5"/><text class="cname" x="628" y="304">嘉兴·平江</text></g>
-      <g class="city cap" data-city="linan"><circle cx="520" cy="484" r="6.5"/><text class="cname" x="428" y="480">临安<tspan class="cname s" dx="2">(宋都)</tspan></text></g>
-      <g class="city" data-city="gaoting"><circle cx="576" cy="428" r="4"/><text class="cname s" x="586" y="420">皋亭山驻军</text></g>
-      <g class="city" data-city="wenzhou"><circle cx="720" cy="600" r="4.5"/><text class="cname" x="660" y="616">温州·福州</text></g>
+      <g class="city" data-city="jiankang"><circle cx="134" cy="97" r="5.5"/><text class="cname" x="76" y="93">建康<tspan class="cname s" dx="1">(元东下基)</tspan></text></g>
+      <g class="city" data-city="zhenjiang"><circle cx="248" cy="80" r="4"/><text class="cname s" x="256" y="76">镇江</text></g>
+      <g class="city" data-city="yangzhou"><circle cx="242" cy="58" r="4"/><text class="cname s" x="250" y="54">扬州<tspan class="cname s" dx="1">(阿术牵制)</tspan></text></g>
+      <g class="city" data-city="changzhou"><circle cx="335" cy="129" r="5"/><text class="cname" x="296" y="118">常州</text></g>
+      <g class="city" data-city="pingjiang"><circle cx="449" cy="181" r="5"/><text class="cname" x="459" y="178">平江·苏州</text></g>
+      <g class="city" data-city="jiaxing"><circle cx="475" cy="243" r="4"/><text class="cname s" x="485" y="240">嘉兴</text></g>
+      <g class="city" data-city="guangde"><circle cx="242" cy="226" r="4"/><text class="cname s" x="198" y="222">广德</text></g>
+      <g class="city" data-city="dusongguan"><circle cx="291" cy="256" r="4.5"/><text class="cname s" x="238" y="248">独松关</text></g>
+      <g class="city cap" data-city="linan"><circle cx="372" cy="299" r="6.5"/><text class="cname" x="300" y="316">临安<tspan class="cname s" dx="1">(宋都)</tspan></text></g>
+      <g class="city" data-city="gaoting"><circle cx="379" cy="282" r="4"/><text class="cname s" x="388" y="270">皋亭山<tspan class="cname s" dx="1">(受降处)</tspan></text></g>
+      <g class="city" data-city="ganpu"><circle cx="507" cy="280" r="4"/><text class="cname s" x="515" y="277">澉浦·盐官</text></g>
+      <g class="city" data-city="huating"><circle cx="554" cy="215" r="4"/><text class="cname s" x="562" y="212">华亭</text></g>
+      <g class="city" data-city="wenzhou"><circle cx="466" cy="551" r="5"/><text class="cname" x="410" y="568">温州<tspan class="cname s" dx="1">(二王航海处)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 三道趋临安 -->
+    <!-- ══ 图外来向:大都(北·恭帝北狩)、福州/崖山(南·二王行朝) ══ -->
+    <g transform="translate(250,12)">
+      <path class="march rout" marker-end="url(#ar)" d="M 28,20 L 4,0"/>
+      <text class="mlabel r" x="34" y="16" style="font-size:10px">大都 ⟵ (恭帝北狩·图外北)</text>
+    </g>
+    <g transform="translate(470,624)">
+      <path class="march jsea" marker-end="url(#aj)" d="M 30,-4 L 54,14"/>
+      <text class="mlabel j" x="-2" y="6" style="font-size:10px">福州·行朝 → 崖山 (图外南) ⟶</text>
+    </g>
+
+    <!-- ══ 全图 · 三道趋临安 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 158,132 C 260,220 360,340 470,440 C 490,458 502,468 512,476"/>
-      <text class="mlabel j" x="240" y="300">伯颜自建康分三道并进</text>
-      <text class="anno" x="300" y="386">丁家洲既溃,建康、镇江、常州相继下</text>
-      <text class="mlabel q" x="700" y="540">宋残据两浙,谢太后诏天下勤王</text>
-      <text class="anno" x="700" y="558">应者寥寥,朝议守战迁都不决</text>
-      <circle class="siege" cx="520" cy="484" r="16"/>
+      <path class="march q" marker-end="url(#aq)" d="M 140,104 C 235,100 300,116 335,131 C 400,160 440,220 400,282"/>
+      <text class="mlabel q" x="200" y="150">中道 伯颜自将 · 循运河下常州平江</text>
+      <path class="march q" marker-end="url(#aq)" d="M 138,110 C 190,150 220,205 242,226 C 268,244 288,270 340,296"/>
+      <text class="mlabel q" x="150" y="238">右道 阿剌罕 · 越独松关</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 400,116 C 540,132 630,150 655,180 C 640,235 570,285 420,296"/>
+      <text class="mlabel q" x="560" y="200">左道 董文炳 · 循海道</text>
+      <g class="slaughter" transform="translate(335,129)"><circle r="2.6"/><g stroke="#9a2b1e"><line x1="0" y1="-8" x2="0" y2="8"/><line x1="-8" y1="0" x2="8" y2="0"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g></g>
+      <g class="surr" transform="translate(390,300)"><rect class="seal-jade" x="-9" y="-6" width="18" height="12" rx="2"/><rect class="seal-jade" x="-4" y="-11" width="8" height="5" rx="1"/><text class="surrlabel" x="15" y="8">降</text></g>
+      <text class="anno" x="300" y="360">三道合围临安 · 谢太后奉玺出降</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 372,292 C 420,230 450,180 300,44"/>
+      <path class="march jsea" marker-end="url(#aj)" d="M 366,308 C 340,380 400,480 466,548 C 486,578 498,606 512,632"/>
+      <text class="mlabel j" x="446" y="470">二王航海南走</text>
     </g>
 
-    <!-- 阶段一:三道并进 · 会于近郊 -->
+    <!-- ══ 阶段一:丁家洲后 · 伯颜三道东下 ══ -->
     <g id="ph1" class="ph">
-      <!-- 中道:伯颜自将,经平江嘉兴而进 -->
-      <path class="march j" marker-end="url(#aj)" d="M 158,128 C 320,180 480,250 610,306 C 570,360 545,420 528,472"/>
-      <text class="mlabel j" x="380" y="230">中道 伯颜自将 · 经平江</text>
-      <!-- 右道:阿剌罕出广德、独松关 -->
-      <path class="march j" marker-end="url(#aj)" d="M 152,138 C 230,240 300,340 356,414 C 400,440 460,462 510,478"/>
-      <text class="mlabel j" x="200" y="400">右道 阿剌罕 · 出独松关</text>
-      <!-- 左道:董文炳水师循海道趋澉浦华亭 -->
-      <path class="march j" marker-end="url(#aj)" d="M 900,300 C 880,380 800,430 700,458 C 640,474 580,482 534,486"/>
-      <text class="mlabel j" x="740" y="320">左道 董文炳水师 · 循海道</text>
-      <text class="anno" x="620" y="440">趋澉浦、华亭</text>
-      <text class="anno" x="416" y="512">三道会于临安近郊</text>
+      <rect class="camp" x="129" y="92" width="10" height="10" transform="rotate(45 134 97)"/>
+      <text class="mlabel q" x="150" y="128">丁家洲既溃,宋主力尽丧;<tspan x="150" dy="15">元连下建康、镇江,伯颜遂分三道东下</tspan></text>
+      <!-- 中道:伯颜循运河 -->
+      <path class="march q" marker-end="url(#aq)" d="M 140,104 C 210,98 250,90 262,92 C 300,108 322,120 335,131 C 385,153 425,170 447,183"/>
+      <text class="mlabel q" x="260" y="172">中道 伯颜 · 循江南运河</text>
+      <!-- 右道:阿剌罕越天目独松关 -->
+      <path class="march q" marker-end="url(#aq)" d="M 138,112 C 185,150 215,200 242,226 C 258,240 274,250 289,257"/>
+      <text class="mlabel q" x="150" y="300">右道 阿剌罕 · 出广德趋独松关</text>
+      <!-- 左道:董文炳循海道 -->
+      <path class="march qsea" marker-end="url(#aq)" d="M 393,116 C 500,130 610,142 655,175 C 648,215 610,258 560,278"/>
+      <text class="mlabel q" x="580" y="150">左道 董文炳 · 江阴出海<tspan x="580" dy="15">循海道趋澉浦华亭</tspan></text>
+      <!-- 阿术牵制淮东 -->
+      <rect class="camp" x="237" y="53" width="9" height="9" transform="rotate(45 242 58)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 250,64 C 258,90 262,110 262,128"/>
+      <text class="mlabel q" x="264" y="104">阿术牵制淮东(李庭芝守扬州)</text>
+      <!-- 宋方:诏勤王 -->
+      <text class="mlabel j" x="150" y="470">宋残据两浙,谢太后诏天下勤王</text>
+      <text class="anno" x="150" y="488">应者惟文天祥、张世杰数军,朝议守迁不决</text>
     </g>
 
-    <!-- 阶段二:皋亭逼城 · 遣使乞和 -->
+    <!-- ══ 阶段二:破常州 · 下平江 · 拔独松关 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="571" y="423" width="10" height="10" transform="rotate(45 576 428)"/>
-      <text class="mlabel j" x="588" y="410">元军驻皋亭山,逼临安</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 528,478 C 548,462 562,450 572,438"/>
-      <text class="mlabel q" x="440" y="512">宋屡遣使乞和,称侄称臣</text>
-      <text class="anno" x="440" y="530">文天祥使元军请缓师,伯颜拘之</text>
-      <text class="anno" x="588" y="392">伯颜不许,必欲得其降</text>
-      <circle class="siege" cx="520" cy="484" r="16"/>
+      <!-- 常州屠城 -->
+      <g class="slaughter" transform="translate(335,129)"><circle r="3"/><g stroke="#9a2b1e" stroke-width="2.2"><line x1="0" y1="-10" x2="0" y2="10"/><line x1="-10" y1="0" x2="10" y2="0"/><line x1="-7" y1="-7" x2="7" y2="7"/><line x1="-7" y1="7" x2="7" y2="-7"/></g></g>
+      <text class="slabel" x="290" y="112">常州屠城</text>
+      <!-- 平江下 -->
+      <rect class="camp" x="444" y="176" width="10" height="10" transform="rotate(45 449 181)"/>
+      <text class="mlabel q" x="459" y="196">平江(苏州)不守</text>
+      <!-- 独松关破 -->
+      <g class="slaughter" transform="translate(291,256)"><circle r="2.4"/><g stroke="#9a2b1e"><line x1="-7" y1="-7" x2="7" y2="7"/><line x1="-7" y1="7" x2="7" y2="-7"/></g></g>
+      <text class="slabel" x="228" y="272">独松关破</text>
+      <!-- 董文炳海道下澉浦华亭 -->
+      <rect class="camp" x="549" y="210" width="9" height="9" transform="rotate(45 554 215)"/>
+      <rect class="camp" x="502" y="275" width="9" height="9" transform="rotate(45 507 280)"/>
+      <text class="mlabel q" x="516" y="300">董文炳下华亭·澉浦</text>
+      <!-- 三道会合于临安近郊 -->
+      <path class="march q" marker-end="url(#aq)" d="M 449,185 C 468,214 440,258 402,282"/>
+      <path class="march q" marker-end="url(#aq)" d="M 293,258 C 322,276 346,290 366,298"/>
+      <path class="march qsea" marker-end="url(#aq)" d="M 505,284 C 465,294 428,296 402,292"/>
+      <text class="mlabel q" x="300" y="360">三道并进,会于临安近郊</text>
+      <text class="anno" x="300" y="378">独松关既拔,临安西北门户洞开</text>
+      <text class="anno" x="150" y="470">诸路屏障尽失,都城危在旦夕</text>
     </g>
 
-    <!-- 阶段三:奉玺出降 · 二王南走 -->
+    <!-- ══ 阶段三:兵临皋亭 · 谢太后奉玺出降 ══ -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="520" cy="484" r="12"/>
-      <path d="M 520,472 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8" transform="translate(0,12)"/>
-      <text class="mlabel q" x="380" y="464">谢太后奉传国玺,率恭帝出降</text>
-      <!-- 帝后北去大都 -->
-      <path class="march rout" marker-end="url(#ar)" d="M 512,478 C 400,380 280,240 168,132"/>
-      <text class="mlabel r" x="240" y="250">恭帝、全太后北去大都,宋亡</text>
-      <!-- 二王南走温州福州 -->
-      <path class="march rout" marker-end="url(#ar)" d="M 530,492 C 600,530 668,566 710,592"/>
-      <text class="mlabel r" x="560" y="556">二王南走温州、福州,立行朝图存</text>
-      <text class="anno" x="640" y="612">转战闽广,终崖山陆沉(1279)</text>
+      <!-- 伯颜驻皋亭山 -->
+      <rect class="camp" x="374" y="277" width="11" height="11" transform="rotate(45 379 282)"/>
+      <circle class="siege" cx="372" cy="299" r="20"/>
+      <text class="mlabel q" x="392" y="262">伯颜驻皋亭山,兵临临安</text>
+      <!-- 文天祥使军营被扣 -->
+      <path class="march j" marker-end="url(#aj)" d="M 366,296 C 372,290 375,286 378,284"/>
+      <g class="hold" transform="translate(384,278)"><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="mlabel j" x="392" y="300">文天祥使营请缓师,伯颜拘之</text>
+      <text class="anno" x="392" y="316">(后于镇江脱走,转战东南)</text>
+      <!-- 奉玺出降 -->
+      <g class="surr" transform="translate(348,320)"><rect class="seal-jade" x="-10" y="-7" width="20" height="14" rx="2"/><rect class="seal-jade" x="-5" y="-12" width="10" height="6" rx="1"/><text class="surrlabel" x="16" y="9">降</text></g>
+      <text class="mlabel q" x="150" y="368">谢太后遣使奉传国玺及降表,率恭帝出降</text>
+      <text class="anno" x="150" y="386">屡称侄、称侄孙、称臣以乞和不得,遂决意奉表</text>
+      <text class="anno" x="150" y="470">立国百五十二年之宋室,至此奉玺请命</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:恭帝北狩 · 陆张拥二王航海南走 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 恭帝谢后北狩大都 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 372,292 C 430,236 458,196 449,181 C 410,120 350,78 300,42"/>
+      <text class="mlabel r" x="430" y="150">恭帝·谢太后北狩大都</text>
+      <text class="anno" x="430" y="166">掳宗室、百官、府库图籍北去,宋中央亡</text>
+      <!-- 元入临安 -->
+      <rect class="camp" x="367" y="294" width="11" height="11" transform="rotate(45 372 299)"/>
+      <text class="mlabel q" x="240" y="292">元入临安</text>
+      <!-- 二王先自温州航海南走 -->
+      <path class="march jsea" marker-end="url(#aj)" d="M 366,308 C 330,372 380,470 442,522 C 452,530 460,542 466,549"/>
+      <text class="mlabel j" x="300" y="420">陈宜中·陆秀夫·张世杰<tspan x="300" dy="15">拥益王昰·广王昺出温州</tspan></text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 468,554 C 490,582 500,606 512,630"/>
+      <text class="mlabel j" x="474" y="540">航海南走福州</text>
+      <text class="anno" x="150" y="500">立行朝于福州(端宗),转战闽广</text>
+      <text class="anno" x="150" y="518">海隅犹抗,终崖山陆沉(1279),宋祚乃绝</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>元军(三道)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>宋军·守议</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>帝后北去·二王南走</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>宋降·奉玺</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>元三道逼城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>元</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>宋</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>元军三道(伯颜)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>元海道(董文炳)</span>
+    <span class="item"><svg width="16" height="16"><g stroke="#9a2b1e" stroke-width="1.8"><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/><line x1="4" y1="4" x2="12" y2="12"/><line x1="4" y1="12" x2="12" y2="4"/></g></svg>常州屠城</span>
+    <span class="item"><svg width="30" height="16"><rect x="4" y="5" width="14" height="9" rx="1.5" fill="#9c7a2c" stroke="#2b2418" stroke-width="1.1"/><rect x="8" y="1" width="6" height="4" rx="1" fill="#9c7a2c" stroke="#2b2418" stroke-width="1.1"/></svg>奉玺出降</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>恭帝北狩大都</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>二王航海南走</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#9a2b1e" transform="rotate(45 7.5 7.5)"/></svg>元屯戍·下城</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>元</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 大势已去 · 奉玺出降 · 而海隅犹抗</h3>
+    <div class="lead">何以三百二十年之宋室不待巷战而奉玺 —— 三道合围逼皋亭,朝廷无野战之力而请降;然二王航海南走,社稷之火移于海隅,不亡于临安之城</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="临安之降示意:中道伯颜、右道阿剌罕、左道董文炳三道红箭合围临安,朝廷奉传国玺出降;而后一歧褐线北去大都(恭帝北狩),一歧青线南航福州崖山(二王行朝),社稷移于海隅">
+      <!-- 中枢:临安 -->
+      <circle cx="430" cy="120" r="30" fill="none" stroke="#1f4e54" stroke-width="1.8"/>
+      <text x="430" y="116" fill="#1f4e54" font-size="12" font-weight="700" text-anchor="middle">临安</text>
+      <text x="430" y="132" fill="#1f4e54" font-size="9.5" text-anchor="middle">宋都</text>
+      <!-- 三道合围红箭 -->
+      <path d="M 120,60 L 396,108" fill="none" stroke="#9a2b1e" stroke-width="2.6" marker-end="url(#aq)"/>
+      <text x="118" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700">中道 伯颜 · 循运河(常州屠·平江下)</text>
+      <path d="M 120,180 L 400,140" fill="none" stroke="#9a2b1e" stroke-width="2.6" marker-end="url(#aq)"/>
+      <text x="118" y="196" fill="#9a2b1e" font-size="10.5" font-weight="700">右道 阿剌罕 · 越独松关</text>
+      <path d="M 730,70 L 464,108" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#aq)"/>
+      <text x="590" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700">左道 董文炳 · 循海道</text>
+      <!-- 奉玺出降 -->
+      <g transform="translate(430,120)"><rect x="-11" y="-8" width="22" height="16" rx="2" fill="#9c7a2c" stroke="#2b2418" stroke-width="1.2" opacity=".9"/><rect x="-6" y="-13" width="12" height="6" rx="1" fill="#9c7a2c" stroke="#2b2418" stroke-width="1.2" opacity=".9"/></g>
+      <text x="430" y="176" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">谢太后奉传国玺 · 出降 ✕</text>
+      <!-- 北狩大都 -->
+      <path d="M 430,88 C 500,50 560,36 620,30" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="628" y="34" fill="#7a5a23" font-size="10.5" font-weight="700">恭帝北狩大都 · 中央亡</text>
+      <!-- 南航海隅 -->
+      <path d="M 430,152 C 440,196 470,216 520,222" fill="none" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#aj)"/>
+      <text x="528" y="226" fill="#1f4e54" font-size="10.5" font-weight="700">二王航海南走 · 福州→崖山(海隅犹抗)</text>
+    </svg>
+    <p class="intro">丁家洲一溃,宋之机动主力尽丧。伯颜遂<b>分三道东下</b>:中道自将,循江南运河下常州(拒守而屠)、平江;右道阿剌罕越天目、拔独松关;左道董文炳循海道趋澉浦、华亭——三道如三箭,合围于临安近郊之皋亭山。朝廷既无一战之力,勤王之师又不至,谢太后乃遣使奉传国玺、率五岁之恭帝出降。然此非宋祚之绝:陆秀夫、张世杰、陈宜中先已拥二王航海南走,社稷之火自临安移于闽广海隅。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>三道合围 · 奉玺出降</h4>
+        <p>元不以一军攻坚,而以三道分进合击:运河之中道破常州、下平江以断其膏腴,陆路之右道拔独松关以启其门户,海道之左道循澉浦、华亭以扼其东。屏障尽撤,兵临皋亭,朝议守、战、迁三者不决而应者寥寥。文天祥使营请缓师被拘,乞和之路既绝,谢太后遂奉玺出降——非力屈于阵,实势穷于合围。</p>
+      </div>
+      <div class="c b">
+        <h4>二王南航 · 海隅犹抗</h4>
+        <p>临安虽降,而宋不即亡。陈宜中、陆秀夫、张世杰奉益王昰、广王昺先出临安,自温州航海南走,立行朝于福州(端宗),转战闽、广。以海为家、以舟为国,继抗三年;文天祥亦脱走间道，再举东南。社稷之绪,由临安一线牵至崖山——宋之亡,竟不亡于都城之陷,而尽于海上之孤注(1279)。</p>
+      </div>
+    </div>
+    <p class="kicker">故临安之降,不在城守之不坚,而在<b>三道合围、大势已去</b>:主力既丧于丁家洲,朝廷无野战之资,奉玺出降乃势之所必至。然一玺之降,分为二歧:一歧褐线北去大都,恭帝北狩而中央之统亡;一歧<i>青线南航海隅,二王立朝而抵抗之火不熄</i>。<b>宋亡于临安,而其祚牵于崖山</b>——是以此图与《崖山海战》相续,首尾一线,乃见亡国之痛非一夕之事。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·伯颜传/世祖本纪》《宋史·瀛国公纪/文天祥传》约略绘出。临安即今浙江杭州;建康即今南京,独松关在今浙江安吉南、余杭西北,澉浦、华亭在今浙江海盐、上海一带。城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为德祐末形势示意:丁家洲既溃,元军连下建康、镇江、常州,宋仅存两浙一隅;故以点划「约界」标之,非实有画界。三道并进之路线亦经简化。</p>
-    <p><span class="n">注三</span>宋恭帝出降,社稷实亡于此。然益王、广王二王南走,张世杰、陆秀夫、文天祥拥立行朝,转战闽广三年,终于崖山陆沉(1279),宋祚乃绝——事见《两宋图录》。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(投影式 x=55+(经度−118.35)×175,y=590−(纬度−27.65)×112)。临安即今浙江杭州(约120.16°E/30.25°N),皋亭山在临安北郊(约120.20°E/30.40°N,今杭州半山一带,伯颜驻军受降之所),独松关在今浙江安吉南、余杭西北天目山中(约119.70°E/30.63°N),常州(约119.95°E/31.77°N)、平江即今苏州(约120.60°E/31.30°N)、镇江(约119.45°E/32.20°N)、建康即今南京(约118.80°E/32.05°N)、扬州(约119.42°E/32.40°N)、广德(约119.42°E/30.90°N)、嘉兴(约120.75°E/30.75°N)、澉浦·盐官在今浙江海盐(约120.93°E/30.42°N)、华亭即今上海松江(约121.20°E/31.00°N)、温州(约120.70°E/28.00°N)。大都(今北京·约116.4°E/39.9°N)在图外北,以北缘褐箭头标恭帝北狩之向;福州(约119.3°E/26.1°N)及崖山在图外南,以南缘青箭头标二王行朝之向。杭州湾、东海海岸及疆界晕染经简化,惟示大势,非实测比例。</p>
+    <p><span class="n">注二</span>【行军水陆 · 两军来路】(其一、其三)本役少野战而多分进:元三道各行其道——<b>中道</b>伯颜(阿塔海副之)自将,循江南运河(水陆并进)下常州、平江;<b>左道</b>董文炳自江阴出海、循海道(海船)趋澉浦、华亭、盐官,自东逼两浙;<b>右道</b>阿剌罕陆路越天目、拔独松关,自西北入。别遣阿术牵制淮东(李庭芝守扬州),使不得南援。三道之外,更有一水一陆之别:恭帝、谢太后北狩大都由陆(运河北上,图作褐虚线);二王南走则全由海(自温州浮海,图作青虚线)——降者北行、抗者南航,一陆一海,恰成对照。全局二方:元(朱)自建康(其源实在大都,图外北)三道来,宋(青)残据两浙、都于临安,野战之力尽,惟遣使乞和。</p>
+    <p><span class="n">注三</span>【粮道非枢】(其二)此役胜负不系于漕运粮道:宋主力既丧于丁家洲,朝廷已无可战之军,元三道所争者非绝其粮,而在破其屏障、合围其都以迫降。惟江南运河实为中道之进兵与转输之脉,常州扼运河之冲、拒守不下,元乃屠其城以通道——是运河之为动脉者,于攻取有征,于决胜非枢。故本图不设「漕运·粮道」之金线专层,而以「三道合围·奉玺出降」为决胜之机(详见上「释要」)。</p>
+    <p><span class="n">注四</span>【出降与异说】(其五)德祐二年正月,谢太后遣监察御史杨应奎奉传国玺及降表诣元军,率宋恭帝(赵㬎,年五岁,虚岁六)请命;三月,伯颜入临安,恭帝、全太后及宗室、百官、府库图籍皆被掳北去大都(谢太后以疾稍后北迁)。异说数端:出降月日诸书小异(奉表在正月,入城、北去在二三月间),今并存;<b>独松关</b>之拔,史属右道阿剌罕之军(《元史·阿剌罕传》),本题「伯颜中路出独松关」之说盖举主帅以该三道,今从史别为右道;恭帝之年,《宋史·瀛国公纪》作五岁,以虚岁则六;常州之屠,诸书载守臣姚訾、陈炤力拒,城破元人屠之,死者甚众,数亦微有异同。</p>
+    <p><span class="n">注五</span>据《元史·世祖本纪 / 伯颜传 / 阿术传 / 董文炳传 / 阿剌罕传》《宋史·瀛国公纪 / 谢后传 / 文天祥传》《续资治通鉴》卷一八二约略绘出。宋恭帝出降,南宋中央政权实亡于此(自建炎南渡百五十二年,合北宋共三百二十年)。然益王赵昰(端宗)、广王赵昺在陈宜中、陆秀夫、张世杰拥戴下航海南走,立行朝于福州、转徙闽广,文天祥间道脱归再举;抵抗延续三年,终于崖山陆沉(1279),宋祚乃绝——事详《崖山海战》图,与本图首尾相续。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"三道趋临安",d:"元至元十三年·宋德祐二年(1276)",p:["丁家洲既溃,元军势如破竹,建康、镇江、常州(苦守而屠)相继下。伯颜遂分三道并进,直趋宋都临安:自将中道由建康经镇江、常州、平江而进;阿剌罕将右道出广德、独松关;董文炳将左道水师循海道趋澉浦、华亭。","宋廷震恐,谢太后诏天下勤王,应者寥寥;文天祥、张世杰倡议死守或迁都再战,陈宜中主和,议久不决。宋仅存两浙一隅,坐待三道之会。"]},
-  "1":{t:"三道并进·会于近郊",d:"德祐二年正月",p:["伯颜中道自建康东下,经镇江、常州、平江(苏州)而进;阿剌罕右道自广德出独松关,破关而入;董文炳左道率水师循海道趋澉浦、华亭,自海上逼两浙。","三道并进,如三箭齐发,会于临安近郊。宋之屏障尽失,独松关既破,临安西北门户洞开,都城危在旦夕。"]},
-  "2":{t:"皋亭逼城·遣使乞和",d:"德祐二年正月",p:["至元十三年正月,元军进驻皋亭山,逼临安。宋廷惶惧,屡遣使乞和,称侄、称侄孙、称臣以求存;伯颜不许,必欲得其降。","宋遣文天祥使元军请缓师,伯颜拘之(天祥后脱走,间道南归)。乞和之路既绝,谢太后乃决意奉表出降。"]},
-  "3":{t:"奉玺出降·二王南走",d:"德祐二年正月至三月",p:["谢太后遣使奉传国玺及降表,率宋恭帝(年五岁)出降。三月,伯颜入临安;恭帝、全太后等被俘北去大都。宋之社稷实亡于此。","然益王、广王二王在张世杰、陆秀夫、文天祥拥戴下南走温州、福州,立行朝以图存,转战闽广三年,终于崖山陆沉(1279),宋祚乃绝。"]}
+  all:{t:"三道趋临安",d:"元至元十三年 · 宋德祐二年(1276)",p:["丁家洲既溃(1275),南宋机动主力尽丧;元军连下建康、镇江。至元十三年正月,丞相伯颜遂分三道东下,直趋宋都临安:自将中道循江南运河下常州、平江;阿剌罕将右道越天目、出独松关;董文炳将左道水师循海道趋澉浦、华亭;别遣阿术牵制淮东(扬州),使不得南援。","三道如三箭齐发,合围于临安近郊之皋亭山。宋廷震恐,谢太后诏天下勤王而应者寥寥;守、战、迁议久不决。既无野战之力,遂奉传国玺出降。然二王先已航海南走,社稷之火移于闽广海隅。"]},
+  "1":{t:"丁家洲后 · 伯颜三道东下",d:"德祐元年冬 — 二年正月",p:["丁家洲一战,贾似道十三万众一溃千里,南宋沿江防线洞开,机动主力尽丧。元军乘胜东下,建康、镇江相继款附,伯颜遂据建康为东下之基。","至元十三年正月,伯颜分兵三道并进:中道自将,循江南运河南下,径趋常州、平江;右道阿剌罕自广德出天目,趋独松关；左道董文炳率水师自江阴出海,循海道趋澉浦、华亭。别以阿术牵制淮东、扼李庭芝于扬州,俾不得援临安。宋惟诏勤王,应者惟文天祥、张世杰数军而已。"]},
+  "2":{t:"破常州 · 下平江 · 拔独松关",d:"德祐元年冬 — 二年正月",p:["中道伯颜循运河而进,常州扼其冲、守臣力拒不下,城破,元人屠之,死者蔽野——运河之道遂通,平江(苏州)继不守。","右道阿剌罕越天目、拔独松关,临安西北门户洞开;左道董文炳循海道下华亭、澉浦,自东逼两浙。三道并进,会于临安近郊。诸路屏障尽失,都城危在旦夕。"]},
+  "3":{t:"兵临皋亭 · 谢太后奉玺出降",d:"德祐二年正月",p:["元军进驻临安北郊之皋亭山,伯颜屯于此,兵临都城。宋廷惶惧,屡遣使乞和,称侄、称侄孙、称臣以求存;伯颜不许,必欲得其降。","宋遣右丞相文天祥使元军请缓师,伯颜拘之(天祥后于镇江脱走,间道南归,转战东南)。乞和之路既绝,谢太后乃遣使奉传国玺及降表,率五岁之恭帝出降。立国百五十二年之宋室,至此奉玺请命。"]},
+  "4":{t:"恭帝北狩 · 陆张拥二王航海南走",d:"德祐二年二三月 — 及其后",p:["三月,伯颜入临安;宋恭帝、全太后及宗室、百官、府库图籍皆被掳北去大都。南宋中央政权实亡于此——自南渡百五十二年,合北宋共三百二十年之社稷,一旦而移。","然临安未降之先,陈宜中、陆秀夫、张世杰已拥益王昰、广王昺出走,自温州浮海南下,立行朝于福州(端宗),转战闽、广;文天祥亦脱归再举。以海为家、以舟为国,海隅犹抗;抵抗延续三年,终于崖山陆沉(1279),宋祚乃绝——事续《崖山海战》。"]}
 };
 const CITY={
-  jiankang:{t:"建康",d:"今江苏南京",p:["丁家洲既溃,元军入建康,遂为东下之基。伯颜自此分三道并进,直趋临安。"]},
-  dusongguan:{t:"独松关",d:"临安西北屏障,今浙江安吉、余杭间",p:["临安西北之险要。阿剌罕右道出广德,破独松关而入,都城门户遂开。"]},
-  jiaxing:{t:"嘉兴·平江",d:"平江即今苏州,嘉兴今浙江嘉兴",p:["元中道所经。伯颜自将由镇江、常州、平江而进,联江南运河南下,直逼临安。"]},
-  linan:{t:"临安",d:"宋行都,今浙江杭州",p:["宋都,居钱塘江畔。三道逼之,谢太后奉传国玺率恭帝出降,社稷遂亡。"]},
-  gaoting:{t:"皋亭山",d:"临安东北,今杭州东北郊",p:["伯颜驻军处,亦宋遣使乞和之所。元军驻此逼城,宋文天祥使元于此被拘。"]},
-  wenzhou:{t:"温州·福州",d:"今浙江温州、福建福州",p:["二王南走图存之处。张世杰、陆秀夫、文天祥拥立行朝,转战闽广,以延宋祚。"]}
+  jiankang:{t:"建康",d:"今江苏南京(约118.80°E/32.05°N)",p:["丁家洲既溃,元军入建康,遂为东下之基。伯颜自此分三道并进,直趋临安。"]},
+  zhenjiang:{t:"镇江",d:"今江苏镇江(约119.45°E/32.20°N)",p:["长江下游要津、江南运河北口。元军东下先下之,中道伯颜由此循运河南趋常州。"]},
+  yangzhou:{t:"扬州",d:"今江苏扬州(约119.42°E/32.40°N)",p:["淮东重镇,宋李庭芝、姜才坚守。伯颜遣阿术牵制于此,俾淮东之师不得南援临安。临安降后犹坚守,后乃破。"]},
+  changzhou:{t:"常州",d:"今江苏常州(约119.95°E/31.77°N)",p:["江南运河之冲。中道伯颜南下,常州守臣姚訾、陈炤力拒不下;城破,元人屠之,死者蔽野。运河之道遂通,元军直趋平江。"]},
+  pingjiang:{t:"平江 · 苏州",d:"今江苏苏州(约120.60°E/31.30°N)",p:["东南财赋之薮、运河要会。常州既屠,平江继不守,元中道遂逼临安近郊。"]},
+  jiaxing:{t:"嘉兴",d:"今浙江嘉兴(约120.75°E/30.75°N)",p:["江南运河南段之要地,介平江、临安之间。元中道循运河经此南趋皋亭。"]},
+  guangde:{t:"广德",d:"今安徽广德(约119.42°E/30.90°N)",p:["临安西北陆道之枢。右道阿剌罕自此入天目山道,趋独松关。"]},
+  dusongguan:{t:"独松关",d:"今浙江安吉南、余杭西北天目山中(约119.70°E/30.63°N)",p:["临安西北之险要门户,天目山道所扼。右道阿剌罕越天目、拔此关,都城门户遂洞开。"]},
+  linan:{t:"临安",d:"宋行都,今浙江杭州(约120.16°E/30.25°N)",p:["南宋都城,居钱塘江畔。三道合围,谢太后奉传国玺率恭帝出降,元入城,掳帝后宗室北去。宋中央政权亡于此。"]},
+  gaoting:{t:"皋亭山",d:"临安北郊,今杭州半山一带(约120.20°E/30.40°N)",p:["临安北面屏山,伯颜驻军受降之所。宋屡遣使乞和于此;文天祥使营请缓师,亦被拘于此。谢太后奉玺出降,礼成于皋亭。"]},
+  ganpu:{t:"澉浦 · 盐官",d:"今浙江海盐(约120.93°E/30.42°N)",p:["杭州湾北岸海口。左道董文炳循海道自江阴、华亭而下,取澉浦、盐官,自东海方向逼临安。"]},
+  huating:{t:"华亭",d:"今上海松江(约121.20°E/31.00°N)",p:["长江口南岸滨海之地。董文炳水师自江阴出海,循海道下华亭、澉浦,是为左道。"]},
+  wenzhou:{t:"温州",d:"今浙江温州(约120.70°E/28.00°N)",p:["二王航海南走之发轫地。陈宜中、陆秀夫、张世杰拥益王昰、广王昺自临安出走,至温州浮海南下,趋福州立行朝。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

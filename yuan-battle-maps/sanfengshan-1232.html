@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;--snowc:#dfeaf0;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -28,9 +29,12 @@
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .border.song{stroke:var(--qin);stroke-dasharray:2 4;opacity:.6;stroke-width:1.4}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,16 +43,20 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.harass{stroke:var(--advance);stroke-width:2.1;stroke-dasharray:2 5;opacity:.9}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
-  .snow{fill:#f4efe0;opacity:.9}
+  .siege{fill:none;stroke:var(--advance);stroke-width:1.5;stroke-dasharray:2 4;opacity:.8}
+  .snow circle{fill:#f6f3ea;stroke:var(--snowc);stroke-width:.5;opacity:.95}
+  .gap{fill:none;stroke:var(--gold);stroke-width:2.4;stroke-dasharray:3 5;opacity:.85}
+  .glabel{fill:var(--gold);font-size:11px;font-weight:700;letter-spacing:.06em}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -57,9 +65,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin):not(.harass){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,110 +92,159 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>三</span><span>峰</span><span>山</span><span>役</span></div>
   <header>
     <h1>三峰山之战</h1>
-    <div class="sub">金天兴元年·蒙古四年(1232)　　<i>蒙古 拖雷·速不台</i> 借雪疲敌 · <b>金 完颜合达</b>十五万尽覆</div>
+    <div class="sub">金天兴元年·蒙古四年(1232)　　<i>蒙古 拖雷(睿宗)</i> 假道迂回 · 因雪困之　·　<b>金 完颜合达·移剌蒲阿</b>十五万尽歼,<em>南宋</em>被假道</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 假道汉中</button>
-    <button data-p="1">轻骑疲敌</button>
-    <button data-p="2">风雪僵冻</button>
-    <button data-p="3">三峰山夹击</button>
+    <button class="on" data-p="all">全图 · 假道迂回</button>
+    <button data-p="1">假道南宋 · 迂回逼汴</button>
+    <button data-p="2">合达蒲阿 · 尾追疲敌</button>
+    <button data-p="3">大雪三日 · 冻馁</button>
+    <button data-p="4">围三阙一 · 掩杀</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="三峰山之战形势图,含蒙古金疆界、汝水沙河与汴梁钧州三峰山等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="三峰山之战形势图,含蒙古金南宋三方疆界、黄河颍水沙河汉水诸川、拖雷假道汉中迂回逼汴之路与金军自邓州回救尾追之路,及三峰山钧州黄榆店汴京邓州南阳诸地与围三阙一之势">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:金据汴梁河南(东),蒙古据北与西 -->
-    <path d="M 300,0 C 340,110 360,210 420,300 C 470,374 520,430 560,520 C 588,580 600,610 610,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 300,0 C 340,110 360,210 420,300 C 470,374 520,430 560,520 C 588,580 600,610 610,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 300,0 C 340,110 360,210 420,300 C 470,374 520,430 560,520 C 588,580 600,610 610,640"/>
-    <text class="realm q" x="740" y="120" font-size="32">金(河南)</text>
-    <text class="realm j" x="90" y="150" font-size="34">蒙 古</text>
+    <!-- ══ 三方疆界:蒙古据河朔(北),金保河南(中·东),南宋处秦岭淮汉之南(西南) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,72 C 880,78 760,82 600,92 C 520,98 440,104 320,118 C 240,128 140,138 0,150 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,150 C 140,138 240,128 320,118 C 440,104 520,98 600,92 C 760,82 880,78 1000,72 L 1000,640 L 640,640 C 520,635 400,620 280,575 C 200,540 120,500 0,470 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,470 C 120,500 200,540 280,575 C 400,620 520,635 640,640 L 0,640 Z" fill="url(#fqinHatch)"/>
+    <!-- 蒙金约界(黄河一线) -->
+    <path class="border" d="M 0,150 C 140,138 240,128 320,118 C 440,104 520,98 600,92 C 760,82 880,78 1000,72"/>
+    <!-- 金宋约界(秦岭淮汉一线) -->
+    <path class="border song" d="M 0,470 C 120,500 200,540 280,575 C 400,620 520,635 640,640"/>
+    <text class="realm j" x="96" y="58" font-size="30">蒙 古</text>
+    <text class="cname s" x="96" y="80" style="fill:var(--advance);opacity:.7">(河朔·河东)</text>
+    <text class="realm q" x="792" y="212" font-size="30">金</text>
+    <text class="cname s" x="770" y="234" style="fill:var(--enemy);opacity:.7">(河南·南京路)</text>
+    <text class="realm f" x="70" y="610" font-size="22">南 宋</text>
+    <text class="cname s" x="150" y="612" style="fill:var(--qin);opacity:.7">(利州·京西:被假道)</text>
 
-    <!-- 黄河:自西(河中)东下,金蒙以河为界 -->
-    <path class="river" stroke-width="5.5" d="M 120,150 C 240,168 340,176 430,190 C 540,206 640,214 760,210 C 850,208 940,214 1000,220"/>
-    <!-- 汝水:自钧州南流 -->
-    <path class="river" stroke-width="3" d="M 610,300 C 626,360 640,420 664,500 C 680,548 700,590 720,630"/>
-    <!-- 沙河 -->
-    <path class="river" stroke-width="2.4" d="M 560,360 C 600,388 640,410 690,430 C 740,450 790,462 850,468"/>
-    <text class="rname" x="430" y="176" style="font-size:13px">黄 河</text>
-    <text class="rname" x="640" y="392" transform="rotate(74 640 392)" style="font-size:11px">汝 水</text>
-    <text class="rname" x="720" y="446" transform="rotate(16 720 446)" style="font-size:10.5px">沙 河</text>
+    <!-- ══ 山脉 ══ -->
+    <path class="mtn fill" d="M 388,168 L 406,132 L 422,150 L 442,110 L 462,146 L 482,112 L 500,150 Z"/>
+    <path class="mtn" d="M 410,150 l 12,-16 l 12,14 l 14,-20 l 12,16"/>
+    <text class="mname" x="410" y="128" transform="rotate(-12 410 128)">嵩 山</text>
+    <!-- 三峰山(战地) -->
+    <g class="mtn"><path d="M 494,258 l 8,-16 l 8,16 M 510,252 l 8,-15 l 8,15 M 526,258 l 8,-15 l 8,15"/></g>
 
-    <!-- 三峰山 -->
-    <g class="mtn"><path d="M 566,344 l 9,-15 l 9,15 M 584,338 l 9,-15 l 9,15 M 602,344 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="558" y="366">三峰山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:蒙金大界,自西东下,汴京在其南岸 -->
+    <path class="river" stroke-width="5.5" d="M 0,150 C 140,138 240,128 320,118 C 440,104 520,98 600,92 C 760,82 880,78 1000,72"/>
+    <!-- 颍水:出嵩山,历钧州东南流 -->
+    <path class="river" stroke-width="3" d="M 452,178 C 500,204 540,222 566,246 C 612,300 660,372 700,446"/>
+    <!-- 沙河:三峰山之南,东流 -->
+    <path class="river" stroke-width="2.4" d="M 470,300 C 540,318 610,332 690,344 C 750,352 810,358 866,360"/>
+    <!-- 汉水:西南来,拖雷循汉江出唐邓 -->
+    <path class="river" stroke-width="2.6" d="M 0,592 C 110,576 190,556 268,540 C 300,533 320,528 336,524"/>
+    <text class="rname" x="150" y="128" style="font-size:14px">黄 河</text>
+    <text class="rname" x="612" y="330" transform="rotate(56 612 330)" style="font-size:11px">颍 水</text>
+    <text class="rname" x="700" y="352" transform="rotate(6 700 352)" style="font-size:10.5px">沙 河</text>
+    <text class="rname" x="70" y="576" transform="rotate(-10 70 576)" style="font-size:10.5px">汉 水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="sanfengshan"><circle cx="592" cy="330" r="6"/><text class="cname" x="524" y="322">三峰山<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="junzhou"><circle cx="628" cy="300" r="5.5"/><text class="cname" x="642" y="296">钧州</text></g>
-      <g class="city cap" data-city="bianliang"><circle cx="828" cy="250" r="6"/><text class="cname" x="782" y="244">汴梁<tspan class="cname s" dx="2">(金都)</tspan></text></g>
-      <g class="city" data-city="dengzhou"><circle cx="520" cy="520" r="5"/><text class="cname" x="470" y="516">邓州</text></g>
-      <g class="city" data-city="baoji"><circle cx="150" cy="470" r="5"/><text class="cname" x="120" y="500">汉中·宝鸡</text></g>
-      <g class="city" data-city="hezhong"><circle cx="200" cy="150" r="5"/><text class="cname" x="150" y="140">河中</text></g>
+      <g class="city cap" data-city="sanfengshan"><circle cx="515" cy="246" r="6.5"/><text class="cname" x="432" y="240">三峰山<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="junzhou"><circle cx="562" cy="228" r="5.5"/><text class="cname" x="574" y="224">钧州<tspan class="cname s" dx="2">(禹州·阙口)</tspan></text></g>
+      <g class="city" data-city="huangyudian"><circle cx="548" cy="268" r="3.6"/><text class="cname s" x="556" y="284">黄榆店</text></g>
+      <g class="city cap" data-city="bianjing"><circle cx="755" cy="106" r="6.5"/><text class="cname" x="704" y="100">汴京<tspan class="cname s" dx="2">(金南京)</tspan></text></g>
+      <g class="city" data-city="zhengzhou"><circle cx="597" cy="116" r="4"/><text class="cname s" x="606" y="112">郑州</text></g>
+      <g class="city" data-city="luoyang"><circle cx="320" cy="141" r="4.5"/><text class="cname" x="270" y="137">洛阳</text></g>
+      <g class="city" data-city="dengzhou"><circle cx="233" cy="522" r="5"/><text class="cname" x="182" y="518">邓州</text></g>
+      <g class="city" data-city="nanyang"><circle cx="339" cy="459" r="4.5"/><text class="cname" x="350" y="455">南阳</text></g>
+      <g class="city" data-city="caizhou"><circle cx="769" cy="457" r="4.5"/><text class="cname" x="780" y="453">蔡州</text></g>
     </g>
 
-    <!-- 全图 · 假道汉中 -->
+    <!-- 汉中·南宋境(图外·西南) -->
+    <g transform="translate(6,536)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,-4"/>
+      <text class="mlabel f" x="0" y="-12" style="font-size:10px">⟵ 汉中·南宋境(图外)</text>
+      <text class="cname s" x="0" y="18" style="fill:var(--qin);font-size:9.5px">拖雷自凤翔渡渭、假道于宋</text>
+    </g>
+
+    <!-- 全图 · 假道迂回 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 158,468 C 220,440 300,420 380,440 C 460,460 510,500 516,512"/>
-      <text class="mlabel j" x="230" y="470">拖雷假道宋境汉中,迂回北上</text>
-      <path class="march j" marker-end="url(#aj)" d="M 528,514 C 556,460 570,400 588,342"/>
-      <text class="anno" x="540" y="440">出金不意,直趋汴京侧背</text>
-      <path class="march j" marker-end="url(#aj)" d="M 208,166 C 260,220 320,260 388,290"/>
-      <text class="mlabel j" x="230" y="230">窝阔台自将中路攻河中</text>
-      <path class="march q" marker-end="url(#aq)" d="M 820,258 C 740,296 680,308 640,306"/>
-      <text class="mlabel q" x="670" y="278">金遣合达·蒲阿</text>
-      <text class="anno" x="640" y="330">将精兵十五万往拒</text>
+      <path class="march j" marker-end="url(#aj)" d="M 34,540 C 110,528 176,524 233,520 C 320,514 382,466 428,398 C 470,336 494,288 513,252 C 544,198 622,158 700,134"/>
+      <text class="mlabel j" x="250" y="392">拖雷假道汉中·出邓州,迂回逼汴京侧背</text>
+      <path class="march j" marker-end="url(#aj)" d="M 436,28 C 450,66 462,98 472,124"/>
+      <text class="mlabel j" x="360" y="46">窝阔台自将中路,渡河南下</text>
+      <path class="march q" marker-end="url(#aq)" d="M 266,514 C 372,470 462,392 520,300 C 536,274 544,262 548,256"/>
+      <text class="mlabel q" x="360" y="330">金合达·蒲阿十五万,自邓州回救、尾追之</text>
+      <circle class="star" cx="515" cy="246" r="9"/>
+      <text class="anno" x="360" y="470">绕潼关金军坚防,出其腹背</text>
     </g>
 
-    <!-- 阶段一:轻骑疲敌 -->
+    <!-- 阶段一:假道南宋·迂回逼汴 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="616" y="296" width="9" height="9" transform="rotate(45 620 300)"/>
-      <text class="mlabel q" x="642" y="322">金军十五万,求战不得</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 560,360 C 588,340 610,322 630,308"/>
-      <path class="march j rout" marker-end="url(#aj)" d="M 660,360 C 648,338 640,322 634,308"/>
-      <text class="mlabel j" x="470" y="386">拖雷兵少,以轻骑袭扰、坚壁</text>
-      <text class="anno" x="500" y="404">肉薄而不战,数挠之</text>
-      <path class="march q" marker-end="url(#aq)" d="M 632,312 C 660,360 680,420 664,470"/>
-      <text class="mlabel q" x="672" y="420">往返奔命,渐次饥疲</text>
+      <path class="march j" marker-end="url(#aj)" d="M 34,540 C 110,528 176,524 233,520 C 320,514 382,466 428,398 C 470,336 494,288 513,252 C 544,198 622,158 700,134"/>
+      <text class="mlabel j" x="250" y="404">拖雷率三万余精骑,假道汉中、循汉江出唐邓</text>
+      <text class="anno" x="150" y="500">越秦岭、渡渭,借道南宋以避潼关</text>
+      <path class="march j" marker-end="url(#aj)" d="M 436,28 C 450,66 462,98 472,124"/>
+      <text class="mlabel j" x="356" y="44">窝阔台中路,攻河中、逼潼关</text>
+      <rect class="camp" x="750" y="101" width="9" height="9" transform="rotate(45 755 106)"/>
+      <text class="mlabel q" x="632" y="130">拖雷直趋汴京侧背,金廷大震</text>
+      <text class="anno" x="470" y="176">出金人意外,迂回金腹</text>
     </g>
 
-    <!-- 阶段二:风雪僵冻 -->
+    <!-- 阶段二:合达蒲阿·尾追疲敌 -->
     <g id="ph2" class="ph">
-      <g class="snow"><circle cx="560" cy="300" r="2.2"/><circle cx="590" cy="288" r="2.6"/><circle cx="620" cy="310" r="2.2"/><circle cx="648" cy="292" r="2.4"/><circle cx="576" cy="322" r="2"/><circle cx="612" cy="332" r="2.4"/><circle cx="640" cy="322" r="2"/><circle cx="600" cy="272" r="2.2"/><circle cx="632" cy="352" r="2.4"/><circle cx="568" cy="278" r="2"/></g>
-      <text class="mlabel q" x="656" y="286">会大雨雪</text>
-      <rect class="camp" x="620" y="298" width="10" height="10" transform="rotate(45 625 303)"/>
-      <text class="mlabel q" x="640" y="360">金军露宿三日,僵冻乏食</text>
-      <text class="anno" x="500" y="330">人马饥疲,战力大损</text>
-      <text class="anno" x="470" y="392">拖雷坚壁以俟其惫</text>
+      <path class="march q" marker-end="url(#aq)" d="M 250,516 C 356,472 448,394 512,300 C 532,272 542,260 546,254"/>
+      <text class="mlabel q" x="316" y="336">金合达·蒲阿十五万,自邓州回救、尾追拖雷</text>
+      <text class="anno" x="240" y="470">自邓而东,野无所掠,粮运不继</text>
+      <rect class="camp" x="543" y="263" width="9" height="9" transform="rotate(45 548 268)"/>
+      <path class="march harass" marker-end="url(#aj)" d="M 470,340 C 500,320 520,300 540,282"/>
+      <path class="march harass" marker-end="url(#aj)" d="M 620,320 C 596,300 574,286 558,278"/>
+      <text class="mlabel j" x="430" y="356">拖雷以三千骑尾袭,饭时、宿时数挠之</text>
+      <text class="anno" x="430" y="372">金军无所休息,不得食,疲而馁</text>
     </g>
 
-    <!-- 阶段三:三峰山夹击 -->
+    <!-- 阶段三:大雪三日·冻馁 -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 240,200 C 360,250 470,290 570,320"/>
-      <text class="mlabel j" x="290" y="256">窝阔台援军渡河南下会师</text>
-      <path class="march j" marker-end="url(#aj)" d="M 560,368 C 576,354 586,344 592,336"/>
-      <path class="march j" marker-end="url(#aj)" d="M 664,360 C 640,344 620,336 606,330"/>
-      <path class="march j" marker-end="url(#aj)" d="M 592,404 C 592,378 592,356 592,342"/>
-      <circle class="star" cx="592" cy="330" r="9"/>
-      <text class="mlabel j" x="470" y="430">风雪中四面夹攻</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 604,338 C 660,380 720,440 720,520"/>
-      <text class="mlabel r" x="700" y="470">开一角纵其奔,伏骑邀击</text>
-      <text class="anno" x="470" y="448">合达·蒲阿被擒杀,名将尽没</text>
-      <text class="anno" x="470" y="464">十五万几无孑遗</text>
+      <g class="snow"><circle cx="486" cy="232" r="2.2"/><circle cx="512" cy="220" r="2.6"/><circle cx="540" cy="240" r="2.2"/><circle cx="566" cy="222" r="2.4"/><circle cx="500" cy="256" r="2"/><circle cx="530" cy="264" r="2.4"/><circle cx="560" cy="256" r="2"/><circle cx="520" cy="204" r="2.2"/><circle cx="548" cy="286" r="2.4"/><circle cx="478" cy="258" r="2"/><circle cx="594" cy="250" r="2.2"/><circle cx="600" cy="288" r="2"/></g>
+      <rect class="camp" x="543" y="263" width="10" height="10" transform="rotate(45 548 268)"/>
+      <text class="mlabel q" x="556" y="300">金军僵立雪中三日,甲胄凝冰、枪矟如椽</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,60 C 496,120 520,178 540,232"/>
+      <text class="mlabel j" x="360" y="96">窝阔台遣口温不花等渡河来会</text>
+      <text class="anno" x="360" y="330">蒙古分番就火、食肉,以逸待劳</text>
+      <text class="anno" x="360" y="346">拖雷坚俟其惫,不轻与战</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:围三阙一·掩杀 -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 512,150 C 512,180 512,206 514,230"/>
+      <path class="march j" marker-end="url(#aj)" d="M 402,266 C 448,258 480,252 500,248"/>
+      <path class="march j" marker-end="url(#aj)" d="M 516,344 C 516,312 516,286 516,262"/>
+      <circle class="star" cx="515" cy="246" r="10"/>
+      <text class="mlabel j" x="360" y="200">三峰山四面合围,以逸待劳</text>
+      <!-- 阙口:独开钧州一面 -->
+      <path class="gap" d="M 540,236 C 552,232 560,230 574,226"/>
+      <text class="glabel" x="580" y="212">围三阙一:独开钧州一面</text>
+      <!-- 金军弃阵溃逃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 528,240 C 552,234 566,230 588,226 C 636,214 682,198 720,180"/>
+      <text class="mlabel r" x="600" y="176">金弃阵奔钧州,自蹈死地</text>
+      <!-- 纵骑掩杀 -->
+      <path class="march j" marker-end="url(#aj)" d="M 540,262 C 590,244 648,222 706,200"/>
+      <text class="mlabel j" x="560" y="270">蒙古纵铁骑,掩杀于溃途</text>
+      <!-- 武仙溃走南阳 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 500,272 C 430,340 380,404 348,448"/>
+      <text class="mlabel r" x="256" y="410">武仙走南阳,收溃兵十万屯留山</text>
+      <text class="anno" x="600" y="140">蒲阿走汴被擒</text>
+      <text class="anno" x="588" y="248">合达奔钧州,城破而死</text>
+      <text class="anno" x="360" y="216">十五万精锐尽歼,陈和尚不屈死</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -182,33 +254,105 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙古军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.1" stroke-dasharray="2 5"/></svg>拖雷尾袭·数挠</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>金军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>金军溃逃</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9c7a2c" stroke-width="2.4" stroke-dasharray="3 5"/></svg>阙口(围三阙一)</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>金</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蒙古</span>
+    <span class="item"><svg width="16" height="12"><circle cx="4" cy="6" r="1.8" fill="#f6f3ea" stroke="#dfeaf0" stroke-width=".6"/><circle cx="10" cy="4" r="2" fill="#f6f3ea" stroke="#dfeaf0" stroke-width=".6"/><circle cx="13" cy="9" r="1.8" fill="#f6f3ea" stroke="#dfeaf0" stroke-width=".6"/></svg>大雪</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>蒙古</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>金</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>南宋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>三峰山释要 · 假道 · 天时 · 围三阙一</h3>
+    <div class="lead">何以金十五万精锐一朝尽覆 —— 系于假道迂回、大雪困敌与围三阙一之纵舍</div>
+    <svg class="schem" viewBox="0 0 860 260" role="img" aria-label="制胜示意:拖雷假道迂回诱金军尾追而疲之,大雪三日金军冻馁,蒙古围三阙一独开一面纵其奔,而以铁骑掩杀于溃途">
+      <!-- ① 假道诱敌 -->
+      <text x="26" y="30" fill="#2b2418" font-size="12.5" font-weight="700">① 假道迂回 · 诱而疲之</text>
+      <path d="M 40,86 C 110,74 170,74 236,86" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="2 5"/>
+      <path d="M 236,86 L 224,80 L 226,92 Z" fill="#1f4e54"/>
+      <text x="40" y="70" fill="#1f4e54" font-size="10.5" font-weight="700">拖雷三千骑·退而诱</text>
+      <path d="M 40,126 C 120,118 180,118 236,126" fill="none" stroke="#9a2b1e" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 236,126 L 222,119 L 224,133 Z" fill="#9a2b1e"/>
+      <rect x="30" y="118" width="16" height="16" fill="#9a2b1e" opacity=".85"/>
+      <text x="40" y="152" fill="#9a2b1e" font-size="10.5" font-weight="700">金十五万·尾追无食</text>
+      <text x="30" y="182" fill="#5c4f38" font-size="10">自邓而东,野无所掠,饭宿皆挠</text>
+      <!-- 箭头到② -->
+      <path d="M 250,120 C 272,120 282,120 296,120" fill="none" stroke="#5c4f38" stroke-width="1.6"/>
+      <path d="M 296,120 L 286,115 L 286,125 Z" fill="#5c4f38"/>
+      <!-- ② 大雪冻馁 -->
+      <text x="316" y="30" fill="#2b2418" font-size="12.5" font-weight="700">② 大雪三日 · 冻馁</text>
+      <rect x="316" y="48" width="196" height="150" rx="4" fill="rgba(223,234,240,.5)" stroke="#9fb4bd" stroke-width="1" stroke-dasharray="3 4"/>
+      <g fill="#f6f3ea" stroke="#cfe0e8" stroke-width=".6"><circle cx="348" cy="78" r="3"/><circle cx="388" cy="66" r="3.4"/><circle cx="432" cy="82" r="3"/><circle cx="474" cy="70" r="3.2"/><circle cx="360" cy="110" r="2.8"/><circle cx="412" cy="120" r="3.2"/><circle cx="466" cy="112" r="2.8"/><circle cx="392" cy="150" r="3"/><circle cx="448" cy="152" r="2.8"/></g>
+      <rect x="392" y="112" width="18" height="18" fill="#9a2b1e" opacity=".85"/>
+      <text x="336" y="176" fill="#9a2b1e" font-size="10.5" font-weight="700">金军僵冻·甲胄凝冰</text>
+      <text x="336" y="192" fill="#1f4e54" font-size="10.5" font-weight="700">蒙古就火食肉·以逸待劳</text>
+      <path d="M 526,120 C 548,120 558,120 572,120" fill="none" stroke="#5c4f38" stroke-width="1.6"/>
+      <path d="M 572,120 L 562,115 L 562,125 Z" fill="#5c4f38"/>
+      <!-- ③ 围三阙一 -->
+      <text x="592" y="30" fill="#2b2418" font-size="12.5" font-weight="700">③ 围三阙一 · 纵骑掩杀</text>
+      <!-- 三面墙 -->
+      <path d="M 610,60 L 800,60" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 610,60 L 610,200" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 610,200 L 800,200" stroke="#1f4e54" stroke-width="4" stroke-linecap="round"/>
+      <!-- 阙口(右·钧州) -->
+      <path d="M 800,60 L 800,96" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="3 5"/>
+      <path d="M 800,164 L 800,200" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="3 5"/>
+      <text x="806" y="86" fill="#9c7a2c" font-size="9.5" font-weight="700">阙口</text>
+      <text x="806" y="150" fill="#9c7a2c" font-size="9.5" font-weight="700">钧州</text>
+      <!-- 金军 -->
+      <rect x="668" y="118" width="20" height="20" fill="#9a2b1e" opacity=".85"/>
+      <text x="626" y="150" fill="#9a2b1e" font-size="10" font-weight="700">金军</text>
+      <!-- 溃逃出阙 -->
+      <path d="M 690,128 C 740,128 800,128 840,128" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 7"/>
+      <path d="M 840,128 L 828,122 L 830,134 Z" fill="#7a5a23"/>
+      <!-- 掩杀 -->
+      <path d="M 748,66 C 792,90 820,110 840,124" fill="none" stroke="#1f4e54" stroke-width="2.6"/>
+      <path d="M 840,124 L 828,120 L 832,131 Z" fill="#1f4e54"/>
+      <path d="M 748,194 C 792,170 820,150 840,134" fill="none" stroke="#1f4e54" stroke-width="2.6"/>
+      <text x="700" y="230" fill="#1f4e54" font-size="10" font-weight="700">铁骑掩杀于溃途 →</text>
+    </svg>
+    <p class="intro">三峰山之役,金非无兵。合达、蒲阿将<b>十五万</b>(骑二万、步十三万,内有精锐忠孝军)自邓州回救,数倍于拖雷之三万余骑;然一战而尽覆。其败不在众寡,而在<b>为拖雷所调、为天时所困、为围法所纵</b>——三者环环相扣,遂成合围聚歼之局。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>假道 · 天时 —— 拖雷之所以能困</h4>
+        <p>窝阔台用「假道于宋、迂回汴后」之策:拖雷自凤翔渡渭、越秦岭、假道南宋汉中,循汉江出唐邓,绕开潼关金军坚防,直趋汴京侧背。金不得已召合达、蒲阿十五万自邓回救。拖雷兵少,不与争锋,惟以三千骑「饭时、宿时数挠之」,使金军自邓而东野无所食、无所休息;会大雪三日,金军僵冻乏食,而蒙古就火食肉、以逸待劳——胜负之势已先定于交锋之前。</p>
+      </div>
+      <div class="c b">
+        <h4>围三阙一 —— 何以能全歼</h4>
+        <p>合围既成,蒙古不四面尽塞,而<b>独开钧州一面</b>:困兽犹斗,三面死围则金军拼死;故意纵开一路,则饥疲之众必争道而奔,阵伍自乱。金军一动,蒙古铁骑纵横掩杀于溃途,阵战遂化为追歼。合达奔钧州、城破而死,蒲阿走汴被擒,陈和尚不屈就戮,惟武仙以数骑走南阳。十五万精锐,几无孑遗。</p>
+      </div>
+    </div>
+    <p class="kicker">故三峰山之败,<b>非金军之不武,实以逸待劳、围三阙一而纵歼之</b>:假道迂回以调其兵,疲敌绝食、天寒困其力,而后开一面以纵其奔、纵铁骑以掩其溃。金之野战主力自此丧尽,汴京失屏,二年而蔡州亡、金遂灭——<b>一战而定金之亡局</b>。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·太宗本纪》《元史·睿宗(拖雷)传》《金史·完颜合达传》约略绘出。三峰山在今河南禹州(金钧州),城邑水道为相对示意,非实测画界。</p>
-    <p><span class="n">注二</span>晕染疆界为金天兴初形势示意:金退保河南、据汴梁,蒙古据北与西;黄河为其大界,以点划「约界」标之。</p>
-    <p><span class="n">注三</span>拖雷兵少(号三万),不与十五万金军争锋,「肉薄而不战,数挠之」以疲之;俟风雪僵冻、金师惫极,乃合窝阔台援军夹击。胜负之枢,在疲敌与天时。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托线性投影(x=120+(经度−111.6)·235,y=596−(纬度−32.3)·196),几何关系力求近实:汴京在东北(黄河南岸),三峰山·钧州居中,邓州·南阳在西南,洛阳在西。三峰山今河南禹州西南(约113.3E,34.1N),钧州即今禹州(约113.47E,34.16N),黄榆店在钧州南二十五里,汴京今开封(114.3E,34.8N),邓州今河南邓州(112.1E,32.7N),南阳今南阳(112.5E,33.0N),蔡州今汝南(114.4E,33.0N)。江河、疆界经简化;点划「约界」蒙金依黄河一线、金宋依秦岭淮汉一线,非实测画界。依《元史·睿宗传》《元史·太宗本纪》《金史·完颜合达传》《金史·完颜陈和尚传》及《续资治通鉴》卷一六六绘出。</p>
+    <p><span class="n">注二</span>【几方 · 各军所自(第三问)】三方相角:<b>蒙古</b>(青,主)自北与西南两路入——窝阔台自将中路攻河中、逼潼关(图北,渡河南下),拖雷率三万余精骑循西南「假道」一线迂回(图外西南汉中入);<b>金</b>(赭,守)保河南、都汴京,合达·蒲阿十五万自邓州回救、尾追拖雷;<b>南宋</b>(紫,第三方)为被假道者——蒙古强借其汉中·京西之道以避潼关,宋未预战,故绘为静界,不设进军之箭。</p>
+    <p><span class="n">注三</span>【行止之势(第一问)】此役无水战,通为陆行骑战。拖雷之进为一大迂回:自凤翔渡渭、越秦岭、假道南宋汉中,循汉江出唐邓,再北趋汴京侧背(青实线);金军之动为尾追回救(赭实线);拖雷兵少不敢正战,乃以三千骑退而袭挠(青虚线);终则金军弃阵溃逃(褐虚线)、蒙古纵骑掩杀。进、追、袭、溃四势,即图之四色路法。</p>
+    <p><span class="n">注四</span>【军食与制胜之枢(第二问)】制胜不在断一漕渠,而在<b>绝敌之食、疲敌之力、困敌以天时</b>。金军「自邓而东,野无所资」,又为拖雷三千骑「饭时、宿时数挠之」,遂不得食、不得息;会大雪三日,「僵冻不能军」,甲胄凝冰、枪矟如椽,而蒙古就火食肉、番休以逸待劳。合围既成,又行「围三阙一」独开钧州一面,纵其奔而掩杀——故此役之枢,在天时、疲敌与围法,非在兵力之角(参释要)。</p>
+    <p><span class="n">注五</span>【异说(第五问)】兵数:金军或作十五万(骑二万、步十三万),史称「金之精锐尽于此」,数字盖举成军之众,未必皆临阵;拖雷军或云三万、或云四万余,本图从「三万余精骑」。战地:三峰山之确址诸家小异,通指钧州(禹州)西南之三峰山、黄榆店一带,已於图中从此说。诸将结局:合达退保钧州、城破死之,移剌蒲阿走汴京道中被擒不降见杀,完颜陈和尚不欲死于乱军、诣蒙古营自陈而不屈就戮,武仙以数骑走南阳、收溃卒屯留山威远寨——诸书大略相合,细节互有详略,并此志之。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"假道汉中",d:"金天兴元年·蒙古四年(1232)",p:["窝阔台大举伐金,用「假道于宋、迂回汉中」之策:自将中路攻河中,命拖雷率军自陕西宝鸡入宋境汉中,借道迂回,出金人不意,直趋汴京之侧背。","金以完颜合达、移剌蒲阿将精兵十五万往拒。拖雷兵少,号三万而已,不与争锋,惟俟其可乘之机。"]},
-  "1":{t:"轻骑疲敌·数挠不战",d:"天兴元年正月",p:["拖雷兵少,不与十五万金军争锋,以轻骑袭扰、坚壁自固,「肉薄而不战,数挠之」,使金师求战不得。","金军往返奔命,营垒屡移,粮运不继,渐次饥疲,而蒙古之锐未损。"]},
-  "2":{t:"风雪僵冻·金师惫极",d:"天兴元年正月",p:["会天大雨雪,金军露宿三日,僵冻乏食,人马饥疲,甲胄冰凝,战力大损。","拖雷坚壁以俟其惫,不轻与战——所待者,正金军力竭之时也。"]},
-  "3":{t:"三峰山夹击·金主力尽覆",d:"天兴元年正月",p:["拖雷俟其惫,会窝阔台所遣援军渡河而至,合击于钧州三峰山。蒙古纵精骑于风雪中四面夹攻,又开一角纵金军逃奔而伏骑邀击之。","金军大溃,完颜合达、移剌蒲阿被擒杀,名将杨沃衍、樊泽、张惠等尽没,十五万众几无孑遗。金之野战主力自此丧尽,京师汴梁遂危,二年而金亡。"]}
+  all:{t:"假道迂回·围三阙一",d:"金天兴元年·蒙古四年(1232)正月",p:["窝阔台大举伐金,用「假道于宋、迂回汴后」之策:自将中路攻河中、逼潼关,而命其弟拖雷率三万余精骑,自凤翔渡渭、越秦岭,假道南宋汉中,循汉江出唐邓,绕开潼关金军坚防,迂回直趋金都汴京之侧背。","金以完颜合达、移剌蒲阿将精兵十五万自邓州回救、尾追拖雷。拖雷兵少不与争锋,退而诱之、袭而疲之;会大雪三日,金军僵冻乏食。蒙古以逸待劳,合围于钧州三峰山,用「围三阙一」纵其奔而掩杀,十五万精锐尽歼——一战而定金之亡局。"]},
+  "1":{t:"假道南宋·迂回逼汴",d:"天兴元年正月",p:["蒙古伐金,苦潼关—黄河之险不可猝拔。窝阔台乃定「假道」之谋:遣拖雷率三万余精骑,自凤翔渡渭、越秦岭,强借南宋汉中之道,循汉江而下,出唐邓(唐州、邓州)之间,绕开潼关坚防,直插金之腹背。","拖雷长驱北趋,直逼金都汴京之侧。金廷震恐——重兵尽在潼关一线以御窝阔台,而拖雷已出其后。势不得已,乃急召合达、蒲阿之师回救。"]},
+  "2":{t:"合达蒲阿·尾追疲敌",d:"天兴元年正月",p:["金以完颜合达、移剌蒲阿将精兵十五万(骑二万、步十三万,内忠孝军为最锐)自邓州回救,东追拖雷。然「自邓而东」野无所掠,粮运不继,大军行速而食艰。","拖雷兵不敌众,不与正战,惟遣三千轻骑尾其后,当其饭时、宿时辄纵骑挠之,使金军不得食、不得息,往返奔命,渐次饥疲;而蒙古之锐未损。所待者,金军力竭之时也。"]},
+  "3":{t:"大雪三日·冻馁",d:"天兴元年正月",p:["金军进至黄榆店(去钧州二十五里),会天大雨雪,白雾蔽空,不能进,两军相持。雪三日不止,金军僵立雪中,甲胄凝冰、枪矟如椽,人马饥冻,战力大损。","蒙古出于漠北,素惯苦寒,分番就火、割肉而食,以逸待劳;而金军进退失据,坐困雪中。窝阔台复遣口温不花等渡河来会,合围之势遂成。拖雷坚俟其惫,不轻与战——正待此力竭之顷。"]},
+  "4":{t:"围三阙一·纵骑掩杀",d:"天兴元年正月",p:["金军既惫,蒙古乃四面合围于三峰山。围而不尽塞,故「围三阙一」——独开钧州一面:三面死围则困兽犹斗,纵开一路则饥疲之众必争道而奔。金军果弃阵溃走,趋钧州而阵伍自乱。","蒙古纵铁骑于风雪中掩杀于溃途,阵战化为追歼。完颜合达奔入钧州,城破而死;移剌蒲阿走汴京道中被擒,不降见杀;名将完颜陈和尚不欲死于乱军,诣敌营自陈,骂而不屈,遂遇害;惟武仙以数骑走南阳,收溃卒十万屯留山、威远寨。金十五万精锐几无孑遗,野战主力自此丧尽,汴京失屏,二年而金亡。"]}
 };
 const CITY={
-  sanfengshan:{t:"三峰山",d:"金钧州境,今河南禹州",p:["风雪决战、歼灭金军主力之地。蒙古四面夹攻,又开一角纵敌而伏骑邀之,金军大溃。"]},
-  junzhou:{t:"钧州",d:"今河南禹州",p:["金军退保、合达与蒲阿驻军之处。三峰山在其境内,金军自此往返奔命而疲。"]},
-  bianliang:{t:"汴梁",d:"金南京,金哀宗所在",p:["金之都城。拖雷迂回直趋其侧背;三峰山既败,野战主力尽绝,汴梁遂危,二年而金亡。"]},
-  dengzhou:{t:"邓州",d:"今河南邓州",p:["拖雷假道宋境、自汉中迂回入金之处。由此北上,出金人不意,直逼汴京。"]},
-  baoji:{t:"汉中·宝鸡",d:"今陕西宝鸡、汉中一带",p:["拖雷奉命自宝鸡入宋境汉中,借道绕行之处。迂回之谋,出于窝阔台「假道于宋」之策。"]},
-  hezhong:{t:"河中",d:"今山西永济一带",p:["窝阔台自将中路所攻之地。既渡黄河南下,遣援军会师三峰山,成夹击之势。"]}
+  sanfengshan:{t:"三峰山",d:"金钧州西南,今河南禹州西南(约113.3E,34.1N)",p:["蒙金决战、聚歼金军主力之地。金军冒雪追至,僵冻乏食;蒙古四面合围,行「围三阙一」独开钧州一面,纵其奔而以铁骑掩杀,十五万精锐尽覆于此。"]},
+  junzhou:{t:"钧州",d:"今河南禹州(约113.47E,34.16N)",p:["三峰山在其西南境。围三阙一所独开之「阙口」即钧州一面,金军争道奔此而溃。合达退保钧州城,城破死之。今禹州因避金主完颜珣讳曾改称。"]},
+  huangyudian:{t:"黄榆店",d:"钧州南二十五里",p:["金军东追至此,会天大雨雪、白雾蔽空,不能进,两军相持三日。雪中金军僵冻乏食,力竭之机伏于此。"]},
+  bianjing:{t:"汴京",d:"金南京,今河南开封(114.3E,34.8N)",p:["金哀宗所都。拖雷假道迂回,正为直趋其侧背;金乃召合达、蒲阿回救。三峰山既败,野战主力尽绝,汴京失屏;移剌蒲阿被擒即在走汴京道中。"]},
+  zhengzhou:{t:"郑州",d:"今河南郑州(约113.6E,34.75N)",p:["汴京之西、黄河之南,金畿辅要地。拖雷迂回北趋汴京,取道畿南一线;蒙古援军渡河南下亦经其境。"]},
+  luoyang:{t:"洛阳",d:"金中京·河南府,今河南洛阳(约112.4E,34.6N)",p:["金西京要镇,黄河南岸。拖雷假道出唐邓后,兵锋所及、迂回北上之西翼所依。"]},
+  dengzhou:{t:"邓州",d:"今河南邓州(约112.1E,32.7N)",p:["拖雷假道南宋、循汉江出唐邓之处,亦金合达·蒲阿十五万驻防、回救所自。金军「自邓而东」野无所资,疲馁之始。"]},
+  nanyang:{t:"南阳",d:"今河南南阳(约112.5E,33.0N)",p:["南阳盆地要地。三峰山既溃,武仙以数骑走南阳,收合溃卒号十万,屯留山、威远寨,为金末仅存之余烬。"]},
+  caizhou:{t:"蔡州",d:"今河南汝南(约114.4E,33.0N)",p:["三峰山败后二年(1234),金哀宗自汴迁归德、再走蔡州,蒙宋合围,城破自缢,金亡。三峰山一役实定其亡局。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

@@ -8,29 +8,31 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--sand:#a9812f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
   .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
   .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
   header{margin-bottom:14px;padding-right:74px}
-  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.2vw,44px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
-  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13px;letter-spacing:.04em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
   .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
-  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.2em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .dune{fill:none;stroke:var(--sand);stroke-width:1.3;opacity:.7;stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +41,18 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sand{stroke:var(--sand);stroke-width:3.2}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.d{fill:var(--sand)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .slaughter path{fill:var(--enemy);opacity:.92}
+  .slaughter text{fill:var(--paper);font-size:8px;font-weight:700;text-anchor:middle}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 15px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +61,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--ret)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--ret)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 1.8s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,116 +88,140 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../yuan-battle-maps/index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>西</span><span>征</span><span>花</span><span>剌</span></div>
+  <a class="navback" href="index.html" aria-label="返回蒙元征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>蒙</span><span>古</span><span>西</span><span>征</span></div>
   <header>
-    <h1>花剌子模之战</h1>
-    <div class="sub">蒙古十四至十六年(1219–1221)　<i>蒙古 成吉思汗</i> 分道并进·屠诸城 · <b>花剌子模 摩诃末</b>穷死里海孤岛</div>
+    <h1>花剌子模之战·蒙古西征</h1>
+    <div class="sub">蒙古十四至十六年(1219–1221)　<i>蒙古 成吉思汗</i> 灭 <b>花剌子模 摩诃末算端</b>　·　分进合击 · 穿漠奇袭 · 苏丹奔亡</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 商队见杀</button>
-    <button data-p="1">分道并进·围讹答剌</button>
-    <button data-p="2">破布哈拉·陷撒马尔罕</button>
-    <button data-p="3">穷追摩诃末·花剌子模亡</button>
+    <button class="on" data-p="all">全图 · 讹答剌之衅 · 誓师西征</button>
+    <button data-p="1">分进合击 · 围锡尔河诸城 · 屠讹答剌</button>
+    <button data-p="2">穿红沙漠 · 奇袭布哈拉 · 陷撒马尔罕</button>
+    <button data-p="3">苏丹西奔 · 哲别速不台穷追</button>
+    <button data-p="4">拖雷屠呼罗珊 · 灌玉龙杰赤 · 国灭</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="蒙古第一次西征花剌子模形势图,含蒙古草原与河中疆界、锡尔河阿姆河里海咸海与撒马尔罕布哈拉等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="蒙古第一次西征花剌子模形势图,横跨中亚东西约十度经度:含蒙古草原与花剌子模河中疆界、锡尔河阿姆河两大川、咸海里海与红沙漠克孜勒库姆,及讹答剌布哈拉撒马尔罕玉龙杰赤你沙不儿等城">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a9812f"/></marker>
     </defs>
 
-    <!-- 疆界:蒙古据东北草原,花剌子模据西南河中·波斯,约以锡尔河一带为界 -->
-    <path d="M 1000,120 C 860,150 720,190 620,270 C 520,350 420,430 300,500 C 180,560 80,600 0,620 L 0,640 L 1000,640 L 1000,120 Z" fill="url(#qinHatch)"/>
-    <path d="M 1000,120 C 860,150 720,190 620,270 C 520,350 420,430 300,500 C 180,560 80,600 0,620 L 0,0 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 1000,120 C 860,150 720,190 620,270 C 520,350 420,430 300,500 C 180,560 80,600 0,620"/>
-    <text class="realm j" x="620" y="90" font-size="30">蒙 古(草原)</text>
-    <text class="realm q" x="120" y="590" font-size="28">花剌子模(河中)</text>
+    <!-- ══ 疆界:花剌子模据河中·呼罗珊(中·西·南),蒙古自东北草原来伐(东),约以锡尔河东之草原为界(示意) ══ -->
+    <path d="M 838,0 C 812,140 782,290 748,400 C 722,486 704,566 694,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 838,0 C 812,140 782,290 748,400 C 722,486 704,566 694,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 838,0 C 812,140 782,290 748,400 C 722,486 704,566 694,640"/>
+    <text class="realm q" x="150" y="248" font-size="27">花剌子模(河中·呼罗珊)</text>
+    <text class="cname s" x="156" y="274" style="fill:var(--enemy);opacity:.55">摩诃末算端号四十万,分兵守城</text>
+    <text class="realm j" x="812" y="486" font-size="22" style="letter-spacing:.12em">蒙 古</text>
+    <text class="cname s" x="800" y="510" style="fill:var(--advance);opacity:.55">草原 · 来向</text>
 
-    <!-- 里海(西) -->
-    <path class="river" fill="rgba(95,127,136,.30)" stroke-width="1.5" d="M 60,150 C 40,220 42,300 70,370 C 90,420 84,470 60,510 C 48,430 46,340 48,260 C 50,210 52,175 60,150 Z"/>
-    <text class="rname" x="40" y="330" transform="rotate(90 40 330)" style="font-size:13px">里 海</text>
-    <!-- 咸海(西北) -->
-    <path class="river" fill="rgba(95,127,136,.30)" stroke-width="1.4" d="M 230,150 C 210,175 208,205 222,232 C 242,246 268,242 282,218 C 292,196 286,168 264,152 C 252,146 240,145 230,150 Z"/>
-    <text class="rname" x="238" y="200" style="font-size:11px">咸 海</text>
-    <!-- 锡尔河(药杀水):东南山地西北下,注咸海 -->
-    <path class="river" stroke-width="4" d="M 780,300 C 700,318 620,340 540,352 C 460,364 380,320 300,262 C 288,254 274,244 262,236"/>
-    <text class="rname" x="560" y="372" transform="rotate(-8 560 372)">锡 河(药杀水)</text>
-    <!-- 阿姆河(乌浒水):东南下,注咸海 -->
-    <path class="river" stroke-width="4" d="M 720,430 C 640,438 560,442 480,432 C 400,420 340,360 300,290 C 288,270 276,256 264,242"/>
-    <text class="rname" x="520" y="454" transform="rotate(-3 520 454)">阿姆河(乌浒水)</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 里海(极西·图外):以晕影示其东岸 -->
+    <path class="river" fill="rgba(95,127,136,.22)" stroke-width="1.2" d="M 0,360 C 22,400 30,450 22,500 C 16,540 10,570 0,596 L 0,360 Z"/>
+    <text class="rname" x="12" y="540" transform="rotate(90 12 540)" style="font-size:11px;opacity:.7">里 海(东岸)</text>
+    <!-- 咸海(北):两河之尾闾,略露于图顶 -->
+    <path class="river" fill="rgba(95,127,136,.30)" stroke-width="1.4" d="M 196,54 C 164,38 152,16 178,6 C 214,-4 276,-2 312,14 C 338,26 330,48 302,56 C 262,66 226,66 196,54 Z"/>
+    <text class="rname" x="236" y="36" style="font-size:11px">咸 海</text>
+    <!-- 锡尔河(药杀水):自东南山地,过讹答剌西北下,注咸海 -->
+    <path class="river" stroke-width="4" d="M 782,198 C 748,168 730,152 716,143 C 620,116 512,98 443,80 C 398,66 358,44 322,24"/>
+    <text class="rname" x="548" y="118" transform="rotate(-16 548 118)">锡尔河(药杀水)</text>
+    <!-- 阿姆河(乌浒水):自东南,经布哈拉之南,过玉龙杰赤,注咸海 -->
+    <path class="river" stroke-width="4" d="M 674,408 C 600,382 540,362 499,346 C 428,320 378,286 344,238 C 312,206 272,190 239,174 C 204,140 176,92 154,52"/>
+    <text class="rname" x="450" y="356" transform="rotate(-34 450 356)">阿姆河(乌浒水)</text>
 
-    <!-- 红沙碛(克孜勒库姆):锡尔·阿姆两河之间 -->
-    <g class="mtn" opacity=".55"><path d="M 430,392 q 6,-8 12,0 M 452,392 q 6,-8 12,0 M 474,392 q 6,-8 12,0 M 441,406 q 6,-8 12,0 M 463,406 q 6,-8 12,0"/></g>
-    <text class="cname s" x="430" y="384" style="fill:#8a6b3e">红沙碛(克孜勒库姆)</text>
+    <!-- ══ 红沙漠(克孜勒库姆):锡尔·阿姆两河之间,成吉思汗穿之 ══ -->
+    <g class="dune">
+      <path d="M 372,214 q 9,-11 18,0 M 398,214 q 9,-11 18,0 M 424,214 q 9,-11 18,0 M 450,214 q 9,-11 18,0 M 385,232 q 9,-11 18,0 M 411,232 q 9,-11 18,0 M 437,232 q 9,-11 18,0 M 463,232 q 9,-11 18,0 M 398,250 q 9,-11 18,0 M 424,250 q 9,-11 18,0 M 450,250 q 9,-11 18,0"/>
+    </g>
+    <text class="mname" x="378" y="202" style="fill:var(--sand);opacity:.85">红沙漠 · 克孜勒库姆</text>
 
-    <!-- 天山·葱岭(东) -->
-    <g class="mtn"><path d="M 850,240 l 9,-15 l 9,15 M 866,232 l 9,-15 l 9,15 M 884,240 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="852" y="262">天山·葱岭</text>
-
-    <!-- 城邑 -->
+    <!-- ══ 城邑(西→东) ══ -->
     <g id="cities">
-      <g class="city cap" data-city="samarkand"><circle cx="520" cy="360" r="6"/><text class="cname" x="532" y="356">撒马尔罕<tspan class="cname s" dx="2">(新都)</tspan></text></g>
-      <g class="city" data-city="otrar"><circle cx="700" cy="316" r="5.5"/><text class="cname" x="712" y="312">讹答剌</text></g>
-      <g class="city" data-city="bukhara"><circle cx="430" cy="410" r="5.5"/><text class="cname" x="360" y="406">布哈拉<tspan class="cname s" dx="2">(不花剌)</tspan></text></g>
-      <g class="city" data-city="urgench"><circle cx="300" cy="270" r="5"/><text class="cname" x="312" y="266">玉龙杰赤<tspan class="cname s" dx="2">(旧都)</tspan></text></g>
-      <g class="city" data-city="caspian"><circle cx="68" cy="300" r="4"/><text class="cname s" x="78" y="296">里海孤岛</text></g>
-      <g class="city" data-city="nishapur"><circle cx="360" cy="520" r="4.5"/><text class="cname" x="298" y="536">你沙不儿<tspan class="cname s" dx="2">(呼罗珊)</tspan></text></g>
+      <g class="city" data-city="nishapur"><circle cx="127" cy="522" r="5"/><text class="cname" x="137" y="540">你沙不儿<tspan class="cname s" dx="2">(呼罗珊)</tspan></text></g>
+      <g class="city" data-city="urgench"><circle cx="239" cy="174" r="5.5"/><text class="cname" x="249" y="170">玉龙杰赤<tspan class="cname s" dx="2">(旧都·乌尔根奇)</tspan></text></g>
+      <g class="city" data-city="jand"><circle cx="443" cy="80" r="4.5"/><text class="cname" x="453" y="76">毡的<tspan class="cname s" dx="2">(锡尔河下游)</tspan></text></g>
+      <g class="city cap" data-city="bukhara"><circle cx="474" cy="318" r="6"/><text class="cname" x="484" y="322">布哈拉<tspan class="cname s" dx="2">(不花剌)</tspan></text></g>
+      <g class="city cap" data-city="samarkand"><circle cx="634" cy="325" r="6.5"/><text class="cname" x="644" y="329">撒马尔罕<tspan class="cname s" dx="2">(新都)</tspan></text></g>
+      <g class="city" data-city="otrar"><circle cx="716" cy="143" r="6"/><text class="cname" x="726" y="139">讹答剌<tspan class="cname s" dx="2">(锡尔河中游)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 商队见杀·誓师西征 -->
+    <!-- 里海孤岛(极西·苏丹死处) -->
+    <g class="city" data-city="caspian"><circle cx="30" cy="470" r="3.5"/><text class="cname s" x="40" y="466">里海孤岛</text></g>
+
+    <!-- 蒙古本土(图外·东):成吉思汗来向 -->
+    <g transform="translate(958,300)">
+      <path class="march j" marker-end="url(#aj)" d="M 40,0 L 8,0"/>
+      <text class="mlabel j" x="36" y="-8" text-anchor="end" style="font-size:10px">蒙古草原 ⟶</text>
+      <text class="cname s" x="36" y="16" text-anchor="end" style="fill:var(--advance);font-size:9.5px">成吉思汗西征来向(图外东)</text>
+    </g>
+
+    <!-- ══ 全图 · 讹答剌之衅 · 誓师西征 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 940,150 C 880,200 820,250 770,300"/>
-      <text class="mlabel j" x="800" y="180">成吉思汗率二十万,誓复仇,西征</text>
-      <rect class="camp" x="696" y="312" width="9" height="9" transform="rotate(45 700 316)"/>
-      <text class="mlabel q" x="640" y="300">讹答剌守将海儿汗尽杀蒙古商队</text>
-      <text class="anno" x="600" y="336">遣使责问,又为所辱杀,汗大怒</text>
-      <text class="mlabel q" x="120" y="430">摩诃末据河中·波斯,国势方张,分兵守城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 950,300 C 880,238 800,182 726,150"/>
+      <text class="mlabel j" x="768" y="222">成吉思汗率约二十万,分道西征</text>
+      <rect class="camp" x="712" y="139" width="9" height="9" transform="rotate(45 716 143)"/>
+      <text class="mlabel q" x="512" y="120">讹答剌守将亦纳勒术杀蒙古商队(四五〇人)、辱杀来使</text>
+      <text class="anno" x="560" y="98">成吉思汗遣使问罪不得,遂兴师复仇</text>
+      <text class="mlabel q" x="150" y="426">摩诃末虽众,分兵守各城,不敢野战决胜</text>
     </g>
 
-    <!-- 阶段一:分道并进·围讹答剌 -->
+    <!-- ══ 阶段一:分进合击 · 围锡尔河诸城 · 屠讹答剌 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 900,180 C 830,230 770,270 712,306"/>
-      <text class="mlabel j" x="770" y="230">察合台·窝阔台围讹答剌</text>
-      <circle class="siege" cx="700" cy="316" r="13"/>
-      <path class="march j" marker-end="url(#aj)" d="M 880,200 C 700,230 500,240 316,262"/>
-      <text class="mlabel j" x="470" y="228">术赤取锡尔河下游诸城</text>
-      <circle class="siege" cx="300" cy="270" r="12"/>
-      <path class="march j" marker-end="url(#aj)" d="M 900,210 C 760,300 620,380 448,406"/>
-      <text class="mlabel j" x="560" y="410" style="fill:#8a6b3e">汗与拖雷越红沙碛,插布哈拉之后</text>
+      <path class="march j" marker-end="url(#aj)" d="M 930,258 C 850,210 780,172 726,150"/>
+      <text class="mlabel j" x="770" y="228">察合台·窝阔台围讹答剌</text>
+      <circle class="siege" cx="716" cy="143" r="14"/>
+      <g class="slaughter" transform="translate(716,143)"><path d="M0,-9 C1,-3 3,-1 9,0 C3,1 1,3 0,9 C-1,3 -3,1 -9,0 C-3,-1 -1,-3 0,-9 Z"/></g>
+      <text class="anno" x="620" y="176">攻五月乃下,屠其城;亦纳勒术熔银灌耳而死</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,140 C 600,110 520,90 452,80"/>
+      <text class="mlabel j" x="470" y="66">术赤循锡尔河而下,取毡的诸城</text>
+      <circle class="siege" cx="443" cy="80" r="11"/>
     </g>
 
-    <!-- 阶段二:破布哈拉·陷撒马尔罕 -->
+    <!-- ══ 阶段二:穿红沙漠 · 奇袭布哈拉 · 陷撒马尔罕 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 448,406 C 460,398 480,378 508,366"/>
-      <circle class="star" cx="430" cy="410" r="9"/>
-      <circle class="star" cx="520" cy="360" r="9"/>
-      <circle class="siege" cx="520" cy="360" r="15"/>
-      <circle class="siege" cx="700" cy="316" r="13"/>
-      <circle class="star" cx="700" cy="316" r="9"/>
-      <text class="mlabel j" x="360" y="440">成吉思汗亲下不花剌</text>
-      <text class="mlabel j" x="440" y="392">回回炮攻城,驱降民填壕</text>
-      <text class="anno" x="420" y="466">讹答剌·布哈拉·撒马尔罕相继陷</text>
-      <text class="anno" x="440" y="482">顽抗尽屠,工匠妇孺掳掠为奴</text>
+      <path class="march sand" marker-end="url(#ad)" d="M 720,168 C 648,206 566,244 508,286 C 496,296 486,306 480,312"/>
+      <text class="mlabel d" x="540" y="266">成吉思汗·拖雷主力出其不意,穿红沙漠</text>
+      <text class="mlabel d" x="560" y="284" style="font-size:10px">神兵天降,插布哈拉之后</text>
+      <circle class="star" cx="474" cy="318" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 484,318 C 540,318 590,320 624,323"/>
+      <circle class="star" cx="634" cy="325" r="10"/>
+      <circle class="siege" cx="634" cy="325" r="16"/>
+      <text class="mlabel j" x="380" y="352">下不花剌,汗登大寺宣「上帝之鞭」</text>
+      <text class="mlabel j" x="560" y="356">继取新都撒马尔罕,旬余而下</text>
+      <text class="anno" x="380" y="372">回回炮攻城,驱降民填壕,顽抗尽屠,工匠掳为奴</text>
     </g>
 
-    <!-- 阶段三:穷追摩诃末·花剌子模亡 -->
+    <!-- ══ 阶段三:苏丹西奔 · 哲别速不台穷追 ══ -->
     <g id="ph3" class="ph">
-      <path class="march q rout" marker-end="url(#aq)" d="M 508,364 C 380,400 240,380 120,320"/>
-      <text class="mlabel q" x="240" y="352">摩诃末弃国西奔</text>
-      <path class="march j" marker-end="url(#aj)" d="M 512,362 C 400,398 260,388 90,326"/>
-      <text class="mlabel j" x="200" y="404">哲别·速不台以二万骑穷追,逾里海</text>
-      <path d="M 68,300 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="88" y="278">摩诃末走投无路,病死孤岛</text>
-      <path class="march j" marker-end="url(#aj)" d="M 512,364 C 470,420 420,480 372,508"/>
-      <text class="mlabel j" x="360" y="500">拖雷屠呼罗珊·你沙不儿</text>
-      <text class="anno" x="120" y="560">子札兰丁力战印度河,终不能复国;花剌子模亡</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 624,332 C 470,362 320,382 180,432 C 128,450 78,462 46,468"/>
+      <text class="mlabel r" x="300" y="404">摩诃末算端弃国西奔</text>
+      <path class="march j" marker-end="url(#aj)" d="M 630,340 C 480,372 320,394 170,444 C 118,462 76,470 50,476"/>
+      <text class="mlabel j" x="260" y="452">哲别·速不台率二万骑穷追,逾里海南北</text>
+      <g class="slaughter" transform="translate(30,470)"><path d="M0,-8 C1,-3 3,-1 8,0 C3,1 1,3 0,8 C-1,3 -3,1 -8,0 C-3,-1 -1,-3 0,-8 Z" style="fill:var(--ret)"/></g>
+      <text class="mlabel r" x="40" y="450">走投无路,病死里海孤岛(阿必思浑)</text>
+      <text class="anno" x="120" y="500">二将复北上,破钦察·罗斯而还</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:拖雷屠呼罗珊 · 灌玉龙杰赤 · 国灭 ══ -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 488,326 C 380,392 258,466 152,510"/>
+      <text class="mlabel j" x="240" y="470">拖雷扫荡呼罗珊</text>
+      <g class="slaughter" transform="translate(127,522)"><path d="M0,-9 C1,-3 3,-1 9,0 C3,1 1,3 0,9 C-1,3 -3,1 -9,0 C-3,-1 -1,-3 0,-9 Z"/></g>
+      <text class="anno" x="60" y="548">屠你沙不儿,积首为京观</text>
+      <path class="march j" marker-end="url(#aj)" d="M 443,92 C 388,120 300,150 252,168"/>
+      <circle class="siege" cx="239" cy="174" r="13"/>
+      <g class="slaughter" transform="translate(239,174)"><path d="M0,-9 C1,-3 3,-1 9,0 C3,1 1,3 0,9 C-1,3 -3,1 -9,0 C-3,-1 -1,-3 0,-9 Z"/></g>
+      <text class="mlabel j" x="250" y="200">术赤等围玉龙杰赤,决阿姆河灌城,屠之</text>
+      <text class="anno" x="360" y="560">子札兰丁转战印度河,终败;花剌子模亡</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -186,35 +230,101 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙古军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>花剌子模军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>西遁·屠死</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>蒙古军(诸道)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#a9812f" stroke-width="3.2"/></svg>穿红沙漠奇袭</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>苏丹西奔 · 病死</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>都城陷</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>围城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>蒙古</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>花剌子模</span>
+    <span class="item"><svg width="16" height="16"><path d="M8,1 C9,6 10,7 15,8 C10,9 9,10 8,15 C7,10 6,9 1,8 C6,7 7,6 8,1 Z" fill="#9a2b1e"/></svg>屠城</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>花剌子模</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>蒙古</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 分进合击 · 穿漠奇袭 · 苏丹奔亡</h3>
+    <div class="lead">何以旬月而亡大国 —— 非恃兵多,恃分进之势、穿漠之奇、穷追之决</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:左为分进合击——蒙古分数道并进,成吉思汗更穿红沙漠奇袭布哈拉,插敌之后,而花剌子模分兵守城,各城被逐一击破;右为穷追不舍——苏丹弃国西奔,哲别速不台二万骑逾里海穷追,苏丹病死孤岛,不使其复聚">
+      <!-- 分隔 -->
+      <line x1="430" y1="24" x2="430" y2="226" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+      <!-- 左半:分进合击 · 穿漠奇袭 -->
+      <text x="210" y="28" fill="#1f4e54" font-size="13" font-weight="700" text-anchor="middle">分进合击 · 穿漠奇袭</text>
+      <!-- 花剌子模:分兵守城(散布之红方) -->
+      <text x="300" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">花剌子模 · 分兵守城</text>
+      <rect x="300" y="70" width="20" height="20" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+      <rect x="330" y="130" width="20" height="20" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+      <rect x="288" y="180" width="20" height="20" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+      <text x="326" y="84" fill="#9a2b1e" font-size="9">讹答剌</text>
+      <text x="356" y="144" fill="#9a2b1e" font-size="9">撒马尔罕</text>
+      <text x="314" y="194" fill="#9a2b1e" font-size="9">布哈拉</text>
+      <!-- 蒙古分道:三青箭自左各击一城 -->
+      <path d="M 40,74 C 130,74 220,78 296,80" fill="none" stroke="#1f4e54" stroke-width="2.6"/><path d="M 290,74 L 302,80 L 290,86 Z" fill="#1f4e54"/>
+      <text x="34" y="72" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="end">术赤·察合台</text>
+      <path d="M 40,140 C 140,140 240,140 326,140" fill="none" stroke="#1f4e54" stroke-width="2.6"/><path d="M 320,134 L 332,140 L 320,146 Z" fill="#1f4e54"/>
+      <text x="34" y="138" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="end">窝阔台</text>
+      <!-- 穿红沙漠奇袭布哈拉(沙色箭,绕后) -->
+      <g fill="none" stroke="#a9812f" stroke-width="1" opacity=".7">
+        <path d="M 120,214 q 6,-8 12,0 M 146,214 q 6,-8 12,0 M 172,214 q 6,-8 12,0 M 198,214 q 6,-8 12,0"/>
+      </g>
+      <text x="150" y="234" fill="#a9812f" font-size="9.5" text-anchor="middle">红沙漠</text>
+      <path d="M 40,196 C 120,210 200,214 260,206 C 280,204 290,200 296,192" fill="none" stroke="#a9812f" stroke-width="2.8"/><path d="M 292,186 L 300,196 L 288,197 Z" fill="#a9812f"/>
+      <text x="34" y="200" fill="#a9812f" font-size="10" font-weight="700" text-anchor="end">成吉思汗</text>
+      <text x="150" y="252" fill="#a9812f" font-size="9.5" text-anchor="middle" font-style="italic">出其不意,插敌之后</text>
+      <!-- 右半:穷追不舍 · 苏丹奔亡 -->
+      <text x="645" y="28" fill="#7a5a23" font-size="13" font-weight="700" text-anchor="middle">穷追不舍 · 苏丹奔亡</text>
+      <!-- 撒马尔罕(起点) -->
+      <circle cx="790" cy="150" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="790" y="176" fill="#2b2418" font-size="10.5" font-weight="700" text-anchor="middle">撒马尔罕</text>
+      <!-- 苏丹西奔(brown dashed) -->
+      <path d="M 782,148 C 680,140 580,138 500,140" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="3 5"/><path d="M 508,134 L 494,140 L 508,146 Z" fill="#7a5a23"/>
+      <text x="640" y="128" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">苏丹弃国西奔</text>
+      <!-- 哲别速不台穷追(teal,压其后) -->
+      <path d="M 784,166 C 690,172 588,172 504,166" fill="none" stroke="#1f4e54" stroke-width="2.6"/><path d="M 512,160 L 498,166 L 512,172 Z" fill="#1f4e54"/>
+      <text x="648" y="192" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">哲别·速不台 二万骑穷追</text>
+      <!-- 里海孤岛(死) -->
+      <path d="M 470,150 C 462,180 462,206 470,224" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".8"/>
+      <text x="452" y="120" fill="#5f7f88" font-size="10" font-weight="700" text-anchor="middle">里海</text>
+      <circle cx="470" cy="150" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <path d="M 470,142 C 471,147 473,149 478,150 C 473,151 471,153 470,158 C 469,153 467,151 462,150 C 467,149 469,147 470,142 Z" fill="#7a5a23"/>
+      <text x="470" y="200" fill="#7a5a23" font-size="10" font-weight="700" text-anchor="middle">孤岛 · 病死</text>
+      <text x="470" y="216" fill="#5c4f38" font-size="9" text-anchor="middle" font-style="italic">不使其复聚</text>
+    </svg>
+    <p class="intro">蒙古兵约<b>二十万</b>,花剌子模摩诃末号称<b>四十万</b>;论众寡,蒙古反居其少。然摩诃末<b>怯战、分兵守城</b>,坐待蒙古;成吉思汗则<b>分进合击</b>,数道并进,更亲率主力<b>穿红沙漠奇袭布哈拉</b>,插敌之后。诸城首尾不能相顾,遂被逐一击破——制胜之枢,在势不在数。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>分进合击 · 穿漠奇袭</h4>
+        <p>成吉思汗不以大军并于一路,乃分数道:术赤循锡尔河下游取毡的诸城,察合台、窝阔台合围锡尔河中游之讹答剌,而自与拖雷率主力东出。摩诃末所恃者城守,料蒙古必自锡尔河正面来;成吉思汗偏出其不意,越克孜勒库姆红沙漠数百里,神兵天降般直插布哈拉之后。河中腹地既破,撒马尔罕新都孤悬,旬余而下。分守之四十万,遂无一处能野战决胜。</p>
+      </div>
+      <div class="c b">
+        <h4>穷追不舍 · 苏丹奔亡</h4>
+        <p>诸城既破,摩诃末胆落,弃国西奔。成吉思汗不予喘息:遣哲别、速不台以二万骑穷追,逾里海之南北,穷其亡而后已。算端走投无路,单身病死于里海一孤岛(阿必思浑),身无敛衣。为君者一奔而不可复聚,故大国旬月而亡;其子札兰丁虽转战呼罗珊、印度河间,力战不能复国。二将复北上,破钦察、罗斯而还,威震欧亚。</p>
+      </div>
+    </div>
+    <p class="kicker">故花剌子模之亡,<b>非兵之寡,乃势之败</b>:守则分兵四出、坐失野战之机;攻则蒙古分进合击、更以穿漠之奇取其腹心。及苏丹一奔,穷追之下遂不可复振——<b>分进以裂其守,穿漠以夺其气,穷追以绝其聚</b>,三者相济,一大国乃于旬月间土崩。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《元史·太祖本纪》《蒙古秘史》《史集》(拉施特)约略绘出。撒马尔罕、布哈拉在今乌兹别克斯坦,玉龙杰赤在今土库曼斯坦近咸海,你沙不儿在今伊朗东北呼罗珊;锡尔河即药杀水,阿姆河即乌浒水,里海·咸海及红沙碛(克孜勒库姆)地望为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为西征前形势示意:蒙古据东北草原,花剌子模沙(算端)摩诃末据河中·波斯;两国本无画界,锡尔河一带为约略接壤之地,故以点划「约界」标之。</p>
-    <p><span class="n">注三</span>蒙古分道并进:察合台、窝阔台围讹答剌,术赤取锡尔河下游诸城,成吉思汗与拖雷越红沙碛直插布哈拉之后——摩诃末怯战分守,不敢野战,遂致诸城逐一见破。哲别、速不台以二万骑穷追摩诃末,逾里海南北,算端病死孤岛;二将复北上破钦察、罗斯而还。</p>
+    <p><span class="n">注一</span>本图为示意图,横跨中亚东西约十度经度,城邑按今地经纬度作线性(墨卡托)投影:<b>x=90+(经度−58.2)·62,y=556−(纬度−35.6)·57</b>。几何关系力求近实——你沙不儿最西南,玉龙杰赤居西北近咸海,布哈拉、撒马尔罕居河中之中,讹答剌在东北,毡的在北。里海远在图西,以图左晕影及孤岛小点示之;蒙古本土远在图东,以图外东向之箭头示成吉思汗来向。因经度跨度较广而图幅偏扁,东西略作拉伸(约一成),以免南北过挤。</p>
+    <p><span class="n">注二</span>地望与经纬:讹答剌(otrar,锡尔河中游,今哈萨克斯坦南,约68.3E/42.85N,西征衅起之地)、布哈拉(不花剌 Bukhara,约64.4E/39.77N)、撒马尔罕(Samarkand,花剌子模新都,约66.97E/39.65N,今皆乌兹别克斯坦)、玉龙杰赤(乌尔根奇 Urgench,花剌子模旧都·太后所在,约60.6E/42.3N,今土库曼斯坦北近咸海)、你沙不儿(Nishapur,呼罗珊重镇,约58.8E/36.2N,今伊朗东北)、毡的(Jand,锡尔河下游近咸海,约63.9E/44.0N,方位约举)。锡尔河即药杀水,阿姆河即乌浒水;红沙漠即克孜勒库姆(Kyzylkum),介两河之间。里海孤岛(阿必思浑 Abaskun 附近)地望为相对示意,非实测。也里(Herat)等呼罗珊城以篇幅计未入图,并入你沙不儿一线叙之。</p>
+    <p><span class="n">注三</span>衅起与兵力:花剌子模讹答剌守将亦纳勒术(海儿汗 Inalchuq)诬蒙古商队(约四百五十人)为间,尽杀之、掠其货;成吉思汗遣使问罪,又为所辱杀。成吉思汗遂以约二十万众西征。摩诃末算端(Ala ad-Din Muhammad)兵虽号四十万,而怯战分守各城,不敢野战决胜——分散防御之误也。据《元史·太祖本纪》、志费尼《世界征服者史》、拉施特《史集》约略绘出;兵额皆史家约举,不必尽实。</p>
+    <p><span class="n">注四</span>分进合击之目(图中青箭为诸道并进,沙色箭为穿红沙漠奇袭):术赤攻锡尔河下游毡的等城;察合台、窝阔台合围锡尔河中游讹答剌,攻五月乃下,屠其城,亦纳勒术传以熔银灌耳(眼)而死;成吉思汗与拖雷亲率主力,出其不意穿越克孜勒库姆红沙漠,神兵天降般奇袭布哈拉(不花剌),城降——成吉思汗登其大寺,自称「上帝之鞭(天罚)」;继取新都撒马尔罕,十余日下之。诸城顽抗者尽屠,工匠妇孺掳掠为奴。</p>
+    <p><span class="n">注五</span>苏丹奔亡与国灭(图中褐色虚线为西奔·病死):摩诃末弃国西逃,成吉思汗命哲别、速不台率二万骑穷追,逾里海南北;算端走投无路,病死于里海中一孤岛(阿必思浑岛),传身无敛衣。拖雷别将扫荡呼罗珊,屠你沙不儿(报驸马脱忽察儿战死之仇,积首为京观)、也里等城;术赤、察合台、窝阔台合围花剌子模旧都玉龙杰赤(乌尔根奇,太后所在),决阿姆河水灌城,尽为墟。其子札兰丁犹转战,后于印度河被追败,终不能复国。花剌子模帝国亡。诸屠城之数、灌耳诸事,志费尼、拉施特所记详略互异,多寓警世之意,里数、人数未必尽为实录。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"商队见杀·誓师西征",d:"蒙古十四年 · 1219",p:["花剌子模沙(算端)摩诃末据中亚,国势方张。其讹答剌守将海儿汗诬蒙古商队为间,尽杀之、掠其货;成吉思汗遣使责问,又为所辱杀。汗大怒,誓复仇。","乃亲率诸子及哲别、速不台等大军二十万西征。蒙古军将分道并进,而摩诃末怯战,分兵守城,不敢野战——胜败之势,已隐然可睹。"]},
-  "1":{t:"分道并进·围讹答剌",d:"蒙古十四年冬 · 1219",p:["蒙古军分道:察合台、窝阔台围讹答剌,以复商队见杀之仇;术赤取锡尔河(药杀水)下游诸城,进逼玉龙杰赤。","成吉思汗与拖雷率主力越红沙碛(克孜勒库姆),自沙漠间直插布哈拉之后,出敌不意。摩诃末分兵守城,首尾不能相顾。"]},
-  "2":{t:"破布哈拉·陷撒马尔罕",d:"蒙古十五年 · 1220",p:["蒙古以驱降民填壕、以回回炮攻城、以工匠决水。成吉思汗亲下布哈拉(不花剌),继取新都撒马尔罕;讹答剌久围乃破,守将海儿汗以熔银灌耳而死。","诸城相继陷,顽抗者尽屠,工匠妇孺掳掠为奴。摩诃末闻诸城破,胆落,弃国西奔。"]},
-  "3":{t:"穷追摩诃末·花剌子模亡",d:"蒙古十五至十六年 · 1220–1221",p:["成吉思汗命哲别、速不台以二万骑穷追摩诃末,逾里海南北。摩诃末走投无路,病死于里海一孤岛;拖雷别将屠呼罗珊,下你沙不儿诸城。","其子札兰丁犹力战于印度河,终不能复国。花剌子模亡,蒙古威震西域;哲别、速不台复北上破钦察、罗斯而还。"]}
+  all:{t:"讹答剌之衅 · 誓师西征",d:"蒙古十四年 · 1219",p:["花剌子模算端(苏丹)摩诃末据河中·呼罗珊,国势方张。其讹答剌守将亦纳勒术(海儿汗)诬蒙古商队约四百五十人为间谍,尽杀之而掠其货;成吉思汗遣使问罪,又为所辱杀。汗大怒,誓复仇。","乃亲率诸子及哲别、速不台等约二十万众西征。摩诃末兵虽号四十万,而怯战分守各城,不敢野战——蒙古将分道并进,以合击之势临之,胜败之机已隐然可睹。"]},
+  "1":{t:"分进合击 · 围锡尔河诸城 · 屠讹答剌",d:"蒙古十四年冬 · 1219–1220",p:["蒙古大军至锡尔河,分道并进:察合台、窝阔台合围锡尔河中游之讹答剌,以复商队见杀之仇;术赤循锡尔河下游而进,取毡的(Jand)等城,直逼玉龙杰赤方向。","讹答剌久围,攻五月乃下,城破尽屠;守将亦纳勒术为衅首,传被熔银灌耳(眼)而死。摩诃末分兵守城,坐视诸城被围,首尾不能相顾。"]},
+  "2":{t:"穿红沙漠 · 奇袭布哈拉 · 陷撒马尔罕",d:"蒙古十五年 · 1220",p:["成吉思汗与拖雷亲率主力,不循锡尔河正面,乃出其不意越克孜勒库姆红沙漠(Kyzylkum)数百里,神兵天降般直插布哈拉(不花剌)之后。城猝不及防而降;成吉思汗登其大寺,谓城中曰己乃「上帝之鞭(天罚)」,城遭焚掠。","河中腹心既破,复东取新都撒马尔罕。以回回炮急攻、驱降民填壕,守军虽众,十余日而陷。顽抗者尽屠,工匠妇孺掳掠为奴。摩诃末闻诸城破,胆落,弃国西奔。"]},
+  "3":{t:"苏丹西奔 · 哲别速不台穷追",d:"蒙古十五至十六年 · 1220–1221",p:["摩诃末算端弃国西逃。成吉思汗不予喘息,遣哲别、速不台率二万骑穷追,逾里海南北,穷其亡而后已。算端所过城邑望风而溃,竟无所归。","算端走投无路,单身病死于里海中一孤岛(阿必思浑),身无敛衣。哲别、速不台既毕追,复北上破钦察、罗斯而还,威震欧亚。"]},
+  "4":{t:"拖雷屠呼罗珊 · 灌玉龙杰赤 · 国灭",d:"蒙古十六年 · 1221",p:["拖雷别将扫荡呼罗珊,连屠你沙不儿(报驸马脱忽察儿战死之仇,积首为京观)、也里(Herat)诸城。术赤、察合台、窝阔台合围花剌子模旧都玉龙杰赤(乌尔根奇,太后所在),鏖战乃下,决阿姆河水灌城,城尽为墟。","其子札兰丁犹力战于呼罗珊、印度河间,终为蒙古追败,不能复国。花剌子模帝国遂亡,蒙古威震西域。"]}
 };
 const CITY={
-  samarkand:{t:"撒马尔罕",d:"花剌子模新都,今乌兹别克斯坦",p:["摩诃末所都。蒙古以回回炮急攻,守军虽众,数日而陷;顽抗者尽屠,工匠掳为奴。"]},
-  otrar:{t:"讹答剌",d:"锡尔河东北,今哈萨克斯坦境",p:["守将海儿汗尽杀蒙古商队、辱杀来使,西征之衅由此始。察合台、窝阔台久围乃破,城破守将被戮。"]},
-  bukhara:{t:"布哈拉·不花剌",d:"阿姆河北,今乌兹别克斯坦",p:["成吉思汗越红沙碛亲下之。汗登其大寺,谓城中曰己乃「天罚」;城遭焚掠,居民流离。"]},
-  urgench:{t:"玉龙杰赤",d:"花剌子模旧都,近咸海,今土库曼斯坦",p:["术赤、察合台合攻,守御甚坚,鏖战乃下。蒙古决阿姆河水灌城,城尽为墟。"]},
-  caspian:{t:"里海孤岛",d:"摩诃末穷蹙死处",p:["摩诃末为哲别、速不台穷追,逾里海南北,走投无路,病死于海中一孤岛,身无敛衣。"]},
-  nishapur:{t:"你沙不儿·呼罗珊",d:"今伊朗东北呼罗珊",p:["拖雷别将屠之。蒙古报驸马脱忽察儿战死之仇,城陷后尽屠,积首为京观。"]}
+  otrar:{t:"讹答剌(otrar)",d:"锡尔河中游,今哈萨克斯坦南(68.3E/42.85N)",p:["西征衅起之地。守将亦纳勒术(海儿汗)尽杀蒙古商队约四百五十人、辱杀来使。察合台、窝阔台合围,攻五月乃下,城破尽屠;亦纳勒术传被熔银灌耳(眼)而死。"]},
+  jand:{t:"毡的(Jand)",d:"锡尔河下游近咸海(约63.9E/44.0N)",p:["术赤循锡尔河下游进讨所取诸城之一。锡尔河下游城邑相率而降,蒙古遂控河下游,断花剌子模西北之屏。"]},
+  bukhara:{t:"布哈拉(不花剌)",d:"河中西部,今乌兹别克斯坦(64.4E/39.77N)",p:["成吉思汗与拖雷穿红沙漠,出其不意直插其后,城猝降。汗登其大寺宣言己乃「上帝之鞭(天罚)」,谓天以之罚世人之罪;城遭焚掠,居民流离。此穿漠奇袭为西征制胜之奇著。"]},
+  samarkand:{t:"撒马尔罕",d:"花剌子模新都,今乌兹别克斯坦(66.97E/39.65N)",p:["摩诃末新都。布哈拉既下,蒙古东取之。以回回炮急攻、驱降民填壕,守军虽众,十余日而陷;顽抗尽屠,工匠掳为奴。新都既失,摩诃末弃国西奔。"]},
+  urgench:{t:"玉龙杰赤(乌尔根奇)",d:"花剌子模旧都·太后所在,今土库曼斯坦北近咸海(60.6E/42.3N)",p:["花剌子模旧都,算端母后所居。术赤、察合台、窝阔台合围,守御甚坚,鏖战乃下;蒙古决阿姆河水灌城,城尽为墟——花剌子模西北根本之地遂绝。"]},
+  nishapur:{t:"你沙不儿(呼罗珊)",d:"今伊朗东北呼罗珊(58.8E/36.2N)",p:["拖雷扫荡呼罗珊所屠之城。蒙古报驸马脱忽察儿战死之仇,城陷后尽屠,积首为京观。也里(Herat)等城亦相继被兵。"]},
+  caspian:{t:"里海孤岛(阿必思浑)",d:"摩诃末算端穷蹙死处",p:["摩诃末为哲别、速不台穷追,逾里海南北,走投无路,单身病死于里海中一孤岛(阿必思浑附近),身无敛衣。一代算端,竟以奔亡终。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
