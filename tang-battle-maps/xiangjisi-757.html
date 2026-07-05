@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -30,7 +31,10 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  .wall line{stroke:var(--advance);stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +43,15 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.hu{stroke:var(--qin);stroke-width:3}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +60,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--qin)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--qin)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,102 +91,150 @@
   <div class="seal" aria-hidden="true"><span>香</span><span>积</span><span>寺</span><span>役</span></div>
   <header>
     <h1>香积寺之战 · 收两京</h1>
-    <div class="sub">唐至德二载(757)　　<i>唐 郭子仪 · 李嗣业 · 回纥</i> 大破 <b>燕 安守忠 · 李归仁</b> · 收复长安</div>
+    <div class="sub">唐至德二载(757)　　<i>唐 广平王李俶 · 郭子仪 · 李嗣业</i> 会 <em>回纥 叶护太子</em> 破 <b>安史叛军 安守忠 · 李归仁</b>　·　立墙拒锋 · 绕后而克 · 乘胜复两京</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 东讨复京</button>
-    <button data-p="1">香积列阵</button>
-    <button data-p="2">陌刀陷阵</button>
-    <button data-p="3">新店复洛</button>
+    <button data-p="1">王师十五万陈香积寺北</button>
+    <button data-p="2">叛骑冲阵 · 李嗣业陌刀立墙</button>
+    <button data-p="3">回纥绕后 · 斩首六万 · 复长安</button>
+    <button data-p="4">东进新店 · 收洛阳 · 两京俱复</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="香积寺之战收复两京形势图,含唐燕疆界、渭水沣水终南山与凤翔长安洛阳等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="香积寺之战收复两京形势图,含唐燕疆界、渭水黄河沣水与终南山,及长安香积寺潼关陕郡新店洛阳等城邑,唐军回纥自西北与北入援,回纥绕后夹击之路与叛军弃两京之走">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:叛军(燕)据两京之地(东),唐行在凤翔(西),约以战线为界 -->
-    <path d="M 404,0 C 400,90 410,170 430,250 C 448,310 460,370 460,430 C 460,520 448,580 440,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 404,0 C 400,90 410,170 430,250 C 448,310 460,370 460,430 C 460,520 448,580 440,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 404,0 C 400,90 410,170 430,250 C 448,310 460,370 460,430 C 460,520 448,580 440,640"/>
-    <text class="realm q" x="720" y="130" font-size="32">燕(叛军 · 两京)</text>
-    <text class="realm j" x="70" y="560" font-size="32">唐(行在 · 凤翔)</text>
+    <!-- ══ 疆界:叛军(燕)据两京之地(东),唐行在凤翔·关中西陲(西),约以战线为界(示意) ══ -->
+    <path d="M 100,0 C 96,120 90,260 88,360 C 86,460 84,560 82,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 100,0 C 96,120 90,260 88,360 C 86,460 84,560 82,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 100,0 C 96,120 90,260 88,360 C 86,460 84,560 82,640"/>
+    <text class="realm q" x="560" y="112" font-size="27">燕(安史叛军 · 据两京)</text>
+    <text class="realm j" x="46" y="560" font-size="19" transform="rotate(-90 46 560)">唐 · 关中行在</text>
 
-    <!-- 渭水:自西向东贯关中,经长安北 -->
-    <path class="river" stroke-width="5" d="M 60,236 C 200,244 360,250 500,244 C 640,238 760,232 900,240 C 940,242 972,244 1000,246"/>
-    <!-- 沣水:南山北下,经长安西南,注渭 -->
-    <path class="river" stroke-width="2.6" d="M 512,410 C 516,360 520,320 522,290 C 524,268 528,254 534,244"/>
-    <text class="rname" x="300" y="234" style="font-size:13px">渭 水</text>
-    <text class="rname" x="490" y="370" transform="rotate(84 490 370)" style="font-size:10.5px">沣 水</text>
+    <!-- ══ 山脉:终南山(南山),关中之南,唐军背倚、回纥所绕 ══ -->
+    <path class="mtn fill" d="M 60,438 L 78,410 L 94,428 L 116,398 L 138,426 L 160,400 L 182,428 L 204,404 L 226,430 L 248,408 L 268,432 Z"/>
+    <path class="mtn" d="M 78,428 l 16,-22 l 12,15 l 18,-24 l 14,18 l 16,-22 l 14,18"/>
+    <text class="mname" x="120" y="458">终 南 山(南山)</text>
 
-    <!-- 终南山:关中之南,三峰 -->
-    <g class="mtn"><path d="M 470,470 l 10,-16 l 10,16 M 490,462 l 10,-16 l 10,16 M 510,470 l 9,-15 l 9,15"/></g>
-    <text class="cname s" x="474" y="492">终南山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 渭水:自西东流,经长安北,东注黄河于潼关(华阴) -->
+    <path class="river" stroke-width="4.6" d="M 58,300 C 140,300 236,288 306,270 C 366,255 406,250 428,244"/>
+    <!-- 黄河:自北南下,潼关折而东流,过陕郡(三门峡),洛阳在其南 -->
+    <path class="river" stroke-width="5.4" d="M 430,58 C 428,140 428,200 430,242 C 456,256 512,252 560,238 C 636,216 720,200 800,197 C 866,195 928,199 992,193"/>
+    <!-- 沣水:自终南山北下,经香积寺西,注渭 -->
+    <path class="river" stroke-width="2.4" d="M 104,432 C 108,394 114,352 120,308"/>
+    <text class="rname" x="196" y="288" transform="rotate(-8 196 288)" style="font-size:13px">渭 水</text>
+    <text class="rname" x="640" y="214" style="font-size:13px">黄 河</text>
+    <text class="rname" x="100" y="352" transform="rotate(80 100 352)" style="font-size:10.5px">沣水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑(西→东) ══ -->
     <g id="cities">
-      <g class="city cap" data-city="fengxiang"><circle cx="120" cy="290" r="6"/><text class="cname" x="60" y="286">凤翔<tspan class="cname s" dx="2">(唐行在)</tspan></text></g>
-      <g class="city cap" data-city="changan"><circle cx="540" cy="252" r="6"/><text class="cname" x="552" y="248">长安<tspan class="cname s" dx="2">(西京)</tspan></text></g>
-      <g class="city" data-city="xiangjisi"><circle cx="524" cy="312" r="5"/><text class="cname" x="536" y="330">香积寺</text></g>
-      <g class="city" data-city="tongguan"><circle cx="690" cy="300" r="4.5"/><text class="cname s" x="672" y="320">潼关</text></g>
-      <g class="city" data-city="xindian"><circle cx="800" cy="300" r="5"/><text class="cname" x="758" y="288">陕郡<tspan class="cname s" dx="2">·新店</tspan></text></g>
-      <g class="city cap" data-city="luoyang"><circle cx="912" cy="330" r="6"/><text class="cname" x="858" y="352">洛阳<tspan class="cname s" dx="2">(东京)</tspan></text></g>
+      <g class="city cap" data-city="changan"><circle cx="124" cy="317" r="6.5"/><text class="cname" x="134" y="313">长安<tspan class="cname s" dx="2">(西京)</tspan></text></g>
+      <g class="city" data-city="xiangjisi"><circle cx="126" cy="366" r="5.5"/><text class="cname" x="138" y="384">香积寺</text></g>
+      <g class="city" data-city="huazhou"><circle cx="306" cy="249" r="4"/><text class="cname s" x="292" y="240">华州(华阴)</text></g>
+      <g class="city" data-city="tongguan"><circle cx="430" cy="242" r="5"/><text class="cname" x="398" y="234">潼关</text></g>
+      <g class="city" data-city="xindian"><circle cx="622" cy="209" r="5.5"/><text class="cname" x="560" y="200">陕郡<tspan class="cname s" dx="2">·新店</tspan></text></g>
+      <g class="city cap" data-city="luoyang"><circle cx="911" cy="230" r="6.5"/><text class="cname" x="854" y="250">洛阳<tspan class="cname s" dx="2">(东京)</tspan></text></g>
+    </g>
+
+    <!-- 灵武·凤翔(图外·西北,肃宗行在,唐军来路) -->
+    <g transform="translate(12,150)">
+      <path class="march j" marker-end="url(#aj)" d="M 2,2 L 26,20"/>
+      <text class="mlabel j" x="-4" y="-4" style="font-size:10px">灵武·凤翔 ↘</text>
+      <text class="cname s" x="-4" y="36" style="fill:var(--advance);font-size:9.5px">肃宗行在(图外西北)</text>
+    </g>
+    <!-- 回纥·叶护太子(图外·北,精骑四千助唐) -->
+    <g transform="translate(196,22)">
+      <path class="march hu" marker-end="url(#af)" d="M 6,2 L 12,28"/>
+      <text class="mlabel f" x="-40" y="-2" style="font-size:10px">回纥 · 叶护太子 ↓</text>
+      <text class="cname s" x="-40" y="12" style="fill:var(--qin);font-size:9.5px">精骑四千余(图外北 · 助唐)</text>
     </g>
 
     <!-- 全图 · 东讨复京 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 132,292 C 240,300 360,306 460,308 C 490,308 508,310 518,312"/>
-      <text class="mlabel j" x="180" y="330">广平王李俶为元帅,郭子仪副之,统唐及回纥之师十五万东出</text>
-      <rect class="camp" x="504" y="296" width="9" height="9" transform="rotate(45 508 300)"/>
-      <text class="mlabel q" x="560" y="300">叛军安守忠、李归仁十万陈于香积寺北</text>
-      <text class="anno" x="620" y="150">安庆绪据两京,骄兵内溃</text>
+      <path class="march j" marker-end="url(#aj)" d="M 34,192 C 74,250 100,320 120,358"/>
+      <text class="mlabel j" x="150" y="392">王师十五万自西东出,陈香积寺北</text>
+      <rect class="camp" x="146" y="328" width="9" height="9" transform="rotate(45 150 332)"/>
+      <text class="mlabel q" x="188" y="332">安守忠·李归仁 十万拒于寺北</text>
+      <path class="march hu" marker-end="url(#af)" d="M 186,360 C 250,362 278,322 262,296 C 244,268 190,272 160,302"/>
+      <text class="mlabel f" x="230" y="352">回纥绕后</text>
+      <circle class="star" cx="126" cy="366" r="7"/>
+      <circle class="star" cx="622" cy="209" r="7"/>
+      <path class="march j" marker-end="url(#aj)" d="M 150,352 C 300,300 350,255 428,246 C 528,232 560,214 616,210 C 720,202 838,214 900,226"/>
+      <text class="mlabel j" x="470" y="300">大破叛军,乘胜东进,克陕、洛,收复两京</text>
+      <text class="anno" x="690" y="150">安庆绪弃洛阳走河北,两京俱复</text>
     </g>
 
-    <!-- 阶段一:香积列阵 -->
+    <!-- 阶段一:王师十五万陈香积寺北 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 240,296 C 340,304 430,308 500,310"/>
-      <text class="mlabel j" x="250" y="290">唐军进至香积寺北、沣水之东,列阵亘数十里</text>
-      <rect class="camp" x="504" y="292" width="10" height="10" transform="rotate(45 509 297)"/>
-      <text class="mlabel q" x="530" y="284">叛军十万拒守</text>
-      <text class="anno" x="360" y="352">李嗣业前军 · 郭子仪中军 · 王思礼后军</text>
-      <path class="march j" marker-end="url(#aj)" d="M 500,326 C 520,368 540,410 512,452"/>
-      <text class="mlabel j" x="540" y="416">回纥叶护以精骑潜趋阵后南山</text>
+      <path class="march j" marker-end="url(#aj)" d="M 34,192 C 74,252 100,320 120,358"/>
+      <text class="mlabel j" x="146" y="392">唐军进至香积寺北、沣水东,背倚南山,列阵亘数十里</text>
+      <text class="anno" x="150" y="410">李嗣业前军 · 广平王·郭子仪中军 · 王思礼后军</text>
+      <rect class="camp" x="146" y="328" width="10" height="10" transform="rotate(45 151 333)"/>
+      <text class="mlabel q" x="192" y="330">安守忠·李归仁 十万列阵于北</text>
+      <path class="march hu" marker-end="url(#af)" d="M 202,24 C 200,120 198,280 194,344"/>
+      <text class="mlabel f" x="206" y="300">回纥叶护精骑四千,列于唐阵之右</text>
     </g>
 
-    <!-- 阶段二:陌刀陷阵 -->
+    <!-- 阶段二:叛骑冲阵 · 李嗣业陌刀立墙 -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 522,306 C 512,308 502,310 494,312"/>
-      <text class="mlabel q" x="470" y="298">李归仁纵铁骑冲唐前阵</text>
-      <path class="march j" marker-end="url(#aj)" d="M 470,318 C 486,314 502,310 514,308"/>
-      <text class="mlabel j" x="360" y="336">李嗣业袒裼持陌刀,如墙而进,所向辟易</text>
-      <circle class="star" cx="524" cy="312" r="8"/>
-      <path class="march j" marker-end="url(#aj)" d="M 512,448 C 528,410 526,370 522,332"/>
-      <text class="mlabel j" x="536" y="400">回纥自南山绕出阵后,夹击</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 534,306 C 600,296 660,296 686,298"/>
-      <text class="mlabel r" x="560" y="322">自午及酉,斩首六万,宵遁</text>
+      <path class="march q" marker-end="url(#aq)" d="M 152,340 C 146,348 141,354 137,360"/>
+      <text class="mlabel q" x="160" y="336">李归仁纵铁骑冲唐前军,前军却而几乱</text>
+      <!-- 陌刀墙:李嗣业袒身持陌刀,如墙而进 -->
+      <g class="wall">
+        <line x1="96" y1="374" x2="172" y2="374" stroke-width="5"/>
+        <line x1="104" y1="374" x2="104" y2="363" stroke-width="2"/>
+        <line x1="116" y1="374" x2="116" y2="362" stroke-width="2"/>
+        <line x1="128" y1="374" x2="128" y2="363" stroke-width="2"/>
+        <line x1="140" y1="374" x2="140" y2="362" stroke-width="2"/>
+        <line x1="152" y1="374" x2="152" y2="363" stroke-width="2"/>
+        <line x1="164" y1="374" x2="164" y2="362" stroke-width="2"/>
+      </g>
+      <text class="mlabel j" x="60" y="402">李嗣业袒身持陌刀,立于阵前如墙而进,所向辟易</text>
+      <circle class="star" cx="126" cy="366" r="8.5"/>
+      <rect class="camp" x="236" y="352" width="9" height="9" transform="rotate(45 240 356)"/>
+      <text class="mlabel q" x="252" y="360">叛军别伏精骑于阵东,谋袭唐侧</text>
+      <text class="anno" x="252" y="378">唐斥候觉之,仆固怀恩以回纥备焉</text>
     </g>
 
-    <!-- 阶段三:新店复洛 -->
+    <!-- 阶段三:回纥绕后 · 斩首六万 · 复长安 -->
     <g id="ph3" class="ph">
-      <path d="M 540,252 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="480" y="238">次日唐军入长安</text>
-      <path class="march j" marker-end="url(#aj)" d="M 552,266 C 640,290 720,300 786,300"/>
-      <text class="mlabel j" x="600" y="286">乘胜东进</text>
-      <rect class="camp" x="794" y="294" width="9" height="9" transform="rotate(45 798 298)"/>
-      <text class="mlabel q" x="740" y="332">严庄、张通儒屯陕郡新店拒守</text>
-      <circle class="star" cx="800" cy="300" r="8"/>
-      <path class="march j" marker-end="url(#aj)" d="M 812,304 C 860,318 890,324 908,328"/>
-      <text class="anno" x="820" y="350">回纥逾山出其背,大破之</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 918,322 C 940,290 950,240 946,190"/>
-      <text class="mlabel r" x="922" y="240">安庆绪弃洛阳走河北</text>
-      <text class="anno" x="700" y="150">东京以复,两京遂平</text>
+      <path class="march hu" marker-end="url(#af)" d="M 200,352 C 268,356 296,314 278,286 C 258,256 196,262 160,300"/>
+      <text class="mlabel f" x="240" y="336">回纥先破阵东伏骑,绕出叛军阵后</text>
+      <path class="march j" marker-end="url(#aj)" d="M 130,360 C 138,348 146,340 151,334"/>
+      <text class="mlabel j" x="60" y="424">唐军当其前,回纥薄其背,前后奋击</text>
+      <circle class="star" cx="140" cy="342" r="8.5"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 158,326 C 160,296 158,262 150,232"/>
+      <text class="mlabel r" x="164" y="266">自午及酉,斩首六万,填沟壑,余众宵遁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 128,360 C 126,348 125,336 124,326"/>
+      <text class="mlabel j" x="52" y="300">次日王师入长安,西京遂复</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:东进新店 · 收洛阳 · 两京俱复 -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 132,318 C 260,300 340,256 428,247 C 512,238 560,216 614,210"/>
+      <text class="mlabel j" x="150" y="336">郭子仪等东出潼关,趋陕郡</text>
+      <rect class="camp" x="618" y="205" width="10" height="10" transform="rotate(45 623 210)"/>
+      <text class="mlabel q" x="470" y="176">严庄悉发洛阳兵西上,合张通儒十五万拒新店</text>
+      <text class="anno" x="486" y="256">唐军六合而退,几败</text>
+      <path class="march hu" marker-end="url(#af)" d="M 600,238 C 654,252 688,224 666,198 C 648,180 626,188 632,204"/>
+      <text class="mlabel f" x="560" y="290">回纥逾南山,绕出其背,大破之</text>
+      <circle class="star" cx="622" cy="209" r="8.5"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 908,222 C 922,186 932,138 928,88"/>
+      <text class="mlabel r" x="812" y="128">安庆绪弃洛阳,走河北保邺</text>
+      <path class="march j" marker-end="url(#aj)" d="M 634,213 C 724,206 822,216 898,226"/>
+      <text class="mlabel j" x="700" y="246">唐军进克东京</text>
+      <text class="anno" x="640" y="300">两京俱复,玄宗·肃宗还京</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -176,34 +243,88 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军·回纥</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>叛军(燕)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(郭子仪·李嗣业)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="3"/></svg>回纥(叶护太子)精骑</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>安史叛军(燕)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>叛军弃两京·西走北奔</span>
+    <span class="item"><svg width="30" height="16"><line x1="2" y1="12" x2="28" y2="12" stroke="#1f4e54" stroke-width="4"/><line x1="6" y1="12" x2="6" y2="4" stroke="#1f4e54" stroke-width="1.6"/><line x1="12" y1="12" x2="12" y2="4" stroke="#1f4e54" stroke-width="1.6"/><line x1="18" y1="12" x2="18" y2="4" stroke="#1f4e54" stroke-width="1.6"/><line x1="24" y1="12" x2="24" y2="4" stroke="#1f4e54" stroke-width="1.6"/></svg>陌刀立墙</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>叛军</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>叛军(燕)</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>战术释要 · 立墙拒锋 · 绕后而克</h3>
+    <div class="lead">何以香积寺之捷,系于一墙一骑 —— 陌刀立墙以拒其锋,回纥绕后以覆其背</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="香积寺战术示意:叛军铁骑南冲,李嗣业陌刀步兵结墙横拒稳住前军,回纥精骑自唐军右翼绕出叛军阵后,前后夹击而破之">
+      <!-- 北:叛军阵 / 南:唐军阵(背倚南山) -->
+      <text x="26" y="34" fill="#9a2b1e" font-size="12" font-weight="700">叛军十万 · 阵于北(安守忠·李归仁)</text>
+      <line x1="24" y1="46" x2="836" y2="46" stroke="#9a2b1e" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <text x="26" y="230" fill="#1f4e54" font-size="12" font-weight="700">唐军十五万 · 阵于南,背倚终南山</text>
+      <line x1="24" y1="210" x2="836" y2="210" stroke="#5c4f38" stroke-width="2" opacity=".3" stroke-dasharray="1 6"/>
+      <!-- 叛军铁骑南冲 -->
+      <path d="M 250,58 C 246,96 244,120 244,140" fill="none" stroke="#9a2b1e" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 244,150 L 238,134 L 250,134 Z" fill="#9a2b1e"/>
+      <text x="256" y="104" fill="#9a2b1e" font-size="11" font-weight="700">铁骑冲阵</text>
+      <text x="256" y="120" fill="#9a2b1e" font-size="9.5">唐前军却而几乱</text>
+      <!-- 陌刀墙:横墙拒之(青,带刃齿) -->
+      <line x1="150" y1="158" x2="360" y2="158" stroke="#1f4e54" stroke-width="7" stroke-linecap="round"/>
+      <g stroke="#1f4e54" stroke-width="2.4">
+        <line x1="164" y1="158" x2="164" y2="144"/><line x1="188" y1="158" x2="188" y2="143"/><line x1="212" y1="158" x2="212" y2="144"/><line x1="236" y1="158" x2="236" y2="143"/><line x1="260" y1="158" x2="260" y2="144"/><line x1="284" y1="158" x2="284" y2="143"/><line x1="308" y1="158" x2="308" y2="144"/><line x1="332" y1="158" x2="332" y2="143"/>
+      </g>
+      <text x="150" y="184" fill="#1f4e54" font-size="11.5" font-weight="700">李嗣业 · 陌刀立墙</text>
+      <text x="150" y="199" fill="#5c4f38" font-size="9.5">袒身持长刀,如墙而进,人马俱碎 —— 阵脚复稳</text>
+      <!-- 叛军阵东伏骑(被回纥先破) -->
+      <rect x="470" y="150" width="10" height="10" transform="rotate(45 475 155)" fill="#9a2b1e" opacity=".85"/>
+      <text x="452" y="180" fill="#9a2b1e" font-size="9.5">阵东伏骑</text>
+      <g><circle cx="475" cy="155" r="12" fill="none" stroke="#5c4a6e" stroke-width="1.8"/><line x1="468" y1="148" x2="482" y2="162" stroke="#5c4a6e" stroke-width="2.4"/><line x1="468" y1="162" x2="482" y2="148" stroke="#5c4a6e" stroke-width="2.4"/></g>
+      <!-- 回纥绕后(紫,自唐右翼东出,绕至叛军阵后) -->
+      <path d="M 470,206 C 560,206 660,200 700,150 C 726,116 706,74 640,60" fill="none" stroke="#5c4a6e" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M 646,64 L 628,60 L 636,50 Z" fill="#5c4a6e"/>
+      <circle cx="470" cy="206" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="486" y="224" fill="#5c4a6e" font-size="11" font-weight="700">回纥精骑 · 自唐右翼绕出</text>
+      <text x="612" y="98" fill="#5c4a6e" font-size="11" font-weight="700">绕出叛军阵后</text>
+      <!-- 夹击结果 -->
+      <text x="600" y="150" fill="#9a2b1e" font-size="12.5" font-weight="700">腹背受敌 → 大溃</text>
+      <text x="600" y="168" fill="#5c4f38" font-size="10">自午至酉,斩首六万</text>
+      <text x="600" y="182" fill="#5c4f38" font-size="10">次日复长安(西京)</text>
+    </svg>
+    <p class="intro">香积寺之役,唐师十五万当叛军十万,列阵而决,非以奇计取胜,而以一正一奇相济:<b>正者,当叛骑冲阵之锋而不溃;奇者,乘其正面胶著而覆其背</b>。前军一动则全军披靡,故稳住阵脚为第一义;既稳,则绕后一击可收全功。二者阙一,则香积不克。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>陌刀立墙 · 唐之拒</h4>
+        <p>叛将李归仁出挑战,纵铁骑直冲唐前军,前军却而阵动,几至崩坏。前军兵马使李嗣业曰:『今日不以身饵贼,军无孑遗矣!』乃袒裼持陌刀,立于阵前大呼奋击,当其刀者人马俱碎;所部陌刀手结为长墙,如墙而进,叛骑莫能当,唐军气复振,阵脚遂固 —— 此一战之所以能持而不溃。</p>
+      </div>
+      <div class="c b">
+        <h4>回纥绕后 · 奇之覆</h4>
+        <p>叛军别伏精骑于阵东,欲袭唐侧,为唐斥候所觉;仆固怀恩引回纥精骑先破之。回纥叶护复以四千余骑自唐军右翼绕出,趋叛军阵后。正面既以陌刀墙相持,回纥骤薄其背,叛军腹背受敌,自午及酉,尘埃涨天,斩首六万,填沟壑者不可胜数,余众宵遁 —— 明日,王师入长安。</p>
+      </div>
+    </div>
+    <p class="kicker">故此役之克,<b>立墙于前以拒其锋,绕后于外以断其归</b>:无陌刀墙则前军先溃,回纥虽绕后无所乘;无回纥骑则相持终日而叛军得全师。二者相须,乃成夹击之势。同一机杼,再见于旬月之后的陕郡新店 —— <b>唐军正面六合而退,回纥逾南山绕出其背,叛军复溃,安庆绪弃洛阳而走</b>,两京遂以俱复。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二二〇、《旧唐书·郭子仪传》《李嗣业传》《回纥传》约略绘出。疆界、水道及军阵位置经简化,叛军与唐之界以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注二</span>香积寺在今西安长安区,沣水东;凤翔今陕西宝鸡凤翔,时为肃宗行在;新店在陕郡(今河南三门峡)界。渭、沣二水走向经约略示之。</p>
-    <p><span class="n">注三</span>李嗣业之陌刀、回纥之铁骑为破阵之关键;然唐廷借兵回纥、许其入城掳掠,亦伏中晚唐藩镇之患与回纥骄横之端——功成之下,隐忧已萌。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=70+(经度−108.70)·225,y=400−(纬度−33.90)·225),几何关系力求近实:长安、香积寺在西,潼关、陕郡居中,洛阳在东,渭水自西东流经长安北、于潼关入黄河,黄河自北折东、洛阳在其南岸,构成关中—河洛之走廊。疆界、水道经简化;晕染之约界仅示叛军据两京之地、唐行在关中西陲之大势,战线随攻守屡有进退,非实有画界。依《旧唐书·郭子仪传》《李嗣业传》《回纥传》及《资治通鉴》卷二二〇绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:长安(西京,今西安,108.94E/34.27N)、香积寺(长安城南约三十里、沣水东岸,今西安长安区,108.95E/34.05N)、华州华阴(约109.75E/34.57N)、潼关(约110.30E/34.60N)、陕郡·新店(今河南三门峡一带,约111.15E/34.75N)、洛阳(东京,今洛阳,112.45E/34.66N)。终南山(南山)横亘关中之南,唐军背倚之、回纥绕出其侧。肃宗行在凤翔(约107.4E,图外西北;初在灵武),唐军自此东出,以图外西北向箭头示之;回纥叶护太子将精骑四千余自北来会,以图外北向箭头示之。</p>
+    <p><span class="n">注三</span>行军皆由陆路,无水运漕转之事:唐军自凤翔东出、循渭水之南趋长安,复出潼关沿黄河南岸东进陕、洛;叛军之却、之弃两京北奔,亦皆陆行。两军所出各异:唐师自关中西陲(图外西北,肃宗行在凤翔、灵武)东讨;回纥叶护受约助战,提精骑自北而下,会于唐阵之右 —— 此役实唐、回纥合势破叛之局。</p>
+    <p><span class="n">注四</span>制胜之枢在『立墙拒锋、绕后夹击』(图中青色陌刀墙、紫色回纥绕后之路):叛军十万列阵于北,以铁骑冲唐前军,前军几溃;赖李嗣业袒身持陌刀如墙而进,稳住阵脚(步兵长刀墙拒骑),回纥精骑复自唐右翼绕出叛军阵后,前后夹击,自午至酉,斩首六万,俘二万,叛军大溃,安守忠、李归仁走。明日,广平王李俶入长安,西京复。旬月后东讨,叛军严庄悉发洛阳兵西上、合张通儒等十五万拒于陕郡新店,郭子仪正面接战六合几败,回纥逾南山绕出其背,叛军复大溃,安庆绪弃洛阳走河北保邺,唐军收东京,两京俱复。</p>
+    <p><span class="n">注五</span>异说与考订:唐军兵数,《通鉴》称十五万、号二十万,叛军十万,里数、斩获多约举,不必尽为实数。『斩首六万、俘二万』本《旧唐书·郭子仪传》《通鉴》卷二二〇,史家或有夸饰。回纥叶护太子(磨延啜之子)所将,诸书作『精骑四千余』;仆固怀恩预破阵东伏兵、回纥绕后诸节,亦见《通鉴》。唐廷借兵回纥,约克城之日『土地、士庶归唐,金帛、子女予回纥』,广平王固请缓其入长安而先取洛阳;及东京下,回纥遂大掠 —— 收京之功既成,而借兵之患、回纥骄横之端亦自此伏,史家所谓『此后无盛唐』者,盖兼指焉。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"东讨复京",d:"至德二载(757)九月",p:["安史乱起,两京沦陷,玄宗幸蜀,肃宗即位灵武,寻移行在于凤翔。至德二载九月,广平王李俶(后之代宗)为天下兵马元帅,郭子仪副之,统朔方及回纥、西域之兵十五万,号二十万,自凤翔东进,趋长安。","叛军安守忠、李归仁等十万,陈于香积寺北、沣水之东,拒唐师于西京门户之外。两军相望,一战之间,系两京之得失、中兴之成败。"]},
-  "1":{t:"香积列阵",d:"至德二载九月",p:["唐军进至香积寺北、沣水之东,列阵亘数十里:李嗣业为前军,郭子仪自将中军,王思礼将后军,阵势严整。","回纥叶护受约,以精骑潜趋叛军阵后之南山,期以夹击。唐军之谋,不在正面之力,而在腹背之势——一击之奇,伏于列阵之初。"]},
-  "2":{t:"陌刀陷阵",d:"至德二载九月",p:["叛骁将李归仁出挑战,纵铁骑冲唐前阵,唐军一度却而扰动。李嗣业袒裼持陌刀,立于阵前大呼死战,身先士卒,如墙而进,所向辟易,唐军气复振。","回纥自阵后南山掩击,叛军腹背受敌,自午及酉,斩首六万,填沟壑死者甚众,余众宵遁。次日唐军入长安,西京遂复。"]},
-  "3":{t:"新店复洛",d:"至德二载十月",p:["唐军乘胜东进,叛军严庄、张通儒悉众屯陕郡新店,据险拒守,以蔽东京。","回纥逾山出其背,唐军奋击,大破之。安庆绪弃洛阳走河北,东京以复,两京遂平。中兴之业,自此奠其大略。"]}
+  all:{t:"东讨复京",d:"至德二载(757)九月—十月",p:["安史乱起,两京沦陷,玄宗幸蜀,肃宗即位灵武,寻移行在于凤翔。至德二载九月,广平王李俶(后之代宗)为天下兵马元帅,郭子仪副之,统朔方、安西及回纥、西域之兵十五万,号二十万,自凤翔东出,趋长安;回纥叶护太子将精骑四千余来会。","叛军安守忠、李归仁等十万,陈于香积寺北、沣水之东。唐军背倚南山列阵,李嗣业陌刀立墙以拒其锋,回纥绕出叛军阵后夹击,斩首六万,叛军大溃,遂复长安。乘胜东进,复破叛军于陕郡新店,安庆绪弃洛阳北走,东京亦复,两京俱平。"]},
+  "1":{t:"王师十五万陈香积寺北",d:"至德二载九月",p:["广平王李俶为元帅,郭子仪副之,统唐及回纥之师十五万自凤翔东出。进至香积寺北、沣水之东,背倚终南山,列阵亘数十里:李嗣业为前军,广平王、郭子仪自将中军,王思礼将后军,阵势严整。","叛军安守忠、李归仁等以十万之众列阵于北,又别伏精骑于阵东,谋袭唐侧。回纥叶护太子以精骑四千余列于唐阵之右,以备绕击。两阵相望,一战之间,系两京之得失、中兴之成败。"]},
+  "2":{t:"叛骑冲阵 · 李嗣业陌刀立墙",d:"至德二载九月",p:["叛骁将李归仁出挑战,继纵铁骑直冲唐前军,唐前军却而阵动,几至崩坏,军资器械弃于道者狼藉。前军兵马使李嗣业曰:『今日不以身饵贼,军无孑遗矣!』乃袒裼持陌刀,立于阵前大呼奋击,当其刀者人马俱碎,连斩数十人,阵势乃定。","嗣业帅前军各持长刀,如墙而进,身先士卒,所向辟易,唐军气复振。时叛军别伏精骑于阵东,欲乘唐侧,为唐斥候所觉;仆固怀恩引回纥精骑先破之,阵东之患遂除。"]},
+  "3":{t:"回纥绕后 · 斩首六万 · 复长安",d:"至德二载九月",p:["回纥既破阵东伏骑,叶护复以精骑自唐军右翼绕出,趋叛军阵后。正面则李嗣业陌刀墙相持不退,叛军腹背受敌。自午及酉,尘埃涨天,唐与回纥前后奋击,叛军大溃,斩首六万,俘二万,填沟壑而死者不可胜数,安守忠、李归仁引余众宵遁。","次日,广平王李俶整军入长安,士民夹道欢呼,西京遂复。捷闻行在,肃宗喜曰:『虽吾之家国,实由卿再造。』"]},
+  "4":{t:"东进新店 · 收洛阳 · 两京俱复",d:"至德二载十月",p:["唐军乘胜东出潼关,趋陕郡以取东京。叛军安庆绪遣严庄悉发洛阳之兵西上,与自长安退还之张通儒等合十五万,据险拒守于陕郡新店。郭子仪等接战,正面六合而退,几败。","会回纥逾南山绕出其背,唐军还兵奋击,前后夹攻,叛军复大溃,僵尸蔽野。严庄、张通儒走还洛阳,安庆绪惧,弃东京渡河北走,保邺(相州)。唐军进克洛阳,东京以复,两京遂平。玄宗、肃宗先后还京,中兴之业,自此奠其大略。"]}
 };
 const CITY={
-  fengxiang:{t:"凤翔",d:"唐行在,今陕西宝鸡凤翔",p:["肃宗行在所在。至德二载九月,广平王、郭子仪自此统唐及回纥之师十五万东出,趋长安。"]},
-  changan:{t:"长安",d:"西京,今陕西西安",p:["安史叛军所据。香积寺一战大破叛军之次日,唐军入城,西京遂复。"]},
-  xiangjisi:{t:"香积寺",d:"长安西南,沣水东",p:["会战之地。唐军列阵于寺北、沣水之东;李嗣业陌刀陷阵、回纥绕出阵后夹击,斩首六万,叛军大溃。"]},
-  tongguan:{t:"潼关",d:"关中东门,今陕西潼关",p:["西京与东京之间的锁钥。复长安后,唐军东出过此,进讨陕、洛之叛军。"]},
-  xindian:{t:"陕郡·新店",d:"今河南三门峡界",p:["严庄、张通儒悉众屯此拒守。回纥逾山出其背,唐军奋击大破之,东京之门户遂开。"]},
-  luoyang:{t:"洛阳",d:"东京,今河南洛阳",p:["安庆绪据以自守。新店败后,庆绪弃城走河北,东京以复,两京遂平。"]}
+  changan:{t:"长安(西京)",d:"今陕西西安(108.94E,34.27N)",p:["安史叛军所据之西京。香积寺一战大破叛军之次日,广平王李俶整军入城,西京遂复。城南三十里即香积寺会战之地。"]},
+  xiangjisi:{t:"香积寺",d:"长安城南约三十里、沣水东岸,今西安长安区(108.95E,34.05N)",p:["收复两京之决战地。唐军背倚终南山、陈于寺北沣水之东;李嗣业袒身持陌刀立墙拒叛骑,回纥精骑绕出叛军阵后,前后夹击,自午至酉斩首六万,叛军大溃 —— 安史之乱之转折。"]},
+  huazhou:{t:"华州(华阴)",d:"今陕西华阴一带(约109.75E,34.57N)",p:["长安与潼关之间的渭南要冲。复长安后,唐军东出经此趋潼关,进讨陕、洛之叛军。"]},
+  tongguan:{t:"潼关",d:"关中东门,今陕西潼关(约110.30E,34.60N)",p:["西京与东京之间的锁钥,渭水于此入黄河。天宝末哥舒翰败没于此而长安陷;至德二载复长安后,唐军东出过此,进取陕、洛。"]},
+  xindian:{t:"陕郡 · 新店",d:"今河南三门峡一带(约111.15E,34.75N)",p:["收复洛阳途中之决战地。安庆绪遣严庄悉发洛阳兵西上,合张通儒等十五万据守。郭子仪正面接战六合几败,回纥逾南山绕出其背,唐军还击,叛军复大溃,东京之门户遂开。"]},
+  luoyang:{t:"洛阳(东京)",d:"今河南洛阳(112.45E,34.66N)",p:["安史政权所都之东京,安庆绪据以自守。新店败后,庆绪弃城渡河北走,保邺(相州)。唐军进克,东京以复,两京遂平。回纥入城,遂纵掠 —— 借兵之患自此见焉。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
