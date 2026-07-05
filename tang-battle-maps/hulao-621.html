@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -29,25 +30,30 @@
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .pivot{fill:none;stroke:var(--gold);stroke-width:2.4;opacity:.9}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.8;stroke-dasharray:9 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
-  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .camp.f{fill:var(--qin)}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +62,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,108 +93,167 @@
   <div class="seal" aria-hidden="true"><span>虎</span><span>牢</span><span>之</span><span>战</span></div>
   <header>
     <h1>虎牢之战</h1>
-    <div class="sub">唐武德四年(621)　　<i>唐 秦王李世民</i> 一战擒两王 · <b>郑 王世充</b> · <b>夏 窦建德</b></div>
+    <div class="sub">唐武德四年(621)　　<i>唐 秦王李世民</i> 围 <b>郑 王世充</b> 于洛阳,扼虎牢以拒 <em>夏 窦建德</em>　·　围点打援 · 一战擒两王</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 围郑援夏</button>
-    <button data-p="1">分兵扼虎牢</button>
-    <button data-p="2">牧马诱敌</button>
-    <button data-p="3">汜水决战 · 擒两王</button>
+    <button class="on" data-p="all">全图 · 围点打援</button>
+    <button data-p="1">围洛阳</button>
+    <button data-p="2">窦建德东援 · 世民扼虎牢</button>
+    <button data-p="3">相持疲敌 · 黄河牧马诱敌</button>
+    <button data-p="4">汜水决战 · 擒窦降王</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="虎牢之战形势图,含唐与郑夏疆界、黄河汜水与洛阳虎牢等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="虎牢之战形势图,含唐郑夏三方疆界、黄河汜水洛水诸川与嵩山,洛阳虎牢关板渚牛口渚荥阳诸地,及世民围洛阳、扼虎牢、牧马诱敌、汜水决战之进军路线">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
     </defs>
 
-    <!-- 疆界:唐据关中(西),郑据洛阳、夏据河北(东),约以虎牢之险为界 -->
-    <path d="M 470,0 C 480,110 500,200 520,290 C 536,360 548,430 552,510 C 554,570 552,610 550,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 480,110 500,200 520,290 C 536,360 548,430 552,510 C 554,570 552,610 550,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 480,110 500,200 520,290 C 536,360 548,430 552,510 C 554,570 552,610 550,640"/>
-    <text class="realm q" x="700" y="150" font-size="32">郑(洛阳)</text>
-    <text class="realm q" x="740" y="330" font-size="30">夏(河北)</text>
-    <text class="realm j" x="120" y="520" font-size="32">唐(关中)</text>
+    <!-- ══ 三方疆界:郑据洛阳(中),夏据河北(北·东北,黄河为界),唐自关中(西)东出 ══ -->
+    <!-- 夏(河北):黄河以北 -->
+    <path d="M 0,331 C 320,330 620,340 1000,321 L 1000,0 L 0,0 Z" fill="url(#fqinHatch)"/>
+    <!-- 唐(关中):黄河以南、洛阳以西 -->
+    <path d="M 0,331 C 90,330 160,330 210,330 C 216,420 224,520 236,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <!-- 郑(洛阳):黄河以南、虎牢以西之腹地 -->
+    <path d="M 210,330 C 420,332 640,340 1000,322 L 1000,640 L 236,640 C 224,520 216,420 210,330 Z" fill="url(#qinHatch)"/>
+    <!-- 唐郑约界(洛阳以西) -->
+    <path class="border" d="M 210,330 C 216,420 224,520 236,640"/>
+    <text class="realm f" x="770" y="140" font-size="26">夏 · 河北</text>
+    <text class="realm j" x="60" y="560" font-size="26">唐 · 关中</text>
+    <text class="realm q" x="300" y="600" font-size="26">郑 · 洛阳</text>
 
-    <!-- 黄河:自西向东横贯上方 -->
-    <path class="river" stroke-width="5.5" d="M 0,168 C 120,176 240,182 360,190 C 470,198 560,206 660,200 C 760,194 860,186 1000,182"/>
-    <!-- 汜水:自南入黄河,虎牢东侧小河,决战地 -->
-    <path class="river" stroke-width="2.4" d="M 636,420 C 640,360 646,300 652,240 C 655,214 656,204 658,196"/>
-    <!-- 洛水:自西南经洛阳 -->
-    <path class="river" stroke-width="2.4" d="M 300,470 C 360,440 420,410 470,380 C 520,352 552,336 588,318"/>
-    <text class="rname" x="150" y="160" style="font-size:14px">黄　河</text>
-    <text class="rname" x="662" y="330" transform="rotate(84 662 330)" style="font-size:10.5px">汜水</text>
-    <text class="rname" x="360" y="452" transform="rotate(-27 360 452)" style="font-size:10.5px">洛水</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西东流,虎牢/板渚临其南岸,为郑夏之界 -->
+    <path class="river" stroke-width="5.5" d="M 0,331 C 240,330 460,336 620,340 C 740,343 860,332 1000,321"/>
+    <!-- 汜水:自嵩山北出,经虎牢入黄河 -->
+    <path class="river" stroke-width="2.4" d="M 636,470 C 634,430 634,392 636,360 C 637,352 638,346 640,341"/>
+    <!-- 洛水:自西南经洛阳,东北趋巩入黄河 -->
+    <path class="river" stroke-width="2.6" d="M 250,520 C 310,470 350,446 372,424 C 430,398 500,372 560,352"/>
+    <!-- 伊水:自嵩山北会洛水 -->
+    <path class="river" stroke-width="1.8" d="M 400,540 C 400,500 392,462 378,430"/>
+    <text class="rname" x="150" y="322" style="font-size:14px">黄　河</text>
+    <text class="rname" x="646" y="430" transform="rotate(86 646 430)" style="font-size:10.5px">汜水</text>
+    <text class="rname" x="300" y="486" transform="rotate(-33 300 486)" style="font-size:10.5px">洛水</text>
+    <text class="rname" x="406" y="512" transform="rotate(80 406 512)" style="font-size:9.5px">伊水</text>
 
-    <!-- 成皋·虎牢山险 -->
-    <g class="mtn"><path d="M 600,270 l 8,-13 l 8,13 M 616,264 l 8,-13 l 8,13 M 632,270 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="596" y="288">成皋之险</text>
+    <!-- ══ 嵩山:南面屏障,与黄河夹束成皋—虎牢走廊 ══ -->
+    <path class="mtn fill" d="M 470,502 L 490,470 L 506,488 L 528,458 L 548,486 L 570,462 L 590,490 L 612,466 L 630,492 Z"/>
+    <path class="mtn" d="M 500,486 l 14,-18 l 12,13 l 16,-22 l 13,17 l 15,-20"/>
+    <text class="mname" x="520" y="514">嵩　山</text>
+    <!-- 成皋·虎牢山险(小) -->
+    <path class="mtn" d="M 596,352 l 7,-11 l 7,11 M 610,348 l 7,-11 l 7,11"/>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="changan"><circle cx="70" cy="392" r="6"/><text class="cname" x="82" y="388">长安<tspan class="cname s" dx="2">(唐都)</tspan></text></g>
-      <g class="city cap" data-city="luoyang"><circle cx="470" cy="352" r="6.5"/><text class="cname" x="406" y="348">洛阳<tspan class="cname s" dx="2">(郑都)</tspan></text></g>
-      <g class="city" data-city="chenggao"><circle cx="600" cy="300" r="4"/><text class="cname s" x="546" y="308">成皋</text></g>
-      <g class="city cap" data-city="hulao"><circle cx="632" cy="316" r="6"/><text class="cname" x="644" y="312">虎牢关</text></g>
-      <g class="city" data-city="sishui"><circle cx="662" cy="300" r="4"/><text class="cname s" x="670" y="332">汜水</text></g>
-      <g class="city" data-city="niukouzhu"><circle cx="722" cy="286" r="4.5"/><text class="cname s" x="730" y="282">牛口渚</text></g>
-      <g class="city" data-city="banzhu"><circle cx="740" cy="196" r="4"/><text class="cname s" x="716" y="184">板渚(黄河渡)</text></g>
+      <g class="city cap" data-city="luoyang"><circle cx="372" cy="424" r="6.5"/><text class="cname" x="308" y="420">洛阳<tspan class="cname s" dx="2">(郑都)</tspan></text></g>
+      <g class="city" data-city="chenggao"><circle cx="600" cy="366" r="3.5"/><text class="cname s" x="548" y="362">成皋</text></g>
+      <g class="city cap" data-city="hulao"><circle cx="632" cy="356" r="6.5"/><text class="cname" x="562" y="344">虎牢关<tspan class="cname s" dx="2">(汜水)</tspan></text></g>
+      <g class="city" data-city="banzhu"><circle cx="690" cy="340" r="4.5"/><text class="cname s" x="698" y="332">板渚(黄河渡)</text></g>
+      <g class="city" data-city="niukou"><circle cx="676" cy="382" r="4.5"/><text class="cname s" x="686" y="392">牛口渚</text></g>
+      <g class="city" data-city="xingyang"><circle cx="662" cy="404" r="4"/><text class="cname s" x="670" y="418">荥阳</text></g>
     </g>
 
-    <!-- 全图 · 围郑援夏 -->
+    <!-- 长安(图外·西):唐都 -->
+    <g transform="translate(6,300)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 长安·关中</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">唐都(图外西)</text>
+    </g>
+    <!-- 洺州·河北(图外·东北):夏都 -->
+    <g transform="translate(902,58)">
+      <path class="march qin" marker-end="url(#af)" d="M 60,26 L 30,4"/>
+      <text class="mlabel f" x="4" y="-2" style="font-size:10px">洺州·河北 ⟶</text>
+      <text class="cname s" x="14" y="14" style="fill:var(--qin);font-size:9.5px">夏都(图外东北)</text>
+    </g>
+
+    <!-- ══ 全图 · 围点打援 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 88,388 C 200,378 320,368 456,356"/>
-      <text class="mlabel j" x="150" y="372">世民自关中东出,围王世充于洛阳</text>
-      <circle class="siege" cx="470" cy="352" r="20"/>
-      <text class="anno" x="410" y="392">久之,洛阳城将下</text>
-      <path class="march q" marker-end="url(#aq)" d="M 860,120 C 810,140 780,160 752,186"/>
-      <text class="mlabel q" x="800" y="110">窦建德倾河北十余万西援</text>
-      <rect class="camp" x="736" y="192" width="9" height="9" transform="rotate(45 740 196)"/>
-      <text class="anno" x="700" y="228">军虎牢之东,声言救郑,郑夏将合</text>
+      <!-- 世民自关中围洛阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 40,306 C 160,340 260,384 356,414"/>
+      <text class="mlabel j" x="120" y="360">世民自关中东出,围王世充于洛阳</text>
+      <circle class="siege" cx="372" cy="424" r="20"/>
+      <!-- 世民分兵东据虎牢 -->
+      <path class="march j" marker-end="url(#aj)" d="M 388,416 C 480,392 560,376 620,362"/>
+      <text class="mlabel j" x="430" y="404">分兵东据虎牢</text>
+      <!-- 窦建德自河北西援 -->
+      <path class="march qin" marker-end="url(#af)" d="M 930,80 C 840,150 760,270 700,332"/>
+      <text class="mlabel f" x="742" y="228">窦建德倾河北众号十万西援</text>
+      <rect class="camp f" x="685" y="335" width="10" height="10" transform="rotate(45 690 340)"/>
+      <text class="anno" x="640" y="316">军板渚·成皋之东,声言救郑</text>
+      <circle class="pivot" cx="632" cy="356" r="13"/>
+      <text class="anno" x="524" y="332">扼虎牢天险,拒援于关外</text>
+      <circle class="star" cx="668" cy="372" r="8"/>
     </g>
 
-    <!-- 阶段一:分兵扼虎牢 -->
+    <!-- ══ 阶段一:围洛阳 ══ -->
     <g id="ph1" class="ph">
-      <circle class="siege" cx="470" cy="352" r="20"/>
-      <text class="mlabel j" x="380" y="400">留元吉等续围洛阳</text>
-      <path class="march j" marker-end="url(#aj)" d="M 486,346 C 540,332 588,324 624,320"/>
-      <text class="mlabel j" x="500" y="320">世民自将骁骑三千五百东据虎牢</text>
-      <path class="march j" marker-end="url(#aj)" d="M 636,320 C 646,314 652,308 656,302"/>
-      <text class="anno" x="596" y="352">先据汜水,扼成皋,断夏军西进之路</text>
-      <path class="march q" marker-end="url(#aq)" d="M 740,204 C 726,240 706,268 682,290"/>
-      <text class="mlabel q" x="700" y="262">夏军进逼,相持月余</text>
+      <path class="march j" marker-end="url(#aj)" d="M 40,306 C 160,344 260,388 356,416"/>
+      <text class="mlabel j" x="130" y="366">世民奉诏东讨,诸军四合,进围洛阳</text>
+      <circle class="siege" cx="372" cy="424" r="22"/>
+      <circle class="siege" cx="372" cy="424" r="30"/>
+      <text class="mlabel q" x="300" y="470">王世充婴城固守</text>
+      <text class="anno" x="250" y="492">相持既久,城中大饥,人相食</text>
+      <text class="anno" x="470" y="446">世充间道乞师于夏,窦建德许之</text>
     </g>
 
-    <!-- 阶段二:牧马诱敌 -->
+    <!-- ══ 阶段二:窦建德东援 · 世民扼虎牢 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j rout" marker-end="url(#aj)" d="M 640,308 C 660,270 690,230 720,204"/>
-      <text class="mlabel j" x="644" y="248">遣千余骑牧马河北,以示弱诱之</text>
-      <rect class="camp" x="716" y="282" width="10" height="10" transform="rotate(45 721 287)"/>
-      <text class="mlabel q" x="740" y="312">窦建德空国而来</text>
-      <path class="march q" marker-end="url(#aq)" d="M 716,290 C 700,300 686,308 674,314"/>
-      <text class="anno" x="640" y="350">列阵汜水东,亘二十里</text>
-      <text class="anno" x="620" y="372">自辰及午,士卒饥疲,争饮列坐,阵不复整</text>
+      <!-- 窦建德倾国西上,军板渚 -->
+      <path class="march qin" marker-end="url(#af)" d="M 930,80 C 838,148 754,268 700,332"/>
+      <text class="mlabel f" x="748" y="216">窦建德破管州、荥阳,倾国西上</text>
+      <rect class="camp f" x="684" y="334" width="11" height="11" transform="rotate(45 690 340)"/>
+      <text class="anno" x="628" y="314">列营板渚,亘数十里</text>
+      <!-- 元吉续围洛阳 -->
+      <circle class="siege" cx="372" cy="424" r="22"/>
+      <text class="mlabel j" x="300" y="472">留元吉、屈突通续围洛阳</text>
+      <!-- 世民自将骁骑东据虎牢 -->
+      <path class="march j" marker-end="url(#aj)" d="M 388,418 C 490,394 566,376 620,362"/>
+      <text class="mlabel j" x="404" y="406">自将骁骑三千五百,间道东据虎牢</text>
+      <circle class="pivot" cx="632" cy="356" r="13"/>
+      <text class="anno" x="500" y="334">先扼汜水、据成皋,绝夏军西进之路</text>
+      <text class="anno" x="612" y="392">两军相持关下,月余不决</text>
     </g>
 
-    <!-- 阶段三:汜水决战 · 擒两王 -->
+    <!-- ══ 阶段三:相持疲敌 · 黄河牧马诱敌 ══ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 640,312 C 652,308 662,306 668,304"/>
-      <circle class="star" cx="662" cy="300" r="8"/>
-      <text class="mlabel j" x="580" y="288">世民候其惰,纵铁骑横击</text>
-      <path class="march j" marker-end="url(#aj)" d="M 646,320 C 672,336 700,322 716,296"/>
-      <text class="anno" x="640" y="360">玄甲精骑卷其阵后,张唐旗帜</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 700,300 C 712,296 720,292 724,288"/>
-      <text class="mlabel r" x="700" y="272">夏军骇溃,追奔三十里</text>
-      <circle class="star" cx="722" cy="286" r="8"/>
-      <text class="anno" x="732" y="304">生擒窦建德于牛口渚,俘五万</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 456,358 C 490,384 520,404 540,420"/>
-      <text class="mlabel r" x="440" y="424">王世充势穷,举洛阳出降</text>
+      <circle class="pivot" cx="632" cy="356" r="13"/>
+      <text class="mlabel j" x="500" y="336">据险以逸待劳,数挑战阵斩其骁将</text>
+      <!-- 牧马黄河之北,示弱诱敌 -->
+      <path class="march j rout" marker-end="url(#ar)" d="M 644,352 C 660,330 672,314 686,300"/>
+      <text class="mlabel j" x="606" y="300">遣千余骑牧马河北,示弱诱之</text>
+      <!-- 窦建德空壁而出,渡汜水列阵 -->
+      <path class="march qin" marker-end="url(#af)" d="M 686,344 C 672,352 660,356 650,358"/>
+      <text class="mlabel f" x="690" y="356">窦建德空壁而出</text>
+      <rect class="camp f" x="682" y="356" width="11" height="11" transform="rotate(45 688 362)"/>
+      <text class="anno" x="612" y="398">列阵虎牢之东,亘二十里,鼓噪而进</text>
+      <text class="anno" x="600" y="418">自旦及午,士卒饥倦,争饮列坐,阵不复整</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:汜水决战 · 擒窦降王 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 玄甲精骑冲阵,贯阵出其背 -->
+      <path class="march j" marker-end="url(#aj)" d="M 640,352 C 656,354 666,360 672,368"/>
+      <text class="mlabel j" x="540" y="342">世民纵玄甲精骑,直薄其阵</text>
+      <circle class="star" cx="666" cy="372" r="9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 648,362 C 676,352 700,346 712,332"/>
+      <text class="anno" x="666" y="336">贯阵出其背,张唐旗帜</text>
+      <!-- 夏军骇溃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 662,382 C 676,392 690,396 704,392"/>
+      <text class="mlabel r" x="688" y="410">夏军骇溃,追奔三十里</text>
+      <circle class="star" cx="676" cy="382" r="9"/>
+      <text class="anno" x="600" y="440">生擒窦建德于牛口渚,俘众五万</text>
+      <!-- 王世充举洛阳降 -->
+      <circle class="siege" cx="372" cy="424" r="20"/>
+      <text class="mlabel q" x="300" y="474">王世充闻建德败,气夺援绝</text>
+      <text class="mlabel q" x="286" y="494">遂举洛阳出降,郑亡</text>
+    </g>
+
+    <g class="compass" transform="translate(948,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -182,35 +262,88 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>郑·夏军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(李世民)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.8" stroke-dasharray="9 5"/></svg>夏军(窦建德)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>牧马诱敌 · 溃退</span>
+    <span class="item"><svg width="20" height="16"><circle cx="10" cy="8" r="6.5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>围洛阳</span>
+    <span class="item"><svg width="20" height="16"><circle cx="10" cy="8" r="6.5" fill="none" stroke="#9c7a2c" stroke-width="2.2"/></svg>虎牢天险</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>郑·夏</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" transform="rotate(45 6.5 6.5)" fill="#5c4a6e"/></svg>夏军营</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>郑</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>夏</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>方略释要 · 围点打援 · 扼天险以逸待劳</h3>
+    <div class="lead">何以一战而擒两王 —— 不在角其兵力,而在扼其咽喉、疲其援师</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="围点打援示意:世民一军围洛阳困王世充,一军据虎牢天险拒窦建德十万之援;扼险以逸待劳,乘其饥倦纵击,一举擒两王">
+      <!-- 黄河(北) -->
+      <path d="M 24,44 C 260,40 560,42 836,38" fill="none" stroke="#5f7f88" stroke-width="4.5" opacity=".85"/>
+      <text x="26" y="32" fill="#5f7f88" font-size="11.5" font-weight="700">黄河 · 虎牢临其南岸,河北南下之咽喉</text>
+      <!-- 洛阳(围点) -->
+      <circle cx="150" cy="150" r="9" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <circle cx="150" cy="150" r="22" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="3 4"/>
+      <circle cx="150" cy="150" r="30" fill="none" stroke="#9a2b1e" stroke-width="1.2" stroke-dasharray="2 5" opacity=".7"/>
+      <text x="150" y="112" fill="#2b2418" font-size="12" font-weight="700" text-anchor="middle">洛阳(郑·王世充)</text>
+      <text x="150" y="200" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">围点:元吉、屈突通</text>
+      <text x="150" y="216" fill="#5c4f38" font-size="10" text-anchor="middle">围而困之,坐待其毙</text>
+      <!-- 虎牢关(扼险) -->
+      <path d="M 430,150 l 16,-26 l 16,26 Z" fill="rgba(92,79,56,.28)" stroke="#5c4f38" stroke-width="1.2"/>
+      <path d="M 462,150 l 16,-30 l 16,30 Z" fill="rgba(92,79,56,.28)" stroke="#5c4f38" stroke-width="1.2"/>
+      <rect x="452" y="150" width="20" height="18" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <circle cx="462" cy="150" r="26" fill="none" stroke="#9c7a2c" stroke-width="2.2"/>
+      <text x="462" y="108" fill="#2b2418" font-size="12" font-weight="700" text-anchor="middle">虎牢·天险</text>
+      <text x="462" y="196" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">扼险:李世民·骁骑三千五百</text>
+      <text x="462" y="212" fill="#5c4f38" font-size="10" text-anchor="middle">据险以逸待劳</text>
+      <!-- 夏军自河北来援(紫) -->
+      <path d="M 828,150 C 720,150 640,150 500,150" fill="none" stroke="#5c4a6e" stroke-width="3" stroke-linecap="round" stroke-dasharray="9 5"/>
+      <path d="M 506,150 L 520,144 L 520,156 Z" fill="#5c4a6e"/>
+      <text x="700" y="128" fill="#5c4a6e" font-size="11" font-weight="700" text-anchor="middle">窦建德·夏 号十万</text>
+      <text x="700" y="176" fill="#5c4a6e" font-size="10" text-anchor="middle" opacity=".85">自河北来援 · 顿兵关外</text>
+      <!-- 牧马诱敌 + 纵击(青) -->
+      <path d="M 462,124 C 520,96 600,100 660,120" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="4 4"/>
+      <path d="M 654,116 L 668,120 L 658,128 Z" fill="#1f4e54"/>
+      <text x="600" y="88" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="middle">牧马河北,示弱诱之 →</text>
+      <path d="M 488,158 C 540,178 600,180 648,170" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 642,166 L 656,170 L 646,178 Z" fill="#1f4e54"/>
+      <text x="574" y="198" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="middle">乘其饥倦,纵玄甲骑贯阵</text>
+    </svg>
+    <p class="intro">世民之难,在<b>一身而当两敌</b>:前有洛阳坚城未下,后有窦建德十万之援骤至。若舍围而战援,则王世充蹑其后;若并力攻城,则夏军解其围。诸将惧,请退保谷州;世民独决『围点打援』之策——<b>不与十万之众争一日之锋,而扼其必经之险,使其锐气自消</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>围其点 · 困洛阳而坐毙</h4>
+        <p>洛阳乃郑之根本,围之既久,城中绝食、人相食,已成困兽。世民不撤围、不急攻,但留元吉、屈突通严围如故——以偏师牵其一王,使王世充困守孤城,不能出而为援;既得从容分主力东向,又坐待其自毙。围点者,以静制动也。</p>
+      </div>
+      <div class="c b">
+        <h4>打其援 · 扼虎牢以逸待劳</h4>
+        <p>虎牢临黄河之南,乃河北南下、洛阳东出之咽喉;得之则十万之援阻于一关。世民以骁骑三千五百先据其险,阻夏军月余,阵斩其骁将,锐气渐惰;复牧马河北示弱以诱之。夏军空壁而来,列阵自旦及午,饥倦争饮,阵势遂乱——世民候其惰而纵玄甲骑贯阵,一举破之。</p>
+      </div>
+    </div>
+    <p class="kicker">一军围点、一军扼险,郑之城与夏之援,皆制于世民之手。及汜水一战,<b>生擒窦建德于牛口渚,王世充势穷举洛阳降</b>——<b>一战而擒两王,郑、夏俱灭</b>,中原自此略定。故虎牢之捷,胜不在众寡之角,而在扼咽喉、疲强援、以逸待劳之一策也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一八九、《旧唐书·太宗纪》《窦建德传》《王世充传》约略绘出。城邑水道经简化,疆界为武德四年中原形势之约略示意,非实有画界。</p>
-    <p><span class="n">注二</span>虎牢(唐避讳作武牢)在今河南荥阳汜水镇,扼洛阳东出之险;汜水为其东侧小河,南来入黄河,即两军决战之地。</p>
-    <p><span class="n">注三</span>此役"围点打援、一战擒两王",平郑灭夏、底定中原,为唐统一战争之枢机。世民先据汜水之险、疲敌诱之,继以玄甲军卷阵之术破之,为其代表战法。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性投影(x=130+(经度−111.7)·320,y=585−(纬度−34.2)·340),几何关系力求近实:洛阳居中偏西,虎牢·板渚在其东、黄河南岸,夏之河北在东北,嵩山在南。江河、疆界经简化;黄河一线为郑、夏之约界,唐、郑约界(点划线)在洛阳以西,皆非实有画界。长安(唐都)、洺州(夏都·今河北永年)远在图外,以边缘箭头示其方位。依《资治通鉴》卷一八九、《旧唐书·太宗纪》《窦建德传》《王世充传》绘出。</p>
+    <p><span class="n">注二</span>地望:虎牢(唐避太祖李虎讳,改称『武牢』)在今河南荥阳汜水镇,扼洛阳东出之天险,成皋即其地;汜水为其东侧小河,自南入黄河。板渚为虎牢东北之黄河渡口,窦建德列营之所;牛口渚在汜水之东近黄河,即夏军溃败、窦建德被擒之地(诸家于其确址小异,已於图中从汜水东一说,并此志之)。</p>
+    <p><span class="n">注三</span>制胜之枢在『围点打援、扼险疲敌』(图中虎牢金环、洛阳围圈):世民留偏师围洛阳以困王世充,自将骁骑三千五百东据虎牢,拒窦建德十万之援于关外,相持月余;复牧马黄河之北以示弱,诱夏军空壁而出。夏军列阵自旦及午,士卒饥倦争饮、坐列不整,世民乘其惰,亲纵玄甲精骑贯阵而出其背,张唐旗帜,一举大破之。此以逸待劳、以少击众之典范。</p>
+    <p><span class="n">注四</span>兵数、时地:窦建德众,史称『号十万』,实数当略少,存疑;世民所将玄甲骁骑,史载据虎牢者三千五百,决战另有玄甲精骑千余为锋。决战在武德四年五月,擒窦建德、俘众约五万;越旬日,王世充举东都出降。二王既降,郑、夏俱灭,唐之一统底定于此役。窦建德寻斩于长安,余党刘黑闼后复叛,别为一事。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"围郑援夏",d:"武德四年(621)·春",p:["世民围王世充(郑)于洛阳,城中饥窘,久之城将下。夏王窦建德虑唇亡齿寒,倾河北之众十余万西援,军于成皋、虎牢之东,声言救郑,郑、夏将合。","世民纳郭孝恪、薛收之策:分兵续围洛阳以困王世充,自将骁骑东据虎牢之险,扼其隘口,阻夏军西进——是谓“围点打援”,一举而收郑、夏。"]},
-  "1":{t:"分兵扼虎牢",d:"武德四年三月",p:["世民留齐王元吉、屈突通等续围洛阳,自将骁骑三千五百东趋虎牢,先据汜水之险,扼成皋要隘,断夏军西进之路。","夏军进逼,两军相持月余。世民数以轻骑挑之,阵斩其骁将殷秋、石瓒,夏军锐气渐惰;唐军据险以逸待劳,绝其粮道,惮其锐而候其变。"]},
-  "2":{t:"牧马诱敌",d:"武德四年五月",p:["世民察夏军久顿坚城之下、师老气衰,乃遣千余骑牧马于河北,示以虚弱,诱其来战。","窦建德果空国而来,列阵于汜水之东,亘二十里,鼓行而进。自辰及午,士卒饥疲,争饮于水,列坐于地,阵不复整——世民登高望之,曰“可击矣”。"]},
-  "3":{t:"汜水决战·擒两王",d:"武德四年五月",p:["世民候其气惰,纵铁骑出其不意,直薄其阵;亲将玄甲精骑卷其阵后,出贼陈后张唐旗帜。夏军回顾骇溃,不可复整。","唐军追奔三十里,生擒窦建德于牛口渚,俘五万余。王世充闻建德败,势穷援绝,遂举洛阳出降。一战而擒两王,郑、夏俱灭,中原略定。"]}
+  all:{t:"围点打援",d:"武德四年(621)·春夏",p:["秦王世民已围王世充(郑)于洛阳,四面严围,城中乏食,人相食,危在旦夕。夏王窦建德虑唇亡齿寒,尽发河北之众号十万西援,东至成皋之东、板渚一带,声言救郑,郑、夏将合。","世民纳薛收、郭孝恪之策:留齐王元吉、屈突通等继围洛阳以困王世充,自将骁骑三千五百东据虎牢天险,扼成皋之口,拒窦建德于关外——是谓『围点打援』:一军困其城,一军扼其援,以一敌两,一举而收郑、夏。"]},
+  "1":{t:"围洛阳",d:"武德三年秋 — 四年春",p:["武德三年秋,世民奉诏东讨王世充,诸军四合,略定郑之郡县,进围洛阳。世充婴城固守,世民筑长围以困之,昼夜攻之,飞石重五十斤、掷二百步,矢如雨集。","洛阳城坚,相持既久,城中大饥,绢一匹直粟三升,人相食,死者相枕。世充窘迫,遣使间道乞师于夏,窦建德许之——围点已成,而强援将至,世民之难,在一身而当两敌。"]},
+  "2":{t:"窦建德东援 · 世民扼虎牢",d:"武德四年三月",p:["武德四年三月,窦建德破管州、荥阳,倾国西上,军于成皋之东、板渚,列营亘数十里,声势甚盛。唐诸将惧,多请退保谷州以避其锋;世民独决策拒之。","乃分兵:命元吉、屈突通等围洛阳如故;自将骁骑三千五百,间道东趋,据虎牢、扼汜水,先入其险。虎牢者,洛阳东户、河北南下之咽喉,得之则援路绝——两军相持关下,月余不决。"]},
+  "3":{t:"相持疲敌 · 黄河牧马诱敌",d:"武德四年四 — 五月",p:["世民据险以逸待劳,数以轻骑挑战,阵斩其骁将殷秋、石瓒,又绝其粮运;夏军锐气渐衰,顿兵坚城之下,进退失据,议欲久持。","世民察其可破,乃夜遣千余匹马牧于黄河之北,示以虚弱,诱其来战,而潜军还伏。窦建德果空壁而出,悉众渡汜水,列阵于虎牢之东,北薄黄河、西属汜水,亘二十里,鼓噪而进。"]},
+  "4":{t:"汜水决战 · 擒窦降王",d:"武德四年五月",p:["夏军自旦及午,列阵既久,士卒饥倦,或坐或卧,争饮于水,行伍不整。世民曰『可击矣』,命宇文士及驰阵试之,果动;乃纵大军,亲将玄甲精骑先出,贯其阵而过,出其背,张唐旗帜。","夏众回顾,以为唐已入其营,遂骇溃不可复整。唐军追奔三十里,生擒窦建德于牛口渚,俘其众五万。世充闻建德败,气夺援绝,遂帅百官举洛阳出降。一战而擒两王,郑、夏俱灭,中原略定——唐之一统,定于此役。"]}
 };
 const CITY={
-  changan:{t:"长安",d:"唐都,今陕西西安",p:["唐之国都。武德四年,秦王世民自此东出,总统诸军经略中原、围攻洛阳。"]},
-  luoyang:{t:"洛阳",d:"郑都,今河南洛阳",p:["王世充所据郑之都城。世民围之,城中饥窘,人相食;及闻窦建德败,世充势穷,举城出降。"]},
-  chenggao:{t:"成皋",d:"今河南荥阳汜水一带",p:["虎牢所倚之险要。世民扼成皋、据汜水,断绝夏军西进洛阳之路。"]},
-  hulao:{t:"虎牢关",d:"今河南荥阳汜水镇(唐讳作武牢)",p:["扼洛阳东出之天险。世民以骁骑三千五百东据之,阻十余万夏军于关东，相持月余。"]},
-  sishui:{t:"汜水",d:"虎牢东侧小河,南入黄河",p:["决战之地。窦建德列阵汜水东,亘二十里;世民候其惰纵骑击之,夏军大溃。"]},
-  niukouzhu:{t:"牛口渚",d:"汜水东,近黄河",p:["夏军溃逃、唐骑追奔三十里之处。窦建德中槊坠马,遂于此被生擒,俘至军门。"]},
-  banzhu:{t:"板渚",d:"黄河渡口,虎牢东北",p:["夏军自河北西援所指之黄河渡要冲。窦建德军虎牢之东、屯据于此一带,为唐夏相持前沿。"]}
+  luoyang:{t:"洛阳",d:"郑都,今河南洛阳",p:["王世充所据郑之都城。世民围之,筑长围昼夜攻之,城中大饥,人相食;及闻窦建德败于虎牢,世充势穷,帅百官举城出降,郑亡。"]},
+  chenggao:{t:"成皋",d:"今河南荥阳汜水一带",p:["虎牢所倚之险要,与虎牢实为一地。世民扼成皋、据汜水,断绝夏军西进洛阳之路。窦建德列营即在成皋之东。"]},
+  hulao:{t:"虎牢关(汜水)",d:"今河南荥阳汜水镇(唐讳作武牢)",p:["扼洛阳东出、河北南下之天险,临黄河南岸。世民以骁骑三千五百东据之,阻十余万夏军于关外,相持月余,为一役制胜之枢。"]},
+  banzhu:{t:"板渚",d:"黄河渡口,虎牢东北",p:["窦建德自河北西援所指之黄河渡要冲。夏军军于成皋之东、列营板渚一带,亘数十里,与唐军相持于虎牢之下。"]},
+  niukou:{t:"牛口渚",d:"汜水之东,近黄河",p:["夏军溃逃、唐骑追奔三十里之处。窦建德中槊坠马,为唐将白士让、杨武威所获,遂于此被生擒,俘至军门。"]},
+  xingyang:{t:"荥阳",d:"今河南荥阳",p:["虎牢西南之要邑,通洛阳东出之走廊。武德四年三月,窦建德破管州、荥阳而西,进逼虎牢。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

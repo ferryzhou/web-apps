@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>安市城之战 · 贞观十九年(645)</title>
+<title>安市城之战 · 贞观十九年(645)太宗亲征高句丽</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
@@ -25,12 +25,18 @@
   .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
   svg.map{display:block;width:100%;height:auto}
+  .sea{fill:rgba(95,127,136,.20);stroke:none}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.1;opacity:.55}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .marsh{fill:rgba(95,127,136,.17);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
+  .mound{fill:rgba(122,90,35,.30);stroke:var(--ret);stroke-width:1.2;stroke-linejoin:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,6 +45,7 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke-dasharray:2 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
@@ -47,7 +54,7 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +63,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +94,17 @@
   <div class="seal" aria-hidden="true"><span>安</span><span>市</span><span>之</span><span>役</span></div>
   <header>
     <h1>安市城之战</h1>
-    <div class="sub">唐贞观十九年(645)　　<i>唐 太宗 · 李勣</i> 征 <b>高句丽 渊盖苏文</b> · 安市不下</div>
+    <div class="sub">唐贞观十九年(645)　　<i>唐 太宗亲征 · 李世勣</i> 征 <b>高句丽</b>　·　拔十城 · 驻跸大捷 · 安市不下 · 寒冬粮尽班师</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 亲征辽东</button>
-    <button data-p="1">连拔诸城</button>
-    <button data-p="2">驻跸大捷</button>
-    <button data-p="3">安市不下 · 班师</button>
+    <button data-p="1">渡辽 · 拔盖牟辽东白岩</button>
+    <button data-p="2">进围安市城</button>
+    <button data-p="3">驻跸山 · 破十五万援军</button>
+    <button data-p="4">筑土山不克 · 寒冬班师</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="安市城之战形势图,含唐与高句丽疆界、辽水水道及辽东城安市城驻跸山平壤等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="安市城之战形势图,含唐与高句丽以辽水为界之疆域、辽水辽泽与辽东湾、通定盖牟辽东城白岩安市城驻跸山建安卑沙诸城,及唐军水陆并进、驻跸山伏击与寒冬班师之路">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,132 +113,259 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:高句丽据辽水以东,唐据辽西,约以辽水为界 -->
-    <path d="M 378,0 C 372,110 380,210 372,300 C 366,380 376,470 382,560 C 386,600 388,620 390,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path d="M 378,0 C 372,110 380,210 372,300 C 366,380 376,470 382,560 C 386,600 388,620 390,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 378,0 C 372,110 380,210 372,300 C 366,380 376,470 382,560 C 386,600 388,620 390,640"/>
-    <text class="realm j" x="70" y="120" font-size="32">唐(辽西)</text>
-    <text class="realm q" x="620" y="130" font-size="32">高句丽(辽东)</text>
+    <!-- ══ 疆界:唐据辽西(河西),高句丽据辽东,约以辽水为界 ══ -->
+    <path d="M 0,0 L 330,0 C 344,60 345,90 345,90 C 322,150 306,185 300,215 C 288,250 278,262 272,285 C 260,315 248,330 240,352 C 226,390 220,425 214,450 C 200,490 165,560 140,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 330,0 L 1000,0 L 1000,640 L 140,640 C 165,560 200,490 214,450 C 220,425 226,390 240,352 C 248,330 260,315 272,285 C 278,262 288,250 300,215 C 306,185 322,150 345,90 C 345,90 344,60 330,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 330,0 C 344,60 345,90 345,90 C 322,150 306,185 300,215 C 288,250 278,262 272,285 C 260,315 248,330 240,352 C 226,390 220,425 214,450"/>
+    <text class="realm j" x="40" y="150" font-size="27">唐(辽西)</text>
+    <text class="cname s" x="46" y="172" style="fill:var(--advance);opacity:.6">河西·出兵地</text>
+    <text class="realm q" x="600" y="150" font-size="30">高句丽(辽东)</text>
 
-    <!-- 辽水(辽河):自北南下入海 -->
-    <path class="river" stroke-width="5" d="M 372,20 C 384,110 366,200 372,300 C 378,400 372,500 384,600 C 388,624 390,632 392,640"/>
-    <!-- 太子河支流:自东北汇辽东城 -->
-    <path class="river" stroke-width="2.6" d="M 560,150 C 520,200 470,250 400,290"/>
-    <!-- 大梁水/近安市之水 -->
-    <path class="river" stroke-width="2.2" d="M 690,430 C 640,440 560,438 470,438 C 430,438 400,470 388,500"/>
-    <text class="rname" x="336" y="360" transform="rotate(94 336 360)">辽 水</text>
-    <text class="rname" x="500" y="210" transform="rotate(-38 500 210)" style="font-size:10.5px">太子河</text>
+    <!-- ══ 山脉:辽东丘陵 · 驻跸山(六山) ══ -->
+    <path class="mtn fill" d="M 372,300 L 384,278 L 394,294 L 408,266 L 422,290 L 434,270 L 446,296 Z"/>
+    <path class="mtn" d="M 380,292 l 10,-16 l 9,11 l 12,-16 l 10,13"/>
+    <text class="mname" x="378" y="322" style="font-size:10px">驻跸山(六山)</text>
+    <path class="mtn fill" d="M 452,196 L 466,170 L 478,188 L 492,160 L 506,186 L 520,166 L 532,192 Z"/>
+    <text class="mname" x="470" y="216" style="font-size:10px">辽东丘陵</text>
 
-    <!-- 山地:安市北驻跸山(六山)与辽东丘陵 -->
-    <g class="mtn"><path d="M 660,340 l 9,-15 l 9,15 M 678,333 l 9,-15 l 9,15 M 696,340 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="656" y="360">六山(驻跸山)</text>
-    <g class="mtn"><path d="M 560,470 l 7,-12 l 7,12 M 574,464 l 7,-12 l 7,12"/></g>
+    <!-- ══ 水系 ══ -->
+    <!-- 辽水(辽河):自北南下,注辽东湾,唐军往返之天堑 -->
+    <path class="river" stroke-width="5" d="M 345,70 C 328,130 306,182 300,220 C 292,258 280,262 272,288 C 262,318 250,332 242,356 C 230,398 220,430 214,455"/>
+    <!-- 太子河:自东北汇辽东城 -->
+    <path class="river" stroke-width="2.4" d="M 500,196 C 460,210 425,222 405,230"/>
+    <!-- 大梁水:近安市 -->
+    <path class="river" stroke-width="2.1" d="M 470,300 C 430,300 390,300 356,300"/>
+    <text class="rname" x="248" y="200" transform="rotate(78 248 200)">辽 水</text>
+    <text class="rname" x="452" y="214" transform="rotate(-16 452 214)" style="font-size:10px">太子河</text>
 
-    <!-- 城邑 -->
+    <!-- 辽泽:辽河下游大沼泽,唐军往返之泥淖 -->
+    <path class="marsh" d="M 258,252 C 240,272 250,300 275,312 C 305,326 345,322 360,305 C 372,290 366,266 345,256 C 320,244 280,238 258,252 Z"/>
+    <text class="cname s" x="286" y="288" style="opacity:.85">辽　泽</text>
+    <text class="cname s" x="272" y="302" style="opacity:.7;font-size:9.5px">(下游泥淖·填道)</text>
+
+    <!-- 辽东湾·渤海:南面海域,张亮舟师所渡 -->
+    <path class="sea" d="M 60,640 L 940,640 L 940,585 C 720,600 470,600 300,585 C 275,582 258,560 244,520 C 232,486 224,458 214,452 C 206,470 202,505 200,558 C 150,566 100,585 60,592 Z"/>
+    <path class="coast" d="M 940,585 C 720,600 470,600 300,585 C 275,582 258,560 244,520 C 232,486 224,458 214,452 C 206,470 202,505 200,558 C 150,566 100,585 60,592"/>
+    <text class="rname" x="600" y="620" style="font-size:12px;opacity:.85">辽 东 湾 · 渤 海</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="liaodong"><circle cx="540" cy="290" r="6"/><text class="cname" x="552" y="286">辽东城<tspan class="cname s" dx="2">(辽阳)</tspan></text></g>
-      <g class="city" data-city="gaimou"><circle cx="600" cy="230" r="4"/><text class="cname s" x="612" y="226">盖牟城</text></g>
-      <g class="city" data-city="baiyan"><circle cx="600" cy="360" r="4"/><text class="cname s" x="612" y="356">白岩城</text></g>
-      <g class="city cap" data-city="anshi"><circle cx="640" cy="410" r="6"/><text class="cname" x="652" y="406">安市城<tspan class="cname s" dx="2">(海城东南)</tspan></text></g>
-      <g class="city" data-city="zhubi"><circle cx="678" cy="332" r="4.5"/><text class="cname s" x="690" y="318">驻跸山</text></g>
-      <g class="city" data-city="jianan"><circle cx="620" cy="500" r="4"/><text class="cname s" x="632" y="504">建安城</text></g>
-      <g class="city cap" data-city="pingrang"><circle cx="800" cy="600" r="6"/><text class="cname" x="700" y="596">平壤<tspan class="cname s" dx="2">(高丽都)</tspan></text></g>
+      <g class="city" data-city="tongding"><circle cx="322" cy="126" r="4.5"/><text class="cname s" x="272" y="122">通定(渡口)</text></g>
+      <g class="city" data-city="xincheng"><circle cx="486" cy="118" r="4"/><text class="cname s" x="496" y="114">新城</text></g>
+      <g class="city" data-city="gaimou"><circle cx="508" cy="138" r="5"/><text class="cname" x="518" y="135">盖牟城<tspan class="cname s" dx="2">(抚顺)</tspan></text></g>
+      <g class="city" data-city="liaodong"><circle cx="399" cy="230" r="6"/><text class="cname" x="410" y="226">辽东城<tspan class="cname s" dx="2">(辽阳)</tspan></text></g>
+      <g class="city" data-city="baiyan"><circle cx="438" cy="248" r="4.5"/><text class="cname s" x="448" y="252">白岩城</text></g>
+      <g class="city cap" data-city="anshi"><circle cx="329" cy="293" r="6.5"/><text class="cname" x="236" y="284">安市城<tspan class="cname s" dx="2">(海城东南)</tspan></text></g>
+      <g class="city" data-city="zhubi"><circle cx="360" cy="308" r="4.5"/><text class="cname s" x="370" y="322">驻跸山</text></g>
+      <g class="city" data-city="jianan"><circle cx="267" cy="360" r="4.5"/><text class="cname" x="190" y="356">建安城<tspan class="cname s" dx="2"></tspan></text></g>
+      <g class="city" data-city="bisha"><circle cx="200" cy="556" r="5"/><text class="cname" x="210" y="552">卑沙城<tspan class="cname s" dx="2">(金州)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 亲征辽东 -->
+    <!-- 幽州·营州(图外·西,陆路来路) -->
+    <g transform="translate(6,150)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 32,4"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟶ 幽州·营州</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">唐军陆路来路(图外西)</text>
+    </g>
+    <!-- 东莱·登州(图外·南,张亮水军来路) -->
+    <g transform="translate(120,628)">
+      <path class="march j sea" marker-end="url(#aj)" d="M 8,6 L 26,-16"/>
+      <text class="mlabel j" x="-56" y="14" style="font-size:10px">东莱·登州 ↑ 张亮舟师</text>
+      <text class="cname s" x="-56" y="28" style="fill:var(--advance);font-size:9.5px">渡海来路(图外南·山东)</text>
+    </g>
+    <!-- 平壤·鸭绿江(图外·东南,目标) -->
+    <g transform="translate(928,560)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,0 L 28,26" style="opacity:.5;stroke-dasharray:5 5"/>
+      <text class="mlabel j" x="-18" y="-8" style="font-size:10px">平壤·鸭绿江 ↘</text>
+      <text class="cname s" x="-30" y="46" style="fill:var(--advance);font-size:9.5px">高丽都·此役未至(图外东南)</text>
+    </g>
+
+    <!-- ══ 全图 · 亲征辽东 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 240,180 C 320,200 400,240 470,258 C 510,268 540,278 600,236"/>
-      <text class="mlabel j" x="250" y="168">李勣陆军渡辽,连拔诸城</text>
-      <path class="march j" marker-end="url(#aj)" d="M 548,296 C 580,330 600,362 630,400"/>
-      <text class="anno" x="546" y="352">进围安市城</text>
-      <path class="march q" marker-end="url(#aq)" d="M 830,560 C 800,510 760,460 690,428"/>
-      <text class="mlabel q" x="720" y="530">高延寿率援兵十五万北上</text>
-      <text class="mlabel q" x="640" y="150">渊盖苏文弑君专国</text>
+      <path class="march j" marker-end="url(#aj)" d="M 322,130 C 380,120 450,126 500,134"/>
+      <text class="mlabel j" x="318" y="112">李世勣自通定渡辽,拔盖牟</text>
+      <path class="march j" marker-end="url(#aj)" d="M 505,150 C 470,182 430,210 407,226"/>
+      <path class="march j" marker-end="url(#aj)" d="M 393,238 C 368,258 345,278 336,290"/>
+      <text class="anno" x="404" y="262">拔辽东·白岩,进围安市</text>
+      <path class="march j sea" marker-end="url(#aj)" d="M 150,632 C 168,608 188,578 199,562"/>
+      <text class="mlabel j" x="150" y="600">张亮水军渡海袭卑沙</text>
+      <path class="march q" marker-end="url(#aq)" d="M 452,510 C 412,436 382,360 366,318"/>
+      <text class="mlabel q" x="416" y="470">高延寿·高惠真率十五万来援</text>
+      <circle class="star" cx="360" cy="308" r="7"/>
+      <text class="anno" x="120" y="330">拔十城·驻跸大捷,而安市孤城终不下</text>
     </g>
 
-    <!-- 阶段一:连拔诸城 -->
+    <!-- ══ 阶段一:渡辽 · 拔盖牟辽东白岩 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 240,190 C 310,214 380,248 430,266"/>
-      <text class="mlabel j" x="240" y="180">李勣渡辽</text>
-      <path class="march j" marker-end="url(#aj)" d="M 470,262 C 520,250 560,240 592,232"/>
-      <text class="anno" x="512" y="250">先拔盖牟城</text>
-      <path class="march j" marker-end="url(#aj)" d="M 596,240 C 570,258 556,272 542,284"/>
-      <circle class="star" cx="540" cy="290" r="8"/>
-      <text class="mlabel j" x="440" y="308">乘风纵火,拔辽东城,俘四万</text>
-      <path class="march j" marker-end="url(#aj)" d="M 548,300 C 566,320 584,338 596,352"/>
-      <text class="anno" x="560" y="378">又下白岩城</text>
-      <path class="march j" marker-end="url(#aj)" d="M 604,364 C 618,380 630,394 636,404"/>
-      <circle class="siege" cx="640" cy="410" r="14"/>
-      <text class="mlabel j" x="600" y="440">长驱进围安市</text>
+      <path class="march j" marker-end="url(#aj)" d="M 322,128 C 380,118 450,124 500,132"/>
+      <text class="mlabel j" x="316" y="110">李世勣自通定潜渡辽水,趋玄菟</text>
+      <circle class="star" cx="508" cy="138" r="8"/>
+      <text class="anno" x="516" y="160">拔盖牟,俘二万口、粮十万石</text>
+      <path class="march j sea" marker-end="url(#aj)" d="M 150,632 C 168,606 188,576 199,562"/>
+      <rect class="camp" x="196" y="552" width="9" height="9" transform="rotate(45 200 556)" style="fill:#1f4e54"/>
+      <text class="mlabel j" x="150" y="600">张亮舟师自东莱渡海,袭拔卑沙</text>
+      <path class="march j" marker-end="url(#aj)" d="M 500,150 C 462,186 424,212 406,226"/>
+      <circle class="star" cx="399" cy="230" r="9"/>
+      <text class="mlabel j" x="404" y="212">抛车飞石·撞车,会南风纵火,拔辽东城</text>
+      <text class="anno" x="410" y="248">俘男女四万口</text>
+      <!-- 抛石攻城记号 -->
+      <g transform="translate(360,246)" stroke="var(--gold)" stroke-width="1.6" fill="none"><line x1="0" y1="8" x2="16" y2="-4"/><circle cx="17" cy="-6" r="2.4" fill="var(--gold)"/><line x1="0" y1="8" x2="7" y2="0"/></g>
+      <text class="anno" x="330" y="262" style="fill:var(--gold)">抛石·撞车</text>
+      <path class="march j" marker-end="url(#aj)" d="M 407,234 C 420,240 430,244 435,246"/>
+      <text class="anno" x="446" y="240">白岩城主孙代音降</text>
     </g>
 
-    <!-- 阶段二:驻跸大捷 -->
+    <!-- ══ 阶段二:进围安市城 ══ -->
     <g id="ph2" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 820,560 C 780,500 740,440 700,400"/>
-      <text class="mlabel q" x="740" y="500">高延寿、高惠真率十五万来援</text>
-      <rect class="camp" x="686" y="392" width="9" height="9" transform="rotate(45 690 396)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 632,406 C 650,388 660,372 668,352"/>
-      <text class="mlabel j" x="560" y="392">李勣正阵当其前</text>
-      <path class="march j" marker-end="url(#aj)" d="M 700,300 C 704,316 700,330 690,342"/>
-      <text class="mlabel j" x="700" y="290">长孙无忌奇兵出其后</text>
-      <circle class="star" cx="678" cy="332" r="10"/>
-      <text class="anno" x="600" y="336">大破之</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 686,344 C 700,376 706,404 690,420"/>
-      <text class="mlabel q" x="700" y="410">延寿穷蹙,率三万六千人降</text>
+      <path class="march j" marker-end="url(#aj)" d="M 432,254 C 400,268 360,282 340,290"/>
+      <text class="mlabel j" x="360" y="272">诸军南下,长驱进围安市</text>
+      <circle class="siege" cx="329" cy="293" r="15"/>
+      <text class="mlabel q" x="238" y="272">城主婴城,兵精城险</text>
+      <text class="anno" x="236" y="316">诸将议先取建安·乌骨,</text>
+      <text class="anno" x="236" y="330">帝以粮道在辽东为虑,专攻安市</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,340 C 288,352 276,358 272,360" style="opacity:.6"/>
+      <text class="anno" x="196" y="376">建安在南,置而不先攻</text>
+      <text class="mlabel q" x="452" y="500">援军自平壤·建安道北趋</text>
+      <path class="march q" marker-end="url(#aq)" d="M 452,505 C 418,448 392,392 372,340" style="opacity:.55"/>
     </g>
 
-    <!-- 阶段三:安市不下 · 班师 -->
+    <!-- ══ 阶段三:驻跸山 · 破十五万援军 ══ -->
     <g id="ph3" class="ph">
-      <circle class="siege" cx="640" cy="410" r="16"/>
-      <text class="mlabel q" x="588" y="392">城主婴城死守</text>
-      <path d="M 604,412 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="500" y="418">李道宗筑土山逼城</text>
-      <text class="anno" x="540" y="436">山顶崩,反为高句丽所据</text>
-      <text class="anno" x="560" y="454">攻六十余日不能下</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 626,406 C 540,380 420,340 250,300"/>
-      <text class="mlabel r" x="300" y="330">辽左早寒,粮尽,太宗班师</text>
-      <text class="anno" x="120" y="270">克十城、歼援军,而孤城终不拔</text>
+      <path class="march q" marker-end="url(#aq)" d="M 452,508 C 412,436 382,368 368,320"/>
+      <text class="mlabel q" x="404" y="472">高延寿·高惠真率高句丽·靺鞨十五万</text>
+      <rect class="camp" x="376" y="332" width="10" height="10" transform="rotate(45 381 337)"/>
+      <text class="anno" x="388" y="352">依山结阵,连营四十里</text>
+      <!-- 李世勣正阵当其前 -->
+      <path class="march j" marker-end="url(#aj)" d="M 332,300 C 342,306 350,310 356,314"/>
+      <text class="mlabel j" x="252" y="298">李世勣列正阵当其前(万五千)</text>
+      <!-- 长孙无忌奇兵自山北峡谷绕出敌后 -->
+      <path class="march j" marker-end="url(#aj)" d="M 452,232 C 486,272 452,336 392,352"/>
+      <text class="mlabel j" x="460" y="228">长孙无忌引奇兵(万一千),</text>
+      <text class="mlabel j" x="460" y="242" style="font-size:10.5px">自山北峡谷绕出敌后</text>
+      <!-- 太宗登山望之 -->
+      <path class="march j" marker-end="url(#aj)" d="M 340,258 C 350,278 356,292 359,300" style="opacity:.75"/>
+      <text class="anno" x="300" y="252">太宗自将四千,登北山望之,鼓角一发</text>
+      <circle class="star" cx="360" cy="308" r="11"/>
+      <text class="mlabel j" x="330" y="336">夹击大破之,斩首二万余</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 372,320 C 392,352 398,378 384,398"/>
+      <text class="mlabel q" x="392" y="392">延寿·惠真穷蹙,率三万六千八百人降</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:筑土山不克 · 寒冬班师 ══ -->
+    <g id="ph4" class="ph">
+      <circle class="siege" cx="329" cy="293" r="17"/>
+      <text class="mlabel q" x="240" y="268">城主坚守,见帝旗辄登城鼓噪</text>
+      <!-- 李道宗筑土山临城 -->
+      <path class="mound" d="M 346,300 L 366,272 L 386,300 Z"/>
+      <text class="mlabel j" x="360" y="288" style="font-size:10.5px">李道宗筑土山(昼夜六旬)</text>
+      <text class="anno" x="352" y="316">土山崩压城,反为高句丽夺据</text>
+      <text class="anno" x="352" y="330">攻三日不能克</text>
+      <!-- 寒冬粮尽,班师;经辽泽填道而还 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 316,300 C 290,300 300,286 288,282 C 260,272 232,236 220,180 C 200,120 120,100 40,120"/>
+      <text class="mlabel r" x="150" y="150">辽左早寒·草枯水冻·粮将尽,太宗班师</text>
+      <text class="anno" x="150" y="168">经辽泽泥淖,剪草填道,水深处以车为梁</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 320,296 C 300,290 290,296 282,292" style="opacity:.7"/>
+      <text class="anno" x="236" y="352">帝嘉城主固守,赐缣百匹;叹「魏征若在」</text>
+    </g>
+
+    <g class="compass" transform="translate(950,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>高句丽军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(陆路)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3" stroke-dasharray="2 5"/></svg>唐军(水路·渡海)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>高句丽军·援军</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退·班师</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>围城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>高句丽</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·克城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>围城</span>
+    <span class="item"><svg width="26" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/></svg>山地</span>
+    <span class="item"><svg width="26" height="14"><rect width="26" height="14" fill="rgba(95,127,136,.2)"/><line x1="0" y1="7" x2="26" y2="7" stroke="#5f7f88" stroke-width="1.4" stroke-dasharray="2 3"/></svg>辽泽·海</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>高句丽</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 战胜而顿坚城 · 天时粮尽而还</h3>
+    <div class="lead">何以亲征十城连拔、驻跸歼十五万,而竟班师无功 —— 系于一坚城与一寒冬</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="释要示意:野战与攻城全胜(拔盖牟辽东白岩、驻跸山破援军十五万),而安市孤城久攻不下,会辽左早寒、草枯水冻、粮尽,遂班师">
+      <!-- 上带:野战·拔城全胜(青) -->
+      <text x="24" y="30" fill="#1f4e54" font-size="12.5" font-weight="700">其胜 · 野战拔城,所向皆克(青)</text>
+      <line x1="24" y1="42" x2="620" y2="42" stroke="#1f4e54" stroke-width="1.6" opacity=".85"/>
+      <g fill="#1f4e54"><circle cx="70" cy="42" r="4.5"/><circle cx="190" cy="42" r="4.5"/><circle cx="310" cy="42" r="4.5"/><circle cx="430" cy="42" r="4.5"/></g>
+      <text x="52" y="66" fill="#2b2418" font-size="10.5">盖牟</text>
+      <text x="168" y="66" fill="#2b2418" font-size="10.5">辽东城</text>
+      <text x="292" y="66" fill="#2b2418" font-size="10.5">白岩</text>
+      <text x="406" y="66" fill="#2b2418" font-size="10.5">围安市</text>
+      <g><circle cx="560" cy="42" r="8" fill="none" stroke="#9c7a2c" stroke-width="2.2"/></g>
+      <text x="524" y="24" fill="#9c7a2c" font-size="11" font-weight="700">驻跸山</text>
+      <text x="512" y="70" fill="#9c7a2c" font-size="10.5" font-weight="700">大破援军十五万,降三万六千</text>
+      <!-- 分界 -->
+      <line x1="640" y1="16" x2="640" y2="234" stroke="#5c4f38" stroke-width="1.2" stroke-dasharray="3 5" opacity=".55"/>
+      <!-- 右:安市坚城(赭) -->
+      <text x="662" y="30" fill="#9a2b1e" font-size="12.5" font-weight="700">其顿 · 安市孤城</text>
+      <rect x="700" y="52" width="70" height="70" fill="none" stroke="#9a2b1e" stroke-width="2.4"/>
+      <text x="712" y="92" fill="#9a2b1e" font-size="12" font-weight="700">安市</text>
+      <path d="M 660,64 C 685,60 694,66 698,72" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="4 4"/>
+      <path d="M 694,68 L 700,72 L 692,76 Z" fill="#1f4e54"/>
+      <path d="M 660,110 C 685,114 694,108 698,102" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="4 4"/>
+      <text x="646" y="150" fill="#5c4f38" font-size="10">攻六十余日,筑土山临城,</text>
+      <text x="646" y="164" fill="#5c4f38" font-size="10">山崩反为敌据,终不能克</text>
+      <!-- 下带:天时·粮尽→班师(蓝/褐) -->
+      <text x="24" y="150" fill="#5f7f88" font-size="12.5" font-weight="700">其还 · 天时不与,馈运告竭</text>
+      <line x1="24" y1="162" x2="600" y2="162" stroke="#5f7f88" stroke-width="1.4" opacity=".7" stroke-dasharray="2 4"/>
+      <text x="30" y="186" fill="#5f7f88" font-size="10.5">辽左早寒</text>
+      <text x="140" y="186" fill="#5f7f88" font-size="10.5">草枯水冻</text>
+      <text x="250" y="186" fill="#5f7f88" font-size="10.5">士马难久</text>
+      <text x="360" y="186" fill="#9a2b1e" font-size="10.5" font-weight="700">粮糗将尽</text>
+      <path d="M 470,180 C 520,196 560,208 596,214" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/>
+      <path d="M 588,208 L 600,216 L 586,220 Z" fill="#7a5a23"/>
+      <text x="500" y="206" fill="#7a5a23" font-size="11.5" font-weight="700">乃下诏班师</text>
+      <text x="470" y="234" fill="#7a5a23" font-size="10">经辽泽泥淖,填道而还,士马多殒</text>
+    </svg>
+    <p class="intro">太宗提举国之师东征,自渡辽以来<b>野战无敌、坚城次第拔之</b>:盖牟、辽东、白岩相继下,驻跸山一战歼援军十五万——用兵之精,近乎全胜。然全局之枢,不在能不能野战取胜,而在<b>能否于一岁寒暑之内,以有限之粮,拔下辽东最坚之一城</b>。安市不下,则前功皆成过路之捷。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>其胜 · 拔城与野战</h4>
+        <p>李世勣自通定潜渡辽水,拔盖牟;张亮舟师自东莱渡海袭卑沙;至辽东城,抛车飞石、撞车撼堞,会南风纵火拔之,俘四万口,又下白岩。及高延寿、高惠真将高句丽、靺鞨十五万来援,太宗设伏驻跸山:李世勣正阵当前,长孙无忌奇兵自山北峡谷绕出其后,亲登北山鼓角夹击——大破之,降三万六千八百人。野战、攻城两皆全胜。</p>
+      </div>
+      <div class="c b">
+        <h4>其顿 · 坚城与寒冬</h4>
+        <p>独安市城主坚守,兵精城险,唐军攻之弥久不下。李道宗筑土山临城,昼夜六旬、用功五十万;山成而顶崩,压城反为高句丽夺据堑守,攻三日终不能克。会辽左早寒,草枯水冻,士马难久留,粮糗将尽——太宗乃下诏班师。归途经辽泽下游泥淖,剪草填道、以车为梁而过,士马多殒。功亏于一城,亦败于一冬。</p>
+      </div>
+    </div>
+    <p class="kicker">故此役之憾,<b>非战之不胜,实天时与馈运之穷</b>:客军悬于辽外,利在速拔速归;安市据险坚守,顿师六旬,遂令有限之粮与将至之寒会于城下。太宗深悔,叹「<b>魏征若在,不使我有是行</b>」——所惜者非一战之失,而是<b>战胜而顿于坚城、粮尽寒逼而功亏一篑</b>。此后乃改以偏师岁扰、疲耗其国之策,卒为高宗灭丽张本。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一九七至一九八、《旧唐书·高丽传》《旧唐书·太宗纪》约略绘出。疆界、水道经简化;辽水西为唐境出兵地,东为高句丽诸城,故以点划"约界"标之,非实有画界。</p>
-    <p><span class="n">注二</span>安市城在今辽宁海城东南,驻跸山(六山)在其北,为伏破援军之地;城主旧说杨万春,然正史不载其名。平壤为高句丽都,远在东南,张亮舟师自平壤道进,图中仅示其位。</p>
-    <p><span class="n">注三</span>唐克盖牟、辽东、白岩十城,又歼高延寿援军十五万,而安市孤城据险坚守,攻之六十余日终不拔,会辽左早寒乃还,故列"先胜后挫";太宗以不用李道宗"间道袭平壤"之策为平生用兵之憾。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=120+(经度−121.4)·155,y=585−(纬度−38.9)·150),几何力求近实:辽水自北南下注辽东湾,唐据辽西(河西)、高句丽据辽东,约以辽水为界,故以点划「约界」标之,非实有画界;辽泽为辽河下游大沼泽,唐军往返之泥淖。依《资治通鉴》卷一九七至一九八、《旧唐书·太宗本纪》《旧唐书·高丽传》《新唐书·高丽传》约略绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:通定(辽水西渡口,今新民一带,约122.8E/41.95N)、盖牟城(今辽宁抚顺,123.9E/41.88N)、新城(抚顺北高尔山山城,123.8E/41.98N)、辽东城(今辽阳,123.2E/41.27N)、白岩城(今辽阳东燕州城,123.45E/41.15N)、安市城(今辽宁海城东南营城子山城,122.75E/40.85N)、建安城(今盖州,122.35E/40.4N)、卑沙城(今大连金州大黑山山城,121.85E/39.1N)。平壤·鸭绿江(高丽都,约125.7E/39.0N)远在东南,此役未至,以图外东南箭头示之;唐军陆路自幽州·营州(今北京—朝阳,图外西)来,张亮舟师自东莱·登州(今山东,图外南)渡海。</p>
+    <p><span class="n">注三</span>水陆两道:陆师李世勣自通定潜渡辽水,拔盖牟、辽东、白岩,长驱围安市;水师张亮自东莱泛海,袭破辽东半岛南端之卑沙城(图中虚线渡海之迹)。此役进军虽水陆并举,而主力顿于安市城下;及班师,则自陆道西还,艰苦在过辽泽——「剪草填道,水深处以车为梁」,与来时之易大异,故以褐色虚线别之。</p>
+    <p><span class="n">注四</span>驻跸山地望有异说:一说在安市城东南(本图从之,以援军自平壤·建安道北救、太宗诱之近安市而伏破为据);一说即今辽阳西南之首山。城主之名,民间小说称「杨(梁)万春」,然两《唐书》《通鉴》皆不载其名,今但称「安市城主」。援军兵额「十五万」及斩降之数本《通鉴》,史家或有约举,不必尽为实数;唐军前敌约二万六千(李世勣万五千、长孙无忌万一千,太宗别将四千)。</p>
+    <p><span class="n">注五</span>制胜与致憾之枢在「坚城·天时」而非「粮道被断」:唐军馈运未尝为敌所截,然客军悬远、辽左苦寒,速则功、迟则困。安市顿师六旬,粮将尽而寒已至,遂不得不还(图中「释要」以青示拔城野战之胜、以赭示安市之坚、以蓝褐示天时粮尽之迫)。太宗归而叹魏征、悔未纳李道宗「间道袭平壤」之请,后改行岁扰疲耗之策,为高宗总章元年(668)灭高句丽之远因。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"亲征辽东",d:"贞观十九年(645)春 — 秋",p:["渊盖苏文弑君专国,暴虐无道,太宗以问罪亲征。李勣率陆军自辽东进,张亮率舟师自平壤道并发,水陆俱下。","唐军渡辽,连拔盖牟、辽东、白岩诸城,俘获甚众,长驱进围安市。高句丽北部耨萨高延寿、高惠真率高句丽、靺鞨兵十五万自南来援,战云遂集于安市城下。"]},
-  "1":{t:"连拔诸城",d:"贞观十九年四月—六月",p:["李勣渡辽水,先拔盖牟城;进攻辽东城,会太宗至,乘风纵火焚其楼堞,拔之,俘男女四万口。","又下白岩城,守将乌骨城主降。唐军势如破竹,长驱南下,进围安市城,布围以攻——辽东诸险,次第瓦解。"]},
-  "2":{t:"驻跸大捷",d:"贞观十九年六月",p:["高延寿、高惠真率高句丽、靺鞨之众十五万来救安市,依山结阵,连营四十里。太宗分军设伏于驻跸山(六山),诱其深入。","李勣以正阵当其前,长孙无忌以奇兵出其后,表里夹击,大破之。援军溃乱,延寿等穷蹙,率三万六千八百人降;高句丽举国震骇。"]},
-  "3":{t:"安市不下 · 班师",d:"贞观十九年七月—九月",p:["援军既破,唐军昼夜急攻安市。城主婴城固守,每见帝旗盖辄登城鼓噪以拒,士卒精锐,屡却唐兵。李道宗筑土山以逼其城,山高与堞平;会土山顶崩,压城陷堞,反为高句丽据而守之。","攻之六十余日,费力弥多而城终不拔。值辽左早寒,草枯水冻,士马难久,粮糗将尽;太宗叹安市之坚,乃下诏班师。是役克十城、歼援军十五万,而安市孤城不拔,为太宗生平用兵之憾。"]}
+  all:{t:"亲征辽东",d:"贞观十九年(645)四月 — 九月",p:["渊盖苏文弑君专国、拒命侵新罗,太宗以问罪之名亲征高句丽:李世勣、李道宗率陆军自辽东进,张亮率舟师自东莱泛海并发,水陆俱下。","唐军渡辽水,连拔盖牟、辽东、白岩诸城,俘获甚众,长驱进围安市。高句丽北部耨萨高延寿、高惠真率高句丽、靺鞨兵十五万来援;太宗设伏驻跸山大破之,降三万六千余人。然安市孤城坚守,攻之不下,会辽左早寒、粮尽,乃班师——克十城、歼大援而竟功亏一篑。"]},
+  "1":{t:"渡辽 · 拔盖牟辽东白岩",d:"贞观十九年四月 — 六月",p:["李世勣自通定潜渡辽水,趋玄菟,高句丽诸城闭门自守。先拔盖牟城,俘二万口、得粮十万石;张亮舟师自东莱渡海,袭破辽东半岛南端之卑沙城。","进攻辽东城,以抛车飞三百斤之石、撞车撼其堞,会南风急,纵火焚其西南楼,火延城中,拔之,俘男女四万口。又进下白岩城,城主孙代音举城降。辽东诸险,次第瓦解,唐军遂长驱南向安市。"]},
+  "2":{t:"进围安市城",d:"贞观十九年六月",p:["唐军南下,长驱进围安市城。城主兵精城险,婴城固守,屡挫唐兵。诸将议先取建安、乌骨,道薄平壤;太宗以军粮在辽东、恐后路见断为虑,遂舍建安而专攻安市。","安市既坚,围而未拔,而高句丽举国来救之兵已自平壤、建安道北趋——战云遂集于安市城下,一城之得失,系乎全局之成败。"]},
+  "3":{t:"驻跸山 · 破十五万援军",d:"贞观十九年六月",p:["高延寿、高惠真将高句丽、靺鞨之众十五万来救安市,依山结阵,连营四十里。太宗分军设伏于驻跸山(六山):李世勣以步骑万五千列正阵当其前,长孙无忌引精兵万一千为奇兵,自山北峡谷绕出敌后;太宗自将四千,偃旗登北山望之,约以鼓角为号。","号发,三军表里夹击,大破之,斩首二万余级。援军溃乱,高延寿、高惠真穷蹙,率三万六千八百人降,又获马牛铠仗甚众——高句丽举国震骇。此为太宗亲征辽东之极盛。"]},
+  "4":{t:"筑土山不克 · 寒冬班师",d:"贞观十九年七月 — 九月",p:["援军既破,唐军昼夜急攻安市。城主坚守,每见帝旗盖辄登城鼓噪以拒。李道宗筑土山于城东南隅以临之,昼夜不息凡六旬、用功五十万,山高与堞平;会土山顶崩,压城陷堞,反为高句丽乘缺而出、夺据堑守,攻之三日终不能克。","值辽左早寒,草枯水冻,士马难久,粮糗将尽,太宗乃下诏班师;嘉城主固守之节,赐缣百匹。归途过辽泽下游泥淖,剪草填道、水深处以车为梁乃得过,士马多所陷殒。是役克十城、歼援军十五万,而安市终不拔,为太宗生平用兵之憾,叹曰「魏征若在,不使我有是行」。"]}
 };
 const CITY={
-  liaodong:{t:"辽东城",d:"今辽宁辽阳",p:["高句丽辽东重镇。太宗至,乘风纵火焚其楼堞,拔之,俘男女四万口——一举夺辽东之枢。"]},
-  gaimou:{t:"盖牟城",d:"今辽宁抚顺一带",p:["李勣渡辽后首拔之城,俘获甚众,遂为唐军东进之门户。"]},
-  baiyan:{t:"白岩城",d:"今辽阳东南",p:["辽东城既下,白岩继降。乌骨、诸城相继瓦解,唐军得以长驱围安市。"]},
-  anshi:{t:"安市城",d:"今辽宁海城东南",p:["城险兵精,城主婴城死守。唐军攻之六十余日,筑土山逼城而山崩反为敌据;终不能拔,太宗叹其坚而班师。"]},
-  zhubi:{t:"驻跸山(六山)",d:"安市城北",p:["太宗设伏之地。李勣正阵、长孙无忌奇兵夹击,大破高延寿援军十五万,降三万六千人。太宗驻跸于此,故名。"]},
-  jianan:{t:"建安城",d:"安市城南,今盖州一带",p:["高句丽南路要城。诸将尝议先攻建安,太宗以粮道在辽东为虑而未从,专力于安市。"]},
-  pingrang:{t:"平壤",d:"高句丽都城,远在东南",p:["高句丽国都。张亮舟师自平壤道并进;李道宗曾请以精骑间道直袭平壤,太宗未用,后引为憾。"]}
+  tongding:{t:"通定(渡口)",d:"辽水西岸渡口,今辽宁新民一带",p:["李世勣潜师自此渡辽水入高句丽境,趋玄菟——亲征陆军东进之始。辽水为唐、丽天堑,渡辽即入辽东。"]},
+  gaimou:{t:"盖牟城",d:"今辽宁抚顺",p:["李世勣渡辽后首拔之城,俘二万口、得粮十万石,遂为唐军东进之门户,亦置盖州以处降口。"]},
+  xincheng:{t:"新城",d:"今辽宁抚顺北高尔山山城",p:["辽东北面重镇。此役唐军尝与高句丽战于新城一带,为亲征所克十城之一。"]},
+  liaodong:{t:"辽东城",d:"今辽宁辽阳",p:["高句丽辽东第一重镇。唐军以抛车飞石、撞车撼堞,会南风急纵火焚其楼,拔之,俘男女四万口——夺辽东之枢。"]},
+  baiyan:{t:"白岩城",d:"今辽阳东燕州城",p:["辽东城既下,白岩继降,城主孙代音举城归唐。辽东诸城相继瓦解,唐军得以长驱南向安市。"]},
+  anshi:{t:"安市城",d:"今辽宁海城东南营城子山城",p:["城险兵精,城主婴城死守。唐军攻之六十余日,李道宗筑土山临城而山崩反为敌据;终不能拔。会辽左早寒、粮尽,太宗叹其坚固而班师,赐缣百匹以嘉其守——亲征功亏之地。"]},
+  zhubi:{t:"驻跸山(六山)",d:"安市城东南(异说即辽阳西南首山)",p:["太宗设伏破援军之地。李世勣列正阵、长孙无忌以奇兵自山北峡谷绕出敌后,太宗登北山望之,鼓角夹击,大破高延寿、高惠真十五万之众,降三万六千八百人。帝驻跸于此,故名。"]},
+  jianan:{t:"建安城",d:"今辽宁盖州",p:["高句丽南路要城。诸将尝议先攻建安、乌骨以薄平壤,太宗以粮道在辽东为虑而未从,专力于安市。高句丽援军亦自建安道北趋救安市。"]},
+  bisha:{t:"卑沙城",d:"辽东半岛南端,今大连金州大黑山山城",p:["张亮舟师自东莱渡海所袭。四月发东莱、五月拔卑沙,俘八千口——水师一路之捷,策应陆军自海道逼辽东半岛。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

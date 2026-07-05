@@ -26,11 +26,24 @@
   .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .lake{fill:rgba(95,127,136,.20);stroke:var(--water);stroke-width:1.2;opacity:.95}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 辎重·粮道:金色串珠动脉,自大非川循薛仁贵进军之道输至乌海——唐军之命脉 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 辎重被劫:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -47,7 +60,7 @@
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +69,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +100,17 @@
   <div class="seal" aria-hidden="true"><span>大</span><span>非</span><span>川</span><span>役</span></div>
   <header>
     <h1>大非川之战</h1>
-    <div class="sub">唐咸亨元年(670)　　<b>吐蕃 论钦陵</b>(四十万) 大破 <i>唐 薛仁贵 · 郭待封</i></div>
+    <div class="sub">唐咸亨元年(670)　　<b>吐蕃 论钦陵</b>(众四十万) 大破 <i>唐 薛仁贵 · 郭待封</i>　·　辎重途劫 · 全军尽没</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 护浑往讨</button>
-    <button data-p="1">乌海先捷</button>
-    <button data-p="2">待封违节</button>
-    <button data-p="3">大非覆军</button>
+    <button data-p="1">轻锐先出 · 屯乌海</button>
+    <button data-p="2">待封违节 · 辎重缓进</button>
+    <button data-p="3">钦陵邀击 · 辎重尽失</button>
+    <button data-p="4">退保大非 · 覆军约和</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="大非川之战形势图,含唐与吐蕃疆界、青海积石山与鄯州大非川乌海河口逻娑伏俟城等地">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="大非川之战形势图,含唐与吐蕃疆界、青海湖黄河河源、鄯州大非川河口乌海伏俟城逻娑等地,及大非川至乌海之金色辎重粮道与半途被劫之朱色截断记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,83 +119,126 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:吐蕃据青海西南、尽有吐谷浑故地(西南),唐据陇右(东北),约以大非川、赤岭为界 -->
-    <path d="M 720,0 C 690,110 640,190 560,270 C 470,350 380,410 300,480 C 220,548 160,600 120,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 720,0 C 690,110 640,190 560,270 C 470,350 380,410 300,480 C 220,548 160,600 120,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 720,0 C 690,110 640,190 560,270 C 470,350 380,410 300,480 C 220,548 160,600 120,640"/>
-    <text class="realm q" x="90" y="180" font-size="30">吐 蕃(青海西南)</text>
-    <text class="realm j" x="760" y="580" font-size="32">唐(陇 右)</text>
+    <!-- 疆界:吐蕃尽据青海(吐谷浑故地,西南),唐据陇右(东北),约以赤岭·大非川一线为界(示意) -->
+    <path d="M 700,0 C 690,160 700,320 722,470 C 736,560 746,604 754,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 700,0 C 690,160 700,320 722,470 C 736,560 746,604 754,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 700,0 C 690,160 700,320 722,470 C 736,560 746,604 754,640"/>
+    <text class="realm q" x="70" y="250" font-size="27">吐 蕃</text>
+    <text class="cname s" x="74" y="274" style="fill:var(--enemy);opacity:.55">青海·吐谷浑故地</text>
+    <text class="realm j" x="792" y="574" font-size="28">唐(陇右)</text>
 
-    <!-- 黄河:自河源(西南)东北曲折而下,趋陇右 -->
-    <path class="river" stroke-width="5" d="M 200,470 C 300,440 400,430 500,410 C 600,390 700,360 800,320 C 860,296 920,286 1000,280"/>
-    <!-- 大非水:大非川旷原之水,北注黄河 -->
-    <path class="river" stroke-width="2.6" d="M 560,438 C 566,410 574,382 590,360"/>
-    <!-- 青海(湖):吐谷浑故地之泽 -->
-    <path class="river" stroke-width="2.2" d="M 400,300 C 420,290 448,290 470,302"/>
-    <text class="rname" x="720" y="352" transform="rotate(-20 720 352)">黄 河</text>
-    <text class="rname" x="560" y="416" transform="rotate(72 560 416)" style="font-size:10.5px">大非水</text>
-    <text class="rname" x="392" y="288" style="font-size:10.5px">青海</text>
+    <!-- ══ 山脉:河源雪山,乌海一带高寒苦地 ══ -->
+    <path class="mtn fill" d="M 176,520 L 192,490 L 206,510 L 222,478 L 238,506 L 254,484 L 268,514 Z"/>
+    <path class="mtn" d="M 184,506 l 12,-18 l 10,12 l 13,-18 l 11,15"/>
+    <text class="mname" x="176" y="542" style="font-size:10px">河源·雪山(苦寒)</text>
+    <path class="mtn fill" d="M 560,392 L 574,366 L 586,384 L 600,358 L 614,382 L 628,362 L 640,388 Z"/>
+    <path class="mtn" d="M 568,380 l 12,-16 l 10,11 l 12,-16 l 10,13"/>
+    <text class="mname" x="588" y="410" transform="rotate(20 588 410)" style="font-size:10px">积石·大非岭</text>
 
-    <!-- 积石山:高原三峰 -->
-    <g class="mtn"><path d="M 640,150 l 10,-16 l 10,16 M 660,142 l 10,-16 l 10,16 M 680,150 l 9,-15 l 9,15"/></g>
-    <text class="cname s" x="642" y="172">积石山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 青海湖:吐谷浑故地之大泽,内流,不通黄河 -->
+    <ellipse class="lake" cx="524" cy="146" rx="66" ry="33"/>
+    <text class="rname" x="500" y="150" style="font-size:12px;letter-spacing:.14em">青 海</text>
+    <!-- 黄河:自河源(西南)东北曲折而下,过河口趋陇右 -->
+    <path class="river" stroke-width="5" d="M 236,540 C 300,486 344,432 380,392 C 440,346 500,326 566,320 C 690,309 830,322 1000,344"/>
+    <text class="rname" x="640" y="316" transform="rotate(-6 640 316)">黄 河 · 河 源</text>
 
-    <!-- 城邑 (自东北鄯州 → 西南逻娑) -->
+    <!-- ══ 辎重·粮道:金色串珠动脉,自大非川循薛仁贵进军之道(经河口)输至乌海前军——唐师命脉 ══ -->
+    <path class="supply band" d="M 500,309 C 448,342 404,366 372,388 C 334,414 300,434 266,450"/>
+    <path class="supply core" d="M 500,309 C 448,342 404,366 372,388 C 334,414 300,434 266,450"/>
+    <g class="grain">
+      <rect x="451" y="335" width="7" height="7" transform="rotate(45 454.5 338.5)"/>
+      <rect x="404" y="365" width="7" height="7" transform="rotate(45 407.5 368.5)"/>
+      <rect x="368" y="385" width="7" height="7" transform="rotate(45 371.5 388.5)"/>
+      <rect x="328" y="412" width="7" height="7" transform="rotate(45 331.5 415.5)"/>
+      <rect x="290" y="434" width="7" height="7" transform="rotate(45 293.5 437.5)"/>
+    </g>
+    <text class="slabel" x="332" y="470">辎重 · 粮道</text>
+    <text class="slabel" x="332" y="484" style="font-size:9.5px;opacity:.85">大非川转输乌海之命脉</text>
+
+    <!-- ══ 城邑(东北鄯州 → 西南乌海) ══ -->
     <g id="cities">
-      <g class="city" data-city="shanzhou"><circle cx="820" cy="256" r="6"/><text class="cname" x="832" y="252">鄯州<tspan class="cname s" dx="2">(唐出兵地)</tspan></text></g>
-      <g class="city" data-city="dafeichuan"><circle cx="580" cy="392" r="6"/><text class="cname" x="592" y="388">大非川<tspan class="cname s" dx="2">·大非岭</tspan></text></g>
-      <g class="city" data-city="wuhai"><circle cx="430" cy="440" r="5"/><text class="cname" x="360" y="436">乌海</text></g>
-      <g class="city" data-city="hekou"><circle cx="490" cy="410" r="4"/><text class="cname s" x="470" y="398">河口</text></g>
-      <g class="city" data-city="fuyucheng"><circle cx="380" cy="330" r="4"/><text class="cname s" x="300" y="326">伏俟城(吐谷浑故都)</text></g>
-      <g class="city cap" data-city="luosuo"><circle cx="180" cy="560" r="6"/><text class="cname" x="192" y="556">逻娑<tspan class="cname s" dx="2">(吐蕃都·拉萨)</tspan></text></g>
+      <g class="city" data-city="shanzhou"><circle cx="820" cy="220" r="6"/><text class="cname" x="832" y="216">鄯州<tspan class="cname s" dx="2">(唐出兵地)</tspan></text></g>
+      <g class="city" data-city="fuyucheng"><circle cx="460" cy="192" r="4.5"/><text class="cname s" x="380" y="188">伏俟城(吐谷浑故都)</text></g>
+      <g class="city cap" data-city="dafeichuan"><circle cx="500" cy="303" r="6.5"/><text class="cname" x="512" y="299">大非川<tspan class="cname s" dx="2">·大非岭</tspan></text></g>
+      <g class="city" data-city="hekou"><circle cx="372" cy="387" r="5"/><text class="cname" x="384" y="383">河口</text></g>
+      <g class="city" data-city="wuhai"><circle cx="260" cy="451" r="5.5"/><text class="cname" x="200" y="472">乌海</text></g>
+    </g>
+
+    <!-- 逻娑·吐蕃(图外·西南):吐蕃来向,兼唐军所指(逻娑道) -->
+    <g transform="translate(22,560)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,40 L 34,14"/>
+      <text class="mlabel q" x="-8" y="66" style="font-size:10px">逻娑(吐蕃都·拉萨) ↗</text>
+      <text class="cname s" x="-8" y="80" style="fill:var(--enemy);font-size:9.5px">吐蕃来向·唐军所指(图外西南)</text>
+    </g>
+    <!-- 长安·关中(图外·东):唐本,薛仁贵所自出 -->
+    <g transform="translate(878,296)">
+      <path class="march j" marker-end="url(#aj)" d="M 114,10 L 84,4"/>
+      <text class="mlabel j" x="40" y="-2" style="font-size:10px">长安·关中 ⟶(图外东)</text>
+      <text class="cname s" x="52" y="26" style="fill:var(--advance);font-size:9.5px">唐都·王师所出</text>
     </g>
 
     <!-- 全图 · 护浑往讨 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 812,262 C 720,300 640,340 592,382"/>
-      <text class="mlabel j" x="640" y="322">薛仁贵为逻娑道大总管,将众十万往讨</text>
-      <text class="anno" x="660" y="306">郭待封、阿史那道真副之,兼护吐谷浑还国</text>
-      <text class="mlabel q" x="110" y="240">吐蕃尽据吐谷浑故地,陷西域十八州</text>
-      <text class="anno" x="150" y="420">论钦陵拥众四十万,雄踞青海</text>
+      <path class="march j" marker-end="url(#aj)" d="M 810,228 C 686,258 588,285 508,301 C 428,338 340,398 272,444"/>
+      <text class="mlabel j" x="560" y="252">薛仁贵为逻娑道大总管,将众(号十万)往讨</text>
+      <text class="anno" x="560" y="270">郭待封、阿史那道真副之,兼护吐谷浑还国</text>
+      <path class="march q" marker-end="url(#aq)" d="M 120,486 C 200,452 280,428 360,406"/>
+      <text class="mlabel q" x="96" y="330">论钦陵拥众(号四十万),雄踞青海</text>
+      <text class="anno" x="150" y="440">吐蕃尽据吐谷浑故地,陷西域十八州</text>
     </g>
 
-    <!-- 阶段一:乌海先捷 -->
+    <!-- 阶段一:轻锐先出 · 屯乌海 -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="576" y="388" width="9" height="9" transform="rotate(45 580 392)"/>
-      <text class="mlabel j" x="500" y="378">留郭待封二万守大非岭,营辎重</text>
-      <path class="march j" marker-end="url(#aj)" d="M 572,398 C 540,410 512,410 496,408"/>
-      <circle class="star" cx="490" cy="410" r="7"/>
-      <text class="mlabel j" x="440" y="390">仁贵轻锐倍道,大破吐蕃于河口</text>
-      <path class="march j" marker-end="url(#aj)" d="M 484,414 C 466,424 448,432 436,438"/>
-      <text class="anno" x="400" y="462">斩获甚众,进屯乌海,以待辎重</text>
+      <rect class="camp" x="495" y="298" width="10" height="10" transform="rotate(45 500 303)" style="fill:#1f4e54"/>
+      <text class="mlabel j" x="512" y="330">留郭待封二万守大非川,营辎重</text>
+      <text class="anno" x="512" y="346">命依险立两栅,以为后援</text>
+      <path class="march j" marker-end="url(#aj)" d="M 494,308 C 452,335 412,362 382,384"/>
+      <circle class="star" cx="372" cy="387" r="7.5"/>
+      <text class="mlabel j" x="290" y="366">仁贵轻锐倍道,大破吐蕃于河口</text>
+      <text class="anno" x="316" y="382">斩获甚众,牛羊以万计</text>
+      <path class="march j" marker-end="url(#aj)" d="M 364,392 C 330,412 300,432 268,446"/>
+      <text class="mlabel j" x="150" y="500">进屯乌海,据要以待辎重</text>
     </g>
 
-    <!-- 阶段二:待封违节 -->
+    <!-- 阶段二:待封违节 · 辎重缓进 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 574,398 C 548,420 520,436 500,446"/>
-      <text class="mlabel j" x="470" y="428">待封不据险,引辎重徐进</text>
-      <path class="march q" marker-end="url(#aq)" d="M 320,300 C 400,340 460,400 500,438"/>
-      <text class="mlabel q" x="150" y="300">论钦陵以二十万邀击于中途</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 496,444 C 528,432 556,414 576,400"/>
-      <text class="mlabel r" x="510" y="474">待封大败,委弃辎重粮仗</text>
-      <text class="anno" x="380" y="490">仁贵孤军无所资,退保大非川</text>
+      <text class="mlabel j" x="512" y="292">郭待封耻居仁贵下,违节度</text>
+      <text class="anno" x="512" y="308">不据险、不立栅,引辎重徐进</text>
+      <!-- 辎重缓进:自大非川循粮道前趋,行至半途 -->
+      <path class="march j" marker-end="url(#aj)" d="M 494,309 C 460,332 434,349 416,362"/>
+      <rect class="camp" x="406" y="357" width="9" height="9" transform="rotate(45 410.5 361.5)" style="fill:#1f4e54"/>
+      <text class="mlabel r" x="300" y="330">辎重粮仗离栅在途,弃险自陷 ⚠</text>
+      <text class="anno" x="176" y="500">乌海:仁贵前军悬据,资粮仰给于此</text>
     </g>
 
-    <!-- 阶段三:大非覆军 -->
+    <!-- 阶段三:钦陵邀击 · 辎重尽失 -->
     <g id="ph3" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 260,340 C 360,380 460,400 552,398"/>
-      <path class="march q" marker-end="url(#aq)" d="M 300,470 C 400,450 500,420 556,404"/>
-      <text class="mlabel q" x="120" y="360">论钦陵益兵至四十余万</text>
-      <circle class="siege" cx="580" cy="392" r="30"/>
-      <circle class="siege" cx="580" cy="392" r="40"/>
-      <path d="M 580,368 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="608" y="356">合围唐军于大非川,粮尽援绝</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 588,402 C 660,368 730,320 806,268"/>
-      <text class="mlabel r" x="660" y="410">唐军大败,死伤殆尽</text>
-      <text class="anno" x="640" y="426">仁贵、待封约和而还,皆坐除名;吐谷浑遂亡</text>
+      <path class="march q" marker-end="url(#aq)" d="M 150,432 C 240,404 320,386 396,368"/>
+      <text class="mlabel q" x="96" y="426">论钦陵以二十万众邀击于半途</text>
+      <g class="cut" transform="translate(410,362)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="360" y="344">待封大败,辎重粮仗尽失 ✕</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 402,357 C 438,336 468,320 494,308"/>
+      <text class="mlabel r" x="470" y="330">残卒奔还大非川</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 268,448 C 350,412 430,352 496,310"/>
+      <text class="mlabel r" x="188" y="440">仁贵孤军无所资,退保大非川</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:退保大非 · 覆军约和 -->
+    <g id="ph4" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 150,430 C 260,404 360,368 468,318"/>
+      <path class="march q" marker-end="url(#aq)" d="M 240,556 C 340,470 420,378 476,322"/>
+      <text class="mlabel q" x="110" y="392">论钦陵益兵至四十余万,合围</text>
+      <circle class="siege" cx="500" cy="303" r="30"/>
+      <circle class="siege" cx="500" cy="303" r="40"/>
+      <path d="M 500,279 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel r" x="528" y="268">粮尽援绝,唐军大败,死伤略尽</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 512,298 C 620,268 720,244 806,226"/>
+      <text class="mlabel r" x="600" y="300">与钦陵约和而还,皆坐除名</text>
+      <text class="anno" x="600" y="316">吐谷浑遂尽并于吐蕃</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -175,34 +247,81 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>吐蕃军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(薛仁贵)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>吐蕃军(论钦陵)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军败退·约和</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>辎重·粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>辎重被劫</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>吐蕃</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>辎重释要 · 违节度而弃险,辎重一失而全军没</h3>
+    <div class="lead">何以大非川之覆,系于半途一队辎重 —— 非战之罪,实辎重之败</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="辎重示意:大非川为辎重本、乌海为前军,辎重当循粮道输至前军;郭待封违节度弃险,引辎重在途,论钦陵二十万邀击于半途,辎重尽失,前军孤悬遂溃">
+      <!-- 左:大非川(辎重本) — 右:乌海(前军) -->
+      <text x="24" y="34" fill="#9c7a2c" font-size="12" font-weight="700">大非川 · 辎重本(郭待封二万)</text>
+      <text x="612" y="34" fill="#1f4e54" font-size="12" font-weight="700">乌海 · 前军(薛仁贵轻锐)</text>
+      <!-- 应据险立两栅(未立,虚影) -->
+      <rect x="120" y="150" width="30" height="30" fill="none" stroke="#1f4e54" stroke-width="1.4" stroke-dasharray="3 4" opacity=".7"/>
+      <text x="96" y="206" fill="#1f4e54" font-size="10.5" opacity=".85">命立两栅据险(违而不立)</text>
+      <!-- 辎重·粮道:金色,自大非川输往乌海,半途被劫 -->
+      <path d="M 150,120 C 320,120 470,120 700,120" fill="none" stroke="#9c7a2c" stroke-width="7" opacity=".22" stroke-linecap="round"/>
+      <path d="M 150,120 L 700,120" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="286" y="116" width="8" height="8" transform="rotate(45 290 120)" fill="#9c7a2c"/>
+      <rect x="546" y="116" width="8" height="8" transform="rotate(45 550 120)" fill="#9c7a2c"/>
+      <circle cx="150" cy="120" r="5.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <circle cx="700" cy="120" r="5.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="128" y="104" fill="#9c7a2c" font-size="11" font-weight="700">辎重·粮道 →</text>
+      <!-- 论钦陵二十万自南邀击半途 -->
+      <path d="M 400,232 C 410,196 415,172 418,146" fill="none" stroke="#9a2b1e" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 412,152 L 420,138 L 424,152 Z" fill="#9a2b1e"/>
+      <text x="330" y="248" fill="#9a2b1e" font-size="11" font-weight="700">论钦陵二十万 · 邀击于半途</text>
+      <!-- 半途被劫 ✕ -->
+      <g><circle cx="420" cy="120" r="10" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="413" y1="113" x2="427" y2="127" stroke="#9a2b1e" stroke-width="2.6"/><line x1="413" y1="127" x2="427" y2="113" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="366" y="98" fill="#9a2b1e" font-size="11" font-weight="700">辎重粮仗尽失 ✕</text>
+      <!-- 结果链 -->
+      <text x="560" y="176" fill="#7a5a23" font-size="11.5" font-weight="700">前军资粮既绝 → 退保大非川</text>
+      <text x="560" y="198" fill="#9a2b1e" font-size="11.5" font-weight="700">益兵四十万合围 → 全军尽没</text>
+      <text x="560" y="220" fill="#5c4f38" font-size="10">约和得还,皆坐除名;吐谷浑遂亡</text>
+    </svg>
+    <p class="intro">薛仁贵深入吐蕃,顿兵乌海高寒之地,数万之众所仰者,惟大非川一屯之辎重粮仗。此其命脉,系于郭待封一军之守。仁贵知辎重多碍、不可与轻兵俱进,故留待封<b>据险立两栅</b>以固后路;而胜负之机,即伏于此一线辎重之通塞。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>薛仁贵之策 · 据险守辎</h4>
+        <p>仁贵以辎重繁重、难与轻锐俱进,乃留郭待封二万守大非川,营辎重、依险立两栅以为后援;自将轻锐倍道,先破吐蕃于河口,进屯乌海,出敌不意。此「轻锐先发、重辎据险」之常法——后路一固,则前军深入而有所恃。</p>
+      </div>
+      <div class="c b">
+        <h4>郭待封之违 · 弃险陷辎</h4>
+        <p>待封本与仁贵齐名,耻居其下,不用其命:不立栅、不据险,乃引辎重徐徐前进,置命脉于旷野。论钦陵觇知,以二十万众邀之于半途;待封仓卒不能军,辎重粮仗尽委于敌。前军之所仰一断,乌海遂不可守。</p>
+      </div>
+    </div>
+    <p class="kicker">辎重一失,全军无所资:仁贵孤军退保大非川,论钦陵益兵四十万合围,唐师粮尽援绝,死伤略尽,仅以约和得还,皆坐除名为庶人,吐谷浑遂尽并于吐蕃。故大非川之覆,<b>非战之罪,实辎重之败</b>;而辎重之失,又非战之失,<b>实违节度、弃险之失</b>——一将不用命,而十万之众俱没。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二〇一、《旧唐书·薛仁贵传》《吐蕃传》约略绘出。鄯州今青海乐都,伏俟城为吐谷浑故都,在青海湖西;疆界、水道经简化,河源、积石诸山惟示其概。</p>
-    <p><span class="n">注二</span>大非川在今青海共和西南切吉旷原一带,大非岭为其屯辎设援之地;乌海、河口在其西,逻娑即今西藏拉萨,远在西南,图中位置仅示方向,不主里距。</p>
-    <p><span class="n">注三</span>此为唐对吐蕃之第一次大败,吐谷浑遂亡,河陇、西域形势为之一变。本图虽绘唐败,仍以唐为本方(青),吐蕃为敌(赭),唐军溃退用褐;成败之机,系于郭待封违节、辎重先失一事。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托线性投影(x=100+(经度−97.5)·160,y=590−(纬度−34.5)·185),几何关系力求近实:鄯州在东北,大非川居中,河口、乌海递次西南,青海湖在北;进军自东北鄯州西趋青海,而后西南入大非川、乌海。疆界、水道经简化,晕染之约界(赤岭·大非川一线)仅示吐蕃据青海(吐谷浑故地)、唐据陇右之大势,非实有画界。依《旧唐书·薛仁贵传》《吐蕃传》《新唐书》及《资治通鉴》卷二〇一绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:鄯州(唐出兵地,治今青海海东乐都,约102.0E/36.5N)、伏俟城(吐谷浑故都,青海湖西之石乃亥铁卜加古城,约99.75E/36.65N)、大非川(今青海共和西南切吉草原一带,约100.0E/36.05N,大非岭为其屯辎设援之地)、河口(黄河河源段一渡,约99.2E/35.6N)、乌海(约今青海兴海西南苦海·冬给措纳湖一带,约98.5E/35.25N,高寒苦地);逻娑即今西藏拉萨(约91.1E/29.6N),远在图外西南,以西南向箭头示之;唐都长安·关中在图外东,王师所自出。</p>
+    <p><span class="n">注三</span>行军皆由陆路,越青海高原苦寒之地:唐军自鄯州西出,循青海湖之南西趋大非川,复西南入河口、乌海;吐蕃自青海(吐谷浑故地)四合,其本在西南逻娑。全役无水运可恃,粮秣全赖大非川陆路转输,此高原深入之所以至危也。</p>
+    <p><span class="n">注四</span>制胜之枢在辎重(图中金色粮道、朱色 ✕):薛仁贵留郭待封守大非川、营辎重、立两栅,自将轻锐先取河口、乌海。待封违节度,不据险而引辎重徐进;论钦陵以二十万邀击于半途,辎重粮仗尽失。仁贵前军资粮既绝,退保大非川;钦陵益兵四十万合围,唐师遂大败。成败之机,全系于此一队辎重之通塞——故列为第一层。</p>
+    <p><span class="n">注五</span>异说与考订:唐军兵数,诸书或作十万、或作五万,难得确数;吐蕃「二十万」「四十万」乃史家约举夸饰,非必实额,故图中troop字概以「号」标之。乌海今地,学者多主青海兴海西南之苦海(冬给措纳湖),亦有异说;河口、大非岭之确址古今聚讼,图中位置惟示方向次第,不主里距。此为唐对吐蕃之首次大败,吐谷浑遂亡,河陇、西域形势为之一变。图虽绘唐败,仍以唐为本方(青),吐蕃为敌(赭),唐军败退约和用褐。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"护浑往讨",d:"唐咸亨元年(670)",p:["吐蕃自禄东赞父子用事,尽据吐谷浑故地,复陷西域十八州,河陇为之震动。咸亨元年,唐以薛仁贵为逻娑道行军大总管,郭待封、阿史那道真副之,将众十万往讨,兼护吐谷浑还国。","军自鄯州西出,趋青海。论钦陵拥众四十余万,雄踞其地,以逸待劳。唐师深入高原,辎重繁重,粮道悬远,胜负之势已伏于行间。"]},
-  "1":{t:"乌海先捷",d:"咸亨元年·出师之初",p:["仁贵以辎重多碍,难与轻兵俱进,乃留郭待封以二万众守大非岭,营垒辎重以为后援;自将轻锐,倍道兼行,以出敌不意。","进至河口,大破吐蕃,斩获甚众,牛羊万计。乘胜进屯乌海,据其要，以待待封辎重之至。首战告捷,唐师气锐。"]},
-  "2":{t:"待封违节",d:"咸亨元年·辎重先陷",p:["郭待封素不伏仁贵,耻居其下,不用其“据险置栅、缓进以自固”之策,引辎重徐徐而进,不据险要。","论钦陵觇知之,以二十万众邀击于中途。待封仓卒不能军,大败,委弃辎重粮仗殆尽。仁贵孤军在乌海,资粮既绝,无所仰给,不得已退保大非川。"]},
-  "3":{t:"大非覆军",d:"咸亨元年·唐军覆没",p:["论钦陵乘胜益兵,众至四十余万,合围唐军于大非川。唐师粮尽援绝,陷于旷原重围,进退无路。","力战不支,大败,死伤殆尽,仁贵、待封仅以身免,与论钦陵约和而还,朝廷皆坐除名。吐谷浑遂没于吐蕃,唐与吐蕃争河陇、西域之祸,自此始。"]}
+  all:{t:"护浑往讨",d:"唐咸亨元年(670)四月",p:["吐蕃自禄东赞父子(噶尔氏)用事,尽据吐谷浑故地,复陷西域十八州,河陇为之震动。咸亨元年,唐以薛仁贵为逻娑道行军大总管,郭待封、阿史那道真副之,将众号十万往讨,兼护吐谷浑还国。","军自鄯州西出,越青海高原以趋大非川。论钦陵拥众号四十余万,雄踞青海,以逸待劳。唐师深入苦寒之地,辎重繁重、粮道悬远,胜负之势已伏于行间。"]},
+  "1":{t:"轻锐先出 · 屯乌海",d:"咸亨元年 · 出师之初",p:["仁贵以辎重多碍,难与轻兵俱进,乃留郭待封以二万众守大非川,营垒辎重、依险立两栅以为后援;自将轻锐,倍道兼行,以出敌不意。","进至河口,大破吐蕃,斩获甚众,牛羊以万计。乘胜进屯乌海,据其要,以待待封辎重之至。首战告捷,唐师气锐——然孤军前出,命脉已系于后路一线之辎重。"]},
+  "2":{t:"待封违节 · 辎重缓进",d:"咸亨元年 · 弃险在途",p:["郭待封本与仁贵齐名,素不伏之,耻居其下,不用其「据险立栅、缓进自固」之命。既不立两栅,又不据险,乃引辎重粮仗徐徐而前,置全军之命脉于旷野之中。","辎重一离大非川之险而在途,则前有乌海之待给、后无深栅之可恃。仁贵所虑之至危,正在于此——而待封方以违节自快,浑不知钦陵之觇伺已及。"]},
+  "3":{t:"钦陵邀击 · 辎重尽失",d:"咸亨元年 · 辎重先陷",p:["论钦陵觇知待封辎重在途、失险无备,遂以二十万众邀击于半途。待封仓卒不能成军,大败,委弃辎重粮仗殆尽,残卒奔还大非川。","仁贵孤军在乌海,资粮既绝,无所仰给,不得已弃乌海之得,退保大非川。前军之所恃一朝而空,胜势尽转为危局——非钦陵能陷乌海,乃唐师自失其辎重耳。"]},
+  "4":{t:"退保大非 · 覆军约和",d:"咸亨元年 · 唐军覆没",p:["论钦陵乘胜益兵,众至四十余万,合围唐军于大非川。唐师粮尽援绝,陷于旷原重围,进退无路,力战不支,大败,死伤略尽。","仁贵、待封、阿史那道真仅以身免,与论钦陵约和而还,朝廷皆坐除名,免为庶人。吐谷浑遂尽没于吐蕃,唐复吐谷浑之谋成空;唐与吐蕃争河陇、西域之百年祸端,自此始。"]}
 };
 const CITY={
-  shanzhou:{t:"鄯州",d:"唐出兵地,今青海乐都",p:["陇右西陲重镇,唐军西讨吐蕃之集结出发地。薛仁贵将十万众自此西趋青海。"]},
-  dafeichuan:{t:"大非川·大非岭",d:"今青海共和西南切吉旷原",p:["辎重屯聚、决战覆军之地。仁贵留郭待封守大非岭为后援;终以待封失辎重,唐军退保于此,为论钦陵四十万众合围而覆没。"]},
-  wuhai:{t:"乌海",d:"大非川以西高原要地",p:["仁贵大破吐蕃于河口后进屯之地,据险以待辎重。既而辎重先陷,资粮俱绝,遂退。"]},
-  hekou:{t:"河口",d:"乌海之东",p:["薛仁贵轻锐倍道所至,先破吐蕃处,斩获甚众、牛羊万计,唐师首捷之地。"]},
-  fuyucheng:{t:"伏俟城",d:"吐谷浑故都,青海湖西",p:["吐谷浑旧都。吐蕃尽据其故地,唐此役兼欲护吐谷浑还国;役败,吐谷浑遂亡。"]},
-  luosuo:{t:"逻娑",d:"吐蕃都城,今西藏拉萨",p:["吐蕃之都,远在西南。唐以“逻娑道”名此军,志在深入蕃境;然大非一败,直捣之谋遂空。"]}
+  shanzhou:{t:"鄯州",d:"唐出兵地,治今青海海东乐都(约102.0E,36.5N)",p:["陇右西陲重镇,唐军西讨吐蕃之集结出发地。薛仁贵将众号十万自此西趋青海,越高原以入大非川。"]},
+  fuyucheng:{t:"伏俟城",d:"吐谷浑故都,青海湖西(约99.75E,36.65N)",p:["吐谷浑旧都,在青海湖西之石乃亥。吐蕃尽据其故地,唐此役兼欲护吐谷浑还国;役败,吐谷浑遂亡,尽并于吐蕃。"]},
+  dafeichuan:{t:"大非川 · 大非岭",d:"今青海共和西南切吉草原一带(约100.0E,36.05N)",p:["辎重屯聚、决战覆军之地。仁贵留郭待封守此、营辎重、命立两栅为后援。待封违节弃险,辎重先陷于半途;仁贵退保于此,终为论钦陵四十万众合围而覆没——一役成败之枢。"]},
+  hekou:{t:"河口",d:"黄河河源段一渡,大非川西南(约99.2E,35.6N)",p:["薛仁贵轻锐倍道所至,先破吐蕃处,斩获甚众、牛羊以万计,唐师首捷之地;亦辎重粮道所经。"]},
+  wuhai:{t:"乌海",d:"约今青海兴海西南苦海·冬给措纳湖一带(约98.5E,35.25N)",p:["高原苦寒之地。仁贵大破吐蕃于河口后进屯之,据险以待辎重。既而辎重先陷、资粮俱绝,遂弃之退保大非川。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

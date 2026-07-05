@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -31,6 +31,9 @@
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn.fill{fill:rgba(92,79,56,.10);stroke:none}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.28em;opacity:.72;font-weight:500}
+  .defile{fill:rgba(122,90,35,.09);stroke:none}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,26 +42,42 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.force{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:9 5}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .campj{fill:var(--advance);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .fire{fill:var(--enemy)}
+  .smoke{fill:rgba(70,60,52,.30)}
+  .drown{fill:none;stroke:var(--water);stroke-width:1.5;stroke-linecap:round;opacity:.9}
+  .xmark{stroke:var(--enemy);stroke-width:1.8;stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.force){stroke-dasharray:720;stroke-dashoffset:720;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +91,17 @@
   <div class="seal" aria-hidden="true"><span>潼</span><span>关</span><span>之</span><span>败</span></div>
   <header>
     <h1>灵宝·潼关之战</h1>
-    <div class="sub">唐至德元载(756)　　<b>燕 安禄山</b>(崔乾祐) 大破 <i>唐 哥舒翰</i> · 潼关失守</div>
+    <div class="sub">唐至德元载(756)六月　　<b>安史叛军</b>(崔乾祐) 大破 <i>唐 哥舒翰</i>　·　弃险出战 · 隘道中伏 · 潼关失守</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 逼关出战</button>
-    <button data-p="1">出关入险</button>
-    <button data-p="2">灵宝中伏</button>
-    <button data-p="3">覆军失关</button>
+    <button data-p="1">据险坚守</button>
+    <button data-p="2">逼战 · 恸哭出关</button>
+    <button data-p="3">灵宝中伏 · 滚木纵火</button>
+    <button data-p="4">绕后覆军 · 溺河失关</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="灵宝潼关之战形势图,含燕唐疆界、黄河崤山与洛阳潼关长安等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="灵宝潼关之战形势图:唐据潼关天险于西,安史叛军据洛阳陕郡于东,黄河横贯北境,崤山南山夹峙,潼关至灵宝间七十里隘道为唐军覆没处">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,94 +110,133 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:燕(叛军)据东,唐据关中(西),约以潼关一线为界 -->
-    <path d="M 470,0 C 468,120 484,220 500,320 C 512,410 500,520 512,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 468,120 484,220 500,320 C 512,410 500,520 512,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 468,120 484,220 500,320 C 512,410 500,520 512,640"/>
-    <text class="realm q" x="720" y="150" font-size="32">燕(叛军)</text>
-    <text class="realm j" x="90" y="560" font-size="32">唐(关中)</text>
+    <!-- ══ 约界:叛军据河南(东),唐据关中(西),约以潼关一线为前锋 ══ -->
+    <path d="M 322,0 C 308,150 340,300 328,430 C 320,520 336,584 336,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 322,0 C 308,150 340,300 328,430 C 320,520 336,584 336,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 322,0 C 308,150 340,300 328,430 C 320,520 336,584 336,640"/>
+    <text class="realm q" x="740" y="122" font-size="30">安 史 叛 军</text>
+    <text class="cname s" x="782" y="150" style="fill:var(--enemy);opacity:.6">(崔乾祐 · 自洛阳西指)</text>
+    <text class="realm j" x="40" y="470" font-size="26">唐 · 关 中</text>
 
-    <!-- 黄河:自西北折而东流,横贯北境,唐军北面所阻 -->
-    <path class="river" stroke-width="6" d="M 60,150 C 150,140 230,150 300,175 C 360,196 400,210 470,205 C 560,198 640,200 720,205 C 820,212 920,214 1000,210"/>
-    <text class="rname" x="640" y="188" style="font-size:14px">黄　河</text>
-    <text class="rname" x="150" y="132" style="font-size:11px">河曲折而东</text>
+    <!-- ══ 黄河:自西北下,至潼关河渭之口折而东流,横亘隘道之北 ══ -->
+    <path class="river" stroke-width="6" d="M 46,150 C 130,152 196,166 262,190 C 340,214 430,224 512,230 C 606,236 700,240 800,244 C 884,248 944,250 1000,252"/>
+    <text class="rname" x="430" y="212" style="font-size:14px">黄　河</text>
+    <text class="rname" x="96" y="140" style="font-size:10.5px">河曲折而东</text>
+    <text class="cname s" x="230" y="292" style="fill:var(--water)">河渭之口</text>
 
-    <!-- 崤山:三峰起伏,横亘道南;隘道行黄河与崤山之间 -->
+    <!-- ══ 崤山 / 南山:三峰起伏,横亘隘道之南;唐军行黄河与崤山间七十里狭道 ══ -->
+    <path class="mtn fill" d="M 300,520 C 380,470 460,458 540,470 C 620,482 690,478 770,500 L 770,560 L 300,560 Z"/>
     <g class="mtn">
-      <path d="M 360,470 l 12,-20 l 12,20 M 384,462 l 12,-20 l 12,20 M 408,470 l 11,-18 l 11,18"/>
-      <path d="M 470,478 l 12,-20 l 12,20 M 494,470 l 12,-20 l 12,20 M 518,478 l 11,-18 l 11,18"/>
-      <path d="M 600,470 l 12,-20 l 12,20 M 624,462 l 12,-20 l 12,20 M 648,470 l 11,-18 l 11,18"/>
+      <path d="M 320,468 l 13,-22 l 13,22 M 346,460 l 13,-22 l 13,22 M 372,468 l 12,-20 l 12,20"/>
+      <path d="M 470,474 l 14,-24 l 14,24 M 498,464 l 14,-24 l 14,24 M 526,474 l 13,-22 l 13,22 M 552,474 l 12,-20 l 12,20"/>
+      <path d="M 640,470 l 13,-22 l 13,22 M 666,462 l 13,-22 l 13,22 M 692,470 l 12,-20 l 12,20"/>
     </g>
-    <text class="cname s" x="486" y="500" style="letter-spacing:.2em">崤　山（崤函之险）</text>
-    <text class="anno" x="380" y="360">河南、山北,中通一径七十里</text>
+    <text class="mname" x="452" y="506" style="letter-spacing:.22em">崤　山（南山 · 崤函之险）</text>
+    <text class="anno" x="360" y="410">南薄崤山 · 北阻黄河,中通一径七十里</text>
 
-    <!-- 城邑 (E→W):洛阳-陕州-灵宝西原-潼关-关西驿-长安 -->
+    <!-- ══ 隘道:潼关—灵宝—陕郡,河南山北之狭道 ══ -->
+    <path class="defile" d="M 210,332 C 350,344 440,356 535,360 C 620,356 668,320 706,282 L 706,296 C 660,338 616,372 535,376 C 440,372 350,360 210,348 Z"/>
+
+    <!-- ══ 城邑 (E→W) ══ -->
     <g id="cities">
-      <g class="city cap" data-city="luoyang"><circle cx="900" cy="300" r="6"/><text class="cname" x="838" y="296">洛阳<tspan class="cname s" dx="2">(禄山据)</tspan></text></g>
-      <g class="city" data-city="shanzhou"><circle cx="740" cy="292" r="4.5"/><text class="cname" x="712" y="312">陕州</text></g>
-      <g class="city" data-city="lingbao"><circle cx="600" cy="300" r="5.5"/><text class="cname" x="548" y="278">灵宝西原<tspan class="cname s" dx="1">(隘道)</tspan></text></g>
-      <g class="city cap" data-city="tongguan"><circle cx="470" cy="300" r="6"/><text class="cname" x="416" y="296">潼关<tspan class="cname s" dx="2">(唐军本守)</tspan></text></g>
-      <g class="city" data-city="guanxiyi"><circle cx="360" cy="308" r="3.5"/><text class="cname s" x="300" y="326">关西驿</text></g>
-      <g class="city cap" data-city="changan"><circle cx="150" cy="330" r="6.5"/><text class="cname" x="104" y="326">长安<tspan class="cname s" dx="2">(玄宗弃走)</tspan></text></g>
+      <g class="city cap" data-city="shanzhou"><circle cx="708" cy="272" r="5"/><text class="cname" x="680" y="262">陕郡<tspan class="cname s" dx="1">(乾祐屯)</tspan></text></g>
+      <g class="city cap" data-city="lingbao"><circle cx="535" cy="368" r="6"/><text class="cname" x="486" y="392">灵宝西原<tspan class="cname s" dx="1">(隘道)</tspan></text></g>
+      <g class="city cap" data-city="tongguan"><circle cx="210" cy="340" r="6.5"/><text class="cname" x="150" y="332">潼关<tspan class="cname s" dx="1">(唐守·天险)</tspan></text></g>
+      <g class="city" data-city="guanxiyi"><circle cx="152" cy="352" r="3.5"/><text class="cname s" x="96" y="372">关西驿</text></g>
     </g>
 
-    <!-- 全图 · 逼关出战 -->
+    <!-- ══ 图外:东→洛阳(叛军根本);西→长安(京师门户) ══ -->
+    <path class="march q" marker-end="url(#aq)" d="M 992,246 L 948,250"/>
+    <text class="mlabel q" x="874" y="234" style="font-size:10.5px">洛阳·东京 ⇥</text>
+    <text class="cname s" x="884" y="250" style="fill:var(--enemy);opacity:.8;font-size:9.5px">叛军根本(图外)</text>
+    <text class="cname s" x="8" y="454" style="fill:var(--advance);opacity:.85;font-size:11px">⟵ 长安·京师</text>
+    <text class="cname s" x="14" y="470" style="fill:var(--ink2);font-size:9.5px">门户所系(图外)</text>
+
+    <!-- ══ 全图 · 逼关出战 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 892,300 C 830,298 790,296 750,294"/>
-      <text class="mlabel q" x="740" y="260">安禄山反,陷东京洛阳,兵锋西指</text>
-      <path class="march j" marker-end="url(#aj)" d="M 158,326 C 260,318 360,312 462,304"/>
-      <text class="mlabel j" x="190" y="356">哥舒翰将近二十万守潼关,凭险固守</text>
-      <text class="anno" x="200" y="386">叛军攻关不入,本可坐老之</text>
-      <text class="mlabel r" x="240" y="418">杨国忠忌翰握兵进谗,玄宗屡遣中使逼出战</text>
+      <path class="march q" marker-end="url(#aq)" d="M 942,252 C 860,250 790,258 730,270"/>
+      <text class="mlabel q" x="600" y="250">叛军陷洛阳,兵锋西指潼关</text>
+      <path class="march j" marker-end="url(#aj)" d="M 24,452 C 90,420 150,378 200,348"/>
+      <text class="mlabel j" x="60" y="560">哥舒翰将近二十万守潼关,凭天险固守</text>
+      <text class="anno" x="72" y="580">叛军攻关不能入,本可坐老之</text>
+      <rect class="campj" x="206" y="336" width="9" height="9" transform="rotate(45 210.5 340.5)"/>
+      <rect class="camp" x="704" y="268" width="9" height="9" transform="rotate(45 708.5 272.5)"/>
+      <text class="mlabel r" x="240" y="300">杨国忠忌翰握兵进谗,玄宗遣中使逼出战</text>
     </g>
 
-    <!-- 阶段一:出关入险 -->
+    <!-- ══ 阶段一:据险坚守 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 480,300 C 520,298 560,300 592,300"/>
-      <text class="mlabel j" x="430" y="270">哥舒翰恸哭引兵出关东趋</text>
-      <text class="anno" x="418" y="252">知不可,而中使相望于道</text>
-      <rect class="camp" x="596" y="296" width="9" height="9" transform="rotate(45 600 300)"/>
-      <text class="mlabel q" x="612" y="284">崔乾祐预伏精兵于灵宝西原</text>
-      <text class="anno" x="612" y="330">南薄高山、北阻黄河,中通一径</text>
-      <text class="anno" x="612" y="348">以羸弱示唐军,诱之入险</text>
+      <rect class="campj" x="205" y="335" width="10" height="10" transform="rotate(45 210 340)"/>
+      <text class="mlabel j" x="150" y="424">哥舒翰凭潼关天险,坚壁固守</text>
+      <text class="anno" x="150" y="444">上表:贼远来利在速战,我据险利在坚守</text>
+      <!-- 叛军自陕郡西攻潼关,不能入 -->
+      <path class="march q" marker-end="url(#aq)" d="M 700,278 C 560,320 400,344 246,346"/>
+      <text class="mlabel q" x="470" y="336">崔乾祐引兵西攻,顿于关下</text>
+      <text class="anno" x="500" y="356">羸师示弱,潜谋诱唐军出险</text>
+      <rect class="camp" x="704" y="268" width="9" height="9" transform="rotate(45 708.5 272.5)"/>
     </g>
 
-    <!-- 阶段二:灵宝中伏 -->
+    <!-- ══ 阶段二:逼战 · 恸哭出关 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 500,300 C 540,300 566,300 588,300"/>
-      <text class="mlabel j" x="452" y="272">唐军入隘</text>
-      <rect class="camp" x="596" y="296" width="10" height="10" transform="rotate(45 600 300)"/>
-      <circle class="star" cx="600" cy="300" r="9"/>
-      <!-- 山上纵滚木礌石,自南而下 -->
-      <path class="march q" marker-end="url(#aq)" d="M 600,452 C 600,410 600,378 600,352"/>
-      <text class="mlabel q" x="606" y="430">山上纵滚木礌石</text>
-      <!-- 毡车纵火,烟焰蔽天 -->
-      <text class="mlabel q" x="560" y="242">驱数十毡车纵火,烟焰蔽天</text>
-      <text class="anno" x="500" y="226">唐军不能辨,自相杀践</text>
-      <!-- 崔乾祐精骑自南山绕出其后夹击 -->
-      <path class="march q" marker-end="url(#aq)" d="M 640,448 C 690,410 700,360 660,326 C 630,304 600,306 578,308"/>
-      <text class="mlabel q" x="672" y="392">精骑绕出其后夹击</text>
-      <text class="mlabel r" x="470" y="300" style="fill:var(--ret)">唐军大溃</text>
+      <!-- 玄宗中使逼战:自西(长安)促之 -->
+      <path class="march force" marker-end="url(#ar)" d="M 20,430 C 90,400 150,368 196,346"/>
+      <text class="mlabel r" x="30" y="480">玄宗中使相望于道,日夜促战</text>
+      <!-- 哥舒翰恸哭引兵出关东趋灵宝 -->
+      <path class="march j" marker-end="url(#aj)" d="M 224,344 C 340,354 430,362 512,366"/>
+      <text class="mlabel j" x="250" y="326">哥舒翰抚膺恸哭,引兵出关东趋</text>
+      <text class="anno" x="300" y="424">知不可为,而诏使愈急,不得已而行</text>
+      <!-- 崔乾祐预伏精兵于灵宝西原 -->
+      <rect class="camp" x="596" y="330" width="9" height="9" transform="rotate(45 600.5 334.5)"/>
+      <text class="mlabel q" x="574" y="322">崔乾祐预伏精兵于灵宝西原</text>
+      <text class="anno" x="560" y="452">以老弱数千陈于道,诱唐军深入</text>
     </g>
 
-    <!-- 阶段三:覆军失关 -->
+    <!-- ══ 阶段三:灵宝中伏 · 滚木纵火 ══ -->
     <g id="ph3" class="ph">
-      <!-- 唐军溃退坠黄河 -->
-      <path class="march rout" marker-end="url(#ar)" d="M 588,306 C 560,270 540,240 512,214"/>
-      <text class="mlabel r" x="520" y="256">坠黄河、相蹈藉死者数万</text>
-      <text class="anno" x="530" y="238">二十万众还者才八千</text>
-      <!-- 溃卒西奔潼关、关西驿 -->
-      <path class="march rout" marker-end="url(#ar)" d="M 592,308 C 540,318 500,314 476,308"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 462,306 C 430,308 400,308 372,310"/>
-      <text class="mlabel r" x="330" y="342">哥舒翰走关西驿,为火拔归仁劫执降燕</text>
-      <!-- 叛军入潼关,西向长安 -->
-      <path class="march q" marker-end="url(#aq)" d="M 456,300 C 400,300 320,308 240,320 C 210,324 184,328 164,330"/>
-      <text class="mlabel q" x="220" y="300">潼关遂陷,长安门户洞开</text>
-      <path d="M 150,330 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="90" y="368">玄宗夜奔蜀,继以马嵬之变</text>
+      <!-- 唐军入隘 -->
+      <path class="march j" marker-end="url(#aj)" d="M 300,352 C 400,360 460,364 516,366"/>
+      <text class="mlabel j" x="300" y="340">唐军见贼寡弱,轻进入隘</text>
+      <circle class="star" cx="535" cy="368" r="11"/>
+      <!-- 山上纵滚木礌石,自南而下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 512,452 C 516,420 520,400 524,382"/>
+      <path class="march q" marker-end="url(#aq)" d="M 560,452 C 556,420 552,400 548,384"/>
+      <text class="mlabel q" x="470" y="474">山上纵滚木礌石</text>
+      <!-- 毡车塞道纵火,烟焰蔽天 -->
+      <g transform="translate(556,352)">
+        <path class="smoke" d="M -6,-10 a7,7 0 1,1 12,-3 a6,6 0 1,1 8,4 a6,6 0 1,1 -6,7 a7,7 0 1,1 -14,-2 Z" opacity=".5"/>
+        <path class="fire" d="M 0,0 C -6,-6 -4,-13 0,-18 C 2,-12 8,-13 6,-6 C 10,-9 8,-3 4,1 Z"/>
+      </g>
+      <text class="mlabel q" x="540" y="316">数十毡车塞道纵火,烟焰蔽天</text>
+      <text class="anno" x="360" y="300">唐军不能辨物,自相杀践;聚射烟中,日中矢尽</text>
+      <text class="mlabel r" x="360" y="384">唐军挤于隘道,无所施力</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ 阶段四:绕后覆军 · 溺河失关 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 同罗精骑自南山绕出其后夹击 -->
+      <path class="march q" marker-end="url(#aq)" d="M 604,452 C 690,414 706,344 636,318 C 588,300 520,320 476,344"/>
+      <text class="mlabel q" x="606" y="470">同罗精骑自南山绕出其后</text>
+      <text class="anno" x="470" y="332">前后受敌,首尾断绝,二十万众大溃</text>
+      <!-- 唐军溃退坠黄河溺死 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 512,360 C 500,320 496,280 500,244"/>
+      <g transform="translate(478,228)">
+        <path class="drown" d="M 0,0 q 5,-6 10,0 q 5,6 10,0"/>
+        <path class="drown" d="M 4,8 q 5,-6 10,0 q 5,6 10,0"/>
+      </g>
+      <text class="mlabel r" x="470" y="222">争入黄河 · 溺死者数万</text>
+      <!-- 溃卒西奔潼关、关西驿 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 500,372 C 400,376 320,362 246,348"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 200,344 C 184,346 172,348 162,350"/>
+      <text class="mlabel r" x="290" y="404">二十万众,还关者才八千余</text>
+      <g class="xmark" transform="translate(152,352)"><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="mlabel r" x="30" y="392">火拔归仁劫执哥舒翰,降于叛军</text>
+      <!-- 叛军入潼关西向长安 -->
+      <path class="march q" marker-end="url(#aq)" d="M 540,376 C 400,392 300,384 224,352 M 196,340 C 120,352 60,430 22,470"/>
+      <text class="mlabel q" x="230" y="440">潼关遂陷,叛军西向,长安门户洞开</text>
+      <text class="mlabel r" x="30" y="510">玄宗夜奔蜀,马嵬之变随之</text>
+    </g>
+
+    <g class="compass" transform="translate(944,586)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -187,33 +246,89 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(哥舒翰)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>燕军(崔乾祐)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军溃退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>中伏覆军</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>燕</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>安史叛军(崔乾祐)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="9 5"/></svg>玄宗中使逼战</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军溃退·溺河</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>灵宝隘道中伏</span>
+    <span class="item"><svg width="18" height="16"><path d="M 9,3 C 4,7 6,12 9,15 C 11,11 15,10 13,6 C 15,8 14,4 11,3 Z" fill="#9a2b1e"/></svg>毡车纵火·烟焰</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>叛军(河南)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐(关中)</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 弃险出战 · 驱兵入隘</h3>
+    <div class="lead">何以二十万之众,一日而覆 —— 非战之罪,系于弃天险而出战、驱兵自入死地</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:唐本据潼关天险可坐老叛军;杨国忠谗、玄宗中使逼战,乃恸哭出关;入灵宝七十里隘道,叛军滚木纵火、精骑绕后,遂覆军坠河、潼关失守">
+      <text x="24" y="24" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 据险</text>
+      <text x="330" y="24" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 逼战</text>
+      <text x="628" y="24" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 入隘覆军</text>
+
+      <!-- ① 据险:潼关天险,叛军顿兵可坐老 -->
+      <path d="M 70,150 l 18,-30 l 18,30 M 100,150 l 16,-26 l 16,26" fill="none" stroke="#1f4e54" stroke-width="1.6" opacity=".85"/>
+      <text x="66" y="170" fill="#1f4e54" font-size="10.5" font-weight="700">潼关天险</text>
+      <line x1="150" y1="96" x2="150" y2="150" stroke="#9a2b1e" stroke-width="2.4"/>
+      <path d="M 250,120 L 158,120" fill="none" stroke="#9a2b1e" stroke-width="2.2" marker-end="url(#aq)"/>
+      <text x="176" y="112" fill="#9a2b1e" font-size="9.5">攻关不入</text>
+      <text x="150" y="200" fill="#1f4e54" font-size="10">坚守则叛军坐老</text>
+
+      <!-- 段间:逼战之力 -->
+      <path d="M 262,132 L 300,132" fill="none" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="7 4" marker-end="url(#ar)" opacity=".8"/>
+
+      <!-- ② 逼战:杨国忠谗、玄宗中使 -->
+      <circle cx="400" cy="70" r="5" fill="#e9dec4" stroke="#7a5a23" stroke-width="1.6"/>
+      <text x="410" y="74" fill="#7a5a23" font-size="10" font-weight="700">杨国忠 · 谗</text>
+      <circle cx="400" cy="110" r="5" fill="#e9dec4" stroke="#7a5a23" stroke-width="1.6"/>
+      <text x="410" y="114" fill="#7a5a23" font-size="10" font-weight="700">玄宗 · 中使</text>
+      <path d="M 400,120 C 386,150 380,168 396,188" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="8 4" marker-end="url(#ar)"/>
+      <text x="360" y="212" fill="#1f4e54" font-size="10.5" font-weight="700">恸哭出关</text>
+      <path d="M 470,196 L 560,196" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <text x="474" y="188" fill="#1f4e54" font-size="9.5">东趋灵宝</text>
+
+      <!-- ③ 入隘覆军:南山+黄河夹峙,滚木纵火,精骑绕后 -->
+      <line x1="600" y1="70" x2="820" y2="70" stroke="#5f7f88" stroke-width="5" opacity=".85"/>
+      <text x="604" y="62" fill="#5f7f88" font-size="9.5">黄河(北)</text>
+      <path d="M 600,180 l 16,-26 l 16,26 M 632,180 l 16,-26 l 16,26 M 664,180 l 16,-26 l 16,26 M 696,180 l 16,-26 l 16,26 M 728,180 l 16,-26 l 16,26 M 760,180 l 16,-26 l 16,26" fill="none" stroke="#5c4f38" stroke-width="1.3" opacity=".8"/>
+      <text x="690" y="196" fill="#5c4f38" font-size="9.5">崤山·南山</text>
+      <rect x="606" y="98" width="212" height="42" fill="rgba(122,90,35,.10)"/>
+      <path d="M 640,138 L 640,112 M 690,138 L 690,112 M 740,138 L 740,112" fill="none" stroke="#9a2b1e" stroke-width="2" marker-end="url(#aq)"/>
+      <text x="612" y="126" fill="#9a2b1e" font-size="9">滚木 · 纵火</text>
+      <path d="M 800,150 C 828,124 820,96 762,100" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#aq)"/>
+      <text x="770" y="150" fill="#9a2b1e" font-size="9">精骑绕后</text>
+      <path d="M 700,108 C 690,90 680,80 676,74" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 4" marker-end="url(#ar)"/>
+      <text x="640" y="238" fill="#7a5a23" font-size="10" font-weight="700">挤于隘中 · 争入河溺死者数万</text>
+    </svg>
+    <p class="intro">潼关者,崤函之险、关中之门户。哥舒翰握近二十万之众据险坚守,叛军攻之不入,本可<b>坐老</b>而制之。所失不在军力,而在<b>弃险而出</b>:一为庙堂之逼,再为地形之陷 —— 二者相因,遂成覆军之祸。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>地利 · 隘道死地(地形)</h4>
+        <p>灵宝西原之隘,南薄崤山、北阻黄河,中通一径七十里,车骑不得成列。乾祐以老弱示弱诱敌,俟唐军深入,自南山纵滚木礌石、以毡车塞道纵火,烟焰蔽天,唐军不能辨物、自相杀践;复遣同罗精骑绕出其后夹击。既弃天险而入死地,则众虽二十万而无所施力,争入黄河溺死者数万。</p>
+      </div>
+      <div class="c b">
+        <h4>庙算 · 逼战之谗(政令)</h4>
+        <p>翰本主凭险固守,上表言"贼利速战、我利坚守",请且待之。然宰相杨国忠忌翰握兵、惧其图己,屡进谗言;玄宗遽信之,遣中使相望于道、日夜促战。翰知必堕伏计而诏使愈急,抚膺恸哭,不得已引兵出关 —— 覆军之根,先种于庙堂。</p>
+      </div>
+    </div>
+    <p class="kicker">故潼关之败,非崔乾祐之能独致,乃唐自弃其险:庙堂逼之出、地形陷之死。险既弃、军既覆,则<b>关中无险可守、长安门户洞开</b>,玄宗奔蜀、马嵬继变,唐室由是几倾。此所谓<b>弃险出战 · 驱兵入隘</b>之败也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二一八、《旧唐书·哥舒翰传》《安禄山传》约略绘出。灵宝西原、潼关、关西驿位置及黄河、崤山走向经简化,疆界为点划"约界",非实有画界。</p>
-    <p><span class="n">注二</span>灵宝西原在今河南灵宝,潼关扼黄河、崤函之险,为关中东面门户。隘道南薄崤山、北阻黄河,中通一径七十里,故大军入之则首尾不能相救。</p>
-    <p><span class="n">注三</span>哥舒翰本主固守以老叛军,出战乃杨国忠之逼、玄宗之促。潼关一失,两京俱倾,唐室几亡。本图以唐为本方(青),唐军溃退用褐,以志覆军坠河之痛。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(x=120+(经−110.15)×620,y=532−(纬−34.30)×620),几何力求近实:黄河横亘北境、崤山(南山)夹峙于南,潼关在西、灵宝西原居中、陕郡在东北;洛阳远在东、长安远在西,俱出图外,以边缘箭头示之。潼关今陕西潼关北;灵宝西原今河南灵宝西;陕郡治今河南三门峡陕州;关西驿在潼关以西。水道、山势及点划"约界"皆经简化,非实有画界。依《资治通鉴》卷二一八、《旧唐书·哥舒翰传》《安禄山传》及《新唐书》相关传绘出。</p>
+    <p><span class="n">注二</span>兵力:哥舒翰军史称"号二十万"(实约十八万),分王思礼将精兵五万居前、庞忠等将余兵十万继之,别遣三万屯河北鸣鼓助势;哥舒翰与田良丘浮舟中流以观军势。崔乾祐所出诱兵不满万且羸弱,主力精骑伏于南山之险。潼关既覆,还关者才八千余人,《通鉴》云"官军相排挤入河溺死,号呼之声振动天地"。</p>
+    <p><span class="n">注三</span>决战机理:此役以地形为主角、以政令为祸首。潼关天险本可坐老叛军,而杨国忠谗、玄宗中使逼战,哥舒翰恸哭出关;入灵宝七十里隘道中伏,滚木礌石、毡车纵火,同罗精骑绕出其后夹击,唐军挤于狭道无所施力,溺河、践死者数万。哥舒翰走关西驿,为麾下蕃将火拔归仁劫执降于叛军。潼关一失,两京门户洞开,玄宗仓皇奔蜀,继以马嵬之变。本图以唐为本方(青),叛军用朱,中使逼战用褐虚长划,唐军溃退溺河用褐短划,以别军事与政令、进击与败亡。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"逼关出战",d:"唐至德元载六月",p:["安禄山反,长驱陷东京洛阳,自称大燕皇帝,兵锋西指潼关。玄宗以哥舒翰为兵马副元帅,将兵近二十万守潼关。潼关扼崤函之险,叛军攻之不能入,哥舒翰凭险固守,本可坐老叛军而制之。","然宰相杨国忠忌哥舒翰握重兵,惧其图己,屡进谗言;玄宗遽信之,遣中使相望于道,日夜促其出关决战。哥舒翰知贼羸师示弱、必有伏,力言不可轻出,而诏使愈急。"]},
-  "1":{t:"出关入险",d:"至德元载六月",p:["哥舒翰知势不可违,抚膺恸哭,引兵出关东趋灵宝。二十万众离潼关之险,行于狭道,已入死地。","崔乾祐预伏精兵于灵宝西原之隘:其地南薄崤山、北阻黄河,中通一径七十里,车骑不得成列。乾祐反以羸弱数千陈于道,旗甲不整,示唐军以易与,诱其深入。"]},
-  "2":{t:"灵宝中伏",d:"至德元载六月",p:["唐军见贼寡弱,轻进入隘。伏兵猝发:叛军自南山纵滚木礌石,乱击唐军;又驱数十毡车塞道纵火,烟焰蔽天,人马不能辨物。","唐军自相杀践,阵势大乱。崔乾祐又遣精骑自南山间道绕出其后夹击,前后受敌,首尾断绝,二十万之众遂大溃于隘中。"]},
-  "3":{t:"覆军失关",d:"至德元载六月",p:["唐军溃奔,自相蹈藉,坠黄河溺死者不可胜数,声若雷震;守关之众,还者才八千余人。哥舒翰以数百骑走还关西驿,为麾下蕃将火拔归仁劫执,缚以降于安禄山。","潼关遂陷,关中无险可守,长安门户洞开。玄宗仓皇夜出奔蜀,途次马嵬,军士哗变,杀杨国忠、缢杨贵妃;太子北趋灵武即位,是为肃宗。安史之乱由是深矣。"]}
+  all:{t:"逼关出战",d:"唐至德元载(756)六月",p:["安禄山反,长驱陷东京洛阳,自称大燕皇帝,遣崔乾祐等引兵西指潼关。玄宗以哥舒翰为兵马副元帅,将近二十万守潼关。潼关扼崤函之险,叛军攻之不能入,哥舒翰凭天险固守,本可坐老叛军而制之。","然宰相杨国忠忌哥舒翰握重兵、惧其图己,屡进谗言;玄宗遽信之,遣中使相望于道,日夜促其出关决战。哥舒翰知贼羸师示弱、必有伏兵,力言不可轻出,而诏使愈急。庙堂之逼,遂为覆军之根。"]},
+  "1":{t:"据险坚守",d:"至德元载六月 · 出战前",p:["哥舒翰据潼关天险,坚壁高垒,不与叛军争锋。上表言:禄山久习用兵,今始为逆,岂肯无备,是必羸师以诱我;且贼远来利在速战,官军据险利在坚守,请且待之,俟其变。","崔乾祐引兵西攻,顿兵关下而不能入,乃阴伏精锐、以羸弱示弱,潜谋诱唐军出险。使唐军坚守勿出,则叛军师老自退;此正哥舒翰所争,而卒不能守者也。"]},
+  "2":{t:"逼战 · 恸哭出关",d:"至德元载六月",p:["玄宗信杨国忠之谗,遣中使相望于道,日夜促战。哥舒翰知势不可违,抚膺恸哭,引兵出关东趋灵宝。二十万众离潼关之险,行于狭道,已入死地。","崔乾祐预伏精兵于灵宝西原之隘:其地南薄崤山、北阻黄河,中通一径七十里,车骑不得成列。乾祐反以老弱数千陈于道,旗甲不整,示唐军以易与,诱其深入。"]},
+  "3":{t:"灵宝中伏 · 滚木纵火",d:"至德元载六月 · 壬辰",p:["唐军见贼寡弱,轻进入隘。伏兵猝发:叛军自南山纵滚木礌石,乱击唐军;又驱数十毡车塞道纵火,烟焰蔽天,人马不能辨物。唐军谓贼在烟中,聚弓弩而射之,日中矢尽,乃知无人。","隘道狭迫,士卒不能施其技,前不得进、后不得退,自相杀践,阵势大乱。二十万之众挤于七十里狭道之中,无所措手足,覆没之势已成。"]},
+  "4":{t:"绕后覆军 · 溺河失关",d:"至德元载六月",p:["崔乾祐又遣同罗精骑自南山间道绕出唐军之后夹击,前后受敌、首尾断绝,唐军遂大溃。溃卒自相蹈藉,争入黄河溺死者数万,号呼之声振动天地;守关之众,还者才八千余人。哥舒翰以数百骑走还关西驿,为麾下蕃将火拔归仁劫执,缚以降于叛军。","潼关遂陷,关中无险可守,长安门户洞开。玄宗仓皇夜出奔蜀,途次马嵬,军士哗变,杀杨国忠、缢杨贵妃;太子北趋灵武即位,是为肃宗。弃天险而出战、驱兵入隘之祸,至此极矣。"]}
 };
 const CITY={
-  luoyang:{t:"洛阳",d:"东京,今河南洛阳",p:["安禄山起兵陷之,称大燕皇帝,据以西攻潼关。此战叛军兵锋所自出。"]},
-  shanzhou:{t:"陕州",d:"今河南三门峡陕州区",p:["洛阳、潼关间要地,先陷于叛军。崔乾祐屯兵于此以东,伏灵宝之隘。"]},
-  lingbao:{t:"灵宝西原",d:"今河南灵宝",p:["隘道所在,南薄崤山、北阻黄河,中通一径七十里。崔乾祐伏精兵、纵火滚石,唐军二十万覆没于此。"]},
-  tongguan:{t:"潼关",d:"关中东面门户",p:["扼黄河、崤函之险,哥舒翰本以重兵固守,本可坐制叛军。中伏覆军后遂陷,长安失屏障。"]},
-  guanxiyi:{t:"关西驿",d:"潼关以西驿站",p:["哥舒翰败走至此,为蕃将火拔归仁劫执,缚降安禄山。一代名将,以逼战而辱。"]},
-  changan:{t:"长安",d:"唐都,今陕西西安",p:["潼关既失,再无险阻。玄宗夜弃都奔蜀,继有马嵬之变。两京俱陷,唐室几亡。"]}
+  shanzhou:{t:"陕郡",d:"叛军前锋屯所,今河南三门峡陕州",p:["洛阳、潼关间要地,先陷于叛军。崔乾祐屯兵于此以西,伏精锐于灵宝之隘,以羸弱诱哥舒翰出关。"]},
+  lingbao:{t:"灵宝西原",d:"隘道所在,今河南灵宝西",p:["南薄崤山、北阻黄河,中通一径七十里,车骑不得成列。崔乾祐伏精兵,纵滚木礌石、毡车纵火,复遣同罗精骑绕出其后夹击,唐军二十万覆没于此,争入黄河溺死者数万。"]},
+  tongguan:{t:"潼关",d:"关中东面门户,今陕西潼关北",p:["扼黄河、崤函之险,哥舒翰本以近二十万众凭险固守,叛军攻之不入,本可坐老而制之。既逼出战、中伏覆军,数日后遂陷,长安失其屏障。"]},
+  guanxiyi:{t:"关西驿",d:"潼关以西驿站",p:["哥舒翰败走至此,张榜召募散卒欲复守关,为麾下蕃将火拔归仁劫执,缚降于叛军。一代名将,以逼战而辱。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

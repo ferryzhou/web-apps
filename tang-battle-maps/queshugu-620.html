@@ -30,7 +30,19 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 粮道:金色串珠动脉,叠于汾谷输饷之道,示宋金刚军粮所经 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 掠粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,9 +57,8 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +67,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +98,17 @@
   <div class="seal" aria-hidden="true"><span>雀</span><span>鼠</span><span>谷</span><span>捷</span></div>
   <header>
     <h1>柏壁·雀鼠谷之战</h1>
-    <div class="sub">唐武德二年至三年(619–620)　　<i>唐 秦王李世民</i> 灭 <b>刘武周 · 宋金刚</b>(突厥所立)</div>
+    <div class="sub">唐武德二年至三年(619–620)　　<i>唐 秦王李世民</i> 破 <b>刘武周 · 宋金刚</b>(依突厥)　·　坚壁疲敌 · 因粮制胜 · 乘退穷追</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 武周南侵</button>
-    <button data-p="1">柏壁相持</button>
-    <button data-p="2">雀鼠谷追歼</button>
-    <button data-p="3">尉迟来降 · 复并州</button>
+    <button data-p="1">宋金刚南下 · 陷河东</button>
+    <button data-p="2">屯柏壁 · 坚壁掠粮</button>
+    <button data-p="3">敌粮尽北撤 · 昼夜穷追</button>
+    <button data-p="4">雀鼠谷 · 介休八战</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="柏壁雀鼠谷之战形势图,含唐与刘武周疆界、汾水黄河与太原柏壁雀鼠谷等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="柏壁雀鼠谷之战形势图,含唐与刘武周疆界、汾水黄河与太原介休雀鼠谷霍邑晋州柏壁龙门等城邑,及宋金刚自太原南输之金色粮道与唐军掠断记号">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,87 +117,148 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:突厥·刘武周据北,唐据南,约以汾水中游为界 -->
-    <path d="M 0,300 C 130,290 260,300 380,282 C 500,264 600,250 720,236 C 830,224 920,220 1000,222 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 130,290 260,300 380,282 C 500,264 600,250 720,236 C 830,224 920,220 1000,222 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 130,290 260,300 380,282 C 500,264 600,250 720,236 C 830,224 920,220 1000,222"/>
-    <text class="realm q" x="120" y="120" font-size="30">刘武周(突厥)</text>
-    <text class="realm j" x="640" y="560" font-size="32">唐(关中·河东)</text>
+    <!-- 疆界:刘武周(依突厥)据北(并州),唐据南(河东·关中),约以汾水中游为界(示意) -->
+    <path d="M 0,458 C 160,470 320,492 430,504 C 540,514 650,508 760,496 C 880,483 950,478 1000,476 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,458 C 160,470 320,492 430,504 C 540,514 650,508 760,496 C 880,483 950,478 1000,476 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,458 C 160,470 320,492 430,504 C 540,514 650,508 760,496 C 880,483 950,478 1000,476"/>
+    <text class="realm q" x="60" y="185" font-size="27">刘武周(依突厥)</text>
+    <text class="cname s" x="66" y="208" style="fill:var(--enemy);opacity:.55">并州·太原</text>
+    <text class="realm j" x="748" y="560" font-size="28">唐(河东·关中)</text>
 
-    <!-- 汾水:自北(太原)南流入黄河 -->
-    <path class="river" stroke-width="4" d="M 512,150 C 500,220 470,290 430,360 C 396,418 350,470 300,516 C 262,550 218,568 180,580"/>
-    <!-- 黄河:西界,自北南下经龙门折东 -->
-    <path class="river" stroke-width="5.5" d="M 150,120 C 156,220 162,330 170,430 C 176,500 200,548 260,566 C 340,590 440,588 540,584"/>
-    <text class="rname" x="430" y="352" transform="rotate(58 430 352)">汾 水</text>
-    <text class="rname" x="150" y="300" transform="rotate(86 150 300)" style="font-size:13px">黄 河</text>
+    <!-- ══ 山脉:吕梁夹汾水之西,太行峙其东 ══ -->
+    <path class="mtn fill" d="M 292,250 L 306,222 L 318,240 L 332,210 L 346,236 L 360,214 L 372,244 Z"/>
+    <path class="mtn" d="M 300,238 l 12,-18 l 10,12 l 13,-18 l 11,15"/>
+    <text class="mname" x="298" y="270" transform="rotate(-70 298 270)">吕 梁 山</text>
+    <path class="mtn fill" d="M 604,270 L 618,240 L 630,258 L 646,226 L 660,252 L 674,230 L 688,262 Z"/>
+    <path class="mtn" d="M 612,256 l 12,-18 l 10,12 l 13,-18 l 11,15"/>
+    <text class="mname" x="700" y="278" transform="rotate(72 700 278)">太 行 山</text>
 
-    <!-- 太行·吕梁山峦 -->
-    <g class="mtn"><path d="M 600,300 l 8,-13 l 8,13 M 616,294 l 8,-13 l 8,13 M 632,300 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="600" y="320">太行山</text>
-    <g class="mtn"><path d="M 300,240 l 7,-12 l 7,12 M 314,234 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="296" y="228">吕梁山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自北南下,经龙门(禹门口)折而续南,为唐军自关中东渡之处 -->
+    <path class="river" stroke-width="5.5" d="M 206,70 C 199,185 196,320 206,412 C 214,476 230,508 252,520 C 292,533 330,553 360,578"/>
+    <!-- 汾水:自太原西南流,贯介休、灵石峡、临汾盆地,至新绛、河津(龙门)入黄河——全戏之脊 -->
+    <path class="river" stroke-width="3.4" d="M 659,120 C 600,182 548,226 527,264 C 508,302 498,326 492,348 C 470,398 456,416 443,435 C 414,472 388,506 366,525 C 330,540 292,530 258,522"/>
+    <text class="rname" x="176" y="300" transform="rotate(86 176 300)" style="font-size:13px">黄 河</text>
+    <text class="rname" x="470" y="392" transform="rotate(52 470 392)">汾 水</text>
 
-    <!-- 城邑(北→南) -->
+    <!-- ══ 粮道:金色串珠动脉,自太原(并州)南输,过介休、霍邑、临汾至宋金刚前军——悬军深入之命脉 ══ -->
+    <path class="supply band" d="M 656,128 C 600,185 548,225 527,262 C 505,308 488,360 470,410 C 452,452 428,486 405,508"/>
+    <path class="supply core" d="M 656,128 C 600,185 548,225 527,262 C 505,308 488,360 470,410 C 452,452 428,486 405,508"/>
+    <g class="grain">
+      <rect x="609" y="177" width="7" height="7" transform="rotate(45 612.5 180.5)"/>
+      <rect x="539" y="237" width="7" height="7" transform="rotate(45 542.5 240.5)"/>
+      <rect x="491" y="322" width="7" height="7" transform="rotate(45 494.5 325.5)"/>
+      <rect x="455" y="409" width="7" height="7" transform="rotate(45 458.5 412.5)"/>
+      <rect x="417" y="479" width="7" height="7" transform="rotate(45 420.5 482.5)"/>
+    </g>
+    <text class="slabel" x="560" y="300">宋金刚 · 粮道</text>
+    <text class="slabel" x="560" y="314" style="font-size:9.5px;opacity:.85">太原转输之命脉 · 悬军深入</text>
+
+    <!-- ══ 城邑(北→南) ══ -->
     <g id="cities">
-      <g class="city" data-city="mayi"><circle cx="470" cy="70" r="5"/><text class="cname" x="482" y="66">马邑<tspan class="cname s" dx="2">(武周根本)</tspan></text></g>
-      <g class="city cap" data-city="taiyuan"><circle cx="512" cy="176" r="6"/><text class="cname" x="524" y="172">太原<tspan class="cname s" dx="2">(并州)</tspan></text></g>
-      <g class="city" data-city="quesu"><circle cx="452" cy="320" r="4"/><text class="cname s" x="464" y="316">雀鼠谷</text></g>
-      <g class="city" data-city="jiexiu"><circle cx="470" cy="352" r="5"/><text class="cname" x="484" y="356">介休</text></g>
-      <g class="city" data-city="bobi"><circle cx="392" cy="446" r="6"/><text class="cname" x="404" y="442">柏壁<tspan class="cname s" dx="2">(绛州)</tspan></text></g>
-      <g class="city" data-city="longmen"><circle cx="270" cy="480" r="4.5"/><text class="cname s" x="200" y="476">龙门(渡口)</text></g>
-      <g class="city cap" data-city="changan"><circle cx="240" cy="600" r="6"/><text class="cname" x="252" y="604">长安</text></g>
+      <g class="city cap" data-city="taiyuan"><circle cx="659" cy="111" r="6.5"/><text class="cname" x="670" y="108">太原<tspan class="cname s" dx="2">(并州)</tspan></text></g>
+      <g class="city" data-city="jiexiu"><circle cx="527" cy="262" r="5.5"/><text class="cname" x="539" y="258">介休<tspan class="cname s" dx="2">(介州)</tspan></text></g>
+      <g class="city" data-city="quesu"><circle cx="516" cy="300" r="4.5"/><text class="cname" x="525" y="304" style="font-size:12px">雀鼠谷</text></g>
+      <g class="city" data-city="huoyi"><circle cx="492" cy="348" r="5"/><text class="cname" x="424" y="344">霍邑<tspan class="cname s" dx="2">(吕州)</tspan></text></g>
+      <g class="city" data-city="jinzhou"><circle cx="443" cy="435" r="5"/><text class="cname" x="374" y="431">晋州<tspan class="cname s" dx="2">(临汾)</tspan></text></g>
+      <g class="city" data-city="huizhou"><circle cx="485" cy="496" r="4.5"/><text class="cname" x="497" y="500">浍州</text></g>
+      <g class="city cap" data-city="bobi"><circle cx="366" cy="525" r="6"/><text class="cname" x="288" y="521">柏壁<tspan class="cname s" dx="2">(绛州)</tspan></text></g>
+      <g class="city" data-city="longmen"><circle cx="250" cy="520" r="4.5"/><text class="cname s" x="182" y="516">龙门渡</text></g>
+      <g class="city" data-city="xiaxian"><circle cx="380" cy="604" r="4"/><text class="cname s" x="392" y="608">夏县</text></g>
+    </g>
+
+    <!-- 突厥·马邑(图外·北) -->
+    <g transform="translate(646,26)">
+      <path class="march q" marker-end="url(#aq)" d="M 6,4 L 12,28"/>
+      <text class="mlabel q" x="-24" y="-2" style="font-size:10px">突厥 · 马邑 ↓</text>
+      <text class="cname s" x="-26" y="12" style="fill:var(--enemy);font-size:9.5px">武周根本(图外北)</text>
+    </g>
+    <!-- 长安·关中(图外·西南) -->
+    <g transform="translate(6,536)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,4 L 34,10"/>
+      <text class="mlabel j" x="0" y="-4" style="font-size:10px">⟵ 长安·关中</text>
+      <text class="cname s" x="0" y="26" style="fill:var(--advance);font-size:9.5px">唐都(图外西南)</text>
     </g>
 
     <!-- 全图 · 武周南侵 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 470,80 C 486,110 502,140 510,168"/>
-      <text class="mlabel q" x="486" y="128">刘武周据马邑,结突厥</text>
-      <path class="march q" marker-end="url(#aq)" d="M 512,186 C 500,240 486,290 474,344"/>
-      <text class="mlabel q" x="516" y="270">宋金刚南下,陷并州、晋州、浍州,逼河东</text>
-      <text class="anno" x="530" y="300">齐王元吉弃太原走,关中震骇</text>
-      <path class="march j" marker-end="url(#aj)" d="M 246,592 C 260,540 270,510 274,488"/>
-      <path class="march j" marker-end="url(#aj)" d="M 276,472 C 316,452 356,448 386,448"/>
-      <text class="mlabel j" x="196" y="536">世民请兵,冒寒渡河</text>
-      <text class="anno" x="330" y="474">自龙门济,军柏壁拒之</text>
+      <path class="march q" marker-end="url(#aq)" d="M 656,128 C 600,190 548,300 470,430 C 452,462 428,488 407,508"/>
+      <text class="mlabel q" x="536" y="188">宋金刚南下,连陷并州、晋州、浍州</text>
+      <text class="anno" x="512" y="230">逼河东,裴寂败于度索原,关中震骇</text>
+      <path class="march j" marker-end="url(#aj)" d="M 44,543 C 130,536 195,528 244,522"/>
+      <path class="march j" marker-end="url(#aj)" d="M 258,521 C 300,523 335,525 358,525"/>
+      <text class="mlabel j" x="150" y="560">世民自龙门渡河,军柏壁拒之</text>
+      <circle class="star" cx="527" cy="262" r="6.5"/>
+      <circle class="star" cx="516" cy="300" r="6.5"/>
+      <text class="anno" x="548" y="352">坚壁掠粮 → 乘退穷追 → 八战八捷</text>
     </g>
 
-    <!-- 阶段一:柏壁相持 -->
+    <!-- 阶段一:宋金刚南下 · 陷河东 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 276,474 C 316,454 356,450 384,450"/>
-      <text class="mlabel j" x="286" y="494">世民自龙门渡河,屯营柏壁</text>
-      <rect class="camp" x="388" y="442" width="9" height="9" transform="rotate(45 392 446)" style="fill:#1f4e54"/>
-      <text class="anno" x="404" y="470">深沟高垒,闭营不战</text>
-      <rect class="camp" x="466" y="348" width="9" height="9" transform="rotate(45 470 352)"/>
-      <text class="mlabel q" x="486" y="384">宋金刚顿兵介休一带</text>
-      <path class="march j" marker-end="url(#aj)" d="M 404,438 C 424,410 440,384 450,362"/>
-      <text class="mlabel j" x="410" y="410">遣兵抄绝其粮道</text>
-      <text class="anno" x="330" y="516">相持五月,以待其敝</text>
+      <path class="march q" marker-end="url(#aq)" d="M 654,128 C 600,190 555,235 528,262"/>
+      <text class="anno" x="556" y="150">齐王元吉弃太原走还长安</text>
+      <path class="march q" marker-end="url(#aq)" d="M 525,270 C 505,320 470,400 448,430"/>
+      <text class="mlabel q" x="470" y="360">宋金刚长驱陷晋州、浍州,逼绛州</text>
+      <circle class="star" cx="527" cy="262" r="8"/>
+      <text class="mlabel q" x="392" y="240">裴寂军介休,战于度索原,大溃奔晋州</text>
+      <rect class="camp" x="439" y="431" width="9" height="9" transform="rotate(45 443 435)"/>
+      <rect class="camp" x="481" y="492" width="9" height="9" transform="rotate(45 485 496)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 250,528 C 292,532 330,528 358,525"/>
+      <text class="mlabel j" x="196" y="552">世民冒寒渡黄河,进屯柏壁</text>
     </g>
 
-    <!-- 阶段二:雀鼠谷追歼 -->
+    <!-- 阶段二:屯柏壁 · 坚壁掠粮 -->
     <g id="ph2" class="ph">
-      <path class="march q rout" marker-end="url(#ar)" d="M 466,346 C 458,320 456,290 468,240"/>
-      <text class="mlabel r" x="470" y="292">宋金刚粮尽北走</text>
-      <path class="march j" marker-end="url(#aj)" d="M 396,440 C 420,400 440,368 452,338"/>
-      <text class="mlabel j" x="356" y="418">世民急追,一昼夜二百里,昼夜不食</text>
-      <circle class="star" cx="452" cy="320" r="8"/>
-      <text class="mlabel j" x="360" y="316">雀鼠谷一日八战,八战皆捷</text>
-      <text class="anno" x="380" y="336">俘斩数万,降其骁将</text>
+      <rect class="camp" x="362" y="521" width="9" height="9" transform="rotate(45 366 525)" style="fill:#1f4e54"/>
+      <text class="mlabel j" x="252" y="548">深沟高垒,闭营不战,以老其师</text>
+      <rect class="camp" x="481" y="492" width="9" height="9" transform="rotate(45 485 496)"/>
+      <text class="mlabel q" x="498" y="484">宋金刚顿兵,军食渐匮</text>
+      <!-- 遣偏师抄掠,绝其粮道 -->
+      <path class="march j" marker-end="url(#aj)" d="M 372,522 C 420,490 445,455 462,418"/>
+      <path class="march j" marker-end="url(#aj)" d="M 376,516 C 420,470 448,410 470,372"/>
+      <text class="mlabel j" x="330" y="470">分兵抄掠,绝其转输</text>
+      <g class="cut" transform="translate(458,412)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(472,372)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="486" y="392">唐军掠粮道 ✕</text>
+      <!-- 美良川破尉迟敬德 -->
+      <path class="march q rout" marker-end="url(#ar)" d="M 483,490 C 450,540 420,570 404,588"/>
+      <circle class="star" cx="400" cy="592" r="7"/>
+      <text class="mlabel j" x="300" y="612">秦叔宝、殷开山破尉迟敬德于美良川</text>
+      <text class="anno" x="560" y="440">相持五月,养锐以俟其敝</text>
     </g>
 
-    <!-- 阶段三:尉迟来降 · 复并州 -->
+    <!-- 阶段三:敌粮尽北撤 · 昼夜穷追 -->
     <g id="ph3" class="ph">
-      <circle class="star" cx="470" cy="352" r="8"/>
-      <text class="mlabel j" x="382" y="378">复破宋金刚于介休</text>
-      <path class="march j" marker-end="url(#aj)" d="M 460,346 C 448,320 452,290 470,240"/>
-      <text class="anno" x="384" y="300">尉迟敬德、寻相举介休、永安来降</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 474,166 C 480,130 476,100 470,80"/>
-      <text class="mlabel r" x="486" y="140">武周、金刚北奔突厥</text>
-      <text class="anno" x="486" y="108">旋皆为突厥所杀</text>
-      <text class="mlabel j" x="510" y="200">并州、河东悉复</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 448,430 C 480,360 500,322 515,304"/>
+      <text class="mlabel r" x="452" y="400">宋金刚粮尽,引兵北遁</text>
+      <path class="march j" marker-end="url(#aj)" d="M 372,520 C 420,455 455,410 470,375 C 480,360 486,354 490,350"/>
+      <text class="mlabel j" x="256" y="470">世民勒兵急追,一昼夜二百余里</text>
+      <text class="anno" x="300" y="490">战数十合,将士请止,不许</text>
+      <circle class="star" cx="492" cy="348" r="8"/>
+      <text class="mlabel j" x="420" y="326">吕州追及寻相,大破之</text>
+      <text class="anno" x="400" y="308">高壁岭,刘弘基执辔谏止,世民策马逾岭</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:雀鼠谷 · 介休八战 -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 492,344 C 502,326 510,314 514,304"/>
+      <circle class="star" cx="516" cy="300" r="8.5"/>
+      <text class="mlabel j" x="400" y="290">雀鼠谷一日八战皆捷</text>
+      <text class="anno" x="400" y="332">俘斩数万,获辎重千余乘</text>
+      <text class="anno" x="366" y="352">三日不食、三日不解甲,一羊分士</text>
+      <path class="march j" marker-end="url(#aj)" d="M 518,294 C 522,282 525,272 526,266"/>
+      <circle class="star" cx="527" cy="262" r="8"/>
+      <text class="mlabel j" x="540" y="248">复破宋金刚于介休城下</text>
+      <text class="anno" x="540" y="230">尉迟敬德、寻相举介休、永安来降</text>
+      <!-- 金刚西走、武周弃太原,皆奔突厥 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 524,256 C 558,200 600,140 636,58"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 659,104 C 655,80 650,64 646,48"/>
+      <text class="mlabel r" x="600" y="120">武周、金刚北奔突厥</text>
+      <text class="anno" x="612" y="138">旋皆为突厥所杀</text>
+      <text class="mlabel j" x="672" y="128">并州、河东悉复</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -179,35 +267,89 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐军(李世民)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>刘武周·宋金刚军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>败走突厥·北遁</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>宋金刚·粮道</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>唐军掠粮道</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>刘武周</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>粮道释要 · 坚壁疲敌 · 乘退穷追</h3>
+    <div class="lead">何以雀鼠谷之捷,系于一饷道之绝 —— 坚壁挫其锋,乘退而穷追</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="粮道示意:宋金刚悬军深入,粮自太原南输前军;唐军坚壁不战、分兵掠其粮道,敌粮尽北撤,唐乘退穷追,一日八战皆捷">
+      <!-- 北:太原(粮本) / 南:宋金刚前军 -->
+      <text x="26" y="34" fill="#9a2b1e" font-size="12" font-weight="700">太原 · 并州(粮本,北)</text>
+      <line x1="24" y1="44" x2="836" y2="44" stroke="#9a2b1e" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <text x="26" y="228" fill="#1f4e54" font-size="12" font-weight="700">柏壁前线 · 绛州(唐军坚壁,南)</text>
+      <line x1="24" y1="206" x2="836" y2="206" stroke="#1f4e54" stroke-width="2" opacity=".35" stroke-dasharray="3 4"/>
+      <!-- 宋金刚悬军之粮道(金,自北南输,被掠) -->
+      <path d="M 240,52 C 236,110 234,150 232,150" fill="none" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 240,52 L 232,150" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <path d="M 232,150 C 248,178 260,190 262,196" fill="none" stroke="#9c7a2c" stroke-width="6" opacity=".22" stroke-linecap="round"/>
+      <path d="M 232,150 C 248,178 260,190 262,196" fill="none" stroke="#9c7a2c" stroke-width="2" opacity=".9" stroke-dasharray="1 6"/>
+      <rect x="234" y="96" width="8" height="8" transform="rotate(45 238 100)" fill="#9c7a2c"/>
+      <circle cx="240" cy="50" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="248" y="46" fill="#2b2418" font-size="11.5" font-weight="700">太原(转输)</text>
+      <circle cx="262" cy="198" r="5.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="272" y="202" fill="#2b2418" font-size="11" font-weight="700">宋金刚前军(悬军乏食)</text>
+      <!-- 唐坚壁 + 分兵掠粮道(青,断粮) -->
+      <path d="M 470,200 C 400,196 320,180 244,152" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 5"/>
+      <path d="M 250,155 L 240,146 L 252,144 Z" fill="#1f4e54"/>
+      <circle cx="470" cy="200" r="5.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="392" y="224" fill="#1f4e54" font-size="10.5" font-weight="700">柏壁 · 闭营不战,遣偏师掠粮 →</text>
+      <g><circle cx="236" cy="150" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="230" y1="144" x2="242" y2="156" stroke="#9a2b1e" stroke-width="2.6"/><line x1="230" y1="156" x2="242" y2="144" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="118" y="176" fill="#9a2b1e" font-size="10.5" font-weight="700">掠断其饷 ✕</text>
+      <!-- 结果:粮尽→北撤→穷追→八战 -->
+      <text x="556" y="96" fill="#9a2b1e" font-size="12.5" font-weight="700">粮尽 → 引兵北撤</text>
+      <path d="M 560,110 C 588,130 596,150 600,168" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="3 6"/>
+      <path d="M 598,158 L 602,172 L 592,166 Z" fill="#7a5a23"/>
+      <text x="556" y="150" fill="#7a5a23" font-size="10.5">唐乘其退,一昼夜二百里</text>
+      <text x="556" y="192" fill="#1f4e54" font-size="12.5" font-weight="700">雀鼠谷一日八战皆捷</text>
+      <text x="556" y="210" fill="#5c4f38" font-size="10">俘斩数万,河东以定</text>
+    </svg>
+    <p class="intro">宋金刚提孤军越太原千里而南,<b>无所资粮,利在速战</b>;其数万之众,日食浩繁,全恃自太原沿汾谷南输之一线粮道。此其至弱处,正藏于长驱直入之至锐处中。世民察之,遂不与争锋,而专攻其所必仰。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>坚壁疲敌 · 唐之守</h4>
+        <p>世民既渡河屯柏壁,深沟高垒,闭营不出;诸将屡请战,皆不许,曰宋金刚悬军深入、无粮以继,坚壁以待其敝而已。相持凡五月,一面遣秦叔宝、殷开山等偏师抄掠,破尉迟敬德于美良川,绝其转输——不战而先夺其所恃。</p>
+      </div>
+      <div class="c b">
+        <h4>因粮制胜 · 敌之溃</h4>
+        <p>粮道既被抄绝,宋金刚军食日匮,士气日堕,不得已引兵北遁。世民乘其退,一昼夜追二百余里,战数十合;至雀鼠谷一日八战皆捷,俘斩数万,获辎重千余乘,三日不食、三日不解甲。金刚轻骑西走,尉迟敬德举介休降。</p>
+      </div>
+    </div>
+    <p class="kicker">故此役之克,<b>非战之胜,实粮尽而溃</b>:武周、金刚恃突厥之援、逞长驱之锐,而不固其饷道;世民以坚壁老其师、掠粮夺其气,及其自退而穷追之——<b>坚壁挫其锋于前,乘退穷追歼其众于后</b>。河东以定,并州复归,唐之北门自此固。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷一八七至一八八、《旧唐书·太宗纪》《旧唐书·刘武周传》约略绘出。疆界、水道经简化;晕染之约界仅示武周据北、唐据南之大势,非实有画界。</p>
-    <p><span class="n">注二</span>柏壁在今山西新绛西南,雀鼠谷在介休、灵石间汾水峡谷,峡长险束,故宋金刚北遁而唐军得以邀击。马邑在今山西朔州,并州治太原。</p>
-    <p><span class="n">注三</span>尉迟敬德(尉迟恭)由此役降唐,后为太宗心膂之将。世民"坚壁待敝、乘胜穷追"之用兵,于此役发露最著——闭营五月不与争锋,及敌敝而一昼夜穷追二百里,昼夜不食者三日。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=250+(经度−110.60)·210,y=525−(纬度−35.58)·181),几何关系力求近实:太原在东北,柏壁、绛州在西南,汾水自太原西南流贯介休、灵石峡、临汾盆地,至河津(龙门)入黄河,为一戏之脊;黄河自北南下,龙门在其上。疆界、水道经简化,晕染之约界仅示武周据北、唐据南之大势,战线随攻守屡有进退,非实有画界。依《旧唐书·太宗本纪》《旧唐书·刘武周传》《尉迟敬德传》及《资治通鉴》卷一八七至一八八绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:太原(并州,112.55E/37.87N)、介休(介州,111.92E/37.03N)、雀鼠谷(介休灵石间汾水峡谷,约111.87E/36.82N)、霍邑(吕州,111.75E/36.57N)、晋州(临汾,111.52E/36.09N)、浍州(今翼城一带,111.72E/35.74N)、柏壁(绛州,今新绛西南,111.15E/35.58N)、龙门(今河津西禹门口,110.60E/35.60N)、夏县(111.22E/35.14N)。刘武周根本之马邑(今朔州,112.43E/39.33N)及其所依突厥远在图北,以图外北向之箭头示之;唐都长安(关中)在图外西南,世民自此东出、冒寒渡黄河于龙门。</p>
+    <p><span class="n">注三</span>行军皆由陆路:武周、金刚沿汾谷南侵,世民自关中东出,惟渡黄河于龙门为一水津;敌之北遁、唐之穷追,亦皆循汾谷陆行。两方各有所出:刘武周据马邑、结突厥而受其册立,其兵自北(图外)南下;唐军自长安、关中(图外西南)东出。突厥既为武周之奥援,亦为其败后北奔之所——武周、金刚终皆为突厥所杀。</p>
+    <p><span class="n">注四</span>制胜之枢在断粮(图中金色粮道、朱色 ✕):宋金刚悬军深入,粮尽则势穷。故世民坚壁不战、分兵掠其饷道,待其乏食北撤,乃乘退穷追。武德二年八月,裴寂军介休,战于度索原(介山下)而大溃,单骑奔晋州,河东几失;至世民出,始转败为胜。</p>
+    <p><span class="n">注五</span>异说与考订:雀鼠谷"一日八战皆捷、俘斩数万"及"一昼夜行二百余里、三日不食三日不解甲"诸语,本《资治通鉴》卷一八八,里程、战数为史家夸饰约举,不必尽为实数。宋金刚兵力诸书或作数万,难得确数,故图中不标兵额。尉迟敬德(尉迟恭)由此役降唐,后为太宗心膂之将,与秦叔宝并称;美良川、蒲州诸战,即其未降前与唐军相角之迹。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"武周南侵",d:"唐武德二年(619)",p:["刘武周据马邑,北结突厥,受其册立,遣大将宋金刚提兵南下。宋金刚连陷并州(太原,齐王元吉弃城而走)、晋州、浍州,长驱逼河东,关中为之震骇,朝议或欲弃河东以守关西。","秦王李世民请兵拒之,自将而东。时天寒,世民冒寒自龙门渡河,进军柏壁(绛州),与宋金刚相拒,谋以坚壁老其师。"]},
-  "1":{t:"柏壁相持",d:"武德二年冬 — 三年春",p:["世民既渡河,屯营柏壁,深沟高垒,闭营不与争锋;诸将屡请战,世民不许,曰宋金刚悬军深入、无所资粮,利在速战,吾坚壁以待其敝。","一面遣偏师抄掠,绝其粮道,断其转输。两军相持凡五月,宋金刚屯介休一带,军食渐匮,士气日堕,唐军则养锐以俟其变。"]},
-  "2":{t:"雀鼠谷追歼",d:"武德三年(620)四月",p:["宋金刚粮尽,不得已引兵北遁。世民勒兵急追,一昼夜行二百里,战数十合;将士疲乏请止,世民不听,谓功难成而易败、机不可失,遂昼夜穷追,不食者三日。","追及于介休、雀鼠谷间。雀鼠谷者,汾水峡谷,险束难行。唐军一日之中八战皆捷,俘斩数万,尽降其众,宋金刚仅以身免。"]},
-  "3":{t:"尉迟来降 · 复并州",d:"武德三年(620)四月",p:["世民复破宋金刚于介休城下。金刚败走,其骁将尉迟敬德、寻相收余众保介休,世民遣使招之,敬德、寻相遂举介休、永安二城来降;敬德自此归唐,后为太宗腹心之将。","刘武周、宋金刚势穷,相继北奔突厥,旋皆为突厥所杀。并州、河东诸郡悉复,河东以定,秦王之威名益振。"]}
+  all:{t:"武周南侵",d:"唐武德二年(619)",p:["刘武周据马邑,北结突厥、受其册立,遣大将宋金刚提兵南下。宋金刚连陷并州(太原,齐王元吉弃城走还长安)、晋州、浍州,长驱逼河东;右仆射裴寂军介休御之,战于度索原而大溃,单骑奔晋州,关中为之震骇,朝议或欲弃河东以守关西。","秦王李世民请兵拒之,自将而东。时天寒,冒寒自龙门渡黄河,进军柏壁(绛州),与宋金刚相拒,谋以坚壁老其师、掠粮夺其气,俟其敝而后乘之。"]},
+  "1":{t:"宋金刚南下 · 陷河东",d:"武德二年(619)九月—冬",p:["刘武周依突厥,遣宋金刚将兵南寇。金刚锐而无谋,悬军深入:陷并州,齐王元吉委城走还长安;进拔晋州、浍州,兵锋直逼绛州、河东,唐之北门几为所倾。","唐右仆射裴寂拒之,军于介休。宋金刚据城,战于度索原(介山下),裴寂军大溃,委弃辎重,单骑奔还晋州。夏县吕崇茂、蒲州王行本亦叛应武周,河东危急。高祖乃命秦王世民将兵讨之,世民冒寒渡河,进屯柏壁。"]},
+  "2":{t:"屯柏壁 · 坚壁掠粮",d:"武德二年冬—三年春",p:["世民既渡河,屯营柏壁,深沟高垒,闭营不与争锋。诸将屡请战,世民不许,曰:宋金刚悬军深入、无所资粮,利在速战;吾闭营养锐,以老其师,俟其粮竭而后取之。","一面遣偏师抄掠,绝其转输。尉迟敬德、寻相自夏县还军,世民遣秦叔宝、殷开山邀之,大破尉迟敬德于美良川;又要击于安邑,破之。两军相持凡五月,宋金刚顿兵一线,军食渐匮,士气日堕。"]},
+  "3":{t:"敌粮尽北撤 · 昼夜穷追",d:"武德三年(620)四月",p:["宋金刚粮尽,不得已引兵北遁。世民勒兵急追,至吕州追及其将寻相,大破之;乘胜逐北,一昼夜行二百余里,战数十合。","将士疲乏请止,总管刘弘基执辔谏曰:士马饥疲,宜留壁以待。世民曰功难成而易败、机不可失,策马而进,昼夜穷追,不复顾。追及高壁岭、雀鼠谷之间,敌势愈蹙。"]},
+  "4":{t:"雀鼠谷 · 介休八战",d:"武德三年(620)四月",p:["追及于雀鼠谷。谷者,介休、灵石间汾水峡谷,险束难行。唐军一日之中八战皆捷,俘斩数万,获辎重千余乘。是夜宿雀鼠谷西原,世民已二日不食、三日不解甲,军中止一羊,与将士分而食之。","进逼介休,宋金刚陈于城西以拒,世民复破之,金刚轻骑西走突厥。其骁将尉迟敬德、寻相收余众保介休,世民遣使招之,遂举介休、永安二城来降;敬德自此归唐。刘武周闻败,亦弃太原奔突厥。武周、金刚旋皆为突厥所杀,并州、河东悉复。"]}
 };
 const CITY={
-  mayi:{t:"马邑",d:"今山西朔州",p:["刘武周起兵之根本,北结突厥、受其册立于此。武周、金刚败后北奔,终为突厥所杀。"]},
-  taiyuan:{t:"太原(并州)",d:"唐北门重镇,今山西太原",p:["李渊起兵之地。宋金刚南下陷之,齐王元吉弃城走还长安;战后为唐所复。"]},
-  quesu:{t:"雀鼠谷",d:"介休、灵石间汾水峡谷",p:["宋金刚北遁所经之险。世民追及,一日八战皆捷,俘斩数万——此役决胜之地。"]},
-  jiexiu:{t:"介休",d:"今山西介休",p:["宋金刚顿兵及败走处。世民复破之于此,尉迟敬德、寻相收余众保介休,旋举城来降。"]},
-  bobi:{t:"柏壁(绛州)",d:"今山西新绛西南",p:["世民屯营坚壁之所。深沟高垒、闭营不战,绝金刚粮道,相持五月以待其敝。"]},
-  longmen:{t:"龙门",d:"黄河渡口,今山西河津西",p:["世民自关中东出、冒寒渡河之处。由此进军柏壁,以拒宋金刚。"]},
-  changan:{t:"长安",d:"唐都,今陕西西安",p:["关中根本。宋金刚逼河东时,长安为之震骇;世民请兵东出,遂靖河东之难。"]}
+  taiyuan:{t:"太原(并州)",d:"唐北门重镇,今山西太原(112.55E,37.87N)",p:["李渊起兵之地、河东根本。宋金刚南下陷之,齐王元吉弃城走还长安;亦为宋金刚粮道转输之本。战后武周弃之北奔突厥,并州复归于唐。"]},
+  jiexiu:{t:"介休(介州)",d:"今山西介休(111.92E,37.03N)",p:["武德二年裴寂军此,战于度索原(介山下)而大溃。三年世民复破宋金刚于城西,尉迟敬德、寻相收余众保介休,旋举城来降——一役收束之地。"]},
+  quesu:{t:"雀鼠谷",d:"介休、灵石间汾水峡谷,约111.87E/36.82N",p:["宋金刚北遁所经之险,峡长束隘。世民追及,一日八战皆捷,俘斩数万,获辎重千余乘;是夜宿谷西原,三日不食、三日不解甲,一羊分士——此役决胜之地。"]},
+  huoyi:{t:"霍邑(吕州)",d:"今山西霍州(111.75E,36.57N)",p:["世民穷追,至此追及宋金刚部将寻相,大破之;由此乘胜逐北,一昼夜二百余里。近高壁岭,刘弘基执辔谏止,世民策马逾岭不顾。"]},
+  jinzhou:{t:"晋州(临汾)",d:"今山西临汾(111.52E,36.09N)",p:["汾谷要冲。宋金刚南下拔之;裴寂度索原败后,单骑奔还于此。为武周据河东之枢。"]},
+  huizhou:{t:"浍州",d:"今山西翼城一带(111.72E,35.74N)",p:["宋金刚南侵所陷,前军顿兵之地。尉迟敬德尝还军于此,世民约战破之于美良川。"]},
+  bobi:{t:"柏壁(绛州)",d:"今山西新绛西南(111.15E,35.58N)",p:["世民屯营坚壁之所。深沟高垒、闭营不战,遣偏师绝金刚粮道,相持五月以老其师、待其敝——坚壁疲敌之枢。"]},
+  longmen:{t:"龙门渡",d:"黄河渡口,今山西河津西禹门口(110.60E,35.60N)",p:["世民自关中东出、冒寒渡黄河之处。由此进屯柏壁,以拒宋金刚。全役惟此一水津,余皆陆行。"]},
+  xiaxian:{t:"夏县",d:"今山西夏县(111.22E,35.14N)",p:["吕崇茂据县叛应刘武周。尉迟敬德、寻相自此还军,世民遣秦叔宝、殷开山邀之,破于美良川——相持期间掠粮夺气之一战。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

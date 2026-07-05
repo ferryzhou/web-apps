@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;--wa:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -18,6 +18,7 @@
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--wa);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -27,39 +28,64 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
-  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .sea{fill:var(--water);opacity:.17}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.6}
+  .redsea{fill:rgba(154,43,30,.22);stroke:rgba(154,43,30,.4);stroke-width:1;stroke-dasharray:2 3}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.65;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.26em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--wa);opacity:.55}
+  .isle{fill:var(--ink2);opacity:.42}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.ally{stroke:var(--advance2);stroke-width:2.6;stroke-dasharray:9 5;opacity:.92}
+  .march.wsea{stroke:var(--wa);stroke-width:2.8;stroke-dasharray:7 5;opacity:.92}
+  .march.fship{stroke:var(--fire);stroke-width:3.4}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--wa)}.mlabel.fire{fill:var(--fire)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
-  .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .camp{fill:var(--enemy);opacity:.9}
+  .wind{fill:none;stroke:var(--gold);stroke-width:2;opacity:.9}
+  .wlabel{fill:var(--gold);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .redlabel{fill:var(--enemy);font-weight:700;font-style:normal}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(192,73,31,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--fire);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--fire)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--fire)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.ally):not(.wsea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -73,103 +99,167 @@
   <div class="seal" aria-hidden="true"><span>白</span><span>江</span><span>口</span><span>役</span></div>
   <header>
     <h1>白江口之战</h1>
-    <div class="sub">唐龙朔三年(663)　　<i>唐 刘仁轨 · 新罗</i> 大破 <b>百济遗众 · 倭国</b>水军</div>
+    <div class="sub">唐龙朔三年(663)　　<i>唐 刘仁轨 · 新罗</i> 大破 <b>百济复国军</b> · <em>倭国</em>水军　·　因风纵火 · 四战舟焚</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 两军会江</button>
-    <button data-p="1">水陆并进</button>
-    <button data-p="2">白江四捷</button>
-    <button data-p="3">周留降 · 百济绝</button>
+    <button class="on" data-p="all">全图 · 两国四方会江</button>
+    <button data-p="1">唐罗围周留 · 刘仁轨溯白江</button>
+    <button data-p="2">倭千艘来援 · 白江口列阵</button>
+    <button data-p="3">四战 · 因风纵火焚倭四百</button>
+    <button data-p="4">烟焰涨天 · 扶余丰奔高丽</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白江口之战形势图,含朝鲜半岛西南海岸、白江(锦江)入海口与熊津周留泗沘诸城">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白江口之战形势图,含朝鲜半岛西南海岸、白江(锦江/熊津江)入海口、周留泗沘熊津诸城,及唐罗水陆并进、倭国千艘越海来援与刘仁轨因风纵火焚倭四百艘之海战">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.07)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.32)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+      <marker id="ax" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
+      <marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9c7a2c"/></marker>
     </defs>
 
-    <!-- 西海(黄海) -->
-    <path class="sea" d="M 0,0 L 300,0 C 280,120 240,240 200,360 C 170,460 150,560 160,640 L 0,640 Z"/>
-    <text class="rname" x="80" y="330" transform="rotate(84 80 330)" style="opacity:.7">西 海(黄海)</text>
+    <!-- ══ 疆界:百济复国军据西南沿海(周留·白江一带),唐·新罗据内陆东北(熊津·泗沘),约以一线为限 ══ -->
+    <path d="M 415,0 C 408,120 402,240 400,340 C 399,440 410,540 428,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 415,0 C 408,120 402,240 400,340 C 399,440 410,540 428,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 415,0 C 408,120 402,240 400,340 C 399,440 410,540 428,640"/>
+    <text class="realm q" x="150" y="118" font-size="22">百济复国军</text>
+    <text class="cname s" x="152" y="140" style="fill:var(--enemy);opacity:.6">(福信·道琛·扶余丰 · 据周留)</text>
+    <text class="realm j" x="660" y="430" font-size="24">唐 · 新罗</text>
+    <text class="cname s" x="662" y="452" style="fill:var(--advance);opacity:.6">(熊津都督府 · 新罗文武王)</text>
 
-    <!-- 百济遗众/倭据地(西、江南),晕染红 -->
-    <path d="M 300,0 C 320,120 340,260 360,400 C 372,500 380,570 400,640 L 640,640 C 640,520 620,380 600,240 C 588,150 570,70 560,0 Z" fill="url(#qinHatch)"/>
-    <!-- 唐·新罗控地(东、内陆),晕染青 -->
-    <path d="M 560,0 C 570,70 588,150 600,240 C 620,380 640,520 640,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 570,70 588,150 600,240 C 620,380 640,520 640,640"/>
-    <text class="realm q" x="360" y="150" font-size="26">百济遗众 · 倭</text>
-    <text class="realm j" x="720" y="150" font-size="28">唐 · 新罗</text>
+    <!-- ══ 西海(黄海)及海岸 ══ -->
+    <path class="sea" d="M 250,0 C 236,90 232,190 244,270 C 252,312 268,322 288,327 C 300,332 316,352 336,470 C 360,560 400,610 436,640 L 0,640 L 0,0 Z"/>
+    <path class="coast" d="M 250,0 C 236,90 232,190 244,270 C 252,312 268,322 288,327 C 300,332 316,352 336,470 C 360,560 400,610 436,640"/>
+    <text class="rname" x="86" y="330" transform="rotate(82 86 330)" style="opacity:.8">西 海(黄海)</text>
+    <g class="isle"><ellipse cx="150" cy="250" rx="12" ry="7"/><ellipse cx="120" cy="420" rx="9" ry="5.5"/><ellipse cx="176" cy="510" rx="8" ry="5"/></g>
 
-    <!-- 白江(白村江,锦江下游):自内陆(东北)西南出海 -->
-    <path class="river" stroke-width="6" d="M 690,150 C 620,190 540,240 470,290 C 400,340 340,378 288,404"/>
+    <!-- ══ 白江(白村江,即熊津江/锦江):自熊津(东北,上游)经泗沘,西南出白江口入海 ══ -->
+    <path class="river" stroke-width="6" d="M 552,152 C 500,182 470,204 464,218 C 440,250 400,280 288,327"/>
     <!-- 入海口喇叭 -->
-    <path class="river" stroke-width="9" d="M 300,398 C 268,414 236,428 208,440" opacity=".7"/>
-    <text class="rname" x="470" y="300" transform="rotate(-32 470 300)" style="font-size:13px">白 江(白村江)</text>
-    <text class="cname s" x="228" y="462" style="fill:var(--water)">锦江入海口</text>
+    <path class="river" stroke-width="10" d="M 294,325 C 262,342 234,354 210,366" opacity=".68"/>
+    <text class="rname" x="392" y="262" transform="rotate(-34 392 262)" style="font-size:13px">白 江(白村江)</text>
+    <text class="cname s" x="196" y="388" style="fill:var(--water)">锦江(熊津江)入海口</text>
 
-    <!-- 沿海小岛 -->
-    <g class="isle"><ellipse cx="176" cy="220" rx="12" ry="7"/><ellipse cx="150" cy="286" rx="8" ry="5"/></g>
-
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="xiongjin"><circle cx="690" cy="150" r="5.5"/><text class="cname" x="700" y="146">熊津府城<tspan class="cname s" dx="2">(唐刘仁愿守)</tspan></text></g>
-      <g class="city" data-city="sabi"><circle cx="560" cy="238" r="4.5"/><text class="cname s" x="568" y="234">泗沘(百济故都)</text></g>
-      <g class="city cap" data-city="zhouliu"><circle cx="452" cy="320" r="6"/><text class="cname" x="462" y="316">周留城<tspan class="cname s" dx="2">(扶余丰据)</tspan></text></g>
-      <g class="city" data-city="baijiangkou"><circle cx="300" cy="404" r="5.5"/><text class="cname" x="310" y="424">白江口<tspan class="cname s" dx="2">(海战地)</tspan></text></g>
-      <g class="city cap" data-city="jincheng"><circle cx="890" cy="470" r="6"/><text class="cname" x="838" y="490">新罗都(金城)</text></g>
+      <g class="city" data-city="xiongjin"><circle cx="559" cy="148" r="5.5"/><text class="cname" x="570" y="144">熊津府城<tspan class="cname s" dx="2">(唐刘仁愿·公州)</tspan></text></g>
+      <g class="city" data-city="sabi"><circle cx="464" cy="218" r="4.5"/><text class="cname s" x="474" y="214">泗沘(百济故都·扶余)</text></g>
+      <g class="city cap" data-city="zhouliu"><circle cx="353" cy="452" r="6.5"/><text class="cname" x="364" y="456">周留城<tspan class="cname s" dx="2">(复国军王城)</tspan></text></g>
+      <g class="city" data-city="baijiangkou"><circle cx="288" cy="327" r="5.5"/><text class="cname" x="298" y="322">白江口<tspan class="cname s" dx="2">(白村江·海战地)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 两军会江 -->
+    <!-- ══ 图外来向:高句丽(北)、新罗金城(东南)、倭国(南·越海) ══ -->
+    <g transform="translate(596,4)">
+      <path class="march rout" marker-end="url(#ar)" d="M 4,26 L 4,4"/>
+      <text class="mlabel r" x="12" y="16" style="font-size:10px">⟶ 高句丽(图外北)</text>
+    </g>
+    <g transform="translate(986,470)">
+      <path class="march ally" marker-end="url(#aj)" d="M 4,4 L -26,-6"/>
+      <text class="mlabel f" x="-84" y="26" style="fill:var(--advance2);font-size:10px">新罗金城 ⟶</text>
+      <text class="cname s" x="-84" y="10" style="fill:var(--advance2);font-size:9.5px">(庆州 · 图外东南)</text>
+    </g>
+    <g transform="translate(250,636)">
+      <path class="march wsea" marker-end="url(#af)" d="M 0,-4 L -10,-30"/>
+      <text class="mlabel f" x="8" y="-6" style="font-size:10px">⟵ 倭国(筑紫 · 越海)</text>
+      <text class="cname s" x="8" y="-20" style="fill:var(--wa);font-size:9.5px">图外东南 · 渡海来援</text>
+    </g>
+
+    <!-- ══ 全图 · 两国四方会江 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 682,158 C 600,206 520,262 462,312"/>
-      <text class="mlabel j" x="560" y="236">刘仁轨舟师循江而下</text>
-      <path class="march j" marker-end="url(#aj)" d="M 872,466 C 720,430 580,376 462,326"/>
-      <text class="mlabel j" x="640" y="392">新罗文武王率陆军来会</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 176,472 C 220,452 260,430 292,412"/>
-      <text class="mlabel q" x="120" y="500">倭国舟师千艘蔽海来援</text>
-      <text class="anno" x="360" y="360">扶余丰据周留复国,乞师于倭</text>
+      <path class="march j" marker-end="url(#aj)" d="M 552,158 C 480,200 400,272 300,320"/>
+      <text class="mlabel j" x="430" y="228">刘仁轨舟师循白江而下,趋白江口</text>
+      <path class="march ally" marker-end="url(#aj)" d="M 968,466 C 760,430 560,360 402,332"/>
+      <text class="mlabel f" x="590" y="392" style="fill:var(--advance2)">新罗文武王率陆军来会</text>
+      <g class="siege"><circle cx="353" cy="452" r="18"/></g>
+      <text class="mlabel j" x="360" y="500">唐罗陆军围周留城</text>
+      <path class="march wsea" marker-end="url(#af)" d="M 240,606 C 200,500 196,420 224,362"/>
+      <text class="mlabel f" x="70" y="470" style="fill:var(--wa)">倭国水军千艘·四万二千众<tspan x="70" dy="15">蔽海来援</tspan></text>
+      <text class="anno" x="150" y="176">扶余丰据周留复国,乞师于倭</text>
     </g>
 
-    <!-- 阶段一:水陆并进 -->
+    <!-- ══ 阶段一:唐罗围周留 · 刘仁轨溯白江 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 682,156 C 600,204 520,258 464,308"/>
-      <text class="mlabel j" x="556" y="220">刘仁轨·杜爽·扶余隆<tspan x="556" dy="15">率舟师自熊津趋白江</tspan></text>
-      <g class="siege" fill="none"><circle cx="452" cy="320" r="17"/></g>
-      <text class="mlabel j" x="470" y="360">孙仁师·刘仁愿及新罗王<tspan x="470" dy="15">率陆军围周留城</tspan></text>
-      <path class="march sea" marker-end="url(#aq)" d="M 168,468 C 216,446 258,426 292,410"/>
-      <text class="mlabel q" x="118" y="496">倭援船蔽海而来</text>
-      <path class="march j" marker-end="url(#aj)" d="M 866,464 C 720,428 584,378 468,330"/>
-      <text class="anno" x="660" y="418">陆师围城,舟师会于口</text>
+      <path class="march j" marker-end="url(#aj)" d="M 552,156 C 480,198 404,268 302,320"/>
+      <text class="mlabel j" x="452" y="196">刘仁轨·杜爽·扶余隆<tspan x="452" dy="15">率舟师及粮船自熊津江下白江</tspan></text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,230 C 430,300 390,380 362,436"/>
+      <text class="mlabel j" x="392" y="360">孙仁师·刘仁愿<tspan x="392" dy="15">将陆军趋周留</tspan></text>
+      <path class="march ally" marker-end="url(#aj)" d="M 968,470 C 740,438 540,392 404,438"/>
+      <text class="mlabel f" x="600" y="418" style="fill:var(--advance2)">新罗文武王引兵会</text>
+      <g class="siege"><circle cx="353" cy="452" r="18"/><circle cx="353" cy="452" r="24" style="opacity:.5"/></g>
+      <text class="mlabel j" x="356" y="502">水陆合围周留城</text>
+      <text class="anno" x="150" y="230">扶余丰乞师于倭,倭援将至</text>
     </g>
 
-    <!-- 阶段二:白江四捷 -->
+    <!-- ══ 阶段二:倭千艘来援 · 白江口列阵 ══ -->
     <g id="ph2" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 172,470 C 214,450 256,428 288,412"/>
-      <text class="mlabel q" x="112" y="498">倭船千艘,恃众争进</text>
-      <path class="march j" marker-end="url(#aj)" d="M 350,362 C 328,378 314,392 306,400"/>
-      <text class="mlabel j" x="330" y="352">唐船百七十艘坚阵</text>
-      <circle class="star" cx="300" cy="404" r="10"/>
-      <circle class="star" cx="300" cy="404" r="16" style="opacity:.5"/>
-      <text class="mlabel j" x="300" y="450">左右夹船纵火,四战皆捷</text>
-      <text class="anno" x="120" y="360">焚倭舟四百,烟焰涨天</text>
-      <text class="anno" x="130" y="378" style="fill:var(--enemy);font-weight:700;font-style:normal">海水皆赤,倭众溺死无算</text>
+      <!-- 倭船蔽海:紫晕于海口 -->
+      <ellipse cx="212" cy="378" rx="62" ry="40" fill="url(#fqinHatch)" stroke="rgba(92,74,110,.4)" stroke-width="1" stroke-dasharray="3 3"/>
+      <path class="march wsea" marker-end="url(#af)" d="M 238,606 C 196,500 188,424 200,392"/>
+      <text class="mlabel f" x="60" y="470" style="fill:var(--wa)">倭国战船千艘先至<tspan x="60" dy="15">恃众蔽海而进</tspan></text>
+      <text class="anno" x="120" y="330" style="fill:var(--wa)">倭众四万二千,舳舻蔽江</text>
+      <!-- 唐军百七十艘列阵白村江 -->
+      <path class="march j" marker-end="url(#aj)" d="M 380,262 C 340,286 316,302 300,318"/>
+      <text class="mlabel j" x="336" y="252">唐水军百七十艘<tspan x="336" dy="15">列阵白村江,坚阵以待</tspan></text>
+      <circle class="star" cx="288" cy="327" r="11"/>
+      <circle class="star" cx="288" cy="327" r="18" style="opacity:.5"/>
+      <text class="anno" x="298" y="360">两国水军相拒于白江口</text>
     </g>
 
-    <!-- 阶段三:周留降 · 百济绝 -->
+    <!-- ══ 阶段三:四战 · 因风纵火焚倭四百 ══ -->
     <g id="ph3" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 458,314 C 560,240 680,150 760,70"/>
-      <text class="mlabel r" x="560" y="180">扶余丰脱身奔高句丽</text>
-      <text class="anno" x="620" y="120">遗其宝剑</text>
-      <path d="M 452,320 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="466" y="344">周留城及百济诸城相继出降</text>
-      <text class="anno" x="360" y="420">百济复国之业遂绝</text>
-      <text class="anno" x="360" y="440">海东倭患亦戢,新罗渐专半岛</text>
+      <!-- 倭船蔽海(退色) -->
+      <ellipse cx="206" cy="378" rx="58" ry="38" fill="url(#fqinHatch)" opacity=".7"/>
+      <!-- 唐左右夹船,绕战 -->
+      <path class="march j" marker-end="url(#aj)" d="M 296,314 C 262,320 232,336 214,354"/>
+      <path class="march j" marker-end="url(#aj)" d="M 300,336 C 268,356 240,376 222,398"/>
+      <text class="mlabel j" x="296" y="300">唐军左右夹船,四战皆捷</text>
+      <!-- 因风:纵火之风,自陆(东北)吹向倭船(西南) -->
+      <path class="wind" marker-end="url(#aw)" d="M 336,300 C 296,320 258,344 226,368"/>
+      <text class="wlabel" x="330" y="292" font-size="18">因　风</text>
+      <!-- 火焰:焚倭船 -->
+      <g class="fire">
+        <path d="M 200,372 q -6,-15 2,-25 q 3,11 8,6 q -2,13 4,19"/>
+        <path d="M 216,368 q -5,-13 2,-23 q 3,10 7,5 q -2,12 3,17"/>
+        <path d="M 184,376 q -5,-13 1,-21 q 3,9 7,5 q -2,11 3,15"/>
+        <path d="M 230,376 q -5,-12 2,-21 q 3,9 6,5 q -2,11 3,15"/>
+      </g>
+      <path class="fire" d="M 168,368 q 22,-24 44,-16 q 22,-14 42,6" stroke-dasharray="2 4"/>
+      <text class="flabel" x="60" y="300" font-size="21">焚倭舟四百艘</text>
+      <path d="M 130,308 C 150,330 170,350 190,366" stroke="var(--fire)" stroke-width="1.4" fill="none" opacity=".7"/>
+      <text class="anno" x="60" y="322" style="fill:var(--fire)">舳舻相接,不得回旋</text>
+      <circle class="star" cx="288" cy="327" r="11"/>
+      <circle class="star" cx="288" cy="327" r="18" style="opacity:.5"/>
+      <!-- 海水渐赤 -->
+      <path class="redsea" d="M 150,420 C 168,384 210,372 244,388 C 268,400 262,428 236,438 C 200,452 158,448 150,420 Z" style="opacity:.7"/>
     </g>
 
-    <g class="compass" transform="translate(944,568)">
+    <!-- ══ 阶段四:烟焰涨天 · 扶余丰奔高丽 · 周留降 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 海水皆赤 -->
+      <path class="redsea" d="M 120,430 C 140,368 210,346 268,368 C 300,380 302,346 290,326 C 262,352 224,356 196,370 C 150,392 116,404 120,430 Z"/>
+      <text class="redlabel" x="120" y="356" style="font-size:13px">海水皆赤</text>
+      <text class="anno" x="118" y="372" style="fill:var(--enemy)">溺死者不可胜计</text>
+      <text class="flabel" x="200" y="300" font-size="19">烟焰涨天</text>
+      <g class="fire" opacity=".8">
+        <path d="M 202,336 q -6,-14 2,-23 q 3,10 8,6 q -2,12 4,17"/>
+        <path d="M 186,340 q -5,-12 1,-20 q 3,9 7,5 q -2,10 3,14"/>
+      </g>
+      <!-- 扶余丰奔高句丽(北) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 358,442 C 420,320 500,180 596,32"/>
+      <text class="mlabel r" x="470" y="210">扶余丰脱身奔高句丽</text>
+      <text class="anno" x="500" y="150">遗其宝剑</text>
+      <!-- 周留城降 -->
+      <rect class="camp" x="349" y="448" width="9" height="9" transform="rotate(45 353 452)" style="fill:#1f4e54"/>
+      <text class="mlabel j" x="362" y="474">周留城及百济诸城相继出降</text>
+      <text class="anno" x="150" y="500">百济复国之业遂绝</text>
+      <text class="anno" x="150" y="518">倭自是数百年不敢西向,新罗渐专半岛</text>
+    </g>
+
+    <g class="compass" transform="translate(948,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -178,34 +268,92 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐 · 新罗</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>百济遗众</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>倭国舟师</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃奔</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>唐(刘仁轨水军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#2c6b6f" stroke-width="2.6" stroke-dasharray="9 5"/></svg>新罗(盟军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>百济复国军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.8" stroke-dasharray="7 5"/></svg>倭国水军(越海)</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,11 q 6,-9 10,-4 q 5,-6 9,3" fill="none" stroke="#c0491f" stroke-width="2"/></svg>纵火·焚倭船</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,11 C 12,4 20,4 26,10" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>因风</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>扶余丰奔高丽</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>海战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>百济·倭</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="rgba(154,43,30,.3)"/></svg>海水皆赤</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>百济</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>唐·新罗</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#fqinHatch)"/></svg>倭船蔽海</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>火攻释要 · 以少胜多 · 东国来援尽焚</h3>
+    <div class="lead">何以千艘之众一炬而溃 —— 唐以百七十艘列阵,四战因风纵火,东国援师尽焚于白江</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="白江口火攻示意:唐军百七十艘列阵江口,倭国千艘恃众乱进,唐左右夹船因风纵火,焚倭四百艘,海水皆赤">
+      <!-- 白江口:海口分内外 -->
+      <line x1="24" y1="150" x2="836" y2="150" stroke="#5f7f88" stroke-width="5" opacity=".5"/>
+      <text x="30" y="30" fill="#1f4e54" font-size="12" font-weight="700">唐·新罗(内,溯江而下)</text>
+      <text x="30" y="238" fill="#5c4a6e" font-size="12" font-weight="700">倭国·百济(外,越海来援)</text>
+      <!-- 唐:百七十艘列阵(少,整) -->
+      <g fill="none" stroke="#1f4e54" stroke-width="1.8">
+        <rect x="150" y="70" width="30" height="16" rx="2"/>
+        <rect x="196" y="70" width="30" height="16" rx="2"/>
+        <rect x="242" y="70" width="30" height="16" rx="2"/>
+        <rect x="288" y="70" width="30" height="16" rx="2"/>
+      </g>
+      <text x="150" y="62" fill="#1f4e54" font-size="10.5" font-weight="700">唐 百七十艘 · 坚阵不乱</text>
+      <!-- 倭:千艘拥挤(众,乱) -->
+      <g fill="none" stroke="#5c4a6e" stroke-width="1.5">
+        <rect x="470" y="176" width="20" height="12"/><rect x="496" y="176" width="20" height="12"/><rect x="522" y="176" width="20" height="12"/><rect x="548" y="176" width="20" height="12"/><rect x="574" y="176" width="20" height="12"/>
+        <rect x="483" y="194" width="20" height="12"/><rect x="509" y="194" width="20" height="12"/><rect x="535" y="194" width="20" height="12"/><rect x="561" y="194" width="20" height="12"/>
+      </g>
+      <text x="470" y="228" fill="#5c4a6e" font-size="10.5" font-weight="700">倭 千艘 · 恃众争进,舳舻相接</text>
+      <!-- 左右夹船 -->
+      <path d="M 320,86 C 400,120 460,150 500,172" fill="none" stroke="#1f4e54" stroke-width="2.6" marker-end="url(#aj)"/>
+      <path d="M 300,90 C 380,140 460,168 530,188" fill="none" stroke="#1f4e54" stroke-width="2.6" marker-end="url(#aj)"/>
+      <text x="352" y="120" fill="#1f4e54" font-size="11" font-weight="700">左右夹船,绕而战之</text>
+      <!-- 因风 -->
+      <path d="M 760,120 C 680,140 600,158 540,176" fill="none" stroke="#9c7a2c" stroke-width="3" opacity=".85" marker-end="url(#aw)"/>
+      <text x="690" y="112" fill="#9c7a2c" font-size="13" font-weight="700" font-family="'Ma Shan Zheng',serif">因　风</text>
+      <!-- 火焰焚倭 -->
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 500,176 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 540,176 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 522,194 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+      </g>
+      <text x="600" y="196" fill="#c0491f" font-size="11" font-weight="700">焚四百艘 · 烟焰涨天</text>
+      <text x="600" y="214" fill="#9a2b1e" font-size="10.5" font-weight="700">海水皆赤 · 溺死无算 ✕</text>
+    </svg>
+    <p class="intro">百济亡后,旧臣鬼室福信、僧道琛迎故王子扶余丰复国,据周留城,乞师于倭。倭发战船千艘、众四万二千渡海来援,与唐将刘仁轨舟师<b>百七十艘</b>遇于白江(白村江)口。倭恃船多兵众,<b>不观气象而争先竞进</b>;唐军坚阵以待,不与之乱——此众寡之势,反成火攻之资。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>唐 · 列阵 · 夹船</h4>
+        <p>刘仁轨以百七十艘列阵白村江,坚阵不动。倭军自恃船众,乱伍而进;唐军乃分左右两队,夹倭船而绕战之,四战皆捷。倭船拥挤于狭口,舳舻相接,不得回旋——阵既乱,则一船火起而众船俱焚。</p>
+      </div>
+      <div class="c b">
+        <h4>火 · 因风 · 皆赤</h4>
+        <p>唐军因风纵火,焚倭舟四百艘。风猛火烈,倭船相连难散,须臾俱焚,烟焰涨天,海水皆赤,倭众溺死者不可胜计。扶余丰脱身奔高句丽,遗其宝剑;周留城及百济诸城相继出降,复国之业遂绝。</p>
+      </div>
+    </div>
+    <p class="kicker">故白江之败,不在兵之寡,而在<b>以整制乱、借风纵火</b>:唐军百七十艘,列阵不乱;倭军千艘,恃众争进而自窒于狭口。刘仁轨四战因风,一炬而东国援师尽焚——此为中日两国之第一次大战。自是<b>倭数百年不敢西向</b>,百济复国运动彻底失败,新罗遂渐专制半岛。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《资治通鉴》卷二〇一、《旧唐书·刘仁轨传》《新罗传》及《日本书纪》约略绘出。海岸线、水道及城邑位置经简化,晕染疆界仅示两军控地大势,非实有画界。</p>
-    <p><span class="n">注二</span>白江(白村江)即今锦江(韩国锦江)入海口;周留城在其上游,熊津府城(今公州一带)更在内陆江上。诸城确址史家尚有异说,此图取其大概。</p>
-    <p><span class="n">注三</span>此为唐与倭国之第一次大战。刘仁轨以舟一百七十艘列阵,四战皆捷,焚倭舟四百艘,烟焰涨天,海水皆赤,倭众溺死者不可胜计。倭自是数百年不敢西向,东海遂定,新罗专制半岛之势由是成。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(投影式 x=30+(经度−125.90)·430,y=600−(纬度−35.30)·390):白江口/白村江在锦江(即熊津江)入海口(今韩国群山·舒川一带,约126.5°E/36.0°N),周留城在其上游南侧(复国军王城),泗沘(扶余)、熊津府城(公州)更在内陆东北之江上。海岸、水道及疆界经简化,晕染之约界仅示各方控地大势,非实有画界。</p>
+    <p><span class="n">注二</span>四方与来路:<b>唐</b>(刘仁轨·刘仁愿·孙仁师水军,青)与<b>新罗</b>(文武王,盟军,青虚线,自金城/庆州图外东南来)为一方;<b>百济复国军</b>(福信·道琛·扶余丰,朱,据周留)与<b>倭国</b>(紫,战船千艘自筑紫渡海,图外东南越海来援)为一方。倭国乃海东别一强邦,故别以紫色标之。高句丽在图外之北,扶余丰败后奔往。</p>
+    <p><span class="n">注三</span>行军之水陆:唐罗陆军(孙仁师、刘仁愿及新罗王)由陆围周留城;刘仁轨、杜爽、扶余隆率水军及粮船,自熊津江溯下白江以会陆军,遇倭援水军于白江口而决战——是役之决胜,全在<b>火攻水战</b>之一端(详见上『火攻释要』)。</p>
+    <p><span class="n">注四</span>据《旧唐书·刘仁轨传》《百济传》、《资治通鉴》卷二〇一(龙朔三年)及《日本书纪》天智二年约略绘出。《旧唐书》云「仁轨遇倭兵于白江之口,四战捷,焚其舟四百艘,烟焰涨天,海水皆赤,贼众大溃」;《日本书纪》载唐军战船一百七十艘列阵白村江,倭「不观气象」乱进,唐「自左右夹船绕战,须臾之际官军败绩,赴水溺死者众,舻舳不得回旋」。战在龙朔三年八月(663年8月27—28日)。</p>
+    <p><span class="n">注五</span>异说与考订:兵力,倭援众约四万二千、战船千余艘,唐水军约一万三千、战船百七十艘,焚倭舟四百艘(《日本书纪》则云倭船「四百余艘」尽焚),诸书数目微有出入。周留城确址史家异说纷纭(扶安位金岩山城、舒川乾芝山城、洪城等说并存),此图取其在白江上游南侧之大概。白村江之江名,或指锦江(熊津江),或指东津江,今多主锦江口说,并存备考。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"两军会江",d:"龙朔三年(663)八月",p:["百济亡后,遗臣鬼室福信迎故王子扶余丰为王,据周留城复国,围唐将刘仁愿于熊津府城。唐遣孙仁师、刘仁轨率水陆之师往援,与新罗文武王合。","扶余丰乞师于倭国,倭遣舟师千艘、众数万来援。八月,唐、倭水军会于白江(锦江入海口),一场海东决战遂启。"]},
-  "1":{t:"水陆并进",d:"龙朔三年八月",p:["孙仁师、刘仁愿及新罗王将陆军围周留城;刘仁轨、杜爽、扶余隆率舟师自熊津循江而下,趋白江口,以会陆军。","舟师方至江口,遇倭国援船蔽海而来。倭船虽众而不整,唐军百七十艘列阵以待,水陆之势遂成。"]},
-  "2":{t:"白江四捷",d:"龙朔三年八月",p:["倭船千艘、唐船百七十艘遇于白江。倭兵自恃船众,争先竞进;刘仁轨坚阵以待,不与之乱。","唐军左右夹船纵火,四战皆捷,焚其舟四百艘——烟焰涨天,海水尽赤。倭众大溃,溺死者不可胜计,百济、倭之水军一朝而尽。"]},
-  "3":{t:"周留降 · 百济绝",d:"龙朔三年九月",p:["白江既败,扶余丰脱身奔高句丽,遗其宝剑。周留城及百济诸城相继出降,百济复国之业遂绝。","海东倭患亦戢,倭自是数百年不敢西向;新罗专制半岛之势由是成。此战为中日史上第一次大战,海东之局由是而定。"]}
+  all:{t:"两国四方会江",d:"龙朔三年(663)八月",p:["百济亡后,旧臣鬼室福信、僧道琛迎故王子扶余丰为王,据周留城复国,围唐将刘仁愿于熊津府城。唐遣孙仁师、刘仁轨率水陆之师往援,与新罗文武王合军。","扶余丰乞师于倭国,倭发战船千艘、众四万二千渡海来援。唐罗陆军围周留,刘仁轨舟师溯下白江往会,遇倭援水军于白江(白村江)口——中日两国之第一次大战,遂启于此。"]},
+  "1":{t:"唐罗围周留 · 刘仁轨溯白江",d:"龙朔三年八月",p:["孙仁师、刘仁愿及新罗文武王将陆军围周留城(百济复国军王城);刘仁轨与别帅杜爽、扶余隆率水军及粮船,自熊津江溯下白江,趋白江口以会陆军。","扶余丰恃倭援将至,坚守周留。唐罗水陆并进,合围其城——一场海东决战,已在江口酝酿。"]},
+  "2":{t:"倭千艘来援 · 白江口列阵",d:"龙朔三年八月",p:["倭国战船千艘、众四万二千先至,舳舻蔽海,恃众而进。刘仁轨以唐水军百七十艘列阵白村江,坚阵以待,不与之乱。","两国水军相拒于白江口。倭军虽众而不整,唐军虽寡而阵坚;众寡之势既定,火攻之机亦伏于此。"]},
+  "3":{t:"四战 · 因风纵火焚倭四百",d:"龙朔三年八月",p:["倭兵不观气象,争先竞进;刘仁轨分左右两队,夹倭船而绕战,四战皆捷。倭船拥挤于狭口,舳舻相接,不得回旋。","唐军因风纵火,焚其舟四百艘。风猛火烈,倭船相连难散,须臾俱焚——烟焰涨天,海水皆赤,倭众溺死者不可胜计。百济、倭之水军,一朝而尽。"]},
+  "4":{t:"烟焰涨天 · 扶余丰奔高丽",d:"龙朔三年八—九月",p:["白江既败,扶余丰脱身奔高句丽,遗其宝剑;伪王子扶余忠胜、忠志等率众出降。周留城及百济诸城相继归顺,百济复国之业遂绝。","此战为中日两国之第一次大战。倭自是数百年不敢西向,海东之患遂戢;新罗专制半岛之势,由是而成。"]}
 };
 const CITY={
-  xiongjin:{t:"熊津府城",d:"今韩国公州一带",p:["唐置熊津都督府所在,刘仁愿守之。刘仁轨舟师所出,循江而下以趋白江口。"]},
-  sabi:{t:"泗沘",d:"百济故都,今扶余",p:["百济旧京。国亡后遗众复起,唐、罗联军往来经营之地。"]},
-  zhouliu:{t:"周留城",d:"白江上游,确址存疑",p:["扶余丰据以复国之城。唐、罗陆军围之;白江败后,城遂出降,百济复国之谋绝。"]},
-  baijiangkou:{t:"白江口",d:"白村江,锦江入海口",p:["海战决胜之地。刘仁轨以百七十艘破倭千艘,焚舟四百,海水皆赤,倭众溺死无算。"]},
-  jincheng:{t:"新罗都(金城)",d:"今韩国庆州",p:["新罗王都。文武王与唐军合,共讨百济遗众与倭援,战后遂渐专半岛。"]}
+  xiongjin:{t:"熊津府城",d:"今韩国公州(约127.13°E/36.46°N)",p:["唐熊津都督府所在,刘仁愿守之,尝为福信所围。刘仁轨舟师自此循熊津江(白江)溯下,趋白江口以会陆军。"]},
+  sabi:{t:"泗沘",d:"百济故都,今韩国扶余(约126.91°E/36.28°N)",p:["百济旧京。国亡后遗众复起,唐、罗联军往来经营之地,在白江中游。"]},
+  zhouliu:{t:"周留城",d:"复国军王城,今扶安一带(约126.65°E/35.68°N,确址存异说)",p:["扶余丰据以复国之城,在白江上游南侧。唐罗陆军围之;白江水军既败,城遂出降,百济复国之谋绝。确址有扶安位金岩、舒川乾芝等异说。"]},
+  baijiangkou:{t:"白江口(白村江)",d:"锦江/熊津江入海口,今群山·舒川间(约126.5°E/36.0°N)",p:["海战决胜之地。刘仁轨以百七十艘列阵,四战皆捷,因风纵火,焚倭舟四百艘,烟焰涨天,海水皆赤,倭众溺死无算。中日两国第一次大战即在此。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
