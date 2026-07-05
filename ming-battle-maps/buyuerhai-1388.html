@@ -30,7 +30,12 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .dune{fill:none;stroke:var(--ret);stroke-width:1.1;opacity:.5}
+  .sand{fill:none;stroke:var(--ret);stroke-width:1.3;opacity:.5;stroke-linecap:round}
+  /* 穴地而炊:掘灶于地下,不使烟火见 */
+  .pit path{fill:none;stroke:var(--ret);stroke-width:1.5}
+  .pit circle{fill:var(--ret)}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,10 +50,8 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
-  .dune{fill:none;stroke:var(--ret);stroke-width:1.1;opacity:.55}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -57,9 +60,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -69,20 +87,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>捕</span><span>鱼</span><span>儿</span><span>海</span></div>
   <header>
     <h1>捕鱼儿海之战</h1>
-    <div class="sub">洪武二十一年(1388)　　<i>明 蓝玉</i> 犁庭扫穴 · <b>北元 脱古思帖木儿</b>数十骑遁走</div>
+    <div class="sub">洪武二十一年(1388)　　<i>明 蓝玉</i> 深入大漠 · 穴炊衔枚 · 乘风夜袭 覆 <b>北元 脱古思帖木儿</b>之朝廷　·　黄金家族汗统中断</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 蓝玉北征</button>
-    <button data-p="1">侦知元主 · 兼程穴炊</button>
-    <button data-p="2">风沙昼晦 · 夜袭大营</button>
-    <button data-p="3">元主遁走 · 俘获数万</button>
+    <button data-p="1">出大宁 · 深入大漠</button>
+    <button data-p="2">百眼井不见敌 · 王弼劝进</button>
+    <button data-p="3">穴炊衔枚 · 乘风沙夜进</button>
+    <button data-p="4">掩至捕鱼儿海 · 覆北元朝廷</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="捕鱼儿海之战形势图,含北元与明疆界、大漠荒漠、贝尔湖水体与大宁庆州和林等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="捕鱼儿海之战形势图,南自大宁庆州北越大漠瀚海直抵捕鱼儿海(贝尔湖),示蓝玉深入漠北、百眼井王弼劝进、穴地而炊衔枚夜进、乘大风扬沙掩至北元大营、出其不意覆其朝廷,脱古思帖木儿数十骑遁走">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -91,84 +110,132 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:北元居漠北(北),明据长城内(南),约以大漠为界 -->
-    <path d="M 0,300 C 160,286 320,272 470,262 C 620,252 780,244 1000,250 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,300 C 160,286 320,272 470,262 C 620,252 780,244 1000,250 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 160,286 320,272 470,262 C 620,252 780,244 1000,250"/>
-    <text class="realm q" x="120" y="150" font-size="32">北 元(漠北)</text>
-    <text class="realm j" x="640" y="600" font-size="30">大 明(塞内)</text>
+    <!-- 疆界:北元居漠北草原(北,捕鱼儿海一带为其行朝驻牧),明据塞垣·大宁道(南),约以大漠瀚海为天然之隔 -->
+    <path d="M 0,466 C 200,482 430,494 640,498 C 800,501 910,498 1000,494 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,466 C 200,482 430,494 640,498 C 800,501 910,498 1000,494 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,466 C 200,482 430,494 640,498 C 800,501 910,498 1000,494"/>
+    <text class="realm q" x="120" y="250" font-size="30">北 元(漠北)</text>
+    <text class="cname s" x="126" y="276" style="fill:var(--enemy);opacity:.55">脱古思帖木儿行朝 · 驻牧捕鱼儿海</text>
+    <text class="realm j" x="96" y="588" font-size="26">明(塞垣 · 大宁道)</text>
 
-    <!-- 大漠·荒漠沙丘:横亘南北之间 -->
+    <!-- 大漠·瀚海:横亘南北之body,蓝玉所越,元人恃以为不能至 -->
     <g class="dune">
-      <path d="M 120,360 q 30,-16 60,0 q 30,16 60,0"/>
-      <path d="M 300,390 q 30,-16 60,0 q 30,16 60,0"/>
-      <path d="M 480,368 q 30,-16 60,0 q 30,16 60,0"/>
-      <path d="M 200,420 q 30,-16 60,0 q 30,16 60,0"/>
-      <path d="M 420,432 q 30,-16 60,0 q 30,16 60,0"/>
+      <path d="M 210,236 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 330,286 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 150,320 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 250,368 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 420,344 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 560,300 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 640,378 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 340,430 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 180,432 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 520,432 q 30,-15 60,0 q 30,15 60,0"/>
+      <path d="M 700,300 q 30,-15 60,0 q 30,15 60,0"/>
     </g>
-    <text class="rname" x="330" y="352" style="fill:var(--ret);letter-spacing:.4em;font-size:15px;opacity:.7">大　漠 · 风　沙</text>
+    <text class="rname" x="150" y="352" style="fill:var(--ret);letter-spacing:.5em;font-size:17px;opacity:.62">大　漠 · 瀚　海</text>
+    <text class="anno" x="150" y="376" style="fill:var(--ret);opacity:.7">乏水草,元人以为明军必不能至</text>
 
-    <!-- 捕鱼儿海(贝尔湖):蓝色水体,中/北 -->
-    <path class="river" style="fill:var(--water);opacity:.32;stroke:none" d="M 470,120 C 540,116 596,132 604,170 C 610,200 578,224 512,230 C 452,235 410,214 408,180 C 406,146 420,124 470,120 Z"/>
-    <path class="river" style="fill:none;stroke:var(--water);stroke-width:1.6;opacity:.8" d="M 470,120 C 540,116 596,132 604,170 C 610,200 578,224 512,230 C 452,235 410,214 408,180 C 406,146 420,124 470,120 Z"/>
-    <text class="rname" x="452" y="178" style="font-size:12px">贝 尔 湖</text>
+    <!-- 捕鱼儿海(贝尔湖):蓝色水体,决战·北元大营所在 -->
+    <path class="river" style="fill:var(--water);opacity:.30;stroke:none" d="M 528,72 C 566,80 574,118 566,158 C 558,196 540,216 522,214 C 500,212 490,180 492,140 C 494,100 502,66 528,72 Z"/>
+    <path class="river" style="fill:none;stroke:var(--water);stroke-width:1.6;opacity:.8" d="M 528,72 C 566,80 574,118 566,158 C 558,196 540,216 522,214 C 500,212 490,180 492,140 C 494,100 502,66 528,72 Z"/>
+    <text class="rname" x="546" y="140" style="font-size:11.5px">贝 尔 湖</text>
 
-    <!-- 长城:横贯南部 -->
-    <path class="mtn" style="stroke-width:1.6;opacity:.7" d="M 60,470 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12 l 14,-12 l 14,12"/>
-    <text class="cname s" x="60" y="490">长 城</text>
-
-    <!-- 城邑 -->
+    <!-- 城邑与营垒 -->
     <g id="cities">
-      <g class="city" data-city="buir"><circle cx="500" cy="176" r="6"/><text class="cname" x="512" y="172">捕鱼儿海<tspan class="cname s" dx="2">(贝尔湖)</tspan></text></g>
-      <g class="city" data-city="qingzhou"><circle cx="470" cy="330" r="5"/><text class="cname" x="482" y="326">庆州</text></g>
-      <g class="city cap" data-city="daning"><circle cx="410" cy="500" r="6"/><text class="cname" x="336" y="496">大宁<tspan class="cname s" dx="2">(出塞基)</tspan></text></g>
-      <g class="city" data-city="helin"><circle cx="150" cy="230" r="5"/><text class="cname s" x="90" y="222">和林·哈拉和林</text></g>
-      <g class="city" data-city="gubeikou"><circle cx="360" cy="560" r="4"/><text class="cname s" x="300" y="580">长城·古北口</text></g>
-      <g class="city" data-city="baiyanjing"><circle cx="440" cy="410" r="3.5"/><text class="cname s" x="452" y="414">百眼井</text></g>
+      <g class="city" data-city="daying"><rect class="camp" x="628" y="82" width="12" height="12" transform="rotate(45 634 88)"/><circle cx="634" cy="88" r="5" fill="none" stroke="var(--enemy)" stroke-width="1.4" opacity=".5"/><text class="cname" x="646" y="84">北元大营<tspan class="cname s" dx="2">(湖东北八十余里)</tspan></text></g>
+      <g class="city cap" data-city="buir"><circle cx="521" cy="176" r="6"/><text class="cname" x="533" y="172">捕鱼儿海<tspan class="cname s" dx="2">(贝尔湖·饮马南岸)</tspan></text></g>
+      <g class="city" data-city="baiyanjing"><circle cx="470" cy="188" r="4"/><text class="cname s" x="404" y="184">百眼井</text></g>
+      <g class="city" data-city="qingzhou"><circle cx="730" cy="536" r="5.5"/><text class="cname" x="742" y="532">庆州<tspan class="cname s" dx="2">(前进屯所)</tspan></text></g>
+    </g>
+
+    <!-- 大宁(图外·南):蓝玉出师之基、来路 -->
+    <g transform="translate(742,600)">
+      <path class="march j" marker-end="url(#aj)" d="M 16,10 C 8,0 2,-8 -6,-18"/>
+      <text class="mlabel j" x="-118" y="4" style="font-size:10.5px">↑ 大宁 · 出师之基(图外南)</text>
+      <text class="cname s" x="-118" y="18" style="fill:var(--advance);font-size:9px">今内蒙古宁城 · 蓝玉十五万来路</text>
+    </g>
+    <!-- 和林(图外·西):北元旧都,帝所奔之漠北 -->
+    <g transform="translate(6,224)">
+      <path class="march rout" marker-end="url(#ar)" d="M 60,-6 C 40,-2 22,0 4,4"/>
+      <text class="mlabel r" x="0" y="-14" style="font-size:10px">⟵ 和林 · 漠北(图外西)</text>
+      <text class="cname s" x="0" y="20" style="fill:var(--ret);font-size:9px">北元旧都 · 帝奔漠北,寻为也速迭儿袭杀</text>
     </g>
 
     <!-- 全图 · 蓝玉北征 -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 372,552 C 400,524 406,516 410,508"/>
-      <path class="march j" marker-end="url(#aj)" d="M 410,494 C 430,450 452,392 468,338"/>
-      <text class="mlabel j" x="424" y="452">太祖命蓝玉率十五万北征漠北</text>
-      <text class="anno" x="418" y="530">出古北口,趋大宁</text>
-      <text class="mlabel q" x="150" y="180">脱古思帖木儿据漠北,屡为边患</text>
-      <text class="anno" x="480" y="256">进驻庆州,踪迹北元主</text>
+      <path class="march j" marker-end="url(#aj)" d="M 758,606 C 746,582 738,558 732,540"/>
+      <path class="march j" marker-end="url(#aj)" d="M 726,526 C 648,420 528,264 480,200"/>
+      <text class="mlabel j" x="600" y="440">蓝玉率师十五万,自大宁北征</text>
+      <text class="anno" x="596" y="460">经庆州,谍知元主在捕鱼儿海</text>
+      <text class="mlabel j" x="250" y="250">深入大漠 · 穴炊衔枚 · 疾进</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,192 C 502,182 560,150 628,96"/>
+      <text class="mlabel j" x="470" y="230">乘风沙掩至,出其不意</text>
+      <circle class="star" cx="634" cy="88" r="10"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 626,84 C 500,70 300,80 74,158"/>
+      <text class="mlabel r" x="240" y="70">脱古思帖木儿数十骑遁走</text>
     </g>
 
-    <!-- 阶段一:侦知元主·兼程穴炊 -->
+    <!-- 阶段一:出大宁·深入大漠 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 470,322 C 474,290 480,258 490,224"/>
-      <text class="mlabel j" x="494" y="288">侦知元主在捕鱼儿海</text>
-      <text class="anno" x="486" y="308">蓝玉引兵兼程,穴地而炊</text>
-      <text class="anno" x="486" y="252">衔枚疾进,冒风沙直趋</text>
-      <rect class="camp" x="496" y="172" width="9" height="9" transform="rotate(45 500 176)"/>
-      <text class="mlabel q" x="512" y="200">元主大营在湖东北</text>
+      <path class="march j" marker-end="url(#aj)" d="M 758,606 C 746,582 738,558 732,540"/>
+      <text class="mlabel j" x="560" y="576">太祖命蓝玉为大将军,率师十五万征之</text>
+      <path class="march j" marker-end="url(#aj)" d="M 726,526 C 660,452 596,392 520,332"/>
+      <text class="mlabel j" x="612" y="486">师至大宁,进屯庆州</text>
+      <text class="anno" x="560" y="506">谍知元主在捕鱼儿海</text>
+      <path class="march j" marker-end="url(#aj)" d="M 512,326 C 500,296 490,262 482,224"/>
+      <text class="mlabel j" x="300" y="330">深入大漠,间道兼程北趋</text>
+      <text class="anno" x="300" y="350">瀚海乏水草,元人恃远不虞</text>
     </g>
 
-    <!-- 阶段二:风沙昼晦·夜袭大营 -->
+    <!-- 阶段二:百眼井不见敌·王弼劝进 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="496" y="172" width="10" height="10" transform="rotate(45 500 176)"/>
-      <text class="mlabel q" x="516" y="152">北元大营 · 元人不觉</text>
-      <path class="march j" marker-end="url(#aj)" d="M 484,214 C 488,204 492,196 496,186"/>
-      <text class="mlabel j" x="366" y="222">乘夜风突袭其大营</text>
-      <circle class="star" cx="500" cy="176" r="9"/>
-      <text class="anno" x="360" y="240">大风扬沙,昼晦,元军仓皇崩乱</text>
-      <text class="mlabel j" x="386" y="130">衔枚夜袭,一举而破</text>
+      <path class="march j" marker-end="url(#aj)" d="M 512,326 C 500,290 488,244 476,200"/>
+      <circle class="star" cx="470" cy="188" r="9" style="stroke-dasharray:3 4"/>
+      <text class="mlabel j" x="300" y="176">进至百眼井,去海四十里</text>
+      <text class="anno" x="300" y="196">不见敌踪,蓝玉欲引还</text>
+      <text class="mlabel j" x="150" y="250">定远侯王弼劝进:</text>
+      <text class="anno" x="150" y="270">「深入至此,无所得而还,何以复命?」</text>
+      <text class="anno" x="150" y="288">玉从之,乃令衔枚疾进</text>
+      <rect class="camp" x="628" y="82" width="11" height="11" transform="rotate(45 634 88)"/>
+      <text class="mlabel q" x="560" y="70">元主大营在湖东北,不设备</text>
     </g>
 
-    <!-- 阶段三:元主遁走·俘获数万 -->
+    <!-- 阶段三:穴炊衔枚·乘风沙夜进 -->
     <g id="ph3" class="ph">
-      <path d="M 500,176 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 494,168 C 400,138 280,132 180,214"/>
-      <text class="mlabel r" x="300" y="128">脱古思帖木儿以数十骑遁走</text>
-      <text class="anno" x="170" y="248">后为也速迭儿所杀</text>
-      <text class="mlabel j" x="512" y="212">俘子妃部众七万余、获宝玺图书</text>
-      <text class="anno" x="512" y="230">北元典章仪卫尽失,大漠震骇</text>
+      <g class="pit" transform="translate(474,210)"><path d="M -6,0 A 6,6 0 0 1 6,0"/><circle cx="0" cy="-2" r="1.4"/></g>
+      <g class="pit" transform="translate(492,196)"><path d="M -6,0 A 6,6 0 0 1 6,0"/><circle cx="0" cy="-2" r="1.4"/></g>
+      <g class="pit" transform="translate(508,184)"><path d="M -6,0 A 6,6 0 0 1 6,0"/><circle cx="0" cy="-2" r="1.4"/></g>
+      <text class="mlabel r" x="300" y="228">穴地而炊,不使烟火见</text>
+      <path class="march j" marker-end="url(#aj)" d="M 474,196 C 490,186 502,182 514,178"/>
+      <text class="mlabel j" x="300" y="150">衔枚夜行,疾趋捕鱼儿海之南</text>
+      <g class="sand">
+        <path d="M 430,110 q 40,-10 80,4 q 40,14 80,2"/>
+        <path d="M 410,130 q 40,-10 80,4 q 40,14 80,2"/>
+        <path d="M 450,150 q 40,-10 80,4 q 40,14 80,2"/>
+      </g>
+      <text class="anno" x="560" y="118">大风扬沙,白昼晦暝</text>
+      <text class="anno" x="560" y="136">军行,元人不之觉</text>
+      <rect class="camp" x="628" y="82" width="11" height="11" transform="rotate(45 634 88)"/>
+      <text class="mlabel q" x="650" y="72">北元大营 · 恃远不设备</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:掩至捕鱼儿海·覆北元朝廷 -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 528,168 C 560,140 596,114 626,94"/>
+      <text class="mlabel j" x="430" y="214">玉命王弼为前锋,直薄其营</text>
+      <text class="anno" x="430" y="232">出其不意,元军大惊,不能成阵</text>
+      <circle class="star" cx="634" cy="88" r="11"/>
+      <text class="mlabel j" x="648" y="112">大破之,杀太尉蛮子</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 626,84 C 480,64 260,74 74,156"/>
+      <text class="mlabel r" x="230" y="60">脱古思帖木儿与太子天保奴数十骑遁走</text>
+      <text class="anno" x="150" y="120">追之不及;寻为也速迭儿所袭杀</text>
+      <text class="mlabel j" x="470" y="360">俘次子地保奴、妃主、官属三千</text>
+      <text class="mlabel j" x="470" y="380">男女七万七千余、马驼牛羊十五万</text>
+      <text class="anno" x="470" y="398">尽获宝玺、图书、符敕 —— 北元典章仪卫尽失</text>
+      <text class="anno" x="470" y="416">黄金家族汗统中断,漠北震骇</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -178,33 +245,80 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明军(蓝玉)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>北元军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>元主遁走</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>北元大营</span>
+    <span class="item"><svg width="16" height="16"><path d="M 2,11 A 6,6 0 0 1 14,11" fill="none" stroke="#7a5a23" stroke-width="1.5"/><circle cx="8" cy="9" r="1.4" fill="#7a5a23"/></svg>穴地而炊·衔枚</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>脱古思帖木儿遁走</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>夜袭决战</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>北元</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大明</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 穴炊衔枚 · 乘风夜袭 · 覆其朝廷</h3>
+    <div class="lead">何以一战而覆北元朝廷 —— 非力战之功,实深入大漠、潜行掩至、出其不意之效</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="覆朝廷机理示意:明军自塞垣深入大漠瀚海;元人恃乏水草必不能至而不设备;明军穴地而炊掩其烟火、衔枚夜行、乘大风扬沙潜至,出其不意掩杀,一举覆其行朝">
+      <!-- 北:北元行朝(捕鱼儿海),恃远不设备 -->
+      <text x="26" y="28" fill="#9a2b1e" font-size="12.5" font-weight="700">北元行朝 · 捕鱼儿海大营(北) —— 恃乏水草,以为明军必不能至,不设备</text>
+      <line x1="24" y1="42" x2="836" y2="42" stroke="#9a2b1e" stroke-width="2" opacity=".5" stroke-dasharray="4 4"/>
+      <rect x="470" y="54" width="16" height="16" transform="rotate(45 478 62)" fill="#9a2b1e" opacity=".9"/>
+      <text x="500" y="60" fill="#9a2b1e" font-size="11.5" font-weight="700">脱古思帖木儿之朝廷</text>
+      <text x="500" y="76" fill="#5c4f38" font-size="10">妃主、官属、宝玺、图书 —— 举朝在此</text>
+      <!-- 大漠瀚海:天然之隔,元人恃以为屏 -->
+      <text x="26" y="128" fill="#5c4f38" font-size="11" font-style="italic" opacity=".85">大漠 · 瀚海(乏水草):元人恃为天堑,谓明军不能越</text>
+      <path d="M 300,150 q 22,-11 44,0 q 22,11 44,0 M 400,150 q 22,-11 44,0 q 22,11 44,0" fill="none" stroke="#7a5a23" stroke-width="1.1" opacity=".6"/>
+      <!-- 南:明·塞垣大宁,蓝玉深入 -->
+      <text x="26" y="238" fill="#1f4e54" font-size="12.5" font-weight="700">明 · 大宁塞垣(南) —— 蓝玉十五万深入大漠</text>
+      <line x1="24" y1="206" x2="836" y2="206" stroke="#1f4e54" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+      <!-- 穴炊(掩烟火) -->
+      <g transform="translate(300,182)"><path d="M -7,0 A 7,7 0 0 1 7,0" fill="none" stroke="#7a5a23" stroke-width="1.7"/><circle cx="0" cy="-2" r="1.6" fill="#7a5a23"/></g>
+      <text x="230" y="200" fill="#7a5a23" font-size="10" font-weight="700">穴地而炊 · 掩烟火</text>
+      <!-- 明军潜行掩至(青,南→北,穿瀚海) -->
+      <path d="M 478,196 C 474,168 476,120 478,84" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 478,84 L 472,98 L 484,98 Z" fill="#1f4e54"/>
+      <text x="492" y="150" fill="#1f4e54" font-size="11" font-weight="700">衔枚夜行 · 乘风沙潜至</text>
+      <text x="492" y="166" fill="#5c4f38" font-size="9.5">大风扬沙,白昼晦暝,元人不觉</text>
+      <!-- 出其不意掩杀:金环+朱✕覆其朝廷 -->
+      <circle cx="478" cy="62" r="14" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <g><circle cx="620" cy="62" r="10" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="613" y1="55" x2="627" y2="69" stroke="#9a2b1e" stroke-width="2.6"/><line x1="613" y1="69" x2="627" y2="55" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="636" y="58" fill="#9a2b1e" font-size="10.5" font-weight="700">举朝俘覆 ✕</text>
+      <text x="636" y="74" fill="#5c4f38" font-size="9.5">帝以数十骑遁,汗统中断</text>
+      <path d="M 470,54 C 520,40 570,44 606,54" fill="none" stroke="#7a5a23" stroke-width="2.2" stroke-dasharray="3 6"/>
+      <path d="M 606,54 L 596,50 L 598,60 Z" fill="#7a5a23"/>
+    </svg>
+    <p class="intro">此役之奇,不在两军相当之力战,而在<b>使敌『不设备』而后掩之</b>。北元行朝驻牧捕鱼儿海,恃大漠瀚海乏水草,谓明军深入必不能至,遂不设备。蓝玉不以乏水而止,反<b>穴地而炊以掩其烟火、衔枚夜行以匿其踪、乘大风扬沙以蔽其形</b>,潜越瀚海,出其不意直薄其营 —— 一举而覆举朝之众。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>深入潜袭 · 穴炊衔枚</h4>
+        <p>蓝玉率师十五万,自大宁经庆州,间道兼程,深入大漠。进至百眼井,去海四十里而不见敌,欲还;定远侯王弼曰『深入至此,无所得而还,何以复命』,玉从之。乃令军『穴地而爨,毋见烟火』,衔枚夜行,疾趋捕鱼儿海之南饮马。时大风扬沙、白昼晦暝,军行而元人不之觉 —— 潜行掩至,先夺其不备。</p>
+      </div>
+      <div class="c b">
+        <h4>恃远不备 · 朝廷俄覆</h4>
+        <p>元主脱古思帖木儿以明军乏水草必不能进,营于海东北八十余里而不设备。玉命王弼为前锋直薄其营,元军大惊,不能成阵,太尉蛮子等拒战而败死,余众悉降。帝与太子天保奴以数十骑遁走(寻为也速迭儿所袭杀),明军俘次子地保奴、妃主、官属三千、男女七万七千余,尽获宝玺图书 —— 北元典章仪卫一朝尽失。</p>
+      </div>
+    </div>
+    <p class="kicker">故覆北元朝廷者,<b>非力战之功,实深入与潜袭之效</b>:穴炊以掩其烟、衔枚以匿其行、乘风沙以蔽其至,而后出其不意掩杀于不备之朝 —— <b>越其所恃之瀚海,袭其所忘之行朝</b>。举朝俘覆,黄金家族汗统自是中断,北元分裂衰微,不复能与明争漠南矣。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·蓝玉传》《明史·太祖本纪》约略绘出。捕鱼儿海即今中蒙边境之贝尔湖;大宁在今内蒙古宁城,庆州在今内蒙古巴林右旗一带,和林即哈拉和林。大漠城邑及行军路线为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为洪武中形势示意:元亡后北元退居漠北,明据长城以内;大漠荒瀚为天然分界,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>蓝玉率师十五万,穴地而炊、衔枚疾进,冒大漠风沙直抵湖南。时大风扬沙昼晦,元人不觉,遂乘夜突袭。脱古思帖木儿以数十骑遁,余众男女七万七千余人被俘,获宝玺、图书、牛羊马驼无算——北元典章仪卫自此尽失,分裂衰微。蓝玉以功进凉国公。</p>
+    <p><span class="n">注一</span>本图为示意图,地望按今地经纬度作线性(墨卡托)投影:<b>x=430+(经度−117.30)×240,y=575−(纬度−43.80)×112</b>。为在横幅内展布这一南北深长、东西狭窄之远征,经度方向略作放大(约二倍),故东西间距较实为夸;南北次第、孰南孰北则力求近实。捕鱼儿海(贝尔湖,今中蒙边境,约117.71E/47.80N)在北,庆州在其东南,大宁远在图外南(以边箭示之),和林远在图外西。疆界、水体、大漠沙丘皆经简化,晕染之约界仅示北元据漠北、明据塞垣大宁道之大势,非实测画界。依《明史·蓝玉传》《明史·太祖本纪》及《明太祖实录》卷一九〇绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:捕鱼儿海(北元行朝驻牧、决战地,即今贝尔湖,约117.71E/47.80N)、北元大营(在海东北八十余里,约118.15E/48.15N)、百眼井(蓝玉去海四十里欲还处,在海西南约四十里,约117.52E/47.60N,今地有异说)、庆州(蓝玉前进屯所,辽金庆州故城,今内蒙古巴林右旗索博日嘎,约118.55E/44.15N)、大宁(出师之基,今内蒙古宁城,约118.90E/41.50N,图外南)、和林即哈剌和林(北元旧都,今蒙古国前杭爱省,约102.80E/47.20N,图外西)。百眼井方位史无确指,姑依『去海四十里』置于海之西南以明其为最后一屯。</p>
+    <p><span class="n">注三</span>捕鱼儿海之地望:蒙古语 Buir,明人译作『捕鱼儿海』,即今中蒙边境之贝尔湖,大部属蒙古国,西北一隅属中国内蒙古呼伦贝尔。旧说或与呼伦湖(达赉湖)、乃至贝加尔湖相混,今考定为贝尔湖。所谓『海』者,北族称大泽为海,非滨海之谓。</p>
+    <p><span class="n">注四</span>制胜之枢在『深入·潜袭·出其不意』(图中金色夜袭环、褐色穴炊记号、青色潜行路):蓝玉师十五万,自大宁经庆州,谍知元主在捕鱼儿海,间道兼程,进至百眼井,去海四十里不见敌欲还。王弼力言不可空还,玉从之,令『穴地而爨,毋见烟火』,乘夜至海南饮马。敌营在海东北八十余里,元人以玉军乏水草不能至,不设备;会大风扬沙昼晦,军行不觉。玉命王弼为前锋直薄其营,元人大惊,败之,杀太尉蛮子。此役不以力胜,而以『掩其不备』胜 —— 深入以出其所恃之外,潜袭以入其所忘之防。</p>
+    <p><span class="n">注五</span>俘获与异说:是役俘元主次子地保奴、妃嫔公主以下百余人,又获吴王朵儿只、代王达里麻及平章以下官属三千余人,男女七万七千余人,马驼牛羊十五万余,尽得其宝玺、符敕、图书。脱古思帖木儿与太子天保奴以数十骑遁走(玉遣精骑追之不及);其败后西奔,寻为也速迭儿(阿里不哥后裔)所袭杀,元裔汗统自此中断,北元分裂衰微。俘数、官属诸目本《明史》《明实录》,史家约举,不必尽实;『天保奴』或作『天保儿』,与被俘之次子『地保奴』一奔一俘,史文相类而易混,并志之。蓝玉以此功进封凉国公,然后骄蹇不法,洪武二十六年以谋反诛,连坐者万五千人,是为『蓝玉案』——附记以见史家褒贬。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"蓝玉北征",d:"洪武二十一年(1388)",p:["元亡之后,北元退居漠北,拥兵自守,屡为边患。洪武二十一年,太祖命永昌侯蓝玉为大将军,率师十五万北征漠北。","大军出古北口塞,趋大宁,进驻庆州,踪迹北元主脱古思帖木儿(天元帝)所在。是役目在犁庭扫穴,一举翦灭北元行朝。"]},
-  "1":{t:"侦知元主·兼程穴炊",d:"洪武二十一年四月",p:["蓝玉进驻庆州,侦知北元主脱古思帖木儿在捕鱼儿海(今中蒙边境贝尔湖)。","乃引兵兼程,穴地而炊、衔枚疾进,冒大漠风沙,直趋捕鱼儿海之南。元主大营在湖之东北,恃地远,不设备。"]},
-  "2":{t:"风沙昼晦·夜袭大营",d:"洪武二十一年四月",p:["时值大风扬沙,昼晦如晦夜,元人不觉明军已至。","蓝玉遣王弼为前锋,乘夜风突袭其大营。元军仓皇崩乱,不能成阵,自相蹂践,一举而溃。"]},
-  "3":{t:"元主遁走·俘获数万",d:"洪武二十一年四月",p:["脱古思帖木儿与太子天保奴以数十骑遁走(后为也速迭儿所杀)。","明军俘其次子地保奴、妃嫔公主及吏属、部众男女七万七千余人,获宝玺、图书、牛羊马驼无算。北元典章仪卫尽失,大漠为之震骇,自是分裂衰微。蓝玉以功进凉国公。"]}
+  all:{t:"蓝玉北征 · 覆北元朝廷",d:"洪武二十一年(1388)四月",p:["元亡之后,北元退居漠北,拥兵自守,屡为边患。洪武二十一年,太祖命永昌侯蓝玉为大将军,率师十五万北征。大军自大宁进屯庆州,谍知北元主脱古思帖木儿(天元帝)在捕鱼儿海(今贝尔湖)。","蓝玉间道兼程,深入大漠瀚海;进至百眼井,去海四十里不见敌,以王弼之谏乃穴地而炊、衔枚夜进,乘大风扬沙掩至海东北之元大营。出其不意,一举覆其行朝——黄金家族汗统自此中断。"]},
+  "1":{t:"出大宁 · 深入大漠",d:"洪武二十一年四月 · 出师",p:["太祖以脱古思帖木儿屡扰边,命蓝玉为大将军,率师十五万征之。师至大宁,进屯庆州,谍知元主在捕鱼儿海。","蓝玉不以塞远为难,间道兼程,深入大漠瀚海北趋。瀚海乏水草,元人恃其险远,以为明军必不能至——蓝玉之奇袭,正伏于此『不虞』之中。"]},
+  "2":{t:"百眼井不见敌 · 王弼劝进",d:"洪武二十一年四月 · 进退之间",p:["大军进至百眼井,去捕鱼儿海仅四十里,而不见敌踪。蓝玉疑元主已徙,欲引兵而还。","定远侯王弼力谏曰:『吾辈提十余万众,深入至此,无所得而还,何以复命?』蓝玉曰『然』,乃从之。于是不复还师,令军衔枚疾进,直趋捕鱼儿海——一言而定覆国之功。"]},
+  "3":{t:"穴炊衔枚 · 乘风沙夜进",d:"洪武二十一年四月 · 潜行",p:["蓝玉令军『穴地而爨,毋见烟火』——掘灶于地下,不使炊烟起而泄其踪;复衔枚夜行,疾趋捕鱼儿海之南饮马。","时值大风扬沙,白昼晦暝如夜,明军得以隐形潜进,元人竟不之觉。元主大营在海东北八十余里,恃明军乏水草必不能至,全不设备——潜袭之势遂成。"]},
+  "4":{t:"掩至捕鱼儿海 · 覆北元朝廷",d:"洪武二十一年四月 · 决战",p:["蓝玉命王弼为前锋,乘风沙直薄其营。元人大惊,仓皇不能成阵,太尉蛮子等帅众拒战,败死,余众悉降。","脱古思帖木儿与太子天保奴以数十骑遁走(玉遣精骑追之不及,后为也速迭儿所袭杀)。明军俘次子地保奴、妃主及官属三千、男女七万七千余人,获马驼牛羊十五万,尽得其宝玺、图书、符敕。北元典章仪卫一朝尽失,黄金家族汗统中断,自是分裂衰微。蓝玉以功进封凉国公。"]}
 };
 const CITY={
-  buir:{t:"捕鱼儿海(贝尔湖)",d:"今中蒙边境贝尔湖",p:["北元行朝驻牧之地,夜袭决战所在。蓝玉冒风沙直抵湖南,乘夜突袭其大营,元军大溃。"]},
-  qingzhou:{t:"庆州",d:"今内蒙古巴林右旗一带",p:["蓝玉进驻庆州,侦知北元主在捕鱼儿海,乃引兵兼程北趋。"]},
-  daning:{t:"大宁",d:"今内蒙古宁城",p:["明军出塞北征之基。蓝玉师至大宁,而后进驻庆州,以踪迹元主。"]},
-  helin:{t:"和林·哈拉和林",d:"漠北旧都,今蒙古国前杭爱省",p:["北元政治中心,元室北奔后所倚。捕鱼儿海之败,漠北典章尽失,和林亦无以复振。"]},
-  gubeikou:{t:"长城·古北口",d:"今北京密云东北",p:["明军出塞之处。蓝玉率师由此北出,趋大宁。"]},
-  baiyanjing:{t:"百眼井",d:"大漠行军途中",p:["大军穴地而炊、衔枚疾进,冒风沙北趋途中所经。荒瀚无水,凿井以给。"]}
+  daying:{t:"北元大营",d:"捕鱼儿海东北八十余里,约118.15E/48.15N",p:["脱古思帖木儿行朝驻牧之所,举朝妃主、官属、宝玺皆在。元人恃明军乏水草不能至而不设备。蓝玉乘风沙夜袭,王弼为前锋直薄其营,一举覆之——是役决战之地。"]},
+  buir:{t:"捕鱼儿海(贝尔湖)",d:"今中蒙边境贝尔湖,约117.71E/47.80N",p:["北族称大泽为海;蒙古语 Buir,明译『捕鱼儿海』,即今贝尔湖。蓝玉衔枚夜进,至其南岸饮马,遂北向掩袭海东北之元大营。旧说或与呼伦湖、贝加尔湖相混,今考定为贝尔湖。"]},
+  baiyanjing:{t:"百眼井",d:"去海四十里,约117.52E/47.60N(今地有异说)",p:["蓝玉深入大漠、去捕鱼儿海四十里之最后一屯。至此不见敌踪,蓝玉欲引还;定远侯王弼谏『深入至此,无所得而还,何以复命』,玉从之，乃穴炊衔枚夜进。荒瀚无水,凿井以给,故名百眼。"]},
+  qingzhou:{t:"庆州",d:"辽金庆州故城,今内蒙古巴林右旗索博日嘎,约118.55E/44.15N",p:["蓝玉自大宁北出后之前进屯所。进屯庆州,谍知北元主在捕鱼儿海,乃引兵间道兼程,深入大漠北趋。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
