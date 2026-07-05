@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--land:#e3d7b6;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,41 +27,69 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
-  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .sea{fill:var(--water);opacity:.13}
+  .strait{fill:var(--water);opacity:.28}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.55}
+  .land{fill:var(--land);stroke:none}
+  .redsea{fill:rgba(154,43,30,.22);stroke:rgba(154,43,30,.4);stroke-width:1;stroke-dasharray:2 3}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.6;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.24em}
+  .realm.q{fill:var(--enemy);opacity:.4}.realm.j{fill:var(--advance);opacity:.42}
+  .isle{fill:var(--land);stroke:var(--water);stroke-width:1;opacity:.95}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.ally{stroke:var(--advance2);stroke-width:2.7;stroke-dasharray:9 5;opacity:.92}
+  .march.qsea{stroke:var(--enemy);stroke-width:2.7;stroke-dasharray:7 5;opacity:.9}
+  .march.fship{stroke:var(--fire);stroke-width:3.4}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.a{fill:var(--advance2)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--fire)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .siege{fill:none;stroke:var(--advance);stroke-width:1.7;stroke-dasharray:3 4;opacity:.9}
   .camp{fill:var(--enemy);opacity:.9}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .redlabel{fill:var(--enemy);font-weight:700;font-style:normal}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .moon{fill:none;stroke:var(--ink2);stroke-width:1.4;opacity:.6}
+  .fallen circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.8}
+  .fallen line{stroke:var(--ink);stroke-width:1.7;stroke-linecap:round}
+  .fallen .base{fill:var(--ink);opacity:.85}
+  .flabel2{fill:var(--ink);font-weight:700;font-size:11.5px}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(192,73,31,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--fire);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--fire)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--fire)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.ally):not(.qsea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -71,108 +99,179 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../ming-battle-maps/index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回明朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>露</span><span>梁</span><span>海</span><span>战</span></div>
   <header>
     <h1>露梁海战</h1>
-    <div class="sub">万历二十六年(1598)　　<i>明 陈璘·邓子龙 · 朝鲜 李舜臣</i> 露梁歼倭 · <b>日本</b>舟师焚溺尽去</div>
+    <div class="sub">明万历二十六年(1598)　　<i>明 陈璘·邓子龙 · 朝鲜 李舜臣</i> 夜伏露梁,大破 <b>日本 岛津义弘·小西行长</b>　·　火攻截援 · 七年倭乱终</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 秀吉死·倭谋撤</button>
-    <button data-p="1">联军邀击·夜扼露梁</button>
-    <button data-p="2">火攻夹击·鏖战达旦</button>
-    <button data-p="3">二将殉国·倭残尽去</button>
+    <button class="on" data-p="all">全图 · 封锁顺天 · 岛津来援</button>
+    <button data-p="1">秀吉死 · 倭撤 · 小西被围顺天</button>
+    <button data-p="2">岛津率舰队夜航来援</button>
+    <button data-p="3">露梁海峡夜伏 · 火攻焚舰</button>
+    <button data-p="4">大破日军 · 二将殉国 · 战终</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="露梁海战形势图,含朝鲜南岸中朝联军与日本倭城疆界、南海露梁海峡光阳湾及顺天泗川露梁诸地">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="露梁海战形势图,含朝鲜南海岸露梁海峡、南海岛、光阳湾及顺天倭桥城、泗川倭城、观音浦、猫岛诸地,与中朝联军夜伏海峡、火攻截击岛津援军、二将殉国之海战">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.26)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.26)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2c6b6f"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
     </defs>
 
-    <!-- 南海:朝鲜半岛南岸海域 -->
-    <path class="sea" d="M 0,300 C 140,320 300,352 460,372 C 620,392 780,400 1000,392 L 1000,640 L 0,640 Z"/>
-    <text class="rname" x="150" y="560" style="opacity:.7">朝 鲜 南 海</text>
-    <!-- 露梁海峡:狭窄水道 -->
-    <path class="sea" d="M 470,300 C 486,346 494,392 490,436 C 560,432 610,424 640,410 C 618,372 596,336 578,300 Z" opacity=".26"/>
-    <text class="rname" x="512" y="388" transform="rotate(70 512 388)" style="font-size:11px">露梁海峡</text>
-    <!-- 光阳湾:西侧内湾 -->
-    <path class="sea" d="M 220,300 C 236,346 250,392 250,430 C 320,428 380,420 420,404 C 402,368 386,332 372,300 Z" opacity=".24"/>
-    <text class="rname" x="300" y="392" style="font-size:11px">光阳湾</text>
+    <!-- ══ 海域底色 ══ -->
+    <rect class="sea" x="0" y="0" width="1000" height="640"/>
 
-    <!-- 疆界:南岸倭城为日本军占据区(南),朝鲜南境为中朝联军(北),约以海岸为界 -->
-    <path d="M 0,300 C 140,320 300,352 460,372 C 620,392 780,400 1000,392 L 1000,640 L 0,640 Z" fill="url(#qinHatch)" opacity=".55"/>
-    <path d="M 0,0 L 1000,0 L 1000,392 C 780,400 620,392 460,372 C 300,352 140,320 0,300 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 0,300 C 140,320 300,352 460,372 C 620,392 780,400 1000,392"/>
-    <text class="realm j" x="120" y="150" font-size="30">朝 鲜 南 境(中朝联军)</text>
-    <text class="realm q" x="640" y="600" font-size="26">南 岸 倭 城</text>
+    <!-- ══ 制海示意:西/中为中朝联军水师(制海),东/南为日本沿海倭城,约以露梁一线为前沿 ══ -->
+    <path d="M 0,0 L 720,0 C 700,120 660,220 636,300 C 612,400 610,500 648,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 720,0 L 1000,0 L 1000,640 L 648,640 C 610,500 612,400 636,300 C 660,220 700,120 720,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 720,0 C 700,120 660,220 636,300 C 612,400 610,500 648,640"/>
 
-    <!-- 朝鲜半岛南岸海岸线示意 -->
-    <path class="river" stroke-width="2" opacity=".5" d="M 0,300 C 140,320 300,352 460,372 C 620,392 780,400 1000,392"/>
+    <!-- ══ 陆地 ══ -->
+    <!-- 朝鲜南岸大陆(北):西有顺天/丽水半岛下探,中有光阳湾内凹,东北为泗川半岛;露梁海峡为大陆与南海岛间之狭口 -->
+    <path class="land" d="M 0,0 L 1000,0 L 1000,96 C 940,112 902,124 872,138 C 840,158 812,182 782,206 C 742,232 704,244 668,250 C 636,246 606,240 560,240 C 512,240 476,244 452,236 C 428,222 414,196 398,176 C 382,196 366,224 344,268 C 326,300 312,326 300,338 C 286,344 262,344 242,398 C 226,384 202,392 172,362 C 138,326 108,296 70,258 C 44,238 20,224 0,214 Z"/>
+    <!-- 南海岛(南):大岛,东北角逼近露梁海峡,北岸有观音浦湾 -->
+    <path class="land" d="M 700,306 C 660,302 632,300 612,296 C 600,286 592,280 583,282 C 566,286 548,296 530,326 C 516,358 514,404 524,454 C 534,500 556,540 592,574 C 636,600 704,604 770,580 C 818,558 838,502 832,438 C 826,392 806,352 762,322 C 736,308 718,308 700,306 Z"/>
 
-    <!-- 南海岛(露梁海峡南) -->
-    <g class="isle"><ellipse cx="560" cy="500" rx="30" ry="16"/><ellipse cx="598" cy="482" rx="12" ry="7"/></g>
-    <text class="cname s" x="524" y="536">南海岛</text>
+    <!-- 露梁海峡:大陆与南海岛间狭水道(决战伏击处) -->
+    <path class="strait" d="M 560,240 C 606,240 636,246 668,250 C 700,258 720,278 706,304 C 660,302 632,300 612,296 C 588,282 566,258 560,240 Z"/>
+    <!-- 光阳湾:丽水半岛与南海岛间西侧内湾 -->
+    <path class="strait" d="M 300,340 C 340,344 380,360 420,392 C 468,420 512,438 524,454 C 514,404 516,358 530,326 C 500,320 460,318 420,320 C 372,322 330,330 300,340 Z" opacity=".2"/>
 
-    <!-- 城邑 -->
+    <path class="coast" d="M 0,214 C 44,238 108,296 172,362 C 202,392 226,384 242,398"/>
+    <path class="coast" d="M 300,338 C 344,268 382,196 398,176 C 414,196 452,236 560,240 C 668,250 742,232 872,138"/>
+    <path class="coast" d="M 700,306 C 736,308 806,352 832,438 C 838,502 770,588 636,592 C 556,588 516,500 524,454 C 514,404 530,326 583,282 C 606,296 660,302 700,306 Z"/>
+
+    <text class="rname" x="120" y="470" style="opacity:.75">朝　鲜　南　海</text>
+    <text class="rname" x="612" y="288" transform="rotate(58 612 288)" style="font-size:11px;fill:var(--advance);opacity:.85">露梁海峡</text>
+    <text class="rname" x="348" y="392" style="font-size:11px">光阳湾</text>
+    <text class="realm j" x="70" y="150" font-size="22">中朝联军水师</text>
+    <text class="cname s" x="72" y="172" style="fill:var(--advance);opacity:.7">(明 陈璘 · 朝鲜 李舜臣 · 制海)</text>
+    <text class="realm q" x="830" y="470" font-size="20" text-anchor="end">日本 沿海倭城</text>
+    <text class="cname s" x="830" y="492" style="fill:var(--enemy);opacity:.65" text-anchor="end">(岛津 · 小西 · 宗义智)</text>
+
+    <!-- 南海岛屿点缀 -->
+    <g class="isle"><ellipse cx="140" cy="330" rx="10" ry="6"/><ellipse cx="470" cy="470" rx="9" ry="5"/></g>
+
+    <!-- ══ 图外来向:古今岛(联军水师基地,图外西) ══ -->
+    <g transform="translate(6,300)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 34,0"/>
+      <text class="mlabel j" x="6" y="-9" style="font-size:10px">古今岛 ⟶</text>
+      <text class="cname s" x="6" y="16" style="fill:var(--advance);font-size:9.5px">联军水师基地(图外西)</text>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="luliang"><circle cx="530" cy="360" r="6"/><text class="cname" x="540" y="352">露梁<tspan class="cname s" dx="2">(海峡·夜战)</tspan></text></g>
-      <g class="city" data-city="shuntian"><circle cx="300" cy="418" r="5"/><text class="cname s" x="252" y="438">顺天(倭城)</text></g>
-      <g class="city" data-city="sichuan"><circle cx="720" cy="404" r="5"/><text class="cname s" x="728" y="400">泗川(倭城)</text></g>
-      <g class="city" data-city="maodao"><circle cx="600" cy="408" r="4.5"/><text class="cname s" x="608" y="428">猫岛·观音浦</text></g>
-      <g class="city" data-city="nanhai"><circle cx="560" cy="500" r="4"/><text class="cname s" x="470" y="520">南海岛(倭残逃遁)</text></g>
-      <g class="city" data-city="gujin"><circle cx="150" cy="360" r="5"/><text class="cname s" x="76" y="356">古今岛(水师基地)</text></g>
+      <g class="city" data-city="luliang"><circle cx="651" cy="277" r="6.5"/><text class="cname" x="661" y="270">露梁津<tspan class="cname s" dx="2">(海峡·夜战)</tspan></text></g>
+      <g class="city" data-city="guanyinpu"><circle cx="590" cy="292" r="5"/><text class="cname s" x="500" y="312">观音浦(李舜臣殉)</text></g>
+      <g class="city" data-city="shuntian"><circle cx="232" cy="376" r="6"/><text class="cname" x="150" y="372">顺天倭桥城<tspan class="cname s" dx="2"></tspan></text></g>
+      <g class="city" data-city="sichuan"><circle cx="894" cy="129" r="6"/><text class="cname" x="820" y="124">泗川倭城</text></g>
+      <g class="city" data-city="nanhai"><circle cx="700" cy="470" r="5.5"/><text class="cname s" x="710" y="474">南海(倭城)</text></g>
+      <g class="city" data-city="maodao"><circle cx="435" cy="393" r="4.5"/><text class="cname s" x="360" y="410">猫岛(封锁基地)</text></g>
     </g>
 
-    <!-- 全图 · 秀吉死·倭谋撤 -->
+    <!-- ══ 全图 · 封锁顺天 · 岛津来援 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 712,398 C 660,392 610,382 542,368"/>
-      <text class="mlabel q" x="600" y="360">岛津义弘率舟师自泗川来援</text>
-      <rect class="camp" x="716" y="400" width="8" height="8" transform="rotate(45 720 404)"/>
-      <rect class="camp" x="296" y="414" width="8" height="8" transform="rotate(45 300 418)"/>
-      <text class="mlabel q" x="200" y="452">小西行长困守顺天倭城,约援求退</text>
-      <text class="anno" x="480" y="300">丰臣秀吉秋病死,日军奉遗命密谋撤归</text>
-      <path class="march j" marker-end="url(#aj)" d="M 162,364 C 260,380 400,384 512,370"/>
-      <text class="mlabel j" x="230" y="336">中朝水师陈璘·邓子龙·李舜臣东进侦倭</text>
+      <rect class="camp" x="228" y="372" width="9" height="9" transform="rotate(45 232 376)"/>
+      <g class="siege"><circle cx="232" cy="376" r="20"/></g>
+      <text class="mlabel j" x="150" y="428">陈璘·李舜臣封锁小西于顺天</text>
+      <rect class="camp" x="890" y="125" width="9" height="9" transform="rotate(45 894 129)"/>
+      <rect class="camp" x="696" y="466" width="9" height="9" transform="rotate(45 700 470)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 40,300 C 160,318 300,338 410,376"/>
+      <text class="mlabel j" x="70" y="262">联军水师自古今岛东进,据猫岛扼光阳湾</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 878,144 C 800,196 736,244 706,290"/>
+      <text class="mlabel q" x="720" y="214">岛津义弘率舟师五百余艘,自泗川来援</text>
+      <text class="anno" x="470" y="360">露梁海峡为泗川援军西趋顺天必经之口</text>
+      <text class="anno" x="200" y="470">丰臣秀吉死,倭奉命撤归;小西行长乞援岛津</text>
     </g>
 
-    <!-- 阶段一:联军邀击·夜扼露梁 -->
+    <!-- ══ 阶段一:秀吉死 · 倭撤 · 小西被围顺天 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 162,362 C 280,376 400,378 512,364"/>
-      <text class="mlabel j" x="200" y="340">联军侦知倭动,夜进扼露梁海峡</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 712,400 C 650,394 590,384 546,372"/>
-      <text class="mlabel q" x="600" y="384">岛津舟师夜发泗川,趋顺天接应</text>
-      <text class="anno" x="440" y="342">陈璘、李舜臣分伏两翼,候倭援入峡</text>
-      <text class="anno" x="220" y="470">邓子龙率精兵为前锋,当其锋</text>
+      <rect class="camp" x="228" y="372" width="9" height="9" transform="rotate(45 232 376)"/>
+      <g class="siege"><circle cx="232" cy="376" r="20"/><circle cx="232" cy="376" r="27" style="opacity:.5"/></g>
+      <text class="mlabel j" x="150" y="332">联军水陆围顺天倭城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 40,304 C 170,326 320,352 402,378"/>
+      <text class="mlabel j" x="60" y="284">陈璘·李舜臣舟师封锁光阳湾口</text>
+      <rect class="camp" x="890" y="125" width="9" height="9" transform="rotate(45 894 129)"/>
+      <path class="march qsea" marker-end="url(#aq)" d="M 262,392 C 460,430 660,340 862,150"/>
+      <text class="mlabel q" x="360" y="452">小西行长潜遣使乞援于泗川岛津</text>
+      <text class="anno" x="150" y="230">八月秀吉死,日军奉遗命密撤;小西困守顺天</text>
+      <text class="anno" x="470" y="330">求退路不得,约岛津率舟师来援接应</text>
     </g>
 
-    <!-- 阶段二:火攻夹击·鏖战达旦 -->
+    <!-- ══ 阶段二:岛津率舰队夜航来援 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 470,352 C 490,356 510,358 524,360"/>
-      <path class="march j" marker-end="url(#aj)" d="M 590,352 C 570,356 550,358 538,360"/>
-      <circle class="star" cx="530" cy="360" r="9"/>
-      <text class="mlabel j" x="380" y="330">联军以火炮火攻夹击倭舟</text>
-      <text class="mlabel q" x="560" y="392">倭舟拥塞海峡,进退失据</text>
-      <text class="anno" x="360" y="410">鏖战通宵达旦,焚沉倭舟数百,歼倭万计</text>
-      <text class="anno" x="300" y="386">火光烛天,海水尽赤</text>
+      <!-- 倭舟蔽海:泗川·南海之众东集露梁之东 -->
+      <ellipse cx="792" cy="300" rx="66" ry="52" fill="url(#qinHatch)" stroke="rgba(154,43,30,.4)" stroke-width="1" stroke-dasharray="3 3" transform="rotate(-24 792 300)"/>
+      <path class="march qsea" marker-end="url(#aq)" d="M 878,146 C 820,198 786,244 748,286"/>
+      <path class="march qsea" marker-end="url(#aq)" d="M 704,458 C 720,400 730,346 726,306"/>
+      <text class="mlabel q" x="812" y="360" text-anchor="end">岛津义弘·宗义智合舟师五百余艘</text>
+      <text class="mlabel q" x="812" y="376" text-anchor="end">夜航西趋露梁,以援顺天</text>
+      <!-- 联军夜进扼峡,分伏两翼 -->
+      <path class="march j" marker-end="url(#aj)" d="M 430,382 C 520,344 588,308 632,288"/>
+      <text class="mlabel j" x="360" y="356">陈璘率明师扼海峡北口</text>
+      <path class="march ally" marker-end="url(#aa)" d="M 250,340 C 400,308 520,286 604,282"/>
+      <text class="mlabel a" x="330" y="270">李舜臣率朝鲜龟船伏峡口之西</text>
+      <text class="anno" x="470" y="228">联军侦知倭动,夜进扼露梁,分伏两翼以待</text>
+      <!-- 夜:残月 -->
+      <path class="moon" d="M 928,196 a 15,15 0 1 0 8,26 a 12,12 0 1 1 -8,-26 Z"/>
+      <text class="anno" x="900" y="240" style="opacity:.8">夜半</text>
     </g>
 
-    <!-- 阶段三:二将殉国·倭残尽去 -->
+    <!-- ══ 阶段三:露梁海峡夜伏 · 火攻焚舰 ══ -->
     <g id="ph3" class="ph">
-      <path d="M 600,408 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="612" y="452">李舜臣追歼倭舟,于观音浦中丸阵殁</text>
-      <text class="mlabel r" x="440" y="342">邓子龙跃入敌舟力战,阵殁于露梁</text>
-      <circle class="star" cx="530" cy="360" r="7"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 596,400 C 580,436 570,466 562,492"/>
-      <text class="mlabel r" x="520" y="540">倭残夺路遁归南海岛</text>
-      <text class="anno" x="300" y="470">李舜臣命秘丧,以旗鼓督战如故</text>
-      <text class="anno" x="440" y="316">倭舟焚溺大溃,尽去朝鲜;七年兵祸遂息</text>
+      <!-- 倭舟壅塞海峡 -->
+      <ellipse cx="700" cy="290" rx="56" ry="42" fill="url(#qinHatch)" opacity=".8" transform="rotate(-20 700 290)"/>
+      <!-- 联军夹击:自北、自西合围 -->
+      <path class="march j" marker-end="url(#aj)" d="M 630,266 C 664,272 686,278 700,286"/>
+      <path class="march ally" marker-end="url(#aa)" d="M 604,300 C 642,300 670,296 690,292"/>
+      <text class="mlabel j" x="470" y="250">火炮·火箭·火船·龟船并发,夹击倭舟</text>
+      <!-- 火焰:焚倭舟 -->
+      <g class="fire">
+        <path d="M 690,286 q -6,-15 2,-25 q 3,11 8,6 q -2,13 4,19"/>
+        <path d="M 708,282 q -5,-13 2,-23 q 3,10 7,5 q -2,12 3,17"/>
+        <path d="M 674,290 q -5,-13 1,-21 q 3,9 7,5 q -2,11 3,15"/>
+        <path d="M 724,290 q -5,-12 2,-21 q 3,9 6,5 q -2,11 3,15"/>
+      </g>
+      <path class="fire" d="M 656,286 q 24,-24 48,-14 q 22,-16 44,6" stroke-dasharray="2 4"/>
+      <text class="flabel" x="812" y="228" font-size="20" text-anchor="end">焚倭舟二百余艘</text>
+      <path d="M 748,236 C 730,254 714,270 704,284" stroke="var(--fire)" stroke-width="1.4" fill="none" opacity=".7"/>
+      <text class="anno" x="812" y="252" style="fill:var(--fire)" text-anchor="end">火光烛天,海水尽赤</text>
+      <circle class="star" cx="700" cy="290" r="12"/>
+      <circle class="star" cx="700" cy="290" r="19" style="opacity:.5"/>
+      <text class="anno" x="470" y="360">十一月十九昧爽,鏖战达旦,歼倭万计</text>
+      <!-- 海水渐赤 -->
+      <path class="redsea" d="M 600,336 C 636,318 692,320 726,346 C 750,366 738,398 700,404 C 656,410 604,392 600,336 Z" style="opacity:.65"/>
     </g>
 
-    <g class="compass" transform="translate(944,120)">
+    <!-- ══ 阶段四:大破日军 · 邓子龙李舜臣殉国 · 七年战终 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 海水皆赤 -->
+      <path class="redsea" d="M 590,340 C 632,314 700,316 742,346 C 768,366 754,404 712,410 C 664,418 596,398 590,340 Z"/>
+      <text class="redlabel" x="640" y="378" style="font-size:12px">海水皆赤</text>
+      <!-- 邓子龙殉于露梁 -->
+      <g class="fallen" transform="translate(651,277)"><path class="base" d="M -9,9 L 9,9 L 7,14 L -7,14 Z"/><circle r="8"/><line x1="0" y1="-6" x2="0" y2="6"/><line x1="-6" y1="0" x2="6" y2="0"/></g>
+      <text class="flabel2" x="664" y="252">邓子龙 · 殉国</text>
+      <text class="anno" x="470" y="228">老将邓子龙跃入敌舟力战,己船误中火器被围,阵殁</text>
+      <!-- 李舜臣殉于观音浦 -->
+      <g class="fallen" transform="translate(590,292)"><path class="base" d="M -9,9 L 9,9 L 7,14 L -7,14 Z"/><circle r="8"/><line x1="0" y1="-6" x2="0" y2="6"/><line x1="-6" y1="0" x2="6" y2="0"/></g>
+      <text class="flabel2" x="452" y="336">李舜臣 · 殉国(观音浦)</text>
+      <text class="anno" x="360" y="352" style="font-style:italic">「战方急,慎勿言我死」,令侄举旗代督</text>
+      <!-- 岛津残部败退观音浦、遁归外海 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 706,304 C 690,360 706,440 748,548"/>
+      <text class="mlabel r" x="612" y="438">岛津残部百余艘<tspan x="612" dy="15">败退观音浦 · 遁归外海</tspan></text>
+      <!-- 小西乘间遁去 -->
+      <path class="march qsea" marker-end="url(#aq)" d="M 236,398 C 320,470 430,548 540,600"/>
+      <text class="mlabel q" x="300" y="520">小西行长乘间自南遁去</text>
+      <text class="anno" x="150" y="600">倭尽去朝鲜,历七年之万历朝鲜之役遂终</text>
+    </g>
+
+    <g class="compass" transform="translate(950,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -181,34 +280,91 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>中朝联军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>倭舟师(浮海)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>倭残溃遁</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>夜战·焚倭舟</span>
-    <span class="item"><svg width="16" height="12"><rect width="10" height="10" x="3" y="1" fill="#9a2b1e" transform="rotate(45 8 6)"/></svg>倭军水寨</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南岸倭城</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>明水师(陈璘·邓子龙)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#2c6b6f" stroke-width="2.7" stroke-dasharray="9 5"/></svg>朝鲜水师(李舜臣·龟船)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.7" stroke-dasharray="7 5"/></svg>日本舟师(浮海)</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,11 q 6,-9 10,-4 q 5,-6 9,3" fill="none" stroke="#c0491f" stroke-width="2"/></svg>火攻·焚倭舰</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>岛津残部败退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>夜战·焚舰</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/><line x1="9" y1="4" x2="9" y2="14" stroke="#2b2418" stroke-width="1.5"/><line x1="4" y1="9" x2="14" y2="9" stroke="#2b2418" stroke-width="1.5"/></svg>殉国(邓·李)</span>
+    <span class="item"><svg width="16" height="12"><rect width="10" height="10" x="3" y="1" fill="#9a2b1e" transform="rotate(45 8 6)"/></svg>倭城</span>
+    <span class="item"><svg width="18" height="14"><circle cx="9" cy="7" r="5.5" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="3 3"/></svg>联军封锁</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>联军制海</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>沿海倭城</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 夜伏海峡 · 火攻截援 · 虽胜折将</h3>
+    <div class="lead">何以五百艘之援师尽焚于一夕 —— 联军夜伏狭峡,火攻截其援路,东国之兵遂歼于露梁</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="露梁夜伏火攻示意:小西被围顺天于西,岛津援军自泗川东来,联军夜伏露梁狭峡两翼,火炮火船龟船齐发,焚倭援师二百余艘,截其西援之路">
+      <!-- 海峡:中央狭水道 -->
+      <path d="M 300,40 C 340,90 348,150 320,210" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".5"/>
+      <path d="M 420,40 C 388,90 380,150 404,210" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".5"/>
+      <text x="330" y="128" fill="#1f4e54" font-size="12" font-weight="700" transform="rotate(78 330 128)">露 梁 狭 峡</text>
+      <!-- 西:顺天(小西被围) -->
+      <rect x="60" y="108" width="14" height="14" fill="#9a2b1e" transform="rotate(45 67 115)"/>
+      <circle cx="67" cy="115" r="20" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="3 4"/>
+      <text x="40" y="70" fill="#9a2b1e" font-size="11" font-weight="700">小西行长 · 困守顺天(西)</text>
+      <text x="40" y="160" fill="#1f4e54" font-size="10.5">联军封锁,求援于岛津</text>
+      <!-- 东:岛津援师(众) -->
+      <g fill="none" stroke="#9a2b1e" stroke-width="1.5">
+        <rect x="620" y="70" width="20" height="12"/><rect x="646" y="70" width="20" height="12"/><rect x="672" y="70" width="20" height="12"/><rect x="698" y="70" width="20" height="12"/>
+        <rect x="633" y="90" width="20" height="12"/><rect x="659" y="90" width="20" height="12"/><rect x="685" y="90" width="20" height="12"/>
+        <rect x="620" y="110" width="20" height="12"/><rect x="646" y="110" width="20" height="12"/><rect x="672" y="110" width="20" height="12"/>
+      </g>
+      <text x="600" y="60" fill="#9a2b1e" font-size="11" font-weight="700">岛津五百余艘 · 自泗川东来(援顺天)</text>
+      <!-- 岛津西趋箭头,入峡 -->
+      <path d="M 610,120 C 540,140 480,140 430,128" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#aq)"/>
+      <!-- 联军两翼伏兵 -->
+      <path d="M 360,232 C 344,200 340,170 348,150" fill="none" stroke="#2c6b6f" stroke-width="2.6" stroke-dasharray="9 5" marker-end="url(#aa)"/>
+      <text x="300" y="248" fill="#2c6b6f" font-size="10.5" font-weight="700">李舜臣(南翼·龟船)</text>
+      <path d="M 360,18 C 344,50 340,80 350,102" fill="none" stroke="#1f4e54" stroke-width="2.6" marker-end="url(#aj)"/>
+      <text x="300" y="14" fill="#1f4e54" font-size="10.5" font-weight="700">陈璘(北翼)</text>
+      <!-- 火焰焚倭 -->
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 430,120 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 470,120 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 450,138 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+      </g>
+      <text x="440" y="196" fill="#c0491f" font-size="12" font-weight="700" font-family="'Ma Shan Zheng',serif">火攻焚舰 · 截其援路 ✕</text>
+      <text x="440" y="214" fill="#9a2b1e" font-size="10.5" font-weight="700">焚二百余艘 · 海水皆赤</text>
+    </svg>
+    <p class="intro">丰臣秀吉死,在朝日军奉命撤归。日第一军小西行长被中朝联军水师封锁于<b>顺天倭桥城</b>,求退路不得,乃遣使乞援于泗川之岛津义弘。岛津合宗义智等<b>舟师五百余艘</b>,夜航西趋,欲入露梁海峡以救顺天。联军提督陈璘、副将邓子龙与朝鲜统制使李舜臣<b>预伏于露梁狭峡</b>——此非两阵堂堂之战,而是一场<b>夜伏截援</b>之伏击:援路既扼,则倭之援师自入死地。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>夜伏 · 截援</h4>
+        <p>露梁海峡狭隘,为泗川援军西趋顺天之必经。联军侦知倭动,夜半分伏两翼:陈璘扼海峡北口,李舜臣率龟船伏峡口之西。岛津恃众鱼贯而入,遂堕伏中。截其援路,则小西终不得救,顺天之围不解——此以地形制敌,伏而歼之。</p>
+      </div>
+      <div class="c b">
+        <h4>火攻 · 焚舰</h4>
+        <p>倭舟壅塞狭峡,进退失据。联军以火炮、火箭、火船及龟船并发,乱投薪火,延烧敌船。火光烛天,海水尽赤,焚沉倭舟二百余艘,歼倭上万,岛津舟师精锐一夕丧尽。残部百余艘夺路遁入观音浦,浮海而去。</p>
+      </div>
+    </div>
+    <p class="kicker">故露梁之胜,不在堂战,而在<b>夜伏狭峡、火攻截援</b>:扼援路于必经之口,火焚其援师于死地,东国之兵尽歼于一夕,七年之倭乱以此终。然此胜亦惨:老将<b>邓子龙</b>年逾七旬,跃入敌舟力战,己船误中火器被围而殁;朝鲜名将<b>李舜臣</b>追歼至观音浦,中流弹而卒,临终犹曰「战方急,慎勿言我死」——两主将同殒于捷中,虽胜而折将,可谓悲壮。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《明史·陈璘传/邓子龙传/朝鲜传》及朝鲜《宣祖实录》《李忠武公全书》约略绘出。露梁在今韩国南海郡海域,城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为万历二十六年朝鲜南境形势示意:小西行长据顺天倭城、岛津义弘据泗川倭城(南岸倭城),中朝联军水师据古今岛;海岸为险,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>此役为万历朝鲜之役(壬辰倭乱)终战。老将邓子龙跃入敌舟力战阵殁,李舜臣亦中丸而卒,临终命秘不发丧、以旗鼓督战如故。二将俱殉国,而倭舟师焚溺尽去,朝鲜七年兵祸遂息,日本亦无力再犯。</p>
+    <p><span class="n">注一</span>本图为示意图,诸地按今地经纬度约略线性投影(投影式 x=70+(经度−127.45)·1350,y=640−(纬度−34.72)·1650):露梁津/露梁海峡在今韩国南海郡与河东间狭水道(约127.88°E/34.94°N),顺天倭桥城(倭城/왜교성)在光阳湾西(约127.57°E/34.88°N),泗川倭城在东北(约128.06°E/35.03°N),观音浦在南海岛北岸(约127.83°E/34.945°N),南海岛在南,猫岛在光阳湾内(陈璘封锁小西之基地),古今岛为联军水师基地在图外西(约126.78°E/34.40°N,故以边缘箭头示之)。海岸、水道经简化。</p>
+    <p><span class="n">注二</span>晕染非实有画界,乃<b>制海示意</b>:朝鲜南岸本为朝鲜之地,日军仅据顺天、泗川、南海、蔚山等沿海倭城(点)相守;联军水师自古今岛东进,制西、中之海而封锁小西,故以露梁一线为前沿约标。青为联军制海之域,朱为沿海倭城所据之东、南。</p>
+    <p><span class="n">注三</span>兵力众说不一。据朝鲜史料,联军战船约百五十艘(朝鲜板屋船八十二、龟船数艘,明军战船六十余),水陆将士约一万六千(李舜臣部约八千、明广东水师约五千、附朝鲜船作战之明军约二千六);中国史料所记联军舟师数目多有过之。日本岛津·宗义智援师约五百余艘、众万余。战果:焚沉、擒获倭舟二百余艘(一说过其半),歼倭上万,残部仅数十至百余艘得脱;联军损船不及十、伤亡约七百。诸书数目微有出入,并存备考。</p>
+    <p><span class="n">注四</span>此役为万历朝鲜之役(壬辰倭乱·丁酉再乱)之终战,在明万历二十六年十一月十九日昧爽(公元1598年12月16日)。老将邓子龙(年逾七旬)率朝鲜船为前锋,跃入敌舟力战,因己船误中火器起火、为倭所围,力战阵殁于露梁;朝鲜统制使李舜臣督战追歼,于观音浦中流弹而卒,临终命秘不发丧,曰「战方急,慎勿言我死」,令其侄李莞举旗鸣鼓代督,军中不知其死。二将俱殉国,而倭舟师焚溺尽去,朝鲜七年兵祸遂息,日本自此无力再犯。</p>
+    <p><span class="n">注五</span>本图据《明史·陈璘传/邓子龙传/朝鲜传》、朝鲜《宣祖实录》《李忠武公全书》及 Battle of Noryang 诸考约略绘出。战时小西行长乘露梁鏖战之隙,自顺天南绕南海西侧潜遁而去,非当露梁正战之敌;岛津援师之败退处观音浦,即李舜臣中丸殉国之地,史家于二将死所、时刻另有考订,此图取其大略。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"秀吉死·倭谋撤",d:"万历二十六年(1598)秋",p:["日本关白丰臣秀吉两度大举侵朝(壬辰一五九二、丁酉一五九七),明发大军援朝,平壤大捷、稷山却敌,与倭相持于朝鲜南境诸倭城(顺天、泗川、蔚山)。是年秋,秀吉病死,日军奉遗命密谋撤归。","困守顺天之小西行长贿明将求退路不得,乃约泗川岛津义弘率舟师来援接应。中朝水师提督陈璘、副将邓子龙与朝鲜统制使李舜臣据古今岛,东进侦倭,伏候于露梁。"]},
-  "1":{t:"联军邀击·夜扼露梁",d:"万历二十六年十一月",p:["中朝水师侦知倭动,夜进扼露梁海峡,伏候倭援。陈璘、李舜臣分伏两翼,邓子龙率精兵为前锋,当其锋。","岛津义弘舟师夜发泗川,趋顺天接应小西行长。露梁水道狭隘,倭舟鱼贯而入,遂堕联军伏中。"]},
-  "2":{t:"火攻夹击·鏖战达旦",d:"万历二十六年十一月十九日",p:["联军以火炮、火攻夹击倭舟,鏖战通宵达旦。露梁海峡狭窄,倭舟拥塞其中,进退失据。","火光烛天,海水尽赤。联军焚沉倭舟数百,歼倭万计——倭之舟师精锐,一夕丧尽。"]},
-  "3":{t:"二将殉国·倭残尽去",d:"万历二十六年十一月十九日",p:["鏖战之际,老将邓子龙跃入敌舟力战,阵殁于露梁;朝鲜统制使李舜臣追歼倭舟,于观音浦中丸而卒,临终命秘不发丧、以旗鼓督战如故,军中不知其死。","倭军大溃,残部夺路遁归南海岛,浮海尽去朝鲜。二将俱殉国,而七年兵祸遂息,日本自此无力再犯,壬辰倭乱以此终。"]}
+  all:{t:"封锁顺天 · 岛津来援",d:"明万历二十六年(1598)冬",p:["丰臣秀吉两度大举侵朝(壬辰一五九二、丁酉一五九七),明发大军援朝,与倭相持于朝鲜南境诸沿海倭城。是年八月秀吉死,在朝日军奉遗命密谋撤归。","日第一军小西行长被中朝联军水师封锁于顺天倭桥城,求退路不得,乃遣使乞援于泗川之岛津义弘。岛津合宗义智等舟师五百余艘,自泗川夜航西来;联军提督陈璘、副将邓子龙与朝鲜统制使李舜臣,据猫岛而扼露梁,伏候倭援。"]},
+  "1":{t:"秀吉死 · 倭撤 · 小西被围顺天",d:"万历二十六年八—十一月",p:["八月,丰臣秀吉病死,遗命在朝日军尽撤。诸倭城相次谋归,而小西行长据顺天倭桥城,为中朝联军水陆合围:陆有明军,水有陈璘、李舜臣舟师封锁光阳湾口,粮援两绝。","小西求退路于明将不得,乃潜遣使浮海东出,乞援于泗川岛津义弘,约其率舟师西来接应,共破封锁而退。露梁之战,遂伏机于此。"]},
+  "2":{t:"岛津率舰队夜航来援",d:"万历二十六年十一月十八日夜",p:["岛津义弘合宗义智等,并泗川、南海、固城之众,得战船五百余艘、兵万余,于露梁之东集结,乘夜西航,欲入露梁海峡以援顺天。","联军侦知倭动,夜进扼露梁,分伏两翼:陈璘率明师扼海峡北口,李舜臣率朝鲜龟船伏峡口之西,邓子龙率精兵为前锋当其锋。露梁狭隘,为援军必经,倭舟鱼贯而入,遂堕联军伏中。"]},
+  "3":{t:"露梁海峡夜伏 · 火攻焚舰",d:"万历二十六年十一月十九日昧爽",p:["十九日昧爽,伏兵四起。联军以火炮、火箭、火船及龟船并发,乱投薪火,夹击倭舟。露梁海峡狭窄,倭舟壅塞其中,进退失据,自相撞击。","火光烛天,海水尽赤。鏖战通宵达旦,联军焚沉倭舟二百余艘(一说过其半),歼倭上万——岛津舟师之精锐,一夕丧尽。残部夺路,退入观音浦。"]},
+  "4":{t:"大破日军 · 二将殉国 · 战终",d:"万历二十六年十一月十九日",p:["鏖战之际,老将邓子龙年逾七旬,率朝鲜船为前锋,跃入敌舟力战;己船误中火器起火,为倭所围,力战阵殁于露梁。朝鲜统制使李舜臣督战追歼,至观音浦中流弹而卒,临终命秘不发丧,曰「战方急,慎勿言我死」,令其侄李莞举旗鸣鼓代督,军中不知其死。","倭军大溃,岛津残部百余艘败退观音浦,浮海遁归;小西行长乘间自顺天南绕潜去。二将俱殉国,而倭舟师焚溺尽去,朝鲜七年兵祸遂息。历时七年之万历朝鲜之役,以此役终,日本自此无力再犯。"]}
 };
 const CITY={
-  luliang:{t:"露梁",d:"今韩国南海郡海域海峡",p:["夜战主战场。海峡狭隘,联军伏候倭援于此,火攻夹击,焚沉倭舟数百。邓子龙跃入敌舟力战阵殁于此。"]},
-  shuntian:{t:"顺天(倭城)",d:"朝鲜南岸倭城,西",p:["小西行长困守之倭城。贿明将求退路不得,乃约泗川岛津义弘率舟师来援接应,遂启露梁之战。"]},
-  sichuan:{t:"泗川(倭城)",d:"朝鲜南岸倭城,东",p:["岛津义弘据守之倭城。奉约率舟师自此来援顺天,夜发趋露梁,堕联军伏中。"]},
-  maodao:{t:"猫岛·观音浦",d:"露梁海峡追歼处,中",p:["追歼倭舟之地。朝鲜统制使李舜臣督战于此,中丸而卒;临终命秘丧,以旗鼓督战如故。"]},
-  nanhai:{t:"南海岛",d:"露梁海峡南",p:["倭残溃遁之地。日本舟师大败,残部夺路遁归此岛,浮海尽去朝鲜。"]},
-  gujin:{t:"古今岛",d:"联军水师基地,西",p:["中朝联军水师提督陈璘、副将邓子龙与朝鲜统制使李舜臣会师之基地。自此东进,扼露梁以邀倭。"]}
+  luliang:{t:"露梁津(露梁海峡)",d:"今韩国南海郡与河东间狭水道(约127.88°E/34.94°N)",p:["夜战主战场。海峡狭隘,为泗川援军西趋顺天之必经。联军夜伏两翼,火攻夹击,焚沉倭舟二百余艘。老将邓子龙跃入敌舟力战,阵殁于此。"]},
+  guanyinpu:{t:"观音浦",d:"南海岛北岸(约127.83°E/34.945°N)",p:["岛津残部败退之处。朝鲜统制使李舜臣督战追歼至此,中流弹而卒;临终命秘丧,以旗鼓督战如故,军中不知其死。今有李舜臣殉国之遗迹。"]},
+  shuntian:{t:"顺天倭桥城",d:"光阳湾西,今顺天·丽水间(约127.57°E/34.88°N)",p:["日第一军小西行长困守之倭城(倭桥城/왜교성)。为中朝联军水陆合围,求退路不得,乃乞援于泗川岛津,遂启露梁之战。露梁鏖战之隙,小西乘间自南潜遁。"]},
+  sichuan:{t:"泗川倭城",d:"东北,今泗川(约128.06°E/35.03°N)",p:["岛津义弘据守之倭城。奉小西之约,率舟师五百余艘自此夜发西援,趋露梁海峡,堕联军伏中,精锐尽焚。"]},
+  nanhai:{t:"南海(倭城)",d:"露梁海峡之南大岛",p:["宗义智所据之岛。岛津援师并南海之众西来;败后残部退入岛北观音浦,浮海遁去。"]},
+  maodao:{t:"猫岛",d:"光阳湾内,近顺天倭城",p:["中朝联军封锁小西之水师基地。陈璘、李舜臣据此扼光阳湾口,断顺天之援;侦倭动而东进伏露梁。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
