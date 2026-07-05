@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,20 +47,40 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 弃辎诱敌:道旁委弃之羊马辎重 */
+  .lure{fill:rgba(122,90,35,.5);stroke:var(--ret);stroke-width:.9}
+  /* 泥盒放鸽为号:封泥之盒开缄、群鸽哨起、约以为号 */
+  .box{fill:rgba(110,80,40,.6);stroke:var(--ret);stroke-width:1.1}
+  .box .lid{fill:none;stroke:var(--ret);stroke-width:1.1;stroke-linecap:round}
+  .pigeon{fill:none;stroke:var(--ink2);stroke-width:1.3;stroke-linecap:round}
+  .signal{fill:none;stroke:var(--enemy);stroke-width:1.2;stroke-dasharray:2 3;opacity:.85}
+  /* 任福殉国:阵殁之记 */
+  .martyr circle{fill:rgba(154,43,30,.14);stroke:var(--enemy);stroke-width:1.5}
+  .martyr line{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +94,17 @@
   <div class="seal" aria-hidden="true"><span>好</span><span>水</span><span>川</span><span>役</span></div>
   <header>
     <h1>好水川之战</h1>
-    <div class="sub">宋庆历元年(1041)　　<i>北宋 任福</i> 败于 <b>西夏 元昊</b></div>
+    <div class="sub">宋庆历元年(1041)　　<b>西夏 元昊</b> 诱伏聚歼 <i>北宋 韩琦 · 任福</i>　·　弃辎诱敌 · 川谷聚歼</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 元昊诱敌</button>
-    <button data-p="1">轻进逐利</button>
-    <button data-p="2">银盒纵鸽</button>
-    <button data-p="3">好水覆军</button>
+    <button data-p="1">攻渭 · 遣任福邀击</button>
+    <button data-p="2">弃辎诱敌 · 贪功深入</button>
+    <button data-p="3">泥盒放鸽 · 伏兵四起</button>
+    <button data-p="4">绝地聚歼 · 任福死</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="好水川之战形势图,含西夏北宋疆界、六盘山与渭水、好水川及镇戎军渭州兴庆府等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="好水川之战形势图,含西夏北宋约界、六盘山川谷、葫芦河好水川渭水,及好水川镇戎军羊牧隆城笼竿城渭州兴庆府等地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,116 +113,242 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:西夏据河西灵夏(北、西),北宋据关陇泾原(南、东),约以边寨为界 -->
-    <path d="M 0,0 L 1000,0 L 1000,150 C 860,180 700,200 560,250 C 440,292 340,352 250,430 C 190,486 130,556 96,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path d="M 1000,150 C 860,180 700,200 560,250 C 440,292 340,352 250,430 C 190,486 130,556 96,640 L 1000,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 1000,150 C 860,180 700,200 560,250 C 440,292 340,352 250,430 C 190,486 130,556 96,640"/>
-    <text class="realm q" x="150" y="120" font-size="34">西 夏(灵夏)</text>
-    <text class="realm j" x="640" y="560" font-size="32">北 宋(泾原)</text>
+    <!-- ══ 约界:西夏据河西灵夏(北·西),北宋据泾原(南·东),约以边寨为界 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,150 C 840,178 700,214 560,270 C 430,322 320,392 236,470 C 176,526 118,580 84,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 1000,150 C 840,178 700,214 560,270 C 430,322 320,392 236,470 C 176,526 118,580 84,640 L 1000,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 1000,150 C 840,178 700,214 560,270 C 430,322 320,392 236,470 C 176,526 118,580 84,640"/>
+    <text class="realm q" x="150" y="118" font-size="30">西 夏(灵夏)</text>
+    <text class="cname s" x="150" y="140" style="fill:var(--enemy);opacity:.6">(都兴庆府 · 图外正北)</text>
+    <text class="realm j" x="660" y="592" font-size="28">北 宋(泾原)</text>
 
-    <!-- 渭水:自西向东南流经渭州 -->
-    <path class="river" stroke-width="5.5" d="M 200,470 C 300,486 400,500 500,512 C 600,522 720,530 840,536 C 900,540 960,542 1000,544"/>
-    <!-- 好水川:自西向东注入,战地所在 -->
-    <path class="river" stroke-width="3" d="M 300,300 C 380,318 460,336 520,356 C 570,372 610,388 650,404"/>
-    <text class="rname" x="640" y="512" style="font-size:13px">渭 水</text>
-    <text class="rname" x="380" y="322" transform="rotate(13 380 322)" style="font-size:11px">好水川</text>
+    <!-- ══ 山脉:六盘山主脉,南北横亘,分泾河葫芦河清水河,好水川口即其西麓 ══ -->
+    <path class="mtn fill" d="M 512,196 L 528,158 L 544,182 L 560,140 L 576,178 L 560,240 L 552,310 L 544,380 L 534,436 L 520,398 L 526,330 L 516,262 Z"/>
+    <path class="mtn" d="M 516,214 l 12,-20 l 12,18 l 14,-24 l 12,20 M 524,300 l 11,-18 l 11,17 M 520,380 l 10,-16 l 11,15"/>
+    <text class="mname" x="556" y="300" transform="rotate(80 556 300)">六 盘 山</text>
+    <text class="cname s" x="548" y="250" style="opacity:.75">米缸山·主峰</text>
 
-    <!-- 六盘山 -->
-    <g class="mtn"><path d="M 430,262 l 8,-14 l 8,14 M 446,256 l 9,-15 l 9,15 M 464,262 l 8,-13 l 8,13 M 402,268 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="428" y="286">六盘山</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 葫芦河(瓦亭川):自北穿六盘山西麓南下,元昊沿此诱敌之道 -->
+    <path class="river" stroke-width="4.5" d="M 300,60 C 306,150 316,250 330,340 C 340,410 352,480 366,540"/>
+    <!-- 好水川(好水河):自东六盘山麓西流入葫芦河,战地所在 -->
+    <path class="river" stroke-width="3" d="M 520,372 C 480,382 440,388 400,392 C 380,394 360,396 340,398"/>
+    <!-- 渭水/泾水:东南渭州一线 -->
+    <path class="river" stroke-width="4" d="M 760,452 C 830,468 900,486 968,502"/>
+    <text class="rname" x="316" y="215" transform="rotate(82 316 215)" style="font-size:11px">葫芦河(瓦亭川)</text>
+    <text class="rname" x="392" y="384" transform="rotate(-4 392 384)" style="font-size:10.5px">好水川</text>
+    <text class="rname" x="864" y="482" style="font-size:11px">渭 水</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="xingqing"><circle cx="210" cy="96" r="6"/><text class="cname" x="222" y="92">兴庆府<tspan class="cname s" dx="2">(西夏都)</tspan></text></g>
-      <g class="city" data-city="huaiyuan"><circle cx="300" cy="316" r="4"/><text class="cname s" x="228" y="312">怀远·羊牧隆城</text></g>
-      <g class="city" data-city="longgan"><circle cx="380" cy="366" r="3.5"/><text class="cname s" x="330" y="386">笼竿城</text></g>
-      <g class="city" data-city="haoshui"><circle cx="520" cy="356" r="5"/><text class="cname" x="500" y="342">好水川<tspan class="cname s" dx="2">(覆军处)</tspan></text></g>
-      <g class="city" data-city="zhenrong"><circle cx="700" cy="404" r="5"/><text class="cname" x="712" y="400">镇戎军</text></g>
-      <g class="city" data-city="weizhou"><circle cx="640" cy="520" r="6"/><text class="cname" x="652" y="516">渭州<tspan class="cname s" dx="2">(韩琦帅府)</tspan></text></g>
+      <g class="city" data-city="zhenrong"><circle cx="586" cy="221" r="5.5"/><text class="cname" x="598" y="217">镇戎军<tspan class="cname s" dx="2">(宋军所出)</tspan></text></g>
+      <g class="city" data-city="haoshui"><circle cx="420" cy="392" r="6"/><text class="cname" x="376" y="378">好水川<tspan class="cname s" dx="2">(覆军处)</tspan></text></g>
+      <g class="city" data-city="longgan"><circle cx="470" cy="437" r="4"/><text class="cname s" x="480" y="452">笼竿城(陇干)</text></g>
+      <g class="city" data-city="yangmulong"><circle cx="182" cy="307" r="4.5"/><text class="cname" x="60" y="303">羊牧隆城</text></g>
+      <g class="city" data-city="huaiyuan"><circle cx="222" cy="360" r="3.5"/><text class="cname s" x="150" y="376">怀远城</text></g>
+      <g class="city" data-city="weizhou"><circle cx="874" cy="482" r="6"/><text class="cname" x="812" y="502">渭州<tspan class="cname s" dx="2">(韩琦帅府)</tspan></text></g>
+      <g class="city" data-city="tiandu"><circle cx="168" cy="110" r="3.5"/><text class="cname s" x="178" y="106">天都山(夏南界)</text></g>
     </g>
 
-    <!-- 全图 · 元昊诱敌 -->
+    <!-- 兴庆府(图外·正北,西夏都) -->
+    <g transform="translate(560,8)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,30 L 0,6"/>
+      <text class="mlabel q" x="8" y="16" style="font-size:10px">↑ 兴庆府 · 银川</text>
+      <text class="cname s" x="8" y="30" style="fill:var(--enemy);font-size:9.5px">西夏国都(图外)</text>
+    </g>
+
+    <!-- ══ 全图 · 元昊诱敌 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 220,110 C 320,180 420,250 500,344"/>
-      <text class="mlabel q" x="300" y="220">元昊率众南寇,预设伏于好水川</text>
-      <text class="anno" x="340" y="252">诱兵深入,张伏以待宋师</text>
-      <path class="march j" marker-end="url(#aj)" d="M 690,410 C 640,400 580,382 534,362"/>
-      <text class="mlabel j" x="560" y="440">韩琦遣任福自镇戎军出讨</text>
-      <text class="anno" x="470" y="536">琦戒福:毋深入,当据险邀击</text>
+      <path class="march q" marker-end="url(#aq)" d="M 520,66 C 500,150 470,240 438,344"/>
+      <text class="mlabel q" x="430" y="150">元昊率十万大举南寇</text>
+      <text class="anno" x="452" y="172">预伏精锐于六盘山下好水川口</text>
+      <path class="march j" marker-end="url(#aj)" d="M 578,228 C 520,262 470,310 434,362"/>
+      <text class="mlabel j" x="586" y="252">韩琦遣任福自镇戎军出邀击</text>
+      <text class="anno" x="470" y="500">琦戒福:毋深入,当据险以邀其归</text>
+      <circle class="star" cx="420" cy="392" r="9"/>
     </g>
 
-    <!-- 阶段一:轻进逐利 -->
+    <!-- ══ 阶段一:攻渭 · 遣任福邀击 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 692,408 C 630,412 570,404 534,368"/>
-      <text class="mlabel j" x="556" y="392">福出镇戎军,遇夏游骑,战小胜</text>
-      <path class="march j rout" marker-end="url(#aj)" d="M 528,362 C 490,352 450,342 412,332"/>
-      <text class="mlabel j" x="410" y="352">遂贪功轻进,尾夏诱骑</text>
-      <text class="anno" x="440" y="316">弃粮辎,昼夜追逐,人马饥疲</text>
-      <text class="mlabel q" x="300" y="288">夏诱骑且战且走,导之入川</text>
+      <!-- 元昊大举南下,声趋渭州 -->
+      <path class="march q" marker-end="url(#aq)" d="M 520,66 C 560,200 660,340 828,464"/>
+      <text class="mlabel q" x="560" y="150">元昊大举攻宋,声趋渭州</text>
+      <text class="anno" x="590" y="330">阴伏主力,示形以张声势</text>
+      <!-- 韩琦命任福自镇戎军出,约会师羊牧隆邀夏归路 -->
+      <path class="march j" marker-end="url(#aj)" d="M 578,224 C 440,244 300,272 214,300"/>
+      <text class="mlabel j" x="300" y="262">任福率兵数万出镇戎军</text>
+      <text class="anno" x="230" y="288">约趋羊牧隆城,邀夏军归路</text>
+      <path class="march j" marker-end="url(#aj)" d="M 862,478 C 760,400 700,360 596,232"/>
+      <text class="mlabel j" x="676" y="430">琦自渭州帅府节度</text>
     </g>
 
-    <!-- 阶段二:银盒纵鸽 -->
+    <!-- ══ 阶段二:弃辎诱敌 · 贪功深入 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="472" y="240" width="9" height="9" transform="rotate(45 476 244)"/>
-      <rect class="camp" x="560" y="290" width="9" height="9" transform="rotate(45 564 294)"/>
-      <rect class="camp" x="600" y="430" width="9" height="9" transform="rotate(45 604 434)"/>
-      <text class="mlabel q" x="470" y="232">元昊自将精骑,四面伏兵合围</text>
-      <circle class="star" cx="520" cy="356" r="9"/>
-      <text class="mlabel j" x="300" y="378">道旁泥银盒数枚,缄封微动</text>
-      <text class="anno" x="330" y="398">宋军怪而发之,百余家鸽腾起盘旋</text>
-      <text class="anno" x="440" y="336">盖元昊约以为号——伏兵望之四合</text>
+      <!-- 夏诱骑且战且走,弃羊马辎重于道以饵 -->
+      <path class="march q" marker-end="url(#aq)" d="M 470,300 C 452,330 438,356 428,382"/>
+      <text class="mlabel q" x="470" y="300">夏骑且战且走,弃羊马辎重诱之</text>
+      <g class="lure">
+        <rect x="486" y="288" width="8" height="6" rx="1"/><rect x="470" y="312" width="8" height="6" rx="1"/>
+        <rect x="452" y="338" width="8" height="6" rx="1"/><rect x="436" y="362" width="8" height="6" rx="1"/>
+      </g>
+      <text class="anno" x="486" y="316">羊马辎重委弃道旁</text>
+      <!-- 任福贪功,尾夏诱骑,弃粮辎昼夜追逐 -->
+      <path class="march j" marker-end="url(#aj)" d="M 214,304 C 300,332 366,362 410,388"/>
+      <text class="mlabel j" x="150" y="330">福违节贪功,尾夏诱骑</text>
+      <text class="anno" x="216" y="418">弃粮辎昼夜追逐,人马饥疲</text>
+      <text class="anno" x="356" y="440">追至好水川,去镇戎军已远,陷川谷绝地</text>
     </g>
 
-    <!-- 阶段三:好水覆军 -->
+    <!-- ══ 阶段三:泥盒放鸽 · 伏兵四起 ══ -->
     <g id="ph3" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 482,248 C 496,290 508,320 518,348"/>
-      <path class="march q" marker-end="url(#aq)" d="M 566,300 C 552,320 540,336 528,350"/>
-      <path class="march q" marker-end="url(#aq)" d="M 606,436 C 580,410 552,384 532,364"/>
-      <text class="mlabel q" x="560" y="280">夏军居高临下,断宋归路</text>
-      <path d="M 520,356 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="410" y="404">任福父子力战,自辰及午,俱死</text>
-      <text class="anno" x="380" y="424">身被十余矢,咽喉中枪;将士死万三千余</text>
-      <text class="anno" x="470" y="500">琦还,道逢招魂哭者,恸不能兴</text>
+      <!-- 泥盒放鸽为号 motif -->
+      <g transform="translate(452,344)">
+        <rect class="box" x="0" y="10" width="16" height="11" rx="1.5"/>
+        <path class="box lid" d="M 0,10 L 5,3 L 18,3 L 16,10"/>
+        <g class="pigeon">
+          <path d="M -6,-4 Q -2,-8 2,-4"/><path d="M 6,-10 Q 10,-14 14,-10"/>
+          <path d="M 18,-2 Q 22,-6 26,-2"/><path d="M 2,-14 Q 6,-18 10,-14"/>
+        </g>
+      </g>
+      <!-- 放鸽为号:信号四散至六盘山伏兵 -->
+      <g class="signal">
+        <path d="M 462,332 C 490,300 512,268 526,230"/>
+        <path d="M 466,338 C 500,330 528,320 552,308"/>
+        <path d="M 464,352 C 500,368 528,388 548,412"/>
+      </g>
+      <text class="mlabel j" x="256" y="330">道旁泥盒数枚,缄封微动</text>
+      <text class="anno" x="256" y="350">发之,百余家鸽带哨腾起盘旋</text>
+      <text class="mlabel q" x="560" y="196">六盘山伏兵望鸽为号,一时四起</text>
+      <!-- 六盘山伏营 -->
+      <rect class="camp" x="522" y="222" width="9" height="9" transform="rotate(45 526 226)"/>
+      <rect class="camp" x="548" y="300" width="9" height="9" transform="rotate(45 552 304)"/>
+      <rect class="camp" x="540" y="404" width="9" height="9" transform="rotate(45 544 408)"/>
+      <rect class="camp" x="466" y="450" width="8" height="8" transform="rotate(45 470 454)"/>
+      <circle class="star" cx="420" cy="392" r="9"/>
+      <text class="anno" x="486" y="330">元昊约以鸽起为号</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:绝地聚歼 · 任福死 · 全军覆没 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 十万夏军四面合围,居高临下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 526,232 C 500,286 470,340 442,382"/>
+      <path class="march q" marker-end="url(#aq)" d="M 552,306 C 520,336 480,368 446,388"/>
+      <path class="march q" marker-end="url(#aq)" d="M 544,408 C 508,406 470,400 446,396"/>
+      <path class="march q" marker-end="url(#aq)" d="M 470,456 C 450,432 436,416 428,404"/>
+      <text class="mlabel q" x="560" y="250">十万夏军四面合围</text>
+      <text class="anno" x="562" y="270">居高临下,断宋归路</text>
+      <circle class="star" cx="420" cy="392" r="11"/>
+      <!-- 任福殉国 -->
+      <g class="martyr" transform="translate(420,392)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="mlabel r" x="250" y="418">任福父子力战,自辰及午,俱死</text>
+      <text class="anno" x="250" y="438">身被十余矢,咽喉中枪;桑怿·武英·王珪皆殁</text>
+      <text class="mlabel r" x="300" y="486">将士死万三千余,一军几于全没</text>
+      <text class="anno" x="470" y="520">琦还,道逢招魂哭者,恸不能兴</text>
+    </g>
+
+    <g class="compass" transform="translate(946,596)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>西夏军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋军覆没</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>好水川伏战</span>
-    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" fill="#9a2b1e" transform="rotate(45 6.5 6.5)"/></svg>夏军伏营</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(任福)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>西夏军(元昊 · 伏兵)</span>
+    <span class="item"><svg width="20" height="16"><rect x="2" y="7" width="12" height="8" rx="1.2" fill="rgba(110,80,40,.6)" stroke="#7a5a23"/><path d="M 2,7 L 6,2 L 15,2 L 14,7" fill="none" stroke="#7a5a23"/><path d="M 12,4 Q 15,1 18,4" fill="none" stroke="#5c4f38" stroke-width="1.2"/></svg>泥盒放鸽为号</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>好水川聚歼</span>
+    <span class="item"><svg width="14" height="14"><rect x="2" y="2" width="9" height="9" fill="#9a2b1e" transform="rotate(45 6.5 6.5)"/></svg>六盘山伏营</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="rgba(154,43,30,.14)" stroke="#9a2b1e" stroke-width="1.4"/><line x1="4" y1="4" x2="12" y2="12" stroke="#2b2418" stroke-width="2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#2b2418" stroke-width="2"/></svg>任福殉国</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>西夏</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>北宋</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 弃辎诱敌 · 川谷聚歼</h3>
+    <div class="lead">何以宋万余精兵一日而尽 —— 非夏之强,实宋之贪:诱敌深入、陷伏绝地</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:西夏弃辎为饵引宋贪功深入好水川绝地,以泥盒放鸽为号,六盘山伏兵四合而聚歼之">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 弃辎为饵</text>
+      <text x="336" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 陷伏绝地</text>
+      <text x="672" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 放鸽聚歼</text>
+
+      <!-- ① 弃辎诱敌:羊马辎重委道,宋贪功追 -->
+      <g fill="rgba(122,90,35,.5)" stroke="#7a5a23" stroke-width=".9">
+        <rect x="150" y="70" width="10" height="7" rx="1"/><rect x="176" y="96" width="10" height="7" rx="1"/><rect x="150" y="122" width="10" height="7" rx="1"/><rect x="180" y="146" width="10" height="7" rx="1"/>
+      </g>
+      <text x="120" y="66" fill="#9a2b1e" font-size="10" font-weight="700">夏弃羊马辎重</text>
+      <path d="M 40,150 C 90,140 130,128 178,110" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <text x="30" y="172" fill="#1f4e54" font-size="10">任福贪功,昼夜追逐</text>
+      <path d="M 210,70 C 236,110 236,150 202,178" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#aq)"/>
+      <text x="196" y="200" fill="#9a2b1e" font-size="10">夏骑且战且走,导之入川</text>
+
+      <!-- ② 川谷绝地:两山夹峙成隘,无水,宋陷其中 -->
+      <path d="M 372,60 L 430,150 L 372,220" fill="rgba(92,79,56,.2)" stroke="#5c4f38" stroke-width="1.2"/>
+      <path d="M 560,60 L 502,150 L 560,220" fill="rgba(92,79,56,.2)" stroke="#5c4f38" stroke-width="1.2"/>
+      <text x="360" y="52" fill="#5c4f38" font-size="10" font-weight="700">六盘山</text>
+      <text x="536" y="52" fill="#5c4f38" font-size="10" font-weight="700">六盘山</text>
+      <path d="M 400,150 C 440,150 480,150 508,150" fill="none" stroke="#5f7f88" stroke-width="2" stroke-dasharray="3 4" opacity=".7"/>
+      <text x="404" y="168" fill="#5f7f88" font-size="9.5" font-style="italic">川谷狭隘 · 绝地无水</text>
+      <path d="M 430,110 L 480,110" fill="none" stroke="#1f4e54" stroke-width="2.4" marker-end="url(#aj)"/>
+      <text x="422" y="102" fill="#1f4e54" font-size="10">宋军入彀</text>
+
+      <!-- ③ 泥盒放鸽为号,四合聚歼 -->
+      <g transform="translate(690,120)">
+        <rect x="0" y="10" width="18" height="12" rx="1.5" fill="rgba(110,80,40,.6)" stroke="#7a5a23" stroke-width="1.1"/>
+        <path d="M 0,10 L 6,2 L 20,2 L 18,10" fill="none" stroke="#7a5a23" stroke-width="1.1"/>
+        <path d="M 6,-4 Q 10,-8 14,-4 M 18,-9 Q 22,-13 26,-9 M -4,-9 Q 0,-13 4,-9" fill="none" stroke="#5c4f38" stroke-width="1.3"/>
+      </g>
+      <text x="662" y="66" fill="#9a2b1e" font-size="10" font-weight="700">泥盒开缄 · 群鸽哨起</text>
+      <circle cx="744" cy="150" r="14" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <line x1="716" y1="152" x2="700" y2="150" stroke="#2b2418" stroke-width="2"/><line x1="716" y1="150" x2="700" y2="152" stroke="#2b2418" stroke-width="2"/>
+      <g stroke="#9a2b1e" stroke-width="2.2" fill="none">
+        <path d="M 700,90 C 716,110 726,124 738,140" marker-end="url(#aq)"/>
+        <path d="M 800,96 C 780,116 766,128 752,140" marker-end="url(#aq)"/>
+        <path d="M 700,206 C 718,190 728,178 738,162" marker-end="url(#aq)"/>
+        <path d="M 800,204 C 782,186 768,174 754,162" marker-end="url(#aq)"/>
+      </g>
+      <text x="694" y="196" fill="#9a2b1e" font-size="10" font-weight="700">伏兵四合 · 聚而歼之</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 262,120 L 300,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+      <path d="M 600,120 L 640,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".6"/>
+    </svg>
+    <p class="intro">好水川之败,不败于力斗,而败于一「贪」一「诱」:元昊<b>弃辎为饵</b>、示形以骄其志,任福违韩琦据险邀击之节而<b>贪功深入</b>;既入六盘山下之<b>川谷绝地</b>、人马饥疲无水,元昊乃以<b>泥盒放鸽为号</b>,四山伏兵一时合围,聚而歼之。地形之伏与人性之贪,二者相因,而万余之众遂尽。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>人性之贪(诱)</h4>
+        <p>韩琦料元昊必以诱兵致师,故戒任福「毋深入,当据险以邀其归」。而福出师小胜,恃胜生骄;夏骑弃羊马辎重于道、且战且走,福贪功逐利,弃粮辎、昼夜追逐,愈追愈远,不复顾据险之戒——将骄卒疲,已中「以饵取之」之谋。</p>
+      </div>
+      <div class="c b">
+        <h4>地形之伏(歼)</h4>
+        <p>元昊预择六盘山下好水川口为战场:川谷狭隘、绝地无水,宋军入之则进退失据。夏以泥盒数枚置道旁,内藏家鸽;宋军发盒,百余鸽带哨腾起——即元昊所约之号。四山十万伏兵望鸽而动,居高临下,一时四合,断其归路而聚歼之。</p>
+      </div>
+    </div>
+    <p class="kicker">故好水川之覆,系于<b>诱敌深入、陷伏绝地</b>:非夏军之独强,实宋将之自堕。与三川口(1040)、定川寨(1042)并称宋夏<b>三大败</b>;宋自是罢邀击、务筑城守边,范仲淹「屈野浅攻」之策由此而定。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·夏国传》《宋史·韩琦传》《宋史·任福传》及《续资治通鉴长编》卷一三一约略绘出。城邑相对方位、疆界晕染、渭水好水川水道皆经简化,非实测画界。</p>
-    <p><span class="n">注二</span>好水川在今宁夏隆德西,镇戎军在今宁夏固原,渭州治平凉,兴庆府即今宁夏银川。六盘山横亘泾原之西,为宋夏冲要。</p>
-    <p><span class="n">注三</span>任福违韩琦「毋深入、据险邀击」之节,贪功轻进,遂堕元昊诱伏之计:银盒纵鸽为号、四面伏兵合击,一军几于全没。好水川与三川口、定川寨并为宋夏三大败;宋自是筑城守边、以「屈野」浅攻之策困夏。本图以宋为本方(青),溃退用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(x=60+(经度−105.55)×720,y=590−(纬度−35.35)×567),几何关系力求近实:好水川居中,镇戎军在其东北,羊牧隆城·怀远城在西北,渭州在东南,六盘山南北横亘于好水川之东、镇戎军之西,葫芦河(瓦亭川)自北穿山西麓南下。约界晕染、水道皆经简化,点划「约界」非实有画界。依《宋史·夏国传》《宋史·韩琦传》《宋史·任福传》及《续资治通鉴长编》卷一三一、《西夏书事》约略绘出。</p>
+    <p><span class="n">注二</span>今地考:好水川在今宁夏隆德县北好水乡,川水自东而西注葫芦河,六盘山下之好水川口即元昊设伏聚歼处;镇戎军治今宁夏固原,宋军出师地;羊牧隆城在今宁夏西吉(邪没笼川),韩琦本约会师邀夏归路之所;笼竿城(陇干城)即今隆德县城;渭州治今甘肃平凉,韩琦泾原路帅府;兴庆府即今宁夏银川,西夏国都,在图外正北,以边缘箭头示之;天都山为西夏南界。葫芦河古称瓦亭川、蔚茹水。</p>
+    <p><span class="n">注三</span>「泥盒放鸽为号」本《长编》《西夏书事》:宋军行至好水川,见道旁数泥盒,缄封而中有动声;军士怪而发之,乃百余家鸽,带哨腾起,盘旋军上。盖元昊预约以鸽起为号,四山伏兵望之四合。此为好水川之役最著之「诱伏」标记。任福及子怀亮、部将桑怿·武英·王珪等力战皆死,自辰及午,宋军万三千余人几于全没;独朱观千余人得脱。本图以宋为本方(青)、西夏为伏击方(赭),任福殉国以✕记;宋军覆没于绝地,故不设溃退路线。</p>
+    <p><span class="n">注四</span>史事互异:元昊南下之众,诸书或云十万;宋军之数,《长编》云任福所将万余、连诸将合数万,战殁「万三百」至「万三千」不等,今从「万三千余」之约数。好水川口之确址、任福自刭抑或战殁,史传微有出入,并存以俟考。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"元昊诱敌",d:"庆历元年(1041)二月",p:["元昊反宋,自称帝,宋夏战起。庆历元年,元昊大举南寇,遣兵入泾原,而阴以诱兵深入好水川,预张伏兵以待宋师——欲以饵取之。","韩琦时判泾原路,督帅渭州,遣大将任福率军自镇戎军进讨,面戒之曰:「毋轻深入,当据险以邀其归。」布置既定,而胜负之机,已伏于此一「深入」之戒矣。"]},
-  "1":{t:"轻进逐利",d:"庆历元年二月",p:["任福自镇戎军出师,道遇西夏游骑,接战而小胜之。福恃胜生贪,谓夏可乘,遂不复顾韩琦据险邀击之戒,尾夏诱骑而进。","夏骑且战且走,导宋军深入。福弃其粮辎,昼夜追逐,愈追愈远;士卒人马,饥疲交困,而不自知已入元昊布伏之地——至好水川,去镇戎军已远矣。"]},
-  "2":{t:"银盒纵鸽",d:"庆历元年二月",p:["夏军先置泥银盒数枚于道旁,缄封而微动其中。宋军行至,怪其盒动，发而视之,乃百余家驯鸽——一时腾起,盘旋回翔于宋军之上。","盖元昊预约以鸽起为号也。四山伏兵望鸽而知宋师已入彀,一时四合;元昊自将精骑,居高合击,断宋归路。一盒之鸽,遂为万军之丧钟。"]},
-  "3":{t:"好水覆军",d:"庆历元年二月",p:["夏军四面而下,居高临下,宋军进退失据。任福知已堕元昊之计,犹麾兵力战,自辰及午,血战不已;身被十余矢,咽喉复中枪,与其子任怀亮俱战死阵中。","将士死者万三千余人,几于全没。韩琦罢兵而还,道逢阵亡将士父兄妻子,持故衣纸钱招魂而哭,哀声震野;琦掩泣不能仰,恸而几不能兴。此宋夏三大败之一也。"]}
+  all:{t:"元昊诱敌",d:"庆历元年(1041)二月",p:["元昊称帝叛宋,宋夏战起。庆历元年二月,元昊率十万大军自北大举南寇,声言攻渭州,而阴以主力预伏于六盘山下好水川口——欲以诱兵深入之计,聚而歼之。","陕西经略副使韩琦时督帅渭州,遣大将任福率兵数万自镇戎军出击,约趋羊牧隆城以邀夏军归路,面戒之曰:「毋深入,当据险以邀其归。」布置既定,而胜负之机,已伏于此一「深入」之戒。"]},
+  "1":{t:"攻渭 · 遣任福邀击",d:"庆历元年二月",p:["元昊大举攻宋,声势指渭州,而实伏精锐于好水川,示形以张其势、骄宋之志。韩琦料夏必以诱兵致师,故不欲浪战,唯令邀其归路。","乃遣任福率兵数万自镇戎军出,约会师于羊牧隆城,自夏军之后邀击。韩琦自渭州帅府节度诸军,再三诫福毋贪功轻进、当据险以待。任福受命而出,初亦小胜,而骄心遂生。"]},
+  "2":{t:"弃辎诱敌 · 贪功深入",d:"庆历元年二月",p:["夏军诱骑且战且走,故弃羊马辎重于道旁以为饵。任福违韩琦据险之节,恃小胜而贪功,尾夏诱骑而进,弃其粮辎、昼夜追逐,愈追愈远。","士卒人马,饥疲交困,而不自知已入元昊布伏之地。追至好水川,去镇戎军已远,四顾川谷狭隘、绝地无水,进退失据——「以饵取之」之谋,至是将成。"]},
+  "3":{t:"泥盒放鸽 · 伏兵四起",d:"庆历元年二月",p:["宋军行至好水川口,见道旁泥盒数枚,缄封而中有微动之声。军士怪而发之,乃百余家鸽,一时带哨腾起,盘旋回翔于宋军之上。","盖元昊预约以鸽起为号也。四山伏兵望鸽而知宋师已入彀中,一时并起,居高临下,断宋归路。一盒之鸽,遂为万军之丧钟——诱伏之计,于此发动。"]},
+  "4":{t:"绝地聚歼 · 任福死",d:"庆历元年二月",p:["十万夏军自六盘山四面而下,居高临下,合围宋军于好水川绝地。任福知已堕元昊之计,犹麾兵力战,自辰及午,血战不已;身被十余矢,咽喉复中枪,与其子任怀亮俱死阵中,部将桑怿、武英、王珪等皆殁。","将士死者万三千余人,几于全没,独朱观千余人得脱。韩琦罢兵而还,道逢阵亡将士父兄妻子,持故衣纸钱招魂而哭,哀声震野;琦掩泣不能仰。此宋夏三大败之一也。"]}
 };
 const CITY={
-  haoshui:{t:"好水川",d:"今宁夏隆德西",p:["元昊设伏诱敌之地,任福父子覆军处。夏军银盒纵鸽为号、四面伏合,宋军万三千余人几于全没。"]},
-  zhenrong:{t:"镇戎军",d:"今宁夏固原",p:["宋泾原路要塞,任福奉韩琦命出兵讨夏之地。福自此进师,越好水川而深入,遂陷绝境。"]},
-  weizhou:{t:"渭州",d:"今甘肃平凉",p:["韩琦判泾原路帅府所在。琦戒任福毋深入、当据险邀击;福违节轻进,琦还渭州而闻覆军之报。"]},
-  huaiyuan:{t:"怀远城·羊牧隆城",d:"今宁夏西吉一带",p:["宋原定诸军会师之处。任福逐夏诱骑,失约期、离会所,孤军深入好水川而无援。"]},
-  longgan:{t:"笼竿城",d:"今宁夏隆德",p:["好水川左近戍城。宋军追奔所经,近战地而未能为援,徒睹大军之败。"]},
-  xingqing:{t:"兴庆府",d:"西夏国都,今宁夏银川",p:["元昊建国称帝之都。夏自此发兵南寇,以诱伏之计败宋于好水川,声势大振。"]}
+  haoshui:{t:"好水川",d:"今宁夏隆德县北好水乡",p:["六盘山下之川谷,川水自东而西注葫芦河。元昊设伏诱敌之地,任福父子覆军处。泥盒放鸽为号、四面伏合,宋军万三千余人几于全没。"]},
+  zhenrong:{t:"镇戎军",d:"今宁夏固原",p:["宋泾原路要塞,任福奉韩琦命出兵讨夏之地。福自此进师,尾夏诱骑越好水川而深入,遂陷绝境。"]},
+  yangmulong:{t:"羊牧隆城",d:"今宁夏西吉(邪没笼川)",p:["韩琦本约任福会师于此,自夏军之后邀击归路。福逐夏诱骑失约期、离会所,孤军深入好水川而无援。"]},
+  huaiyuan:{t:"怀远城",d:"今宁夏西吉将台一带",p:["宋泾原路戍城,任福西趋羊牧隆城所经。福违节南逐,舍此而入好水川绝地。"]},
+  longgan:{t:"笼竿城(陇干城)",d:"今宁夏隆德县城",p:["大中祥符间曹玮筑于陇山主峰下。好水川之南戍城,宋军追奔所近,而未能为援,徒睹大军之败。庆历三年置德顺军治此。"]},
+  weizhou:{t:"渭州",d:"今甘肃平凉",p:["韩琦泾原路帅府所在。琦戒任福毋深入、当据险邀击;福违节轻进,琦还渭州而闻覆军之报,恸哭。"]},
+  tiandu:{t:"天都山",d:"西夏南界,今宁夏海原西安州一带",p:["西夏南境要地,元昊营垒所倚。夏军自北经天都山、沿瓦亭川南下,趋六盘山下好水川设伏。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
