@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,41 +27,72 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
-  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .sea{fill:var(--water);opacity:.17}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.6}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.65;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.26em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.5}
   .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .isle{fill:var(--ink2);opacity:.45}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.jsea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.qsea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
-  .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .ship{fill:var(--paper);stroke:var(--advance);stroke-width:1.8}
+  .chain{stroke:var(--advance);stroke-width:1.4;opacity:.9;fill:none}
+  .supply{fill:none}
+  .supply.band{stroke:var(--gold);stroke-width:7;opacity:.20;stroke-linecap:round}
+  .supply.core{stroke:var(--gold);stroke-width:2;stroke-dasharray:1 5;opacity:.95}
+  .drop{fill:var(--gold);opacity:.9}
+  .glabel{fill:var(--gold);font-size:11px;font-weight:700}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:2}
+  .cut line{stroke:var(--enemy);stroke-width:2}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .endmark line{stroke:var(--ink);stroke-width:3.4;stroke-linecap:round}
+  .endlabel{fill:var(--ink);font-family:"Ma Shan Zheng",serif;font-size:16px}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--enemy);letter-spacing:.12em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.jsea):not(.qsea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -75,152 +106,277 @@
   <div class="seal" aria-hidden="true"><span>崖</span><span>山</span><span>海</span><span>战</span></div>
   <header>
     <h1>崖山海战</h1>
-    <div class="sub">宋祥兴二年(1279)　　<b>元 张弘范</b> 灭 <i>南宋 张世杰 · 陆秀夫</i> · 宋亡海上</div>
+    <div class="sub">宋祥兴二年 · 元至元十六年(1279)　　<b>元 张弘范 · 李恒</b> 灭 <i>南宋 张世杰 · 陆秀夫</i> 奉幼帝赵昺　·　宋元最后决战 · 陆秀夫负帝投海 · 南宋亡</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 崖山结寨</button>
-    <button data-p="1">连环碇海</button>
-    <button data-p="2">断汲困守</button>
-    <button data-p="3">陆沉海崖</button>
+    <button data-p="1">退守崖山 · 焚宫驻跸海上</button>
+    <button data-p="2">连环千船 · 结一字阵 · 失扼海口</button>
+    <button data-p="3">元扼海口 · 断汲水樵采困之</button>
+    <button data-p="4">乘潮夹攻 · 宋师大溃 · 负帝投海 · 宋亡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="崖山海战形势图,含南海崖门海、宋连环寨与元军水寨、广州香山海陵港潮州等地">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="崖山海战形势图,含珠江口西侧崖门海湾(东崖山、西汤瓶山、南海口)、潭江入海、宋连环船一字阵与元军扼海口断汲水樵采、乘潮四面夹攻,及广州伶仃洋海陵岛平章山诸地">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.32)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 南海:大片海域,居图之主体 -->
-    <path class="sea" d="M 0,300 C 120,270 240,290 360,320 C 480,350 600,360 720,350 C 840,340 940,330 1000,340 L 1000,640 L 0,640 Z"/>
-    <text class="rname" x="560" y="600" style="font-size:15px;opacity:.7">南 　 海</text>
+    <!-- ══ 疆界:岭南已尽入于元(北陆),宋独存海上连环寨(崖门海湾) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,346 C 900,352 840,358 780,362 C 760,384 720,372 660,360 C 620,354 606,350 590,354 C 586,340 584,320 580,300 C 576,240 596,120 610,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,0 L 610,0 C 596,120 576,240 580,300 C 584,320 586,340 590,354 C 560,356 500,300 500,300 C 480,306 470,332 462,356 C 300,366 140,374 0,382 Z" fill="url(#qinHatch)"/>
+    <text class="realm q" x="150" y="120" font-size="30">元 · 岭南</text>
+    <text class="cname s" x="152" y="144" style="fill:var(--enemy);opacity:.6">(至元十四年广州已下 · 岭海尽附)</text>
+    <text class="realm j" x="440" y="322" font-size="15">宋 行 朝</text>
+    <text class="cname s" x="440" y="340" style="fill:var(--advance);opacity:.7">(独存海上)</text>
 
-    <!-- 崖门海:崖山与汤瓶山间之内海,连环寨所碇 -->
-    <path class="sea" d="M 360,300 C 400,340 420,400 430,460 C 436,500 470,520 520,520 C 560,520 590,500 596,460 C 604,400 588,340 560,300 Z" opacity=".28"/>
-    <text class="rname" x="446" y="392" style="font-size:12px">崖 门 海</text>
+    <!-- ══ 海域:南海(南)、崖门海湾(中,连环寨所碇)、伶仃洋(东) ══ -->
+    <path class="sea" d="M 0,600 L 0,382 C 140,374 300,366 462,356 C 470,332 480,306 500,300 C 500,300 560,356 590,354 C 606,350 620,354 660,360 C 720,372 760,384 780,362 C 840,358 900,352 1000,346 L 1000,600 Z"/>
+    <path class="coast" d="M 0,382 C 140,374 300,366 462,356 C 470,332 480,306 500,300 C 500,300 560,356 590,354 C 606,350 620,354 660,360 C 720,372 760,384 780,362 C 840,358 900,352 1000,346"/>
+    <text class="rname" x="470" y="588" style="font-size:16px;opacity:.7">南 　 海</text>
+    <text class="rname" x="726" y="440" style="font-size:11.5px;opacity:.85">伶仃洋</text>
+    <text class="rname" x="470" y="440" style="font-size:11.5px">崖门海湾</text>
 
-    <!-- 元(北岸·外海)qinHatch;宋(崖山连环寨)jinHatch -->
-    <path d="M 0,0 L 1000,0 L 1000,300 C 940,290 840,300 720,310 C 600,320 480,310 360,282 C 240,254 120,258 0,286 Z" fill="url(#qinHatch)"/>
-    <text class="realm q" x="150" y="120" font-size="30">元 军(水陆并进)</text>
+    <!-- ══ 潭江:自西北入崖门海湾(今银洲湖) ══ -->
+    <path class="river" stroke-width="5" d="M 356,232 C 414,258 458,282 500,300"/>
+    <text class="rname" x="360" y="252" transform="rotate(24 360 252)" style="font-size:11px">潭　江</text>
 
-    <path d="M 430,430 C 434,470 462,490 500,490 C 536,490 560,470 564,432 C 566,410 552,394 500,392 C 452,392 428,408 430,430 Z" fill="url(#jinHatch)"/>
-    <text class="realm j" x="452" y="546" font-size="18">宋 行 朝</text>
+    <!-- ══ 崖山(东)、汤瓶山(西)夹峙如门,南启海口 ══ -->
+    <g class="mtn"><path d="M 578,344 l 7,-13 l 7,13 M 590,338 l 7,-13 l 7,13 M 602,344 l 6,-12 l 6,12"/></g>
+    <g class="mtn"><path d="M 452,348 l 7,-13 l 7,13 M 464,344 l 6,-12 l 6,12"/></g>
 
-    <!-- 陆地岸线示意:崖山(西)、汤瓶山(东)夹崖门水道 -->
-    <path class="mtn" stroke-width="1.6" d="M 360,300 C 372,340 386,380 396,430 M 560,300 C 552,346 546,388 544,430"/>
-    <g class="mtn"><path d="M 372,318 l 7,-12 l 7,12 M 386,314 l 7,-12 l 7,12"/></g>
-    <g class="mtn"><path d="M 548,316 l 7,-12 l 7,12"/></g>
-    <text class="cname s" x="330" y="300">崖山</text>
-    <text class="cname s" x="566" y="300">汤瓶山</text>
-
-    <!-- 崖门水道(北通广州、外接南海) -->
-    <path class="river" stroke-width="4.5" d="M 478,300 C 476,240 470,180 466,120"/>
-    <text class="rname" x="470" y="200" transform="rotate(84 470 200)" style="font-size:11px">崖门水道</text>
-
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="yashan"><circle cx="498" cy="452" r="6.5"/><text class="cname" x="510" y="470">崖山·崖门<tspan class="cname s" dx="2">(连环寨)</tspan></text></g>
-      <g class="city" data-city="yamenshuidao"><circle cx="474" cy="330" r="4"/><text class="cname s" x="486" y="326">崖门水道</text></g>
-      <g class="city" data-city="guangzhou"><circle cx="560" cy="96" r="5"/><text class="cname" x="572" y="92">广州<tspan class="cname s" dx="2">(元据)</tspan></text></g>
-      <g class="city" data-city="xiangshan"><circle cx="742" cy="220" r="4.5"/><text class="cname s" x="752" y="216">香山·秀山</text></g>
-      <g class="city" data-city="hailing"><circle cx="176" cy="420" r="4.5"/><text class="cname s" x="120" y="440">海陵港</text></g>
-      <g class="city" data-city="chaozhou"><circle cx="836" cy="120" r="4"/><text class="cname s" x="742" y="116">潮州·五坡岭</text></g>
+      <g class="city cap" data-city="yashan"><circle cx="530" cy="416" r="6.5"/><text class="cname" x="518" y="436">崖山·崖门<tspan class="cname s" dx="2">(连环寨)</tspan></text></g>
+      <g class="city" data-city="yashanmt"><circle cx="600" cy="336" r="4.5"/><text class="cname s" x="610" y="332">崖山</text></g>
+      <g class="city" data-city="tangping"><circle cx="460" cy="352" r="4.5"/><text class="cname s" x="404" y="344">汤瓶山</text></g>
+      <g class="city" data-city="haikou"><circle cx="528" cy="470" r="4.5"/><text class="cname s" x="538" y="474">崖门海口</text></g>
+      <g class="city" data-city="guangzhou"><circle cx="622" cy="82" r="5.5"/><text class="cname" x="632" y="78">广州<tspan class="cname s" dx="2">(元据 · 元来向)</tspan></text></g>
+      <g class="city" data-city="xiangshan"><circle cx="668" cy="254" r="4.5"/><text class="cname s" x="678" y="250">香山·井澳</text></g>
+      <g class="city" data-city="zhujiang"><circle cx="780" cy="300" r="4.5"/><text class="cname s" x="746" y="292">珠江口·零丁洋</text></g>
+      <g class="city" data-city="hailing"><circle cx="161" cy="515" r="4.5"/><text class="cname s" x="120" y="535">海陵岛·平章山</text></g>
     </g>
 
-    <!-- 全图 · 崖山结寨 -->
+    <!-- ══ 连环船一字阵(常在中央,居图之枢) ══ -->
+    <g id="fleet">
+      <ellipse cx="530" cy="386" rx="70" ry="30" fill="url(#jinHatch)"/>
+      <line class="chain" x1="464" y1="378" x2="596" y2="378"/>
+      <line class="chain" x1="464" y1="396" x2="596" y2="396"/>
+      <rect class="ship" x="468" y="381" width="14" height="9" rx="1.5"/>
+      <rect class="ship" x="490" y="381" width="14" height="9" rx="1.5"/>
+      <rect class="ship" x="512" y="381" width="14" height="9" rx="1.5"/>
+      <rect class="ship" x="534" y="381" width="14" height="9" rx="1.5"/>
+      <rect class="ship" x="556" y="381" width="14" height="9" rx="1.5"/>
+      <rect class="ship" x="578" y="381" width="14" height="9" rx="1.5"/>
+      <g class="chain"><line x1="482" y1="386" x2="490" y2="386"/><line x1="504" y1="386" x2="512" y2="386"/><line x1="526" y1="386" x2="534" y2="386"/><line x1="548" y1="386" x2="556" y2="386"/><line x1="570" y1="386" x2="578" y2="386"/></g>
+      <circle cx="530" cy="386" r="5" fill="var(--advance)"/>
+      <circle class="star" cx="530" cy="386" r="9"/>
+    </g>
+
+    <!-- ══ 图外来向:元自广州南下(北)、张弘范舟师自潮阳沿海(东) ══ -->
+    <g transform="translate(994,300)">
+      <path class="march qsea" marker-end="url(#aq)" d="M -4,0 L -30,6"/>
+      <text class="mlabel q" x="-118" y="-6" style="font-size:10px">张弘范舟师 ⟶</text>
+      <text class="cname s" x="-118" y="10" style="fill:var(--enemy);font-size:9.5px">自潮阳沿海东来(图外东)</text>
+    </g>
+
+    <!-- ══ 全图 · 崖山结寨 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#ar)" d="M 742,224 C 660,300 580,380 520,438"/>
-      <text class="mlabel r" x="590" y="330">宋行朝浮海播迁,驻崖山</text>
-      <ellipse class="siege" cx="498" cy="450" rx="62" ry="52"/>
-      <rect class="camp" x="470" y="120" width="9" height="9" transform="rotate(45 474 124)"/>
-      <text class="mlabel q" x="490" y="150">元张弘范·李恒水陆来攻</text>
-      <path class="march q" marker-end="url(#aq)" d="M 476,132 C 480,220 490,320 498,404"/>
-      <text class="anno" x="360" y="500">结千艘为一字连环寨,碇海中,居中奉帝昺,以死守</text>
-      <text class="mlabel j" x="356" y="474">张世杰·陆秀夫</text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 692,244 C 640,300 588,346 566,372"/>
+      <text class="mlabel j" x="600" y="322">宋行朝浮海播迁,自闽入广,驻崖山</text>
+      <path class="march q" marker-end="url(#aq)" d="M 618,92 C 596,180 566,270 546,338"/>
+      <text class="mlabel q" x="556" y="176">李恒之兵自广州南下</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 900,340 C 800,352 700,352 600,354"/>
+      <text class="mlabel q" x="700" y="340">张弘范舟师自潮阳沿海来</text>
+      <text class="anno" x="360" y="486">结千余艘为一字连环寨,碇海中,居中奉幼帝昺,背水死守</text>
+      <text class="mlabel j" x="404" y="466">张世杰 · 陆秀夫</text>
     </g>
 
-    <!-- 阶段一:连环碇海 -->
+    <!-- ══ 阶段一:退守崖山 · 焚宫驻跸海上 ══ -->
     <g id="ph1" class="ph">
-      <ellipse class="siege" cx="498" cy="450" rx="60" ry="50"/>
-      <path d="M 452,450 l 92,0 M 452,436 l 92,0 M 452,464 l 92,0" stroke="#1f4e54" stroke-width="2.4" opacity=".8"/>
-      <text class="mlabel j" x="356" y="426">尽焚崖山行宫,结大舟千余艘为连环寨</text>
-      <text class="anno" x="380" y="500">四围楼栅如城,碇海中,尽室登舟,以示必死</text>
-      <path class="march q" marker-end="url(#aq)" d="M 478,150 C 484,240 494,340 500,398"/>
-      <text class="mlabel q" x="504" y="240">元帅张弘范以舟师薄之</text>
+      <path class="march jsea" marker-end="url(#aj)" d="M 692,244 C 636,296 584,344 560,374"/>
+      <text class="mlabel j" x="596" y="318">帝昺一行自香山井澳浮海<tspan x="596" dy="15">最后趋崖山结寨</tspan></text>
+      <g class="fire">
+        <path d="M 600,330 q -6,-14 2,-24 q 3,10 8,6 q -2,12 4,18"/>
+        <path d="M 616,332 q -5,-12 2,-22 q 3,9 7,5 q -2,11 3,16"/>
+        <path d="M 462,336 q -5,-12 2,-21 q 3,9 6,4 q -2,11 3,15"/>
+      </g>
+      <text class="flabel" x="602" y="300" font-size="15">尽焚行宫</text>
+      <text class="mlabel j" x="360" y="452">张世杰尽焚崖山陆上宫室,驱军民尽登舟</text>
+      <text class="anno" x="380" y="504">驻跸海上,四围楼栅如城,尽室登舟,以示必死</text>
     </g>
 
-    <!-- 阶段二:断汲困守 -->
+    <!-- ══ 阶段二:连环千船 · 结一字阵 · 失扼海口 ══ -->
     <g id="ph2" class="ph">
-      <ellipse class="siege" cx="498" cy="450" rx="66" ry="56"/>
-      <rect class="camp" x="470" y="292" width="9" height="9" transform="rotate(45 474 296)"/>
-      <rect class="camp" x="560" y="300" width="8" height="8" transform="rotate(45 564 304)"/>
-      <rect class="camp" x="392" y="300" width="8" height="8" transform="rotate(45 396 304)"/>
-      <text class="mlabel q" x="500" y="286">元先据海口·断汲道樵采</text>
-      <path class="march q" marker-end="url(#aq)" d="M 476,304 C 482,340 490,376 496,398"/>
-      <text class="anno" x="352" y="500">宋军旬余食干粮·渴饮海水,呕泄疲病</text>
-      <text class="mlabel q" x="740" y="150">弘范执文天祥,使书招世杰</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 828,128 C 720,150 620,180 540,300" opacity=".55"/>
-      <text class="mlabel j" x="600" y="220">天祥书《过零丁洋》以拒</text>
-      <text class="anno" x="560" y="256">「人生自古谁无死,留取丹心照汗青」</text>
+      <text class="mlabel j" x="352" y="452">以大索连千余艘为一字连环寨,四围起楼棚如城</text>
+      <!-- 汲水樵采:尚通两岸 -->
+      <path class="supply band" d="M 500,388 C 480,376 470,364 460,354"/>
+      <path class="supply core" d="M 500,388 C 480,376 470,364 460,354"/>
+      <path class="supply band" d="M 562,384 C 578,368 590,352 600,342"/>
+      <path class="supply core" d="M 562,384 C 578,368 590,352 600,342"/>
+      <circle class="drop" cx="478" cy="371" r="3"/><circle class="drop" cx="464" cy="358" r="3"/>
+      <circle class="drop" cx="580" cy="366" r="3"/><circle class="drop" cx="595" cy="348" r="3"/>
+      <text class="glabel" x="392" y="368">汲水 · 樵采(通两岸)</text>
+      <!-- 元军进逼海口(南) -->
+      <path class="march qsea" marker-end="url(#aq)" d="M 528,540 C 528,510 528,494 530,478"/>
+      <text class="mlabel q" x="536" y="524">元军自南海进逼海口</text>
+      <!-- 失扼海口:海口空虚 -->
+      <ellipse cx="528" cy="472" rx="30" ry="14" fill="none" stroke="var(--advance)" stroke-width="1.4" stroke-dasharray="2 4" opacity=".7"/>
+      <text class="clabel" x="392" y="506" style="fill:var(--advance)">失扼海口之险 · 未据其口</text>
+      <text class="anno" x="392" y="524" style="fill:var(--advance)">舟舰相连则不能动,自固反自围</text>
     </g>
 
-    <!-- 阶段三:陆沉海崖 -->
+    <!-- ══ 阶段三:元扼海口 · 断汲水樵采困之 ══ -->
     <g id="ph3" class="ph">
-      <ellipse class="siege" cx="498" cy="450" rx="70" ry="60" stroke-dasharray="1 3"/>
-      <path class="march q" marker-end="url(#aq)" d="M 446,404 C 460,420 476,432 492,442"/>
-      <path class="march q" marker-end="url(#aq)" d="M 552,404 C 538,420 524,432 508,442"/>
-      <path class="march q" marker-end="url(#aq)" d="M 498,392 C 498,410 498,424 498,438"/>
-      <path class="march q" marker-end="url(#aq)" d="M 498,516 C 498,500 498,486 498,470"/>
-      <text class="mlabel q" x="356" y="392">二月乘早晚潮·四面合攻,箭石雨下</text>
-      <path d="M 498,452 l 6,-13 l 5,10 l 11,-6 l -6,11 l 13,5 l -13,5 l 6,11 l -11,-6 l -5,10 l -6,-13 l -11,6 l 6,-11 l -13,-5 l 13,-5 l -6,-11 z" fill="#7a5a23" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel r" x="512" y="452">宋师大溃</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 468,470 C 380,480 260,470 196,432"/>
-      <text class="mlabel r" x="240" y="500">张世杰斩缆突围走</text>
-      <text class="anno" x="120" y="404">后遇飓风·溺死海陵港</text>
-      <text class="mlabel r" x="506" y="500">陆秀夫负帝昺赴海死</text>
-      <text class="anno" x="440" y="522">后宫诸臣士民从死者十余万,浮尸蔽海;宋亡</text>
+      <g class="siege"><ellipse cx="530" cy="386" rx="86" ry="52"/></g>
+      <!-- 元据海口,列水寨封锁 -->
+      <rect class="camp" x="500" y="466" width="10" height="10" transform="rotate(45 505 471)"/>
+      <rect class="camp" x="524" y="470" width="10" height="10" transform="rotate(45 529 475)"/>
+      <rect class="camp" x="548" y="466" width="10" height="10" transform="rotate(45 553 471)"/>
+      <text class="mlabel q" x="392" y="524">元据海口,列水寨扼崖门,绝其出入</text>
+      <!-- 断汲道·绝樵采:金线见断 -->
+      <path class="supply core" d="M 500,388 C 480,376 470,364 460,354" opacity=".5"/>
+      <path class="supply core" d="M 562,384 C 578,368 590,352 600,342" opacity=".5"/>
+      <g class="cut" transform="translate(474,368)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(586,362)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(528,452)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="352" y="352">断汲水</text>
+      <text class="clabel" x="606" y="352">绝樵采</text>
+      <text class="anno" x="360" y="248">宋军困守海上旬余,渴饮海水者呕泄成疾,疲惫不能战</text>
+      <!-- 弘范使文天祥书招世杰,天祥书《过零丁洋》以拒 -->
+      <path class="march qsea" marker-end="url(#aq)" d="M 772,308 C 700,330 640,352 600,368" opacity=".55"/>
+      <text class="mlabel q" x="646" y="292">弘范执文天祥,使书招世杰</text>
+      <text class="anno" x="640" y="330">天祥书《过零丁洋》以拒</text>
     </g>
 
-    <g class="compass" transform="translate(944,80)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:乘潮四面夹攻 · 宋师大溃 · 陆秀夫负帝投海 · 宋亡 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 乘早晚潮,四面夹攻 -->
+      <path class="march q" marker-end="url(#aq)" d="M 530,306 C 530,330 530,350 530,366"/>
+      <path class="march q" marker-end="url(#aq)" d="M 530,486 C 530,458 530,436 530,408"/>
+      <path class="march q" marker-end="url(#aq)" d="M 640,386 C 616,386 598,386 578,386"/>
+      <path class="march q" marker-end="url(#aq)" d="M 420,386 C 444,386 462,386 482,386"/>
+      <text class="mlabel q" x="352" y="300">二月乘早晚潮,顺流四面夹攻</text>
+      <text class="anno" x="606" y="404">元佯奏乐宴饮以懈之,突发猛攻</text>
+      <!-- 连环船不能动而溃 -->
+      <text class="mlabel r" x="596" y="440">连环船不能动,阵脚大乱,宋师大溃</text>
+      <!-- 陆秀夫负帝投海:终 -->
+      <g class="endmark" transform="translate(530,386)"><line x1="-12" y1="-12" x2="12" y2="12"/><line x1="-12" y1="12" x2="12" y2="-12"/></g>
+      <text class="endlabel" x="544" y="360">终</text>
+      <text class="mlabel r" x="352" y="470">陆秀夫负八岁帝昺赴海死</text>
+      <text class="anno" x="352" y="488">后宫诸臣军民从死者十余万,越七日浮尸出海</text>
+      <!-- 张世杰突围,遇飓风溺死平章山 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 494,404 C 380,436 262,472 178,506"/>
+      <text class="mlabel r" x="228" y="470">张世杰斩缆突围</text>
+      <text class="anno" x="120" y="500">遇飓风溺死平章山下</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>元军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>浮海</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋溃·赴海</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋(张世杰·陆秀夫)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>宋行朝浮海</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>元(张弘范·李恒)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>元舟师浮海</span>
+    <span class="item"><svg width="34" height="12"><rect x="2" y="3" width="9" height="6" fill="#e9dec4" stroke="#1f4e54" stroke-width="1.4"/><rect x="14" y="3" width="9" height="6" fill="#e9dec4" stroke="#1f4e54" stroke-width="1.4"/><line x1="11" y1="6" x2="14" y2="6" stroke="#1f4e54" stroke-width="1.4"/></svg>连环船一字阵</span>
+    <span class="item"><svg width="30" height="12"><line x1="2" y1="6" x2="28" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="1 5"/><circle cx="15" cy="6" r="2.5" fill="#9c7a2c"/></svg>汲水·樵采</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="2"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2"/></svg>断汲绝樵</span>
     <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#9a2b1e" transform="rotate(45 7.5 7.5)"/></svg>元水寨</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 3"/></svg>合围连环寨</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>突围·溺死</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>宋行朝</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>元·岭南</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>结舰释要 · 结舰自围 · 失险绝汲</h3>
+    <div class="lead">何以二十万之众困而自溃 —— 连千船以自固,弃海口之险,遂为绝汲之困、乘潮之攻,一夕而陆沉</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="崖山结舰示意:宋以大索连千余艘为一字连环寨,四围如城而不能动;元据海口断其汲水樵采,又乘早晚潮四面夹攻,连环船不能转而溃,陆秀夫负帝投海">
+      <!-- 崖门海湾:上潭江(内)、下海口(外通南海) -->
+      <line x1="60" y1="40" x2="800" y2="40" stroke="#5f7f88" stroke-width="4" opacity=".45"/>
+      <text x="64" y="30" fill="#5f7f88" font-size="11" font-weight="700">潭江(内 · 汲水樵采所资)</text>
+      <line x1="60" y1="212" x2="800" y2="212" stroke="#5f7f88" stroke-width="4" opacity=".45"/>
+      <text x="64" y="234" fill="#9a2b1e" font-size="11" font-weight="700">海口(外 · 元扼之,通南海)</text>
+      <!-- 连环船一字阵:一列以大索相连之战船 -->
+      <g>
+        <rect x="300" y="112" width="34" height="20" rx="2" fill="none" stroke="#1f4e54" stroke-width="1.8"/>
+        <rect x="352" y="112" width="34" height="20" rx="2" fill="none" stroke="#1f4e54" stroke-width="1.8"/>
+        <rect x="404" y="112" width="34" height="20" rx="2" fill="none" stroke="#1f4e54" stroke-width="1.8"/>
+        <rect x="456" y="112" width="34" height="20" rx="2" fill="none" stroke="#1f4e54" stroke-width="1.8"/>
+        <rect x="508" y="112" width="34" height="20" rx="2" fill="none" stroke="#1f4e54" stroke-width="1.8"/>
+        <line x1="334" y1="122" x2="352" y2="122" stroke="#1f4e54" stroke-width="1.4"/>
+        <line x1="386" y1="122" x2="404" y2="122" stroke="#1f4e54" stroke-width="1.4"/>
+        <line x1="438" y1="122" x2="456" y2="122" stroke="#1f4e54" stroke-width="1.4"/>
+        <line x1="490" y1="122" x2="508" y2="122" stroke="#1f4e54" stroke-width="1.4"/>
+        <line x1="300" y1="104" x2="542" y2="104" stroke="#1f4e54" stroke-width="1.2"/>
+        <line x1="300" y1="140" x2="542" y2="140" stroke="#1f4e54" stroke-width="1.2"/>
+      </g>
+      <text x="300" y="96" fill="#1f4e54" font-size="10.5" font-weight="700">千余艘 · 大索连环 · 结「一字阵」· 四围如城 · 不能动</text>
+      <text x="352" y="158" fill="#9a2b1e" font-size="12" font-weight="700">✕ 陆秀夫负帝赴海 · 从死十余万</text>
+      <!-- 汲水樵采:自内被断 -->
+      <path d="M 300,116 C 240,96 190,72 150,48" fill="none" stroke="#9c7a2c" stroke-width="2.4" stroke-dasharray="1 5"/>
+      <g stroke="#9a2b1e" stroke-width="2" fill="none"><circle cx="210" cy="80" r="8"/><line x1="205" y1="75" x2="215" y2="85"/><line x1="205" y1="85" x2="215" y2="75"/></g>
+      <text x="120" y="70" fill="#9a2b1e" font-size="10.5" font-weight="700">断汲水 · 绝樵采</text>
+      <!-- 元据海口 -->
+      <g fill="#9a2b1e"><rect x="360" y="206" width="12" height="12" transform="rotate(45 366 212)"/><rect x="420" y="206" width="12" height="12" transform="rotate(45 426 212)"/><rect x="480" y="206" width="12" height="12" transform="rotate(45 486 212)"/></g>
+      <text x="530" y="222" fill="#9a2b1e" font-size="10.5" font-weight="700">元列水寨 · 扼海口</text>
+      <!-- 乘潮四面夹攻 -->
+      <path d="M 420,60 L 420,104" fill="none" stroke="#9a2b1e" stroke-width="2.4" marker-end="url(#aq)"/>
+      <path d="M 420,196 L 420,148" fill="none" stroke="#9a2b1e" stroke-width="2.4" marker-end="url(#aq)"/>
+      <path d="M 250,122 L 296,122" fill="none" stroke="#9a2b1e" stroke-width="2.4" marker-end="url(#aq)"/>
+      <path d="M 610,122 L 548,122" fill="none" stroke="#9a2b1e" stroke-width="2.4" marker-end="url(#aq)"/>
+      <text x="614" y="126" fill="#9a2b1e" font-size="10.5" font-weight="700">乘早晚潮</text>
+      <text x="614" y="142" fill="#9a2b1e" font-size="10.5" font-weight="700">四面夹攻</text>
+      <!-- 突围 -->
+      <path d="M 300,128 C 220,160 160,180 96,196" fill="none" stroke="#7a5a23" stroke-width="2.2" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="70" y="188" fill="#7a5a23" font-size="10" font-weight="700">世杰突围 · 溺死平章山</text>
+    </svg>
+    <p class="intro">南宋行朝浮海播迁,最后驻崖山。张世杰尽焚陆上宫室,驱二十万军民尽登舟,以大索连千余艘<b>结为一字连环寨</b>,四围起楼棚如城,居中奉帝,背水死守——舟坚阵整,然<b>相连则不能动,又弃扼崖门海口之险</b>。此其致命之隙:自固者,亦自围也。张弘范军至,不与力争,先据海口、绝其汲道樵采,坐困之。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>结舰自围 · 失险</h4>
+        <p>世杰尽焚行宫,以示必死;又以大索连千余艘为一字阵,四围如城,居中奉帝。舟舰既连,则不能进退转动;又不据崖门海口之险，授元以可乘。是以坚阵者,反成不能动之孤注——舟之相连,正其自缚。</p>
+      </div>
+      <div class="c b">
+        <h4>绝汲乘潮 · 陆沉</h4>
+        <p>弘范据海口,绝汲道、断樵采。宋军困守海上旬余,渴饮海水者呕泄成疾,疲惫不能战。二月乘早晚潮四面夹攻,又佯奏乐宴饮以懈之;连环船不能转动,一攻而溃。陆秀夫负帝赴海,从死十余万,浮尸出海。世杰突围,遇飓风溺死平章山下。</p>
+      </div>
+    </div>
+    <p class="kicker">故崖山之败,不在众寡,而在<b>结舰自围、失险绝汲</b>:连千船以自固,反坐失机动与海口之险,遂为绝汲之困、乘潮之攻,一夕而陆沉。宋祚既绝,后世乃有<b>「崖山之后」</b>之痛——舟坚而阵不可动,险失而汲不可继,则虽号二十万众,亦不过海上之孤注耳。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《宋史·瀛国公纪》《张世杰传》《陆秀夫传》《文天祥传》、《元史·张弘范传》约略绘出。海岸、水道、连环寨方位经简化,惟示崖门内海结寨、元军四面合围之大势,非实测。</p>
-    <p><span class="n">注二</span>崖山在今广东江门新会崖门,崖门为潭江入海之口,东西两山夹峙如门,故名;宋结连环寨碇于门内海中。海陵港在今阳江海陵岛一带,潮州五坡岭在今广东海丰。</p>
-    <p><span class="n">注三</span>陆秀夫负帝赴海、十余万人从死,宋祚遂绝,厓山之后遂为亡国之痛。文天祥《过零丁洋》及张世杰、陆秀夫之节,后世传诵不衰。本图以宋为本方(青),宋亡之溃、赴海用褐。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(投影式 x=60+(经度−111.70)×360,y=620−(纬度−21.30)×300)。崖山在今广东江门新会崖门,崖门为潭江(今银洲湖)入海之口,东有崖山、西有汤瓶山,夹峙如门,南启黄茅海而通南海;宋结连环寨碇于门内海湾。广州在北(至元十四年·1277已为元下),香山即今中山、井澳为帝昺播迁所经,珠江口(零丁洋/伶仃洋)在东,海陵岛(张世杰溺死之平章山一带)在西南。海岸、水道及连环寨方位经放大简化,惟示大势,非实测;疆界晕染仅志岭南尽入于元、宋独存海上之势,非实有画界。</p>
+    <p><span class="n">注二</span>行军水陆与来路(二方):南宋行朝自临安陷后,张世杰、陆秀夫奉幼主浮海播迁,自福建入广东,经香山、井澳诸海,最后驻崖山(青虚线,自东北海上来)——始终以舟师、以海为家。元军两路:张弘范舟师自潮阳沿海东来(朱虚线),李恒之兵自广州南下(朱,自北来)。全局二方而已:宋(青)为本方、元(朱)为敌。</p>
+    <p><span class="n">注三</span>胜负之枢在「绝汲」(此图之决定机理):张世杰尽焚陆上宫室,驱军民尽登舟,以大索连千余艘为一字连环寨,四围楼棚如城,居中奉帝,背水死守;然<b>弃扼崖门海口之险,不据其口</b>。张弘范军至,先据海口、绝其汲道(取淡水)与樵采(采薪),宋军困守海上十余日,樵汲道绝,渴饮海水者呕泄成疾、疲惫不能战——图中金线(汲水·樵采)见断处朱『✕』,即困宋之枢;连环船坚而不能动,是其败根。</p>
+    <p><span class="n">注四</span>决战与宋亡:祥兴二年二月癸未(1279年3月19日),弘范分军四面,乘早晚潮顺流夹攻,又以奏乐佯为宴饮以懈之,突发猛攻;连环船以大索相连而不能动,阵脚大乱,遂溃。左丞相陆秀夫度不能免,先驱妻子入海,乃负八岁帝昺赴海死;后宫、诸臣、军民从死者十余万,「越七日,浮尸出于海十余万人」。张世杰斩缆突围,率余舰西走,遇飓风溺死于平章山下(海陵岛一带)。南宋遂亡。</p>
+    <p><span class="n">注五</span>据《宋史·瀛国公纪》《张世杰传》《陆秀夫传》、《元史·张弘范传》、《续资治通鉴》卷一八四约略绘出。异说与考订:宋『号二十万』、『船千余艘』乃合军民舟众之数,实战之卒远不及此;决战日《宋史》系二月癸未,诸书或作『二月初六』,今并存;张世杰溺死之『平章山』在今阳江海陵岛一带,确址史家微有异同。文天祥前此被执,弘范挟之至军、使书招世杰,天祥书《过零丁洋》以拒(『人生自古谁无死,留取丹心照汗青』),事在珠江口之零丁洋。崖山既没,宋祚遂绝,后世遂有「崖山之后」之叹——本图志其结舰自围、失险绝汲以至陆沉之迹,聊寄兴亡之感,非以壮语溢实。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"崖山结寨",d:"祥兴元年冬 — 二年二月",p:["南宋自临安陷后,张世杰、陆秀夫、文天祥等奉益王、广王转战东南沿海,立帝昺,浮海播迁,颠沛于闽广海上,最后驻崖山(崖门)。","张世杰尽焚行宫,结大舟千余艘为一字连环寨,碇于海中,四围楼栅如城,居中奉帝,以求死守。元帅张弘范、李恒水陆并进,先据海口、断其汲道,进逼崖门。"]},
-  "1":{t:"连环碇海",d:"祥兴二年正月",p:["张世杰尽焚崖山行宫,结大舟千余艘为一字连环寨,碇于海中,四围楼栅如城,居中奉帝昺,尽室登舟,以示必死、绝苟且之心。","元帅张弘范率舟师自广州南下至崖门,以舟薄之;其部将李恒亦自广州以兵会。宋阵坚整如城,元军未能遽破。"]},
-  "2":{t:"断汲困守",d:"祥兴二年正月 — 二月",p:["元军先据海口,绝其汲道与樵采,又以舟扼崖门内外。宋军旬余食干粮、渴饮海水,呕泄疲病,战力大损。","弘范执文天祥于五坡岭,使为书招张世杰,天祥不从,书《过零丁洋》以拒——「人生自古谁无死,留取丹心照汗青」。弘范笑而置之,合围益急。"]},
-  "3":{t:"陆沉海崖",d:"祥兴二年二月六日",p:["二月,元乘早晚潮以舟师四面合攻,箭石雨下;宋阵终日坚守。日暮,风雨昏雾,元军奏乐佯宴以懈之,乘势猛攻,宋师大溃。","张世杰斩缆突围率余舟走;陆秀夫度不能免,先驱妻子入海,乃负帝昺赴海死,后宫、诸臣、士民从死者十余万,浮尸蔽海。世杰后遇飓风溺死于海陵港。宋亡。"]}
+  all:{t:"崖山结寨",d:"祥兴元年冬 — 二年二月",p:["南宋自临安陷后,张世杰、陆秀夫奉幼主赵昺浮海播迁,颠沛于闽广海上,最后驻崖山(崖门)——珠江口西侧、潭江入海之湾,东有崖山、西有汤瓶山,南启海口而通南海。","张世杰尽焚陆上宫室,驱二十万军民尽登舟,以大索连千余艘为一字连环寨,碇于门内海中,四围楼棚如城,居中奉帝,背水死守。元帅张弘范舟师自潮阳沿海东来,李恒之兵自广州南下,水陆并进,合围崖门。"]},
+  "1":{t:"退守崖山 · 焚宫驻跸海上",d:"祥兴元年冬 — 二年正月",p:["帝昺一行自福建入广,经香山、井澳诸海,最后趋崖山结寨。张世杰以为进无所资、退无所据,乃决意驻跸海上,以舟为家、以海为固。","为绝苟且之心、示必死之志,张世杰尽焚崖山陆上行宫宫室,驱军民尽室登舟。自此宋室不复居陆,颠沛二十万众,悉寄于崖门海湾之舟中。"]},
+  "2":{t:"连环千船 · 结一字阵 · 失扼海口",d:"祥兴二年正月",p:["张世杰以大索连大舟千余艘,结为一字连环寨,四围起楼棚如城,居中奉帝昺,尽室登舟以死守。其阵坚整如城,元军薄之未能遽破。","然连舟则不能进退转动;尤失者,在<b>不据崖门海口之险</b>——未扼其口,汲水(取淡水)、樵采(采薪)虽尚通于两岸,而海口一失,授元以可乘之隙。自固之计,已伏自围之祸。"]},
+  "3":{t:"元扼海口 · 断汲水樵采困之",d:"祥兴二年正月 — 二月",p:["张弘范军至,不与力争,先据崖门海口,列水寨扼其出入,<b>绝其汲道、断其樵采</b>。宋军困守海上旬余,樵汲道绝,渴饮海水者呕泄成疾,疲惫不能战——不战而战力自损,此困宋之枢。","时文天祥前已被执,弘范挟之至军,使书招张世杰;天祥不从,书《过零丁洋》以拒——『人生自古谁无死,留取丹心照汗青』。弘范笑而置之,合围益急。"]},
+  "4":{t:"乘潮夹攻 · 宋师大溃 · 负帝投海 · 宋亡",d:"祥兴二年二月癸未(1279.3.19)",p:["二月,弘范分军四面,乘早潮、晚潮顺流夹攻;又以奏乐佯为宴饮以懈宋军,突发猛攻。宋连环船以大索相连而不能动,阵脚大乱,遂大溃。","左丞相陆秀夫度不能免,先驱妻子入海,乃负八岁帝昺赴海死;后宫、诸臣、军民从死者十余万,越七日浮尸出于海。张世杰斩缆突围西走,遇飓风溺死于平章山下(海陵岛一带)。南宋遂亡,后世乃有『崖山之后』之叹。"]}
 };
 const CITY={
-  yashan:{t:"崖山·崖门",d:"今广东江门新会崖门",p:["宋行朝最后驻地。张世杰结千艘为连环寨碇于门内海中,居中奉帝昺。海战既败,陆秀夫负帝赴海投死,十余万人从之,宋亡于此。"]},
-  yamenshuidao:{t:"崖门水道",d:"崖山、汤瓶山间海口",p:["东西两山夹峙如门,内为崖门海。元军先据此海口,断宋军汲道樵采,又扼其出入,遂成合围。"]},
-  guangzhou:{t:"广州",d:"今广东广州",p:["时已为元军所据。张弘范、李恒会师于此,水陆并进南下崖门,为围攻宋室之基地。"]},
-  xiangshan:{t:"香山·秀山",d:"今广东中山、珠海一带",p:["宋行朝浮海播迁所经。帝昺一行自福建入广,转徙井澳、香山诸海,最后趋崖山结寨。"]},
-  hailing:{t:"海陵港",d:"今广东阳江海陵岛",p:["崖山既败,张世杰斩缆突围西走,图再举;后遇飓风,舟覆溺死于此。宋之余烬遂绝。"]},
-  chaozhou:{t:"潮州·五坡岭",d:"文天祥被俘处,今广东海丰",p:["祥兴元年冬,文天祥兵败被执于五坡岭,吞脑子不死。崖山之役,弘范挟之至军,使书招张世杰,天祥书《过零丁洋》以拒。"]}
+  yashan:{t:"崖山 · 崖门(连环寨)",d:"今广东江门新会崖门",p:["宋行朝最后驻地。张世杰以大索连千余艘为一字连环寨,碇于门内海湾,居中奉幼帝昺。海战既败,陆秀夫负帝赴海投死,十余万人从之,南宋亡于此。"]},
+  yashanmt:{t:"崖山",d:"崖门东山,今新会崖门东岸",p:["崖门之东山,与西之汤瓶山夹峙如门,故名崖门。宋连环寨即碇于二山之间的门内海中。"]},
+  tangping:{t:"汤瓶山",d:"崖门西山,今新会崖门西岸",p:["崖门之西山。东崖山、西汤瓶山夹束海口如门,中为潭江出海之道；宋失扼此口之险,遂为元所困。"]},
+  haikou:{t:"崖门海口",d:"崖门出海口,南通黄茅海·南海",p:["崖门海湾之出海口。张世杰未占此口之险,张弘范军至则先据之,列水寨封锁,断宋军汲水樵采之路,又乘潮由此夹攻——胜负之枢也。"]},
+  guangzhou:{t:"广州",d:"今广东广州",p:["至元十四年(1277)已为元军所据。李恒之兵自此南下会张弘范,水陆并进以攻崖门,为元来向之一。"]},
+  xiangshan:{t:"香山 · 井澳",d:"今广东中山·珠海一带",p:["宋行朝浮海播迁所经。帝昺一行自福建入广,转徙井澳、香山诸海(尝遇飓风几没),最后趋崖山结寨。"]},
+  zhujiang:{t:"珠江口 · 零丁洋",d:"今伶仃洋,崖门以东",p:["崖门东之海口。文天祥前此被执,过此洋而作《过零丁洋》;崖山之役,弘范挟之至军,使书招张世杰,天祥书此诗以拒。"]},
+  hailing:{t:"海陵岛 · 平章山",d:"今广东阳江海陵岛一带",p:["崖山既败,张世杰斩缆突围西走,图再举;后遇飓风,舟覆溺死于平章山下。宋之余烬遂绝。确址史家微有异同。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
