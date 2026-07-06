@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--land:#e3d7b6;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,41 +27,70 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
-  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .sea{fill:var(--water);opacity:.15}
+  .strait{fill:var(--water);opacity:.24}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.55}
+  .land{fill:var(--land);stroke:none}
+  .redsea{fill:rgba(154,43,30,.22);stroke:rgba(154,43,30,.4);stroke-width:1;stroke-dasharray:2 3}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.6;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.24em}
+  .realm.q{fill:var(--enemy);opacity:.4}.realm.j{fill:var(--advance);opacity:.42}
+  .isle{fill:var(--land);stroke:var(--water);stroke-width:1;opacity:.95}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--advance);stroke-width:2.7;stroke-dasharray:8 5;opacity:.9}
+  .march.qsea{stroke:var(--enemy);stroke-width:2.7;stroke-dasharray:7 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.fire{fill:var(--fire)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
-  .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .bship{fill:var(--advance);opacity:.92}
+  .jship{fill:var(--enemy);opacity:.92}
+  .fleetlbl{font-size:10.5px;font-weight:700}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .redlabel{fill:var(--enemy);font-weight:700;font-style:normal}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .fallen circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.8}
+  .fallen line{stroke:var(--ink);stroke-width:1.7;stroke-linecap:round}
+  .fallen .base{fill:var(--ink);opacity:.85}
+  .flabel2{fill:var(--ink);font-weight:700;font-size:11.5px}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(192,73,31,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--fire);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea):not(.qsea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -71,114 +100,192 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>黄</span><span>海</span><span>之</span><span>役</span></div>
   <header>
     <h1>甲午黄海海战</h1>
-    <div class="sub">清光绪二十年·甲午(1894)　　<i>清 丁汝昌·邓世昌</i> 血战黄海 · <b>日本</b>联合舰队破北洋·终覆威海</div>
+    <div class="sub">清光绪二十年·甲午(1894)　　<i>清 北洋水师 丁汝昌·邓世昌</i> 血战大东沟 · <b>日本 联合舰队 伊东祐亨</b> 以速射炮绕攻 · 北洋失黄海制海权</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 不宣而战</button>
-    <button data-p="1">大东沟遭遇</button>
-    <button data-p="2">致远冲敌</button>
-    <button data-p="3">退守威海</button>
+    <button class="on" data-p="all">全图 · 护航遇敌</button>
+    <button data-p="1">护航大东沟 · 归途遇日舰队</button>
+    <button data-p="2">雁行横阵 · 日舰纵队绕攻</button>
+    <button data-p="3">激战 · 致远邓世昌殉国</button>
+    <button data-p="4">退守威海 · 失制海 · 马关</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="甲午黄海海战形势图,含清日海陆疆界、黄海渤海大东沟海域与威海卫旅顺鸭绿江口等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="甲午黄海海战形势图,含辽东半岛旅顺大连、大东沟鸭绿江口、山东半岛威海卫成山头、朝鲜西岸平壤丰岛与黄海渤海海域,及北洋护航遇敌、夹缝雁行横阵对日单纵阵、致远邓世昌撞吉野殉国、北洋退守威海失制海之海战">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
-      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.26)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.26)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="ax" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
     </defs>
 
-    <!-- 黄海·渤海:全域海面(海战主战场) -->
-    <path class="sea" d="M 300,0 C 320,140 300,300 340,440 C 380,560 500,620 700,640 L 1000,640 L 1000,0 Z"/>
-    <text class="rname" x="560" y="300" style="opacity:.7;font-size:15px">黄　海</text>
-    <text class="rname" x="150" y="330" style="opacity:.6">渤　海</text>
+    <!-- ══ 海域底色:通图皆黄海·渤海 ══ -->
+    <rect class="sea" x="0" y="0" width="1000" height="640"/>
 
-    <!-- 疆界:日本自东(朝鲜·海上)来,清据西(渤海·山东·辽东);约以海面为界 -->
-    <path d="M 470,0 C 500,120 520,260 560,380 C 600,500 700,580 820,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 500,120 520,260 560,380 C 600,500 700,580 820,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 500,120 520,260 560,380 C 600,500 700,580 820,640"/>
-    <text class="realm q" x="760" y="150" font-size="30">日 本(自东)</text>
-    <text class="realm j" x="70" y="200" font-size="30">清 · 北洋</text>
+    <!-- ══ 制海示意:北洋据渤海·山东·辽东(西),日本自朝鲜洋面来(东),约以黄海中线为前沿 ══ -->
+    <path d="M 0,0 L 540,0 C 560,150 590,320 600,440 C 606,540 600,590 604,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 540,0 L 1000,0 L 1000,640 L 604,640 C 600,590 606,540 600,440 C 590,320 560,150 540,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 540,0 C 560,150 590,320 600,440 C 606,540 600,590 604,640"/>
 
-    <!-- 辽东半岛(北·西北) -->
-    <path class="mtn" d="M 130,150 C 200,160 260,190 300,240 M 220,150 l 8,-12 l 8,12 M 236,146 l 8,-12 l 8,12"/>
-    <text class="cname s" x="150" y="140">辽 东 半 岛</text>
-    <!-- 山东半岛(南·西南) -->
-    <path class="mtn" d="M 120,480 C 200,470 280,478 340,500 M 200,486 l 8,-12 l 8,12 M 216,482 l 8,-12 l 8,12"/>
-    <text class="cname s" x="130" y="470">山 东 半 岛</text>
+    <!-- ══ 陆地 ══ -->
+    <!-- 辽东半岛(北·西北):旅顺为南端,东岸北趋大东沟·鸭绿江口 -->
+    <path class="land" d="M 0,18 C 80,44 132,92 146,132 C 150,150 160,175 168,208 C 170,222 176,232 189,252 C 200,249 218,244 235,237 C 285,175 340,143 400,128 C 465,112 500,104 553,100 L 560,0 L 0,0 Z"/>
+    <!-- 山东半岛(南·西南):威海卫·成山头居其东北岬,余在西南 -->
+    <path class="land" d="M 0,432 C 60,420 128,405 205,442 C 260,455 300,448 359,465 C 375,490 385,510 382,525 C 380,560 372,600 360,640 L 0,640 Z"/>
+    <!-- 朝鲜(东):西岸自鸭绿江口南下,平壤在内,丰岛在牙山湾外 -->
+    <path class="land" d="M 553,100 C 595,118 618,130 631,143 C 643,182 649,216 649,248 C 668,300 690,342 702,376 C 721,432 739,482 749,519 C 763,556 781,586 802,602 L 1000,640 L 1000,0 L 560,0 Z"/>
 
-    <!-- 鸭绿江口:辽东与朝鲜界·北洋护航所至 -->
-    <path class="river" stroke-width="3.2" d="M 400,60 C 410,120 420,170 430,210"/>
-    <text class="rname" x="358" y="120" transform="rotate(80 358 120)" style="font-size:10.5px">鸭绿江</text>
+    <path class="coast" d="M 0,18 C 80,44 132,92 146,132 C 150,150 160,175 168,208 C 170,222 176,232 189,252 C 200,249 218,244 235,237 C 285,175 340,143 400,128 C 465,112 500,104 553,100"/>
+    <path class="coast" d="M 0,432 C 60,420 128,405 205,442 C 260,455 300,448 359,465 C 375,490 385,510 382,525"/>
+    <path class="coast" d="M 553,100 C 595,118 618,130 631,143 C 643,182 649,216 649,248 C 668,300 690,342 702,376 C 721,432 739,482 749,519 C 763,556 781,586 802,602"/>
 
-    <!-- 大东沟海域标注(主战场) -->
-    <text class="cname s" x="470" y="252">大东沟外海(黄海海战)</text>
+    <!-- 鸭绿江:辽东与朝鲜界河,北洋护航所至之口 -->
+    <path class="river" stroke-width="3" d="M 553,100 C 556,66 566,32 575,0"/>
+    <text class="rname" x="520" y="52" transform="rotate(74 520 52)" style="font-size:10.5px">鸭绿江</text>
 
-    <!-- 城邑 -->
+    <!-- 渤海海峡:旅顺与山东蓬莱间水道 -->
+    <text class="rname" x="88" y="336" style="opacity:.72">渤　海</text>
+    <text class="rname" x="470" y="356" style="font-size:16px;letter-spacing:.34em;opacity:.62">黄　　海</text>
+    <text class="rname" x="150" y="392" transform="rotate(-30 150 392)" style="font-size:10px;opacity:.7">渤海海峡</text>
+
+    <text class="realm j" x="60" y="470" font-size="20">清 · 北洋</text>
+    <text class="cname s" x="62" y="490" style="fill:var(--advance);opacity:.7">(渤海·山东·辽东 · 提督丁汝昌)</text>
+    <text class="realm q" x="880" y="150" font-size="20" text-anchor="end">日本 · 联合舰队</text>
+    <text class="cname s" x="880" y="170" style="fill:var(--enemy);opacity:.65" text-anchor="end">(据朝鲜洋面 · 伊东祐亨)</text>
+
+    <!-- 岛屿:大鹿岛(海战)·刘公岛(威海港)·庙岛(渤海峡) -->
+    <g class="isle"><ellipse cx="470" cy="176" rx="9" ry="5.5"/><ellipse cx="300" cy="438" rx="8" ry="4.5"/><ellipse cx="150" cy="378" rx="6" ry="4"/><ellipse cx="720" cy="500" rx="7" ry="4.5"/></g>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="dadonggou"><circle cx="500" cy="230" r="6"/><text class="cname" x="514" y="226">大东沟<tspan class="cname s" dx="2">(海战主战场)</tspan></text></g>
-      <g class="city" data-city="weihai"><circle cx="300" cy="510" r="6"/><text class="cname" x="196" y="514">威海卫<tspan class="cname s" dx="2">(北洋军港)</tspan></text></g>
-      <g class="city" data-city="lvshun"><circle cx="288" cy="272" r="5"/><text class="cname" x="220" y="268">旅顺<tspan class="cname s" dx="2">(北洋基地)</tspan></text></g>
-      <g class="city" data-city="yalu"><circle cx="432" cy="212" r="4"/><text class="cname s" x="440" y="200">鸭绿江口</text></g>
-      <g class="city" data-city="fengdao"><circle cx="640" cy="450" r="4"/><text class="cname s" x="648" y="446">丰岛</text></g>
-      <g class="city" data-city="pyongyang"><circle cx="620" cy="150" r="4.5"/><text class="cname s" x="628" y="146">平壤(朝鲜)</text></g>
+      <g class="city cap" data-city="dadonggou"><circle cx="520" cy="104" r="6.5"/><text class="cname" x="530" y="100">大东沟<tspan class="cname s" dx="2">(卸兵港)</tspan></text></g>
+      <g class="city cap" data-city="haizhan"><circle cx="462" cy="176" r="5.5"/><text class="cname s" x="330" y="166" style="fill:var(--advance);font-weight:700">大鹿岛外海(海战主战场)</text></g>
+      <g class="city" data-city="yalu"><circle cx="553" cy="100" r="4"/><text class="cname s" x="561" y="118">鸭绿江口</text></g>
+      <g class="city cap" data-city="lvshun"><circle cx="189" cy="252" r="6"/><text class="cname" x="112" y="248">旅顺<tspan class="cname s" dx="2">(北洋基地)</tspan></text></g>
+      <g class="city" data-city="dalian"><circle cx="235" cy="237" r="4"/><text class="cname s" x="243" y="228">大连</text></g>
+      <g class="city cap" data-city="weihai"><circle cx="290" cy="450" r="6.5"/><text class="cname" x="196" y="446">威海卫<tspan class="cname s" dx="2">(刘公岛)</tspan></text></g>
+      <g class="city" data-city="chengshan"><circle cx="359" cy="465" r="4"/><text class="cname s" x="367" y="482">成山头·荣成</text></g>
+      <g class="city" data-city="fengdao"><circle cx="742" cy="520" r="4"/><text class="cname s" x="700" y="538">丰岛(牙山)</text></g>
+      <g class="city" data-city="pyongyang"><circle cx="719" cy="222" r="4.5"/><text class="cname s" x="727" y="218">平壤(朝鲜·陆战)</text></g>
     </g>
 
-    <!-- 全图 · 不宣而战 -->
+    <!-- ══ 全图 · 护航遇敌 ══ -->
     <g id="phAll" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 820,470 C 740,462 680,456 654,452"/>
-      <text class="mlabel q" x="700" y="440">日联合舰队自海上蓄谋来袭</text>
-      <circle class="star" cx="640" cy="450" r="7"/>
-      <text class="mlabel q" x="560" y="490">丰岛不宣而战,击沉高升号</text>
-      <path class="march q rout" marker-end="url(#ar)" d="M 610,158 C 540,180 480,200 442,208"/>
-      <text class="mlabel r" x="470" y="176">陆路清军平壤大败,退过鸭绿江</text>
-      <path class="march j" marker-end="url(#aj)" d="M 300,300 C 360,270 430,244 492,232"/>
-      <text class="mlabel j" x="150" y="300">北洋护送运兵船赴大东沟</text>
+      <path class="march sea" marker-end="url(#aj)" d="M 210,246 C 320,214 430,150 508,116"/>
+      <text class="mlabel j" x="216" y="204">北洋主力护送运兵船,自旅顺·大连北趋大东沟</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 690,352 C 610,300 540,240 496,196"/>
+      <text class="mlabel q" x="612" y="316">日联合舰队(伊东祐亨)自朝鲜洋面来</text>
+      <circle class="star" cx="462" cy="176" r="9"/>
+      <text class="anno" x="330" y="200">卸兵毕归航,遽遇日舰,黄海大战爆发</text>
+      <rect class="camp" x="715" y="218" width="8" height="8" transform="rotate(45 719 222)"/>
+      <text class="anno" x="612" y="240">陆路清军先败于平壤,退过鸭绿江</text>
+      <text class="anno" x="150" y="560">丰岛不宣而战(击沉高升号)启衅,中日遂宣战</text>
     </g>
 
-    <!-- 阶段一:大东沟遭遇·列阵接战 -->
+    <!-- ══ 阶段一:护航大东沟 · 归途遇日舰队 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 296,278 C 360,258 430,240 492,234"/>
-      <text class="mlabel j" x="300" y="252">丁汝昌率主力护航,泊大东沟口</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 700,400 C 620,360 560,300 520,246"/>
-      <text class="mlabel q" x="600" y="360">日联合舰队(伊东祐亨)驰至</text>
-      <path class="march j" marker-end="url(#aj)" d="M 508,240 C 540,258 560,282 566,306"/>
-      <text class="mlabel j" x="524" y="300">北洋列夹缝雁行横阵</text>
-      <path class="march q" marker-end="url(#aq)" d="M 560,246 C 610,270 640,310 636,352"/>
-      <text class="mlabel q" x="600" y="330">日以单纵阵绕击两翼</text>
-      <text class="anno" x="440" y="284">「定远」「镇远」两铁甲舰居中为核心</text>
+      <path class="march sea" marker-end="url(#aj)" d="M 210,246 C 320,214 428,148 506,112"/>
+      <text class="mlabel j" x="216" y="200">丁汝昌率定远·镇远等十二舰护航,泊大东沟卸兵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 512,116 C 500,140 484,158 470,170"/>
+      <text class="mlabel j" x="452" y="132">卸载毕,起锚归航</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 700,360 C 616,306 540,244 498,198"/>
+      <text class="mlabel q" x="606" y="330">日本联合舰队十二舰迎面驰至</text>
+      <circle class="star" cx="462" cy="176" r="9"/>
+      <text class="anno" x="330" y="200">正午遇敌于大鹿岛外海,黄海大战爆发</text>
     </g>
 
-    <!-- 阶段二:致远冲敌·邓世昌殉国 -->
+    <!-- ══ 阶段二:雁行横阵 · 日舰单纵阵绕攻 ══ -->
     <g id="ph2" class="ph">
-      <text class="mlabel q" x="560" y="300">日舰航速快·速射炮多,炮火蔽海</text>
-      <path class="march j" marker-end="url(#aj)" d="M 520,244 C 560,258 600,280 632,306"/>
-      <text class="mlabel j" x="510" y="230">致远(邓世昌)驾舰冲敌·欲撞「吉野」</text>
-      <circle class="star" cx="560" cy="300" r="9"/>
-      <text class="mlabel r" x="470" y="330">中鱼雷舰沉,全舰二百余殉国</text>
-      <text class="anno" x="470" y="352">「经远」管带林永升亦战死</text>
-      <text class="anno" x="380" y="374">北洋损致远·经远·超勇·扬威·广甲五舰</text>
+      <!-- 北洋:夹缝雁行横阵(人字),舰首对敌向东,定远镇远居中为核心 -->
+      <g class="bship">
+        <path d="M 484,172 l 6,7 l -6,7 l -6,-7 Z"/>
+        <path d="M 472,182 l 6,7 l -6,7 l -6,-7 Z"/>
+        <path d="M 465,161 l 5,6 l -5,6 l -5,-6 Z"/>
+        <path d="M 451,150 l 5,6 l -5,6 l -5,-6 Z"/>
+        <path d="M 438,140 l 5,6 l -5,6 l -5,-6 Z"/>
+        <path d="M 467,197 l 5,6 l -5,6 l -5,-6 Z"/>
+        <path d="M 453,209 l 5,6 l -5,6 l -5,-6 Z"/>
+        <path d="M 440,220 l 5,6 l -5,6 l -5,-6 Z"/>
+      </g>
+      <text class="fleetlbl" x="330" y="248" style="fill:var(--advance)">北洋 夹缝雁行横阵 · 舰首对敌</text>
+      <text class="anno" x="486" y="192" style="fill:var(--advance)">定远·镇远铁甲舰居中为核心</text>
+      <text class="anno" x="360" y="132">超勇·扬威(弱舰)列右翼</text>
+      <!-- 日本:单纵阵,本队在后·第一游击队(吉野)在前,绕攻北洋右翼 -->
+      <g class="jship">
+        <rect x="632" y="322" width="13" height="7" transform="rotate(-40 638 325)"/>
+        <rect x="612" y="302" width="13" height="7" transform="rotate(-42 618 305)"/>
+        <rect x="592" y="283" width="13" height="7" transform="rotate(-44 598 286)"/>
+        <rect x="572" y="264" width="13" height="7" transform="rotate(-48 578 267)"/>
+        <rect x="553" y="246" width="13" height="7" transform="rotate(-54 559 249)"/>
+        <rect x="535" y="229" width="13" height="7" transform="rotate(-60 541 232)"/>
+      </g>
+      <text class="fleetlbl" x="618" y="356" style="fill:var(--enemy)" text-anchor="end">日本 单纵阵 · 航速快 · 速射炮多</text>
+      <path class="march qsea" marker-end="url(#aq)" d="M 540,232 C 512,206 486,178 470,158"/>
+      <text class="mlabel q" x="486" y="150">第一游击队(吉野等快船)高速绕攻右翼</text>
+      <text class="anno" x="330" y="290">定远首炮震塌飞桥,丁汝昌负伤堕伤,旗号中断</text>
     </g>
 
-    <!-- 阶段三:退守威海·北洋覆没 -->
+    <!-- ══ 阶段三:激战 · 致远邓世昌殉国 ══ -->
     <g id="ph3" class="ph">
-      <path class="march rout" marker-end="url(#ar)" d="M 550,320 C 460,380 380,440 316,496"/>
-      <text class="mlabel r" x="380" y="420">丁汝昌率余舰退守威海卫</text>
-      <rect class="camp" x="296" y="506" width="9" height="9" transform="rotate(45 300 510)"/>
-      <path class="march q" marker-end="url(#aq)" d="M 300,300 C 280,360 280,430 296,500"/>
-      <text class="mlabel q" x="150" y="400">次年日军水陆夹攻威海</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 460,470 C 400,486 350,498 314,506"/>
-      <text class="mlabel q" x="360" y="530">残舰困守刘公岛,弹尽援绝</text>
-      <circle class="star" cx="300" cy="510" r="9"/>
-      <text class="anno" x="150" y="560">丁汝昌自杀,北洋水师全军覆没;订马关约</text>
+      <!-- 右翼弱舰超勇·扬威中弹起火 -->
+      <g class="fire">
+        <path d="M 438,142 q -5,-13 2,-22 q 3,10 7,5 q -2,11 3,16"/>
+        <path d="M 452,150 q -5,-12 2,-21 q 3,9 6,5 q -2,10 3,15"/>
+      </g>
+      <text class="flabel" x="300" y="130" font-size="14">超勇·扬威起火沉没</text>
+      <!-- 致远(邓世昌)开足马力猛冲吉野 -->
+      <path class="march j" marker-end="url(#aj)" d="M 466,182 C 496,192 522,200 546,210"/>
+      <text class="mlabel j" x="366" y="230">致远(邓世昌)弹尽舰伤,开足马力猛冲「吉野」</text>
+      <rect class="jship" x="552" y="206" width="15" height="8" transform="rotate(-30 559 210)"/>
+      <text class="cname s" x="572" y="206" style="fill:var(--enemy)">吉野</text>
+      <!-- 致远中雷而沉,邓世昌殉国 -->
+      <circle class="star" cx="524" cy="204" r="10"/>
+      <g class="fallen" transform="translate(524,204)"><path class="base" d="M -9,9 L 9,9 L 7,14 L -7,14 Z"/><circle r="8"/><line x1="0" y1="-6" x2="0" y2="6"/><line x1="-6" y1="0" x2="6" y2="0"/></g>
+      <text class="flabel2" x="500" y="180">致远沉 · 邓世昌殉国</text>
+      <text class="anno" x="360" y="252" style="font-style:italic">「吾辈从军卫国,早置生死于度外」,中鱼雷而沉,全舰殉国</text>
+      <!-- 经远林永升殉国 -->
+      <g class="fallen" transform="translate(470,206)"><path class="base" d="M -9,9 L 9,9 L 7,14 L -7,14 Z"/><circle r="8"/><line x1="0" y1="-6" x2="0" y2="6"/><line x1="-6" y1="0" x2="6" y2="0"/></g>
+      <text class="flabel2" x="360" y="292">经远 · 林永升殉国</text>
+      <!-- 海水渐赤 -->
+      <path class="redsea" d="M 430,200 C 470,182 528,188 552,214 C 570,236 552,268 512,272 C 464,276 424,256 430,200 Z" style="opacity:.6"/>
+      <text class="anno" x="560" y="300">鏖战约五时,日旗舰「松岛」等多舰重伤而无一沉没</text>
     </g>
 
-    <g class="compass" transform="translate(110,570)">
+    <!-- ══ 阶段四:退守威海 · 失制海 · 全军覆没 · 马关 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 海水皆赤 -->
+      <path class="redsea" d="M 424,188 C 470,168 534,176 560,208 C 578,232 558,268 514,274 C 462,280 418,254 424,188 Z"/>
+      <text class="redlabel" x="470" y="230" style="font-size:12px">损五舰</text>
+      <!-- 北洋残舰退守威海卫 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 448,208 C 388,286 336,368 300,436"/>
+      <text class="mlabel r" x="330" y="330">丁汝昌率残舰退守威海卫 · 避战保船</text>
+      <text class="anno" x="330" y="348">黄海制海权尽归日本</text>
+      <!-- 旅顺·大连冬陷 -->
+      <rect class="camp" x="185" y="248" width="9" height="9" transform="rotate(45 189 252)"/>
+      <text class="mlabel q" x="112" y="272" style="fill:var(--enemy)">旅顺 · 大连 冬陷</text>
+      <!-- 次年日军水陆夹攻威海,自荣成登陆 -->
+      <path class="march qsea" marker-end="url(#aq)" d="M 720,500 C 560,510 440,486 372,468"/>
+      <text class="mlabel q" x="470" y="512">次年日军自荣成湾登陆,水陆夹攻威海</text>
+      <path class="march q" marker-end="url(#aq)" d="M 356,462 C 336,458 316,454 302,452"/>
+      <!-- 威海全军覆没·丁汝昌自杀 -->
+      <circle class="star" cx="290" cy="450" r="11"/>
+      <g class="fallen" transform="translate(290,450)"><path class="base" d="M -9,9 L 9,9 L 7,14 L -7,14 Z"/><circle r="8"/><line x1="0" y1="-6" x2="0" y2="6"/><line x1="-6" y1="0" x2="6" y2="0"/></g>
+      <text class="flabel2" x="150" y="424">威海覆没 · 丁汝昌自杀</text>
+      <text class="anno" x="150" y="574">北洋水师全军覆没 · 清廷求和,订《马关条约》· 割台澎 · 赔银二亿两</text>
+      <!-- 马关约印记 -->
+      <g transform="translate(560,560)">
+        <rect x="0" y="0" width="52" height="52" rx="3" fill="none" stroke="var(--seal)" stroke-width="2" opacity=".85" transform="rotate(-5 26 26)"/>
+        <text x="26" y="22" text-anchor="middle" style="fill:var(--seal);font-family:'Ma Shan Zheng',serif;font-size:15px" transform="rotate(-5 26 26)">马关</text>
+        <text x="26" y="42" text-anchor="middle" style="fill:var(--seal);font-family:'Ma Shan Zheng',serif;font-size:15px" transform="rotate(-5 26 26)">和约</text>
+      </g>
+    </g>
+
+    <g class="compass" transform="translate(945,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -187,35 +294,100 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清·北洋水师</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>日本联合舰队</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>舰队机动(海)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>北洋退却</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>北洋水师(丁汝昌·邓世昌)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.7" stroke-dasharray="8 5"/></svg>北洋护航航路</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.7" stroke-dasharray="7 5"/></svg>日联合舰队机动</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,11 q 6,-9 10,-4 q 5,-6 9,3" fill="none" stroke="#c0491f" stroke-width="2"/></svg>中弹起火·沉舰</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>北洋退守威海</span>
     <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>海战 / 陷城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>日本</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/><line x1="9" y1="4" x2="9" y2="14" stroke="#2b2418" stroke-width="1.5"/><line x1="4" y1="9" x2="14" y2="9" stroke="#2b2418" stroke-width="1.5"/></svg>殉国(邓·林·丁)</span>
+    <span class="item"><svg width="20" height="14"><path d="M 10,3 l 5,6 l -5,6 l -5,-6 Z" fill="#1f4e54"/></svg>北洋舰(雁行)</span>
+    <span class="item"><svg width="22" height="12"><rect x="3" y="3" width="14" height="7" transform="rotate(-20 10 6)" fill="#9a2b1e"/></svg>日舰(纵队)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·北洋制海</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>日本·东来</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 阵法失机 · 船速炮逊 · 致远殉国 · 海权尽丧</h3>
+    <div class="lead">何以血战五时而北洋损五舰 —— 呆板之横阵当高速之纵队,速射炮绕攻阵翼,虽有致远死冲亦不能挽,遂拱手让出黄海</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="阵法对比示意:北洋列夹缝雁行横阵舰首对敌居左,以定远镇远重炮为核心;日本以单纵阵高速自右横越,第一游击队快船绕攻北洋右翼,速射炮焚超勇扬威;致远死冲吉野而沉,北洋损五舰,失黄海制海权">
+      <!-- 左:北洋 雁行横阵(人字),舰首朝右对敌 -->
+      <g fill="#1f4e54">
+        <path d="M 250,120 l 8,9 l -8,9 l -8,-9 Z"/>
+        <path d="M 234,132 l 7,8 l -7,8 l -7,-8 Z"/>
+        <path d="M 216,150 l 7,8 l -7,8 l -7,-8 Z"/>
+        <path d="M 198,168 l 7,8 l -7,8 l -7,-8 Z"/>
+        <path d="M 234,104 l 7,8 l -7,8 l -7,-8 Z"/>
+        <path d="M 216,86 l 7,8 l -7,8 l -7,-8 Z"/>
+        <path d="M 198,68 l 7,8 l -7,8 l -7,-8 Z"/>
+      </g>
+      <text x="150" y="200" fill="#1f4e54" font-size="12" font-weight="700">北洋 · 夹缝雁行横阵</text>
+      <text x="150" y="218" fill="#5c4f38" font-size="10.5">舰首对敌,恃定远·镇远重炮;阵板速缓</text>
+      <text x="196" y="60" fill="#9a2b1e" font-size="10" font-weight="700">超勇·扬威(右翼弱舰)</text>
+      <!-- 右:日本 单纵阵,自右横越 -->
+      <g fill="#9a2b1e">
+        <rect x="640" y="60" width="20" height="11"/>
+        <rect x="652" y="82" width="20" height="11"/>
+        <rect x="664" y="104" width="20" height="11"/>
+        <rect x="676" y="126" width="20" height="11"/>
+        <rect x="688" y="148" width="20" height="11"/>
+        <rect x="700" y="170" width="20" height="11"/>
+      </g>
+      <text x="600" y="210" fill="#9a2b1e" font-size="12" font-weight="700">日本 · 单纵阵</text>
+      <text x="600" y="228" fill="#5c4f38" font-size="10.5">航速快 · 速射炮密 · 本队 + 第一游击队</text>
+      <!-- 第一游击队绕攻北洋右翼 -->
+      <path d="M 636,66 C 520,60 380,66 258,86" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#aq)"/>
+      <text x="360" y="42" fill="#9a2b1e" font-size="11" font-weight="700">第一游击队(吉野)高速绕攻右翼 · 抢T字阵位</text>
+      <!-- 焚超勇扬威 -->
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 205,86 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 226,96 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+      </g>
+      <!-- 致远死冲吉野 -->
+      <path d="M 262,128 C 340,142 420,160 500,180" fill="none" stroke="#1f4e54" stroke-width="2.6" marker-end="url(#aj)"/>
+      <rect x="500" y="176" width="18" height="10" fill="#9a2b1e"/>
+      <text x="360" y="150" fill="#1f4e54" font-size="11" font-weight="700">致远死冲吉野 ✕ 中雷而沉</text>
+      <text x="360" y="170" fill="#9a2b1e" font-size="10.5" font-weight="700">邓世昌与全舰殉国 · 亦不能挽</text>
+    </svg>
+    <p class="intro">甲午之役,北洋与日本联合舰队舰数略等(各十二舰),然<b>器不如人、制不如人</b>:日舰航速普遍快出数节,速射炮之射速数倍于北洋旧炮。相遇之顷,丁汝昌令北洋列<b>夹缝雁行横阵</b>——诸舰并列成一横队,以舰首朝敌,冀发定远、镇远两铁甲舰之重炮;而伊东祐亨则以<b>单纵阵</b>鱼贯机动,分本队与第一游击队,以快船绕攻。横阵一列而难转,纵队则能自择远近、绕其阵翼——胜负之机,已隐分于列阵之顷。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>雁行横阵 · 舰首对敌</h4>
+        <p>北洋恃定远、镇远两铁甲舰之巨炮,列夹缝雁行横阵,以舰首正面迎敌,重炮向前。然横队一字排开,回转不灵、航速又缓;两翼所列超勇、扬威乃老弱旧船,防护薄、火力弱,遂成全阵之隙。阵成而机已失,唯以血肉之勇当之。</p>
+      </div>
+      <div class="c b">
+        <h4>单纵阵 · 速射炮 · 绕攻阵翼</h4>
+        <p>日舰分本队与第一游击队,速度最快、配速射炮之新舰(吉野等)编为游击队。以单纵阵高速鱼贯,自北洋阵前横越、绕击其右翼弱舰。速射炮弹如雨,超勇、扬威中弹起火先沉；复抢占T字有利阵位,以舷炮全力齐轰,而己身回旋自如。</p>
+      </div>
+    </div>
+    <p class="kicker">故黄海之败,不独在战之勇怯,而在<b>阵法失机、船速炮逊</b>之实:横阵当纵队,如以钝甲当利刃。致远管带邓世昌,当弹尽舰伤之际,慨然「置生死于度外」,开足马力猛冲敌旗舰吉野,欲与之同归于尽——不幸中鱼雷而沉,与全舰二百余人俱殉国；经远管带林永升亦战殁。<b>然一舰之死冲,终不能补器与制之不如</b>。是役北洋损致远、经远、超勇、扬威、广甲五舰,退守威海、避战保船,黄海制海权拱手让人。次年威海卫水陆夹攻,北洋全军覆没,丁汝昌自杀；清廷遂订《马关条约》,割台湾、澎湖,赔银二亿两——非独一战之败,实一国积弱之殇。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·邦交志/丁汝昌传》《东方兵事纪略》及《马关条约》约略绘出。大东沟在今辽宁丹东外海,威海卫在今山东威海,刘公岛在其港中,旅顺在今辽宁大连,丰岛在今朝鲜西海岸。海岸线、海域及城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为甲午战时海陆形势示意:清据渤海·山东·辽东,日本自朝鲜及海上而来;两军以海面相接,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>黄海一役,北洋以「定远」「镇远」铁甲舰为核心列夹缝雁行横阵,日舰航速快·速射炮多,以单纵阵绕击两翼。致远管带邓世昌驾舰冲敌,中鱼雷(一说锅炉爆)而沉,与全舰二百余人殉国;经远管带林永升亦战死。北洋损五舰而日舰无沉,退守威海,次年终为水陆夹攻覆没,遂订《马关条约》,割台湾·澎湖·辽东(后赎回),赔银二亿两。</p>
+    <p><span class="n">注一</span>本图为示意图,诸地按今地经纬度约略线性投影(投影式 x=40+(经度−120.0)·118,y=600−(纬度−36.5)·150):大东沟卸兵港在鸭绿江口西(约124.15°E/39.86°N),海战主战场在大鹿岛外海(约123.55°E/39.5°N),旅顺(约121.26°E/38.82°N)、大连(约121.65°E/38.92°N)为北洋辽东基地,威海卫·刘公岛(约122.12°E/37.5°N)为北洋军港,成山头·荣成(约122.7°E/37.4°N)为次年日军登陆处,丰岛在牙山湾外(约125.95°E/37.0°N),平壤(约125.75°E/39.02°N)为陆战之地。海岸、岛形、水道皆经简化,非按实测。</p>
+    <p><span class="n">注二</span>晕染非实有画界,乃<b>制海形势示意</b>:北洋据渤海、山东、辽东沿海诸港(西),日本联合舰队自朝鲜洋面东来(东),黄海北部为两军相争之场。故以点划「约界」约标黄海中线为前沿,青为北洋所据之西,朱为日本东来之向,非实有画界。</p>
+    <p><span class="n">注三</span>行军之水陆:黄海一役<b>自始至终皆海上舟师之战</b>。北洋以护送陆军运兵船(海路)北赴大东沟(鸭绿江口)始,卸兵毕归航,遇日联合舰队于大鹿岛外海。陆战(平壤)则在朝鲜境内,先于海战而败,清军退过鸭绿江——陆海相继失利。战后北洋退守威海,次年日军自荣成湾登陆(陆),复以舰艇鱼雷合围(海),水陆夹攻而北洋覆没。</p>
+    <p><span class="n">注四</span>兵力·战果:两军舰数略等(各约十二艘参战)。北洋列夹缝雁行横阵,以定远(旗舰,提督丁汝昌、右翼总兵刘步蟾)、镇远两铁甲舰为核心;日舰分本队与第一游击队(吉野、高千穗、秋津洲、浪速等快船,配速射炮)成单纵阵。是役北洋损<b>致远、经远、超勇、扬威、广甲</b>五舰(广甲触礁,数日后焚毁),来远重伤,伤亡六百余；日舰松岛(旗舰)、赤城、比叡、西京丸等多艘重创而<b>无一沉没</b>,伤亡约三百。致远沉因,或云中鱼雷、或云锅炉爆裂,史家小有异同,并存备考。</p>
+    <p><span class="n">注五</span>本图据《清史稿·丁汝昌传/邦交志》、姚锡光《东方兵事纪略》、《马关条约》及黄海海战诸考约略绘出。邓世昌激励全舰曰「吾辈从军卫国,早置生死于度外,今日之事,有死而已」,驾致远直撞日第一游击队旗舰吉野,中雷而沉,与全舰俱殉,清廷谥「壮节」；经远管带林永升亦战殁。黄海既失制海,北洋奉命「避战保船」退守威海;光绪二十一年正月(1895),日军水陆夹攻威海卫,残舰困守刘公岛,弹尽援绝,提督丁汝昌拒降自杀,北洋水师全军覆没。四月订《马关条约》,割台湾、澎湖、辽东半岛(辽东后经俄德法三国干涉,以银三千万两赎回),赔银二亿两,中国半殖民地化大大加深。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"不宣而战",d:"清光绪二十年·甲午(1894)夏秋",p:["日本蓄谋侵朝并华。是岁朝鲜东学党乱,中日同时出兵。日本不宣而战,先于丰岛海面击沉清运兵船「高升号」,战端遂开。","陆路清军战于平壤,大败,退过鸭绿江。海路,北洋水师提督丁汝昌奉命率主力舰队,护送运兵船北赴鸭绿江口之大东沟——黄海大战之伏线,即在此护航归途。"]},
-  "1":{t:"大东沟遭遇·列阵接战",d:"九月十七日(阳历)",p:["北洋护送运兵船至大东沟,泊定卸兵。归途,遽遇日本联合舰队(司令伊东祐亨)迎面驰至,黄海大战爆发。","北洋以「定远」「镇远」两铁甲舰为核心,列夹缝雁行横阵向敌;日舰航速快、速射炮多,遂以单纵阵高速绕击北洋两翼,阵法之利钝,胜负已隐分于列阵之顷。"]},
-  "2":{t:"致远冲敌·邓世昌殉国",d:"九月十七日 · 鏖战五时",p:["两军鏖战约五时,炮火蔽海。北洋「致远」舰弹药将尽、舰身受创,管带邓世昌激励将士,决意驾舰直撞日主力舰「吉野」,与之偕亡。","不幸中鱼雷(一说锅炉爆裂),舰身遽沉,邓世昌与全舰二百余人俱殉国;「经远」管带林永升亦战死。是役北洋损致远、经远、超勇、扬威、广甲五舰,日舰虽多被创而无一沉没。"]},
-  "3":{t:"退守威海·北洋覆没",d:"1894 — 1895",p:["丁汝昌率余舰退守威海卫军港。次年,日军水陆夹攻威海,陆师登岸夺炮台,海上以舰艇鱼雷合围,北洋残舰困守刘公岛,弹尽援绝。","丁汝昌拒降自杀,北洋水师全军覆没。清廷求和,订中日《马关条约》,割台湾、澎湖、辽东(后赎回),赔银二亿两,中国半殖民地化大大加深。"]}
+  all:{t:"护航遇敌 · 黄海大战爆发",d:"清光绪二十年·甲午(1894)九月十七日",p:["是岁朝鲜东学党乱,中日同时出兵。日本不宣而战,先于丰岛海面击沉清运兵船「高升号」,战端遂开,中日宣战。陆路清军战于平壤,大败,退过鸭绿江。","海路,北洋水师提督丁汝昌率主力舰队,护送陆军运兵船北赴鸭绿江口之大东沟。九月十七日,卸兵既毕、起锚归航之际,遽遇日本联合舰队(司令伊东祐亨)迎面驰至于大鹿岛外海——黄海大海战(大东沟海战)爆发。"]},
+  "1":{t:"护航大东沟 · 归途遇日舰队",d:"九月十七日 正午",p:["丁汝昌统定远、镇远两铁甲舰及致远、经远、靖远、来远、济远、超勇、扬威、广甲、平远、广丙等十二舰,护送运兵船抵大东沟,泊定卸兵。此为海战之伏线,即在此护航归途。","卸载既毕,起锚归航。约当正午,瞭见日本联合舰队十二舰自东南迎面驰至。两支主力舰队,遂决战于鸭绿江口外之黄海大鹿岛海面。"]},
+  "2":{t:"雁行横阵 · 日舰单纵阵绕攻",d:"九月十七日 午后开战",p:["北洋舰数与日略等,然航速逊、速射炮少。相遇之顷,丁汝昌令舰队变阵,列「夹缝雁行横阵」——诸舰并列成一宽约五千米之横队,以舰首朝敌,冀发定远、镇远两铁甲舰之重炮。","日司令伊东祐亨则分舰队为本队与第一游击队,以速度最快、配速射炮之新舰(吉野等)编为游击队,成单纵阵高速鱼贯。开战未几,定远首炮震塌飞桥,丁汝昌负伤堕伤,旗号中断;日第一游击队即以高速绕击北洋右翼之弱舰,抢占有利阵位。阵法之利钝,胜负已隐分于列阵之顷。"]},
+  "3":{t:"激战 · 致远邓世昌殉国",d:"九月十七日 · 鏖战约五时",p:["两军鏖战约五时,炮火蔽海。日舰以速射炮绕攻北洋右翼,超勇、扬威中弹起火,相继沉没。北洋「致远」舰弹药将尽、舰身受创、渐渐倾侧,管带邓世昌激励将士曰:「吾辈从军卫国,早置生死于度外,今日之事,有死而已!」毅然驾舰开足马力,直撞日第一游击队旗舰「吉野」,决意与之同归于尽。","不幸中途中鱼雷(一说锅炉爆裂),舰身遽沉,邓世昌与全舰二百余人俱殉国,清廷谥「壮节」;「经远」管带林永升亦战殁。日舰虽多被创——旗舰松岛及赤城、比叡、西京丸重伤——而无一沉没,终以率先撤出战场告终。"]},
+  "4":{t:"退守威海 · 失制海 · 全军覆没 · 马关",d:"1894 — 1895",p:["是役北洋损致远、经远、超勇、扬威、广甲五舰,伤亡六百余。丁汝昌率残舰退守威海卫军港,此后奉命「避战保船」,不敢再出——黄海制海权遂尽归日本,日军得以从容执行花园口、荣成湾登陆。旅顺、大连相继于冬月陷落。","次年(光绪二十一年正月,1895)日军水陆夹攻威海:陆师自荣成湾登岸夺炮台,海上以舰艇鱼雷合围,北洋残舰困守刘公岛,弹尽援绝。提督丁汝昌拒降自杀,北洋水师全军覆没。清廷求和,订中日《马关条约》,割台湾、澎湖、辽东(辽东后赎回),赔银二亿两,中国半殖民地化大大加深。"]}
 };
 const CITY={
-  dadonggou:{t:"大东沟",d:"今辽宁丹东外海",p:["黄海海战主战场。北洋护航至此,归途遇日联合舰队,鏖战五时。致远舰即于此海域冲敌中雷而沉,邓世昌殉国。"]},
-  weihai:{t:"威海卫",d:"今山东威海",p:["北洋水师军港基地。黄海战后丁汝昌率余舰退守于此;次年日军水陆夹攻,残舰困守刘公岛,弹尽,丁汝昌自杀,北洋全军覆没。"]},
-  lvshun:{t:"旅顺",d:"今辽宁大连",p:["北洋重要基地与船坞。甲午冬为日军攻陷,北洋失其修船之所,愈难支撑。"]},
-  yalu:{t:"鸭绿江口",d:"辽东与朝鲜界",p:["北洋护送运兵船所至之处。陆路平壤败军亦由此退回。海军护航归途,即于其外海大东沟遇敌。"]},
-  fengdao:{t:"丰岛",d:"今朝鲜西海岸海面",p:["战前日本不宣而战之地。日舰于此海面击沉清运兵船「高升号」,甲午战端由是而开。"]},
-  pyongyang:{t:"平壤",d:"朝鲜",p:["陆路清军与日军决战之地。清军大败,退过鸭绿江,陆战失利与海战覆没相继而来。"]}
+  dadonggou:{t:"大东沟(卸兵港)",d:"鸭绿江口西,今辽宁丹东东港(约124.15°E/39.86°N)",p:["北洋护送陆军运兵船北至此处,泊定卸兵。卸载既毕、起锚归航之际,遇日联合舰队于其外海之大鹿岛,黄海大战由是而起。"]},
+  haizhan:{t:"大鹿岛外海(海战主战场)",d:"大东沟南、鸭绿江口外黄海(约123.55°E/39.5°N)",p:["黄海海战(大东沟海战)决战海域。北洋列夹缝雁行横阵,日舰以单纵阵高速绕攻。致远舰即于此冲敌中雷而沉,邓世昌殉国;经远、超勇、扬威亦沉于此。"]},
+  yalu:{t:"鸭绿江口",d:"辽东与朝鲜界河之口",p:["北洋护送运兵船所至之处。陆路平壤败军亦由此退回。海军护航归途,即于其外海大东沟遇敌决战。"]},
+  lvshun:{t:"旅顺",d:"今辽宁大连旅顺口(约121.26°E/38.82°N)",p:["北洋水师重要基地与船坞。黄海战后为北洋修船之所;甲午冬(1894十一月)为日军攻陷,北洋失其修葺之地,愈难支撑。"]},
+  dalian:{t:"大连",d:"今辽宁大连(约121.65°E/38.92°N)",p:["辽东半岛南端要港,近旅顺。北洋护航舰队自旅顺·大连一带北出护送运兵船;甲午冬亦为日军所据。"]},
+  weihai:{t:"威海卫(刘公岛)",d:"今山东威海(约122.12°E/37.5°N)",p:["北洋水师提督衙门与军港基地,刘公岛在其港中。黄海战后丁汝昌率余舰退守于此,避战保船;次年日军水陆夹攻,残舰困守刘公岛,弹尽援绝,丁汝昌自杀,北洋全军覆没。"]},
+  chengshan:{t:"成山头·荣成",d:"山东半岛东北岬,今荣成(约122.7°E/37.4°N)",p:["山东半岛最东之岬。次年(1895)日军即自其东之荣成湾登陆,陆行西趋,自后夹攻威海卫,与海上舰队合围北洋。"]},
+  fengdao:{t:"丰岛(牙山湾外)",d:"今朝鲜西岸牙山湾外(约125.95°E/37.0°N)",p:["战前日本不宣而战之地。日舰于此海面击沉清运兵船「高升号」,击伤济远、广乙,甲午战端由是而开。"]},
+  pyongyang:{t:"平壤",d:"朝鲜(约125.75°E/39.02°N)",p:["陆路清军与日军决战之地。清军大败,退过鸭绿江。陆战失利先于海战,陆海相继而败——黄海一役即北洋护航之归途所遇。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
