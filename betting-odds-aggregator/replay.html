@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Replay & In-Play Explorer — The Odds API</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #1baf7a; --s3: #eda100;
+    --good: #006300; --bad: #d03b3b; --wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink2: #c3c2b7;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #199e70; --s3: #c98500;
+      --good: #0ca30c; --wash: rgba(57,135,229,0.12);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page); color: var(--ink); line-height: 1.55; padding: 1.5rem 1rem 4rem; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  a { color: var(--s1); }
+  h1 { font-size: 1.6rem; line-height: 1.25; }
+  h2 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .sub { color: var(--ink2); font-size: 0.92rem; }
+  .kicker { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
+  .row { display: flex; gap: 1rem 1.5rem; flex-wrap: wrap; align-items: end; margin-top: 0.6rem; }
+  .group label.head { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.25rem; }
+  input[type="text"], input[type="password"], select {
+    font: inherit; color: var(--ink); background: var(--page);
+    border: 1px solid var(--border); border-radius: 8px; padding: 0.4rem 0.6rem; min-width: 12rem;
+  }
+  button.action {
+    font: inherit; font-weight: 600; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--wash); color: var(--ink);
+  }
+  button.action:disabled { opacity: 0.45; cursor: not-allowed; }
+  .check { font-size: 0.85rem; color: var(--ink2); display: inline-flex; align-items: center; gap: 0.35rem; margin-right: 0.9rem; }
+  .check input { accent-color: var(--s1); }
+  .status { font-size: 0.85rem; color: var(--ink2); margin-top: 0.6rem; white-space: pre-wrap; }
+  .status .err { color: var(--bad); font-weight: 600; }
+  .quota { font-size: 0.8rem; color: var(--muted); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  .tablewrap { overflow-x: auto; margin-top: 0.5rem; }
+  th, td { text-align: right; padding: 0.4rem 0.55rem; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.76rem; }
+  th:first-child, td:first-child { text-align: left; }
+  td.num { font-variant-numeric: tabular-nums; }
+  .pnl-pos { color: var(--good); font-weight: 650; }
+  .pnl-neg { color: var(--bad); font-weight: 650; }
+  .linekey { display: inline-block; width: 14px; height: 2px; margin: 0 0.4rem 0.2rem 0; vertical-align: middle; border-radius: 1px; }
+  .legend { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--ink2); margin: 0.4rem 0 0.5rem; }
+  .chart-box { position: relative; }
+  .chart-box svg { display: block; width: 100%; height: auto; }
+  .tooltip {
+    position: absolute; pointer-events: none; z-index: 10; min-width: 230px; max-width: 330px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18); padding: 0.55rem 0.7rem; font-size: 0.78rem; display: none;
+  }
+  .tooltip .t-head { color: var(--muted); font-size: 0.72rem; margin-bottom: 0.3rem; }
+  .tooltip .t-row { display: flex; justify-content: space-between; gap: 1rem; }
+  .tooltip .t-row b { font-variant-numeric: tabular-nums; }
+  .panel { border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; background: var(--page); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 0.75rem; }
+  .hero { font-size: 1.8rem; font-weight: 700; }
+  .hero.good { color: var(--good); }
+  .warn { border-left: 3px solid var(--s3); padding: 0.5rem 0.8rem; margin-top: 0.75rem; background: var(--page); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--ink2); }
+  .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; }
+  progress { width: 100%; height: 8px; margin-top: 0.5rem; }
+  details.tableview summary { cursor: pointer; color: var(--ink2); font-size: 0.85rem; margin-top: 0.5rem; }
+  code { background: var(--page); border: 1px solid var(--border); border-radius: 4px; padding: 0 0.3rem; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Betting odds aggregator · The Odds API integration</p>
+    <h1>Match replay &amp; in-play explorer</h1>
+    <p class="sub">Replays real multi-bookmaker odds through time using
+      <a href="https://the-odds-api.com/" rel="noopener">The Odds API</a>'s historical snapshots (5-minute grid),
+      including <b>in-play prices during the match</b> — where lines are most volatile and books reprice at different
+      speeds after goals. Default target: Argentina vs Cape Verde, WC 2026 Round of 32 (Jul 3, 2026, kickoff 22:00 UTC;
+      1–1 at 90', Argentina 3–2 a.e.t.). <a href="./index.html">← curated pre-match analysis</a></p>
+  </header>
+
+  <section aria-label="API key and fetch controls">
+    <h2>1 · Connect &amp; fetch</h2>
+    <p class="sub">Your API key is stored only in this browser (<code>localStorage</code>) and sent only to
+    <code>api.the-odds-api.com</code> over HTTPS. It is never sent anywhere else and is not part of this page's code.
+    Historical requests cost ~10 credits × regions per snapshot — the cost estimate below updates before you commit.</p>
+    <div class="row">
+      <div class="group"><label class="head" for="api-key">The Odds API key</label>
+        <input type="password" id="api-key" autocomplete="off" placeholder="paste key"></div>
+      <div class="group"><label class="head" for="preset">Snapshot series</label>
+        <select id="preset">
+          <option value="inplay" selected>In-play: 21:55→00:45 UTC, 5-min (35 snaps)</option>
+          <option value="runup">Run-up: Jul 3 16:00→22:00 UTC, 30-min (13 snaps)</option>
+          <option value="prematch">Pre-match: Jun 28→Jul 3, 6-hourly (21 snaps)</option>
+          <option value="all">All three series (69 snaps)</option>
+        </select></div>
+      <div class="group"><label class="head">Regions (multiplies cost)</label>
+        <label class="check"><input type="checkbox" id="r-us" checked> us</label>
+        <label class="check"><input type="checkbox" id="r-us2"> us2</label>
+        <label class="check"><input type="checkbox" id="r-uk"> uk</label>
+        <label class="check"><input type="checkbox" id="r-eu"> eu</label></div>
+    </div>
+    <div class="row">
+      <button class="action" id="btn-event">Find event (1 credit)</button>
+      <button class="action" id="btn-fetch" disabled>Fetch snapshots</button>
+      <button class="action" id="btn-abort" disabled>Stop</button>
+      <span class="quota" id="cost-note"></span>
+    </div>
+    <div class="row">
+      <button class="action" id="btn-save" disabled>Download dataset (JSON)</button>
+      <label class="action" style="display:inline-block">Load saved dataset…
+        <input type="file" id="file-load" accept=".json" hidden></label>
+      <span class="quota" id="quota"></span>
+    </div>
+    <progress id="prog" value="0" max="1" hidden></progress>
+    <div class="status" id="status">Idle. Paste a key and click “Find event”, or load a previously saved dataset (free).</div>
+    <div class="warn"><b>Accuracy notes.</b> Snapshots are The Odds API's 5-minute captures — real bookmaker prices with a
+    per-book <code>last_update</code>, but sampled: moves between grid points are invisible, and a book whose
+    <code>last_update</code> is old inside a snapshot is showing a stale price. The scanner below treats staleness
+    explicitly. Historical endpoints require a paid The Odds API plan; error messages from the API are shown verbatim.</div>
+  </section>
+
+  <section aria-label="Implied probability chart" id="sec-chart" hidden>
+    <h2>2 · Implied probability through the match</h2>
+    <p class="sub" id="chart-sub"></p>
+    <div class="legend" id="legend"></div>
+    <div class="chart-box" id="chart-box">
+      <svg id="chart" role="img" aria-label="Implied probability per outcome over time. Median line per outcome with min-to-max band across bookmakers; goal and period markers annotated. A data table with the same values follows."></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+    <div class="legend" id="marker-note"></div>
+    <details class="tableview"><summary>View snapshot data as a table</summary>
+      <div class="tablewrap"><table id="chart-table"></table></div></details>
+  </section>
+
+  <section aria-label="Volatility" id="sec-vol" hidden>
+    <h2>3 · Volatility per snapshot</h2>
+    <p class="sub">Largest change in median implied probability (any outcome) versus the previous snapshot. Spikes line
+    up with goals — this is where books disagree most and reprice at different speeds.</p>
+    <div class="chart-box"><svg id="vol-chart" role="img" aria-label="Bar strip of per-snapshot volatility"></svg></div>
+  </section>
+
+  <section aria-label="Arbitrage scan" id="sec-arb" hidden>
+    <h2>4 · Cross-book scan, snapshot by snapshot</h2>
+    <p class="sub">For every snapshot: best price per outcome across books → implied total. Totals under 100% are
+    candidate arbitrages. The freshness filter drops books whose <code>last_update</code> lags the snapshot — the honest
+    filter that kills most phantom “arbs”.</p>
+    <div class="row">
+      <label class="check"><input type="checkbox" id="fresh-toggle" checked> Require book updated within</label>
+      <select id="fresh-window"><option value="90">90 s</option><option value="180">3 min</option>
+        <option value="300" selected>5 min</option><option value="900">15 min</option></select>
+      <span class="quota">of the snapshot time</span>
+    </div>
+    <div class="grid2" id="arb-heroes"></div>
+    <div class="tablewrap"><table id="arb-table"></table></div>
+    <p class="footnote">“Stale spread” = seconds between the oldest and newest <code>last_update</code> among the legs —
+    large values mean the “opportunity” likely mixes prices from different moments. In-play, even genuine dislocations
+    last seconds and books may suspend markets; treat every row as a candidate, not a fill.</p>
+  </section>
+</div>
+
+<script>
+"use strict";
+
+/* ------------------------------------------------------------ constants --- */
+
+const SPORT = "soccer_fifa_world_cup";
+const EVENT_DATE = "2026-07-03T21:00:00Z";        // events-list snapshot time for discovery
+const TEAM_RE = [/argentina/i, /cape verde|cabo verde/i];
+const KICKOFF = Date.parse("2026-07-03T22:00:00Z");
+
+// Wall-clock annotations. Goal minutes are exact; conversion to wall clock is
+// approximate (halftime/stoppage estimated), and labeled as such in the UI.
+const MARKERS = [
+  { t: "2026-07-03T22:00:00Z", label: "KO" },
+  { t: "2026-07-03T22:29:00Z", label: "⚽ Messi 1–0 (29')" },
+  { t: "2026-07-03T22:47:00Z", label: "HT" },
+  { t: "2026-07-03T23:17:00Z", label: "⚽ Duarte 1–1 (59')" },
+  { t: "2026-07-03T23:50:00Z", label: "FT 90' (1–1)" },
+  { t: "2026-07-03T23:56:00Z", label: "⚽ Martínez 2–1 (92')" },
+  { t: "2026-07-04T00:12:00Z", label: "⚽ Lopes Cabral 2–2 (103')" },
+  { t: "2026-07-04T00:21:00Z", label: "⚽ Borges o.g. 3–2 (111')" },
+  { t: "2026-07-04T00:37:00Z", label: "Final" },
+].map((m) => ({ ...m, ms: Date.parse(m.t) }));
+
+function gridTimes(startIso, endIso, stepMin) {
+  const out = [];
+  for (let t = Date.parse(startIso); t <= Date.parse(endIso); t += stepMin * 60000) out.push(new Date(t).toISOString().replace(".000", ""));
+  return out;
+}
+const SERIES = {
+  inplay:   () => gridTimes("2026-07-03T21:55:00Z", "2026-07-04T00:45:00Z", 5),
+  runup:    () => gridTimes("2026-07-03T16:00:00Z", "2026-07-03T22:00:00Z", 30),
+  prematch: () => gridTimes("2026-06-28T12:00:00Z", "2026-07-03T12:00:00Z", 360),
+  all:      () => [...SERIES.prematch(), ...SERIES.runup(), ...SERIES.inplay()],
+};
+
+/* ---------------------------------------------------------------- state --- */
+
+const $ = (id) => document.getElementById(id);
+const state = {
+  eventId: null, home: "Argentina", away: "Cape Verde",
+  snapshots: [],           // [{ts, requestedAt, bookmakers:[{key,title,last_update,h2h:{home,draw,away}(decimal)}]}]
+  aborted: false,
+};
+
+/* -------------------------------------------------------------- helpers --- */
+
+function esc(s) { return String(s); } // all DOM insertion below uses textContent via el()
+function el(tag, attrs, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === "class") node.className = v; else node[k] = v;
+  }
+  for (const c of children) {
+    if (c === null || c === undefined) continue;
+    node.append(c.nodeType ? c : document.createTextNode(String(c)));
+  }
+  return node;
+}
+function setStatus(msg, isErr) {
+  const s = $("status");
+  s.replaceChildren(isErr ? el("span", { class: "err" }, msg) : document.createTextNode(msg));
+}
+function fmtAmerican(dec) {
+  if (!dec || !isFinite(dec)) return "—";
+  const a = dec >= 2 ? 100 * (dec - 1) : -100 / (dec - 1);
+  const r = Math.round(a);
+  return (r > 0 ? "+" : "−") + Math.abs(r);
+}
+function fmtTime(ms) {
+  return new Date(ms).toISOString().slice(5, 16).replace("T", " ") + "Z";
+}
+function regions() {
+  return ["us", "us2", "uk", "eu"].filter((r) => $("r-" + r).checked);
+}
+function updateCost() {
+  const n = SERIES[$("preset").value]().length;
+  const r = Math.max(1, regions().length);
+  $("cost-note").textContent = `~${n} requests ≈ ${n * 10 * r} credits (${r} region${r > 1 ? "s" : ""})`;
+}
+function showQuota(headers) {
+  const rem = headers.get("x-requests-remaining"), used = headers.get("x-requests-used");
+  if (rem !== null) $("quota").textContent = `API quota — used: ${used}, remaining: ${rem}`;
+}
+const seriesCss = ["--s1", "--s2", "--s3"];
+function color(i) { return getComputedStyle(document.documentElement).getPropertyValue(seriesCss[i]).trim(); }
+function outcomes() {
+  return [
+    { key: "home", label: state.home }, { key: "draw", label: "Draw" }, { key: "away", label: state.away },
+  ];
+}
+
+/* ------------------------------------------------------------ API access --- */
+
+async function api(path, params) {
+  const key = $("api-key").value.trim();
+  if (!key) throw new Error("No API key entered.");
+  localStorage.setItem("odds-api-key", key);
+  const u = new URL("https://api.the-odds-api.com" + path);
+  Object.entries(params).forEach(([k, v]) => u.searchParams.set(k, v));
+  u.searchParams.set("apiKey", key);
+  const res = await fetch(u);
+  showQuota(res.headers);
+  if (!res.ok) {
+    let msg = `HTTP ${res.status}`;
+    try { const j = await res.json(); msg += ` — ${j.message || JSON.stringify(j)}`; } catch (e) { /* body not JSON */ }
+    throw new Error(msg);
+  }
+  return res.json();
+}
+
+async function findEvent() {
+  setStatus("Looking up historical events list…");
+  try {
+    const j = await api(`/v4/historical/sports/${SPORT}/events`, { date: EVENT_DATE });
+    const events = j.data || [];
+    const ev = events.find((e) =>
+      TEAM_RE[0].test(e.home_team + " " + e.away_team) && TEAM_RE[1].test(e.home_team + " " + e.away_team));
+    if (!ev) {
+      setStatus(`Event not found among ${events.length} events at ${j.timestamp}. ` +
+        `Teams seen: ` + events.slice(0, 12).map((e) => `${e.home_team}–${e.away_team}`).join("; "), true);
+      return;
+    }
+    state.eventId = ev.id; state.home = ev.home_team; state.away = ev.away_team;
+    setStatus(`Found: ${ev.home_team} vs ${ev.away_team}, commence ${ev.commence_time}, id ${ev.id}. ` +
+      `Snapshot list timestamp: ${j.timestamp}. Ready to fetch.`);
+    $("btn-fetch").disabled = false;
+  } catch (e) { setStatus("Event lookup failed: " + e.message, true); }
+}
+
+async function fetchSeries() {
+  const times = SERIES[$("preset").value]();
+  const regs = regions().join(",");
+  if (!regs) { setStatus("Pick at least one region.", true); return; }
+  state.aborted = false;
+  $("btn-fetch").disabled = true; $("btn-abort").disabled = false;
+  const prog = $("prog"); prog.hidden = false; prog.max = times.length; prog.value = 0;
+  const seen = new Set(state.snapshots.map((s) => s.ts));
+  let ok = 0, skipped = 0, failed = 0;
+  for (let i = 0; i < times.length; i++) {
+    if (state.aborted) break;
+    prog.value = i + 1;
+    try {
+      const j = await api(`/v4/historical/sports/${SPORT}/events/${state.eventId}/odds`,
+        { regions: regs, markets: "h2h", oddsFormat: "decimal", date: times[i] });
+      const ts = j.timestamp;
+      setStatus(`Fetching ${i + 1}/${times.length} — requested ${times[i]}, got snapshot ${ts}`);
+      if (seen.has(ts)) { skipped++; continue; }
+      seen.add(ts);
+      const data = j.data || {};
+      const books = (data.bookmakers || []).map((b) => {
+        const mkt = (b.markets || []).find((m) => m.key === "h2h");
+        if (!mkt) return null;
+        const q = {};
+        for (const o of mkt.outcomes || []) {
+          if (o.name === state.home) q.home = o.price;
+          else if (o.name === state.away) q.away = o.price;
+          else if (/^draw$/i.test(o.name)) q.draw = o.price;
+        }
+        if (q.home === undefined || q.draw === undefined || q.away === undefined) return null;
+        return { key: b.key, title: b.title, last_update: mkt.last_update || b.last_update, h2h: q };
+      }).filter(Boolean);
+      state.snapshots.push({ ts, requestedAt: times[i], bookmakers: books });
+      ok++;
+    } catch (e) {
+      failed++;
+      setStatus(`Snapshot ${times[i]} failed: ${e.message} (continuing)`, true);
+      if (/HTTP 401|HTTP 403|OUT_OF_USAGE|plan/i.test(e.message)) { state.aborted = true; break; }
+    }
+  }
+  state.snapshots.sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts));
+  prog.hidden = true; $("btn-fetch").disabled = false; $("btn-abort").disabled = true;
+  $("btn-save").disabled = state.snapshots.length === 0;
+  setStatus(`Done. ${ok} new snapshots (${skipped} duplicates skipped, ${failed} failed). ` +
+    `Total in memory: ${state.snapshots.length}. Download the dataset to avoid re-spending credits.`);
+  renderAll();
+}
+
+/* ------------------------------------------------------- dataset save/load --- */
+
+function saveDataset() {
+  const payload = {
+    generator: "betting-odds-aggregator/replay.html",
+    api: "the-odds-api.com v4 historical", sport: SPORT,
+    eventId: state.eventId, home: state.home, away: state.away,
+    savedAt: new Date().toISOString(), snapshots: state.snapshots,
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 1)], { type: "application/json" });
+  const a = el("a", { href: URL.createObjectURL(blob), download: "arg-cpv-odds-snapshots.json" });
+  document.body.append(a); a.click(); a.remove();
+}
+function loadDataset(file) {
+  const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const j = JSON.parse(rd.result);
+      if (!Array.isArray(j.snapshots)) throw new Error("no snapshots array");
+      state.eventId = j.eventId || state.eventId;
+      state.home = j.home || state.home; state.away = j.away || state.away;
+      const seen = new Set(state.snapshots.map((s) => s.ts));
+      j.snapshots.forEach((s) => { if (!seen.has(s.ts)) state.snapshots.push(s); });
+      state.snapshots.sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts));
+      $("btn-save").disabled = state.snapshots.length === 0;
+      setStatus(`Loaded ${j.snapshots.length} snapshots from file (total ${state.snapshots.length}).`);
+      renderAll();
+    } catch (e) { setStatus("Could not parse file: " + e.message, true); }
+  };
+  rd.readAsText(file);
+}
+
+/* ------------------------------------------------------------- analytics --- */
+
+function medianBand(snap, key) {
+  const vals = snap.bookmakers.map((b) => 1 / b.h2h[key]).sort((a, b) => a - b);
+  if (!vals.length) return null;
+  const mid = vals.length >> 1;
+  const med = vals.length % 2 ? vals[mid] : (vals[mid - 1] + vals[mid]) / 2;
+  return { med, min: vals[0], max: vals[vals.length - 1], n: vals.length };
+}
+
+function scanArbs() {
+  const freshOn = $("fresh-toggle").checked;
+  const windowSec = Number($("fresh-window").value);
+  const rows = [];
+  for (const snap of state.snapshots) {
+    const tsMs = Date.parse(snap.ts);
+    const eligible = snap.bookmakers.filter((b) =>
+      !freshOn || !b.last_update || (tsMs - Date.parse(b.last_update)) / 1000 <= windowSec);
+    if (eligible.length < 2) continue;
+    const legs = {};
+    let all = true;
+    for (const key of ["home", "draw", "away"]) {
+      let best = null;
+      for (const b of eligible) {
+        const d = b.h2h[key];
+        if (d && (!best || d > best.dec)) best = { dec: d, book: b.title, upd: b.last_update };
+      }
+      if (!best) { all = false; break; }
+      legs[key] = best;
+    }
+    if (!all) continue;
+    const total = 1 / legs.home.dec + 1 / legs.draw.dec + 1 / legs.away.dec;
+    const upds = ["home", "draw", "away"].map((k) => Date.parse(legs[k].upd || snap.ts));
+    rows.push({
+      ts: snap.ts, total, legs, books: eligible.length,
+      staleSpread: (Math.max(...upds) - Math.min(...upds)) / 1000,
+    });
+  }
+  return rows;
+}
+
+/* --------------------------------------------------------------- charts --- */
+
+const NS = "http://www.w3.org/2000/svg";
+function mk(tag, attrs) { const n = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v); return n; }
+
+function renderChart() {
+  const snaps = state.snapshots;
+  const svg = $("chart"); svg.replaceChildren();
+  if (snaps.length < 2) return;
+  const W = 920, H = 400, m = { t: 42, r: 26, b: 34, l: 46 };
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const t0 = Date.parse(snaps[0].ts), t1 = Date.parse(snaps[snaps.length - 1].ts);
+  const X = (ms) => m.l + (iw * (ms - t0)) / (t1 - t0);
+  const Y = (p) => m.t + ih * (1 - p);
+  const css = getComputedStyle(document.documentElement);
+  const muted = css.getPropertyValue("--muted").trim(), grid = css.getPropertyValue("--grid").trim(),
+        axis = css.getPropertyValue("--axis").trim(), ink2 = css.getPropertyValue("--ink2").trim();
+
+  for (let p = 0; p <= 100; p += 25) {
+    svg.append(mk("line", { x1: m.l, x2: W - m.r, y1: Y(p / 100), y2: Y(p / 100), stroke: grid, "stroke-width": 1 }));
+    const t = mk("text", { x: m.l - 8, y: Y(p / 100) + 4, "text-anchor": "end", "font-size": 11.5, fill: muted });
+    t.textContent = p + "%"; svg.append(t);
+  }
+  svg.append(mk("line", { x1: m.l, x2: W - m.r, y1: Y(0), y2: Y(0), stroke: axis, "stroke-width": 1 }));
+  const hourMs = 3600000;
+  for (let t = Math.ceil(t0 / hourMs) * hourMs; t <= t1; t += hourMs) {
+    const tx = mk("text", { x: X(t), y: H - 12, "text-anchor": "middle", "font-size": 10.5, fill: muted });
+    tx.textContent = new Date(t).toISOString().slice(11, 16) + "Z"; svg.append(tx);
+  }
+
+  // period/goal markers (approximate wall-clock)
+  MARKERS.filter((mk_) => mk_.ms >= t0 && mk_.ms <= t1).forEach((mark, i) => {
+    svg.append(mk("line", { x1: X(mark.ms), x2: X(mark.ms), y1: m.t - 6, y2: m.t + ih, stroke: axis, "stroke-width": 1, "stroke-dasharray": "none", opacity: 0.85 }));
+    const t = mk("text", { x: X(mark.ms), y: m.t - 10 - (i % 2) * 13, "text-anchor": "middle", "font-size": 10, fill: ink2, "font-weight": 600 });
+    t.textContent = mark.label; svg.append(t);
+  });
+
+  const OUT = outcomes();
+  OUT.forEach((o, oi) => {
+    const c = color(oi);
+    const pts = snaps.map((s) => ({ ms: Date.parse(s.ts), b: medianBand(s, o.key) })).filter((p) => p.b);
+    if (!pts.length) return;
+    const band = pts.map((p, k) => `${k ? "L" : "M"}${X(p.ms)},${Y(p.b.max)}`).join("") +
+      pts.slice().reverse().map((p) => `L${X(p.ms)},${Y(p.b.min)}`).join("") + "Z";
+    svg.append(mk("path", { d: band, fill: c, opacity: 0.1, stroke: "none" }));
+    const line = pts.map((p, k) => `${k ? "L" : "M"}${X(p.ms)},${Y(p.b.med)}`).join("");
+    svg.append(mk("path", { d: line, fill: "none", stroke: c, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+  });
+
+  const cross = mk("line", { y1: m.t, y2: m.t + ih, stroke: axis, "stroke-width": 1, visibility: "hidden" });
+  svg.append(cross);
+  const tip = $("tooltip"), box = $("chart-box");
+  function nearest(ms) {
+    let best = 0, bd = Infinity;
+    snaps.forEach((s, i) => { const d = Math.abs(Date.parse(s.ts) - ms); if (d < bd) { bd = d; best = i; } });
+    return best;
+  }
+  function show(i, cx, cy) {
+    const s = snaps[i], ms = Date.parse(s.ts);
+    cross.setAttribute("x1", X(ms)); cross.setAttribute("x2", X(ms)); cross.setAttribute("visibility", "visible");
+    tip.replaceChildren(el("div", { class: "t-head" }, `${fmtTime(ms)} — ${s.bookmakers.length} books`));
+    OUT.forEach((o, oi) => {
+      const b = medianBand(s, o.key);
+      if (!b) return;
+      const row = el("div", { class: "t-row" });
+      const left = el("span", null);
+      left.append(el("span", { class: "linekey", style: `background:${color(oi)}` }), o.label);
+      row.append(left, el("b", null, `${(b.med * 100).toFixed(1)}% (${(b.min * 100).toFixed(1)}–${(b.max * 100).toFixed(1)})`));
+      tip.append(row);
+    });
+    tip.style.display = "block";
+    const bb = box.getBoundingClientRect();
+    tip.style.left = Math.max(6, Math.min(cx - bb.left + 14, bb.width - tip.offsetWidth - 6)) + "px";
+    tip.style.top = Math.min(cy - bb.top + 14, bb.height - tip.offsetHeight - 6) + "px";
+  }
+  const hit = mk("rect", { x: m.l, y: m.t, width: iw, height: ih, fill: "transparent" });
+  hit.addEventListener("pointermove", (e) => {
+    const bb = svg.getBoundingClientRect();
+    const ms = t0 + ((e.clientX - bb.left) / bb.width * W - m.l) / iw * (t1 - t0);
+    show(nearest(ms), e.clientX, e.clientY);
+  });
+  hit.addEventListener("pointerleave", () => { cross.setAttribute("visibility", "hidden"); tip.style.display = "none"; });
+  svg.append(hit);
+
+  $("legend").replaceChildren(...OUT.map((o, i) => {
+    const item = el("span", null);
+    item.append(el("span", { class: "linekey", style: `background:${color(i)}` }), `${o.label} (median, band = min–max across books)`);
+    return item;
+  }));
+  $("marker-note").replaceChildren(el("span", null,
+    "Goal/period markers are exact by match clock; wall-clock placement is approximate (halftime/stoppage estimated)."));
+  $("chart-sub").textContent = `${snaps.length} snapshots, ${fmtTime(t0)} → ${fmtTime(t1)}. ` +
+    `Median implied probability across bookmakers per outcome; shaded band spans the cheapest to dearest book.`;
+
+  const ct = $("chart-table"); ct.replaceChildren();
+  const head = el("tr", null, el("th", null, "Snapshot (UTC)"), el("th", null, "Books"));
+  OUT.forEach((o) => head.append(el("th", null, `${o.label} median`), el("th", null, `${o.label} min–max`)));
+  ct.append(el("thead", null, head));
+  const tb = el("tbody", null);
+  snaps.forEach((s) => {
+    const tr = el("tr", null, el("td", null, fmtTime(Date.parse(s.ts))), el("td", { class: "num" }, s.bookmakers.length));
+    OUT.forEach((o) => {
+      const b = medianBand(s, o.key);
+      tr.append(el("td", { class: "num" }, b ? (b.med * 100).toFixed(1) + "%" : "—"),
+        el("td", { class: "num" }, b ? `${(b.min * 100).toFixed(1)}–${(b.max * 100).toFixed(1)}%` : "—"));
+    });
+    tb.append(tr);
+  });
+  ct.append(tb);
+}
+
+function renderVol() {
+  const snaps = state.snapshots;
+  const svg = $("vol-chart"); svg.replaceChildren();
+  if (snaps.length < 3) return;
+  const W = 920, H = 140, m = { t: 10, r: 26, b: 26, l: 46 };
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const t0 = Date.parse(snaps[0].ts), t1 = Date.parse(snaps[snaps.length - 1].ts);
+  const X = (ms) => m.l + (iw * (ms - t0)) / (t1 - t0);
+  const css = getComputedStyle(document.documentElement);
+  const muted = css.getPropertyValue("--muted").trim(), axis = css.getPropertyValue("--axis").trim();
+  const vols = [];
+  for (let i = 1; i < snaps.length; i++) {
+    let v = 0;
+    for (const key of ["home", "draw", "away"]) {
+      const a = medianBand(snaps[i - 1], key), b = medianBand(snaps[i], key);
+      if (a && b) v = Math.max(v, Math.abs(b.med - a.med));
+    }
+    vols.push({ ms: Date.parse(snaps[i].ts), v });
+  }
+  const vmax = Math.max(0.02, ...vols.map((d) => d.v));
+  const Y = (v) => m.t + ih * (1 - v / vmax);
+  svg.append(mk("line", { x1: m.l, x2: W - m.r, y1: m.t + ih, y2: m.t + ih, stroke: axis, "stroke-width": 1 }));
+  [0, vmax].forEach((v) => {
+    const t = mk("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end", "font-size": 10.5, fill: muted });
+    t.textContent = (v * 100).toFixed(0) + "pp"; svg.append(t);
+  });
+  const barW = Math.max(2, iw / vols.length - 2);
+  vols.forEach((d) => {
+    svg.append(mk("rect", { x: X(d.ms) - barW / 2, y: Y(d.v), width: barW, height: m.t + ih - Y(d.v), rx: 2, fill: color(0) }));
+  });
+  MARKERS.filter((mk_) => mk_.ms >= t0 && mk_.ms <= t1 && mk_.label.startsWith("⚽")).forEach((mark) => {
+    svg.append(mk("line", { x1: X(mark.ms), x2: X(mark.ms), y1: m.t, y2: m.t + ih, stroke: axis, "stroke-width": 1 }));
+  });
+}
+
+function renderArbs() {
+  const rows = scanArbs();
+  const heroes = $("arb-heroes"); heroes.replaceChildren();
+  const table = $("arb-table"); table.replaceChildren();
+  if (!rows.length) return;
+  const arbs = rows.filter((r) => r.total < 1);
+  const best = rows.slice().sort((a, b) => a.total - b.total)[0];
+  heroes.append(
+    el("div", { class: "panel" }, el("h3", null, "Snapshots scanned"),
+      el("div", { class: "hero" }, String(rows.length)),
+      el("div", { class: "footnote" }, "with ≥2 fresh books quoting all three outcomes")),
+    el("div", { class: "panel" }, el("h3", null, "Candidate arbs (total < 100%)"),
+      el("div", { class: "hero " + (arbs.length ? "good" : "") }, String(arbs.length)),
+      el("div", { class: "footnote" }, arbs.length ? "see rows below — check stale spread before believing" : "none under the current freshness filter")),
+    el("div", { class: "panel" }, el("h3", null, "Tightest snapshot"),
+      el("div", { class: "hero " + (best.total < 1 ? "good" : "") }, (best.total * 100).toFixed(2) + "%"),
+      el("div", { class: "footnote" }, `at ${fmtTime(Date.parse(best.ts))}`)));
+
+  table.append(el("thead", null, el("tr", null,
+    el("th", null, "Snapshot (UTC)"), el("th", null, "Best total"),
+    el("th", null, state.home), el("th", null, "Draw"), el("th", null, state.away),
+    el("th", null, "Books"), el("th", null, "Stale spread"))));
+  const tb = el("tbody", null);
+  const shown = rows.slice().sort((a, b) => a.total - b.total).slice(0, 25);
+  shown.forEach((r) => {
+    tb.append(el("tr", null,
+      el("td", null, fmtTime(Date.parse(r.ts))),
+      el("td", { class: "num " + (r.total < 1 ? "pnl-pos" : "") }, (r.total * 100).toFixed(2) + "%"),
+      ...["home", "draw", "away"].map((k) =>
+        el("td", { class: "num" }, `${fmtAmerican(r.legs[k].dec)} @ ${r.legs[k].book}`)),
+      el("td", { class: "num" }, r.books),
+      el("td", { class: "num" }, r.staleSpread.toFixed(0) + " s")));
+  });
+  table.append(tb);
+}
+
+function renderAll() {
+  const has = state.snapshots.length >= 2;
+  $("sec-chart").hidden = !has; $("sec-vol").hidden = !has; $("sec-arb").hidden = !has;
+  if (!has) return;
+  renderChart(); renderVol(); renderArbs();
+}
+
+/* ----------------------------------------------------------------- wire --- */
+
+$("api-key").value = localStorage.getItem("odds-api-key") || "";
+$("btn-event").addEventListener("click", findEvent);
+$("btn-fetch").addEventListener("click", fetchSeries);
+$("btn-abort").addEventListener("click", () => { state.aborted = true; });
+$("btn-save").addEventListener("click", saveDataset);
+$("file-load").addEventListener("change", (e) => { if (e.target.files[0]) loadDataset(e.target.files[0]); });
+$("preset").addEventListener("change", updateCost);
+["r-us", "r-us2", "r-uk", "r-eu"].forEach((id) => $(id).addEventListener("change", updateCost));
+["fresh-toggle", "fresh-window"].forEach((id) => $(id).addEventListener("change", renderArbs));
+if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderAll);
+updateCost();
+</script>
+</body>
+</html>
