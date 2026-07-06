@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>太平天国·天京陷落 · 咸丰元年至同治三年(1851–1864)</title>
+<title>太平天国 · 天京陷落(1851–1864)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -30,7 +30,9 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.13);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.28em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,25 +42,39 @@
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .siegeline{fill:none;stroke:var(--enemy);stroke-width:6;opacity:.26;stroke-linecap:round}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
-  .camp{fill:var(--enemy);opacity:.9}
+  .camp{fill:var(--enemy);opacity:.9}.campj{fill:var(--advance);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
   .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .breach{fill:none;stroke:var(--enemy);stroke-width:2.4;stroke-linejoin:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .capnote{margin:7px 2px 0;font-size:11px;color:var(--faint);font-style:italic;letter-spacing:.03em}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1600;stroke-dashoffset:1600;animation:draw 1.9s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +84,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>平</span><span>定</span><span>洪</span><span>杨</span></div>
+  <a class="navback" href="index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>天</span><span>京</span><span>陷</span><span>落</span></div>
   <header>
-    <h1>太平天国·天京陷落</h1>
-    <div class="sub">清咸丰元年至同治三年(1851–1864)　　<i>清 曾国藩·曾国荃</i> 掘壕破天京 · <b>太平天国 洪秀全</b>亡·东南残破</div>
+    <h1>太平天国 · 天京陷落</h1>
+    <div class="sub">清咸丰元年至同治三年(1851–1864)　<i>太平天国 洪秀全·杨秀清·石达开·李秀成·陈玉成</i> 起自金田 · 定都天京　·　<b>清 曾国藩·曾国荃湘军</b> 先取安庆 · 掘壕合围破天京</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 洪杨据东南</button>
-    <button data-p="1">湘军兴 · 争上游克安庆</button>
-    <button data-p="2">淮浙并进 · 断其财赋</button>
-    <button data-p="3">合围雨花台 · 破天京</button>
+    <button class="on" data-p="all">全图 · 起金田 · 定天京 · 湘军合围</button>
+    <button data-p="1">① 金田起义 · 顺江东下 · 定都天京</button>
+    <button data-p="2">② 北伐西征 · 天京事变内讧</button>
+    <button data-p="3">③ 陈李支撑 · 东征苏常 · 阻于上海</button>
+    <button data-p="4">④ 取安庆 · 围雨花台 · 地道破天京</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="太平天国天京陷落形势图,含太平天国清湘军疆界、长江大运河太湖与天京安庆苏州等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="太平天国天京陷落形势图,横跨长江中下游与广西:金田在西南(起义),永安桂林全州长沙武昌居中南,九江安庆天京在长江中下游,苏州常州上海杭州在东南,大渡河远在图外西(石达开覆灭),天津在图外北(北伐终点);青为所追踪之太平天国军,朱为清·湘淮军。示金田流动起事顺江东下定都天京、北伐西征与天京事变内讧、陈玉成李秀成东征苏常受阻上海、湘军先取安庆而后掘地道轰塌太平门破天京之势">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,90 +107,196 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:太平天国据东南江浙皖(东),清·湘军自上游四方来(西/北) -->
-    <path d="M 470,0 C 500,110 520,200 540,300 C 556,380 560,470 540,560 C 532,600 524,620 520,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 500,110 520,200 540,300 C 556,380 560,470 540,560 C 532,600 524,620 520,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 500,110 520,200 540,300 C 556,380 560,470 540,560 C 532,600 524,620 520,640"/>
-    <text class="realm q" x="700" y="130" font-size="30">太平天国(据东南)</text>
-    <text class="realm j" x="120" y="130" font-size="30">清 · 湘军(自上游)</text>
+    <!-- ══ 约界:太平天国据长江下游·东南(东北,青),清·湘军自上游及四方来会(西·北,朱);界随战局迭有进退,非实有画界 ══ -->
+    <path d="M 430,0 C 452,90 470,160 452,230 C 438,290 470,360 512,430 C 548,492 560,560 556,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 430,0 C 452,90 470,160 452,230 C 438,290 470,360 512,430 C 548,492 560,560 556,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 430,0 C 452,90 470,160 452,230 C 438,290 470,360 512,430 C 548,492 560,560 556,640"/>
+    <text class="realm q" x="120" y="118" font-size="30">清 · 湘 军</text>
+    <text class="cname s" x="126" y="142" style="fill:var(--enemy);opacity:.6">京师 · 上游 · 四方来会</text>
+    <text class="realm j" x="690" y="322" font-size="30">太平天国</text>
+    <text class="cname s" x="696" y="346" style="fill:var(--advance);opacity:.6">据长江下游 · 都天京</text>
 
-    <!-- 长江:自上游(西·武昌安庆)东下天京入海 -->
-    <path class="river" stroke-width="5.5" d="M 90,300 C 200,320 300,352 420,378 C 540,404 640,404 720,394 C 800,384 880,378 970,392"/>
-    <!-- 大运河:纵贯南北,天京之东 -->
-    <path class="river" stroke-width="2.6" d="M 770,80 C 760,180 758,300 762,394 C 766,470 780,540 800,620"/>
+    <!-- ══ 水系 ══ -->
+    <!-- 长江:自上游(西)东下,历武昌九江安庆天京而东注于海 -->
+    <path class="river" stroke-width="5" d="M 118,196 C 200,204 290,214 344,216 C 400,218 420,252 442,258 C 470,266 490,232 500,224 C 540,205 566,168 600,150 C 650,146 690,150 716,164 C 780,196 848,190 906,182"/>
+    <!-- 大运河:纵贯东南,过镇江常州苏州而南下杭州 -->
+    <path class="river" stroke-width="2.4" d="M 690,74 C 682,110 674,140 668,156 C 690,182 694,210 690,236 C 684,272 680,300 682,332"/>
     <!-- 太湖 -->
-    <path class="river" stroke-width="1.4" d="M 840,470 C 812,462 796,478 800,502 C 804,528 830,538 856,528 C 880,518 884,486 864,472 C 856,466 848,468 840,470 Z" fill="rgba(95,127,136,.30)"/>
-    <text class="rname" x="300" y="342" transform="rotate(9 300 342)">长 江</text>
-    <text class="rname" x="726" y="230" transform="rotate(86 726 230)" style="font-size:11px">大运河</text>
-    <text class="rname" x="828" y="504" style="font-size:10.5px">太湖</text>
+    <path class="river" style="fill:var(--water);opacity:.42;stroke:none" d="M 650,190 C 640,184 630,196 634,210 C 638,226 660,230 676,222 C 690,214 688,196 674,189 C 664,185 656,186 650,190 Z"/>
+    <text class="rname" x="250" y="206" transform="rotate(3 250 206)" style="font-size:13px">长　江</text>
+    <text class="rname" x="704" y="140" transform="rotate(78 704 140)" style="font-size:10px">大运河</text>
+    <text class="rname" x="638" y="206" style="font-size:9.5px">太湖</text>
 
-    <!-- 钟山(天京东) -->
-    <g class="mtn"><path d="M 668,400 l 8,-13 l 8,13 M 684,394 l 8,-13 l 8,13"/></g>
-    <text class="cname s" x="668" y="420">钟山</text>
+    <!-- ══ 山脉 ══ -->
+    <!-- 南岭:广西湖南之交,太平军突围北上所越 -->
+    <path class="mtn fill" d="M 150,412 L 170,398 L 190,412 L 212,396 L 234,412 L 234,432 L 150,432 Z"/>
+    <g class="mtn"><path d="M 160,408 l 12,-15 l 12,15 M 184,410 l 12,-15 l 12,15 M 208,406 l 12,-15 l 12,15"/></g>
+    <text class="mname" x="150" y="450" style="letter-spacing:.14em">南 岭</text>
+    <!-- 钟山·紫金山:天京东北 -->
+    <g class="mtn"><path d="M 612,138 l 8,-12 l 8,12 M 628,134 l 8,-12 l 8,12"/></g>
+    <text class="mname" x="618" y="126" style="letter-spacing:.1em;font-size:10px">钟山</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="tianjing"><circle cx="640" cy="382" r="6.5"/><text class="cname" x="600" y="372">天京<tspan class="cname s" dx="2">(南京·太平天国都)</tspan></text></g>
-      <g class="city" data-city="yuhuatai"><circle cx="628" cy="418" r="4"/><text class="cname s" x="556" y="436">雨花台(曾国荃大营)</text></g>
-      <g class="city" data-city="anqing"><circle cx="430" cy="380" r="6"/><text class="cname" x="386" y="374">安庆<tspan class="cname s" dx="2">(上游屏障)</tspan></text></g>
-      <g class="city" data-city="wuchang"><circle cx="120" cy="304" r="5.5"/><text class="cname" x="132" y="300">武昌<tspan class="cname s" dx="2">(上游争夺)</tspan></text></g>
-      <g class="city" data-city="suzhou"><circle cx="808" cy="428" r="5"/><text class="cname" x="820" y="424">苏州<tspan class="cname s" dx="2">(李秀成据)</tspan></text></g>
-      <g class="city" data-city="hangzhou"><circle cx="838" cy="560" r="5"/><text class="cname" x="850" y="556">杭州<tspan class="cname s" dx="2">(左宗棠克)</tspan></text></g>
+      <g class="city" data-city="jintian"><circle cx="108" cy="562" r="6"/><text class="cname" x="120" y="566">金田<tspan class="cname s" dx="1">(桂平·起义)</tspan></text></g>
+      <g class="city" data-city="yongan"><circle cx="133" cy="523" r="4.5"/><text class="cname s" x="145" y="519">永安(建制封王)</text></g>
+      <g class="city" data-city="guilin"><circle cx="120" cy="471" r="4.5"/><text class="cname s" x="70" y="486">桂林</text></g>
+      <g class="city" data-city="quanzhou"><circle cx="164" cy="440" r="4"/><text class="cname s" x="176" y="436">全州</text></g>
+      <g class="city" data-city="changsha"><circle cx="270" cy="332" r="5"/><text class="cname" x="282" y="328">长沙</text></g>
+      <g class="city" data-city="wuchang"><circle cx="344" cy="216" r="6"/><text class="cname" x="298" y="204">武昌<tspan class="cname s" dx="1">(克·上游争夺)</tspan></text></g>
+      <g class="city" data-city="jiujiang"><circle cx="440" cy="258" r="4.5"/><text class="cname s" x="398" y="276">九江</text></g>
+      <g class="city" data-city="sanhe"><circle cx="512" cy="170" r="4"/><text class="cname s" x="504" y="160">三河</text></g>
+      <g class="city" data-city="anqing"><circle cx="498" cy="220" r="6"/><text class="cname" x="450" y="238">安庆<tspan class="cname s" dx="1">(上游门户)</tspan></text></g>
+      <g class="city cap" data-city="tianjing"><circle cx="596" cy="146" r="6.5"/><text class="cname" x="540" y="132">天京<tspan class="cname s" dx="1">(南京·国都)</tspan></text></g>
+      <g class="city" data-city="yuhuatai"><circle cx="592" cy="162" r="3.6"/><text class="cname s" x="520" y="180">雨花台(曾国荃大营)</text></g>
+      <g class="city" data-city="changzhou"><circle cx="662" cy="158" r="4.5"/><text class="cname s" x="640" y="148">常州</text></g>
+      <g class="city" data-city="suzhou"><circle cx="698" cy="182" r="5"/><text class="cname" x="710" y="178">苏州<tspan class="cname s" dx="1">(李秀成东征)</tspan></text></g>
+      <g class="city" data-city="shanghai"><circle cx="746" cy="186" r="5"/><text class="cname" x="758" y="200">上海<tspan class="cname s" dx="1">(阻于洋枪队)</tspan></text></g>
+      <g class="city" data-city="hangzhou"><circle cx="672" cy="232" r="4.5"/><text class="cname" x="684" y="236">杭州</text></g>
     </g>
 
-    <!-- 全图 · 洪杨据东南 -->
+    <!-- ══ 图外北:天津·北伐(林凤祥李开芳) ══ -->
+    <g transform="translate(620,6)">
+      <path class="march j" marker-end="url(#aj)" d="M 2,26 L 2,2"/>
+      <text class="mlabel j" x="10" y="14" style="font-size:10px">⟵ 北伐 逼天津(图外北)</text>
+    </g>
+    <!-- ══ 图外西:大渡河·石达开覆灭 ══ -->
+    <g transform="translate(6,300)">
+      <path class="march rout" marker-end="url(#ar)" d="M 34,0 L 6,0"/>
+      <text class="mlabel r" x="40" y="-6" style="font-size:10px">大渡河 · 石达开覆灭 ⟵</text>
+      <text class="cname s" x="40" y="9" style="fill:var(--ret);font-size:9.5px">出走远征入川(图外西)</text>
+    </g>
+
+    <!-- ══ 全图 · 起金田 · 定天京 · 湘军合围 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 480,392 C 560,404 600,398 632,388"/>
-      <text class="mlabel q" x="470" y="418">咸丰三年顺江东下,克江宁为天京</text>
-      <path class="march q" marker-end="url(#aq)" d="M 636,374 C 660,300 700,220 748,150"/>
-      <text class="mlabel q" x="656" y="250">北伐逼天津</text>
-      <path class="march q" marker-end="url(#aq)" d="M 632,384 C 540,378 380,372 180,332"/>
-      <text class="mlabel q" x="200" y="360">西征争上游·屡陷武昌</text>
-      <text class="anno" x="620" y="470">据东南半壁,与清相持,财赋之区糜烂</text>
+      <!-- 太平军流动大势:金田→长沙→武昌→顺江东下→天京 -->
+      <path class="march j" marker-end="url(#aj)" d="M 110,554 C 116,516 132,480 156,456 C 190,420 236,372 266,340"/>
+      <path class="march j" marker-end="url(#aj)" d="M 274,326 C 302,288 330,250 342,224"/>
+      <path class="march j" marker-end="url(#aj)" d="M 352,220 C 404,250 430,262 452,252 C 476,240 490,232 498,226"/>
+      <path class="march j" marker-end="url(#aj)" d="M 506,216 C 544,194 570,166 590,152"/>
+      <text class="mlabel j" x="120" y="524">金田流动起事 · 突围北上</text>
+      <text class="mlabel j" x="300" y="252">克武昌 · 顺江东下</text>
+      <circle class="star" cx="344" cy="216" r="9"/>
+      <circle class="star" cx="596" cy="146" r="11"/>
+      <text class="mlabel j" x="510" y="120">定都天京(国都)</text>
+      <!-- 东征苏常 -->
+      <path class="march j" marker-end="url(#aj)" d="M 604,150 C 640,154 670,166 694,178"/>
+      <text class="mlabel j" x="612" y="200">东征苏常</text>
+      <!-- 湘军自上游合围:安庆→天京 -->
+      <path class="march q" marker-end="url(#aq)" d="M 350,224 C 410,236 452,232 490,226"/>
+      <path class="march q" marker-end="url(#aq)" d="M 506,222 C 544,200 568,172 588,156"/>
+      <text class="mlabel q" x="360" y="290">湘军争上游 · 先取安庆</text>
+      <circle class="siege" cx="596" cy="146" r="34"/>
+      <text class="mlabel q" x="600" y="108">掘壕合围破天京</text>
+      <text class="anno" x="120" y="600">十四年席卷十八省 · 起自金田 · 定都天京 · 内讧自戕 · 湘军合围而亡</text>
     </g>
 
-    <!-- 阶段一:湘军兴·争上游克安庆 -->
+    <!-- ══ ① 金田起义 · 顺江东下 · 定都天京 ══ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 96,312 C 200,340 300,368 416,378"/>
-      <text class="mlabel j" x="150" y="360">曾国荃湘军步步东下</text>
-      <text class="anno" x="120" y="286">曾国藩创湘军·水陆并练·以营制严</text>
-      <rect class="camp" x="424" y="392" width="8" height="8" transform="rotate(45 428 396)" fill="#1f4e54"/>
-      <circle class="star" cx="430" cy="380" r="9"/>
-      <text class="mlabel j" x="360" y="358">咸丰十一年克安庆</text>
-      <text class="anno" x="452" y="410">天京上游门户遂失·天京危</text>
-      <path class="march j" marker-end="url(#aj)" d="M 442,382 C 500,384 560,384 620,384"/>
-      <text class="mlabel j" x="470" y="374">定争上游扼天京之策</text>
+      <!-- 金田举义 -->
+      <path d="M 108,562 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="mlabel j" x="120" y="586">咸丰元年金田起义 · 建号太平天国</text>
+      <!-- 金田→永安→桂林全州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 112,556 C 122,546 128,534 131,528"/>
+      <path class="march j" marker-end="url(#aj)" d="M 131,518 C 124,504 118,490 120,478"/>
+      <text class="mlabel j" x="150" y="500">永安建制 · 封五王</text>
+      <path class="march j" marker-end="url(#aj)" d="M 124,466 C 138,456 152,448 162,444"/>
+      <!-- 全州→长沙(围而不下)→北上 -->
+      <path class="march j" marker-end="url(#aj)" d="M 168,436 C 200,410 240,368 266,338"/>
+      <text class="mlabel j" x="196" y="392">出广西 · 突围北上 · 攻桂林全州</text>
+      <text class="anno" x="234" y="352">围长沙不下,弃而北趋</text>
+      <!-- 长沙→武昌(克) -->
+      <path class="march j" marker-end="url(#aj)" d="M 274,326 C 302,288 330,250 342,224"/>
+      <circle class="star" cx="344" cy="216" r="9"/>
+      <text class="mlabel j" x="300" y="182">咸丰三年克武昌</text>
+      <!-- 武昌→顺江东下→安庆→天京 -->
+      <path class="march j" marker-end="url(#aj)" d="M 352,220 C 404,250 430,262 452,252 C 476,240 490,232 498,226"/>
+      <text class="mlabel j" x="404" y="238">连下九江 · 安庆</text>
+      <path class="march j" marker-end="url(#aj)" d="M 506,216 C 544,194 570,166 590,152"/>
+      <circle class="star" cx="596" cy="146" r="11"/>
+      <text class="mlabel j" x="508" y="118">克江宁 · 定为天京(建都)</text>
     </g>
 
-    <!-- 阶段二:淮浙并进·断其财赋 -->
+    <!-- ══ ② 北伐西征 · 天京事变内讧 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 640,398 C 700,414 750,424 796,428"/>
-      <text class="mlabel j" x="642" y="452">李鸿章淮军·得洋枪队助</text>
-      <circle class="star" cx="808" cy="428" r="8"/>
-      <text class="mlabel j" x="812" y="446">取苏常</text>
-      <path class="march j" marker-end="url(#aj)" d="M 646,392 C 720,440 780,500 828,552"/>
-      <text class="mlabel j" x="700" y="514">左宗棠军入浙</text>
-      <circle class="star" cx="838" cy="560" r="8"/>
-      <text class="mlabel j" x="842" y="580">克杭州</text>
-      <text class="anno" x="560" y="486">断太平军东南财赋之源·曾国荃进逼天京</text>
+      <!-- 北伐:天京→江北→逼天津(图外北) -->
+      <path class="march j" marker-end="url(#aj)" d="M 600,140 C 612,100 620,60 624,26"/>
+      <text class="mlabel j" x="606" y="80">林凤祥·李开芳北伐</text>
+      <text class="anno" x="606" y="96">深入直隶逼天津,后败灭</text>
+      <!-- 西征:天京→安庆武昌,争上游 -->
+      <path class="march j" marker-end="url(#aj)" d="M 588,152 C 520,172 452,206 356,220"/>
+      <text class="mlabel j" x="380" y="196">西征 · 夺皖赣鄂 · 屡争武昌</text>
+      <!-- 天京事变:内讧自戕 -->
+      <path d="M 596,146 l 6,-13 l 4,10 l 11,-6 l -6,11 l 13,4 l -13,5 l 6,11 l -11,-6 l -4,10 l -6,-13 l -11,6 l 6,-11 l -13,-4 l 13,-5 l -6,-11 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".9"/>
+      <text class="mlabel q" x="606" y="118">丙辰(1856)天京事变</text>
+      <text class="anno" x="606" y="134">杨→韦→石自相屠戮</text>
+      <!-- 石达开出走:天京→西(图外·大渡河) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 586,156 C 440,206 260,258 120,290 C 80,299 44,303 20,306"/>
+      <text class="mlabel r" x="230" y="280">石达开率众出走 · 远征入川</text>
+      <text class="anno" x="120" y="600">全盛而内讧,元气大伤 · 攻守之势由是转</text>
     </g>
 
-    <!-- 阶段三:合围雨花台·掘壕破天京 -->
+    <!-- ══ ③ 陈李支撑 · 东征苏常 · 阻于上海 ══ -->
     <g id="ph3" class="ph">
-      <circle class="siege" cx="640" cy="388" r="46"/>
-      <rect class="camp" x="624" y="414" width="9" height="9" transform="rotate(45 628 418)" fill="#1f4e54"/>
-      <text class="mlabel j" x="530" y="452">曾国荃筑长壕合围于雨花台</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 786,432 C 740,420 700,410 668,398"/>
-      <text class="mlabel q" x="700" y="418">李秀成数十万来解围·屡挫</text>
-      <path d="M 640,382 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <circle class="star" cx="640" cy="382" r="11"/>
-      <text class="mlabel j" x="560" y="360">同治三年六月·掘地道轰城入</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 648,376 C 700,340 750,300 788,260"/>
-      <text class="mlabel r" x="700" y="308">幼天王突围·旋被俘</text>
-      <text class="anno" x="470" y="336">洪秀全先病死·天京陷·太平天国凡十四年而亡</text>
+      <!-- 三河大捷 -->
+      <rect class="camp" x="508" y="166" width="8" height="8" transform="rotate(45 512 170)"/>
+      <circle class="star" cx="512" cy="170" r="8"/>
+      <text class="mlabel j" x="440" y="150">戊午(1858)三河大捷</text>
+      <text class="anno" x="440" y="164">陈玉成李秀成歼湘军李续宾部</text>
+      <!-- 二破江南大营(天京东南) -->
+      <rect class="camp" x="616" y="164" width="8" height="8" transform="rotate(45 620 168)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 600,152 C 610,158 618,162 624,166"/>
+      <text class="mlabel j" x="560" y="118">庚申(1860)二破江南大营</text>
+      <!-- 东征:天京→常州→苏州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 604,150 C 626,152 644,154 656,157"/>
+      <path class="march j" marker-end="url(#aj)" d="M 668,161 C 682,168 692,174 696,178"/>
+      <circle class="star" cx="662" cy="158" r="7"/>
+      <circle class="star" cx="698" cy="182" r="7.5"/>
+      <text class="mlabel j" x="632" y="228">李秀成东征 · 克常州苏州</text>
+      <!-- 苏州→上海:阻于常胜军 -->
+      <path class="march j" marker-end="url(#aj)" d="M 706,183 C 720,184 730,185 736,186"/>
+      <rect class="camp" x="742" y="182" width="9" height="9" transform="rotate(45 746 186)"/>
+      <text class="mlabel q" x="700" y="212">进逼上海 · 阻于洋枪队(后为常胜军)</text>
+      <!-- 湘军进围安庆(上游) -->
+      <path class="march q" marker-end="url(#aq)" d="M 352,222 C 410,232 452,228 490,224"/>
+      <circle class="siege" cx="498" cy="220" r="15"/>
+      <text class="mlabel q" x="356" y="288">曾国荃湘军溯江进围安庆</text>
+      <text class="anno" x="120" y="600">陈玉成李秀成力撑东南 · 而上游安庆已受湘军长围</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ ④ 取安庆 · 围雨花台 · 地道破天京 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 安庆陷 -->
+      <rect class="camp" x="494" y="216" width="9" height="9" transform="rotate(45 498 220)"/>
+      <circle class="star" cx="498" cy="220" r="9"/>
+      <text class="mlabel q" x="404" y="248">辛酉(1861)湘军克安庆</text>
+      <text class="anno" x="404" y="262">天京上游门户遂失</text>
+      <!-- 湘军沿江东下→天京 -->
+      <path class="march q" marker-end="url(#aq)" d="M 506,220 C 544,200 568,172 586,156"/>
+      <text class="mlabel q" x="512" y="196">曾国荃沿江东下 · 进逼天京</text>
+      <!-- 扎营雨花台·长壕合围 -->
+      <rect class="camp" x="588" y="158" width="9" height="9" transform="rotate(45 592 162)"/>
+      <circle class="siege" cx="596" cy="146" r="40"/>
+      <path class="siegeline" d="M 566,168 C 560,150 566,128 588,116"/>
+      <text class="mlabel q" x="600" y="200">扎营雨花台 · 筑长壕围天京</text>
+      <!-- 李秀成回救·雨花台大战 -->
+      <path class="march j" marker-end="url(#aj)" d="M 690,180 C 652,176 624,170 606,164"/>
+      <text class="mlabel j" x="616" y="230">李秀成大军回救 · 雨花台大战</text>
+      <text class="anno" x="616" y="244">四十六日血战,不能解围</text>
+      <!-- 掘地道·轰塌太平门(城破) -->
+      <path class="breach" d="M 610,140 l 6,-6 l -3,8 l 8,-2 l -6,6 l 8,3 l -9,1 l 3,7 l -7,-5 l -4,6 l -1,-8 l -7,3 l 5,-7 l -7,-3 z" stroke-width="2"/>
+      <path d="M 596,146 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <circle class="star" cx="596" cy="146" r="12"/>
+      <text class="mlabel q" x="470" y="106">同治三年六月 · 掘地道轰塌太平门 · 城破屠城</text>
+      <!-- 洪秀全先死 -->
+      <text class="anno" x="470" y="122">洪秀全先病死(六月)</text>
+      <!-- 幼天王突围被俘 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 606,142 C 640,124 676,116 700,112"/>
+      <text class="mlabel r" x="636" y="122">幼天王突围 · 旋被俘</text>
+      <text class="anno" x="470" y="600">天京陷 · 太平天国凡十四年而亡 · 席卷十八省</text>
+    </g>
+
+    <g class="compass" transform="translate(946,590)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -182,35 +305,91 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清·湘淮军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>太平天国军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃亡</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·城破</span>
-    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>合围</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>太平天国</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·湘军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>太平天国军(所追踪之流动主体)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>清 · 湘淮军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>太平军败退 · 石达开出走 · 幼天王突围</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 · 克城 · 城破</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>湘军合围(雨花台长壕)</span>
+    <span class="item"><svg width="20" height="16"><path d="M 4,3 l 3,4 l -1,-5 l 4,2 l -3,3 l 4,2 l -5,0 l 2,4 l -4,-2 z" fill="none" stroke="#9a2b1e" stroke-width="1.6"/></svg>掘地道轰城 · 天京事变内讧</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>太平天国(据长江下游)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>清 · 湘军</span>
   </div>
+  <p class="capnote">※ 青(teal)标太平天国军,乃本图所追踪之流动主体(其起事与进取路线),非褒贬之谓;循本系「以所追之军为青」之例,不因民变、王师而易色。朱(red)标清·湘淮军。</p>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 起自金田 · 定都天京 · 内讧自戕 · 湘军合围破城</h3>
+    <div class="lead">何以十四年席卷十八省之大势,终覆于天京城下 —— 盛在顺江据都,败在内讧自戕、湘军扼江合围</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:太平天国自金田流动起事,顺长江东下定都天京,乃全盛;然天京事变内讧自戕、石达开出走,元气大伤;清湘军定先取安庆断上游门户、继沿江东下围天京、掘地道轰塌太平门破城之策,遂亡太平天国">
+      <!-- 上行:太平之势(青) -->
+      <text x="30" y="24" fill="#1f4e54" font-size="12" font-weight="700" letter-spacing="2">太平之势 · 顺江据都</text>
+      <g><circle cx="70" cy="70" r="20" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.6"/><text x="70" y="67" text-anchor="middle" fill="#1f4e54" font-size="10.5" font-weight="700">金田</text><text x="70" y="81" text-anchor="middle" fill="#5c4f38" font-size="8.5">起义</text></g>
+      <path d="M 92,70 C 150,70 200,70 250,70" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="170" y="60" text-anchor="middle" fill="#1f4e54" font-size="9.5" font-weight="700">顺长江东下</text>
+      <g><circle cx="288" cy="70" r="22" fill="rgba(31,78,84,.14)" stroke="#1f4e54" stroke-width="1.8"/><text x="288" y="67" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">天京</text><text x="288" y="82" text-anchor="middle" fill="#5c4f38" font-size="8.5">定都·全盛</text></g>
+      <!-- 内讧自戕:红色爆裂,自天京上迸 -->
+      <path d="M 288,44 l 4,-12 l 3,9 l 9,-5 l -4,9 l 11,3 l -11,4 l 4,9 l -9,-5 l -3,9 l -4,-12 l -9,5 l 4,-9 l -11,-3 l 11,-4 l -9,-5 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".7"/>
+      <text x="288" y="20" text-anchor="middle" fill="#9a2b1e" font-size="9.5" font-weight="700">天京事变 · 内讧自戕</text>
+      <!-- 石达开出走西去 -->
+      <path d="M 266,84 C 200,120 140,150 96,168" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+      <text x="150" y="150" fill="#7a5a23" font-size="9" font-weight="700">石达开出走 · 覆大渡河</text>
+      <!-- 下行:湘军合围(红) -->
+      <text x="30" y="234" fill="#9a2b1e" font-size="12" font-weight="700" letter-spacing="2">湘军之策 · 扼江合围</text>
+      <g><circle cx="440" cy="150" r="20" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.6"/><text x="440" y="147" text-anchor="middle" fill="#9a2b1e" font-size="10" font-weight="700">安庆</text><text x="440" y="161" text-anchor="middle" fill="#5c4f38" font-size="8.5">上游门户</text></g>
+      <path d="M 340,120 C 380,132 410,140 420,145" fill="none" stroke="#9a2b1e" stroke-width="2.6"/>
+      <text x="372" y="118" fill="#9a2b1e" font-size="9" font-weight="700">先取上游</text>
+      <path d="M 462,150 C 540,150 600,140 640,128" fill="none" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)"/>
+      <text x="548" y="140" text-anchor="middle" fill="#9a2b1e" font-size="9.5" font-weight="700">沿江东下 · 围天京</text>
+      <!-- 围城:虚线环 + 地道轰城 -->
+      <circle cx="700" cy="118" r="30" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="3 4"/>
+      <path d="M 700,118 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9c7a2c" stroke="#e9dec4" stroke-width=".7"/>
+      <path d="M 672,140 C 668,150 676,160 692,164" fill="none" stroke="#9a2b1e" stroke-width="1.8" stroke-dasharray="3 3"/>
+      <text x="700" y="164" text-anchor="middle" fill="#9a2b1e" font-size="9" font-weight="700">掘地道轰太平门</text>
+      <text x="700" y="80" text-anchor="middle" fill="#9a2b1e" font-size="10.5" font-weight="700">合围破天京</text>
+    </svg>
+    <p class="intro">太平天国之亡,不系于一战,而系于<b>盛极转败之全局</b>:其盛,在自金田流动起事、顺长江东下,克武昌、下九江安庆,定都天京,据长江下游、与清相持,一时席卷十八省;其转,在<b>天京事变之内讧自戕</b>——杨秀清逼封万岁,韦昌辉杀杨、洪秀全又诛韦,石达开率众出走远征、终覆于大渡河,精锐骨干自相屠戮,元气大伤;其败,在清·湘军<b>扼江合围</b>之策:曾国藩定「先取上游、后拔本根」,曾国荃部先克安庆断天京上游门户,继沿江东下、扎营雨花台长围天京,李秀成回救而不能解,终掘地道、火药轰塌太平门城墙数十丈,城破屠城。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>太平 · 顺江据都 · 内讧自戕</h4>
+        <p>洪秀全等以拜上帝会起于金田,流动突围出广西,顺长江东下定都天京,建号立制,据东南财赋之区,遣北伐、西征,盛极一时。然<b>定都之后,君臣相忌</b>:天京事变一夕之间,东王、北王、翼王或死或走,自剪其股肱;后虽赖陈玉成、李秀成力撑、三河大捷、二破江南大营、东征苏常,而根本已摇——<b>盛而自戕,败机伏于内</b>。</p>
+      </div>
+      <div class="c b">
+        <h4>湘军 · 先取安庆 · 掘壕破城</h4>
+        <p>曾国藩创湘军、水陆并练,定「争上游、扼天京」之策,不与角一城一地之得失,而<b>循江而下、步步为营</b>:先以曾国荃克安庆,断天京上游之屏;继沿江东逼,扎营雨花台,筑长壕合围,任李秀成数十万来救、雨花台血战四十六日而不动;终以<b>掘地道、轰塌城墙</b>破天京。李鸿章淮军取苏常、左宗棠军克杭州,断其东南财赋以为辅。</p>
+      </div>
+    </div>
+    <p class="kicker">故天京之陷,<b>非清之独强,实太平自戕于内、湘军合围于外</b>之相成:太平以流动之势起、以据都之盛雄东南,而以内讧自戕失其锐、以困守孤城待其毙;湘军则以先取安庆断其上游、以长壕合围锁其孤城、以地道轰城收其全功。所谓「<b>起自金田 · 定都天京 · 内讧自戕 · 湘军合围破城</b>」者也。乱平而东南残破、督抚坐大,清季外重内轻之势,亦肇于此。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·曾国藩传》《平定粤匪方略》及《李秀成自述》约略绘出。天京即今江苏南京,安庆今安徽安庆,苏州今江苏苏州,杭州今浙江杭州,武昌今湖北武汉。城邑水道为相对示意,长江、大运河、太湖经简化。</p>
-    <p><span class="n">注二</span>晕染疆界为太平天国全盛时形势示意:太平军据东南江浙皖,清·湘淮军自长江上游及四方来会;界线以点划"约界"标之,非实有画界,且随战局迭有进退。</p>
-    <p><span class="n">注三</span>曾国藩定"先剪枝叶、后拔本根""争上游、扼天京"之策:克安庆而天京上游门户失,取苏杭而东南财赋绝。同治三年四月洪秀全病死(一说服毒),六月曾国荃军掘地道轰塌太平门城墙数十丈,湘军蜂拥入城。太平天国虽亡,而东南残破、督抚坐大,为清季外重内轻之渐。</p>
+    <p><span class="n">注一</span>本图为示意图,横跨今广西至江浙、长江中下游十余度经纬。城邑按今地经纬度作线性(墨卡托)投影:<b>x=70+(经度−109.4)·56,y=600−(纬度−22.6)·48</b>,几何力求近实——金田在西南(起义)、永安桂林全州长沙居中南、武昌九江安庆天京循长江中下游(自西南而东北)、苏州常州上海杭州在东南;大渡河远在图外西(石达开覆灭)、天津远在图外北(北伐终点),皆以边缘箭头示之。地望:金田即今广西桂平金田村(约110.1E/23.4N)、永安即今蒙山(约110.52E/24.2N)、桂林(约110.3E/25.3N)、全州(约111.1E/25.9N)、长沙(约113.0E/28.2N)、武昌即今武汉(约114.3E/30.6N)、九江(约116.0E/29.7N)、安庆(约117.05E/30.5N)、天京即今南京(约118.8E/32.05N)、三河即今安徽肥西三河镇(约117.3E/31.6N)、苏州(约120.6E/31.3N)、常州(约120.0E/31.8N)、上海(约121.5E/31.2N)、杭州(约120.15E/30.3N)、大渡河安顺场(约102.35E/29.3N,图外西)、天津(约117.2E/39.1N,图外北)。长江、大运河、太湖水道及疆界皆经简化。依《清史稿·洪秀全传·曾国藩传·曾国荃传》《李秀成自述》及《平定粤匪方略》约略绘出。</p>
+    <p><span class="n">注二</span>图例以青(teal)标太平天国军,朱(red)标清·湘淮军。青者,乃本图所追踪之流动主体(太平天国之起事与进取路线),非褒贬之谓;循本系「以所追之军为青」之例,不因民变、王师而易色。晕染疆界为太平天国全盛时形势示意:太平军据长江下游、东南江浙皖,清·湘淮军自长江上游及四方来会;界以点划「约界」标之,非实有画界,且随战局迭有进退(西征所争之武昌、九江屡陷屡复,故列于青朱之间)。</p>
+    <p><span class="n">注三</span>本役<b>决机不在一战,而在全局之盛衰</b>:一在<b>定都天京</b>——咸丰元年(1851)金田起义、建号太平天国,永安建制封王;二年出广西、攻桂林全州,入湖南、围长沙不下,克武昌(咸丰二年十二月,西元1853年正月);顺江东下,连下九江、安庆,咸丰三年二月克江宁、定为天京(西元1853年3月),建都于此,遣北伐(林凤祥、李开芳深入直隶逼天津,后败灭)、西征(夺皖赣鄂)。二在<b>天京事变之内讧</b>——咸丰六年(1856)杨秀清逼封万岁,洪秀全召韦昌辉杀杨,复诛韦,石达开出走远征入川、终覆于大渡河(1863),太平天国自戕元气。三在<b>湘军先取安庆、后围天京</b>——曾国藩定「争上游、扼天京」之策,曾国荃部咸丰十一年(1861)克安庆,断天京上游门户;继沿江东下,同治元年(1862)扎营雨花台长围天京,李秀成率大军回救、雨花台大战数十日不能解围。四在<b>掘地道轰城</b>——同治三年(1864)洪秀全先病死,六月十六日(西元7月19日)湘军掘地道、火药轰塌太平门城墙数十丈,蜂拥入城,屠城;幼天王洪天贵福突围后被俘,太平天国凡十四年而亡。李鸿章淮军取苏常(得洋枪队/常胜军助)、左宗棠军克杭州,断东南财赋以为辅。</p>
+    <p><span class="n">注四</span>时序与异说:金田起义今多定为西元1851年1月11日(时当道光三十年十二月初十,咸丰元年正月初一在西元1月31日,故史多以「咸丰元年」举其岁);克武昌在咸丰二年十二月(西元1853年正月),克江宁改天京在咸丰三年二月(西元1853年3月)。天京事变在咸丰六年(1856)八九月间。洪秀全之死,或云病死、或云服毒自尽,《李秀成自述》作病死,两存之。天京城破在同治三年六月十六日,当西元1864年7月19日;湘军掘地道所轰者为天京东北之太平门。北伐、石达开远征入川皆逾本图之幅,故以图外边缘箭头示其去向,不入投影之窗,以免squash主战场;详数另见史传。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"洪杨据东南",d:"清咸丰元年 — 三年(1851–1853)",p:["洪秀全倡「拜上帝会」,咸丰元年金田起事,建号太平天国,永安建制,继而北出湘鄂、克武昌,顺江东下。咸丰三年攻占江宁,改为天京,建都于此,与清相持。","太平军兵锋一度北伐逼天津、西征争上游,东南半壁糜烂。清廷绿营、八旗不堪用;曾国藩以在籍侍郎办团练,创湘军以图之。"]},
-  "1":{t:"湘军兴·争上游克安庆",d:"咸丰四年 — 十一年(1854–1861)",p:["曾国藩创湘军,水陆并练、以营制严,与太平军血战十余年。太平天国内部又有「天京事变」(1856,杨韦内讧、石达开出走)自戕元气。","曾国藩定「先剪枝叶、后拔本根」「争上游、扼天京」之策,其弟曾国荃军步步东下。咸丰十一年克安庆——天京上游门户遂失,天京大危。"]},
-  "2":{t:"淮浙并进·断其财赋",d:"同治元年 — 三年(1862–1864)",p:["李鸿章练淮军,得洋枪队助,东取苏常;李秀成所据苏州遂失。左宗棠军入浙,克杭州,断太平军东南财赋之源。","财赋之区既绝,天京孤悬。曾国荃军进逼天京,筑长壕于雨花台,合围之势渐成。"]},
-  "3":{t:"合围雨花台·掘壕破天京",d:"同治二年 — 三年(1863–1864)",p:["曾国荃筑长壕合围天京于雨花台,屡挫李秀成数十万之解围。同治三年四月,洪秀全病死(一说服毒)。","六月,曾国荃军掘地道、轰塌太平门城墙数十丈,湘军蜂拥入城,天京陷。太平军巷战死者甚众,幼天王突围后被俘,李秀成被擒。太平天国凡十四年而亡;然东南残破,生民涂炭以千万计。"]}
+  all:{t:"起金田 · 定天京 · 湘军合围",d:"清咸丰元年 — 同治三年(1851–1864)",p:["洪秀全等以拜上帝会起于广西金田,建号太平天国。流动突围出广西,克武昌,顺长江东下,咸丰三年(1853)克江宁、定为天京,建都于此,据长江下游与清相持,遣北伐逼天津、西征夺皖赣鄂,一时席卷十八省。","然定都之后,天京事变内讧自戕、石达开出走,元气大伤;清·湘军定「争上游、扼天京」之策,曾国荃先克安庆断上游门户,继沿江东下、扎营雨花台长围天京,同治三年(1864)掘地道轰塌太平门破城,屠城,太平天国凡十四年而亡。"]},
+  "1":{t:"① 金田起义 · 顺江东下 · 定都天京",d:"咸丰元年 — 三年(1851–1853)",p:["咸丰元年(1851)洪秀全金田起义,建号太平天国;至永安建制、封东西南北翼五王。二年突围北出广西,攻桂林、全州,入湖南,围长沙不下,弃而北趋。","咸丰二年十二月克武昌(西元1853年正月),遂顺长江东下,连下九江、安庆;咸丰三年二月(西元1853年3月)克江宁,改为天京,定都于此,据东南以图天下。"]},
+  "2":{t:"② 北伐西征 · 天京事变内讧",d:"咸丰三年 — 七年(1853–1857)",p:["定都后遣两支大军:林凤祥、李开芳北伐,孤军深入直隶、逼近天津,后为清军所困而败灭;另遣西征,夺安徽、江西、湖北,屡争上游重镇武昌,太平天国势力全盛。","咸丰六年(1856),杨秀清挟功逼封万岁,洪秀全密召韦昌辉入京杀杨,继又诛韦;翼王石达开惧祸出走,率精锐远征入川,终覆于大渡河。天京事变一夕之间自剪股肱,元气大伤,攻守之势由是而转。"]},
+  "3":{t:"③ 陈李支撑 · 东征苏常 · 阻于上海",d:"咸丰八年 — 咸丰十一年(1858–1861)",p:["内讧之后,陈玉成、李秀成并起力撑危局。咸丰八年(1858)三河大捷,歼湘军李续宾部;十年(1860)二破江南大营,天京之围暂解。李秀成乘势东征,克常州、苏州,尽有苏南财赋之区。","然进逼上海,受阻于洋枪队(常胜军),不能得志于海隅。与此同时,上游安庆已为曾国荃湘军溯江长围——东南虽张,而根本之危已迫。"]},
+  "4":{t:"④ 取安庆 · 围雨花台 · 地道破天京",d:"咸丰十一年 — 同治三年(1861–1864)",p:["咸丰十一年(1861)曾国荃克安庆,天京上游门户遂失。湘军沿江东下,同治元年(1862)进逼天京,扎营雨花台,筑长壕合围;李秀成率大军回救,雨花台血战四十六日,竟不能解围。","同治三年(1864)洪秀全先病死(一说服毒)。六月十六日(西元7月19日),湘军掘地道、火药轰塌太平门城墙数十丈,蜂拥入城,天京陷,屠城。幼天王洪天贵福突围后被俘。李鸿章淮军取苏常、左宗棠军克杭州为辅。太平天国凡十四年而亡,席卷十八省,生民涂炭以千万计。"]}
 };
 const CITY={
-  tianjing:{t:"天京(南京)",d:"太平天国都,今江苏南京",p:["咸丰三年洪秀全克江宁,改称天京,建都于此。同治三年六月曾国荃军掘地道轰城而入,天京陷,太平天国亡。"]},
-  yuhuatai:{t:"雨花台",d:"天京城南,今南京雨花台",p:["曾国荃湘军大营所在。筑长壕合围天京,屡挫李秀成数十万之解围;为掘壕破城之枢。"]},
-  anqing:{t:"安庆",d:"今安徽安庆",p:["天京上游门户屏障。曾国荃军咸丰十一年克之,天京遂失上游之险,湘军得以顺流东逼。"]},
-  wuchang:{t:"武昌",d:"今湖北武汉",p:["太平军西征所争之上游重镇,屡陷屡复。曾国藩争上游之策,首在扼此以断太平军西援。"]},
-  suzhou:{t:"苏州",d:"今江苏苏州",p:["李秀成据以为东南根本。同治二年李鸿章淮军得洋枪队助克之,太平军东南财赋顿绝。"]},
-  hangzhou:{t:"杭州",d:"今浙江杭州",p:["同治三年左宗棠军克之,浙江遂平。苏杭并失,太平军东南财赋之源尽断,天京孤悬待毙。"]}
+  jintian:{t:"金田(桂平)",d:"太平天国起义地,今广西桂平金田村(约110.1E/23.4N)",p:["咸丰元年(1851)洪秀全于此起义,建号太平天国——流动起事、席卷十八省之始。"]},
+  yongan:{t:"永安(蒙山)",d:"今广西蒙山(约110.65E/24.0N)",p:["起义后所据,于此建制、分封东王杨秀清、西王萧朝贵、南王冯云山、北王韦昌辉、翼王石达开五王,粗定官制。旋突围北上。"]},
+  guilin:{t:"桂林",d:"今广西桂林",p:["太平军突围北上所攻,围而不下,乃弃桂北趋,由全州入湖南。"]},
+  quanzhou:{t:"全州",d:"今广西全州",p:["太平军北上出广西所经;南王冯云山于此中炮受伤而死。"]},
+  changsha:{t:"长沙",d:"今湖南长沙",p:["太平军入湖南所围,攻数月不下,西王萧朝贵战殁于此。乃弃长沙、北取岳州,顺江而下。"]},
+  wuchang:{t:"武昌",d:"今湖北武汉",p:["咸丰二年十二月(西元1853年正月)太平军克武昌,声势大振,遂顺长江东下。其后为西征所争之上游重镇,屡陷屡复;曾国藩争上游之策,首在扼此。"]},
+  jiujiang:{t:"九江",d:"今江西九江",p:["太平军顺江东下所下,与安庆同为天京上游之藩篱。湘军东下亦次第争之。"]},
+  sanhe:{t:"三河",d:"今安徽肥西三河镇(约117.3E/31.6N)",p:["咸丰八年(1858)陈玉成、李秀成合军于此,大破湘军,歼李续宾部六千余人,李续宾自尽——内讧后太平军之一大捷。"]},
+  anqing:{t:"安庆",d:"今安徽安庆(约117.05E/30.5N)",p:["天京上游门户屏障。曾国荃湘军咸丰十一年(1861)克之,天京遂失上游之险,湘军得以顺流东逼——湘军「争上游」之策之枢。"]},
+  tianjing:{t:"天京(南京)",d:"太平天国都,今江苏南京(约118.8E/32.05N)",p:["咸丰三年(1853)二月太平军克江宁,改称天京,建都于此。同治三年(1864)六月十六日曾国荃军掘地道轰塌太平门城墙数十丈而入,城陷屠城,太平天国亡。"]},
+  yuhuatai:{t:"雨花台",d:"天京城南,今南京雨花台",p:["曾国荃湘军大营所在。筑长壕合围天京,李秀成率大军回救、雨花台血战四十六日不能解围;为掘壕破城之枢。"]},
+  changzhou:{t:"常州",d:"今江苏常州",p:["李秀成东征所克。天京陷后,常州亦为淮军所破,护王陈坤书死之。"]},
+  suzhou:{t:"苏州",d:"今江苏苏州(约120.6E/31.3N)",p:["李秀成东征所据,为太平天国苏福省之根本。同治二年(1863)李鸿章淮军(得常胜军助)克之,太平军东南财赋顿绝。"]},
+  shanghai:{t:"上海",d:"今上海(约121.5E/31.2N)",p:["李秀成东征进逼上海,受阻于洋枪队(常胜军,华尔、戈登先后统之),不能得志于海隅——太平军东向之极限。"]},
+  hangzhou:{t:"杭州",d:"今浙江杭州",p:["李秀成一度克之。后左宗棠军克杭州,浙江遂平;苏杭并失,太平军东南财赋之源尽断,天京孤悬待毙。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
