@@ -1,0 +1,20 @@
+# Arbitrage Suite
+
+Three related apps exploring one idea — profit from the same thing selling at
+different prices in different places — consolidated under a single hub
+(`index.html`):
+
+- **`strategy-lab/`** (think): taxonomy of price-gap domains, five-test screening
+  framework, edge calculator with leg-risk EV, research-plan generator.
+- **`case-studies/`** (learn): betting-market case studies from real timestamped
+  data plus the published record — papers, experiments, companies, syndicates,
+  and account-limiting statistics.
+- **`spread-monitor/`** (execute): client-side monitor polling free public
+  exchange APIs for the same asset's bid/ask across venues, computing the
+  fee-adjusted executable cross with staleness filtering.
+
+Companion app (separate folder): `../betting-odds-aggregator/` — multi-source
+timestamped odds for a single World Cup game with an arbitrage scanner, strategy
+simulator, and minute-level in-play replay via The Odds API.
+
+Everything is single-file HTML+JS; open any `index.html` directly.
