@@ -37,7 +37,31 @@ computed "arbitrage" ignores bet limits, simultaneous-fill risk, and settlement-
 differences. For exact-instant multi-book snapshots the upgrade path is
 [The Odds API](https://the-odds-api.com/)'s historical endpoint.
 
+## Match replay & in-play explorer (`replay.html`)
+
+A companion page that pulls **minute-level historical odds — including in-play prices
+during the match** — from [The Odds API](https://the-odds-api.com/)'s historical
+endpoint (5-minute snapshots, per-bookmaker `last_update` timestamps), entirely
+client-side with the user's own API key:
+
+- The key is entered in the page, kept in `localStorage`, and sent only to
+  `api.the-odds-api.com` — never embedded in this repo or sent anywhere else.
+- Fetches show an upfront credit-cost estimate (historical calls cost ~10 credits ×
+  regions per snapshot; a paid The Odds API plan is required) and quota headers after
+  each call. Datasets can be downloaded as JSON and re-loaded later for free.
+- **Implied-probability chart** through the match: median per outcome with a
+  min–max band across books, goal/period markers annotated (wall-clock placement of
+  match-clock events is approximate and labeled as such).
+- **Volatility strip**: largest per-snapshot move in median implied probability —
+  spikes align with goals.
+- **Staleness-aware arb scan**: per snapshot, best price per outcome across books →
+  implied total, with a freshness filter that drops books whose `last_update` lags
+  the snapshot. This filter is the point: most in-play "arbs" in sampled data are one
+  slow book still pricing the pre-goal state (the table's "stale spread" column makes
+  that visible).
+
 ## Run it
 
 Open `index.html` in a browser. No build step, no dependencies, no network calls —
-the dataset is embedded.
+the dataset is embedded. `replay.html` makes network calls only to The Odds API and
+only when you click fetch.
