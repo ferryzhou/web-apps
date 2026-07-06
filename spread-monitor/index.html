@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cross-Venue Spread Monitor</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #1baf7a; --s3: #eda100;
+    --good: #006300; --bad: #d03b3b; --wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink2: #c3c2b7;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #199e70; --s3: #c98500;
+      --good: #0ca30c; --wash: rgba(57,135,229,0.12);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page); color: var(--ink); line-height: 1.55; padding: 1.5rem 1rem 4rem; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  a { color: var(--s1); }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .sub { color: var(--ink2); font-size: 0.92rem; }
+  .kicker { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
+  .row { display: flex; gap: 1rem 1.5rem; flex-wrap: wrap; align-items: end; margin-top: 0.6rem; }
+  .group label.head { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.25rem; }
+  select, input[type="number"] { font: inherit; color: var(--ink); background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.35rem 0.55rem; }
+  button.action { font: inherit; font-weight: 600; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); background: var(--wash); color: var(--ink); }
+  button.action:disabled { opacity: 0.45; cursor: not-allowed; }
+  .check { font-size: 0.85rem; color: var(--ink2); display: inline-flex; align-items: center; gap: 0.35rem; }
+  .check input { accent-color: var(--s1); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  .tablewrap { overflow-x: auto; margin-top: 0.5rem; }
+  th, td { text-align: right; padding: 0.42rem 0.55rem; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.76rem; }
+  th:first-child, td:first-child { text-align: left; }
+  td.num { font-variant-numeric: tabular-nums; }
+  .st { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 0.4rem; }
+  .st.ok { background: var(--good); } .st.stale { background: var(--s3); } .st.err { background: var(--bad); } .st.idle { background: var(--muted); }
+  .best-bid { color: var(--good); font-weight: 700; }
+  .best-ask { color: var(--good); font-weight: 700; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 0.9rem; }
+  .panel { border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; background: var(--page); }
+  .panel h3 { font-size: 0.92rem; }
+  .hero { font-size: 1.8rem; font-weight: 700; }
+  .hero.good { color: var(--good); } .hero.bad { color: var(--bad); }
+  .note { color: var(--muted); font-size: 0.8rem; }
+  .chart-box svg { display: block; width: 100%; height: auto; }
+  .warn { border-left: 3px solid var(--s3); padding: 0.5rem 0.8rem; margin-top: 0.75rem; background: var(--page); border-radius: 0 8px 8px 0; font-size: 0.85rem; color: var(--ink2); }
+  .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; }
+  .pnl-pos { color: var(--good); font-weight: 650; } .pnl-neg { color: var(--bad); }
+  code { background: var(--page); border: 1px solid var(--border); border-radius: 4px; padding: 0 0.3rem; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Arbitrage work stream 3 · execution tooling</p>
+    <h1>Cross-Venue Spread Monitor</h1>
+    <p class="sub">Watches the <b>same asset's live price on multiple venues</b> using free public APIs, straight from
+    your browser — no server, no keys. It computes the <i>executable</i> cross: highest bid minus lowest ask, net of
+    taker fees, only across venues whose quotes are fresh. Crypto is the default domain because its public APIs are
+    genuinely free and open; the same framework applies to any market.
+    Siblings: <a href="../arbitrage-strategy-lab/index.html">strategy lab</a> ·
+    <a href="../betting-arb-case-studies/index.html">betting case studies</a> ·
+    <a href="../betting-odds-aggregator/replay.html">in-play odds explorer</a>.</p>
+  </header>
+
+  <section>
+    <h2>Monitor</h2>
+    <div class="row">
+      <div class="group"><label class="head" for="asset">Asset</label>
+        <select id="asset"><option value="BTC" selected>BTC</option><option value="ETH">ETH</option></select></div>
+      <div class="group"><label class="head" for="interval">Poll every</label>
+        <select id="interval"><option value="5000">5 s</option><option value="10000" selected>10 s</option><option value="30000">30 s</option></select></div>
+      <div class="group"><label class="head" for="fee">Taker fee per side (%)</label>
+        <input type="number" id="fee" value="0.25" step="0.05" min="0" style="max-width:7rem"></div>
+      <label class="check"><input type="checkbox" id="inc-usdt"> Include USDT-quoted venues (treat USDT ≈ USD — see caveat)</label>
+      <button class="action" id="btn-start">Start</button>
+      <button class="action" id="btn-stop" disabled>Stop</button>
+      <button class="action" id="btn-export" disabled>Export session log</button>
+    </div>
+    <div class="tablewrap"><table id="venues"></table></div>
+    <p class="note" id="poll-note">Idle. “Age” is seconds since that venue's quote was received; quotes older than 3
+    polls are marked stale and excluded from the cross. Venues that error back off and retry automatically.</p>
+    <details style="margin-top:0.5rem"><summary class="note" style="cursor:pointer">Per-venue access notes (CORS / geo, researched Jul 2026)</summary>
+      <ul class="note" style="padding-left:1.3rem; margin-top:0.3rem" id="venue-notes"></ul>
+    </details>
+  </section>
+
+  <section>
+    <h2>Executable cross</h2>
+    <div class="grid2" id="cross-panels"></div>
+    <div class="chart-box" id="chart-box" style="margin-top:0.75rem">
+      <svg id="chart" role="img" aria-label="Net cross-venue edge over the session, percent"></svg>
+    </div>
+    <p class="note">Line: net edge (best bid − best ask − 2×fee, as % of mid) over this session. Above zero = a
+    candidate arbitrage at top-of-book size.</p>
+    <div class="warn"><b>Same-claim &amp; capacity caveats.</b> USD and USDT are not the same claim — a USDT venue is
+    included only via your explicit toggle, and a persistent “edge” against it may be the USDT/USD rate, not free money.
+    Top-of-book quotes say nothing about size: a real fill needs order-book depth, and cross-venue settlement needs
+    inventory on both sides (see the <a href="../arbitrage-strategy-lab/index.html">strategy lab</a>'s five tests).
+    Public endpoints are rate-limited — this tool stays far below the limits at the default interval.</div>
+  </section>
+
+  <section>
+    <h2>Opportunity log</h2>
+    <p class="sub">Every poll where the net cross was positive, with the venues and prices involved.</p>
+    <div class="tablewrap"><table id="opps"></table></div>
+  </section>
+
+  <footer class="footnote">
+    Data: free public endpoints of Coinbase Exchange, Bitstamp, Kraken, Gemini (USD) and Binance, OKX (USDT), fetched
+    directly by your browser — the strongest browser-verified pair is Coinbase + Bitstamp; venues without CORS or
+    geo-blocked in your region simply show an error status and are excluded. Upgrade paths: CoinGecko's
+    <code>/coins/{id}/tickers</code> (one free-demo-key call returning the same coin on dozens of exchanges, ~1–2 min
+    cached) for a wide view, and Kalshi/Polymarket keyless read APIs for a prediction-market module. Educational tool,
+    not investment advice. Part of <a href="../index.html">web-apps</a>.
+  </footer>
+</div>
+
+<script>
+"use strict";
+
+/* -------------------------------------------------------------- sources --- */
+/* Each source: free public REST, no key, CORS-enabled, top-of-book bid/ask.
+   parse() must return {bid, ask} as numbers. */
+
+const SOURCES = [
+  // CORS status per documentation / ccxt capability flags / community reports (Jul 2026);
+  // the status column is the live truth — a venue that blocks browser CORS shows as "error" here.
+  { id: "coinbase", name: "Coinbase Exchange", quote: "USD",
+    note: "CORS supported per Coinbase docs — core venue",
+    url: (a) => `https://api.exchange.coinbase.com/products/${a}-USD/ticker`,
+    parse: (j) => ({ bid: +j.bid, ask: +j.ask }) },
+  { id: "bitstamp", name: "Bitstamp", quote: "USD",
+    note: "CORS reported working (ccxt flag) — core venue",
+    url: (a) => `https://www.bitstamp.net/api/v2/ticker/${a.toLowerCase()}usd/`,
+    parse: (j) => ({ bid: +j.bid, ask: +j.ask }) },
+  { id: "kraken", name: "Kraken", quote: "USD",
+    note: "community reports NO CORS on public endpoints — expect error status in browsers",
+    url: (a) => `https://api.kraken.com/0/public/Ticker?pair=${a === "BTC" ? "XBT" : a}USD`,
+    parse: (j) => { const k = Object.keys(j.result || {})[0]; if (!k) throw new Error(j.error && j.error[0] || "empty");
+      return { bid: +j.result[k].b[0], ask: +j.result[k].a[0] }; } },
+  { id: "gemini", name: "Gemini", quote: "USD",
+    note: "CORS unverified — may fail in browsers",
+    url: (a) => `https://api.gemini.com/v1/pubticker/${a.toLowerCase()}usd`,
+    parse: (j) => ({ bid: +j.bid, ask: +j.ask }) },
+  { id: "binance", name: "Binance (data mirror)", quote: "USDT",
+    note: "geo-blocked from US IPs (HTTP 451); CORS unverified",
+    url: (a) => `https://data-api.binance.vision/api/v3/ticker/bookTicker?symbol=${a}USDT`,
+    parse: (j) => ({ bid: +j.bidPrice, ask: +j.askPrice }) },
+  { id: "okx", name: "OKX", quote: "USDT",
+    note: "US access and CORS unverified",
+    url: (a) => `https://www.okx.com/api/v5/market/ticker?instId=${a}-USDT`,
+    parse: (j) => ({ bid: +j.data[0].bidPx, ask: +j.data[0].askPx }) },
+];
+
+/* ---------------------------------------------------------------- state --- */
+
+const $ = (id) => document.getElementById(id);
+const state = {
+  running: false, timer: null, pollMs: 10000, seq: 0,
+  quotes: new Map(),   // id -> {bid, ask, at(ms), seq, status, errMsg, backoffUntil}
+  series: [],          // [{at, edgePct|null}]
+  opps: [],            // [{at, edgePct, buyVenue, buyAsk, sellVenue, sellBid}]
+};
+
+function el(tag, attrs, ...children) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) { if (k === "class") n.className = v; else n[k] = v; }
+  for (const c of children) { if (c !== null && c !== undefined) n.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return n;
+}
+const fmt$ = (v) => v === undefined || v === null || !isFinite(v) ? "—" :
+  v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtT = (ms) => new Date(ms).toLocaleTimeString();
+
+/* ----------------------------------------------------------------- poll --- */
+
+function activeSources() {
+  const usdt = $("inc-usdt").checked;
+  return SOURCES.filter((s) => s.quote === "USD" || usdt);
+}
+
+async function pollOnce() {
+  const asset = $("asset").value;
+  state.seq++;
+  const now0 = Date.now();
+  await Promise.all(activeSources().map(async (s) => {
+    const q = state.quotes.get(s.id) || {};
+    if (q.backoffUntil && now0 < q.backoffUntil) return;
+    try {
+      const ctrl = new AbortController();
+      const to = setTimeout(() => ctrl.abort(), Math.min(8000, state.pollMs - 500));
+      const res = await fetch(s.url(asset), { signal: ctrl.signal, cache: "no-store" });
+      clearTimeout(to);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const { bid, ask } = s.parse(await res.json());
+      if (!(bid > 0 && ask > 0)) throw new Error("bad quote");
+      state.quotes.set(s.id, { bid, ask, at: Date.now(), seq: state.seq, status: "ok", fails: 0 });
+    } catch (e) {
+      const fails = (q.fails || 0) + 1;
+      state.quotes.set(s.id, { ...q, status: "err", fails,
+        errMsg: e.name === "AbortError" ? "timeout" : String(e.message || e).slice(0, 60),
+        backoffUntil: Date.now() + Math.min(120000, state.pollMs * Math.pow(2, Math.min(4, fails))) });
+    }
+  }));
+  computeCross();
+  render();
+}
+
+function freshQuotes() {
+  const maxAge = state.pollMs * 3;
+  const now = Date.now();
+  return activeSources()
+    .map((s) => ({ s, q: state.quotes.get(s.id) }))
+    .filter(({ q }) => q && q.bid && now - q.at <= maxAge);
+}
+
+function computeCross() {
+  const fee = (Number($("fee").value) || 0) / 100;
+  const fresh = freshQuotes();
+  let entry = { at: Date.now(), edgePct: null };
+  if (fresh.length >= 2) {
+    let bestBid = null, bestAsk = null;
+    for (const { s, q } of fresh) {
+      if (!bestBid || q.bid > bestBid.q.bid) bestBid = { s, q };
+      if (!bestAsk || q.ask < bestAsk.q.ask) bestAsk = { s, q };
+    }
+    if (bestBid.s.id !== bestAsk.s.id) {
+      const mid = (bestBid.q.bid + bestAsk.q.ask) / 2;
+      const gross = bestBid.q.bid - bestAsk.q.ask;
+      const net = gross - fee * (bestBid.q.bid + bestAsk.q.ask);
+      const edgePct = (net / mid) * 100;
+      entry = { at: Date.now(), edgePct, buy: bestAsk, sell: bestBid,
+        grossPct: (gross / mid) * 100 };
+      if (edgePct > 0) state.opps.push({
+        at: entry.at, edgePct, buyVenue: bestAsk.s.name, buyAsk: bestAsk.q.ask,
+        sellVenue: bestBid.s.name, sellBid: bestBid.q.bid });
+    }
+  }
+  state.series.push(entry);
+  if (state.series.length > 720) state.series.shift();
+  state.last = entry;
+}
+
+/* --------------------------------------------------------------- render --- */
+
+function render() {
+  const table = $("venues"); table.replaceChildren();
+  table.append(el("thead", null, el("tr", null,
+    el("th", null, "Venue"), el("th", null, "Quote ccy"), el("th", null, "Bid"), el("th", null, "Ask"),
+    el("th", null, "Mid"), el("th", null, "Age"), el("th", null, "Status"))));
+  const tb = el("tbody", null);
+  const fresh = freshQuotes();
+  let bb = null, ba = null;
+  fresh.forEach(({ s, q }) => {
+    if (!bb || q.bid > bb.q.bid) bb = { s, q };
+    if (!ba || q.ask < ba.q.ask) ba = { s, q };
+  });
+  const now = Date.now();
+  activeSources().forEach((s) => {
+    const q = state.quotes.get(s.id);
+    const age = q && q.at ? (now - q.at) / 1000 : null;
+    const isFresh = q && q.at && now - q.at <= state.pollMs * 3 && q.bid;
+    const stCls = !q ? "idle" : q.status === "err" ? "err" : isFresh ? "ok" : "stale";
+    const stTxt = !q ? "waiting" : q.status === "err" ? ("error: " + (q.errMsg || "")) : isFresh ? "ok" : "stale (excluded)";
+    const tr = el("tr", null,
+      el("td", null, s.name), el("td", null, s.quote),
+      el("td", { class: "num" + (bb && bb.s.id === s.id ? " best-bid" : "") }, q && q.bid ? fmt$(q.bid) : "—"),
+      el("td", { class: "num" + (ba && ba.s.id === s.id ? " best-ask" : "") }, q && q.ask ? fmt$(q.ask) : "—"),
+      el("td", { class: "num" }, q && q.bid ? fmt$((q.bid + q.ask) / 2) : "—"),
+      el("td", { class: "num" }, age !== null ? age.toFixed(0) + " s" : "—"));
+    const td = el("td", null); td.append(el("span", { class: "st " + stCls }), stTxt);
+    tr.append(td);
+    tb.append(tr);
+  });
+  table.append(tb);
+
+  const panels = $("cross-panels"); panels.replaceChildren();
+  const last = state.last || {};
+  if (last.edgePct === null || last.edgePct === undefined) {
+    panels.append(el("div", { class: "panel" }, el("h3", null, "Cross"),
+      el("div", { class: "note" }, "Need at least two fresh venues (start the monitor)." )));
+  } else {
+    panels.append(
+      el("div", { class: "panel" }, el("h3", null, "Best route right now"),
+        el("div", { class: "note", style: "font-size:0.95rem; color:var(--ink)" },
+          `Buy ${$("asset").value} at `, el("b", null, last.buy.s.name), ` ${fmt$(last.buy.q.ask)} → sell at `,
+          el("b", null, last.sell.s.name), ` ${fmt$(last.sell.q.bid)}`),
+        el("div", { class: "note" }, `gross ${last.grossPct >= 0 ? "+" : ""}${last.grossPct.toFixed(3)}% before fees`)),
+      el("div", { class: "panel" }, el("h3", null, "Net edge (after 2× taker fee)"),
+        el("div", { class: "hero " + (last.edgePct > 0 ? "good" : "bad") },
+          (last.edgePct >= 0 ? "+" : "") + last.edgePct.toFixed(3) + "%"),
+        el("div", { class: "note" }, last.edgePct > 0 ? "positive — candidate arbitrage at top-of-book size" : "negative — the gap does not survive fees")),
+      el("div", { class: "panel" }, el("h3", null, "Positive-edge polls this session"),
+        el("div", { class: "hero " + (state.opps.length ? "good" : "") }, String(state.opps.length)),
+        el("div", { class: "note" }, `of ${state.series.filter((d) => d.edgePct !== null).length} polls with a computable cross`)));
+  }
+  renderChart();
+  renderOpps();
+  $("btn-export").disabled = state.series.length === 0;
+}
+
+const NS = "http://www.w3.org/2000/svg";
+const mk = (t, a) => { const n = document.createElementNS(NS, t); for (const [k, v] of Object.entries(a)) n.setAttribute(k, v); return n; };
+
+function renderChart() {
+  const svg = $("chart"); svg.replaceChildren();
+  const pts = state.series.filter((d) => d.edgePct !== null);
+  if (pts.length < 2) return;
+  const W = 920, H = 190, m = { t: 12, r: 20, b: 24, l: 52 };
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const t0 = pts[0].at, t1 = pts[pts.length - 1].at;
+  const vals = pts.map((d) => d.edgePct);
+  const vmin = Math.min(-0.05, ...vals), vmax = Math.max(0.05, ...vals);
+  const X = (ms) => m.l + iw * (t1 === t0 ? 0.5 : (ms - t0) / (t1 - t0));
+  const Y = (v) => m.t + ih * (1 - (v - vmin) / (vmax - vmin));
+  const css = getComputedStyle(document.documentElement);
+  const grid = css.getPropertyValue("--grid").trim(), axis = css.getPropertyValue("--axis").trim(),
+        muted = css.getPropertyValue("--muted").trim(), c = css.getPropertyValue("--s1").trim();
+  [vmin, 0, vmax].forEach((v) => {
+    svg.append(mk("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: v === 0 ? axis : grid, "stroke-width": 1 }));
+    const t = mk("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end", "font-size": 11, fill: muted });
+    t.textContent = v.toFixed(2) + "%"; svg.append(t);
+  });
+  const line = pts.map((d, i) => `${i ? "L" : "M"}${X(d.at)},${Y(d.edgePct)}`).join("");
+  svg.append(mk("path", { d: line, fill: "none", stroke: c, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+  [t0, t1].forEach((t) => {
+    const tx = mk("text", { x: X(t), y: H - 6, "text-anchor": "middle", "font-size": 10.5, fill: muted });
+    tx.textContent = fmtT(t); svg.append(tx);
+  });
+}
+
+function renderOpps() {
+  const table = $("opps"); table.replaceChildren();
+  table.append(el("thead", null, el("tr", null,
+    el("th", null, "Time"), el("th", null, "Net edge"), el("th", null, "Buy at"), el("th", null, "Ask"),
+    el("th", null, "Sell at"), el("th", null, "Bid"))));
+  const tb = el("tbody", null);
+  if (!state.opps.length) tb.append(el("tr", null, el("td", { colSpan: 6 }, "None yet — on major USD venues, fees usually exceed the gap. That result is itself the finding.")));
+  state.opps.slice(-30).reverse().forEach((o) => {
+    tb.append(el("tr", null,
+      el("td", null, fmtT(o.at)),
+      el("td", { class: "num pnl-pos" }, "+" + o.edgePct.toFixed(3) + "%"),
+      el("td", null, o.buyVenue), el("td", { class: "num" }, fmt$(o.buyAsk)),
+      el("td", null, o.sellVenue), el("td", { class: "num" }, fmt$(o.sellBid))));
+  });
+  table.append(tb);
+}
+
+/* ---------------------------------------------------------------- wire --- */
+
+function start() {
+  state.pollMs = Number($("interval").value);
+  state.running = true;
+  $("btn-start").disabled = true; $("btn-stop").disabled = false;
+  $("poll-note").textContent = "Polling…";
+  pollOnce();
+  state.timer = setInterval(pollOnce, state.pollMs);
+}
+function stop() {
+  state.running = false;
+  clearInterval(state.timer);
+  $("btn-start").disabled = false; $("btn-stop").disabled = true;
+  $("poll-note").textContent = "Stopped. Session data retained — export below.";
+}
+const notesUl = $("venue-notes");
+SOURCES.forEach((s) => notesUl.append(el("li", null, `${s.name} (${s.quote}): ${s.note}`)));
+
+$("btn-start").addEventListener("click", start);
+$("btn-stop").addEventListener("click", stop);
+$("asset").addEventListener("change", () => { state.quotes.clear(); state.series.length = 0; state.opps.length = 0; render(); });
+$("inc-usdt").addEventListener("change", () => render());
+$("btn-export").addEventListener("click", () => {
+  const payload = {
+    generator: "spread-monitor", asset: $("asset").value, feePctPerSide: Number($("fee").value),
+    exportedAt: new Date().toISOString(),
+    series: state.series, opportunities: state.opps,
+    quotes: Object.fromEntries([...state.quotes.entries()].map(([k, v]) => [k, { ...v }])),
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 1)], { type: "application/json" });
+  const a = el("a", { href: URL.createObjectURL(blob), download: `spread-session-${$("asset").value}.json` });
+  document.body.append(a); a.click(); a.remove();
+});
+render();
+</script>
+</body>
+</html>
