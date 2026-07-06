@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉璧之战 · 东魏武定四年 / 西魏大统十二年(546)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 玉璧坚城:放大示意之塬上方城 */
+  .wall{fill:rgba(31,78,84,.06);stroke:var(--advance);stroke-width:2.6;opacity:.96;stroke-linejoin:round}
+  .merlon{fill:none;stroke:var(--advance);stroke-width:1.6;opacity:.9}
+  .ravine{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.55;stroke-dasharray:2 3}
+  /* 东魏攻城诸法(赤) */
+  .mound{fill:rgba(154,43,30,.16);stroke:var(--enemy);stroke-width:1.4;stroke-linejoin:round}
+  .tunnel{fill:none;stroke:var(--enemy);stroke-width:1.7;stroke-dasharray:5 4;opacity:.9;stroke-linecap:round}
+  .ram .body{fill:#3a3327;stroke:var(--ink);stroke-width:.7}
+  .ram .beam{stroke:var(--enemy);stroke-width:3;stroke-linecap:round}
+  .ram .wheel{fill:none;stroke:var(--ink);stroke-width:1.1}
+  .flame{fill:var(--fire);opacity:.95}
+  .flame.o{fill:var(--gold);opacity:.9}
+  .smoke{fill:#8a7c5e;opacity:.22}
+  .breach{fill:var(--paper2);stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:3 3}
+  /* 韦孝宽拒守诸法(青) */
+  .tower{fill:rgba(31,78,84,.10);stroke:var(--advance);stroke-width:1.8;stroke-linejoin:round}
+  .drape{fill:rgba(31,78,84,.14);stroke:var(--advance);stroke-width:1.3}
+  .trench{fill:none;stroke:var(--advance);stroke-width:2;stroke-linecap:round}
+  .hook{fill:none;stroke:var(--advance);stroke-width:2.2;stroke-linecap:round}
+  .palisade line{stroke:var(--advance);stroke-width:2;stroke-linecap:round}
+  /* 死者七万,聚为一冢 */
+  .grave{fill:rgba(60,50,38,.30);stroke:#3c3226;stroke-width:1.2}
+  .skull{fill:#d9ccac;stroke:#3c3226;stroke-width:.7}
+  /* 赏格·劝降之矢 */
+  .decree{fill:rgba(233,222,196,.9);stroke:var(--ink);stroke-width:.8}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}.mlabel.f{fill:var(--fire)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.7;stroke-dasharray:2 5;opacity:.9}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>玉</span><span>璧</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>玉璧之战</h1>
+    <div class="sub">东魏武定四年 · 西魏大统十二年(546)　　<i>西魏 并州刺史 韦孝宽</i> 死守玉璧 · 百计尽破　·　<b>东魏 丞相 高欢</b> 倾国十余万攻五十余日不克 —— 顿于坚城而毙,高欢之滑铁卢</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 顿于坚城</button>
+    <button data-p="1">高欢倾国围玉璧</button>
+    <button data-p="2">土山·地道·攻车·火攻百计并施</button>
+    <button data-p="3">韦孝宽一一化解 · 死七万顿坚城</button>
+    <button data-p="4">智力俱困 · 忧愤撤围 · 高欢病死</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="玉璧之战形势图,以放大之玉璧坚城为中心,含东魏西魏之疆界、汾水黄河,及稷山平阳(北)、蒲坂(西南)、晋阳(图外东北·高欢来向)、长安(图外西·西魏后方)之标示;示高欢倾国十余万自晋阳经平阳南下围玉璧五十余日、筑土山掘地道二十一道造攻车纵火掘柱崩城劝降诸法百计并施,韦孝宽以加高木楼长堑皮排纵火布幔长钩木栅赏格射还一一化解,东魏死者七万聚为一冢,高欢智力俱困忧愤成疾解围退晋阳明年病死,玉璧屹立不拔">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:东魏据河东北路·晋阳(东北),西魏据河东南路·关中(西南);玉璧为西魏据汾扼守之前哨,约以汾北一线为界(示意) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,300 C 820,300 700,260 560,232 C 440,208 320,150 220,60 L 180,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 180,0 L 220,60 C 320,150 440,208 560,232 C 700,260 820,300 1000,300 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 180,0 L 220,60 C 320,150 440,208 560,232 C 700,260 820,300 1000,300"/>
+    <text class="realm q" x="700" y="86" font-size="25">东 魏 · 河 东 北 路</text>
+    <text class="cname s" x="704" y="110" style="fill:var(--enemy);opacity:.55">晋阳为霸府 · 高欢自此倾国南下</text>
+    <text class="realm j" x="70" y="566" font-size="25">西 魏 · 河 东 南 路</text>
+    <text class="cname s" x="74" y="590" style="fill:var(--advance);opacity:.6">玉璧扼汾 · 为关中北面之锁钥</text>
+
+    <!-- ══ 中条山:河东之南,横亘蒲坂之东 ══ -->
+    <path class="mtn fill" d="M 300,556 L 330,512 L 356,540 L 386,500 L 414,540 L 442,506 L 470,548 Z"/>
+    <g class="mtn"><path d="M 316,548 l 18,-28 l 16,20 l 22,-30 l 18,24 M 400,540 l 16,-24 l 14,20"/></g>
+    <text class="mname" x="330" y="580" transform="rotate(-6 330 580)">中 条 山</text>
+    <!-- 稷王山:稷山之侧 -->
+    <g class="mtn"><path d="M 560,300 l 12,-20 l 12,20 M 580,296 l 10,-18 l 10,18"/></g>
+    <text class="mname" x="556" y="322" style="font-size:10px">稷 王 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自北南下,河东之西界,龙门在北、蒲坂在其东岸 -->
+    <path class="river" stroke-width="5" d="M 300,40 C 286,150 288,250 300,330 C 312,410 330,486 356,556"/>
+    <!-- 汾水:自平阳(东北)西南流,经玉璧之北、稷山、河津入黄河(玉璧在汾南岸) -->
+    <path class="river" stroke-width="3.4" d="M 662,178 C 600,214 552,244 512,262 C 456,286 402,326 356,392 C 332,428 316,470 306,504"/>
+    <text class="rname" x="250" y="210" transform="rotate(84 250 210)" style="font-size:13px">黄 河</text>
+    <text class="rname" x="556" y="238" transform="rotate(-26 556 238)" style="font-size:12px">汾 水</text>
+    <text class="cname s" x="322" y="470" transform="rotate(66 322 470)" style="fill:var(--water);opacity:.8">汾水入河(龙门)</text>
+
+    <!-- ══ 玉璧坚城(放大示意:实城东西四百二十步、南北五百步,居汾南塬上,两侧深沟;图中夸大以见守御百法) ══ -->
+    <!-- 两侧深沟 -->
+    <path class="ravine" d="M 430,250 C 418,290 418,350 430,392"/>
+    <path class="ravine" d="M 570,250 C 582,290 582,350 570,392"/>
+    <path class="wall" d="M 448,262 L 552,262 Q 560,262 560,270 L 560,372 Q 560,380 552,380 L 448,380 Q 440,380 440,372 L 440,270 Q 440,262 448,262 Z"/>
+    <!-- 城堞 -->
+    <path class="merlon" d="M 448,262 v-7 h8 v7 M 470,262 v-7 h8 v7 M 492,262 v-7 h8 v7 M 514,262 v-7 h8 v7 M 536,262 v-7 h8 v7"/>
+
+    <!-- ══ 城邑(可点) ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="yubi"><circle cx="500" cy="321" r="6.5"/><text class="cname" x="510" y="317">玉璧<tspan class="cname s" dx="2">(韦孝宽死守)</tspan></text></g>
+      <g class="city" data-city="jishan"><circle cx="534" cy="306" r="3.6"/><text class="cname s" x="542" y="300">稷山</text></g>
+      <g class="city" data-city="pingyang"><circle cx="654" cy="166" r="5"/><text class="cname" x="664" y="162">平阳<tspan class="cname s" dx="2">(晋州)</tspan></text></g>
+      <g class="city" data-city="puban"><circle cx="412" cy="510" r="4.5"/><text class="cname" x="422" y="514">蒲坂</text></g>
+    </g>
+
+    <!-- 晋阳(图外东北):高欢霸府·来向与病归之所 -->
+    <g transform="translate(846,36)">
+      <text class="mlabel q" x="14" y="6" style="font-size:10px">晋阳(太原) ↗(图外东北)</text>
+      <text class="cname s" x="14" y="22" style="fill:var(--enemy);font-size:9px">高欢自晋阳倾国南下 · 解围亦归此</text>
+      <text class="cname s" x="14" y="36" style="fill:var(--enemy);font-size:9px">明年正月,高欢病死于晋阳</text>
+    </g>
+    <!-- 长安(图外西南):西魏都·韦孝宽后方 -->
+    <g transform="translate(14,540)">
+      <path class="march j" marker-end="url(#aj)" d="M 44,10 C 28,6 14,4 -2,2" opacity=".82"/>
+      <text class="mlabel j" x="0" y="-6" style="font-size:10px">⟵ 长安 · 关中(图外西南)</text>
+      <text class="cname s" x="0" y="30" style="fill:var(--advance);font-size:9px">西魏都 · 宇文泰在此 · 玉璧为其屏蔽</text>
+    </g>
+
+    <!-- ══════════ 全图 · 顿于坚城 ══════════ -->
+    <g id="phAll" class="ph">
+      <!-- 高欢自晋阳经平阳南下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 862,60 C 760,110 700,142 660,168 C 620,196 580,226 556,252"/>
+      <text class="mlabel q" x="672" y="120">高欢倾国十余万,自晋阳南下</text>
+      <!-- 围城 -->
+      <circle class="siege" cx="500" cy="321" r="86"/>
+      <circle class="star" cx="500" cy="321" r="22"/>
+      <text class="mlabel j" x="300" y="230">韦孝宽据玉璧,昼夜拒守五十余日</text>
+      <text class="mlabel g" x="300" y="248">百计尽破 · 坚城屹立不拔</text>
+      <!-- 死七万冢 -->
+      <g transform="translate(660,430)"><path class="grave" d="M -34,20 C -30,-8 30,-8 34,20 Z"/><circle class="skull" cx="-14" cy="12" r="3"/><circle class="skull" cx="0" cy="8" r="3"/><circle class="skull" cx="14" cy="12" r="3"/><circle class="skull" cx="-6" cy="17" r="3"/><circle class="skull" cx="8" cy="17" r="3"/></g>
+      <text class="mlabel q" x="606" y="472">东魏死者七万,聚为一冢</text>
+      <!-- 撤围病归 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 540,268 C 620,208 720,150 856,72"/>
+      <text class="mlabel r" x="612" y="204" transform="rotate(-30 612 204)">攻不能克,忧愤成疾,解围退晋阳</text>
+    </g>
+
+    <!-- ══════════ 阶段一:高欢倾国围玉璧 ══════════ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 862,58 C 770,104 706,138 662,168"/>
+      <text class="mlabel q" x="694" y="128">九月,高欢自晋阳大举南下</text>
+      <path class="march q" marker-end="url(#aq)" d="M 648,178 C 600,214 560,244 556,254"/>
+      <text class="anno" x="574" y="214">经平阳(晋州)入河东,趋玉璧</text>
+      <circle class="siege" cx="500" cy="321" r="88"/>
+      <rect class="camp" x="500" y="206" width="10" height="10" transform="rotate(45 505 211)"/>
+      <rect class="camp" x="608" y="292" width="10" height="10" transform="rotate(45 613 297)"/>
+      <rect class="camp" x="600" y="392" width="10" height="10" transform="rotate(45 605 397)"/>
+      <text class="mlabel q" x="612" y="240">连营数十里,倾国之兵围城</text>
+      <text class="mlabel j" x="150" y="330">西魏并州刺史韦孝宽</text>
+      <text class="anno" x="150" y="348">率兵据玉璧,城中储备素充,以逸待劳</text>
+      <text class="anno" x="150" y="366">城扼汾水,乃关中东北之门户</text>
+    </g>
+
+    <!-- ══════════ 阶段二:土山·地道·攻车·火攻百计并施 ══════════ -->
+    <g id="ph2" class="ph">
+      <!-- 土山(西北) -->
+      <path class="mound" d="M 372,340 L 416,262 L 448,300 L 420,340 Z"/>
+      <text class="mlabel q" x="300" y="258">① 筑土山,欲高临城中</text>
+      <!-- 攻车·冲车(东) -->
+      <g class="ram" transform="translate(600,320)"><rect class="body" x="4" y="-9" width="26" height="18" rx="2"/><circle class="wheel" cx="12" cy="12" r="4"/><circle class="wheel" cx="24" cy="12" r="4"/><line class="beam" x1="4" y1="0" x2="-38" y2="0"/></g>
+      <text class="mlabel q" x="606" y="316">② 造攻车(冲车)撞城</text>
+      <!-- 火攻(东北角) -->
+      <g transform="translate(556,258)"><path class="flame" d="M 0,0 C 6,-14 -6,-18 2,-30 C 12,-20 16,-6 8,4 Z"/><path class="flame o" d="M 4,-2 C 8,-11 0,-15 5,-23 C 11,-16 13,-7 8,0 Z"/></g>
+      <text class="mlabel f" x="574" y="252">③ 缚松麻灌油纵火,焚楼焚幔</text>
+      <!-- 地道二十一道(南) -->
+      <path class="tunnel" d="M 500,452 L 494,382"/>
+      <path class="tunnel" d="M 476,452 L 480,384"/>
+      <path class="tunnel" d="M 524,452 L 516,384"/>
+      <path class="tunnel" d="M 452,448 L 466,388"/>
+      <path class="tunnel" d="M 548,448 L 532,388"/>
+      <text class="mlabel q" x="404" y="474">④ 掘地道凡二十一道,分番昼夜穿城</text>
+      <!-- 掘柱崩城(西) -->
+      <path class="breach" d="M 440,326 L 418,320 L 414,338 L 440,344 Z"/>
+      <text class="mlabel q" x="230" y="392">⑤ 城下掘地道以柱撑之,焚柱使城崩</text>
+      <text class="anno" x="230" y="410">崩二十余丈,欲乘崩而入</text>
+      <!-- 劝降赏格(东南,矢入城) -->
+      <path class="march q" marker-end="url(#aq)" d="M 616,430 C 580,404 552,384 528,364"/>
+      <rect class="decree" x="612" y="424" width="16" height="11" transform="rotate(-30 620 430)"/>
+      <text class="mlabel q" x="590" y="470">⑥ 射赏格劝降,又以孝宽家属相胁</text>
+    </g>
+
+    <!-- ══════════ 阶段三:韦孝宽一一化解 · 死七万顿坚城 ══════════ -->
+    <g id="ph3" class="ph">
+      <!-- ①解:加高木楼(高于土山) -->
+      <path class="mound" d="M 372,340 L 416,262 L 448,300 L 420,340 Z" style="opacity:.5"/>
+      <path class="tower" d="M 452,262 L 452,222 L 476,222 L 476,262 Z"/>
+      <text class="mlabel j" x="266" y="230">① 缚木加高城楼,楼恒高于土山</text>
+      <!-- ②解:布幔随攻车张之 -->
+      <path class="drape" d="M 560,286 C 574,296 574,346 560,356 L 560,286 Z"/>
+      <text class="mlabel j" x="606" y="316">③ 缝布为幔,随攻车所向张之,撞不能着</text>
+      <!-- ③解:长钩利刃钩焚火竿 -->
+      <path class="hook" d="M 548,270 C 560,262 566,254 560,246 C 556,242 550,244 550,250"/>
+      <text class="mlabel j" x="574" y="248">④ 预制长钩利刃,火竿一至则钩去而焚</text>
+      <!-- ④解:长堑横截地道,柴火皮排鼓火灌烟 -->
+      <path class="trench" d="M 452,384 L 548,384"/>
+      <g transform="translate(500,376)"><path class="flame" d="M 0,0 C 5,-10 -4,-13 2,-22 C 9,-14 12,-5 6,2 Z"/></g>
+      <ellipse class="smoke" cx="500" cy="430" rx="46" ry="16"/>
+      <text class="mlabel j" x="360" y="474">② 城内掘长堑横截地道,柴火皮排鼓火灌烟熏灼穴中之敌</text>
+      <!-- ⑤解:木栅补缺 -->
+      <g class="palisade" transform="translate(414,320)"><line x1="0" y1="2" x2="0" y2="26"/><line x1="6" y1="0" x2="6" y2="24"/><line x1="12" y1="2" x2="12" y2="26"/><line x1="18" y1="0" x2="18" y2="24"/></g>
+      <text class="mlabel j" x="220" y="392">⑤ 城崩则以木栅补缺,敌终不得入</text>
+      <!-- ⑥解:赏格背书射还 -->
+      <path class="march j" marker-end="url(#aj)" d="M 530,362 C 560,388 588,410 618,432"/>
+      <rect class="decree" x="612" y="428" width="16" height="11" transform="rotate(30 620 434)"/>
+      <text class="mlabel j" x="588" y="474">⑥ 背书「能斩高欢者依此赏」射还,答以宁死不降</text>
+      <!-- 坚城不拔 -->
+      <circle class="star" cx="500" cy="321" r="20"/>
+      <text class="mlabel g" x="150" y="300">攻五十余日,城不可拔</text>
+      <!-- 死七万冢 -->
+      <g transform="translate(660,214)"><path class="grave" d="M -40,24 C -34,-12 34,-12 40,24 Z"/><circle class="skull" cx="-20" cy="14" r="3.2"/><circle class="skull" cx="-6" cy="9" r="3.2"/><circle class="skull" cx="8" cy="9" r="3.2"/><circle class="skull" cx="22" cy="14" r="3.2"/><circle class="skull" cx="-12" cy="20" r="3.2"/><circle class="skull" cx="2" cy="20" r="3.2"/><circle class="skull" cx="16" cy="20" r="3.2"/></g>
+      <text class="mlabel q" x="606" y="256">东魏士卒战死病死者七万,聚为一冢</text>
+    </g>
+
+    <!-- ══════════ 阶段四:智力俱困 · 忧愤撤围 · 高欢病死 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 定功弩讹传射中高欢 -->
+      <path class="march j" marker-end="url(#aj)" d="M 512,300 C 566,258 620,214 664,178"/>
+      <text class="mlabel j" x="540" y="250" transform="rotate(-30 540 250)">军中讹传:韦孝宽以定功弩射中高欢(实未中)</text>
+      <!-- 高欢智力俱困、忧愤成疾 -->
+      <rect class="camp" x="628" y="200" width="10" height="10" transform="rotate(45 633 205)"/>
+      <text class="mlabel q" x="560" y="150">高欢智力俱困,忧愤成疾</text>
+      <text class="anno" x="560" y="168">人心惶惧,乃抱病强起宴群臣</text>
+      <text class="anno" x="560" y="186">命斛律金唱《敕勒歌》,自和之,泪下</text>
+      <!-- 撤围退晋阳 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 544,266 C 640,204 740,146 858,70"/>
+      <text class="mlabel r" x="638" y="196" transform="rotate(-30 638 196)">十一月,解围退还晋阳</text>
+      <!-- 玉璧不拔 -->
+      <circle class="star" cx="500" cy="321" r="20"/>
+      <text class="mlabel g" x="196" y="330">玉璧屹立不拔</text>
+      <text class="mlabel j" x="196" y="348">韦孝宽以功进爵建忠郡公</text>
+      <text class="mlabel r" x="196" y="380">明年(547)正月,高欢病死于晋阳</text>
+      <text class="anno" x="196" y="398">玉璧一役,遂为其毕生功业之终</text>
+    </g>
+
+    <g class="compass" transform="translate(946,110)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>西魏(韦孝宽·守)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>东魏(高欢·攻)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>高欢撤围退晋阳</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>东魏围城</span>
+    <span class="item"><svg width="26" height="16"><path d="M 2,14 L 14,2 L 22,12 L 16,14 Z" fill="rgba(154,43,30,.16)" stroke="#9a2b1e" stroke-width="1.2"/></svg>土山·攻具</span>
+    <span class="item"><svg width="26" height="14"><line x1="4" y1="13" x2="8" y2="2" stroke="#9a2b1e" stroke-width="1.7" stroke-dasharray="4 3"/><line x1="13" y1="13" x2="14" y2="2" stroke="#9a2b1e" stroke-width="1.7" stroke-dasharray="4 3"/><line x1="21" y1="13" x2="19" y2="2" stroke="#9a2b1e" stroke-width="1.7" stroke-dasharray="4 3"/></svg>地道二十一道</span>
+    <span class="item"><svg width="20" height="16"><rect x="7" y="3" width="8" height="12" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/></svg>木楼·布幔·木栅(守具)</span>
+    <span class="item"><svg width="16" height="16"><path d="M 8,1 C 12,7 4,9 9,15 C 13,10 14,5 8,1 Z" fill="#c8641e"/></svg>火攻·纵火</span>
+    <span class="item"><svg width="20" height="16"><path class="grave" d="M 2,13 C 4,3 16,3 18,13 Z" fill="rgba(60,50,38,.30)" stroke="#3c3226" stroke-width="1"/></svg>死七万·一冢</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>坚城不拔</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>东魏</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>西魏</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 百计尽破 · 顿于坚城而毙</h3>
+    <div class="lead">何以倾国十余万攻一城五十余日而不能下 —— 高欢每出一攻法,韦孝宽必有一解法相当,攻守相消,师老于坚城之下</div>
+    <svg class="schem" viewBox="0 0 860 430" role="img" aria-label="玉璧攻守相消示意:高欢六出攻城之法(筑土山、掘地道二十一道、造攻车、纵火、掘柱崩城、射赏格劝降),韦孝宽六设解御之法(加高木楼、掘长堑以皮排鼓火灌烟、缝布为幔、长钩利刃钩焚、木栅补缺、赏格背书射还),法法相当,遂使东魏攻五十余日死七万而不能拔">
+      <text x="20" y="24" fill="#9a2b1e" font-size="12.5" font-weight="700">高欢攻城之法(倾国百计)</text>
+      <text x="840" y="24" fill="#1f4e54" font-size="12.5" font-weight="700" text-anchor="end">韦孝宽拒守之解(法法相当)</text>
+      <!-- 中央城垣脊 -->
+      <rect x="404" y="40" width="52" height="356" rx="4" fill="rgba(31,78,84,.07)" stroke="#1f4e54" stroke-width="1.8"/>
+      <path d="M 404,40 v-7 h8 v7 M 420,40 v-7 h8 v7 M 436,40 v-7 h8 v7 M 448,40 v-7 h8 v7" fill="none" stroke="#1f4e54" stroke-width="1.4"/>
+      <text x="430" y="220" fill="#1f4e54" font-size="13" font-weight="700" font-family="Ma Shan Zheng,serif" transform="rotate(90 430 220)" text-anchor="middle">玉 璧 坚 城</text>
+
+      <!-- 行1 土山 -->
+      <rect x="20" y="44" width="352" height="42" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="32" y="62" fill="#9a2b1e" font-size="11.5" font-weight="700">① 筑土山,欲高临城中而俯射</text>
+      <text x="32" y="79" fill="#5c4f38" font-size="10.5">堆土成阜,登之以瞰城内</text>
+      <path d="M 372,65 L 402,65" fill="none" stroke="#9a2b1e" stroke-width="1.4" marker-end="url(#aq)"/>
+      <rect x="488" y="44" width="352" height="42" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="500" y="62" fill="#1f4e54" font-size="11.5" font-weight="700">① 缚木加高城楼,楼恒高于山</text>
+      <text x="500" y="79" fill="#5c4f38" font-size="10.5">城上续木为楼,始终高出土山</text>
+      <path d="M 488,65 L 458,65" fill="none" stroke="#1f4e54" stroke-width="1.4" marker-end="url(#aj)"/>
+
+      <!-- 行2 地道 -->
+      <rect x="20" y="100" width="352" height="42" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="32" y="118" fill="#9a2b1e" font-size="11.5" font-weight="700">② 掘地道凡二十一道,分番穿城</text>
+      <text x="32" y="135" fill="#5c4f38" font-size="10.5">昼夜并掘,欲自地下陷城</text>
+      <path d="M 372,121 L 402,121" fill="none" stroke="#9a2b1e" stroke-width="1.4" marker-end="url(#aq)"/>
+      <rect x="488" y="100" width="352" height="42" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="500" y="118" fill="#1f4e54" font-size="11.5" font-weight="700">② 掘长堑横截,皮排鼓火灌烟</text>
+      <text x="500" y="135" fill="#5c4f38" font-size="10.5">堑边备柴,以风箱鼓火熏灼穴中之敌</text>
+      <path d="M 488,121 L 458,121" fill="none" stroke="#1f4e54" stroke-width="1.4" marker-end="url(#aj)"/>
+
+      <!-- 行3 攻车 -->
+      <rect x="20" y="156" width="352" height="42" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="32" y="174" fill="#9a2b1e" font-size="11.5" font-weight="700">③ 造攻车(冲车)撞城</text>
+      <text x="32" y="191" fill="#5c4f38" font-size="10.5">冲车所撞,无不摧陷</text>
+      <path d="M 372,177 L 402,177" fill="none" stroke="#9a2b1e" stroke-width="1.4" marker-end="url(#aq)"/>
+      <rect x="488" y="156" width="352" height="42" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="500" y="174" fill="#1f4e54" font-size="11.5" font-weight="700">③ 缝布为幔,随车所向张之</text>
+      <text x="500" y="191" fill="#5c4f38" font-size="10.5">布幔悬垂,冲车撞之而不能着城</text>
+      <path d="M 488,177 L 458,177" fill="none" stroke="#1f4e54" stroke-width="1.4" marker-end="url(#aj)"/>
+
+      <!-- 行4 火攻 -->
+      <rect x="20" y="212" width="352" height="42" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="32" y="230" fill="#9a2b1e" font-size="11.5" font-weight="700">④ 缚松麻灌油纵火,焚楼焚幔</text>
+      <text x="32" y="247" fill="#5c4f38" font-size="10.5">长竿系火,欲焚其楼幔</text>
+      <path d="M 372,233 L 402,233" fill="none" stroke="#9a2b1e" stroke-width="1.4" marker-end="url(#aq)"/>
+      <rect x="488" y="212" width="352" height="42" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="500" y="230" fill="#1f4e54" font-size="11.5" font-weight="700">④ 预制长钩利刃,火竿至则钩焚</text>
+      <text x="500" y="247" fill="#5c4f38" font-size="10.5">利刃缚竿端,火竿一近即钩断而去</text>
+      <path d="M 488,233 L 458,233" fill="none" stroke="#1f4e54" stroke-width="1.4" marker-end="url(#aj)"/>
+
+      <!-- 行5 崩城 -->
+      <rect x="20" y="268" width="352" height="42" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="32" y="286" fill="#9a2b1e" font-size="11.5" font-weight="700">⑤ 掘地道以柱撑之,焚柱崩城</text>
+      <text x="32" y="303" fill="#5c4f38" font-size="10.5">城崩二十余丈,欲乘崩而入</text>
+      <path d="M 372,289 L 402,289" fill="none" stroke="#9a2b1e" stroke-width="1.4" marker-end="url(#aq)"/>
+      <rect x="488" y="268" width="352" height="42" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="500" y="286" fill="#1f4e54" font-size="11.5" font-weight="700">⑤ 即以木栅补缺,敌终不得入</text>
+      <text x="500" y="303" fill="#5c4f38" font-size="10.5">崩处随以木栅塞之,缺而复完</text>
+      <path d="M 488,289 L 458,289" fill="none" stroke="#1f4e54" stroke-width="1.4" marker-end="url(#aj)"/>
+
+      <!-- 行6 劝降 -->
+      <rect x="20" y="324" width="352" height="42" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="32" y="342" fill="#9a2b1e" font-size="11.5" font-weight="700">⑥ 射赏格劝降,以孝宽家属相胁</text>
+      <text x="32" y="359" fill="#5c4f38" font-size="10.5">悬赏招降,又胁以在东魏之家口</text>
+      <path d="M 372,345 L 402,345" fill="none" stroke="#9a2b1e" stroke-width="1.4" marker-end="url(#aq)"/>
+      <rect x="488" y="324" width="352" height="42" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="500" y="342" fill="#1f4e54" font-size="11.5" font-weight="700">⑥ 背书「能斩高欢者依此赏」射还</text>
+      <text x="500" y="359" fill="#5c4f38" font-size="10.5">于赏格背反其辞射还,答以宁死不降</text>
+      <path d="M 488,345 L 458,345" fill="none" stroke="#1f4e54" stroke-width="1.4" marker-end="url(#aj)"/>
+
+      <!-- 底:结论 -->
+      <text x="430" y="392" fill="#9a2b1e" font-size="11.5" font-weight="700" text-anchor="middle">攻五十余日 · 死者七万 · 城终不拔 → 高欢忧愤成疾,解围病归</text>
+    </svg>
+    <p class="intro">玉璧之守,不在一战之勇,而在<b>以静制动、以解破攻</b>。高欢恃倾国之众、攻具之备,以为坚城可以力拔;而韦孝宽之谋,正在<b>敌每出一法,我必有一法相消</b>——土山则加楼使高,地道则掘堑灌烟,攻车则张幔使不着,纵火则以钩钩去,崩城则以栅补缺,劝降则反辞射还。攻守六番相当,城纹丝不动,而东魏之众则日耗于城下。此非徒城之坚,乃<b>守法之密,使敌力无所施而自敝</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>韦孝宽之守 · 百计尽破</h4>
+        <p>玉璧居汾南塬上,两面深沟,本为形胜;韦孝宽又储备素充、军民一心,得以内线固守、以逸待劳。高欢之攻,土山、地道、攻车、纵火、崩城、劝降,无一不出,而孝宽应之如响:楼高于山、堑截其道、幔避其冲、钩焚其火、栅补其崩、辞折其降。攻具愈奇,解法愈捷——「百计」而「尽破」,守之至者也。</p>
+      </div>
+      <div class="c b">
+        <h4>高欢之败 · 顿于坚城</h4>
+        <p>高欢倾晋阳之全力,昼夜猛攻五十余日,士卒战死病死者七万,积尸如山、聚为一冢。攻既不克,又误传中弩,人心惶惧,高欢智力俱困、忧愤成疾。乃强起宴群臣,命斛律金唱《敕勒歌》以壮军心,自和之而泪下,遂解围退还晋阳,明年正月病死。一城不下,而一世之雄尽于此——所谓「顿于坚城而毙」也。</p>
+      </div>
+    </div>
+    <p class="kicker">故玉璧之役,枢不在攻之猛,而在<b>守之无隙、敌之自敝</b>:攻法虽百,解法应之,故力竭而城全;师老于坚城之下,死七万、疫且困,故一世枭雄忧愤以毙。<b>此东西魏强弱转关之一大枢</b>——高欢自此不复能西向,越岁而殂;而韦孝宽以孤城折倾国之兵,遂为古今守城之极则。玉璧一城,实高欢之滑铁卢也。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图。城邑水道按今地经纬度作线性(墨卡托)投影:<b>x=500+(经度−110.83)·230,y=320−(纬度−35.55)·280</b>(北上东右,KX/KY≈0.82,近合此纬东西之收窄),几何方位力求近实:玉璧居中,稷山在其东北、平阳(晋州)在北、蒲坂在西南,汾水自平阳西南流经玉璧之北入黄河,黄河为河东之西界(南北流)。晋阳(高欢来向)远出图外东北、长安(西魏都)远出图外西南,俱以边缘标示。经纬:玉璧约110.83E/35.55N(今山西稷山西南汾南、白家庄一带),稷山约110.98E/35.60N,平阳·晋州约111.50E/36.10N(今临汾),蒲坂约110.45E/34.87N(今永济),晋阳约112.55E/37.87N(今太原),长安约108.95E/34.30N。惟玉璧实城仅东西约四百二十步、南北约五百步,若按同一比例则聚为一点,故<b>中央方城系放大之示意</b>,城堞、木楼、攻具、地道之位置皆为象征,非实测。</p>
+    <p><span class="n">注二</span>晕染疆界为大统十二年(546)河东形势示意:东魏都邺而以晋阳为霸府,高欢自晋阳南出,循汾水谷经平阳(晋州)入河东;西魏都长安,以玉璧为据汾扼守、屏蔽关中东北之前哨要塞(自大统四年、538 起筑)。图中点划「约界」略标汾北一线,乃示两魏在河东之攻守相接,非实有画界——河东汾曲之地本反复争夺,玉璧正当其冲。</p>
+    <p><span class="n">注三</span>【行军与水陆】本役<b>纯为陆战围城</b>:东魏军自晋阳南下、经平阳趋玉璧,皆由陆路,无舟师之运;守方亦专守孤城,无出战。汾水虽绕城之北,乃地形之限(玉璧在汾南岸、扼渡口),非用兵之水道。【补给与胜负】此役无「粮道」可断,决胜之枢在<b>攻守之相消与顿兵之久</b>:玉璧城小而储备充、内线易守,韦孝宽以逸待劳;高欢倾国远攻、师老坚城之下五十余日,士卒战死病死者七万,粮秣士气俱耗——非西魏断其粮,乃东魏自敝于坚城。【几方之力】两方之战:西魏(青,韦孝宽)据玉璧死守;东魏(赤,高欢)自晋阳倾国来攻。西魏都长安(宇文泰所在)在图外西南,为孝宽之后方屏障,然玉璧未破、援军未及交战而高欢已退;东魏霸府晋阳在图外东北,为高欢之来向,亦其解围病归之所。故图以两边缘标示两方之根本,而无第三方。</p>
+    <p><span class="n">注四</span>制胜之枢在「百计尽破·顿于坚城而毙」(见上「释要」):高欢六出攻法——①筑土山临城,②掘地道二十一道穿城,③造攻车(冲车)撞城,④缚松麻灌油纵火焚楼幔,⑤城下掘地道以柱撑之、焚柱使城崩(崩二十余丈),⑥射赏格劝降兼以家属相胁;韦孝宽六设解法——①缚木加高城楼恒高于山,②城内掘长堑横截地道、以皮排(风箱)鼓火灌烟熏灼,③缝布为幔随攻车所向张之使撞不着城,④预制长钩利刃火竿一至则钩去而焚,⑤崩处即以木栅补缺敌终不得入,⑥于赏格背书「能斩高欢者依此赏」射还、答以宁死不降。攻守法法相当,故攻五十余日而城不拔。</p>
+    <p><span class="n">注五</span>异说与考订。兵数:高欢军史称「倾国之兵」「十余万」,西魏守军数目史无明载,要以孤城敌倾国。围期:诸书多作「五十余日」(约九月至十一月初),《北齐书·神武纪》系于武定四年。伤亡:东魏「士卒死者七万人,聚为一冢」(《资治通鉴》卷一五九)。<b>定功弩射中高欢之说</b>:军中讹传韦孝宽以「定功弩」射中高欢,实未中;然人心惶惧,高欢乃抱病强起宴群臣、命斛律金唱《敕勒歌》「敕勒川,阴山下……」以壮士气,自和之而泣下——事见《北齐书·神武纪》。高欢解围后忧愤成疾,武定五年(547)正月殂于晋阳。韦孝宽以守玉璧功进爵建忠郡公、拜骠骑大将军·开府仪同三司。依《周书·韦孝宽传》《北齐书·神武纪》《资治通鉴》卷一五九约略绘出;《敕勒歌》一节及「定功弩」讹传,并志其大端。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"顿于坚城 · 高欢之滑铁卢",d:"东魏武定四年 / 西魏大统十二年(546)九—十一月",p:["东魏丞相高欢欲拔西魏据汾之要塞玉璧,以通晋阳入关中之路,乃于武定四年秋倾晋阳之全力、号十余万南下,自平阳(晋州)入河东,围玉璧,昼夜猛攻五十余日。西魏并州刺史韦孝宽据城死守,城小而储备素充、内线易守,以逸待劳。","高欢用尽攻城之法:筑土山、掘地道二十一道、造攻车、纵火、掘柱崩城、射赏格劝降,韦孝宽一一化解,城纹丝不动。东魏士卒战死病死者七万,聚为一冢;高欢智力俱困、忧愤成疾,又误传中弩、人心惶惧。乃命斛律金唱《敕勒歌》以壮军心,自和之泪下,遂解围退还晋阳——明年正月病死。玉璧屹立不拔,韦孝宽以孤城折倾国之兵,遂成古今守城之极则。"]},
+  "1":{t:"高欢倾国围玉璧",d:"武定四年(546)九月",p:["玉璧城居汾水南岸之塬上,两面深沟,自西魏大统四年(538)筑以扼守河东,乃东魏晋阳南出、西魏关中东北门户之所系。是年八月,西魏以韦孝宽为并州刺史,率兵镇玉璧。","九月,高欢自晋阳大举南下,循汾水谷经平阳(晋州)入河东,倾国之兵围玉璧,连营数十里。韦孝宽据城拒守;城中储备素充、军民协力,恃坚城以待其攻,不与野战。一城当倾国之众,攻守之势遂成。"]},
+  "2":{t:"土山·地道·攻车·火攻百计并施",d:"武定四年九—十月",p:["高欢志在必拔,攻城之法无所不用。先于城外筑土山,欲高临城中而俯瞰俯射;继掘地道凡二十一道,分番昼夜并掘,欲自地下陷城;又造攻车(冲车)撞城,所撞无不摧陷。","复缚松枝麻杆、灌油纵火,以长竿举之焚城楼与布幔;更于城四周掘地道、以木柱撑之,焚柱使城崩,崩二十余丈,欲乘崩而入;又射赏格入城劝降,并以韦孝宽陷于东魏之家属性命相胁。攻具迭出,昼夜不息,凡五十余日。"]},
+  "3":{t:"韦孝宽一一化解 · 死七万顿坚城",d:"武定四年十月",p:["高欢每出一法,韦孝宽必有一法相当:筑土山则于城楼缚木加高、楼恒高于山;掘地道则于城内掘长堑横截、堑边备柴、以皮排(风箱)鼓火灌烟熏灼穴中之敌;造攻车则缝布为幔、随攻车所向张之,使撞不能着城;纵火则预制长钩利刃、火竿一至则钩去而焚;崩城则即以木栅补缺,敌终不得入;射赏格则于其背书『能斩高欢者依此赏』射还,答以宁死不降。","攻守六番相消,城终不拔。东魏士卒昼夜死于城下者相枕,战死病死凡七万人,聚为一冢,积尸如山。高欢倾国之众,顿于孤城之下而力竭,智力俱困矣。"]},
+  "4":{t:"智力俱困 · 忧愤撤围 · 高欢病死",d:"武定四年十一月 — 五年(547)正月",p:["攻城既不能克,军中又讹传韦孝宽以『定功弩』射中高欢(实未中),人心惶惧。高欢智力俱困、忧愤成疾,乃抱病强起、宴集群臣,命斛律金唱《敕勒歌》『敕勒川,阴山下……』以壮军心,自和之而泪下,闻者悲怆。","十一月,高欢解玉璧之围,退还晋阳;忧愤所积,遂成沉疾。武定五年(547)正月,高欢病死于晋阳。玉璧一役,遂为其毕生功业之终——自此东魏不复能西向。韦孝宽以死守之功进爵建忠郡公、拜骠骑大将军·开府仪同三司,玉璧屹立不拔,传为古今守城之极则。"]}
+};
+const CITY={
+  yubi:{t:"玉璧",d:"西魏据汾要塞,今山西稷山西南汾南、白家庄一带(约110.83E/35.55N)",p:["韦孝宽死守之地。城居汾水南岸塬上、两面深沟,自西魏大统四年(538)筑以扼守河东,为晋阳入关中之路与关中东北之门户。武定四年高欢倾国十余万围之五十余日,尽用土山、地道二十一道、攻车、纵火、崩城、劝降诸法,孝宽一一化解;东魏死七万聚为一冢,高欢忧愤解围病归。玉璧屹立不拔,遂成古今守城之极则。"]},
+  jishan:{t:"稷山",d:"今山西稷山(约110.98E/35.60N)",p:["玉璧东北之邑,汾水所经、稷王山之侧。玉璧城即在稷山县西南,故二地相邻;汾水自此西南下,经河津龙门入黄河。"]},
+  pingyang:{t:"平阳(晋州)",d:"今山西临汾(约111.50E/36.10N)",p:["晋阳南出河东所经之要地。高欢自晋阳倾国南下,循汾水谷经平阳(晋州)入河东,趋玉璧;为东魏进兵之孔道。"]},
+  puban:{t:"蒲坂",d:"今山西永济(约110.45E/34.87N)",p:["河东之南、黄河东岸之重镇,当秦晋渡口(蒲津)。为西魏河东南路之枢、玉璧之后方；玉璧若失,则河东南路与关中东面俱危。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
