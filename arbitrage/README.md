@@ -12,6 +12,10 @@ different prices in different places — consolidated under a single hub
 - **`spread-monitor/`** (execute): client-side monitor polling free public
   exchange APIs for the same asset's bid/ask across venues, computing the
   fee-adjusted executable cross with staleness filtering.
+- **`value-vs-arb/`** (go deeper): why the scalable version of the idea is
+  model-vs-market pricing rather than venue-vs-venue arbitrage — mechanics,
+  maturation ladder, closing line value, and an interactive crossover simulator
+  (capped arb income vs Kelly-compounded value edge, Monte Carlo).
 
 Companion app (separate folder): `../betting-odds-aggregator/` — multi-source
 timestamped odds for a single World Cup game with an arbitrage scanner, strategy

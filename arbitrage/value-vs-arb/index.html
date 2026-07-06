@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Value vs Arbitrage — why the scalable version is value</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #1baf7a; --s3: #eda100;
+    --good: #006300; --bad: #d03b3b; --wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink2: #c3c2b7;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #199e70; --s3: #c98500;
+      --good: #0ca30c; --wash: rgba(57,135,229,0.12);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page); color: var(--ink); line-height: 1.6; padding: 1.5rem 1rem 4rem; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  a { color: var(--s1); }
+  h1 { font-size: 1.6rem; line-height: 1.28; }
+  h2 { font-size: 1.13rem; margin-bottom: 0.3rem; }
+  h3 { font-size: 0.95rem; }
+  .sub { color: var(--ink2); font-size: 0.93rem; }
+  .kicker { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  .tablewrap { overflow-x: auto; margin-top: 0.5rem; }
+  th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.76rem; white-space: nowrap; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .row { display: flex; gap: 1rem 1.5rem; flex-wrap: wrap; align-items: end; margin-top: 0.7rem; }
+  .group label.head { display: block; font-size: 0.74rem; color: var(--muted); margin-bottom: 0.2rem; }
+  input[type="number"] { font: inherit; color: var(--ink); background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.32rem 0.5rem; max-width: 7.5rem; }
+  button.action { font: inherit; font-weight: 600; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); background: var(--wash); color: var(--ink); }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 0.9rem; }
+  .panel { border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; background: var(--page); }
+  .hero { font-size: 1.65rem; font-weight: 700; }
+  .hero.good { color: var(--good); } .hero.bad { color: var(--bad); }
+  .note { color: var(--muted); font-size: 0.8rem; }
+  .legend { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--ink2); margin: 0.5rem 0 0.4rem; }
+  .linekey { display: inline-block; width: 14px; height: 2px; margin: 0 0.4rem 0.2rem 0; vertical-align: middle; border-radius: 1px; }
+  .chart-box { position: relative; }
+  .chart-box svg { display: block; width: 100%; height: auto; }
+  .tooltip { position: absolute; pointer-events: none; z-index: 10; min-width: 200px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.18); padding: 0.55rem 0.7rem; font-size: 0.78rem; display: none; }
+  .tooltip .t-head { color: var(--muted); font-size: 0.72rem; margin-bottom: 0.3rem; }
+  .tooltip .t-row { display: flex; justify-content: space-between; gap: 1rem; }
+  .tooltip .t-row b { font-variant-numeric: tabular-nums; }
+  details.tableview summary { cursor: pointer; color: var(--ink2); font-size: 0.85rem; margin-top: 0.5rem; }
+  .warn { border-left: 3px solid var(--s3); padding: 0.5rem 0.8rem; margin-top: 0.75rem; background: var(--page); border-radius: 0 8px 8px 0; font-size: 0.87rem; color: var(--ink2); }
+  ul.compact, ol.compact { padding-left: 1.3rem; font-size: 0.9rem; }
+  ul.compact li, ol.compact li { margin-top: 0.4rem; }
+  .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; }
+  .vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 0.8rem; }
+  .vs .panel h3 { margin-bottom: 0.4rem; }
+  .vs .panel p { font-size: 0.88rem; color: var(--ink2); margin-top: 0.35rem; }
+  .eq { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88rem; background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.55rem 0.85rem; margin: 0.55rem 0; overflow-x: auto; white-space: nowrap; }
+  .ladder td:first-child { white-space: nowrap; font-weight: 650; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Arbitrage suite · deep dive</p>
+    <h1>The scalable version is value, not arb</h1>
+    <p class="sub">Arbitrage and value betting are the <b>same trade</b> — monetizing a wrong price — with one decisive
+    difference: <b>who pays you, and whether they can refuse</b>. This page unpacks why every rich practitioner and
+    every maturing arb product converges on model-vs-market pricing, with the evidence, the math, and a simulator
+    where you can watch the crossover happen.
+    Back to: <a href="../index.html">suite hub</a> · <a href="../case-studies/index.html">case studies</a> ·
+    <a href="../strategy-lab/index.html">strategy lab</a>.</p>
+  </header>
+
+  <section>
+    <h2>The reframe: same idea, different counterparty</h2>
+    <p class="sub">Both strategies start from identical raw material — a price that disagrees with the truth. They
+    differ in <i>which</i> disagreement you trade and <i>who</i> ends up on the other side:</p>
+    <div class="vs">
+      <div class="panel">
+        <h3>Arbitrage: venue A vs venue B</h3>
+        <p><b>The gap:</b> two venues disagree with <i>each other</i>. You bet both sides; profit is locked whatever happens.</p>
+        <p><b>Your counterparty:</b> the specific venue quoting the worse price. It loses to you <i>identifiably, every time</i> — your account is a list of its mistakes.</p>
+        <p><b>Edge source:</b> a fleeting dislocation. It must be raced (minutes pre-match, ~13 seconds in-play) and it dies when either venue updates.</p>
+        <p><b>The ceiling:</b> the losing venue can simply stop serving you. Stake limits arrive within weeks–months of consistent winning; capacity per arb is small (1–5% margins); speed competition eats the rest.</p>
+      </div>
+      <div class="panel">
+        <h3>Value: your model vs the market</h3>
+        <p><b>The gap:</b> the market disagrees with <i>reality</i> (as estimated by a better model). You bet one side; profit is statistical, realized over hundreds of bets.</p>
+        <p><b>Your counterparty:</b> the aggregate flow of less-informed money, intermediated by an exchange or a sharp book. No single loser can identify you or refuse you — the market as a whole pays.</p>
+        <p><b>Edge source:</b> renewable information advantage — better data, better modeling, better discipline. It regenerates every match rather than being consumed.</p>
+        <p><b>The ceiling:</b> market liquidity and your model's genuine edge. Both grow with skill and capital instead of shrinking with success.</p>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:0.8rem">That's the whole thesis in one sentence: <b>arbitrage requires the loser to
+    keep serving you; value only requires the market to keep existing.</b> One of those is a favor, the other is a fact.</p>
+  </section>
+
+  <section>
+    <h2>Why arb hits a ceiling — the mechanics</h2>
+    <ul class="compact">
+      <li><b>Winners get fired.</b> The UK Gambling Commission's 2025 data (first regulator-grade numbers): profitable
+      accounts are ~2× as likely to be restricted; of stake-limited accounts, 58.6% were cut to under 10% of normal max
+      stake — many to under 1%. Books also restrict on <i>arb-shaped behavior</i> before you're even in profit
+      (<a href="https://www.gamblingcommission.gov.uk/blog/post/commercial-restrictions-by-betting-operators" rel="noopener">UKGC</a>).</li>
+      <li><b>The definitive experiment ended exactly this way.</b> Kaunitz, Zhong &amp; Kreiner (2017) made +8.5% in five
+      months of real money betting mispriced outliers — then their accounts were limited to ~$1 stakes. Their paper's
+      conclusion is the field's epitaph: you can beat the odds, but not the business model
+      (<a href="https://arxiv.org/abs/1710.02824" rel="noopener">arXiv:1710.02824</a>).</li>
+      <li><b>Capacity per opportunity is tiny and decaying.</b> Typical margins 1–5%; pre-match arbs last minutes
+      (median ~15 in Marshall's data), in-play ones seconds. Even before limits, edge% × fillable size × frequency is
+      lunch money at retail scale — and the fillable size shrinks as your accounts age.</li>
+      <li><b>Adverse selection does the rest.</b> As bots race the real gaps, what's <i>left</i> for slower players skews
+      toward traps: stale quotes, palpable errors that will be voided, markets about to be suspended. Winning the race
+      requires infrastructure spend — which is capital converting your "free lunch" into a competitive business with
+      normal returns.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Why value scales — the mechanics</h2>
+    <ul class="compact">
+      <li><b>The venue wants your action.</b> Exchanges (Betfair, Smarkets, prediction markets like Kalshi/Polymarket)
+      charge commission and profit from volume — they structurally <i>cannot lose to you</i> and never ban winners. Sharp
+      books (the Pinnacle model) run low margins, welcome winners, and use sharp money to correct their own lines —
+      winning customers are their price-discovery mechanism.</li>
+      <li><b>Edge is renewable, not consumable.</b> An arb consumed is gone. A modeling edge prices <i>next week's
+      matches too</i>. Starlizard reportedly sustains ~3% ROI on billions staked per year — three points that never stop
+      compounding because the edge source is a 160-person research operation, not a dislocation
+      (<a href="https://www.thejournal.ie/tony-bloom-starlizard-2597458-Feb2016/" rel="noopener">profile</a>).</li>
+      <li><b>Size scales with liquidity, not tolerance.</b> A value bettor's stake ceiling is what the market can absorb
+      without moving — which for major football/basketball markets is orders of magnitude above any bookmaker's per-account
+      limit. Walters wagered hundreds of millions per year; his constraint was disguising <i>which</i> bets were his
+      (runners), not being allowed to bet at all
+      (<a href="https://en.wikipedia.org/wiki/Billy_Walters_(gambler)" rel="noopener">Walters</a>).</li>
+      <li><b>Compounding favors the statistical edge.</b> Locked profit on a capped stake is <i>linear</i> income that decays;
+      a positive-EV edge sized as a fraction of bankroll is <i>geometric</i> growth. The simulator below makes this concrete.</li>
+      <li><b>The industry's own behavior is the tell.</b> RebelBetting and OddsJam — companies that <i>sell arb detection</i> —
+      both steer maturing users toward value betting, explicitly because their customers' arb careers end in limits. When the
+      arb vendors' retention strategy is "graduate to value," believe them.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The math of the crossover</h2>
+    <p class="sub">Two growth laws. Arbitrage earns a <i>locked</i> margin on a stake that is <b>capped by the venue</b>,
+    and the cap decays as accounts get identified. Value earns an <i>expected</i> margin on a stake that is a
+    <b>fraction of your own bankroll</b> (Kelly sizing), so it compounds:</p>
+    <div class="eq">arb income / week ≈ cycles × min(stake cap<sub>t</sub>, bankroll) × margin,&nbsp;&nbsp; cap<sub>t</sub> = cap<sub>0</sub> × (1 − decay)<sup>t</sup></div>
+    <div class="eq">value growth / bet ≈ f × edge,&nbsp; f = kelly fraction × (p·d − 1)/(d − 1)&nbsp; → bankroll × (1 + f·edge)<sup>bets</sup>, with variance</div>
+    <p class="sub">Arb starts faster (a real, locked 1–2% beats a statistical 3% with variance) — that's why everyone
+    starts there. But one curve is linear-then-flat and the other is exponential-with-wobble. Time settles the argument.</p>
+  </section>
+
+  <section>
+    <h2>Simulator — watch the crossover</h2>
+    <p class="sub">Deterministic arb path vs Monte-Carlo value paths (200 runs; line = median, band = 10th–90th
+    percentile), same starting bankroll, 104 weeks. Defaults are calibrated to the case-study literature: 1.5% arb
+    margins, stake caps decaying ~8%/week once books notice, a 3% value edge at even odds, quarter-Kelly sizing.</p>
+    <div class="row">
+      <div class="group"><label class="head" for="p-bank">Start bankroll ($)</label><input type="number" id="p-bank" value="2000" step="500" min="100"></div>
+      <div class="group"><label class="head" for="p-aedge">Arb margin (%)</label><input type="number" id="p-aedge" value="1.5" step="0.1" min="0"></div>
+      <div class="group"><label class="head" for="p-acyc">Arb cycles/week</label><input type="number" id="p-acyc" value="10" step="1" min="0"></div>
+      <div class="group"><label class="head" for="p-acap">Stake cap start ($)</label><input type="number" id="p-acap" value="500" step="50" min="1"></div>
+      <div class="group"><label class="head" for="p-adecay">Cap decay (%/wk)</label><input type="number" id="p-adecay" value="8" step="1" min="0" max="50"></div>
+      <div class="group"><label class="head" for="p-vedge">Value edge (%)</label><input type="number" id="p-vedge" value="3" step="0.5" min="0"></div>
+      <div class="group"><label class="head" for="p-vbets">Value bets/week</label><input type="number" id="p-vbets" value="30" step="5" min="1"></div>
+      <div class="group"><label class="head" for="p-kelly">Kelly fraction</label><input type="number" id="p-kelly" value="0.25" step="0.05" min="0.05" max="1"></div>
+      <button class="action" id="btn-rerun">Re-run simulation</button>
+    </div>
+    <div class="legend" id="legend"></div>
+    <div class="chart-box" id="chart-box">
+      <svg id="chart" role="img" aria-label="Bankroll over 104 weeks: deterministic arbitrage path versus median and 10th to 90th percentile band of simulated value-betting paths. A data table with the same values follows."></svg>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+    <div class="grid2" id="sim-stats"></div>
+    <details class="tableview"><summary>View simulation data as a table (quarterly)</summary>
+      <div class="tablewrap"><table id="sim-table"></table></div></details>
+    <div class="warn"><b>What the defaults encode — and what they hide.</b> The arb path assumes you keep finding 10
+    clean arbs a week even as stakes shrink (generous), and the value path assumes your 3% edge is <i>real</i> (heroic —
+    see caveats below). The point of the simulator isn't the exact numbers; it's the <i>shape</i>: linear-then-flat vs
+    compounding-with-drawdowns. Try cap decay 0% (a book that never limits you — arb wins much longer) or a 1% value
+    edge (barely beats the plateau) to see how the conclusion depends on the two ceilings.</div>
+  </section>
+
+  <section>
+    <h2>The maturation ladder</h2>
+    <p class="sub">Almost every documented career and product follows the same rungs — each one trades a lower
+    guaranteed margin for a higher ceiling:</p>
+    <div class="tablewrap"><table class="ladder">
+      <thead><tr><th>Rung</th><th>Edge source</th><th>Counterparty</th><th>Ceiling</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Matched betting</td><td>Bookmaker sign-up promotions, hedged on an exchange</td><td>Marketing budgets</td><td>Promos run out; accounts get "gubbed" (promo-banned) in months. £500–1,000/mo, then zero.</td></tr>
+        <tr><td>2 · Pure arbitrage</td><td>Cross-venue dislocations</td><td>The venue with the stale price</td><td>Stake limits within weeks–months; 1–5% margins on shrinking size.</td></tr>
+        <tr><td>3 · Value at soft books</td><td>Consensus/model vs a recreational book's shaded line</td><td>The soft book directly</td><td>Same ceiling as arb — the book identifies and limits you (this is where Kaunitz et al. died).</td></tr>
+        <tr><td>4 · Value at sharp venues</td><td>A genuinely better model, verified by closing line value</td><td>The market's aggregate flow (exchanges, Pinnacle-style books, Asian markets, prediction markets)</td><td>Liquidity and model quality. This is the first rung that compounds indefinitely.</td></tr>
+        <tr><td>5 · Origination</td><td>You <i>set</i> prices others copy (market making, syndicate lines)</td><td>Everyone trading against your quotes</td><td>Starlizard / Smartodds / Walters territory: the edge becomes an institution.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="sub" style="margin-top:0.6rem">Rungs 1–3 are the same trap with different bait: your counterparty knows
+    your name. The jump from 3 to 4 — proving your edge against the <i>closing line</i> instead of against soft books —
+    is the jump from arb-thinking to value-thinking, and it's where scalability begins.</p>
+  </section>
+
+  <section>
+    <h2>The self-test: closing line value</h2>
+    <p class="sub">How do you know your model edge is real before variance tells you (which takes thousands of bets)?
+    The industry-standard answer: <b>closing line value (CLV)</b>. The closing price — the last price before an event
+    starts — is the market's most information-complete estimate, and sharp books' own test of a customer. If the prices
+    you bet consistently beat the close (you bet 2.10 and it closes 1.95), you are ahead of the market's information flow
+    and profit follows; if not, your "edge" is noise. Kaunitz et al.'s strategy worked precisely because deviations from
+    consensus predicted the close. CLV is also the honest bridge back to arbitrage thinking: an arb is just a bet
+    guaranteed to beat <i>somebody's</i> close — value betting generalizes the same comparison to the whole market.</p>
+    <div class="warn"><b>Caveats before you fall in love.</b> (1) Real model edges are <i>rare and small</i> — Winkelmann
+    et al. 2024 show most published betting-market "inefficiencies" are small-sample artifacts; assume your backtest is
+    fooling you until CLV says otherwise. (2) Variance is brutal: a genuine 3% edge at even odds still produces
+    losing <i>months</i> regularly; under-sized Kelly (¼ or less) exists because full Kelly with an overestimated edge
+    goes broke. (3) The scalable venues charge for scale — exchange commission (2–5%) and prediction-market fees are the
+    new "cost of the counterparty," and thin edges die there just like arbs died at Kalshi's fee in our
+    <a href="../../betting-odds-aggregator/index.html">case study</a>. (4) This page is analysis, not encouragement:
+    the honest base rate is that most people attempting rung 4 don't have an edge.</div>
+  </section>
+
+  <section>
+    <h2>Beyond betting: the same law everywhere</h2>
+    <ul class="compact">
+      <li><b>Crypto:</b> cross-exchange arb (rung 2) was raced to sub-fee levels years ago; the survivors run
+      market-making and basis/funding strategies (rungs 4–5) — statistical edges on flow, not locked gaps.</li>
+      <li><b>Equities:</b> classic pairs/ADR arbitrage compressed decades ago; stat-arb and market-making firms
+      (the Citadels and Janes) are rung-5 institutions: they quote, others cross the spread.</li>
+      <li><b>Retail flips:</b> clearance arbitrage (rung 2) caps at your labor; brands and private-label sellers
+      (rung 5) own the price-setting side of the same marketplace.</li>
+      <li><b>The general law:</b> a <i>locked</i> profit requires an identifiable loser who must knowingly keep paying you —
+      so it gets refused, raced, or repriced. A <i>statistical</i> edge is paid by aggregate flow that never meets you —
+      so it scales until liquidity or skill runs out. Unequal prices fund both; only one survives success.</li>
+    </ul>
+  </section>
+
+  <footer class="footnote">
+    Sources for the figures cited here (UKGC, Kaunitz, Marshall, Starlizard, Walters, product behavior) are linked in
+    detail on the <a href="../case-studies/index.html">case-studies page</a>. Educational analysis, not betting or
+    investment advice. Part of <a href="../../index.html">web-apps</a>.
+  </footer>
+</div>
+
+<script>
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+function el(tag, attrs, ...children) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) { if (k === "class") n.className = v; else n[k] = v; }
+  for (const c of children) { if (c !== null && c !== undefined) n.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return n;
+}
+const fmt$ = (v) => "$" + Math.round(v).toLocaleString();
+
+const WEEKS = 104, RUNS = 200;
+
+function simulate() {
+  const B0 = Math.max(100, +$("p-bank").value || 2000);
+  const aEdge = (+$("p-aedge").value || 0) / 100;
+  const aCyc = +$("p-acyc").value || 0;
+  const aCap0 = Math.max(1, +$("p-acap").value || 500);
+  const aDecay = Math.min(0.5, Math.max(0, (+$("p-adecay").value || 0) / 100));
+  const vEdge = (+$("p-vedge").value || 0) / 100;
+  const vBets = Math.max(1, +$("p-vbets").value || 30);
+  const kelly = Math.min(1, Math.max(0.05, +$("p-kelly").value || 0.25));
+
+  // Arbitrage: deterministic. Locked margin on min(cap_t, bankroll) per cycle.
+  const arb = [B0];
+  let cap = aCap0, bank = B0;
+  for (let w = 1; w <= WEEKS; w++) {
+    bank += aCyc * Math.min(cap, bank) * aEdge;
+    cap = Math.max(10, cap * (1 - aDecay));
+    arb.push(bank);
+  }
+
+  // Value: Monte Carlo. Even-odds (d=2) bets, win prob p = (1+edge)/2,
+  // stake = kelly fraction × full-Kelly × bankroll, full-Kelly f* = edge/(d−1) = edge.
+  const p = (1 + vEdge) / 2;
+  const f = kelly * vEdge; // fraction of bankroll per bet
+  const paths = [];
+  for (let r = 0; r < RUNS; r++) {
+    let b = B0;
+    const path = [b];
+    for (let w = 1; w <= WEEKS; w++) {
+      for (let i = 0; i < vBets; i++) {
+        const stake = f * b;
+        b += Math.random() < p ? stake : -stake;
+        if (b < 1) { b = 0; break; }
+      }
+      path.push(b);
+      if (b === 0) { while (path.length <= WEEKS) path.push(0); break; }
+    }
+    paths.push(path);
+  }
+  // percentiles per week
+  const pct = (arr, q) => { const s = arr.slice().sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(q * s.length))]; };
+  const med = [], lo = [], hi = [];
+  for (let w = 0; w <= WEEKS; w++) {
+    const col = paths.map((pth) => pth[w]);
+    med.push(pct(col, 0.5)); lo.push(pct(col, 0.1)); hi.push(pct(col, 0.9));
+  }
+  const busts = paths.filter((pth) => pth[WEEKS] <= 0).length;
+  const valueWins = paths.filter((pth) => pth[WEEKS] > arb[WEEKS]).length;
+  // crossover week: first week where median value exceeds arb and stays ahead at the end
+  let cross = null;
+  for (let w = 0; w <= WEEKS; w++) if (med[w] > arb[w]) { cross = w; break; }
+  return { arb, med, lo, hi, busts, valueWins, cross, B0 };
+}
+
+const NS = "http://www.w3.org/2000/svg";
+const mk = (t, a) => { const n = document.createElementNS(NS, t); for (const [k, v] of Object.entries(a)) n.setAttribute(k, v); return n; };
+
+let sim = null;
+
+function render() {
+  sim = simulate();
+  const svg = $("chart"); svg.replaceChildren();
+  const W = 920, H = 400, m = { t: 20, r: 150, b: 36, l: 62 };
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const vmax = Math.max(...sim.arb, ...sim.hi) * 1.05;
+  const X = (w) => m.l + (iw * w) / WEEKS;
+  const Y = (v) => m.t + ih * (1 - v / vmax);
+  const css = getComputedStyle(document.documentElement);
+  const grid = css.getPropertyValue("--grid").trim(), axis = css.getPropertyValue("--axis").trim(),
+        muted = css.getPropertyValue("--muted").trim(), ink2 = css.getPropertyValue("--ink2").trim(),
+        c1 = css.getPropertyValue("--s1").trim(), c2 = css.getPropertyValue("--s2").trim();
+
+  const step = vmax > 20000 ? 5000 : vmax > 8000 ? 2000 : 1000;
+  for (let v = 0; v <= vmax; v += step) {
+    svg.append(mk("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: grid, "stroke-width": 1 }));
+    const t = mk("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end", "font-size": 11.5, fill: muted });
+    t.textContent = "$" + (v >= 1000 ? (v / 1000) + "k" : v); svg.append(t);
+  }
+  svg.append(mk("line", { x1: m.l, x2: W - m.r, y1: Y(0), y2: Y(0), stroke: axis, "stroke-width": 1 }));
+  for (let w = 0; w <= WEEKS; w += 26) {
+    const t = mk("text", { x: X(w), y: H - 12, "text-anchor": "middle", "font-size": 11, fill: muted });
+    t.textContent = w === 0 ? "start" : `wk ${w}`; svg.append(t);
+  }
+
+  // value band (10–90th percentile)
+  const band = sim.hi.map((v, w) => `${w ? "L" : "M"}${X(w)},${Y(v)}`).join("") +
+    sim.lo.slice().reverse().map((v, i) => `L${X(WEEKS - i)},${Y(v)}`).join("") + "Z";
+  svg.append(mk("path", { d: band, fill: c2, opacity: 0.1, stroke: "none" }));
+  // value median
+  svg.append(mk("path", { d: sim.med.map((v, w) => `${w ? "L" : "M"}${X(w)},${Y(v)}`).join(""), fill: "none", stroke: c2, "stroke-width": 2, "stroke-linejoin": "round" }));
+  // arb line
+  svg.append(mk("path", { d: sim.arb.map((v, w) => `${w ? "L" : "M"}${X(w)},${Y(v)}`).join(""), fill: "none", stroke: c1, "stroke-width": 2, "stroke-linejoin": "round" }));
+
+  // crossover marker
+  if (sim.cross !== null && sim.cross > 0) {
+    svg.append(mk("line", { x1: X(sim.cross), x2: X(sim.cross), y1: m.t, y2: m.t + ih, stroke: axis, "stroke-width": 1, "stroke-dasharray": "none" }));
+    const t = mk("text", { x: X(sim.cross), y: m.t - 6, "text-anchor": "middle", "font-size": 10.5, fill: ink2, "font-weight": 600 });
+    t.textContent = `crossover ~wk ${sim.cross}`; svg.append(t);
+  }
+
+  // direct end labels (relief for aqua on light surface)
+  const endLbl = (v, name, color) => {
+    svg.append(mk("line", { x1: W - m.r + 2, x2: W - m.r + 7, y1: Y(v), y2: Y(v), stroke: color, "stroke-width": 2 }));
+    const t = mk("text", { x: W - m.r + 10, y: Y(v) + 4, "font-size": 12, fill: ink2, "font-weight": 600 });
+    t.textContent = `${name} ${fmt$(v)}`; svg.append(t);
+  };
+  const gap = Math.abs(Y(sim.arb[WEEKS]) - Y(sim.med[WEEKS]));
+  endLbl(sim.arb[WEEKS], "Arb", c1);
+  if (gap > 16) endLbl(sim.med[WEEKS], "Value", c2);
+  else { // collide: offset the second label with a leader line
+    const y2 = Y(sim.med[WEEKS]) + (Y(sim.med[WEEKS]) > Y(sim.arb[WEEKS]) ? 16 : -16);
+    svg.append(mk("line", { x1: W - m.r + 2, x2: W - m.r + 7, y1: Y(sim.med[WEEKS]), y2: y2, stroke: c2, "stroke-width": 1.5 }));
+    const t = mk("text", { x: W - m.r + 10, y: y2 + 4, "font-size": 12, fill: ink2, "font-weight": 600 });
+    t.textContent = `Value ${fmt$(sim.med[WEEKS])}`; svg.append(t);
+  }
+
+  // crosshair + tooltip
+  const cross = mk("line", { y1: m.t, y2: m.t + ih, stroke: axis, "stroke-width": 1, visibility: "hidden" });
+  svg.append(cross);
+  const tip = $("tooltip"), box = $("chart-box");
+  const hit = mk("rect", { x: m.l, y: m.t, width: iw, height: ih, fill: "transparent" });
+  hit.addEventListener("pointermove", (e) => {
+    const bb = svg.getBoundingClientRect();
+    const w = Math.max(0, Math.min(WEEKS, Math.round(((e.clientX - bb.left) / bb.width * W - m.l) / iw * WEEKS)));
+    cross.setAttribute("x1", X(w)); cross.setAttribute("x2", X(w)); cross.setAttribute("visibility", "visible");
+    tip.replaceChildren(el("div", { class: "t-head" }, `Week ${w}`));
+    [["Arb (locked, capped)", sim.arb[w], "--s1"], ["Value median", sim.med[w], "--s2"],
+     ["Value 10–90%", null, null]].forEach(([name, v, cvar]) => {
+      const row = el("div", { class: "t-row" });
+      const left = el("span", null);
+      if (cvar) left.append(el("span", { class: "linekey", style: `background:${css.getPropertyValue(cvar).trim()}` }));
+      left.append(name);
+      row.append(left, el("b", null, v !== null ? fmt$(v) : `${fmt$(sim.lo[w])} – ${fmt$(sim.hi[w])}`));
+      tip.append(row);
+    });
+    tip.style.display = "block";
+    const bb2 = box.getBoundingClientRect();
+    tip.style.left = Math.max(6, Math.min(e.clientX - bb2.left + 14, bb2.width - tip.offsetWidth - 6)) + "px";
+    tip.style.top = Math.min(e.clientY - bb2.top + 14, bb2.height - tip.offsetHeight - 6) + "px";
+  });
+  hit.addEventListener("pointerleave", () => { cross.setAttribute("visibility", "hidden"); tip.style.display = "none"; });
+  svg.append(hit);
+
+  // legend
+  $("legend").replaceChildren(
+    (() => { const s = el("span", null); s.append(el("span", { class: "linekey", style: `background:${c1}` }), "Arbitrage (deterministic, stake-capped)"); return s; })(),
+    (() => { const s = el("span", null); s.append(el("span", { class: "linekey", style: `background:${c2}` }), "Value betting (median of 200 runs; band = 10–90th pct)"); return s; })());
+
+  // stats
+  $("sim-stats").replaceChildren(
+    el("div", { class: "panel" }, el("h3", null, "Week 104: arbitrage"),
+      el("div", { class: "hero" }, fmt$(sim.arb[WEEKS])),
+      el("div", { class: "note" }, "plateaus once the stake cap decays to the floor")),
+    el("div", { class: "panel" }, el("h3", null, "Week 104: value (median)"),
+      el("div", { class: "hero " + (sim.med[WEEKS] > sim.arb[WEEKS] ? "good" : "") }, fmt$(sim.med[WEEKS])),
+      el("div", { class: "note" }, `beats the arb path in ${(sim.valueWins / RUNS * 100).toFixed(0)}% of runs`)),
+    el("div", { class: "panel" }, el("h3", null, "Risk in the value path"),
+      el("div", { class: "hero " + (sim.busts ? "bad" : "good") }, sim.busts ? `${(sim.busts / RUNS * 100).toFixed(1)}% busts` : "0 busts"),
+      el("div", { class: "note" }, `10th percentile ends at ${fmt$(sim.lo[WEEKS])} — variance is the price of scale`)));
+
+  // table view (quarterly)
+  const tbl = $("sim-table"); tbl.replaceChildren();
+  tbl.append(el("thead", null, el("tr", null,
+    el("th", null, "Week"), el("th", null, "Arbitrage"), el("th", null, "Value median"), el("th", null, "Value 10th pct"), el("th", null, "Value 90th pct"))));
+  const tb = el("tbody", null);
+  for (let w = 0; w <= WEEKS; w += 13) {
+    tb.append(el("tr", null, el("td", null, String(w)),
+      el("td", { class: "num" }, fmt$(sim.arb[w])), el("td", { class: "num" }, fmt$(sim.med[w])),
+      el("td", { class: "num" }, fmt$(sim.lo[w])), el("td", { class: "num" }, fmt$(sim.hi[w]))));
+  }
+  tbl.append(tb);
+}
+
+$("btn-rerun").addEventListener("click", render);
+["p-bank", "p-aedge", "p-acyc", "p-acap", "p-adecay", "p-vedge", "p-vbets", "p-kelly"].forEach((id) =>
+  $(id).addEventListener("change", render));
+if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+render();
+</script>
+</body>
+</html>
