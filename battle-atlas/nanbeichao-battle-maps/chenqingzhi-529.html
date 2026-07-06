@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陈庆之北伐 · 白袍入洛(529)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  .flood circle{fill:none;stroke:var(--water);stroke-width:1.6}
+  .flood line{stroke:var(--water);stroke-width:2.2;stroke-linecap:round}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.big{stroke-width:4.4}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .star2{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.75}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .capnote{margin:7px 2px 0;font-size:11px;color:var(--faint);font-style:italic;letter-spacing:.03em}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.9s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>白</span><span>袍</span><span>入</span><span>洛</span></div>
+  <header>
+    <h1>陈庆之北伐 · 白袍入洛</h1>
+    <div class="sub">梁大通三年 · 魏永安二年(529)　<i>南梁 陈庆之</i> 率白袍七千 护 <i>元颢</i> 北伐入洛　·　乘 <b>北魏 河阴之乱</b>　连破睢阳荥阳 · 孤军无继而功败垂成</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 白袍千里入洛</button>
+    <button data-p="1">① 元颢降梁 · 七千白袍北伐</button>
+    <button data-p="2">② 连破睢阳考城 · 逼荥阳</button>
+    <button data-p="3">③ 荥阳以寡破众 · 拔虎牢 · 入洛称帝</button>
+    <button data-p="4">④ 孤军无继 · 尔朱荣反攻 · 遇洪溃返</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="陈庆之北伐白袍入洛形势图,自东南铚县出发,西北向历荥城睢阳考城荥阳虎牢而入洛阳,河桥北中郎城在洛阳北黄河上,临颍嵩高在洛阳东南;青为所追踪之南梁陈庆之白袍军(护元颢),朱为北魏各城守将及元天穆尔朱荣援军。示七千白袍乘北魏河阴之乱、连破睢阳考城、荥阳城下以寡破元天穆三十万、拔虎牢入洛、元颢称帝,而后元颢骄怠孤军无继、尔朱荣反攻河桥、元颢败杀于临颍、梁军东撤遇嵩高山洪全军漂没、陈庆之削发潜返之势">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 约界:北魏据中原河洛(北·大部,朱),南梁据江淮(南·一隅,青);此时魏值河阴之变后大乱,界为示意 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,438 C 800,450 520,460 300,456 C 180,453 80,448 0,450 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,450 C 80,448 180,453 300,456 C 520,460 800,450 1000,438 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,450 C 80,448 180,453 300,456 C 520,460 800,450 1000,438"/>
+    <text class="realm q" x="470" y="96" font-size="30">北 魏</text>
+    <text class="cname s" x="452" y="120" style="fill:var(--enemy);opacity:.6">河阴之变后大乱 · 诸城守将各自为战</text>
+    <text class="realm j" x="60" y="600" font-size="22">南 梁(江淮)</text>
+    <text class="cname s" x="64" y="620" style="fill:var(--advance);opacity:.6">铚县为北伐前进之基</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西东流,经洛阳北(河桥·孟津)、荥阳虎牢北岸,东北而去 -->
+    <path class="river" stroke-width="5.2" d="M 40,158 C 120,150 170,150 210,152 C 280,150 320,152 360,152 C 480,150 620,142 760,140 C 860,138 940,142 1000,142"/>
+    <!-- 淮水:南境东西大川,约当梁魏之交 -->
+    <path class="river" stroke-width="3.4" d="M 0,472 C 200,476 500,480 760,476 C 880,474 950,468 1000,464"/>
+    <!-- 睢水:自考城睢阳东南下,历铚而入泗淮 -->
+    <path class="river" stroke-width="2.4" d="M 664,200 C 716,232 780,290 860,352 C 890,376 910,392 924,404"/>
+    <!-- 汳水(汴渠):自荥阳东南分黄河,历睢阳而下 -->
+    <path class="river" stroke-width="2.2" style="opacity:.7" d="M 360,166 C 460,196 560,224 660,252 C 720,270 780,296 840,330"/>
+    <text class="rname" x="120" y="176" style="font-size:13px">黄 河</text>
+    <text class="rname" x="120" y="492" style="font-size:12px">淮 水</text>
+    <text class="rname" x="792" y="320" transform="rotate(40 792 320)" style="font-size:10.5px">睢 水</text>
+    <text class="rname" x="536" y="238" transform="rotate(18 536 238)" style="font-size:10px">汳水(汴渠)</text>
+
+    <!-- ══ 山脉:嵩高(嵩山),洛阳东南,梁军东撤遇山洪之地 ══ -->
+    <path class="mtn fill" d="M 250,258 L 266,232 L 280,250 L 298,226 L 316,250 L 332,230 L 348,254 Z"/>
+    <path class="mtn" d="M 262,250 l 14,-20 l 12,15 l 16,-22 l 14,18"/>
+    <text class="mname" x="256" y="276" style="letter-spacing:.16em">嵩 高(嵩山)</text>
+    <!-- 邙山:洛阳北,黄河南岸 -->
+    <path class="mtn" d="M 170,184 l 10,-13 l 9,10 l 12,-15 l 10,13"/>
+    <text class="mname" x="150" y="176" style="font-size:10px;letter-spacing:.1em">邙山</text>
+
+    <!-- ══ 城邑(东南铚县 → 西北洛阳) ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="luoyang"><circle cx="190" cy="199" r="6.5"/><text class="cname" x="150" y="216">洛阳<tspan class="cname s" dx="2">(魏都·元颢称帝)</tspan></text></g>
+      <g class="city" data-city="heqiao"><circle cx="199" cy="166" r="4.5"/><text class="cname s" x="207" y="160">河桥 · 北中郎城</text></g>
+      <g class="city" data-city="hulao"><circle cx="323" cy="182" r="4.5"/><text class="cname" x="286" y="176">虎牢</text></g>
+      <g class="city" data-city="xingyang"><circle cx="349" cy="178" r="6"/><text class="cname" x="359" y="174">荥阳</text></g>
+      <g class="city" data-city="linying"><circle cx="437" cy="357" r="4"/><text class="cname s" x="445" y="361">临颍(元颢死)</text></g>
+      <g class="city" data-city="kaocheng"><circle cx="683" cy="186" r="5"/><text class="cname" x="640" y="178">考城<tspan class="cname s" dx="2">(擒元晖业)</tspan></text></g>
+      <g class="city" data-city="suiyang"><circle cx="734" cy="250" r="6"/><text class="cname" x="744" y="246">睢阳<tspan class="cname s" dx="2">(商丘)</tspan></text></g>
+      <g class="city" data-city="xingcheng"><circle cx="794" cy="271" r="3.6"/><text class="cname s" x="802" y="268">荥城</text></g>
+      <g class="city" data-city="zhixian"><circle cx="896" cy="395" r="6"/><text class="cname" x="820" y="412">铚县<tspan class="cname s" dx="2">(濉溪西南·出发)</tspan></text></g>
+    </g>
+
+    <!-- ══ 图外东南:建康(梁都·元颢降梁之所·陈庆之潜返) ══ -->
+    <g transform="translate(946,600)">
+      <path class="march j" marker-end="url(#aj)" d="M 26,30 L 2,6"/>
+      <text class="mlabel j" x="-56" y="26" style="font-size:10px">建康(梁都) ↗</text>
+      <text class="cname s" x="-56" y="40" style="fill:var(--advance);font-size:9.5px">元颢降梁 · 潜返之所(图外东南)</text>
+    </g>
+    <!-- ══ 图外北:晋阳(尔朱荣挟孝庄帝反攻之来路) ══ -->
+    <g transform="translate(238,6)">
+      <path class="march q" marker-end="url(#aq)" d="M 2,2 L 6,26"/>
+      <text class="mlabel q" x="-38" y="-2" style="font-size:10px">晋阳 · 尔朱荣 ↓</text>
+      <text class="cname s" x="-38" y="12" style="fill:var(--enemy);font-size:9.5px">挟孝庄帝反攻(图外北)</text>
+    </g>
+
+    <!-- ══ 全图 · 白袍千里入洛 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 陈庆之护元颢自建康经铚县出发 -->
+      <path class="march j" marker-end="url(#aj)" d="M 938,590 C 922,520 906,450 898,404"/>
+      <!-- 大势:铚县→睢阳→考城→荥阳→虎牢→洛阳,千里长驱 -->
+      <path class="march j big" marker-end="url(#aj)" d="M 890,388 C 832,332 782,286 740,256"/>
+      <path class="march j big" marker-end="url(#aj)" d="M 728,244 C 710,222 696,202 688,192"/>
+      <path class="march j big" marker-end="url(#aj)" d="M 674,184 C 560,176 452,178 358,178"/>
+      <path class="march j big" marker-end="url(#aj)" d="M 316,183 C 270,190 224,196 198,199"/>
+      <text class="mlabel j" x="756" y="330">白袍七千 · 千里长驱</text>
+      <text class="mlabel j" x="430" y="166">克三十二城 · 四十七战皆捷</text>
+      <circle class="star" cx="734" cy="250" r="9"/>
+      <circle class="star" cx="349" cy="178" r="10"/>
+      <circle class="star" cx="190" cy="199" r="11"/>
+      <text class="mlabel j" x="150" y="238">入洛阳 · 元颢称帝</text>
+      <!-- 反攻大势:尔朱荣自北反攻 -->
+      <path class="march q" marker-end="url(#aq)" d="M 246,30 C 236,84 224,130 210,158"/>
+      <text class="mlabel q" x="252" y="126">尔朱荣挟孝庄帝反攻</text>
+      <!-- 溃返 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 206,208 C 240,240 262,254 282,262"/>
+      <text class="mlabel r" x="290" y="284">遇嵩高山洪 · 全军漂没</text>
+      <text class="anno" x="560" y="420">「名师大将莫自牢,千兵万马避白袍」</text>
+    </g>
+
+    <!-- ══ ① 元颢降梁 · 七千白袍北伐 ══ -->
+    <g id="ph1" class="ph">
+      <text class="anno" x="452" y="140">河阴之变(528):尔朱荣沉杀百官,北魏大乱</text>
+      <!-- 元颢自建康北,护送发铚 -->
+      <path class="march j" marker-end="url(#aj)" d="M 938,592 C 920,516 906,448 898,404"/>
+      <text class="mlabel j" x="800" y="470">北海王元颢降梁,梁武帝遣陈庆之护送北伐</text>
+      <!-- 白袍七千发铚,取荥城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 890,388 C 858,352 826,318 800,286"/>
+      <text class="mlabel j" x="812" y="360">率白袍七千 · 皆着白袍</text>
+      <circle class="star2" cx="794" cy="271" r="6"/>
+      <text class="mlabel j" x="740" y="300">首取荥城</text>
+      <text class="anno" x="612" y="228">进逼睢阳,魏将丘大千七万拒守</text>
+    </g>
+
+    <!-- ══ ② 连破睢阳考城 · 逼荥阳 ══ -->
+    <g id="ph2" class="ph">
+      <!-- 铚→睢阳:破丘大千七万 -->
+      <path class="march j" marker-end="url(#aj)" d="M 888,388 C 832,332 782,286 742,258"/>
+      <rect class="camp" x="730" y="246" width="9" height="9" transform="rotate(45 734 250)"/>
+      <circle class="star" cx="734" cy="250" r="8.5"/>
+      <text class="mlabel q" x="748" y="236">丘大千 七万 · 筑九城拒守</text>
+      <text class="mlabel j" x="700" y="290">一日拔睢阳,大千降</text>
+      <!-- 睢阳→考城:擒元晖业 -->
+      <path class="march j" marker-end="url(#aj)" d="M 726,242 C 710,222 698,204 690,194"/>
+      <rect class="camp" x="679" y="182" width="9" height="9" transform="rotate(45 683 186)"/>
+      <circle class="star" cx="683" cy="186" r="8"/>
+      <text class="mlabel q" x="560" y="164">济阴王元晖业 二万 · 屯考城</text>
+      <text class="mlabel j" x="600" y="212">拔考城,擒元晖业,得车七千八百乘</text>
+      <!-- 逼荥阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 672,186 C 560,182 460,182 362,180"/>
+      <text class="mlabel j" x="430" y="200">进逼荥阳</text>
+      <rect class="camp" x="345" y="174" width="9" height="9" transform="rotate(45 349 178)"/>
+      <text class="mlabel q" x="288" y="160">魏杨昱 七万守荥阳</text>
+    </g>
+
+    <!-- ══ ③ 荥阳以寡破众 · 拔虎牢 · 入洛称帝 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 魏援大集:元天穆·尔朱吐没儿号三十万来救 -->
+      <path class="march q" marker-end="url(#aq)" d="M 470,60 C 440,96 410,132 372,166"/>
+      <path class="march q" marker-end="url(#aq)" d="M 560,150 C 500,158 430,168 362,176"/>
+      <text class="mlabel q" x="474" y="70">元天穆 · 尔朱吐没儿 号三十万来救</text>
+      <!-- 陈庆之亲擂鼓·死士先登,攻克荥阳(以寡破众) -->
+      <circle class="star" cx="349" cy="178" r="9.5"/>
+      <circle class="star2" cx="349" cy="178" r="14"/>
+      <text class="mlabel j" x="300" y="150">陈庆之亲擂鼓 · 死士先登 · 拔荥阳</text>
+      <!-- 三千骑破元天穆数万骑 -->
+      <path class="march j" marker-end="url(#aj)" d="M 360,180 C 410,180 450,176 486,168"/>
+      <text class="mlabel j" x="392" y="228">复以三千骑破元天穆数万骑</text>
+      <!-- 荥阳→虎牢 -->
+      <path class="march j" marker-end="url(#aj)" d="M 342,181 C 336,182 332,182 330,182"/>
+      <circle class="star2" cx="323" cy="182" r="7"/>
+      <text class="mlabel j" x="256" y="200">乘胜拔虎牢关</text>
+      <!-- 虎牢→洛阳,入洛称帝 -->
+      <path class="march j" marker-end="url(#aj)" d="M 316,184 C 268,190 224,196 198,199"/>
+      <circle class="star" cx="190" cy="199" r="11"/>
+      <text class="mlabel j" x="130" y="242">入洛阳 · 元颢称帝,改元建武</text>
+      <text class="anno" x="300" y="300">四月转战千里,洛阳童谣「千兵万马避白袍」</text>
+    </g>
+
+    <!-- ══ ④ 孤军无继 · 尔朱荣反攻 · 遇洪溃返 ══ -->
+    <g id="ph4" class="ph">
+      <text class="mlabel q" x="120" y="182">元颢入洛后骄怠自恣 · 与庆之相猜 · 不肯增兵</text>
+      <!-- 尔朱荣挟孝庄帝自北反攻,济河 -->
+      <path class="march q" marker-end="url(#aq)" d="M 246,28 C 236,82 226,124 214,152"/>
+      <text class="mlabel q" x="252" y="110">尔朱荣挟孝庄帝亲率大军反攻</text>
+      <!-- 河桥苦战:陈庆之守北中郎城 -->
+      <rect class="camp" x="195" y="162" width="9" height="9" transform="rotate(45 199 166)"/>
+      <circle class="star" cx="199" cy="166" r="8"/>
+      <text class="mlabel j" x="210" y="150">庆之守河桥·北中郎城,三日十一战</text>
+      <text class="anno" x="230" y="138">尔朱荣缚筏济自硖石,元颢军溃</text>
+      <!-- 元颢败走临颍被杀 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 196,208 C 260,260 340,318 428,350"/>
+      <text class="mlabel r" x="300" y="322">元颢败走,至临颍为县卒所杀</text>
+      <!-- 陈庆之东撤,遇嵩高山洪全军漂没 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 206,206 C 236,232 258,248 276,258"/>
+      <g class="flood" transform="translate(288,262)">
+        <circle r="8"/><circle r="13" opacity=".6"/>
+        <line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/>
+      </g>
+      <text class="mlabel r" x="298" y="288">收兵东撤,遇嵩高山洪暴发,全军漂没</text>
+      <!-- 陈庆之削发潜返建康 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 300,272 C 500,330 720,470 928,592"/>
+      <text class="mlabel r" x="470" y="400">庆之削发为僧 · 化装潜返江南</text>
+      <text class="anno" x="470" y="418">北伐昙花一现 · 功败垂成</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>南梁 · 白袍陈庆之军(所追踪之主体 · 护元颢)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>北魏(各城守将 · 元天穆 · 尔朱荣)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>元颢败走 · 梁军溃返 · 庆之潜返</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 · 克城 · 入洛</span>
+    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="4.5" fill="none" stroke="#5f7f88" stroke-width="1.6"/><line x1="5" y1="4" x2="13" y2="12" stroke="#5f7f88" stroke-width="2"/><line x1="5" y1="12" x2="13" y2="4" stroke="#5f7f88" stroke-width="2"/></svg>嵩高山洪 · 全军漂没</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" transform="rotate(45 7.5 7.5)" fill="#9a2b1e" opacity=".9"/></svg>魏军守御</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>北魏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>南梁</span>
+  </div>
+  <p class="capnote">※ 青(teal)标南梁陈庆之白袍军(护北海王元颢北伐),乃本图所追踪之进取主体,非褒贬之谓;循本系「以所追之军为青」之例。朱(red)标北魏——虽元颢亦魏之宗室,然其时降梁、随白袍军而行,故以青系;拒之诸城守将及元天穆、尔朱荣之魏廷军以朱标之。</p>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 七千白袍 · 所向披靡 · 孤军无继而功败垂成</h3>
+    <div class="lead">何以七千之众能千里入洛、克三十二城,而终不能守 —— 盛在乘乱疾进、以寡破众,败在孤军无继、援绝洪至</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:上行青为白袍之势——乘北魏河阴之乱、连破睢阳考城、荥阳城下以寡破元天穆三十万、拔虎牢入洛;下行红为功败之由——元颢骄怠孤军无继、尔朱荣反攻河桥、元颢败杀、梁军东撤遇嵩高山洪全军漂没">
+      <!-- 上行:白袍之势(青) -->
+      <text x="26" y="24" fill="#1f4e54" font-size="12" font-weight="700" letter-spacing="2">白袍之势 · 乘乱疾进 · 以寡破众</text>
+      <g><circle cx="66" cy="70" r="20" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.6"/><text x="66" y="67" text-anchor="middle" fill="#1f4e54" font-size="10" font-weight="700">白袍</text><text x="66" y="81" text-anchor="middle" fill="#5c4f38" font-size="8.5">七千</text></g>
+      <path d="M 88,70 C 130,70 160,70 196,70" fill="none" stroke="#1f4e54" stroke-width="2.6" marker-end="url(#aj)"/>
+      <text x="142" y="60" text-anchor="middle" fill="#1f4e54" font-size="9" font-weight="700">乘河阴之乱</text>
+      <g><circle cx="240" cy="70" r="20" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="1.6"/><text x="240" y="67" text-anchor="middle" fill="#1f4e54" font-size="9.5" font-weight="700">睢阳</text><text x="240" y="81" text-anchor="middle" fill="#5c4f38" font-size="8">考城</text></g>
+      <path d="M 262,70 C 306,70 336,70 372,70" fill="none" stroke="#1f4e54" stroke-width="2.6" marker-end="url(#aj)"/>
+      <text x="318" y="60" text-anchor="middle" fill="#1f4e54" font-size="9" font-weight="700">连破诸城</text>
+      <g><circle cx="420" cy="70" r="23" fill="rgba(31,78,84,.14)" stroke="#1f4e54" stroke-width="1.8"/><text x="420" y="66" text-anchor="middle" fill="#1f4e54" font-size="9.5" font-weight="700">荥阳</text><text x="420" y="80" text-anchor="middle" fill="#5c4f38" font-size="7.5">以寡破三十万</text></g>
+      <path d="M 444,70 C 500,70 548,70 596,70" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="520" y="60" text-anchor="middle" fill="#1f4e54" font-size="9" font-weight="700">拔虎牢</text>
+      <g><circle cx="646" cy="70" r="24" fill="rgba(156,122,44,.16)" stroke="#9c7a2c" stroke-width="2"/><text x="646" y="66" text-anchor="middle" fill="#9c7a2c" font-size="10.5" font-weight="700">入洛</text><text x="646" y="81" text-anchor="middle" fill="#5c4f38" font-size="8">元颢称帝</text></g>
+      <text x="710" y="60" fill="#9c7a2c" font-size="9.5" font-weight="700">千兵万马</text>
+      <text x="710" y="74" fill="#9c7a2c" font-size="9.5" font-weight="700">避白袍</text>
+      <!-- 下行:功败之由(红) -->
+      <text x="26" y="150" fill="#9a2b1e" font-size="12" font-weight="700" letter-spacing="2">功败之由 · 孤军无继 · 援绝洪至</text>
+      <g><circle cx="90" cy="196" r="24" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.8"/><text x="90" y="192" text-anchor="middle" fill="#9a2b1e" font-size="9.5" font-weight="700">元颢骄怠</text><text x="90" y="206" text-anchor="middle" fill="#5c4f38" font-size="8">孤军无继</text></g>
+      <path d="M 116,196 C 180,196 240,196 300,196" fill="none" stroke="#9a2b1e" stroke-width="2.6" marker-end="url(#aq)"/>
+      <text x="208" y="186" text-anchor="middle" fill="#9a2b1e" font-size="9" font-weight="700">尔朱荣反攻 · 河桥苦战</text>
+      <g><circle cx="352" cy="196" r="22" fill="rgba(154,43,30,.12)" stroke="#9a2b1e" stroke-width="1.8"/><text x="352" y="192" text-anchor="middle" fill="#9a2b1e" font-size="9.5" font-weight="700">元颢败杀</text><text x="352" y="206" text-anchor="middle" fill="#5c4f38" font-size="8">临颍</text></g>
+      <path d="M 376,196 C 430,196 480,196 520,196" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="6 5" marker-end="url(#ar)"/>
+      <text x="448" y="186" text-anchor="middle" fill="#7a5a23" font-size="9" font-weight="700">梁军东撤</text>
+      <g><circle cx="574" cy="196" r="22" fill="none" stroke="#5f7f88" stroke-width="1.8"/><circle cx="574" cy="196" r="13" fill="none" stroke="#5f7f88" stroke-width="1.4" opacity=".6"/><text x="574" y="199" text-anchor="middle" fill="#5f7f88" font-size="8.5" font-weight="700">嵩高山洪</text></g>
+      <text x="612" y="192" fill="#9a2b1e" font-size="10.5" font-weight="700">全军漂没</text>
+      <text x="612" y="208" fill="#5c4f38" font-size="9">庆之削发潜返</text>
+    </svg>
+    <p class="intro">陈庆之北伐之奇,不在其败,而在其<b>以七千孤军而能千里入洛</b>:时北魏方经河阴之变——尔朱荣沉杀百官、宗室大乱,守将离心、号令不一。白袍军<b>乘此大隙、以速为兵</b>,一日拔睢阳、再拔考城,至荥阳城下,魏元天穆号三十万来救,庆之亲自擂鼓、率死士先登,拔城而复以三千骑破其数万,遂拔虎牢、入洛阳,元颢称帝。四月之间,转战千里,克三十二城,四十七战皆捷。然入洛之后,<b>盛极而无以继</b>:元颢骄怠自恣、猜忌庆之而不肯增兵,梁亦无后军应之;及尔朱荣挟孝庄帝倾国反攻,七千之众悬于河洛、内无根本、外无援兵,河桥一败,遂不可复振。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>所向披靡 · 乘乱以寡破众</h4>
+        <p>河阴之变后,北魏中枢崩坏、诸城各自为守,正利于疾攻。庆之择白袍七千,轻装速进:睢阳丘大千七万筑九城,一日而拔;考城元晖业二万,擒之;荥阳杨昱七万、元天穆三十万大军云集,庆之不待其合,<b>亲擂战鼓、募死士先登</b>,城拔而援军自溃,复以三千骑破元天穆数万骑。速度与胆气,补其兵寡,故能以少破多、直入洛都。</p>
+      </div>
+      <div class="c b">
+        <h4>功败垂成 · 孤军无继而溃</h4>
+        <p>入洛之捷,恃奇袭之势;而据守之难,则须根本与援兵。<b>元颢既立,骄怠自恣,与庆之相猜,拒其请兵</b>;梁廷亦无继援。尔朱荣挟孝庄帝亲率大军,缚筏济河反攻,庆之守河桥、北中郎城,三日十一战力竭;元颢兵败走临颍被杀。庆之收兵东撤,又<b>遇嵩高山洪暴发,全军漂没溃散</b>,乃削发为僧、化装潜返江南——非战之不利,实孤军无继、天时不假也。</p>
+      </div>
+    </div>
+    <p class="kicker">故白袍北伐,<b>成于「速」、败于「孤」</b>:成者,乘北魏河阴之乱,以七千白袍风驰电掣、以寡破众而入洛,一时「名师大将莫自牢,千兵万马避白袍」;败者,元颢骄怠、孤军无继,尔朱荣倾国反攻、河桥力屈,复遇山洪而全军漂没。所谓「<b>七千白袍 · 所向披靡 · 入洛 · 孤军无继而功败垂成</b>」者也。此役示奇兵可乘乱以立不世之功,而<b>无根本、无后继者终不能守</b>——梁武帝未继一旅,元颢自坏于内,遂使昙花一现,徒留白袍之名于青史。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x = 80 + (经度 − 111.8) × 170,y = 480 − (纬度 − 33.2) × 190</b>,几何力求近实——铚县在东南(出发)、荥城睢阳考城居东、荥阳虎牢在中西、洛阳在西北,自东南而西北长驱;河桥·北中郎城在洛阳北黄河上,临颍、嵩高在洛阳东南。建康远在东南(图外)、晋阳(尔朱荣来路)远在北(图外),皆以边缘箭头示之,不入投影之窗以免squash主战场。地望:铚县约116.6E/33.65N(今安徽濉溪西南、临涣一带),荥城约116.0E/34.30N(今商丘东南,地望不确),睢阳即今河南商丘115.65E/34.41N,考城约115.35E/34.75N(今民权东北),荥阳约113.38E/34.79N,虎牢关约113.23E/34.77N(今荥阳汜水),洛阳约112.45E/34.68N,河桥·北中郎城约112.50E/34.85N(洛阳北黄河·孟津),临颍约113.90E/33.85N,嵩高(嵩山)约113.0E/34.45N,建康约118.8E/32.05N(今南京),晋阳约112.55E/37.75N(今太原)。黄河、淮水、睢汳水道及疆界皆经简化。依《梁书·陈庆之传》《魏书·尔朱荣传·孝庄纪》《资治通鉴》卷一五三绘出。</p>
+    <p><span class="n">注二</span>【进军之方式】纯系陆路,无舟师漕运之事。陈庆之率白袍七千,自铚县陆行北上,历荥城、睢阳、考城,折西经荥阳、虎牢而入洛阳;退亦陆行——河桥败后,收兵结阵东撤。其所遇之水,非行军之资,而为覆军之祸:东撤途中值嵩高山洪暴发(蒿高水涨),梁军猝不及防,全军漂没溃散。此与桓温之舟师北上、以水为道者正相反:白袍以足力疾行取胜,而以山洪骤至而亡。</p>
+    <p><span class="n">注三</span>【粮援与孤军】本役决机不在漕运,而在<b>孤军无继</b>:白袍七千深入千里、内无根本、外无后援。元颢入洛称帝后骄怠自恣,与庆之相猜忌,不肯增益其兵;梁武帝亦未遣一旅继之。庆之尝请梁增兵、或表徙元颢部于江南,皆不果。故一旦尔朱荣倾国反攻,七千之众悬于河洛而无所恃,河桥力屈即不可复振——「无继」实为功败垂成之根,故列为制胜(制败)之枢。</p>
+    <p><span class="n">注四</span>【几方几来路】两方相角:一为本图所追踪之南梁陈庆之白袍军(青),护北海王元颢自建康(图外东南)经铚县北伐;一为北魏(朱),含沿途拒守之诸城守将(睢阳丘大千、考城元晖业、荥阳杨昱)与魏廷援军。魏援有二来路:元天穆、尔朱吐没儿号三十万自北与东北来救荥阳(阶段三);尔朱荣挟孝庄帝自晋阳(并州,图外北)倾国南下反攻、济河战于河桥(阶段四)。元颢虽魏之宗室,然降梁而随白袍军行,故图中以青系之;其败走临颍被杀,以褐色败退线示之。</p>
+    <p><span class="n">注五</span>【异说与考订】兵数、城数、战绩多本《梁书·陈庆之传》,而《梁书》于庆之颇有华饰,史家多疑其夸:「七千」之众破睢阳七万、荥阳三十万等,数或举成、或言其号而非实数;《魏书》《北史》记魏方兵力、败绩每相出入,读者当参校。「四十七战皆捷、克三十二城」本《梁书》,举其大略。荥城地望古今无确考,姑系于睢阳东南、铚县往睢阳之途,以虚位示之。元颢称帝改元建武,入洛在魏永安二年(529)四五月间;尔朱荣反攻、元颢败杀在同年闰六月。庆之削发为僧潜返江南事,见《梁书》本传。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"白袍千里入洛",d:"梁大通三年 · 魏永安二年(529)四 — 闰六月",p:["北魏河阴之变(528)后大乱,尔朱荣沉杀百官,宗室离心。北海王元颢降梁,请梁助其称帝。梁武帝遣东宫直阁将军陈庆之率兵七千、皆着白袍,护送元颢北伐入洛。","陈庆之自铚县出发,乘魏乱疾进:取荥城,一日拔睢阳(破丘大千七万),拔考城(擒元晖业);至荥阳城下,魏元天穆号三十万来救,庆之亲擂鼓、率死士先登,拔荥阳,又以三千骑破元天穆数万骑;遂拔虎牢,入洛阳,元颢称帝。四月之间转战千里,克三十二城、四十七战皆捷,洛阳童谣『千兵万马避白袍』。然元颢入洛骄怠、孤军无继,尔朱荣挟孝庄帝反攻,河桥败、元颢死,梁军东撤遇嵩高山洪全军漂没,庆之削发潜返——北伐昙花一现,功败垂成。"]},
+  "1":{t:"① 元颢降梁 · 七千白袍北伐",d:"梁大通三年(529)春",p:["北魏河阴之变后,权臣尔朱荣沉杀朝士百官、宗室惶惧。北海王元颢惧祸,南奔降梁,自请为魏主、乞梁兵助其还北称帝。梁武帝萧衍纳之,以元颢为魏王,遣东宫直阁将军陈庆之率兵七千护送北伐。","庆之令全军皆着白袍,自铚县(今安徽濉溪西南)出发北上。首取荥城,进逼睢阳(今商丘);魏征东将军丘大千拥众七万,筑九城以拒。白袍孤军深入,而北魏方乱、守将各自为战,正为疾攻之机。"]},
+  "2":{t:"② 连破睢阳考城 · 逼荥阳",d:"大通三年(529)四月",p:["陈庆之攻睢阳,自旦至申,克其三垒,丘大千以七万众降——一日而拔睢阳。北魏济阴王元晖业率羽林二万来援,屯于考城(今民权东北);庆之为浮水筑垒以攻,拔考城,擒元晖业,获车七千八百乘。","睢阳、考城既下,庆之引军西向,进逼荥阳(今荥阳)。魏以左仆射杨昱等拥众七万守荥阳,又征诸军云集。白袍连捷,声势渐张,而魏廷震动,大发兵以图围歼之。"]},
+  "3":{t:"③ 荥阳以寡破众 · 拔虎牢 · 入洛称帝",d:"大通三年(529)五月",p:["魏遣尚书仆射元天穆、骠骑将军尔朱吐没儿等,号三十万大军来救荥阳,与城中杨昱相犄角。荥阳未下而大军将合,梁军皆惧。陈庆之乃解鞍秣马、亲自擂鼓、募敢死之士先登,须臾拔荥阳;既拔,复率骑三千背城力战,大破元天穆数万骑,天穆、吐没儿仅以身免。","乘胜拔虎牢关,魏守将尔朱世隆弃关走。孝庄帝元子攸闻荥阳、虎牢俱失,连夜奔并州投尔朱荣。陈庆之遂入洛阳,元颢入居宫城、称帝,改元建武。自发铚至此,凡四月、转战千里,克三十二城、四十七战皆捷,洛阳为之童谣:『名师大将莫自牢,千兵万马避白袍』。"]},
+  "4":{t:"④ 孤军无继 · 尔朱荣反攻 · 遇洪溃返",d:"大通三年(529)闰六月",p:["元颢入洛既立,骄怠自恣、日事游宴,又与陈庆之相猜忌,拒其增兵之请;梁武帝亦无后军继之。七千白袍悬于河洛,内无根本、外无援兵。尔朱荣闻洛阳失守,挟孝庄帝亲率大军南下反攻,与元颢军隔黄河相持。","陈庆之守河桥、北中郎城拒之,三日之中十一战,伤杀甚众;尔朱荣缚木为筏、夜济自硖石,与元颢战于河桥,元颢军溃。元颢仅将数百骑南走,至临颍为县卒所杀。陈庆之收兵结阵东撤,值嵩高山洪暴发(蒿高水涨),梁军猝遇大水,全军漂没溃散。庆之乃削发为僧、化装潜返江南。白袍北伐至此昙花一现、功败垂成。"]}
+};
+const CITY={
+  zhixian:{t:"铚县",d:"北伐出发地,今安徽濉溪西南、临涣一带(约116.6E/33.65N)",p:["梁北伐之前进基地。大通三年(529)陈庆之率白袍七千自此出发,护元颢北伐入洛。"]},
+  xingcheng:{t:"荥城",d:"睢阳东南,今商丘一带(地望不确,约116.0E/34.30N)",p:["白袍北伐首取之城。自铚北上,先克荥城,遂进逼睢阳。其确切地望古今无考,图中姑系于铚县往睢阳之途。"]},
+  suiyang:{t:"睢阳(商丘)",d:"今河南商丘(约115.65E/34.41N)",p:["北伐第一大捷。魏征东将军丘大千拥七万众、筑九城以拒;陈庆之自旦至申拔其三垒,大千以七万降——一日而下睢阳。"]},
+  kaocheng:{t:"考城",d:"今河南民权东北(约115.35E/34.75N)",p:["北魏济阴王元晖业率羽林二万屯此来援。陈庆之浮水筑垒而攻,拔考城,擒元晖业,获车七千八百乘。"]},
+  xingyang:{t:"荥阳",d:"今河南荥阳(约113.38E/34.79N)",p:["以寡破众之决战。魏杨昱七万守城,元天穆、尔朱吐没儿号三十万来救。陈庆之亲擂鼓、率死士先登拔城,复以三千骑破元天穆数万骑——白袍之神威,尽在此役。"]},
+  hulao:{t:"虎牢关",d:"洛阳东户,今河南荥阳汜水(约113.23E/34.77N)",p:["荥阳既拔,乘胜取虎牢。守将尔朱世隆弃关走,孝庄帝闻之连夜奔并州投尔朱荣。虎牢下则洛阳门户洞开。"]},
+  luoyang:{t:"洛阳(魏都)",d:"今河南洛阳(约112.45E/34.68N)",p:["北魏都城,北伐所指。陈庆之克虎牢后入洛,元颢入居宫城、称帝改元建武。然骄怠孤立,不能久守;尔朱荣反攻,旋复弃之。"]},
+  heqiao:{t:"河桥 · 北中郎城",d:"洛阳北黄河上,今孟津一带(约112.50E/34.85N)",p:["尔朱荣反攻,陈庆之守此拒之,三日十一战、伤杀甚众。荣缚筏济自硖石,与元颢战于河桥,元颢军溃——白袍北伐由盛转败之地。"]},
+  linying:{t:"临颍",d:"今河南临颍(约113.90E/33.85N)",p:["河桥败后,元颢仅将数百骑南走,至临颍为县卒所杀。称帝方数十日而身死国灭。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

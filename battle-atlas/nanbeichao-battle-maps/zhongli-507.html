@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>钟离之战 · 天监六年(507)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--fire:#c0491f;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .sea{fill:var(--water);opacity:.16}
+  .redsea{fill:rgba(154,43,30,.22);stroke:rgba(154,43,30,.4);stroke-width:1;stroke-dasharray:2 3}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:1 5 7 5;opacity:.55;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .isle{fill:var(--ink2);opacity:.5}
+  .bridge{fill:none;stroke:var(--enemy);stroke-width:2.6;opacity:.85}
+  .boat{fill:var(--paper2);stroke:var(--enemy);stroke-width:1.1}
+  .blabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.03em}
+  .fort{fill:var(--advance);opacity:.9}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.fship{stroke:var(--fire);stroke-width:3.4}
+  .signal{fill:none;stroke:var(--advance);stroke-width:1.7;stroke-dasharray:2 4;opacity:.9}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--fire)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .camp{fill:var(--enemy);opacity:.9}
+  .flood{fill:none;stroke:var(--water);stroke-width:2;opacity:.75}
+  .wlabel{fill:var(--gold);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .fire{fill:none;stroke:var(--fire);stroke-width:2.2;opacity:.95}
+  .flabel{fill:var(--fire);font-family:"Ma Shan Zheng",serif;letter-spacing:.14em;font-weight:400}
+  .cut line{stroke:var(--fire);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--fire);stroke-width:1.6}
+  .clabel{fill:var(--fire);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .redlabel{fill:var(--enemy);font-weight:700;font-style:normal}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--advance);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--fire)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--fire)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>钟</span><span>离</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>钟离之战</h1>
+    <div class="sub">梁天监六年(507)　　<i>南梁 韦叡 · 曹景宗</i>(守将 <i>昌义之</i>)大破 <b>北魏 元英 · 杨大眼</b>　·　死守待援 · 乘涨断桥 · 南朝空前大捷</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 淮上决战</button>
+    <button data-p="1">元英围钟离 · 昌义之死守</button>
+    <button data-p="2">韦叡援 · 一夜筑垒逼魏</button>
+    <button data-p="3">淮水暴涨 · 高舰火攻断桥</button>
+    <button data-p="4">断魏联络 · 溺歼十余万</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="钟离之战形势图,含淮河一段与邵阳洲沙洲、钟离城临淮关一带、合肥寿阳建康诸地,及北魏元英杨大眼夹淮架两浮桥围钟离、昌义之三千死守、韦叡曹景宗自合肥援至一夜筑垒逼魏、乘淮水暴涨以高舰火攻冲断两浮桥、断魏南北联络水陆夹击溺歼十余万之钟离大捷">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0491f"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:北魏据淮北(北)、南梁据淮南(南),约以淮河为限;然魏已渡淮南围钟离,寿阳亦为魏据点 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,150 C 800,138 640,128 480,124 C 300,120 140,120 0,110 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,110 C 140,120 300,120 480,124 C 640,128 800,138 1000,150 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,110 C 140,120 300,120 480,124 C 640,128 800,138 1000,150"/>
+    <text class="realm q" x="120" y="60" font-size="26">北 魏 · 淮 北</text>
+    <text class="realm j" x="150" y="560" font-size="28">南 梁 · 淮 南</text>
+
+    <!-- ══ 淮河:自西东流,邵阳洲当其中,钟离在南岸 ══ -->
+    <g>
+      <path class="sea" d="M 0,84 C 180,98 380,108 540,108 C 620,108 680,104 726,112 C 800,126 900,140 1000,146 L 1000,172 C 900,166 800,152 726,138 C 680,130 620,132 540,132 C 380,132 180,124 0,108 Z"/>
+      <path class="river" stroke-width="6" d="M 0,96 C 180,110 380,118 540,118 C 620,118 680,114 726,124 C 800,138 900,150 1000,158"/>
+    </g>
+    <text class="rname" x="150" y="88" style="font-size:15px">淮　　河</text>
+
+    <!-- 邵阳洲(淮水中沙洲,魏架两浮桥处·决战地) -->
+    <g class="isle"><ellipse cx="690" cy="116" rx="34" ry="12"/></g>
+    <text class="cname s" x="640" y="150" style="fill:var(--water)">邵阳洲(沙洲)</text>
+
+    <!-- ══ 邵阳洲两浮桥:魏跨淮连南北两军、通粮运 ══ -->
+    <g id="bridges">
+      <path class="bridge" d="M 656,150 C 652,128 652,110 654,92"/>
+      <g class="boat"><rect x="649" y="140" width="12" height="6" rx="1"/><rect x="648" y="126" width="12" height="6" rx="1"/><rect x="648" y="112" width="12" height="6" rx="1"/><rect x="649" y="98" width="12" height="6" rx="1"/></g>
+      <path class="bridge" d="M 724,150 C 720,128 720,110 722,92"/>
+      <g class="boat"><rect x="717" y="140" width="12" height="6" rx="1"/><rect x="716" y="126" width="12" height="6" rx="1"/><rect x="716" y="112" width="12" height="6" rx="1"/><rect x="717" y="98" width="12" height="6" rx="1"/></g>
+      <text class="blabel" x="742" y="118">邵阳洲两浮桥<tspan x="742" dy="14" style="font-size:9.5px">跨淮连南北两军·通粮运</tspan></text>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="zhongli"><circle cx="694" cy="152" r="6.5"/><text class="cname" x="646" y="176">钟离城<tspan class="cname s" dx="2">(临淮关)</tspan></text></g>
+      <g class="city" data-city="hefei"><circle cx="530" cy="501" r="6"/><text class="cname" x="486" y="522">合肥<tspan class="cname s" dx="2">(援军来向)</tspan></text></g>
+      <g class="city" data-city="shouyang"><circle cx="286" cy="270" r="5.5"/><text class="cname" x="220" y="264">寿阳<tspan class="cname s" dx="2">(寿春·魏据点)</tspan></text></g>
+    </g>
+
+    <!-- 图外来向:建康(梁都,东南图外) -->
+    <g transform="translate(986,470)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,4 L -26,-8"/>
+      <text class="mlabel j" x="-118" y="26" style="font-size:10px">建康(梁都) ⟶</text>
+      <text class="cname s" x="-118" y="10" style="fill:var(--advance);font-size:9.5px">梁武帝遣援(图外东南)</text>
+    </g>
+
+    <!-- ══ 全图 · 淮上决战 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 700,24 C 702,48 702,66 702,80"/>
+      <text class="mlabel q" x="712" y="46">元英·杨大眼号数十万<tspan x="712" dy="14">夹淮架桥围钟离</tspan></text>
+      <g class="siege"><circle cx="694" cy="152" r="22"/><circle cx="694" cy="152" r="29" style="opacity:.5"/></g>
+      <text class="mlabel j" x="596" y="196">昌义之三千死守</text>
+      <path class="march j" marker-end="url(#aj)" d="M 530,494 C 560,400 600,262 656,152"/>
+      <text class="mlabel j" x="452" y="360">韦叡·曹景宗二十万<tspan x="452" dy="14">自合肥疾进,筑垒逼魏</tspan></text>
+      <rect class="fort" x="646" y="126" width="10" height="10" transform="rotate(45 651 131)"/>
+      <g class="cut" transform="translate(656,120)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="cut" transform="translate(724,120)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="flabel" x="742" y="150" style="font-size:13px">乘涨火攻,断两浮桥</text>
+      <path class="redsea" d="M 540,124 C 620,120 700,120 780,128 C 800,138 786,152 760,152 C 680,150 600,148 540,140 Z"/>
+      <text class="anno" x="560" y="176">桥断,魏军溺死斩杀十余万</text>
+    </g>
+
+    <!-- ══ 阶段一:元英围钟离 · 昌义之死守 ══ -->
+    <g id="ph1" class="ph">
+      <!-- 魏军自淮北南下,并自寿阳来会 -->
+      <path class="march q" marker-end="url(#aq)" d="M 700,22 C 702,46 702,66 702,80"/>
+      <path class="march q" marker-end="url(#aq)" d="M 300,262 C 420,220 560,150 648,124"/>
+      <text class="mlabel q" x="330" y="200">元英·杨大眼率大军(号数十万,一说八十万)</text>
+      <!-- 杨大眼据北岸立城通粮运,元英据南岸攻城 -->
+      <rect class="camp" x="696" y="72" width="10" height="10" transform="rotate(45 701 77)"/>
+      <text class="mlabel q" x="716" y="70">杨大眼据北岸,接应通粮运</text>
+      <rect class="camp" x="716" y="166" width="10" height="10" transform="rotate(45 721 171)"/>
+      <text class="mlabel q" x="734" y="182">元英据南岸攻城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 720,166 C 712,160 706,158 702,156"/>
+      <!-- 围城 -->
+      <g class="siege"><circle cx="694" cy="152" r="21"/><circle cx="694" cy="152" r="28" style="opacity:.5"/></g>
+      <text class="mlabel j" x="560" y="206">昌义之以三千余人死守钟离</text>
+      <text class="anno" x="540" y="224">魏填壕蚁附,且守且战,杀伤万计</text>
+      <circle class="star" cx="694" cy="152" r="11"/>
+    </g>
+
+    <!-- ══ 阶段二:韦叡援 · 一夜筑垒逼魏 ══ -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 530,494 C 556,392 596,250 650,150"/>
+      <text class="mlabel j" x="430" y="330">韦叡夜发合肥,径造邵阳洲<tspan x="430" dy="14">一夜筑城,去魏营百余步</tspan></text>
+      <!-- 韦叡逼魏之垒 -->
+      <rect class="fort" x="646" y="126" width="11" height="11" transform="rotate(45 651.5 131.5)"/>
+      <text class="mlabel j" x="600" y="120">韦叡一夜筑垒</text>
+      <!-- 曹景宗遣人潜水入城送信 -->
+      <path class="signal" d="M 660,134 C 672,142 682,146 690,150"/>
+      <text class="anno" x="618" y="248">曹景宗遣人潜水入城报援至,城中气振</text>
+      <!-- 魏营对峙 -->
+      <rect class="camp" x="716" y="166" width="10" height="10" transform="rotate(45 721 171)"/>
+      <rect class="camp" x="696" y="72" width="10" height="10" transform="rotate(45 701 77)"/>
+      <text class="mlabel q" x="736" y="88">魏军惊为神兵,两岸对峙</text>
+      <text class="anno" x="470" y="470">梁武帝遣曹景宗·韦叡二十万往救</text>
+    </g>
+
+    <!-- ══ 阶段三:淮水暴涨 · 高舰火攻断桥 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 淮水暴涨:加宽晕染水面+波纹 -->
+      <path class="sea" d="M 0,72 C 180,88 380,100 540,100 C 620,100 680,96 726,104 C 800,120 900,136 1000,142 L 1000,186 C 900,180 800,164 726,150 C 680,142 620,144 540,144 C 380,144 180,136 0,120 Z" style="opacity:.28"/>
+      <g class="flood"><path d="M 470,92 q 26,-7 52,0"/><path d="M 470,104 q 26,-7 52,0"/><path d="M 540,90 q 26,-7 52,0"/></g>
+      <text class="wlabel" x="440" y="80" font-size="16">淮水暴涨六七尺</text>
+      <!-- 高舰(斗舰)乘涨攻两浮桥 -->
+      <path class="march fship" marker-end="url(#af)" d="M 656,138 C 656,130 656,124 656,120"/>
+      <path class="march fship" marker-end="url(#af)" d="M 700,132 C 710,128 718,124 724,120"/>
+      <text class="mlabel f" x="560" y="248">冯道根·裴邃·李文钊乘斗舰猛攻<tspan x="560" dy="14">小船载草木油膏,乘风纵火焚桥</tspan></text>
+      <!-- 焚两桥之火 -->
+      <g class="fire">
+        <path d="M 650,114 q -6,-15 2,-25 q 3,11 8,6 q -2,13 4,19"/>
+        <path d="M 660,116 q -5,-13 2,-23 q 3,10 7,5 q -2,12 3,17"/>
+        <path d="M 718,114 q -6,-15 2,-25 q 3,11 8,6 q -2,13 4,19"/>
+        <path d="M 728,116 q -5,-13 2,-23 q 3,10 7,5 q -2,12 3,17"/>
+      </g>
+      <text class="flabel" x="746" y="112" font-size="14">火焚两浮桥</text>
+      <!-- 敢死队拔栅斫桥 -->
+      <text class="anno" x="560" y="272">复遣敢死之士拔栅斫桥,水漂疾,倏忽桥栅俱尽</text>
+      <circle class="star" cx="656" cy="120" r="10"/>
+      <circle class="star" cx="724" cy="120" r="10"/>
+    </g>
+
+    <!-- ══ 阶段四:断魏联络 · 水陆夹击 · 溺歼十余万 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 两浮桥皆断 -->
+      <g class="cut" transform="translate(656,120)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <g class="cut" transform="translate(724,120)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="612" y="98">桥断 ✕ 魏军南北联络绝</text>
+      <!-- 争渡淮水:溺死之红晕 -->
+      <path class="redsea" d="M 540,120 C 620,116 700,116 786,126 C 812,138 792,156 762,156 C 680,154 600,150 540,138 Z"/>
+      <text class="redlabel" x="560" y="112" style="font-size:12.5px">争渡淮水</text>
+      <text class="anno" x="560" y="176" style="fill:var(--enemy)">溺死·斩杀者各十余万</text>
+      <!-- 昌义之出城追击 -->
+      <path class="march j" marker-end="url(#aj)" d="M 700,148 C 716,140 730,132 742,126"/>
+      <text class="mlabel j" x="672" y="196">昌义之开门出击,乘胜追奔</text>
+      <text class="anno" x="640" y="212">生擒五万,获资粮器械山积</text>
+      <!-- 元英单骑遁走(西),杨大眼烧营去 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 700,74 C 560,80 400,120 300,258"/>
+      <text class="mlabel r" x="360" y="128">元英弃军单骑遁走 · 杨大眼烧营而去</text>
+      <text class="anno" x="150" y="430">北魏南侵之势顿挫;钟离大捷,南朝空前大胜</text>
+    </g>
+
+    <g class="compass" transform="translate(948,566)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>南梁军(韦叡·曹景宗)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>北魏军(元英·杨大眼)</span>
+    <span class="item"><svg width="34" height="12"><line x1="4" y1="6" x2="30" y2="6" stroke="#9a2b1e" stroke-width="2.6"/><rect x="8" y="3" width="7" height="6" fill="#e0d3b3" stroke="#9a2b1e" stroke-width="1"/><rect x="19" y="3" width="7" height="6" fill="#e0d3b3" stroke="#9a2b1e" stroke-width="1"/></svg>邵阳洲两浮桥</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#c0491f" stroke-width="3.4"/></svg>高舰·火攻焚桥</span>
+    <span class="item"><svg width="30" height="14"><path d="M 4,7 q 7,-4 13,0" fill="none" stroke="#5f7f88" stroke-width="2"/><path d="M 4,11 q 7,-4 13,0" fill="none" stroke="#5f7f88" stroke-width="2"/></svg>淮水暴涨</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>魏军溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#c0491f" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#c0491f" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#c0491f" stroke-width="2.4"/></svg>桥断</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战 / 死守</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="rgba(154,43,30,.3)"/></svg>溺死·水赤</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>北魏</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>南梁</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 死守待援 · 乘涨断桥 · 水火覆魏</h3>
+    <div class="lead">何以数十万之众一夕而溃 —— 系于孤城死守以待援、乘淮涨以高舰火攻冲断跨淮之两浮桥</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="钟离释要示意:北魏夹淮为南北两军,恃邵阳洲两浮桥相联通粮;昌义之孤城死守待援,韦叡一夜筑垒逼魏,乘淮水暴涨以高舰火攻焚断两桥,南北联络既绝,魏军水陆夹击而溺歼十余万">
+      <!-- 淮水横贯 -->
+      <rect x="24" y="104" width="812" height="44" fill="#5f7f88" opacity=".22"/>
+      <line x1="24" y1="126" x2="836" y2="126" stroke="#5f7f88" stroke-width="4" opacity=".5"/>
+      <text x="386" y="120" fill="#5f7f88" font-size="11" font-style="italic" opacity=".85">淮　水(暴涨六七尺)</text>
+      <text x="30" y="30" fill="#9a2b1e" font-size="12" font-weight="700">淮北 · 杨大眼(北岸·通粮运)</text>
+      <text x="30" y="238" fill="#9a2b1e" font-size="12" font-weight="700">淮南 · 元英(南岸·攻钟离)</text>
+      <!-- 钟离孤城:南岸死守 -->
+      <rect x="150" y="180" width="52" height="34" fill="none" stroke="#1f4e54" stroke-width="2"/>
+      <text x="150" y="230" fill="#1f4e54" font-size="10.5" font-weight="700">钟离孤城 · 昌义之三千死守</text>
+      <g><circle cx="176" cy="197" r="8" fill="none" stroke="#9c7a2c" stroke-width="2"/></g>
+      <!-- 两浮桥:魏之命脉,跨淮相联 -->
+      <g stroke="#9a2b1e" stroke-width="2.4" fill="none">
+        <line x1="360" y1="176" x2="360" y2="78"/>
+        <line x1="470" y1="176" x2="470" y2="78"/>
+      </g>
+      <g fill="#e0d3b3" stroke="#9a2b1e" stroke-width="1"><rect x="353" y="150" width="14" height="7"/><rect x="353" y="120" width="14" height="7"/><rect x="353" y="90" width="14" height="7"/><rect x="463" y="150" width="14" height="7"/><rect x="463" y="120" width="14" height="7"/><rect x="463" y="90" width="14" height="7"/></g>
+      <text x="356" y="70" fill="#9a2b1e" font-size="10.5" font-weight="700">邵阳洲两浮桥 · 跨淮联南北、通粮运</text>
+      <!-- 韦叡一夜筑垒逼魏 -->
+      <rect x="286" y="182" width="12" height="12" transform="rotate(45 292 188)" fill="#1f4e54"/>
+      <text x="252" y="214" fill="#1f4e54" font-size="10.5" font-weight="700">韦叡一夜筑垒,逼魏营百余步</text>
+      <!-- 高舰火攻焚断两桥 -->
+      <path d="M 560,150 C 500,140 460,132 424,126" fill="none" stroke="#c0491f" stroke-width="3" marker-end="url(#af)"/>
+      <text x="556" y="146" fill="#c0491f" font-size="11" font-weight="700">高舰载士,乘涨猛攻</text>
+      <g fill="none" stroke="#c0491f" stroke-width="2" opacity=".95">
+        <path d="M 358,90 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+        <path d="M 468,90 q -5,-12 2,-20 q 3,8 6,4 q -2,10 3,14"/>
+      </g>
+      <g stroke="#c0491f" stroke-width="2.4"><line x1="352" y1="122" x2="368" y2="138"/><line x1="352" y1="138" x2="368" y2="122"/><line x1="462" y1="122" x2="478" y2="138"/><line x1="462" y1="138" x2="478" y2="122"/></g>
+      <text x="356" y="52" fill="#c0491f" font-size="10.5" font-weight="700">火攻·斫栅,两桥俱断 ✕</text>
+      <!-- 溺歼 -->
+      <path d="M 600,126 C 660,120 720,120 792,128" fill="none" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="2 4" marker-end="url(#aq)"/>
+      <text x="602" y="116" fill="#9a2b1e" font-size="10.5" font-weight="700">南北隔绝 · 争渡</text>
+      <text x="600" y="164" fill="#9a2b1e" font-size="10.5" font-weight="700">溺死斩杀十余万 · 俘五万</text>
+    </svg>
+    <p class="intro">北魏元英、杨大眼以数十万之众围钟离,夹淮为营:元英据南岸攻城,杨大眼据北岸接应,而以<b>邵阳洲两浮桥跨淮相联、通其粮运</b>——南北两军之首尾、粮械之往来,悉系于此二桥。昌义之以三千余人孤城死守,屡挫其锋;韦叡、曹景宗率援军自合肥疾进,一夜筑垒逼魏营百余步。胜负之枢,遂全系于这跨淮之两桥。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>死守 · 待援 · 逼垒</h4>
+        <p>昌义之三千人守钟离,魏填壕蚁附、昼夜攻之,义之且守且战,箭无虚发,杀伤以万计,孤城竟不能下。梁武帝遣曹景宗、韦叡二十万往救;韦叡自合肥一夜进屯邵阳洲,当魏军前筑城,去魏营仅百余步,魏人惊为神兵。孤城既坚,援垒又逼,魏军顿成骑虎。</p>
+      </div>
+      <div class="c b">
+        <h4>乘涨 · 断桥 · 覆魏</h4>
+        <p>时值三月春汛,淮水暴涨六七尺。韦叡命冯道根、裴邃、李文钊等以高大斗舰载士乘水猛攻两桥,又遣敢死之士乘小船载草木油膏纵火焚之、拔栅斫桥。大水漂疾,倏忽之间桥栅俱尽。两桥既断,魏南北两军联络粮运顿绝,阵脚大乱,水陆夹击,争渡淮水者溺死、斩杀各十余万。</p>
+      </div>
+    </div>
+    <p class="kicker">故钟离之捷,不在梁众之多,而在<b>死守以老敌、逼垒以困敌、乘涨断桥以覆敌</b>:一城三千死守以待援,一垒一夜暴筑以逼魏,一炬两桥并焚而全军之联络粮运俱绝。桥断则数十万之众分隔两岸、进退失据,遂溺歼十余万、俘五万,元英单骑遁走,杨大眼烧营而去。<b>北魏南侵之势由此顿挫</b>,是役为南朝对北朝空前之大胜。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度约略投影(投影式 x=60+(经度−116.3)·470,y=600−(纬度−31.55)·320):钟离城在今安徽凤阳东北临淮关一带、淮河南岸(约117.65°E/32.95°N),邵阳洲为其附近淮水中之沙洲(魏架两浮桥、决战之处),合肥(约117.30°E/31.86°N,韦叡·曹景宗援军来向)在南,寿阳即寿春(今安徽寿县,约116.78°E/32.58°N)在西,建康(梁都,今南京,约118.79°E/32.06°N)在东南图外,以边缘箭头示之。淮河、沙洲、浮桥形貌皆经简化;晕染之约界(以淮为限)仅示魏梁控地大势——是时魏已渡淮南围钟离,寿阳亦自天监元年(500)以来为北魏所据,非实有画界。</p>
+    <p><span class="n">注二</span>两方与来路:<b>北魏</b>(中山王元英·平东将军杨大眼,朱)号数十万(一说八十万)围钟离——元英据淮南岸攻城,杨大眼据淮北岸立城接应、以通粮运,两军恃邵阳洲两浮桥跨淮相联。<b>南梁</b>(青)守将昌义之以三千余人死守钟离;梁武帝萧衍遣曹景宗、韦叡将二十万往救,韦叡自合肥疾进(是役唯魏、梁两方,无第三国;建康梁都在图外东南,仅示遣援之向)。</p>
+    <p><span class="n">注三</span>行军之水陆与制胜之枢:魏军围城为陆战,而其南北两军之联络、粮运全恃<b>邵阳洲两浮桥</b>(水上通道)——此即全局命脉。梁军决胜专在<b>水战火攻</b>:三月淮水暴涨六七尺,韦叡遣冯道根、裴邃、李文钊等乘<b>高大斗舰</b>猛攻,又以小船载草木油膏<b>纵火焚桥</b>、拔栅斫桥,两桥俱断(图中朱色 ✕),魏军南北隔绝而溃(详见上『制胜释要』)。桥存则魏合,桥断则魏分——故以两浮桥为决胜之枢。</p>
+    <p><span class="n">注四</span>兵力与战果异说:魏军史称「众号八十万」或「数十万」,实数难考,姑存旧说。钟离守军,《梁书·昌义之传》作「三千人」。战果,《资治通鉴》卷一四六载「魏军趋水死者十余万,斩首亦如之」,又「生擒五万人」;溺死、斩杀之数,诸书微有出入,今从《通鉴》。淮水暴涨,一作「七尺」,一作「六七尺」,今并存。</p>
+    <p><span class="n">注五</span>本图据《梁书·韦叡传》《曹景宗传》《昌义之传》、《魏书·岛夷萧衍传》及《资治通鉴》卷一四六(天监六年/魏正始四年)约略绘出。《通鉴》云「韦叡装高舰,使与魏桥等,冯道根、裴邃、李文钊等乘水勇进,凿其桥;又以小船载草,灌之以膏,从而焚之;敢死之士拔栅斫桥,水又漂疾,倏忽之间,桥栅尽坏……魏军大溃」。此役与淝水、黄天荡、白江口同为『乘水火以覆众』之典范,而钟离尤为南朝对北朝空前之大捷。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"淮上决战 · 钟离大捷",d:"梁天监六年(507)· 魏正始四年",p:["前一年北魏大举南侵,中山王元英、平东将军杨大眼率大军(号数十万,一说八十万)围南梁淮南重镇钟离城。魏军夹淮为营——元英据南岸攻城,杨大眼据北岸接应,而于淮水中邵阳洲两岸架设两座浮桥,跨淮相联、以通粮运。梁将昌义之以三千余人死守孤城,屡挫魏军。","梁武帝遣曹景宗、韦叡率二十万援军往救。韦叡自合肥疾进,一夜之间于邵阳洲抢筑营垒,逼魏营百余步,魏人惊为神兵。会三月淮水暴涨六七尺,韦叡以高舰火攻冲断两浮桥,魏军南北联络顿绝,水陆夹击,争渡淮水溺死、斩杀各十余万,被俘五万;元英、杨大眼弃军脱身。北魏南侵之势由此顿挫,是为南朝空前之大捷。"]},
+  "1":{t:"元英围钟离 · 昌义之死守",d:"天监五—六年(506—507)",p:["北魏中山王元英、平东将军杨大眼率大军南下,并会诸道之众,围南梁淮南重镇钟离城。魏军夹淮列营:元英据淮南岸攻城,杨大眼据淮北岸立城接应,而于邵阳洲两岸架两浮桥,跨淮相联以通粮运。","钟离城中止有梁将昌义之及士卒三千余人。魏军填堑蚁附,昼夜苦攻,一日数十合。义之善射,且守且战,亲当矢石,箭所及无不应弦而倒,杀伤以万计,孤城屹然不下——然久困待援,势亦危蹙。"]},
+  "2":{t:"韦叡援 · 一夜筑垒逼魏",d:"天监六年(507)春",p:["梁武帝命曹景宗、韦叡率二十万往救。曹景宗屯道人洲以待,韦叡自合肥疾进,一夜之间径造邵阳洲,当魏军之前抢筑营垒,深堑树栅、截洲筑城,去魏营仅百余步。迟明,魏人望之大骇,元英、杨大眼惊为神兵。","曹景宗募人潜水入钟离城,报援军已至,城中皆呼跃,气势百倍。魏军屡来攻垒,韦叡乘车督战,矢石雨集而不动;杨大眼勇冠军中,亦为流矢所中。两军隔淮对峙,魏之两浮桥往来通粮,而梁援之垒已扼其前。"]},
+  "3":{t:"淮水暴涨 · 高舰火攻断桥",d:"天监六年(507)三月",p:["时值春汛,淮水暴涨六七尺。韦叡预装高大斗舰,使与魏之浮桥等高,命冯道根、裴邃、李文钊等乘水勇进,以斗舰载士猛攻两桥;又遣敢死之士乘小船,载草木、灌膏油,乘风纵火以焚其桥,复拔栅斫桥。","大水漂疾,火烈风猛,倏忽之间,桥栅俱尽,两座浮桥并断。魏军跨淮之通道既绝,南北两岸首尾不相救,粮运亦阻,阵脚大乱——梁军水陆并进,鼓噪之声震天动地。"]},
+  "4":{t:"断魏联络 · 溺歼十余万",d:"天监六年(507)三月",p:["两桥既断,魏南北两军联络断绝,进退失据,一时大溃。将士争渡淮水,自相腾践,溺死及被斩杀者各十余万,淮水为之不流。昌义之开钟离城门出击,乘胜追奔,俘获五万,资粮器械山积。","元英脱身弃军,仅以身免,单骑遁走;杨大眼亦烧营而去。北魏此番南侵之势由此顿挫,数十年不敢轻窥淮南。钟离大捷,遂为南朝对北朝空前之大胜,保梁武帝江左之安者数十年。"]}
+};
+const CITY={
+  zhongli:{t:"钟离城",d:"今安徽凤阳东北临淮关一带 · 淮河南岸(约117.65°E/32.95°N)",p:["南梁淮南重镇。梁将昌义之以三千余人死守于此,魏元英、杨大眼数十万围攻累月不能下。援军既至、两浮桥断,义之开门出击,追歼魏军,遂成钟离大捷。"]},
+  hefei:{t:"合肥",d:"今安徽合肥(约117.30°E/31.86°N)",p:["南梁援军来向。韦叡时为豫州刺史,镇合肥;奉命救钟离,自此夜发疾进,一夜径造邵阳洲,当魏军前筑城逼之,去魏营百余步。"]},
+  shouyang:{t:"寿阳(寿春)",d:"今安徽寿县(约116.78°E/32.58°N)",p:["淮南要冲,自天监元年(500)为北魏所据,乃元英大军之后方。魏军败后西向,残众多经此北归。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
