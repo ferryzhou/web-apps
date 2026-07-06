@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arbitrage Strategy Lab — profit from unequal prices</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #1baf7a; --s3: #eda100;
+    --good: #006300; --bad: #d03b3b; --wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink2: #c3c2b7;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #199e70; --s3: #c98500;
+      --good: #0ca30c; --wash: rgba(57,135,229,0.12);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page); color: var(--ink); line-height: 1.58; padding: 1.5rem 1rem 4rem; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  a { color: var(--s1); }
+  h1 { font-size: 1.65rem; line-height: 1.25; }
+  h2 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+  h3 { font-size: 0.95rem; }
+  .sub { color: var(--ink2); font-size: 0.93rem; }
+  .kicker { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
+  .eq { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.9rem; background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.9rem; margin: 0.6rem 0; overflow-x: auto; white-space: nowrap; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 0.9rem; margin-top: 0.8rem; }
+  .card { border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; background: var(--page); cursor: pointer; }
+  .card[aria-pressed="true"] { outline: 2px solid var(--s1); background: var(--wash); }
+  .card h3 { margin-bottom: 0.2rem; }
+  .card .meta { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+  .pill { font-size: 0.7rem; font-weight: 600; border: 1px solid var(--border); border-radius: 999px; padding: 0.05rem 0.5rem; color: var(--ink2); }
+  .pill.hi { color: var(--bad); border-color: currentColor; }
+  .pill.med { color: var(--s3); border-color: currentColor; }
+  .pill.lo { color: var(--good); border-color: currentColor; }
+  .card p { font-size: 0.85rem; color: var(--ink2); }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+  .tablewrap { overflow-x: auto; margin-top: 0.5rem; }
+  th, td { text-align: left; padding: 0.42rem 0.55rem; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.76rem; white-space: nowrap; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .row { display: flex; gap: 1rem 1.5rem; flex-wrap: wrap; align-items: end; margin-top: 0.7rem; }
+  .group label.head { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.25rem; }
+  input[type="number"], select { font: inherit; color: var(--ink); background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.35rem 0.55rem; max-width: 9.5rem; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 0.9rem; }
+  .panel { border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; background: var(--page); }
+  .hero { font-size: 1.7rem; font-weight: 700; }
+  .hero.good { color: var(--good); } .hero.bad { color: var(--bad); }
+  .note { color: var(--muted); font-size: 0.8rem; }
+  button.action { font: inherit; font-weight: 600; padding: 0.45rem 0.9rem; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); background: var(--wash); color: var(--ink); }
+  ol.plan, ul.plan { padding-left: 1.3rem; font-size: 0.9rem; }
+  ol.plan li, ul.plan li { margin-top: 0.35rem; }
+  .warn { border-left: 3px solid var(--s3); padding: 0.5rem 0.8rem; margin-top: 0.75rem; background: var(--page); border-radius: 0 8px 8px 0; font-size: 0.87rem; color: var(--ink2); }
+  .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; }
+  textarea { width: 100%; min-height: 200px; font: 0.82rem ui-monospace, Menlo, Consolas, monospace; color: var(--ink); background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem; margin-top: 0.6rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Arbitrage work stream 1 · strategy, research &amp; planning</p>
+    <h1>Arbitrage Strategy Lab</h1>
+    <p class="sub">One idea, many markets: <b>the same thing sells at different prices in different places — buy where
+    it's cheap, sell where it's dear.</b> Sports odds differences are one instance; so are cross-exchange crypto gaps,
+    wholesale-vs-retail spreads, and dual-listed stocks. This lab is a thinking tool: a taxonomy of where price gaps
+    live, a screening framework for whether a gap is <i>actually</i> money, an edge calculator, and a research-plan
+    generator. Siblings: <a href="../betting-arb-case-studies/index.html">betting case studies</a> ·
+    <a href="../spread-monitor/index.html">live spread monitor</a> ·
+    <a href="../betting-odds-aggregator/index.html">odds aggregator</a>.</p>
+  </header>
+
+  <section>
+    <h2>The core equation</h2>
+    <p class="sub">Every unequal-price trade — betting dutch, crypto transfer, retail flip — is the same trade. It makes
+    money only if the gap survives <i>all</i> costs and <i>both legs actually execute</i>:</p>
+    <div class="eq">net edge = (P<sub>sell</sub> − P<sub>buy</sub>) − fees<sub>buy</sub> − fees<sub>sell</sub> − transport/settlement − slippage − capital cost × time</div>
+    <div class="eq">EV per cycle = p<sub>both legs fill</sub> × net edge − (1 − p<sub>fill</sub>) × one-leg loss</div>
+    <p class="sub">The second line is the one beginners skip. A "risk-free" 2% gap with a 5% loss when one leg fails and
+    a 90% fill rate is EV = 0.9×2% − 0.1×5% = <b>+1.3%</b>; at a 70% fill rate it's <b>−0.1%</b> — negative. Leg risk,
+    not spotting gaps, is where arbitrage actually gets decided. The second question beginners skip: <b>why does this
+    gap exist, and who is happy paying it?</b> A gap with no explanation is usually a data error, a hidden cost, or a
+    trap (stale quote, unfillable size, different asset than you think).</p>
+  </section>
+
+  <section>
+    <h2>Where price gaps live — a taxonomy</h2>
+    <p class="sub">Click a domain to load it into the screener and plan maker below. Pills grade
+    <b>speed</b> required, <b>capital</b> needed, and <b>friction</b> (fees + rules + ban risk).</p>
+    <div class="cards" id="domain-cards"></div>
+  </section>
+
+  <section>
+    <h2>The screening framework — is this gap actually money?</h2>
+    <p class="sub">Five tests, in order. Most "opportunities" die at 1 or 3.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th style="width:11rem">Test</th><th>Question</th><th>Classic failure</th></tr></thead>
+      <tbody>
+        <tr><td><b>1 · Same-claim test</b></td><td>Are the two things <i>exactly</i> the same claim on the world — same settlement rules, same delivery, same counterparty quality?</td><td>Bookmaker voids a bet the exchange settles ("palpable error"); 90-min market vs to-advance market; BTC on a solvent vs shaky exchange.</td></tr>
+        <tr><td><b>2 · Staleness test</b></td><td>Are both prices from the same instant, and still available at executable size?</td><td>One venue's quote is minutes old — the gap is a timestamp artifact (most screener "arbs" die here).</td></tr>
+        <tr><td><b>3 · All-in cost test</b></td><td>Does the gap survive every fee, spread, transfer, tax, and the capital parked idle?</td><td>2% crypto gap minus 0.2%+0.2% trading, 0.1% withdrawal, and a 10-minute transfer that moves 1%.</td></tr>
+        <tr><td><b>4 · Capacity test</b></td><td>How much size before you move the price or hit limits? Edge% × capacity = actual dollars.</td><td>A 5% edge that takes $50 max stake before the book limits your account is lunch money.</td></tr>
+        <tr><td><b>5 · Persistence test</b></td><td>Why does it exist? Who is the loser and why do they tolerate it? What's the barrier protecting it from being competed away?</td><td>No answer = it's already gone, or you're the loser (adverse selection: fast traders let you "win" only stale quotes).</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warn"><b>The barrier is the business.</b> Durable gaps persist because of a moat someone can't or won't
+    cross: regulatory walls (licensed books can't serve every state), KYC/geography (kimchi premium), inventory risk
+    (retail returns), or relationship limits (bookmakers ban winners). Your plan must say which barrier you can live
+    behind — that barrier, not the spread, is what you're really monetizing.</div>
+  </section>
+
+  <section>
+    <h2>Edge calculator &amp; plan maker</h2>
+    <p class="sub" id="pm-domain-note">Domain: <b id="pm-domain">cross-book sports odds</b> — defaults below are typical
+    for the domain; override with your own research.</p>
+    <div class="row">
+      <div class="group"><label class="head" for="in-spread">Gross gap (%)</label><input type="number" id="in-spread" value="1.0" step="0.1"></div>
+      <div class="group"><label class="head" for="in-fees">All-in costs (%)</label><input type="number" id="in-fees" value="0.4" step="0.1"></div>
+      <div class="group"><label class="head" for="in-fill">Both-legs fill prob (%)</label><input type="number" id="in-fill" value="90" step="1" min="0" max="100"></div>
+      <div class="group"><label class="head" for="in-loss">One-leg-fail loss (%)</label><input type="number" id="in-loss" value="3" step="0.5"></div>
+      <div class="group"><label class="head" for="in-cycles">Cycles / month</label><input type="number" id="in-cycles" value="20" step="1" min="0"></div>
+      <div class="group"><label class="head" for="in-capital">Capital ($)</label><input type="number" id="in-capital" value="5000" step="500" min="0"></div>
+    </div>
+    <div class="grid2" id="calc-out"></div>
+    <h3 style="margin-top:1.1rem">Generated research plan</h3>
+    <ol class="plan" id="plan-list"></ol>
+    <div class="row">
+      <button class="action" id="btn-copy">Copy plan as Markdown</button>
+      <span class="note" id="copy-note"></span>
+    </div>
+    <textarea id="plan-md" readonly aria-label="Plan as markdown"></textarea>
+  </section>
+
+  <section>
+    <h2>Risk gallery — how "risk-free" trades lose money</h2>
+    <ul class="plan">
+      <li><b>Leg risk.</b> You fill the cheap side; the dear side moves before you fill it. Now you hold a naked position you never wanted. In-play betting and fast crypto moves make this the dominant cost.</li>
+      <li><b>Settlement mismatch.</b> The two venues resolve the "same" event differently: bet void rules, extra-time treatment (a 90-minute draw is a win on the 3-way line and a loss on "to advance"), token versions, delivery grades.</li>
+      <li><b>Counterparty risk.</b> Your profit sits on the weaker venue by construction — arbitrage systematically accumulates balances exactly where withdrawal is least certain (exchange insolvencies, slow bookmaker withdrawals, frozen accounts pending KYC).</li>
+      <li><b>Relationship risk.</b> Venues that lose to you fire you: bookmaker stake limits and account closures typically arrive within weeks of consistent winning; retail platforms suspend reseller accounts.</li>
+      <li><b>Inventory &amp; time risk.</b> Anything you must hold between legs (goods in transit, coins on a chain, tickets before the event) can reprice against you; the gap pays you partly <i>for</i> bearing this.</li>
+      <li><b>Data risk.</b> The gap was never real: stale quote, wrong market matched, decimal/American confusion, fee tier you don't actually get. Verification before execution is a step, not a vibe — see the staleness filter in the <a href="../betting-odds-aggregator/replay.html">in-play explorer</a>.</li>
+    </ul>
+  </section>
+
+  <footer class="footnote">
+    Educational analysis, not investment or betting advice. Part of <a href="../index.html">web-apps</a>.
+  </footer>
+</div>
+
+<script>
+"use strict";
+
+const DOMAINS = [
+  {
+    id: "odds", name: "Cross-book sports odds", speed: "med", capital: "lo", friction: "hi",
+    gap: "Same match outcome priced by many bookmakers, exchanges, prediction markets.",
+    why: "Books shade lines toward their local customers' biases and move at different speeds on news; licensing walls keep venues separate.",
+    typical: "0.2–2% on best-price combinations; bigger briefly in-play after goals.",
+    barrier: "Account limits for winners; state/country licensing; in-play suspension windows.",
+    defaults: { spread: 1.0, fees: 0.4, fill: 90, loss: 3, cycles: 20 },
+    plan: [
+      "Pick one league/market and collect timestamped odds from 4+ venues (books + an exchange + a prediction market) — see the odds aggregator app for the format.",
+      "Measure gap frequency and size on best-price combinations; require all legs' timestamps within 60–90 s (staleness filter).",
+      "Model all-in cost: exchange commission, prediction-market fees, expected void/settlement mismatches.",
+      "Paper-trade 2 weeks: log would-be fills, stake limits offered, line moves between legs → estimate real fill probability.",
+      "Size the relationship risk: how long until each book limits a winning account; plan account/bankroll rotation.",
+      "Decide venue pair to specialize in; automate detection only after manual edge is proven.",
+    ],
+  },
+  {
+    id: "crypto-spot", name: "Crypto cross-exchange spot", speed: "hi", capital: "med", friction: "med",
+    gap: "BTC/ETH/etc. quoted simultaneously on Kraken, Coinbase, Binance, regional venues.",
+    why: "Fragmented liquidity, fiat on/off-ramp friction, geographic walls (e.g. won- or real-denominated premiums), risk appetite differences.",
+    typical: "0.02–0.3% majors on big venues (mostly eaten by fees); 1%+ on regional/fiat-walled pairs.",
+    barrier: "KYC/geography, banking rails, withdrawal delays; speed (sub-second for majors).",
+    defaults: { spread: 0.3, fees: 0.25, fill: 95, loss: 1.5, cycles: 60 },
+    plan: [
+      "Monitor top-of-book bid/ask (not last trade) on 3–5 venues for one pair — see the spread monitor app.",
+      "Compute executable spread: cross bid(sell venue) vs ask(buy venue), minus taker fees both sides and withdrawal cost.",
+      "Decide model: inventory-based (hold balances both sides, rebalance rarely — no transfer latency) vs transfer-based (slower, transfer risk).",
+      "Measure how long gaps persist (they close in seconds on majors) → determines whether manual execution is even possible.",
+      "Check geo/regulatory walls behind any fat premium — if you can't legally cross the wall, the premium isn't yours.",
+      "Start with stablecoin pairs or one fiat corridor; track realized vs theoretical edge per cycle.",
+    ],
+  },
+  {
+    id: "basis", name: "Crypto spot vs futures (cash &amp; carry)", speed: "lo", capital: "med", friction: "lo",
+    gap: "Perpetual/quarterly futures trade above spot; short future + long spot locks the basis.",
+    why: "Leverage demand from longs; funding rates pay holders of the hedged position.",
+    typical: "2–15% annualized, regime-dependent; compressed since 2021 highs.",
+    barrier: "Exchange counterparty risk on the short leg; margin management during spikes.",
+    defaults: { spread: 6, fees: 0.3, fill: 99, loss: 5, cycles: 2 },
+    plan: [
+      "Track funding rates / quarterly basis across 2–3 derivatives venues for 4+ weeks.",
+      "Model liquidation risk: how big a spot rally forces margin top-ups on the short?",
+      "Compute annualized net carry after fees; compare against T-bill yield — the trade must beat the risk-free rate to be worth counterparty risk.",
+      "Size so a 3× funding-spike drawdown never forces unwinding at the worst moment.",
+    ],
+  },
+  {
+    id: "retail", name: "Retail vs wholesale / marketplace flips", speed: "lo", capital: "med", friction: "hi",
+    gap: "Clearance/wholesale/regional prices vs marketplace resale (Amazon, eBay); 'retail arbitrage'.",
+    why: "Retailers clear inventory locally; marketplaces price nationally; information and effort gaps.",
+    typical: "20–100% gross per item — but labor, returns, storage and platform fees eat most of it.",
+    barrier: "Physical effort and logistics (the moat is that it doesn't scale); platform gating of brands.",
+    defaults: { spread: 40, fees: 25, fill: 85, loss: 15, cycles: 4 },
+    plan: [
+      "Pick one category; build a landed-cost sheet: item + tax + shipping + platform fee (~15%) + returns allowance + your hourly rate.",
+      "Verify sell-through velocity (how many units/month actually sell at the target price) before buying inventory.",
+      "Check brand gating / ToS: can your account even list it?",
+      "Pilot with 10–20 units; measure realized margin and hours; only then scale or automate sourcing.",
+    ],
+  },
+  {
+    id: "duallist", name: "Dual-listed stocks / ADR vs home line", speed: "hi", capital: "hi", friction: "med",
+    gap: "Same company's shares in two markets (ADR vs local, A/H shares) at persistent discounts/premiums.",
+    why: "Capital controls, fungibility limits, FX and time-zone gaps; index inclusion differences.",
+    typical: "H-share discounts have run 20–40% for years — persistent because shares aren't fungible: this is a bet on convergence, not an arbitrage.",
+    barrier: "Conversion restrictions; borrow costs to short the rich line; institutional plumbing.",
+    defaults: { spread: 1.0, fees: 0.5, fill: 95, loss: 4, cycles: 6 },
+    plan: [
+      "Confirm fungibility: can you actually convert one line into the other? If not, model it as a convergence trade with unbounded duration.",
+      "Price the hedge: borrow cost on the short leg, FX hedge cost, dividend-tax mismatch.",
+      "Backtest the premium series — many 'discounts' are stationary for a decade (you earn nothing waiting).",
+    ],
+  },
+  {
+    id: "tickets", name: "Events, sneakers &amp; collectibles", speed: "med", capital: "lo", friction: "hi",
+    gap: "Primary issue price vs secondary market (tickets, limited releases, trading cards).",
+    why: "Issuers deliberately underprice for fairness/marketing; supply is rationed by queue or lottery.",
+    typical: "0–300% per unit, hit-driven; negative on misses (illiquid inventory).",
+    barrier: "Allocation access (the lottery IS the edge); anti-bot rules; platform bans; legality varies by state for tickets.",
+    defaults: { spread: 60, fees: 20, fill: 50, loss: 40, cycles: 2 },
+    plan: [
+      "Treat it as inventory speculation, not arbitrage: model hit-rate × win-size vs miss-rate × markdown loss.",
+      "Log 20 recent releases in your niche: primary price, secondary clearing price after 1 week and 1 month.",
+      "Verify resale legality/ToS for your channel and state before committing capital.",
+    ],
+  },
+];
+
+const $ = (id) => document.getElementById(id);
+function el(tag, attrs, ...children) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) { if (k === "class") n.className = v; else n[k] = v; }
+  for (const c of children) { if (c !== null && c !== undefined) n.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return n;
+}
+
+let current = DOMAINS[0];
+
+function renderCards() {
+  const wrap = $("domain-cards"); wrap.replaceChildren();
+  const pill = (label, grade) => el("span", { class: "pill " + grade }, label);
+  DOMAINS.forEach((d) => {
+    const card = el("div", { class: "card", role: "button", tabIndex: 0 });
+    card.setAttribute("aria-pressed", String(d.id === current.id));
+    card.append(
+      el("h3", null, d.name.replace("&amp;", "&")),
+      el("p", null, d.gap),
+      el("p", { style: "margin-top:0.35rem" }, el("b", null, "Why it exists: "), d.why),
+      el("p", { style: "margin-top:0.35rem" }, el("b", null, "Typical gap: "), d.typical),
+      el("p", { style: "margin-top:0.35rem" }, el("b", null, "Barrier: "), d.barrier));
+    const meta = el("div", { class: "meta" },
+      pill("speed: " + d.speed, d.speed === "hi" ? "hi" : d.speed === "med" ? "med" : "lo"),
+      pill("capital: " + d.capital, d.capital === "hi" ? "hi" : d.capital === "med" ? "med" : "lo"),
+      pill("friction: " + d.friction, d.friction === "hi" ? "hi" : d.friction === "med" ? "med" : "lo"));
+    card.append(meta);
+    const pick = () => { current = d; loadDefaults(); renderCards(); renderCalc(); };
+    card.addEventListener("click", pick);
+    card.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+    wrap.append(card);
+  });
+}
+
+function loadDefaults() {
+  $("pm-domain").textContent = current.name.replace("&amp;", "&");
+  $("in-spread").value = current.defaults.spread;
+  $("in-fees").value = current.defaults.fees;
+  $("in-fill").value = current.defaults.fill;
+  $("in-loss").value = current.defaults.loss;
+  $("in-cycles").value = current.defaults.cycles;
+}
+
+function renderCalc() {
+  const s = Number($("in-spread").value) || 0;
+  const f = Number($("in-fees").value) || 0;
+  const p = Math.min(100, Math.max(0, Number($("in-fill").value) || 0)) / 100;
+  const L = Number($("in-loss").value) || 0;
+  const cyc = Number($("in-cycles").value) || 0;
+  const cap = Number($("in-capital").value) || 0;
+  const net = s - f;
+  const ev = p * net - (1 - p) * L;                      // % per cycle
+  const monthly = ev * cyc;                              // % per month (on cycled capital)
+  const beP = net + L > 0 ? (L / (net + L)) * 100 : 100; // breakeven fill %
+  const out = $("calc-out"); out.replaceChildren(
+    el("div", { class: "panel" }, el("h3", null, "Net edge per clean cycle"),
+      el("div", { class: "hero " + (net > 0 ? "good" : "bad") }, net.toFixed(2) + "%"),
+      el("div", { class: "note" }, "gap minus all-in costs — before leg risk")),
+    el("div", { class: "panel" }, el("h3", null, "EV per cycle (with leg risk)"),
+      el("div", { class: "hero " + (ev > 0 ? "good" : "bad") }, ev.toFixed(2) + "%"),
+      el("div", { class: "note" }, `breakeven fill rate: ${beP.toFixed(1)}% — below that, stop`)),
+    el("div", { class: "panel" }, el("h3", null, "Expected monthly, fully cycled"),
+      el("div", { class: "hero " + (monthly > 0 ? "good" : "bad") }, monthly.toFixed(1) + "%"),
+      el("div", { class: "note" }, cap ? `≈ $${(cap * monthly / 100).toFixed(0)} on $${cap.toLocaleString()} — if capacity allows` : "set capital for $ figure")));
+  renderPlan();
+}
+
+function renderPlan() {
+  const list = $("plan-list"); list.replaceChildren();
+  const steps = [
+    "State the claim precisely: what exact thing is bought and sold, and confirm both venues settle it identically (same-claim test).",
+    ...current.plan,
+    "Write the kill criteria before starting: minimum EV per cycle, maximum one-leg losses per month, and the drawdown that ends the experiment.",
+  ];
+  steps.forEach((s) => list.append(el("li", null, s)));
+  const md = [
+    `# Research plan — ${current.name.replace("&amp;", "&")}`,
+    "",
+    `Generated by Arbitrage Strategy Lab. Inputs: gap ${$("in-spread").value}%, costs ${$("in-fees").value}%, fill ${$("in-fill").value}%, one-leg loss ${$("in-loss").value}%, ${$("in-cycles").value} cycles/mo, capital $${$("in-capital").value}.`,
+    "",
+    ...steps.map((s, i) => `${i + 1}. ${s}`),
+    "",
+    "Five tests: same-claim / staleness / all-in cost / capacity / persistence.",
+  ].join("\n");
+  $("plan-md").value = md;
+}
+
+$("btn-copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("plan-md").value); $("copy-note").textContent = "Copied."; }
+  catch (e) { $("copy-note").textContent = "Select the text below and copy manually."; }
+  setTimeout(() => { $("copy-note").textContent = ""; }, 2500);
+});
+["in-spread", "in-fees", "in-fill", "in-loss", "in-cycles", "in-capital"].forEach((id) =>
+  $(id).addEventListener("input", renderCalc));
+
+renderCards(); loadDefaults(); renderCalc();
+</script>
+</body>
+</html>

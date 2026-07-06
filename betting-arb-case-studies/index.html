@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Betting Market Arbitrage — Case Studies & Prior Art</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #1baf7a; --s3: #eda100;
+    --good: #006300; --bad: #d03b3b; --wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink2: #c3c2b7;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #199e70; --s3: #c98500;
+      --good: #0ca30c; --wash: rgba(57,135,229,0.12);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page); color: var(--ink); line-height: 1.6; padding: 1.5rem 1rem 4rem; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  a { color: var(--s1); }
+  h1 { font-size: 1.65rem; line-height: 1.25; }
+  h2 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+  h3 { font-size: 0.97rem; margin-top: 0.9rem; }
+  .sub { color: var(--ink2); font-size: 0.93rem; }
+  .kicker { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.87rem; }
+  .tablewrap { overflow-x: auto; margin-top: 0.5rem; }
+  th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.76rem; white-space: nowrap; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-top: 0.9rem; }
+  .tile { border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; background: var(--page); }
+  .tile .label { font-size: 0.8rem; color: var(--ink2); }
+  .tile .value { font-size: 1.65rem; font-weight: 700; }
+  .tile .value.good { color: var(--good); } .tile .value.bad { color: var(--bad); }
+  .tile .src { font-size: 0.74rem; color: var(--muted); margin-top: 0.25rem; }
+  .chip { display: inline-block; font-size: 0.72rem; font-weight: 600; border: 1px solid var(--border); border-radius: 999px; padding: 0.05rem 0.55rem; color: var(--ink2); background: var(--page); margin-left: 0.4rem; vertical-align: middle; }
+  .chip.warn { color: var(--s3); border-color: currentColor; }
+  .warn { border-left: 3px solid var(--s3); padding: 0.5rem 0.8rem; margin-top: 0.75rem; background: var(--page); border-radius: 0 8px 8px 0; font-size: 0.87rem; color: var(--ink2); }
+  ul.compact, ol.compact { padding-left: 1.3rem; font-size: 0.9rem; }
+  ul.compact li, ol.compact li { margin-top: 0.4rem; }
+  .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; }
+  .case { border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; background: var(--page); margin-top: 0.9rem; }
+  .case h3 { margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Arbitrage work stream 2 · betting-market case studies &amp; prior art</p>
+    <h1>Betting Market Arbitrage — what actually happens when people try</h1>
+    <p class="sub">Two first-hand case studies built from real, timestamped odds data in this repo, plus the published
+    record: academic papers, the famous experiments, the commercial arb industry, and the syndicates who got rich doing
+    something subtly different. Every number here traces to a linked source.
+    Siblings: <a href="../arbitrage-strategy-lab/index.html">strategy lab</a> ·
+    <a href="../spread-monitor/index.html">spread monitor</a> ·
+    <a href="../betting-odds-aggregator/index.html">odds aggregator</a>.</p>
+  </header>
+
+  <section>
+    <h2>Part 1 · Our own case studies (primary data)</h2>
+
+    <div class="case">
+      <h3>Case study A — Argentina vs Cape Verde, WC 2026 R32: the fee-sized mirage</h3>
+      <p class="sub">We compiled timestamped 3-way odds from six source types (books, media-quoted lines, a prediction
+      market) for one match. Combining the <b>best price per outcome across venues</b> produced an implied total of
+      <b>99.62%</b> on match day — a genuine 0.38% cross-venue arbitrage on paper, driven by Kalshi pricing the draw and
+      the underdog cheaper than sportsbooks. Applying Kalshi's ≈7%·P·(1−P) taker fee moved the total to <b>100.57%</b>:
+      the entire edge was smaller than one venue's fee. Meanwhile the "wrong" outcome hit — a 90-minute draw paying
+      +650 to +750 — a reminder that the <i>payoff distribution</i>, not the realized result, is what a strategy should
+      be judged on. <a href="../betting-odds-aggregator/index.html">Full interactive study →</a></p>
+    </div>
+
+    <div class="case">
+      <h3>Case study B — Round of 16 live scan, Jul 6 2026: near-arbs cluster at the venue boundary</h3>
+      <p class="sub">Scanning four upcoming knockout games across books + prediction markets found no fat riskless arb,
+      but three combinations within ~0.3% of break-even, all <b>sportsbook-vs-prediction-market</b>: Kalshi Spain-to-advance
+      64¢ + FanDuel Portugal +180 → <b>99.7%</b> (pre-fee); FanDuel USA −106 + DraftKings Belgium +105 → 100.24%
+      (a stale-line window after the Balogun reinstatement news moved lines at different speeds); Switzerland priced
+      25–26% by both prediction markets vs 28.6% implied at books. Lesson: gaps live at <i>structural boundaries</i>
+      (different customer bases, fee models, regulation) and around <i>news</i>, and most disappear once you demand
+      contemporaneous timestamps — three of our scraped quotes failed basic sanity checks.</p>
+    </div>
+
+    <div class="case">
+      <h3>Case study C — in-play volatility (tooling ready, data pending)</h3>
+      <p class="sub">The <a href="../betting-odds-aggregator/replay.html">in-play explorer</a> replays 5-minute
+      multi-book snapshots through a match, including during play. Synthetic-data validation already demonstrates the
+      core phenomenon documented in the literature: right after a goal, a book that reprices late shows up as a huge
+      phantom "arb" (our test: an apparent 28% edge with a 150-second timestamp mismatch). A staleness filter kills the
+      phantoms; whatever survives it with tight timestamps is the real in-play opportunity set — which the Princeton
+      study below measured at ~4.5% of game time, ~13 seconds per window.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Part 2 · The academic record</h2>
+    <p class="sub">Peer-reviewed (or noted otherwise), oldest to newest. The pattern: arbs exist, they're small, they
+    close fast, and the best-documented constraint is not price discovery but bookmaker behavior.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Study</th><th>Market / sample</th><th>Key finding</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://ideas.repec.org/a/ucp/jnlbus/v63y1990i1p61-78.html" rel="noopener">Hausch &amp; Ziemba 1990</a>, <i>J. Business</i></td>
+          <td>US horse racing, cross-track parimutuel pools</td>
+          <td>The founding example: the same race priced differently by isolated pools at different tracks allowed risk-free cross-track arbitrage.</td></tr>
+        <tr><td><a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/for.1085" rel="noopener">Vlastakis, Dotsis &amp; Markellos 2009</a>, <i>J. Forecasting</i></td>
+          <td>European football, six online bookmakers</td>
+          <td>Cross-bookmaker arbitrage: "limited but highly profitable" — rare in frequency, high per-arb return; simple trading rules also beat the market, contradicting weak-form efficiency.</td></tr>
+        <tr><td><a href="https://www.sciencedirect.com/science/article/abs/pii/S1062976909000441" rel="noopener">Marshall 2009</a>, <i>QREF</i></td>
+          <td>Sports betting arbitrage dataset</td>
+          <td>How fast do arbs close? <b>Median duration ≈ 15 minutes</b>, longest just under a day (pre-match, pre-automation era).</td></tr>
+        <tr><td><a href="https://onlinelibrary.wiley.com/doi/10.1111/ecca.12009" rel="noopener">Franck, Verbeek &amp; Nüesch 2013</a>, <i>Economica</i></td>
+          <td>Top-5 European soccer leagues, bookmakers vs Betfair exchange</td>
+          <td>Back-at-bookmaker + lay-at-exchange locked a profit in <b>19.2% of matches</b>. Books often posted arbable prices at negative margin — interpreted as deliberate loss-leader pricing, not error.</td></tr>
+        <tr><td><a href="https://dialnet.unirioja.es/descarga/articulo/6692650.pdf" rel="noopener">Gómez-González &amp; del Corral 2018</a>, <i>Econ. &amp; Business Letters</i></td>
+          <td>5 major books, 7 leagues, 2000–2017</td>
+          <td>Overrounds fell continuously for 17 years and <b>surebet frequency rose</b> — competition mechanically creates more cross-book arbs even among majors.</td></tr>
+        <tr><td><a href="https://journals.sagepub.com/doi/10.1177/15270025231204997" rel="noopener">Winkelmann et al. 2024</a>, <i>J. Sports Economics</i></td>
+          <td>Simulations + 14 football seasons</td>
+          <td>The skeptic's paper: small samples routinely "find" inefficiency in efficient markets; real inefficiencies appear in single seasons but are <b>not persistent</b>. Treat every backtest headline with suspicion.</td></tr>
+        <tr><td><a href="https://theses-dissertations.princeton.edu/entities/publication/437f7731-67ad-4af7-a1e6-648c1d003d46" rel="noopener">Princeton thesis ~2025</a> <span class="chip warn">not peer-reviewed</span></td>
+          <td>Live NBA moneylines, FanDuel vs BetMGM</td>
+          <td>In-play arbs existed in <b>4.52% of scraped game time</b> with typical windows of <b>~13 seconds</b> — confirming that live opportunities are real but demand automation.</td></tr>
+        <tr><td><a href="https://arxiv.org/abs/2605.00864" rel="noopener">arXiv 2605.00864 (2026)</a> <span class="chip warn">pointer only — unverified</span></td>
+          <td>Polymarket NBA markets</td>
+          <td>Recent preprint analyzing arbitrage within prediction-market sports contracts; listed here as a starting point for the newest venue class.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Part 3 · The famous experiment: “Beating the bookies with their own numbers” (2017)</h2>
+    <p class="sub"><a href="https://arxiv.org/abs/1710.02824" rel="noopener">Kaunitz, Zhong &amp; Kreiner (arXiv:1710.02824)</a>
+    used no forecasting model at all — they treated the <b>consensus of many bookmakers' odds</b> as the true probability
+    and bet single legs wherever one book's price deviated enough. It is the cleanest public test of "profit from
+    unequal prices" in betting, and its ending is the industry's defining fact. Code and data are
+    <a href="https://github.com/Lisandro79/BeatTheBookie" rel="noopener">public on GitHub</a>.</p>
+    <div class="tiles">
+      <div class="tile"><div class="label">10-year closing-odds backtest</div><div class="value good">+3.5% yield</div><div class="src">44% hit rate, ~v. random −3.3%</div></div>
+      <div class="tile"><div class="label">Odds-time simulation</div><div class="value good">+9.9%</div><div class="src">47.6% hit rate at better intraday prices</div></div>
+      <div class="tile"><div class="label">Real money, 5 months</div><div class="value good">+$957 (+8.5%)</div><div class="src">~256 × $50 bets, 47.2% hit rate</div></div>
+      <div class="tile"><div class="label">How it ended</div><div class="value bad">Limited to ~$1</div><div class="src">accounts stake-restricted; experiment abandoned</div></div>
+    </div>
+    <p class="sub" style="margin-top:0.8rem">Their conclusion was not "markets are efficient" — it was that
+    <b>you can beat the odds but not the business model</b>: bookmakers correct discrimination against winners faster
+    than they correct prices. (Caveats: never peer-reviewed; the 5-month live sample is statistically thin.)</p>
+  </section>
+
+  <section>
+    <h2>Part 4 · The binding constraint, quantified: account limiting</h2>
+    <p class="sub">In 2025 the UK Gambling Commission published the first regulator-grade data on
+    <a href="https://www.gamblingcommission.gov.uk/blog/post/commercial-restrictions-by-betting-operators" rel="noopener">commercial
+    restrictions</a> (2024 activity, ~14.9M active GB accounts) — the practice that ends every retail arb career:</p>
+    <div class="tiles">
+      <div class="tile"><div class="label">Accounts carrying restrictions</div><div class="value">4.31%</div><div class="src">643,779 accounts</div></div>
+      <div class="tile"><div class="label">Most common form</div><div class="value">Stake factoring</div><div class="src">62% of restricted accounts</div></div>
+      <div class="tile"><div class="label">Cut to ≤9% of normal max stake</div><div class="value bad">58.6%</div><div class="src">of stake-factored accounts (36.2% to 1–9%, 22.4% to &lt;1%)</div></div>
+      <div class="tile"><div class="label">Restricted accounts in profit</div><div class="value">46.8%</div><div class="src">vs 25.4% of all accounts — winners ≈2× as likely to be limited</div></div>
+    </div>
+    <p class="sub" style="margin-top:0.8rem">Note the flip side: 53.2% of restricted accounts were <i>losing</i> —
+    operators restrict on predicted behavior (arb-shaped betting patterns), often without notification. Additional
+    practitioner-documented failure modes: <a href="https://www.oddstorm.com/guides/palpable-errors-and-cancellations" rel="noopener">palpable-error
+    voids</a> (a book cancels its "obvious mistake" leg, leaving you naked on the other — any arb over ~10–15% is
+    presumptively an error), line moves between legs, and KYC/withdrawal friction spreading bankroll across many books.</p>
+  </section>
+
+  <section>
+    <h2>Part 5 · Businesses built on the gap</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Product</th><th>Model</th><th>Claims &amp; economics</th><th>Reality check</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://www.rebelbetting.com/" rel="noopener">RebelBetting</a> (SE, ~2007)</td>
+          <td>Arb + value-bet scanner SaaS</td><td class="num">€69–139/mo; claims members avg €1,760/mo, 10–20% bankroll growth/mo</td>
+          <td>Self-reported marketing; own docs concede soft books limit winners and steer users to value betting.</td></tr>
+        <tr><td><a href="https://oddsjam.com/betting-tools/arbitrage" rel="noopener">OddsJam</a> (US, acq. by Gambling.com 2024)</td>
+          <td>Real-time odds screen, 100+ US books; arb / +EV / promo tools</td><td class="num">~$199/mo tier</td>
+          <td>Reviews report heavy arbers limited by major US books within 2–6 months.</td></tr>
+        <tr><td><a href="https://www.betburger.com/" rel="noopener">BetBurger</a></td>
+          <td>Pre-match + live arb scanner, 140+ books</td><td class="num">~€110/mo live tier; typical arb margin 1–3%</td>
+          <td>Live arbs must be hit within ~60 s — effectively demands automation.</td></tr>
+        <tr><td><a href="https://www.oddsmonkey.com/" rel="noopener">OddsMonkey</a> (UK)</td>
+          <td>Matched betting (free-bet extraction hedged on exchanges)</td><td class="num">~75%+ of free-bet value locked; reviews: £700–1,100/mo year one</td>
+          <td>Legal in UK, genuinely works — then declines as accounts get promo-restricted ("gubbed").</td></tr>
+      </tbody>
+    </table></div>
+    <p class="sub" style="margin-top:0.6rem">The tell: every commercial arb product eventually pushes maturing users
+    <i>away</i> from pure arbitrage — toward value betting or promo extraction — because their customers hit the account-limit
+    ceiling. The vendors monetize the search; the ceiling is yours.</p>
+  </section>
+
+  <section>
+    <h2>Part 6 · The people who actually got rich did something different</h2>
+    <p class="sub">The best-documented winners are <b>value bettors, not arbitrageurs</b>: they built models that
+    out-predict the market, took directional risk, and engineered execution around the winner-limiting problem.</p>
+    <ul class="compact">
+      <li><b><a href="https://www.thejournal.ie/tony-bloom-starlizard-2597458-Feb2016/" rel="noopener">Tony Bloom / Starlizard</a></b> —
+        ~160-staff London analytics firm; reportedly ~3% ROI on billions staked in Asian handicap markets, including automated in-play betting. Owns Brighton &amp; Hove Albion.</li>
+      <li><b><a href="https://onesharpgambler.com/2017/05/22/betting-legends-tony-bloom-matthew-benham/" rel="noopener">Matthew Benham / Smartodds</a></b> —
+        ex-City trader applying derivatives discipline to football probabilities; bought Brentford FC with the proceeds.</li>
+      <li><b><a href="https://en.wikipedia.org/wiki/Billy_Walters_(gambler)" rel="noopener">Billy Walters / The Computer Group</a></b> —
+        reportedly ~57% against the spread over decades, hundreds of millions wagered per year through networks of "runners" — needed precisely because books refuse a known winner's action.</li>
+    </ul>
+    <p class="sub" style="margin-top:0.6rem">The through-line with pure arb: both monetize unequal prices (model price vs
+    market price, instead of venue A vs venue B), but value betting <b>scales</b> because it doesn't require being paid by
+    the venue that's wrong about you — only by the market. That's why the syndicates own the endgame.</p>
+  </section>
+
+  <section>
+    <h2>Part 7 · The newest boundary: prediction markets vs sportsbooks (2024–2026)</h2>
+    <p class="sub">Kalshi and Polymarket adding sports contracts created a fresh venue boundary with segmented customer
+    bases (US retail vs global crypto) — practitioner sources report <b>persistent 1–5% gross gaps</b>, bot-executed in
+    milliseconds (<a href="https://www.trevorlasn.com/blog/how-prediction-market-polymarket-kalshi-arbitrage-works" rel="noopener">overview</a>,
+    <a href="https://clawarbs.com/blog/kalshi-vs-polymarket-arbitrage/" rel="noopener">cross-platform tools</a>,
+    <a href="https://github.com/ImMike/polymarket-arbitrage" rel="noopener">open-source bots</a>). Two structural
+    differences from bookmaker arb: exchanges <b>don't ban winners</b>, but <b>resolution-criteria mismatch</b> replaces
+    palpable-error risk — the "same" event worded differently can settle differently (our strategy lab calls this the
+    same-claim test). This matches our own R16 scan, where every near-arb sat exactly on this boundary. Peer-reviewed
+    literature hasn't caught up yet; treat the numbers as practitioner-reported.</p>
+  </section>
+
+  <section>
+    <h2>Synthesis — seven lessons</h2>
+    <ol class="compact">
+      <li><b>Paper arbs are common; money arbs are rare.</b> 19.2% of matches had a bookmaker-exchange arb (Franck 2013); typical margins are 1–5%; anything fatter is probably a pricing error that will be voided.</li>
+      <li><b>Speed is the price of admission.</b> Pre-match arbs last minutes (median ~15, Marshall 2009); in-play arbs last ~13 seconds (Princeton ~2025). Our in-play tooling shows most apparent live arbs are one stale book.</li>
+      <li><b>Fees are first-order, not rounding.</b> Our Case A edge (0.38%) was smaller than one venue's fee; exchange commission (2–5%) decides whether the Franck-style arb exists at all.</li>
+      <li><b>The real ceiling is being allowed to play.</b> Winners are ~2× as likely to be restricted (UKGC 2025); Kaunitz et al. were limited to $1 stakes within months. Plan for the ceiling before the first bet.</li>
+      <li><b>Gaps live at structural boundaries and around news.</b> Different regulation, fees, and customer bases (books vs exchanges vs prediction markets) sustain gaps; news (a player reinstated) reprices venues at different speeds.</li>
+      <li><b>Distrust your own backtest.</b> Winkelmann 2024: single-season "inefficiencies" are often sampling noise. Demand persistence across seasons and contemporaneous timestamps.</li>
+      <li><b>The scalable version is value, not arb.</b> Every rich practitioner and every maturing arb product converges on model-vs-market pricing — same idea (unequal prices), different counterparty.</li>
+    </ol>
+    <div class="warn">Educational analysis, not betting advice. Figures are as reported by the linked sources, compiled
+    Jul 6, 2026; items flagged “unverified” could not be independently confirmed.</div>
+  </section>
+
+  <footer class="footnote">Part of <a href="../index.html">web-apps</a>.</footer>
+</div>
+</body>
+</html>
