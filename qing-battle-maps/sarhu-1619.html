@@ -39,15 +39,19 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.spear{stroke:var(--advance);stroke-width:6.5;opacity:.95}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .seq{fill:none;stroke:var(--advance);stroke-width:1.8;stroke-dasharray:4 5;opacity:.72;stroke-linecap:round}
+  .seqn{fill:var(--advance);font-size:13px;font-weight:700}
   .mlabel{font-size:11.5px;font-weight:700}
   .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
+  .host{fill:var(--advance);opacity:.92}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .fallen{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +60,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--advance)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +87,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回大清征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>萨</span><span>尔</span><span>浒</span><span>役</span></div>
   <header>
     <h1>萨尔浒之战</h1>
-    <div class="sub">后金天命四年·明万历四十七年(1619)　　<i>后金 努尔哈赤</i> 我只一路去 · <b>明 杨镐</b>四路丧师</div>
+    <div class="sub">后金天命四年·明万历四十七年(1619)　　<i>后金 太祖努尔哈赤</i> 集八旗「我只一路去」· <b>明 经略杨镐</b> 四路分进而丧师 —— 开国奠基之役</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 四路会剿</button>
-    <button data-p="1">破杜松于萨尔浒</button>
-    <button data-p="2">败马林于尚间崖</button>
-    <button data-p="3">歼刘綎·三路尽没</button>
+    <button class="on" data-p="all">全图 · 明四路分进合击</button>
+    <button data-p="1">集中 · 萨尔浒歼西路杜松</button>
+    <button data-p="2">回师 · 尚间崖破北路马林</button>
+    <button data-p="3">诱歼 · 富察歼东路刘綎</button>
+    <button data-p="4">南路退 · 五日破三 · 后金奠基</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="萨尔浒之战形势图,含明与后金疆界、浑河苏子河与沈阳辽阳赫图阿拉等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="萨尔浒之战形势图,含明与后金疆界、浑河苏子河太子河,萨尔浒山吉林崖尚间崖阿布达里冈及赫图阿拉抚顺关开原清河宽甸沈阳等城邑,示明四路分进与后金八旗集中逐路击破">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,91 +110,123 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:明据辽沈(西),后金据建州赫图阿拉(东),约以浑河上游山地为界 -->
-    <path d="M 560,0 C 566,110 548,200 560,300 C 570,390 552,480 566,590 C 570,610 574,626 578,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 566,110 548,200 560,300 C 570,390 552,480 566,590 C 570,610 574,626 578,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 566,110 548,200 560,300 C 570,390 552,480 566,590 C 570,610 574,626 578,640"/>
-    <text class="realm q" x="120" y="140" font-size="32">明(辽沈)</text>
-    <text class="realm j" x="700" y="560" font-size="30">后 金(建州)</text>
+    <!-- 疆界:后金据建州(东·山地),明据辽沈(西·平川);明诸镇堡环建州于西·北·南,约以建州边墙一线为界 -->
+    <path d="M 480,0 C 560,140 620,280 640,340 C 660,430 780,520 820,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 480,0 C 560,140 620,280 640,340 C 660,430 780,520 820,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 480,0 C 560,140 620,280 640,340 C 660,430 780,520 820,640"/>
+    <text class="realm j" x="756" y="92" font-size="30">后 金(建州)</text>
+    <text class="realm q" x="96" y="470" font-size="30">明(辽东)</text>
 
-    <!-- 浑河:自东北山地经沈阳西流 -->
-    <path class="river" stroke-width="5" d="M 760,150 C 660,180 560,220 460,250 C 360,280 260,300 140,320"/>
-    <!-- 苏子河:自赫图阿拉山中西北流入浑河 -->
-    <path class="river" stroke-width="3" d="M 820,430 C 780,388 730,340 680,300 C 640,270 600,254 560,244"/>
-    <text class="rname" x="360" y="284" transform="rotate(-9 360 284)">浑 河</text>
-    <text class="rname" x="700" y="330" transform="rotate(38 700 330)" style="font-size:10.5px">苏子河</text>
+    <!-- 浑河:自东北山地西流,经萨尔浒、抚顺、沈阳 -->
+    <path class="river" stroke-width="5" d="M 705,239 C 580,252 500,262 455,266 C 400,262 260,272 70,286"/>
+    <!-- 苏子河:自赫图阿拉西北流,注浑河 -->
+    <path class="river" stroke-width="3" d="M 860,308 C 760,290 690,272 611,251"/>
+    <!-- 太子河:南境,经清河、辽阳 -->
+    <path class="river" stroke-width="2.4" d="M 630,398 C 500,406 340,410 190,414"/>
+    <text class="rname" x="300" y="258" transform="rotate(-4 300 258)">浑 河</text>
+    <text class="rname" x="720" y="278" transform="rotate(24 720 278)" style="font-size:11px">苏子河</text>
+    <text class="rname" x="300" y="404" style="font-size:11px">太 子 河</text>
 
     <!-- 萨尔浒山 -->
-    <g class="mtn"><path d="M 600,268 l 9,-15 l 9,15 M 617,262 l 9,-15 l 9,15 M 635,268 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="596" y="290">萨尔浒山</text>
-    <!-- 尚间崖山 -->
-    <g class="mtn"><path d="M 636,132 l 8,-13 l 8,13 M 652,127 l 8,-13 l 8,13"/></g>
-    <!-- 阿布达里冈山 -->
-    <g class="mtn"><path d="M 760,470 l 8,-13 l 8,13 M 776,465 l 8,-13 l 8,13"/></g>
+    <g class="mtn"><path d="M 430,254 l 9,-14 l 9,14 M 448,247 l 9,-14 l 9,14 M 466,254 l 8,-12 l 8,12"/></g>
+    <!-- 阿布达里冈丘陵 -->
+    <g class="mtn"><path d="M 796,360 l 8,-13 l 8,13 M 812,353 l 8,-13 l 8,13"/></g>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="shenyang"><circle cx="240" cy="270" r="6"/><text class="cname" x="180" y="266">沈阳<tspan class="cname s" dx="2">(出兵基)</tspan></text></g>
-      <g class="city" data-city="liaoyang"><circle cx="210" cy="380" r="5"/><text class="cname s" x="150" y="398">辽阳(经略府)</text></g>
-      <g class="city" data-city="kaiyuan"><circle cx="300" cy="120" r="4.5"/><text class="cname s" x="308" y="116">开原·铁岭</text></g>
-      <g class="city" data-city="sarhu"><circle cx="600" cy="270" r="5"/><text class="cname" x="512" y="252">萨尔浒<tspan class="cname s" dx="2">(杜松没)</tspan></text></g>
-      <g class="city" data-city="shangjianya"><circle cx="640" cy="140" r="4.5"/><text class="cname" x="654" y="136">尚间崖<tspan class="cname s" dx="2">(马林败)</tspan></text></g>
-      <g class="city" data-city="abudali"><circle cx="770" cy="470" r="4.5"/><text class="cname" x="668" y="490">阿布达里冈<tspan class="cname s" dx="2">(刘綎没)</tspan></text></g>
-      <g class="city cap" data-city="hetuala"><circle cx="850" cy="330" r="6.5"/><text class="cname" x="862" y="326">赫图阿拉<tspan class="cname s" dx="2">(后金都)</tspan></text></g>
+      <g class="city cap" data-city="hetuala"><circle cx="846" cy="301" r="6.5"/><text class="cname" x="826" y="292" text-anchor="end">赫图阿拉<tspan class="cname s" dx="2">(后金都)</tspan></text></g>
+      <g class="city" data-city="saerhu"><circle cx="455" cy="266" r="5.5"/><text class="cname" x="452" y="286" text-anchor="end">萨尔浒山</text></g>
+      <g class="city" data-city="jilinya"><circle cx="493" cy="271" r="3.5"/><text class="cname s" x="503" y="285">吉林崖</text></g>
+      <g class="city" data-city="shangjianya"><circle cx="540" cy="221" r="4.5"/><text class="cname s" x="550" y="217">尚间崖</text></g>
+      <g class="city" data-city="fucha"><circle cx="813" cy="371" r="5"/><text class="cname s" x="824" y="367">阿布达里冈·富察</text></g>
+      <g class="city" data-city="fushunguan"><circle cx="399" cy="259" r="5"/><text class="cname" x="392" y="248" text-anchor="end">抚顺关</text></g>
+      <g class="city" data-city="kaiyuan"><circle cx="399" cy="121" r="5"/><text class="cname" x="410" y="117">开原·铁岭</text></g>
+      <g class="city" data-city="qinghe"><circle cx="423" cy="396" r="5"/><text class="cname" x="412" y="410" text-anchor="end">清河</text></g>
+      <g class="city" data-city="kuandian"><circle cx="766" cy="534" r="5"/><text class="cname" x="754" y="530" text-anchor="end">宽甸</text></g>
+      <g class="city" data-city="shenyang"><circle cx="140" cy="288" r="6"/><text class="cname" x="152" y="284">沈阳·辽阳</text></g>
     </g>
 
-    <!-- 全图 · 四路会剿 -->
+    <!-- 全图 · 明四路分进合击 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 250,264 C 380,258 500,262 588,268"/>
-      <text class="mlabel q" x="330" y="248">西路 杜松(主力) 出抚顺关</text>
-      <path class="march q" marker-end="url(#aq)" d="M 308,126 C 420,180 560,240 636,300 C 700,320 780,336 840,332"/>
-      <text class="mlabel q" x="360" y="150">北路 马林 出开原</text>
-      <path class="march q" marker-end="url(#aq)" d="M 218,388 C 380,440 560,470 700,468 C 760,466 810,400 842,340"/>
-      <text class="mlabel q" x="360" y="452">东路 刘綎 出宽甸</text>
-      <path class="march q" marker-end="url(#aq)" d="M 222,378 C 340,400 470,410 560,400"/>
-      <text class="mlabel q" x="300" y="416">南路 李如柏 出清河</text>
-      <path class="march j" marker-end="url(#aj)" d="M 838,336 C 760,320 700,300 640,288"/>
-      <text class="mlabel j" x="656" y="308">努尔哈赤集八旗,内线机动</text>
-      <text class="anno" x="620" y="360">「凭尔几路来,我只一路去」·集中兵力各个击破</text>
+      <path class="march q" marker-end="url(#aq)" d="M 405,261 C 520,268 660,285 792,299"/>
+      <text class="mlabel q" x="430" y="250">西路杜松(主力三万余)出抚顺关</text>
+      <path class="march q" marker-end="url(#aq)" d="M 407,132 C 520,180 680,248 804,289"/>
+      <text class="mlabel q" x="418" y="150">北路马林出开原·会叶赫</text>
+      <path class="march q" marker-end="url(#aq)" d="M 772,524 C 802,455 814,395 830,317"/>
+      <text class="mlabel q" x="708" y="470">东路刘綎出宽甸·会朝鲜</text>
+      <path class="march q" marker-end="url(#aq)" d="M 435,392 C 560,378 700,346 800,313"/>
+      <text class="mlabel q" x="470" y="410">南路李如柏出清河</text>
+      <rect class="host" x="841" y="296" width="12" height="12" transform="rotate(45 847 302)"/>
+      <text class="mlabel j" x="720" y="330">后金八旗六万 · 集赫图阿拉(内线待机)</text>
+      <!-- 后金内线机动·逐路击破序 -->
+      <path class="seq" d="M 838,304 C 660,294 545,282 470,270"/>
+      <path class="seq" d="M 462,262 C 490,246 515,232 535,225"/>
+      <path class="seq" d="M 548,226 C 650,272 745,322 805,362"/>
+      <circle class="star" cx="455" cy="266" r="8"/><text class="seqn" x="440" y="248">①</text>
+      <circle class="star" cx="540" cy="221" r="7"/><text class="seqn" x="526" y="205">②</text>
+      <circle class="star" cx="813" cy="371" r="8"/><text class="seqn" x="826" y="392">③</text>
+      <text class="anno" x="150" y="356">「凭尔几路来 · 我只一路去」</text>
+      <text class="anno" x="150" y="374">四路分进,道里悬隔 · 一路先至而三路未及</text>
     </g>
 
-    <!-- 阶段一:破杜松于萨尔浒 -->
+    <!-- 阶段一:集中 · 萨尔浒歼西路杜松 -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 250,268 C 400,260 510,262 590,270"/>
-      <text class="mlabel q" x="330" y="252">杜松主力冒进,分军渡浑河</text>
-      <rect class="camp" x="596" y="266" width="9" height="9" transform="rotate(45 600 270)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 840,336 C 760,320 690,300 618,278"/>
-      <text class="mlabel j" x="640" y="316">努尔哈赤以六旗直捣萨尔浒</text>
-      <circle class="star" cx="600" cy="270" r="8"/>
-      <text class="anno" x="470" y="300">又两旗攻吉林崖·夹击</text>
-      <text class="mlabel j" x="470" y="316">杜松战死,西路主力覆没</text>
+      <path class="march q" marker-end="url(#aq)" d="M 405,261 C 425,264 442,265 450,266"/>
+      <path class="march q" marker-end="url(#aq)" d="M 462,267 C 475,269 483,270 488,271"/>
+      <text class="mlabel q" x="360" y="300">杜松违期先出,渡浑河,分军萨尔浒山与吉林崖</text>
+      <path class="march spear" marker-end="url(#aj)" d="M 836,301 C 660,292 560,282 468,270"/>
+      <text class="mlabel j" x="548" y="252">太祖集六旗先破萨尔浒大营</text>
+      <path class="march j" marker-end="url(#aj)" d="M 838,308 C 700,308 600,296 502,278"/>
+      <text class="mlabel j" x="596" y="330">代善·皇太极二旗截吉林崖</text>
+      <circle class="star" cx="455" cy="266" r="9"/>
+      <circle class="star" cx="493" cy="271" r="6"/>
+      <g class="fallen" transform="translate(455,266)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="anno" x="360" y="316">杜松战死 · 西路全军覆没(三月初一)</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 445,272 C 360,286 280,292 210,292"/>
+      <text class="mlabel r" x="240" y="284">馀众溃走</text>
     </g>
 
-    <!-- 阶段二:败马林于尚间崖 -->
+    <!-- 阶段二:回师北向 · 尚间崖破北路马林 -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="636" y="136" width="9" height="9" transform="rotate(45 640 140)"/>
-      <text class="mlabel q" x="536" y="126">马林闻败,结营尚间崖自守</text>
-      <path class="march j" marker-end="url(#aj)" d="M 606,262 C 620,220 628,180 636,150"/>
-      <text class="mlabel j" x="470" y="200">后金乘胜北向,倾力仰攻</text>
-      <circle class="star" cx="640" cy="140" r="8"/>
-      <path class="march q rout" marker-end="url(#aq)" d="M 634,132 C 560,110 440,110 320,120"/>
-      <text class="mlabel r" x="400" y="102">马林大败,仅以身免</text>
+      <path class="march spear" marker-end="url(#aj)" d="M 465,264 C 500,250 520,236 534,226"/>
+      <text class="mlabel j" x="420" y="248">八旗乘胜回师北向</text>
+      <path class="march q" marker-end="url(#aq)" d="M 407,132 C 450,165 500,195 528,214"/>
+      <text class="mlabel q" x="410" y="150">马林闻杜松败,退结营尚间崖,列火器自守</text>
+      <circle class="star" cx="540" cy="221" r="9"/>
+      <text class="anno" x="552" y="200">八旗骑冲陷其阵,大破之</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 532,218 C 480,180 430,150 405,132"/>
+      <text class="mlabel r" x="356" y="168">马林仅以身免,走开原</text>
+      <text class="anno" x="356" y="184">所约叶赫兵闻败,中道而还(三月初二)</text>
     </g>
 
-    <!-- 阶段三:歼刘綎·三路尽没 -->
+    <!-- 阶段三:转兵东向 · 富察诱歼东路刘綎 -->
     <g id="ph3" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 218,388 C 400,442 580,470 700,468"/>
-      <text class="mlabel q" x="340" y="452">刘綎孤军深入,不知三路已败</text>
-      <path class="march j" marker-end="url(#aj)" d="M 844,338 C 820,400 800,440 780,462"/>
-      <text class="mlabel j" x="796" y="420">后金回师东南,伪旗诱伏</text>
-      <circle class="star" cx="770" cy="470" r="8"/>
-      <text class="anno" x="600" y="512">刘綎力战死于阿布达里冈</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 556,398 C 440,410 340,404 232,384"/>
-      <text class="mlabel r" x="300" y="378">南路李如柏闻败退还得免</text>
-      <text class="anno" x="560" y="540">五日之间明军三路覆没·辽东攻守易势</text>
+      <path class="march spear" marker-end="url(#aj)" d="M 545,226 C 645,272 745,322 805,362"/>
+      <text class="mlabel j" x="548" y="286">八旗转兵东向,用杜松令箭诈约诱刘綎</text>
+      <path class="march q" marker-end="url(#aq)" d="M 772,524 C 800,470 806,420 812,382"/>
+      <text class="mlabel q" x="640" y="486">刘綎不知三路已败,孤军深入</text>
+      <circle class="star" cx="813" cy="371" r="9"/>
+      <g class="fallen" transform="translate(813,371)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="anno" x="612" y="404">阿布达里冈中伏,刘綎力战阵亡</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 808,378 C 795,440 790,490 776,524"/>
+      <text class="mlabel r" x="628" y="440">东路覆没 · 朝鲜姜弘立降(三月初四)</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- 阶段四:南路李如柏撤退 · 五日破三 · 后金奠基 -->
+    <g id="ph4" class="ph">
+      <circle class="star" cx="455" cy="266" r="8"/><text class="seqn" x="440" y="248">①</text>
+      <circle class="star" cx="540" cy="221" r="7"/><text class="seqn" x="526" y="205">②</text>
+      <circle class="star" cx="813" cy="371" r="8"/><text class="seqn" x="826" y="392">③</text>
+      <path class="march q" marker-end="url(#aq)" d="M 435,392 C 520,384 580,376 620,368"/>
+      <text class="mlabel q" x="440" y="378">南路李如柏行动迟缓,仅入其境</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 616,372 C 540,384 480,392 430,400"/>
+      <text class="seqn" x="470" y="416" style="font-size:13px;fill:var(--ret)">④</text>
+      <text class="mlabel r" x="440" y="432">闻三路皆败,仓皇撤退,自相践踏</text>
+      <text class="anno" x="150" y="470">五日之内 · 四路丧其三 · 明死将士四万五千余,精锐尽丧</text>
+      <text class="mlabel j" x="150" y="490" style="font-size:12.5px">明清攻守易势 · 后金转入战略进攻 · 开国奠基</text>
+    </g>
+
+    <g class="compass" transform="translate(946,582)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -183,35 +235,87 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>后金·八旗</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>明军四路</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>明</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="6.5"/></svg>后金·集中八旗主力</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="1.8" stroke-dasharray="4 5"/></svg>内线机动·逐路击破</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>明军(四路分进)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>明军溃退</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战(明军覆没)</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>后金</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>明</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 集中破分散 · 各个击破 · 凭尔几路来我只一路去</h3>
+    <div class="lead">何以六万破号四十七万 —— 太祖以内线集中,五日奠开国之基</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="集中破分散示意:明军兵分四路自四方合击赫图阿拉,道里悬隔而至不能齐;后金六万集于内线,凭尔几路来我只一路去,逐路各个击破,四路丧其三">
+      <!-- 明:四路分进,自四方合击一点,道里悬隔 -->
+      <text x="26" y="26" fill="#9a2b1e" font-size="12.5" font-weight="700">明 · 号四十七万 —— 兵分四路,自四方约期合击赫图阿拉</text>
+      <!-- 合击目标:赫图阿拉(后金都·teal) -->
+      <circle cx="600" cy="128" r="27" fill="none" stroke="#1f4e54" stroke-width="1.8" stroke-dasharray="3 4"/>
+      <text x="600" y="132" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">赫图阿拉</text>
+      <!-- 四路自左侧一源分进(道里悬隔,长短不齐) -->
+      <path d="M 70,70 C 240,74 360,86 430,100" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M 424,101 L 436,96 L 435,108 Z" fill="#9a2b1e"/>
+      <text x="70" y="62" fill="#9a2b1e" font-size="10.5">西路杜松(先至)</text>
+      <path d="M 70,120 C 210,120 300,120 372,120" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M 366,114 L 378,120 L 366,126 Z" fill="#9a2b1e"/>
+      <text x="70" y="138" fill="#9a2b1e" font-size="10.5">北路马林</text>
+      <path d="M 70,170 C 190,178 270,196 330,214" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M 324,208 L 336,216 L 322,220 Z" fill="#9a2b1e"/>
+      <text x="70" y="192" fill="#9a2b1e" font-size="10.5">东路刘綎(远·未及)</text>
+      <path d="M 70,225 C 150,228 200,230 250,232" fill="none" stroke="#9a2b1e" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M 244,226 L 256,232 L 244,238 Z" fill="#9a2b1e"/>
+      <text x="264" y="236" fill="#7a5a23" font-size="10.5" font-weight="700">南路李如柏(迟缓·未战即退 ④)</text>
+      <!-- 后金:集于内线,逐路击破 ①②③(teal) -->
+      <path d="M 588,120 C 520,110 480,104 442,100" fill="none" stroke="#1f4e54" stroke-width="6" opacity=".92" stroke-linecap="round"/>
+      <path d="M 448,94 L 434,100 L 448,106 Z" fill="#1f4e54"/>
+      <path d="M 585,124 C 520,124 460,122 384,120" fill="none" stroke="#1f4e54" stroke-width="3" opacity=".55" stroke-dasharray="5 5"/>
+      <path d="M 585,135 C 500,160 420,190 344,214" fill="none" stroke="#1f4e54" stroke-width="3" opacity=".55" stroke-dasharray="5 5"/>
+      <g><circle cx="430" cy="100" r="11" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><text x="430" y="80" fill="#1f4e54" font-size="13" font-weight="700" text-anchor="middle">①</text></g>
+      <g><circle cx="372" cy="120" r="10" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><text x="372" y="146" fill="#1f4e54" font-size="13" font-weight="700" text-anchor="middle">②</text></g>
+      <g><circle cx="330" cy="214" r="10" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><text x="308" y="208" fill="#1f4e54" font-size="13" font-weight="700" text-anchor="middle">③</text></g>
+      <text x="470" y="128" fill="#1f4e54" font-size="12.5" font-weight="700">后金六万 · 集于内线</text>
+      <text x="470" y="146" fill="#5c4f38" font-size="10.5">凭尔几路来,我只一路去 —— 逐路各个击破</text>
+    </svg>
+    <p class="intro">萨尔浒之役,明集兵十一万而<b>号四十七万</b>,后金八旗不过六万。以众寡论,明本无败理。然经略杨镐令四路分道并进、约期于三月初二合击赫图阿拉——四路<b>道里悬隔、期约不一</b>,山川阻绝而不能相顾:西路杜松先至,北、东两路未及,南路更迟。兵愈分,则每一路之力愈寡;众多之利,尽销于『四面而来,来不能齐』之中,反授太祖以各个击破之隙。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>后金 · 集中一路</h4>
+        <p>太祖努尔哈赤定策『凭尔几路来,我只一路去』,不分兵应四路,尽集八旗六万于赫图阿拉之内线。俟明孤进之杜松先至,以雷霆破之于萨尔浒;回师北向,尚间崖破马林;转兵东向,富察诱歼刘綎。据中央位置、内线机动,五日之内逐路击破,四路丧其三——此即开国奠基之一击。</p>
+      </div>
+      <div class="c b">
+        <h4>明 · 四路分进</h4>
+        <p>杨镐坐沈阳,分西路杜松(主力)、北路马林、东路刘綎、南路李如柏,四道并出,约期合围后金都。四路各行数百里山险,进止不一;杜松贪功违期先出、孤军渡浑河而分军萨尔浒山、吉林崖,首尾不能自顾——合击之势未成,而授敌以各个击破之隙。</p>
+      </div>
+    </div>
+    <p class="kicker">兵分于四路,则一路不足以当其全军;兵合于一锋,则四路不能相救其败。太祖萨尔浒首歼西路,尚间崖再破北路,富察复歼东路,南路望风自溃——<b>五日之内,四路丧其三,明死将士四万五千余、精锐尽丧,后金仅损二千</b>。故萨尔浒之胜,不在众寡,而在能<b>集中破分散</b>:凭尔几路来,我只一路去。此以少胜多之枢,亦明清攻守易势、后金转攻、大清开国奠基之肇。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·太祖本纪》《满文老档》《明史·杨镐传》约略绘出。萨尔浒在今辽宁抚顺东大伙房水库一带,尚间崖、阿布达里冈、赫图阿拉皆在今抚顺·新宾境;城邑水道为相对示意。明军视角另见《明朝图录》。</p>
-    <p><span class="n">注二</span>晕染疆界为天命四年辽东形势示意:明据辽沈,后金据建州赫图阿拉,约以浑河上游山地相隔;点划「约界」非实有画界。明兵号四十七万,实约十一万,分四路进剿;后金合八旗约六万余。</p>
-    <p><span class="n">注三</span>努尔哈赤定「凭尔几路来,我只一路去」之策,以内线机动、集中兵力各个击破:先破西路杜松于萨尔浒、吉林崖,旋北击马林于尚间崖,再回师东南诱歼刘綎于阿布达里冈。五日之间,三路覆没,丧师四万五千余、将吏三百余,明由攻转守,遂奠清开国之基。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=70+(经度−123.30)·470,y=596−(纬度−40.55)·250),几何关系力求近实:赫图阿拉在东(后金都·合击之的·八旗待机内线),萨尔浒·吉林崖在浑河畔居中偏西(决战·杜松败),尚间崖在其北(马林败),阿布达里冈·富察在东南(刘綎败);抚顺关在西、开原在北、清河在南、宽甸在东南,皆明军出边之地,沈阳·辽阳在西为明辽东镇治。今地:萨尔浒在今辽宁抚顺东浑河南岸(今大伙房水库一带),赫图阿拉在今辽宁新宾,尚间崖·阿布达里冈皆在建州境。浑河、苏子河、太子河及疆界经简化描绘,非实测画界。依《清太祖高皇帝实录》《满文老档》《明史·杨镐传》并诸家考订绘出,与《明朝征战图录》萨尔浒图取地相同、唯易主客之色:此图以后金为主(青)、明为客(朱)。</p>
+    <p><span class="n">注二</span>晕染疆界为万历末辽东形势示意:后金据建州(东·山地),明据辽沈(西·平川)。明诸镇堡(抚顺·清河·宽甸六堡·开原)环建州于西、北、南三面,犬牙相错,难以一线划断,故以点划『约界』略之,非实有画界;宽甸六堡本明之东南前哨,与建州逼近,图中姑置界侧。抚顺已于天命三年(万历四十六年,1618)陷于后金,明四路乃出边入建州而进。</p>
+    <p><span class="n">注三</span>兵数异说:明军实约十一万(一说八九万至十万),而声言四十七万;后金八旗约六万。四路:西路杜松出抚顺关为主力(三万余)、北路马林出开原(会海西叶赫兵)、东路刘綎出宽甸(会朝鲜姜弘立军)、南路李如柏出清河。杨镐二月二十一日誓师辽阳,限四路于三月初二会攻赫图阿拉,而杜松『违期先时出口』孤进,遂启败机。号数与实数、诸路兵额,史载互异,姑志其略。</p>
+    <p><span class="n">注四</span>决胜之枢在『集中破分散』(图中金色会战环①②③、加粗集中主力锋、青色点划内线机动):明四路分进、道里悬隔而不能相救;太祖反集六万八旗于内线,『凭尔几路来,我只一路去』,先萨尔浒歼杜松(战死)、次尚间崖破马林、复富察诱歼刘綎(战死)、朝鲜姜弘立降,南路李如柏未战而溃。五日之内三路覆没,明死将士四万五千余、将吏三百余,后金仅损二千余。自是明由攻转守、后金由守转攻,辽东攻守之势一变,大清开国之基由此奠——其理与野狐岭金分兵守隘而蒙古集中洞穿者,若合符节。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"明四路会剿",d:"后金天命四年·明万历四十七年二月",p:["努尔哈赤建后金,以「七大恨」告天反明,陷抚顺、清河。明以杨镐经略辽东,集兵十一万(号四十七万),分四路进剿:西路杜松出抚顺关为主力、北路马林出开原、东路刘綎出宽甸、南路李如柏出清河,期会师直捣后金都赫图阿拉。","四路分进,道里悬隔、期约不一。努尔哈赤集八旗六万余,定「凭尔几路来,我只一路去」之策,以内线机动、集中兵力,择其一路而先破之。"]},
-  "1":{t:"破杜松于萨尔浒",d:"天命四年三月初一",p:["西路杜松恃勇冒进,先诸军而至,分军渡浑河,一屯萨尔浒,一攻吉林崖。努尔哈赤曰:「先破此军,余不足患。」乃以六旗主力直捣萨尔浒之营。","两旗别攻吉林崖以牵之,六旗既克萨尔浒,复合击吉林崖。杜松战死,西路主力覆没——明四十七万之号,自此崩其一角。"]},
-  "2":{t:"败马林于尚间崖",d:"天命四年三月初二",p:["北路马林闻杜松败,不敢进,结营尚间崖、斐芬山,浚壕列火器自守,分屯相援。努尔哈赤乘胜北向,亲率诸旗仰攻。","八旗蜂拥破垒,马林三营相继溃。马林大败,仅以身免走开原;监军潘宗颜等力战死。北路又没,后金锋不可当。"]},
-  "3":{t:"歼刘綎·三路尽没",d:"天命四年三月初四",p:["东路刘綎骁将也,由宽甸孤军深入,山径险远,不知三路已败。后金回师东南,以降卒执明旗诳之,诱其急进,伏兵四合于阿布达里冈。","刘綎力战,断臂犹斗,死于阵。南路李如柏迟发,闻三路皆没,惶遽退还得免。五日之间,明军三路覆没,丧师四万五千余、将吏三百余;明由攻转守,后金遂张,奠清开国之基。"]}
+  all:{t:"明四路分进 · 约期合击",d:"后金天命四年·明万历四十七年(1619)二月",p:["太祖努尔哈赤以七大恨告天起兵,建后金,先陷抚顺、清河。明廷以杨镐为辽东经略,集兵十一万(号四十七万),分四路进剿建州,约期三月初二会师直捣后金都赫图阿拉:西路杜松出抚顺关(主力三万余)、北路马林出开原(会叶赫)、东路刘綎出宽甸(会朝鲜姜弘立)、南路李如柏出清河。","四路分道并进,道里悬隔、期约不一,山川阻绝而不能相顾。太祖审知其分,定『凭尔几路来,我只一路去』之策——不分兵应四路,尽集八旗六万于内线,据中央位置、内线机动,俟其孤进而逐路各个击破。此一策,乃开国奠基之枢。"]},
+  "1":{t:"集中 · 萨尔浒歼西路杜松",d:"天命四年三月初一",p:["西路杜松贪功,『违期先时出口』,孤军渡浑河,分军为二:主力屯萨尔浒山大营,自率万人攻吉林崖而未下。兵分则势弱,两部隔河不能相援。","太祖曰『先破此路兵,馀路不足患』:遣代善、皇太极二旗截援吉林崖,自率六旗尽锐先破萨尔浒大营,复回破吉林崖。杜松力战死,西路三万主力一日覆没——此役以此山得名,后金首奏全胜。"]},
+  "2":{t:"回师北向 · 尚间崖破北路马林",d:"天命四年三月初二",p:["既歼西路,太祖即回师北向,趋击北路马林。马林闻杜松败,退屯尚间崖,结营自守,列火器于壕堑。","八旗骑兵下驰冲陷其阵,马林大败,弃军仅以身免,走还开原;所约海西叶赫之兵闻败,中道而还。北路遂没,八旗锋不可当。"]},
+  "3":{t:"转兵东向 · 富察诱歼东路刘綎",d:"天命四年三月初四",p:["八旗转兵东南,以所获杜松令箭诈为明军督进,诱东路刘綎深入。刘綎骁勇冠三军,然不知三路已败,孤军轻进,至阿布达里冈·富察之野中伏。","綎力战,面中一刀犹奋呼督战,遂死之;所偕朝鲜都元帅姜弘立力屈而降。东路覆没。杨镐坐沈阳,闻三路皆没。"]},
+  "4":{t:"南路李如柏退 · 五日破三 · 后金奠基",d:"天命四年三月初五",p:["南路李如柏行动迟缓,仅入建州境。杨镐闻三路覆没,急檄李如柏退还;军中夜惊,自相践踏,死伤亦以千计,狼狈得免。","五日之间,明军四路丧其三,死将士四万五千余、将吏三百余,火器辎重尽失,精锐一空;后金仅损二千余。自是明由攻转守、后金由守转攻,辽东攻守之势遂变——同年后金即取开原、铁岭,进围辽沈,大清开国之基由此奠定。"]}
 };
 const CITY={
-  shenyang:{t:"沈阳",d:"明辽东重镇,今辽宁沈阳",p:["西路杜松自此经抚顺关出边,为四路会剿之主力出兵基地。"]},
-  liaoyang:{t:"辽阳",d:"明辽东经略府,今辽阳",p:["杨镐经略辽东驻此,居中调度四路。四路既败,坐失全局。"]},
-  kaiyuan:{t:"开原·铁岭",d:"辽东北边,今铁岭一带",p:["北路马林出边处;尚间崖败后,马林仅以身免走还开原。"]},
-  sarhu:{t:"萨尔浒",d:"今辽宁抚顺东",p:["西路杜松分军屯此。努尔哈赤以主力先破之,杜松战死,明主力覆没,战局遂定。"]},
-  shangjianya:{t:"尚间崖",d:"萨尔浒东北,今抚顺境",p:["北路马林结营自守处。后金乘胜仰攻,马林大败仅以身免。"]},
-  abudali:{t:"阿布达里冈",d:"赫图阿拉西南,今新宾境",p:["东路刘綎中伏之地。后金伪旗诱歼,綎力战断臂而死,三路尽没。"]},
-  hetuala:{t:"赫图阿拉",d:"后金都城,今辽宁新宾",p:["努尔哈赤建国之都,明四路会攻之目标。后金据此内线机动,各个击破明军。"]}
+  hetuala:{t:"赫图阿拉",d:"后金都,今辽宁新宾(124.95E,41.73N)",p:["太祖努尔哈赤建后金之都,明四路会攻之的。八旗六万集结于此,据中央位置、内线机动以逸待劳,逐路各个击破明军——开国奠基之战即于此内线展开。"]},
+  saerhu:{t:"萨尔浒山",d:"今辽宁抚顺东浑河南岸(124.12E,41.87N)",p:["西路杜松分军屯此为大营。太祖集六旗先破之,杜松战死,西路三万主力一日覆没——一役以此山得名,为萨尔浒决战之地、后金首捷之所。"]},
+  jilinya:{t:"吉林崖",d:"萨尔浒隔浑河对岸(124.20E,41.85N)",p:["杜松自率万人攻吉林崖(界凡)而未下。太祖遣代善、皇太极二旗截援,使其两部隔河不能相顾,先破萨尔浒大营,复回破此。"]},
+  shangjianya:{t:"尚间崖",d:"萨尔浒以北·铁背山北(124.30E,42.05N)",p:["北路马林闻杜松败,退结营于此自守,列火器于壕。八旗骑冲陷其阵,马林大败,仅以身免,走还开原;叶赫兵中道而还。"]},
+  fucha:{t:"阿布达里冈·富察",d:"赫图阿拉东南(124.88E,41.45N)",p:["八旗以杜松令箭诈约,诱东路刘綎深入,中伏于此。刘綎力战阵亡,朝鲜姜弘立降,东路遂没。"]},
+  fushunguan:{t:"抚顺关",d:"抚顺城东,今辽宁抚顺(124.00E,41.90N)",p:["西路主力杜松出边之处。抚顺已于天命三年(1618)陷于后金;杜松自此渡浑河东进,违期先至萨尔浒。"]},
+  kaiyuan:{t:"开原·铁岭",d:"辽东北边,今辽宁开原·铁岭(124.00E,42.45N)",p:["北路马林出边之处,会海西叶赫兵。马林尚间崖败后退还于此。同年后金即陷开原、铁岭,辽东益危。"]},
+  qinghe:{t:"清河",d:"清河堡,今辽宁本溪北(124.05E,41.35N)",p:["南路李如柏出边之处。清河亦于天命三年陷于后金。李如柏行动迟缓,闻三路皆败,自此仓皇退还。"]},
+  kuandian:{t:"宽甸",d:"宽甸六堡,今辽宁宽甸(124.78E,40.80N)",p:["东路刘綎出边之处,会朝鲜姜弘立军。明东南前哨,与建州逼近。刘綎自此孤军深入,遇伏于富察。"]},
+  shenyang:{t:"沈阳·辽阳",d:"明辽东镇治,今辽宁沈阳、辽阳(123.45E,41.78N)",p:["明军出师之基,经略杨镐坐镇于此调度四路。闻三路覆没,急檄李如柏南路退还。次年后金即进围辽沈。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
