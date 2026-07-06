@@ -30,7 +30,10 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.hi{stroke:var(--advance);stroke-width:1.5;opacity:.85}
+  .mtn.hifill{fill:rgba(31,78,84,.10);stroke:none}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -39,15 +42,18 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.wing{stroke:var(--advance);stroke-width:2.4;opacity:.92}
+  /* 诱敌佯退:细虚线,示费扬古前锋以少诱准军仰攻 */
+  .march.lure{stroke:var(--advance);stroke-width:2;stroke-dasharray:5 4;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.qret{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:5 6;opacity:.9}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +62,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.lure):not(.qret){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -72,16 +93,17 @@
   <div class="seal" aria-hidden="true"><span>昭</span><span>莫</span><span>多</span><span>役</span></div>
   <header>
     <h1>昭莫多之战</h1>
-    <div class="sub">清康熙三十五年(1696)　　<i>清康熙帝·费扬古</i> 据山火器歼准 · <b>准噶尔 噶尔丹</b>众溃西遁</div>
+    <div class="sub">清康熙三十五年(1696) · 康熙帝三路亲征　　<i>清 康熙帝 · 抚远大将军 费扬古</i> 以逸待劳 · 诱敌抄后 · <b>准噶尔 噶尔丹</b>覆军西遁</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 康熙三路亲征</button>
-    <button data-p="1">帝临克鲁伦·噶尔丹遁</button>
-    <button data-p="2">费扬古据山列阵</button>
-    <button data-p="3">火器破准·众溃西遁</button>
+    <button data-p="1">噶尔丹东侵 · 三路出塞</button>
+    <button data-p="2">中路逼克鲁伦 · 噶尔丹西撤</button>
+    <button data-p="3">昭莫多 · 以逸待劳 · 诱敌仰攻</button>
+    <button data-p="4">分兵抄袭辎重 · 前后夹击 · 全歼</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="昭莫多之战形势图,含清与准噶尔疆界、克鲁伦河土拉河及独石口归化昭莫多等地">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="昭莫多之战形势图,含准噶尔据漠北喀尔喀与大清漠南来路之疆界、土拉河与克鲁伦河上游及肯特山汗山,以及昭莫多特勒尔济诸地,示噶尔丹东侵喀尔喀进抵克鲁伦河、康熙帝分中路(独石口)西路(归化宁夏·费扬古)东路(黑龙江·萨布素)三路亲征、中路逼克鲁伦驱噶尔丹西撤、费扬古以逸待劳诱敌仰攻、分兵抄袭其营地辎重而前后夹击全歼准军,噶尔丹以数十骑西遁科布多。独石口归化宁夏在图外南,科布多在图外西">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,119 +112,259 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:准噶尔据漠西(西北,天山),清据漠南(南、东);约以大漠为界 -->
-    <path d="M 0,0 L 560,0 C 540,110 500,190 440,250 C 380,308 300,340 220,380 C 140,418 60,460 0,510 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 540,110 500,190 440,250 C 380,308 300,340 220,380 C 140,418 60,460 0,510 L 0,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 540,110 500,190 440,250 C 380,308 300,340 220,380 C 140,418 60,460 0,510"/>
-    <text class="realm q" x="120" y="150" font-size="30">准 噶 尔(漠西)</text>
-    <text class="realm j" x="640" y="560" font-size="30">大 清(漠南)</text>
+    <!-- 疆界:准噶尔噶尔丹东据漠北喀尔喀(西北),大清自漠南三路来征(南、东);约以战前噶军推进之界为限(示意) -->
+    <path d="M 620,0 C 560,120 470,210 400,270 C 320,335 210,375 120,430 C 70,458 30,486 0,512 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 620,0 C 560,120 470,210 400,270 C 320,335 210,375 120,430 C 70,458 30,486 0,512 L 0,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 620,0 C 560,120 470,210 400,270 C 320,335 210,375 120,430 C 70,458 30,486 0,512"/>
+    <text class="realm q" x="60" y="120" font-size="26">准噶尔 · 噶尔丹</text>
+    <text class="cname s" x="64" y="144" style="fill:var(--enemy);opacity:.55">东据漠北喀尔喀游牧之地</text>
+    <text class="realm j" x="700" y="548" font-size="26">大　清(漠南来)</text>
+    <text class="cname s" x="704" y="572" style="fill:var(--advance);opacity:.6">康熙三路出塞 · 喀尔喀内附</text>
 
-    <!-- 克鲁伦河:东部,自西北向东南 -->
-    <path class="river" stroke-width="4" d="M 560,150 C 620,180 700,210 780,236 C 850,258 910,270 990,278"/>
-    <!-- 土拉河:中部,昭莫多所在,自西向东 -->
-    <path class="river" stroke-width="3.4" d="M 300,300 C 380,320 460,338 540,352 C 600,362 650,372 700,388"/>
-    <!-- 大漠(戈壁)示意带 -->
-    <path class="river" stroke-width="2" style="stroke-dasharray:2 8;opacity:.5" d="M 200,430 C 340,430 500,440 660,452 C 780,460 880,472 990,486"/>
-    <text class="rname" x="700" y="228" transform="rotate(20 700 228)">克鲁伦河</text>
-    <text class="rname" x="440" y="330" transform="rotate(12 440 330)">土 拉 河</text>
-    <text class="cname s" x="760" y="466" style="fill:var(--faint)">大　漠(戈壁)</text>
+    <!-- 土拉河:自肯特山西南流,经决战地之西北(昭莫多在其东岸) -->
+    <path class="river" stroke-width="4" d="M 581,144 C 540,180 505,206 473,226 C 430,252 400,246 365,256 C 300,275 260,268 225,273 C 180,279 145,281 117,283"/>
+    <text class="rname" x="300" y="272" transform="rotate(9 300 272)">土 拉 河</text>
 
-    <!-- 肯特山 -->
-    <g class="mtn"><path d="M 430,220 l 9,-15 l 9,15 M 448,214 l 9,-15 l 9,15 M 466,220 l 8,-14 l 8,14"/></g>
-    <text class="cname s" x="440" y="242">肯特山</text>
-    <!-- 昭莫多小山 -->
-    <g class="mtn"><path d="M 468,352 l 7,-12 l 7,12 M 482,348 l 7,-11 l 7,11"/></g>
+    <!-- 克鲁伦河:肯特山东,自西北向东南流(康熙中路进抵处) -->
+    <path class="river" stroke-width="3.8" d="M 628,85 C 655,120 675,146 690,167 C 720,200 752,220 783,238 C 822,260 860,280 892,296"/>
+    <text class="rname" x="770" y="248" transform="rotate(30 770 248)" style="font-size:11.5px">克 鲁 伦 河</text>
+
+    <!-- 肯特山:漠北北屏,土拉河克鲁伦河之源 -->
+    <g class="mtn" stroke-width="1.3">
+      <path d="M 560,120 l 11,-20 l 11,20 M 582,116 l 11,-20 l 11,20 M 604,120 l 10,-18 l 10,18 M 624,124 l 11,-20 l 11,20"/>
+    </g>
+    <text class="mname" x="608" y="98" text-anchor="middle" style="letter-spacing:.34em">肯 特 山</text>
+
+    <!-- 汗山:昭莫多之西(林木苍莽,南为土纳岭) -->
+    <path class="mtn hifill" d="M 338,318 L 356,286 L 366,300 L 378,282 L 398,318 Z"/>
+    <g class="mtn hi"><path d="M 338,318 l 12,-24 l 9,16 l 13,-26 l 12,22 l 10,-14 l 12,26"/></g>
+    <text class="mname" x="352" y="278" style="fill:var(--advance);opacity:.72;letter-spacing:.2em">汗山(费扬古据高)</text>
 
     <!-- 城邑 -->
     <g id="cities">
-      <g class="city" data-city="zhaomoduo"><circle cx="486" cy="360" r="6"/><text class="cname" x="498" y="356">昭莫多<tspan class="cname s" dx="2">(决战)</tspan></text></g>
-      <g class="city" data-city="terelji"><circle cx="560" cy="356" r="3.5"/><text class="cname s" x="570" y="374">特勒尔济</text></g>
-      <g class="city" data-city="kerulen"><circle cx="780" cy="236" r="5"/><text class="cname" x="792" y="232">克鲁伦河<tspan class="cname s" dx="2">(噶尔丹东犯)</tspan></text></g>
-      <g class="city" data-city="dushikou"><circle cx="700" cy="560" r="5"/><text class="cname" x="712" y="556">独石口<tspan class="cname s" dx="2">(中路出塞)</tspan></text></g>
-      <g class="city cap" data-city="guihua"><circle cx="470" cy="560" r="6"/><text class="cname" x="360" y="556">归化·呼和浩特</text></g>
-      <g class="city" data-city="kobdo"><circle cx="80" cy="250" r="5"/><text class="cname" x="92" y="246">科布多<tspan class="cname s" dx="2">(噶尔丹死处)</tspan></text></g>
+      <g class="city cap" data-city="zhaomoduo"><circle cx="427" cy="303" r="6.5"/><text class="cname" x="439" y="299">昭莫多<tspan class="cname s" dx="2">(决战·土拉河东岸)</tspan></text></g>
+      <g class="city" data-city="terelji"><circle cx="458" cy="238" r="4.5"/><text class="cname s" x="468" y="234">特勒尔济</text></g>
+      <g class="city" data-city="kerulen"><circle cx="690" cy="167" r="5.5"/><text class="cname" x="702" y="163">克鲁伦河<tspan class="cname s" dx="2">(帝亲临驻跸)</tspan></text></g>
+    </g>
+
+    <!-- 独石口·北京(图外·南):康熙中路出塞来路 -->
+    <g transform="translate(700,632)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 C 2,-14 0,-26 -2,-40"/>
+      <g class="city" data-city="dushikou"><circle cx="4" cy="-2" r="4"/></g>
+      <text class="mlabel j" x="16" y="-8" style="font-size:10px">↑ 独石口 · 北京(图外南)</text>
+      <text class="cname s" x="16" y="6" style="fill:var(--advance);font-size:9px">康熙中路亲统大军出塞</text>
+    </g>
+    <!-- 归化·呼和浩特(图外·南偏东):费扬古西路主力出 -->
+    <g transform="translate(470,632)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 C 6,-16 8,-28 10,-42"/>
+      <g class="city" data-city="guihua"><circle cx="4" cy="-2" r="4"/></g>
+      <text class="mlabel j" x="-4" y="-8" style="font-size:10px">↑ 归化(图外南)</text>
+      <text class="cname s" x="-4" y="6" style="fill:var(--advance);font-size:9px">费扬古西路主力出</text>
+    </g>
+    <!-- 宁夏·银川(图外·西南):西路一部出 -->
+    <g transform="translate(196,632)">
+      <path class="march j" marker-end="url(#aj)" d="M 6,0 C 12,-14 20,-24 30,-36"/>
+      <g class="city" data-city="ningxia"><circle cx="6" cy="-2" r="3.6"/></g>
+      <text class="mlabel j" x="-4" y="-8" style="font-size:10px">↑ 宁夏(图外西南)</text>
+      <text class="cname s" x="-4" y="6" style="fill:var(--advance);font-size:9px">费扬古西路一部出</text>
+    </g>
+    <!-- 科布多·阿尔泰(图外·西):噶尔丹本据,昭莫多败后西遁之所 -->
+    <g transform="translate(6,232)">
+      <path class="march qret" marker-end="url(#aq)" d="M 40,8 C 26,6 14,4 2,2"/>
+      <g class="city" data-city="kobdo"><circle cx="10" cy="4" r="4"/></g>
+      <text class="mlabel q" x="0" y="-8" style="font-size:10px">⟵ 科布多 · 阿尔泰(图外西)</text>
+      <text class="cname s" x="0" y="24" style="fill:var(--enemy);font-size:9px">噶尔丹本据 · 次年死于此方</text>
+    </g>
+    <!-- 萨布素东路(图外·东):自黑龙江出 -->
+    <g transform="translate(994,430)">
+      <path class="march j" marker-end="url(#aj)" d="M -40,-6 C -26,-4 -14,-2 -2,0"/>
+      <text class="mlabel j" x="-118" y="-12" style="font-size:10px">东路 萨布素(黑龙江)⟶</text>
+      <text class="cname s" x="-118" y="2" style="fill:var(--advance);font-size:9px">自东北出,期合围(图外东)</text>
     </g>
 
     <!-- 全图 · 康熙三路亲征 -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 120,200 C 260,200 420,206 560,220 C 640,228 720,232 772,236"/>
-      <text class="mlabel q" x="200" y="196">噶尔丹东犯,进逼漠南,至克鲁伦河</text>
-      <path class="march j" marker-end="url(#aj)" d="M 700,548 C 690,470 660,360 620,290 C 600,258 580,244 566,238"/>
-      <text class="mlabel j" x="704" y="440">康熙自将中路,出独石口</text>
-      <path class="march j" marker-end="url(#aj)" d="M 476,548 C 490,470 500,410 494,372"/>
-      <text class="mlabel j" x="370" y="470">费扬古率西路,自归化出</text>
-      <text class="anno" x="600" y="600">东路萨布素自黑龙江出,期合围噶尔丹于克鲁伦河</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,240 C 160,232 320,214 460,196 C 560,183 630,172 682,167"/>
+      <text class="mlabel q" x="150" y="210">噶尔丹东侵喀尔喀 · 进抵克鲁伦河</text>
+      <rect class="camp" x="686" y="163" width="9" height="9" transform="rotate(45 690 167)"/>
+      <path class="march j" marker-end="url(#aj)" d="M 704,588 C 700,440 700,280 692,182"/>
+      <text class="mlabel j" x="716" y="440">中路 康熙帝 自独石口出</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,588 C 494,470 470,380 435,320"/>
+      <text class="mlabel j" x="360" y="470" text-anchor="end">西路 费扬古 自归化·宁夏出</text>
+      <path class="march j" marker-end="url(#aj)" d="M 952,424 C 860,412 780,400 700,300 C 610,190 620,180 700,175"/>
+      <text class="mlabel j" x="840" y="392" text-anchor="end">东路 萨布素 自黑龙江出</text>
+      <text class="anno" x="470" y="332">三路期合围噶尔丹于克鲁伦河</text>
+      <circle class="star" cx="427" cy="303" r="10"/>
     </g>
 
-    <!-- 阶段一:帝临克鲁伦·噶尔丹遁 -->
+    <!-- 阶段一:噶尔丹东侵·康熙三路亲征 -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 700,548 C 700,460 720,340 760,262 C 768,250 772,244 776,240"/>
-      <text class="mlabel j" x="760" y="360">帝亲统大军至克鲁伦河</text>
-      <rect class="camp" x="784" y="230" width="9" height="9" transform="rotate(45 788 234)"/>
-      <text class="anno" x="640" y="216">噶尔丹闻清帝亲征,大惊</text>
-      <path class="march q rout" marker-end="url(#aq)" d="M 776,238 C 660,238 520,232 400,240 C 320,246 240,252 180,260"/>
-      <text class="mlabel q" x="380" y="270">弃营西遁</text>
+      <path class="march q" marker-end="url(#aq)" d="M 40,240 C 160,232 320,214 460,196 C 560,183 630,172 682,167"/>
+      <text class="mlabel q" x="150" y="210">噶尔丹东侵喀尔喀,逼近京师</text>
+      <text class="anno" x="150" y="230">康熙二十九年乌兰布通先挫其锋</text>
+      <rect class="camp" x="686" y="163" width="9" height="9" transform="rotate(45 690 167)"/>
+      <text class="mlabel q" x="702" y="188">复东犯,屯克鲁伦河</text>
+      <path class="march j" marker-end="url(#aj)" d="M 704,588 C 700,470 704,360 700,240"/>
+      <text class="mlabel j" x="716" y="470">中路 · 康熙帝自将,出独石口</text>
+      <path class="march j" marker-end="url(#aj)" d="M 480,588 C 492,500 476,440 448,392"/>
+      <text class="mlabel j" x="372" y="500" text-anchor="end">西路 · 费扬古自归化·宁夏出</text>
+      <path class="march j" marker-end="url(#aj)" d="M 952,424 C 880,414 812,404 748,372"/>
+      <text class="mlabel j" x="852" y="404" text-anchor="end">东路 · 萨布素自黑龙江出</text>
+      <text class="anno" x="470" y="352" text-anchor="middle">帝三次亲征,发师分三路出塞,期合围之</text>
     </g>
 
-    <!-- 阶段二:费扬古据山列阵 -->
+    <!-- 阶段二:中路逼克鲁伦河·噶尔丹惊惧西撤 -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 476,552 C 486,460 494,410 490,372"/>
-      <text class="mlabel j" x="380" y="480">费扬古西路军邀击于归途</text>
-      <circle class="star" cx="486" cy="360" r="11"/>
-      <text class="mlabel j" x="500" y="336">至昭莫多,据小山、依林木列阵</text>
-      <path class="march q" marker-end="url(#aq)" d="M 620,300 C 580,320 540,340 508,354"/>
-      <text class="mlabel q" x="560" y="308">准军自西趋来</text>
-      <text class="anno" x="360" y="384">先以小队诱敌,火器(鸟枪·大炮)待发</text>
+      <path class="march j" marker-end="url(#aj)" d="M 704,588 C 700,460 706,300 694,186"/>
+      <text class="mlabel j" x="716" y="430">帝亲统中路大军进抵克鲁伦河</text>
+      <rect class="camp" x="686" y="163" width="10" height="10" transform="rotate(45 690 168)"/>
+      <text class="mlabel q" x="702" y="150">噶尔丹登山望御营整肃,大惊</text>
+      <!-- 噶尔丹弃营西撤,正撞入费扬古预设战场 -->
+      <path class="march qret" marker-end="url(#aq)" d="M 682,172 C 600,190 520,240 470,288"/>
+      <text class="mlabel q" x="560" y="238" text-anchor="end">弃营辎重,仓皇西撤</text>
+      <text class="anno" x="470" y="264" text-anchor="end">狂奔五日,正入费扬古昭莫多之伏</text>
+      <circle class="star" cx="427" cy="303" r="10"/>
     </g>
 
-    <!-- 阶段三:火器破准·众溃西遁 -->
+    <!-- 阶段三:昭莫多·费扬古以逸待劳·诱敌仰攻 -->
     <g id="ph3" class="ph">
-      <path d="M 486,360 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel j" x="500" y="342">火器齐发,分兵袭其辎重家口</text>
-      <text class="anno" x="360" y="382">准军闻后方乱而心动,清乘势大破之</text>
-      <text class="mlabel q" x="450" y="404">阿奴可敦战死,准军死伤数千</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 470,362 C 380,340 260,300 150,262 C 120,252 100,250 90,250"/>
-      <text class="mlabel r" x="200" y="316">噶尔丹以数十骑西遁</text>
-      <text class="anno" x="60" y="278">次年穷蹙死于科布多;漠北遂安</text>
+      <!-- 费扬古先至,据汗山高地依林列阵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 480,586 C 492,480 456,388 410,318"/>
+      <text class="mlabel j" x="372" y="516" text-anchor="end">费扬古先至,据高地依林列阵</text>
+      <text class="anno" x="372" y="536" text-anchor="end">以逸待劳,严阵待其自投</text>
+      <!-- 少骑诱敌佯退 -->
+      <path class="march lure" marker-end="url(#aj)" d="M 440,300 C 480,296 512,300 542,308"/>
+      <text class="mlabel j" x="470" y="288">先以四百骑诱敌·佯退</text>
+      <!-- 噶尔丹军自东趋来·仰攻高地 -->
+      <path class="march q" marker-end="url(#aq)" d="M 600,272 C 545,282 500,296 462,306"/>
+      <text class="mlabel q" x="612" y="266">噶军自西撤趋来,堕伏</text>
+      <text class="anno" x="612" y="286">中诱,舍马仰攻据高之清军</text>
+      <circle class="star" cx="427" cy="303" r="11"/>
+      <text class="anno" x="300" y="360" text-anchor="middle">清军据高俯瞰,鸟枪大炮列定待发</text>
+    </g>
+
+    <!-- 阶段四:分兵抄袭营地辎重·前后夹击·全歼准军·噶尔丹遁走 -->
+    <g id="ph4" class="ph">
+      <path d="M 427,303 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
+      <!-- 噶尔丹军(辎重家口在后·东) -->
+      <rect class="camp" x="566" y="290" width="12" height="12" transform="rotate(45 572 296)"/>
+      <text class="mlabel q" x="588" y="290">准军营地辎重(妻孥老小)在后</text>
+      <!-- 正面前压 -->
+      <path class="march j" marker-end="url(#aj)" d="M 445,308 C 478,312 505,314 528,312"/>
+      <text class="mlabel j" x="452" y="332">火器齐发,正面冲击</text>
+      <!-- 分兵抄袭其后营地辎重 -->
+      <path class="march wing" marker-end="url(#aj)" d="M 420,322 C 452,368 520,372 566,336 C 578,326 576,314 572,304"/>
+      <text class="mlabel j" x="470" y="392" text-anchor="middle">分精骑绕出,抄袭其营地辎重</text>
+      <!-- 前后夹击箭头(自后向前) -->
+      <path class="march wing" marker-end="url(#aj)" d="M 574,308 C 560,314 548,316 540,316"/>
+      <text class="anno" x="470" y="410" text-anchor="middle">准军见后营被袭,军心崩溃 · 前后夹击</text>
+      <text class="mlabel q" x="612" y="316">阿奴可敦督战,中矢死</text>
+      <!-- 噶尔丹以数十骑西遁 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 410,308 C 300,300 180,280 60,246"/>
+      <text class="mlabel r" x="230" y="262">噶尔丹仅以数十骑西遁</text>
+      <text class="anno" x="150" y="298" text-anchor="middle">次年穷蹙,死于阿察阿穆塔台;漠北遂定</text>
     </g>
 
     <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(三路)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>准噶尔军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃遁</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战·据山</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>准噶尔</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大清</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(康熙三路亲征)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4"/></svg>分兵抄袭·夹击</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2" stroke-dasharray="5 4"/></svg>诱敌佯退</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>准噶尔军(噶尔丹)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="5 6"/></svg>噶尔丹东侵·西撤</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>噶尔丹败遁</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战·据高</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>准军营·辎重</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>准噶尔·噶尔丹</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>大清·漠南来</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 亲征三路 · 诱敌抄后 · 覆其辎重</h3>
+    <div class="lead">何以一战而覆噶尔丹 —— 中路亲逼克鲁伦驱其西撤,费扬古以逸待劳诱其仰攻,复分兵抄袭其营地辎重、前后夹击而全歼</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜机理示意:上层示康熙分中西东三路亲征,中路亲逼克鲁伦河驱噶尔丹西撤,正撞入费扬古西路预设之昭莫多战场;下层示昭莫多决战,费扬古据高以逸待劳、先以少骑诱敌佯退诱准军仰攻,复分兵抄袭其后方营地辎重(妻孥),准军军心崩溃,清军前后夹击全歼之">
+      <!-- 上:三路合击·中路驱敌入伏 -->
+      <text x="24" y="24" fill="#5c4f38" font-size="12" font-weight="700">三路亲征 —— 中路亲逼克鲁伦,驱噶尔丹西撤入费扬古预设之战场</text>
+      <rect x="640" y="52" width="15" height="15" transform="rotate(45 647.5 59.5)" fill="#9a2b1e" opacity=".9"/>
+      <text x="600" y="46" fill="#9a2b1e" font-size="10.5" font-weight="700">噶尔丹屯克鲁伦河</text>
+      <path d="M 660,90 C 664,70 664,64 664,60" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 664,54 L 657,70 L 671,70 Z" fill="#1f4e54"/>
+      <text x="676" y="96" fill="#1f4e54" font-size="10" font-weight="700">中路·康熙亲逼</text>
+      <path d="M 628,72 C 480,86 340,96 220,102" fill="none" stroke="#9a2b1e" stroke-width="3" stroke-dasharray="6 5"/>
+      <path d="M 214,102 l 16,-6 l 0,12 z" fill="#9a2b1e"/>
+      <text x="360" y="66" fill="#9a2b1e" font-size="10.5" font-weight="700">惊惧西撤·狂奔五日</text>
+      <path d="M 150,150 C 168,130 182,116 196,106" fill="none" stroke="#1f4e54" stroke-width="2.6"/>
+      <path d="M 200,102 l -14,3 l 5,8 z" fill="#1f4e54"/>
+      <text x="70" y="164" fill="#1f4e54" font-size="10" font-weight="700">西路·费扬古预设</text>
+      <circle cx="185" cy="102" r="13" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="150" y="128" fill="#9c7a2c" font-size="9.5" font-weight="700">昭莫多·撞入伏中</text>
+      <!-- 下:昭莫多决战·诱敌+抄后+夹击 -->
+      <text x="24" y="196" fill="#1f4e54" font-size="12" font-weight="700">昭莫多决战 · 据高诱敌仰攻 + 分兵抄袭营地辎重 + 前后夹击</text>
+      <!-- 高地 -->
+      <path d="M 60,232 l 24,-22 l 14,14 l 20,-20 l 24,28 z" fill="rgba(31,78,84,.12)"/>
+      <path d="M 60,232 l 24,-22 l 14,14 l 20,-20 l 24,28" fill="none" stroke="#1f4e54" stroke-width="1.3" opacity=".7"/>
+      <text x="66" y="246" fill="#1f4e54" font-size="9.5" font-weight="700">清据高·以逸待劳</text>
+      <!-- 诱敌佯退 -->
+      <path d="M 150,214 C 190,210 220,212 250,216" fill="none" stroke="#1f4e54" stroke-width="1.8" stroke-dasharray="5 4"/>
+      <path d="M 256,217 l -14,-4 l 2,9 z" fill="#1f4e54"/>
+      <text x="150" y="206" fill="#1f4e54" font-size="9.5" font-weight="700">少骑诱敌佯退</text>
+      <!-- 准军仰攻 -->
+      <path d="M 470,214 C 400,212 340,214 268,216" fill="none" stroke="#9a2b1e" stroke-width="2.6"/>
+      <path d="M 262,216 l 16,-5 l 0,10 z" fill="#9a2b1e"/>
+      <text x="360" y="206" fill="#9a2b1e" font-size="9.5" font-weight="700">准军舍马仰攻·堕伏</text>
+      <!-- 辎重家口在后 -->
+      <rect x="520" y="206" width="15" height="15" transform="rotate(45 527.5 213.5)" fill="#9a2b1e" opacity=".9"/>
+      <text x="544" y="212" fill="#9a2b1e" font-size="9.5" font-weight="700">营地辎重·妻孥老小</text>
+      <!-- 抄袭其后 -->
+      <path d="M 120,238 C 300,244 440,232 512,218" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <path d="M 518,216 l -15,1 l 5,8 z" fill="#1f4e54"/>
+      <text x="300" y="238" fill="#1f4e54" font-size="9.5" font-weight="700">分兵抄袭其后营</text>
+      <text x="600" y="228" fill="#5c4f38" font-size="9.5">见后营被袭·军心溃</text>
+    </svg>
+    <p class="intro">昭莫多之覆噶尔丹,其枢不在昭莫多一战之力,而在<b>驱之入伏而覆其根本</b>。康熙三十五年帝分中、西、东三路亲征:中路帝躬亲统大军直逼克鲁伦河,噶尔丹登山望御营之盛,不战而<b>惊惧西撤</b>——狂奔五日,正一头撞入费扬古西路军预设之昭莫多战场。费扬古<b>以逸待劳</b>,据高依林、严阵以待:先纵四百骑诱敌佯退,骄其众而诱准军舍马仰攻;既酣,乃<b>分精骑绕出、抄袭其后方营地辎重(妻孥老小)</b>——准军回顾后营已破,军心顿溃,清军前后夹击,一战而全歼。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>清 · 三路驱敌 · 以逸待劳 · 抄后夹击</h4>
+        <p>帝亲统中路逼克鲁伦,以御驾之威驱噶尔丹不战而西走,使其自投费扬古之网——是「以中路为砧、以西路为锤」。费扬古先据昭莫多之高地依林列阵,养锐待敌;纵少骑诱其仰攻,俟其疲,乃分兵绕袭其营地辎重家口。覆其根本于后,夹击其军于前,准军遂无斗志而溃。抚远大将军费扬古为西路主将,振武将军孙思克等辅之。</p>
+      </div>
+      <div class="c b">
+        <h4>准噶尔 · 恃骑轻进 · 后营被覆而崩</h4>
+        <p>噶尔丹东侵喀尔喀、逼近京师,恃其部骁健。及闻帝亲统六师至克鲁伦,不敢当锋而弃营西撤,连奔五日,人马俱疲,竟不知费扬古已横伏于归途。既遇,又中诱佯退之计,舍马仰攻据高之清军;鏖战方酣,后方妻孥辎重忽为清军所袭,阵中大乱。妻阿奴可敦亲督战、中矢死;准军死伤枕籍,噶尔丹仅以数十骑遁去。</p>
+      </div>
+    </div>
+    <p class="kicker">故昭莫多之破准,<b>非独据高火器之功,实驱敌入伏、覆其辎重之效</b>:中路亲逼以驱之西撤于前,费扬古以逸待劳诱其仰攻于中,分兵抄袭营地辎重、前后夹击成其全溃于后——<b>亲征三路·诱敌抄后·覆其辎重</b>,遂一战而覆噶尔丹之众。次年噶尔丹众叛亲离、穷蹙而死,漠北喀尔喀内附,清朝对漠北蒙古之统治遂固。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·圣祖本纪》《费扬古传》及《亲征平定朔漠方略》约略绘出。昭莫多在今蒙古乌兰巴托东南、土拉河畔;克鲁伦河、肯特山、大漠地望为相对示意,非实测。晕染疆界以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注二</span>康熙三十五年清师分三路出塞:帝自将中路出独石口,抚远大将军费扬古率西路自归化(呼和浩特)出,黑龙江将军萨布素率东路出,期合围噶尔丹于克鲁伦河。噶尔丹闻帝亲统大军至,弃营西遁,遂为费扬古西路军邀击于昭莫多。</p>
-    <p><span class="n">注三</span>费扬古据小山、依林木列阵,先以小队诱敌,继以鸟枪、大炮火器齐发,复分兵袭其辎重家口——准军心乱而溃。噶尔丹妻阿奴可敦战死,准军死伤数千;噶尔丹仅以数十骑西遁,次年穷蹙饮药(一说病)死于科布多。喀尔喀遂内附,漠北大定。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑水道按今地经纬度作线性(墨卡托)投影,x=70+(经度−105.0)·155,y=590−(纬度−46.5)·235(KY/KX≈1.52,合北纬约47.7°之纬距):昭莫多(107.3E,47.72N)居图中,土拉河自肯特山西南流、经其西北,克鲁伦河在其东、自西北向东南流(康熙中路进抵处),肯特山踞北,汗山在昭莫多之西。独石口(115.7E,41.6N)、北京(116.4E,39.9N)、归化·呼和浩特(111.7E,40.8N)、宁夏·银川(106.3E,38.5N)皆远在图外之南,科布多(91.6E,48.0N)远在图外之西,萨布素东路自黑龙江出、在图外之东,俱以边箭示之(不入取景窗以免挤压主战场)。晕染疆界仅示噶尔丹东据漠北喀尔喀、清军自漠南三路来征之大势,以点划「约界」标之,非实测画界。依《清史稿·圣祖本纪》《费扬古传》及《亲征平定朔漠方略》绘出。</p>
+    <p><span class="n">注二</span>地望与经纬(今地略有异说,姑取其大略以明方位):昭莫多(蒙古语「大森林」之意,今蒙古国乌兰巴托迤南、土拉河上流东岸,一带旧称东库伦,北为肯特山、南为土纳岭、西有汗山,林木苍莽,素为古战场;决战地约107.3E/47.72N,一说在其东北特勒尔济河上游〔Terelj〕,姑并存)、土拉河(今Tuul河,流经乌兰巴托)、克鲁伦河(今Kherlen河上游,康熙帝中路进抵处)、肯特山(今Хэнтий山,二河之源)、汗山(今博格达山Bogd Khan一带)、科布多·阿尔泰(今蒙古西部,噶尔丹本据)。</p>
+    <p><span class="n">注三</span>行军·几方来路(答「几方来路」之问):是役两方——清(青)、准噶尔(赭);清军自漠南三路出塞,来路皆自图外南、东入,准军自漠北西侧入。康熙三十五年(1696)帝三次亲征,分三路:中路,帝自将、出独石口,进抵克鲁伦河;西路,抚远大将军费扬古为主将(振武将军孙思克等辅之)约四万,分自归化(呼和浩特)、宁夏(银川)两道北上,迂回截击;东路,黑龙江将军萨布素自东北出。三路期合围噶尔丹于克鲁伦河。噶尔丹本据科布多·阿尔泰,东侵喀尔喀而至克鲁伦。</p>
+    <p><span class="n">注四</span>行军之制(答「水陆·补给」之问):漠北之役,无水路可言,全为陆行草原、逐水草而进;胜负系于<b>机动、迂回与截敌之辎重根本</b>,非系漕运。清军深入瀚海,以驼马转运粮糗,苦于补给之艰(中路帝军亦以粮尽而未能穷追);噶尔丹则弃营辎重、轻骑西奔,其败正坐于「妻孥老小辎重被袭、根本既覆」——故本图以「抄袭营地辎重」为决胜之枢(图中青色抄袭·夹击、赭色辎重营记)。制胜之枢:中路亲逼克鲁伦驱其西撤(以砧驱之),费扬古西路以逸待劳、诱敌仰攻(以锤待之),复分兵抄袭其后营辎重、前后夹击而全歼——所谓「亲征三路·诱敌抄后·覆其辎重」。</p>
+    <p><span class="n">注五</span>异说与考订(答「异说」之问):决战地今址,或指乌兰巴托迤南之昭莫多(今Зуунмод一带),或指其东北土拉河支流特勒尔济上游(西文多作upper Terelj,约UB以东六十里),诸说不一,姑以「土拉河东岸昭莫多」概之。战期,《方略》系于康熙三十五年五月十三日(公历1696年6月12日)。兵数与斩获,史载亦异:清军斩首约二千级、生擒三千余,一说准军堕伏者数千;噶尔丹全军之数、临阵之众,诸书自二千骑至万余不等,《实录》约举,不必尽实。噶尔丹妻阿奴可敦(Anu)督战中矢死。噶尔丹以数十骑遁去,次年(康熙三十六年,1697)众叛亲离、穷蹙,死于阿察阿穆塔台(Aca Amtatai;或系科布多·阿尔泰一带),其死或云服毒、或云病卒,史无定论。是役后漠北喀尔喀内附,清朝对漠北蒙古之统治遂固,准部势蹙,退处漠西,迄乾隆二十三年(1758)乃尽平。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"康熙三路亲征",d:"康熙三十五年(1696)春",p:["准噶尔汗噶尔丹东侵喀尔喀蒙古,进逼漠南,尝直抵乌兰布通(康熙二十九年清初胜之),后复东犯克鲁伦河。康熙帝决意亲征,发大军分三路出塞。","帝自将中路出独石口,抚远大将军费扬古率西路军自归化(呼和浩特)出,黑龙江将军萨布素率东路军自黑龙江出,期三路合围噶尔丹于克鲁伦河,一举歼之。"]},
-  "1":{t:"帝临克鲁伦·噶尔丹遁",d:"康熙三十五年五月",p:["康熙帝自将中路,亲统大军抵克鲁伦河。噶尔丹方屯营河上,闻清帝亲统六师而至,登山望见御营整肃、旌旗蔽野,大惊失色。","乃夜弃营帐辎重,率众仓皇西遁。中路师追之不及,而费扬古西路军已横邀于其归途,截其西归之路。"]},
-  "2":{t:"费扬古据山列阵",d:"康熙三十五年五月十三日",p:["费扬古率西路军自归化出,趋昭莫多(今蒙古乌兰巴托东南,土拉河畔)邀击噶尔丹于归途。至则据小山、依林木列阵以待,凭高扼险。","先以小队四百诱敌深入,佯退以骄之;主力伏山下,鸟枪、大炮之火器俱已列定待发。准军自西趋来,遂堕其伏中。"]},
-  "3":{t:"火器破准·众溃西遁",d:"康熙三十五年五月十三日",p:["两军鏖战,清军火器齐发,鸟枪大炮轰击如雷;复分精骑绕出,袭其后方辎重家口。准军闻家口被掩,军心大乱。","清乘势冲击,大破准军。噶尔丹妻阿奴可敦亲临阵督战,中矢死;准军死伤数千,溃不成军。噶尔丹仅以数十骑西遁,次年众叛亲离,穷蹙死于科布多。喀尔喀内附,漠北遂安,清之北疆屏障固矣。"]}
+  all:{t:"康熙三路亲征 · 覆噶尔丹于昭莫多",d:"清康熙三十五年(1696)",p:["准噶尔汗噶尔丹东侵喀尔喀蒙古,逼近京师;康熙二十九年乌兰布通之战先挫其锋。噶尔丹复东犯,屯克鲁伦河。康熙三十五年帝决意三征,发大军分三路出塞:中路帝自将、出独石口,进抵克鲁伦河;西路抚远大将军费扬古(振武将军孙思克等辅之)约四万,自归化、宁夏北上迂回截击;东路黑龙江将军萨布素自东北出,期三路合围噶尔丹于克鲁伦河。","噶尔丹闻帝亲统六师至克鲁伦,惊惧西撤,狂奔五日,正撞入费扬古西路军预设之昭莫多战场(今乌兰巴托迤南、土拉河东岸)。费扬古以逸待劳、诱敌仰攻,复分兵抄袭其营地辎重,前后夹击而全歼准军。噶尔丹仅以数十骑西遁,次年穷蹙而死,漠北喀尔喀遂内附。"]},
+  "1":{t:"噶尔丹东侵 · 康熙三路出塞",d:"康熙三十五年二月—五月",p:["准噶尔噶尔丹东侵喀尔喀,逼近漠南、震动京师;康熙二十九年乌兰布通之役已挫其锋,而噶尔丹复东犯,屯兵克鲁伦河上。康熙帝决意再度亲征(三征之决胜一役),发大军分三路出塞,期一举歼之。","中路,帝自将,出独石口,直趋克鲁伦河;西路,抚远大将军费扬古为主将,率约四万军分自归化(呼和浩特)、宁夏(银川)两道北上,迂回而西以截其归路;东路,黑龙江将军萨布素自东北出。三路并进,期合围噶尔丹于克鲁伦河。"]},
+  "2":{t:"中路逼克鲁伦河 · 噶尔丹惊惧西撤",d:"康熙三十五年五月上旬",p:["康熙帝亲统中路大军,昼夜兼程,进抵克鲁伦河。噶尔丹方屯营河上,登山遥望,见御营整肃、旌旗蔽野、六师之盛,大惊失色——自度不能当帝师之锋。","乃夜弃营帐辎重,率众仓皇西撤。中路帝军以粮糗将尽,追之不及;而噶尔丹狂奔五日,浑不知费扬古西路军已横邀于其归途——是自投预设之昭莫多战场。此帝以中路亲临为砧、驱敌西撤入西路之伏,一役制胜之关键。"]},
+  "3":{t:"昭莫多 · 费扬古以逸待劳 · 诱敌仰攻",d:"康熙三十五年五月十三日(1696年6月12日)",p:["费扬古西路军先至昭莫多(今乌兰巴托迤南、土拉河东岸,林木苍莽之古战场),据汗山高地、依林列阵,以逸待劳,严阵以待噶尔丹之自投。地北肯特、南土纳岭、西汗山,形势要害。","及噶尔丹军奔至,费扬古先纵四百骑诱敌、佯退以骄其众;准军中计,舍马仰攻据高之清军。清军凭高俯瞰,鸟枪、大炮之火器俱已列定待发——准军已堕其伏中。"]},
+  "4":{t:"分兵抄袭辎重 · 前后夹击 · 全歼准军",d:"康熙三十五年五月十三日 · 自昼至暮",p:["两军鏖战方酣,费扬古乃分精骑绕出,直抄噶尔丹军之后、袭其营地辎重(妻孥老小)。准军回顾后营已破、家口被掩,军心顿时崩溃;清军前后夹击,乘势大破之。噶尔丹妻阿奴可敦亲临督战,中矢死;准军死伤枕籍、全军覆没(斩首约二千、生擒三千余)。","噶尔丹仅以数十骑西遁。次年(康熙三十六年,1697)众叛亲离、穷蹙无归,死于阿察阿穆塔台(死状史无定论,或云服毒、或云病卒)。漠北喀尔喀遂内附,清朝对漠北蒙古之统治遂固;准部势蹙,退处漠西,迄乾隆二十三年乃尽平。"]}
 };
 const CITY={
-  zhaomoduo:{t:"昭莫多",d:"今蒙古乌兰巴托东南,土拉河畔",p:["费扬古西路军邀击噶尔丹之决战地。据小山、依林列阵,以火器(鸟枪·大炮)诱歼,大破准军,阿奴可敦战死于此。"]},
-  terelji:{t:"特勒尔济·土拉河",d:"昭莫多东近土拉河一带",p:["费扬古军邀击、列阵之近地。清军据土拉河畔高丘设伏,准军自西入围于此。"]},
-  kerulen:{t:"克鲁伦河",d:"漠北东部大河",p:["噶尔丹东犯所至。康熙帝亲统中路军抵此,噶尔丹闻之大惊,弃营西遁,遂中费扬古之邀击。"]},
-  dushikou:{t:"独石口",d:"今河北赤城北,长城口",p:["康熙帝自将中路军出塞之处。由此北出,直趋克鲁伦河。"]},
-  guihua:{t:"归化·呼和浩特",d:"今内蒙古呼和浩特",p:["抚远大将军费扬古西路军出师之基。由此北出,横截噶尔丹西归之路,决战昭莫多。"]},
-  kobdo:{t:"科布多",d:"漠西阿尔泰山东,今蒙古西部",p:["噶尔丹昭莫多败后西窜,众叛亲离,次年穷蹙饮药(一说病)死于此地。"]}
+  zhaomoduo:{t:"昭莫多",d:"今蒙古国乌兰巴托迤南 · 土拉河上流东岸(约107.3E,47.72N)",p:["蒙古语「大森林」之意,一带旧称东库伦,北为肯特山、南为土纳岭、西有汗山,林木苍莽,素为古战场。康熙三十五年五月十三日,费扬古西路军据此高地依林列阵、以逸待劳,诱噶尔丹军仰攻,复分兵抄袭其营地辎重、前后夹击而全歼之,阿奴可敦战死于此。决战地一说在其东北特勒尔济上游,姑并存。"]},
+  terelji:{t:"特勒尔济",d:"昭莫多东北 · 土拉河支流一带",p:["昭莫多决战之近地。西文记载多谓噶尔丹军堕入费扬古之伏于特勒尔济河(upper Terelj)上游,约乌兰巴托以东。与「土拉河东岸昭莫多」诸说并存,同指此漠北林木之野。"]},
+  kerulen:{t:"克鲁伦河",d:"漠北东部大河 · 康熙中路进抵处(今Kherlen河上游)",p:["噶尔丹东犯屯营之地。康熙帝亲统中路大军进抵此,噶尔丹登山望御营之盛,大惊,弃营辎重西撤,遂中费扬古昭莫多之邀击。三路本期合围噶尔丹于此。"]},
+  dushikou:{t:"独石口 · 北京",d:"独石口今河北赤城北长城口;北京即今北京(俱在图外南)",p:["康熙帝自将中路军出塞之处。三十五年帝自北京发师,出独石口北趋克鲁伦河,以帝躬亲临驱噶尔丹西撤,使自投费扬古之伏。"]},
+  guihua:{t:"归化 · 呼和浩特",d:"今内蒙古呼和浩特(图外南偏东)",p:["抚远大将军费扬古西路主力出师之基。费扬古约四万军,分自归化、宁夏两道北上,迂回而西,横截噶尔丹西归之路,决战昭莫多。"]},
+  ningxia:{t:"宁夏 · 银川",d:"今宁夏银川(图外西南)",p:["费扬古西路一部出师之处。西路分归化、宁夏两道北上会合,迂回截击噶尔丹于漠北。"]},
+  kobdo:{t:"科布多 · 阿尔泰",d:"漠西阿尔泰山东,今蒙古西部(图外西)",p:["噶尔丹准噶尔之本据。噶尔丹自此东侵喀尔喀而至克鲁伦;昭莫多败后西窜此方,次年穷蹙,死于阿察阿穆塔台(或系科布多·阿尔泰一带)。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

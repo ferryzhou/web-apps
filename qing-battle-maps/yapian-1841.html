@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--land:#e3d7b6;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c0491f;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,40 +27,82 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
+  .sea{fill:var(--water);opacity:.15}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.3;opacity:.55}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .isle{fill:var(--land);stroke:var(--water);stroke-width:1;opacity:.9}
+  /* 虎门炮台:铳身与铳口(朝东南海面) */
+  .gun .barrel{fill:#3a3327;stroke:var(--ink);stroke-width:.7}
+  .gun .wheel{fill:none;stroke:var(--ink);stroke-width:1}
+  .blast line{stroke:var(--gold);stroke-width:1.8;stroke-linecap:round}
+  .blast .core{fill:var(--fire);opacity:.95}
+  .fortwall{fill:rgba(110,93,60,.10);stroke:var(--ink2);stroke-width:1.6}
+  /* 英之坚船利炮:蒸汽铁舰 */
+  .ship .hull{fill:var(--enemy)}
+  .ship .sup{fill:#77201a}
+  .ship .funnel{fill:#33291f}
+  .ship .mast{stroke:#33291f;stroke-width:1;stroke-linecap:round}
+  .ship .smoke{fill:#6f6349;opacity:.45}
+  .ship .gunf{stroke:var(--gold);stroke-width:1.6;stroke-linecap:round}
+  /* 殉国(死节)标记 */
+  .fallen circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.8}
+  .fallen line{stroke:var(--ink);stroke-width:1.7;stroke-linecap:round}
+  .fallen .base{fill:var(--ink);opacity:.85}
+  .flabel2{fill:var(--ink);font-weight:700;font-size:11.5px}
+  /* 南京条约印记 */
+  .treaty .tbox{fill:rgba(154,43,30,.08);stroke:var(--seal);stroke-width:2;rx:3}
+  .treaty text{fill:var(--seal);font-family:"Ma Shan Zheng",serif;font-size:19px;text-anchor:middle}
+  .cede rect{fill:var(--enemy);opacity:.92}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
   .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
-  .isle{fill:var(--ink2);opacity:.5}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--enemy);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--enemy);stroke-width:3.2;stroke-dasharray:8 5;opacity:.9}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .fallmark line{stroke:var(--enemy);stroke-width:2.1;stroke-linecap:round}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(154,43,30,.06),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--enemy);letter-spacing:.12em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .qs{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.4);padding:12px 16px}
+  .qs h3{font-size:14px;font-weight:700;letter-spacing:.08em;margin-bottom:6px}
+  .qs p{font-size:11.5px;line-height:1.7;color:var(--ink2);text-align:justify}.qs p+p{margin-top:3px}
+  .qs b{color:var(--advance)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -74,110 +116,220 @@
   <div class="seal" aria-hidden="true"><span>虎</span><span>门</span><span>之</span><span>役</span></div>
   <header>
     <h1>鸦片战争 · 虎门之役</h1>
-    <div class="sub">清道光十九至二十二年(1839–1842)　　<i>清 林则徐·关天培</i> 孤军拒海 · <b>英</b>坚船利炮破虎门·订约割地</div>
+    <div class="sub">清道光十九至二十二年(1839–1842) · 第一次鸦片战争　　<i>清 林则徐·关天培·陈化成</i> 血守海疆 · <b>英 远征舰队(义律·璞鼎查)</b> 坚船利炮 · 破虎门 · 兵临江宁 —— 中国近代史之开端</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 英舰东来</button>
-    <button data-p="1">英背约·大举攻虎门</button>
-    <button data-p="2">炮台次第陷·关天培殉国</button>
-    <button data-p="3">溯江逼江宁·订南京约</button>
+    <button class="on" data-p="all">全图 · 坚船利炮</button>
+    <button data-p="1">禁烟启衅 · 虎门销烟 · 英舰东来</button>
+    <button data-p="2">虎门血战 · 关天培殉靖远</button>
+    <button data-p="3">沿海北上 · 吴淞陈化成殉</button>
+    <button data-p="4">兵临江宁 · 订南京条约</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="鸦片战争虎门之役形势图,含清广东沿海与英舰海上疆界、珠江口伶仃洋南海长江与虎门广州定海镇江香港等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="鸦片战争虎门之役形势图,以东南沿海经纬度投影,虎门·广州·香港在西南珠江口,厦门·定海舟山·宁波镇海·乍浦·吴淞上海居东海之滨,镇江·南京在长江下游;示林则徐虎门销烟、英远征舰队坚船利炮破虎门诸炮台、关天培殉靖远、英舰沿海北上连陷厦门定海宁波吴淞镇江、陈化成殉吴淞、兵临江宁订南京条约割香港开五口之全局">
     <defs>
-      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:清据陆(广东沿海·东南),英来自海上(外来·东南洋面) -->
-    <path d="M 640,0 C 620,120 600,240 560,340 C 520,440 500,540 520,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 0,0 L 640,0 C 620,120 600,240 560,340 C 520,440 500,540 520,640 L 0,640 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 640,0 C 620,120 600,240 560,340 C 520,440 500,540 520,640"/>
-    <text class="realm j" x="120" y="150" font-size="30">大 清(广东沿海)</text>
-    <text class="realm q" x="720" y="120" font-size="30">英 舰(海上)</text>
+    <!-- ══ 疆界(示意):清据东南之陆(西北),英来自海上(东南洋面);约以海岸一线为前沿 ══ -->
+    <path d="M 0,0 L 0,640 L 235,640 C 250,600 262,585 268,568 C 295,510 400,500 505,485 C 570,472 590,450 605,415 C 660,360 715,295 740,240 C 752,205 757,185 758,150 C 762,105 770,55 778,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 778,0 C 770,55 762,105 758,150 C 757,185 752,205 740,240 C 715,295 660,360 605,415 C 590,450 570,472 505,485 C 400,500 295,510 268,568 C 262,585 250,600 235,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 235,640 C 250,600 262,585 268,568 C 295,510 400,500 505,485 C 570,472 590,450 605,415 C 660,360 715,295 740,240 C 752,205 757,185 758,150 C 762,105 770,55 778,0"/>
+    <text class="realm j" x="46" y="150" font-size="27">大 清 · 东南陆疆</text>
+    <text class="cname s" x="50" y="176" style="fill:var(--advance);opacity:.6">林则徐禁烟 · 沿海旧式炮台·水师御守</text>
+    <text class="realm q" x="952" y="300" font-size="24" text-anchor="end">英 舰 · 海 上</text>
+    <text class="cname s" x="952" y="326" style="fill:var(--enemy);opacity:.6" text-anchor="end">远征舰队 · 坚船利炮 · 浮海机动</text>
 
-    <!-- 南海·伶仃洋·珠江口 海域 -->
-    <path class="sea" d="M 560,340 C 520,440 500,540 520,640 L 1000,640 L 1000,300 C 900,320 780,330 680,336 C 620,340 590,340 560,340 Z"/>
-    <text class="rname" x="740" y="480" transform="rotate(20 740 480)" style="opacity:.7">南 海</text>
-    <text class="rname" x="360" y="470" style="font-size:11px;opacity:.85">伶仃洋</text>
+    <!-- ══ 海域:东海·南海 ══ -->
+    <path class="sea" d="M 778,0 C 770,55 762,105 758,150 C 757,185 752,205 740,240 C 715,295 660,360 605,415 C 590,450 570,472 505,485 C 400,500 295,510 268,568 C 262,585 250,600 235,640 L 1000,640 L 1000,0 Z"/>
+    <path class="coast" d="M 235,640 C 250,600 262,585 268,568 C 295,510 400,500 505,485 C 570,472 590,450 605,415 C 660,360 715,295 740,240 C 752,205 757,185 758,150 C 762,105 770,55 778,0"/>
+    <text class="rname" x="900" y="470" transform="rotate(-20 900 470)" style="font-size:16px;letter-spacing:.4em">东　海</text>
+    <text class="rname" x="470" y="628" style="font-size:14px;letter-spacing:.4em;opacity:.85">南　海</text>
+    <text class="rname" x="330" y="606" style="font-size:10.5px;opacity:.85">伶仃洋 · 珠江口</text>
 
-    <!-- 珠江:自广州经虎门入海 -->
-    <path class="river" stroke-width="5" d="M 150,392 C 210,398 270,406 320,430 C 360,450 390,470 430,486"/>
-    <!-- 长江:东北北上,英舰溯江陷镇江逼江宁 -->
-    <path class="river" stroke-width="5" d="M 640,120 C 720,130 800,150 870,150 C 930,150 970,146 1000,142"/>
-    <text class="rname" x="200" y="386" style="font-size:12px">珠 江</text>
-    <text class="rname" x="770" y="140" style="font-size:12px">长 江</text>
+    <!-- ══ 珠江(自广州经虎门入海) ══ -->
+    <path class="river" stroke-width="4.5" d="M 196,528 C 214,536 232,548 248,562 C 262,575 278,588 300,600"/>
+    <text class="rname" x="176" y="522" style="font-size:11.5px">珠 江</text>
+    <!-- ══ 长江(自西经南京·镇江东注长江口,英舰溯江之路) ══ -->
+    <path class="river" stroke-width="4.5" d="M 452,120 C 500,96 545,82 563,79 C 585,76 600,74 605,72 C 662,64 706,92 736,112 C 756,124 776,130 800,134"/>
+    <text class="rname" x="466" y="112" transform="rotate(-20 466 112)" style="font-size:12px">长 江</text>
 
-    <!-- 海岛(舟山·香港) -->
-    <g class="isle"><ellipse cx="880" cy="230" rx="15" ry="9"/><ellipse cx="906" cy="218" rx="8" ry="5"/></g>
-    <text class="cname s" x="852" y="258">舟山群岛</text>
-    <g class="isle"><ellipse cx="500" cy="560" rx="14" ry="7"/></g>
+    <!-- ══ 海岛:舟山群岛(定海)、香港岛 ══ -->
+    <g class="isle"><ellipse cx="769" cy="185" rx="16" ry="10"/><ellipse cx="794" cy="172" rx="8" ry="5"/><ellipse cx="788" cy="200" rx="6" ry="4"/></g>
+    <g class="isle"><ellipse cx="276" cy="586" rx="14" ry="7"/></g>
 
-    <!-- 城邑 -->
+    <!-- ══ 虎门要塞:层层设防之诸炮台(朝东南海面) ══ -->
+    <g id="humenforts">
+      <path class="fortwall" d="M 232,548 C 258,562 282,578 306,596" fill="none" stroke-dasharray="1 4"/>
+      <!-- 靖远·威远(内,关天培亲守) -->
+      <g class="gun" transform="translate(246,552) rotate(140)"><circle class="wheel" cx="0" cy="4" r="3"/><rect class="barrel" x="-2.2" y="-14" width="4.6" height="16"/></g>
+      <!-- 横档·永安(中) -->
+      <g class="gun" transform="translate(268,570) rotate(140)"><circle class="wheel" cx="0" cy="4" r="3"/><rect class="barrel" x="-2.2" y="-14" width="4.6" height="16"/></g>
+      <!-- 沙角·大角(外,珠江口门户) -->
+      <g class="gun" transform="translate(296,592) rotate(140)"><circle class="wheel" cx="0" cy="4" r="3"/><rect class="barrel" x="-2.2" y="-14" width="4.6" height="16"/></g>
+      <text class="cname s" x="150" y="600" style="opacity:.85">沙角·大角·横档·靖远 诸炮台</text>
+    </g>
+
+    <!-- ══ 城邑(可点) ══ -->
     <g id="cities">
-      <g class="city cap" data-city="humen"><circle cx="430" cy="486" r="6"/><text class="cname" x="356" y="482">虎门<tspan class="cname s" dx="2">(海防门户)</tspan></text></g>
-      <g class="city" data-city="guangzhou"><circle cx="150" cy="392" r="5.5"/><text class="cname" x="96" y="388">广州</text></g>
-      <g class="city" data-city="shajiao"><circle cx="470" cy="524" r="4"/><text class="cname s" x="478" y="520">沙角·大角</text></g>
-      <g class="city" data-city="dinghai"><circle cx="882" cy="232" r="5"/><text class="cname s" x="836" y="212">定海(舟山)</text></g>
-      <g class="city" data-city="zhenjiang"><circle cx="790" cy="146" r="5"/><text class="cname" x="740" y="130">镇江·江宁</text></g>
-      <g class="city" data-city="xianggang"><circle cx="500" cy="560" r="4.5"/><text class="cname s" x="508" y="582">香港</text></g>
+      <g class="city cap" data-city="humen"><circle cx="241" cy="556" r="6.5"/><text class="cname" x="180" y="548">虎门<tspan class="cname s" dx="1">(靖远)</tspan></text></g>
+      <g class="city" data-city="guangzhou"><circle cx="221" cy="539" r="5.5"/><text class="cname" x="170" y="534">广州</text></g>
+      <g class="city" data-city="xianggang"><circle cx="276" cy="583" r="5"/><text class="cname s" x="286" y="588">香港岛</text></g>
+      <g class="city" data-city="xiamen"><circle cx="520" cy="471" r="5.5"/><text class="cname" x="466" y="466">厦门</text></g>
+      <g class="city" data-city="dinghai"><circle cx="769" cy="185" r="5.5"/><text class="cname" x="779" y="180">定海<tspan class="cname s" dx="1">(舟山)</tspan></text></g>
+      <g class="city" data-city="ningbo"><circle cx="735" cy="191" r="5"/><text class="cname s" x="662" y="212">宁波·镇海</text></g>
+      <g class="city" data-city="zhapu"><circle cx="707" cy="154" r="4.5"/><text class="cname s" x="654" y="150">乍浦</text></g>
+      <g class="city" data-city="wusong"><circle cx="732" cy="113" r="5.5"/><text class="cname" x="742" y="109">吴淞<tspan class="cname s" dx="1">(上海)</tspan></text></g>
+      <g class="city" data-city="zhenjiang"><circle cx="605" cy="72" r="5"/><text class="cname" x="615" y="68">镇江</text></g>
+      <g class="city cap" data-city="nanjing"><circle cx="563" cy="79" r="6"/><text class="cname" x="500" y="74">江宁<tspan class="cname s" dx="1">(南京)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 英舰东来 -->
+    <!-- 图外来向:英远征舰队自印度洋北上(图外南) -->
+    <g transform="translate(392,632)">
+      <path class="march sea" marker-end="url(#aq)" d="M 0,0 L -20,-34"/>
+      <text class="mlabel q" x="4" y="-6" style="font-size:10px">↑ 英远征舰队(自印度·好望角来)</text>
+    </g>
+
+    <!-- ══════════ 全图 · 坚船利炮(总览) ══════════ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 156,398 C 240,420 320,448 420,478"/>
-      <text class="mlabel j" x="180" y="440">林则徐虎门销烟二百余万斤</text>
-      <rect class="camp" x="700" y="460" width="9" height="9" transform="rotate(45 704 464)"/>
-      <text class="mlabel q" x="600" y="452">英以为衅·遣舰队东来</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 700,462 C 760,400 820,320 872,240"/>
-      <text class="mlabel q" x="740" y="340">避粤之备·北上陷定海</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 878,224 C 900,190 940,160 990,148"/>
-      <text class="anno" x="820" y="180">直抵天津大沽·清廷震动</text>
-      <text class="anno" x="120" y="470">寻革林则徐,遣琦善赴粤议抚</text>
+      <!-- 蒸汽铁舰:游弋珠江口外 -->
+      <g class="ship" transform="translate(372,556) rotate(-16)">
+        <path class="hull" d="M -20,4 L 20,4 L 14,13 L -14,13 Z"/>
+        <rect class="sup" x="-8" y="-4" width="16" height="8"/>
+        <rect class="funnel" x="-2" y="-13" width="4.5" height="9"/>
+        <path class="smoke" d="M 0,-13 q -10,-6 -4,-16 q 6,4 10,-2 q -2,10 6,12 z"/>
+        <line class="mast" x1="12" y1="4" x2="12" y2="-14"/>
+        <line class="gunf" x1="-20" y1="2" x2="-32" y2="-2"/>
+      </g>
+      <text class="mlabel q" x="356" y="596">英 蒸汽铁舰 · 舷炮浮海</text>
+      <!-- 清:虎门血守 -->
+      <text class="mlabel j" x="130" y="470">关天培血守虎门 · 力战殉国</text>
+      <g class="fallen" transform="translate(246,552)"><path class="base" d="M -8,8 L 8,8 L 6,12 L -6,12 Z"/><circle r="7"/><line x1="0" y1="-5" x2="0" y2="5"/><line x1="-5" y1="0" x2="5" y2="0"/></g>
+      <!-- 英舰沿海北上大势 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 268,566 C 400,540 470,510 520,481 C 610,432 706,300 762,198"/>
+      <path class="march sea" marker-end="url(#aq)" d="M 764,196 C 742,168 718,140 732,118 C 700,96 645,80 610,77 C 592,75 578,78 570,84"/>
+      <text class="mlabel q" x="560" y="300" transform="rotate(-40 560 300)">舰队沿海北上 · 要地次第陷</text>
+      <!-- 陈化成殉吴淞 -->
+      <g class="fallen" transform="translate(732,113)"><path class="base" d="M -8,8 L 8,8 L 6,12 L -6,12 Z"/><circle r="7"/><line x1="0" y1="-5" x2="0" y2="5"/><line x1="-5" y1="0" x2="5" y2="0"/></g>
+      <text class="mlabel j" x="600" y="132">陈化成殉吴淞</text>
+      <!-- 香港割让 -->
+      <g class="cede" transform="translate(276,583)"><rect x="-5" y="-5" width="10" height="10" transform="rotate(45 0 0)"/></g>
+      <text class="mlabel q" x="286" y="606">割香港</text>
+      <!-- 南京条约印记 -->
+      <g class="treaty" transform="translate(470,150) rotate(-6)"><rect class="tbox" x="-25" y="-25" width="50" height="50" rx="3"/><text x="-12" y="-5">南</text><text x="12" y="-5">京</text><text x="-12" y="20">条</text><text x="12" y="20">约</text></g>
+      <text class="mlabel q" x="418" y="196">兵临江宁 · 城下订约</text>
     </g>
 
-    <!-- 阶段一:英背约·大举攻虎门 -->
+    <!-- ══════════ 阶段一:禁烟启衅 · 虎门销烟 · 英舰东来 ══════════ -->
     <g id="ph1" class="ph">
-      <rect class="camp" x="640" y="500" width="10" height="10" transform="rotate(45 645 505)"/>
-      <text class="mlabel q" x="560" y="492">英军背约·大举来攻</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 636,500 C 560,510 510,514 484,522"/>
-      <text class="mlabel q" x="530" y="546">舰队溯珠江口·进逼虎门</text>
-      <path class="march j" marker-end="url(#aj)" d="M 158,396 C 260,430 360,470 456,510"/>
-      <text class="mlabel j" x="240" y="500">关天培率孤军据沙角、大角</text>
-      <circle class="star" cx="430" cy="486" r="8"/>
-      <text class="anno" x="356" y="470">横档、靖远诸炮台拒守</text>
+      <path class="march j" marker-end="url(#aj)" d="M 210,532 C 226,544 236,552 244,558"/>
+      <text class="mlabel j" x="120" y="466">钦差林则徐赴粤禁烟</text>
+      <text class="mlabel g" x="120" y="486">虎门销烟 二百余万斤</text>
+      <text class="anno" x="120" y="504">收缴鸦片当众销毁于虎门海滩</text>
+      <!-- 英舰东来,北犯定海·大沽 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 372,560 C 480,520 560,470 620,400 C 690,320 740,250 762,198"/>
+      <text class="mlabel q" x="470" y="392" transform="rotate(-38 470 392)">英以为衅 · 舰队东来</text>
+      <path class="march sea" marker-end="url(#aq)" d="M 766,196 C 780,150 800,110 830,80"/>
+      <text class="mlabel q" x="774" y="120">北陷定海 · 直抵天津大沽</text>
+      <g class="cede" transform="translate(769,185)"><rect x="-5" y="-5" width="10" height="10" transform="rotate(45 0 0)"/></g>
+      <text class="anno" x="470" y="470">清廷震动 · 革林则徐 · 遣琦善赴粤议抚</text>
+      <!-- 英舰游弋 -->
+      <g class="ship" transform="translate(392,540) rotate(-18)">
+        <path class="hull" d="M -18,4 L 18,4 L 13,12 L -13,12 Z"/>
+        <rect class="sup" x="-7" y="-4" width="14" height="8"/>
+        <rect class="funnel" x="-2" y="-12" width="4" height="8"/>
+        <path class="smoke" d="M 0,-12 q -8,-5 -3,-13 q 5,3 8,-2 q -1,8 5,10 z"/>
+        <line class="mast" x1="11" y1="4" x2="11" y2="-12"/>
+      </g>
     </g>
 
-    <!-- 阶段二:炮台次第陷·关天培殉国 -->
+    <!-- ══════════ 阶段二:虎门血战 · 关天培殉靖远 ══════════ -->
     <g id="ph2" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 490,528 C 476,514 462,502 446,494"/>
-      <text class="mlabel q" x="484" y="548">坚船利炮猛轰</text>
-      <path class="march q" marker-end="url(#aq)" d="M 500,516 C 480,500 460,494 442,490"/>
-      <text class="anno" x="470" y="574">陆战队登岸·抄袭炮台之后</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 452,516 C 460,528 466,540 470,552"/>
-      <text class="mlabel r" x="352" y="536">诸炮台次第陷·守军寡不敌众</text>
-      <circle class="star" cx="430" cy="486" r="9"/>
-      <text class="mlabel r" x="300" y="452">关天培守靖远·力战殉国</text>
-      <text class="anno" x="340" y="436">身被数十创,麾下死者甚众</text>
+      <!-- 英军背约,坚船利炮攻虎门 -->
+      <g class="ship" transform="translate(360,600) rotate(-20)">
+        <path class="hull" d="M -20,4 L 20,4 L 14,13 L -14,13 Z"/>
+        <rect class="sup" x="-8" y="-4" width="16" height="8"/>
+        <rect class="funnel" x="-2" y="-13" width="4.5" height="9"/>
+        <path class="smoke" d="M 0,-13 q -10,-6 -4,-16 q 6,4 10,-2 q -2,10 6,12 z"/>
+        <line class="mast" x1="12" y1="4" x2="12" y2="-14"/>
+        <line class="gunf" x1="-20" y1="1" x2="-34" y2="-4"/>
+      </g>
+      <text class="mlabel q" x="330" y="622">英背约 · 坚船利炮猛轰虎门</text>
+      <path class="march q" marker-end="url(#aq)" d="M 340,592 C 320,582 306,574 296,568"/>
+      <path class="march q" marker-end="url(#aq)" d="M 320,608 C 298,590 278,574 262,564"/>
+      <text class="anno" x="300" y="560">陆战队登岸 · 抄袭炮台之后</text>
+      <!-- 炮台次第陷 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 296,592 C 288,600 282,608 278,616"/>
+      <text class="mlabel r" x="150" y="628">沙角·大角先陷 · 横档诸台继破</text>
+      <!-- 关天培血守靖远,殉国 -->
+      <circle class="star" cx="246" cy="552" r="12"/>
+      <circle class="star" cx="246" cy="552" r="18" style="opacity:.5"/>
+      <g class="fallen" transform="translate(246,552)"><path class="base" d="M -9,9 L 9,9 L 7,14 L -7,14 Z"/><circle r="8"/><line x1="0" y1="-6" x2="0" y2="6"/><line x1="-6" y1="0" x2="6" y2="0"/></g>
+      <text class="flabel2" x="150" y="486">关天培 · 殉靖远炮台</text>
+      <text class="anno" x="150" y="504">广东水师提督亲守 · 兵寡援绝</text>
+      <text class="anno" x="150" y="520">身被数十创力战殉国 · 麾下死者甚众</text>
+      <!-- 溯江逼广州 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 262,558 C 240,546 226,540 214,536"/>
+      <text class="mlabel q" x="140" y="440">虎门既破 · 英舰溯珠江逼广州</text>
+      <text class="anno" x="140" y="458">勒赎城费 · 订《广州和约》</text>
     </g>
 
-    <!-- 阶段三:溯江逼江宁·订南京约 -->
+    <!-- ══════════ 阶段三:沿海北上 · 厦门定海宁波连陷 · 陈化成殉吴淞 ══════════ -->
     <g id="ph3" class="ph">
-      <path class="march sea" marker-end="url(#aq)" d="M 442,480 C 340,440 240,410 164,398"/>
-      <text class="mlabel q" x="240" y="418">溯珠江逼广州</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 486,516 C 620,420 760,300 872,244"/>
-      <text class="anno" x="560" y="360">战延闽浙·厦门定海镇海宁波相继失</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 884,224 C 860,190 830,168 802,152"/>
-      <text class="mlabel q" x="790" y="196">复入长江·陷镇江</text>
-      <path class="march sea" marker-end="url(#aq)" d="M 782,150 C 760,148 730,146 700,144"/>
-      <text class="mlabel r" x="620" y="118">逼江宁·海龄殉城</text>
-      <text class="mlabel q" x="540" y="600">清屈服·订《南京条约》割香港开五口</text>
+      <!-- 璞鼎查率舰北上,沿海要地连陷 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 268,566 C 380,540 460,510 512,478"/>
+      <path class="march sea" marker-end="url(#aq)" d="M 528,468 C 600,420 700,290 760,196"/>
+      <g class="fallmark" transform="translate(520,471)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel q" x="440" y="446">厦门陷</text>
+      <g class="fallmark" transform="translate(769,185)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel r" x="778" y="164">定海再陷 · 三总兵殉</text>
+      <text class="anno" x="620" y="228">葛云飞·郑国鸿·王锡朋 力战殉国</text>
+      <!-- 镇海宁波乍浦 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 762,198 C 744,180 726,168 714,160"/>
+      <g class="fallmark" transform="translate(735,191)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <g class="fallmark" transform="translate(707,154)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel r" x="600" y="270">镇海·宁波·乍浦相继失守</text>
+      <!-- 入长江口,攻吴淞,陈化成殉 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 710,150 C 720,136 726,126 730,120"/>
+      <circle class="star" cx="732" cy="113" r="11"/>
+      <g class="fallen" transform="translate(732,113)"><path class="base" d="M -9,9 L 9,9 L 7,14 L -7,14 Z"/><circle r="8"/><line x1="0" y1="-6" x2="0" y2="6"/><line x1="-6" y1="0" x2="6" y2="0"/></g>
+      <text class="flabel2" x="600" y="100">陈化成 · 殉吴淞炮台</text>
+      <text class="anno" x="600" y="118">江南提督守西炮台 · 力战殉国</text>
     </g>
 
-    <g class="compass" transform="translate(60,120)">
+    <!-- ══════════ 阶段四:兵临江宁 · 订南京条约 · 门户洞开 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 舰队溯长江,陷镇江 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 732,118 C 700,98 648,82 616,77"/>
+      <g class="fallmark" transform="translate(605,72)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel r" x="614" y="56">镇江陷 · 副都统海龄旗兵巷战殉城</text>
+      <!-- 逼江宁,炮口对城 -->
+      <path class="march sea" marker-end="url(#aq)" d="M 598,74 C 588,76 580,78 574,82"/>
+      <g class="ship" transform="translate(540,96) rotate(-8)">
+        <path class="hull" d="M -18,4 L 18,4 L 13,12 L -13,12 Z"/>
+        <rect class="sup" x="-7" y="-4" width="14" height="8"/>
+        <rect class="funnel" x="-2" y="-12" width="4" height="8"/>
+        <path class="smoke" d="M 0,-12 q -8,-5 -3,-13 q 5,3 8,-2 q -1,8 5,10 z"/>
+        <line class="mast" x1="11" y1="4" x2="11" y2="-12"/>
+        <line class="gunf" x1="18" y1="1" x2="30" y2="-3"/>
+      </g>
+      <text class="mlabel q" x="446" y="118">舰抵江宁下关 · 炮口对城</text>
+      <!-- 订南京条约 -->
+      <g class="treaty" transform="translate(478,180) rotate(-6)"><rect class="tbox" x="-26" y="-26" width="52" height="52" rx="3"/><text x="-13" y="-5">南</text><text x="13" y="-5">京</text><text x="-13" y="20">条</text><text x="13" y="20">约</text></g>
+      <text class="mlabel q" x="360" y="238">清屈服 · 订中英《南京条约》</text>
+      <text class="anno" x="360" y="256">割香港岛 · 开广厦福宁沪五口</text>
+      <text class="anno" x="360" y="272">赔款二千一百万银元 · 协定关税</text>
+      <!-- 香港割让 -->
+      <g class="cede" transform="translate(276,583)"><rect x="-5.5" y="-5.5" width="11" height="11" transform="rotate(45 0 0)"/></g>
+      <text class="mlabel q" x="286" y="606">香港岛割让英国</text>
+      <text class="mlabel r" x="150" y="430">门户洞开 · 中国渐沦半殖民地</text>
+    </g>
+
+    <g class="compass" transform="translate(72,124)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -187,34 +339,114 @@
   </div>
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清 海防守军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>英军(陆)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>英舰·海上</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>清军溃陷</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>死守·殉国</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·沿海</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>英军(登陆)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3.2" stroke-dasharray="8 5"/></svg>英舰·浮海北上</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>清军溃·失守</span>
+    <span class="item"><svg width="24" height="16"><g transform="translate(11,9)"><path d="M -8,2 L 8,2 L 5,7 L -5,7 Z" fill="#9a2b1e"/><rect x="-3" y="-3" width="6" height="5" fill="#77201a"/><rect x="-1" y="-8" width="2.6" height="5" fill="#33291f"/></g></svg>坚船利炮(蒸汽铁舰)</span>
+    <span class="item"><svg width="22" height="18"><g transform="translate(11,7)"><rect x="-2.2" y="-6" width="4.6" height="12" fill="#3a3327"/><circle cx="0" cy="8" r="2.6" fill="none" stroke="#2b2418" stroke-width="1"/></g></svg>虎门炮台</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="8" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/><line x1="9" y1="3" x2="9" y2="13" stroke="#2b2418" stroke-width="1.5"/><line x1="4" y1="8" x2="14" y2="8" stroke="#2b2418" stroke-width="1.5"/></svg>殉国(关·陈·葛·海)</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" fill="#9a2b1e" transform="rotate(45 8 8)"/></svg>割让(香港·英占)</span>
+    <span class="item"><svg width="20" height="18"><rect x="3" y="2" width="14" height="14" rx="2" fill="rgba(154,43,30,.1)" stroke="#9a2b1e" stroke-width="1.6"/></svg>南京条约</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·东南陆疆</span>
     <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>英·海上</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 坚船利炮 · 血守难御 · 门户洞开</h3>
+    <div class="lead">何以层层设防之虎门、血肉死守之炮台,终不能御英之铁舰舷炮 —— 器不相敌、海权尽失,虽血战殉国而门户洞开</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="鸦片战争制败示意:英恃蒸汽铁舰、舷侧重炮、浮海机动,择要而攻;清恃旧式炮台、木船水师、血肉死守,固定不能逐敌;英舰自珠江口沿海北上,虎门厦门定海宁波吴淞镇江次第陷,关天培陈化成葛云飞海龄血战殉国终不能挽,兵临江宁,城下订南京条约,割地开埠、门户洞开">
+      <!-- 上:英之攻 -->
+      <text x="24" y="28" fill="#9a2b1e" font-size="12" font-weight="700">英之攻 · 坚船利炮 · 浮海机动</text>
+      <line x1="22" y1="40" x2="838" y2="40" stroke="#9a2b1e" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+      <!-- 下:清之守 -->
+      <text x="24" y="232" fill="#1f4e54" font-size="12" font-weight="700">清之守 · 旧式炮台 · 血肉死守</text>
+      <line x1="22" y1="210" x2="838" y2="210" stroke="#1f4e54" stroke-width="2" opacity=".28" stroke-dasharray="3 4"/>
+      <!-- 沿海诸要地(南→北) -->
+      <g font-size="10.5" font-weight="700" text-anchor="middle">
+        <text x="90" y="128" fill="#5c4f38">虎门</text>
+        <text x="230" y="128" fill="#5c4f38">厦门</text>
+        <text x="370" y="128" fill="#5c4f38">定海</text>
+        <text x="510" y="128" fill="#5c4f38">宁波·乍浦</text>
+        <text x="650" y="128" fill="#5c4f38">吴淞</text>
+        <text x="770" y="128" fill="#5c4f38">镇江</text>
+      </g>
+      <!-- 每要地:清炮台(下)与英✕(陷) -->
+      <g>
+        <g transform="translate(90,150)"><rect x="-2" y="-8" width="4" height="14" fill="#3a3327"/><circle cx="0" cy="8" r="2.4" fill="none" stroke="#5c4f38" stroke-width="1"/></g>
+        <g transform="translate(230,150)"><rect x="-2" y="-8" width="4" height="14" fill="#3a3327"/><circle cx="0" cy="8" r="2.4" fill="none" stroke="#5c4f38" stroke-width="1"/></g>
+        <g transform="translate(370,150)"><rect x="-2" y="-8" width="4" height="14" fill="#3a3327"/><circle cx="0" cy="8" r="2.4" fill="none" stroke="#5c4f38" stroke-width="1"/></g>
+        <g transform="translate(510,150)"><rect x="-2" y="-8" width="4" height="14" fill="#3a3327"/><circle cx="0" cy="8" r="2.4" fill="none" stroke="#5c4f38" stroke-width="1"/></g>
+        <g transform="translate(650,150)"><rect x="-2" y="-8" width="4" height="14" fill="#3a3327"/><circle cx="0" cy="8" r="2.4" fill="none" stroke="#5c4f38" stroke-width="1"/></g>
+        <g transform="translate(770,150)"><rect x="-2" y="-8" width="4" height="14" fill="#3a3327"/><circle cx="0" cy="8" r="2.4" fill="none" stroke="#5c4f38" stroke-width="1"/></g>
+      </g>
+      <g stroke="#9a2b1e" stroke-width="2.2" stroke-linecap="round">
+        <g transform="translate(90,168)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+        <g transform="translate(230,168)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+        <g transform="translate(370,168)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+        <g transform="translate(510,168)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+        <g transform="translate(650,168)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+        <g transform="translate(770,168)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      </g>
+      <!-- 英舰沿海北上箭头,自南向北扫过 -->
+      <path d="M 40,72 C 200,60 640,58 810,66" fill="none" stroke="#9a2b1e" stroke-width="3.2" stroke-dasharray="8 5" marker-end="url(#aq)"/>
+      <text x="360" y="52" fill="#9a2b1e" font-size="10.5" font-weight="700">舰队沿海北上 · 择要而攻 · 要地次第陷</text>
+      <!-- 殉国标记 -->
+      <text x="90" y="196" fill="#2b2418" font-size="9.5" text-anchor="middle" font-weight="700">关天培殉</text>
+      <text x="650" y="196" fill="#2b2418" font-size="9.5" text-anchor="middle" font-weight="700">陈化成殉</text>
+      <text x="370" y="196" fill="#2b2418" font-size="9.5" text-anchor="middle" font-weight="700">三总兵殉</text>
+      <text x="770" y="196" fill="#2b2418" font-size="9.5" text-anchor="middle" font-weight="700">海龄殉</text>
+      <!-- 结局 -->
+      <text x="838" y="128" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="end">→ 兵临江宁</text>
+      <text x="838" y="146" fill="#7a5a23" font-size="10" text-anchor="end">城下订约 · 门户洞开</text>
+    </svg>
+    <p class="intro">鸦片战争之败,不在将士不用命,而在<b>器械之代差与海权之尽失</b>。英之远征舰队恃<b>蒸汽轮船、舷侧重炮、浮海机动</b>,可择沿海任一要点而攻,朝发夕至;清之海防则恃<b>旧式炮台、木船水师与血肉之躯</b>,炮台固定不能逐敌,水师木船不敌铁舰。虎门虽有沙角、大角、横档、靖远层层设防,英舰以舰炮正轰、复以陆战队登岸抄其后,遂次第而陷 —— 非守之不坚,乃攻守之势本不相敌。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>血守 · 忠烈冠时而不能挽</h4>
+        <p>广东水师提督关天培亲守靖远炮台,兵寡援绝,身被数十创力战殉国;江南提督陈化成守吴淞西炮台,力战殉国;定海三总兵葛云飞、郑国鸿、王锡朋同日殉;镇江副都统海龄率旗兵巷战殉城。诸将死节,忠烈冠于一时。然固定炮台以静待动、以木御铁,纵血战而不能却敌之铁舰 —— 死者虽壮,而海门终不可守。</p>
+      </div>
+      <div class="c b">
+        <h4>门户洞开 · 择要而攻,连陷不已</h4>
+        <p>英舰破虎门后溯珠江逼广州,勒赎城费;继而沿海北上,连陷厦门、定海(舟山)、镇海、宁波、乍浦、吴淞,复溯长江陷镇江,直抵江宁下关,炮口对城。清廷无可御之器、无可制海之师,遂屈服城下,订《南京条约》:割香港岛、开五口、赔款二千一百万银元、协定关税。门户既开,列强接踵。</p>
+      </div>
+    </div>
+    <p class="kicker">故虎门之役、鸦片一战,实为<b>近世铁舰舷炮与前代炮台水师之相遇</b>:清非无死守之忠、亦非无设防之备,惟器不相敌、海权尽失,炮台层层而不能御,要地次第而终难保。关天培、陈化成血洒炮台,而门户竟以洞开 —— 中国自此沦为半殖民地,「数千年未有之大变局」肇于此,近代之创痛,实始于虎门一炮。</p>
+  </div>
+  <div class="qs">
+    <h3>五问(治图之纲)</h3>
+    <p><b>一 · 行军水陆:</b>英军全程以<b>海路</b>为主:远征舰队自印度洋北上集于珠江口,破虎门后溯珠江逼广州,继沿海北上连陷厦门·定海·宁波·乍浦·吴淞,再溯长江陷镇江、抵江宁,登陆战(沙角抄袭、吴淞·镇江攻城)皆自舰载陆战队就近登岸。清军则全程为<b>陆上固定防御</b>(炮台·城守·水师木船),无远洋机动可言 —— 水陆之分,正是胜负之枢。</p>
+    <p><b>二 · 补给命脉:</b>英军<b>以海为粮道</b>,舰队自携军实,并以先占之定海(舟山)、香港为前进补给基地,由印度·南洋源源转运,故能久悬海外、连岁进兵;清军补给系于各口陆路与本地,一城既陷即断,且无制海之力可断敌之海运 —— 制海权即补给权,清于此全然失据。</p>
+    <p><b>三 · 交战几方、各自来向:</b>两方。<b>清</b>(林则徐·关天培·陈化成等,踞东南沿海之陆,青)守土;<b>英</b>(远征舰队,义律继以璞鼎查,红)自海上远来,主力由印度洋经好望角·南洋北上入珠江口(图下南缘箭头示之),后期增兵仍由海道续至。</p>
+    <p><b>四 · 地望经纬:</b>诸地皆按今地经纬度投影(见注一坐标表),自珠江口(虎门·广州·香港,西南)沿东海之滨(厦门·定海·宁波·乍浦·吴淞)至长江下游(镇江·江宁,东北)。</p>
+    <p><b>五 · 异说:</b>兵数、殉难日、香港「岛」与「地方」之约文等,史料互有出入,并志于注四、注五,不敢臆定。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·宣宗本纪/关天培传》《道光洋艘征抚记》及中英《南京条约》约略绘出。虎门在今广东东莞,沙角、大角、横档、靖远皆珠江口炮台;定海即今舟山,镇江、江宁在长江下游。城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界示海陆之别:清据广东沿海之陆,英舰远来自海上、以坚船利炮制胜。所谓「海防」实以旧式炮台、水师御近世铁舰,寡不敌众,门户洞开。</p>
-    <p><span class="n">注三</span>关天培以广东水师提督亲守靖远炮台,弹尽援绝,身被数十创而殉国,忠烈冠一时。虎门既破,英舰溯江陷镇江、逼江宁,清廷屈服订约,割地开埠、赔款协税——「数千年未有之大变局」自此启。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑水道按今地经纬度作线性投影(投影式 x=205+(经度−113.0)·62,y=597−(纬度−22.0)·51.5,北上东右)。主要坐标:广州113.26E/23.13N、虎门(靖远炮台)113.58E/22.80N、香港岛114.15E/22.28N、厦门118.08E/24.45N、定海舟山122.10E/30.00N、镇海121.72E/29.95N、宁波121.55E/29.88N、乍浦121.10E/30.60N、吴淞上海121.50E/31.40N、镇江119.45E/32.20N、江宁南京118.78E/32.06N。沙角·大角·横档·靖远皆珠江口虎门要塞之炮台,图中层列以见「层层设防」之象,非按各台实测方位。因东南海岸自西南斜趋东北,为便展布,经度略作放大,岸线·水道从简。</p>
+    <p><span class="n">注二</span>晕染疆界非实有画界,乃<b>海陆之势</b>示意:青为清所据之东南陆疆(沿海旧式炮台·水师御守),朱为英舰远来所制之海上洋面,约以海岸一线为前沿。清守土而不能制海,英浮海而可择要登陆 —— 故所谓「海防」,实以静制之炮台、木船之水师,御浮海机动之铁舰,寡不敌众,门户洞开(说详释要)。</p>
+    <p><span class="n">注三</span>制败之枢在<b>坚船利炮·海权尽失</b>(见上释要):英恃蒸汽轮船、舷侧重炮浮海机动,自珠江口沿海北上,择要而攻;虎门虽层层设防,舰炮正轰、陆队抄后,炮台次第而陷。此后厦门(道光二十一年八月)、定海再陷(二十一年九月/公历十月,三总兵葛云飞·郑国鸿·王锡朋殉)、镇海·宁波继失,乍浦(二十二年四月)、吴淞(二十二年五月,陈化成殉)相次而下,复溯长江陷镇江(二十二年六月,海龄殉),兵临江宁。清无可御之器、无制海之师,终屈服城下。</p>
+    <p><span class="n">注四</span>缘起与人物。道光十九年(1839)钦差大臣林则徐赴粤禁烟,五月于虎门海滩当众销毁收缴鸦片二百余万斤(约二万余箱)。英以「保护通商」为名启衅,遣远征舰队东来,义律(Charles Elliot)主之,道光二十一年后璞鼎查(Henry Pottinger)继任全权,主持沿海北上之役。关天培以广东水师提督亲守靖远炮台,道光二十一年正月(公历1841年2月26日)力战殉国,身被数十创;陈化成以江南提督守吴淞西炮台,二十二年(1842年6月)殉国;镇江副都统海龄率旗兵巷战、城破殉节。</p>
+    <p><span class="n">注五</span>议和与异说。道光二十二年七月二十四(公历1842年8月29日),清廷屈服,于江宁下关英舰皋华丽号(HMS Cornwallis)上签中英《南京条约》:割香港岛予英,开广州·厦门·福州·宁波·上海五口通商,赔款二千一百万银元,协定关税、废行商专利。诸事史料互有出入:虎门·吴淞诸役兵数伤亡、殉难确日、条约「香港岛」与「香港地方」之约文异文等,各书微异,姑存备考。本图据《清史稿·宣宗本纪/关天培传/陈化成传》、中英《南京条约》及近代史诸考约略绘出。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"英舰东来",d:"道光十九年 — 二十年(1839–40)",p:["英商贩鸦片入华,流毒日深、白银外流。道光帝命林则徐为钦差大臣赴粤禁烟,虎门销烟二百余万斤。英国以此为衅,派舰队东来,鸦片战争起。","英舰避粤之备,北上陷定海(舟山),直抵天津大沽,清廷震动。旋革林则徐,遣琦善赴粤议抚——然抚之不成,战端复炽。"]},
-  "1":{t:"英背约·大举攻虎门",d:"道光二十一年(1841)正月",p:["琦善议抚未定,英军背约,大举进攻虎门。虎门为广州海防门户,水师提督关天培率孤军据守沙角、大角及虎门横档、靖远诸炮台。","守军多用旧式炮位,兵寡械劣;英舰坚船利炮,列于珠江口外,以待猛攻。孤城之下,天培誓与炮台共存亡。"]},
-  "2":{t:"炮台次第陷·关天培殉国",d:"道光二十一年(1841)二月",p:["英舰以坚船利炮猛轰,复以陆战队登岸,抄袭炮台之后。沙角、大角先陷,横档诸台次第失守,守军寡不敌众。","关天培亲守靖远炮台,身被数十创,力战殉国,麾下将士死者甚众。炮台弹尽援绝,虎门要塞遂破,广州门户洞开。"]},
-  "3":{t:"溯江逼江宁·订南京约",d:"道光二十一 — 二十二年(1841–42)",p:["虎门既破,英军溯珠江逼广州。战事延及闽浙,厦门、定海(再陷)、镇海、宁波相继失守;英军复北上入长江,陷镇江(副都统海龄殉城)、逼江宁(南京)。","清廷屈服,道光二十二年订中英《南京条约》,割香港、开五口、赔款二千一百万银元、协定关税。中国自此沦为半殖民地,史称「数千年未有之大变局」自此启。"]}
+  all:{t:"坚船利炮 · 门户洞开",d:"清道光十九—二十二年(1839–1842)",p:["第一次鸦片战争。缘于英商贩鸦片入华、流毒日深,道光帝命林则徐赴粤禁烟,虎门销烟二百余万斤。英以「保护通商」为名启衅,遣远征舰队东来,坚船利炮以图叩关。","英舰破虎门(关天培殉靖远),溯珠江逼广州;继沿海北上,连陷厦门·定海·宁波·乍浦·吴淞(陈化成殉),复溯长江陷镇江,兵临江宁下关、炮口对城。清廷屈服,订《南京条约》:割香港、开五口、赔款协税。中国自此渐沦半殖民地——「数千年未有之大变局」自此启。"]},
+  "1":{t:"禁烟启衅 · 虎门销烟 · 英舰东来",d:"道光十九—二十年(1839–40)",p:["鸦片流毒,白银外流。道光十九年,钦差大臣林则徐赴粤禁烟,收缴英商鸦片二万余箱,五月于虎门海滩当众销毁二百余万斤。英国以此为衅,谋以兵力叩关,派远征舰队东来,鸦片战争起。","英舰不即攻粤之备,避实北犯:陷定海(舟山),直抵天津大沽,京畿震动。清廷革林则徐,遣琦善赴粤议抚;然抚议不成,战端复炽——虎门之难,遂伏于此。"]},
+  "2":{t:"虎门血战 · 关天培殉靖远",d:"道光二十一年(1841)正—二月",p:["琦善议抚未定,英军背约,以坚船利炮大举攻虎门。虎门为广州海防门户,沙角、大角、横档、靖远诸炮台层层设防;广东水师提督关天培亲守靖远,率孤军拒守。","英舰舷炮猛轰,复以陆战队登岸、抄袭炮台之后。沙角、大角先陷,横档诸台次第失守。关天培兵寡援绝,身被数十创,力战殉国,麾下将士死者甚众。虎门既破,英舰溯珠江逼广州,勒赎城费、订《广州和约》,广州门户洞开。"]},
+  "3":{t:"沿海北上 · 吴淞陈化成殉国",d:"道光二十一—二十二年(1841–42)",p:["璞鼎查继任英全权,舍粤而北,率舰队沿海连攻要地:道光二十一年八月陷厦门;九月再陷定海(舟山),总兵葛云飞、郑国鸿、王锡朋三将同日殉国;镇海、宁波相继失守。","二十二年,复陷乍浦,进逼长江口。江南提督陈化成守吴淞西炮台,发炮拒战、力竭殉国,吴淞遂失。英舰坚船利炮,择沿海要点而攻,清军旧式炮台以静待动,连岁溃陷,东南糜烂。"]},
+  "4":{t:"兵临江宁 · 订南京条约 · 门户洞开",d:"道光二十二年(1842)六—七月",p:["英舰入长江溯流而上,六月陷镇江:副都统海龄率旗兵巷战,城破殉节。舰队直抵江宁(南京)下关江面,炮口对准城垣,南北漕运之咽喉尽扼。","七月,清廷屈服,于英舰上签中英《南京条约》:割香港岛,开广州·厦门·福州·宁波·上海五口通商,赔款二千一百万银元,协定关税。中国丧权失地、门户洞开,自此渐沦为半殖民地社会——中国近代史,以此为开端。"]}
 };
 const CITY={
-  humen:{t:"虎门",d:"广州海防门户,今广东东莞",p:["珠江口要塞,横档、靖远诸炮台所在。关天培率孤军死守,力战殉国;炮台弹尽援绝,次第陷落。"]},
-  guangzhou:{t:"广州",d:"两广总督驻地",p:["林则徐赴粤禁烟、虎门销烟之地。虎门既破,英军溯珠江进逼,城下议款。"]},
-  shajiao:{t:"沙角·大角",d:"虎门前哨炮台",p:["珠江口外门户炮台。英舰猛轰、陆战队登岸抄后,二台先陷,虎门横档遂危。"]},
-  dinghai:{t:"定海(舟山)",d:"今浙江舟山",p:["英舰避粤之备北上先占之地,复直抵天津大沽。清廷震动,遣琦善议抚。后战延闽浙,定海再陷。"]},
-  zhenjiang:{t:"镇江·江宁",d:"长江下游,今镇江·南京",p:["英舰溯长江所陷。镇江副都统海龄殉城;逼江宁,清廷屈服,城下订《南京条约》。"]},
-  xianggang:{t:"香港",d:"珠江口外岛",p:["《南京条约》割予英国之地。自此开五口、赔款、协税,中国渐沦为半殖民地。"]}
+  humen:{t:"虎门(靖远炮台)",d:"广州海防门户,今广东东莞(约113.58E,22.80N)",p:["珠江口要塞,沙角·大角·横档·靖远诸炮台层层设防。广东水师提督关天培亲守靖远,兵寡援绝,身被数十创力战殉国;炮台次第陷落,虎门遂破,广州门户洞开。"]},
+  guangzhou:{t:"广州",d:"两广总督驻地(约113.26E,23.13N)",p:["林则徐赴粤禁烟、虎门销烟之地。虎门既破,英舰溯珠江进逼,勒赎城费、订《广州和约》。为《南京条约》后五口通商之首口。"]},
+  xianggang:{t:"香港岛",d:"珠江口外岛,今香港(约114.15E,22.28N)",p:["英军先占以为前进基地。《南京条约》割予英国,为近代割地之始。自此开五口、赔款、协税,中国渐沦半殖民地。"]},
+  xiamen:{t:"厦门",d:"福建海口,今厦门(约118.08E,24.45N)",p:["璞鼎查率舰北上所陷之首要地(道光二十一年八月)。石壁炮台虽固,不敌英舰舷炮与陆队登岸,城遂失。后为五口通商之一。"]},
+  dinghai:{t:"定海(舟山)",d:"今浙江舟山(约122.10E,30.00N)",p:["英舰两陷之地:二十年首占以为北上跳板,二十一年九月再陷。总兵葛云飞、郑国鸿、王锡朋三将同日力战殉国,史称定海保卫战。舟山为英军东南前进补给基地。"]},
+  ningbo:{t:"宁波·镇海",d:"今浙江宁波·镇海(约121.6E,29.9N)",p:["定海既陷,镇海、宁波相继失守(道光二十一年)。钦差大臣裕谦守镇海,城破投水殉国。宁波后为五口通商之一。"]},
+  zhapu:{t:"乍浦",d:"今浙江平湖乍浦(约121.10E,30.60N)",p:["杭州湾北岸海防要口。道光二十二年四月为英舰所陷,守军(含八旗驻防)力战,伤亡甚众。英军由此进逼长江口。"]},
+  wusong:{t:"吴淞(上海)",d:"长江口海防要塞,今上海(约121.50E,31.40N)",p:["江南提督陈化成守吴淞西炮台,发炮拒英舰,力竭殉国(道光二十二年五月/公历1842年6月)。吴淞既失,上海随下,英舰得溯长江。后为五口通商之一。"]},
+  zhenjiang:{t:"镇江",d:"长江下游,今江苏镇江(约119.45E,32.20N)",p:["扼长江与运河之交、南北漕运咽喉。道光二十二年六月为英舰所陷,副都统海龄率旗兵巷战,城破殉节。镇江既失,江宁震动。"]},
+  nanjing:{t:"江宁(南京)",d:"两江总督驻地,今江苏南京(约118.78E,32.06N)",p:["英舰溯江直抵下关江面,炮口对城。清廷屈服,道光二十二年七月于英舰皋华丽号上签中英《南京条约》——割香港、开五口、赔款协税,门户洞开,中国近代史自此启。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

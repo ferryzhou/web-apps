@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>山海关之战 · 顺治元年(1644)</title>
+<title>山海关之战 · 一片石之役(1644)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;--dust:#b8a066;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -17,7 +17,7 @@
   header{margin-bottom:14px;padding-right:74px}
   h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
-  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}.sub em{color:var(--qin);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
   .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
   .tabs button:hover{background:rgba(255,250,235,.75)}
@@ -27,10 +27,13 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .wall{fill:none;stroke:var(--ink2);stroke-width:2.2;opacity:.78;stroke-dasharray:7 4;stroke-linecap:round}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.4;stroke-dasharray:1 5 7 5;opacity:.55;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
-  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.15);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -38,27 +41,44 @@
   .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
-  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}.march.f{stroke:var(--qin)}
+  .march.f2{stroke:var(--qin);stroke-width:2.2;stroke-dasharray:7 4;opacity:.9}
+  .march.q2{stroke:var(--enemy);stroke-width:2.2;stroke-dasharray:7 4;opacity:.9}
+  .march.charge{stroke:var(--advance);stroke-width:4.4}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .watch{fill:none;stroke:var(--advance);stroke-width:1.8}
+  .dust{fill:none;stroke:var(--dust);stroke-linecap:round;opacity:.6}
+  .dustfill{fill:rgba(184,160,102,.18);stroke:none}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .capnote{margin:7px 2px 0;font-size:11px;color:var(--faint);font-style:italic;letter-spacing:.03em}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--qin)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--qin)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.f2):not(.q2){stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,105 +88,162 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>山</span><span>海</span><span>关</span><span>役</span></div>
   <header>
-    <h1>山海关之战</h1>
-    <div class="sub">清顺治元年·明崇祯十七年(1644)　<i>清 多尔衮</i> 骤出破顺 · <b>大顺 李自成</b>一片石大溃</div>
+    <h1>山海关之战 · 一片石之役</h1>
+    <div class="sub">清顺治元年 · 明崇祯十七年(1644)　<em>吴三桂</em> 引清入关 · <i>清 多尔衮</i> 八旗乘风尘侧击 · <b>大顺 李自成</b>一片石猝溃</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 吴三桂乞师</button>
-    <button data-p="1">顺军东征·吴清相约</button>
-    <button data-p="2">石河鏖战·吴顺力竭</button>
-    <button data-p="3">一片石·骤出破顺</button>
+    <button class="on" data-p="all">全图 · 借虏平寇</button>
+    <button data-p="1">① 陷京招降 · 吴桂乞师</button>
+    <button data-p="2">② 大顺东征 · 围攻山海</button>
+    <button data-p="3">③ 石河一片石 · 两军俱疲</button>
+    <button data-p="4">④ 乘风尘侧击 · 大顺猝败</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="山海关之战形势图,含大顺清吴疆界、长城山海关渤海石河与北京宁远等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="山海关之战·一片石形势图:大顺李自成自北京(图外西)经永平东征,围攻吴三桂所据之山海关;吴三桂拒顺、乞师于清,多尔衮率八旗自辽西宁远(图外东北)驰赴关外欢喜岭。大顺军列阵石河、别遣唐通出一片石,与关宁军鏖战竟日俱疲;多尔衮坐观,俟其力竭,乘大风扬尘令八旗自吴军右翼横击大顺侧背,大顺猝败西溃。青为清多尔衮(本图所追踪之进军主体),朱为大顺李自成,紫为吴三桂关宁军">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.07)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.32)" stroke-width="1"/></pattern>
       <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
       <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:大顺据关内(西,北京),清自关外(东北)来,约以长城山海关为界 -->
-    <path d="M 560,0 C 566,110 578,200 600,300 C 616,372 636,460 640,560 C 642,600 640,624 638,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 560,0 C 566,110 578,200 600,300 C 616,372 636,460 640,560 C 642,600 640,624 638,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 560,0 C 566,110 578,200 600,300 C 616,372 636,460 640,560 C 642,600 640,624 638,640"/>
-    <text class="realm q" x="120" y="130" font-size="34">大 顺</text>
-    <text class="realm j" x="800" y="150" font-size="32">清</text>
-    <text class="realm j" x="640" y="470" font-size="22" style="opacity:.5">吴</text>
+    <!-- ══ 约界:大顺据关内(西·由北京来),清据关外(东北·辽西),吴三桂关宁军据山海关介于其间;以长城为界,非实有画界 ══ -->
+    <path d="M 0,0 L 902,20 C 866,90 838,140 812,168 C 786,196 770,206 752,223 C 728,244 704,264 690,289 L 700,340 L 640,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 902,20 L 1000,20 L 1000,640 L 690,640 L 700,340 L 690,289 C 704,264 728,244 752,223 C 770,206 786,196 812,168 C 838,140 866,90 902,20 Z" fill="url(#jinHatch)"/>
+    <path d="M 655,300 C 663,278 683,266 700,270 C 720,275 724,298 712,312 C 698,326 664,322 655,300 Z" fill="url(#fqinHatch)"/>
+    <path class="border" d="M 902,20 C 866,90 838,140 812,168 C 786,196 770,206 752,223 C 728,244 704,264 690,289 L 700,340"/>
+    <text class="realm q" x="96" y="180" font-size="30">大 顺</text>
+    <text class="cname s" x="92" y="204" style="fill:var(--enemy);opacity:.6">李自成 · 关内(由北京东出)</text>
+    <text class="realm j" x="836" y="292" font-size="28">清</text>
+    <text class="cname s" x="792" y="316" style="fill:var(--advance);opacity:.6">多尔衮·八旗(关外·辽西)</text>
+    <text class="realm f" x="600" y="356" font-size="18">吴</text>
+    <text class="cname s" x="560" y="374" style="fill:var(--qin);opacity:.7">关宁军·据山海关</text>
 
-    <!-- 长城:自西内地蜿蜒东抵山海关入海 -->
-    <path class="mtn" stroke-width="2.4" style="opacity:.9" d="M 120,150 C 240,180 340,210 430,260 C 500,300 560,340 620,410 C 654,450 672,480 690,506"/>
-    <text class="rname" x="360" y="228" transform="rotate(20 360 228)" style="fill:var(--ink2);opacity:.7">长　城</text>
+    <!-- ══ 长城:自燕山蜿蜒而下,经一片石(九门口)、山海关,老龙头入海 ══ -->
+    <path class="wall" d="M 902,26 C 878,60 856,96 830,132 C 806,168 782,196 752,223 C 726,246 706,266 690,289 L 712,322"/>
+    <text class="mname" x="806" y="150" transform="rotate(52 806 150)" style="font-size:11px;letter-spacing:.2em">长　城</text>
 
-    <!-- 渤海:南 -->
-    <path class="river" stroke-width="0" fill="rgba(95,127,136,.16)" style="opacity:1" d="M 0,560 C 200,548 420,556 640,580 C 800,598 920,608 1000,610 L 1000,640 L 0,640 Z"/>
-    <text class="rname" x="330" y="612" style="font-size:14px">渤　海</text>
+    <!-- ══ 燕山:长城所依之山,一片石·角山一带 ══ -->
+    <path class="mtn fill" d="M 726,236 L 740,214 L 752,232 L 766,208 L 778,230 L 770,258 L 748,262 Z"/>
+    <g class="mtn"><path d="M 732,232 l 8,-13 l 8,12 M 754,228 l 9,-14 l 9,13"/></g>
+    <text class="mname" x="778" y="200" style="font-size:9.5px;letter-spacing:.12em">燕山·角山</text>
 
-    <!-- 石河:自长城南流入海,关西吴顺鏖战处 -->
-    <path class="river" stroke-width="3" d="M 640,410 C 648,470 660,520 700,560 C 716,576 730,586 742,594"/>
-    <text class="rname" x="612" y="470" transform="rotate(78 612 470)" style="font-size:11px">石　河</text>
+    <!-- ══ 渤海:南 ══ -->
+    <path class="river" stroke-width="0" fill="rgba(95,127,136,.17)" style="opacity:1" d="M 0,470 C 200,458 420,410 620,336 C 662,320 690,316 712,322 C 786,344 884,404 1000,442 L 1000,640 L 0,640 Z"/>
+    <text class="rname" x="300" y="596" style="font-size:15px">渤　海</text>
+    <text class="rname" x="676" y="352" style="font-size:9.5px;letter-spacing:.05em;opacity:.75">老龙头</text>
 
-    <!-- 山海关(险要):长城入海之枢 -->
-    <g class="mtn"><path d="M 676,486 l 8,-13 l 8,13 M 692,480 l 8,-13 l 8,13"/></g>
+    <!-- ══ 石河:自燕山南流,经山海关西入海,大顺军列阵处 ══ -->
+    <path class="river" stroke-width="3" d="M 616,244 C 622,268 628,292 642,314 C 652,328 662,338 672,348"/>
+    <text class="rname" x="592" y="286" transform="rotate(74 592 286)" style="font-size:11px">石　河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="beijing"><circle cx="150" cy="330" r="6"/><text class="cname" x="162" y="326">北京<tspan class="cname s" dx="2">(顺据·东征所自)</tspan></text></g>
-      <g class="city" data-city="yongping"><circle cx="380" cy="400" r="4"/><text class="cname s" x="326" y="420">永平·滦州</text></g>
-      <g class="city" data-city="shihe"><circle cx="620" cy="470" r="4"/><text class="cname s" x="536" y="486">石河西(鏖战)</text></g>
-      <g class="city cap" data-city="shanhaiguan"><circle cx="700" cy="500" r="6.5"/><text class="cname" x="712" y="498">山海关<tspan class="cname s" dx="2">(吴三桂据)</tspan></text></g>
-      <g class="city" data-city="yipianshi"><circle cx="720" cy="440" r="4.5"/><text class="cname" x="732" y="436">一片石</text></g>
-      <g class="city" data-city="ningyuan"><circle cx="852" cy="360" r="5"/><text class="cname" x="864" y="356">宁远<tspan class="cname s" dx="2">(清军前驻)</tspan></text></g>
+      <g class="city" data-city="yongping"><circle cx="238" cy="382" r="4.5"/><text class="cname" x="170" y="378">永平<tspan class="cname s" dx="1">·卢龙</tspan></text></g>
+      <g class="city" data-city="shihe"><circle cx="628" cy="300" r="4.5"/><text class="cname s" x="540" y="292">石河西(顺军阵)</text></g>
+      <g class="city cap" data-city="shanhaiguan"><circle cx="690" cy="289" r="6.5"/><text class="cname" x="628" y="278">山海关<tspan class="cname s" dx="1">(吴三桂据·天下第一关)</tspan></text></g>
+      <g class="city" data-city="yipianshi"><circle cx="752" cy="223" r="4.5"/><text class="cname" x="762" y="220">一片石<tspan class="cname s" dx="1">·九门口</tspan></text></g>
+      <g class="city" data-city="huanxiling"><circle cx="716" cy="276" r="4"/><text class="cname s" x="726" y="292">欢喜岭·威远堡</text></g>
     </g>
 
-    <!-- 全图 · 吴三桂乞师 -->
+    <!-- ══ 图外西:北京(大顺都·东征所自·败退所归) ══ -->
+    <g transform="translate(4,392)">
+      <path class="march q" marker-end="url(#aq)" d="M 2,0 L 30,0"/>
+      <text class="mlabel q" x="-2" y="-9" style="font-size:10px">⟵ 北京(大顺都)</text>
+      <text class="cname s" x="-2" y="15" style="fill:var(--enemy);font-size:9.5px">李自成东出·图外西</text>
+    </g>
+
+    <!-- ══ 图外东北:辽西·宁远(清军来向) ══ -->
+    <g transform="translate(908,150)">
+      <path class="march j" marker-end="url(#aj)" d="M 60,-30 L 36,-6"/>
+      <text class="mlabel j" x="-4" y="-40" style="font-size:10px">辽西·宁远 ⟶(图外东北)</text>
+      <text class="cname s" x="6" y="-24" style="fill:var(--advance);font-size:9.5px">多尔衮·八旗来向</text>
+    </g>
+
+    <!-- ══ 全图 · 借虏平寇 ══ -->
     <g id="phAll" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 162,336 C 260,362 360,388 452,420"/>
-      <text class="mlabel q" x="200" y="380">李自成破北京,崇祯自缢,明亡</text>
-      <text class="anno" x="240" y="400">率大军东征,亲讨吴三桂</text>
-      <path class="march j" marker-end="url(#aj)" d="M 846,366 C 780,400 740,440 712,486"/>
-      <text class="mlabel j" x="756" y="404">吴三桂据关,以「借虏平寇」乞师于清</text>
-      <text class="anno" x="700" y="470">多尔衮许之,昼夜驰赴</text>
+      <path class="march q" marker-end="url(#aq)" d="M 34,392 C 120,388 190,384 238,382 C 400,376 540,338 610,308"/>
+      <text class="mlabel q" x="300" y="360">李自成陷京,亲率大军东征(号二十万)</text>
+      <path class="march j" marker-end="url(#aj)" d="M 892,158 C 828,198 772,238 724,270"/>
+      <text class="mlabel j" x="758" y="228">多尔衮率八旗昼夜驰赴</text>
+      <path class="march f" marker-end="url(#af)" d="M 700,282 C 758,248 818,210 872,172"/>
+      <text class="mlabel f" x="740" y="290">吴三桂拒顺,乞师于清</text>
+      <circle class="star" cx="628" cy="300" r="9"/>
+      <circle class="star" cx="752" cy="223" r="8"/>
+      <text class="anno" x="470" y="330">石河·一片石鏖战 → 八旗乘风尘侧击 → 大顺猝败</text>
+      <path class="march charge" marker-end="url(#aj)" d="M 716,276 C 692,288 662,296 636,304"/>
     </g>
 
-    <!-- 阶段一:顺军东征·吴清相约 -->
+    <!-- ══ ① 陷京招降 · 吴桂乞师 ══ -->
     <g id="ph1" class="ph">
-      <path class="march q" marker-end="url(#aq)" d="M 162,338 C 280,370 400,400 508,436"/>
-      <text class="mlabel q" x="240" y="424">顺军东出,逼山海关</text>
-      <rect class="camp" x="516" y="432" width="8" height="8" transform="rotate(45 520 436)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 848,368 C 800,406 760,446 716,492"/>
-      <text class="mlabel j" x="770" y="430">多尔衮自宁远昼夜兼程驰赴</text>
-      <path class="march j" marker-end="url(#aj)" d="M 704,494 C 706,494 708,494 710,494"/>
-      <text class="anno" x="560" y="522">吴三桂拒顺、开关迎清军入</text>
+      <path class="march q2" marker-end="url(#aq)" d="M 34,392 C 140,386 260,380 360,376"/>
+      <text class="mlabel q" x="120" y="368">李自成陷北京,遣使招降吴三桂</text>
+      <text class="anno" x="130" y="420">挟明太子及吴襄以招之</text>
+      <rect class="camp" x="686" y="285" width="9" height="9" transform="rotate(45 690.5 289.5)" fill="#5c4a6e"/>
+      <text class="mlabel f" x="560" y="256">吴三桂初欲降顺,因家难(父被拷·妾被掳)而反</text>
+      <path class="march f" marker-end="url(#af)" d="M 702,282 C 760,246 822,206 878,166"/>
+      <text class="mlabel f" x="726" y="248">据关拒顺,遣使乞师于清</text>
+      <text class="anno" x="756" y="300">「借虏平寇」</text>
+      <path class="march j" marker-end="url(#aj)" d="M 892,158 C 872,172 852,188 838,200"/>
+      <text class="mlabel j" x="820" y="150">多尔衮得书,许之</text>
     </g>
 
-    <!-- 阶段二:石河鏖战·吴顺力竭 -->
+    <!-- ══ ② 大顺东征 · 围攻山海 ══ -->
     <g id="ph2" class="ph">
-      <rect class="camp" x="596" y="466" width="9" height="9" transform="rotate(45 600 470)"/>
-      <text class="mlabel q" x="500" y="452">顺军列阵石河</text>
-      <path class="march q" marker-end="url(#aq)" d="M 612,470 C 636,478 660,486 678,494"/>
-      <path class="march j" marker-end="url(#aj)" d="M 692,498 C 672,492 652,484 634,476"/>
-      <circle class="star" cx="620" cy="472" r="8"/>
-      <text class="mlabel j" x="628" y="520">吴关宁军鏖战竟日,渐不支</text>
-      <text class="anno" x="740" y="474">清军按兵观战,俟两军力竭</text>
+      <path class="march q" marker-end="url(#aq)" d="M 34,392 C 120,388 190,384 238,382 C 400,376 520,346 596,312"/>
+      <text class="mlabel q" x="270" y="356">李自成亲率大军东出,经永平逼山海关</text>
+      <path class="march q2" marker-end="url(#aq)" d="M 610,306 C 660,282 706,252 742,230"/>
+      <text class="mlabel q" x="628" y="250">别遣唐通出一片石,绕关外夹击</text>
+      <rect class="camp" x="622" y="295" width="9" height="9" transform="rotate(45 626.5 299.5)"/>
+      <text class="anno" x="470" y="316">大顺军列阵石河之西</text>
+      <path class="march f" marker-end="url(#af)" d="M 682,292 C 660,296 646,298 636,300"/>
+      <text class="mlabel f" x="580" y="336">吴三桂开关拒守·迎清军入</text>
+      <path class="march j" marker-end="url(#aj)" d="M 892,158 C 828,200 772,240 724,272"/>
+      <text class="mlabel j" x="760" y="256">多尔衮进抵关外欢喜岭</text>
     </g>
 
-    <!-- 阶段三:一片石·骤出破顺 -->
+    <!-- ══ ③ 石河一片石 · 两军俱疲 ══ -->
     <g id="ph3" class="ph">
-      <path d="M 720,440 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march j" marker-end="url(#aj)" d="M 716,486 C 720,470 720,458 720,448"/>
-      <text class="mlabel j" x="732" y="470">八旗乘大风扬尘,横击顺军侧翼</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 606,472 C 500,440 340,388 168,338"/>
-      <text class="mlabel r" x="360" y="372">顺军猝溃,西遁北京</text>
-      <text class="anno" x="500" y="392">一片石死伤惨重,旋弃京西撤</text>
-      <text class="anno" x="700" y="530">清遂长驱入关,定鼎北京</text>
+      <rect class="camp" x="622" y="295" width="10" height="10" transform="rotate(45 627 300)"/>
+      <text class="mlabel q" x="470" y="284">顺军猛攻,围山海关罗城</text>
+      <path class="march q" marker-end="url(#aq)" d="M 638,302 C 654,299 666,296 678,293"/>
+      <path class="march q" marker-end="url(#aq)" d="M 648,306 C 672,282 706,252 740,230"/>
+      <path class="march f" marker-end="url(#af)" d="M 684,292 C 668,296 656,298 646,300"/>
+      <circle class="star" cx="628" cy="300" r="9"/>
+      <circle class="star" cx="752" cy="223" r="8"/>
+      <text class="mlabel f" x="628" y="336">吴关宁军鏖战竟日,渐不支</text>
+      <text class="anno" x="470" y="356">两军力战俱疲,胜负未分</text>
+      <g class="watch" transform="translate(716,276)"><circle r="10"/><circle r="3.5" fill="var(--advance)" stroke="none"/></g>
+      <text class="mlabel j" x="726" y="262">多尔衮登欢喜岭坐观,按兵待疲</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══ ④ 乘风尘侧击 · 大顺猝败 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 大风扬尘:飞沙蔽天,自东北压向大顺阵 -->
+      <path class="dustfill" d="M 748,246 C 706,262 660,282 616,306 C 590,320 566,334 548,346 C 574,318 606,296 640,278 C 680,256 718,242 748,246 Z"/>
+      <path class="dust" stroke-width="2.4" d="M 742,252 C 700,270 654,292 610,314"/>
+      <path class="dust" stroke-width="1.8" d="M 750,266 C 712,284 668,306 624,326"/>
+      <path class="dust" stroke-width="1.4" d="M 736,238 C 700,254 660,274 622,296"/>
+      <text class="mlabel" x="560" y="360" style="fill:#8a7434">忽大风扬尘·飞沙蔽天</text>
+      <!-- 八旗乘风尘,自吴军右翼突出,横击大顺侧背 -->
+      <path class="march charge" marker-end="url(#aj)" d="M 720,272 C 694,286 662,298 632,308"/>
+      <text class="mlabel j" x="612" y="252">八旗乘风尘,自吴军右翼突出</text>
+      <text class="anno" x="628" y="270">直冲大顺侧背</text>
+      <circle class="star" cx="628" cy="302" r="11"/>
+      <!-- 大顺猝败西溃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 612,312 C 480,344 340,370 244,386 C 160,394 80,396 26,396"/>
+      <text class="mlabel r" x="300" y="416">大顺猝见剃发者,知清军至,阵乱</text>
+      <text class="anno" x="260" y="434">一败涂地,死者数万,西遁永平·北京</text>
+      <text class="mlabel j" x="700" y="330">清师遂入关,定鼎中原</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -175,34 +252,91 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军·关宁军(降清)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>大顺军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>顺军溃遁</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>大顺</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清·八旗(多尔衮,所追踪之主体)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>大顺军(李自成)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="3"/></svg>吴三桂·关宁军(转轴之盟)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>大顺溃遁·西撤</span>
+    <span class="item"><svg width="34" height="12"><path d="M2,9 C10,5 20,3 32,4" fill="none" stroke="#b8a066" stroke-width="2.2" opacity=".7"/></svg>八旗乘风尘侧击</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>鏖战·大溃</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#1f4e54" stroke-width="1.8"/><circle cx="8" cy="8" r="2.4" fill="#1f4e54"/></svg>多尔衮坐观</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>大顺(关内)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#fqinHatch)"/></svg>吴三桂(关)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清(关外)</span>
   </div>
+  <p class="capnote">※ 青(teal)标清·八旗军,乃本图(清朝征战图录)所追踪之进军主体——多尔衮定鼎中原之役,非褒贬之谓;紫(purple)标吴三桂关宁军,乃两强之间反覆之第三方(初属大顺欲降之藩镇,转为清师前导);朱(red)标大顺李自成,即本役所败之军。</p>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 借虏平寇 · 待疲侧击 · 清师入关</h3>
+    <div class="lead">何以大顺之亡,系于一关一日之间 —— 三方相角,坐收其敝者胜</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:大顺军与吴三桂关宁军于石河一片石鏖战竟日、两军俱疲;清多尔衮按兵坐观,俟其力竭,乘大风扬尘令八旗自吴军右翼横击大顺侧背,大顺猝败西溃,清师遂入关。故山海关之胜,系于借虏平寇、待疲侧击之机">
+      <text x="24" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">三方相角 · 坐观待疲 · 侧击破敌</text>
+      <!-- 大顺 block -->
+      <rect x="34" y="96" width="150" height="58" rx="3" fill="none" stroke="#9a2b1e" stroke-width="2"/>
+      <text x="109" y="120" fill="#9a2b1e" font-size="12.5" font-weight="700" text-anchor="middle">大顺·李自成</text>
+      <text x="109" y="140" fill="#5c4f38" font-size="10" text-anchor="middle">号二十万·东征</text>
+      <!-- 吴三桂 block -->
+      <rect x="352" y="98" width="150" height="54" rx="3" fill="none" stroke="#5c4a6e" stroke-width="2"/>
+      <text x="427" y="120" fill="#5c4a6e" font-size="12.5" font-weight="700" text-anchor="middle">吴三桂·关宁军</text>
+      <text x="427" y="139" fill="#5c4f38" font-size="10" text-anchor="middle">五万·据关拒守</text>
+      <!-- 鏖战:双向箭头 -->
+      <path d="M 190,116 L 344,116" fill="none" stroke="#9a2b1e" stroke-width="2.4"/>
+      <path d="M 344,116 L 190,116" fill="none" stroke="#5c4a6e" stroke-width="2.4" stroke-dasharray="6 5"/>
+      <path d="M 196,116 L 208,110 L 208,122 Z" fill="#9a2b1e"/>
+      <path d="M 338,116 L 326,110 L 326,122 Z" fill="#5c4a6e"/>
+      <text x="267" y="104" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">石河·一片石</text>
+      <text x="267" y="140" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">鏖战竟日 · 俱疲</text>
+      <!-- 清 block -->
+      <rect x="628" y="26" width="204" height="50" rx="3" fill="none" stroke="#1f4e54" stroke-width="2"/>
+      <text x="730" y="48" fill="#1f4e54" font-size="12.5" font-weight="700" text-anchor="middle">清·多尔衮·八旗</text>
+      <text x="730" y="66" fill="#5c4f38" font-size="10" text-anchor="middle">按兵坐观 · 蓄锐待疲</text>
+      <!-- 大风尘 + 八旗侧击 -->
+      <path class="dustfill" d="M 640,86 C 560,110 430,150 300,176 C 420,142 552,104 636,80 Z"/>
+      <path d="M 636,84 C 520,120 400,156 236,178" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 250,175 L 232,178 L 244,166 Z" fill="#1f4e54"/>
+      <path d="M 620,96 C 520,128 410,160 300,180" fill="none" stroke="#b8a066" stroke-width="2" opacity=".7" stroke-linecap="round"/>
+      <text x="470" y="126" fill="#1f4e54" font-size="11" font-weight="700" transform="rotate(-13 470 126)">乘风尘 · 自吴军右翼横击侧背 ↙</text>
+      <!-- 大顺溃 -->
+      <path d="M 108,158 C 90,178 70,190 40,196" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="4 5"/>
+      <path d="M 48,193 L 34,197 L 44,186 Z" fill="#7a5a23"/>
+      <text x="60" y="216" fill="#7a5a23" font-size="10.5" font-weight="700">猝败 · 一败涂地 · 西撤</text>
+      <text x="628" y="150" fill="#9a2b1e" font-size="12" font-weight="700">大顺猝溃</text>
+      <text x="628" y="168" fill="#5c4f38" font-size="10">见剃发者知清至,阵乱</text>
+      <text x="628" y="196" fill="#1f4e54" font-size="11" font-weight="700">→ 清师入关 · 定鼎</text>
+    </svg>
+    <p class="intro">山海关之役,非两军之战,乃<b>三方相角</b>之局。李自成挟破京之势东征,吴三桂以孤军据关拒之,两军<b>鏖战于石河、一片石竟日,力竭俱疲</b>;而清多尔衮之八旗生力,自始<b>按兵不动、登高坐观</b>,不与大顺争锋。待其两败俱伤、胜负未分之顷,忽大风扬尘、飞沙蔽天,八旗铁骑乘之自吴军右翼骤出,横击大顺之侧背——以全力之锐,击力竭之疲,其势遂不可当。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>多尔衮 · 待疲侧击</h4>
+        <p>多尔衮得吴三桂乞师之书,昼夜疾趋而不轻进;及抵关外欢喜岭,又按兵坐观,俟大顺与关宁军血战终日、俱疲。乃令吴三桂先与顺军接战,而八旗蓄锐以待。俟风尘骤起、大顺不备,方纵铁骑自侧翼突出——不与敌争其锐,专乘其敝。此所谓「坐山观虎斗」、以逸击劳者也。</p>
+      </div>
+      <div class="c b">
+        <h4>吴三桂 · 借虏平寇</h4>
+        <p>吴三桂本大顺欲招之藩镇,初已就道欲降;以家难(父吴襄被拷掠、爱妾陈圆圆被掳,传说)激而反,据山海关拒顺,遣使乞师于清,倡「借虏平寇」。开关迎八旗入,身当顺军之锋以为清前导——一关之启闭、一人之向背,遂为鼎革之枢:清师由此得不血刃而入中原。</p>
+      </div>
+    </div>
+    <p class="kicker">故大顺之亡,<b>非战之罪,乃两疲而一逸乘之</b>:李自成非不能胜吴三桂,然血战一日、军已力竭,而多尔衮以全师生力乘风尘侧击,遂一败涂地、死者数万。吴三桂借虏而平寇,寇未平而虏入关;<b>李自成弃京西撤,清师五月入北京,定鼎中原</b>——此清朝入主之始,所谓<b>借虏平寇·待疲侧击·清师入关</b>者也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·世祖本纪》《清史稿·多尔衮传》《明史·流贼传》约略绘出。山海关在今河北秦皇岛,长城入海之枢;一片石在关北,石河在关西。城邑水道为相对示意,非实测之界。</p>
-    <p><span class="n">注二</span>晕染疆界为甲申形势示意:大顺据关内(西,方入北京),清自关外(东北)驰来,吴三桂关宁军据山海关介于其间。长城·山海关为险,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>吴三桂本欲降顺,以家属被拘、爱妾陈圆圆为顺军所掠,遂「冲冠一怒」转而拒顺,乞师于清。多尔衮按兵观战,俟吴顺鏖战力竭,乘大风扬尘骤出横击——胜负之机,系于一时。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x=40+(经度−118.5)·520,y=560−(纬度−39.6)·660</b>(纬向系数略大以近实,校正高纬经纬比)。几何力求近实:山海关(约119.75E/40.01N)居右,长城入海之枢;石河(约119.66E/40.0N)在关西,大顺列阵处;一片石·九门口(约119.87E/40.11N)在关东北长城关口;欢喜岭·威远堡(多尔衮观战)在关外东;永平·卢龙(约118.88E/39.87N)在西,李自成来向兼败退所经;渤海在南。北京(约116.4E/39.9N,大顺都)远在西、出图外,以左缘箭头示之;辽西·宁远(约120.7E/40.6N,清军前驻,今辽宁兴城)远在东北、出图外,以右上缘箭头示之。长城、石河、渤海及疆界皆经简化。依《清史稿·世祖本纪/多尔衮传/吴三桂传》《明史·流贼传》《明季北略》约略绘出。</p>
+    <p><span class="n">注二</span>图例以青(teal)标清·八旗军,乃本图(清朝征战图录)所追踪之进军主体——多尔衮定鼎中原之役,非褒贬、非以流贼王师而易色;紫(purple)标吴三桂关宁军,为两强间反覆之第三方(初为大顺欲招之藩镇、几欲降顺,转而据关乞师、为清前导);朱(red)标大顺李自成,即本役所败之军。晕染「约界」示大顺据关内(西,由北京东出)、清据关外(东北,辽西)、吴三桂关宁军据山海关介乎其间之大势,以长城为界,非实有画界。</p>
+    <p><span class="n">注三</span>时序与兵力(顺治元年·崇祯十七年四月):李自成三月十九陷北京、崇祯自缢,招降山海关总兵吴三桂;吴初欲降顺,以家难而反,据关乞师于清。李自成亲率大军(号二十万,实约十万上下)东出,经永平至关下,列阵石河之西,别遣降将唐通率众出一片石(九门口)绕关外夹击。四月二十一至二十二日,大顺与吴三桂关宁军(约五万)激战于石河、一片石、罗城间,吴军渐不支。二十二日,吴三桂出关赴清营剃发称臣;多尔衮率八旗(满蒙汉八旗约七八万)按兵坐观,俟两军力竭,乘大风扬尘,令铁骑自吴军右翼突出、横击大顺侧背。大顺军猝见剃发之清兵,知清师已至,阵脚大乱,一败涂地,死者数万。李自成败退永平、北京,四月二十九匆匆称帝,次日弃京西撤(经山西回西安);清军遂入关,五月入北京,定鼎中原。</p>
+    <p><span class="n">注四</span>异说与考订:决战之日,诸书或系四月二十一、或二十二、或二十三,今从「二十二日决战、二十一日先接战」之说,并志其异(西历约当五月二十七日)。兵数亦颇有出入:大顺「号二十万」当为夸饰,实数约十万;清八旗或云七八万、或云十余万;关宁军约五万,今皆存约数。吴三桂之反,旧传「冲冠一怒为红颜」(陈圆圆被掳),然其父吴襄被拷、家难交迫,及畏顺猜忌之势,皆为其转向之由,红颜一说姑存之。「借虏平寇」本吴三桂乞师之辞,谓借清兵以平大顺,而清师入关遂不复出——鼎革之局系于此。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"吴三桂乞师",d:"顺治元年·崇祯十七年 四月",p:["李自成破北京,崇祯帝自缢煤山,明亡。明宁远总兵吴三桂据山海关,本欲降顺,以家属被拘、爱妾陈圆圆为顺军所掠,遂「冲冠一怒」,转而拒顺,以「借虏平寇」乞师于清睿亲王多尔衮。","李自成闻吴叛,亲率大军东征讨之;多尔衮闻讯,昼夜兼程驰赴山海关。一时顺军自西、清军自东北,并趋关下,鼎革之局系于此关。"]},
-  "1":{t:"顺军东征·吴清相约",d:"顺治元年 四月",p:["李自成东出北京,率大军逼近山海关,营垒渐次逼关。吴三桂知势孤难支,拒顺而急乞师于清。","多尔衮得吴书,自宁远方向昼夜兼程驰赴关下。吴三桂开关迎清军入,清、吴合为一军,顺军犹未尽知清师已至。"]},
-  "2":{t:"石河鏖战·吴顺力竭",d:"顺治元年 四月",p:["李自成军列阵于关西石河一带,与吴三桂关宁军鏖战竟日。吴军奋战,而众寡不敌,渐次不支。","多尔衮按兵不动,登高观战,俟两军力竭、胜负未分之际,乃蓄锐以待——不轻用其八旗生力之师。"]},
-  "3":{t:"一片石·骤出破顺",d:"顺治元年 四月",p:["俟吴顺两军力竭,忽大风扬尘,昏晦乱起。多尔衮乘势令八旗铁骑自吴军右翼骤出,横击顺军侧翼。","顺军猝遇生力劲旅,不意清军已入,阵势大乱,遂全线崩溃。李自成败走,一片石之战顺军死伤惨重,西遁北京,旋弃京西撤。清军长驱入关,定鼎北京,清有天下,明清鼎革自此成。"]}
+  all:{t:"借虏平寇 · 一关定鼎",d:"顺治元年·崇祯十七年 四月",p:["李自成三月陷北京、明亡,招降山海关总兵吴三桂;吴初欲降顺,以家难而反,据关拒顺,乞师于清睿亲王多尔衮,倡「借虏平寇」。李自成闻之,亲率大军(号二十万)东征讨吴;多尔衮率八旗昼夜驰赴。一时大顺自西、清自东北、吴三桂据关介乎其间,三方并趋关下。","大顺与关宁军鏖战于石河、一片石竟日俱疲;多尔衮坐观待疲,乘大风扬尘令八旗自吴军右翼横击大顺侧背。大顺猝败,死者数万,李自成弃京西撤,清师遂入关、定鼎中原——鼎革之局,系于此一关一日。"]},
+  "1":{t:"① 陷京招降 · 吴桂乞师",d:"顺治元年 四月上旬",p:["李自成三月十九陷北京,崇祯自缢煤山,明亡。大顺招降山海关总兵吴三桂,挟明太子及其父吴襄以招之;吴三桂初已就道欲降顺。","及闻家难(父被拷掠、爱妾陈圆圆被掳,传说)交迫,吴三桂冲冠而反,还据山海关拒顺,遣使乞师于清,倡「借虏平寇」之说。多尔衮得书大喜,许之,即率八旗昼夜疾趋——一藩镇之向背,遂为天下之枢。"]},
+  "2":{t:"② 大顺东征 · 围攻山海",d:"顺治元年 四月中旬",p:["李自成亲率大军东出北京,经永平至山海关下,列阵于关西石河之西;别遣降将唐通率众出一片石(九门口),绕出关外,欲与主力夹击吴三桂。","吴三桂知势孤,开关拒守、迎清军入,身当顺军之锋。多尔衮率八旗进抵关外欢喜岭、威远堡一带,按兵未即战。三方之兵毕集于关,大战一触即发。"]},
+  "3":{t:"③ 石河一片石 · 两军俱疲",d:"顺治元年 四月二十一至二十二日",p:["大顺军猛攻山海关罗城,与吴三桂关宁军激战于石河、一片石之间,竟日鏖战。吴军奋力拒守,而众寡不敌、渐次不支;唐通别军亦与之角于关外。","多尔衮登欢喜岭高处坐观,按兵不动、蓄锐以待——不轻用其八旗生力,俟大顺与吴军血战力竭、胜负未分之顷。二十二日,吴三桂出关赴清营剃发称臣,清、吴合为一军。"]},
+  "4":{t:"④ 乘风尘侧击 · 大顺猝败",d:"顺治元年 四月二十二日",p:["俟两军力竭,忽大风骤起、飞沙蔽天,昏晦不辨。多尔衮乘势令八旗铁骑自吴三桂右翼突出,横击大顺军之侧背——以全师生力,击力竭之疲卒。","大顺军猝见剃发之清兵,知清师已至,阵脚大乱,一败涂地,死者数万。李自成于高处督战,见大势已去,愤然领兵西退,败走永平、北京,旋弃京西撤。清军长驱入关,五月入北京,定鼎中原,清有天下、明清鼎革自此成。"]}
 };
 const CITY={
-  beijing:{t:"北京",d:"大顺据,今北京",p:["李自成破之,崇祯自缢,明亡。顺军东征所自出;一片石败后,李自成西遁于此,旋弃京西撤。"]},
-  yongping:{t:"永平·滦州",d:"今河北卢龙、滦州一带",p:["顺军东征进兵、败后西退所经之地。关内通京畿之要道。"]},
-  shihe:{t:"石河西",d:"山海关西,石河一带",p:["吴三桂关宁军与顺军鏖战竟日之地。吴军渐不支,清军按兵观战于此。"]},
-  shanhaiguan:{t:"山海关",d:"今河北秦皇岛,长城入海之枢",p:["吴三桂据守,清军入关之门户。吴开关迎多尔衮入,清、吴合军破顺。"]},
-  yipianshi:{t:"一片石",d:"山海关北",p:["清八旗乘大风扬尘骤出破顺处。顺军猝遇生力,阵势大乱,死伤惨重而溃。"]},
-  ningyuan:{t:"宁远",d:"今辽宁兴城",p:["清军入关前驻地。多尔衮自此昼夜兼程驰赴山海关应吴之请。"]}
+  yongping:{t:"永平 · 卢龙",d:"今河北卢龙(约118.88E/39.87N)",p:["关内通京畿之要道。李自成东征进兵所经,一片石败后又西退于此;寻弃京西撤,亦道出永平以西。"]},
+  shihe:{t:"石河西(顺军阵)",d:"山海关西,今秦皇岛燕塞湖一带(约119.66E/40.0N)",p:["李自成率大顺主力列阵之地,与吴三桂关宁军鏖战竟日。八旗乘风尘自侧翼突出、横击大顺侧背,即此处大溃。"]},
+  shanhaiguan:{t:"山海关(天下第一关)",d:"今河北秦皇岛,长城入海之枢(约119.75E/40.01N)",p:["吴三桂据守之雄关,清军入关之门户。吴拒顺、开关迎多尔衮入,清、吴合军以破大顺;既下,清师遂由此定鼎中原。"]},
+  yipianshi:{t:"一片石 · 九门口",d:"山海关东北长城关口(约119.87E/40.11N)",p:["长城越燕山之隘。李自成遣唐通出此绕关外夹击吴三桂,亦八旗与大顺鏖战、乘风尘破顺之处,故是役亦称「一片石之战」。"]},
+  huanxiling:{t:"欢喜岭 · 威远堡",d:"山海关关外之东,清军观战处",p:["多尔衮率八旗进驻、登高坐观之地。吴三桂出关赴此清营剃发称臣;八旗即自此乘风尘突出,横击大顺侧背。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

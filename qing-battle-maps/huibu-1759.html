@@ -30,7 +30,10 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  .desert{fill:rgba(180,150,95,.14);stroke:none}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -41,13 +44,13 @@
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--enemy);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.7;stroke-dasharray:2 5;opacity:.92}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -56,9 +59,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--ret)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--ret)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +86,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>平</span><span>定</span><span>回</span><span>疆</span></div>
   <header>
     <h1>清平回部大小和卓之战</h1>
-    <div class="sub">清乾隆二十三至二十四年(1758–1759)　　<i>清 兆惠</i> 黑水苦守·追歼和卓 · <b>回部 大小和卓</b>西奔巴达克山被杀</div>
+    <div class="sub">清乾隆二十三至二十四年(1758–1759)　　<i>清 定边将军 兆惠 · 富德</i> 孤军黑水营死守百余日 · 内外夹攻解围 · 穷追定回疆　·　<b>回部 大小和卓</b> 西奔巴达克山被擒献首</div>
   </header>
   <div class="tabs" role="tablist">
     <button class="on" data-p="all">全图 · 大小和卓叛</button>
-    <button data-p="1">深入围叶尔羌·陷黑水营</button>
-    <button data-p="2">掘壕苦守·三月待援</button>
-    <button data-p="3">追歼和卓·回疆遂平</button>
+    <button data-p="1">据回疆反 · 兆惠南下破库车阿克苏</button>
+    <button data-p="2">孤军进逼叶尔羌 · 黑水营被围死守</button>
+    <button data-p="3">富德驰援 · 呼尔璊大战 · 内外夹攻解围</button>
+    <button data-p="4">分道穷追 · 大小和卓西逃 · 巴达克山献首</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="清平回部大小和卓之战形势图,含清与回部疆界、天山葱岭塔克拉玛干沙漠、叶尔羌喀什噶尔黑水营等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="清平回部大小和卓之战形势图,横跨天山南路塔里木盆地南缘:叶尔羌居中、黑水营在其城外叶尔羌河(黑水)畔、呼尔璊在叶尔羌东北、喀什噶尔在西北、和阗在东南、阿克苏乌什库车在北缘、葱岭帕米尔在西、巴达克山远在图外西;示大小和卓据回疆反、兆惠南下破库车阿克苏进逼叶尔羌、以四千孤军深入陷黑水营被围死守百余日、富德驰援呼尔璊大战内外夹攻解围、清军分道穷追下喀什噶尔和阗、大小和卓越葱岭西奔巴达克山被擒献首、回疆遂定">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,91 +109,162 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:回部据天山南路塔里木(西南),清自伊犁北来(东北),约以天山葱岭为界 -->
-    <path d="M 1000,120 C 880,150 760,200 640,270 C 520,340 400,420 300,520 C 240,580 200,610 160,640 L 0,640 L 0,0 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path d="M 1000,120 C 880,150 760,200 640,270 C 520,340 400,420 300,520 C 240,580 200,610 160,640 L 1000,640 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 1000,120 C 880,150 760,200 640,270 C 520,340 400,420 300,520 C 240,580 200,610 160,640"/>
-    <text class="realm q" x="440" y="560" font-size="30">回 部(天山南路·塔里木)</text>
-    <text class="realm j" x="560" y="90" font-size="30">清(北·自伊犁来)</text>
+    <!-- ══ 疆界:回部据天山南路塔里木盆地(南),清自伊犁越天山南下、据阿克苏诸城为基(北);约以天山南缘为进讨之界(示意) ══ -->
+    <path d="M 0,235 C 150,240 320,215 460,190 C 620,162 820,140 1000,120 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,235 C 150,240 320,215 460,190 C 620,162 820,140 1000,120 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,235 C 150,240 320,215 460,190 C 620,162 820,140 1000,120"/>
+    <text class="realm j" x="742" y="72" font-size="26">清 · 自伊犁来</text>
+    <text class="cname s" x="748" y="96" style="fill:var(--advance);opacity:.55">越天山南下 · 据阿克苏为进讨之基</text>
+    <text class="realm q" x="120" y="592" font-size="28">回 部 · 天 山 南 路</text>
+    <text class="cname s" x="126" y="612" style="fill:var(--enemy);opacity:.55">塔里木诸绿洲城邑 · 大小和卓据之而叛</text>
 
-    <!-- 天山·葱岭 -->
-    <g class="mtn"><path d="M 660,250 l 9,-15 l 9,15 M 678,244 l 9,-15 l 9,15 M 696,250 l 8,-14 l 8,14 M 786,208 l 9,-15 l 9,15 M 804,202 l 9,-15 l 9,15"/></g>
-    <text class="cname s" x="700" y="234">天　山</text>
-    <g class="mtn"><path d="M 150,430 l 8,-14 l 8,14 M 166,424 l 8,-14 l 8,14 M 182,430 l 7,-13 l 7,13"/></g>
-    <text class="cname s" x="120" y="452">葱　岭</text>
+    <!-- ══ 天山:北缘横亘,分回部于南 ══ -->
+    <path class="mtn fill" d="M 296,108 L 340,72 L 372,100 L 420,66 L 468,100 L 520,70 L 576,102 L 636,72 L 700,104 L 764,74 L 828,104 L 892,78 Z"/>
+    <path class="mtn" d="M 330,96 l 16,-20 l 14,14 l 20,-24 l 16,18 l 20,-22 M 636,92 l 18,-20 l 16,16 l 20,-22 l 16,18"/>
+    <text class="mname" x="530" y="66">天　山</text>
 
-    <!-- 塔克拉玛干沙漠 -->
-    <text class="realm q" x="600" y="440" font-size="18" style="letter-spacing:.2em">塔克拉玛干沙漠</text>
-    <g class="mtn" style="opacity:.4"><path d="M 560,470 q 14,-10 28,0 M 596,470 q 14,-10 28,0 M 632,470 q 14,-10 28,0 M 578,486 q 14,-10 28,0 M 614,486 q 14,-10 28,0"/></g>
+    <!-- ══ 葱岭·帕米尔:西缘,大小和卓西逃越此 ══ -->
+    <path class="mtn fill" d="M 26,346 L 44,308 L 62,338 L 82,300 L 102,340 L 120,312 L 132,350 L 108,432 L 40,438 Z"/>
+    <path class="mtn" d="M 40,352 l 16,-30 l 14,20 l 18,-30 l 15,24 M 44,392 l 14,-22 l 12,16 l 16,-22"/>
+    <text class="mname" x="30" y="470" transform="rotate(-70 30 470)">葱 岭 · 帕 米 尔</text>
 
-    <!-- 叶尔羌河(黑水河):自葱岭东流经叶尔羌 -->
-    <path class="river" stroke-width="4.5" d="M 200,470 C 280,460 350,450 410,452 C 470,454 520,470 560,500"/>
-    <!-- 喀什噶尔河:自西北来 -->
-    <path class="river" stroke-width="3" d="M 210,360 C 280,378 340,400 390,430 C 420,448 440,466 456,488"/>
-    <text class="rname" x="290" y="446" style="font-size:11.5px">叶尔羌河(黑水)</text>
-    <text class="rname" x="240" y="380" transform="rotate(20 240 380)" style="font-size:10.5px">喀什噶尔河</text>
+    <!-- ══ 塔克拉玛干沙漠:盆地腹心 ══ -->
+    <path class="desert" d="M 430,300 C 560,280 720,290 820,340 C 860,400 800,470 660,500 C 540,522 460,500 420,450 C 400,400 400,340 430,300 Z"/>
+    <text class="realm q" x="560" y="410" font-size="16" style="letter-spacing:.2em">塔克拉玛干沙漠</text>
+    <g class="mtn" style="opacity:.35"><path d="M 560,442 q 14,-9 28,0 M 596,442 q 14,-9 28,0 M 632,442 q 14,-9 28,0 M 578,458 q 14,-9 28,0 M 614,458 q 14,-9 28,0 M 668,442 q 14,-9 28,0"/></g>
 
-    <!-- 南疆绿洲 -->
-    <text class="cname s" x="500" y="360" style="opacity:.7">南疆绿洲</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 叶尔羌河(黑水·喀喇乌苏):自葱岭东北流经叶尔羌、黑水营 -->
+    <path class="river" stroke-width="4.5" d="M 40,470 C 130,455 210,440 275,428 C 340,416 400,390 470,352 C 540,314 620,300 700,300"/>
+    <!-- 喀什噶尔河:自喀什噶尔东南流 -->
+    <path class="river" stroke-width="2.8" d="M 150,300 C 220,330 300,360 380,392 C 430,412 470,428 502,446"/>
+    <!-- 和阗河:自和阗北注沙漠 -->
+    <path class="river" stroke-width="2.4" d="M 452,522 C 472,478 500,442 540,412"/>
+    <text class="rname" x="120" y="452" transform="rotate(-9 120 452)" style="font-size:11.5px">叶尔羌河 · 黑水(喀喇乌苏)</text>
+    <text class="rname" x="248" y="352" transform="rotate(22 248 352)" style="font-size:10px">喀什噶尔河</text>
+    <text class="rname" x="504" y="470" transform="rotate(-58 504 470)" style="font-size:9.5px">和阗河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 城邑(西北→东南) ══ -->
     <g id="cities">
-      <g class="city" data-city="aksu"><circle cx="720" cy="330" r="5"/><text class="cname" x="732" y="326">阿克苏<tspan class="cname s" dx="2">(清进兵基)</tspan></text></g>
-      <g class="city cap" data-city="yarkand"><circle cx="410" cy="452" r="6"/><text class="cname" x="330" y="448">叶尔羌·莎车</text></g>
-      <g class="city" data-city="heishui"><circle cx="452" cy="486" r="5"/><text class="cname" x="462" y="504">黑水营</text></g>
-      <g class="city" data-city="kashgar"><circle cx="250" cy="404" r="5"/><text class="cname" x="180" y="400">喀什噶尔</text></g>
-      <g class="city" data-city="hesikuluke"><circle cx="230" cy="540" r="4"/><text class="cname s" x="150" y="536">霍斯库鲁克·阿尔楚尔</text></g>
-      <g class="city" data-city="badakshan"><circle cx="110" cy="500" r="4.5"/><text class="cname" x="70" y="490">巴达克山</text></g>
+      <g class="city" data-city="kucha"><circle cx="671" cy="113" r="5"/><text class="cname" x="681" y="109">库车<tspan class="cname s" dx="2">(兆惠先下)</tspan></text></g>
+      <g class="city" data-city="aksu"><circle cx="479" cy="163" r="5.5"/><text class="cname" x="489" y="159">阿克苏<tspan class="cname s" dx="2">(清基·富德驻)</tspan></text></g>
+      <g class="city" data-city="ush"><circle cx="406" cy="158" r="4"/><text class="cname s" x="380" y="146">乌什</text></g>
+      <g class="city" data-city="kashgar"><circle cx="176" cy="316" r="5.5"/><text class="cname" x="186" y="312">喀什噶尔<tspan class="cname s" dx="2">(大和卓据)</tspan></text></g>
+      <g class="city" data-city="hurman"><circle cx="333" cy="367" r="4.5"/><text class="cname" x="343" y="363">呼尔璊<tspan class="cname s" dx="2">(富德解围战)</tspan></text></g>
+      <g class="city cap" data-city="yarkand"><circle cx="265" cy="411" r="6.5"/><text class="cname" x="182" y="407">叶尔羌·莎车</text></g>
+      <g class="city" data-city="heishui"><circle cx="280" cy="426" r="5"/><text class="cname" x="290" y="446">黑水营</text></g>
+      <g class="city" data-city="khotan"><circle cx="455" cy="528" r="5"/><text class="cname" x="465" y="524">和阗<tspan class="cname s" dx="2">(和田)</tspan></text></g>
     </g>
 
-    <!-- 全图 · 大小和卓叛 -->
+    <!-- 伊犁·天山北(图外北):清师来向 -->
+    <g transform="translate(150,26)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,-8 L 0,20" opacity=".85"/>
+      <text class="mlabel j" x="8" y="-2" style="font-size:10px">伊犁 · 天山北 ↑(图外)</text>
+      <text class="cname s" x="8" y="12" style="fill:var(--advance);font-size:9px">清灭准噶尔 · 兆惠自伊犁南下</text>
+    </g>
+
+    <!-- 巴达克山(图外西):大小和卓西奔·被擒献首 -->
+    <g transform="translate(8,486)">
+      <path class="march rout" marker-end="url(#ar)" d="M 40,6 C 24,10 14,12 -2,14"/>
+      <text class="mlabel r" x="4" y="-4" style="font-size:10px">⟵ 巴达克山(帕米尔以西 · 图外)</text>
+      <text class="cname s" x="4" y="30" style="fill:var(--ret);font-size:9px">素勒坦沙擒杀大小和卓 · 献首于清</text>
+    </g>
+
+    <!-- ══════════ 全图 · 大小和卓叛 ══════════ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 720,340 C 620,380 520,410 468,448"/>
-      <text class="mlabel j" x="560" y="376">兆惠奉命自伊犁南下讨叛</text>
-      <text class="anno" x="600" y="356">定边将军兆惠率师往南疆</text>
-      <text class="mlabel q" x="270" y="430">波罗尼都(大和卓)据喀什噶尔</text>
-      <text class="mlabel q" x="330" y="472">霍集占(小和卓)据叶尔羌,反叛</text>
-      <text class="anno" x="340" y="490">清释二和卓归南疆,反据诸城叛清</text>
+      <path class="march j" marker-end="url(#aj)" d="M 150,44 C 260,80 420,120 500,152" opacity=".9"/>
+      <path class="march j" marker-end="url(#aj)" d="M 486,172 C 420,240 350,330 296,398"/>
+      <text class="mlabel j" x="512" y="210">兆惠自伊犁南下,破库车·阿克苏,进逼叶尔羌</text>
+      <text class="mlabel q" x="186" y="336">大小和卓据回疆 · 杀清使 · 号召诸城拒清</text>
+      <circle class="siege" cx="280" cy="426" r="34"/>
+      <circle class="star" cx="280" cy="426" r="10"/>
+      <text class="mlabel j" x="150" y="500">兆惠孤军陷黑水营 · 被围死守百余日</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,178 C 420,258 372,326 342,360"/>
+      <text class="mlabel j" x="360" y="300">富德驰援 · 呼尔璊大战 · 内外夹攻解围</text>
+      <circle class="star" cx="333" cy="367" r="8"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 250,420 C 175,438 100,454 42,466"/>
+      <text class="mlabel r" x="90" y="490">大小和卓越葱岭西奔巴达克山</text>
     </g>
 
-    <!-- 阶段一:深入围叶尔羌·陷黑水营 -->
+    <!-- ══════════ 阶段一:据回疆反 · 兆惠南下破库车阿克苏 ══════════ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 700,338 C 600,378 500,406 424,446"/>
-      <text class="mlabel j" x="540" y="392">兆惠轻骑深入,进围叶尔羌</text>
-      <rect class="camp" x="418" y="440" width="9" height="9" transform="rotate(45 422 444)"/>
-      <path class="march j" marker-end="url(#aj)" d="M 410,460 C 424,470 440,478 448,482"/>
-      <text class="anno" x="360" y="428">霍集占坚壁清野,以骑断其后</text>
-      <text class="mlabel j" x="360" y="524">渡叶尔羌河(黑水)桥断</text>
-      <circle class="siege" cx="452" cy="486" r="20"/>
-      <text class="mlabel q" x="470" y="524">陷回部重围于黑水营,众寡悬绝</text>
+      <path class="march j" marker-end="url(#aj)" d="M 150,44 C 300,78 500,104 655,116"/>
+      <text class="mlabel j" x="300" y="88">兆惠奉命自伊犁率师南下讨叛</text>
+      <path class="march j" marker-end="url(#aj)" d="M 660,122 C 580,140 520,150 424,160"/>
+      <circle class="star" cx="671" cy="113" r="8"/>
+      <circle class="star" cx="479" cy="163" r="8"/>
+      <text class="mlabel j" x="410" y="196">连下库车·阿克苏·乌什,进逼叶尔羌</text>
+      <text class="anno" x="410" y="214">富德分驻阿克苏为第二梯队,供馈军实</text>
+      <rect class="camp" x="261" y="407" width="9" height="9" transform="rotate(45 265 411)"/>
+      <text class="mlabel q" x="150" y="386">小和卓霍集占据叶尔羌</text>
+      <rect class="camp" x="172" y="312" width="9" height="9" transform="rotate(45 176 316)"/>
+      <text class="mlabel q" x="186" y="296">大和卓波罗尼都据喀什噶尔</text>
+      <text class="anno" x="150" y="470">二和卓杀清使阿敏道以叛,合回部诸城拒命</text>
     </g>
 
-    <!-- 阶段二:掘壕苦守·三月待援 -->
+    <!-- ══════════ 阶段二:孤军进逼叶尔羌 · 黑水营被围死守 ══════════ -->
     <g id="ph2" class="ph">
-      <circle class="siege" cx="452" cy="486" r="20"/>
-      <circle class="star" cx="452" cy="486" r="9"/>
-      <rect class="camp" x="484" y="466" width="8" height="8" transform="rotate(45 488 470)"/>
-      <rect class="camp" x="420" y="508" width="8" height="8" transform="rotate(45 424 512)"/>
-      <text class="mlabel j" x="360" y="540">兆惠掘壕筑垒,据守待援凡三月</text>
-      <text class="anno" x="380" y="556">粮尽马乏,掘鼠罗雀以食,昼夜苦战</text>
-      <path class="march j" marker-end="url(#aj)" d="M 720,340 C 630,390 540,440 480,478"/>
-      <text class="mlabel j" x="600" y="418">富德率援军至,内外夹击解围</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,178 C 400,250 340,336 292,406"/>
+      <text class="mlabel j" x="486" y="238">兆惠以四千轻骑孤军深入,进逼叶尔羌</text>
+      <text class="anno" x="486" y="256">霍集占坚壁清野,不出野战,以骑抄断其后</text>
+      <!-- 渡黑水桥断,陷重围 -->
+      <path class="march j" marker-end="url(#aj)" d="M 265,414 C 272,420 278,423 284,424" opacity=".85"/>
+      <text class="mlabel j" x="150" y="556">渡黑水(喀喇乌苏)夺桥,过四百人而桥断</text>
+      <!-- 大小和卓合众数万反围之 -->
+      <path class="march q" marker-end="url(#aq)" d="M 258,404 C 268,410 274,414 278,418"/>
+      <path class="march q" marker-end="url(#aq)" d="M 318,398 C 305,408 296,414 290,418"/>
+      <path class="march q" marker-end="url(#aq)" d="M 258,464 C 268,452 275,442 280,434"/>
+      <rect class="camp" x="242" y="396" width="8" height="8" transform="rotate(45 246 400)"/>
+      <rect class="camp" x="314" y="404" width="8" height="8" transform="rotate(45 318 408)"/>
+      <rect class="camp" x="246" y="452" width="8" height="8" transform="rotate(45 250 456)"/>
+      <rect class="camp" x="312" y="450" width="8" height="8" transform="rotate(45 316 454)"/>
+      <circle class="siege" cx="280" cy="426" r="30"/>
+      <circle class="star" cx="280" cy="426" r="9"/>
+      <text class="mlabel q" x="150" y="360">大小和卓合众数万,掘壕断水草,反围黑水营</text>
+      <text class="mlabel j" x="330" y="486">结营死守 · 掘井杀马 · 拒守百余日不溃</text>
+      <text class="anno" x="330" y="504">外无援兵、内乏粮秣,昼夜苦战而营垒屹然</text>
     </g>
 
-    <!-- 阶段三:追歼和卓·回疆遂平 -->
+    <!-- ══════════ 阶段三:富德驰援 · 呼尔璊大战 · 内外夹攻解围 ══════════ -->
     <g id="ph3" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 440,490 C 360,510 300,524 244,536"/>
-      <text class="mlabel j" x="280" y="512">清军合兵大举追击</text>
-      <circle class="star" cx="230" cy="540" r="9"/>
-      <text class="anno" x="150" y="562">战霍斯库鲁克·阿尔楚尔,大破回众</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 218,540 C 180,528 150,514 122,506"/>
-      <text class="mlabel r" x="130" y="480">大小和卓西奔巴达克山</text>
-      <path d="M 110,500 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="anno" x="70" y="524">其酋素勒坦沙执二和卓杀之,献首</text>
-      <text class="mlabel j" x="400" y="600">天山南路悉平·合南北为新疆</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,178 C 432,252 392,320 350,360"/>
+      <text class="mlabel j" x="456" y="230">富德·舒赫德自阿克苏率援军驰救</text>
+      <!-- 呼尔璊大战 -->
+      <path class="march q" marker-end="url(#aq)" d="M 288,414 C 305,398 320,384 328,374"/>
+      <text class="mlabel q" x="176" y="392">和卓遣众邀截于呼尔璊</text>
+      <circle class="star" cx="333" cy="367" r="12"/>
+      <text class="mlabel j" x="343" y="344">呼尔璊大战五昼夜,破其截援之军</text>
+      <text class="anno" x="343" y="328">阿里衮·爱隆阿横阵驰进,两军会合</text>
+      <!-- 内外夹攻:援军突入 + 兆惠突营 -->
+      <path class="march j" marker-end="url(#aj)" d="M 330,376 C 316,393 302,408 292,418"/>
+      <path class="march j" marker-end="url(#aj)" d="M 280,426 C 296,416 312,406 326,394"/>
+      <circle class="siege" cx="280" cy="426" r="30" style="opacity:.45"/>
+      <circle class="star" cx="280" cy="426" r="9"/>
+      <text class="mlabel j" x="150" y="486">兆惠自营突围,内外夹攻,遂解黑水营之围</text>
+      <text class="anno" x="150" y="504">杀敌千余、尽焚其垒,叛军大败退叶尔羌</text>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
+    <!-- ══════════ 阶段四:分道穷追 · 大小和卓西逃 · 巴达克山献首 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 分道穷追:下喀什噶尔 -->
+      <path class="march j" marker-end="url(#aj)" d="M 258,404 C 226,372 198,344 182,324"/>
+      <circle class="star" cx="176" cy="316" r="9"/>
+      <text class="mlabel j" x="186" y="292">兆惠·富德分道穷追,下喀什噶尔</text>
+      <!-- 下和阗 -->
+      <path class="march j" marker-end="url(#aj)" d="M 288,432 C 340,466 400,498 448,522"/>
+      <circle class="star" cx="455" cy="528" r="9"/>
+      <text class="mlabel j" x="380" y="556">分兵下和阗</text>
+      <!-- 大小和卓西逃越葱岭 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 168,320 C 120,356 78,404 40,452"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 250,414 C 168,430 96,448 42,462"/>
+      <text class="mlabel r" x="70" y="386">大小和卓越葱岭(帕米尔)西奔巴达克山</text>
+      <!-- 终-mark:巴达克山献首 -->
+      <path d="M 34,462 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
+      <text class="anno" x="52" y="514">巴达克山酋素勒坦沙执二和卓杀之,献首于清</text>
+      <text class="realm j" x="470" y="420" font-size="16" style="opacity:.5">天山南路悉平 · 合南北为新疆</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -185,33 +275,95 @@
   <div class="legend">
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(兆惠·富德)</span>
     <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>回部(大小和卓)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>西奔溃走</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>被围</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>回部</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>大小和卓西逃</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·解围</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.7" stroke-dasharray="2 4"/></svg>黑水营被围</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>和卓据城·围垒</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>回部·天山南路</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清·自伊犁来</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 孤军死守 · 穷追定回疆</h3>
+    <div class="lead">何以四千孤军深陷重围而不溃、终平回疆 —— 结营死守以待援,援至夹攻以解围,既解复穷追不舍以绝其根</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:左为黑水营孤军被围——兆惠四千轻骑深入,渡黑水桥断,大小和卓合众数万掘壕断水反围之,兆惠结营死守、掘井杀马、拒守百余日不溃;中为富德自阿克苏驰援,呼尔璊大战五昼夜破其截援之军,兆惠自营突围内外夹攻遂解围;右为既解复分道穷追,下喀什噶尔、和阗,大小和卓西奔巴达克山,素勒坦沙擒杀献首,回疆遂定">
+      <!-- 左:黑水营被围死守 -->
+      <text x="140" y="28" fill="#2b2418" font-size="13" font-weight="700" text-anchor="middle">黑水营 · 孤军死守</text>
+      <!-- 被围之营 -->
+      <circle cx="140" cy="140" r="46" fill="none" stroke="#9a2b1e" stroke-width="1.7" stroke-dasharray="3 5"/>
+      <rect x="120" y="120" width="40" height="40" rx="3" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="2"/>
+      <text x="140" y="136" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">兆惠</text>
+      <text x="140" y="150" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">四千</text>
+      <!-- 四面红箭内压 -->
+      <path d="M 60,90 L 104,120" fill="none" stroke="#9a2b1e" stroke-width="2.2"/><path d="M 96,110 L 108,124 L 92,124 Z" fill="#9a2b1e"/>
+      <path d="M 220,90 L 176,120" fill="none" stroke="#9a2b1e" stroke-width="2.2"/><path d="M 184,110 L 172,124 L 188,124 Z" fill="#9a2b1e"/>
+      <path d="M 60,190 L 104,160" fill="none" stroke="#9a2b1e" stroke-width="2.2"/><path d="M 96,170 L 108,156 L 92,156 Z" fill="#9a2b1e"/>
+      <path d="M 220,190 L 176,160" fill="none" stroke="#9a2b1e" stroke-width="2.2"/><path d="M 184,170 L 172,156 L 188,156 Z" fill="#9a2b1e"/>
+      <text x="140" y="208" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">数万反围 · 掘壕断水</text>
+      <text x="140" y="226" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">掘井杀马 · 死守百余日</text>
+      <!-- 中:驰援夹攻 -->
+      <line x1="252" y1="34" x2="252" y2="220" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+      <text x="378" y="28" fill="#2b2418" font-size="13" font-weight="700" text-anchor="middle">富德驰援 · 内外夹攻</text>
+      <text x="378" y="70" fill="#1f4e54" font-size="10.5" text-anchor="middle">富德自阿克苏驰救</text>
+      <path d="M 300,86 C 340,108 360,128 372,146" fill="none" stroke="#1f4e54" stroke-width="2.8"/><path d="M 364,138 L 376,150 L 360,151 Z" fill="#1f4e54"/>
+      <circle cx="330" cy="118" r="7" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="330" y="106" fill="#9c7a2c" font-size="10" font-weight="700" text-anchor="middle">呼尔璊大战</text>
+      <text x="330" y="94" fill="#9c7a2c" font-size="9.5" text-anchor="middle">五昼夜</text>
+      <!-- 营中突围外应 -->
+      <circle cx="392" cy="160" r="20" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="3 5" opacity=".6"/>
+      <rect x="384" y="152" width="16" height="16" rx="2" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/>
+      <path d="M 400,150 C 412,142 420,136 428,132" fill="none" stroke="#1f4e54" stroke-width="2.4"/><path d="M 420,130 L 430,131 L 424,139 Z" fill="#1f4e54"/>
+      <text x="392" y="200" fill="#1f4e54" font-size="10.5" font-weight="700" text-anchor="middle">兆惠突营 → 内外夹攻</text>
+      <text x="392" y="218" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">遂解黑水营之围</text>
+      <!-- 右:穷追定疆 -->
+      <line x1="510" y1="34" x2="510" y2="220" stroke="#5c4f38" stroke-width="1" stroke-dasharray="2 6" opacity=".5"/>
+      <text x="686" y="28" fill="#2b2418" font-size="13" font-weight="700" text-anchor="middle">穷追 · 定回疆</text>
+      <circle cx="560" cy="150" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/><text x="560" y="174" fill="#2b2418" font-size="10" text-anchor="middle">解围</text>
+      <path d="M 570,146 C 620,130 680,126 730,124" fill="none" stroke="#1f4e54" stroke-width="2.8"/><path d="M 722,118 L 736,124 L 722,130 Z" fill="#1f4e54"/>
+      <circle cx="648" cy="132" r="4.5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.4"/><text x="648" y="118" fill="#2b2418" font-size="9.5" text-anchor="middle">喀什·和阗</text>
+      <circle cx="736" cy="124" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <path d="M 738,130 C 752,158 760,186 762,208" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="3 5"/><path d="M 754,200 L 762,214 L 770,200 Z" fill="#7a5a23"/>
+      <path d="M 762,210 l 4,-9 l 3,7 l 8,-4 l -4,7 l 9,3 l -9,3 l 4,8 l -8,-4 l -3,7 l -4,-9 l -8,4 l 4,-7 l -9,-3 l 9,-3 l -4,-7 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".7"/>
+      <text x="742" y="238" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="end">越葱岭西奔 · 巴达克山献首</text>
+    </svg>
+    <p class="intro">南路之役,回疆地广城坚、绿洲相望而道里悬远,清师深入则粮运艰难。兆惠以<b>四千轻骑孤军</b>直趋叶尔羌,渡黑水桥断,遂为大小和卓<b>合众数万</b>掘壕断水而反围于黑水营——众寡悬绝、外无援、内乏食,形势岌岌。然此役之全,不在攻,而在<b>守而不溃、援而能夹、解而能追</b>三事相承:先以死守之坚待援,次以夹攻之势解围,终以穷追之决绝其复聚。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>孤军死守 · 待援不溃</h4>
+        <p>兆惠陷重围,乃据河结营、掘壕筑垒,昼夜拒战。粮尽则掘井杀马以食,水断则穿地取泉,士卒饥疲而营垒屹然,凡守百余日(约三月)不溃。深入孤军之所以能不覆者,正在一「守」字:不浪战以耗其力,不弃垒以乱其心，坚忍以待外援之至——守得一日,则生机多一分。</p>
+      </div>
+      <div class="c b">
+        <h4>驰援解围 · 穷追定疆</h4>
+        <p>富德、舒赫德自阿克苏驰援,遇和卓截援之众战于呼尔璊,五昼夜且战且进;阿里衮、爱隆阿横阵驰入,兆惠亦自营突围,内外夹攻,遂解黑水营之围。既解,复分道穷追,下喀什噶尔、和阗;大小和卓弃城西奔,越葱岭走巴达克山,其酋素勒坦沙执而杀之、献首于清。追而不舍,故一举穷其亡。</p>
+      </div>
+    </div>
+    <p class="kicker">故回疆之定,不系于一战之胜负,而系于<b>孤军能守、援军能夹、既解能追</b>:兆惠死守百余日而不覆,予富德以驰援之机;援至夹攻而围解,予清军以转攻之势;既解穷追而绝其根,使大小和卓无从复振——终越葱岭而首献于巴达克山。天山南路悉平,清乃合南北为一,定名<b>「新疆」</b>,置总理回疆事务参赞大臣以统之,是为乾隆「十全武功」之一。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·高宗本纪/兆惠传》《平定回疆方略》约略绘出。叶尔羌、喀什噶尔在今新疆,黑水营在叶尔羌城外叶尔羌河(黑水河)畔,巴达克山在今阿富汗东北。城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为乾隆二十三年南疆形势示意:清方灭准噶尔后,自伊犁南下经营天山南路;回部大小和卓据塔里木诸绿洲城邑叛清。天山葱岭为界,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>兆惠轻骑深入,渡黑水河桥断,陷回部重围于河畔,掘壕死守凡三月,粮尽掘鼠罗雀以食——众寡悬绝而不溃,赖富德援军至乃内外夹击解围。既解围复大举追击,大小和卓弃城西奔巴达克山被杀,回疆遂平,清合天山南北为新疆,置伊犁将军总统之,是为「十全武功」之一。</p>
+    <p><span class="n">注一</span>本图为示意图,横跨天山南路塔里木盆地南缘。城邑按今地经纬度作线性(墨卡托)投影:<b>x=70+(经度−74.5)·71,y=583−(纬度−36.5)·90</b>(北上东右),几何方位力求近实——叶尔羌居中,黑水营在其城外东南叶尔羌河(黑水·喀喇乌苏)畔,呼尔璊在叶尔羌东北,喀什噶尔在西北,和阗在东南,阿克苏·乌什·库车在北缘,葱岭·帕米尔在西,巴达克山远在图外之西(约70.8E/37.0N),以图外西向之边缘箭头示之。城邑水道经纬为相对示意,非实测。</p>
+    <p><span class="n">注二</span>地望与经纬:叶尔羌即今新疆莎车(约77.24E/38.41N),黑水营在其城外叶尔羌河南岸(约77.4E/38.3N),呼尔璊(Qurman,富德解围战地)在叶尔羌东北(约78.2E/38.9N),喀什噶尔即今喀什(约75.99E/39.47N),和阗即今和田(约79.92E/37.11N),阿克苏(约80.26E/41.17N)、乌什(约79.23E/41.22N)、库车(约82.96E/41.72N)俱在盆地北缘、天山之南麓,为清师进讨之基与后勤枢纽;伊犁在天山之北(图外北),清灭准噶尔后兆惠自此南下。晕染疆界为乾隆二十三年南路形势示意:清方越天山、据阿克苏诸城为进讨之基,回部大小和卓据塔里木诸绿洲城邑叛清,故以点划「约界」略标天山南缘,非实有画界。</p>
+    <p><span class="n">注三</span><b>大、小和卓所据之城</b>:据《清史稿》及《平定回疆方略》,大和卓波罗尼都据喀什噶尔,小和卓霍集占据叶尔羌;霍集占尤桀骜主兵,黑水营之围即在其所据之叶尔羌城外。(坊间说部或互易二城之属,今从正史。)乾隆二十年清灭准噶尔,释准部所囚之大小和卓兄弟归南疆;二人不感恩,反据回部诸城,杀清使副都统阿敏道以叛,号召诸城拒清。</p>
+    <p><span class="n">注四</span>行军皆由陆路。制胜之枢在「孤军死守·内外夹攻·穷追定疆」(见上「释要」):乾隆二十三年八月兆惠自伊犁南下,连破库车、阿克苏、乌什,富德分驻阿克苏为第二梯队;兆惠自率马步兵四千余往攻小和卓所据之叶尔羌。十月十三日,兆惠渡黑水(喀喇乌苏)夺桥而进,过桥仅四百余人而桥忽断,叶尔羌城中出骑步万余两翼围攻,苦战五昼夜,乃据河南岸结营,是为「黑水营」,遂为大小和卓合众数万掘壕断水而反围。兆惠结营死守、掘井杀马,拒守百余日(自二十三年十月至二十四年正月)。二十四年正月,富德、舒赫德自阿克苏驰援,遇叛军于呼尔璊,厮杀数日且战且进;阿里衮、爱隆阿率部横阵驰入,兆惠自营突围,内外夹攻,杀敌千余、尽焚其垒,遂解黑水营之围,合兵撤还阿克苏。</p>
+    <p><span class="n">注五</span>异说与考订:兵额,兆惠孤军《方略》作马步四千余(轻骑先进者千余),叛军反围之众号数万;守围日数,自乾隆二十三年十月十三日陷围至二十四年正月十四日会师撤还,凡约三月百余日,史家或举「百余日」为约数。呼尔璊(Qurman)一战之昼夜数、斩获数,《高宗实录》《平定回疆方略》与后世纪述小有出入。解围既竟,是年清军复大举南进,分道穷追,下喀什噶尔、和阗,大小和卓弃城西奔,越葱岭走巴达克山;巴达克山素勒坦沙(素尔坦沙)执二和卓杀之,献霍集占首于清(波罗尼都亦死),天山南路悉平。清乃合天山南北为一,定名「新疆」,置总理回疆事务参赞大臣、并伊犁将军统之,回疆入版图。依《清史稿·高宗本纪/兆惠传/富德传》《平定回疆方略》约略绘出;地名今译与经纬为相对示意。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"大小和卓叛",d:"清乾隆二十三年(1758)",p:["清灭准噶尔,释准部所囚回部首领大和卓波罗尼都、小和卓霍集占兄弟归南疆。二人不感恩,反据天山南路诸城叛清:波罗尼都据喀什噶尔,霍集占据叶尔羌,聚众拒命。","乾隆二十三年,命定边将军兆惠率师往讨。回疆地广城坚、绿洲相望,清师自伊犁南下,道里悬远,粮运艰难——南路之役,遂系于孤军深入之一掷。"]},
-  "1":{t:"深入围叶尔羌·陷黑水营",d:"乾隆二十三年冬",p:["兆惠轻骑深入,进围叶尔羌。霍集占坚壁清野,不与野战,而以回部骑兵抄断清军后路粮道,欲困之。","兆惠渡叶尔羌河(黑水河)以图截敌,桥忽断,人马陷于河畔,遂为回部重围于黑水营。众寡悬绝,外无援兵,内乏粮秣,形势岌岌。"]},
-  "2":{t:"掘壕苦守·三月待援",d:"乾隆二十三年冬至二十四年春",p:["兆惠据河筑垒,掘壕环卫,昼夜拒战。粮尽马乏,掘鼠罗雀以食,士卒饥疲而营垒不动,凡守三月,屹然不溃。","次年,副将军富德率援军驰至。内外夹击,回部之围乃解。兆惠、富德合兵一处,黑水之厄既纾,遂转守为攻。"]},
-  "3":{t:"追歼和卓·回疆遂平",d:"乾隆二十四年(1759)",p:["兆惠、富德合兵大举追击,战于霍斯库鲁克、阿尔楚尔、伊西洱库尔诸处,大破回部之众,降者以万计。大小和卓弃城西奔巴达克山。","巴达克山酋素勒坦沙执二和卓杀之,献首于清。天山南路悉平。清乃合天山南北为新疆,置伊犁将军总统之,回疆入版图,是为乾隆「十全武功」之一。"]}
+  all:{t:"大小和卓叛 · 平定回疆",d:"清乾隆二十三至二十四年(1758–1759)",p:["清灭准噶尔,释准部所囚回部首领大和卓波罗尼都、小和卓霍集占兄弟归南疆。二人不感恩,反据天山南路诸城叛清:波罗尼都据喀什噶尔,霍集占据叶尔羌,杀清使以拒命,号召回部诸城抗清。","定边将军兆惠自伊犁南下,连破库车、阿克苏、乌什,进逼叶尔羌;以四千轻骑孤军深入,陷大小和卓数万之重围于黑水营,掘壕死守百余日。副将军富德驰援,呼尔璊大战、内外夹攻解围。清军复分道穷追,下喀什噶尔、和阗;大小和卓越葱岭西奔巴达克山,为其酋素勒坦沙擒杀献首。天山南路悉平,清合南北为新疆。"]},
+  "1":{t:"据回疆反 · 兆惠南下破库车阿克苏",d:"乾隆二十三年(1758)",p:["乾隆二十年清灭准噶尔,释准部所囚之大小和卓归南疆。二人反据回部诸城叛清:大和卓波罗尼都据喀什噶尔,小和卓霍集占据叶尔羌,杀清使副都统阿敏道,号召诸城拒命。","乾隆二十三年八月,命定边将军兆惠率师自伊犁南下讨叛。兆惠循道南进,连破库车、阿克苏、乌什诸城,以富德分驻阿克苏为第二梯队、供馈军实,遂长驱进逼霍集占所据之叶尔羌。回疆地广城坚、道里悬远,南路之役遂系于孤军深入之一掷。"]},
+  "2":{t:"孤军进逼叶尔羌 · 黑水营被围死守",d:"乾隆二十三年冬(1758)",p:["兆惠自率马步兵四千余往攻叶尔羌。霍集占坚壁清野,不与野战,而以回部骑兵抄断清军后路。十月十三日,兆惠渡黑水(喀喇乌苏)夺桥而进,过桥仅四百余人而桥忽断,叶尔羌城中出骑步万余两翼围攻,苦战五昼夜。","兆惠乃据黑水河南岸结营自固,是为『黑水营』;大小和卓合众数万,掘壕断其水草,反围之。兆惠结营死守、掘壕筑垒,粮尽则掘井杀马以食,昼夜拒战而营垒屹然——外无援兵、内乏粮秣,拒守百余日(约三月)而不溃。"]},
+  "3":{t:"富德驰援 · 呼尔璊大战 · 内外夹攻解围",d:"乾隆二十四年正月(1759)",p:["二十四年正月,副将军富德、舒赫德自阿克苏率援军驰救。行至呼尔璊,遇叶尔羌来邀截之叛军,厮杀数日,且战且进;既近黑水营,复为叛军所围,处境危急。","总兵阿里衮、爱隆阿率部驰至,拉开横阵、大呼驰进,两军会合力战,叛军退往叶尔羌。兆惠于营中知援兵已至,即组织所部突破重围,内外夹攻,杀敌千余、尽焚其垒。叛军大败退回叶尔羌,黑水营之围遂解;兆惠、富德合兵一处,暂撤还阿克苏休整。"]},
+  "4":{t:"分道穷追 · 大小和卓西逃 · 巴达克山献首",d:"乾隆二十四年(1759)",p:["黑水营既解,是年清军复大举南进,兆惠、富德分道穷追,下喀什噶尔、和阗诸城,大破回部之众,降者以万计。大小和卓势穷,弃城西奔,越葱岭(帕米尔)走巴达克山。","巴达克山酋素勒坦沙执二和卓杀之,献霍集占首于清(波罗尼都亦死)。天山南路悉平。清乃合天山南北为一,定名『新疆』,置总理回疆事务参赞大臣、并伊犁将军以统之,回疆入版图——是为乾隆『十全武功』之一。"]}
 };
 const CITY={
-  aksu:{t:"阿克苏",d:"天山南路东北,今新疆阿克苏",p:["清军进兵天山南路之基地与后勤枢纽。兆惠、富德之师皆由此西向诸城。"]},
-  yarkand:{t:"叶尔羌·莎车",d:"今新疆莎车",p:["小和卓霍集占所据。兆惠轻骑深入围之;霍集占坚壁清野、断其粮道,清军久攻不下。"]},
-  heishui:{t:"黑水营",d:"叶尔羌城外叶尔羌河(黑水)畔",p:["兆惠渡河桥断,陷回部重围于此。掘壕筑垒、力守待援凡三月,粮尽掘鼠罗雀以食,卒待富德援至解围。"]},
-  kashgar:{t:"喀什噶尔",d:"天山南路西陲,今新疆喀什",p:["大和卓波罗尼都所据。与叶尔羌为回部两大巢穴,互为犄角,同叛清师。"]},
-  hesikuluke:{t:"霍斯库鲁克·阿尔楚尔",d:"帕米尔东麓一带",p:["解围后清军大举追击、大破回众之地。战伊西洱库尔诸处,降者万计,和卓势遂穷。"]},
-  badakshan:{t:"巴达克山",d:"今阿富汗东北巴达赫尚",p:["大小和卓西奔投此。其酋素勒坦沙执二和卓杀之,献首于清,天山南路悉平。"]}
+  kucha:{t:"库车",d:"天山南路东北,今新疆库车(约82.96E,41.72N)",p:["兆惠南下讨叛所下之城。清师自伊犁南出,先取库车,循盆地北缘西向阿克苏诸城,以逼叶尔羌。"]},
+  aksu:{t:"阿克苏",d:"天山南路北缘,今新疆阿克苏(约80.26E,41.17N)",p:["清军进讨天山南路之基地与后勤枢纽。兆惠破之,以富德分驻于此为第二梯队、供馈军实;黑水营被围,富德即自此率援军驰救。"]},
+  ush:{t:"乌什",d:"阿克苏之西,今新疆乌什(约79.23E,41.22N)",p:["盆地北缘要地。兆惠连下库车、阿克苏、乌什,遂长驱南进逼叶尔羌。"]},
+  kashgar:{t:"喀什噶尔",d:"天山南路西陲,今新疆喀什(约75.99E,39.47N)",p:["大和卓波罗尼都所据。与叶尔羌为回部两大巢穴,互为犄角,同叛清师。解围之后,清军分道穷追下之。"]},
+  hurman:{t:"呼尔璊",d:"叶尔羌东北(约78.2E,38.9N),富德解围之战地",p:["富德、舒赫德自阿克苏驰援黑水营,遇叶尔羌来邀截之叛军于此,大战数昼夜且战且进;阿里衮、爱隆阿横阵驰入会合,遂逼近黑水营,为内外夹攻解围之枢。"]},
+  yarkand:{t:"叶尔羌 · 莎车",d:"今新疆莎车(约77.24E,38.41N)",p:["小和卓霍集占所据。兆惠以四千轻骑孤军深入围之;霍集占坚壁清野、抄断其后。黑水营之围即在此城外叶尔羌河畔。"]},
+  heishui:{t:"黑水营",d:"叶尔羌城外叶尔羌河(黑水·喀喇乌苏)南岸",p:["兆惠渡黑水夺桥、桥断陷围,乃据河南岸结营自固,是为黑水营。大小和卓合众数万掘壕断水反围之;兆惠结营死守、掘井杀马,拒守百余日,卒待富德援至,内外夹攻乃解。"]},
+  khotan:{t:"和阗",d:"天山南路东南,今新疆和田(约79.92E,37.11N)",p:["解围后清军分道穷追所下之城。和阗既下,回部诸城相继平,大小和卓势穷西奔。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

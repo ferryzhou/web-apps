@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
   .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
@@ -27,11 +27,28 @@
   svg.map{display:block;width:100%;height:auto}
   .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
   .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
-  .sea{fill:var(--water);opacity:.18}
+  .lake{fill:rgba(95,127,136,.18);stroke:rgba(95,127,136,.5);stroke-width:.8}
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  /* 扬州孤城(放大示意方城) */
+  .moat{fill:none;stroke:var(--water);stroke-width:1.4;opacity:.6}
+  .wall{fill:rgba(110,93,60,.05);stroke:var(--ink2);stroke-width:2.4;opacity:.95}
+  .gname{font-size:9.5px;font-weight:500;fill:var(--ink2);pointer-events:none;opacity:.8}
+  /* 红衣大炮:铳身与铳口喷焰(向孤城) */
+  .gun .barrel{fill:#3a3327;stroke:var(--ink);stroke-width:.7}
+  .gun .wheel{fill:none;stroke:var(--ink);stroke-width:1.1}
+  .blast line{stroke:var(--gold);stroke-width:1.9;stroke-linecap:round}
+  .blast .core{fill:var(--fire);opacity:.95}
+  /* 破城:炮轰之处 */
+  .boom{stroke:var(--fire);stroke-width:1.7;opacity:.8;stroke-linecap:round}
+  /* 扬州十日·屠城(somber) */
+  .smoke{fill:#5c4f38;opacity:.17}
+  .fallen line{stroke:var(--enemy);stroke-width:1.7;stroke-linecap:round;opacity:.5}
+  /* 史可法殉国(solemn 终-mark:碑石) */
+  .martyr .stele{fill:rgba(43,36,24,.82);stroke:#2b2418;stroke-width:1}
+  .martyr .ring{fill:none;stroke:var(--gold);stroke-width:2}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -40,16 +57,17 @@
   .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
   .march{fill:none;stroke-width:3;stroke-linecap:round}
   .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
-  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.85}
+  .march.sea{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:7 5;opacity:.9}
+  .march.relief{stroke:var(--enemy);stroke-width:2.3;stroke-dasharray:6 5;opacity:.72}
   .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
   .mlabel{font-size:11.5px;font-weight:700}
-  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}.mlabel.k{fill:var(--ink)}
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--advance);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .siege{fill:none;stroke:var(--advance);stroke-width:1.6;stroke-dasharray:2 4;opacity:.85}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
@@ -58,9 +76,24 @@
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout):not(.sea){stroke-dasharray:680;stroke-dashoffset:680;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sea):not(.relief){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -70,20 +103,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
-  <div class="seal" aria-hidden="true"><span>江</span><span>南</span><span>之</span><span>役</span></div>
+  <a class="navback" href="index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>扬</span><span>州</span><span>之</span><span>役</span></div>
   <header>
     <h1>江南之役 · 扬州</h1>
-    <div class="sub">清顺治二年·南明弘光元年(1645)　　<i>清 多铎</i> 下江南 · <b>南明 史可法</b>死守扬州·城破殉国</div>
+    <div class="sub">清顺治二年 · 南明弘光元年(1645)　　<i>清 豫亲王 多铎</i> 渡淮下江南 · 红衣炮破城 —— <b>南明 督师 史可法</b> 孤守扬州 · 四镇不援 · 城破殉国 · 屠城十日 · 弘光遂亡</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 多铎南下</button>
-    <button data-p="1">四镇溃降 · 退守扬州</button>
-    <button data-p="2">扬州死守 · 城破殉国</button>
-    <button data-p="3">渡江下南京 · 弘光降</button>
+    <button class="on" data-p="all">全图 · 孤城殉节 · 江南遂下</button>
+    <button data-p="1">渡淮南下 · 退守扬州孤城</button>
+    <button data-p="2">四镇内讧不援 · 围城招降</button>
+    <button data-p="3">红衣炮破城 · 殉国 · 屠城十日</button>
+    <button data-p="4">瓜洲渡江 · 下镇江 · 入南京 · 弘光亡</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="江南之役扬州形势图,含清与南明疆界、长江大运河淮河与扬州南京瓜洲等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="江南之役扬州形势图,以放大之扬州孤城为中心,含清据中原、南明据江南之疆界,淮河洪泽湖(北)、大运河纵贯淮安宝应高邮扬州瓜洲入江、长江(南,W→E过南京瓜洲镇江),及泗州盱眙(渡淮处)、瓜洲镇江(渡江处)、南京(弘光都、西南)、归德徐州(清军来向、图外西北)、芜湖(弘光出奔、图外西南)、江阴嘉定(后续抗清、图外东南);示多铎渡淮南下史可法退守扬州孤城、江北四镇内讧望风降而援不至、多铎围城屡招不启、红衣大炮破城史可法殉国而屠城十日、清军自瓜洲渡江下镇江入南京弘光出奔被执南明弘光亡">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -92,83 +126,154 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:清自中原南下(北),南明据江南(南),约以淮泗一带为界 -->
-    <path d="M 0,300 C 140,286 300,260 440,236 C 600,208 760,180 1000,164 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
-    <path d="M 0,300 C 140,286 300,260 440,236 C 600,208 760,180 1000,164 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
-    <path class="border" d="M 0,300 C 140,286 300,260 440,236 C 600,208 760,180 1000,164"/>
-    <text class="realm j" x="150" y="130" font-size="32">清(自中原南下)</text>
-    <text class="realm q" x="470" y="560" font-size="32">南 明(江南)</text>
+    <!-- ══ 疆界:清自中原顺流南下(北),南明弘光偏安江南(南),约以淮泗一线为界(示意) ══ -->
+    <path d="M 0,222 C 160,214 340,206 500,198 C 680,190 840,184 1000,182 L 1000,0 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,222 C 160,214 340,206 500,198 C 680,190 840,184 1000,182 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,222 C 160,214 340,206 500,198 C 680,190 840,184 1000,182"/>
+    <text class="realm j" x="470" y="70" font-size="26">清 · 中 原</text>
+    <text class="cname s" x="474" y="94" style="fill:var(--advance);opacity:.6">已定京师·破李自成·转兵南下</text>
+    <text class="realm q" x="120" y="600" font-size="26">南 明 · 弘 光(江 南)</text>
 
-    <!-- 淮河:自西向东 -->
-    <path class="river" stroke-width="3.2" d="M 0,258 C 160,268 320,284 460,300 C 560,312 660,320 760,322"/>
-    <!-- 长江:自西南向东北,W→E -->
-    <path class="river" stroke-width="6" d="M 120,560 C 260,530 400,494 520,470 C 640,446 740,436 840,436 C 900,436 960,440 1000,442"/>
-    <!-- 大运河:纵贯,连淮安—扬州—瓜洲入江 -->
-    <path class="river" stroke-width="2.6" d="M 620,260 C 616,320 610,380 606,430 C 604,452 604,466 606,476"/>
-    <text class="rname" x="640" y="480" style="font-size:13px">长 江</text>
-    <text class="rname" x="200" y="278" transform="rotate(6 200 278)">淮 河</text>
-    <text class="rname" x="628" y="360" transform="rotate(86 628 360)" style="font-size:10.5px">大运河</text>
-    <text class="rname" x="612" y="512" style="font-size:10px">瓜洲渡</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 洪泽湖 -->
+    <ellipse class="lake" cx="238" cy="206" rx="52" ry="30"/>
+    <!-- 淮河:自西来,汇洪泽湖,清军由泗州夜渡 -->
+    <path class="river" stroke-width="3.4" d="M 58,250 C 110,246 150,240 188,224 C 202,218 214,212 224,208"/>
+    <path class="river" stroke-width="3" d="M 286,198 C 340,190 420,184 520,180 C 700,172 860,170 1000,170"/>
+    <!-- 大运河(里运河):纵贯淮安—宝应—高邮—扬州—瓜洲入江 -->
+    <path class="river" stroke-width="2.4" d="M 285,86 C 322,112 350,136 363,158 C 382,202 398,250 405,293 C 402,332 398,376 396,410 C 396,432 396,446 396,455"/>
+    <!-- 长江:自西南向东北,W→E,过南京—瓜洲镇江 -->
+    <path class="river" stroke-width="6" d="M 66,566 C 150,530 235,505 300,495 C 360,484 405,470 435,462 C 540,438 660,435 780,439 C 870,442 950,447 1000,450"/>
+    <text class="rname" x="120" y="238" transform="rotate(-6 120 238)">淮 河</text>
+    <text class="rname" x="196" y="182" style="font-size:10.5px;letter-spacing:.16em">洪泽湖</text>
+    <text class="rname" x="612" y="176" style="font-size:10.5px">淮河下游 →</text>
+    <text class="rname" x="640" y="452" style="font-size:15px;letter-spacing:.34em">长　江</text>
+    <text class="rname" x="428" y="330" transform="rotate(84 428 330)" style="font-size:10px">大 运 河</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 扬州孤城(放大示意方城;城门依相对方位) ══ -->
+    <path class="moat" d="M 361,381 L 431,381 Q 439,381 439,389 L 439,437 Q 439,445 431,445 L 361,445 Q 353,445 353,437 L 353,389 Q 353,381 361,381 Z"/>
+    <rect class="wall" x="368" y="388" width="56" height="50" rx="4"/>
+    <text class="gname" x="396" y="384" text-anchor="middle">拱宸门(北)</text>
+    <text class="gname" x="396" y="456" text-anchor="middle">安江门(南)</text>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city" data-city="xuzhou"><circle cx="360" cy="120" r="4.5"/><text class="cname s" x="308" y="116">徐州</text></g>
-      <g class="city" data-city="huaian"><circle cx="640" cy="230" r="4.5"/><text class="cname s" x="648" y="226">淮安·泗州</text></g>
-      <g class="city" data-city="yangzhou"><circle cx="604" cy="384" r="6.5"/><text class="cname" x="616" y="380">扬州<tspan class="cname s" dx="2">(史可法死守)</tspan></text></g>
-      <g class="city" data-city="guazhou"><circle cx="606" cy="486" r="4.5"/><text class="cname s" x="614" y="500">瓜洲·镇江</text></g>
-      <g class="city cap" data-city="nanjing"><circle cx="470" cy="512" r="6.5"/><text class="cname" x="414" y="530">南京<tspan class="cname s" dx="2">(弘光都)</tspan></text></g>
-      <g class="city" data-city="wuhu"><circle cx="300" cy="546" r="4"/><text class="cname s" x="262" y="562">芜湖</text></g>
+      <g class="city" data-city="sizhou"><circle cx="126" cy="233" r="4.5"/><text class="cname s" x="70" y="228">泗州·盱眙</text></g>
+      <g class="city" data-city="huaian"><circle cx="285" cy="86" r="4.5"/><text class="cname s" x="294" y="82">淮安</text></g>
+      <g class="city" data-city="baoying"><circle cx="363" cy="158" r="3.8"/><text class="cname s" x="372" y="154">宝应</text></g>
+      <g class="city" data-city="gaoyou"><circle cx="405" cy="293" r="3.8"/><text class="cname s" x="414" y="289">高邮</text></g>
+      <g class="city cap" data-city="yangzhou"><circle cx="396" cy="413" r="6.5"/><text class="cname" x="446" y="410" text-anchor="start">扬州<tspan class="cname s" dx="2">(史可法孤守)</tspan></text></g>
+      <g class="city" data-city="guazhou"><circle cx="396" cy="457" r="4.5"/><text class="cname s" x="318" y="461">瓜洲渡</text></g>
+      <g class="city" data-city="zhenjiang"><circle cx="405" cy="473" r="4.5"/><text class="cname s" x="414" y="486">镇江</text></g>
+      <g class="city cap" data-city="nanjing"><circle cx="210" cy="512" r="6.5"/><text class="cname" x="154" y="512" text-anchor="end">南京<tspan class="cname s" dx="2">(弘光都)</tspan></text></g>
+      <g class="city" data-city="jiangyin"><circle cx="654" cy="554" r="3.6"/><text class="cname s" x="662" y="558">江阴</text></g>
     </g>
 
-    <!-- 全图 · 多铎南下 -->
+    <!-- 归德·徐州(图外西北):清军来向 -->
+    <g transform="translate(20,44)">
+      <path class="march j" marker-end="url(#aj)" d="M 40,10 C 60,20 78,30 96,44" opacity=".85"/>
+      <text class="mlabel j" x="0" y="-4" style="font-size:10px">⟵ 归德·徐州(图外西北)</text>
+      <text class="cname s" x="0" y="30" style="fill:var(--advance);font-size:9px">多铎自归德府南下·所过州县多降</text>
+    </g>
+
+    <!-- ══════════ 全图 · 孤城殉节 · 江南遂下 ══════════ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 300,80 C 340,110 370,150 400,200 C 460,290 540,340 590,372"/>
-      <text class="mlabel j" x="360" y="180">清豫亲王多铎率八旗军南征弘光</text>
-      <text class="anno" x="430" y="264">红衣大炮随行,长驱而南</text>
-      <text class="mlabel q" x="470" y="590">南明弘光偏安江南,江北四镇跋扈</text>
-      <text class="anno" x="640" y="256">四镇分守淮扬,互相攻讦,可法节制不行</text>
+      <path class="march j" marker-end="url(#aj)" d="M 110,52 C 168,110 130,186 148,228 C 208,300 320,372 386,406"/>
+      <text class="mlabel j" x="176" y="180">豫亲王多铎率八旗渡淮南下</text>
+      <text class="anno" x="176" y="198">红衣大炮随行,直趋江北门户扬州</text>
+      <circle class="siege" cx="396" cy="413" r="40"/>
+      <circle class="star" cx="396" cy="413" r="15"/>
+      <text class="mlabel q" x="446" y="430">史可法孤守扬州,四镇不援,城破殉国</text>
+      <text class="mlabel g" x="446" y="448">继屠城十日 —— 「扬州十日」</text>
+      <!-- 渡江下南京 -->
+      <path class="march sea" marker-end="url(#aj)" d="M 396,445 C 398,452 400,456 402,462"/>
+      <path class="march j" marker-end="url(#aj)" d="M 398,476 C 340,494 280,506 226,512"/>
+      <circle class="star" cx="210" cy="512" r="10"/>
+      <text class="mlabel j" x="220" y="540">自瓜洲渡江 · 下镇江 · 入南京 · 弘光遂亡</text>
     </g>
 
-    <!-- 阶段一:四镇溃降 · 退守扬州 -->
+    <!-- ══════════ 阶段一:渡淮南下 · 退守扬州孤城 ══════════ -->
     <g id="ph1" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 366,128 C 440,168 540,200 626,224"/>
-      <text class="mlabel j" x="380" y="150">清军南下经徐州,趋淮泗</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 634,236 C 628,290 618,340 610,372"/>
-      <text class="mlabel r" x="646" y="300">刘良佐·刘泽清望风降清</text>
-      <text class="anno" x="470" y="330">高杰先已死,四镇或降或溃,江北防线瓦解</text>
-      <path class="march q" marker-end="url(#aq)" d="M 470,506 C 520,470 566,430 596,392"/>
-      <text class="mlabel q" x="380" y="470">史可法收拾残兵,退守扬州</text>
-      <text class="anno" x="560" y="416">城孤援绝,誓与城存亡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 106,54 C 150,110 120,180 138,224"/>
+      <text class="mlabel j" x="150" y="120">四月,多铎自归德南下,趋泗州</text>
+      <path class="march j" marker-end="url(#aj)" d="M 150,244 C 220,300 320,362 384,404"/>
+      <text class="mlabel j" x="196" y="272">夜渡淮河,长驱而南,直指扬州</text>
+      <text class="anno" x="196" y="290">泗州守将降,淮防一夕瓦解</text>
+      <!-- 史可法退守扬州 -->
+      <path class="march q" marker-end="url(#aq)" d="M 300,120 C 340,220 372,320 388,398"/>
+      <text class="mlabel q" x="252" y="200" transform="rotate(64 252 200)">史可法督师江北,收残兵退守扬州</text>
+      <text class="anno" x="440" y="392">城孤援绝,誓与城存亡</text>
     </g>
 
-    <!-- 阶段二:扬州死守 · 城破殉国 -->
+    <!-- ══════════ 阶段二:四镇内讧不援 · 围城招降 ══════════ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 636,240 C 626,290 618,330 612,366"/>
-      <text class="mlabel j" x="640" y="316">多铎率大军围扬州</text>
-      <rect class="camp" x="656" y="352" width="9" height="9" transform="rotate(45 660 356)"/>
-      <rect class="camp" x="544" y="360" width="9" height="9" transform="rotate(45 548 364)"/>
-      <circle class="siege" cx="604" cy="384" r="22"/>
-      <text class="anno" x="470" y="330">以红衣大炮攻城,屡遣书招降,可法不启</text>
-      <circle class="star" cx="604" cy="384" r="9"/>
-      <text class="mlabel q" x="470" y="410">城破,可法被执,拒降殉国</text>
-      <text class="anno" x="470" y="428">纵兵屠掠十日,是为「扬州十日」</text>
+      <!-- 四镇不援:红色虚线援路,皆止而不至 -->
+      <path class="march relief" d="M 300,110 C 330,200 356,300 378,388"/>
+      <text class="mlabel q" x="238" y="150">高杰先为许定国所杀</text>
+      <text class="anno" x="238" y="168">其部溃散,江北无主</text>
+      <path class="march relief" d="M 300,96 C 340,180 350,300 384,384"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 300,96 C 220,120 150,140 96,150"/>
+      <text class="mlabel r" x="96" y="140">刘泽清·刘良佐望风降清</text>
+      <path class="march relief" d="M 240,540 C 300,500 350,460 384,432"/>
+      <text class="mlabel q" x="180" y="560">黄得功远屯江南,援不及</text>
+      <!-- 多铎围城·招降 -->
+      <path class="march j" marker-end="url(#aj)" d="M 200,250 C 280,310 350,360 384,398"/>
+      <rect class="camp" x="440" y="392" width="9" height="9" transform="rotate(45 444 396)"/>
+      <rect class="camp" x="342" y="392" width="9" height="9" transform="rotate(45 346 396)"/>
+      <circle class="siege" cx="396" cy="413" r="34"/>
+      <text class="mlabel j" x="452" y="380">多铎大军合围扬州</text>
+      <text class="anno" x="452" y="398">五遣书招降,可法不启一字</text>
+      <text class="mlabel q" x="150" y="360">可法分门死守,飞檄征援,应者寥寥</text>
     </g>
 
-    <!-- 阶段三:渡江下南京 · 弘光降 -->
+    <!-- ══════════ 阶段三:红衣炮破城 · 殉国 · 屠城十日 ══════════ -->
     <g id="ph3" class="ph">
-      <path class="march sea" marker-end="url(#aj)" d="M 604,392 C 604,430 605,458 606,478"/>
-      <text class="mlabel j" x="612" y="440">清军自瓜洲渡江,下镇江</text>
-      <path class="march j" marker-end="url(#aj)" d="M 600,488 C 560,498 520,506 484,510"/>
-      <text class="mlabel j" x="500" y="524">直逼南京</text>
-      <path d="M 470,512 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/>
-      <path class="march rout" marker-end="url(#ar)" d="M 458,516 C 400,528 350,538 316,544"/>
-      <text class="mlabel r" x="330" y="530">弘光帝夜奔芜湖</text>
-      <text class="anno" x="240" y="576">依黄得功;得功战死,弘光被执送京死</text>
-      <circle class="star" cx="470" cy="512" r="9"/>
-      <text class="anno" x="470" y="490">弘光出降,江北尽崩,江南略定</text>
+      <!-- 红衣大炮列城北,炮口向南轰城 -->
+      <g class="gun" transform="translate(372,366) rotate(168)"><circle class="wheel" cx="0" cy="4" r="3.2"/><rect class="barrel" x="-2.6" y="-17" width="5.4" height="19"/><g class="blast" transform="translate(0,-17)"><path class="core" d="M 0,0 l 4,-8 l 3,6 l 6,-1 l -5,6 l 4,7 l -8,-3 z"/><line x1="0" y1="0" x2="2" y2="-12"/><line x1="0" y1="0" x2="-5" y2="-11"/></g></g>
+      <g class="gun" transform="translate(408,366) rotate(192)"><circle class="wheel" cx="0" cy="4" r="3.2"/><rect class="barrel" x="-2.6" y="-17" width="5.4" height="19"/><g class="blast" transform="translate(0,-17)"><path class="core" d="M 0,0 l -4,-8 l -3,6 l -6,-1 l 5,6 l -4,7 l 8,-3 z"/><line x1="0" y1="0" x2="-2" y2="-12"/><line x1="0" y1="0" x2="5" y2="-11"/></g></g>
+      <text class="mlabel j" x="200" y="352">多铎以红衣大炮昼夜轰城,城堞尽摧</text>
+      <!-- 破城:北墙缺口 -->
+      <circle class="star" cx="396" cy="388" r="11"/>
+      <g class="boom" transform="translate(396,388)"><line x1="0" y1="-16" x2="0" y2="-25"/><line x1="14" y1="-8" x2="22" y2="-12"/><line x1="-14" y1="-8" x2="-22" y2="-12"/></g>
+      <text class="anno" x="420" y="376">四月二十五,城破</text>
+      <!-- 史可法殉国:碑石·终-mark -->
+      <g class="martyr" transform="translate(396,413)">
+        <circle class="ring" r="15"/>
+        <rect class="stele" x="-4" y="-9" width="8" height="18" rx="1.5"/>
+      </g>
+      <text class="mlabel k" x="150" y="470">史可法自刎不殊,被执拒降,慷慨殉国</text>
+      <text class="anno" x="150" y="488">「城亡与亡,我意已决」,作绝命书付母妻</text>
+      <!-- 扬州十日·屠城(somber) -->
+      <ellipse class="smoke" cx="396" cy="446" rx="52" ry="22"/>
+      <g class="fallen" transform="translate(360,448)"><line x1="0" y1="0" x2="12" y2="4"/><line x1="2" y1="8" x2="14" y2="7"/><line x1="20" y1="2" x2="32" y2="6"/><line x1="24" y1="10" x2="35" y2="12"/><line x1="42" y1="4" x2="54" y2="9"/></g>
+      <text class="mlabel g" x="446" y="446">纵兵屠掠十日,死难以数十万计</text>
+      <text class="anno" x="446" y="464">是为「扬州十日」,江北震骇</text>
     </g>
 
-    <g class="compass" transform="translate(944,90)">
+    <!-- ══════════ 阶段四:瓜洲渡江 · 下镇江 · 入南京 · 弘光亡 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 自瓜洲渡长江(水军) -->
+      <path class="march sea" marker-end="url(#aj)" d="M 396,445 C 397,452 399,458 402,464"/>
+      <text class="mlabel j" x="414" y="452">清军自瓜洲渡长江</text>
+      <circle class="star" cx="405" cy="473" r="8"/>
+      <text class="anno" x="414" y="486">破镇江,遂逼南京</text>
+      <!-- 下南京 -->
+      <path class="march j" marker-end="url(#aj)" d="M 398,478 C 340,496 280,508 228,512"/>
+      <text class="mlabel j" x="248" y="536">五月十五,南京守臣献城降</text>
+      <circle class="star" cx="210" cy="512" r="10"/>
+      <!-- 弘光出奔芜湖被执(brown rout) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 196,518 C 150,548 110,572 72,592"/>
+      <text class="mlabel r" x="70" y="560">弘光帝夜奔芜湖</text>
+      <text class="anno" x="70" y="578">依黄得功;得功战死,弘光被执</text>
+      <text class="mlabel k" x="452" y="520">南明弘光政权亡,江南次第降清</text>
+      <text class="anno" x="452" y="538">旋剃发令下,江阴·嘉定继起抗清·复被屠</text>
+    </g>
+
+    <!-- 芜湖(图外西南) / 江阴嘉定(图外东南)边注 -->
+    <text class="cname s" x="60" y="612" style="fill:var(--ret);font-size:9px">芜湖 ↙(图外西南)·弘光出奔依黄得功处</text>
+    <text class="cname s" x="668" y="576" style="fill:var(--ink2);font-size:9px">江阴·嘉定 ↘(图外东南)·后续抗清·屠城</text>
+
+    <g class="compass" transform="translate(946,86)">
       <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
       <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
       <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
@@ -177,36 +282,110 @@
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(八旗南下)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>渡江水军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南明·弘光</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃降 / 出奔</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>殉国 / 出降</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>清军围城</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南明</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军(多铎·八旗)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="7 5"/></svg>清渡江水军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南明(史可法)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.3" stroke-dasharray="6 5"/></svg>四镇援路(不至)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>望风降 / 出奔被执</span>
+    <span class="item"><svg width="22" height="16"><rect x="9" y="3" width="4" height="10" fill="#3a3327"/><path d="M 11,3 l 3,-3 l 4,2 l -3,3 z" fill="#c8641e"/><line x1="11" y1="2" x2="18" y2="-2" stroke="#9c7a2c" stroke-width="1.4"/></svg>红衣大炮·破城</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="#9c7a2c" stroke-width="2"/><rect x="7" y="4" width="4" height="10" rx="1" fill="#2b2418"/></svg>史可法殉国</span>
+    <span class="item"><svg width="30" height="16"><ellipse cx="15" cy="9" rx="13" ry="6" fill="#5c4f38" opacity=".2"/><g stroke="#9a2b1e" stroke-width="1.6" opacity=".55"><line x1="6" y1="7" x2="14" y2="10"/><line x1="16" y1="6" x2="24" y2="10"/></g></svg>扬州十日·屠城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="2 3"/></svg>清军围城</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>清</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>南明</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 孤城殉节 · 炮破屠城 · 江南遂下</h3>
+    <div class="lead">何以江北一城之守,系江南全局之存亡 —— 援不至则孤城必陷,城既陷则大江难守</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="扬州之役制胜示意:南明江北四镇拥兵跋扈内讧,高杰被杀、刘泽清刘良佐望风降清、黄得功远不及援,史可法遂以孤城当多铎全师;多铎以红衣大炮破城,史可法殉国,继屠城十日;扬州既失,江北门户洞开,清军自瓜洲渡江下镇江入南京,弘光出奔被执而南明弘光亡">
+      <!-- 上:南明之败因 下:清之着力 -->
+      <text x="24" y="28" fill="#9a2b1e" font-size="12" font-weight="700">南明 · 江北四镇内讧 · 援不至</text>
+      <line x1="22" y1="40" x2="838" y2="40" stroke="#9a2b1e" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+      <text x="24" y="234" fill="#1f4e54" font-size="12" font-weight="700">清 · 多铎 · 炮破 · 屠城 · 渡江</text>
+      <line x1="22" y1="210" x2="838" y2="210" stroke="#1f4e54" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+
+      <!-- 左:四镇不援 -->
+      <rect x="34" y="54" width="212" height="52" rx="4" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="46" y="72" fill="#9a2b1e" font-size="11" font-weight="700">江北四镇跋扈内讧</text>
+      <text x="46" y="88" fill="#9a2b1e" font-size="10.5">高杰被杀 · 泽清良佐望风降</text>
+      <text x="46" y="102" fill="#9a2b1e" font-size="10.5">黄得功远屯 · 援不及</text>
+      <!-- 三条止而不至的援路 -->
+      <g stroke="#9a2b1e" stroke-width="1.8" stroke-dasharray="6 5" opacity=".7" fill="none">
+        <path d="M 140,106 L 244,150"/><path d="M 200,106 L 268,150"/><path d="M 90,120 L 236,158"/>
+      </g>
+      <g stroke="#9a2b1e" stroke-width="2.2" opacity=".8"><line x1="250" y1="146" x2="262" y2="158"/><line x1="250" y1="158" x2="262" y2="146"/></g>
+      <text x="150" y="132" fill="#9a2b1e" font-size="10" font-weight="700">援皆止而不至 ✕</text>
+
+      <!-- 中:扬州孤城·炮破 -->
+      <rect x="280" y="130" width="92" height="52" rx="3" fill="rgba(110,93,60,.06)" stroke="#5c4f38" stroke-width="1.8"/>
+      <text x="292" y="150" fill="#5c4f38" font-size="11" font-weight="700">扬州孤城</text>
+      <text x="292" y="166" fill="#5c4f38" font-size="10">史可法死守</text>
+      <text x="292" y="179" fill="#9a2b1e" font-size="10" font-weight="700">四镇不援 → 孤</text>
+      <!-- 红衣炮自上轰 -->
+      <g transform="translate(326,96)"><rect x="-3" y="-4" width="6" height="14" fill="#3a3327"/><path d="M 0,10 l -4,9 l 4,-3 l 4,3 z" fill="#c8641e"/><line x1="0" y1="12" x2="-3" y2="24" stroke="#9c7a2c" stroke-width="1.6"/><line x1="0" y1="12" x2="3" y2="24" stroke="#9c7a2c" stroke-width="1.6"/></g>
+      <text x="336" y="104" fill="#9c7a2c" font-size="10" font-weight="700">红衣大炮昼夜轰城</text>
+      <!-- 破城箭头 -->
+      <path d="M 376,156 L 430,156" fill="none" stroke="#1f4e54" stroke-width="2" marker-end="url(#aj)"/>
+      <text x="382" y="148" fill="#1f4e54" font-size="10" font-weight="700">炮破城</text>
+
+      <!-- 右上:殉国·屠城 -->
+      <rect x="440" y="60" width="180" height="46" rx="4" fill="rgba(43,36,24,.08)" stroke="#2b2418" stroke-width="1.2"/>
+      <rect x="452" y="70" width="6" height="16" rx="1" fill="#2b2418"/>
+      <circle cx="455" cy="78" r="11" fill="none" stroke="#9c7a2c" stroke-width="1.6"/>
+      <text x="476" y="80" fill="#2b2418" font-size="11" font-weight="700">史可法殉国</text>
+      <text x="476" y="96" fill="#9a2b1e" font-size="10">屠城十日 · 死数十万</text>
+
+      <!-- 右下:渡江下南京 -->
+      <rect x="440" y="150" width="180" height="46" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="452" y="168" fill="#1f4e54" font-size="11" font-weight="700">瓜洲渡江 · 下镇江</text>
+      <text x="452" y="184" fill="#1f4e54" font-size="11" font-weight="700">入南京 · 弘光出奔被执</text>
+      <path d="M 626,128 L 700,128" fill="none" stroke="#9a2b1e" stroke-width="1.6" opacity=".7" stroke-dasharray="4 3" marker-end="url(#aq)"/>
+      <!-- 终局 -->
+      <text x="712" y="106" fill="#9a2b1e" font-size="13" font-weight="700">江北门户洞开</text>
+      <text x="712" y="132" fill="#9a2b1e" font-size="13" font-weight="700">南明弘光遂亡</text>
+      <text x="712" y="158" fill="#5c4f38" font-size="10.5">江南次第降清</text>
+      <text x="712" y="176" fill="#5c4f38" font-size="10.5">(江阴·嘉定后续抗清)</text>
+    </svg>
+    <p class="intro">扬州之陷,不在城之不坚、守之不力,而在<b>其孤 —— 孤于四镇之不援</b>。南明弘光立国江南,以江北四镇(高杰、黄得功、刘良佐、刘泽清)为藩篱;然四镇拥兵跋扈、互相攻讦,督师大学士史可法节制不行。及多铎渡淮而南,高杰先为许定国所杀、其部溃散,刘泽清刘良佐望风降清,黄得功远屯江南不及救,四镇之援一时俱绝。史可法遂以扬州一城、残兵数千,独当多铎八旗之全师——非其不欲守,乃无可与守者。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>多铎 · 炮破 · 屠城 · 渡江</h4>
+        <p>多铎既破李自成、定关中,回师南征,军携红衣大炮,长驱渡淮。既围扬州,五遣书招史可法降,可法不启;乃以红衣大炮昼夜轰城,城堞尽摧。四月二十五城破,可法被执拒降遇害;多铎以扬州抵抗为由纵兵屠城十日,死难以数十万计,「扬州十日」遂为江南之骇。扬州既下,江北门户洞开,清军自瓜洲渡江、破镇江、入南京,南明弘光政权旬月而亡。</p>
+      </div>
+      <div class="c b">
+        <h4>史可法 · 孤城死守 · 四镇不援</h4>
+        <p>史可法督师江北,调和四镇而令不行。清军压境,收拾残兵退守扬州,城孤援绝,犹分门死守、飞檄征援,应者寥寥。城破,自刎不殊,被执叱敌,慷慨就义,曰「城亡与亡,我意已决」,作绝命书付母妻。身殉之后,尸不可得,后人葬其衣冠于梅花岭。忠烈虽千古,而一城之守终不能救江南之亡——所谓「数点梅花亡国泪,二分明月故臣心」者也。</p>
+      </div>
+    </div>
+    <p class="kicker">故江南之役,枢在扬州,而扬州之陷,枢在<b>四镇不援之孤</b>:援既不至,则孤城必以炮破;城既破,则史可法以身殉之、扬州以血偿之。而扬州一失,大江之防随而瓦解——瓜洲一渡,镇江、南京相继而下,弘光出奔被执,<b>南明弘光遂亡,江南次第入清</b>。孤城殉节、炮破屠城,而江南遂下——史可法之忠,不能易南明之命也。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·多铎传》《明史·史可法传》《扬州十日记》约略绘出。扬州、南京在今江苏,瓜洲在扬州南濒江,芜湖在今安徽。长江、淮河、大运河及城邑水道为相对示意,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为顺治二年南下之际形势示意:清自中原顺流而南,南明弘光偏安江南,约以淮泗一线为界,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>史可法督师江北,节制四镇而令不行;及城孤援绝,犹坚守扬州十日,作绝命书付母妻,城破拒降遇害。图以红线绘南明,而其忠烈自在人心——所谓「数点梅花亡国泪,二分明月故臣心」者也。</p>
+    <p><span class="n">注一</span>本图为示意图。城邑水道按今地经纬度作线性投影(<b>x = 60 + (经度 − 118.30)·300,y = 590 − (纬度 − 31.80)·300</b>,北上东右),几何方位力求近实:扬州居中(约119.42E/32.39N),淮河·洪泽湖在北,大运河(里运河)纵贯淮安—宝应—高邮—扬州—瓜洲入江,长江在南自西南向东北流过南京—瓜洲镇江;泗州·盱眙在西北(多铎渡淮处,约118.52E/32.99N),瓜洲在扬州南濒江(约119.42E/32.24N)、镇江在江南岸(约119.45E/32.19N),南京在西南(弘光都,约118.80E/32.06N)。归德·徐州(清军来向)在图外西北,芜湖(弘光出奔,约118.38E/31.33N)在图外西南,江阴·嘉定(后续抗清,约120.28E/31.92N、121.26E/31.38N)在图外东南,俱以边缘箭头或边注示之。惟扬州城周实不过十余里,若按同一比例则聚为一点,故<b>中央方城系放大之示意</b>,城门方位为象征,红衣大炮列城北亦为夸大之象,非实测位置。</p>
+    <p><span class="n">注二</span>晕染疆界为顺治二年清师南下之际形势示意:清既定京师、破李自成于潼关,回师南征;南明弘光偏安江南,约以淮泗一线为界,故以点划「约界」略标之,非实有画界。多铎四月初五自归德府(今河南商丘)南下,四月十三至泗州、是夜渡淮河,四月十八围扬州。</p>
+    <p><span class="n">注三</span>制胜之枢在「孤城不援」(见上「释要」):南明以江北四镇为江防藩篱,而四镇跋扈内讧、史可法节制不行。清军南下,高杰先为许定国所杀(乙酉正月,睢州之变)、其部溃散,刘泽清、刘良佐望风降清,黄得功远屯江南不及援——图中<b>红色虚线为四镇援路,皆止而不至</b>,褐色虚线为望风出降。史可法遂以扬州孤城残兵独当多铎全师。行军:多铎南下皆由陆路,渡淮、围城;惟破扬州后<b>自瓜洲渡长江为水路一程</b>(图中青色虚线),破镇江、下南京。</p>
+    <p><span class="n">注四</span>扬州之守与殉国:多铎围城,五遣书招降,史可法皆不启,以红衣大炮昼夜攻城。四月二十五(公元1645年5月20日)城破,可法自刎不殊、为其部下拥出,被执于清军,叱敌拒降,慷慨就义,曰「城亡与亡,我意已决」;其尸不可辨,后人以衣冠葬于扬州梅花岭。城破之后,多铎以扬州抵抗为由纵兵屠掠十日,史称「扬州十日」。<b>死难之数,王秀楚《扬州十日记》载八十万,后世史家多以为夸(焚尸簿所记逾八十万或含四乡),实数难考,姑志「以数十万计」</b>。</p>
+    <p><span class="n">注五</span>依《清史稿·多铎传》《明史·史可法传》,王秀楚《扬州十日记》,及《南明史》《小腆纪年》约略绘出。异说与后事:扬州既下,多铎自瓜洲渡江、破镇江,五月十五南京守臣(赵之龙、钱谦益等)献城降;弘光帝朱由崧先已夜奔芜湖依靖国公黄得功,得功力战中流矢死,弘光被执,槛送北京,次年(1646)遇害。南明弘光政权亡,江南次第降清;旋剃发令下,江阴八十一日、嘉定三屠继起抗清,东南残破,别有其事,图中于东南以边注志之。图以青绘清(多铎,征服之主、本系列之视角),朱绘南明(史可法,守者),褐绘望风降与出奔;史可法之忠烈,自在人心。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"多铎南下",d:"清顺治二年(1645)四月",p:["清既定北京,遣豫亲王多铎率八旗大军南征,以取南明弘光政权。军中携红衣大炮,长驱而南。","南明弘光偏安江南,江北四镇(高杰、黄得功、刘良佐、刘泽清)拥兵跋扈、互相攻讦,督师大学士史可法节制不行。清军压境,江北岌岌可危。"]},
-  "1":{t:"四镇溃降 · 退守扬州",d:"顺治二年四月",p:["清军自徐州而南,趋淮泗。江北四镇或降或溃:高杰先已为许定国所杀,刘良佐、刘泽清望风降清,江北防线瓦解。","史可法调度无及,收拾残兵,退守扬州。城孤援绝,而可法誓与城共存亡,分门死守,飞檄征援,应者寥寥。"]},
-  "2":{t:"扬州死守 · 城破殉国",d:"顺治二年四月",p:["多铎率大军围扬州,以红衣大炮昼夜攻城,又屡遣书招史可法降。可法不启其书,作绝命书付母妻,誓死不屈。","城破,可法被执,叱敌拒降,遂遇害。清军入城,纵兵屠掠十日,死者以数十万计,史称「扬州十日」，江北为之震骇。"]},
-  "3":{t:"渡江下南京 · 弘光降",d:"顺治二年五月",p:["扬州既下,清军自瓜洲渡江,取镇江,直逼南京。南京守臣献城,弘光帝朱由崧夜奔芜湖,依靖国公黄得功。","得功力战而死,弘光帝被执,槛送北京,寻死。南明江北防线尽崩,江南略定。旋剃发令下,江阴、嘉定继起抗清,东南残破,别有其事。"]}
+  all:{t:"孤城殉节 · 江南遂下",d:"清顺治二年·南明弘光元年(1645)四—五月",p:["清既定京师、破李自成于潼关,遣豫亲王多铎回师南征,以取南明弘光政权。军携红衣大炮,渡淮而南,直趋江北门户扬州。南明江北四镇拥兵跋扈、互相攻讦,督师大学士史可法节制不行;及清师压境,高杰先死、泽清良佐望风降、得功远不及援,四镇之援俱绝,可法遂以扬州孤城残兵独当多铎全师。","多铎围扬州,五遣书招降,可法不启;乃以红衣大炮昼夜轰城。四月二十五城破,可法自刎不殊、被执殉国;多铎以扬州抵抗为由纵兵屠城十日,死难以数十万计,是为「扬州十日」。扬州既下,江北门户洞开,清军自瓜洲渡江、破镇江、入南京,弘光出奔芜湖被执——南明弘光政权旬月而亡,江南次第降清。孤城殉节、炮破屠城,而江南遂下。"]},
+  "1":{t:"渡淮南下 · 退守扬州孤城",d:"顺治二年四月(初五—十八)",p:["多铎既破李自成、定关中,回师南征。四月初五自归德府(今河南商丘)南下,所过州县多降;四月十三至泗州,是夜渡淮河,长驱而南,直指扬州——江北防线一夕瓦解。","史可法以大学士督师江北,方调和四镇而令不行;闻清师渡淮,收拾残兵,退守扬州。城孤援绝,而可法誓与城共存亡,分门死守,飞檄征援,应者寥寥。"]},
+  "2":{t:"四镇内讧不援 · 围城招降",d:"顺治二年四月(十八—二十四)",p:["南明以江北四镇(高杰、黄得功、刘良佐、刘泽清)为江防藩篱,然四镇跋扈内讧、互相攻讦。清军南下,高杰先为许定国所杀(睢州之变)、其部溃散;刘泽清、刘良佐望风降清;黄得功远屯江南,援不及救——四镇之援,一时俱绝。","四月十八,多铎率大军合围扬州,进营城下,五遣书招史可法降。可法不启一字,分门死守,复飞檄征四方之援,而应者寥寥。孤城残兵,独当多铎八旗之全师。"]},
+  "3":{t:"红衣炮破城 · 殉国 · 屠城十日",d:"顺治二年四月二十四—二十五(1645-05-20)",p:["招降既不得,多铎以红衣大炮列城北昼夜轰击,城堞尽摧。四月二十五,城破。史可法自刎不殊,为部下拥出,被执于清军;叱敌拒降,慷慨就义,曰「城亡与亡,我意已决」,先已作绝命书付母妻。其尸不可辨,后人以衣冠葬于扬州梅花岭。","城破之后,多铎以扬州久抗为由,纵兵屠掠十日,死难以数十万计,史称「扬州十日」(王秀楚《扬州十日记》所纪)。江北为之震骇,江南人心大恐——一城之血,遂开江南陆沉之渐。"]},
+  "4":{t:"瓜洲渡江 · 下镇江 · 入南京 · 弘光亡",d:"顺治二年五月",p:["扬州既下,江北门户洞开。多铎自瓜洲渡长江,破镇江,直逼南京。五月十五,南京守臣赵之龙、钱谦益等献城出降。","弘光帝朱由崧先已夜奔芜湖,依靖国公黄得功;得功力战中流矢死,弘光被执,槛送北京,次年遇害。南明弘光政权亡,江南次第降清。旋剃发令下,江阴、嘉定继起抗清,复遭屠戮,东南残破——别有其事。"]}
 };
 const CITY={
-  xuzhou:{t:"徐州",d:"今江苏徐州",p:["清军南下所经要冲。八旗自中原顺流而南,由此趋淮泗,直指江北。"]},
-  huaian:{t:"淮安·泗州",d:"今江苏淮安、盱眙一带",p:["江北四镇分守之地。清军至,刘良佐、刘泽清望风降清,淮泗防线随之瓦解。"]},
-  yangzhou:{t:"扬州",d:"今江苏扬州",p:["史可法退守死战之城。多铎围之,以红衣炮攻城、屡招不降;城破十日,可法被执殉国,继以「扬州十日」之屠。"]},
-  guazhou:{t:"瓜洲·镇江",d:"扬州南濒江,今镇江对岸",p:["清军渡江之处。扬州既下,多铎自瓜洲渡长江,取镇江,遂逼南京。"]},
-  nanjing:{t:"南京",d:"弘光都,今江苏南京",p:["南明弘光政权之都。清军逼城,守臣献降,弘光帝夜奔芜湖;帝被执后,江南略定。"]},
-  wuhu:{t:"芜湖",d:"今安徽芜湖",p:["弘光帝出奔依黄得功之地。得功战死,弘光帝于此被执,槛送北京死。"]}
+  yangzhou:{t:"扬州(孤城)",d:"今江苏扬州,南明江北门户(约119.42E,32.39N)",p:["史可法退守死战之城。四镇不援,可法以孤城残兵独当多铎全师;多铎五遣书招降,可法不启,乃以红衣大炮昼夜轰城。四月二十五城破,可法自刎不殊、被执殉国,继以「扬州十日」之屠,死难数十万。城周实不过十余里,图中方城为放大示意。"]},
+  sizhou:{t:"泗州·盱眙",d:"今江苏盱眙一带,泗州旧城后没于洪泽湖(约118.52E,32.99N)",p:["多铎渡淮处。四月十三清军至泗州,是夜渡淮河,长驱而南,直指扬州,江北防线随之瓦解。"]},
+  huaian:{t:"淮安",d:"今江苏淮安(约119.05E,33.50N)",p:["江北四镇刘泽清所镇之地,居大运河北端。清军南下,泽清望风降清,淮防不守。"]},
+  baoying:{t:"宝应",d:"今江苏宝应,大运河沿线(约119.31E,33.24N)",p:["扬州以北、运河所经之邑,江北四镇分防之区。四镇内讧、望风降溃,运河一线无所设守。"]},
+  gaoyou:{t:"高邮",d:"今江苏高邮,大运河沿线(约119.45E,32.79N)",p:["扬州以北运河要邑。清军自淮南下,循运河直趋扬州,高邮诸邑无所御。"]},
+  guazhou:{t:"瓜洲渡",d:"扬州南濒江之渡口(约119.42E,32.24N)",p:["清军渡江之处。扬州既下,多铎自瓜洲渡长江,取镇江,遂逼南京——江北门户一破,大江之防随而瓦解。"]},
+  zhenjiang:{t:"镇江",d:"长江南岸,今江苏镇江(约119.45E,32.19N)",p:["江南岸重镇,南京之东屏。清军自瓜洲渡江先取镇江,继逼南京,弘光政权遂不能守。"]},
+  nanjing:{t:"南京",d:"南明弘光都,今江苏南京(约118.80E,32.06N)",p:["南明弘光政权之都。扬州破、清军渡江,五月十五守臣赵之龙、钱谦益等献城出降;弘光帝先已夜奔芜湖,旋被执,南明弘光政权亡。"]},
+  jiangyin:{t:"江阴·嘉定",d:"今江苏江阴、上海嘉定(约120.28E,31.92N;121.26E,31.38N)",p:["南京既降、剃发令下,江阴阎应元等据城抗清八十一日,城破被屠;嘉定亦三遭屠戮(「嘉定三屠」)。皆江南略定后之抗清事,图中于东南以边注志之。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}

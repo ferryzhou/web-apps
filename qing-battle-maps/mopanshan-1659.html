@@ -15,7 +15,7 @@
   .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
   .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
   header{margin-bottom:14px;padding-right:74px}
-  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.2vw,44px);letter-spacing:.05em;color:var(--ink);}
   .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
   .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
   .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
@@ -30,7 +30,10 @@
   .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
   .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
   .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
-  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.28em;opacity:.72;font-weight:500}
+  .road{fill:none;stroke:var(--ink2);stroke-width:2.4;stroke-dasharray:1 3.4;opacity:.55;stroke-linecap:round}
   .city{cursor:pointer}
   .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
   .city.cap circle{stroke-width:2}
@@ -45,20 +48,43 @@
   .anno{font-size:11px;fill:var(--ink2);font-style:italic}
   .camp{fill:var(--advance);opacity:.9}
   .star{fill:none;stroke:var(--gold);stroke-width:2}
-  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  /* 三伏:道旁埋伏之钳形夹击 + 衔枚静待之伏兵 */
+  .amb .br{fill:none;stroke:var(--advance);stroke-width:1.8;stroke-linecap:round}
+  .amb .tier{fill:var(--advance);font-size:10.5px;font-weight:700;letter-spacing:.05em}
+  .hush{fill:var(--advance);opacity:.85}
+  /* 卢桂生叛降·泄谋:内奸越阵、密报之泄 */
+  .leak{fill:none;stroke:var(--ret);stroke-width:2;stroke-dasharray:2 4;opacity:.92}
+  .defector .fig{fill:var(--ret);stroke:var(--paper);stroke-width:.5}
+  /* 三桂搜箐:炮铳轰伏之红色搜击 */
+  .sweep{fill:none;stroke:var(--enemy);stroke-width:1.5;stroke-dasharray:2 3;opacity:.85}
+  /* 大将战死:阵殁之记(清·红,明·青) */
+  .martyr circle{fill:rgba(154,43,30,.14);stroke:var(--enemy);stroke-width:1.5}
+  .martyr line{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
+  .martyr.j circle{fill:rgba(31,78,84,.16);stroke:var(--advance)}
   .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
-  .legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
   .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
   .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
   .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
   .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
   .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
   .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
   .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
   .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
   .ph{opacity:0;visibility:hidden;transition:opacity .4s}
-  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3{opacity:1;visibility:visible}
-  .ph.show .march:not(.rout){stroke-dasharray:660;stroke-dashoffset:660;animation:draw 1.5s ease forwards}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s ease forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
   @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
   .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
@@ -68,20 +94,21 @@
 </head>
 <body data-ph="all">
 <div class="frame">
-  <a class="navback" href="../qing-battle-maps/index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
+  <a class="navback" href="index.html" aria-label="返回清朝征战图录总目">↩ 战图总目</a>
   <div class="seal" aria-hidden="true"><span>磨</span><span>盘</span><span>山</span><span>役</span></div>
   <header>
     <h1>磨盘山之役</h1>
-    <div class="sub">清顺治十五至十六年(1658–1659)　　<i>清 吴三桂</i> 惨胜灭明 · <b>南明 李定国</b>三伏磨盘山</div>
+    <div class="sub">清顺治十五至十六年(1658–1659)　　<b>清 平西王吴三桂</b> 惨胜 · <i>南明 晋王李定国</i> 三伏磨盘山　·　设伏聚歼 · 内奸泄谋 · 功败垂成</div>
   </header>
   <div class="tabs" role="tablist">
-    <button class="on" data-p="all">全图 · 清三路入滇</button>
-    <button data-p="1">设三伏 · 扼绝险</button>
-    <button data-p="2">内奸泄谋 · 伏发仓促</button>
-    <button data-p="3">血战两伤 · 南明遂亡</button>
+    <button class="on" data-p="all">全图 · 南明最后反击</button>
+    <button data-p="1">三路入滇 · 永历西奔</button>
+    <button data-p="2">险道设三伏 · 衔枚静待</button>
+    <button data-p="3">卢桂生叛降 · 泄谋</button>
+    <button data-p="4">提前发伏 · 血战两伤</button>
   </div>
   <div class="mapwrap">
-  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="磨盘山之役形势图,含南明清疆界、怒江潞江险道与昆明保山腾越缅甸边境等城邑">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="磨盘山之役形势图,含南明与清约界、怒江(潞江)与高黎贡山险道,及磨盘山三伏、橄榄坡大营、潞江坝渡口、永昌(保山)、腾越(腾冲)、龙陵诸地,与昆明(图外正东)、缅甸(图外西南)之边缘箭头">
     <defs>
       <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
       <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
@@ -90,115 +117,266 @@
       <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
     </defs>
 
-    <!-- 疆界:南明永历朝廷据滇西(西),清自湖广贵州入滇据滇东(东),约以怒江险道为界 -->
-    <path d="M 470,0 C 480,100 460,180 430,260 C 410,320 400,390 410,460 C 418,540 440,590 452,640 L 0,640 L 0,0 Z" fill="url(#qinHatch)"/>
-    <path d="M 470,0 C 480,100 460,180 430,260 C 410,320 400,390 410,460 C 418,540 440,590 452,640 L 1000,640 L 1000,0 Z" fill="url(#jinHatch)"/>
-    <path class="border" d="M 470,0 C 480,100 460,180 430,260 C 410,320 400,390 410,460 C 418,540 440,590 452,640"/>
-    <text class="realm q" x="90" y="130" font-size="30">南 明 · 滇 西</text>
-    <text class="realm j" x="640" y="560" font-size="30">清 · 自黔入滇</text>
+    <!-- ══ 约界:清自黔·蜀·桂入滇,已据滇东会师曲靖入昆(东);南明晋王殿后于滇西(西),约以怒江险道为界 ══ -->
+    <path d="M 604,0 C 616,140 596,280 570,392 C 552,472 560,548 564,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 604,0 C 616,140 596,280 570,392 C 552,472 560,548 564,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 604,0 C 616,140 596,280 570,392 C 552,472 560,548 564,640"/>
+    <text class="realm q" x="742" y="118" font-size="27">清 · 滇 东</text>
+    <text class="cname s" x="742" y="140" style="fill:var(--enemy);opacity:.6">(会师曲靖 · 入据昆明)</text>
+    <text class="realm j" x="70" y="150" font-size="27">南明 · 晋王殿后</text>
 
-    <!-- 怒江·潞江:自北南下,横亘险隘 -->
-    <path class="river" stroke-width="4.5" d="M 360,60 C 372,150 380,240 386,320 C 392,400 400,470 420,560"/>
-    <!-- 澜沧江(东,示意) -->
-    <path class="river" stroke-width="3" d="M 560,70 C 566,170 560,280 548,380 C 540,450 536,510 540,590"/>
-    <text class="rname" x="392" y="300" transform="rotate(84 392 300)">怒 江 · 潞 江</text>
-    <text class="rname" x="552" y="320" transform="rotate(86 552 320)" style="font-size:10.5px">澜沧江</text>
+    <!-- ══ 高黎贡山(磨盘山为其南段):怒江西岸险峻大山,南北横亘,唯一线鸟道穿之 ══ -->
+    <path class="mtn fill" d="M 470,158 L 486,148 L 500,176 L 514,154 L 528,184 L 520,250 L 528,318 L 520,388 L 528,452 L 512,494 L 500,436 L 508,368 L 498,300 L 506,238 L 492,196 Z"/>
+    <path class="mtn" d="M 476,180 l 12,-20 l 12,18 l 14,-24 l 12,20 M 486,300 l 11,-18 l 11,17 M 484,398 l 11,-18 l 11,17 M 490,452 l 10,-16 l 10,15"/>
+    <text class="mname" x="530" y="300" transform="rotate(84 530 300)">高 黎 贡 山</text>
+    <text class="cname s" x="524" y="470" style="opacity:.72">横断山 · 磨盘山即其南段</text>
 
-    <!-- 磨盘山·高黎贡余脉:横列险道 -->
-    <g class="mtn"><path d="M 300,300 l 10,-17 l 10,17 M 320,300 l 11,-19 l 11,19 M 342,300 l 10,-16 l 10,16 M 362,302 l 9,-15 l 9,15"/></g>
-    <g class="mtn"><path d="M 270,236 l 9,-15 l 9,15 M 288,236 l 10,-16 l 10,16"/></g>
-    <text class="cname s" x="300" y="270" style="font-size:11.5px;fill:var(--ink2)">高黎贡余脉</text>
+    <!-- ══ 水系 ══ -->
+    <!-- 怒江(潞江):自北南下,横亘于磨盘山之东,清军渡此西追;潞江坝为渡口 -->
+    <path class="river" stroke-width="4.6" d="M 599,58 C 585,180 560,300 544,390 C 532,472 526,540 522,606"/>
+    <text class="rname" x="560" y="230" transform="rotate(83 560 230)">怒 江 · 潞 江</text>
+    <!-- 澜沧江(东,示意):远在滇东,清追军所自 -->
+    <path class="river" stroke-width="2.6" d="M 884,64 C 872,210 858,370 846,540" opacity=".6"/>
+    <text class="rname" x="856" y="330" transform="rotate(85 856 330)" style="font-size:10.5px;opacity:.7">澜沧江</text>
 
-    <!-- 城邑 -->
+    <!-- ══ 险道:潞江坝渡口西上,穿磨盘山三伏,退趋橄榄坡·腾越 ══ -->
+    <path class="road" d="M 556,380 C 540,388 528,398 512,402 C 494,407 474,410 456,416 C 430,430 414,452 406,470"/>
+
+    <!-- ══ 城邑 ══ -->
     <g id="cities">
-      <g class="city cap" data-city="kunming"><circle cx="700" cy="360" r="6"/><text class="cname" x="712" y="356">昆明<tspan class="cname s" dx="2">(南明旧都·清已据)</tspan></text></g>
-      <g class="city" data-city="yongchang"><circle cx="470" cy="340" r="5"/><text class="cname" x="482" y="336">永昌·保山</text></g>
-      <g class="city" data-city="mopanshan"><circle cx="352" cy="316" r="6"/><text class="cname" x="300" y="352">磨盘山</text></g>
-      <g class="city" data-city="nujiang"><circle cx="400" cy="380" r="3.5"/><text class="cname s" x="376" y="400">怒江渡</text></g>
-      <g class="city" data-city="tengyue"><circle cx="240" cy="360" r="5"/><text class="cname" x="150" y="356">腾越·腾冲</text></g>
-      <g class="city" data-city="mianbian"><circle cx="120" cy="420" r="4.5"/><text class="cname" x="60" y="440">缅甸边境</text></g>
+      <g class="city cap" data-city="mopanshan"><circle cx="456" cy="418" r="6.5"/><text class="cname" x="404" y="440">磨盘山<tspan class="cname s" dx="2">(三伏)</tspan></text></g>
+      <g class="city" data-city="ganlanpo"><circle cx="406" cy="472" r="4"/><text class="cname s" x="322" y="476">橄榄坡(定国大营)</text></g>
+      <g class="city" data-city="nujiang"><circle cx="544" cy="390" r="4.5"/><text class="cname s" x="556" y="386">潞江坝(渡口)</text></g>
+      <g class="city" data-city="yongchang"><circle cx="735" cy="197" r="6"/><text class="cname" x="700" y="184">永昌·保山</text></g>
+      <g class="city" data-city="tengyue"><circle cx="279" cy="266" r="5.5"/><text class="cname" x="196" y="262">腾越·腾冲</text></g>
+      <g class="city" data-city="longling"><circle cx="415" cy="565" r="3.5"/><text class="cname s" x="358" y="560">龙陵</text></g>
     </g>
 
-    <!-- 全图 · 清三路入滇 -->
+    <!-- 昆明·曲靖(图外·正东,清会师入据) -->
+    <g transform="translate(992,206)">
+      <path class="march q" marker-end="url(#aq)" d="M -6,0 L -32,0"/>
+      <text class="mlabel q" x="-8" y="-8" text-anchor="end" style="font-size:10px">昆明·曲靖 ⟶</text>
+      <text class="cname s" x="-8" y="8" text-anchor="end" style="fill:var(--enemy);font-size:9.5px">清会师入据(图外正东)</text>
+    </g>
+    <!-- 缅甸·阿瓦(图外·西南,永历所奔) -->
+    <g transform="translate(8,338)">
+      <path class="march rout" marker-end="url(#ar)" d="M 30,0 L 4,0"/>
+      <text class="mlabel r" x="34" y="-8" style="font-size:10px">⟵ 缅甸·阿瓦</text>
+      <text class="cname s" x="34" y="8" style="fill:var(--ret);font-size:9.5px">永历西走处(图外西南)</text>
+    </g>
+
+    <!-- ══ 全图 · 南明最后反击 ══ -->
     <g id="phAll" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 692,354 C 620,340 540,336 484,340"/>
-      <text class="mlabel j" x="520" y="326">清吴三桂等三路大军入滇,南明不能御</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 462,346 C 380,378 280,382 250,368"/>
-      <text class="mlabel r" x="300" y="420">永历帝西奔趋腾越,将入缅甸</text>
-      <text class="anno" x="120" y="150">吴三桂·赵布泰·卓布泰三路并进</text>
-      <text class="mlabel q" x="440" y="240">晋王李定国收余众断后,设伏磨盘山</text>
+      <path class="march q" marker-end="url(#aq)" d="M 960,206 C 860,202 782,204 744,204"/>
+      <path class="march q" marker-end="url(#aq)" d="M 726,208 C 652,266 596,332 556,378"/>
+      <text class="mlabel q" x="600" y="150">清三路入滇,会师曲靖,长驱西追</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 742,220 C 606,300 494,392 430,452 C 344,470 214,432 44,352"/>
+      <text class="mlabel r" x="430" y="502">永历弃昆明西奔,趋腾越,将入缅甸</text>
+      <path class="march j" marker-end="url(#aj)" d="M 406,466 C 428,446 442,432 452,422"/>
+      <text class="mlabel j" x="212" y="360">晋王李定国收余众殿后,设伏磨盘山</text>
+      <text class="anno" x="256" y="378">南明擎天之柱,谋一战聚歼清追军</text>
+      <circle class="star" cx="456" cy="418" r="10"/>
     </g>
 
-    <!-- 阶段一:设三伏 · 扼绝险 -->
+    <!-- ══ 阶段一:三路入滇 · 永历西奔 ══ -->
     <g id="ph1" class="ph">
-      <circle class="star" cx="352" cy="316" r="9"/>
-      <text class="mlabel q" x="240" y="288">李定国分设初、二、三伏于密箐</text>
-      <path class="march q" marker-end="url(#aq)" d="M 470,332 C 430,326 400,322 366,318"/>
-      <text class="anno" x="386" y="304">道狭仅容一骑,箐深林密</text>
-      <text class="mlabel q" x="240" y="352">约清军尽入伏中,炮响齐发,一举歼之</text>
-      <text class="anno" x="240" y="368">初伏 · 二伏 · 三伏,依次埋于道旁</text>
+      <path class="march q" marker-end="url(#aq)" d="M 960,150 C 872,160 800,178 744,194"/>
+      <path class="march q" marker-end="url(#aq)" d="M 960,300 C 872,278 800,240 742,214"/>
+      <text class="anno" x="770" y="146">多尼中路(安顺)·卓布泰南路(广西)</text>
+      <text class="anno" x="770" y="322">吴三桂北路(毕节)· 三面合围</text>
+      <path class="march q" marker-end="url(#aq)" d="M 726,210 C 652,270 596,334 556,380"/>
+      <text class="mlabel q" x="592" y="256">吴三桂率精锐渡怒江,穷追李定国</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 730,216 C 600,300 470,410 380,456 C 300,470 180,438 44,356"/>
+      <text class="mlabel r" x="440" y="512">永历西奔,趋腾越入缅</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,232 C 600,332 520,400 468,414"/>
+      <text class="mlabel j" x="474" y="360">定国收拢败兵,且战且退,择磨盘山绝险殿后</text>
+      <circle class="star" cx="456" cy="418" r="9"/>
     </g>
 
-    <!-- 阶段二:内奸泄谋 · 伏发仓促 -->
+    <!-- ══ 阶段二:险道设三伏 · 衔枚静待 ══ -->
     <g id="ph2" class="ph">
-      <path class="march j" marker-end="url(#aj)" d="M 486,342 C 450,334 420,326 372,320"/>
-      <text class="mlabel j" x="430" y="356">吴三桂军长驱入险,行将尽入</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 486,352 C 460,362 430,364 406,360"/>
-      <text class="mlabel r" x="428" y="378">卢桂生叛降,泄谋于三桂</text>
-      <circle class="star" cx="352" cy="316" r="9"/>
-      <text class="mlabel j" x="230" y="300">三桂大惊,急令搜山、以炮轰箐</text>
-      <text class="mlabel q" x="230" y="336">伏兵未及号令而先发,仓促接战</text>
+      <!-- 三伏:初伏(前·西)窦名望 / 二伏(中)高文贵 / 三伏(后·东,当隘口)王玺 -->
+      <g class="amb">
+        <!-- 初伏 窦名望(前) -->
+        <path class="br" d="M 442,404 q 10,-6 20,0 M 442,428 q 10,6 20,0"/>
+        <rect class="hush" x="447" y="398" width="6" height="6" transform="rotate(45 450 401)"/>
+        <rect class="hush" x="447" y="429" width="6" height="6" transform="rotate(45 450 432)"/>
+        <text class="tier" x="404" y="400">初伏 · 窦名望</text>
+        <!-- 二伏 高文贵(中) -->
+        <path class="br" d="M 478,396 q 10,-6 20,0 M 478,420 q 10,6 20,0"/>
+        <rect class="hush" x="483" y="390" width="6" height="6" transform="rotate(45 486 393)"/>
+        <rect class="hush" x="483" y="421" width="6" height="6" transform="rotate(45 486 424)"/>
+        <text class="tier" x="500" y="392">二伏 · 高文贵</text>
+        <!-- 三伏 王玺(后,当隘口) -->
+        <path class="br" d="M 518,390 q 10,-6 20,0 M 518,412 q 10,6 20,0"/>
+        <rect class="hush" x="523" y="384" width="6" height="6" transform="rotate(45 526 387)"/>
+        <rect class="hush" x="523" y="413" width="6" height="6" transform="rotate(45 526 416)"/>
+        <text class="tier" x="540" y="384">三伏 · 王玺</text>
+      </g>
+      <rect class="camp" x="401" y="467" width="9" height="9" transform="rotate(45 406 472)"/>
+      <text class="mlabel j" x="220" y="300">李定国分设三伏于险道,伏兵六千</text>
+      <text class="anno" x="248" y="318">道险林深,箐深谷狭,仅容一骑</text>
+      <text class="mlabel j" x="270" y="500">主营潜伏山后四十里橄榄坡,匿火衔枚</text>
+      <text class="anno" x="486" y="452">约清追军尽入伏中,炮响齐发,聚而歼之</text>
+      <!-- 清追军将至隘口 -->
+      <path class="march q" marker-end="url(#aq)" d="M 588,378 C 574,382 566,386 560,388"/>
+      <text class="mlabel q" x="590" y="360">清军蹑踪将至</text>
+      <circle class="star" cx="456" cy="418" r="9" opacity=".5"/>
     </g>
 
-    <!-- 阶段三:血战两伤 · 南明遂亡 -->
+    <!-- ══ 阶段三:卢桂生叛降 · 泄谋 ══ -->
     <g id="ph3" class="ph">
-      <path d="M 352,316 l 5,-11 l 4,8 l 9,-5 l -5,9 l 11,4 l -11,4 l 5,9 l -9,-5 l -4,8 l -5,-11 l -9,5 l 5,-9 l -11,-4 l 11,-4 l -5,-9 z" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/>
-      <text class="mlabel q" x="230" y="296">短兵血战竟日,尸填沟壑,两皆重伤</text>
-      <text class="anno" x="230" y="312">清固山额真以下将佐死者众;明伏兵十丧六七</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 340,326 C 300,352 260,362 216,414"/>
-      <text class="mlabel r" x="220" y="392">定国收余众退走,窦名望等战死</text>
-      <path class="march rout" marker-end="url(#ar)" d="M 232,368 C 190,388 150,406 128,414"/>
-      <text class="mlabel r" x="70" y="470">永历入缅,后为缅执送三桂,缢死昆明</text>
-      <text class="anno" x="500" y="440">西南遂平,明祚乃绝</text>
+      <!-- 吴三桂军长驱入险,行将尽入 -->
+      <path class="march q" marker-end="url(#aq)" d="M 556,382 C 544,388 534,394 528,398"/>
+      <path class="march q" marker-end="url(#aq)" d="M 524,400 C 512,404 502,406 496,408"/>
+      <text class="mlabel q" x="536" y="368">吴三桂军长驱入险,前锋将尽入三伏</text>
+      <!-- 卢桂生叛降:自伏中越阵东走,密报之泄 -->
+      <path class="leak" d="M 490,428 C 512,420 534,406 552,392"/>
+      <g class="defector" transform="translate(486,430)">
+        <circle class="fig" cx="0" cy="-6" r="3.1"/>
+        <path class="fig" d="M -3,-2 L 3,-2 L 2,7 L -2,7 Z"/>
+      </g>
+      <text class="mlabel r" x="360" y="446">卢桂生临阵叛降,越阵告密</text>
+      <text class="anno" x="392" y="462">泄三伏之谋于吴三桂</text>
+      <!-- 三桂大惊,止军搜箐,以炮铳轰伏 -->
+      <g class="sweep">
+        <path d="M 560,388 C 542,382 522,388 508,398"/>
+        <path d="M 560,392 C 540,398 520,406 502,414"/>
+        <path d="M 560,384 C 546,372 528,372 514,382"/>
+      </g>
+      <text class="mlabel q" x="576" y="410">三桂大惊,急止军</text>
+      <text class="anno" x="560" y="428">令搜山,以炮铳轰箐</text>
+      <circle class="star" cx="456" cy="418" r="9"/>
     </g>
 
-    <g class="compass" transform="translate(944,560)">
-      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
-      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
-      <text x="-4" y="-24">北</text>
+    <!-- ══ 阶段四:提前发伏 · 血战两伤 · 南明反击败 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 伏谋既泄,伏兵不待号令先发,短兵反击清军于道 -->
+      <path class="march j" marker-end="url(#aj)" d="M 450,414 C 486,404 516,398 540,392"/>
+      <path class="march j" marker-end="url(#aj)" d="M 486,406 C 508,400 526,396 540,390"/>
+      <path class="march j" marker-end="url(#aj)" d="M 522,402 C 532,398 542,394 550,390"/>
+      <text class="mlabel j" x="238" y="336">伏谋既泄,伏兵不待号令先发</text>
+      <text class="anno" x="270" y="354">短兵血战,自晨及暮,尸填沟壑</text>
+      <circle class="star" cx="456" cy="418" r="12"/>
+      <!-- 大将战死:明·窦名望(青✕);清·沙里布(红✕) -->
+      <g class="martyr j" transform="translate(452,416)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <g class="martyr" transform="translate(542,390)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="mlabel r" x="238" y="374">明初伏将窦名望战殁,伏兵十丧六七</text>
+      <text class="mlabel q" x="556" y="374">清固山额真沙里布等死之</text>
+      <text class="anno" x="556" y="390">八旗将佐死者二十余</text>
+      <!-- 定国力竭引退,退保腾越 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 442,426 C 396,458 330,464 278,300"/>
+      <text class="mlabel r" x="228" y="248">定国力竭,收余众引退,退保腾越</text>
+      <!-- 永历入缅,南明遂亡 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 270,278 C 190,286 108,308 44,344"/>
+      <text class="anno" x="70" y="322">永历入缅,南明遂亡</text>
+    </g>
+
+    <g class="compass" transform="translate(946,596)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
     </g>
   </svg>
   </div>
   <div class="legend">
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>清军</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南明军(伏兵)</span>
-    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>退奔·泄谋</span>
-    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>三伏血战</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>南明·滇</span>
-    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>清</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>南明军·李定国(伏兵)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>清军·吴三桂(追军)</span>
+    <span class="item"><svg width="30" height="18"><path d="M 6,4 q 9,-5 18,0 M 6,14 q 9,5 18,0" fill="none" stroke="#1f4e54" stroke-width="1.6"/><rect x="12" y="6" width="6" height="6" fill="#1f4e54" transform="rotate(45 15 9)"/></svg>三伏·衔枚静待</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2" stroke-dasharray="2 4"/></svg>卢桂生叛降·泄谋</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>血战聚歼处</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="rgba(154,43,30,.14)" stroke="#9a2b1e" stroke-width="1.4"/><line x1="4" y1="4" x2="12" y2="12" stroke="#2b2418" stroke-width="2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#2b2418" stroke-width="2"/></svg>大将战死</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>引退·永历西奔</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>南明·滇西</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>清·滇东</span>
   </div>
   <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 设伏聚歼 · 内奸泄谋 · 功败垂成</h3>
+    <div class="lead">何以必胜之伏一日而溃 —— 非战之罪,系于一叛:三伏聚歼之谋,泄于内奸之口</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜释要示意:左为李定国于磨盘山险道分设初伏二伏三伏、衔枚静待约炮响齐发之聚歼之谋;中为卢桂生叛降越阵泄谋;右为伏谋既泄、伏兵提前发、短兵血战两皆重伤之结局">
+      <text x="24" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 险道三伏 · 衔枚静待</text>
+      <text x="356" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 内奸泄谋</text>
+      <text x="656" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 伏发·两伤</text>
+
+      <!-- ① 三伏:一线险道,三重夹伏,伏兵匿于道旁箐林,约炮响齐发 -->
+      <path d="M 40,70 C 90,110 150,140 210,168" fill="none" stroke="#5c4f38" stroke-width="2.4" stroke-dasharray="2 3" opacity=".6"/>
+      <text x="30" y="64" fill="#5c4f38" font-size="9.5">险道一线 · 仅容一骑</text>
+      <g fill="none" stroke="#1f4e54" stroke-width="1.7">
+        <path d="M 78,84 q 10,-7 20,-1 M 78,108 q 10,7 20,1"/>
+        <path d="M 126,108 q 10,-7 20,-1 M 126,132 q 10,7 20,1"/>
+        <path d="M 172,132 q 10,-7 20,-1 M 172,156 q 10,7 20,1"/>
+      </g>
+      <g fill="#1f4e54"><rect x="84" y="86" width="6" height="6" transform="rotate(45 87 89)"/><rect x="132" y="110" width="6" height="6" transform="rotate(45 135 113)"/><rect x="178" y="134" width="6" height="6" transform="rotate(45 181 137)"/></g>
+      <text x="60" y="132" fill="#1f4e54" font-size="9">初伏</text><text x="108" y="156" fill="#1f4e54" font-size="9">二伏</text><text x="154" y="180" fill="#1f4e54" font-size="9">三伏</text>
+      <path d="M 100,200 l 0,-10 M 96,196 l 8,0" stroke="#9c7a2c" stroke-width="1.6"/>
+      <text x="30" y="222" fill="#9c7a2c" font-size="9.5">约炮响齐发 · 待其尽入而聚歼</text>
+
+      <!-- ② 卢桂生叛降:自伏中越阵东走,以谋献清 -->
+      <line x1="316" y1="18" x2="316" y2="234" stroke="#6e5d3c" stroke-width="1" stroke-dasharray="3 5" opacity=".5"/>
+      <line x1="586" y1="18" x2="586" y2="234" stroke="#6e5d3c" stroke-width="1" stroke-dasharray="3 5" opacity=".5"/>
+      <circle cx="378" cy="96" r="9" fill="#1f4e54" stroke="#e9dec4" stroke-width=".8"/><text x="342" y="82" fill="#1f4e54" font-size="9.5">南明伏中</text>
+      <circle cx="520" cy="150" r="9" fill="#9a2b1e" stroke="#e9dec4" stroke-width=".8"/><text x="498" y="176" fill="#9a2b1e" font-size="9.5">吴三桂军</text>
+      <path d="M 388,104 C 430,122 470,138 508,148" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="2 4"/>
+      <g transform="translate(396,110)"><circle cx="0" cy="-5" r="3.4" fill="#7a5a23"/><path d="M -3,-1 L 3,-1 L 2,8 L -2,8 Z" fill="#7a5a23"/></g>
+      <text x="360" y="212" fill="#7a5a23" font-size="10" font-weight="700">卢桂生叛降 · 越阵献谋</text>
+      <text x="360" y="228" fill="#5c4f38" font-size="9">精心之伏,毁于一言</text>
+
+      <!-- ③ 伏发两伤:三桂急搜箐,伏兵提前发,短兵血战,两皆重伤 -->
+      <g class="sweep" fill="none" stroke="#9a2b1e" stroke-width="1.5" stroke-dasharray="2 3">
+        <path d="M 660,120 C 690,108 720,116 738,132"/>
+        <path d="M 660,132 C 692,124 722,134 740,150"/>
+      </g>
+      <text x="628" y="66" fill="#9a2b1e" font-size="9.5">三桂搜箐 · 炮铳轰伏</text>
+      <path d="M 700,90 C 716,110 726,124 736,140" fill="none" stroke="#1f4e54" stroke-width="2.2" marker-end="url(#aj)"/>
+      <path d="M 800,96 C 782,116 766,128 752,140" fill="none" stroke="#1f4e54" stroke-width="2.2" marker-end="url(#aj)"/>
+      <circle cx="744" cy="152" r="14" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <g transform="translate(712,150)"><circle r="7" fill="rgba(31,78,84,.16)" stroke="#1f4e54" stroke-width="1.4"/><line x1="-4" y1="-4" x2="4" y2="4" stroke="#2b2418" stroke-width="2"/><line x1="-4" y1="4" x2="4" y2="-4" stroke="#2b2418" stroke-width="2"/></g>
+      <g transform="translate(778,152)"><circle r="7" fill="rgba(154,43,30,.14)" stroke="#9a2b1e" stroke-width="1.4"/><line x1="-4" y1="-4" x2="4" y2="4" stroke="#2b2418" stroke-width="2"/><line x1="-4" y1="4" x2="4" y2="-4" stroke="#2b2418" stroke-width="2"/></g>
+      <text x="628" y="200" fill="#9a2b1e" font-size="10" font-weight="700">伏兵提前发 · 短兵血战</text>
+      <text x="628" y="216" fill="#5c4f38" font-size="9">窦名望·沙里布俱殁,两皆重伤</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 236,120 L 288,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <path d="M 536,120 L 588,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aq)" opacity=".55"/>
+    </svg>
+    <p class="intro">磨盘山之败,不败于力,而败于「谋泄」。清三路破滇、永历西奔,李定国收残军殿后,择磨盘山绝险为战场:一线鸟道、箐深谷狭,乃<b>分设初伏(窦名望)、二伏(高文贵)、三伏(王玺)</b>于道旁,伏兵六千<b>衔枚静待</b>、匿火橄榄坡,约候清追军尽入伏中、炮响齐发而聚歼之——布置周密,清军浑然不觉,一战几可全歼吴三桂追军。而成败之机,竟系于人心之一叛。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>设伏聚歼之谋(青)</h4>
+        <p>李定国久历行阵,深知野战难敌八旗,乃因地设险:磨盘山道狭仅容一骑、林深箐密,最宜伏兵。三伏依次埋于道旁,伏兵衔枚、藏火匿烟,主营远伏山后四十里。其谋在「待」——待清军贪功穷追、全队入彀,一声炮响,三伏俱起、首尾夹击,聚而歼之于绝地。此乃以弱制强、险中求胜之上策,几为南明翻盘之一击。</p>
+      </div>
+      <div class="c b">
+        <h4>内奸泄谋 · 功败垂成(赤)</h4>
+        <p>会南明光禄寺卿卢桂生临阵叛降,越阵告密,尽泄三伏之谋于吴三桂。三桂大惊,急止军勿前,反令搜山、以炮铳轰箐。伏兵未及号令,被迫提前而发,聚歼之势遂变仓促血战。短兵相接、自晨及暮,清固山额真沙里布以下将佐死者二十余,而明初伏将窦名望战殁、伏兵十丧六七。两皆重伤,定国力竭引退——精心之伏,毁于一叛。</p>
+      </div>
+    </div>
+    <p class="kicker">故磨盘山之役,南明<b>非无制胜之谋,而无制胜之运</b>:使卢桂生不叛,则吴三桂追军或尽歼于绝险,西南之局未可知。此为南明最后一次大规模反击;血战之后,李定国精锐瓦解,永历走缅,后为缅人执送吴三桂,<b>缢死昆明(1662),南明遂亡</b>。设伏聚歼、内奸泄谋、功败垂成——三语尽之。</p>
+  </div>
   <div class="notes">
-    <p><span class="n">注一</span>本图为示意图,依《清史稿·吴三桂传》《明史·李定国传》《狩缅纪事》约略绘出。磨盘山在今云南保山、腾冲间,城邑水道为相对示意,怒江(潞江)、澜沧江经简化,非实测。</p>
-    <p><span class="n">注二</span>晕染疆界为顺治末滇局形势示意:南明永历朝廷据滇西,清军自湖广、贵州入滇据滇东;山箐险道为界,故以点划「约界」标之,非实有画界。</p>
-    <p><span class="n">注三</span>磨盘山之役,李定国设三伏于绝险,谋一举歼清追军。会光禄寺卿卢桂生叛降泄谋,伏兵先发,血战竟日,两皆重伤——清虽惨胜而精锐大损,南明伏兵亦十丧六七、名将窦名望等战死。胜负之间,系于一叛。</p>
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(<b>x=150+(经度−98.30)×680,y=590−(纬度−24.55)×690</b>),几何关系力求近实:磨盘山居中(高黎贡山南段),潞江坝渡口·怒江在其东,永昌(保山)在东北,腾越(腾冲)在西北,龙陵在西南,橄榄坡大营在磨盘山之后(西);怒江(潞江)自北南下、横亘于磨盘山之东,高黎贡山为怒江西岸险峻大山、南北横亘。昆明·曲靖远在正东(图外)、缅甸·阿瓦在西南(图外),皆以边缘箭头示之。约界晕染、水道皆经简化,点划「约界」非实有画界。依《清史稿·吴三桂传》《明史·李定国传》《狩缅纪事》及顾诚《南明史》约略绘出。</p>
+    <p><span class="n">注二</span>今地考:磨盘山在今云南保山、腾冲间高黎贡山南段(约98.75E,24.80N),怒江西岸险道所在,李定国设三伏血战处;潞江坝为怒江渡口(约98.88E,24.84N),清军渡此西追;永昌府即今云南保山(99.16E,25.12N),清追军所自、南明退次之地;腾越即今腾冲(98.49E,25.02N),永历西奔入缅所经、定国退保处;龙陵在磨盘山西南(约98.69E,24.58N);橄榄坡为定国大营,在磨盘山后约四十里(约98.68E,24.72N)。昆明(102.72E,25.04N)为南明旧都、清会师入据处,远在图外正东;缅甸都阿瓦(瓦城)在西南图外。磨盘山确址、橄榄坡方位诸家小异,已择一说并此志之。</p>
+    <p><span class="n">注三</span>【几方 · 从何而来 · 水陆】此役<b>两方</b>:南明(青,主)晋王李定国,收滇溃余军殿后;清(赤)平西王吴三桂追军。顺治十五年(1658)清<b>三路入滇</b>——信郡王多尼中路自贵州安顺、平西王吴三桂北路自四川毕节、征南将军卓布泰(赵布泰)南路自广西——三面合围,会师曲靖;十六年正月清兵不血刃入昆明,永历帝朱由榔弃都<b>西奔</b>,趋永昌、腾越,将入缅甸。全程<b>陆路山道</b>:清军渡怒江(潞江坝)穷追,李定国收拢败兵、且战且退,择磨盘山绝险殿后掩护永历西撤。此役制胜<b>不在粮道</b>,而在<b>地形之伏</b>——绝险设伏、聚歼追敌之一击。</p>
+    <p><span class="n">注四</span>【三伏 · 衔枚 · 泄谋】据《南明史》等:李定国伏兵约万人、匿六千于磨盘山道旁,<b>分为三伏</b>——初伏泰安伯窦名望、二伏广昌侯高文贵、三伏总兵王玺(一作王国玺),每伏约二千;主营伏山后四十里橄榄坡,令<b>衔枚、匿火、藏烟</b>,约清追军尽入伏中、炮响齐发而聚歼之。会光禄寺卿卢桂生临阵叛降,越阵尽泄其谋于吴三桂;三桂大惊,急止军勿进,反令搜山、以炮铳轰箐。伏兵不待号令而<b>提前先发</b>,聚歼之势遂变短兵血战,自晨及暮,尸填沟壑,两皆重伤。</p>
+    <p><span class="n">注五</span>【异说】两军伤亡,诸书互异:清<b>固山额真沙里布</b>(一作沙纳哈)以下将佐死者,或云二十余、或云过半八旗高级将佐;南明初伏将窦名望战殁,高文贵负伤,伏兵<b>十丧六七</b>,李定国精锐几尽。此役俗称「磨盘山血战」,为南明最后一次大规模反击。永历帝入缅后,康熙元年(1662)为缅人执送吴三桂,缢死于昆明(一说康熙三年1664事,今从1662之说),南明遂亡。伏兵总数、三伏将佐姓名及沙里布译名,史传微有出入,并存以俟考。</p>
   </div>
 </div>
 <script>
 const PH={
-  all:{t:"清三路入滇",d:"清顺治十五至十六年(1658–1659)",p:["清以吴三桂、赵布泰、卓布泰三路大军入滇,南明永历朝廷不能御。永历帝朱由榔西奔,趋腾越,将入缅甸。","晋王李定国为南明擎天之柱,收余众断后,于磨盘山设伏,以谋歼清追军——一战之成败,系明祚之绝续。"]},
-  "1":{t:"设三伏 · 扼绝险",d:"顺治十六年正月",p:["磨盘山山势险峻,道狭仅容一骑,箐深林密。李定国分伏兵为三:初伏、二伏、三伏,依次埋于道旁密箐。","约清军尽入伏中,炮响齐发,内外夹攻,谋一举而歼之。绝险设伏,布置周密,清追军浑然不觉。"]},
-  "2":{t:"内奸泄谋 · 伏发仓促",d:"顺治十六年正月",p:["清吴三桂军果长驱入险,行将尽入伏中。会南明光禄寺卿卢桂生叛降,泄其谋于吴三桂。","三桂大惊,急令搜山、以炮轰箐。伏兵未及号令而先发,仓促接战——精心之伏,毁于一叛。"]},
-  "3":{t:"血战两伤 · 南明遂亡",d:"顺治十六年正月",p:["短兵相接,血战竟日,尸填沟壑。清军虽胜,损伤惨重,固山额真以下将佐死者众;南明伏兵亦十丧六七,大将窦名望等战死。","李定国收余众退走,永历帝终入缅甸(后为缅人执送吴三桂,缢死昆明)。南明经此一役,精锐尽丧,西南遂平,明祚乃绝。"]}
+  all:{t:"南明最后反击",d:"清顺治十五至十六年(1658–1659)",p:["清以信郡王多尼、平西王吴三桂、征南将军卓布泰三路大军入滇,会师曲靖,南明永历朝廷不能御。顺治十六年正月,清军不血刃入昆明,永历帝朱由榔弃都西奔,趋永昌、腾越,将入缅甸。","晋王李定国为南明擎天之柱,收拢滇溃余军殿后,于磨盘山绝险设三伏,谋一举聚歼吴三桂追军——此一战之成败,系明祚之绝续,亦南明最后一次大规模反击。"]},
+  "1":{t:"三路入滇 · 永历西奔",d:"顺治十五年—十六年正月",p:["顺治十五年(1658),清三路会攻云南:信郡王多尼中路自贵州安顺,平西王吴三桂北路自四川毕节,征南将军卓布泰(赵布泰)南路自广西,三面合围,会师曲靖。十六年正月,清兵入昆明,永历帝弃都西奔,趋永昌、腾越,将入缅甸。","吴三桂率关宁精锐渡怒江(潞江坝),穷追不舍。李定国收拢且战且退之败兵,为掩护永历西撤,择磨盘山道险林深处,设伏殿后,谋据绝险以邀清追军。"]},
+  "2":{t:"险道设三伏 · 衔枚静待",d:"顺治十六年正月",p:["磨盘山道狭仅容一骑,箐深林密,最宜设伏。李定国分伏兵约六千为三重:初伏泰安伯窦名望、二伏广昌侯高文贵、三伏总兵王玺,依次埋于道旁密箐;主营远伏山后四十里橄榄坡。","令伏兵衔枚、匿火藏烟,静待清军。约候吴三桂追军全队尽入伏中,一声炮响,三伏俱起、首尾夹击,聚而歼之于绝地。布置周密,清追军浑然不觉,一战几可全歼。"]},
+  "3":{t:"卢桂生叛降 · 泄谋",d:"顺治十六年正月",p:["清吴三桂军果长驱入险,前锋行将尽入三伏。会南明光禄寺卿卢桂生临阵叛降,越阵告密,尽泄三伏之谋于吴三桂。","三桂大惊,急令止军勿前,反命搜山、以炮铳轰箐。精心之伏,一言而泄——聚歼之势,遂变仓促。伏兵未及号令,已被逼于将发未发之间。"]},
+  "4":{t:"提前发伏 · 血战两伤",d:"顺治十六年正月",p:["伏谋既泄,伏兵不待号令而提前先发,聚歼之计遂变短兵血战。两军肉搏于险道密箐,自晨及暮,尸填沟壑。清固山额真沙里布以下将佐死者二十余;南明初伏将窦名望战殁,伏兵十丧六七,精锐几尽。","两皆重伤,李定国力竭,收余众引退,退保腾越。永历帝终入缅甸——后为缅人执送吴三桂,缢死昆明(1662)。南明经此一役,反击尽瓦,西南遂平,明祚乃绝。"]}
 };
 const CITY={
-  kunming:{t:"昆明",d:"南明旧都,时清已据",p:["南明永历朝廷旧都,清军入滇即据之。永历帝后为缅人执送吴三桂,即缢死于此。"]},
-  yongchang:{t:"永昌·保山",d:"今云南保山",p:["李定国战前退守据点。清军自昆明西追,定国收余众断后,退次于此,遂设伏磨盘山以邀之。"]},
-  mopanshan:{t:"磨盘山",d:"今云南保山、腾冲间",p:["三伏血战处。道狭仅容一骑,箐深林密。定国伏兵三重,会卢桂生泄谋,伏发仓促,血战竟日,两皆重伤。"]},
-  nujiang:{t:"怒江·潞江",d:"滇西险隘",p:["滇西南北向大川,险隘横亘。永历西奔与清军追蹑皆经其间,磨盘山即在其西之险道。"]},
-  tengyue:{t:"腾越·腾冲",d:"今云南腾冲",p:["磨盘山之西,永历西奔入缅之路所经。定国断后设伏,正为掩护朝廷经此西行。"]},
-  mianbian:{t:"缅甸边境",d:"永历出奔处",p:["永历帝朱由榔终出此入缅。后缅人执送吴三桂,缢死昆明,南明遂亡。"]}
+  mopanshan:{t:"磨盘山",d:"高黎贡山南段,今云南保山、腾冲间(约98.75E,24.80N)",p:["三伏血战处。道狭仅容一骑,箐深林密。李定国伏兵三重、衔枚静待,会卢桂生叛降泄谋,伏兵提前先发,短兵血战竟日,两皆重伤。南明最后一次大规模反击于此顿挫。"]},
+  ganlanpo:{t:"橄榄坡(定国大营)",d:"磨盘山后约四十里(约98.68E,24.72N)",p:["李定国主营所在,潜伏山后四十里。令全军匿火藏烟、衔枚静待,以候三伏炮响。伏谋既泄,主营亦不及展布,定国遂力战引退。"]},
+  nujiang:{t:"潞江坝(怒江渡口)",d:"今云南潞江坝(约98.88E,24.84N)",p:["怒江西岸渡口,横亘于磨盘山之东。吴三桂追军渡此西追李定国,遂逼磨盘山三伏之险。"]},
+  yongchang:{t:"永昌·保山",d:"今云南保山(99.16E,25.12N)",p:["永历西奔与清军穷追皆经其地。清追军自此渡怒江西上;李定国收余众退次,遂设伏磨盘山以邀之。"]},
+  tengyue:{t:"腾越·腾冲",d:"今云南腾冲(98.49E,25.02N)",p:["磨盘山之西,永历西奔入缅之路所经。李定国断后设伏,正为掩护朝廷经此西行;血战之后,定国收余众退保于此。"]},
+  longling:{t:"龙陵",d:"今云南龙陵(约98.69E,24.58N)",p:["磨盘山西南,高黎贡山南段之地。定国殿后据险处附近,示磨盘山险道所在。"]}
 };
 const panel=document.getElementById('panel');
 function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
