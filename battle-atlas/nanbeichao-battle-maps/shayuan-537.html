@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沙苑之战 · 大统三年(537)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--reed:#6c8a72;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 苇泽:沙苑芦苇丛生、河曲泥泞,西魏伏兵之所 */
+  .marsh{fill:rgba(108,138,114,.15);stroke:var(--reed);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
+  .reed{stroke:var(--reed);stroke-width:1.1;opacity:.6;stroke-linecap:round;fill:none}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.thin{stroke-width:2.2}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .ambush{fill:var(--advance);opacity:.92}
+  .drum{fill:rgba(31,78,84,.55);stroke:var(--advance);stroke-width:1.4}
+  .burst{stroke:var(--advance);stroke-width:1.7;opacity:.9;stroke-linecap:round}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  /* 众寡:兵力对比小记 */
+  .host{opacity:.9}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1100;stroke-dashoffset:1100;animation:draw 1.8s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>沙</span><span>苑</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>沙苑之战</h1>
+    <div class="sub">西魏大统三年 · 东魏天平四年(537)　<i>西魏 宇文泰</i> 以不满万 大破 <b>东魏 高欢 号二十万</b>　·　背水设伏 · 苇泽纵击 · 以少覆众</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 以少破众</button>
+    <button data-p="1">① 高欢二十万渡河逼长安</button>
+    <button data-p="2">② 宇文泰退屯沙苑 · 背水设伏苇泽</button>
+    <button data-p="3">③ 高欢轻敌争进 · 鼓起伏兵</button>
+    <button data-p="4">④ 李弼铁骑横击 · 断敌为二</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="沙苑之战形势图,含西魏关中与东魏河东约界、黄河渭水洛水诸川、华山中条山,及沙苑渭曲长安蒲坂华州潼关恒农等地;青为西魏宇文泰军(背水设伏),朱为东魏高欢军(号二十万);示高欢自蒲坂渡河逼长安、宇文泰不满万退屯沙苑背渭水列阵于芦苇泥泞设伏、高欢轻敌争进不成列、鼓起伏兵、李弼铁骑六十横击断敌为二、以少覆众而高欢乘骆驼夜遁渡河东归之势">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 约界:西魏据关中(中·西·南,青),东魏据河东(河东北·东,朱),约以黄河为限;高欢渡河西寇 ══ -->
+    <path d="M 686,70 L 1000,70 L 1000,318 C 900,314 800,308 720,305 C 706,240 696,150 686,70 Z" fill="url(#qinHatch)"/>
+    <path d="M 686,70 C 696,150 706,240 720,305 C 620,470 400,560 60,610 L 60,640 L 1000,640 L 1000,318 C 900,314 800,308 720,305 C 706,240 696,150 686,70 Z" fill="none"/>
+    <path d="M 60,70 L 686,70 C 696,150 706,240 720,305 C 740,340 820,332 1000,340 L 1000,640 L 60,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 686,70 C 696,150 706,240 720,305 C 740,342 820,334 1000,342"/>
+    <text class="realm j" x="150" y="150" font-size="30">西 魏(关中)</text>
+    <text class="cname s" x="152" y="172" style="fill:var(--advance);opacity:.6">都长安 · 丞相宇文泰专政</text>
+    <text class="realm q" x="812" y="150" font-size="26">东 魏(河东)</text>
+    <text class="cname s" x="806" y="172" style="fill:var(--enemy);opacity:.6">丞相高欢自晋阳西寇</text>
+
+    <!-- ══ 山脉 ══ -->
+    <!-- 中条山:黄河北岸(河东),东魏之背 -->
+    <path class="mtn fill" d="M 726,132 L 744,98 L 760,120 L 782,86 L 802,116 L 824,90 L 846,120 L 868,96 L 888,124 Z"/>
+    <path class="mtn" d="M 748,116 l 12,-18 l 12,15 l 14,-20 l 12,17 l 14,-18"/>
+    <text class="mname" x="778" y="150" transform="rotate(-8 778 150)">中 条 山</text>
+    <!-- 华山:渭南华阴,西魏军之南 -->
+    <path class="mtn fill" d="M 556,382 L 574,344 L 588,368 L 606,330 L 624,362 L 642,338 L 660,372 Z"/>
+    <path class="mtn" d="M 576,362 l 12,-18 l 11,15 l 13,-20 l 12,17"/>
+    <text class="mname" x="586" y="400" style="font-size:10.5px">华 山(太华)</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自北南下(河东关中之界),至潼关折而东流 -->
+    <path class="river" stroke-width="5.4" d="M 690,70 C 696,150 704,232 712,296 C 716,318 726,332 748,338 C 840,342 920,344 1000,346"/>
+    <!-- 渭水:自西东流,沙苑之南,宇文泰背之;至潼关入河 -->
+    <path class="river" stroke-width="4" d="M 60,452 C 210,440 350,420 470,380 C 560,352 640,330 706,314"/>
+    <!-- 洛水(北洛):自西北来,历华州东,南注渭水 -->
+    <path class="river" stroke-width="2.8" d="M 410,74 C 448,150 492,224 548,286 C 590,330 650,338 700,332"/>
+    <text class="rname" x="640" y="200" style="font-size:14px;letter-spacing:.14em">黄 河</text>
+    <text class="rname" x="150" y="446" transform="rotate(-6 150 446)" style="font-size:13px">渭 水</text>
+    <text class="rname" x="452" y="196" transform="rotate(56 452 196)" style="font-size:11px">洛 水</text>
+
+    <!-- ══ 沙苑苇泽:芦苇丛生、河曲泥泞,西魏设伏之所(渭洛之间) ══ -->
+    <path class="marsh" d="M 452,224 C 430,236 432,262 448,282 C 470,308 512,318 556,312 C 596,306 616,282 610,256 C 604,232 566,218 520,216 C 494,215 470,216 452,224 Z"/>
+    <g class="reed" id="reeds">
+      <path d="M 470,262 l 0,-14 M 467,250 l 3,-3 M 473,250 l -3,-3"/>
+      <path d="M 486,272 l 0,-14 M 483,260 l 3,-3 M 489,260 l -3,-3"/>
+      <path d="M 502,258 l 0,-14 M 499,246 l 3,-3 M 505,246 l -3,-3"/>
+      <path d="M 520,272 l 0,-14 M 517,260 l 3,-3 M 523,260 l -3,-3"/>
+      <path d="M 538,260 l 0,-14 M 535,248 l 3,-3 M 541,248 l -3,-3"/>
+      <path d="M 556,270 l 0,-14 M 553,258 l 3,-3 M 559,258 l -3,-3"/>
+      <path d="M 478,244 l 0,-12 M 512,242 l 0,-12 M 546,244 l 0,-12"/>
+    </g>
+    <text class="cname s" x="454" y="304" style="fill:var(--reed);font-weight:700;opacity:.9">渭曲 · 苇深土泞</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="changan"><circle cx="136" cy="422" r="6.5"/><text class="cname" x="146" y="418">长安<tspan class="cname s" dx="2">(西魏都)</tspan></text></g>
+      <g class="city" data-city="huazhou"><circle cx="537" cy="223" r="5"/><text class="cname" x="547" y="219">华州<tspan class="cname s" dx="2">(冯翊·大荔)</tspan></text></g>
+      <g class="city" data-city="shayuan"><circle cx="521" cy="266" r="6.5"/><text class="cname" x="530" y="286">沙苑·渭曲</text></g>
+      <g class="city" data-city="puban"><circle cx="686" cy="199" r="5.5"/><text class="cname" x="638" y="192">蒲坂<tspan class="cname s" dx="2">(高欢渡河)</tspan></text></g>
+      <g class="city" data-city="tongguan"><circle cx="706" cy="308" r="4"/><text class="cname s" x="714" y="322">潼关</text></g>
+      <g class="city" data-city="hengnong"><circle cx="913" cy="392" r="4"/><text class="cname" x="836" y="388">恒农<tspan class="cname s" dx="2">(弘农·灵宝)</tspan></text></g>
+    </g>
+
+    <!-- ══ 全图 · 以少破众 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 690,208 C 640,224 590,244 552,262"/>
+      <text class="mlabel q" x="592" y="228">高欢号二十万,自蒲坂渡河,长驱逼长安</text>
+      <path class="march j" marker-end="url(#aj)" d="M 156,414 C 260,380 380,330 486,286"/>
+      <text class="mlabel j" x="180" y="392">宇文泰众不满万,进屯沙苑逆之</text>
+      <text class="anno" x="360" y="332">背渭水列阵,于苇泽设伏,以待其至</text>
+      <circle class="star" cx="521" cy="266" r="11"/>
+      <!-- 众寡对比小记 -->
+      <g class="host" transform="translate(730,470)">
+        <text class="mlabel q" x="0" y="-6" style="font-size:10.5px">众寡悬殊</text>
+        <g fill="var(--enemy)" opacity=".82"><circle cx="4" cy="8" r="2.4"/><circle cx="12" cy="8" r="2.4"/><circle cx="20" cy="8" r="2.4"/><circle cx="28" cy="8" r="2.4"/><circle cx="36" cy="8" r="2.4"/><circle cx="8" cy="16" r="2.4"/><circle cx="16" cy="16" r="2.4"/><circle cx="24" cy="16" r="2.4"/><circle cx="32" cy="16" r="2.4"/><circle cx="40" cy="16" r="2.4"/></g>
+        <text class="cname s" x="50" y="14" style="fill:var(--enemy)">东魏 号二十万</text>
+        <g fill="var(--advance)" opacity=".9"><circle cx="6" cy="32" r="2.4"/></g>
+        <text class="cname s" x="50" y="36" style="fill:var(--advance)">西魏 兵不满万</text>
+      </g>
+    </g>
+
+    <!-- ══ ① 高欢二十万渡河逼长安 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 690,150 C 692,168 690,184 688,192"/>
+      <text class="mlabel q" x="600" y="120">高欢恨小关之败,秋亲率大军西征</text>
+      <!-- 自蒲坂渡黄河 -->
+      <rect class="camp" x="681" y="194" width="10" height="10" transform="rotate(45 686 199)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 682,206 C 620,240 500,320 260,406"/>
+      <text class="mlabel q" x="500" y="300">自蒲坂造三道浮桥渡河,长驱逼长安</text>
+      <text class="anno" x="300" y="380">关中大饥,西魏震动</text>
+      <path class="march q thin" marker-end="url(#aq)" d="M 668,214 C 620,236 574,254 552,264"/>
+      <text class="anno" x="560" y="248">别趋渭洛之间</text>
+      <text class="mlabel j" x="90" y="440">长安空虚,人情凶惧</text>
+    </g>
+
+    <!-- ══ ② 宇文泰退屯沙苑 · 背水设伏苇泽 ══ -->
+    <g id="ph2" class="ph">
+      <!-- 宇文泰自长安东进沙苑 -->
+      <path class="march j" marker-end="url(#aj)" d="M 156,414 C 280,376 390,328 476,282"/>
+      <text class="mlabel j" x="150" y="392">泰不听退保,率轻兵进屯沙苑</text>
+      <text class="anno" x="300" y="356">用李弼、赵贵之谋,去欢军六十里</text>
+      <!-- 背渭水列阵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 512,300 C 508,314 506,326 508,336"/>
+      <text class="mlabel j" x="392" y="352">背渭水东西为阵,置阵苇泽</text>
+      <!-- 苇中伏兵:偃戈伏于苇中,闻鼓而起 -->
+      <g class="ambush">
+        <rect x="466" y="242" width="8" height="8" transform="rotate(45 470 246)"/>
+        <rect x="498" y="252" width="8" height="8" transform="rotate(45 502 256)"/>
+        <rect x="530" y="244" width="8" height="8" transform="rotate(45 534 248)"/>
+        <rect x="556" y="256" width="8" height="8" transform="rotate(45 560 260)"/>
+        <rect x="482" y="268" width="8" height="8" transform="rotate(45 486 272)"/>
+        <rect x="544" y="270" width="8" height="8" transform="rotate(45 548 274)"/>
+      </g>
+      <text class="mlabel j" x="360" y="228">令士卒偃戈伏于苇中</text>
+      <text class="anno" x="392" y="212">约:闻鼓声而起</text>
+    </g>
+
+    <!-- ══ ③ 高欢轻敌争进 · 鼓起伏兵 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 东魏见兵少,争进不成列 -->
+      <path class="march q" marker-end="url(#aq)" d="M 636,244 C 600,252 574,258 556,262"/>
+      <path class="march q" marker-end="url(#aq)" d="M 636,268 C 604,272 580,276 562,280"/>
+      <path class="march q" marker-end="url(#aq)" d="M 632,290 C 606,290 584,290 566,290"/>
+      <text class="mlabel q" x="612" y="230">欢见西魏兵少,轻之</text>
+      <text class="anno" x="596" y="312">士众争进,不成行列</text>
+      <!-- 鼓起伏兵 -->
+      <g class="drum" transform="translate(508,300)"><circle r="8"/><line x1="-8" y1="0" x2="8" y2="0" stroke="var(--advance)" stroke-width="1.2"/><line x1="0" y1="-8" x2="0" y2="8" stroke="var(--advance)" stroke-width="1.2"/></g>
+      <text class="mlabel j" x="430" y="322">泰候其逼近,擂鼓</text>
+      <g class="burst">
+        <path d="M 508,290 C 500,272 494,256 490,244"/>
+        <path d="M 516,294 C 528,278 542,266 556,258"/>
+        <path d="M 500,296 C 484,286 470,278 458,272"/>
+        <path d="M 514,308 C 524,320 534,330 542,338"/>
+      </g>
+      <g class="ambush">
+        <rect x="466" y="242" width="8" height="8" transform="rotate(45 470 246)"/>
+        <rect x="498" y="250" width="8" height="8" transform="rotate(45 502 254)"/>
+        <rect x="532" y="244" width="8" height="8" transform="rotate(45 536 248)"/>
+        <rect x="556" y="256" width="8" height="8" transform="rotate(45 560 260)"/>
+      </g>
+      <text class="mlabel j" x="360" y="228">伏兵尽起于苇中</text>
+      <text class="anno" x="428" y="256">于谨等六军齐进</text>
+    </g>
+
+    <!-- ══ ④ 李弼铁骑横击 · 断敌为二 · 以少破众 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 李弼率铁骑六十横击其中,断敌军为二 -->
+      <path class="march j" marker-end="url(#aj)" d="M 452,238 C 500,254 556,272 612,292"/>
+      <text class="mlabel j" x="356" y="230">李弼率铁骑六十横击其中</text>
+      <!-- 断为二:东魏两分 -->
+      <g class="camp">
+        <rect x="600" y="248" width="9" height="9" transform="rotate(45 604 252)"/>
+        <rect x="622" y="238" width="9" height="9" transform="rotate(45 626 242)"/>
+      </g>
+      <g class="camp">
+        <rect x="606" y="298" width="9" height="9" transform="rotate(45 610 302)"/>
+        <rect x="628" y="308" width="9" height="9" transform="rotate(45 632 312)"/>
+      </g>
+      <text class="mlabel r" x="628" y="252">敌军断为二 ⃫</text>
+      <circle class="star" cx="521" cy="266" r="11"/>
+      <text class="anno" x="360" y="290">东魏猝遇苇伏,阵不得展,大溃</text>
+      <!-- 高欢乘骆驼夜遁,渡河东归 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 600,272 C 640,250 668,228 684,210"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 688,196 C 700,168 706,132 704,96"/>
+      <text class="mlabel r" x="700" y="150">高欢乘骆驼夜遁,渡河东归</text>
+      <text class="anno" x="360" y="440">斩首六千余,俘七万余,收甲仗十八万</text>
+      <text class="mlabel j" x="150" y="470">宇文泰势力大张,奠西魏(北周)立国之基</text>
+    </g>
+
+    <g class="compass" transform="translate(112,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>西魏军(宇文泰)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>东魏军(高欢 · 号二十万)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>高欢夜遁渡河东归</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#1f4e54" transform="rotate(45 7.5 7.5)" opacity=".9"/></svg>西魏苇中伏兵</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#9a2b1e" transform="rotate(45 7.5 7.5)"/></svg>东魏营/断为二</span>
+    <span class="item"><svg width="18" height="16"><path d="M 4,10 l 0,-7 M 2,4 l 2,-2 M 6,4 l -2,-2 M 11,11 l 0,-7 M 9,5 l 2,-2 M 13,5 l -2,-2" stroke="#6c8a72" stroke-width="1.1" fill="none"/></svg>沙苑苇泽</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>沙苑决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>西魏(关中)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>东魏(河东)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 背水设伏 · 纵击断敌</h3>
+    <div class="lead">何以不满万之众破二十万 —— 择地设伏、诱其骄进、纵骑断之</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:西魏兵不满万而东魏号二十万,宇文泰择沙苑芦苇泥泞之地背渭水设伏,诱高欢轻敌争进不成列,鼓起伏兵、李弼铁骑六十横击断敌为二而聚歼之">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 众寡悬殊</text>
+      <text x="322" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 背水设伏苇泽</text>
+      <text x="676" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 纵击断敌为二</text>
+
+      <!-- ① 众寡:二十万 vs 不满万 -->
+      <g fill="#9a2b1e" opacity=".82">
+        <circle cx="46" cy="78" r="4"/><circle cx="62" cy="78" r="4"/><circle cx="78" cy="78" r="4"/><circle cx="94" cy="78" r="4"/><circle cx="110" cy="78" r="4"/>
+        <circle cx="46" cy="94" r="4"/><circle cx="62" cy="94" r="4"/><circle cx="78" cy="94" r="4"/><circle cx="94" cy="94" r="4"/><circle cx="110" cy="94" r="4"/>
+        <circle cx="46" cy="110" r="4"/><circle cx="62" cy="110" r="4"/><circle cx="78" cy="110" r="4"/><circle cx="94" cy="110" r="4"/><circle cx="110" cy="110" r="4"/>
+        <circle cx="46" cy="126" r="4"/><circle cx="62" cy="126" r="4"/><circle cx="78" cy="126" r="4"/><circle cx="94" cy="126" r="4"/><circle cx="110" cy="126" r="4"/>
+      </g>
+      <text x="34" y="152" fill="#9a2b1e" font-size="10.5" font-weight="700">东魏 · 号二十万</text>
+      <circle cx="52" cy="182" r="4.5" fill="#1f4e54"/>
+      <text x="64" y="186" fill="#1f4e54" font-size="10.5" font-weight="700">西魏 · 兵不满万</text>
+      <text x="30" y="212" fill="#5c4f38" font-size="10" font-style="italic">高欢恃众轻进,西魏以寡难与之角力</text>
+
+      <!-- ② 背水设伏苇泽 -->
+      <path d="M 322,178 C 400,182 480,182 566,178" fill="none" stroke="#5f7f88" stroke-width="4" opacity=".8"/>
+      <text x="330" y="200" fill="#5f7f88" font-size="10" font-weight="700">渭 水(背之 · 死地)</text>
+      <path d="M 336,150 C 400,152 500,152 560,150" fill="none" stroke="#1f4e54" stroke-width="3"/>
+      <text x="336" y="142" fill="#1f4e54" font-size="10" font-weight="700">西魏背水列阵</text>
+      <g stroke="#6c8a72" stroke-width="1.2" fill="none" opacity=".8">
+        <path d="M 356,120 l 0,-14 M 353,108 l 3,-3 M 359,108 l -3,-3"/>
+        <path d="M 380,124 l 0,-14 M 377,112 l 3,-3 M 383,112 l -3,-3"/>
+        <path d="M 404,118 l 0,-14 M 401,106 l 3,-3 M 407,106 l -3,-3"/>
+        <path d="M 430,124 l 0,-14 M 427,112 l 3,-3 M 433,112 l -3,-3"/>
+        <path d="M 456,118 l 0,-14 M 453,106 l 3,-3 M 459,106 l -3,-3"/>
+      </g>
+      <g fill="#1f4e54" opacity=".9"><rect x="366" y="126" width="7" height="7" transform="rotate(45 369.5 129.5)"/><rect x="414" y="128" width="7" height="7" transform="rotate(45 417.5 131.5)"/><rect x="462" y="126" width="7" height="7" transform="rotate(45 465.5 129.5)"/></g>
+      <text x="336" y="98" fill="#6c8a72" font-size="10" font-weight="700">苇深土泞 · 偃戈伏兵</text>
+      <path d="M 620,100 C 580,110 546,120 512,132" fill="none" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="6 5" marker-end="url(#aq)"/>
+      <text x="524" y="94" fill="#9a2b1e" font-size="10" font-weight="700">高欢争进 · 不成列 →</text>
+
+      <!-- ③ 纵击断敌为二 -->
+      <g fill="#9a2b1e" opacity=".8">
+        <circle cx="700" cy="86" r="4"/><circle cx="716" cy="82" r="4"/><circle cx="732" cy="88" r="4"/><circle cx="720" cy="98" r="4"/>
+        <circle cx="704" cy="178" r="4"/><circle cx="722" cy="182" r="4"/><circle cx="738" cy="176" r="4"/><circle cx="724" cy="166" r="4"/>
+      </g>
+      <path d="M 660,132 C 710,132 760,132 806,132" fill="none" stroke="#1f4e54" stroke-width="4.5" marker-end="url(#aj)"/>
+      <text x="646" y="122" fill="#1f4e54" font-size="10.5" font-weight="700">李弼铁骑六十横击</text>
+      <line x1="734" y1="112" x2="734" y2="152" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 4"/>
+      <text x="742" y="86" fill="#9a2b1e" font-size="10" font-weight="700">断为二 · 上</text>
+      <text x="742" y="182" fill="#9a2b1e" font-size="10" font-weight="700">断为二 · 下</text>
+      <text x="646" y="214" fill="#9a2b1e" font-size="10" font-style="italic">阵裂而溃,斩首六千·俘七万</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 150,120 L 200,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <path d="M 588,120 L 632,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+    </svg>
+    <p class="intro">沙苑之役,东魏高欢<b>号二十万</b>、乘胜西寇,西魏宇文泰所将<b>士卒不满万</b>、关中方饥,以强弱论,泰本无与之野战之理。然众多而骄、寡少而奇:胜负不在角其兵力,而在<b>择地、诱敌、断阵</b>三者相因——高欢之至强(众),恰成其取败之由。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>宇文泰 · 背水设伏(奇)</h4>
+        <p>泰纳李弼、赵贵之谋,不退保而进屯沙苑,择渭曲芦苇丛生、河曲泥泞之地——「苇深土泞,利伏而不利骋」,正克东魏骑众之长。乃背渭水东西列阵、置己于死地以坚士心,令士卒偃戈伏于苇中,约「闻鼓声而起」。以至寡之军,预布必发之伏。</p>
+      </div>
+      <div class="c b">
+        <h4>高欢 · 恃众轻进(骄)</h4>
+        <p>欢军至,望西魏兵少而轻之,士众争进、不成行列,遂拥入泥苇之中,骑不得骋、阵不得展。泰候其逼近,亲擂战鼓,伏兵尽起;李弼率铁骑六十横击其中,断敌军为二,于谨等六军齐进夹攻。东魏猝遇苇伏、首尾不相救,一日大溃。</p>
+      </div>
+    </div>
+    <p class="kicker">众而无法,则二十万不能成一阵;寡而得地,则不满万足以断其中。<b>斩首六千余,俘七万余,收甲仗十八万</b>,高欢乘骆驼夜遁、渡河东归。宇文泰由此收其甲士、势力大张,奠西魏(北周)立国之基——故沙苑之胜,非西魏之众能陷高欢之坚,实<b>背水设伏、纵击断敌,以少覆众</b>之典。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=55+(经度−108.75)×405,y=300−(纬度−34.60)×405),几何关系力求近实:沙苑·渭曲居中,华州(冯翊·大荔)在其北,长安在西南,蒲坂在东北黄河西岸(高欢渡河处),潼关在东、恒农在东界;黄河自北南下至潼关折东,渭水自西东流经沙苑之南、宇文泰背之,洛水自西北南注渭水,沙苑正当渭洛之间。中条山在黄河北岸河东、华山在渭南,皆略绘。约界晕染依黄河一线,非实有画界。依《周书·文帝纪》《周书·李弼传》《北齐书·神武纪》及《资治通鉴》卷一五七约略绘出。</p>
+    <p><span class="n">注二</span>今地考:沙苑在今陕西大荔县南、洛水与渭水之间(约109.9°E,34.72°N),渭曲为其战地;华州即西魏冯翊郡,治今大荔;长安为西魏都(今西安,图中西南);蒲坂在今山西永济西,黄河东岸对岸,高欢自此造浮桥渡河;潼关在今陕西潼关;恒农(弘农)在今河南灵宝,为宇文泰东出旧据(小关之战地),置于图东界。渭洛之间地势卑湿多苇,故宜设伏。</p>
+    <p><span class="n">注三</span>制胜之枢在「择地·诱敌·断阵」:大统三年(537),高欢恨此前小关之败,亲率大军(号二十万)西征,闰九月自蒲坂造浮桥渡河、过洛水,十月长驱逼长安;宇文泰时在弘农,闻之引轻骑西还,济渭而北、进屯沙苑逆之,去欢军六十里,士卒不满万、赍三日粮。用李弼、赵贵谋,背渭水列阵于渭曲苇泽,「苇深土泞,深不可以列阵」,乃令士卒偃戈伏苇中,约闻鼓而起;李弼为右拒、赵贵为左拒。欢军轻进不成列,泰亲鸣鼓、伏兵尽起,李弼以铁骑横击、断敌为二,于谨等六军合战,大破之(图中青为西魏、朱为东魏、褐虚线为高欢夜遁)。</p>
+    <p><span class="n">注四</span>史事互异,并存以俟考:(一)东魏兵数,《周书》《北齐书·神武纪》多称「二十万」,乃号称之数,今人或疑其虚张。(二)斩获,《周书·文帝纪》主俘获之说——「斩六千余级,临阵降者二万余人」,前后俘其卒约七万,「留其甲士二万,余悉纵归」,收甲仗十八万;《北齐书·神武纪》则主损折之说——高欢「丧甲士八万人,弃铠仗十有八万」。八万者所丧、七万者所俘,统计各异,不宜相加,图中「斩首六千·俘七万·甲仗十八万」从《周书》之数。(三)「铁骑六十」从《周书·李弼传》「弼率铁骑六十横击之,绝其军为二队」之文,他书或但云「铁骑横击」而不著其数。高欢乘骆驼夜遁、渡河东归;宇文泰命战士人种柳一株以旌武功。西魏由是转弱为强,数年后宇文氏遂代西魏建北周,沙苑一战实其立国之基。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"以少破众 · 沙苑决战",d:"西魏大统三年(537)秋",p:["东魏丞相高欢恨于此前小关之败,秋亲率大军、号二十万,自蒲坂造浮桥渡黄河,长驱西向以逼西魏都长安。时关中方饥,西魏丞相宇文泰所将士卒不满万,众寡悬殊,人情凶惧。","泰不听退保之议,率轻兵进屯沙苑,去欢军六十里。用李弼、赵贵之谋,背渭水东西列阵,择渭曲芦苇丛生、河曲泥泞之地设伏——地利在此,不在众寡。一场以不满万破二十万之经典,遂决于此渭洛之间。"]},
+  "1":{t:"高欢二十万渡河逼长安",d:"大统三年(537)秋",p:["先是宇文泰袭取弘农、破东魏于小关,高欢深以为恨。是秋,欢自晋阳亲率大军西征,号二十万(《北齐书》二十万,一云不啻十万),自蒲坂造三道浮桥渡黄河而西,长驱直逼长安。","时西魏关中饥荒、府库空虚,长安空虚而人情凶惧。诸将多请据险自守以待其敝,而高欢恃众深入、直趋渭洛之间,兵锋所指,西魏国本几危。"]},
+  "2":{t:"宇文泰退屯沙苑 · 背水设伏苇泽",d:"大统三年(537)秋",p:["宇文泰不从退保之议,曰「欢若至长安则人情大扰,今及其远来,可击也」,乃率轻骑东进,屯于沙苑,距高欢军六十里。用开府李弼、赵贵之谋:相视地形,渭曲芦苇丛生、河曲泥泞,「苇深土泞,利伏而不利骋」,正克东魏骑众之长。","乃背渭水东西为阵,置军于死地以坚士心;令士卒皆偃戈(藏其兵仗)伏于苇中,约「闻鼓声而起」。李弼为右拒、赵贵为左拒,阵未成而敌已至,布置从容,专候高欢之骄进。"]},
+  "3":{t:"高欢轻敌争进 · 鼓起伏兵",d:"大统三年(537)秋",p:["高欢军至,望见西魏兵少,轻之,不复成列而争进;有请纵火焚苇者,欢不听,曰「当生擒之」。士众遂拥入泥苇之中,骑不得骋、行伍大乱,不成行列。","宇文泰候其逼近,亲擂战鼓,伏兵尽起于苇中;于谨等六军与之合战,李弼引铁骑横出以断之。一鼓之间,苇中伏卒四面奋起,东魏之众猝不及防。"]},
+  "4":{t:"李弼铁骑横击 · 断敌为二 · 以少覆众",d:"大统三年(537)秋",p:["李弼率铁骑六十横击其中，断东魏军为二,首尾不相救;于谨等六军齐进夹攻,东魏猝遇苇伏、阵不得展,遂一日大溃。斩首六千余级,临阵降者二万余人,通计俘获七万余,弃甲仗十八万。","高欢仓皇,乘骆驼夜遁,渡黄河东归。宇文泰收其甲士、纵余众归农,命战士人种柳一株以旌武功。西魏由是转弱为强、势力大张,奠宇文氏代魏建北周之立国根基。"]}
+};
+const CITY={
+  shayuan:{t:"沙苑 · 渭曲",d:"今陕西大荔南,洛水与渭水之间(约109.9E,34.72N)",p:["决战之地。渭曲芦苇丛生、河曲泥泞,「苇深土泞,利伏而不利骋」。宇文泰背渭水列阵、伏兵于苇中,诱高欢争进而鼓起伏兵,李弼铁骑六十横击断敌为二,以不满万破二十万。"]},
+  huazhou:{t:"华州(冯翊 · 大荔)",d:"西魏冯翊郡治,今陕西大荔",p:["沙苑之北,西魏东境重镇,王罴尝守此拒东魏。宇文泰屯沙苑,正倚华州为后。"]},
+  changan:{t:"长安",d:"西魏都城,今陕西西安(约108.95E,34.30N)",p:["西魏国都,高欢西征之所指。关中方饥、府库空,高欢渡河直逼,长安震动;宇文泰不退保而出屯沙苑逆击之,保全国本。"]},
+  puban:{t:"蒲坂",d:"今山西永济西,黄河东岸渡口",p:["高欢渡河处。是秋高欢自晋阳西征,于蒲坂造三道浮桥渡黄河而西,长驱逼长安。沙苑既败,复自此渡河东归。"]},
+  tongguan:{t:"潼关",d:"今陕西潼关,黄河渭水交会之险",p:["关中东面门户。黄河至此折而东流,渭水、洛水于其西入河。宇文泰东出、高欢西入,皆由此一线关河之险。"]},
+  hengnong:{t:"恒农(弘农)",d:"今河南灵宝,西魏东出旧据",p:["宇文泰此前袭取弘农、破东魏于小关,高欢恨之而有沙苑之役。为西魏东境要地,置于图东界。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
