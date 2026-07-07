@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Value Lab — can prediction beat the market?</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #1baf7a; --s3: #eda100;
+    --good: #006300; --bad: #d03b3b; --wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink2: #c3c2b7;
+      --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #199e70; --s3: #c98500;
+      --good: #0ca30c; --wash: rgba(57,135,229,0.12);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page); color: var(--ink); line-height: 1.6; padding: 1.5rem 1rem 4rem; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  a { color: var(--s1); }
+  h1 { font-size: 1.6rem; line-height: 1.28; }
+  h2 { font-size: 1.13rem; margin-bottom: 0.3rem; }
+  h3 { font-size: 0.95rem; }
+  .sub { color: var(--ink2); font-size: 0.93rem; }
+  .kicker { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.87rem; }
+  .tablewrap { overflow-x: auto; margin-top: 0.5rem; }
+  th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.76rem; white-space: nowrap; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .row { display: flex; gap: 1rem 1.5rem; flex-wrap: wrap; align-items: end; margin-top: 0.7rem; }
+  .group label.head { display: block; font-size: 0.74rem; color: var(--muted); margin-bottom: 0.2rem; }
+  input[type="number"], select { font: inherit; color: var(--ink); background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.32rem 0.5rem; max-width: 8rem; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 0.9rem; }
+  .panel { border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; background: var(--page); }
+  .hero { font-size: 1.6rem; font-weight: 700; }
+  .hero.good { color: var(--good); } .hero.bad { color: var(--bad); }
+  .note { color: var(--muted); font-size: 0.8rem; }
+  .verdict { display: inline-block; font-size: 0.72rem; font-weight: 700; border-radius: 999px; padding: 0.1rem 0.6rem; }
+  .verdict.market { color: var(--bad); border: 1px solid currentColor; }
+  .verdict.model { color: var(--good); border: 1px solid currentColor; }
+  .verdict.split { color: var(--s3); border: 1px solid currentColor; }
+  .chip { display: inline-block; font-size: 0.72rem; font-weight: 600; border: 1px solid var(--border); border-radius: 999px; padding: 0.05rem 0.55rem; color: var(--ink2); background: var(--page); margin-left: 0.4rem; }
+  .chip.warn { color: var(--s3); border-color: currentColor; }
+  .warn { border-left: 3px solid var(--s3); padding: 0.5rem 0.8rem; margin-top: 0.75rem; background: var(--page); border-radius: 0 8px 8px 0; font-size: 0.87rem; color: var(--ink2); }
+  ul.compact, ol.compact { padding-left: 1.3rem; font-size: 0.9rem; }
+  ul.compact li, ol.compact li { margin-top: 0.4rem; }
+  .footnote { color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; }
+  .eq { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88rem; background: var(--page); border: 1px solid var(--border); border-radius: 8px; padding: 0.55rem 0.85rem; margin: 0.55rem 0; overflow-x: auto; white-space: nowrap; }
+  .vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 0.8rem; }
+  .vs .panel p { font-size: 0.88rem; color: var(--ink2); margin-top: 0.35rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Value lab · model-vs-market pricing, beyond betting</p>
+    <h1>Can prediction beat the market?</h1>
+    <p class="sub">The value approach — bet/trade when <b>your predicted probability disagrees with the market's
+    price</b> — presumes the answer is sometimes yes. This lab collects the actual evidence across domains (betting,
+    prediction markets, equities, commodities, macro), the practitioner playbook, and two tools that keep you honest:
+    how much data it takes to <i>prove</i> an edge, and what your model signal is worth once you respect the market as a
+    prior. Related: <a href="../arbitrage/value-vs-arb/index.html">value vs arbitrage</a> ·
+    <a href="../arbitrage/index.html">arbitrage suite</a>.</p>
+  </header>
+
+  <section>
+    <h2>First, respect the opponent: a price <i>is</i> a prediction</h2>
+    <p class="sub">A market price isn't a rival forecaster — it's the <b>aggregate of every forecaster who was willing
+    to stake money</b>, weighted by conviction and bankroll, error-corrected in real time. Beating it means knowing
+    something the marginal dollar doesn't. Theory says this is possible but self-limiting
+    (<a href="https://www.jstor.org/stable/1805228" rel="noopener">Grossman &amp; Stiglitz 1980</a>: prices can't be
+    perfectly efficient, or nobody would be paid to make them efficient — the profit of the informed is the wage of
+    price discovery). The empirical question is <i>where</i> the wage is still being paid, and to whom.</p>
+    <div class="vs">
+      <div class="panel">
+        <h3>Why the market usually wins</h3>
+        <p>· It already contains the models — every public signal is someone's input.</p>
+        <p>· Aggregation beats individuals: crowd averages cancel idiosyncratic error (wisdom-of-crowds).</p>
+        <p>· Skin in the game filters conviction; talk is free, prices aren't.</p>
+        <p>· Late prices absorb early information: the closing line has seen every bet before it.</p>
+      </div>
+      <div class="panel">
+        <h3>Where models can win</h3>
+        <p>· <b>Private or faster data</b> the marginal dollar doesn't have (satellite counts, sensor data, house polls).</p>
+        <p>· <b>Biased flow</b> to lean against: favorite-longshot bias, home-team money, partisan election money.</p>
+        <p>· <b>Thin/young markets</b> where the aggregation hasn't happened yet — few pros, low liquidity, new contract types.</p>
+        <p>· <b>Structural constraints</b> on other participants: fees, position limits, mandates, geography.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The scoreboard — prediction vs market, domain by domain</h2>
+    <p class="sub">What the published record says. “Market” means the relevant price (closing line, index, futures);
+    “Model” means public statistical models or expert forecasters. Sources linked; details in the evidence section below.</p>
+    <div class="tablewrap"><table id="scoreboard">
+      <thead><tr><th>Domain</th><th>Who wins</th><th>The margin</th><th>Caveat</th></tr></thead>
+      <tbody>
+        <tr><td>Sports betting (vs closing line)</td><td><span class="verdict market">MARKET</span></td>
+          <td>Best academic models match odds-implied accuracy but ~0 ROI after vig; bookmaker consensus beat the best tennis models 72% vs 70%</td>
+          <td>Early/soft lines and mispriced outliers are beatable (Kaunitz +8.5% real money) — but winners get limited</td></tr>
+        <tr><td>Elections</td><td><span class="verdict split">SPLIT</span></td>
+          <td>Iowa markets beat raw polls 74% of the time; markets ≈ FiveThirtyEight overall (markets won 2020 &amp; 2024, models won 2022)</td>
+          <td>Bias-adjusted polls beat markets (Erikson-Wlezien); model+market blends beat both</td></tr>
+        <tr><td>Geopolitical questions</td><td><span class="verdict model">MODEL</span></td>
+          <td>Statistically aggregated team forecasts (extremized) beat a real prediction market head-to-head over 2 years, 261 events</td>
+          <td>Raw forecast averages <i>lose</i> to markets — the win required heavy aggregation machinery</td></tr>
+        <tr><td>Equities (stock picking)</td><td><span class="verdict market">MARKET</span></td>
+          <td>89.5% of active US large-cap funds underperformed the index over 15 years; &lt;1% of top-quartile funds stay top-quartile 5 years running</td>
+          <td>Renaissance Medallion (~39%/yr net for 30 years, capped at ~$10B) is the paid-information-gatherer exception</td></tr>
+        <tr><td>Interest rates</td><td><span class="verdict market">MARKET</span></td>
+          <td>Fed funds futures out-forecast economist surveys at horizons to ~6 months</td>
+          <td>Futures embed risk premia; surveys competitive further out</td></tr>
+        <tr><td>Agricultural prices</td><td><span class="verdict market">MARKET</span></td>
+          <td>Futures ≥ USDA price forecasts; hog futures significantly better under 6 months</td>
+          <td>USDA still wins on <i>quantities</i> (acreage/production) — its own-domain data advantage</td></tr>
+        <tr><td>Weather → energy trading</td><td><span class="verdict model">MODEL</span></td>
+          <td>Better forecasts translate to quantified trading gains; funds run in-house weather desks</td>
+          <td>The edge is private and undocumented publicly — it promptly <i>becomes</i> the market price</td></tr>
+      </tbody>
+    </table></div>
+    <p class="section-note note" style="margin-top:0.5rem">The pattern: the deeper and older the market, the more it
+    wins. Models beat markets at the edges — young venues, thin liquidity, biased flow, private data — and those wins
+    are real but local and usually temporary.</p>
+  </section>
+
+  <section id="evidence">
+    <h2>The evidence, in detail</h2>
+    <div id="evidence-body">
+
+    <h3>Sports: the closing line is the wall</h3>
+    <p class="sub">Kovalchik's comparison of eleven published tennis models found none beat bookmaker-implied
+    probabilities (<a href="https://vuir.vu.edu.au/34652/1/jqas-2015-0059.pdf" rel="noopener">JQAS 2016</a>); the
+    bookmaker-consensus model hit ~72% accuracy vs ~70% for the best Elo-style model. In football, models can <i>match</i>
+    odds-implied accuracy but bookmaker odds are better calibrated, and paper profits appear only at best-of-market
+    historical prices (<a href="https://journals.sagepub.com/doi/10.1177/22150218261416681" rel="noopener">Wilkens 2026</a>).
+    The one well-documented breach — Kaunitz et al. betting mispriced outliers against the consensus for +8.5% in real
+    money <span class="chip warn">exact ROI paper-internal</span> — was closed by account limiting, not by prices
+    (<a href="https://arxiv.org/abs/1710.02824" rel="noopener">arXiv:1710.02824</a>). Hence the practitioner benchmark:
+    skill = consistently beating the closing line, nothing less.</p>
+
+    <h3 style="margin-top:0.9rem">Elections: nearly a tie, and instructive in both directions</h3>
+    <p class="sub">The Iowa Electronic Markets were closer to the outcome than contemporaneous polls 74% of the time
+    across five presidential cycles (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0169207008000320" rel="noopener">Berg
+    et al. 2008</a>) — but Erikson &amp; Wlezien showed <i>bias-adjusted</i> polls beat the markets, i.e. markets ≈ polls
+    plus adjustment, not magic (<a href="https://statmodeling.stat.columbia.edu/wp-content/uploads/2024/08/Erikson-and-Wlezien-Electoral-Studies-2012-1.pdf" rel="noopener">POQ/Electoral Studies</a>).
+    Multi-cycle comparisons of FiveThirtyEight vs betting markets (2008–2024) find them "strikingly similarly accurate":
+    markets clearly won 2020 and 2024, the model won 2022
+    (<a href="https://www.maximumtruth.org/p/deep-dive-on-predicting-elections" rel="noopener">Lott's deep dive</a>,
+    <a href="https://www.nber.org/system/files/working_papers/w33339/w33339.pdf" rel="noopener">NBER WP 33339</a>).
+    2024's market "win" carries an asterisk: a meaningful part of the price was one trader's private neighbor-polling
+    data — a model beating the market <i>through</i> the market.</p>
+
+    <h3 style="margin-top:0.9rem">Superforecasters: the cleanest head-to-head we have</h3>
+    <p class="sub">Tetlock's Good Judgment Project won IARPA's 4-year forecasting tournament outright
+    (<a href="https://goodjudgment.com/resources/the-superforecasters-track-record/" rel="noopener">track record</a>).
+    The decisive experiment: over two seasons and 261 geopolitical events, <b>raw</b> forecast-poll averages lost to a real
+    prediction market — but <b>statistically aggregated team forecasts</b> (performance-weighted, time-decayed, extremized)
+    beat the market (<a href="https://pubsonline.informs.org/doi/10.1287/mnsc.2015.2374" rel="noopener">Atanasov et al.,
+    Management Science 2017</a>). So prediction <i>can</i> beat the market — when it's better aggregation, not a lone
+    genius. The famous "~30% better than intelligence analysts with classified data" figure traces to a single 2013
+    journalistic account of unpublished results <span class="chip warn">unverified at the number level</span>. Community
+    trackers currently score Metaculus's aggregate among the best-calibrated public forecasts (Brier ≈ 0.11 on
+    resolved questions) alongside real-money markets <span class="chip warn">community analyses, not peer-reviewed</span>.</p>
+
+    <h3 style="margin-top:0.9rem">Equities: the brutal base rate, and the exceptions that price it</h3>
+    <p class="sub">SPIVA year-end 2024: 65% of active US large-cap funds underperformed the S&amp;P 500 that year, ~64%
+    is the 24-year annual average, and <b>89.5% underperformed over 15 years</b>; persistence is below chance —
+    under 1% of top-quartile funds stayed top-quartile five years running
+    (<a href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2024.pdf" rel="noopener">SPIVA</a>,
+    <a href="https://www.spglobal.com/spdji/en/documents/spiva/persistence-scorecard-year-end-2024.pdf" rel="noopener">Persistence Scorecard</a>).
+    The exceptions define the rule's price: Renaissance's Medallion made ~66% gross / ~39% net annually for three decades
+    with no losing year — and stayed capped near $10B, closed to outside money (Zuckerman,
+    <a href="https://pwlcapital.com/renaissance-technologies-medallion-fund-an-exception-to-the-indexing-rule/" rel="noopener">summary</a>);
+    and "Buffett's Alpha" is largely explained by early factor identification plus ~1.7:1 cheap insurance-float leverage —
+    systematic insight, not clairvoyant stock-picking
+    (<a href="https://www.nber.org/papers/w19681" rel="noopener">Frazzini, Kabiller &amp; Pedersen</a>).</p>
+
+    <h3 style="margin-top:0.9rem">Commodities, rates, weather: markets win on price, models win on private inputs</h3>
+    <p class="sub">Fed funds futures out-forecast economist surveys at short horizons
+    (<a href="https://www.federalreserve.gov/pubs/feds/2005/200529/200529pap.pdf" rel="noopener">Gürkaynak, Sack &amp; Swanson</a>);
+    livestock futures beat USDA price forecasts, though USDA keeps its edge on quantity forecasts where it owns the data
+    (<a href="https://ageconsearch.umn.edu/record/31101/" rel="noopener">Sanders &amp; Manfredo 2003</a>). Weather is the
+    live frontier: better forecasts demonstrably convert to trading gains in power markets
+    (<a href="https://arxiv.org/abs/1811.08604" rel="noopener">Kath &amp; Ziel</a>), and funds run in-house weather desks —
+    a model edge that exists precisely because it's private, and that becomes the price as it trades
+    <span class="chip warn">realized fund P&amp;L not publicly documented</span>.</p>
+
+    <h3 style="margin-top:0.9rem">Known market biases: real, persistent, and mostly unprofitable</h3>
+    <p class="sub">Markets misprice in <i>documented directions</i>: across 5.6M US horse-race starts, expected return fell
+    from ~85¢/$ on even-money favorites to ~55¢/$ on 50-to-1 longshots — the favorite-longshot bias, persistent for decades
+    (<a href="http://users.nber.org/~jwolfers/papers/Favorite_Longshot_Bias.pdf" rel="noopener">Snowberg &amp; Wolfers, JPE 2010</a>).
+    Bookmakers know and deliberately shade lines <i>into</i> bettor biases, earning more than the vig
+    (<a href="https://en.wikipedia.org/wiki/Steven_Levitt" rel="noopener">Levitt, EJ 2004</a>). The catch: most biases are
+    smaller than the take — they tell you what <i>not</i> to bet more than what to bet. And prediction markets have their own
+    failure modes worth discounting: thin liquidity, whales moving prices (Théo's positions <i>were</i> a large share of 2024
+    depth), reported wash trading <span class="chip warn">fraction unverified</span>, and fee/cap-induced tail distortions
+    (<a href="https://fortune.com/crypto/2024/10/30/polymarket-trump-election-crypto-wash-trading-researchers/" rel="noopener">Fortune</a>).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tool 1 · The edge-proof calculator — skill or luck?</h2>
+    <p class="sub">Before believing any edge (yours or a tipster's): how many bets does it take for a true edge to be
+    statistically distinguishable from luck? Frequentist answer for flat stakes:</p>
+    <div class="eq">n ≈ ((z<sub>α</sub> + z<sub>β</sub>) · σ / e)²&nbsp;&nbsp;&nbsp;σ² = p·(d−1)² + (1−p) − e²&nbsp;&nbsp;(per-unit-stake return variance)</div>
+    <div class="row">
+      <div class="group"><label class="head" for="ep-edge">Claimed edge (% per bet)</label><input type="number" id="ep-edge" value="3" step="0.5" min="0.1"></div>
+      <div class="group"><label class="head" for="ep-odds">Typical decimal odds</label><input type="number" id="ep-odds" value="2.0" step="0.1" min="1.1"></div>
+      <div class="group"><label class="head" for="ep-conf">Confidence</label>
+        <select id="ep-conf"><option value="1.645" selected>95% (one-sided)</option><option value="2.326">99%</option></select></div>
+      <div class="group"><label class="head" for="ep-power">Power</label>
+        <select id="ep-power"><option value="0.842" selected>80%</option><option value="1.282">90%</option></select></div>
+      <div class="group"><label class="head" for="ep-rate">Bets per week</label><input type="number" id="ep-rate" value="30" step="5" min="1"></div>
+    </div>
+    <div class="grid2" id="ep-out"></div>
+    <p class="note">This is why closing line value exists as a shortcut (see playbook below): CLV correlates with true
+    edge and shows up in dozens of bets instead of thousands. It's also why single-season backtests “finding” edges
+    should be assumed noise (Winkelmann et al. 2024).</p>
+  </section>
+
+  <section>
+    <h2>Tool 2 · The humility blender — market as prior, model as signal</h2>
+    <p class="sub">The professional default is not "trust my model" but "start from the market and tilt." Blend in
+    log-odds space with a weight that reflects your <i>proven</i> track record, then see whether any bet survives the
+    venue's actual payout:</p>
+    <div class="eq">logit(blend) = (1 − w) · logit(market fair prob) + w · logit(model prob)&nbsp;&nbsp;→&nbsp;&nbsp;EV = blend × offered odds − 1</div>
+    <div class="row">
+      <div class="group"><label class="head" for="bl-q">Market fair prob (%)</label><input type="number" id="bl-q" value="50" step="1" min="1" max="99"></div>
+      <div class="group"><label class="head" for="bl-p">Your model prob (%)</label><input type="number" id="bl-p" value="55" step="1" min="1" max="99"></div>
+      <div class="group"><label class="head" for="bl-w">Model weight w</label><input type="number" id="bl-w" value="0.3" step="0.05" min="0" max="1"></div>
+      <div class="group"><label class="head" for="bl-d">Offered decimal odds</label><input type="number" id="bl-d" value="1.95" step="0.01" min="1.01"></div>
+      <div class="group"><label class="head" for="bl-kelly">Kelly fraction</label><input type="number" id="bl-kelly" value="0.25" step="0.05" min="0.05" max="1"></div>
+    </div>
+    <div class="grid2" id="bl-out"></div>
+    <p class="note">Try it: a model that says 55% when the market says 50% — a big disagreement — is worth almost
+    nothing after a modest weight and a 2.5% margin. This one interaction explains most value-betting failure: the
+    signal was real but smaller than the costs. It also shows what <i>does</i> work: either a much better model
+    (w → 1 with proof) or a venue with less margin (exchanges, sharp books).</p>
+  </section>
+
+  <section id="playbook">
+    <h2>The practitioner playbook</h2>
+    <div id="playbook-body">
+    <p class="sub">How people who do this for real actually operate — the consensus workflow, with the numbers behind it.</p>
+
+    <h3 style="margin-top:0.9rem">1 · Verify with proxies, not profit</h3>
+    <p class="sub">Joseph Buchdahl's analyses of real betting records: ~25% of accounts are still up after 1,000 bets and
+    ~1% after 10,000 — so a profitable year proves almost nothing, and his Bayes-factor math puts <i>strong</i> evidence of
+    skill at roughly 3,500+ bets (<a href="https://www.pinnacle.bet/betting-resources/en/educational/part-two-using-bayes-factor-to-assess-betting-skill/nf52l4mwxxv7785g" rel="noopener">Pinnacle series</a>).
+    The working shortcut is <b>closing line value</b> — did you consistently beat the close? — which reaches significance in
+    ~50–few hundred bets because every wager is scored against a benchmark price
+    (<a href="https://www.pinnacle.com/betting-resources/en/educational/what-is-closing-line-value-clv-in-sports-betting" rel="noopener">Pinnacle on CLV</a>).
+    The forecasting-world analog is a <b>Brier-scored probability log</b>: Good Judgment's superforecasters averaged 0.166 vs 0.259
+    for regular forecasters, with skill persisting year over year
+    (<a href="https://goodjudgment.com/wp-content/uploads/2022/10/Superforecaster-Accuracy.pdf" rel="noopener">GJP data</a>).
+    In quant finance the same discipline is the <b>deflated Sharpe ratio</b> — correct your backtest for how many variants you
+    tried before believing it (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2460551" rel="noopener">Bailey &amp; López de Prado 2014</a>).</p>
+
+    <h3 style="margin-top:0.9rem">2 · Know the honest baseline: public models lose to the close</h3>
+    <p class="sub">The best-documented open models are calibrated but have no edge against closing lines: FiveThirtyEight's
+    open NFL Elo scored a <i>worse</i> mean squared error than Vegas (13.57 vs 13.10,
+    <a href="https://github.com/trevorData/538NFL" rel="noopener">independent comparison</a>); the classic Dixon-Coles 1997
+    football model beat 1990s bookmaker margins but that inefficiency is long gone; a rare honest 2026 academic test (xG
+    model, 11 Bundesliga seasons) found the bookmaker better calibrated than the model even while a simulated best-price
+    strategy showed unstable paper profits (<a href="https://journals.sagepub.com/doi/10.1177/22150218261416681" rel="noopener">Wilkens</a>).
+    A fitted model on public data is, by default, already in the price.</p>
+
+    <h3 style="margin-top:0.9rem">3 · Realistic magnitudes</h3>
+    <p class="sub">Verified long-term value bettors cluster at <b>3–7% ROI per bet</b> (Pinnacle-verified tipsters with
+    1,000–7,000-pick records); EV-screen tools report ~2% average per trade across hundreds of thousands of user trades
+    (<a href="https://www.tradematesports.com/blog/trademate-results-performance-october/" rel="noopener">Trademate</a>). Mature
+    stat-arb sleeves discuss Sharpe ~1.5–2.5 at deliberately capped size. Anyone marketing 20%+ per bet is selling something.
+    And the venue responds: soft/US books limit consistent winners, so deployment routes to winners-welcome venues —
+    Pinnacle, Asian brokers, exchanges, prediction markets.</p>
+
+    <h3 style="margin-top:0.9rem">4 · Size with fractional Kelly</h3>
+    <p class="sub">Full Kelly maximizes growth but carries a ~1/3 chance of halving your bankroll before doubling; half-Kelly
+    cuts that to ~11% while keeping ~75% of the growth rate — and, crucially, fractional sizing hedges the near-certainty
+    that your edge estimate is too optimistic
+    (<a href="https://harrycrane.substack.com/p/two-arguments-for-fractional-kelly" rel="noopener">why practitioners default to ¼–½ Kelly</a>).</p>
+
+    <h3 style="margin-top:0.9rem">5 · The documented wins all bought a structural advantage</h3>
+    <ul class="compact">
+      <li><b>Private measurement:</b> the 2024 Polymarket "French whale" commissioned his own <i>neighbor polls</i> in swing
+      states — asking who respondents' neighbors would vote for — and turned ~$30M staked into ~$85M
+      (<a href="https://www.cbsnews.com/news/french-whale-made-over-80-million-on-polymarket-betting-on-trump-election-win-60-minutes/" rel="noopener">60 Minutes</a>).
+      One data point, but the archetype is exact: pay for information the marginal dollar doesn't have. <span class="chip warn">n = 1 — would have read as recklessness had it lost</span></li>
+      <li><b>Speed into young markets:</b> Polymarket's #1 trader ("Domer", 5,000+ markets) describes deliberately hunting
+      <i>brand-new</i> markets where no one has an information edge yet and research speed wins
+      (<a href="https://www.onchaintimes.com/a-chat-with-domer-the-1-trader-on-polymarket/" rel="noopener">interview</a>).</li>
+      <li><b>Alt-data in finance:</b> satellite parking-lot counts predicted retailer earnings surprises 1–2 weeks ahead and
+      hedge funds traded it profitably (<a href="https://newsroom.haas.berkeley.edu/how-hedge-funds-use-satellite-images-to-beat-wall-street-and-main-street/" rel="noopener">Berkeley Haas</a>);
+      Wall Street alt-data spend is ~$3B/yr.</li>
+      <li><b>Owning the flow:</b> commodity trading houses out-forecast futures because they see the physical cargoes;
+      airlines/hotels out-forecast their own demand because they see the bookings (5–10% revenue lift attributed to
+      revenue-management forecasting). "Beat the market in <i>your own</i> domain" is the most durable version of the edge.</li>
+    </ul>
+
+    <h3 style="margin-top:0.9rem">6 · Expect the edge to shrink as it succeeds</h3>
+    <p class="sub">Berk &amp; Green's canonical result: skilled managers attract capital until decreasing returns to scale push
+    <i>net</i> alpha to zero — the skill ends up captured as fees and fund size, not persistent outperformance
+    (<a href="https://www.journals.uchicago.edu/doi/abs/10.1086/424739" rel="noopener">JPE 2004</a>). The betting version is
+    account limits; the prediction-market version is moving your own price. Capacity planning isn't pessimism, it's the model.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Verdict: can prediction beat the market?</h2>
+    <ol class="compact">
+      <li><b>Yes — but locally, rarely, and self-extinguishingly.</b> Documented wins share a structure: private data,
+      biased flow, or young/thin markets. Every win recruits imitators who shrink it (Grossman-Stiglitz in action).</li>
+      <li><b>The market is your best free model.</b> The professional posture is market-as-prior: your model earns a
+      <i>tilt</i>, sized by proven track record — not a replacement forecast. If your process doesn't start from the
+      price, it's not humble enough to survive.</li>
+      <li><b>Proof is expensive; proxies are mandatory.</b> Thousands of bets to prove a small edge directly — so
+      practitioners live on closing line value and calibration scores instead, and treat unproven backtests as noise.</li>
+      <li><b>Pick your market by <i>its</i> weakness, not your strength.</b> The same model skill that loses in deep
+      markets wins in shallow ones. Beating the S&amp;P is a different sport from beating a three-day-old Kalshi
+      contract, and the evidence table above shows exactly which sport is winnable.</li>
+      <li><b>The endgame is becoming the market.</b> The biggest documented winners (Renaissance, Starlizard, revenue-management
+      desks) graduated from predicting prices to <i>setting</i> them — at which point everyone else is trying to beat <i>them</i>.</li>
+    </ol>
+    <div class="warn">Educational analysis, not investment or betting advice. Compiled Jul 6, 2026; figures as reported
+    by linked sources; items flagged “unverified” could not be independently confirmed.</div>
+  </section>
+
+  <footer class="footnote">Part of <a href="../index.html">web-apps</a> · siblings:
+    <a href="../arbitrage/index.html">arbitrage suite</a> ·
+    <a href="../arbitrage/value-vs-arb/index.html">value vs arbitrage</a> ·
+    <a href="../betting-odds-aggregator/index.html">odds aggregator</a>.</footer>
+</div>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+function el(tag, attrs, ...children) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) { if (k === "class") n.className = v; else n[k] = v; }
+  for (const c of children) { if (c !== null && c !== undefined) n.append(c.nodeType ? c : document.createTextNode(String(c))); }
+  return n;
+}
+
+/* Tool 1: edge proof */
+function renderEdgeProof() {
+  const e = Math.max(0.001, (+$("ep-edge").value || 3) / 100);
+  const d = Math.max(1.1, +$("ep-odds").value || 2);
+  const za = +$("ep-conf").value, zb = +$("ep-power").value;
+  const p = (1 + e) / d;
+  const varr = p * (d - 1) * (d - 1) + (1 - p) - e * e;
+  const n = Math.ceil(Math.pow((za + zb) * Math.sqrt(varr) / e, 2));
+  const rate = Math.max(1, +$("ep-rate").value || 30);
+  const weeks = n / rate;
+  $("ep-out").replaceChildren(
+    el("div", { class: "panel" }, el("h3", null, "Bets required"),
+      el("div", { class: "hero" }, n.toLocaleString()),
+      el("div", { class: "note" }, `per-bet σ ≈ ${Math.sqrt(varr).toFixed(2)} vs edge ${(e * 100).toFixed(1)}%`)),
+    el("div", { class: "panel" }, el("h3", null, "At your betting rate"),
+      el("div", { class: "hero " + (weeks > 104 ? "bad" : "") },
+        weeks > 104 ? (weeks / 52).toFixed(1) + " years" : Math.ceil(weeks) + " weeks"),
+      el("div", { class: "note" }, `${rate} bets/week — before this, wins prove little`)),
+    el("div", { class: "panel" }, el("h3", null, "The sobering read"),
+      el("div", { class: "note", style: "font-size:0.88rem" },
+        `A losing streak is expected along the way: even with this real edge, the chance any given month is negative stays high. Most "proven" records you'll see online are far shorter than ${n.toLocaleString()} bets.`)));
+}
+
+/* Tool 2: humility blender */
+const logit = (x) => Math.log(x / (1 - x));
+const ilogit = (z) => 1 / (1 + Math.exp(-z));
+function renderBlend() {
+  const q = Math.min(0.99, Math.max(0.01, (+$("bl-q").value || 50) / 100));
+  const p = Math.min(0.99, Math.max(0.01, (+$("bl-p").value || 55) / 100));
+  const w = Math.min(1, Math.max(0, +$("bl-w").value || 0.3));
+  const d = Math.max(1.01, +$("bl-d").value || 1.95);
+  const kf = Math.min(1, Math.max(0.05, +$("bl-kelly").value || 0.25));
+  const b = ilogit((1 - w) * logit(q) + w * logit(p));
+  const ev = b * d - 1;
+  const kelly = ev > 0 ? kf * (b * d - 1) / (d - 1) : 0;
+  const margin = (1 / d - q) / q;
+  $("bl-out").replaceChildren(
+    el("div", { class: "panel" }, el("h3", null, "Blended probability"),
+      el("div", { class: "hero" }, (b * 100).toFixed(1) + "%"),
+      el("div", { class: "note" }, `market ${(q * 100).toFixed(0)}% ⊕ model ${(p * 100).toFixed(0)}% at weight ${w}`)),
+    el("div", { class: "panel" }, el("h3", null, "EV at offered odds"),
+      el("div", { class: "hero " + (ev > 0 ? "good" : "bad") }, (ev >= 0 ? "+" : "") + (ev * 100).toFixed(2) + "%"),
+      el("div", { class: "note" }, `implied venue margin vs fair: ${(margin * 100).toFixed(1)}%`)),
+    el("div", { class: "panel" }, el("h3", null, "Decision"),
+      el("div", { class: "hero " + (ev > 0 ? "good" : "bad") }, ev > 0 ? `Bet ${(kelly * 100).toFixed(2)}%` : "No bet"),
+      el("div", { class: "note" }, ev > 0 ? `of bankroll (${kf}× Kelly)` : "the blend doesn't clear the price")));
+}
+
+["ep-edge", "ep-odds", "ep-conf", "ep-power", "ep-rate"].forEach((id) => $(id).addEventListener("input", renderEdgeProof));
+["bl-q", "bl-p", "bl-w", "bl-d", "bl-kelly"].forEach((id) => $(id).addEventListener("input", renderBlend));
+renderEdgeProof(); renderBlend();
+</script>
+</body>
+</html>
