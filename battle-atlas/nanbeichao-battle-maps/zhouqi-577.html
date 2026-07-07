@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北周灭北齐 · 平阳之战(576—577)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  /* 嬖幸误国·齐师自溃:金环破于朱斜,标平阳城下之自败 */
+  .selfrout circle{fill:none;stroke:var(--gold);stroke-width:2.4}
+  .selfrout line{stroke:var(--enemy);stroke-width:2.8;stroke-linecap:round}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>周</span><span>灭</span><span>北</span><span>齐</span></div>
+  <header>
+    <h1>北周灭北齐·平阳之战</h1>
+    <div class="sub">周建德五年至六年(576—577)　　<i>北周 武帝宇文邕</i> 灭 <b>北齐 后主高纬</b>　·　拔平阳 · 惑于嬖幸误机 · 长驱破邺 · 并北方</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 灭齐并北</button>
+    <button data-p="1">周武帝亲征·拔平阳</button>
+    <button data-p="2">高纬来争·冯小怜误机·齐军自溃</button>
+    <button data-p="3">长驱破晋阳·高纬东奔</button>
+    <button data-p="4">攻邺·齐亡·周并北方</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="北周灭北齐平阳之战形势图,含北周北齐疆界、黄河汾水、太行山,及平阳晋阳邺城天池诸地,示周武帝自关中东出拔平阳、高纬来争而冯小怜误战机致齐军自溃、周军乘胜破晋阳攻邺、高纬东奔青州被擒北齐亡之进程,长安青州为图外边箭">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:北齐据河北·并汾·中原(中、东、北),北周据关中(西) ══ -->
+    <path d="M 0,30 L 186,30 C 172,150 176,320 156,470 C 154,520 164,566 178,610 L 178,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path d="M 186,30 L 1000,30 L 1000,640 L 178,640 L 178,610 C 164,566 154,520 156,470 C 176,320 172,150 186,30 Z" fill="url(#qinHatch)"/>
+    <!-- 周齐约界(汾晋一线,晋州以西) -->
+    <path class="border" d="M 186,30 C 172,150 176,320 156,470 C 154,520 164,566 178,610"/>
+    <text class="realm j" x="34" y="360" font-size="26">北 周</text>
+    <text class="cname s" x="34" y="384" style="fill:var(--advance);opacity:.7">(关中)</text>
+    <text class="realm q" x="806" y="122" font-size="27">北 齐</text>
+    <text class="cname s" x="808" y="146" style="fill:var(--enemy);opacity:.7">(河北·并汾·中原)</text>
+
+    <!-- ══ 太行山:纵亘晋(晋阳)冀(邺)之间 ══ -->
+    <path class="mtn fill" d="M 566,150 L 584,120 L 600,140 L 618,108 L 636,142 L 620,190 L 634,240 L 616,290 L 630,340 L 610,392 L 588,360 L 600,300 L 582,250 L 596,200 Z"/>
+    <path class="mtn" d="M 592,170 l 14,-20 l 12,15 l 15,-22"/>
+    <path class="mtn" d="M 600,300 l 13,-18 l 11,13 l 14,-20"/>
+    <text class="mname" x="560" y="250" transform="rotate(90 560 250)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自北沿陕晋界南下,龙门风陵渡折而东流 -->
+    <path class="river" stroke-width="5" d="M 74,72 C 96,190 116,350 150,462 C 210,556 470,572 700,566 C 830,562 930,556 1000,548"/>
+    <!-- 汾水:自晋阳西南流,历介休、平阳,注于黄河 -->
+    <path class="river" stroke-width="3" d="M 412,204 C 360,256 322,300 301,324 C 268,372 250,428 236,462 C 214,478 178,476 152,470"/>
+    <text class="rname" x="120" y="300" transform="rotate(80 120 300)" style="font-size:12px">黄 河</text>
+    <text class="rname" x="300" y="392" transform="rotate(54 300 392)" style="font-size:11px">汾 水</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="tianchi"><circle cx="380" cy="108" r="4"/><text class="cname s" x="388" y="104">天池<tspan class="cname s" dx="2">(围猎处)</tspan></text></g>
+      <g class="city cap" data-city="jinyang"><circle cx="412" cy="196" r="6"/><text class="cname" x="422" y="192">晋阳<tspan class="cname s" dx="2">(太原·齐别都)</tspan></text></g>
+      <g class="city" data-city="jiexiu"><circle cx="301" cy="322" r="3.5"/><text class="cname s" x="309" y="318">介休·雀鼠谷</text></g>
+      <g class="city" data-city="pingyang"><circle cx="234" cy="466" r="6.5"/><text class="cname" x="150" y="462">平阳<tspan class="cname s" dx="2">(晋州·临汾)</tspan></text></g>
+      <g class="city cap" data-city="ye"><circle cx="727" cy="461" r="6.5"/><text class="cname" x="737" y="458">邺<tspan class="cname s" dx="2">(北齐都)</tspan></text></g>
+    </g>
+
+    <!-- 长安(图外·西):北周都,武帝来向 -->
+    <g transform="translate(4,500)">
+      <path class="march j" marker-end="url(#aj)" d="M 2,0 L 40,-6"/>
+      <text class="mlabel j" x="0" y="20" style="font-size:10px">长安·关中 ⟶</text>
+      <text class="cname s" x="0" y="34" style="fill:var(--advance);font-size:9.5px">北周都(图外西)·武帝来向</text>
+    </g>
+    <!-- 青州(图外·东):高纬东奔被擒处 -->
+    <g transform="translate(902,372)">
+      <text class="mlabel r" x="6" y="-8" style="font-size:10px">⟶ 青州</text>
+      <text class="cname s" x="0" y="8" style="fill:var(--ret);font-size:9.5px">高纬东奔被擒(图外东)</text>
+    </g>
+
+    <!-- ══════ 全图 · 灭齐并北 ══════ -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 44,496 C 120,486 176,478 226,470"/>
+      <path class="march j" marker-end="url(#aj)" d="M 240,458 C 300,378 360,268 408,208"/>
+      <path class="march j" marker-end="url(#aj)" d="M 420,204 C 520,262 622,362 720,452"/>
+      <text class="mlabel j" x="150" y="500">周武帝亲征,直取平阳</text>
+      <text class="mlabel j" x="300" y="250" transform="rotate(-52 300 250)">乘胜长驱</text>
+      <circle class="star" cx="234" cy="466" r="11"/>
+      <circle class="star" cx="412" cy="196" r="9"/>
+      <circle class="star" cx="727" cy="461" r="11"/>
+      <g class="selfrout" transform="translate(258,486)"><circle r="12"/><line x1="-9" y1="9" x2="9" y2="-9"/></g>
+      <text class="mlabel r" x="196" y="516">齐师自溃</text>
+      <path class="march q" marker-end="url(#aq)" d="M 400,206 C 352,290 296,392 250,452"/>
+      <text class="mlabel q" x="356" y="360">高纬来争</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 424,206 C 520,268 626,382 716,452"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 736,458 C 810,438 866,410 900,384"/>
+      <text class="mlabel r" x="560" y="430">高纬弃晋阳东奔邺、青州</text>
+      <text class="anno" x="600" y="560">577正月周军入邺,北齐亡,北周遂并北方</text>
+    </g>
+
+    <!-- ══════ 一 · 周武帝亲征 · 拔平阳 ══════ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 44,496 C 110,486 170,476 226,468"/>
+      <text class="mlabel j" x="120" y="512">周武帝率大军自关中东出,直取晋州平阳</text>
+      <rect class="camp" x="230" y="462" width="9" height="9" transform="rotate(45 234 466)" style="fill:var(--advance)"/>
+      <circle class="star" cx="234" cy="466" r="11"/>
+      <text class="mlabel j" x="140" y="440">昼夜猛攻,遂拔平阳(晋州)</text>
+      <text class="anno" x="360" y="150">高纬方与冯小怜猎于天池,三驿告急而不发</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 384,116 C 396,150 404,172 410,190" style="opacity:.5"/>
+    </g>
+
+    <!-- ══════ 二 · 高纬来争 · 冯小怜误战机 · 齐军自溃 ══════ -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 400,206 C 352,290 296,392 252,450"/>
+      <text class="mlabel q" x="352" y="330">高纬闻平阳陷,率大军来争,决战城下</text>
+      <rect class="camp" x="230" y="462" width="9" height="9" transform="rotate(45 234 466)" style="fill:var(--advance)"/>
+      <text class="mlabel j" x="120" y="440">周军守堑拒战</text>
+      <g class="selfrout" transform="translate(262,488)"><circle r="13"/><line x1="-10" y1="10" x2="10" y2="-10"/></g>
+      <text class="mlabel r" x="150" y="522">齐师将破城堑,小怜「更须再合」,暂止贻误</text>
+      <text class="mlabel r" x="150" y="540">决战又挟小怜观阵,惊呼「齐军败矣」先走,遂自溃</text>
+    </g>
+
+    <!-- ══════ 三 · 乘胜长驱破晋阳 · 高纬东奔 ══════ -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 240,458 C 300,380 360,270 408,208"/>
+      <text class="mlabel j" x="250" y="330" transform="rotate(-52 250 330)">周军乘胜,逾雀鼠谷</text>
+      <circle class="star" cx="412" cy="196" r="9"/>
+      <text class="mlabel j" x="300" y="176">长驱破晋阳(齐别都)</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 424,206 C 520,268 626,382 716,452"/>
+      <text class="mlabel r" x="500" y="300">高纬弃晋阳,东奔邺城</text>
+    </g>
+
+    <!-- ══════ 四 · 攻邺 · 高纬被擒 · 北齐亡 · 北周统一北方 ══════ -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 420,204 C 520,262 622,362 720,452"/>
+      <text class="mlabel j" x="470" y="360" transform="rotate(44 470 360)">周军东逾太行,进逼邺城</text>
+      <rect class="camp" x="723" y="457" width="9" height="9" transform="rotate(45 727 461)"/>
+      <circle class="star" cx="727" cy="461" r="11"/>
+      <text class="mlabel j" x="600" y="500">577正月攻入邺城</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 736,458 C 812,438 866,410 900,384"/>
+      <text class="mlabel r" x="640" y="430">高纬东奔青州,为周军所擒(俘送长安)</text>
+      <text class="anno" x="330" y="560">北齐立国二十八年而亡 · 北周遂统一北方,为隋一统奠基</text>
+    </g>
+
+    <g class="compass" transform="translate(60,70)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>北周军(武帝)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>北齐军(来争)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>高纬奔逃</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>拔城·决战</span>
+    <span class="item"><svg width="20" height="20"><circle cx="10" cy="10" r="8" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><line x1="4" y1="16" x2="16" y2="4" stroke="#9a2b1e" stroke-width="2.6"/></svg>嬖幸误机·齐师自溃</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>北周</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>北齐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 拔平阳·惑于嬖幸误机·长驱破邺·并北方</h3>
+    <div class="lead">何以北齐一战而亡 —— 非周之独强,实齐主惑于嬖幸而自溃</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="平阳城下决战示意:齐军两度将胜,冯小怜两误战机,致齐师自溃,周军乘之长驱并北方">
+      <!-- 底轴:平阳城下 → 晋阳 → 邺 → 并北方 -->
+      <line x1="30" y1="210" x2="830" y2="210" stroke="#5c4f38" stroke-width="1.2" stroke-dasharray="2 6" opacity=".5"/>
+      <text x="30" y="234" fill="#5c4f38" font-size="10.5" opacity=".85">平阳城下决战 →(晋阳)→(邺)→ 北周并北方</text>
+      <!-- 城堑(平阳) -->
+      <rect x="40" y="60" width="140" height="110" fill="none" stroke="#2b2418" stroke-width="1.4" opacity=".75"/>
+      <text x="52" y="52" fill="#2b2418" font-size="11.5" font-weight="700">平阳城 · 周军守堑</text>
+      <!-- 齐军将胜之一:破堑 -->
+      <path d="M 250,110 L 190,110" fill="none" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)"/>
+      <text x="256" y="98" fill="#9a2b1e" font-size="11" font-weight="700">① 齐军将破城堑</text>
+      <text x="256" y="126" fill="#9c7a2c" font-size="11" font-weight="700">小怜「更须再合」→ 暂止</text>
+      <text x="256" y="144" fill="#5c4f38" font-size="10">周军得以塞堑成列,战机失</text>
+      <!-- 齐军将胜之二:决战 -->
+      <path d="M 250,180 L 190,180" fill="none" stroke="#9a2b1e" stroke-width="3" marker-end="url(#aq)"/>
+      <text x="256" y="176" fill="#9a2b1e" font-size="11" font-weight="700">② 两军接战</text>
+      <text x="510" y="98" fill="#9c7a2c" font-size="11" font-weight="700">挟小怜观阵,见军稍动</text>
+      <text x="510" y="118" fill="#9a2b1e" font-size="11" font-weight="700">惊呼「齐军败矣」,拉小怜先走</text>
+      <text x="510" y="138" fill="#5c4f38" font-size="10">主帅先遁 → 全军望之自溃</text>
+      <!-- 自溃符号 -->
+      <g transform="translate(560,185)"><circle r="14" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><line x1="-11" y1="11" x2="11" y2="-11" stroke="#9a2b1e" stroke-width="3"/></g>
+      <text x="584" y="182" fill="#9a2b1e" font-size="11.5" font-weight="700">齐师自溃</text>
+      <text x="584" y="200" fill="#1f4e54" font-size="10.5">周军乘胜长驱 → 破晋阳 → 攻邺 → 齐亡</text>
+    </svg>
+    <p class="intro">周武帝宇文邕整军经武,改略直取北齐军事重镇<b>晋州平阳</b>,昼夜猛攻而拔之;齐后主高纬本可倚举国之众复争。然平阳城下,<b>胜机两在齐手而两为嬖幸所误</b>：一误于「更须再合」之暂止,再误于临阵挟妃先遁——齐师遂不战而自溃。此后周军<b>乘胜之势</b>已成,破晋阳、攻邺城皆如破竹。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>周 · 直取平阳,乘势长驱</h4>
+        <p>武帝弃旧日『先取晋阳』之谋,径攻晋州平阳,拔其城以扼齐之要害;既胜城下之战,乃不予齐喘息,逾雀鼠谷破晋阳别都,东逾太行进逼邺都。一年之内,自平阳而晋阳而邺,势如卷席——所恃者，齐师城下自溃后再无可战之心。</p>
+      </div>
+      <div class="c b">
+        <h4>齐 · 惑于嬖幸,两误战机</h4>
+        <p>高纬方猎天池,三驿告急而以为常;平阳既陷,方率众来争。将破城堑,冯小怜「更须再合」,一暂止而周军塞堑;决战又挟妃观阵,望军稍动惊呼「齐军败矣」而先走,全军自溃。既弃晋阳，又弃邺东奔,尚有精兵十万而无战志,终被擒于青州。</p>
+      </div>
+    </div>
+    <p class="kicker">故北齐之亡,<b>非周之独强,实齐主之自败</b>：平阳一战,齐两度将胜而两误于嬖幸,大军自溃于城下;周武帝乘此长驱,破晋阳、下邺城,<b>北齐立国二十八年而亡</b>。北周遂统一北方——三年后杨坚代周建隋,又九年隋灭陈而天下一统。周之灭齐,实隋一统之奠基。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影定位,几何关系力求近实:平阳(晋州)居西南,晋阳(别都)在其东北偏北,邺(齐都)在东,天池围猎处在晋阳之北。为使南北不致过压,纬向略经压缩,疆界、河川经简化描绘。今地:平阳今山西临汾(约111.52°E,36.06°N),晋阳今山西太原(约112.55°E,37.87°N),邺今河北临漳西南邺城遗址(约114.32°E,36.10°N);长安(北周都,约108.95°E,34.30°N)在图外西,青州(高纬被擒处,约118.5°E,36.7°N)在图外东,均以边箭示之。</p>
+    <p><span class="n">注二</span>两方相角,不涉第三国:<i>北周</i>(青)为主,武帝宇文邕亲征;<b>北齐</b>(赭)为敌,后主高纬。周据关中,齐据河北、并汾、中原,晋州平阳为齐之西境重镇,直当周之东出之冲,故武帝改略直取之。进军皆陆路,无水运漕道之决,故本图不设粮道层;其胜负之枢在『拔平阳·惑于嬖幸误机·长驱破邺』,别以释要一图明之。</p>
+    <p><span class="n">注三</span>制胜之枢在平阳城下之自溃:据《北齐书·后主纪》《周书·武帝纪》及《资治通鉴》卷一七二、一七三,高纬方与宠妃冯小怜猎于天池,平阳三驿告急而不即发;及率军来争,齐军将破周所填城堑,小怜以『更须再合』止之,周军遂得塞堑成列;决战时高纬又挟小怜观阵,见军阵稍动,惊呼『齐军败矣』,拉小怜先走,齐师遂自溃。周军乘胜北上破晋阳,高纬弃晋阳东奔邺,建德六年(577)正月周军入邺,高纬传位太子高恒后东走青州被擒,俘送长安,北齐亡(自550年高洋建国凡二十八年)。</p>
+    <p><span class="n">注四</span>兵数、细节诸书小有出入(如齐『尚有精兵十万可守邺』之说,及周救兵『八万』之数),本图取其大略,不逐一考订;冯小怜『更须再合』误机、『齐军败矣』先走二事,史家或讥为归罪嬖幸之辞,然高纬荒怠、临机先遁则诸史所同,故以『嬖幸误国·齐师自败』为释要之骨。北周统一北方后,武帝旋图灭陈而崩;及杨坚代周建隋,承此并北之基,终以开皇九年(589)灭陈,天下复归一统。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"灭齐并北 · 一年之役",d:"周建德五年至六年(576—577)",p:["北周武帝宇文邕整军经武,决意灭齐。建德五年(576)十月,亲率大军东出关中,改略直取北齐军事重镇晋州平阳(今山西临汾),昼夜猛攻,遂拔其城。","北齐后主高纬方与宠妃冯小怜猎于天池,闻平阳陷乃率大军来争,决战城下而为嬖幸两误战机,齐师自溃。周军乘胜长驱,破别都晋阳,高纬弃晋阳东奔邺城;建德六年(577)正月周军攻入邺城,高纬东走青州被擒,俘送长安。北齐立国二十八年而亡,北周遂统一北方,为九年后隋之一统奠基。"]},
+  "1":{t:"周武帝亲征 · 拔平阳",d:"建德五年(576)十月",p:["武帝宇文邕鉴于齐政日乱,亲总大军自关中东出,弃旧日『先取晋阳』之谋,径趋北齐西境重镇晋州平阳。晋州当周东出之冲,拔之则齐之腹背洞开。","周军昼夜急攻,遂拔平阳城。时高纬方与冯小怜围猎于天池,晋州告急之使一日三至,近臣以边鄙常事、王方娱乐为辞不即以闻;及平阳已陷方报,齐廷大震。"]},
+  "2":{t:"高纬来争 · 冯小怜误战机 · 齐军自溃",d:"建德五年(576)十月—十一月",p:["高纬闻平阳陷,始率倾国之众西来争之,与周军决战于平阳城下,周军据所填城堑拒守。齐军奋攻,将破城堑而入,冯小怜以『更须再合』请止,高纬从之暂停;周军乘间塞堑成列,齐之战机遂失。","及两军决战,高纬又挟冯小怜同观阵势;望见军阵微动,惊呼『齐军败矣』,即拉小怜策马先走。主帅先遁,全军望之骇溃——齐师不为周所破,而自溃于城下。此役实为北齐存亡之枢。"]},
+  "3":{t:"乘胜长驱破晋阳 · 高纬东奔",d:"建德五年(576)十一月—十二月",p:["周武帝不予齐喘息,乘胜挥军北上,逾雀鼠谷、介休而进,直逼北齐别都晋阳(今太原)。晋阳为高氏兴王之地、河东根本,城坚兵众。","然齐师已丧胆,高纬无固守之志;周军进攻,晋阳旋破。高纬弃晋阳,携冯小怜东奔本都邺城,河东、并汾之地尽入于周。"]},
+  "4":{t:"攻邺 · 高纬被擒 · 北齐亡 · 北周统一北方",d:"建德六年(577)正月",p:["周军东逾太行,进逼齐都邺城。高纬虽尚拥精兵,而朝野已无斗志;乃传位于太子高恒,自携冯小怜东走。建德六年正月,周军攻入邺城。","高纬东奔青州,谋走陈或突厥,为周军追及擒获,俘送长安。北齐自天保元年(550)立国,凡二十八年而亡。北周遂统一北方——三年后杨坚代周建隋,又九年隋灭陈,天下复归一统;周之灭齐,实为隋一统之奠基。"]}
+};
+const CITY={
+  tianchi:{t:"天池",d:"北齐后主围猎处,今山西宁武管涔山一带",p:["高纬方与宠妃冯小怜猎于天池。周军攻平阳,晋州告急一日三至,近臣以王方娱乐不即以闻,坐失应援之机。"]},
+  jinyang:{t:"晋阳(太原)",d:"北齐别都,今山西太原",p:["高氏兴王之地,河东根本、军事重镇。平阳城下齐师自溃后,周武帝乘胜北上破之,高纬弃晋阳东奔邺城,并汾之地尽失。"]},
+  jiexiu:{t:"介休 · 雀鼠谷",d:"今山西介休",p:["平阳与晋阳间之要隘。周军乘胜长驱,逾雀鼠谷、介休而北,直逼晋阳。"]},
+  pingyang:{t:"平阳(晋州)",d:"北齐西境重镇,今山西临汾",p:["周武帝改略直取之,昼夜猛攻而拔城。高纬率众来争,决战城下:齐军将破城堑,冯小怜『更须再合』而暂止,周军得塞堑成列;决战又挟小怜观阵,惊呼『齐军败矣』先走,齐师自溃——此为北齐存亡之枢。"]},
+  ye:{t:"邺",d:"北齐都城,今河北临漳西南邺城遗址",p:["晋阳既失,高纬东奔于此,虽尚拥兵而无战志。建德六年(577)正月周军攻入邺城,高纬传位太子后东走青州被擒,北齐立国二十八年而亡。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
