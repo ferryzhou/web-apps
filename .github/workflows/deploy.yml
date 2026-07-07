@@ -1,0 +1,63 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow one concurrent deployment, skip queued builds for the same ref.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: wc2026-odds-verdict/package-lock.json
+
+      - name: Install & build the Vite app
+        working-directory: wc2026-odds-verdict
+        run: |
+          npm ci
+          npm run build
+
+      - name: Assemble site
+        run: |
+          mkdir _site
+          # Copy the whole repo (static apps + landing page) minus build artefacts.
+          rsync -a \
+            --exclude='_site' \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='wc2026-odds-verdict/dist' \
+            ./ _site/
+          # Overlay the built Vite app at its served path.
+          cp -a wc2026-odds-verdict/dist/. _site/wc2026-odds-verdict/
+          # GitHub Pages needs an index.html at the root (landing page already has one).
+          test -f _site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
