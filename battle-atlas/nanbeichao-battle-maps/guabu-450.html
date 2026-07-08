@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元嘉北伐 · 瓜步之战(450) · 拓跋焘饮马长江</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.08em;line-height:1.7}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .sea{fill:rgba(95,127,136,.12)}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.q.bold{stroke-width:4.5}
+  .march.sec{stroke:var(--advance);stroke-width:2.4;stroke-dasharray:6 5;opacity:.5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke-width:1.6;stroke-dasharray:2 4}
+  .siege.j{stroke:var(--advance)}.siege.q{stroke:var(--enemy)}
+  /* 焚掠·赤地:朱色火记 */
+  .burn{fill:none;stroke:var(--enemy);stroke-width:1.8;stroke-linecap:round}
+  .blabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.03em}
+  /* 隔江遥望:墨色虚线 */
+  .gaze{fill:none;stroke:var(--ink2);stroke-width:1.4;stroke-dasharray:2 4;opacity:.8}
+  /* 饮马长江:青色记 */
+  .ymlabel{fill:var(--advance);font-size:11.5px;font-weight:700;letter-spacing:.06em}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.sec){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>瓜</span><span>步</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>元嘉北伐 · 瓜步之战</h1>
+    <div class="sub">宋元嘉二十七年(450)　<i>刘宋 宋文帝·王玄谟</i> 大举北伐, 顿兵滑台而溃　<b>北魏 太武帝 拓跋焘</b> 乘胜长驱, 饮马长江 · 登瓜步望建康　·　元嘉草草, 赢得仓皇北顾</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 草草北伐</button>
+    <button data-p="1">① 大举北伐 · 围滑台</button>
+    <button data-p="2">② 顿兵失士 · 滑台大溃</button>
+    <button data-p="3">③ 长驱反击 · 饮马长江</button>
+    <button data-p="4">④ 攻盱眙不下 · 大掠北还</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="元嘉北伐瓜步之战形势图,含北魏据河北中原、刘宋据江淮之疆界,黄河淮河长江泗水诸川,及滑台碻磝彭城盱眙寿阳瓜步建康广陵诸城;示刘宋前锋王玄谟水军沿泗淮入河北伐围滑台、顿兵失士而大溃,拓跋焘乘胜长驱反击、江北赤地千里、登瓜步山饮马长江隔江望建康,攻盱眙不下、疾疫粮尽而大掠北还诸记号">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:北魏据河北·中原(北),刘宋据江淮(南);约以淮水一线,魏据河南滑台诸镇,宋以彭城为淮北重镇 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,332 C 850,338 720,352 660,362 C 600,372 540,388 460,392 C 320,398 150,394 0,388 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,388 C 150,394 320,398 460,392 C 540,388 600,372 660,362 C 720,352 850,338 1000,332 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <!-- 宋魏约界(淮水一线·示意) -->
+    <path class="border" d="M 0,388 C 150,394 320,398 460,392 C 540,388 600,372 660,362 C 720,352 850,338 1000,332"/>
+    <text class="realm q" x="120" y="126" font-size="27">北 魏(河北·中原)</text>
+    <text class="realm j" x="150" y="606" font-size="27">刘 宋(江 淮)</text>
+
+    <!-- ══ 海:东境黄海·东海 ══ -->
+    <path class="sea" d="M 1000,300 C 940,320 910,420 940,520 C 960,580 990,610 1000,620 Z"/>
+    <text class="rname" x="946" y="430" transform="rotate(80 946 430)" style="font-size:12px;opacity:.7">黄 海</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:北伐目标线,自西东流经滑台南岸、碻磝南岸,东北趋海(此时行河北故道) -->
+    <path class="river" stroke-width="5" d="M 0,178 C 90,166 160,150 206,135 C 270,116 320,78 364,50 C 420,26 480,14 540,8 L 640,0"/>
+    <!-- 淮水:南北大川,盱眙在其南岸,东注于海 -->
+    <path class="river" stroke-width="4" d="M 0,428 C 160,434 340,440 470,442 C 540,443 590,440 626,437 C 700,432 780,448 860,462 L 1000,486"/>
+    <!-- 长江:极南大川,瓜步在北岸,建康在南岸,东注于海 -->
+    <path class="river" stroke-width="5" d="M 0,548 C 180,552 360,553 470,550 C 560,548 610,544 648,538 C 710,528 800,522 880,518 L 1000,516"/>
+    <!-- 泗水:自彭城东南入淮泗口 -->
+    <path class="river" stroke-width="2.6" d="M 492,308 C 540,350 582,398 616,432"/>
+    <!-- 邗沟:自广陵北通淮、南接江(江淮漕道) -->
+    <path class="river" stroke-width="2.2" d="M 688,510 C 680,486 676,466 672,446"/>
+    <text class="rname" x="60" y="168" style="font-size:14px">黄　河</text>
+    <text class="rname" x="150" y="422" style="font-size:13px">淮　水</text>
+    <text class="rname" x="150" y="544" style="font-size:14px">长　江</text>
+    <text class="rname" x="536" y="392" transform="rotate(42 536 392)" style="font-size:10px">泗水</text>
+    <text class="rname" x="690" y="482" transform="rotate(78 690 482)" style="font-size:9.5px">邗沟</text>
+
+    <!-- ══ 山:瓜步山(拓跋焘登临处) ══ -->
+    <path class="mtn fill" d="M 636,512 L 648,494 L 657,506 L 668,490 L 678,508 Z"/>
+    <path class="mtn" d="M 642,508 l 8,-12 l 7,8 l 9,-13 l 8,11"/>
+    <text class="mname" x="612" y="490" style="font-size:9.5px;letter-spacing:.12em">瓜步山</text>
+
+    <!-- 平城·北魏都(图外·北):拓跋焘南伐之本、北还所归 -->
+    <g transform="translate(300,4)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,4 L 0,32"/>
+      <text class="mlabel q" x="6" y="16" style="font-size:10px">平城·北魏都 ↓</text>
+      <text class="cname s" x="-150" y="16" style="fill:var(--enemy);font-size:9.5px">魏本(图外北) · 拓跋焘乘魏柔然相持之隙南下</text>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="qiaoao"><circle cx="364" cy="60" r="5"/><text class="cname" x="374" y="58">碻磝<tspan class="cname s" dx="2">(茌平)</tspan></text></g>
+      <g class="city" data-city="huatai"><circle cx="206" cy="147" r="6"/><text class="cname" x="132" y="140">滑台<tspan class="cname s" dx="2">(滑县)</tspan></text></g>
+      <g class="city" data-city="pengcheng"><circle cx="490" cy="301" r="6"/><text class="cname" x="500" y="298">彭城<tspan class="cname s" dx="2">(徐州)</tspan></text></g>
+      <g class="city" data-city="xuyi"><circle cx="626" cy="446" r="6"/><text class="cname" x="636" y="443">盱眙</text></g>
+      <g class="city" data-city="shouyang"><circle cx="446" cy="494" r="5"/><text class="cname" x="398" y="510">寿阳</text></g>
+      <g class="city" data-city="guabu"><circle cx="655" cy="519" r="6.5"/><text class="cname" x="556" y="516">瓜步<tspan class="cname s" dx="2">(六合)</tspan></text></g>
+      <g class="city" data-city="guangling"><circle cx="688" cy="510" r="4.5"/><text class="cname s" x="698" y="506">广陵</text></g>
+      <g class="city cap" data-city="jiankang"><circle cx="658" cy="557" r="7"/><text class="cname" x="592" y="576">建康<tspan class="cname s" dx="2">(宋都·石头城)</tspan></text></g>
+    </g>
+
+    <!-- ══════ 全图 · 草草北伐 ══════ -->
+    <g id="phAll" class="ph">
+      <!-- 宋北伐:水军自淮泗入河,趋碻磝、围滑台 -->
+      <path class="march j" marker-end="url(#aj)" d="M 668,512 C 640,478 618,456 616,436 C 588,398 540,350 496,306"/>
+      <path class="march j" marker-end="url(#aj)" d="M 490,296 C 452,228 410,140 366,72"/>
+      <path class="march j" marker-end="url(#aj)" d="M 356,66 C 306,88 256,118 218,142"/>
+      <text class="mlabel j" x="520" y="360">前锋王玄谟水军·沿泗淮入河</text>
+      <g class="siege j"><circle cx="206" cy="147" r="15"/></g>
+      <text class="mlabel j" x="150" y="180">围滑台二百余日不下</text>
+      <!-- 魏乘胜长驱反击 -->
+      <path class="march q bold" marker-end="url(#aq)" d="M 214,158 C 350,252 500,378 648,506"/>
+      <text class="mlabel q" x="360" y="330">拓跋焘乘胜长驱反击</text>
+      <rect class="camp" x="651" y="513" width="10" height="10" transform="rotate(45 656 518)"/>
+      <text class="ymlabel" x="536" y="536">登瓜步山·饮马长江</text>
+      <path class="gaze" d="M 656,526 L 658,550"/>
+      <text class="mlabel q" x="560" y="566">隔江望建康,建康大震</text>
+      <text class="anno" x="150" y="300">魏据河南滑台诸镇,宋以彭城为淮北重镇</text>
+    </g>
+
+    <!-- ══════ ① 大举北伐 · 围滑台 ══════ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 668,512 C 640,478 618,456 616,436 C 588,398 540,350 496,306"/>
+      <text class="mlabel j" x="522" y="392">东路萧斌为帅·王玄谟万人水军为前锋</text>
+      <text class="anno" x="540" y="408">自淮、泗溯流入黄河</text>
+      <path class="march j" marker-end="url(#aj)" d="M 490,296 C 452,228 410,140 366,72"/>
+      <circle class="star" cx="364" cy="60" r="8"/>
+      <text class="mlabel j" x="374" y="44">魏戍弃碻磝,宋军进据</text>
+      <path class="march j" marker-end="url(#aj)" d="M 356,66 C 306,88 256,118 218,142"/>
+      <g class="siege j"><circle cx="206" cy="147" r="16"/></g>
+      <text class="mlabel j" x="120" y="184">进围滑台</text>
+      <text class="anno" x="96" y="200">滑台城中积草,王玄谟不用火攻</text>
+      <!-- 中·西路略河南(示意) -->
+      <path class="march sec" marker-end="url(#aj)" d="M 470,340 C 400,320 320,300 250,296"/>
+      <text class="mlabel j" x="220" y="288" style="opacity:.72">中·西路(柳元景等)略河南·陕</text>
+    </g>
+
+    <!-- ══════ ② 顿兵失士 · 滑台大溃 ══════ -->
+    <g id="ph2" class="ph">
+      <g class="siege j"><circle cx="206" cy="147" r="16"/></g>
+      <text class="mlabel j" x="86" y="180">王玄谟顿兵坚城</text>
+      <text class="anno" x="86" y="196">贪货失士心·屡攻二百余日不下</text>
+      <!-- 拓跋焘亲率大军南下救滑台,黄河冰合而渡 -->
+      <path class="march q bold" marker-end="url(#aq)" d="M 300,4 C 270,50 240,98 216,138"/>
+      <text class="mlabel q" x="236" y="86">拓跋焘亲率大军南下救滑台</text>
+      <text class="anno" x="248" y="102">会河冰合,魏骑径渡</text>
+      <circle class="star" cx="206" cy="147" r="9"/>
+      <!-- 王玄谟大溃,宵遁 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 214,158 C 280,210 380,280 470,336"/>
+      <text class="mlabel r" x="300" y="250">玄谟宵遁·丧军资甲仗无数</text>
+      <!-- 东路诸军相继败退,萧斌弃碻磝退守 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 470,344 C 520,376 560,404 600,428"/>
+      <text class="mlabel r" x="470" y="360">萧斌弃碻磝,东路诸军相继败退</text>
+      <text class="anno" x="480" y="376">宋前锋尽丧,河南复入于魏</text>
+    </g>
+
+    <!-- ══════ ③ 长驱反击 · 饮马长江 ══════ -->
+    <g id="ph3" class="ph">
+      <!-- 魏军分道长驱南下 -->
+      <path class="march q bold" marker-end="url(#aq)" d="M 214,158 C 350,252 500,380 646,504"/>
+      <text class="mlabel q" x="336" y="326">魏分兵数路·长驱南下·势如破竹</text>
+      <path class="march q" marker-end="url(#aq)" d="M 300,232 C 340,320 400,420 444,486"/>
+      <text class="mlabel q" x="300" y="452">一路趋淮西·略寿阳</text>
+      <!-- 江北赤地千里·焚掠 -->
+      <g class="burn"><path d="M 402,300 q 4,-8 0,-14 q 6,4 4,12 q 4,-4 3,-9 q 5,7 -1,15 z"/></g>
+      <g class="burn"><path d="M 512,382 q 4,-8 0,-14 q 6,4 4,12 q 4,-4 3,-9 q 5,7 -1,15 z"/></g>
+      <g class="burn"><path d="M 570,432 q 4,-8 0,-14 q 6,4 4,12 q 4,-4 3,-9 q 5,7 -1,15 z"/></g>
+      <text class="blabel" x="410" y="286">江北赤地千里·烧杀掳掠</text>
+      <!-- 抵瓜步,登山望建康,饮马长江 -->
+      <rect class="camp" x="651" y="513" width="11" height="11" transform="rotate(45 656 518)"/>
+      <text class="mlabel q" x="558" y="500">兵锋直抵瓜步·营行宫</text>
+      <text class="ymlabel" x="524" y="536">登瓜步山·饮马长江·声言渡江</text>
+      <path class="gaze" d="M 656,526 L 658,550"/>
+      <circle cx="658" cy="557" r="12" fill="none" stroke="var(--enemy)" stroke-width="1.4" stroke-dasharray="3 4" opacity=".7"/>
+      <text class="mlabel q" x="560" y="592">建康内外戒严·居民负户而立</text>
+      <text class="anno" x="560" y="606">宋文帝登石头城,忧叹曰:「檀道济若在,岂使胡马至此」</text>
+    </g>
+
+    <!-- ══════ ④ 攻盱眙不下 · 疾疫粮尽 · 大掠北还 · 两败俱伤 ══════ -->
+    <g id="ph4" class="ph">
+      <!-- 魏军自瓜步回攻盱眙 -->
+      <path class="march q" marker-end="url(#aq)" d="M 648,510 C 664,488 656,466 636,452"/>
+      <g class="siege q"><circle cx="626" cy="446" r="15"/></g>
+      <rect class="camp j" x="622" y="442" width="9" height="9" transform="rotate(45 626 446)"/>
+      <text class="mlabel j" x="530" y="430">臧质·沈璞坚守盱眙</text>
+      <circle class="star" cx="626" cy="446" r="9"/>
+      <text class="mlabel q" x="636" y="466">攻之二旬·肉薄登城</text>
+      <text class="anno" x="530" y="482">魏死伤以万计·尸与城平·不克</text>
+      <!-- 疾疫粮尽 -->
+      <text class="blabel" x="470" y="536">军中疾疫·粮运不继</text>
+      <!-- 大掠北还,沿途焚杀 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 616,438 C 480,340 350,240 240,158"/>
+      <text class="mlabel r" x="330" y="230">大掠而北还·裹挟五万余户·沿途焚杀</text>
+      <g class="burn"><path d="M 470,300 q 4,-8 0,-14 q 6,4 4,12 q 4,-4 3,-9 q 5,7 -1,15 z"/></g>
+      <g class="burn"><path d="M 360,220 q 4,-8 0,-14 q 6,4 4,12 q 4,-4 3,-9 q 5,7 -1,15 z"/></g>
+      <text class="anno" x="150" y="330">宋魏两败俱伤·江淮残破·元嘉之治由盛转衰</text>
+    </g>
+
+    <g class="compass" transform="translate(930,92)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>刘宋北伐军(水军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="4"/></svg>北魏军·长驱反击</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋军溃退·魏军北还</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="2 3"/></svg>宋围滑台</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>魏攻盱眙(不克)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·大溃</span>
+    <span class="item"><svg width="18" height="16"><path d="M 6,14 q 4,-8 0,-14 q 6,4 4,12 q 4,-4 3,-9 q 5,7 -1,15 z" fill="none" stroke="#9a2b1e" stroke-width="1.8"/></svg>赤地·焚掠</span>
+    <span class="item"><svg width="30" height="12"><line x1="4" y1="6" x2="26" y2="6" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="2 4"/></svg>隔江遥望</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>北魏</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>刘宋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>战局释要 · 草草北伐 · 招致反噬 · 饮马长江而两伤</h3>
+    <div class="lead">何以一场大举北伐,反招胡马饮江、江淮残破 —— 轻启衅端于前,顿兵失士于中,反噬无力渡江于后</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="草草北伐示意:宋文帝好大喜功大举北伐,前锋王玄谟顿兵滑台失士而大溃;拓跋焘乘势长驱反击,江北赤地千里、饮马长江登瓜步望建康;然攻盱眙不下、疾疫粮尽,终不能渡江而大掠北还,宋魏两败俱伤">
+      <!-- 上:宋北伐(青,向北) -->
+      <text x="24" y="26" fill="#1f4e54" font-size="12" font-weight="700">刘宋 · 草草北伐(青向北)</text>
+      <circle cx="60" cy="196" r="6" fill="none" stroke="#1f4e54" stroke-width="1.6"/>
+      <text x="30" y="216" fill="#5c4f38" font-size="10">江淮(建康)</text>
+      <path d="M 64,192 C 120,150 170,100 214,64" fill="none" stroke="#1f4e54" stroke-width="7" opacity=".85" stroke-linecap="round"/>
+      <path d="M 214,64 l -14,4 l 4,-15 z" fill="#1f4e54"/>
+      <rect x="196" y="40" width="60" height="40" rx="4" fill="rgba(31,78,84,.06)" stroke="#1f4e54" stroke-width="1.4"/>
+      <text x="226" y="58" text-anchor="middle" fill="#2b2418" font-size="11.5" font-weight="700">滑台</text>
+      <text x="226" y="72" text-anchor="middle" fill="#5c4f38" font-size="9">围二百余日</text>
+      <g><circle cx="196" cy="96" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="191" y1="91" x2="201" y2="101" stroke="#9a2b1e" stroke-width="2.4"/><line x1="191" y1="101" x2="201" y2="91" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <text x="120" y="120" fill="#9a2b1e" font-size="10.5" font-weight="700">顿兵失士 · 大溃 ✕</text>
+      <!-- 下:魏反噬(朱,向南) -->
+      <text x="300" y="26" fill="#9a2b1e" font-size="12" font-weight="700">北魏 · 乘胜反噬(朱向南)</text>
+      <path d="M 266,70 C 380,120 520,175 636,210" fill="none" stroke="#9a2b1e" stroke-width="9" opacity=".85" stroke-linecap="round"/>
+      <path d="M 636,210 l -16,-1 l 8,-13 z" fill="#9a2b1e"/>
+      <text x="360" y="150" fill="#9a2b1e" font-size="10.5" font-weight="700">长驱南下·江北赤地千里</text>
+      <!-- 长江天堑 -->
+      <line x1="640" y1="150" x2="840" y2="150" stroke="#5f7f88" stroke-width="6" opacity=".8"/>
+      <text x="742" y="142" fill="#5f7f88" font-size="11" font-weight="700" text-anchor="middle">长江天堑</text>
+      <circle cx="668" cy="214" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="654" y="236" fill="#5c4f38" font-size="10">瓜步·饮马长江</text>
+      <path d="M 700,208 C 730,200 760,185 772,162" fill="none" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="2 4" opacity=".8"/>
+      <text x="758" y="120" fill="#5c4f38" font-size="9.5">隔江望建康,不能渡</text>
+      <!-- 盱眙·疾疫粮尽 -->
+      <g><circle cx="600" cy="184" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="595" y1="179" x2="605" y2="189" stroke="#9a2b1e" stroke-width="2.4"/><line x1="595" y1="189" x2="605" y2="179" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <text x="470" y="200" fill="#9a2b1e" font-size="10" font-weight="700">攻盱眙不下·疾疫粮尽 ✕</text>
+    </svg>
+    <p class="intro">宋文帝刘义隆慕汉武拓边之功,乘北魏与柔然相持,于元嘉二十七年<b>大举北伐</b>——此其失之始。前锋王玄谟以万人水军溯淮、泗入河,克碻磝而<b>顿兵滑台二百余日不下</b>,又贪货多杀、失将士之心;及冬拓跋焘亲率大军南救、河冰合而骑渡,王玄谟一夕大溃,河南复失。轻启衅端而攻坚无功,遂授敌以乘胜反噬之机。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>宋之败 · 好大喜功而顿兵失士</h4>
+        <p>沈庆之尝谏「以步击骑,胜败可见」,文帝不听;宿将檀道济已为文帝自剪(元嘉十三年诛),北伐无良帅。王玄谟恃众轻进,围城逾时不拔,城中积草而不肯火攻,又责民赂、卖梨取直,士卒离心。滑台一溃,东路前锋尽丧,五万之众所积甲仗军资委弃于河——<b>草草</b>二字,尽之矣。</p>
+      </div>
+      <div class="c b">
+        <h4>魏之反噬 · 饮江而不能渡</h4>
+        <p>拓跋焘乘胜分兵数路、长驱南下,势如破竹,江北六州赤地千里、丁壮杀掠殆尽,兵锋直抵瓜步,登山筑行宫、饮马长江,声言渡江,建康大震。然魏以骑兵深入,长江天堑非马足所能越;转攻盱眙,臧质、沈璞坚守,肉薄二旬、死伤以万计而不克,加以军中疾疫、粮运不继,遂大掠而北还。</p>
+      </div>
+    </div>
+    <p class="kicker">故瓜步之役,<b>两败俱伤</b>而无一胜:宋以草草之举丧师失地、江北为墟;魏虽饮马长江,而<b>攻坚不下、疾疫粮尽,终不能越天堑</b>,徒得掳掠、亦「士马死伤过半,国人皆尤之」。自是刘宋国力大损、<b>元嘉之治由盛转衰</b>,南朝再无问鼎中原之力。辛弃疾所叹「元嘉草草,封狼居胥,赢得仓皇北顾」,正谓此役——衅端轻启于前,而反噬之祸,遂及江淮。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(墨卡托)投影:<b>x = 185 + (经度 − 114.3) × 105,y = 561 − (纬度 − 32.0) × 115</b>(视窗约经度114.3°–119.0°E、纬度32.0°–36.5°N)。几何力求近实:滑台在西北(黄河南岸),碻磝更在其东北,彭城居中(泗水上),盱眙在淮水南岸,寿阳在西南,瓜步·建康隔长江对峙于东南,广陵在江北之东。江河、疆界经简化;点划「约界」依淮水一线示宋魏势力大界,魏实据河南滑台诸镇、宋以彭城为淮北重镇,犬牙相错,非实有画界。平城(魏都,约113.3°E,40.1°N)远在图外北,以边外箭标示。滑台今河南滑县,碻磝今山东茌平,彭城今江苏徐州,盱眙今江苏盱眙,寿阳今安徽寿县,瓜步今江苏南京六合,建康今南京,广陵今扬州。依《宋书·索虏传/王玄谟传/臧质传》《魏书·世祖纪》《资治通鉴》卷一二五、一二六绘出。</p>
+    <p><span class="n">注二 · 行军水陆(问一)</span>宋前锋王玄谟为<b>水军(舟师)</b>:自建康循邗沟入淮、溯泗水北上,入黄河,以船载兵粮攻碻磝、围滑台——故北伐主脉与淮泗河漕道相重。魏军反击则纯为<b>骑兵陆路长驱</b>,自河南分道南下,倏忽千里抵瓜步;其攻盱眙、大掠北还亦皆由陆。<b>水陆之变即胜负所系</b>:宋恃舟师利于河、淮,而拓跋焘避实就虚、以铁骑陆行南下,宋之水军反不能御骑于平陆;及魏抵长江,则天堑非骑所能渡,是「以水兴、以水限」——南人限于江、北人亦限于江。</p>
+    <p><span class="n">注三 · 粮道与胜负(问二)</span>宋北伐军食仰给<b>淮—泗—黄河</b>漕运,王玄谟顿兵滑台二百余日,补给悬长而攻坚无功;及冬河冰合,漕运既穷、骑渡复易,前锋遂溃。魏军之败,则败于<b>粮运不继与疾疫</b>:深入江北,掳掠虽足而无城可据、无漕以继,又值春疫,攻盱眙不下,遂不得不北撤。两军皆非亡于一战,而困于「攻坚不下·粮尽师老」——故本图不设金色漕运专层,而以「顿兵—反噬—攻坚不下」之势为枢,logistics为背景之因(说见「战局释要」)。</p>
+    <p><span class="n">注四 · 几方几路(问三)</span>本役为<b>两方</b>:刘宋(青)为动方而主北伐,自江淮(建康,图内东南)北出;北魏(朱)为守而反噬,自平城(图外正北)南下,经河南入图。宋北伐分东、中、西三路:东路萧斌为帅、王玄谟(万人水军)为前锋,主攻碻磝·滑台(本图之主线);中路(刘铄部)趋许昌·长社,西路(随王刘诞、柳元景)出弘农·陕,略有小胜而于大局无补(图中虚线示意)。魏军反击亦分数道并进,直抵瓜步、广陵、寿阳一线;盱眙守将为臧质、沈璞。</p>
+    <p><span class="n">注五 · 异说(问四·问五)</span>诸城今地与经纬见注一。史料多有出入:①围滑台之久,《通鉴》系「数月不下」,或云二百余日,本图从后者之概。②宋军东路兵数,《宋书》称萧斌统众六万、玄谟前锋万人,魏军「号百万」多为张大之辞。③王玄谟「贪财失士」之讥出《宋书》,其史笔于败将或过刻,姑存以见时论。④瓜步之事跨元嘉二十七年冬至二十八年正月(451):正月朔拓跋焘大会群臣于瓜步山,初二即裹五万余户北还。⑤魏军渡淮抵江之疾,史称「凡所经过,莫不残灭」,江南亦「丁壮者绝」,而魏亦「士马死伤过半」,故谓两败俱伤。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"草草北伐 · 招致反噬",d:"宋元嘉二十七年(450)七月 — 二十八年正月",p:["宋文帝刘义隆慕汉武拓边之功,又乘北魏方与柔然相持,元嘉二十七年七月大举北伐(第二次元嘉北伐),兵分东、中、西三路。东路以萧斌为帅、宁朔将军王玄谟率万人水军为前锋,自淮、泗溯流入黄河,克碻磝而进围滑台,为北伐之主力。","王玄谟顿兵滑台二百余日不下,贪货失士。冬,太武帝拓跋焘亲率大军南下救之,会河冰合、骑兵径渡,玄谟一夕大溃。魏乘胜分兵数路长驱南下,江北赤地千里,兵锋直抵长江北岸之瓜步:拓跋焘登瓜步山、饮马长江、隔江遥望建康,建康大震。然魏攻盱眙不下、疾疫粮尽,终不能渡江,遂大掠而北还——宋魏两败俱伤,元嘉之治由盛转衰。"]},
+  "1":{t:"① 大举北伐 · 围滑台",d:"元嘉二十七年(450)七 — 九月",p:["七月,宋文帝命辅国将军萧斌为帅,统王玄谟、申坦等出东路;王玄谟以万人水军为前锋,自建康循邗沟入淮、溯泗水北上,入于黄河。魏碻磝戍主弃城走,宋军进据碻磝,遂长驱进围滑台,以图先取河南、进逼河北。","此时中路刘铄部趋许昌·长社,西路随王刘诞遣柳元景等出弘农·陕,略有克捷。然东路为北伐重心:滑台一城,系河南之钥、北伐之枢。玄谟麾众围之,而城中有积草可焚,或劝火攻,玄谟惜之不用——胜机已伏于此。"]},
+  "2":{t:"② 顿兵失士 · 滑台大溃",d:"元嘉二十七年(450)十 — 十一月",p:["王玄谟围滑台二百余日不能下。其人贪货多杀:民有献梨者责其纳赂,课家赋布、卖梨取直,军中离心;又拒纳降人、失抚御之宜,士卒无斗志。顿兵坚城之下,补给悬长,而冬寒将至。","冬,太武帝拓跋焘亲率大军自平城南下救滑台,鼓行而前。会黄河冰合,魏铁骑径渡,金鼓之声震天。玄谟惧,夜遁,宋军大溃,所弃甲仗、军资、辎重不可胜计,死者万余。萧斌欲斩玄谟,沈庆之谏止;东路诸军相继败退,萧斌弃碻磝而走,河南复入于魏——北伐前锋于是尽丧。"]},
+  "3":{t:"③ 长驱反击 · 饮马长江",d:"元嘉二十七年(450)冬 — 二十八年正月",p:["拓跋焘乘胜大举反击,分兵数路、长驱南下,势如破竹。所过烧杀掳掠,江北六州丁壮杀伤殆尽、赤地千里,宋诸军望风奔溃。魏一路趋淮西掠寿阳,主力则东南直趋,倏忽千里,兵锋直抵长江北岸之瓜步。","二十八年正月朔,拓跋焘登瓜步山,毁民屋、伐苇为筏、声言欲渡江,并于山上筑行宫、大会群臣;隔江遥望建康。建康大震,内外戒严,居民负户而立;宋文帝登石头城,忧形于色,叹曰:「檀道济若在,岂使胡马至此!」悔诛良将、悔不用众谏,而无及矣。"]},
+  "4":{t:"④ 攻盱眙不下 · 疾疫粮尽 · 大掠北还",d:"元嘉二十八年(451)正 — 二月",p:["魏以骑兵深入,无城可据、无舟可渡,长江天堑终非马足所能越。拓跋焘乃自瓜步回军,转攻淮上要城盱眙,遗臧质书求酒、辞甚骄慢,质封溲以报之。魏军肉薄登城、分番相代,坠而复升、昼夜不息,凡二旬。","盱眙守将臧质、沈璞婴城固守,魏军死伤以万计,「尸与城平」而终不能克。会军中大疫,又掳掠既足、粮运不继,拓跋焘遂焚攻具、解围北还,裹挟江北民户五万余,沿途更肆焚杀。宋魏两败俱伤:江淮残破、丁壮者绝,而魏亦士马死伤过半,国人皆尤之。元嘉之治,自此由盛转衰。"]}
+};
+const CITY={
+  huatai:{t:"滑台",d:"黄河南岸重镇,今河南滑县",p:["河南四镇之一、北伐之枢。元嘉二十七年王玄谟前锋进围之,顿兵二百余日不下;城中积草可焚而玄谟不用火攻。冬,拓跋焘亲军南救、河冰合而骑渡,玄谟宵遁大溃,河南复入于魏——东路北伐成败,尽系此城。"]},
+  qiaoao:{t:"碻磝",d:"黄河南岸,今山东茌平(一带)",p:["黄河津要。王玄谟水军入河,魏戍主弃城而走,宋军进据碻磝,以为围攻滑台之基。及滑台溃,萧斌又弃碻磝退走,河防尽失。"]},
+  pengcheng:{t:"彭城(徐州)",d:"淮北重镇,今江苏徐州",p:["刘宋据淮北之要、北伐之后镇,江夏王刘义恭、武陵王刘骏(后之孝武帝)镇守。拓跋焘反击南下,大军过彭城而不攻,径趋江淮;彭城坚守得全,为宋淮北仅存之重镇。"]},
+  xuyi:{t:"盱眙",d:"淮水南岸要城,今江苏盱眙",p:["瓜步之役收束之地。拓跋焘自瓜步北还,转攻盱眙,遗臧质书求酒,质封溲报之。魏军肉薄登城、攻之二旬,死伤以万计、尸与城平而不能克;守将臧质、沈璞坚守全城,魏遂解围北去。"]},
+  shouyang:{t:"寿阳(寿春)",d:"淮西重镇,今安徽寿县",p:["刘宋淮西门户。魏军反击时分一路趋淮西,焚掠寿阳左近郡县,江北由是残破。寿阳坚城得守,魏骑掠地而不能拔。"]},
+  guabu:{t:"瓜步 · 瓜步山",d:"长江北岸,今江苏南京六合",p:["拓跋焘饮马长江之地。二十八年正月,魏军兵锋直抵于此,拓跋焘登瓜步山、毁屋伐苇为筏、声言渡江,并筑行宫大会群臣,隔江遥望建康。然骑兵无舟、天堑难越,终不得渡——「饮马长江」而止于北岸,南朝之幸、北朝之限,俱在此山下一江。"]},
+  guangling:{t:"广陵",d:"江北之东,今江苏扬州",p:["邗沟入江之口、江淮漕道之枢。魏军反击时别道亦抵广陵一线,江北诸郡多被焚掠;广陵与瓜步同为魏骑临江之极点,而大江之南终不可越。"]},
+  jiankang:{t:"建康 · 石头城",d:"刘宋都城,今江苏南京",p:["拓跋焘隔江所望之地。魏抵瓜步,建康大震,内外戒严、居民负户而立;宋文帝登石头城忧叹「檀道济若在,岂使胡马至此」。赖长江之险、陈兵严备,魏骑竟不能渡,都城获全——然江北已墟,元嘉之治由是衰歇。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

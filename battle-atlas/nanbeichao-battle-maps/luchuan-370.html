@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>潞川之战 · 王猛灭前燕(370)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 辎重·军资:金色串珠,示燕军所积;评鬻樵积钱绢如丘陵 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断辎重:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .flame{stroke:var(--paper);stroke-width:.5}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>潞</span><span>川</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>潞川之战 · 王猛灭燕</h1>
+    <div class="sub">晋太和五年 · 秦建元六年(370)　　<i>前秦 王猛</i> 大破 <b>前燕 慕容评</b>　·　长驱破燕 · 一战定河北</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 长驱破燕</button>
+    <button data-p="1">燕失信内腐 · 王猛伐燕</button>
+    <button data-p="2">拔上党晋阳 · 逼潞川</button>
+    <button data-p="3">评贪乏水 · 断辎重 · 潞川决战</button>
+    <button data-p="4">大破燕军 · 围邺 · 燕亡</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="潞川之战暨前秦灭前燕形势图,含前秦前燕疆界、汾水浊漳水、太行山、晋阳上党壶关潞川邺诸地,及王猛自洛阳长驱破燕、郭庆焚辎重、潞川决战与进围邺城灭燕之势">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:前燕据河北·中原(北·东·河东上党),前秦自关中·洛阳来(西南) ══ -->
+    <path d="M 0,410 C 90,430 160,470 210,520 C 250,560 275,600 288,640 L 1000,640 L 1000,0 L 0,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,410 C 90,430 160,470 210,520 C 250,560 275,600 288,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,410 C 90,430 160,470 210,520 C 250,560 275,600 288,640"/>
+    <text class="realm q" x="560" y="176" font-size="27">前 燕(河北·中原)</text>
+    <text class="cname s" x="566" y="198" style="fill:var(--enemy);opacity:.5">都邺 · 慕容暐</text>
+    <text class="realm j" x="34" y="556" font-size="23">前 秦</text>
+    <text class="cname s" x="30" y="578" style="fill:var(--advance);opacity:.6">(关中·王猛)</text>
+
+    <!-- ══ 山脉:太行山,隔山西上党与河北平原 ══ -->
+    <path class="mtn fill" d="M 592,214 L 610,244 L 626,222 L 620,264 L 636,246 L 630,300 L 646,282 L 640,342 L 656,322 L 650,384 L 664,366 L 658,428 L 672,412 L 666,470 L 636,540 L 600,548 L 588,470 L 602,430 L 584,392 L 600,352 L 582,314 L 598,276 L 580,244 Z"/>
+    <path class="mtn" d="M 606,250 l 12,-22 l 8,16 l 12,-24 l 8,18 l 12,-26"/>
+    <text class="mname" x="596" y="420" transform="rotate(78 596 420)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 汾水:自晋阳西南流(太原盆地) -->
+    <path class="river" stroke-width="3" d="M 322,44 C 336,96 350,140 366,196 C 376,232 384,272 388,312"/>
+    <text class="rname" x="360" y="150" transform="rotate(74 360 150)" style="font-size:11px">汾 水</text>
+    <!-- 浊漳水:自上党潞城东出,经太行趋邺(临漳) -->
+    <path class="river" stroke-width="3.4" d="M 452,470 C 512,462 566,458 618,478 C 660,494 686,506 704,516"/>
+    <text class="rname" x="520" y="452" style="font-size:11.5px">浊漳水 · 潞川</text>
+
+    <!-- ══ 燕军辎重·军资:金色串珠,评鬻樵积钱绢如丘陵,屯于潞川之后(近邺) ══ -->
+    <path class="supply band" d="M 552,452 C 596,446 636,448 676,460"/>
+    <path class="supply core" d="M 552,452 C 596,446 636,448 676,460"/>
+    <g class="grain">
+      <rect x="566" y="446" width="7" height="7" transform="rotate(45 569.5 449.5)"/>
+      <rect x="606" y="444" width="7" height="7" transform="rotate(45 609.5 447.5)"/>
+      <rect x="646" y="450" width="7" height="7" transform="rotate(45 649.5 453.5)"/>
+    </g>
+    <text class="slabel" x="560" y="430">燕军辎重 · 钱绢如丘</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="jinyang"><circle cx="350" cy="76" r="5"/><text class="cname" x="360" y="74">晋阳<tspan class="cname s" dx="2">(太原)</tspan></text></g>
+      <g class="city" data-city="luchuan"><circle cx="484" cy="457" r="6"/><text class="cname" x="492" y="450">潞川<tspan class="cname s" dx="2">(潞城)</tspan></text></g>
+      <g class="city" data-city="shangdang"><circle cx="464" cy="491" r="4.5"/><text class="cname" x="398" y="486">上党<tspan class="cname s" dx="2">(长治)</tspan></text></g>
+      <g class="city" data-city="huguan"><circle cx="480" cy="511" r="4"/><text class="cname s" x="486" y="528">壶关</text></g>
+      <g class="city cap" data-city="ye"><circle cx="700" cy="514" r="6.5"/><text class="cname" x="710" y="512">邺<tspan class="cname s" dx="2">(前燕都)</tspan></text></g>
+    </g>
+
+    <!-- 洛阳(图外·南):前秦前锋来路 -->
+    <g transform="translate(330,632)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,4 L 0,-24"/>
+      <text class="mlabel j" x="8" y="-4" style="font-size:10px">↑ 洛阳 · 前秦前锋</text>
+      <text class="cname s" x="8" y="-18" style="fill:var(--advance);font-size:9.5px">前秦来路(图外南)</text>
+    </g>
+    <!-- 长安(图外·西):前秦都 -->
+    <g transform="translate(6,430)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 长安 · 关中</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">前秦都(图外西)</text>
+    </g>
+
+    <!-- ══ 全图 · 长驱破燕 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 330,606 C 340,560 372,540 420,516 C 452,500 468,480 480,464"/>
+      <text class="mlabel j" x="336" y="556">王猛率步骑六万,自洛阳长驱北上</text>
+      <path class="march j" marker-end="url(#aj)" d="M 344,516 C 356,400 350,220 350,90"/>
+      <text class="mlabel j" x="240" y="300">杨安别军拔晋阳</text>
+      <path class="march q" marker-end="url(#aq)" d="M 690,506 C 620,478 560,466 512,460"/>
+      <text class="mlabel q" x="540" y="500">慕容评率众号四十万拒之</text>
+      <circle class="star" cx="484" cy="457" r="9"/>
+      <text class="anno" x="392" y="428">相持潞川,一战大破,进围邺城</text>
+    </g>
+
+    <!-- ══ 阶段一:燕失信内腐 · 王猛伐燕 ══ -->
+    <g id="ph1" class="ph">
+      <text class="mlabel q" x="470" y="250">燕拒割虎牢以西畀秦,又内政腐败</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 690,510 C 560,480 380,470 120,458"/>
+      <text class="mlabel r" x="300" y="474">太傅慕容评专权,吴王慕容垂被逼奔秦</text>
+      <path class="march j" marker-end="url(#aj)" d="M 330,606 C 344,566 366,548 400,528"/>
+      <text class="mlabel j" x="336" y="580">建元六年,苻坚遣王猛督师六万伐燕</text>
+      <text class="anno" x="470" y="272">垂献平燕之策,坚纳王猛之谋,大举东伐</text>
+    </g>
+
+    <!-- ══ 阶段二:拔上党晋阳 · 逼潞川 ══ -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 330,606 C 344,566 380,545 430,524 C 452,514 466,506 476,498"/>
+      <text class="mlabel j" x="336" y="602">王猛拔壶关 · 上党</text>
+      <path class="march j" marker-end="url(#aj)" d="M 344,516 C 356,400 350,220 350,90"/>
+      <text class="mlabel j" x="238" y="300">杨安拔晋阳,燕守将奔溃</text>
+      <path class="march j" marker-end="url(#aj)" d="M 470,500 C 476,486 480,474 483,466"/>
+      <text class="mlabel j" x="360" y="360">诸军会,进逼潞川</text>
+      <rect class="camp" x="479" y="452" width="9" height="9" transform="rotate(45 483.5 456.5)" fill="#1f4e54"/>
+      <path class="march q" marker-end="url(#aq)" d="M 690,508 C 620,482 560,468 512,462"/>
+      <text class="mlabel q" x="560" y="504">慕容评自邺率大军拒之,夹潞川相持</text>
+      <rect class="camp" x="536" y="452" width="9" height="9" transform="rotate(45 540.5 456.5)"/>
+    </g>
+
+    <!-- ══ 阶段三:评贪乏水 · 断辎重 · 潞川决战 ══ -->
+    <g id="ph3" class="ph">
+      <rect class="camp" x="536" y="452" width="9" height="9" transform="rotate(45 540.5 456.5)"/>
+      <text class="mlabel q" x="524" y="410">评鬻水卖樵,积钱绢如丘陵</text>
+      <text class="anno" x="540" y="486">军中乏水,士卒离心,坚壁欲持久</text>
+      <!-- 郭庆五千骑迂回,夜焚辎重,火照邺城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 486,468 C 520,500 566,494 600,472 C 616,462 620,458 622,456"/>
+      <text class="mlabel j" x="500" y="516">郭庆将五千骑,间道出燕军后</text>
+      <g class="cut" transform="translate(624,456)"><circle r="8"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <path class="flame" d="M 624,438 C 614,450 616,462 622,468 C 618,460 624,454 623,446 C 627,451 631,456 630,464 C 636,459 636,448 624,438 Z" fill="#c8641e"/>
+      <text class="clabel" x="636" y="446">夜焚辎重,火照邺城 ✕</text>
+      <!-- 王猛激邓羌,张蚝徐成猛攻,四出四入 -->
+      <path class="march j" marker-end="url(#aj)" d="M 480,472 C 500,466 516,462 532,460"/>
+      <path class="march j" marker-end="url(#aj)" d="M 480,462 C 500,456 516,454 532,453"/>
+      <text class="mlabel j" x="410" y="540">猛许邓羌以司隶,羌与张蚝、徐成陷阵,四出四入</text>
+      <circle class="star" cx="508" cy="457" r="11"/>
+      <text class="anno" x="392" y="436">日中,燕军大溃</text>
+    </g>
+
+    <!-- ══ 阶段四:大破燕军 · 围邺 · 燕亡 ══ -->
+    <g id="ph4" class="ph">
+      <circle class="star" cx="508" cy="457" r="9"/>
+      <text class="mlabel r" x="500" y="440">俘斩五万,乘胜追奔,又降十万余</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 528,458 C 590,470 640,486 686,506"/>
+      <text class="mlabel r" x="540" y="524">慕容评单骑走还邺</text>
+      <path class="march j" marker-end="url(#aj)" d="M 512,460 C 580,472 636,486 686,506"/>
+      <text class="mlabel j" x="560" y="470">王猛乘胜进围邺城</text>
+      <path class="march j" marker-end="url(#aj)" d="M 36,430 C 200,436 420,470 686,510"/>
+      <text class="mlabel j" x="120" y="452">苻坚亲率精兵十万继至,合围邺</text>
+      <rect class="camp" x="695" y="509" width="10" height="10" transform="rotate(45 700 514)" fill="#1f4e54"/>
+      <circle class="star" cx="700" cy="514" r="12"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 706,520 C 740,548 770,566 800,576"/>
+      <text class="mlabel r" x="712" y="560">暐出奔,郭庆擒之</text>
+      <text class="anno" x="600" y="596">十一月邺破,前燕亡;秦遂据关东,并北方</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>前秦军(王猛)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前燕军(慕容评)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>燕溃 · 慕容暐出降</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>燕军辎重·钱绢</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>郭庆焚辎重</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战·围城</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>前燕</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>前秦</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 敌帅贪鄙,一战定河北</h3>
+    <div class="lead">何以四十万之众溃于六万 —— 长驱破燕、断其所恃之枢</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="潞川释要示意:前燕四十万众虚有其表,主帅慕容评贪鄙致乏水离心;王猛以六万长驱、焚其辎重、激将陷阵,一战大破而邺都随亡">
+      <!-- 左:前燕四十万(红,大而虚) -->
+      <rect x="34" y="44" width="250" height="150" rx="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" opacity=".7"/>
+      <text x="46" y="66" fill="#9a2b1e" font-size="13" font-weight="700">前燕 · 号四十万</text>
+      <text x="46" y="92" fill="#5c4f38" font-size="11">主帅 慕容评:专权 · 贪鄙</text>
+      <text x="46" y="116" fill="#9c7a2c" font-size="11" font-weight="700">鬻水卖樵,积钱绢如丘陵 ¥</text>
+      <text x="46" y="140" fill="#9a2b1e" font-size="11" font-weight="700">→ 军中乏水,士卒离心</text>
+      <text x="46" y="164" fill="#5c4f38" font-size="11">坚壁欲持久,众多而气不属</text>
+      <!-- 辎重被焚 ✕ -->
+      <rect x="196" y="176" width="9" height="9" transform="rotate(45 200.5 180.5)" fill="#9c7a2c"/>
+      <g><circle cx="200" cy="180" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="194" y1="174" x2="206" y2="186" stroke="#9a2b1e" stroke-width="2.6"/><line x1="194" y1="186" x2="206" y2="174" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="120" y="205" fill="#9a2b1e" font-size="10.5" font-weight="700">辎重被郭庆夜焚 ✕</text>
+      <!-- 右:前秦六万(青,寡而锐) -->
+      <rect x="576" y="44" width="250" height="150" rx="6" fill="none" stroke="#1f4e54" stroke-width="1.6" opacity=".8"/>
+      <text x="588" y="66" fill="#1f4e54" font-size="13" font-weight="700">前秦 · 步骑六万</text>
+      <text x="588" y="92" fill="#5c4f38" font-size="11">主帅 王猛:长驱拔上党晋阳</text>
+      <text x="588" y="116" fill="#1f4e54" font-size="11" font-weight="700">遣郭庆焚其辎重后路</text>
+      <text x="588" y="140" fill="#1f4e54" font-size="11" font-weight="700">许邓羌以司隶,激将陷阵</text>
+      <text x="588" y="164" fill="#5c4f38" font-size="11">张蚝、徐成四出四入,众寡而气锐</text>
+      <!-- 中:决战→邺亡 -->
+      <path d="M 292,120 C 380,120 420,120 452,120" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-linecap="round" marker-end="url(#aj)"/>
+      <path d="M 568,120 C 500,120 480,120 458,120" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+      <circle cx="430" cy="120" r="16" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="404" y="97" fill="#2b2418" font-size="12" font-weight="700">潞川决战</text>
+      <text x="384" y="152" fill="#9a2b1e" font-size="11" font-weight="700">燕军大溃 · 斩获十余万</text>
+      <text x="392" y="172" fill="#2b2418" font-size="11.5" font-weight="700">→ 进围邺城,前燕亡</text>
+    </svg>
+    <p class="intro">潞川相持时,燕众<b>号四十万</b>,秦师止六万,以数论,评本可坐制。然四十万之众,气不在多而在属:主帅慕容评<b>贪鄙无能</b>,竟于两军对垒之际封锢山泉、鬻水卖樵以敛财,『积钱绢如丘陵』——众虽多而乏水离心,坚壁而不能战。其至弱处,恰藏于其至众之中。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>王猛 · 长驱而断其所恃</h4>
+        <p>猛以六万步骑,自洛阳长驱,拔壶关、上党,别遣杨安拔晋阳,三月而扫燕之西鄙,气势已成。及至潞川,不与四十万相持消耗,而遣游击将军郭庆将五千骑间道出燕军之后,夜焚其辎重,火照邺城;又临阵许邓羌以司隶校尉,激将陷阵——以寡击众,专攻其命脉与士气。</p>
+      </div>
+      <div class="c b">
+        <h4>慕容评 · 贪鄙而自失士心</h4>
+        <p>评为太傅、都督中外诸军,先则专权排挤,逼走名将慕容垂;继则临大敌而营私,封鬻樵水以规利,聚敛无厌。军食本仰辎重,一旦被焚,四十万众粮资俱窘;将士本已乏水离心,遂无斗志。众非不多,主帅先已自坏其军。</p>
+      </div>
+    </div>
+    <p class="kicker">故潞川之败,非兵寡之罪,实<b>帅贪而众离</b>:辎重一焚、士气一坠,则四十万顷刻瓦解,俘斩十余万,评单骑走邺。王猛乘胜进围邺城,苻坚继以十万继之,是年十一月邺破,慕容暐出奔被擒,<b>前燕遂亡</b>。一战而河北定,前秦由此并有关东,北方大部归于一统——<b>长驱破燕、敌帅贪鄙、一战定河北</b>,此其枢也。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=300+(经度−112.3)·200,y=600−(纬度−35.75)·247),几何关系力求近实:晋阳(太原)在最北,上党·潞川居中(山西上党盆地),邺在东南(河北平原),洛阳·长安远在西南、西,故置于图外作边缘箭头。前秦自关中、洛阳来,前燕据河北·中原。疆界、水道经简化;点划『约界』为示意,非实有画界。今地:潞川即浊漳水,今山西潞城、长治一带;上党今长治;壶关今壶关县;晋阳今太原;邺今河北临漳西南邺城遗址;洛阳今洛阳;长安今西安。依《晋书·载记》(苻坚、王猛、慕容暐诸传)及《资治通鉴》卷一〇二绘出。</p>
+    <p><span class="n">注二</span>进军全恃陆路:前秦以步骑长驱,自洛阳北上,拔壶关、上党,别军拔晋阳,东逼潞川;无舟师水运。故行军以太行诸陉、上党盆地为通道。退亦陆路:燕军既溃,慕容评『单骑走还邺』,王猛乘胜东出太行、循浊漳趋邺。是役水道(汾水、浊漳水)止为地形,非运兵运粮之线。</p>
+    <p><span class="n">注三</span>制胜之枢在断敌所恃、乘敌心离(图中金色辎重、朱色 ✕):燕众号四十万而主帅慕容评贪鄙,临阵鬻水卖樵、积钱绢如丘陵,军中乏水离心。王猛遣游击将军郭庆将五千骑间道出燕后,夜焚辎重,火照邺城;复许邓羌以司隶校尉激其死战,张蚝、徐成等陷阵四出四入。日中燕军大溃,俘斩五万余,乘胜追奔又降十余万。故胜在断其辎重、乘其离心,非徒角兵力之多寡。</p>
+    <p><span class="n">注四</span>两方与来路:此役两国相角——前秦(青)为主,王猛督师;前燕(赭)为敌,慕容评统众。前秦军自西南来:王猛主力出洛阳(图外南),苻坚后率精兵十万自长安(图外西)继至合围邺城。前燕军自邺(东)西出拒战。背景之衅有二:一为前燕先许割虎牢以西以酬秦援(桓温北伐时),事后背约;二为慕容评专权排挤,逼走吴王慕容垂,垂奔秦献平燕之策——皆为苻坚、王猛东伐之由。</p>
+    <p><span class="n">注五</span>数字异同:秦军兵力,诸书多作『步骑六万』;燕军之众,《资治通鉴》卷一〇二作『精兵三十万』拒之,一说号四十万。潞川决战俘斩,史称『俘斩五万余』,乘胜追奔又『降者十余万』。此类数字史家小异,已择要并存,读者当以近实观之,不必泥于确数。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"长驱破燕",d:"晋太和五年 · 秦建元六年(370)",p:["前燕拒割虎牢以西之地以酬前秦(桓温北伐时燕求救于秦之约),又内政腐败:太傅慕容评专权贪鄙,排挤名将,吴王慕容垂被逼奔秦,献平燕之策。秦主苻坚纳大将王猛之谋,是岁大举伐燕。","王猛率步骑六万,自洛阳长驱北上,拔壶关、上党,别遣杨安拔晋阳,直逼潞川(浊漳水)。前燕遣太傅慕容评率大军(号四十万)拒之,两军夹潞川相持。评贪鄙失士心、乏水,王猛断其辎重、决战大破之,进围邺城,前燕遂亡——前秦由此统一北方大部。"]},
+  "1":{t:"燕失信内腐 · 王猛伐燕",d:"太和四—五年(369—370)",p:["前燕之亡,先自内溃。桓温第三次北伐时,燕求救于秦,许割虎牢以西之地以酬;秦助退温之后,燕君臣悔而背约,秦燕之隙由是成。燕政又腐:太傅、都督中外诸军慕容评专权贪鄙,排斥宗室良将;名将吴王慕容垂功高见忌,惧祸而奔前秦,为苻坚陈平燕之虚实。","苻坚与王猛久蓄东图,得垂之奔,益知燕之可取。建元六年(370),坚遣王猛督师,以杨安等为将,将步骑六万伐燕。王猛,坚之股肱,长于筹略,既受命,乃自洛阳出师,长驱而北,燕之西鄙震动。"]},
+  "2":{t:"拔上党晋阳 · 逼潞川",d:"建元六年(370)夏—秋",p:["王猛用兵神速。自洛阳北上,先拔壶关,进克上党(今长治),扼太行上党之要;别遣杨安引军拔晋阳(今太原),燕守将奔溃。数月之间,燕之河东、上党诸镇尽下,秦军若破竹。","诸军既会,王猛进逼潞川(浊漳水,今潞城、长治间)。前燕大惧,遣太傅慕容评自邺率大军拒之,号称四十万。评以秦军深入、利在速战,乃据险坚壁,欲以持久疲秦。两军夹潞川对垒,相持不决。"]},
+  "3":{t:"评贪乏水 · 断辎重 · 潞川决战",d:"建元六年(370)十月",p:["相持既久,慕容评本无将略而贪鄙无厌:竟于两军对垒之际,封锢山泉、鬻水卖樵以敛财,『积钱绢如丘陵』。军中乏水,士卒怨愤离心,四十万之众虚有其表。燕主慕容暐闻之,遣人切责,评略无以应。","王猛乘其敝:遣游击将军郭庆将五千骑,间道出燕军之后,夜焚其辎重,火照邺城,燕军益震。决战之日,猛谓邓羌曰『成败之机,在此一举』,许以司隶校尉;羌乃与张蚝、徐成等跨马运矛,陷燕阵,四出四入,旁若无人。日中,燕军大溃。"]},
+  "4":{t:"大破燕军 · 围邺 · 燕亡",d:"建元六年(370)十—十一月",p:["潞川一战,燕军崩溃,俘斩五万余;秦军乘胜追奔,燕众被杀及降者又十余万。慕容评脱身,单骑走还邺。四十万之众,一战而尽。","王猛乘胜东出,进围邺城。苻坚闻捷,自将精兵十万继至,与猛合围。是年十一月,邺城破;幽帝慕容暐出奔,为游击将军郭庆所擒,慕容评亦降。前燕遂亡。前秦尽有关东之地,统一北方大部(唯余凉州张氏、代国拓跋)——王猛长驱破燕、一战定河北之功,于此成矣。"]}
+};
+const CITY={
+  jinyang:{t:"晋阳(太原)",d:"今山西太原(112.55E,37.87N)",p:["前燕并州重镇,居太行以西、汾水之滨。王猛伐燕,别遣杨安引军拔之,燕守将奔溃。晋阳既下,燕之河东、上党声援俱绝,王猛乃得专力东逼潞川。"]},
+  luchuan:{t:"潞川",d:"浊漳水,今山西潞城·长治一带(113.22E,36.33N)",p:["潞川即浊漳之水,王猛与慕容评夹水相持决战之地。评贪鄙鬻水卖樵、士卒乏水离心,王猛遣郭庆焚其辎重、激邓羌陷阵,日中大破燕军,俘斩五万余、追降十余万。一战而河北定,此其枢也。"]},
+  shangdang:{t:"上党(长治)",d:"今山西长治(113.12E,36.19N)",p:["上党居太行之上,为山西通河北之要。王猛自洛阳北上,拔壶关、克上党,扼其咽喉,燕之西鄙遂不可守,诸军会于此而北逼潞川。"]},
+  huguan:{t:"壶关",d:"今山西壶关县(113.20E,36.11N)",p:["太行八陉之壶关口,上党门户。王猛长驱,先拔壶关以启上党之路——秦军入燕之首捷。"]},
+  ye:{t:"邺",d:"前燕都城,今河北临漳西南邺城遗址(114.30E,36.10N)",p:["前燕都,幽帝慕容暐所居。潞川郭庆焚辎重,火即照于邺,燕都大震。潞川败后,慕容评单骑走还于此;王猛乘胜进围,苻坚率十万继至合围。十一月邺破,慕容暐出奔为郭庆所擒,前燕亡。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雁门之围 · 始毕可汗围隋炀帝(615)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 雁门孤城(放大示意方城) */
+  .wall{fill:rgba(110,93,60,.05);stroke:var(--ink2);stroke-width:2.4;opacity:.95}
+  .gname{font-size:10px;font-weight:500;fill:var(--ink2);pointer-events:none;opacity:.82}
+  /* 突厥围城 */
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.7;stroke-dasharray:2 5;opacity:.9}
+  /* 城陷之记(四十一城陷三十九) */
+  .xmark line{stroke:var(--enemy);stroke-width:1.8;stroke-linecap:round}
+  .xmark circle{fill:none;stroke:var(--enemy);stroke-width:1.2}
+  /* 矢及御前 */
+  .hit{fill:none;stroke:var(--enemy);stroke-width:1.7;stroke-linecap:round}
+  .throne{fill:var(--gold);stroke:var(--ink);stroke-width:.7}
+  /* 疑兵·多张旗鼓(李世民之计) */
+  .banner line{stroke:var(--advance);stroke-width:1.3;opacity:.9}
+  .banner path{fill:var(--advance);opacity:.5}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2.4}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.envoy{stroke:var(--advance);stroke-width:2;stroke-dasharray:5 4;opacity:.9}
+  .march.envoy.e{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.g{fill:var(--gold)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.envoy){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>雁</span><span>门</span><span>之</span><span>围</span></div>
+  <header>
+    <h1>雁门之围</h1>
+    <div class="sub">隋大业十一年(615)　<i>隋 炀帝杨广</i> 轻出北巡,为<b>东突厥 始毕可汗</b>数十万骑围于雁门　·　四十一城陷三十九 · 矢及御前 · 勤王云集 · 诈报解围</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 轻出被围</button>
+    <button data-p="1">① 炀帝北巡 · 始毕突袭围雁门</button>
+    <button data-p="2">② 四十一城陷三十九 · 矢及御前</button>
+    <button data-p="3">③ 下诏募兵 · 世民疑兵 · 公主诈报</button>
+    <button data-p="4">④ 援军云集忻口 · 始毕解围 · 脱险</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="雁门之围形势图,以放大之雁门孤城为中心,城在河东北陲(勾注山·雁门关一线之南);含东突厥(塞外·北)与隋(河东·南)约界、汾水滹沱河水系,及崞县(南·齐王杨暕)、忻口(南·勤王军云集)、太原(南·炀帝脱险还向)、马邑(西北·解围后追至)、雁门关楼烦(北·突厥入犯孔道)诸地;示炀帝北巡为始毕数十万骑突袭、驰入雁门被围、四十一城陷三十九仅余雁门崞县、矢及御前炀帝恸哭、下诏募兵勤王、李世民献疑兵多张旗鼓、义成公主诈报北边有急、勤王援军云集忻口、始毕九月解围北还、炀帝追至马邑还太原">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 约界:东突厥据塞外(北,勾注山·雁门关一线之外),隋据河东(南);约以长城·关塞一线示大势;615始毕数十万骑破塞南下,围雁门 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,150 C 720,140 600,150 526,143 C 500,132 470,121 430,116 C 300,100 140,110 0,132 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,132 C 140,110 300,100 430,116 C 470,121 500,132 526,143 C 600,150 720,140 1000,150 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,132 C 140,110 300,100 430,116 C 470,121 500,132 526,143 C 600,150 720,140 1000,150"/>
+    <text class="realm q" x="96" y="58" font-size="24">东 突 厥 · 塞 外</text>
+    <text class="cname s" x="100" y="80" style="fill:var(--enemy);opacity:.55">始毕可汗数十万骑南下 · 义成公主和亲在其牙帐</text>
+    <text class="realm j" x="700" y="330" font-size="26">隋 · 河 东</text>
+    <text class="cname s" x="686" y="352" style="fill:var(--advance);opacity:.6">雁门郡四十一城 · 炀帝婴城孤守于陲上</text>
+
+    <!-- ══ 关塞·山脉:勾注山(雁门)一线,河东北陲之险;雁门关为突厥入犯之孔道 ══ -->
+    <path class="mtn fill" d="M 300,140 L 320,108 L 338,128 L 358,100 L 378,124 L 398,104 L 416,130 Z"/>
+    <path class="mtn" d="M 312,132 l 14,-19 l 12,15 l 16,-21 l 12,16"/>
+    <path class="mtn fill" d="M 560,150 L 580,120 L 598,140 L 618,114 L 638,138 L 658,118 L 676,144 Z"/>
+    <path class="mtn" d="M 572,142 l 12,-17 l 10,12 l 13,-18 l 11,14"/>
+    <text class="mname" x="300" y="100" transform="rotate(-10 300 100)">勾注山 · 雁门(长城)</text>
+    <g class="mtn"><path d="M 258,372 l 8,-13 l 8,13 M 274,366 l 8,-13 l 8,13"/></g>
+    <text class="mname" x="248" y="360" style="font-size:10px">管涔山</text>
+
+    <!-- ══ 水系(河东诸水,皆非此役胜负所系,略以示地望) ══ -->
+    <!-- 汾水:源出管涔山,南流历静乐·太原 -->
+    <path class="river" stroke-width="3.2" d="M 276,300 C 310,368 380,450 430,505 C 448,526 460,560 476,612"/>
+    <!-- 滹沱河:自繁峙西南出忻定盆地,东折入河北 -->
+    <path class="river" stroke-width="2.6" d="M 646,176 C 604,210 566,252 548,302 C 538,344 562,384 622,414"/>
+    <text class="rname" x="352" y="440" transform="rotate(58 352 440)" style="font-size:12px">汾　水</text>
+    <text class="rname" x="600" y="256" transform="rotate(46 600 256)" style="font-size:11px">滹沱河</text>
+
+    <!-- ══ 雁门孤城(放大示意方城;炀帝所在,四面受围) ══ -->
+    <rect class="wall" x="522" y="136" width="48" height="48" rx="4"/>
+    <line x1="522" y1="148" x2="570" y2="148" stroke="var(--ink2)" stroke-width="1" stroke-dasharray="4 4" opacity=".5"/>
+    <text class="gname" x="546" y="132" text-anchor="middle">北门 · 临塞</text>
+
+    <!-- ══ 城邑(可点) ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="yanmen"><circle cx="546" cy="160" r="6.5"/><text class="cname" x="558" y="156">雁门<tspan class="cname s" dx="2">(代县·炀帝被围)</tspan></text></g>
+      <g class="city" data-city="guoxian"><circle cx="488" cy="300" r="5"/><text class="cname" x="498" y="296">崞县<tspan class="cname s" dx="2">(原平·齐王杨暕)</tspan></text></g>
+      <g class="city" data-city="xinkou"><circle cx="488" cy="380" r="5"/><text class="cname" x="498" y="376">忻口<tspan class="cname s" dx="2">(勤王军云集)</tspan></text></g>
+      <g class="city cap" data-city="taiyuan"><circle cx="451" cy="512" r="6"/><text class="cname" x="461" y="508">太原<tspan class="cname s" dx="2">(炀帝脱险还向)</tspan></text></g>
+      <g class="city" data-city="mayi"><circle cx="421" cy="148" r="4.5"/><text class="cname" x="366" y="140">马邑<tspan class="cname s" dx="2">(朔州)</tspan></text></g>
+      <g class="city" data-city="yanmenguan"><circle cx="526" cy="143" r="3.5"/><text class="cname s" x="452" y="126">雁门关</text></g>
+      <g class="city" data-city="loufan"><circle cx="298" cy="393" r="3.5"/><text class="cname s" x="252" y="388">楼烦</text></g>
+    </g>
+
+    <!-- 图外北:东突厥牙帐(始毕来向 · 义成公主诈报所自) -->
+    <g transform="translate(300,16)">
+      <path class="march q" marker-end="url(#aq)" d="M 40,2 C 60,20 78,38 90,58"/>
+      <text class="mlabel q" x="-4" y="0" style="font-size:10px">东突厥牙帐 ↓(图外正北 · 漠南)</text>
+      <text class="cname s" x="-4" y="16" style="fill:var(--enemy);font-size:9px">始毕可汗自此南下 · 义成公主诈报所自</text>
+    </g>
+    <!-- 图外南:东都·关中(炀帝北巡所出 · 脱险还向) -->
+    <g transform="translate(452,612)">
+      <text class="mlabel j" x="-6" y="16" style="font-size:10px">↓ 太原 · 东都(图外南)</text>
+      <text class="cname s" x="-6" y="30" style="fill:var(--advance);font-size:9px">炀帝北巡所自 · 解围后脱险南还</text>
+    </g>
+
+    <!-- ══════════ 全图 · 轻出被围 ══════════ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 430,60 C 470,90 510,120 540,146"/>
+      <text class="mlabel q" x="360" y="96">始毕数十万骑突袭 · 炀帝驰入雁门</text>
+      <circle class="siege" cx="546" cy="160" r="46"/>
+      <rect class="camp" x="542" y="98" width="10" height="10" transform="rotate(45 547 103)"/>
+      <rect class="camp" x="600" y="150" width="10" height="10" transform="rotate(45 605 155)"/>
+      <rect class="camp" x="580" y="206" width="10" height="10" transform="rotate(45 585 211)"/>
+      <circle class="star" cx="546" cy="160" r="22"/>
+      <text class="mlabel j" x="600" y="200">雁门 · 崞县二城独存</text>
+      <text class="anno" x="600" y="216">郡四十一城 · 突厥陷三十九</text>
+      <!-- 疑兵 -->
+      <g class="banner"><line x1="436" y1="356" x2="436" y2="340"/><path d="M 436,340 L 446,343 L 436,346 Z"/><line x1="462" y1="356" x2="462" y2="340"/><path d="M 462,340 L 472,343 L 462,346 Z"/><line x1="488" y1="356" x2="488" y2="340"/><path d="M 488,340 L 498,343 L 488,346 Z"/><line x1="514" y1="356" x2="514" y2="340"/><path d="M 514,340 L 524,343 L 514,346 Z"/><line x1="540" y1="356" x2="540" y2="340"/><path d="M 540,340 L 550,343 L 540,346 Z"/><line x1="566" y1="356" x2="566" y2="340"/><path d="M 566,340 L 576,343 L 566,346 Z"/></g>
+      <text class="mlabel j" x="590" y="350">李世民疑兵 · 多张旗鼓</text>
+      <!-- 勤王云集 -->
+      <path class="march j" marker-end="url(#aj)" d="M 451,502 C 462,460 476,420 486,392"/>
+      <text class="mlabel j" x="330" y="470">勤王援军云集忻口</text>
+      <!-- 诈报 -->
+      <path class="march envoy e" marker-end="url(#aq)" d="M 470,60 C 500,84 522,104 540,130"/>
+      <text class="mlabel q" x="150" y="150">义成公主诈报「北边有急」</text>
+      <!-- 解围北还 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 552,116 C 540,86 524,58 508,30"/>
+      <text class="mlabel r" x="512" y="70">九月 · 始毕解围而去</text>
+    </g>
+
+    <!-- ══════════ ① 炀帝北巡 · 始毕突袭围雁门 ══════════ -->
+    <g id="ph1" class="ph">
+      <!-- 炀帝北巡至塞外 -->
+      <path class="march j" marker-end="url(#aj)" d="M 451,505 C 470,430 500,300 534,200 C 538,186 542,176 544,168"/>
+      <text class="mlabel j" x="600" y="300">八月 · 炀帝北巡至塞外</text>
+      <text class="anno" x="600" y="316">先是义成公主遣使密告变,炀帝亟驰入雁门</text>
+      <!-- 始毕突袭 -->
+      <path class="march q" marker-end="url(#aq)" d="M 420,54 C 460,86 502,120 536,148"/>
+      <text class="mlabel q" x="150" y="86">始毕可汗以裴矩离间之怨,率骑数十万突袭</text>
+      <text class="anno" x="150" y="104">隋杀其谋臣史蜀胡悉 · 又欲分其部 · 始毕遂怨叛</text>
+      <!-- 围合 -->
+      <circle class="siege" cx="546" cy="160" r="46"/>
+      <rect class="camp" x="542" y="98" width="10" height="10" transform="rotate(45 547 103)"/>
+      <rect class="camp" x="598" y="132" width="10" height="10" transform="rotate(45 603 137)"/>
+      <rect class="camp" x="604" y="182" width="10" height="10" transform="rotate(45 609 187)"/>
+      <rect class="camp" x="566" y="212" width="10" height="10" transform="rotate(45 571 217)"/>
+      <text class="mlabel q" x="600" y="234">八月十三 · 突厥合围雁门</text>
+      <text class="mlabel j" x="360" y="256">齐王杨暕以后军入据崞县</text>
+    </g>
+
+    <!-- ══════════ ② 四十一城陷三十九 · 矢及御前 ══════════ -->
+    <g id="ph2" class="ph">
+      <circle class="siege" cx="546" cy="160" r="46" opacity=".55"/>
+      <!-- 城陷之记:雁门郡属城四十一,突厥陷三十九 -->
+      <g class="xmark" transform="translate(470,116)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+      <g class="xmark" transform="translate(430,150)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+      <g class="xmark" transform="translate(452,210)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+      <g class="xmark" transform="translate(610,132)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+      <g class="xmark" transform="translate(628,196)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+      <g class="xmark" transform="translate(392,180)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+      <text class="mlabel q" x="150" y="120">郡属四十一城 · 突厥旬日陷三十九</text>
+      <text class="anno" x="150" y="138">仅雁门(炀帝)、崞县(齐王杨暕)二城独完</text>
+      <!-- 猛攻雁门 -->
+      <path class="march q" marker-end="url(#aq)" d="M 600,150 C 584,152 574,154 570,156"/>
+      <path class="march q" marker-end="url(#aq)" d="M 560,210 C 556,196 552,188 550,182"/>
+      <circle class="star" cx="546" cy="160" r="16"/>
+      <circle class="star" cx="546" cy="160" r="23"/>
+      <!-- 矢及御前 -->
+      <path class="hit" marker-end="url(#aq)" d="M 590,120 C 574,134 560,146 552,154"/>
+      <rect class="throne" x="543" y="157" width="6" height="6"/>
+      <text class="mlabel q" x="560" y="112">矢及御前</text>
+      <text class="mlabel j" x="150" y="238">炀帝抱幼子赵王杲恸哭 · 目尽肿</text>
+      <text class="anno" x="150" y="256">守城军民拆屋为楼橹 · 昼夜死战 · 城赖以全</text>
+    </g>
+
+    <!-- ══════════ ③ 下诏募兵勤王 · 李世民疑兵 · 义成公主诈报 ══════════ -->
+    <g id="ph3" class="ph">
+      <circle class="siege" cx="546" cy="160" r="46" opacity=".45"/>
+      <!-- 下诏 -->
+      <text class="mlabel j" x="150" y="96">炀帝下诏:凡来援者重赏 · 不复征辽东(以安众心)</text>
+      <!-- 募兵勤王:遣使间道 -->
+      <path class="march envoy" marker-end="url(#aj)" d="M 540,178 C 500,240 460,320 452,400"/>
+      <path class="march envoy" marker-end="url(#aj)" d="M 542,182 C 560,260 580,360 596,440"/>
+      <text class="mlabel j" x="610" y="420">遣使间道 · 募兵天下勤王</text>
+      <!-- 李世民应募·疑兵 -->
+      <g class="banner"><line x1="418" y1="356" x2="418" y2="338"/><path d="M 418,338 L 430,342 L 418,346 Z"/><line x1="448" y1="356" x2="448" y2="338"/><path d="M 448,338 L 460,342 L 448,346 Z"/><line x1="478" y1="356" x2="478" y2="338"/><path d="M 478,338 L 490,342 L 478,346 Z"/><line x1="508" y1="356" x2="508" y2="338"/><path d="M 508,338 L 520,342 L 508,346 Z"/><line x1="538" y1="356" x2="538" y2="338"/><path d="M 538,338 L 550,342 L 538,346 Z"/><line x1="568" y1="356" x2="568" y2="338"/><path d="M 568,338 L 580,342 L 568,346 Z"/><line x1="598" y1="356" x2="598" y2="338"/><path d="M 598,338 L 610,342 L 598,346 Z"/></g>
+      <text class="mlabel j" x="330" y="374">李世民(年十六)应募隶云定兴 · 献疑兵之计</text>
+      <text class="anno" x="330" y="392">多张旗鼓,昼则绵亘数十里,夜则钲鼓相应,使突厥疑大军云集</text>
+      <!-- 义成公主诈报 -->
+      <path class="march envoy e" marker-end="url(#aq)" d="M 460,54 C 494,82 520,106 538,132"/>
+      <text class="mlabel q" x="150" y="150">义成公主(始毕之妻)遣使诈告「北边有急」</text>
+      <text class="anno" x="150" y="168">绐言突厥后方有警 · 以促始毕北顾</text>
+    </g>
+
+    <!-- ══════════ ④ 援军云集忻口 · 始毕解围而去 · 炀帝脱险 ══════════ -->
+    <g id="ph4" class="ph">
+      <circle class="siege" cx="546" cy="160" r="46" opacity=".4"/>
+      <!-- 勤王援军云集忻口 -->
+      <path class="march j" marker-end="url(#aj)" d="M 451,505 C 458,462 470,422 484,394"/>
+      <path class="march j" marker-end="url(#aj)" d="M 410,470 C 430,436 456,406 480,388"/>
+      <path class="march j" marker-end="url(#aj)" d="M 540,470 C 522,436 502,406 494,390"/>
+      <text class="mlabel j" x="300" y="452">云定兴 · 王世充等勤王之师云集忻口</text>
+      <text class="anno" x="300" y="470">旌旗相属 · 声势大振 · 突厥望之疑惧</text>
+      <!-- 始毕解围北还 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 550,116 C 536,84 518,52 500,22"/>
+      <text class="mlabel r" x="504" y="72">九月十五 · 始毕解围而去</text>
+      <text class="anno" x="470" y="52">见援军将至 · 又得公主诈报 · 久攻二城不下</text>
+      <!-- 炀帝追至马邑 -->
+      <path class="march j" marker-end="url(#aj)" d="M 534,158 C 500,152 460,150 430,150"/>
+      <text class="mlabel j" x="352" y="176">遣兵追蹑 · 至马邑擒突厥老弱二千</text>
+      <!-- 脱险南还 -->
+      <path class="march j" marker-end="url(#aj)" d="M 544,182 C 512,280 468,410 452,502"/>
+      <text class="mlabel j" x="560" y="300">炀帝脱险 · 南还太原/东都</text>
+      <text class="anno" x="150" y="540">然事后炀帝失信:不赏勤王将士 · 复议征辽东</text>
+      <text class="mlabel r" x="150" y="558">天下由是益怨 · 群雄并起 · 隋亡加速</text>
+    </g>
+
+    <g class="compass" transform="translate(946,566)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>隋军 · 勤王军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>东突厥(始毕)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2" stroke-dasharray="5 4"/></svg>募兵使 · 间道勤王</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="5 4"/></svg>义成公主诈报</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>始毕解围北还</span>
+    <span class="item"><svg width="30" height="14"><g stroke="#1f4e54" stroke-width="1.3"><line x1="6" y1="13" x2="6" y2="3"/><line x1="14" y1="13" x2="14" y2="3"/><line x1="22" y1="13" x2="22" y2="3"/></g><g fill="#1f4e54" opacity=".5"><path d="M 6,3 L 12,5 L 6,7 Z"/><path d="M 14,3 L 20,5 L 14,7 Z"/><path d="M 22,3 L 28,5 L 22,7 Z"/></g></svg>疑兵 · 多张旗鼓</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 4"/></svg>突厥围城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="#9a2b1e" stroke-width="1.2"/><line x1="4.5" y1="4.5" x2="11.5" y2="11.5" stroke="#9a2b1e" stroke-width="1.8"/><line x1="4.5" y1="11.5" x2="11.5" y2="4.5" stroke="#9a2b1e" stroke-width="1.8"/></svg>城陷</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>孤城守御</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>东突厥</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>隋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 轻出被围 · 勤王云集 · 诈报解围</h3>
+    <div class="lead">何以天子被围于孤城而卒得全 —— 上恃婴城之死守,下资勤王虚张之势与公主诈报之惑,而始毕自解</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="雁门解围示意:炀帝轻出北巡为始毕数十万骑围于雁门,四十一城陷三十九仅余二城;炀帝下诏重赏募兵、罢辽东之役以安众心,李世民献疑兵多张旗鼓使突厥疑援军云集,义成公主诈报北边有急使始毕北顾,又久攻坚城不下,三事并至,始毕遂解围北还;然炀帝事后失信不赏、复议征辽,天下益怨而隋亡加速">
+      <text x="24" y="26" fill="#9a2b1e" font-size="12" font-weight="700">东突厥 · 始毕(围而顿兵)</text>
+      <line x1="22" y1="38" x2="838" y2="38" stroke="#9a2b1e" stroke-width="2" opacity=".3" stroke-dasharray="3 4"/>
+      <text x="24" y="234" fill="#1f4e54" font-size="12" font-weight="700">隋 · 炀帝(婴城 → 募兵勤王)</text>
+      <line x1="22" y1="210" x2="838" y2="210" stroke="#1f4e54" stroke-width="2" opacity=".28" stroke-dasharray="3 4"/>
+
+      <!-- 中央:雁门孤城 -->
+      <rect x="372" y="96" width="116" height="70" rx="4" fill="rgba(110,93,60,.06)" stroke="#5c4f38" stroke-width="2.4"/>
+      <text x="404" y="128" fill="#1f4e54" font-size="13" font-weight="700">雁门孤城</text>
+      <text x="386" y="148" fill="#5c4f38" font-size="9.5">炀帝婴城 · 拆屋为楼橹死守</text>
+      <circle cx="430" cy="131" r="58" fill="none" stroke="#9a2b1e" stroke-width="1.4" stroke-dasharray="2 5" opacity=".8"/>
+
+      <!-- 左:围之难继 -->
+      <rect x="40" y="66" width="214" height="46" rx="4" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.2"/>
+      <text x="52" y="84" fill="#9a2b1e" font-size="11" font-weight="700">陷三十九城 · 矢及御前</text>
+      <text x="52" y="102" fill="#9a2b1e" font-size="11" font-weight="700">然雁门·崞县二城久攻不下</text>
+      <path d="M 254,90 L 302,110" fill="none" stroke="#9a2b1e" stroke-width="1.6" marker-end="url(#aq)" opacity=".7"/>
+
+      <!-- 右:解之三因 -->
+      <rect x="606" y="60" width="230" height="40" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="618" y="78" fill="#1f4e54" font-size="11" font-weight="700">诏赏募兵 · 罢辽东以安众</text>
+      <text x="618" y="94" fill="#1f4e54" font-size="11" font-weight="700">李世民疑兵 · 多张旗鼓数十里</text>
+      <path d="M 606,80 L 558,104" fill="none" stroke="#1f4e54" stroke-width="1.6" marker-end="url(#aj)" opacity=".7"/>
+      <rect x="606" y="108" width="230" height="40" rx="4" fill="rgba(154,43,30,.06)" stroke="#9a2b1e" stroke-width="1.1"/>
+      <text x="618" y="126" fill="#9a2b1e" font-size="11" font-weight="700">义成公主诈报「北边有急」</text>
+      <text x="618" y="142" fill="#9a2b1e" font-size="11" font-weight="700">勤王之师云集忻口 · 望之疑惧</text>
+      <path d="M 660,148 L 508,150" fill="none" stroke="#7a5a23" stroke-width="1.6" stroke-dasharray="3 5" opacity=".7"/>
+      <text x="470" y="238" fill="#7a5a23" font-size="11" font-weight="700" text-anchor="middle">→ 九月始毕解围北还 · 炀帝脱险(然失信益怨,隋亡加速)</text>
+    </svg>
+    <p class="intro">雁门之围,天子几为俘虏,而卒得全者,不在隋之能战,而在<b>婴城死守以待敌之自疑而退</b>。始毕乘炀帝轻出、以数十万骑猝围之,郡四十一城旬日陷三十九、矢且及御前,兵锋极盛;然雁门、崞县二坚城死守不下,顿兵坚城之下而<b>师老于外</b>。炀帝一面下诏重赏来援、罢辽东之役以坚众心、婴城死拒,一面<b>遣使间道募兵勤王</b>;而解围之机,乃系于两虚:一曰<b>李世民之疑兵</b>——多张旗鼓、昼绵数十里、夜钲鼓相应,使突厥疑隋大军云集;二曰<b>义成公主之诈报</b>——绐言北边有急,使始毕北顾。二疑既生,又久攻不克、援军将至,始毕遂解围而去。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>隋之应 · 死守与虚张</h4>
+        <p>炀帝仓皇入雁门,守城军民拆屋为楼橹、昼夜死战,城赖以全;齐王杨暕据崞县为犄角,二城并存。炀帝下诏「凡来援者重赏、不复征辽东」以安军心,又遣使间道募兵天下勤王。应募者中,年十六之李世民隶将军云定兴麾下,献「疑兵」之策:多张旗鼓,白日旌旗绵亘数十里,夜则钲鼓相应,使突厥疑隋援大军云集。云定兴、王世充等勤王之师亦渐次云集忻口,声势遂张 —— 皆虚张以夺敌之气也。</p>
+      </div>
+      <div class="c b">
+        <h4>始毕之惑 · 诈报与顿兵</h4>
+        <p>始毕以裴矩离间(杀其谋臣史蜀胡悉、又欲分其部)之怨而叛,乘炀帝轻出,数十万骑猝至,几获大功。然孤城死守,攻之三旬(凡三十三日)不能下,顿兵坚城、师老气堕。会隋和亲之义成公主(始毕之妻,在其牙帐)遣使诈告始毕「北边有急」,绐其后方有警;又望见勤王旌旗渐盛、疑援军云集。三者交迫 —— 久攻不下、诈报北顾、援军将至 —— 始毕遂于九月十五解围北还,失此一举而反资隋以喘息。</p>
+      </div>
+    </div>
+    <p class="kicker">故雁门之全,系于<b>坚城死守·勤王虚张</b>与<b>始毕之疑·久攻自困</b>二者相激:非隋之强,实始毕之惑与炀帝之侥幸。然此役实为隋亡之催化:炀帝脱险之后<b>失信不赏勤王将士、复议征辽东</b>,天下由是益怨,群雄并起,隋祚遂促;而少年李世民「疑兵」之谋,亦于此初露锋芒 —— 「轻出被围·勤王云集·诈报解围」,遂为隋末一大枢机。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图。城邑按今地经纬度作线性(近墨卡托)投影:<b>x=188+(经度−111.5)×250,y=580−(纬度−37.6)×250</b>(viewBox 1000×640,北上东右)。几何方位力求近实:雁门(代县)居陲上偏北,雁门关·勾注山长城在其正北(突厥入犯之孔道),马邑(朔州)在其西北;崞县(原平)、忻口(忻州北)、太原自北而南列于同一河谷走廊(勤王之师自南北上,云集忻口);楼烦在西南。惟雁门城<b>系放大之示意方城</b>,城周、城门为夸大象征,围城之环、营垒、城陷诸记皆示意,非实测。</p>
+    <p><span class="n">注二</span>今地与经纬:雁门(隋雁门郡治,今山西代县,约112.93E/39.28N),炀帝被围之地;雁门关·勾注山(代县北,约112.85E/39.35N),长城要隘、突厥入犯孔道;崞县(今山西原平北,约112.70E/38.72N),齐王杨暕以后军入据,与雁门并为二独存之城;忻口(今忻州北,约112.70E/38.40N),勤王之师云集处;太原(今山西太原,约112.55E/37.87N),河东根本、炀帝脱险南还所向;马邑(隋马邑郡·朔州,今山西朔州,约112.43E/39.33N),解围后隋兵追蹑、擒突厥老弱二千处;楼烦(今山西静乐一带,约111.94E/38.36N),河东西北之郡、突厥入犯别道。东突厥牙帐(漠南·图外正北)、东都洛阳(图外南)皆以边缘箭头示之,不入图窗以免压缩战场。</p>
+    <p><span class="n">注三</span>行军与两方所自:此役<b>皆陆路骑步,无水运漕转之事</b>(汾水、滹沱河惟以示地望,非胜负所系)。两方所入:<b>东突厥</b>始毕可汗自塞外牙帐(图外北)率骑数十万,破勾注山·雁门关一线南下,围雁门;<b>隋</b>之勤王援军(云定兴、王世充等,李世民隶其中)则自河东以南(太原·东都方向,图外南)间道北上,云集忻口以趋雁门。军食一节:突厥深入、顿兵坚城而无所掠,师老于外;隋则婴城死守、诏赏以坚众心,相持凡三旬余,城不匮而敌先困 —— 此攻守相持之本。</p>
+    <p><span class="n">注四</span>制胜之枢在「诈与疑」而非力斗(见上「释要」):其一,雁门、崞县二坚城死守不下,始毕顿兵坚城、师老气堕;其二,炀帝下诏重赏来援、罢辽东之役以坚众心,又遣使间道募兵勤王;其三,李世民(隶云定兴)献疑兵之计,多张旗鼓、昼绵数十里、夜钲鼓相应,使突厥疑隋大军云集;其四,和亲之义成公主(始毕之妻)遣使诈报「北边有急」,绐其后方有警。四者并至,始毕遂解围北还。图中朱色虚线为公主诈报,青色虚线为募兵之使,城下之旗为疑兵。</p>
+    <p><span class="n">注五</span>异说与考订。<b>围城日数</b>:自八月十三合围至九月十五解围,凡三十三日,史称「凡守雁门三旬有余」。<b>兵数</b>:突厥号「数十万骑」乃举成之言,实数难征;雁门郡属四十一城陷三十九,系《隋书》《资治通鉴》所载。<b>李世民之年</b>:诸书多云年十六应募隶云定兴、献疑兵之计(《资治通鉴》卷一八二),然李世民生年(开皇十八年戊午,598)与此役(615)相推,或云十七、或以虚岁作十八(如部分今译),要之为总角少年初立奇谋,姑从「年十六」而并志异说。<b>义成公主</b>:隋宗女,和亲突厥为始毕之妻,前此遣使密告炀帝突厥将叛(故炀帝得入雁门),此又遣使诈报始毕以促其退,两事并见。<b>崞县守将</b>:据崞县者为炀帝次子齐王杨暕(领后军);炀帝被围时抱以恸哭之幼子为赵王杲。依《隋书·炀帝纪》《突厥传》《资治通鉴》卷一八二绘出,地名、日次、人数史传微有出入,并存以俟考。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"轻出被围 · 雁门却敌",d:"隋大业十一年(615)八月—九月",p:["大业十一年八月,隋炀帝北巡至塞外。东突厥始毕可汗因隋用裴矩离间之策(杀其谋臣史蜀胡悉、又欲分其部)而怨叛,率骑数十万猝然突袭。炀帝仓皇驰入雁门城(今山西代县)据守,突厥大军四面合围;雁门郡属四十一城,旬日间陷其三十九,仅余炀帝所在之雁门与齐王杨暕所据之崞县二城未下。","突厥猛攻雁门,矢及御前,炀帝抱幼子赵王杲恸哭、目尽肿;守城军民拆屋为楼橹、昼夜死战。炀帝下诏重赏来援、不复征辽东以安众心,又遣使间道募兵天下勤王。年十六之李世民应募隶云定兴,献疑兵之计,多张旗鼓、绵亘数十里;义成公主复遣使诈报始毕「北边有急」。勤王之师云集忻口,始毕见援军将至、又惑于诈报、久攻不下,遂于九月十五解围北还,炀帝脱险。"]},
+  "1":{t:"炀帝北巡 · 始毕突袭围雁门",d:"大业十一年八月",p:["大业十一年八月,炀帝北巡至塞外。先是,和亲突厥之义成公主(始毕之妻)遣使密告突厥将有变,炀帝乃亟驰入雁门城据守。始毕可汗以隋离间之怨(裴矩说隋杀其谋臣史蜀胡悉,又欲分其部落),遂叛,率骑数十万,乘炀帝轻出,猝然南下突袭。","八月十三日,突厥大军合围雁门,一时炀帝车驾困于孤城。炀帝次子齐王杨暕率后军进屯崞县(今原平北),与雁门为犄角。突厥四面立营,声势极盛,河东震动。"]},
+  "2":{t:"四十一城陷三十九 · 矢及御前",d:"大业十一年八月",p:["突厥既围雁门,分兵四掠。雁门郡所属四十一城,不过旬日,便陷其三十九,惟炀帝所在之雁门、齐王杨暕所据之崞县二城,婴城死守而独完。突厥并力猛攻雁门,矢下如雨,竟有羽箭直落炀帝御座之前(『矢及御前』)。","炀帝大惧,抱其幼子赵王杲恸哭,目为之尽肿。城中军民同心,拆屋为楼橹、昼夜拒战,随破随补,雁门屹然不下。炀帝乃亲抚循将士,许以厚赏、罢辽东之役,以坚死守之心。"]},
+  "3":{t:"下诏募兵勤王 · 李世民疑兵 · 义成公主诈报",d:"大业十一年八月—九月",p:["炀帝下诏:凡来赴援者皆厚加官赏,且明诏『不复征辽东』,以安军民之心;又遣使间道驰出,布告天下,征兵勤王。诏令既下,四方响应,郡县发兵入援。","应募之众中,有年十六之李世民,隶屯卫将军云定兴麾下。世民言于云定兴:『始毕敢围天子,必以我仓卒不能救。宜昼则多张旗鼓、绵亘数十里,夜则钲鼓相应,使虏疑救兵大至,望尘而遁。』定兴从之。又和亲之义成公主自突厥牙帐遣使诈告始毕『北边有急』,绐言其后方有警,以促始毕北顾。"]},
+  "4":{t:"援军云集忻口 · 始毕解围而去 · 炀帝脱险",d:"大业十一年九月",p:["各地勤王之师(云定兴、王世充等)陆续云集忻口一带,旌旗相属,声势大振,突厥望之疑惧。始毕既久攻雁门、崞县二城不下,顿兵坚城、师老气堕;又得义成公主诈报后方有急、望见隋援将至,遂于九月十五日解围北还。隋兵追蹑其后,至马邑,擒突厥老弱二千。","炀帝脱险,自雁门南还太原、东都。然事后炀帝失信:守城御敌之诏赏多不兑现,勤王将士怨望,而炀帝复议征辽东。天下由是益怨,群雄并起,隋末大乱遂不可收 —— 雁门之围,实为隋亡之一大催化;而少年李世民之谋,亦于此初显。"]}
+};
+const CITY={
+  yanmen:{t:"雁门(代县 · 炀帝被围)",d:"隋雁门郡治,今山西代县(约112.93E,39.28N)",p:["雁门之围之中心。大业十一年八月,炀帝北巡,始毕数十万骑突袭,炀帝驰入此城据守,突厥四面合围。郡属四十一城陷三十九,惟此城与崞县独完。突厥猛攻,矢及御前,炀帝抱赵王杲恸哭;守城军民拆屋为楼橹、昼夜死战,城赖以全。凡守三旬有余,及援军云集、公主诈报,始毕乃解围而去。"]},
+  guoxian:{t:"崞县(原平 · 齐王杨暕)",d:"今山西原平北(约112.70E,38.72N)",p:["炀帝次子齐王杨暕率后军入据,与雁门为犄角。突厥陷雁门郡三十九城,惟雁门(炀帝)、崞县(齐王)二城婴城死守而独存 —— 二坚城不下,正始毕顿兵师老、终不得志之由。"]},
+  xinkou:{t:"忻口(勤王军云集)",d:"今山西忻州北(约112.70E,38.40N)",p:["雁门之南、河谷走廊之要。各地勤王之师(云定兴、王世充等,李世民隶其中)自河东以南北上,云集于此;李世民疑兵之计多张旗鼓、绵亘数十里即行于此一带。旌旗渐盛,突厥望之疑惧,遂为始毕解围之一因。"]},
+  taiyuan:{t:"太原(炀帝脱险还向)",d:"今山西太原(约112.55E,37.87N)",p:["河东根本重镇。勤王之师由此以南北上入援;始毕解围后,炀帝自雁门脱险,亦南还太原、东都。太原为河东枢纽,数年后李渊父子即自此起兵而有天下。"]},
+  mayi:{t:"马邑(朔州)",d:"隋马邑郡治,今山西朔州(约112.43E,39.33N)",p:["雁门西北之边郡。九月始毕解围北还,隋兵追蹑其后,至马邑,擒突厥老弱二千而还。地当塞下,为突厥出入之道。"]},
+  yanmenguan:{t:"雁门关 · 勾注山",d:"代县北长城要隘(约112.85E,39.35N)",p:["勾注山(雁门山)长城之险关,河东北陲之门户,亦突厥入犯之孔道。始毕数十万骑破此一线南下,乃得围雁门;隋于此设险,而炀帝轻出被围,险不及守。"]},
+  loufan:{t:"楼烦",d:"隋楼烦郡,今山西静乐一带(约111.94E,38.36N)",p:["河东西北之郡,与雁门关同为塞下入犯之道。列于图西南,以示突厥别道及河东西陲之防。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

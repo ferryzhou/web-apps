@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>廉台之战 · 慕容恪连环马擒冉闵(352)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .plain{fill:rgba(156,122,44,.05);stroke:var(--gold);stroke-width:1;opacity:.5;stroke-dasharray:2 5}
+  /* 连环马:铁锁连缀之骑阵方阵,前燕中坚 */
+  .chainbox{fill:rgba(154,43,30,.09);stroke:var(--enemy);stroke-width:1.6}
+  .chlink{stroke:var(--enemy);stroke-width:1.3;opacity:.8}
+  .chorse{fill:var(--enemy);opacity:.92;stroke:var(--paper);stroke-width:.5}
+  .chlabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .capmark line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .capmark circle{fill:none;stroke:var(--gold);stroke-width:2.4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>廉</span><span>台</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>廉台之战</h1>
+    <div class="sub">晋永和八年·燕元玺元年(352)　　<i>冉魏 冉闵</i> 骁勇绝伦·十战十胜 · <b>前燕 慕容恪</b> 结连环马·诱敌平地而擒之</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 燕魏相攻</button>
+    <button data-p="1">冉闵骁勇 · 十战十胜</button>
+    <button data-p="2">结连环马 · 诱敌平地</button>
+    <button data-p="3">三面围歼 · 朱龙马毙</button>
+    <button data-p="4">冉魏亡 · 前燕据河北</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="廉台之战形势图,含前燕冉魏疆界、太行山与滹沱河、常山真定中山定州廉台魏昌诸地、连环马铁锁方阵与三面围歼,及邺城图外南、龙城图外东北二边箭">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:前燕据幽州·中山(北),冉魏据河北南部·邺常山(南),约以中山—廉台间一线为界 -->
+    <path d="M 0,0 L 1000,0 L 1000,214 C 780,240 560,256 400,250 C 240,244 120,236 0,244 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,244 C 120,236 240,244 400,250 C 560,256 780,240 1000,214 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,244 C 120,236 240,244 400,250 C 560,256 780,240 1000,214"/>
+    <text class="realm q" x="640" y="70" font-size="27">前 燕(幽州·河北)</text>
+    <text class="realm j" x="70" y="560" font-size="27">冉 魏(邺·常山)</text>
+
+    <!-- ══ 太行山:西境大山,冉闵所出之山林,利步战 ══ -->
+    <path class="mtn fill" d="M 40,470 L 58,410 L 74,446 L 92,388 L 110,432 L 128,372 L 146,420 L 162,384 L 178,428 L 190,404 L 196,470 Z"/>
+    <path class="mtn" d="M 70,430 l 18,-40 l 14,26 l 18,-44 l 16,34 l 16,-30"/>
+    <text class="mname" x="70" y="360" transform="rotate(-74 70 360)">太 行 山</text>
+    <text class="cname s" x="150" y="452" style="opacity:.8;font-size:10.5px">山林(利魏步战)</text>
+
+    <!-- ══ 平地:滹沱河两岸旷野,利鲜卑骑驰突,连环马与围歼所在 ══ -->
+    <path class="plain" d="M 470,268 C 560,262 660,266 740,286 C 800,302 812,352 760,378 C 660,406 540,398 470,380 C 430,352 432,296 470,268 Z"/>
+    <text class="cname s" x="648" y="284" style="fill:var(--gold);opacity:.85;font-size:11px">平 地(利鲜卑骑驰突)</text>
+
+    <!-- ══ 水系:滹沱河自太行东出,经常山·真定东流 ══ -->
+    <path class="river" stroke-width="4" d="M 184,435 C 300,410 380,392 419,378 C 520,352 620,346 701,345 C 800,344 900,352 990,362"/>
+    <text class="rname" x="300" y="404" transform="rotate(-12 300 404)" style="font-size:12px">滹 沱 河</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="zhongshan"><circle cx="461" cy="159" r="5.5"/><text class="cname" x="472" y="156">中山<tspan class="cname s" dx="2">(定州·燕据)</tspan></text></g>
+      <g class="city cap" data-city="liantai"><circle cx="457" cy="333" r="6.5"/><text class="cname" x="466" y="330">廉台<tspan class="cname s" dx="2">(魏昌·今无极东北)</tspan></text></g>
+      <g class="city" data-city="changshan"><circle cx="264" cy="381" r="5.5"/><text class="cname" x="196" y="399">常山<tspan class="cname s" dx="2">(真定)</tspan></text></g>
+      <g class="city" data-city="jiumen"><circle cx="334" cy="357" r="3.5"/><text class="cname s" x="286" y="349">九门</text></g>
+      <g class="city" data-city="lukou"><circle cx="809" cy="321" r="4.5"/><text class="cname" x="748" y="315">鲁口<tspan class="cname s" dx="2">(饶阳)</tspan></text></g>
+    </g>
+
+    <!-- 邺城(图外·南):冉魏都,冉闵北出之基,终为前燕所取 -->
+    <g transform="translate(292,614)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,10 L 0,-16"/>
+      <text class="mlabel j" x="10" y="4" style="font-size:10.5px">邺 · 冉魏都(图外南)↑</text>
+      <text class="cname s" x="10" y="18" style="fill:var(--advance);font-size:9.5px">冉闵北出之基(今临漳邺城遗址)</text>
+    </g>
+
+    <!-- 龙城(图外·东北):前燕故都,冉闵被送蓟转龙城,斩于遏陉山 -->
+    <g transform="translate(918,96)">
+      <path class="march rout" marker-end="url(#ar)" d="M 4,10 L 34,-14"/>
+      <text class="mlabel r" x="-138" y="-6" style="font-size:10.5px">送蓟·转龙城(图外东北)↗</text>
+      <text class="cname s" x="-138" y="10" style="fill:var(--ret);font-size:9.5px">前燕故都朝阳,冉闵斩于遏陉山</text>
+    </g>
+
+    <!-- 全图 · 燕魏相攻 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 292,600 C 288,520 280,450 268,392"/>
+      <text class="mlabel j" x="150" y="470">冉闵自邺北略,食于常山·中山间</text>
+      <path class="march j" marker-end="url(#aj)" d="M 276,378 C 340,360 400,344 448,336"/>
+      <path class="march q" marker-end="url(#aq)" d="M 461,174 C 459,230 458,286 458,322"/>
+      <text class="mlabel q" x="472" y="228">慕容恪自中山南下讨之</text>
+      <circle class="star" cx="457" cy="333" r="9"/>
+      <text class="anno" x="466" y="356">两军遇于廉台(魏昌)</text>
+    </g>
+
+    <!-- 阶段一:冉闵骁勇 · 十战十胜 -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 300,378 C 360,362 410,346 448,336"/>
+      <text class="mlabel j" x="196" y="404">冉闵所部精锐,乘朱龙马、执双刃矛</text>
+      <path class="march q rout" marker-end="url(#ar)" d="M 452,324 C 452,288 456,232 460,178"/>
+      <text class="mlabel q" x="466" y="214">燕军十战皆北,退保中山之南</text>
+      <circle class="star" cx="457" cy="333" r="9"/>
+      <text class="anno" x="466" y="356">相拒于廉台,一日斩燕兵三百余</text>
+      <text class="mlabel j" x="300" y="300">十战十胜 · 以少击众,勇不可当</text>
+    </g>
+
+    <!-- 阶段二:慕容恪结连环马 · 诱敌平地 -->
+    <g id="ph2" class="ph">
+      <!-- 连环马方阵(中坚),当冉闵之前 -->
+      <g class="chain">
+        <rect class="chainbox" x="486" y="272" width="118" height="56" rx="3"/>
+        <line class="chlink" x1="500" y1="284" x2="590" y2="284"/>
+        <line class="chlink" x1="500" y1="300" x2="590" y2="300"/>
+        <line class="chlink" x1="500" y1="316" x2="590" y2="316"/>
+        <line class="chlink" x1="500" y1="284" x2="500" y2="316"/>
+        <line class="chlink" x1="536" y1="284" x2="536" y2="316"/>
+        <line class="chlink" x1="572" y1="284" x2="572" y2="316"/>
+        <g class="chorse">
+          <circle cx="500" cy="284" r="3"/><circle cx="518" cy="284" r="3"/><circle cx="536" cy="284" r="3"/><circle cx="554" cy="284" r="3"/><circle cx="572" cy="284" r="3"/><circle cx="590" cy="284" r="3"/>
+          <circle cx="500" cy="300" r="3"/><circle cx="518" cy="300" r="3"/><circle cx="536" cy="300" r="3"/><circle cx="554" cy="300" r="3"/><circle cx="572" cy="300" r="3"/><circle cx="590" cy="300" r="3"/>
+          <circle cx="500" cy="316" r="3"/><circle cx="518" cy="316" r="3"/><circle cx="536" cy="316" r="3"/><circle cx="554" cy="316" r="3"/><circle cx="572" cy="316" r="3"/><circle cx="590" cy="316" r="3"/>
+        </g>
+      </g>
+      <text class="chlabel" x="520" y="345">连环马 · 铁锁方阵(中坚)</text>
+      <text class="anno" x="516" y="358">择善射者五千,以铁锁连马结阵</text>
+      <!-- 慕容恪佯退,诱冉闵出山林、就平地 -->
+      <path class="march q rout" marker-end="url(#ar)" d="M 470,308 C 510,304 560,300 600,298"/>
+      <text class="mlabel q" x="486" y="266">恪示弱佯退,诱之出林</text>
+      <path class="march j" marker-end="url(#aj)" d="M 300,382 C 360,368 420,352 470,336"/>
+      <text class="mlabel j" x="196" y="404">冉闵恃勇轻进,舍林木而追</text>
+      <text class="mlabel j" x="330" y="418">弃山林之利,趋平地</text>
+      <text class="anno" x="620" y="330">平地利骑,鲜卑之所长</text>
+    </g>
+
+    <!-- 阶段三:三面围歼 · 朱龙马毙被擒 -->
+    <g id="ph3" class="ph">
+      <!-- 连环马为坚,冉闵冲之不可入 -->
+      <g class="chain">
+        <rect class="chainbox" x="486" y="272" width="118" height="56" rx="3"/>
+        <line class="chlink" x1="500" y1="284" x2="590" y2="284"/>
+        <line class="chlink" x1="500" y1="300" x2="590" y2="300"/>
+        <line class="chlink" x1="500" y1="316" x2="590" y2="316"/>
+        <g class="chorse">
+          <circle cx="500" cy="284" r="3"/><circle cx="518" cy="284" r="3"/><circle cx="536" cy="284" r="3"/><circle cx="554" cy="284" r="3"/><circle cx="572" cy="284" r="3"/><circle cx="590" cy="284" r="3"/>
+          <circle cx="500" cy="300" r="3"/><circle cx="518" cy="300" r="3"/><circle cx="536" cy="300" r="3"/><circle cx="554" cy="300" r="3"/><circle cx="572" cy="300" r="3"/><circle cx="590" cy="300" r="3"/>
+          <circle cx="500" cy="316" r="3"/><circle cx="518" cy="316" r="3"/><circle cx="536" cy="316" r="3"/><circle cx="554" cy="316" r="3"/><circle cx="572" cy="316" r="3"/><circle cx="590" cy="316" r="3"/>
+        </g>
+      </g>
+      <text class="chlabel" x="500" y="300" style="opacity:0">.</text>
+      <!-- 两翼轻骑,三面围之(北·东·南) -->
+      <path class="march q" marker-end="url(#aq)" d="M 470,180 C 540,206 604,236 628,278"/>
+      <text class="mlabel q" x="536" y="204">分军为三,以左翼绕其北</text>
+      <path class="march q" marker-end="url(#aq)" d="M 320,432 C 430,404 540,388 616,360"/>
+      <text class="mlabel q" x="300" y="452">右翼绕其南,连环马当其前</text>
+      <text class="mlabel q" x="628" y="300" style="font-size:12.5px">三 面 围 歼</text>
+      <!-- 冉闵挺矛冲杀,斩三百余,溃围东走 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 458,340 C 480,356 520,364 560,360 C 600,356 640,344 668,330"/>
+      <text class="mlabel r" x="470" y="378">冉闵挺矛冲杀,斩燕兵三百余,溃围东走</text>
+      <!-- 朱龙马毙,被擒 -->
+      <g class="capmark" transform="translate(682,320)"><circle r="10"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel r" x="620" y="308">走二十余里,朱龙马忽毙</text>
+      <text class="mlabel q" x="612" y="352" style="font-weight:700">冉闵被生擒(终)</text>
+    </g>
+
+    <!-- 阶段四:冉魏亡 · 前燕据河北 -->
+    <g id="ph4" class="ph">
+      <!-- 冉闵被俘,送蓟转龙城,斩于遏陉山 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 690,314 C 780,270 852,204 912,110"/>
+      <text class="mlabel r" x="700" y="250">械送蓟,慕容儁数之;转斩于龙城遏陉山</text>
+      <g class="capmark" transform="translate(682,320)"><circle r="9"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <!-- 前燕南取邺城,冉魏亡 -->
+      <path class="march q" marker-end="url(#aq)" d="M 461,174 C 430,300 380,460 300,596"/>
+      <text class="mlabel q" x="316" y="470">燕遣兵南攻,围邺</text>
+      <text class="mlabel q" x="150" y="540">冉魏都邺旋降,冉魏亡</text>
+      <text class="realm q" x="560" y="120" font-size="20" style="opacity:.55">前燕遂据河北</text>
+    </g>
+
+    <g class="compass" transform="translate(946,560)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>冉魏军(冉闵)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前燕军(慕容恪)</span>
+    <span class="item"><svg width="34" height="14"><rect x="2" y="2" width="30" height="10" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.4"/><line x1="6" y1="7" x2="28" y2="7" stroke="#9a2b1e" stroke-width="1"/><circle cx="8" cy="7" r="1.6" fill="#9a2b1e"/><circle cx="17" cy="7" r="1.6" fill="#9a2b1e"/><circle cx="26" cy="7" r="1.6" fill="#9a2b1e"/></svg>连环马·铁锁方阵</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>冉闵溃走·被俘送龙城</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.2"/></svg>冉闵被擒(终)</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>前燕</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>冉魏</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 骁勇轻进 · 连环困骁 · 擒闵灭魏</h3>
+    <div class="lead">何以十战十胜之骁将败于一战 —— 非勇不敌,实为地与阵所困</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="连环马诱歼示意:冉闵恃勇出山林就平地,慕容恪以铁锁连环马为坚、两翼轻骑三面围之,冉闵朱龙马毙而被擒">
+      <!-- 山林(左,利魏) -->
+      <path d="M 40,150 L 62,96 L 82,132 L 104,84 L 126,128 L 148,150 Z" fill="rgba(31,78,84,.16)" stroke="#1f4e54" stroke-width="1.2"/>
+      <text x="42" y="172" fill="#1f4e54" font-size="12" font-weight="700">山林 · 利魏步战</text>
+      <text x="42" y="190" fill="#5c4f38" font-size="10.5">冉闵所部精锐,十战十胜</text>
+      <!-- 平地(右,利骑) -->
+      <rect x="360" y="70" width="440" height="150" fill="rgba(156,122,44,.06)" stroke="#9c7a2c" stroke-width="1" stroke-dasharray="3 5"/>
+      <text x="600" y="60" fill="#9c7a2c" font-size="12" font-weight="700">平地 · 利鲜卑骑驰突</text>
+      <!-- 诱:佯退引出 -->
+      <path d="M 158,138 C 240,138 300,140 350,140" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="3 6"/>
+      <path d="M 350,140 L 338,134 L 338,146 Z" fill="#9a2b1e"/>
+      <text x="196" y="128" fill="#9a2b1e" font-size="10.5" font-weight="700">佯退诱之 →</text>
+      <!-- 冉闵轻进 -->
+      <path d="M 158,150 C 260,168 360,168 448,158" fill="none" stroke="#1f4e54" stroke-width="2.6"/>
+      <path d="M 448,158 L 434,154 L 436,166 Z" fill="#1f4e54"/>
+      <text x="230" y="188" fill="#1f4e54" font-size="10.5" font-weight="700">恃勇轻进,舍林就平</text>
+      <!-- 连环马方阵(中坚) -->
+      <rect x="560" y="112" width="120" height="60" rx="3" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.8"/>
+      <g stroke="#9a2b1e" stroke-width="1.2" opacity=".8"><line x1="572" y1="126" x2="668" y2="126"/><line x1="572" y1="142" x2="668" y2="142"/><line x1="572" y1="158" x2="668" y2="158"/></g>
+      <g fill="#9a2b1e"><circle cx="574" cy="126" r="2.6"/><circle cx="598" cy="126" r="2.6"/><circle cx="622" cy="126" r="2.6"/><circle cx="646" cy="126" r="2.6"/><circle cx="666" cy="126" r="2.6"/><circle cx="574" cy="142" r="2.6"/><circle cx="598" cy="142" r="2.6"/><circle cx="622" cy="142" r="2.6"/><circle cx="646" cy="142" r="2.6"/><circle cx="666" cy="142" r="2.6"/><circle cx="574" cy="158" r="2.6"/><circle cx="598" cy="158" r="2.6"/><circle cx="622" cy="158" r="2.6"/><circle cx="646" cy="158" r="2.6"/><circle cx="666" cy="158" r="2.6"/></g>
+      <text x="560" y="190" fill="#9a2b1e" font-size="11" font-weight="700">连环马·铁锁方阵(冲之不入)</text>
+      <!-- 两翼三面围 -->
+      <path d="M 470,90 C 560,96 640,100 700,112" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="6 4"/>
+      <path d="M 700,112 L 686,108 L 690,120 Z" fill="#9a2b1e"/>
+      <path d="M 470,204 C 560,200 640,192 700,172" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="6 4"/>
+      <path d="M 700,172 L 690,178 L 696,166 Z" fill="#9a2b1e"/>
+      <text x="700" y="100" fill="#9a2b1e" font-size="10" font-weight="700">左翼绕北</text>
+      <text x="700" y="196" fill="#9a2b1e" font-size="10" font-weight="700">右翼绕南</text>
+      <!-- 被擒 -->
+      <g transform="translate(500,142)"><circle r="10" fill="none" stroke="#9c7a2c" stroke-width="2.2"/><line x1="-6" y1="-6" x2="6" y2="6" stroke="#9a2b1e" stroke-width="2.2"/><line x1="-6" y1="6" x2="6" y2="-6" stroke="#9a2b1e" stroke-width="2.2"/></g>
+      <text x="452" y="170" fill="#9a2b1e" font-size="10" font-weight="700">马毙 · 被擒 ✕</text>
+    </svg>
+    <p class="intro">廉台之战,冉闵<b>骁勇绝伦、所部精锐</b>,与慕容恪相拒而<b>十战十胜</b>,一日斩燕兵三百余,燕军望之而惧。以勇论,燕本无胜理。然慕容恪深知『闵勇而无谋,其锋不可当,当以术困之』:一在<b>诱其舍地之利</b>,二在<b>结连环马为不可冲之坚</b>——两事既成,骁勇遂无所施。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>冉魏 · 骁勇轻进</h4>
+        <p>冉闵乘朱龙马、执双刃矛,冲锋陷阵所向披靡,连战皆捷。然恃勇而轻进:燕军佯退,闵不度地利,舍其所长之山林(便步战、蔽骑冲),纵兵追至平地。既就旷野,则己之短、敌之长尽显,胜势翻为死地。</p>
+      </div>
+      <div class="c b">
+        <h4>前燕 · 连环困骁</h4>
+        <p>慕容恪择善射者五千,以铁锁连缀战马、结方阵为中坚,坚不可陷;又分军为三,两翼轻骑绕出其北与南,三面围之。冉闵挺矛冲突、斩首三百余而终不能出;走二十余里,朱龙马忽毙,遂为燕军所擒。</p>
+      </div>
+    </div>
+    <p class="kicker">故廉台之败,不在冉闵之不勇,而在<b>为地所诱、为阵所困</b>:舍山林之利而就平地,则骁勇之步卒暴于鲜卑之铁骑;冲连环之坚而不能入,则十战之锐气销于一围之中。<b>擒闵之后,燕军南下取邺,冉魏遂亡,前燕尽据河北</b>——十六国北方之势,由是归燕。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=90+(经度−114.2)·470,y=585−(纬度−37.8)·600),几何关系力求近实:决战之廉台(魏昌)在中,中山在其北,常山·真定在其西南,鲁口在东,太行山·山林在西,平地在东。今地:廉台·魏昌今河北无极东北,常山·真定今正定,中山今定州,九门今藁城西北,鲁口今饶阳。邺城远在南(冉魏都,今临漳邺城遗址,图外,以边箭示之);龙城·遏陉山远在东北(前燕故都,今辽宁朝阳,图外,以边箭示之)。滹沱河、疆界经简化描绘,非实测画界。依《晋书·载记》(冉闵、慕容儁、慕容恪)及《资治通鉴》卷九九绘出。</p>
+    <p><span class="n">注二</span>时地与建元:永和八年(352)为东晋纪年,前燕慕容儁于是年建元玺、称帝,故亦称元玺元年。冉闵先于永和六年(350)灭后赵、建魏(史称冉魏),都邺,颁『杀胡令』;八年正月破后赵石祗于襄国,继而『游食常山、中山间』,乃与南下之慕容恪遇于廉台。『武悼天王』为其死后前燕所追谥(燕地大旱,以为闵祟,故追封以厌之),非生时之号;生时自号大魏皇帝(天王)。</p>
+    <p><span class="n">注三</span>制胜之枢在『诱地』与『连环马』(图中朱色铁锁方阵、金色会战环、终局擒记):冉闵骁勇,『十战十胜』,燕军十战皆北。慕容恪以闵勇不可力敌,乃『择鲜卑善射者五千人,以铁锁连其马,为方阵而前』,又诱闵军自便于步战之林薮出就平地,以大众从三面围之。闵挺矛冲杀,斩首三百余级,溃围东走二十余里,所乘骏马朱龙忽毙,为燕将所执。诱敌就平、连环为坚、三面围歼,三者相济,乃能困此绝世之骁将。</p>
+    <p><span class="n">注四</span>擒闵之余波:闵既被擒,械送于蓟,慕容儁数其罪,闵抗声不屈;寻斩之于龙城遏陉山。冉魏都邺旋为前燕所围,守将请降(一说太子冉智据邺,城破),冉魏亡。前燕由是尽据河北,进图中原,遂为十六国后期北方之强。廉台一役,实五胡北方权势易主之关键。兵数、擒斩地诸说,史文略有出入,姑从《通鉴》。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"燕魏相攻 · 遇于廉台",d:"晋永和八年·燕元玺元年(352)四月",p:["冉闵既灭后赵、建魏都邺,颁杀胡令,又于是年正月破石祗于襄国。其后军无宿藏,『游食于常山、中山间』,就谷而食。前燕主慕容儁遣其弟太原王慕容恪等率众南下讨之。","冉闵所部虽精锐,而慕容恪拥众而来。两军相遇于常山、中山之间,战于魏昌之廉台(今河北无极东北)。冉闵骁勇绝伦,乘朱龙马、执双刃矛,燕人惮之——一场骁勇与谋略之决,自此始。"]},
+  "1":{t:"冉闵骁勇 · 十战十胜",d:"永和八年(352)四月 · 前段",p:["初战,冉闵率其精锐犯燕军之锋。闵勇冠当世,乘朱龙宝马,左操双刃矛、右执钩戟,驰突燕阵,所向摧破,一日之内斩燕兵三百余人。","自相拒以来,冉闵与燕军十战,燕军十战皆北,退保中山之南。冉闵以少击众而屡捷,气益张、志益锐——然连胜之下,轻敌之机已伏。慕容恪见其锋不可力当,乃思以计困之。"]},
+  "2":{t:"结连环马 · 诱敌平地",d:"永和八年(352)四月 · 中段",p:["慕容恪谓诸将曰:『闵性轻锐,又自以众少,必致死于我;我厚集其阵以待之,彼锐气竭,可获也。』乃择鲜卑善射者五千人,以铁锁连缀战马、结方阵为中坚,是谓『连环马』,坚不可冲;两翼各以轻骑翼之。","又以冉闵之众利于林薮步战、可蔽己而制骑,恪乃佯退示弱,诱之出于山林,趋至平地。平地旷阔,正利鲜卑铁骑之驰突。冉闵恃勇轻进,舍其所长而追,遂堕恪彀中——胜势自此暗转。"]},
+  "3":{t:"三面围歼 · 朱龙马毙被擒",d:"永和八年(352)四月 · 决战",p:["冉闵既就平地,慕容恪分军为三:连环马方阵当其前,坚不可陷;左右两翼轻骑绕出其北、其南,三面围而合之。冉闵挺矛冲突,斩燕兵三百余级,而连环之坚终不能破。","闵溃围东走,驰二十余里,所乘骏马朱龙连日力竭、忽然倒毙,闵为燕将所追执,燕遂生擒之。绝世之骁将,竟困于一阵一地之间。"]},
+  "4":{t:"冉魏亡 · 前燕据河北",d:"永和八年(352)四月以后",p:["冉闵被擒,械送于蓟。慕容儁数之曰『汝奴仆下才,何得妄称帝』,闵抗声曰『天下大乱,尔曹夷狄禽兽犹欲称帝,况我中土英雄,何为不得称帝邪』。儁怒,鞭之三百,寻送龙城,斩于遏陉山。","前燕乘胜南下,进围冉魏都邺;城中食尽,守者请降,冉魏遂亡。前燕由是尽据河北,进而经略中原。廉台一役,遂为五胡北方权势易主之枢。"]}
+};
+const CITY={
+  liantai:{t:"廉台(魏昌)",d:"决战地,今河北无极东北",p:["两军战于此。冉闵十战十胜、一日斩燕兵三百余;慕容恪结连环马、诱之就平地,三面围之。冉闵溃围东走,朱龙马毙而被擒——冉魏存亡所系之一战。"]},
+  zhongshan:{t:"中山",d:"今河北定州 · 前燕所据",p:["慕容恪自此南下讨冉闵。廉台正在中山之南、常山之东北,为燕军南征之基。"]},
+  changshan:{t:"常山(真定)",d:"今河北正定",p:["冉闵灭后赵、破襄国之后,军无宿粮,『游食于常山、中山间』就谷而食。常山一带近太行山林,本便冉魏步战之利。"]},
+  jiumen:{t:"九门",d:"今河北藁城西北",p:["常山属县,冉闵军往来行经之地,在滹沱河北岸、廉台之西南。"]},
+  lukou:{t:"鲁口",d:"今河北饶阳 · 前燕东境戍守",p:["廉台以东之要地。前燕经略河北,鲁口为其东翼镇戍;廉台既胜,河北诸城相次归燕。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

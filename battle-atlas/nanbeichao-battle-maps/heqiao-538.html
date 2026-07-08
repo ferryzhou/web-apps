@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>河桥之战 · 东西魏元象元年(538)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--dust:#8a7c5e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.72;font-weight:500}
+  /* 河桥:黄河浮桥意象 */
+  .bridge .deck{stroke:var(--ink);stroke-width:2.4;fill:none;opacity:.9}
+  .bridge .boat{fill:var(--paper);stroke:var(--ink);stroke-width:1.1;opacity:.95}
+  .bridge .plank{stroke:var(--ink2);stroke-width:1;opacity:.7}
+  .blabel{fill:var(--ink);font-size:11px;font-weight:700;letter-spacing:.06em}
+  /* 尘雾混战 */
+  .dust path{fill:none;stroke:var(--dust);stroke-width:2;opacity:.5;stroke-linecap:round}
+  .dust circle{fill:var(--dust);opacity:.16}
+  .dlabel{fill:var(--ink2);font-size:11px;font-weight:700;font-style:italic;letter-spacing:.04em}
+  /* 主帅险被俘·诈救得脱 */
+  .peril .ring{fill:none;stroke:var(--advance);stroke-width:2.2}
+  .peril .flee{fill:none;stroke:var(--advance);stroke-width:2;stroke-dasharray:4 4;opacity:.9}
+  .peril .fall{stroke:var(--advance);stroke-width:2.4;stroke-linecap:round}
+  .plabel{fill:var(--advance);font-size:11px;font-weight:700;letter-spacing:.03em}
+  /* 终·败死记号(朱色) */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.7}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .endmk{fill:var(--enemy)}.endmk text{fill:var(--paper);font-family:"Ma Shan Zheng",serif;font-size:11px}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>河</span><span>桥</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>河桥之战</h1>
+    <div class="sub">东魏元象元年 · 西魏大统四年(538)　　<i>西魏 宇文泰</i> 与 <b>东魏 高欢(前线 侯景·高敖曹)</b> 混战于河桥·邙山　·　主帅几危 · 两伤难决</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 洛阳争衡</button>
+    <button data-p="1">西魏乘胜取洛阳·据金墉</button>
+    <button data-p="2">高欢遣侯景高敖曹反攻</button>
+    <button data-p="3">河桥邙山尘雾混战·泰坠马</button>
+    <button data-p="4">敖曹败死桥下·两伤西还</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="河桥之战形势图,含西魏东魏疆界、黄河洛水伊水诸水、邙山、河阳三城之浮桥(河桥)、金墉城洛阳谷城瀍水虎牢诸地,与宇文泰坠马李穆诈救、高敖曹败死桥下之混战诸迹,长安晋阳邺城以图外箭标示之">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.28)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.06)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.28)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:西魏据关中·河东(西),东魏据河北·河东东·河南东(东北);洛阳·河南居中反复易手 ══ -->
+    <path d="M 262,0 C 300,120 300,260 336,400 C 356,486 380,560 400,640 L 1000,640 L 1000,0 Z" fill="url(#qinHatch)"/>
+    <path d="M 262,0 C 300,120 300,260 336,400 C 356,486 380,560 400,640 L 0,640 L 0,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 262,0 C 300,120 300,260 336,400 C 356,486 380,560 400,640"/>
+    <text class="realm j" x="40" y="120" font-size="26">西 魏(关中·河东)</text>
+    <text class="realm q" x="720" y="118" font-size="26">东 魏(河北)</text>
+    <text class="cname s" x="600" y="560" style="fill:var(--enemy);opacity:.6">东魏 · 河南东</text>
+    <text class="cname s" x="360" y="200" style="opacity:.7">洛阳·河南 反复易手</text>
+
+    <!-- ══ 山脉:北邙(邙山),崤函(西陲走廊) ══ -->
+    <path class="mtn fill" d="M 356,336 L 380,320 L 404,332 L 432,314 L 462,330 L 494,312 L 528,330 L 560,316 L 586,334 Z"/>
+    <path class="mtn" d="M 388,328 l 20,-14 l 22,12 l 26,-15 l 24,13 l 26,-14"/>
+    <text class="mname" x="440" y="349" style="letter-spacing:.5em">邙　山(北邙)</text>
+    <path class="mtn fill" d="M 40,420 L 60,398 L 78,412 L 100,392 L 122,410 L 144,394 L 166,412 Z"/>
+    <path class="mtn" d="M 66,406 l 16,-14 l 14,11 l 18,-15 l 15,12"/>
+    <text class="mname" x="52" y="440" style="font-size:10px">崤 函</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西东流,河阳三城·浮桥当其津,东下趋虎牢 -->
+    <path class="river" stroke-width="5.4" d="M 0,232 C 90,240 170,246 240,249 C 330,252 400,258 445,266 C 520,272 600,250 670,232 C 780,208 890,186 1000,168"/>
+    <!-- 洛水:自西经洛阳南,东会伊水趋巩 -->
+    <path class="river" stroke-width="3.2" d="M 0,448 C 140,442 300,436 440,430 C 560,426 700,436 820,446 C 900,452 950,456 1000,458"/>
+    <!-- 伊水:自南来会洛 -->
+    <path class="river" stroke-width="2.2" d="M 508,600 C 500,540 490,486 470,448"/>
+    <!-- 瀍水:出邙山,南流经洛阳东入洛 -->
+    <path class="river" stroke-width="1.9" d="M 486,300 C 484,340 482,380 480,424"/>
+    <!-- 谷水(涧水):自西谷城来,绕洛阳北西入 -->
+    <path class="river" stroke-width="1.9" d="M 300,352 C 340,360 380,374 418,402 C 432,414 440,424 446,430"/>
+    <text class="rname" x="150" y="242" style="font-size:14px">黄 　 河</text>
+    <text class="rname" x="150" y="440" style="font-size:12px">洛 水</text>
+    <text class="rname" x="512" y="560" transform="rotate(72 512 560)" style="font-size:10px">伊水</text>
+    <text class="rname" x="490" y="356" transform="rotate(84 490 356)" style="font-size:9.5px">瀍水</text>
+    <text class="rname" x="316" y="366" style="font-size:9.5px">谷水</text>
+
+    <!-- ══ 河桥:河阳三城之黄河浮桥(决战之枢) ══ -->
+    <g class="bridge">
+      <path class="deck" d="M 445,250 L 446,300"/>
+      <ellipse class="boat" cx="445" cy="258" rx="6.5" ry="3"/>
+      <ellipse class="boat" cx="445" cy="266" rx="6.5" ry="3"/>
+      <ellipse class="boat" cx="445" cy="274" rx="6.5" ry="3"/>
+      <ellipse class="boat" cx="446" cy="282" rx="6.5" ry="3"/>
+      <ellipse class="boat" cx="446" cy="290" rx="6.5" ry="3"/>
+      <line class="plank" x1="438" y1="258" x2="452" y2="258"/>
+      <line class="plank" x1="438" y1="274" x2="452" y2="274"/>
+      <line class="plank" x1="439" y1="290" x2="453" y2="290"/>
+    </g>
+    <text class="blabel" x="458" y="256">河桥·河阳三城(浮桥)</text>
+    <text class="cname s" x="458" y="269" style="opacity:.8">北中城 — 中潬城 — 南城</text>
+    <text class="rname" x="360" y="278" style="font-size:9.5px">孟津</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="heyang"><circle cx="445" cy="290" r="5.5"/><text class="cname s" x="452" y="303">河阳南城</text></g>
+      <g class="city cap" data-city="jinyong"><circle cx="432" cy="360" r="6"/><text class="cname" x="330" y="356">金墉城<tspan class="cname s" dx="2">(洛阳西北隅)</tspan></text></g>
+      <g class="city" data-city="luoyang"><circle cx="452" cy="384" r="6"/><text class="cname" x="462" y="398">洛阳</text></g>
+      <g class="city" data-city="gucheng"><circle cx="300" cy="360" r="4.5"/><text class="cname" x="212" y="356">谷城<tspan class="cname s" dx="2">(谷水)</tspan></text></g>
+      <g class="city" data-city="chandong"><circle cx="490" cy="330" r="3.2"/><text class="cname s" x="498" y="326">瀍东</text></g>
+      <g class="city" data-city="hulao"><circle cx="745" cy="294" r="5"/><text class="cname" x="700" y="286">虎牢<tspan class="cname s" dx="2">(成皋)</tspan></text></g>
+    </g>
+
+    <!-- 图外·边缘军源箭标 -->
+    <g transform="translate(6,470)">
+      <path class="march j" marker-end="url(#aj)" d="M 2,0 L 30,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 长安·潼关·弘农</text>
+      <text class="cname s" x="0" y="15" style="fill:var(--advance);font-size:9.5px">西魏都(图外西)·泰所自出</text>
+    </g>
+    <g transform="translate(430,8)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,2 L 0,28"/>
+      <text class="mlabel q" x="8" y="14" style="font-size:10px">↓ 晋阳</text>
+      <text class="cname s" x="8" y="27" style="fill:var(--enemy);font-size:9.5px">高欢本(图外北)</text>
+    </g>
+    <g transform="translate(910,120)">
+      <path class="march q" marker-end="url(#aq)" d="M 6,0 L 34,0"/>
+      <text class="mlabel q" x="0" y="-8" style="font-size:10px">邺(东魏都) ⟶</text>
+      <text class="cname s" x="0" y="15" style="fill:var(--enemy);font-size:9.5px">(图外东北)</text>
+    </g>
+
+    <!-- ══ 全图 · 洛阳争衡 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 36,466 C 160,452 280,430 360,400 C 400,384 420,376 428,368"/>
+      <text class="mlabel j" x="120" y="430">沙苑既胜,西魏东取洛阳·据金墉</text>
+      <path class="march q" marker-end="url(#aq)" d="M 460,20 C 452,90 450,160 447,244"/>
+      <text class="mlabel q" x="470" y="150">高欢遣侯景·高敖曹反攻,自将继之</text>
+      <g class="dust" transform="translate(468,318)">
+        <circle cx="0" cy="0" r="34"/>
+        <path d="M -26,-8 C -14,-16 -2,-6 8,-14"/>
+        <path d="M -22,6 C -8,-2 6,10 20,2"/>
+        <path d="M -14,18 C 0,10 12,20 24,12"/>
+      </g>
+      <text class="dlabel" x="500" y="316">河桥·邙山间尘雾混战</text>
+      <circle class="star" cx="445" cy="286" r="8"/>
+      <text class="anno" x="150" y="316">竟日大战,各有胜负,死伤枕籍,胜负难分</text>
+      <text class="anno" x="470" y="470">西魏终不能守洛阳·河南,引军西还</text>
+    </g>
+
+    <!-- ══ 阶段一:西魏乘胜取洛阳·据金墉 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 36,466 C 170,450 290,426 360,398 C 396,382 416,372 426,366"/>
+      <text class="mlabel j" x="120" y="428">大统三年沙苑大破高欢,西魏乘胜东进</text>
+      <path class="march j" marker-end="url(#aj)" d="M 440,356 C 520,340 620,320 720,300"/>
+      <text class="mlabel j" x="540" y="332">略地河南,东逼虎牢</text>
+      <text class="mlabel j" x="300" y="380">独孤信收复洛阳,据金墉城</text>
+      <circle class="star" cx="432" cy="360" r="7"/>
+      <text class="anno" x="356" y="418">魏帝东巡洛阳,谒诸陵;西魏据河南诸州</text>
+    </g>
+
+    <!-- ══ 阶段二:高欢遣侯景高敖曹反攻·围金墉 ══ -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 460,20 C 452,78 450,140 447,232"/>
+      <text class="mlabel q" x="470" y="120">高欢遣侯景·高敖曹·娄昭等反攻河南</text>
+      <path class="march q" marker-end="url(#aq)" d="M 448,252 C 446,300 440,332 436,352"/>
+      <text class="mlabel q" x="460" y="318">渡河围逼金墉·洛阳</text>
+      <rect class="camp" x="427" y="356" width="9" height="9" transform="rotate(45 431.5 360.5)"/>
+      <text class="mlabel q" x="150" y="330">独孤信婴城固守,告急于泰</text>
+      <path class="march j" marker-end="url(#aj)" d="M 36,472 C 160,460 250,440 300,408 C 360,384 420,368 468,336"/>
+      <text class="mlabel j" x="120" y="470">宇文泰率军东救</text>
+      <circle class="star" cx="300" cy="360" r="7"/>
+      <text class="anno" x="120" y="392">至谷城,破东魏莫多娄贷文·斩之,可朱浑元遁</text>
+      <text class="anno" x="505" y="300">进军瀍东,逼河桥</text>
+    </g>
+
+    <!-- ══ 阶段三:河桥邙山尘雾混战·宇文泰坠马李穆诈救 ══ -->
+    <g id="ph3" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 436,356 C 442,332 446,314 447,300"/>
+      <text class="mlabel q" x="240" y="236">侯景夜解洛阳围,退保邙山北·河桥南</text>
+      <path class="march j" marker-end="url(#aj)" d="M 486,336 C 470,320 458,308 450,298"/>
+      <text class="mlabel j" x="540" y="366">泰轻骑追及河桥,两军大战</text>
+      <g class="dust" transform="translate(470,318)">
+        <circle cx="0" cy="0" r="40"/>
+        <circle cx="18" cy="6" r="20"/>
+        <path d="M -30,-10 C -16,-20 -2,-8 10,-18"/>
+        <path d="M -26,4 C -10,-4 8,12 26,2"/>
+        <path d="M -16,20 C 2,10 16,22 30,12"/>
+      </g>
+      <text class="dlabel" x="545" y="300">尘雾蔽日,各部不相知</text>
+      <!-- 宇文泰坠马·李穆诈救 -->
+      <g class="peril" transform="translate(420,300)">
+        <circle class="ring" r="9"/>
+        <line class="fall" x1="-5" y1="5" x2="6" y2="-4"/>
+        <path class="flee" d="M 6,4 C 18,10 22,2 16,-6"/>
+      </g>
+      <text class="plabel" x="120" y="286">泰马中流矢惊逸,坠马几为敌所获</text>
+      <text class="plabel" x="120" y="300" style="opacity:.85">李穆以策抶诈骂,追兵舍去,授马得脱</text>
+      <circle class="star" cx="498" cy="330" r="7"/>
+      <text class="mlabel j" x="515" y="330">王思政下马步战,长槊横击</text>
+      <text class="anno" x="515" y="343">被创闷绝,以敝衣甲得免,部将救出</text>
+    </g>
+
+    <!-- ══ 阶段四:高敖曹败死桥下·两伤难决·西魏西还 ══ -->
+    <g id="ph4" class="ph">
+      <text class="mlabel j" x="280" y="224">西魏中军破东魏,斩高敖曹·李猛·宋显</text>
+      <text class="anno" x="280" y="237">俘万五千,溺死黄河者甚众</text>
+      <!-- 高敖曹单骑败走河阳南城 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 486,322 C 470,312 456,300 448,292"/>
+      <text class="mlabel r" x="500" y="316">高敖曹败走河阳南城</text>
+      <g class="cut" transform="translate(444,292)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <g class="endmk" transform="translate(430,278)"><rect x="-8" y="-8" width="16" height="16" rx="2"/><text x="0" y="4" text-anchor="middle">终</text></g>
+      <text class="clabel" x="118" y="280">守将高永乐闭门不纳,敖曹匿桥下被斩 ✕</text>
+      <text class="clabel" x="118" y="294" style="opacity:.85">高欢闻之如丧肝胆,杖高永乐二百</text>
+      <!-- 西魏左右军失利·以为泰死而溃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 470,352 C 520,380 560,404 590,432"/>
+      <text class="mlabel r" x="556" y="428">独孤信·赵贵右军,李远·于谨左军失利</text>
+      <text class="anno" x="470" y="452">诸军以为泰死,遂溃;李虎·念贤后军亦退</text>
+      <!-- 西魏西还 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 420,376 C 300,404 160,440 40,468"/>
+      <text class="mlabel r" x="120" y="500">泰焚营夜遁,引军西还(与李穆至弘农相对泣)</text>
+      <!-- 高欢济河取金墉 -->
+      <path class="march q" marker-end="url(#aq)" d="M 410,300 C 418,326 424,344 430,354"/>
+      <text class="mlabel q" x="455" y="374">高欢济河,拔金墉</text>
+      <text class="anno" x="455" y="387">河南复入东魏,此后反复易手</text>
+    </g>
+
+    <g class="compass" transform="translate(944,566)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>西魏军(宇文泰)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>东魏军(高欢·侯景·高敖曹)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退(西魏西还·敖曹败走)</span>
+    <span class="item"><svg width="26" height="16"><ellipse cx="13" cy="4" rx="6" ry="2.6" fill="#e9dec4" stroke="#2b2418" stroke-width="1"/><ellipse cx="13" cy="11" rx="6" ry="2.6" fill="#e9dec4" stroke="#2b2418" stroke-width="1"/><line x1="13" y1="1" x2="13" y2="14" stroke="#2b2418" stroke-width="2"/></svg>河桥(黄河浮桥)</span>
+    <span class="item"><svg width="30" height="16"><circle cx="15" cy="8" r="7" fill="#8a7c5e" opacity=".16"/><path d="M 4,6 C 10,2 16,10 26,4" fill="none" stroke="#8a7c5e" stroke-width="1.6" opacity=".6"/></svg>尘雾混战</span>
+    <span class="item"><svg width="18" height="16"><circle cx="9" cy="8" r="7" fill="none" stroke="#1f4e54" stroke-width="2"/><line x1="6" y1="11" x2="12" y2="5" stroke="#1f4e54" stroke-width="2.2"/></svg>主帅坠马·诈救得脱</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>名将败死(高敖曹)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>激战</span>
+    <span class="item"><svg width="12" height="12"><rect x="1" y="1" width="10" height="10" transform="rotate(45 6 6)" fill="#9a2b1e" opacity=".9"/></svg>围城营</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>西魏</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>东魏</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>混战释要 · 河桥一日</h3>
+    <div class="lead">混战河桥 · 主帅几危 · 两伤难决 —— 何以竟日血战而胜负莫分</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="河桥混战示意:黄河浮桥为两京之间津枢,尘雾蔽日各部不相知;西魏宇文泰坠马赖李穆诈救得脱,东魏高敖曹败走桥南被拒斩于桥下,两军各折一帅、各有胜负,故难决">
+      <!-- 黄河与河桥(中枢) -->
+      <path d="M 24,44 C 240,40 620,42 836,40" fill="none" stroke="#5f7f88" stroke-width="5" opacity=".85"/>
+      <text x="26" y="32" fill="#5f7f88" font-size="12" font-weight="700">黄河 · 河阳浮桥(河桥)</text>
+      <g><ellipse cx="430" cy="44" rx="7" ry="3" fill="#e9dec4" stroke="#2b2418" stroke-width="1.1"/><ellipse cx="430" cy="66" rx="7" ry="3" fill="#e9dec4" stroke="#2b2418" stroke-width="1.1"/><ellipse cx="430" cy="88" rx="7" ry="3" fill="#e9dec4" stroke="#2b2418" stroke-width="1.1"/><line x1="430" y1="42" x2="430" y2="92" stroke="#2b2418" stroke-width="2.2"/></g>
+      <!-- 尘雾 -->
+      <circle cx="430" cy="128" r="52" fill="#8a7c5e" opacity=".15"/>
+      <path d="M 388,120 C 408,108 424,124 448,110" fill="none" stroke="#8a7c5e" stroke-width="2" opacity=".55"/>
+      <path d="M 384,140 C 406,128 428,146 452,132" fill="none" stroke="#8a7c5e" stroke-width="2" opacity=".55"/>
+      <text x="430" y="132" text-anchor="middle" fill="#5c4f38" font-size="11" font-style="italic" font-weight="700">尘雾蔽日</text>
+      <text x="430" y="148" text-anchor="middle" fill="#5c4f38" font-size="10" font-style="italic">各部不相知</text>
+      <!-- 左:西魏·宇文泰坠马→李穆诈救→脱 -->
+      <g transform="translate(150,150)">
+        <circle r="10" fill="none" stroke="#1f4e54" stroke-width="2.2"/><line x1="-6" y1="6" x2="7" y2="-5" stroke="#1f4e54" stroke-width="2.4"/>
+        <text x="0" y="34" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">西魏 · 宇文泰坠马</text>
+        <text x="0" y="50" text-anchor="middle" fill="#5c4f38" font-size="10.5">李穆以策抶之诈骂,追兵舍去</text>
+        <text x="0" y="66" text-anchor="middle" fill="#5c4f38" font-size="10.5">授马得脱 —— 主帅几危而不亡</text>
+      </g>
+      <!-- 右:东魏·高敖曹→桥南被拒→斩桥下 -->
+      <g transform="translate(710,150)">
+        <circle r="10" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><line x1="-6" y1="-6" x2="6" y2="6" stroke="#9a2b1e" stroke-width="2.4"/><line x1="-6" y1="6" x2="6" y2="-6" stroke="#9a2b1e" stroke-width="2.4"/>
+        <text x="0" y="34" text-anchor="middle" fill="#9a2b1e" font-size="12" font-weight="700">东魏 · 高敖曹败死</text>
+        <text x="0" y="50" text-anchor="middle" fill="#5c4f38" font-size="10.5">走河阳南城,守将闭门不纳</text>
+        <text x="0" y="66" text-anchor="middle" fill="#5c4f38" font-size="10.5">匿桥下被斩 —— 名将殒于友军之隙</text>
+      </g>
+      <!-- 天平·难决 -->
+      <path d="M 300,196 L 560,196" stroke="#5c4f38" stroke-width="1.6"/>
+      <path d="M 430,92 L 430,196" stroke="#5c4f38" stroke-width="1.4" stroke-dasharray="3 4" opacity=".7"/>
+      <path d="M 300,196 L 288,210 L 312,210 Z" fill="none" stroke="#1f4e54" stroke-width="1.4"/>
+      <path d="M 560,196 L 548,210 L 572,210 Z" fill="none" stroke="#9a2b1e" stroke-width="1.4"/>
+      <text x="430" y="228" text-anchor="middle" fill="#2b2418" font-size="12" font-weight="700">各折一帅 · 各有胜负 · 势均而难决</text>
+    </svg>
+    <p class="intro">河桥之役非以粮道、非以奇谋决胜,乃一场<b>失控的近接混战</b>:战场在洛阳之北、黄河浮桥与邙山之间,地狭而军众,又值<b>尘雾蔽日、各部不相知</b>——中军方胜而左右军已溃,一处告捷而一处传帅死之讹。号令既不能贯,则强弱之势皆化为乱斗之偶然。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>西魏 · 主帅几危而不亡</h4>
+        <p>宇文泰轻骑追至河桥,坐骑中流矢惊逸,泰坠马于阵,东魏兵追及。都督李穆下马,以策抶泰而佯骂『汝个健儿,尔曹主何在,独留此!』追者以为非贵人,舍之而去;穆以己马授泰,俱脱归弘农,相对而泣。中军虽斩高敖曹、俘万五千,然右军独孤信、赵贵,左军李远、于谨皆失利,又误传泰死,诸军遂溃,泰不得已焚营西还。</p>
+      </div>
+      <div class="c b">
+        <h4>东魏 · 名将殒于友军之隙</h4>
+        <p>高敖曹(高昂)向来骄贵,恃勇轻进,兵败单骑走河阳南城。城中守将高永乐素与之有隙,闭门不纳;敖曹呼绳不得,拔刀斫门未彻,追兵已至,匿于桥下被斩。高欢闻之『如丧肝胆』,杖高永乐二百。一世猛将,不死于敌锋而死于友军一门之闭 —— 东魏虽终得洛阳,亦折其栋梁。</p>
+      </div>
+    </div>
+    <p class="kicker">是役竟日血战,<b>西魏几失其帅、东魏实折其将</b>,各有斩获、死伤枕籍。西魏终不能守洛阳、河南,引军西还;东魏虽拔金墉、复取河南,亦无力乘胜西进。故河桥一战<b>胜负难决</b>,河南自此反复易手,东西相持之局未因一战而移 —— 此所谓『两伤难决』者也。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=70+(经度−111.7)·500,y=585−(纬度−34.35)·560),几何关系力求近实:黄河横贯于北,河阳三城·浮桥(河桥)当其津,邙山绵亘于洛阳与河之间,金墉城在洛阳西北隅,谷城在洛阳之西,虎牢在东。长安·潼关·弘农在图外西(西魏所自出、败退所归),晋阳(高欢本)在图外北,邺(东魏都)在图外东北,皆以边缘箭标示之。疆界、水道经简化;点划『约界』为示意,非实有画界。据《周书·文帝纪》《北齐书·神武纪/高敖曹传》《资治通鉴》卷一五八绘出。</p>
+    <p><span class="n">注二</span>行军皆以步骑陆进,无舟师水运;然黄河为南北天堑,<b>河阳浮桥(河桥)乃东魏跨河调兵、屯守之枢</b>——东魏弃洛阳城而重兵集于河阳,增筑中潬、南城以控桥;西魏东出则由潼关—弘农—洛阳走廊而来。故本役之地理关键,不在粮道而在此一河一桥:桥在则河南可守可弃自如,桥南一门之闭,乃致高敖曹之死。</p>
+    <p><span class="n">注三</span>两方相角,别无第三国:西魏(青)宇文泰奉魏帝自长安东出救洛阳,东魏(赭)高欢自晋阳将七千骑至孟津,前锋侯景、高敖曹、娄昭等先围金墉。战场混乱,《资治通鉴》谓『流矢中泰马,马惊逸,泰坠地,东魏兵至,左右皆散』,赖李穆之诈得脱;王思政『下马,用长槊左右横击,一击辄踣数人』,被创闷绝而以敝衣得免。</p>
+    <p><span class="n">注四</span>纪年与胜负之辨:此役《周书》系于大统四年、《资治通鉴》系于梁大同四年(538,东魏元象元年),史家或称『河桥之战』或合称『河桥·邙山之战』。战果两说互见:西魏中军斩高敖曹等、俘万五千,而左右军败溃、误传泰死,卒焚营西还,金墉复为东魏所拔——故通计一役,实<b>各有胜负、难分优劣</b>,本图从『两伤难决』立论。高敖曹死所,《北齐书》记其走河阳南城、守将高永乐(欢从祖弟)不纳而遇害,今从之。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"洛阳争衡 · 河桥一日",d:"东魏元象元年·西魏大统四年(538)七 — 八月",p:["大统三年(537)沙苑之役,宇文泰以寡破高欢十余万众,乘胜东进,独孤信收复洛阳、据金墉城,西魏略地河南、东逼虎牢。东魏高欢遣侯景、高敖曹、娄昭等率军反攻,渡河围逼金墉、洛阳,高欢自晋阳将兵继之至孟津。宇文泰奉魏帝东巡,闻警,率军东救。","两军大战于洛阳之北、黄河浮桥(河桥)与邙山之间。战场混乱,尘雾蔽日,各部不相知:宇文泰坠马几为敌获,赖李穆诈救得脱;东魏名将高敖曹败死于桥下;西魏王思政力战被创。竟日血战,各有胜负,死伤枕籍,胜负难分。西魏终不能守洛阳、河南,引军西还;东魏亦未能乘胜西进,河南自此反复易手。"]},
+  "1":{t:"西魏乘胜取洛阳·据金墉",d:"大统三年冬 — 四年春",p:["大统三年十月,宇文泰以不满万之众,于沙苑(渭曲)大破高欢步骑二十万,俘斩甚众,东西魏强弱之势为之一变。西魏乘胜东出关中,略地河南。","西魏大都督独孤信收复洛阳,据金墉城(汉魏洛阳故城西北隅之坚垒);西魏兵锋东逼虎牢、成皋,河南诸州多归西魏。魏帝(西魏文帝元宝炬)东巡洛阳、谒魏诸陵——西魏一时据有河洛,直抵东魏肘腋。"]},
+  "2":{t:"高欢遣侯景高敖曹反攻",d:"元象元年七月",p:["东魏不甘失河南。高欢遣行台侯景、司徒高敖曹、大都督娄昭等率大军反攻,渡河围逼金墉、洛阳。东魏素弃洛阳空城而重兵屯河阳,增筑中潬、南城以控浮桥,故进退裕如。独孤信婴城固守金墉,告急于宇文泰。","宇文泰奉魏帝率军东救。军至谷城(洛阳西谷水上),大破东魏前锋莫多娄贷文,斩之,可朱浑元遁走;遂进军瀍东,逼近河桥。高欢亦自晋阳将七千骑南下至孟津,大战在即。"]},
+  "3":{t:"河桥邙山尘雾混战·泰坠马",d:"元象元年八月",p:["侯景知泰军已至,夜解洛阳之围,退保邙山之北、河桥之南。次日,宇文泰以轻骑追及河桥,两军大战。战场地狭军众,尘雾蔽日,各部不相知,竟日纷乱。","宇文泰坐骑中流矢惊逸,泰坠马于阵,左右皆散,东魏兵追及,几为所获。都督李穆下马,以马策抶泰而佯骂曰『汝个健儿,尔曹主何在,独留此处!』追兵以为非贵人,舍之而去;李穆以己马授泰,泰复上马收兵。西魏大将王思政下马步战,手长槊左右横击,一击踣数人,深陷重围,从骑尽死,身被重创闷绝——以所着敝衣故不见识,部将救出得免。"]},
+  "4":{t:"敖曹败死桥下·两伤难决·西魏西还",d:"元象元年八月",p:["混战之中,西魏中军奋击,大破当面东魏军,斩其名将高敖曹及李猛、宋显,俘万五千,溺死黄河者甚众。高敖曹向来骄贵,恃勇轻进,兵败单骑走河阳南城;城中守将高永乐素与之有隙,闭门不纳。敖曹呼绳不得,拔刀斫门未彻,追兵已至,遂匿桥下被斩。高欢闻之如丧肝胆,杖高永乐二百。","然西魏右军独孤信、赵贵,左军李远、于谨等皆战不利;又误传宇文泰已死,诸军夺气,遂溃;李虎、念贤等后军未及战亦随之退。宇文泰不能独支,焚营夜遁,与李穆俱走弘农,相对而泣,顾谓诸将『能成吾事者,此人也』。高欢济河,拔金墉城,河南复入东魏。是役竟日血战,西魏几失其帅、东魏实折其将,各有胜负而难分优劣,河南自此反复易手,东西相持之局如故。"]}
+};
+const CITY={
+  heyang:{t:"河阳南城 · 河桥",d:"黄河南岸,今河南孟津/孟州间(约112.5E,34.9N)",p:["河阳三城(北中城·中潬城·南城)夹黄河浮桥而立,为东魏跨河控扼河南之枢。东魏弃洛阳空城而重兵屯此。高敖曹兵败单骑走河阳南城,守将高永乐闭门不纳,匿桥下被斩——河桥遂为一役之决处、亦名将殒命之所。"]},
+  jinyong:{t:"金墉城",d:"洛阳西北隅坚垒,今河南洛阳汉魏故城(约112.43E,34.75N)",p:["汉魏洛阳城西北角之小城,险固可守。沙苑后西魏独孤信收复洛阳、据此城;元象元年东魏侯景、高敖曹反攻围之,独孤信婴城固守、告急于泰。河桥战后西魏西还,高欢济河拔之,西魏遂失河洛据点。"]},
+  luoyang:{t:"洛阳",d:"汉魏洛阳故城,今河南洛阳东(约112.44E,34.73N)",p:["东魏视洛阳为四战之空城,弃而不守,重兵屯河阳。西魏沙苑后一度据洛阳、金墉,进逼虎牢。河桥之战即因东魏反攻围洛、宇文泰东救而起;战后城复归东魏,河南反复易手。"]},
+  gucheng:{t:"谷城(谷水)",d:"洛阳之西谷水上,今河南洛阳西(约112.25E,34.75N)",p:["宇文泰东救,军至谷城,大破东魏前锋莫多娄贷文,斩之,可朱浑元遁走。西魏由此进军瀍东,逼近河桥,遂有河桥之大战。"]},
+  chandong:{t:"瀍东",d:"洛阳城东瀍水一带(约112.53E,34.75N)",p:["瀍水出邙山南流入洛。宇文泰破谷城之敌后进军瀍东,逼河桥;侯景则夜解洛阳围,退保邙山北·河桥南,两军决于其间。"]},
+  hulao:{t:"虎牢(成皋)",d:"今河南荥阳汜水,洛阳东户(约113.05E,34.87N)",p:["洛阳东面险要、控扼河南通邺之孔道。西魏乘胜略地河南时东逼虎牢;河桥战后河南复入东魏,此线亦随之易手。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
