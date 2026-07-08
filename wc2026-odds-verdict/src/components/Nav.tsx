@@ -6,6 +6,7 @@ const LINKS: { id: string; label: string }[] = [
   { id: "methodology", label: "Methodology" },
   { id: "results", label: "Results" },
   { id: "calibration", label: "Calibration" },
+  { id: "strategies", label: "Strategies" },
   { id: "ledger", label: "Match Ledger" },
 ];
 
