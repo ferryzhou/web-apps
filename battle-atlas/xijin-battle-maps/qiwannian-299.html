@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>齐万年之乱 · 西晋元康六至九年(296–299)·关中氐羌·周处殉难</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--qin:#5c4a6e;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}.sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.thin{stroke-width:2.2;stroke-dasharray:8 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:7 5}
+  .migr{fill:none;stroke:var(--faint);stroke-width:2;stroke-dasharray:2 6;opacity:.75;stroke-linecap:round}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .campf{fill:var(--qin);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .ring{fill:none;stroke:var(--gold);stroke-width:2.4}
+  .glabel{fill:var(--gold);font-size:12px;font-weight:700}
+  .cutx{stroke:var(--enemy);stroke-width:2.4;stroke-linecap:round}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--qin)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--qin)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:1100;stroke-dashoffset:1100;animation:draw 1.8s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回西晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>关</span><span>陇</span><span>氐</span><span>乱</span></div>
+  <header>
+    <h1>齐万年之乱</h1>
+    <div class="sub">西晋元康六—九年(296–299)　<b>齐万年</b>氐羌据关陇 · <i>周处</i>孤军力战殉六陌 · <em>梁王司马肜</em>挟私不援　·　主帅掣肘 · 陷孤军 · 关中糜烂</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 主帅挟私·孤军殉难</button>
+    <button data-p="1">① 氐羌起兵 · 推齐万年为帝(296)</button>
+    <button data-p="2">② 梁王肜都督关中 · 周处受制</button>
+    <button data-p="3">③ 周处孤军深入 · 力战殉六陌(297)</button>
+    <button data-p="4">④ 孟观大破中亭 · 乱平(299) · 流民入蜀</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="齐万年之乱形势图,含晋据关中东部(长安)与氐羌据关陇西部(略阳·陈仓·汉中)之约界、陇山秦岭诸山、渭水泾水;青为晋讨伐军(周处孤军深入六陌、孟观进讨中亭),朱为齐万年氐羌义军据关陇,紫为梁王司马肜拥兵长安而不发援(其援兵箭上打红叉),褐虚线为周处部矢尽力战覆殁、灰虚线为乱后巴氐流民南下入蜀之伏;金环示周处殉难之六陌与孟观擒斩齐万年之中亭">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- 约界:氐羌义军据关陇西部山地(略阳·陈仓·梁州汉中,朱),晋守关中东部(长安为讨伐军基地,青) -->
+    <path d="M 0,0 L 470,0 C 500,120 470,240 520,360 C 555,460 520,560 560,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 470,0 L 1000,0 L 1000,640 L 560,640 C 520,560 555,460 520,360 C 470,240 500,120 470,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 470,0 C 500,120 470,240 520,360 C 555,460 520,560 560,640"/>
+    <text class="realm q" x="58" y="150" font-size="26">氐 羌(关陇)</text>
+    <text class="cname s" x="62" y="172" style="fill:var(--enemy);opacity:.6">齐万年据雍·梁 · 众号数十万</text>
+    <text class="realm j" x="748" y="500" font-size="27">晋 · 雍州</text>
+    <text class="cname s" x="720" y="522" style="fill:var(--advance);opacity:.6">长安为征西军基 · 梁王肜都督</text>
+
+    <!-- ══ 山脉:陇山(西·氐族本土)、秦岭(南·隔关中与汉中) ══ -->
+    <path class="mtn fill" d="M 120,196 L 136,162 L 150,184 L 168,150 L 186,180 L 204,156 L 222,186 L 210,300 L 196,340 L 158,330 L 142,300 Z"/>
+    <path class="mtn" d="M 134,182 l 14,-20 l 12,15 l 16,-24 l 13,18 l 15,-22"/>
+    <text class="mname" x="120" y="272" transform="rotate(80 120 272)">陇 山</text>
+    <path class="mtn fill" d="M 300,432 L 320,400 L 336,422 L 358,388 L 380,420 L 402,394 L 424,424 L 448,392 L 470,422 L 494,394 L 516,424 L 540,396 L 562,426 L 540,472 L 320,472 Z"/>
+    <path class="mtn" d="M 322,420 l 16,-22 l 13,15 l 18,-26 l 15,20 l 16,-24 l 15,20 l 17,-24 l 15,20 l 16,-22 l 15,20"/>
+    <text class="mname" x="392" y="458" style="letter-spacing:.4em">秦　岭</text>
+
+    <!-- ══ 水系:渭水横贯关中(西→东,南注长安),泾水自西北下注 ══ -->
+    <path class="river" stroke-width="3.2" d="M 356,286 C 480,300 580,308 680,306 C 800,304 892,282 966,262"/>
+    <path class="river" stroke-width="2.6" d="M 540,98 C 588,150 640,202 690,262"/>
+    <text class="rname" x="560" y="322" style="font-size:12px">渭　水</text>
+    <text class="rname" x="606" y="196" transform="rotate(48 606 196)" style="font-size:11px">泾 水</text>
+
+    <!-- ══ 潼关:关中东门(图外·东) ══ -->
+    <g transform="translate(946,204)">
+      <path class="march j thin" marker-end="url(#aj)" d="M 40,0 L 8,0" style="stroke:var(--ink2);opacity:.6"/>
+      <text class="mlabel" x="-2" y="-8" style="font-size:10px;fill:var(--ink2)">潼关·关中东门 ⟶</text>
+      <text class="cname s" x="-2" y="16" style="fill:var(--ink2);font-size:9.5px">(图外东·通洛阳)</text>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="changan"><circle cx="705" cy="273" r="6.5"/><text class="cname" x="715" y="270">长安<tspan class="cname s" dx="2">(雍州治·晋军基)</tspan></text></g>
+      <g class="city" data-city="liuma"><circle cx="696" cy="227" r="6"/><text class="cname" x="706" y="222">六陌<tspan class="cname s" dx="2">(泾阳·周处殉)</tspan></text></g>
+      <g class="city" data-city="zhongting"><circle cx="551" cy="110" r="6"/><text class="cname" x="561" y="106">中亭<tspan class="cname s" dx="2">(新平·擒齐万年)</tspan></text></g>
+      <g class="city" data-city="chencang"><circle cx="416" cy="262" r="5.5"/><text class="cname" x="426" y="258">陈仓<tspan class="cname s" dx="2">(西线)</tspan></text></g>
+      <g class="city" data-city="lueyang"><circle cx="175" cy="297" r="5.5"/><text class="cname" x="185" y="293">略阳<tspan class="cname s" dx="2">(氐本土)</tspan></text></g>
+      <g class="city" data-city="hanzhong"><circle cx="339" cy="560" r="5.5"/><text class="cname" x="349" y="556">汉中<tspan class="cname s" dx="2">(梁州·南翼)</tspan></text></g>
+    </g>
+
+    <!-- ══ 全图 · 主帅挟私·孤军殉难 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 200,290 C 320,272 430,266 560,268 C 610,269 650,270 686,264"/>
+      <text class="mlabel q" x="250" y="256">氐羌起兵,据关中西部山地</text>
+      <path class="march j" marker-end="url(#aj)" d="M 703,266 C 700,254 699,242 697,234"/>
+      <circle class="ring" cx="696" cy="227" r="12"/>
+      <text class="glabel" x="712" y="204">周处力战殉·殁</text>
+      <path class="march qin" marker-end="url(#af)" d="M 716,278 C 732,256 730,238 714,230"/>
+      <g class="cutx" transform="translate(730,254)"><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="mlabel f" x="738" y="262" style="font-size:10.5px">梁王肜拥兵不援 ✕</text>
+      <path class="march j" marker-end="url(#aj)" d="M 700,266 C 648,208 598,158 560,120"/>
+      <circle class="ring" cx="551" cy="110" r="12"/>
+      <text class="glabel" x="470" y="92">孟观擒斩齐万年·终</text>
+      <path class="migr" d="M 178,312 C 224,404 286,486 322,548 C 342,590 332,616 342,636"/>
+      <text class="mlabel r" x="196" y="470" style="fill:var(--faint)">巴氐流民南下入蜀 →</text>
+    </g>
+
+    <!-- ══ ① 氐羌起兵 · 推齐万年为帝(296) ══ -->
+    <g id="ph1" class="ph">
+      <rect class="camp" x="171" y="293" width="9" height="9" transform="rotate(45 175.5 297.5)"/>
+      <rect class="camp" x="412" y="258" width="9" height="9" transform="rotate(45 416.5 262.5)"/>
+      <text class="mlabel q" x="230" y="228">元康六年,关中氐羌起兵,推氐帅齐万年为帝</text>
+      <path class="march q" marker-end="url(#aq)" d="M 190,290 C 300,274 400,268 520,270 C 580,271 640,270 686,266"/>
+      <text class="anno" x="300" y="286">众号数十万,东逼长安,据雍州</text>
+      <path class="march q" marker-end="url(#aq)" d="M 196,318 C 240,404 296,486 332,545"/>
+      <text class="mlabel q" x="206" y="430" transform="rotate(60 206 430)">南据梁州(汉中北)</text>
+      <text class="anno" x="726" y="300" style="fill:var(--enemy)">长安晋守,四境震动</text>
+    </g>
+
+    <!-- ══ ② 梁王肜都督关中 · 周处受制 ══ -->
+    <g id="ph2" class="ph">
+      <rect class="campf" x="716" y="272" width="12" height="12" transform="rotate(45 722 278)"/>
+      <text class="mlabel f" x="640" y="330">梁王司马肜:征西大将军·都督关中</text>
+      <text class="anno" x="662" y="346" style="fill:var(--qin)">拥重兵,驻长安</text>
+      <path class="march j thin" marker-end="url(#aj)" d="M 690,290 C 700,285 710,282 718,280"/>
+      <text class="mlabel j" x="560" y="392">名将周处(建威将军)隶其麾下</text>
+      <text class="anno" x="560" y="408">周处以刚直忤权贵,素与肜有隙</text>
+      <text class="anno" x="560" y="424">遂见排挤,逼以孤军当齐万年主力</text>
+      <rect class="camp" x="546" y="200" width="9" height="9" transform="rotate(45 550.5 204.5)"/>
+      <text class="mlabel q" x="470" y="176">齐万年主力屯梁山·六陌之间</text>
+    </g>
+
+    <!-- ══ ③ 周处孤军深入 · 力战殉六陌(297) ══ -->
+    <g id="ph3" class="ph">
+      <rect class="camp" x="672" y="206" width="9" height="9" transform="rotate(45 676.5 210.5)"/>
+      <rect class="camp" x="712" y="214" width="9" height="9" transform="rotate(45 716.5 218.5)"/>
+      <text class="mlabel q" x="600" y="188">齐万年屯七万于梁山·六陌</text>
+      <path class="march j" marker-end="url(#aj)" d="M 703,266 C 700,253 699,242 697,234"/>
+      <text class="mlabel j" x="486" y="252">周处以五千孤军深入六陌</text>
+      <path class="march qin" marker-end="url(#af)" d="M 718,280 C 736,258 732,238 715,230"/>
+      <g class="cutx" transform="translate(734,255)"><line x1="-6.5" y1="-6.5" x2="6.5" y2="6.5"/><line x1="-6.5" y1="6.5" x2="6.5" y2="-6.5"/></g>
+      <text class="mlabel f" x="742" y="248" style="font-size:11px">梁王肜按甲不发援 ✕</text>
+      <text class="anno" x="726" y="300" style="fill:var(--qin)">卢播·解系亦不救</text>
+      <circle class="ring" cx="696" cy="227" r="13"/>
+      <text class="glabel" x="640" y="150">殁</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 690,234 C 668,250 650,262 636,276"/>
+      <text class="mlabel r" x="470" y="292">力战一日一夜·斩获甚众</text>
+      <text class="anno" x="470" y="308">矢尽弦绝,拒降,力战而死(297)</text>
+    </g>
+
+    <!-- ══ ④ 孟观大破中亭 · 乱平(299) · 流民入蜀 ══ -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 700,266 C 648,206 598,156 560,120"/>
+      <text class="mlabel j" x="600" y="212">孟观率宿卫劲卒进讨</text>
+      <circle class="ring" cx="551" cy="110" r="13"/>
+      <text class="glabel" x="470" y="92">终·擒斩齐万年</text>
+      <text class="anno" x="470" y="132">元康九年,大破氐羌于中亭,乱平</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 544,116 C 500,150 460,200 430,250"/>
+      <text class="mlabel r" x="386" y="212">氐羌溃散</text>
+      <path class="migr" d="M 178,312 C 224,404 286,486 322,548 C 342,590 332,616 342,636"/>
+      <text class="mlabel r" x="192" y="452" transform="rotate(62 192 452)" style="fill:var(--faint)">巴氐流民数万入蜀求食</text>
+      <text class="anno" x="236" y="560" style="fill:var(--faint)">关中残破·连年大饥 → 成汉之种伏焉</text>
+    </g>
+
+    <g class="compass" transform="translate(120,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>晋讨伐军(周处·孟观)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>齐万年氐羌义军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="7 5"/></svg>梁王肜援兵(不发·打✕)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>周处部覆殁</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#8a7c5e" stroke-width="2" stroke-dasharray="2 6"/></svg>流民入蜀(成汉之伏)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2.4"/></svg>殉难·擒斩</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#9a2b1e" transform="rotate(45 7.5 7.5)"/></svg>氐羌屯</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#5c4a6e" transform="rotate(45 7.5 7.5)"/></svg>梁王肜驻塞</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>氐羌(关陇)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>晋(关中东)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 主帅挟私·陷孤军·关中糜烂</h3>
+    <div class="lead">何以周处以五千力战而覆 —— 非战之罪,实主帅挟私·按兵不援之败</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="逻辑示意:齐万年据关陇,周处五千孤军深入,梁王肜挟私不发援(红叉),遂矢尽力战殉于六陌;乱终平于孟观之中亭,然关中残破·流民入蜀,成汉之种伏焉">
+      <rect x="24" y="60" width="118" height="34" rx="3" fill="none" stroke="#9a2b1e" stroke-width="1.6"/>
+      <text x="34" y="82" fill="#9a2b1e" font-size="12" font-weight="700">齐万年据关陇</text>
+      <path d="M 144,77 L 186,77" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <rect x="188" y="60" width="132" height="34" rx="3" fill="none" stroke="#1f4e54" stroke-width="1.6"/>
+      <text x="198" y="82" fill="#1f4e54" font-size="12" font-weight="700">周处五千孤军深入</text>
+      <path d="M 322,77 L 364,77" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <rect x="366" y="58" width="150" height="38" rx="3" fill="none" stroke="#5c4a6e" stroke-width="1.8" stroke-dasharray="6 4"/>
+      <text x="376" y="74" fill="#5c4a6e" font-size="11.5" font-weight="700">梁王肜挟私</text>
+      <text x="376" y="90" fill="#5c4a6e" font-size="11.5" font-weight="700">按兵·不发援</text>
+      <g stroke="#9a2b1e" stroke-width="2.6" stroke-linecap="round"><line x1="486" y1="64" x2="508" y2="90"/><line x1="486" y1="90" x2="508" y2="64"/></g>
+      <path d="M 441,98 L 441,132" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <circle cx="441" cy="160" r="17" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="426" y="165" fill="#9c7a2c" font-size="12" font-weight="700">殁</text>
+      <text x="330" y="200" fill="#9a2b1e" font-size="11.5" font-weight="700">矢尽力战·殉于六陌(297)</text>
+      <path d="M 518,160 L 566,160" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <rect x="568" y="142" width="120" height="36" rx="3" fill="none" stroke="#1f4e54" stroke-width="1.6"/>
+      <text x="578" y="158" fill="#1f4e54" font-size="11.5" font-weight="700">乱终平于孟观</text>
+      <text x="578" y="172" fill="#1f4e54" font-size="10.5">中亭·擒斩(299)</text>
+      <path d="M 628,140 L 628,112" fill="none" stroke="#7a5a23" stroke-width="1.6" marker-end="url(#ar)" opacity=".7"/>
+      <rect x="560" y="60" width="272" height="44" rx="3" fill="none" stroke="#7a5a23" stroke-width="1.4" stroke-dasharray="3 4"/>
+      <text x="572" y="80" fill="#7a5a23" font-size="11.5" font-weight="700">关中残破·连年大饥</text>
+      <text x="572" y="96" fill="#9a2b1e" font-size="11.5" font-weight="700">巴氐流民入蜀 → 成汉之种伏焉</text>
+    </svg>
+    <p class="intro">齐万年之乱,决胜之枢不在众寡,而在<b>『援兵之有无』一端</b>。周处以五千之众深入六陌,当齐万年屯梁山之七万——此本必待后援乃可支之势;然身为主帅之梁王司马肜,挟宿怨而按甲不发,与周处偕行之卢播、解系亦不救。孤军无援,虽力战一日一夜、斩获甚众,终以矢尽弦绝而覆。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>忠勇 · 周处深入死战</h4>
+        <p>周处明知孤军无援必败,犹受逼进击;临战赋诗,率众奋战,斩敌数以万计。及矢尽弦绝,左右劝退,处按剑曰此吾效节致死之日,遂力战而死。其死,尽臣节而非战之败——败在无援,不在不战。</p>
+      </div>
+      <div class="c b">
+        <h4>挟私 · 梁王肜按兵不救</h4>
+        <p>司马肜为征西大将军、都督关中,拥重兵于长安,而与周处夙有嫌隙;既逼处以五千当敌主力,复坐拥大军不发一援。挟私废公、以私忿陷忠良于死地,遂使关中之师顿挫,乱延三年,至孟观乃平。</p>
+      </div>
+    </div>
+    <p class="kicker">故六陌之殁,非周处之罪,实<b>主帅挟私之败</b>;而其贻患尤远——乱后关中残破、连岁大饥,巴氐流民数万南下就食入蜀,李特、李雄兄弟因之而起。<b>关中一乱·流民入蜀·成汉之种已伏</b>,西晋分崩之兆,盖萌于此。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(轻墨卡托)投影:x=175+(经度−106.15)×193,y=560−(纬度−33.07)×233(负号使北向上),取KX≈KY×cos34°以近真实纵横比。几何关系力求近实:略阳在西(氐族本土),陈仓次之,长安·六陌在东(相近,六陌居长安北),中亭在西北,汉中远在南(梁州),潼关远在东(图外,以边缘箭头示关中东门)。点划『约界』依晋守关中东部、氐羌据关陇西部山地之势一线晕染,非实有画界;氐羌之乱实弥漫雍梁,此界仅示大致控扼之分。陇山·秦岭、渭水·泾水皆略绘。依《晋书·周处传》《晋书·惠帝纪》《资治通鉴》卷八十二、八十三约略绘出。</p>
+    <p><span class="n">注二</span>今地考:长安(约108.9°E,34.3°N)西晋雍州治、征西军基地;六陌在泾阳一带(约108.85°E,34.5°N,长安之北),为周处力战殉难之地;中亭(约108.1°E,35.0°N,新平郡境,长安西北),孟观擒斩齐万年之地;陈仓(今宝鸡,约107.4°E,34.35°N)西线;略阳(约106.15°E,34.2°N)氐族本土、乱后流民南下之源;汉中(约107.0°E,33.07°N)梁州,氐羌南翼;潼关(约110.4°E,34.6°N)关中东门,远在图东,故作图外东缘处理。诸地经纬为今地约值,以定相对方位,非精测。</p>
+    <p><span class="n">注三</span>决胜之枢在『主帅挟私·孤军无援』(图中金环为殉难与擒斩,紫为梁王肜之援兵而打红✕以示不发,褐虚线为周处部覆殁):元康六年(296)关中氐羌起兵,推氐帅齐万年为帝,众号数十万,据雍、梁二州。晋以梁王司马肜为征西大将军都督关中;建威将军周处以刚直忤权贵、素与肜有隙,受排挤,被逼以五千孤军进逼齐万年主力。元康七年正月(297年初),齐万年屯七万于梁山,肜与夏侯骏逼周处进击六陌而不为后援,与处偕行之振威将军卢播、雍州刺史解系亦不救;周处力战一日一夜,斩获甚众,矢尽弦绝,拒降战死。<b>『关中大饥、粮运艰难』乃此役之背景而非决定者</b>——决之者实主帅挟私不援之有无,故本图不另绘粮道,并此厘清。</p>
+    <p><span class="n">注四</span>兵数与史事互异,并存以俟考:(一)周处兵《晋书》作五千;齐万年之众,总数『号数十万』乃夸饰之辞,六陌之役《资治通鉴》则载齐万年屯七万于梁山,二数所指不同(一为全乱声势,一为当面之敌),不宜混同。(二)六陌又或作『六阵』,地望在泾阳一带,今址难确指;梁山亦在其近。(三)中亭之地望,史载在新平郡境(今彬州·永寿一带),确址诸说小异,图取其西北之位。(四)周处死年,史系于元康七年(297)正月,今从之。(五)乱平在元康九年(299)正月,孟观(《晋书》孟观传)率宿卫劲卒大破齐万年于中亭,擒斩之。(六)『流民入蜀、成汉之伏』乃后见之因:乱后关中残破、连年大饥,巴氐流民数万南下就食入蜀,遂伏李特、李雄成汉立国之种;图中灰虚线示其向,系推演之势,非当时进军,并此志之。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"主帅挟私 · 孤军殉难",d:"西晋元康六至九年(296–299)",p:["元康六年(296),关中氐羌起兵,推氐帅齐万年为帝,众号数十万,据雍、梁二州,东逼长安。晋以梁王司马肜为征西大将军、都督关中,名将周处(建威将军)隶其麾下。","周处以刚直忤权贵、素与肜有隙,受排挤,被逼以五千孤军进逼齐万年主力于六陌。肜挟私按甲不发援,卢播、解系亦不救;周处力战殉难(297)。后晋以孟观率宿卫劲卒,元康九年(299)大破齐万年于中亭,擒斩之,乱平——然关中残破、大饥,巴氐流民南下入蜀,成汉之种由是伏焉。"]},
+  "1":{t:"氐羌起兵 · 推齐万年为帝",d:"元康六年(296)",p:["西晋惠帝之世,政乱赋重,关中氐羌不堪征役,遂相聚起兵,推氐帅齐万年为帝。众号数十万,东据雍州、逼近长安,南连梁州(汉中之北),关陇为之骚动。","此乱声势甚盛,晋之关中守备一时震动。齐万年据略阳(氐族本土)以西之山地为根本,分兵四出,晋廷不得不遣重臣宿将西讨。"]},
+  "2":{t:"梁王肜都督关中 · 周处受制",d:"元康六至七年(296–297)",p:["晋以梁王司马肜为征西大将军、都督关中诸军事,拥重兵驻长安以御齐万年。名将周处素以刚直著称,尝忤权贵,又与司马肜夙有嫌隙。","周处以建威将军隶肜麾下,遂为所排挤。肜逼周处以五千之众,深入进逼齐万年屯于梁山、六陌之间的主力——处知其无援必败,而不得不行。掣肘之祸,伏于未战之前。"]},
+  "3":{t:"周处孤军深入 · 力战殉六陌",d:"元康七年正月(297年初)",p:["齐万年屯七万于梁山,当六陌之冲。周处受逼,以五千孤军进击;士卒未及食而被驱上阵,司马肜坐拥大军按甲不发一援,偕行之卢播、解系亦不来救。","周处临战赋诗,率众奋战,斩获数以万计,自旦及暮,矢尽弦绝。左右劝退,处按剑曰:此吾效节致死之日也!遂力战而死。孤军无援而覆——非战之罪,实主帅挟私之败。"]},
+  "4":{t:"孟观大破中亭 · 乱平 · 流民入蜀",d:"元康八至九年(298–299)",p:["周处死后,乱势未息。晋乃以孟观为将,率宿卫劲卒西讨,身当矢石、屡战屡捷。元康九年(299)正月,孟观大破齐万年于中亭,擒斩之,关陇之乱始平。","然乱后关中残破、连年大饥,巴氐流民数万相率南下就食,入于梁益。李特、李雄兄弟因之而起——数年后成汉立国,其种实伏于此。关中一乱,遂为西晋分崩之先声。"]}
+};
+const CITY={
+  changan:{t:"长安(雍州治)",d:"今西安(约108.9E,34.3N)",p:["西晋雍州治所,征西大将军梁王司马肜都督关中所驻,晋讨伐氐羌之基地。肜拥重兵于此而不发援周处,坐视孤军之覆。"]},
+  liuma:{t:"六陌(泾阳)",d:"长安之北,泾阳一带(约108.85E,34.5N);一作『六阵』",p:["周处力战殉难之地。齐万年屯七万于梁山当其冲;周处以五千孤军进击,力战一日一夜,矢尽弦绝,拒降而死(297)。地望在泾阳近处,今址难确指。"]},
+  zhongting:{t:"中亭(新平)",d:"长安西北,新平郡境(约108.1E,35.0N)",p:["孟观擒斩齐万年之地。元康九年(299)正月,孟观率宿卫劲卒大破氐羌于此,擒斩齐万年,关陇之乱遂平。确址诸说小异。"]},
+  chencang:{t:"陈仓",d:"今宝鸡(约107.4E,34.35N)",p:["关中西线要地,当陇山东出之口。齐万年之乱弥漫雍州西部,陈仓一带为氐羌与晋军往来争夺之冲。"]},
+  lueyang:{t:"略阳",d:"氐族本土(约106.15E,34.2N)",p:["关陇氐族聚居之本土,齐万年起兵之根本所在。乱后关中大饥,巴氐流民即多自此以西南下,入蜀就食,遂伏成汉之种(李特·李雄)。"]},
+  hanzhong:{t:"汉中(梁州)",d:"今汉中(约107.0E,33.07N)",p:["梁州治所,秦岭之南。齐万年之乱南连梁州,为氐羌之南翼;亦为日后巴氐流民南下入蜀之通道所经。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
