@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>柏乡之战 · 乾化元年(911)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.thin{stroke-width:2.2}
+  .march.decoy{stroke:var(--advance);stroke-width:2.4;stroke-dasharray:8 6;opacity:.92}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .plea{fill:none;stroke:var(--advance);stroke-width:1.6;stroke-dasharray:2 5;opacity:.7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .tcamp{fill:var(--advance);opacity:.9}
+  /* 梁军精甲方阵:短粗甲列,示重甲步兵结阵 */
+  .array rect{fill:var(--enemy);opacity:.85;stroke:var(--paper);stroke-width:.5}
+  .array.broken rect{opacity:.34}
+  .rampart{fill:none;stroke:var(--enemy);stroke-width:2;opacity:.7;stroke-linecap:round}
+  .burst{stroke:var(--advance);stroke-width:1.7;opacity:.9;stroke-linecap:round;fill:none}
+  /* 日晡·人马饥乏:低日之记 */
+  .sun circle{fill:none;stroke:var(--gold);stroke-width:1.6}
+  .sun line{stroke:var(--gold);stroke-width:1.4;stroke-linecap:round}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .host{opacity:.92}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.decoy){stroke-dasharray:1100;stroke-dashoffset:1100;animation:draw 1.8s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>柏</span><span>乡</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>柏乡之战</h1>
+    <div class="sub">后梁开平四年—乾化元年(910—911)　<i>晋 周德威</i> · 赵 大破 <b>后梁 王景仁 号八万精甲</b>　·　诱敌离垒 · 待疲纵骑</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 诱疲破梁</button>
+    <button data-p="1">① 梁精甲北攻图赵 · 赵求救于晋</button>
+    <button data-p="2">② 晋梁对峙柏乡 · 夹野河</button>
+    <button data-p="3">③ 周德威诱梁离垒 · 就野待其饥疲</button>
+    <button data-p="4">④ 午后纵骑冲突 · 大破梁精甲</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="柏乡之战形势图,含晋赵(河北)与后梁约界、滹沱河野河诸水、太行山,及镇州定州高邑柏乡邢州魏州等地;青为晋军(周德威)与赵军,朱为后梁王景仁八万精甲;示后梁精甲自汴梁经魏邢北攻图赵、赵王镕求救于晋、晋梁夹野河对峙柏乡、周德威以三百骑诱梁离垒就野待其终日饥疲、午后纵骑冲突大破梁精甲、龙骧神捷死伤殆尽而王景仁南遁之势">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 约界:晋·赵据河北(北,青),后梁据河南·邢魏(南,朱);梁自南北攻,前锋抵柏乡 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,388 C 760,360 600,346 500,352 C 380,360 200,352 0,340 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,340 C 200,352 380,360 500,352 C 600,346 760,360 1000,388 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,340 C 200,352 380,360 500,352 C 600,346 760,360 1000,388"/>
+    <text class="realm j" x="70" y="120" font-size="27">晋 · 赵(河北)</text>
+    <text class="cname s" x="74" y="142" style="fill:var(--advance);opacity:.6">晋王李存勖出河东,救成德王镕</text>
+    <text class="realm q" x="700" y="470" font-size="27">后 梁</text>
+    <text class="cname s" x="686" y="492" style="fill:var(--enemy);opacity:.6">王景仁将禁军精甲北上</text>
+
+    <!-- ══ 太行山:河北平原之西缘,晋出河东所越 ══ -->
+    <path class="mtn fill" d="M 120,150 L 138,116 L 152,142 L 170,104 L 186,140 L 202,110 L 216,150 L 210,220 L 202,300 L 196,372 L 180,420 L 150,430 L 132,370 L 126,290 L 122,214 Z"/>
+    <path class="mtn" d="M 140,180 l 12,-20 l 12,16 l 14,-22 l 12,18"/>
+    <path class="mtn" d="M 150,320 l 12,-20 l 12,16 l 14,-22 l 12,18"/>
+    <text class="mname" x="150" y="262" transform="rotate(-84 150 262)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 滹沱河:镇州所临,自西东流 -->
+    <path class="river" stroke-width="3" d="M 60,150 C 250,158 430,150 560,162 C 700,172 850,168 960,176"/>
+    <!-- 野河:柏乡之北、鄗邑之南,晋梁夹之而军(今滏阳河支流) -->
+    <path class="river" stroke-width="3.4" d="M 60,300 C 240,292 400,296 520,301 C 680,308 840,300 960,296"/>
+    <text class="rname" x="270" y="146" style="font-size:11px">滹沱河</text>
+    <text class="rname" x="300" y="288" style="font-size:13px;letter-spacing:.28em">野 河</text>
+    <text class="cname s" x="300" y="316" style="fill:var(--water);opacity:.8">晋梁夹此而军 · 今滏阳河支流</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="dingzhou"><circle cx="567" cy="93" r="4.5"/><text class="cname" x="577" y="90">定州<tspan class="cname s" dx="2">(义武·王处直)</tspan></text></g>
+      <g class="city cap" data-city="zhenzhou"><circle cx="470" cy="171" r="6.5"/><text class="cname" x="416" y="166">镇州<tspan class="cname s" dx="2">(赵·王镕)</tspan></text></g>
+      <g class="city" data-city="gaoyi"><circle cx="479" cy="282" r="5.5"/><text class="cname" x="384" y="278">高邑<tspan class="cname s" dx="2">(鄗邑)</tspan></text></g>
+      <g class="city" data-city="baixiang"><circle cx="502" cy="309" r="7"/><text class="cname" x="512" y="326">柏乡</text></g>
+      <g class="city" data-city="xingzhou"><circle cx="453" cy="395" r="5"/><text class="cname" x="398" y="410">邢州<tspan class="cname s" dx="2">(梁据)</tspan></text></g>
+      <g class="city" data-city="weizhou"><circle cx="612" cy="561" r="5"/><text class="cname" x="622" y="558">魏州<tspan class="cname s" dx="2">(魏博·大名)</tspan></text></g>
+    </g>
+
+    <!-- 太原(图外·西):晋王李存勖自河东南下 -->
+    <g transform="translate(6,236)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 34,0"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 太原 · 晋(河东)</text>
+      <text class="cname s" x="0" y="16" style="fill:var(--advance);font-size:9.5px">晋王李存勖自此南下救赵(图外)</text>
+    </g>
+    <!-- 汴梁(图外·南):后梁都,梁军自此北上,败亦南遁 -->
+    <g transform="translate(520,604)">
+      <text class="mlabel q" x="-4" y="-4" style="font-size:10px">汴梁 · 后梁都(图外) ↓</text>
+      <text class="cname s" x="-4" y="24" style="fill:var(--enemy);font-size:9.5px">梁军经魏、邢北上,败则南遁</text>
+    </g>
+
+    <!-- ══ 全图 · 诱疲破梁 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 590,566 C 520,486 470,420 494,320"/>
+      <text class="mlabel q" x="546" y="470">梁八万精甲经魏、邢北上,营于柏乡</text>
+      <path class="march j" marker-end="url(#aj)" d="M 42,240 C 200,238 360,262 468,278"/>
+      <text class="mlabel j" x="150" y="230">晋王李存勖将周德威南下救赵</text>
+      <path class="plea" d="M 462,168 C 360,196 220,224 60,246"/>
+      <text class="anno" x="250" y="196">王镕求救于晋</text>
+      <path class="march decoy" marker-end="url(#aj)" d="M 486,300 C 494,306 498,308 500,309 C 496,312 490,314 486,316"/>
+      <text class="anno" x="360" y="342">周德威诱梁离垒,就野待其饥疲</text>
+      <circle class="star" cx="493" cy="300" r="11"/>
+      <text class="mlabel j" x="360" y="266">午后纵骑冲突,大破梁精甲</text>
+      <!-- 号八万 vs 精骑 -->
+      <g class="host" transform="translate(720,120)">
+        <text class="mlabel q" x="0" y="-6" style="font-size:10.5px">众寡与利钝</text>
+        <g fill="var(--enemy)" opacity=".82"><circle cx="4" cy="8" r="2.4"/><circle cx="12" cy="8" r="2.4"/><circle cx="20" cy="8" r="2.4"/><circle cx="28" cy="8" r="2.4"/><circle cx="8" cy="16" r="2.4"/><circle cx="16" cy="16" r="2.4"/><circle cx="24" cy="16" r="2.4"/><circle cx="32" cy="16" r="2.4"/></g>
+        <text class="cname s" x="44" y="14" style="fill:var(--enemy)">后梁 号八万精甲(利守垒)</text>
+        <g fill="var(--advance)" opacity=".9"><circle cx="6" cy="32" r="2.4"/><circle cx="14" cy="32" r="2.4"/></g>
+        <text class="cname s" x="44" y="36" style="fill:var(--advance)">晋赵 骑兵为主(利旷野)</text>
+      </g>
+    </g>
+
+    <!-- ══ ① 梁精甲北攻图赵 · 赵求救于晋 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 560,590 C 500,520 460,450 452,406"/>
+      <path class="march q" marker-end="url(#aq)" d="M 452,384 C 470,356 486,332 496,318"/>
+      <text class="mlabel q" x="470" y="500">朱温遣王景仁、韩勍将龙骧神捷禁军</text>
+      <text class="anno" x="486" y="520">名为助赵,实图袭镇州</text>
+      <rect class="camp" x="497" y="304" width="10" height="10" transform="rotate(45 502 309)"/>
+      <text class="mlabel q" x="512" y="300">进营柏乡,前锋抵野河</text>
+      <path class="plea" d="M 462,168 C 360,196 220,224 60,246"/>
+      <text class="mlabel j" x="220" y="188">王镕惧,转求救于晋王</text>
+      <path class="march j" marker-end="url(#aj)" d="M 42,240 C 180,236 320,246 452,268"/>
+      <text class="mlabel j" x="120" y="262">李存勖亲率晋军自河东南下</text>
+      <text class="anno" x="360" y="150">义武王处直亦以兵会</text>
+    </g>
+
+    <!-- ══ ② 晋梁对峙柏乡 · 夹野河 ══ -->
+    <g id="ph2" class="ph">
+      <!-- 晋赵屯野河北岸(高邑) -->
+      <rect class="tcamp" x="474" y="256" width="10" height="10" transform="rotate(45 479 261)"/>
+      <text class="mlabel j" x="360" y="248">晋赵军屯野河之北,倚高邑</text>
+      <!-- 梁军结阵严整,营柏乡,精甲方阵 -->
+      <path class="rampart" d="M 480,318 C 480,342 524,342 524,318"/>
+      <g class="array">
+        <rect x="484" y="322" width="12" height="4"/><rect x="500" y="322" width="12" height="4"/>
+        <rect x="484" y="329" width="12" height="4"/><rect x="500" y="329" width="12" height="4"/>
+        <rect x="484" y="336" width="12" height="4"/><rect x="500" y="336" width="12" height="4"/>
+      </g>
+      <text class="mlabel q" x="530" y="330">梁军结阵严整,甲兵鲜盛,营柏乡</text>
+      <text class="anno" x="530" y="346">龙骧神捷,精甲坚垒</text>
+      <text class="mlabel j" x="150" y="470">周德威曰:梁兵利守垒,不利野战;</text>
+      <text class="mlabel j" x="150" y="486">吾骑利旷野驰突,不利攻坚</text>
+      <text class="anno" x="150" y="506">议退军鄗邑,诱敌离营,就野决之</text>
+      <text class="rname" x="300" y="288" style="font-size:13px;letter-spacing:.28em">野 河</text>
+    </g>
+
+    <!-- ══ ③ 周德威诱梁离垒 · 就野待其饥疲 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 三百骑挑战梁营 -->
+      <path class="march j thin" marker-end="url(#aj)" d="M 479,276 C 486,286 492,296 498,306"/>
+      <text class="mlabel j" x="360" y="238">周德威命三百骑薄梁营挑战</text>
+      <!-- 且战且退,诱梁离垒(佯退虚线) -->
+      <path class="march decoy" marker-end="url(#aj)" d="M 500,312 C 494,304 488,296 484,288 C 480,282 478,278 477,274"/>
+      <text class="anno" x="360" y="258">且战且退,四合,擒百余人</text>
+      <!-- 梁军倾营出战,进至鄗邑之南 -->
+      <path class="march q" marker-end="url(#aq)" d="M 500,318 C 498,312 496,308 494,304"/>
+      <g class="array">
+        <rect x="480" y="292" width="12" height="4"/><rect x="496" y="292" width="12" height="4"/>
+        <rect x="480" y="299" width="12" height="4"/><rect x="496" y="299" width="12" height="4"/>
+      </g>
+      <text class="mlabel q" x="512" y="300">王景仁悉众出战,进至鄗邑之南</text>
+      <!-- 就野·待饥疲 -->
+      <text class="anno" x="360" y="330">两阵旷野相持,梁军终日不得食</text>
+      <g class="sun" transform="translate(636,286)">
+        <circle r="9"/>
+        <line x1="0" y1="-15" x2="0" y2="-12"/><line x1="11" y1="-11" x2="9" y2="-9"/><line x1="15" y1="0" x2="12" y2="0"/><line x1="11" y1="11" x2="9" y2="9"/><line x1="-11" y1="11" x2="-9" y2="9"/><line x1="-15" y1="0" x2="-12" y2="0"/><line x1="-11" y1="-11" x2="-9" y2="-9"/>
+      </g>
+      <text class="mlabel q" x="600" y="316">日晡 · 人马饥乏,士气衰</text>
+    </g>
+
+    <!-- ══ ④ 午后纵骑冲突 · 大破梁精甲 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 梁军饥疲阵动,周德威、李嗣源自东西夹击纵骑 -->
+      <path class="march j" marker-end="url(#aj)" d="M 420,276 C 448,286 470,294 486,300"/>
+      <path class="march j" marker-end="url(#aj)" d="M 576,272 C 542,284 514,294 500,300"/>
+      <text class="mlabel j" x="356" y="256">德威、嗣源乘其饥疲,纵骑冲突</text>
+      <text class="anno" x="576" y="258">东西夹击,疾呼相应</text>
+      <g class="burst">
+        <path d="M 493,290 C 486,278 480,270 476,264"/>
+        <path d="M 501,292 C 512,282 522,276 532,272"/>
+        <path d="M 486,300 C 474,296 464,294 456,292"/>
+      </g>
+      <circle class="star" cx="493" cy="300" r="12"/>
+      <!-- 梁精甲溃散 -->
+      <g class="array broken">
+        <rect x="470" y="288" width="12" height="4" transform="rotate(18 476 290)"/><rect x="506" y="286" width="12" height="4" transform="rotate(-16 512 288)"/>
+        <rect x="478" y="312" width="12" height="4" transform="rotate(-22 484 314)"/><rect x="508" y="314" width="12" height="4" transform="rotate(24 514 316)"/>
+      </g>
+      <text class="mlabel r" x="356" y="330">梁阵大乱,龙骧神捷死伤殆尽</text>
+      <!-- 王景仁南遁 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 494,314 C 470,360 466,410 520,470 C 560,516 580,540 596,556"/>
+      <text class="mlabel r" x="360" y="430">王景仁、韩勍、李思安以数十骑连夜南遁</text>
+      <text class="anno" x="356" y="380">自野河至柏乡,僵尸蔽野,斩获数万</text>
+      <text class="mlabel j" x="150" y="530">梁失河北,退保魏博以南;晋势大振</text>
+    </g>
+
+    <g class="compass" transform="translate(112,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>晋军(周德威) · 赵军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后梁军(王景仁 · 号八万精甲)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="8 6"/></svg>晋军佯退诱敌</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>王景仁南遁</span>
+    <span class="item"><svg width="28" height="14"><rect x="2" y="3" width="10" height="3.4" fill="#9a2b1e"/><rect x="2" y="8" width="10" height="3.4" fill="#9a2b1e"/><rect x="15" y="3" width="10" height="3.4" fill="#9a2b1e"/><rect x="15" y="8" width="10" height="3.4" fill="#9a2b1e"/></svg>梁军精甲方阵</span>
+    <span class="item"><svg width="18" height="18"><circle cx="9" cy="9" r="6" fill="none" stroke="#9c7a2c" stroke-width="1.4"/><line x1="9" y1="1" x2="9" y2="3" stroke="#9c7a2c" stroke-width="1.2"/><line x1="9" y1="15" x2="9" y2="17" stroke="#9c7a2c" stroke-width="1.2"/><line x1="1" y1="9" x2="3" y2="9" stroke="#9c7a2c" stroke-width="1.2"/><line x1="15" y1="9" x2="17" y2="9" stroke="#9c7a2c" stroke-width="1.2"/></svg>日晡·人马饥乏</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>柏乡决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>晋·赵</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>后梁</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 诱敌离垒 · 待疲纵骑</h3>
+    <div class="lead">何以晋赵破八万精甲 —— 避其坚垒、诱之就野、待其饥疲、纵骑冲之</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:后梁八万精甲利守坚垒而怯野战,周德威避其垒、以三百骑诱之离营就野,两阵终日相持使梁人无所得食、日晡人马饥乏,乃纵晋骑东西夹击、断阵大破之">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 梁精甲 · 利守垒怯野战</text>
+      <text x="330" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 诱敌离垒 · 终日不食</text>
+      <text x="672" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 待疲纵骑 · 断阵大破</text>
+
+      <!-- ① 精甲坚垒 -->
+      <path d="M 40,150 C 40,118 190,118 190,150" fill="none" stroke="#9a2b1e" stroke-width="2.4" opacity=".7"/>
+      <g fill="#9a2b1e" opacity=".85">
+        <rect x="60" y="128" width="18" height="5"/><rect x="88" y="128" width="18" height="5"/><rect x="116" y="128" width="18" height="5"/><rect x="144" y="128" width="18" height="5"/>
+        <rect x="60" y="138" width="18" height="5"/><rect x="88" y="138" width="18" height="5"/><rect x="116" y="138" width="18" height="5"/><rect x="144" y="138" width="18" height="5"/>
+      </g>
+      <text x="46" y="112" fill="#9a2b1e" font-size="10.5" font-weight="700">龙骧神捷 · 精甲结阵</text>
+      <text x="40" y="176" fill="#5c4f38" font-size="10" font-style="italic">甲兵鲜盛,依垒则坚,</text>
+      <text x="40" y="192" fill="#5c4f38" font-size="10" font-style="italic">重步难以驰逐,出野则拙</text>
+
+      <!-- ② 诱敌离垒·饥疲 -->
+      <path d="M 322,150 C 360,150 420,150 470,150" fill="none" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="8 6" marker-end="url(#aj)"/>
+      <text x="322" y="140" fill="#1f4e54" font-size="10" font-weight="700">三百骑挑战,且战且退</text>
+      <g fill="#9a2b1e" opacity=".8"><rect x="486" y="140" width="16" height="4.6" transform="rotate(10 494 142)"/><rect x="486" y="152" width="16" height="4.6" transform="rotate(-8 494 154)"/></g>
+      <text x="360" y="176" fill="#5c4f38" font-size="10" font-style="italic">梁悉众出垒,进至鄗邑之南</text>
+      <g stroke="#9c7a2c" stroke-width="1.4" fill="none"><circle cx="600" cy="96" r="10"/><line x1="600" y1="80" x2="600" y2="83"/><line x1="614" y1="82" x2="612" y2="84"/><line x1="617" y1="96" x2="614" y2="96"/><line x1="614" y1="110" x2="612" y2="108"/><line x1="586" y1="82" x2="588" y2="84"/><line x1="583" y1="96" x2="586" y2="96"/></g>
+      <text x="560" y="132" fill="#9c7a2c" font-size="10" font-weight="700">日晡 · 无所得食</text>
+      <text x="560" y="148" fill="#9a2b1e" font-size="10" font-weight="700">人马饥乏,阵动</text>
+
+      <!-- ③ 纵骑断阵 -->
+      <g fill="#9a2b1e" opacity=".8"><circle cx="712" cy="86" r="4"/><circle cx="728" cy="82" r="4"/><circle cx="720" cy="96" r="4"/><circle cx="716" cy="176" r="4"/><circle cx="732" cy="180" r="4"/><circle cx="724" cy="166" r="4"/></g>
+      <path d="M 664,110 C 704,120 748,126 800,130" fill="none" stroke="#1f4e54" stroke-width="4" marker-end="url(#aj)"/>
+      <path d="M 664,158 C 704,150 748,142 800,136" fill="none" stroke="#1f4e54" stroke-width="4" marker-end="url(#aj)"/>
+      <text x="648" y="104" fill="#1f4e54" font-size="10" font-weight="700">德威嗣源东西夹击</text>
+      <line x1="744" y1="112" x2="744" y2="150" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 4"/>
+      <text x="648" y="214" fill="#9a2b1e" font-size="10" font-style="italic">精锐殆尽,斩获数万,王景仁南遁</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 214,120 L 262,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <path d="M 596,120 L 640,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+    </svg>
+    <p class="intro">柏乡之役,后梁遣王景仁、韩勍将龙骧、神捷禁军,<b>号八万精甲</b>、甲兵鲜盛,北攻以图并赵。以坚甲重步之众,依垒结阵则难破;然晋军多骑,利于旷野驰突,而不利于攻坚拔垒。<b>梁之至强(精甲坚垒),恰藏其至短(重步怯野、离垒失食)</b>——胜负不在角其甲之坚,而在能否诱其离垒、待其饥疲。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>周德威 · 诱疲纵骑(奇)</h4>
+        <p>德威谏李存勖勿薄柏乡坚垒,退军鄗邑以诱之。战日,命三百骑薄梁营挑战,且战且退,四合,擒百余人,引梁军离营就野,战至鄗邑之南。又谓「梁人远来决战,虽赍糇粮,不暇食,日晡人马饥乏,必有退志,乘之可以有功」——遂按兵不战,专候其疲。</p>
+      </div>
+      <div class="c b">
+        <h4>王景仁 · 恃甲离垒(骄)</h4>
+        <p>景仁恃精甲之盛,悉众出垒逐晋,进至鄗邑之南,两阵旷野相持终日。梁人重甲远来,终日不得食,比及晡时,人马饥乏、士气衰堕,阵势渐动。既离坚垒于旷野,则精甲无所施其坚,骑不得驰、步不得食,取败之形遂具。</p>
+      </div>
+    </div>
+    <p class="kicker">恃甲而离其垒,则精甲成野战之肉;待疲而纵吾骑,则寡骑收八万之功。日晡梁人饥疲欲退,德威呼曰「梁兵走矣」,晋赵之众奋而冲之,<b>德威、嗣源东西夹击,梁阵大溃,龙骧、神捷精锐死伤殆尽,斩获数万,王景仁以数十骑南遁</b>。故柏乡之胜,非战其甲之坚,实<b>诱敌离垒、待疲纵骑</b>而破之 —— 诱敌离垒 · 待疲纵骑 · 柏乡破梁。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=330+(经度−114.0)×245,y=620−(纬度−36.0)×210),几何关系力求近实:镇州(赵)在北,定州(义武)在其东北,高邑·鄗邑与野河居中,柏乡当野河之南、梁军所营,邢州在南(梁据),魏州(魏博)在东南;太原(晋·河东)在西、汴梁(后梁都)在南,俱置于图外,以边箭示晋自西、梁自南入。今地:镇州今河北正定,定州今定州,高邑(鄗邑)今高邑,柏乡今柏乡,邢州今邢台,魏州今大名,野河即今滏阳河支流。约界晕染依前线一线,非实有画界。依《旧五代史·周德威传》《旧五代史·唐庄宗纪》《资治通鉴》卷二六七约略绘出。</p>
+    <p><span class="n">注二</span>行军与地利:此役皆陆战,无水运之资;野河为晋梁夹峙之线。晋自太原(河东)南下,循太行东麓之平原以救赵;赵(镇州王镕)、义武(定州王处直)以兵会;梁自汴梁经魏州(魏博)、邢州北上,营于柏乡。制胜之枢不在舟楫粮道,而在骑步之利钝与「食」之一字:晋军多骑,利旷野驰突而拙于攻坚;梁军精甲重步,依垒则坚、出野则拙,且离营远斗则终日不得食。故周德威避其坚垒、退军鄗邑,以诱梁就野、绝其得食之机,乃胜之所系。</p>
+    <p><span class="n">注三</span>制胜之枢在「诱敌离垒·待饥疲·纵骑」:周德威谓梁兵利守垒、不利野战,晋骑利旷野、不利攻坚,议退军鄗邑诱之离营。乾化元年(911)正月,命三百骑薄梁营挑战,且战且退,四合,擒百余人,引梁军战至鄗邑之南,两阵旷野相持。德威按兵曰「梁人远来决战,虽赍糇粮,战不暇食,日晡必饥乏而有退志,乘之可胜」。及晡,梁人无所得食、人马饥乏,阵动欲退;德威呼「梁兵走矣」,与李嗣源纵骑东西夹击,梁军大溃,龙骧、神捷精甲死伤殆尽(图中金环为决战、褐虚线为梁军南遁)。</p>
+    <p><span class="n">注四</span>史事互异,并存以俟考:(一)梁军兵数,史称「号八万」乃张大之辞,今人多以实数约四万计;龙骧、神捷之外,或并称神威等禁军,名号诸书小异。(二)战果,《旧五代史》载斩获甚众、俘梁将校二百八十余人、僵尸蔽野;「斩获数万」为约数。(三)决战地,史称「鄗邑之南」「野河之上」,鄗邑即高邑,野河今为滏阳河支流,确址稍有异说。(四)是役后,梁在河北之势退保魏博以南,与晋隔河(黄河)相持;晋由是转盛,为李存勖其后灭梁建后唐之根基。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"诱疲破梁 · 柏乡决战",d:"后梁开平四年—乾化元年(910—911)",p:["后梁太祖朱温欲吞并成德、义武二镇,开平四年(910)冬遣王景仁、韩勍将龙骧、神捷等禁军精甲北上,号八万,名为助赵,实图袭取镇州。赵王王镕惧,转求救于晋王李存勖;李存勖亲率晋军自河东南下救赵,义武王处直亦以兵来会。","晋梁两军夹野河对峙于柏乡:梁军结阵严整、甲兵鲜盛,利于守垒;晋军多骑,利于旷野驰突。大将周德威定「诱敌离垒、就野待疲」之计——以三百骑挑战诱梁悉众出营,两阵旷野相持终日,使梁人无所得食;至午后人马饥乏、阵动欲退,乃纵骑冲突,大破梁军,龙骧、神捷精锐死伤殆尽。"]},
+  "1":{t:"梁精甲北攻图赵 · 赵求救于晋",d:"开平四年(910)十二月",p:["朱温志在河北,遣宁国节度使王景仁为北面行营招讨使,韩勍副之,李思安为先锋,将龙骧、神捷等禁军精甲北进深、冀,号八万。其名为助赵拒晋,实欲乘间袭取成德治所镇州,以并赵地。","赵王王镕识其谋,惧不能当,遂弃梁而转求救于晋王李存勖。李存勖以救孤为急,亲率晋军自太原南下,循太行东麓入赵境;义武节度使王处直亦遣兵来会。三镇之兵合,进逼柏乡之梁军。"]},
+  "2":{t:"晋梁对峙柏乡 · 夹野河",d:"乾化元年(911)正月",p:["梁军营于柏乡,结阵严整,甲兵鲜盛,依垒自固;晋赵之军进屯野河之北、倚高邑而营,两军夹野河而峙。李存勖锐意速战,欲乘梁军新至而薄其营。","周德威谏止之,曰:梁兵甚锐,而利于守垒、不利野战;吾军多骑,利于旷野驰突,而不利于攻坚拔垒。今若薄其坚垒,是弃吾之长而就吾之短。宜退军鄗邑,诱敌离营,就旷野而决之。存勖乃从其计。"]},
+  "3":{t:"周德威诱梁离垒 · 就野待其饥疲",d:"乾化元年(911)正月",p:["周德威命三百骑薄梁营挑战,且战且退,往返四合,擒梁军百余人,引梁军离垒而北。王景仁恃其精甲之盛,悉众出营以逐之,进至鄗邑之南;晋赵与梁遂各布阵于旷野,相持以待。","德威按兵不战,谓诸将曰:梁人远来决战,虽赍糇粮,战不暇食;两阵相持,比及日晡,人马饥乏,必有退志。俟其饥疲而后乘之,可以有功。于是终日不与之决,梁人重甲久立、终日不得食,士气渐衰。"]},
+  "4":{t:"午后纵骑冲突 · 大破梁精甲",d:"乾化元年(911)正月",p:["至晡时,梁人饥乏,阵势动摇,稍稍引退。周德威望见,大呼「梁兵走矣」,晋赵之众奋而争进;德威与李嗣源分将精骑,自东西两面纵骑冲突,疾呼相应,梁阵大乱。","梁军猝遇骑冲,饥疲不能成列,一战大溃;龙骧、神捷精甲死伤殆尽,自野河至柏乡僵尸蔽野,斩获数万,俘其将校二百八十余人。王景仁、韩勍、李思安以数十骑连夜南遁。梁在河北之势由是大挫,退保魏博以南,晋势遂张,为李存勖终灭后梁、建后唐之基。"]}
+};
+const CITY={
+  zhenzhou:{t:"镇州(赵 · 成德)",d:"成德军治,今河北正定(约114.57E,38.14N)",p:["赵王王镕之本镇。朱温遣王景仁北上,名助赵而实图袭此;王镕惧,弃梁转求救于晋,遂引晋军南下,而有柏乡之役。"]},
+  dingzhou:{t:"定州(义武)",d:"义武军治,今河北定州(约114.97E,38.51N)",p:["义武节度使王处直所镇。王镕求救于晋,处直亦以兵来会,与晋、赵合军拒梁于柏乡。"]},
+  gaoyi:{t:"高邑(鄗邑)",d:"今河北高邑(约114.61E,37.61N)",p:["野河之北。晋赵之军倚此立营,周德威议退军于此,以诱梁离垒。决战即在『鄗邑之南』之旷野。"]},
+  baixiang:{t:"柏乡",d:"今河北柏乡(约114.70E,37.48N)",p:["梁军所营,当野河之南。王景仁结精甲之阵于此,依垒自固。周德威诱其离垒北出,战于鄗邑之南;梁既败,自野河至柏乡僵尸蔽野。"]},
+  xingzhou:{t:"邢州",d:"今河北邢台(约114.50E,37.07N)",p:["柏乡之南,梁所据以北攻之基。梁军自汴梁经魏州、邢州北上柏乡;败则由此南遁。"]},
+  weizhou:{t:"魏州(魏博)",d:"今河北大名(约115.15E,36.28N)",p:["魏博重镇,梁军北上河北之枢。柏乡既败,梁在河北之势退保魏博以南,与晋隔河相持。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

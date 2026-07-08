@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>潞州夹寨之战 · 后梁开平二年(908)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 夹寨:梁军环潞州所筑内外两重连城长围 */
+  .wall{fill:none;stroke:var(--enemy);stroke-linecap:round}
+  .wall.outer{stroke-width:2.4;stroke-dasharray:2 3;opacity:.9}
+  .wall.inner{stroke-width:2;stroke-dasharray:2 3;opacity:.75}
+  .wlabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.06em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>夹</span><span>寨</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>潞州夹寨之战</h1>
+    <div class="sub">后梁开平二年(908)　　<i>晋王 李存勖</i> 奇袭破 <b>后梁 夹寨</b>　·　乘丧敌懈 · 拂晓破寨</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 乘丧破寨</button>
+    <button data-p="1">梁筑夹寨围潞州</button>
+    <button data-p="2">克用死 · 存勖嗣位</button>
+    <button data-p="3">秘不发丧 · 乘雾奔袭</button>
+    <button data-p="4">拂晓破寨 · 内外夹击</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="潞州夹寨之战形势图,含晋(河东)与后梁疆界、汾水浊漳水、太岳太行山,及晋阳三垂冈潞州泽州诸地;梁军环潞州所筑内外两重夹寨、李存勖自晋阳经三垂冈乘雾奔袭之青色进军、拂晓破寨内外夹击之金环、及梁军东南溃走汴梁之褐色败退">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- 疆界:晋(河东,北)据晋阳,潞州为其南面重镇;后梁(南)据泽、怀,趋汴 -->
+    <path d="M 0,0 L 1000,0 L 1000,428 C 780,438 600,440 440,450 C 320,458 160,462 0,470 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,470 C 160,462 320,458 440,450 C 600,440 780,438 1000,428 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,470 C 160,462 320,458 440,450 C 600,440 780,438 1000,428"/>
+    <text class="realm j" x="70" y="210" font-size="28">晋 · 河东</text>
+    <text class="cname s" x="76" y="232" style="fill:var(--advance);opacity:.65">(晋王李存勖)</text>
+    <text class="realm q" x="700" y="565" font-size="27">后 梁</text>
+    <text class="cname s" x="700" y="586" style="fill:var(--enemy);opacity:.6">(太祖朱温,都汴)</text>
+    <text class="cname s" x="486" y="330" style="fill:var(--advance);opacity:.75">潞州:晋之南面重镇,孤悬梁境</text>
+
+    <!-- ══ 山脉 ══ -->
+    <!-- 太岳山:上党盆地之西,晋阳—潞州廊道西侧 -->
+    <path class="mtn fill" d="M 244,180 L 258,150 L 270,168 L 284,132 L 298,164 L 312,140 L 326,172 L 314,300 L 300,420 L 262,400 L 250,300 Z"/>
+    <path class="mtn" d="M 258,168 l 12,-20 l 10,14 l 14,-24 l 12,20 l 12,-18"/>
+    <path class="mtn" d="M 262,296 l 12,-18 l 10,12 l 13,-20 l 11,16"/>
+    <text class="mname" x="256" y="270" transform="rotate(78 256 270)">太 岳 山</text>
+    <!-- 太行山:上党之东南,潞州通汴之隘(滏口·太行陉),梁军溃走所越 -->
+    <path class="mtn fill" d="M 590,470 L 610,436 L 626,456 L 648,420 L 668,452 L 690,428 L 712,460 L 740,436 L 762,466 L 740,540 L 660,556 L 600,530 Z"/>
+    <path class="mtn" d="M 612,452 l 14,-20 l 12,14 l 16,-24 l 13,18 l 15,-22 l 14,20"/>
+    <text class="mname" x="626" y="512" transform="rotate(14 626 512)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 汾水:晋阳所在,自北南流 -->
+    <path class="river" stroke-width="3" d="M 322,52 C 312,120 296,200 280,280 C 270,330 262,372 258,410"/>
+    <text class="rname" x="300" y="150" transform="rotate(80 300 150)" style="font-size:11px">汾 水</text>
+    <!-- 浊漳水:上党潞州,东出太行 -->
+    <path class="river" stroke-width="2.6" d="M 452,368 C 512,380 578,398 640,432 C 700,464 760,500 812,536"/>
+    <text class="rname" x="560" y="404" transform="rotate(22 560 404)" style="font-size:11px">浊 漳 水</text>
+
+    <!-- ══ 夹寨:梁军环潞州所筑内外两重连城长围(常驻,贯穿全役) ══ -->
+    <g id="jiazhai">
+      <circle class="wall outer" cx="473" cy="386" r="43"/>
+      <circle class="wall inner" cx="473" cy="386" r="28"/>
+      <rect class="camp" x="469" y="339" width="8" height="8" transform="rotate(45 473 343)"/>
+      <rect class="camp" x="512" y="382" width="8" height="8" transform="rotate(45 516 386)"/>
+      <rect class="camp" x="430" y="382" width="8" height="8" transform="rotate(45 434 386)"/>
+      <rect class="camp" x="469" y="425" width="8" height="8" transform="rotate(45 473 429)"/>
+      <text class="wlabel" x="524" y="360">夹寨(夹城)</text>
+      <text class="wlabel" x="524" y="374" style="font-size:9.5px;opacity:.8">内外两重连城长围</text>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="jinyang"><circle cx="305" cy="83" r="6.5"/><text class="cname" x="315" y="80">晋阳<tspan class="cname s" dx="2">(太原·晋王本)</tspan></text></g>
+      <g class="city" data-city="sanchuigang"><circle cx="440" cy="366" r="5"/><text class="cname" x="356" y="360">三垂冈</text></g>
+      <g class="city" data-city="luzhou"><circle cx="473" cy="386" r="6.5"/><text class="cname" x="483" y="404">潞州<tspan class="cname s" dx="2">(上党·被围)</tspan></text></g>
+      <g class="city" data-city="zezhou"><circle cx="395" cy="510" r="5"/><text class="cname" x="405" y="514">泽州<tspan class="cname s" dx="2">(朱温督战)</tspan></text></g>
+    </g>
+
+    <!-- 汴梁(图外·东南) -->
+    <g transform="translate(946,548)">
+      <path class="march rout" marker-end="url(#ar)" d="M -6,0 L 26,10"/>
+      <text class="mlabel r" x="-52" y="-8" style="font-size:10px">汴梁 ⟶</text>
+      <text class="cname s" x="-60" y="26" style="fill:var(--ret);font-size:9.5px">后梁都(图外东南)</text>
+    </g>
+
+    <!-- 全图 · 乘丧破寨 -->
+    <g id="phAll" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 308,94 C 345,185 405,300 434,360"/>
+      <text class="mlabel j" x="316" y="230">存勖乘丧奔袭:晋阳→三垂冈</text>
+      <path class="march j" marker-end="url(#aj)" d="M 444,368 C 452,373 462,378 468,382"/>
+      <circle class="star" cx="452" cy="360" r="11"/>
+      <text class="mlabel j" x="250" y="418" style="fill:var(--advance)">拂晓破夹寨,内外夹击</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 496,400 C 610,452 760,510 918,548"/>
+      <text class="mlabel r" x="620" y="472">梁军大溃,东南走汴</text>
+      <text class="anno" x="436" y="472">死万余,弃械资山积,潞州围解</text>
+    </g>
+
+    <!-- 阶段一:梁筑夹寨围潞州 -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 916,548 C 760,512 610,460 500,404"/>
+      <text class="mlabel q" x="560" y="486">梁军自汴、泽北上,李思安筑夹城围潞州</text>
+      <text class="anno" x="516" y="392">康怀贞统军,符道昭为招讨</text>
+      <text class="mlabel j" x="486" y="388" style="fill:var(--advance)">昭义节度使李嗣昭婴城死守,经年不下</text>
+      <path class="march q" marker-end="url(#aq)" d="M 402,500 C 428,470 452,444 468,426"/>
+      <text class="mlabel q" x="330" y="530">朱温亲至泽州督战</text>
+    </g>
+
+    <!-- 阶段二:克用死 · 存勖嗣位 -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="301" y="79" width="9" height="9" transform="rotate(45 305 83)" fill="#1f4e54"/>
+      <text class="mlabel j" x="230" y="66">开平二年正月,李克用卒;子存勖嗣晋王位</text>
+      <text class="anno" x="316" y="110">诸将多疑贰,存勖诛内难以定位</text>
+      <text class="mlabel q" x="500" y="356">梁以晋方大丧,谓必不能出兵</text>
+      <text class="mlabel q" x="500" y="372" style="font-size:10.5px">围潞诸军因循懈弛,不为备</text>
+      <text class="anno" x="330" y="540">朱温犹督军于泽州,坐待潞州之下</text>
+    </g>
+
+    <!-- 阶段三:秘不发丧 · 乘雾奔袭 -->
+    <g id="ph3" class="ph">
+      <text class="mlabel j" x="230" y="70">存勖秘不发丧,亟出兵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 308,96 C 345,188 405,302 432,360"/>
+      <text class="mlabel j" x="316" y="200">亲率精骑,昼夜兼行</text>
+      <circle class="star" cx="440" cy="366" r="8"/>
+      <text class="mlabel j" x="238" y="340" style="fill:var(--advance)">登三垂冈(克用旧游),慷慨誓师</text>
+      <text class="anno" x="252" y="356">乘大雾列营,以蔽晋军</text>
+    </g>
+
+    <!-- 阶段四:拂晓破寨 · 内外夹击 -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 443,367 C 452,372 462,378 467,382"/>
+      <text class="mlabel j" x="238" y="340" style="fill:var(--advance)">拂晓乘雾突夹寨薄弱处</text>
+      <circle class="star" cx="452" cy="360" r="11"/>
+      <path class="march j" marker-end="url(#aj)" d="M 479,390 C 490,398 500,404 510,410"/>
+      <text class="mlabel j" x="524" y="400">李嗣昭自城中出,内外夹攻</text>
+      <text class="anno" x="524" y="416">符道昭落马死,康怀贞以百骑遁</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 500,404 C 616,456 764,512 918,550"/>
+      <text class="mlabel r" x="618" y="486">梁军大溃,东南走汴</text>
+      <text class="anno" x="436" y="472">死伤万余,械资山积,潞州围遂解</text>
+    </g>
+
+    <g class="compass" transform="translate(936,120)">
+      <circle r="20" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-20 L 4,0 L 0,16 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,20 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-24">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>晋军(李存勖)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>后梁军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>梁军溃走(走汴)</span>
+    <span class="item"><svg width="30" height="18"><circle cx="15" cy="9" r="7.5" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="2 3"/><circle cx="15" cy="9" r="3.5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>夹寨(内外两重)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>破寨·会战</span>
+    <span class="item"><svg width="14" height="14"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="#9a2b1e"/></svg>梁军营垒</span>
+    <span class="item"><svg width="30" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="30" y2="13" stroke="#5f7f88" stroke-width="2"/></svg>山脉·水道</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>晋</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>后梁</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 乘丧破寨</h3>
+    <div class="lead">何以夹寨一夕而溃 —— 存勖英名所自始</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:梁军以内外两重夹寨长围潞州,久攻不下而懈;又以晋新丧谓不能军。存勖秘不发丧、乘雾拂晓奔袭,自外突入,李嗣昭自城中出,内外夹攻,长围一夕而溃">
+      <!-- 夹寨:内外两重环城 -->
+      <circle cx="300" cy="128" r="88" fill="none" stroke="#9a2b1e" stroke-width="3" stroke-dasharray="3 4" opacity=".85"/>
+      <circle cx="300" cy="128" r="60" fill="none" stroke="#9a2b1e" stroke-width="2.4" stroke-dasharray="3 4" opacity=".7"/>
+      <circle cx="300" cy="128" r="16" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="286" y="132" fill="#2b2418" font-size="11" font-weight="700">潞州</text>
+      <text x="256" y="152" fill="#1f4e54" font-size="9.5">李嗣昭死守</text>
+      <!-- 梁军营垒(懈) -->
+      <rect x="296" y="36" width="9" height="9" transform="rotate(45 300 40)" fill="#9a2b1e"/>
+      <rect x="384" y="124" width="9" height="9" transform="rotate(45 388 128)" fill="#9a2b1e"/>
+      <rect x="208" y="124" width="9" height="9" transform="rotate(45 212 128)" fill="#9a2b1e"/>
+      <rect x="296" y="212" width="9" height="9" transform="rotate(45 300 216)" fill="#9a2b1e"/>
+      <text x="300" y="20" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">梁军久围而懈 · 谓晋有丧不能军</text>
+      <!-- 拂晓奔袭:自外突入(青) -->
+      <path d="M 40,96 C 110,84 170,64 210,68" fill="none" stroke="#1f4e54" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M 214,68 L 202,62 L 204,74 Z" fill="#1f4e54"/>
+      <text x="34" y="84" fill="#1f4e54" font-size="11" font-weight="700">存勖乘雾 · 拂晓奔袭</text>
+      <!-- 破寨点:金环 -->
+      <circle cx="232" cy="72" r="12" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="150" y="52" fill="#9c7a2c" font-size="10" font-weight="700">突夹寨薄弱处</text>
+      <!-- 城中出击(青) -->
+      <path d="M 316,128 C 336,140 352,150 366,158" fill="none" stroke="#1f4e54" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="6 4"/>
+      <path d="M 366,158 L 354,154 L 356,166 Z" fill="#1f4e54"/>
+      <text x="330" y="178" fill="#1f4e54" font-size="9.5">李嗣昭出城</text>
+      <!-- 结果(赭) -->
+      <path d="M 400,128 C 470,124 520,120 566,116" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="4 6"/>
+      <path d="M 566,116 L 553,111 L 555,123 Z" fill="#7a5a23"/>
+      <text x="592" y="96" fill="#9a2b1e" font-size="13" font-weight="700">长围一夕而溃</text>
+      <text x="592" y="120" fill="#5c4f38" font-size="10.5">死万余 · 械资山积</text>
+      <text x="592" y="140" fill="#5c4f38" font-size="10.5">符道昭死 · 怀贞遁走</text>
+      <text x="592" y="160" fill="#5c4f38" font-size="10.5">梁军东南走汴</text>
+      <text x="592" y="196" fill="#1f4e54" font-size="12" font-weight="700">存勖英名始立</text>
+    </svg>
+    <p class="intro">潞州之役,胜负不在众寡,而在<b>『敌之久围而懈』与『我之乘丧而袭』</b>两端相凑。梁军以内外两重夹寨长围潞州逾年,李嗣昭死守不下,围军疲怠;适晋王李克用新卒,梁人料晋方大丧、必不能军,遂益弛备。此正存勖可乘之隙。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>乘丧 · 奔袭</h4>
+        <p>开平二年正月克用卒,存勖嗣位,内诛异己以固权,而秘不发丧、亟整军。梁方谓晋有丧不能出,存勖偏出其不意:亲率精骑自晋阳南下,昼夜兼行,登三垂冈(克用旧游之地)慷慨誓师,复乘大雾蔽形,拂晓直抵潞州夹寨之下——梁军全然不觉。</p>
+      </div>
+      <div class="c b">
+        <h4>破寨 · 夹击</h4>
+        <p>夹寨本以困潞州,久而反成梁军自缚之绳:兵力散布两重连城,首尾难顾。存勖择其薄弱处突入,城中李嗣昭亦率众出击,内外夹攻。梁军仓卒不能成列,统军招讨使符道昭落马死,总指挥康怀贞以百余骑遁走,长围一夕俱溃。</p>
+      </div>
+    </div>
+    <p class="kicker">故潞州之解,非力破坚城,实<b>乘其懈而奔袭、因其围而夹击</b>:梁恃夹寨之固、恃晋丧之弱,而二者皆为存勖所反用。是役,存勖初立威名,朱温闻败叹曰『<b>生子当如李亚子,克用为不亡矣!至如吾儿,豚犬耳</b>』;数年后晋灭梁、建后唐,基肇于此一战。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,地物按今地经纬度作线性(墨卡托)投影 x=200+(经度−112.2)·300、y=600−(纬度−35.0)·180,几何关系力求近实:晋阳在西北,潞州居中,泽州在其西南,汴梁远在东南(图外)。理惟纵向廊道狭长,故东西向略作展宽,城位不失其相对方位;江河、山脉、疆界经简化描绘,点划『约界』非实有画界。今地:潞州(上党)今山西长治,晋阳今太原,三垂冈在长治北、潞州与黄碾之间,泽州今山西晋城,汴梁今河南开封。</p>
+    <p><span class="n">注二</span>夹寨(夹城):梁军环潞州所筑内外两重连城长围,以久困孤城。天祐四年(907)康怀贞始筑夹城围之,继以李思安为潞州行营都统主围事,符道昭为统军招讨使;昭义节度使李嗣昭婴城固守,经年不拔。图中环潞州之双重朱色虚线即示此内外两垒。</p>
+    <p><span class="n">注三</span>制胜之枢在『乘丧奔袭、内外夹击』:开平二年(908)正月李克用卒,子存勖嗣晋王位,内平异己而秘不发丧。梁人谓晋有丧不能军,围潞诸军懈弛。存勖亲率精骑自晋阳昼夜兼行,登三垂冈誓师,乘大雾拂晓突夹寨薄弱处,李嗣昭自城中出,内外夹攻;符道昭死之,康怀贞以百骑遁,梁军大溃,死伤万余,弃兵械资粮山积,潞州围解。事详《旧五代史·唐庄宗纪》《周德威传》、《新五代史·唐本纪》、《资治通鉴》卷二六六。</p>
+    <p><span class="n">注四</span>朱温时在泽州督战,闻夹寨败,惊叹『生子当如李亚子(存勖乳名),克用为不亡矣!至如吾儿,豚犬耳!』潞州一捷,存勖初立威名,晋势自此复振,为后来灭梁建后唐之基。诸书于将帅进退、斩获之数小有出入,已择其通行者著于图,并此志之。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"乘丧破寨",d:"后梁开平二年(908)正月至五月",p:["后梁太祖朱温既篡唐,与晋王李克用世为仇雠。梁遣军北攻,环晋之南面重镇潞州(上党)筑内外两重夹寨,长围经年,昭义节度使李嗣昭死守不下。会开平二年正月克用病卒,子存勖嗣晋王位。","梁人料晋方大丧、必不能出兵,围军懈弛。存勖秘不发丧、亟整军,亲率精骑自晋阳南下,经三垂冈昼夜兼程,乘大雾拂晓直抵夹寨,出其不意突入,李嗣昭自城中出,内外夹攻,梁军大溃,死万余,弃械资山积,潞州围遂解。存勖由是初立威名。"]},
+  "1":{t:"梁筑夹寨围潞州",d:"天祐四年(907)至开平二年初",p:["朱温篡唐建后梁,以潞州为晋之南面门户,遣军北上围之。天祐四年康怀贞始筑夹城,环潞州为内外两重连城长围,寨外堑壕相属,以久困孤城;继以李思安为潞州行营都统主围事,符道昭为统军招讨使。","昭义节度使李嗣昭婴城固守,昼夜拒战,梁军攻围经年而潞州不下。朱温以久顿坚城,亲至泽州督战,更遣刘知俊等赴援,志在必克——晋之南疆,悬于此一城。"]},
+  "2":{t:"克用死 · 存勖嗣位",d:"开平二年(908)正月",p:["开平二年正月,晋王李克用病卒于晋阳,遗命子存勖嗣位。存勖初立,诸将骄悍、多怀疑贰,存勖收诛内难以定其位,河东人心始安。","梁方闻晋大丧,谓其国有内忧、新主未立威、必不能远出救潞,围潞诸军因循懈弛,不复设备;朱温犹督军泽州,坐待夹寨之下潞州。晋梁攻守之势,遂伏一转机于此。"]},
+  "3":{t:"秘不发丧 · 乘雾奔袭",d:"开平二年(908)四月",p:["存勖既定内难,决意亟救潞州以立威、以践先志。乃秘不发丧,简精骑,自晋阳倍道南趋,昼夜兼行,出梁人意表。","军至潞州西北之三垂冈——克用旧尝游此,慷慨顾谓诸将,存勖登临誓师,士气奋厉。会天大雾,晋军得蔽形匿迹,列营冈下,梁围军竟不之觉。奔袭之势既成,只待拂晓。"]},
+  "4":{t:"拂晓破寨 · 内外夹击",d:"开平二年(908)五月",p:["拂晓,存勖偕李嗣源、周德威分道并进,乘雾直薄夹寨,择其守备疏薄处突入。梁军兵散两重连城,首尾不能相顾,仓卒不成行列。","昭义节度使李嗣昭亦自城中出击,内外夹攻。梁军大溃,统军招讨使符道昭落马被杀,总指挥康怀贞仅以百余骑遁走;死伤万余,弃兵械资粮山积,尽为晋有,潞州围遂解。朱温闻之,叹曰『生子当如李亚子,克用为不亡矣!至如吾儿,豚犬耳!』"]}
+};
+const CITY={
+  jinyang:{t:"晋阳(太原)",d:"晋王本镇,今山西太原",p:["李克用、李存勖父子霸府所在。开平二年正月克用卒于此,存勖嗣晋王位;既定内难,乃自此秘不发丧、亲率精骑南下救潞。"]},
+  sanchuigang:{t:"三垂冈",d:"潞州西北,今长治北(潞州与黄碾之间)",p:["李克用旧游之地。存勖奔袭途中登临誓师,慷慨激烈,复乘大雾列营冈下以蔽晋军,梁围军不觉——拂晓即自此下击夹寨。"]},
+  luzhou:{t:"潞州(上党)",d:"晋之南面重镇,今山西长治(约113.11E,36.19N)",p:["梁军环城筑内外两重夹寨长围之,昭义节度使李嗣昭死守经年不下。存勖拂晓破夹寨,嗣昭自城中出,内外夹攻,梁军大溃,围遂解——此役之决胜地。"]},
+  zezhou:{t:"泽州(晋城)",d:"潞州东南,今山西晋城",p:["梁境重镇,通汴之孔道。朱温以潞州久围不下,亲至泽州督战,更遣将赴援;及闻夹寨败,乃惊叹『生子当如李亚子』而罢兵。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
