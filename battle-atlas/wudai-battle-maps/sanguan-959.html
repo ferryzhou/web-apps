@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>后周世宗北伐 · 取三关三州(959)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .sea{fill:rgba(95,127,136,.16)}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .canal{fill:none;stroke:var(--water);stroke-linecap:round}
+  .canal.band{stroke-width:9;opacity:.30}
+  .canal.core{stroke-width:2.4;opacity:.9;stroke-dasharray:1 4}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .newfront{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:7 5;opacity:.85;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .boat{fill:var(--advance);opacity:.9}.boat .mast{stroke:var(--advance);stroke-width:1.4}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.obj{stroke:var(--advance);stroke-width:2.4;stroke-dasharray:4 6;opacity:.72}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .objective{fill:none;stroke:var(--gold);stroke-width:1.8;stroke-dasharray:5 4;opacity:.9}
+  /* 款降旗:燕南守将望风而附 */
+  .surrflag .pole{stroke:var(--ink2);stroke-width:2}
+  .surrflag .cloth{fill:rgba(154,43,30,.9);stroke:#6f1f16;stroke-width:1}
+  .surrflag text{fill:#f3e6c8;font-family:"Ma Shan Zheng",serif;font-size:14px}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .fiveq{margin-top:11px;border-top:1px dashed rgba(110,93,60,.4);padding-top:9px}
+  .explain .fiveq h4{font-size:12.5px;font-weight:700;color:var(--advance);margin-bottom:5px;letter-spacing:.06em}
+  .explain .fiveq dl{display:grid;grid-template-columns:auto 1fr;gap:3px 9px;font-size:11.5px;line-height:1.7}
+  .explain .fiveq dt{color:var(--enemy);font-weight:700;white-space:nowrap}
+  .explain .fiveq dd{color:var(--ink2);text-align:justify}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin):not(.obj){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>兵</span><span>不</span><span>血</span><span>刃</span></div>
+  <header>
+    <h1>后周世宗北伐 · 取三关三州</h1>
+    <div class="sub">后周显德六年(959)　　<i>后周世宗 柴荣</i> 亲征 <b>契丹(辽)</b>　·　循御河<i>水陆并进</i>　·　四十二日 <em>兵不血刃</em>　连下三关(益津·瓦桥·淤口)三州(瀛·莫·宁)　·　欲取幽州 遇疾还师 · 复燕云功败垂成</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 兵不血刃取三关三州</button>
+    <button data-p="1">① 出师北上 · 水陆并进</button>
+    <button data-p="2">② 三关三州 · 望风款附</button>
+    <button data-p="3">③ 欲取幽州 · 诸将持重</button>
+    <button data-p="4">④ 世宗遇疾 · 还师功亏</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="后周世宗显德六年北伐取三关三州形势图,示后周与契丹辽约界、御河永济渠水道、渤海海岸,沧州乾宁军益津关瓦桥关淤口关莫州瀛州幽州诸地。世宗柴荣循御河水陆并进,燕南守将望风款降,四十二日兵不血刃收三关三州;欲乘胜取幽州,契丹骑兵尽聚幽州之北,世宗于瓦桥关一带遇疾,遂还师南返,旬日病逝于汴,复燕云功败垂成">
+    <defs>
+      <pattern id="liaoHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="zhouHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="reclHatch" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="rgba(156,122,44,.05)"/><line x1="0" y1="0" x2="10" y2="0" stroke="rgba(156,122,44,.22)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:契丹(辽)据燕云在北,后周据中原在南;本役所复者燕南之地 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,540 C 760,548 500,540 200,535 C 120,536 60,540 0,545 Z" fill="url(#liaoHatch)"/>
+    <path d="M 0,545 C 60,540 120,536 200,535 C 500,540 760,548 1000,540 L 1000,640 L 0,640 Z" fill="url(#zhouHatch)"/>
+    <!-- 本役所复·燕南之地(旧界与三关新界之间) -->
+    <path d="M 0,545 C 60,540 120,536 200,535 C 500,540 760,548 1000,540 L 1000,300 C 760,270 620,258 540,268 C 440,282 320,318 240,360 C 160,400 70,470 0,510 Z" fill="url(#reclHatch)"/>
+    <!-- 契丹·后周旧界(会战前) -->
+    <path class="border" d="M 0,545 C 60,540 120,536 200,535 C 500,540 760,548 1000,540"/>
+    <!-- 战后新界·三关一线(白沟·拒马河) -->
+    <path class="newfront" d="M 0,470 C 90,420 170,388 240,360 C 340,320 460,286 540,270 C 640,252 780,258 1000,268"/>
+    <text class="realm q" x="120" y="120" font-size="26">契 丹(辽)</text>
+    <text class="cname s" x="120" y="140" style="fill:var(--enemy);opacity:.72">燕 云 · 南 京(幽 州)</text>
+    <text class="realm j" x="150" y="600" font-size="26">后 周</text>
+    <text class="cname s" x="150" y="620" style="fill:var(--advance);opacity:.72">世宗 柴荣 · 都汴梁</text>
+    <text class="rname" x="150" y="452" style="fill:var(--gold);opacity:.85;letter-spacing:.16em">燕 南 之 地 · 本役所复</text>
+    <text class="cname s" x="622" y="286" style="fill:var(--gold);opacity:.85">战后新界 · 三关(白沟拒马河)</text>
+
+    <!-- ══ 渤海(东) ══ -->
+    <path class="sea" d="M 862,300 C 900,340 908,440 900,540 L 1000,560 L 1000,300 Z"/>
+    <text class="rname" x="906" y="430" transform="rotate(90 906 430)" style="opacity:.8">渤 海</text>
+
+    <!-- ══ 御河·永济渠:漕运水道,世宗水军所循北上之命脉 ══ -->
+    <path class="canal band" d="M 760,600 C 742,542 726,500 720,466 C 706,404 640,372 560,344 C 470,312 440,180 482,60"/>
+    <path class="canal core" d="M 760,600 C 742,542 726,500 720,466 C 706,404 640,372 560,344 C 470,312 440,180 482,60"/>
+    <text class="rname" x="612" y="382" transform="rotate(-16 612 382)" style="font-size:12px">御 河 · 永 济 渠</text>
+    <!-- 龙舟舟师 -->
+    <g class="boat" transform="translate(724,486) rotate(-58)"><path d="M -7,0 Q 0,4.5 7,0 L 5,-1.6 -5,-1.6 Z"/><line class="mast" x1="0" y1="-1.6" x2="0" y2="-8"/></g>
+    <g class="boat" transform="translate(636,372) rotate(-30)"><path d="M -7,0 Q 0,4.5 7,0 L 5,-1.6 -5,-1.6 Z"/><line class="mast" x1="0" y1="-1.6" x2="0" y2="-8"/></g>
+    <g class="boat" transform="translate(536,336) rotate(-18)"><path d="M -7,0 Q 0,4.5 7,0 L 5,-1.6 -5,-1.6 Z"/><line class="mast" x1="0" y1="-1.6" x2="0" y2="-8"/></g>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="cangzhou"><circle cx="756" cy="560" r="6.5"/><text class="cname" x="766" y="564">沧州<tspan class="cname s" dx="2">(出师)</tspan></text></g>
+      <g class="city" data-city="ningzhou"><circle cx="720" cy="463" r="5"/><text class="cname" x="730" y="459">乾宁军·宁州<tspan class="cname s" dx="2">(王洪降)</tspan></text></g>
+      <g class="city" data-city="yijinguan"><circle cx="474" cy="294" r="5.5"/><text class="cname" x="484" y="290">益津关<tspan class="cname s" dx="2">(霸州·终廷晖降)</tspan></text></g>
+      <g class="city" data-city="yukouguan"><circle cx="540" cy="268" r="5"/><text class="cname" x="550" y="264">淤口关<tspan class="cname s" dx="2">(信安)</tspan></text></g>
+      <g class="city" data-city="waqiaoguan"><circle cx="300" cy="336" r="5.5"/><text class="cname" x="292" y="332" text-anchor="end">瓦桥关<tspan class="cname s" dx="2">(雄州·姚内斌降)</tspan></text></g>
+      <g class="city" data-city="mozhou"><circle cx="302" cy="427" r="5"/><text class="cname" x="294" y="423" text-anchor="end">莫州<tspan class="cname s" dx="2">(鄚州·刘楚信降)</tspan></text></g>
+      <g class="city" data-city="yingzhou"><circle cx="302" cy="515" r="5"/><text class="cname" x="294" y="519" text-anchor="end">瀛州<tspan class="cname s" dx="2">(河间·高彦晖降)</tspan></text></g>
+      <g class="city" data-city="youzhou"><circle cx="482" cy="46" r="6"/><text class="cname" x="492" y="42">幽州·南京<tspan class="cname s" dx="2">(契丹·未克)</tspan></text></g>
+    </g>
+
+    <!-- 汴梁(图外·南,世宗还京病逝) -->
+    <text class="mlabel r" x="470" y="632" text-anchor="middle" style="font-size:10.5px">↓ 汴梁(图外南)·世宗还京旬日病逝</text>
+
+    <!-- ══ 全图 · 兵不血刃取三关三州 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 水陆并进:御河北上 -->
+      <path class="march j" marker-end="url(#aj)" d="M 750,552 C 736,510 726,486 720,466"/>
+      <path class="march j" marker-end="url(#aj)" d="M 714,458 C 620,428 540,362 488,302"/>
+      <path class="march j" marker-end="url(#aj)" d="M 486,290 C 502,284 518,278 532,272"/>
+      <path class="march j" marker-end="url(#aj)" d="M 466,298 C 410,310 350,324 314,332"/>
+      <path class="march j" marker-end="url(#aj)" d="M 300,348 C 298,378 300,404 304,420"/>
+      <path class="march j" marker-end="url(#aj)" d="M 304,436 C 303,468 303,494 304,506"/>
+      <text class="mlabel j" x="560" y="500">世宗循御河 · 龙舟数十里 · 水陆并进</text>
+      <text class="anno" x="560" y="516">四十二日 · 兵不血刃</text>
+      <!-- 款降旗:五地守将望风而附 -->
+      <g class="surrflag" transform="translate(742,440)"><line class="pole" x1="0" y1="6" x2="0" y2="-20"/><path class="cloth" d="M0,-20 L22,-16 L17,-8 L22,-1 L0,-5 Z"/><text x="4" y="-7">降</text></g>
+      <g class="surrflag" transform="translate(506,272)"><line class="pole" x1="0" y1="6" x2="0" y2="-20"/><path class="cloth" d="M0,-20 L22,-16 L17,-8 L22,-1 L0,-5 Z"/><text x="4" y="-7">降</text></g>
+      <g class="surrflag" transform="translate(324,314)"><line class="pole" x1="0" y1="6" x2="0" y2="-20"/><path class="cloth" d="M0,-20 L22,-16 L17,-8 L22,-1 L0,-5 Z"/><text x="4" y="-7">降</text></g>
+      <g class="surrflag" transform="translate(326,405)"><line class="pole" x1="0" y1="6" x2="0" y2="-20"/><path class="cloth" d="M0,-20 L22,-16 L17,-8 L22,-1 L0,-5 Z"/><text x="4" y="-7">降</text></g>
+      <!-- 欲取幽州·未克 -->
+      <path class="march j obj" marker-end="url(#aj)" d="M 484,286 C 482,210 482,130 482,66"/>
+      <text class="mlabel j" x="500" y="150">欲乘胜取幽州</text>
+      <circle class="objective" cx="482" cy="46" r="13"/>
+      <text class="anno" x="500" y="166" style="fill:var(--enemy)">·未克·</text>
+      <!-- 契丹骑兵尽聚幽州之北 -->
+      <path class="march q" marker-end="url(#aq)" d="M 452,6 C 448,22 454,34 462,42"/>
+      <path class="march q" marker-end="url(#aq)" d="M 520,6 C 512,22 502,34 496,42"/>
+      <text class="mlabel q" x="330" y="20">契丹骑兵尽聚幽州之北</text>
+      <!-- 世宗遇疾·还师南返 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 300,348 C 344,430 420,540 468,620"/>
+      <text class="mlabel r" x="356" y="576">世宗遇疾 · 还师南返(病逝于汴)</text>
+      <g class="endmark" transform="translate(300,336)"><circle r="10" fill="none" stroke="#7a5a23" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="12">疾</text></g>
+    </g>
+
+    <!-- ══ ① 出师北上 · 水陆并进 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 752,554 C 738,514 728,488 722,468"/>
+      <text class="mlabel j" x="590" y="558">世宗自沧州出师</text>
+      <text class="mlabel j" x="560" y="440">整水军于乾宁 · 龙舟千里 · 水陆俱下</text>
+      <text class="anno" x="560" y="456">首尾数十里 · 声势甚盛</text>
+      <g class="surrflag" transform="translate(742,440)"><line class="pole" x1="0" y1="6" x2="0" y2="-20"/><path class="cloth" d="M0,-20 L22,-16 L17,-8 L22,-1 L0,-5 Z"/><text x="4" y="-7">降</text></g>
+      <text class="mlabel q" x="606" y="470">宁州刺史王洪 以城降</text>
+      <path class="canal core" style="stroke:var(--advance);opacity:.5;stroke-dasharray:2 5" d="M 714,458 C 640,420 560,368 490,304"/>
+      <text class="anno" x="512" y="356">循御河永济渠北向</text>
+    </g>
+
+    <!-- ══ ② 三关三州 · 望风款附 ══ -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 714,458 C 620,428 540,362 488,302"/>
+      <path class="march j" marker-end="url(#aj)" d="M 486,290 C 502,284 518,278 532,272"/>
+      <path class="march j" marker-end="url(#aj)" d="M 466,298 C 410,310 350,324 314,332"/>
+      <path class="march j" marker-end="url(#aj)" d="M 300,348 C 298,378 300,404 304,420"/>
+      <path class="march j" marker-end="url(#aj)" d="M 304,436 C 303,468 303,494 304,506"/>
+      <text class="mlabel j" x="560" y="512">兵不血刃 · 望风款附</text>
+      <!-- 五降旗 -->
+      <g class="surrflag" transform="translate(496,278)"><line class="pole" x1="0" y1="6" x2="0" y2="-22"/><path class="cloth" d="M0,-22 L24,-18 L19,-9 L24,-1 L0,-6 Z"/><text x="4" y="-8">降</text></g>
+      <g class="surrflag" transform="translate(560,252)"><line class="pole" x1="0" y1="6" x2="0" y2="-22"/><path class="cloth" d="M0,-22 L24,-18 L19,-9 L24,-1 L0,-6 Z"/><text x="4" y="-8">降</text></g>
+      <g class="surrflag" transform="translate(324,314)"><line class="pole" x1="0" y1="6" x2="0" y2="-22"/><path class="cloth" d="M0,-22 L24,-18 L19,-9 L24,-1 L0,-6 Z"/><text x="4" y="-8">降</text></g>
+      <g class="surrflag" transform="translate(326,405)"><line class="pole" x1="0" y1="6" x2="0" y2="-22"/><path class="cloth" d="M0,-22 L24,-18 L19,-9 L24,-1 L0,-6 Z"/><text x="4" y="-8">降</text></g>
+      <g class="surrflag" transform="translate(326,493)"><line class="pole" x1="0" y1="6" x2="0" y2="-22"/><path class="cloth" d="M0,-22 L24,-18 L19,-9 L24,-1 L0,-6 Z"/><text x="4" y="-8">降</text></g>
+      <text class="mlabel q" x="540" y="228">益津关 终廷晖 · 瓦桥关 姚内斌</text>
+      <text class="mlabel q" x="540" y="244">莫州 刘楚信 · 瀛州 高彦晖 · 相继来降</text>
+      <text class="anno" x="112" y="562">四十二日得三关三州十七县,数万之师未发一矢</text>
+    </g>
+
+    <!-- ══ ③ 欲取幽州 · 诸将持重 ══ -->
+    <g id="ph3" class="ph">
+      <path class="march j obj" marker-end="url(#aj)" d="M 484,286 C 482,210 482,130 482,66"/>
+      <text class="mlabel j" x="500" y="180">世宗欲乘胜直取幽州(南京)</text>
+      <circle class="objective" cx="482" cy="46" r="13"/>
+      <!-- 契丹主力聚集 -->
+      <path class="march q" marker-end="url(#aq)" d="M 440,6 C 436,22 444,34 460,44"/>
+      <path class="march q" marker-end="url(#aq)" d="M 528,6 C 520,22 506,34 498,44"/>
+      <path class="march q" marker-end="url(#aq)" d="M 596,10 C 576,26 540,38 506,46"/>
+      <text class="mlabel q" x="300" y="20">契丹骑兵尽聚幽州之北 · 严兵以待</text>
+      <text class="mlabel f" x="330" y="220" style="fill:var(--qin)">诸将谏曰:离京四十二日,不宜孤军深入</text>
+      <text class="anno" x="330" y="238">主张持重、勿轻犯坚城</text>
+    </g>
+
+    <!-- ══ ④ 世宗遇疾 · 还师功亏 ══ -->
+    <g id="ph4" class="ph">
+      <g class="endmark" transform="translate(300,336)"><circle r="12" fill="none" stroke="#7a5a23" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="14">疾</text></g>
+      <text class="mlabel r" x="180" y="330" text-anchor="end">世宗于瓦桥关一带遇疾</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 300,350 C 344,432 424,548 470,622"/>
+      <text class="mlabel r" x="352" y="512">遂止兵还师 · 南返汴京</text>
+      <text class="anno" x="352" y="528">复燕云功败垂成</text>
+      <!-- 幽州未克,收兵 -->
+      <circle class="objective" cx="482" cy="46" r="13"/>
+      <text class="mlabel q" x="500" y="52" style="font-size:10.5px">幽州卒不可下</text>
+      <path class="march obj" style="opacity:.4" d="M 482,284 C 482,200 482,120 484,70"/>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>后周北伐军(水陆并进)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="4 5"/></svg>欲取幽州(未克)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>契丹骑兵(聚幽州北)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>世宗遇疾还师</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#5f7f88" stroke-width="8" opacity=".3"/><line x1="2" y1="6" x2="32" y2="6" stroke="#5f7f88" stroke-width="2" stroke-dasharray="1 4"/></svg>御河·永济渠(水道)</span>
+    <span class="item"><svg width="20" height="18"><line x1="4" y1="16" x2="4" y2="2" stroke="#5c4f38" stroke-width="1.6"/><path d="M4,2 L17,4 L13,8 L17,12 L4,10 Z" fill="rgba(154,43,30,.9)"/></svg>守将款降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="1.8" stroke-dasharray="4 3"/></svg>目标·未克</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="7 5"/></svg>战后新界(三关·白沟)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#liaoHatch)"/></svg>契丹(辽)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#zhouHatch)"/></svg>后周</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#reclHatch)"/></svg>燕南·本役所复</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 水军疾进,守将款附,功败于疾</h3>
+    <div class="lead">何以四十二日兵不血刃取三关三州 —— 不在血战,而在运河快进与燕南守将之政治性归降</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="取三关三州逻辑示意:水军疾进循御河北上,燕南守将望风款附,遂兵不血刃取三关三州;正欲乘胜取幽州而契丹主力尽聚幽州之北、世宗遇疾,遂还师、复燕云功亏一篑,统一大业留待宋祖">
+      <!-- 水军疾进(青) -->
+      <g><circle cx="118" cy="86" r="40" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><text x="118" y="80" text-anchor="middle" fill="#1f4e54" font-size="13" font-weight="700">水军疾进</text><text x="118" y="98" text-anchor="middle" fill="#5c4f38" font-size="9.5">循御河·龙舟数十里</text></g>
+      <path d="M 160,86 C 200,86 232,86 262,86" fill="none" stroke="#5c4f38" stroke-width="2" stroke-dasharray="5 5"/><path d="M 256,81 L 270,86 L 256,91 Z" fill="#5c4f38"/>
+      <!-- 守将款附(红) -->
+      <g><circle cx="330" cy="86" r="44" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.6"/><text x="330" y="80" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">守将款附</text><text x="330" y="98" text-anchor="middle" fill="#5c4f38" font-size="9.5">王洪·终廷晖·姚内斌</text><text x="330" y="112" text-anchor="middle" fill="#5c4f38" font-size="9.5">刘楚信·高彦晖 皆降</text></g>
+      <g transform="translate(392,52)"><line x1="0" y1="10" x2="0" y2="-16" stroke="#5c4f38" stroke-width="1.8"/><path d="M0,-16 L22,-12 L17,-5 L22,2 L0,-2 Z" fill="rgba(154,43,30,.9)"/><text x="4" y="-3" fill="#f3e6c8" font-family="Ma Shan Zheng" font-size="13">降</text></g>
+      <path d="M 374,86 C 410,86 440,86 470,86" fill="none" stroke="#9a2b1e" stroke-width="2.4"/><path d="M 464,81 L 478,86 L 464,91 Z" fill="#9a2b1e"/>
+      <!-- 取三关三州(金) -->
+      <g><circle cx="546" cy="86" r="46" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="2"/><text x="546" y="78" text-anchor="middle" fill="#9c7a2c" font-size="13" font-weight="700">兵不血刃</text><text x="546" y="96" text-anchor="middle" fill="#5c4f38" font-size="10">取三关三州</text><text x="546" y="110" text-anchor="middle" fill="#5c4f38" font-size="9">四十二日·十七县</text></g>
+      <path d="M 594,86 C 626,86 652,86 678,86" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="6 5"/><path d="M 672,81 L 686,86 L 672,91 Z" fill="#7a5a23"/>
+      <!-- 遇疾还师(棕) -->
+      <g><circle cx="748" cy="86" r="46" fill="rgba(122,90,35,.10)" stroke="#7a5a23" stroke-width="1.6"/><text x="748" y="80" text-anchor="middle" fill="#7a5a23" font-size="13" font-weight="700">遇疾还师</text><text x="748" y="98" text-anchor="middle" fill="#5c4f38" font-size="9.5">幽州未下·功亏一篑</text></g>
+      <!-- 下行:阻力与结局 -->
+      <text x="30" y="176" fill="#5c4f38" font-size="11" font-weight="700" font-style="italic">功止于幽州城下者,二事也：</text>
+      <g><rect x="30" y="192" width="220" height="40" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/><text x="140" y="210" text-anchor="middle" fill="#9a2b1e" font-size="11" font-weight="700">契丹主力尽聚幽州之北</text><text x="140" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">款降之势至坚城而止</text></g>
+      <text x="270" y="216" fill="#5c4f38" font-size="12" font-weight="700">＋</text>
+      <g><rect x="292" y="192" width="220" height="40" rx="4" fill="rgba(122,90,35,.10)" stroke="#7a5a23" stroke-width="1.2"/><text x="402" y="210" text-anchor="middle" fill="#7a5a23" font-size="11" font-weight="700">世宗骤遇疾 · 还师</text><text x="402" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">旬日崩于汴 · 复燕云遂止</text></g>
+      <path d="M 516,212 L 546,212" fill="none" stroke="#5c4a6e" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 542,208 L 554,212 L 542,216 Z" fill="#5c4a6e"/>
+      <g><rect x="556" y="192" width="278" height="40" rx="4" fill="rgba(92,74,110,.10)" stroke="#5c4a6e" stroke-width="1.2"/><text x="695" y="210" text-anchor="middle" fill="#5c4a6e" font-size="11" font-weight="700">燕云未复 · 统一大业留待宋祖</text><text x="695" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">三关三州为宋辽百年疆界之始</text></g>
+    </svg>
+    <p class="intro">显德六年,世宗柴荣既平淮南、威震四方,回师北向,亲征契丹以复燕云。其取胜之奇,不在阵前:周军<b>循御河(永济渠)水陆并进</b>,世宗乘龙舟溯流而上,舳舻首尾数十里,声势甚盛。契丹燕南诸州守将,本多汉人、久处两属,<b>望风款附、举城来降</b>——自宁州王洪,至益津关终廷晖、瓦桥关姚内斌、莫州刘楚信、瀛州高彦晖,相继解甲。四十二日之间,兵不血刃而三关三州、十七县、万八千余户尽入版图,数万之师竟未发一矢。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>制胜之枢 · 速度与水道</h4>
+        <p>本役非以攻坚、非以断粮取胜,而以<b>快</b>取胜:御河漕道贯燕南,水军顺流疾进,人未及守而兵已至城下。守将见大军猝临、又本无死战之心,遂相率归降。故粮道攻守非本役胜负核心——决之者,运河之速与政治之势也。</p>
+      </div>
+      <div class="c b">
+        <h4>功败之由 · 坚城与遇疾</h4>
+        <p>款降之势,行于燕南易主之地而止于幽州坚城:契丹骑兵尽聚幽州之北,严兵以待,已非望风可下。诸将复谏持重。会世宗于瓦桥关一带骤遇疾,遂止兵还师;旬日崩于汴——复燕云之功,遂败垂成。</p>
+      </div>
+    </div>
+    <div class="fiveq">
+      <h4>五问速答</h4>
+      <dl>
+        <dt>何人</dt><dd>后周世宗柴荣 亲征 · 攻;契丹(辽,时辽穆宗)燕南守将 · 守。</dd>
+        <dt>何时</dt><dd>后周显德六年(959)三月出师,四月—五月连下三关三州,五月遇疾还师,六月世宗崩。前后四十二日。</dd>
+        <dt>何地</dt><dd>河北燕南 · 御河(永济渠)沿线:沧州出师,历乾宁(宁州)、益津关、瓦桥关、淤口关、莫州、瀛州,兵锋直指幽州(南京)。</dd>
+        <dt>何以胜</dt><dd>水陆并进、运河疾进 ＋ 燕南守将政治性归附;兵不血刃,非血战、非攻坚、非断粮。</dd>
+        <dt>果如何</dt><dd>得三关三州十七县,收复燕南;然幽州未下、世宗病逝,复燕云功亏一篑,统一留待宋祖。三关三州成宋辽百年疆界之始。</dd>
+      </dl>
+    </div>
+    <p class="kicker">故此役之得,得于<b>疾</b>(水军之速)与<b>势</b>(守将之附);其失,失于<b>疾</b>(世宗之病)与<b>坚</b>(幽州之城)。同一「疾」字,成之亦败之:四十二日兵不血刃收燕南,可谓神速;而天不假年,世宗一病,复燕云之伟业遂止于瓦桥关下。柴荣殁,后周不三年而禅于宋——燕云未竟之图,竟成有宋一代之痛。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=300+(经度−116.10)×600,y=560−(纬度−38.30)×325),几何关系力求近实:契丹(辽)据燕云在北(幽州·南京在图上缘),后周据中原在南(汴梁在图外南),御河·永济渠自沧州循西北向北上,渤海在东。沧州今河北沧州,乾宁军·宁州今河北青县一带,益津关今河北霸州,瓦桥关今河北雄县,淤口关今河北霸州信安镇一带,莫州(鄚州)今河北任丘北,瀛州今河北河间,幽州(南京)今北京,汴梁今河南开封。江河、疆界经简化描绘。据《旧五代史·周世宗纪》《新五代史》《辽史·穆宗纪》《资治通鉴》卷二九四约略绘出。</p>
+    <p><span class="n">注二</span><b>本役以水道快进为特色,兵不血刃。</b>周军循御河(永济渠)水陆并进,世宗乘龙舟溯流北上,舳舻首尾相衔数十里;四十二日之间,燕南守将望风款附——宁州刺史王洪、益津关守将终廷晖、瓦桥关守将姚内斌、鄚州(莫州)刺史刘楚信、瀛州刺史高彦晖相继以城州来降,连得三关(益津关、瓦桥关、淤口关)、三州(瀛、莫、宁,或系易州)、十七县、万八千余户,数万之师未发一矢。故图中不绘决胜之金色『粮道』:本役胜负之枢在<b>速度与政治归附,而非攻坚或攻守粮运</b>,谨此说明。</p>
+    <p><span class="n">注三</span>『三关三州』之目略有异说:三关通指益津关、瓦桥关、淤口关(周于益津关置霸州、瓦桥关置雄州);三州或作瀛、莫、宁(乾宁),或将易州并数。所复凡十七县,史称『得地不烦血刃』。周军兵锋所指之幽州(契丹南京,今北京),因契丹骑兵尽聚其北、又值世宗遇疾,竟未及攻,列于图上缘作『未克』之目。</p>
+    <p><span class="n">注四</span>结局与余事:世宗方议乘胜取幽州,诸将以孤军深入宜持重为谏;会世宗于瓦桥关一带遇疾,遂止兵还师,不久崩于汴(显德六年六月),年三十九。复燕云功败垂成,越明年(960)赵匡胤陈桥兵变代周建宋。所复三关三州之地,后为北宋与辽长期对峙之疆界(雄州、霸州一线),故此役实开宋辽百年边防之局。柴荣之北伐,论者每叹『天若假年,燕云可复』,姑存其慨。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"水陆并进 · 兵不血刃取三关三州",d:"后周显德六年(959)三月—六月",p:["显德六年(959),后周世宗柴荣既平淮南,回师北向,亲征契丹以复燕云。周军循御河(永济渠)水陆并进,世宗乘龙舟溯流而上,舳舻首尾数十里,声势甚盛。契丹燕南诸州守将望风款附:宁州王洪、益津关终廷晖、瓦桥关姚内斌、莫州刘楚信、瀛州高彦晖相继以城来降。","前后四十二日,兵不血刃,连得三关(益津、瓦桥、淤口)、三州(瀛、莫、宁)、十七县、万八千余户,数万之师未发一矢。世宗方欲乘胜取幽州,而契丹骑兵尽聚幽州之北;会世宗于瓦桥关一带遇疾,遂止兵还师,旬日崩于汴——复燕云功败垂成,统一大业留待宋祖。"]},
+  "1":{t:"① 出师北上 · 水陆并进",d:"显德六年(959)三月—四月",p:["世宗自沧州出师北伐。至乾宁军(宁州),稍整水军,乃分命诸将水、陆两路并进而下;世宗自乘龙舟循御河(永济渠)溯流北上,舟船首尾相衔数十里,旌旗蔽野,声势甚盛。","宁州刺史王洪首以城降,周军兵不血刃得其地。御河漕道贯燕南南北,水军顺流疾进,人未及为守备而周师已压其境——是役『以速为奇』之始。"]},
+  "2":{t:"② 三关三州 · 望风款附",d:"显德六年(959)四月—五月初",p:["周军循河北上,契丹燕南守将本多汉人、久处两属,见大军猝至、又无死战之心,遂相率款降:益津关守将终廷晖以关降(周置霸州),瓦桥关守将姚内斌以关降(周置雄州),鄚州(莫州)刺史刘楚信、瀛州刺史高彦晖相继以州来降。","四十二日之间,兵不血刃而三关三州、十七县、万八千余户尽入版图,数万之师竟未发一矢。『得地不烦血刃』,五代用兵所罕见。"]},
+  "3":{t:"③ 欲取幽州 · 诸将持重",d:"显德六年(959)五月",p:["三关三州既下,世宗欲乘胜直取幽州(契丹南京),以毕复燕云之功。然款降之势行于燕南易主之地,至幽州坚城而止:契丹骑兵已尽聚幽州之北,严兵以待,非复望风可下。","诸将谏曰:陛下离京四十二日,兵不血刃取燕南之地,功已罕见;今契丹重兵在前,不宜孤军深入、轻犯坚城。宜持重。世宗迟疑未决。"]},
+  "4":{t:"④ 世宗遇疾 · 还师功亏",d:"显德六年(959)五月—六月",p:["会世宗于瓦桥关一带骤遇疾。深入既非众议所安,主帅又病,遂止兵还师,南返汴京。所复三关三州分置戍守(益津置霸州、瓦桥置雄州),而幽州卒不可下。","还京旬日,世宗崩于汴(显德六年六月),年三十九——复燕云之功败垂成。越明年(960),赵匡胤陈桥兵变代周建宋;所复三关三州之地,遂为宋辽百年对峙之疆界。天不假年,燕云之图竟成有宋一代之痛。"]}
+};
+const CITY={
+  cangzhou:{t:"沧州(出师)",d:"世宗北伐出师地,今河北沧州",p:["世宗亲征契丹,由此出师北上。沧州临御河(永济渠),近渤海,为周军水陆并进之起点;龙舟舟师自此溯流而北。"]},
+  ningzhou:{t:"乾宁军·宁州(王洪降)",d:"今河北青县一带",p:["周军北上首取之地。世宗于此稍整水军,分命诸将水陆俱下。宁州刺史王洪以城降——燕南守将望风款附之始,亦『三州』之一(宁/乾宁)。"]},
+  yijinguan:{t:"益津关(终廷晖降)",d:"三关之一,今河北霸州",p:["守将终廷晖以关降,周即其地置霸州。益津关扼御河要冲,为三关中之东南门户;既下,周军水道益畅。"]},
+  yukouguan:{t:"淤口关",d:"三关之一,今河北霸州信安镇一带",p:["三关(益津、瓦桥、淤口)之一。周军略定燕南,三关皆入版图,遂成宋辽疆界之北限。地当御河下游要隘。"]},
+  waqiaoguan:{t:"瓦桥关(姚内斌降)",d:"三关之一,今河北雄县;世宗遇疾处",p:["守将姚内斌以关降,周即其地置雄州。世宗方议乘胜取幽州,即于此关一带遇疾,遂止兵还师——三关三州之收束、复燕云功亏之转折,俱系于此。"]},
+  mozhou:{t:"莫州(鄚州·刘楚信降)",d:"三州之一,今河北任丘北",p:["鄚州(莫州)刺史刘楚信以州降。莫、瀛并称燕南腹地,守将相继款附,周军兵不血刃而得之。"]},
+  yingzhou:{t:"瀛州(高彦晖降)",d:"三州之一,今河北河间",p:["瀛州刺史高彦晖以本城归顺,时约五月初。瀛、莫既下,燕南之地大定;三州十七县、万八千余户尽入后周版图。"]},
+  youzhou:{t:"幽州·南京(契丹·未克)",d:"契丹南京,今北京",p:["世宗北伐所指之终极目标、复燕云之关键。然契丹骑兵尽聚其北、严兵以待,已非望风可下;又值世宗遇疾还师,幽州竟未及攻,功败垂成。此城之未复,遂为宋辽百年边患之根。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
