@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东海王越决胜 · 合纵翦诸王(305–306 · 八王之乱终)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(27px,5.2vw,44px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .pass{fill:var(--ink2);opacity:.9}
+  .passlabel{fill:var(--ink2);font-size:10.5px;font-weight:700;letter-spacing:.06em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .burn text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.06),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .fiveq{font-size:11.5px;line-height:1.85;color:var(--ink2);text-align:justify;margin-bottom:11px;border:1px dashed rgba(110,93,60,.5);padding:9px 11px;background:rgba(255,250,235,.35)}
+  .explain .fiveq b{color:var(--advance)}
+  .explain .fiveq .q{color:var(--enemy);font-weight:700}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.8s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回西晋八王之乱征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>东</span><span>海</span><span>独</span><span>揽</span></div>
+  <header>
+    <h1>东海王越决胜 · 合纵翦诸王</h1>
+    <div class="sub">晋永兴二年—光熙元年(305–306)　<i>东海王 司马越</i>(合幽并·借鲜卑突骑西向决胜) 讨 <b>河间王 司马颙(据关中)·成都王 司马颖(据河北)</b>,<em>幽州刺史 王浚(率鲜卑乌桓突骑南下之盟军)</em>　·　东西并进 · 尽翦诸王 · 迎帝还洛而独揽——八王之乱终</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 合纵决胜</button>
+    <button data-p="1">① 荡阴既败 · 越退保东海徐州</button>
+    <button data-p="2">② 合幽并 · 借鲜卑突骑 · 推越为盟主</button>
+    <button data-p="3">③ 东西并进 · 祁弘入关 · 连破颙颖</button>
+    <button data-p="4">④ 迎帝还洛 · 颖颙俱死 · 越独揽</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="东海王司马越决胜八王之乱终结形势图,含东海王越据徐州东海(东)、河间王颙据关中长安(西)、成都王颖据河北邺(北)、幽州刺史王浚(图外北,率鲜卑乌桓突骑)四方及黄河横贯,示永兴二年荡阴败后越退保东海徐州、305年王浚司马虓推越为盟主借鲜卑突骑南下、306年祁弘率突骑为前锋随越军东西并进入关中连破颙军于潼关郑县白水、越迎惠帝还洛阳独揽朝政、成都王颖被冯嵩执送而缢死于邺、河间王颙被征还途中杀于车中、惠帝暴崩怀帝立、八王之乱十六年而终之路">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:河间王颙据关中(西)、成都王颖据河北(北·邺)、东海王越据徐州东海(东)、王浚据幽州(图外北) ══ -->
+    <path d="M 0,0 H 1000 V 640 H 0 Z" fill="rgba(233,222,196,.01)"/>
+    <!-- 关中(河间王颙):西隅 -->
+    <path d="M 0,238 C 80,262 175,296 244,338 C 254,420 246,504 224,562 L 0,562 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,238 C 80,262 175,296 244,338 C 254,420 246,504 224,562"/>
+    <!-- 河北(成都王颖·邺):北中隅,黄河之北 -->
+    <path d="M 372,58 C 470,82 588,88 712,116 C 700,178 636,214 552,216 C 466,210 408,150 372,58 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 372,58 C 470,82 588,88 712,116 C 700,178 636,214 552,216 C 466,210 408,150 372,58"/>
+    <!-- 徐州·东海(东海王越):东隅 -->
+    <path d="M 782,300 C 856,290 942,296 1000,300 L 1000,562 L 758,562 C 760,470 770,382 782,300 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 782,300 C 856,290 942,296 1000,300"/>
+    <path class="border" d="M 758,562 C 760,470 770,382 782,300"/>
+    <!-- 幽州(王浚):图外北·上缘紫隅 -->
+    <path d="M 636,0 L 1000,0 L 1000,84 C 902,74 786,66 704,54 C 682,36 660,18 636,0 Z" fill="url(#fqinHatch)"/>
+    <path class="border" d="M 636,0 C 660,18 682,36 704,54 C 786,66 902,74 1000,84"/>
+
+    <text class="realm q" x="30" y="470" font-size="26">关 中</text>
+    <text class="cname s" x="30" y="490" style="fill:var(--enemy);opacity:.72">河间王颙据长安 · 败亡方</text>
+    <text class="realm q" x="452" y="140" font-size="22" style="letter-spacing:.2em">河 北</text>
+    <text class="cname s" x="452" y="160" style="fill:var(--enemy);opacity:.7">成都王颖据邺 · 败亡方</text>
+    <text class="realm j" x="812" y="472" font-size="24">徐 · 东海</text>
+    <text class="cname s" x="812" y="492" style="fill:var(--advance);opacity:.72">东海王越基地 · 本役胜出</text>
+    <text class="realm f" x="852" y="42" font-size="20" style="letter-spacing:.16em">幽 州</text>
+    <text class="cname s" x="738" y="42" style="fill:var(--qin);opacity:.75;text-anchor:end">王浚(图外北)</text>
+    <text class="realm j" x="360" y="300" font-size="20" style="opacity:.24">司 州(洛阳)</text>
+
+    <!-- ══ 水系:黄河横贯,分河北(邺,北)与河南(洛阳荥阳许昌,南) ══ -->
+    <path class="river" stroke-width="5" d="M 0,258 C 90,266 150,286 214,300 C 300,318 360,320 430,314 C 540,304 660,286 760,282 C 850,280 930,290 1000,296"/>
+    <text class="rname" x="250" y="296" style="font-size:13px">黄 　 河</text>
+    <text class="rname" x="640" y="278" transform="rotate(-4 640 278)" style="font-size:12px">黄 河(下流入海)</text>
+
+    <!-- ══ 潼关:关中东出中原之门,越军入关必经 ══ -->
+    <path class="pass" d="M 221,356 l 8,-12 l 8,12 z"/>
+    <text class="passlabel" x="236" y="354">潼关(关中门户)</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="changan"><circle cx="90" cy="398" r="6"/><text class="cname" x="100" y="394">长安<tspan class="cname s" dx="2">(河间王颙据·关中)</tspan></text></g>
+      <g class="city" data-city="zhengxian"><circle cx="145" cy="375" r="4.5"/><text class="cname" x="153" y="371">郑县<tspan class="cname s" dx="2">(华州·关中拒战屡败)</tspan></text></g>
+      <g class="city cap" data-city="luoyang"><circle cx="417" cy="361" r="7"/><text class="cname" x="427" y="357">洛阳<tspan class="cname s" dx="2">(旧都·越迎帝还都)</tspan></text></g>
+      <g class="city" data-city="xingyang"><circle cx="504" cy="340" r="4.5"/><text class="cname" x="514" y="336">荥阳<tspan class="cname s" dx="2">(东西孔道)</tspan></text></g>
+      <g class="city" data-city="xuchang"><circle cx="545" cy="429" r="4.5"/><text class="cname" x="555" y="433">许昌<tspan class="cname s" dx="2">(豫州·越尝据以起)</tspan></text></g>
+      <g class="city" data-city="ye"><circle cx="596" cy="168" r="6"/><text class="cname" x="606" y="164">邺<tspan class="cname s" dx="2">(成都王颖故据·颖缢死)</tspan></text></g>
+      <g class="city cap" data-city="donghai"><circle cx="918" cy="409" r="7"/><text class="cname" x="838" y="405" style="text-anchor:end">徐州·东海<tspan class="cname s" dx="2">(越基地)</tspan></text></g>
+    </g>
+
+    <!-- 幽州·蓟(图外·北,王浚率鲜卑乌桓突骑南下) -->
+    <g class="city" data-city="youzhou" transform="translate(780,4)">
+      <path class="march qin" marker-end="url(#af)" d="M 0,6 L 0,42"/>
+      <circle cx="0" cy="14" r="4" style="fill:var(--paper);stroke:var(--qin);stroke-width:1.6"/>
+      <text class="cname s" x="8" y="12" style="fill:var(--qin);font-size:10px">蓟·幽州(图外北)</text>
+      <text class="cname s" x="8" y="26" style="fill:var(--qin);font-size:9.5px">↓ 王浚率鲜卑乌桓突骑南下</text>
+    </g>
+
+    <!-- ══════════ 全图 · 合纵决胜 ══════════ -->
+    <g id="phAll" class="ph">
+      <!-- 越军自东海西入洛阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 908,405 C 760,392 620,360 520,346 C 480,352 450,357 432,360"/>
+      <text class="mlabel j" x="600" y="330">东海王越合诸方·自山东西向</text>
+      <!-- 前锋祁弘率突骑自洛阳西入关中 -->
+      <path class="march j" marker-end="url(#aj)" d="M 405,364 C 320,370 235,373 162,376"/>
+      <text class="mlabel j" x="230" y="392">祁弘率鲜卑突骑为前锋·西入关中</text>
+      <!-- 王浚鲜卑突骑南下(purple) -->
+      <path class="march qin" marker-end="url(#af)" d="M 778,74 C 720,110 662,140 612,162"/>
+      <text class="mlabel f" x="628" y="120">王浚鲜卑乌桓突骑南下</text>
+      <!-- 颙据长安·颖据邺(camp) -->
+      <rect class="camp" x="84" y="392" width="11" height="11" transform="rotate(45 89.5 397.5)"/>
+      <rect class="camp" x="590" y="162" width="11" height="11" transform="rotate(45 595.5 167.5)"/>
+      <!-- 关中诸战·战环 -->
+      <circle class="star" cx="145" cy="375" r="10"/>
+      <circle class="star" cx="228" cy="358" r="9"/>
+      <text class="mlabel q" x="150" y="334">连败颙军于潼关·郑县·白水</text>
+      <!-- 颖缢死(邺·顿丘方向)brown终 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 604,176 C 626,198 636,216 634,236"/>
+      <g class="endmark" transform="translate(596,168)"><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="12">缢</text></g>
+      <text class="mlabel r" x="612" y="252">颖为冯嵩执送·缢死于邺</text>
+      <!-- 颙杀于车中(还长安途·新安)brown -->
+      <path class="march rout" marker-end="url(#ar)" d="M 100,400 C 190,394 270,382 320,368"/>
+      <text class="mlabel r" x="150" y="426">颙被征还途·杀于车中</text>
+      <g class="endmark" transform="translate(312,362)"><circle r="9" fill="none" stroke="#7a5a23" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="12">杀</text></g>
+      <!-- 越迎帝还洛·终 -->
+      <circle class="star" cx="417" cy="361" r="12"/>
+      <g class="endmark" transform="translate(417,361)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <text class="mlabel j" x="360" y="398">越迎惠帝还洛·独揽朝政</text>
+      <!-- 帝崩·怀帝立 -->
+      <g transform="translate(470,320)"><line x1="-6" y1="-6" x2="6" y2="6" stroke="#9a2b1e" stroke-width="2.4"/><line x1="-6" y1="6" x2="6" y2="-6" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <text class="anno" x="482" y="316" style="fill:var(--enemy)">十一月惠帝暴崩(时议越鸩)·怀帝立</text>
+    </g>
+
+    <!-- ══════════ ① 荡阴既败 · 越退保东海徐州 ══════════ -->
+    <g id="ph1" class="ph">
+      <!-- 荡阴之败:颖挟惠帝,越军溃(邺南荡阴) -->
+      <rect class="camp" x="590" y="162" width="11" height="11" transform="rotate(45 595.5 167.5)"/>
+      <text class="mlabel q" x="452" y="200">成都王颖据邺·挟惠帝(荡阴既胜)</text>
+      <!-- 越自邺南荡阴败,东走徐州东海 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 600,182 C 720,260 830,340 902,398"/>
+      <text class="mlabel r" x="700" y="300" transform="rotate(34 700 300)">越荡阴败后东走·退保东海徐州</text>
+      <rect class="camp j" x="912" y="403" width="11" height="11" transform="rotate(45 917.5 408.5)"/>
+      <text class="anno" x="720" y="440">越据徐州·东海(其封国),厚集士马,再图起兵</text>
+      <!-- 河间王颙据长安·遥制朝政 -->
+      <rect class="camp" x="84" y="392" width="11" height="11" transform="rotate(45 89.5 397.5)"/>
+      <text class="mlabel q" x="100" y="440">河间王颙据关中·遣张方挟帝西迁长安</text>
+      <text class="anno" x="30" y="516" style="fill:var(--enemy)">时惠帝在颙颖之手,天下无主,四方离叛</text>
+    </g>
+
+    <!-- ══════════ ② 合幽并 · 借鲜卑突骑 · 推越为盟主 ══════════ -->
+    <g id="ph2" class="ph">
+      <!-- 王浚幽州鲜卑突骑南下(304破邺·305助越) -->
+      <path class="march qin" marker-end="url(#af)" d="M 778,72 C 718,108 658,140 610,164"/>
+      <text class="mlabel f" x="620" y="112">幽州刺史王浚·率鲜卑乌桓突骑</text>
+      <text class="anno" x="620" y="128" style="fill:var(--qin)">先破邺·逐颖(鲜卑掠邺,妇女沉易水)</text>
+      <!-- 并州司马腾亦合(自图外北西) -->
+      <g transform="translate(300,4)">
+        <path class="march qin" marker-end="url(#af)" d="M 0,6 L 0,34"/>
+        <text class="cname s" x="6" y="16" style="fill:var(--qin);font-size:9.5px">并州刺史司马腾(越弟·图外北)</text>
+        <text class="cname s" x="6" y="29" style="fill:var(--qin);font-size:9.5px">↓ 与王浚合破邺</text>
+      </g>
+      <!-- 越据徐州为盟主 -->
+      <rect class="camp j" x="912" y="403" width="11" height="11" transform="rotate(45 917.5 408.5)"/>
+      <text class="mlabel j" x="700" y="430">王浚·司马虓等共推越为盟主</text>
+      <text class="anno" x="700" y="446">以「迎大驾·复旧都」为名,合兵西讨</text>
+      <!-- 颖失邺·奔洛依颙(河北→洛→长安) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 588,178 C 500,240 440,300 420,348"/>
+      <text class="mlabel r" x="430" y="292">颖失邺·挟帝奔洛·转依颙于关中</text>
+      <rect class="camp" x="84" y="392" width="11" height="11" transform="rotate(45 89.5 397.5)"/>
+      <text class="mlabel q" x="100" y="426">颙据长安·收颖以拒东方</text>
+    </g>
+
+    <!-- ══════════ ③ 东西并进 · 祁弘入关 · 连破颙颖 ══════════ -->
+    <g id="ph3" class="ph">
+      <!-- 越军主力自东海西向 -->
+      <path class="march j" marker-end="url(#aj)" d="M 908,405 C 760,392 620,360 520,346 C 480,352 450,357 432,360"/>
+      <text class="mlabel j" x="600" y="330">越军东西并进·自山东西趋洛阳</text>
+      <!-- 祁弘率突骑入关中 -->
+      <path class="march j" marker-end="url(#aj)" d="M 405,364 C 320,370 260,372 235,364"/>
+      <text class="mlabel j" x="270" y="392">祁弘率鲜卑突骑为前锋·破潼关入关中</text>
+      <!-- 潼关·郑县·白水诸战 -->
+      <circle class="star" cx="228" cy="358" r="9"/>
+      <circle class="star" cx="145" cy="375" r="10"/>
+      <text class="mlabel j" x="120" y="352">连破颙将刁默·马瞻于潼关·湖县</text>
+      <path class="march j" marker-end="url(#aj)" d="M 210,362 C 175,368 145,372 118,382"/>
+      <text class="anno" x="60" y="408">白水再破郭伟·颙军屡败</text>
+      <!-- 颙败走太白山 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 82,404 C 60,430 48,460 44,486"/>
+      <text class="mlabel r" x="18" y="504">颙弃长安·走保太白山</text>
+      <rect class="camp" x="84" y="392" width="11" height="11" transform="rotate(45 89.5 397.5)"/>
+      <!-- 颖军亦溃(河北) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 560,188 C 520,236 490,286 470,332"/>
+      <text class="mlabel r" x="474" y="270">颖党亦溃·成都王颖走死</text>
+    </g>
+
+    <!-- ══════════ ④ 迎帝还洛 · 颖颙俱死 · 越独揽 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 祁弘以牛车迎惠帝还洛 -->
+      <path class="march j" marker-end="url(#aj)" d="M 130,388 C 240,378 330,368 405,362"/>
+      <text class="mlabel j" x="150" y="358">祁弘以牛车迎惠帝东还洛阳(光熙元年五月)</text>
+      <circle class="star" cx="417" cy="361" r="12"/>
+      <g class="endmark" transform="translate(417,361)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <text class="mlabel j" x="360" y="398">越迎帝还旧都·独秉朝政</text>
+      <!-- 颖缢死于邺 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 604,176 C 626,198 636,216 634,236"/>
+      <g class="endmark" transform="translate(596,168)"><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="12">缢</text></g>
+      <text class="mlabel r" x="612" y="252">颖为冯嵩执送邺·刘舆矫诏缢杀之(年二十八)</text>
+      <!-- 颙杀于车中 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 60,470 C 120,430 240,392 320,368"/>
+      <g class="endmark" transform="translate(312,362)"><circle r="9" fill="none" stroke="#7a5a23" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="12">杀</text></g>
+      <text class="mlabel r" x="120" y="452">颙旋被征还·梁臣掐杀于车中(新安)</text>
+      <!-- 帝崩·怀帝立 -->
+      <g transform="translate(452,343)"><line x1="-6" y1="-6" x2="6" y2="6" stroke="#9a2b1e" stroke-width="2.6"/><line x1="-6" y1="6" x2="6" y2="-6" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text class="anno" x="462" y="330" style="fill:var(--enemy)">十一月惠帝食饼暴崩(时议越鸩)</text>
+      <text class="anno" x="462" y="345" style="fill:var(--enemy)">越立豫章王炽为帝(怀帝)——八王之乱终</text>
+    </g>
+
+    <g class="compass" transform="translate(950,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>东海王越(合诸方西向决胜·本役胜出)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>王浚(幽州·鲜卑乌桓突骑·盟军第三方)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>河间王颙·成都王颖(据关中/河北·败亡)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>颙颖军溃败·死亡</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·会战</span>
+    <span class="item"><svg width="16" height="16"><line x1="3" y1="3" x2="13" y2="13" stroke="#9a2b1e" stroke-width="2.6"/><line x1="3" y1="13" x2="13" y2="3" stroke="#9a2b1e" stroke-width="2.6"/></svg>帝暴崩·怀帝立</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>东海王越(徐·东海)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>颙(关中)·颖(河北)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>王浚(幽州)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 合纵借胡骑 · 尽翦诸王 · 独揽而晋已空</h3>
+    <div class="lead">何以东海王独出而八王之乱终——不在一战一城,而在合纵诸方兵势与鲜卑突骑之强;然赢家所得已是空壳</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="合纵决胜逻辑图:东海王越荡阴败后退保东海徐州再起,合并州司马腾幽州王浚之众、借鲜卑乌桓突骑,东西并进尽翦河间王颙成都王颖,迎惠帝还洛独揽朝政;然十六年诸王相攻,晋室武备人心俱尽,赢家亦空,永嘉之祸随之而至">
+      <!-- 起:越败退再起 -->
+      <g><rect x="14" y="96" width="128" height="58" rx="5" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><text x="78" y="120" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">越败退东海</text><text x="78" y="138" text-anchor="middle" fill="#5c4f38" font-size="9.5">荡阴既败·再起</text></g>
+      <!-- 合纵借突骑 -->
+      <g><circle cx="270" cy="125" r="52" fill="rgba(92,74,110,.12)" stroke="#5c4a6e" stroke-width="1.8"/><text x="270" y="112" text-anchor="middle" fill="#5c4a6e" font-size="12.5" font-weight="700">合幽并之众</text><text x="270" y="130" text-anchor="middle" fill="#5c4a6e" font-size="12.5" font-weight="700">借鲜卑突骑</text><text x="270" y="148" text-anchor="middle" fill="#5c4f38" font-size="9">王浚·司马腾·祁弘</text></g>
+      <path d="M 146,125 L 214,125" fill="none" stroke="#1f4e54" stroke-width="2.2"/><path d="M 210,121 L 220,125 L 210,129 Z" fill="#1f4e54"/>
+      <!-- 尽翦颙颖 -->
+      <g><circle cx="470" cy="125" r="52" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.8"/><text x="470" y="112" text-anchor="middle" fill="#9a2b1e" font-size="12.5" font-weight="700">东西并进</text><text x="470" y="130" text-anchor="middle" fill="#9a2b1e" font-size="12.5" font-weight="700">尽翦颙颖</text><text x="470" y="148" text-anchor="middle" fill="#5c4f38" font-size="9">颖缢·颙杀于车中</text></g>
+      <path d="M 324,125 L 414,125" fill="none" stroke="#5c4a6e" stroke-width="2.2"/><path d="M 410,121 L 420,125 L 410,129 Z" fill="#5c4a6e"/>
+      <!-- 迎帝还洛独揽 -->
+      <g><rect x="558" y="82" width="150" height="52" rx="5" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.5"/><text x="633" y="104" text-anchor="middle" fill="#9c7a2c" font-size="12" font-weight="700">迎帝还洛·独揽</text><text x="633" y="122" text-anchor="middle" fill="#5c4f38" font-size="9">帝暴崩·立怀帝</text></g>
+      <path d="M 522,110 C 538,100 548,94 556,90" fill="none" stroke="#9a2b1e" stroke-width="2.2"/><path d="M 552,85 L 562,88 L 555,96 Z" fill="#9a2b1e"/>
+      <!-- 果:赢家亦空 -->
+      <g><rect x="558" y="150" width="150" height="60" rx="5" fill="rgba(43,36,24,.09)" stroke="#2b2418" stroke-width="1.5"/><text x="633" y="172" text-anchor="middle" fill="#2b2418" font-size="12" font-weight="700">十六年相攻</text><text x="633" y="190" text-anchor="middle" fill="#9a2b1e" font-size="10.5" font-weight="700">武备人心俱尽</text><text x="633" y="204" text-anchor="middle" fill="#5c4f38" font-size="9">赢家亦空</text></g>
+      <path d="M 522,140 C 538,150 548,156 556,162" fill="none" stroke="#2b2418" stroke-width="2"/><path d="M 555,156 L 562,164 L 552,167 Z" fill="#2b2418"/>
+      <!-- 永嘉之祸 -->
+      <g><rect x="726" y="116" width="120" height="60" rx="5" fill="rgba(154,43,30,.09)" stroke="#9a2b1e" stroke-width="1.4"/><text x="786" y="140" text-anchor="middle" fill="#9a2b1e" font-size="11.5" font-weight="700">永嘉之祸</text><text x="786" y="158" text-anchor="middle" fill="#5c4f38" font-size="9">随之而至</text><text x="786" y="171" text-anchor="middle" fill="#5c4f38" font-size="9">晋室遂倾</text></g>
+      <path d="M 710,146 L 724,146" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><path d="M 720,142 L 730,146 L 720,150 Z" fill="#9a2b1e"/>
+    </svg>
+    <div class="fiveq">
+      <span class="q">五问速答 ·</span>
+      <b>①谁与谁战</b>:东海王司马越(合并州司马腾、幽州王浚,借鲜卑乌桓突骑) 对 河间王司马颙(据关中)、成都王司马颖(据河北)。
+      <b>②何时何地</b>:永兴二年(305)七月合兵西向,光熙元年(306)祁弘入关中连破颙军,五月迎帝、七月还洛。
+      <b>③因何而战</b>:荡阴败后惠帝落颙颖之手、天下无主,越以「迎大驾·复旧都」为名合诸方以争大柄。
+      <b>④何以致胜</b>:合纵诸方兵势、王浚鲜卑突骑之强,东西并进,颙颖不能敌——非以后勤断绝(故本图不画粮道)。
+      <b>⑤果与影响</b>:颖缢死、颙杀于车中,越迎帝还洛独揽;十一月帝暴崩立怀帝,八王之乱十六年而终,而晋室元气已尽,永嘉之祸随之。
+    </div>
+    <p class="intro">永兴元年(304)荡阴之败,东海王越挟惠帝亲征而大溃,单骑走保封国东海、据徐州,再图起兵。时成都王颖挟帝居邺、河间王颙据关中遥制,复遣张方挟帝西迁长安——<b>天下无主,四方离叛</b>。越乃合其弟并州刺史司马腾、幽州刺史王浚(借乌桓、鲜卑突骑),以「迎大驾、复旧都」为名,合兵西讨。事之关键,不在一战一城,而在<b>越能合纵诸方之兵、且得鲜卑突骑之强</b>——颙颖各拥一隅而不能当四合之势。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>合纵 · 越联王浚鲜卑西讨</h4>
+        <p>越据徐州为盟主,王浚、司马虓等共推之。王浚先率鲜卑乌桓突骑破邺、逐颖,并州司马腾亦合;及西讨,王浚遣祁弘将突骑为前锋随越军入关。光熙元年,祁弘破潼关、连败颙将刁默、马瞻、郭伟于湖县、郑县、白水,颙弃长安走太白山,颖党亦溃——东西并进,诸王一时尽翦。</p>
+      </div>
+      <div class="c b">
+        <h4>空壳 · 翦尽诸王·晋元气丧尽</h4>
+        <p>五月祁弘以牛车迎惠帝东还,七月复入旧都洛阳,改元光熙,越独秉朝政。成都王颖为顿丘太守冯嵩执送,刘舆矫诏缢杀之于邺;河间王颙旋被征还,梁臣掐杀于车中。十一月惠帝食饼暴崩(时议越所鸩),越立豫章王炽为怀帝。八王之乱十六年至此终——然武备耗于同室,人心离于篡杀,越所揽者一空壳耳。</p>
+      </div>
+    </div>
+    <p class="kicker">故八王之乱之终,不在一战之胜,而在<b>越合纵诸方之势、借鲜卑突骑之强</b>,东西并进而尽翦颙颖,迎帝还洛以独揽。然十六年诸王相攻,晋室武备人心俱尽——「<b>八王之乱终·而永嘉之祸随之——赢家亦输</b>」:越得天下未几,四方胡羯并起,晋室遂倾。制胜之枢既非后勤,故本图不画粮道(见注)。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=90+(经度−108.9)×92,y=300−(纬度−35.15)×115,减号使北向上),几何关系力求近实:河间王颙据关中长安在西、潼关当其东出之口,成都王颖据河北之邺在北(黄河之北),东海王越据徐州·东海在东,洛阳(旧都)居中,幽州(蓟)远在图外之北(以上缘紫箭示王浚鲜卑突骑南下)。黄河横贯,分河北(邺)与河南诸地。疆界(关中/河北/徐东海/幽州)四色斜纹经简化描绘,系约界而非实测。据《晋书》卷五十九〈成都王颖传〉〈河间王颙传〉、卷三十九〈王浚传〉、《晋书·惠帝纪》、《资治通鉴》卷八十五至八十六(晋纪七·永兴二年—光熙元年)约略绘出。</p>
+    <p><span class="n">注二</span>坐标表(经度,纬度→图上x,y):长安(108.9,34.3→90,398,河间王颙据·关中);郑县(109.5,34.5→145,375,华州·关中拒战屡败);潼关(约110.4,34.6→228,358,关中门户,以三角示之);洛阳(112.45,34.62→417,361,旧都·越迎帝还都);荥阳(113.4,34.8→504,340,东西孔道);许昌(113.85,34.03→545,429,豫州·越尝据以起);邺(114.4,36.3→596,168,成都王颖故据·颖缢死);徐州·东海(117.9,34.2→918,409,东海王越基地);幽州·蓟(116.4,39.9→图外北,x≈780处上缘箭头示之,王浚鲜卑突骑南下)。潼关为示意加绘,非在给定坐标之列。</p>
+    <p><span class="n">注三</span>行军与势力:四方各有所出。东海王越(青)据徐州·东海,合诸方自山东西向决胜,为本役所追踪之动方、亦本役胜出者;其前锋祁弘率鲜卑突骑自洛阳西入关中。王浚(紫·虚线)据幽州,率鲜卑乌桓突骑南下,为盟军第三方(先破邺逐颖,后遣祁弘助越入关)。河间王颙(红)据关中长安、成都王颖(红)据河北之邺,皆本役之败亡方;颙颖军溃败死亡以褐色虚线示之。并州刺史司马腾(越弟)亦自图外北合王浚破邺,以上缘小箭示其入向。</p>
+    <p><span class="n">注四</span>不画粮道之故:此役之决胜要素,不在后勤之绝,而在<b>越合纵诸方之兵势与鲜卑突骑之强</b>。越败退东海而能再合幽、并之众,借乌桓鲜卑突骑之锐,东西并进,颙颖各拥一隅而不能当四合之势——制胜之枢在合纵与骑锐,非在断敌漕运。故本图不设金色粮道动脉,亦无断粮之朱色 ✕;图中朱色 ✕ 所标者,乃「惠帝暴崩·怀帝立」之变,非断粮道。此与前晋灭亡(中渡断粮)之制胜之枢迥异,谨别之。</p>
+    <p><span class="n">注五</span>异说与存疑:一、王浚借鲜卑乌桓突骑之掠——所谓「邺城之祸」,《晋书·王浚传》载破邺后鲜卑大掠,王浚下令有藏匿妇女者斩,鲜卑遂沉所掠妇女八千于易水,事系永兴元年(304)破邺之役,与305–306西讨相衔;掠地残破,史家多讥王浚「假胡自重」。二、颖、颙死状与时地:成都王颖为顿丘太守冯嵩执送邺,范阳王虓不忍杀而囚之,虓暴卒,长史刘舆恐颖为患,矫惠帝诏使田徽等缢杀之,时年二十八(光熙元年);河间王颙于怀帝即位后被征为司徒,就征途中,南阳王模遣将梁臣掐杀之于新安雍谷车中,并杀其三子——诸书小异,图中系其大略。三、惠帝暴崩是否越鸩:光熙元年十一月,惠帝食饼中毒暴崩于显阳殿(洛阳),《晋书》云「或云司马越之鸩」,系疑辞而非定谳,图中从「时议越鸩之」之说而标疑。四、「迎大驾·复旧都」之名:越合兵所标之义,实则争大柄;史家谓其「假迎复之名以收人望」。五、光熙元年(306):惠帝改元光熙即在还洛之后(七月),同年十一月崩、怀帝即位改元永嘉;八王之乱历十六年(291–306)至此终结。以上诸端并见脚注,以厘清之。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"东海王越合纵决胜 · 八王之乱终",d:"晋永兴二年—光熙元年(305–306)",p:["永兴元年(304)荡阴之败,东海王司马越挟惠帝亲征而大溃,单骑走保封国东海、据徐州,再图起兵。时成都王颖挟帝居邺、河间王颙据关中遥制,复遣张方挟帝西迁长安,天下无主。","越乃合其弟并州刺史司马腾、幽州刺史王浚(借乌桓、鲜卑突骑),以『迎大驾、复旧都』为名,合兵西讨。光熙元年(306),前锋祁弘率鲜卑突骑破潼关入关中,连败颙军于湖县、郑县、白水,颙弃长安走太白山,颖党亦溃。五月祁弘以牛车迎惠帝东还,七月复入旧都洛阳,越独秉朝政。成都王颖缢死于邺,河间王颙杀于车中;十一月惠帝暴崩(时议越鸩之),越立豫章王炽为怀帝。八王之乱十六年至此终——然晋室武备人心俱尽,永嘉之祸随之。"]},
+  "1":{t:"① 荡阴既败 · 越退保东海徐州",d:"晋永兴元年—二年(304–305)",p:["永兴元年(304)七月,东海王越挟惠帝亲征成都王颖,战于荡阴(邺南),越军大溃,惠帝为颖所得、挟居邺;越单骑东走,退保其封国东海,据徐州。","河间王颙遣其将张方入洛,又挟惠帝西迁长安,遥制朝政;成都王颖亦一时依颙于关中。天下无主,四方离叛。越据徐州、东海,厚集士马,阴结山东诸镇,再图起兵——决胜之局由是开。"]},
+  "2":{t:"② 合幽并 · 借鲜卑突骑 · 推越为盟主",d:"晋永兴二年(305)",p:["越合其弟并州刺史司马腾、幽州刺史王浚等。王浚握幽州之众,尤借乌桓、鲜卑突骑之锐:永兴元年已与司马腾合破邺、逐成都王颖,鲜卑大掠邺城(所谓『邺城之祸』,妇女沉易水)。","永兴二年(305)七月,王浚、范阳王司马虓等共推越为盟主,越以『迎大驾、复旧都』为名传檄合兵、东西并举以讨颙颖。成都王颖失邺,挟众奔洛、转依河间王颙于关中;颙据长安、收颖以拒东方。合纵之势既成。"]},
+  "3":{t:"③ 东西并进 · 祁弘入关 · 连破颙颖",d:"晋光熙元年(306)春夏",p:["光熙元年(306),越军东西并进,自山东西趋洛阳、关中。王浚遣祁弘将鲜卑突骑为前锋,与越将宋胄、司马纂共向长安。","祁弘破潼关而入关中,四月以来连破颙将刁默、马瞻于湖县,又破郭伟于白水,河间王颙屡战屡败,弃长安走保太白山;越军入长安。成都王颖党亦溃、颖走死。诸王一时尽翦——鲜卑突骑之强、合纵之势,颙颖各拥一隅皆不能当。"]},
+  "4":{t:"④ 迎帝还洛 · 颖颙俱死 · 越独揽",d:"晋光熙元年(306)五月—十一月",p:["光熙元年五月,祁弘以牛车迎惠帝东还,七月复入旧都洛阳,改元光熙,越独秉朝政、大权尽归。成都王颖为顿丘太守冯嵩执送邺,范阳王虓暴卒,长史刘舆恐颖为患,矫诏缢杀之,年二十八;河间王颙旋被征还,梁臣掐杀于车中(新安),并杀其三子。","十一月,惠帝食饼暴崩于显阳殿,时议以为越所鸩;越立豫章王炽为帝,是为怀帝,改元永嘉。八王之乱历十六年(291–306)至此终结,司马越独秉大权。然十六年同室相攻,晋室武备耗竭、人心离散——越所揽者一空壳耳,四方胡羯并起,永嘉之祸随之而至。"]}
+};
+const CITY={
+  changan:{t:"长安(河间王颙据·关中)",d:"雍州治·关中中心,今陕西西安",p:["河间王司马颙镇关中之都。荡阴后颙遣张方挟惠帝西迁于此,遥制朝政。光熙元年,越前锋祁弘率鲜卑突骑破潼关西入,连败颙军,颙弃长安走保太白山,越军入长安。颙旋被征还,杀于车中——关中为决胜西向之的。"]},
+  zhengxian:{t:"郑县(华州·关中拒战)",d:"关中东部,今陕西华州(华县)",p:["关中东部要地。河间王颙遣兵拒东来之越军于郑县、湖县、白水等地,屡战屡败。祁弘率鲜卑突骑连破之,颙军遂溃——关中拒战屡败之一线。地望与湖县、白水诸战互见,详见脚注。"]},
+  luoyang:{t:"洛阳(旧都·越迎帝还都)",d:"西晋京师·司州治,今河南洛阳",p:["西晋旧都。越以『复旧都』为名合兵西讨。光熙元年五月祁弘以牛车迎惠帝东还,七月复入洛阳,越独秉朝政。十一月惠帝暴崩于显阳殿(时议越鸩),越立怀帝——八王之乱终局、越独揽之枢在此。"]},
+  xingyang:{t:"荥阳(东西孔道)",d:"司州东部·敖仓故地,今河南荥阳",p:["洛阳东之要冲、东西往来之孔道,当越军自山东西趋洛阳、关中之途。地近黄河,为河南漕运与兵行之枢,图中系于越军西向之路。"]},
+  xuchang:{t:"许昌(豫州·越尝据以起)",d:"豫州重镇,今河南许昌",p:["豫州要镇,魏晋屡为诸王起兵之地。八王之乱中越、颖等皆尝据豫州、许昌一带经营。图中系于越合诸方、东西并进之南翼豫州一线。"]},
+  ye:{t:"邺(成都王颖故据·颖缢死)",d:"冀州重镇,今河北临漳西南",p:["成都王司马颖镇邺,握重兵。荡阴既胜,颖挟惠帝居此;后为王浚、司马腾以鲜卑突骑破邺、逐颖(鲜卑大掠,妇女沉易水)。光熙元年,颖为冯嵩执送邺,刘舆矫诏缢杀之,年二十八——颖之终局在此。"]},
+  donghai:{t:"徐州·东海(东海王越基地)",d:"徐州·东海国,今江苏北部一带",p:["东海王越之封国与基地。荡阴大败后,越退保东海、据徐州,厚集士马、阴结山东诸镇,再图起兵;王浚、司马虓等共推之为盟主。越合诸方自此西向决胜——本役所追踪之动方、亦本役胜出者所自出。"]},
+  youzhou:{t:"幽州·蓟(王浚·图外北)",d:"幽州治,今北京一带(图外北)",p:["幽州刺史王浚据蓟,握幽州之众,尤借乌桓、鲜卑突骑之锐。永兴元年与司马腾合破邺逐颖;二年共推越为盟主,遣祁弘率突骑为前锋随越军西入关中助讨颙颖——率鲜卑乌桓突骑南下之盟军第三方。地远在图外之北,以上缘紫箭示其入向。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
