@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宁平城之战 · 永嘉五年(311)· 晋军十万尽歼 · 石勒围射</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(27px,5.2vw,44px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 晋军东还辎重臃肿之带:teal 粗钝以示塞道难行 */
+  .column{fill:none;stroke:var(--advance);stroke-linecap:round}
+  .column.band{stroke-width:12;opacity:.15}
+  .column.core{stroke-width:2;opacity:.8;stroke-dasharray:1 5}
+  .cart{fill:var(--advance);opacity:.72}
+  .intend{fill:none;stroke:var(--advance);stroke-width:2;stroke-dasharray:4 6;opacity:.6;stroke-linecap:round}
+  /* 围而纵射:红色骑兵合围环 + 向心箭簇 */
+  .encircle{fill:none;stroke:var(--enemy);stroke-width:2;stroke-dasharray:7 5;opacity:.92}
+  .shot{stroke:var(--enemy);stroke-width:1.5;stroke-linecap:round;opacity:.9}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .death line{stroke:var(--ink2);stroke-width:2.4;stroke-linecap:round}
+  .death circle{fill:none;stroke:var(--ink2);stroke-width:1.5}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(154,43,30,.06),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .fiveq{font-size:11.5px;line-height:1.85;color:var(--ink2);text-align:justify;margin-bottom:11px;border:1px dashed rgba(110,93,60,.5);padding:9px 11px;background:rgba(255,250,235,.35)}
+  .explain .fiveq b{color:var(--advance)}
+  .explain .fiveq .q{color:var(--enemy);font-weight:700}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.8s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回西晋征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>宁</span><span>平</span><span>尽</span><span>歼</span></div>
+  <header>
+    <h1>宁平城之战 · 十万尽歼</h1>
+    <div class="sub">晋永嘉五年 · 汉光兴二年(311)　<i>晋 太尉王衍(奉太傅东海王司马越丧柩东还的十余万军民)</i> 被 <b>汉 石勒(轻骑追歼)</b> 围射尽歼于苦县宁平城　·　拥兵避祸 · 辎重塞道 · 骑围纵射 · 自相践踏 · 西晋野战之师荡然</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 十万尽歼</button>
+    <button data-p="1">① 越拥兵出洛 · 屯项病死</button>
+    <button data-p="2">② 王衍奉丧东还 · 辎重塞道</button>
+    <button data-p="3">③ 石勒轻骑追及 · 围于宁平城</button>
+    <button data-p="4">④ 纵骑驰射 · 十余万尽歼 · 王衍死</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="西晋永嘉五年宁平城之战形势图,含晋据中原(洛阳—项—东海一线,黄河以南)与汉石勒据河北(襄国在北)约以黄河为界,黄河横贯其北、涡水鸿沟经苦县;示东海王司马越拥晋室最后精锐号二十余万出洛屯项、三月忧惧病死于项,众推太尉王衍为元帅奉越丧柩东还欲葬越于东海郯,王公朝士士庶十余万随行辎重塞道行迟,石勒率轻骑自后追及于苦县宁平城以骑兵四面合围纵骑驰射,十余万晋军自相践踏尸积如山尽歼,王衍及宗室诸王被执夜推墙压杀,西晋最后野战主力全军覆没京师洛阳遂成空城">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:晋据中原(黄河以南,洛阳—项—东海一线,teal),汉石勒据河北(黄河以北,襄国在北,red);约以黄河为界 ══ -->
+    <path d="M 0,0 H 1000 V 640 H 0 Z" fill="url(#jinHatch)"/>
+    <!-- 河北·汉石勒:北 -->
+    <path d="M 0,0 H 1000 V 300 C 800,318 520,346 300,358 C 190,364 90,368 0,372 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,372 C 90,368 190,364 300,358 C 520,346 800,318 1000,300"/>
+    <text class="realm q" x="700" y="150" font-size="26">汉 · 石 勒(河北)</text>
+    <text class="cname s" x="706" y="172" style="fill:var(--enemy);opacity:.72">据襄国 · 时略地豫州 · 轻骑追歼</text>
+    <text class="realm j" x="120" y="470" font-size="26">晋 · 中 原</text>
+    <text class="cname s" x="126" y="492" style="fill:var(--advance);opacity:.72">越拥最后精锐 · 王衍奉丧东还</text>
+
+    <!-- ══ 山脉:太行余脉(西北,襄国之背) ══ -->
+    <path class="mtn fill" d="M 210,150 L 228,118 L 242,138 L 258,110 L 274,138 L 246,168 Z"/>
+    <path class="mtn" d="M 216,158 l 14,-30 l 10,16 l 14,-26 l 11,20"/>
+    <text class="mname" x="188" y="176" style="font-size:10px">太 行 余 脉</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:横贯其北,自西而东北趋,为晋汉之约界 -->
+    <path class="river" stroke-width="5" d="M 40,352 C 180,344 320,338 470,330 C 620,322 780,312 968,296"/>
+    <text class="rname" x="150" y="332" style="font-size:13px">黄 　 河</text>
+    <!-- 涡水/鸿沟:自西北鸿沟分流,东南经苦县(宁平城),趋亳 -->
+    <path class="river" stroke-width="2.6" style="opacity:.72" d="M 372,388 C 440,430 494,470 528,500 C 580,540 640,566 700,584"/>
+    <text class="rname" x="588" y="548" transform="rotate(30 588 548)" style="font-size:10.5px">涡水 · 鸿沟</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="luoyang"><circle cx="184" cy="398" r="6.5"/><text class="cname" x="194" y="394">洛阳<tspan class="cname s" dx="2">(越出兵处·京师)</tspan></text></g>
+      <g class="city" data-city="xuchang"><circle cx="352" cy="468" r="5"/><text class="cname" x="362" y="464">许昌<tspan class="cname s" dx="2">(石勒追击所出)</tspan></text></g>
+      <g class="city cap" data-city="xiang"><circle cx="478" cy="544" r="6"/><text class="cname" x="488" y="548">项·项城<tspan class="cname s" dx="2">(越屯·三月病死)</tspan></text></g>
+      <g class="city cap" data-city="ningping"><circle cx="526" cy="496" r="7"/><text class="cname" x="536" y="490">宁平城·苦县<tspan class="cname s" dx="2">(石勒围歼晋军)</tspan></text></g>
+      <g class="city" data-city="donghai"><circle cx="886" cy="400" r="6"/><text class="cname" x="880" y="418" style="text-anchor:end">东海·郯<tspan class="cname s" dx="2">(丧柩欲归葬)</tspan></text></g>
+      <g class="city" data-city="xiangguo"><circle cx="430" cy="100" r="6"/><text class="cname" x="440" y="96">襄国·邢台<tspan class="cname s" dx="2">(石勒基地)</tspan></text></g>
+    </g>
+
+    <!-- ══════════ 全图 · 十万尽歼 ══════════ -->
+    <g id="phAll" class="ph">
+      <!-- 晋军东还辎重臃肿之带:洛阳→项→宁平城 -->
+      <path class="column band" d="M 184,400 C 300,438 410,502 474,540 C 494,524 510,508 522,498"/>
+      <path class="column core" d="M 184,400 C 300,438 410,502 474,540 C 494,524 510,508 522,498"/>
+      <g class="cart">
+        <rect x="296" y="448" width="7" height="7" transform="rotate(45 299.5 451.5)"/>
+        <rect x="398" y="498" width="7" height="7" transform="rotate(45 401.5 501.5)"/>
+        <rect x="468" y="528" width="7" height="7" transform="rotate(45 471.5 531.5)"/>
+        <rect x="508" y="504" width="7" height="7" transform="rotate(45 511.5 507.5)"/>
+      </g>
+      <!-- 越出洛屯项 -->
+      <path class="march j" marker-end="url(#aj)" d="M 190,404 C 280,438 400,500 470,538"/>
+      <text class="mlabel j" x="196" y="440">越拥二十余万出洛屯项(名讨石勒·实避祸)</text>
+      <!-- 王衍奉丧东还:项→宁平城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 484,540 C 500,524 512,510 522,498"/>
+      <!-- 欲葬东海之intent(dashed) -->
+      <path class="intend" d="M 534,494 C 640,462 760,432 878,406"/>
+      <text class="mlabel j" x="616" y="452" transform="rotate(-14 616 452)">王衍奉丧十余万东还·欲葬越于东海</text>
+      <!-- 石勒:襄国南下(略地),自许昌追及 -->
+      <path class="march q" marker-end="url(#aq)" style="opacity:.55" d="M 428,112 C 400,240 380,360 358,458"/>
+      <text class="mlabel q" x="360" y="240" transform="rotate(80 360 240)">石勒轻骑自河北南略</text>
+      <path class="march q" marker-end="url(#aq)" d="M 362,466 C 420,472 468,482 508,492"/>
+      <text class="mlabel q" x="360" y="452">石勒轻骑追及</text>
+      <!-- 围而纵射:合围环 + 向心箭簇 -->
+      <circle class="encircle" cx="526" cy="496" r="45"/>
+      <g class="shot">
+        <line marker-end="url(#aq)" x1="572" y1="496" x2="550" y2="496"/>
+        <line marker-end="url(#aq)" x1="558" y1="528" x2="542" y2="512"/>
+        <line marker-end="url(#aq)" x1="526" y1="542" x2="526" y2="520"/>
+        <line marker-end="url(#aq)" x1="494" y1="528" x2="510" y2="512"/>
+        <line marker-end="url(#aq)" x1="480" y1="496" x2="502" y2="496"/>
+        <line marker-end="url(#aq)" x1="494" y1="464" x2="510" y2="480"/>
+        <line marker-end="url(#aq)" x1="526" y1="450" x2="526" y2="472"/>
+        <line marker-end="url(#aq)" x1="558" y1="464" x2="542" y2="480"/>
+      </g>
+      <circle class="star" cx="526" cy="496" r="13"/>
+      <!-- 十余万自相践踏·积尸 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 520,504 C 498,524 478,540 458,552"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 530,506 C 540,528 546,548 550,566"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 516,500 C 486,510 456,516 430,522"/>
+      <text class="mlabel r" x="400" y="572">十余万自相践踏 · 尸积如山</text>
+      <!-- 终:王衍等被执·夜推墙压杀 -->
+      <g class="endmark" transform="translate(578,472)"><circle r="11" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <text class="clabel" x="594" y="464">王衍等诸王公被执·夜推墙压杀</text>
+      <!-- 果:洛阳空城 -->
+      <text class="clabel" x="120" y="416" style="opacity:.85">洛阳遂无守兵·成空城</text>
+    </g>
+
+    <!-- ══════════ ① 越拥兵出洛 · 屯项病死 ══════════ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 190,404 C 280,438 400,502 470,538"/>
+      <text class="mlabel j" x="196" y="436">永嘉四年十一月,越以讨石勒为名</text>
+      <text class="mlabel j" x="196" y="452">率晋室重臣甲士出洛,号二十余万</text>
+      <rect class="camp j" x="472" y="538" width="11" height="11" transform="rotate(45 477.5 543.5)"/>
+      <text class="anno" x="360" y="576">屯于项城·拥兵在外以自保</text>
+      <!-- 越病死于项 -->
+      <g class="death" transform="translate(478,544)"><circle r="10"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="360" y="524">五年三月·越忧惧发病死于项</text>
+      <text class="anno" x="360" y="540" style="fill:var(--enemy)">临终托后事于太尉王衍</text>
+      <!-- 石勒略地在北 -->
+      <path class="march q" marker-end="url(#aq)" style="opacity:.5" d="M 428,116 C 402,220 388,320 372,410"/>
+      <text class="mlabel q" x="360" y="220" transform="rotate(80 360 220)">石勒游兵略豫州</text>
+      <text class="anno" x="196" y="470">越专政失人心,又与怀帝相猜,拥兵避祸</text>
+    </g>
+
+    <!-- ══════════ ② 王衍奉丧东还 · 辎重塞道 ══════════ -->
+    <g id="ph2" class="ph">
+      <!-- 辎重臃肿之带 项→东海 -->
+      <path class="column band" d="M 480,538 C 500,522 514,508 526,498 C 640,462 760,432 878,406"/>
+      <path class="column core" d="M 480,538 C 500,522 514,508 526,498 C 640,462 760,432 878,406"/>
+      <g class="cart">
+        <rect x="520" y="494" width="7" height="7" transform="rotate(45 523.5 497.5)"/>
+        <rect x="610" y="466" width="7" height="7" transform="rotate(45 613.5 469.5)"/>
+        <rect x="704" y="440" width="7" height="7" transform="rotate(45 707.5 443.5)"/>
+        <rect x="796" y="420" width="7" height="7" transform="rotate(45 799.5 423.5)"/>
+      </g>
+      <path class="march j" marker-end="url(#aj)" d="M 484,540 C 560,510 700,462 872,408"/>
+      <text class="mlabel j" x="520" y="452" transform="rotate(-14 520 452)">众推王衍为元帅·奉越丧柩东还</text>
+      <text class="mlabel j" x="560" y="500">王公朝士·士庶十余万随行,辎重塞道·行迟</text>
+      <rect class="camp j" x="880" y="394" width="10" height="10" transform="rotate(45 885 399)"/>
+      <text class="mlabel j" x="880" y="440" style="text-anchor:end">欲葬越于东海国(郯)</text>
+      <text class="anno" x="360" y="588">臃肿委靡·无斥候之备,行军若徙市</text>
+    </g>
+
+    <!-- ══════════ ③ 石勒轻骑追及 · 围于宁平城 ══════════ -->
+    <g id="ph3" class="ph">
+      <!-- 晋军行至宁平城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 484,540 C 500,524 512,510 522,498"/>
+      <rect class="camp j" x="521" y="491" width="10" height="10" transform="rotate(45 526 496)"/>
+      <text class="mlabel j" x="536" y="476">晋军东还至苦县宁平城</text>
+      <!-- 石勒轻骑自后追及 -->
+      <path class="march q" marker-end="url(#aq)" d="M 358,462 C 418,470 466,482 506,492"/>
+      <text class="mlabel q" x="300" y="452">石勒率轻骑自后追及</text>
+      <!-- 合围环成形 -->
+      <circle class="encircle" cx="526" cy="496" r="46"/>
+      <path class="march q" marker-end="url(#aq)" d="M 500,452 C 470,466 460,486 470,506"/>
+      <path class="march q" marker-end="url(#aq)" d="M 566,470 C 596,486 598,512 574,532"/>
+      <text class="mlabel q" x="560" y="556">骑兵四面合围·晋军无阵可恃</text>
+      <text class="anno" x="300" y="470">王衍无武略·军民相杂,仓卒不能成列</text>
+    </g>
+
+    <!-- ══════════ ④ 纵骑驰射 · 十余万尽歼 · 王衍死 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 向心箭簇:骑围而纵射 -->
+      <circle class="encircle" cx="526" cy="496" r="46"/>
+      <g class="shot">
+        <line marker-end="url(#aq)" x1="574" y1="496" x2="550" y2="496"/>
+        <line marker-end="url(#aq)" x1="560" y1="530" x2="543" y2="513"/>
+        <line marker-end="url(#aq)" x1="526" y1="544" x2="526" y2="520"/>
+        <line marker-end="url(#aq)" x1="492" y1="530" x2="509" y2="513"/>
+        <line marker-end="url(#aq)" x1="478" y1="496" x2="502" y2="496"/>
+        <line marker-end="url(#aq)" x1="492" y1="462" x2="509" y2="479"/>
+        <line marker-end="url(#aq)" x1="526" y1="448" x2="526" y2="472"/>
+        <line marker-end="url(#aq)" x1="560" y1="462" x2="543" y2="479"/>
+      </g>
+      <text class="mlabel q" x="300" y="452">石勒纵骑驰射·矢集如雨</text>
+      <circle class="star" cx="526" cy="496" r="14"/>
+      <!-- 自相践踏·积尸 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 518,502 C 496,524 476,540 454,552"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 532,506 C 542,530 548,550 552,570"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 514,498 C 484,508 454,514 426,520"/>
+      <text class="mlabel r" x="392" y="576">十余万无号令·自相践踏尽歼·尸积如山</text>
+      <!-- 终:王衍等被执·夜推墙压杀 -->
+      <g class="endmark" transform="translate(580,470)"><circle r="12" fill="none" stroke="#9a2b1e" stroke-width="1.8"/><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="16">终</text></g>
+      <text class="clabel" x="596" y="460">王衍·襄阳王范等诸王公被执</text>
+      <text class="clabel" x="596" y="476">石勒责其乱天下·夜使人推墙压杀之</text>
+      <!-- 果:洛阳空城 -->
+      <path class="march q" marker-end="url(#aq)" style="opacity:.4;stroke-dasharray:5 6" d="M 508,494 C 400,470 280,436 200,410"/>
+      <text class="clabel" x="120" y="416" style="opacity:.9">西晋野战主力荡然·洛阳无守兵</text>
+      <text class="anno" x="120" y="432" style="fill:var(--enemy)">永嘉陷洛已不可免</text>
+    </g>
+
+    <g class="compass" transform="translate(952,560)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>晋军(王衍奉越丧柩东还·十余万,被歼)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#1f4e54" stroke-width="8" opacity=".16"/><line x1="2" y1="6" x2="32" y2="6" stroke="#1f4e54" stroke-width="2" stroke-dasharray="1 5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#1f4e54"/></svg>辎重塞道(臃肿军民)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>石勒(轻骑追歼)</span>
+    <span class="item"><svg width="30" height="16"><circle cx="15" cy="8" r="6.5" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 3"/><line x1="26" y1="8" x2="20" y2="8" stroke="#9a2b1e" stroke-width="1.4" marker-end=""/></svg>骑围纵射(围而射之)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>自相践踏·尽歼</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>围歼决战(宁平城)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#5c4f38" stroke-width="1.5"/><line x1="4" y1="4" x2="12" y2="12" stroke="#5c4f38" stroke-width="2.2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#5c4f38" stroke-width="2.2"/></svg>越病死于项</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>晋(中原)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>汉·石勒(河北)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 拥兵避祸 · 十万委于一掷</h3>
+    <div class="lead">何以晋十余万一朝尽歼 —— 不在粮尽,而在拥兵避祸、扶丧东还无备,遭轻骑围而纵射</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="宁平城尽歼逻辑图:东海王越拥晋最后精锐避祸在外身死于项众无所归,王衍扶丧东还十余万辎重塞道无备,石勒轻骑追及围而纵射,十余万自相践踏尽歼王衍等被杀,西晋野战之师荡然洛阳成空城">
+      <!-- 因:越拥兵避祸·身死于项 -->
+      <g><rect x="18" y="60" width="150" height="60" rx="4" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.5"/><text x="93" y="84" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">越拥最后精锐避祸</text><text x="93" y="102" text-anchor="middle" fill="#5c4f38" font-size="9.5">出屯项·三月身死·众无所归</text></g>
+      <!-- 上:王衍扶丧东还·辎重无备 -->
+      <g><rect x="18" y="146" width="150" height="60" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.5"/><text x="93" y="170" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">王衍扶丧东还</text><text x="93" y="188" text-anchor="middle" fill="#5c4f38" font-size="9.5">十余万辎重塞道·行迟无备</text></g>
+      <!-- 中:苦县宁平城·骑围纵射 -->
+      <g><circle cx="430" cy="127" r="58" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.8"/><circle cx="430" cy="127" r="40" fill="none" stroke="#9a2b1e" stroke-width="1.2" stroke-dasharray="6 5"/><text x="430" y="120" text-anchor="middle" fill="#9a2b1e" font-size="12.5" font-weight="700">宁平城</text><text x="430" y="137" text-anchor="middle" fill="#9c7a2c" font-size="10.5" font-weight="700">骑围而纵射</text><text x="430" y="153" text-anchor="middle" fill="#5c4f38" font-size="9">石勒轻骑追及·四面合围</text></g>
+      <!-- 向心箭簇装饰 -->
+      <g stroke="#9a2b1e" stroke-width="1.3" opacity=".8"><line x1="500" y1="127" x2="480" y2="127"/><line x1="378" y1="90" x2="393" y2="102"/><line x1="482" y1="90" x2="467" y2="102"/><line x1="430" y1="185" x2="430" y2="167"/></g>
+      <path d="M 168,96 C 250,104 300,112 366,120" fill="none" stroke="#1f4e54" stroke-width="2"/><path d="M 360,115 L 372,120 L 359,125 Z" fill="#1f4e54"/>
+      <path d="M 168,170 C 250,160 300,150 366,138" fill="none" stroke="#1f4e54" stroke-width="2"/><path d="M 360,133 L 372,137 L 360,144 Z" fill="#1f4e54"/>
+      <!-- 果:十万尽歼·王衍死 -->
+      <g><rect x="540" y="60" width="150" height="60" rx="4" fill="rgba(122,90,35,.12)" stroke="#7a5a23" stroke-width="1.5"/><text x="615" y="84" text-anchor="middle" fill="#7a5a23" font-size="12" font-weight="700">十余万自相践踏尽歼</text><text x="615" y="102" text-anchor="middle" fill="#5c4f38" font-size="9.5">王衍等被执·夜推墙压杀</text></g>
+      <!-- 终:洛阳空城 -->
+      <g><rect x="540" y="146" width="150" height="60" rx="4" fill="rgba(43,36,24,.08)" stroke="#2b2418" stroke-width="1.5"/><text x="615" y="170" text-anchor="middle" fill="#2b2418" font-size="12" font-weight="700">西晋野战之师荡然</text><text x="615" y="188" text-anchor="middle" fill="#9a2b1e" font-size="9.5">洛阳成空城·永嘉陷洛不可免</text></g>
+      <path d="M 490,110 L 536,96" fill="none" stroke="#7a5a23" stroke-width="2"/><path d="M 531,91 L 541,94 L 533,102 Z" fill="#7a5a23"/>
+      <path d="M 490,144 L 536,168" fill="none" stroke="#2b2418" stroke-width="2"/><path d="M 531,163 L 541,168 L 531,174 Z" fill="#2b2418"/>
+      <path d="M 690,175 C 720,175 726,150 706,132" fill="none" stroke="#2b2418" stroke-width="1.4" stroke-dasharray="4 4" opacity=".6"/>
+    </svg>
+    <div class="fiveq">
+      <span class="q">五问速答 ·</span>
+      <b>①行军</b>:晋军扶丧陆路东还——王衍奉太傅东海王司马越丧柩自项东还,欲葬越于东海(郯);王公朝士士庶十余万随行,辎重塞道,行迟无备。
+      <b>②后勤</b>:辎重臃肿、军民相杂,固为致败之一因;然决胜之枢非在粮道之绝,而在<b>无斥候之备而遭轻骑围射</b>——故本图以teal辎重带示其臃肿,却不设断粮之朱色 ✕(见注)。
+      <b>③势力与起点</b>:晋军(越出洛→屯项,王衍东还,teal)与汉石勒(据襄国·时略地豫州,自许昌追及,red)俱标于图;越拥晋室最后精锐、号二十余万。
+      <b>④坐标与投影</b>:洛阳·项·宁平城·东海·襄国·许昌皆列经纬,线性类墨卡托投影,减号使北向上(见注一、注二)。
+      <b>⑤存疑</b>:越军「二十余万」、随行「十余万」多夸饰;宁平城/苦县今地(郸城·鹿邑)、王衍被杀之法(夜推墙压杀)、越死于项之时(三月)诸说,并厘于脚注。
+    </div>
+    <p class="intro">永嘉五年(311),太傅东海王司马越专政而失人心,又与怀帝相猜。越乃自领大军、精锐尽出(号二十余万),名讨汉镇东大将军石勒,实则<b>避祸拥兵在外</b>,出洛屯于项。三月,越忧惧发病死于项,临终托后事于太尉王衍。众推王衍为元帅,奉越丧柩东还、欲葬越于东海;王公朝士、士庶随行十余万,辎重塞道。石勒觇其臃肿无备,以轻骑追及于苦县宁平城,<b>骑兵四面合围,纵骑驰射</b>——晋十余万无统一号令,自相践踏、尸积如山;王衍及宗室诸王被执、夜推墙压杀。西晋最后之野战主力至此全军覆没。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>避祸 · 越拥兵在外·身死众散</h4>
+        <p>越以宗室之长专执朝柄,失人心而与怀帝相猜,乃尽出精锐、号二十余万,托讨石勒之名而出屯项城,拥兵自保于外——京师洛阳遂空虚孤危。三月,越忧惧发病死于项;元帅既亡,众无所归。王衍非将略之材,乃奉丧柩率十余万军民东还,舍守御之势而为徙市之行,以避祸之师化为委靡之众,授敌以隙。</p>
+      </div>
+      <div class="c b">
+        <h4>尽歼 · 轻骑围射·十万自践</h4>
+        <p>石勒久觇晋军之臃肿,乘其扶丧东行、辎重塞道而无斥候,率轻骑昼夜兼程,追及于苦县宁平城。晋军仓卒不能成列,勒以骑四面合围,不与短兵接,惟纵骑驰射、矢集如雨。十余万军民无号令、无阵伍,人自求生而自相腾践,一日尸积如山,尽歼于此。王衍、襄阳王范等诸王公悉被执,石勒责其乱天下之罪,夜使人推墙压杀之。</p>
+      </div>
+    </div>
+    <p class="kicker">故宁平城之败,非粮尽力屈之败,乃<b>拥兵避祸、扶丧无备而以十万委于一掷</b>之败:越拥晋最后之精锐而以私计出之于外,身死则众散,王衍扶丧东还、辎重塞道而不设备,遂尽授之于石勒轻骑之围射。一日之间,西晋野战之师荡然,洛阳成空城,永嘉陷洛已不可免——<b>西晋最后的军队,葬于宁平城</b>。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=70+(经度−111.5)×120,y=592−(纬度−33)×120,减号使北向上),几何关系力求近实:洛阳在西(越出兵处),许昌在其东南(石勒追击所出),项城更在东南(越屯而病死),宁平城/苦县在项之东北(石勒围歼晋军处),东海国(郯)在东(丧柩欲归葬之所、图东近边),襄国(邢台)在北(石勒基地)。黄河横贯其北、约以为晋汉之界;涡水(鸿沟支津)自西北经苦县东南趋亳。疆界(晋·中原/汉·石勒)经简化描绘,系约界而非实测。据《晋书》卷五十九〈东海王越传〉、卷四十三〈王衍传〉、卷一〇四〈石勒载记〉、《资治通鉴》卷八十七(晋纪九·永嘉五年)约略绘出。</p>
+    <p><span class="n">注二</span>坐标表(经度,纬度→图上x,y):洛阳(112.45,34.62→184,398,越出兵处·京师);许昌(113.85,34.03→352,468,石勒追击所出);项·项城(114.9,33.4→478,544,越屯而病死,今河南沈丘);宁平城·苦县(115.3,33.8→526,496,石勒围歼晋军,今河南郸城东北、鹿邑一带);东海·郯(118.3,34.6→886,400,丧柩欲归葬之东海国,今山东郯城北);襄国·邢台(114.5,37.1→430,100,石勒基地);黄河为约界,涡水/鸿沟经苦县。主水:涡水(苦县)、黄河(北)。</p>
+    <p><span class="n">注三</span>势力与起点:晋军(teal)为被追踪、终遭歼灭之动方——越自洛阳率精锐东出屯项,越死后王衍奉丧柩率十余万东还,图以teal march 及粗钝之teal辎重带示其臃肿难行;石勒(red)据河北襄国,永嘉四、五年间方略地于豫州(许昌一带),乘晋军东还而以轻骑追及。史载石勒此番自许昌一带追歼,襄国为其根本、翌年(312)乃正式定都经营,图中以襄国居北为其基,并以自许昌东出之red march 示实际追击之路,谨别之。晋军自相践踏、尽歼以褐色虚线(rout)示之。</p>
+    <p><span class="n">注四</span>不画断粮道之故:此役之决胜要素,不在后勤之绝,而在<b>拥兵避祸、扶丧东还之无备,遭石勒轻骑围而纵射</b>。晋军辎重塞道、军民相杂,臃肿难行固为致败之一因,故图中以teal辎重带(band+核+辎重方块)状其臃肿;然使晋十余万一日尽歼者,乃「骑围而射之」之围歼战法,非粮道被断。故本图不设金色粮道动脉,亦无断粮之朱色 ✕;图中围环、向心箭簇所标者,乃「骑兵四面合围·纵骑驰射」之围歼,读者幸勿以纯后勤之败视之。此与前晋灭亡(中渡断粮)之制胜之枢迥异,谨别之。</p>
+    <p><span class="n">注五</span>异说与存疑:一、越军「二十余万」、随行「十余万」乃史家约举夸饰之词,实数难考(《晋书》〈载记〉或作「十余万」被歼);越出屯项城之众,一说甲士四万,盖精锐之数,与随行军民之总数不同,图从「拥最后精锐出屯、扶丧东还者十余万」之势叙之。二、宁平城/苦县之今地,旧释在今河南郸城东北、鹿邑(古苦县)一带,确址史无定说,图姑系于此并志其疑。三、王衍等被杀之法,《晋书》〈石勒载记〉谓石勒夜使人推墙(倒屋)压杀之,与他处「坑杀」诸说小异,图从「夜推墙压杀」之说。四、越死于项之时,系永嘉五年三月;被围尽歼在同年四月,前后不过旬月而晋室最后之师荡然。五、石勒此役之出兵基地,史或言自许昌追及、或统言自河北南下,详见注三。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"宁平城之战 · 拥兵避祸,十万尽歼",d:"晋永嘉五年 · 汉光兴二年(311)",p:["永嘉五年(311),太傅东海王司马越专政而失人心,又与怀帝相猜。越乃自领大军、精锐尽出(号二十余万),名讨汉镇东大将军石勒,实则避祸拥兵在外,出洛屯于项城。三月,越忧惧发病死于项,临终托后事于太尉王衍。","众推王衍为元帅,奉越丧柩东还,欲葬越于东海国(郯);王公朝士、士庶随行十余万,辎重塞道、行迟无备。石勒觇其臃肿,率轻骑追及于苦县宁平城,以骑兵四面合围,纵骑驰射。晋十余万无统一号令,自相践踏、尸积如山,一日尽歼;王衍、襄阳王范等诸王公被执,石勒责其乱天下之罪,夜使人推墙压杀之。西晋最后之野战主力至此全军覆没,京师洛阳遂无可守之兵——永嘉陷洛已不可免。"]},
+  "1":{t:"① 越拥兵出洛 · 屯项病死",d:"永嘉四年十一月—五年三月(310–311)",p:["东海王司马越以宗室之长专执朝政,失天下心,又与晋怀帝相猜忌。永嘉四年十一月,越以南讨石勒为名,率晋室重臣及甲士出洛,号二十余万、精锐尽出,出屯于项城(今河南沈丘)——名为讨贼,实为避祸拥兵在外以自保,而京师洛阳遂空虚孤危。","永嘉五年三月,越忧惧交攻,发病死于项城,临终以后事托于太尉王衍。元帅既亡,众无所归。石勒时游兵略地于豫州一带,觇晋军之虚实。"]},
+  "2":{t:"② 王衍奉丧东还 · 辎重塞道",d:"永嘉五年三月—四月(311)",p:["越既死,众推太尉王衍为元帅,奉越丧柩东还,欲葬越于东海国(郯,今山东郯城北)。于是王公朝士、士庶随行者十余万,辎重塞道,牛马委积,行军若徙市。","王衍本清谈之士、非将略之材,军民相杂而无斥候之备,弃守御之势而为委靡之行,连日缓进。石勒觇其臃肿无备,乃谋以轻骑蹑其后而击之。"]},
+  "3":{t:"③ 石勒轻骑追及 · 围于宁平城",d:"永嘉五年四月(311)",p:["晋军东还,至苦县宁平城(今河南郸城东北、鹿邑一带)。石勒率精锐轻骑,昼夜兼程,自后追及。","晋军仓卒不能成列,王衍无武略以御,军民杂沓、辎重自累。石勒以骑兵四面合围,晋众无阵伍可恃、无险要可依,遂陷于重围之中——围歼之势成。"]},
+  "4":{t:"④ 纵骑驰射 · 十余万尽歼 · 王衍死",d:"永嘉五年四月(311)",p:["石勒既合围,不与晋军短兵相接,惟纵骑驰射,矢集如雨。晋十余万军民无统一号令,人自求生,自相腾践,未被射死者亦因践踏而亡,一日之间尸积如山,尽歼于宁平城。","王衍及襄阳王范等宗室诸王公悉被执。石勒数其乱天下之罪,夜使人推墙(倒屋)压杀之。西晋最后之野战主力至此荡然无存,京师洛阳遂无可守之兵——是年六月刘曜、王弥等遂陷洛阳、执怀帝(永嘉之祸),西晋之亡已不可免。"]}
+};
+const CITY={
+  luoyang:{t:"洛阳(越出兵处·京师)",d:"西晋京师·司州治,今河南洛阳",p:["西晋都城。永嘉四年十一月,东海王越以讨石勒为名,尽出精锐、率重臣自此东屯项城,拥兵避祸于外,洛阳遂空虚。宁平城尽歼之后,洛阳无可守之兵,是年六月即为汉军所陷、怀帝被执——永嘉之祸。"]},
+  xuchang:{t:"许昌(石勒追击所出)",d:"豫州要镇,今河南许昌",p:["永嘉四、五年间石勒略地于豫州一带,尝据许昌等地。宁平城之役,石勒率轻骑自此一带追及东还之晋军而围歼之。其根本襄国方经营于翌年,详见脚注。"]},
+  xiang:{t:"项·项城(越屯·三月病死)",d:"豫州,今河南沈丘",p:["东海王越出洛后所屯之地。永嘉五年三月,越忧惧发病死于此,临终托后事于王衍。众乃奉越丧柩自项东还,遂有宁平城之歼。"]},
+  ningping:{t:"宁平城·苦县(石勒围歼晋军)",d:"苦县境,今河南郸城东北、鹿邑一带",p:["永嘉五年四月,王衍奉越丧柩率十余万东还,行至此,石勒轻骑追及,骑兵四面合围、纵骑驰射,晋十余万自相践踏尽歼,王衍及宗室诸王被执、夜推墙压杀——西晋最后野战主力覆没之地。确址史无定说,图姑系于此,详见脚注。"]},
+  donghai:{t:"东海·郯(丧柩欲归葬)",d:"东海国治,今山东郯城北",p:["东海王越之封国。越死于项,王衍等奉其丧柩东还,欲葬越于东海(郯)——十余万军民循此东行,遂于中途宁平城遭石勒围歼,丧柩亦为石勒所焚。图中居东近边,以示归葬之向。"]},
+  xiangguo:{t:"襄国·邢台(石勒基地)",d:"今河北邢台",p:["石勒经营河北之根本、后赵定都之地(建兴元年·312正式据以为都)。永嘉五年石勒方略地于河南,宁平城之役实自许昌一带追及晋军;图以襄国居北为其基,以别其根本与实际追击之路,详见脚注。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
