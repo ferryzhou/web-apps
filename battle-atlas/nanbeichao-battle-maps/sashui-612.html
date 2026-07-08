@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>萨水之战 · 乙支文德破隋军(612)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .sea{fill:rgba(95,127,136,.20);stroke:none}
+  .coast{fill:none;stroke:var(--water);stroke-width:1.1;opacity:.55}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.8;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .marsh{fill:rgba(95,127,136,.17);stroke:var(--water);stroke-width:1;opacity:.9;stroke-dasharray:2 3}
+  /* 坚壁清野:褐色空围记号,示野无所掠 */
+  .scorch line{stroke:var(--ret);stroke-width:2.2;stroke-linecap:round}
+  .scorch circle{fill:none;stroke:var(--ret);stroke-width:1.5}
+  .slabel2{fill:var(--ret);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 来护儿水军中伏:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  /* 溺:半渡覆师,青水之上朱点没顶 */
+  .drown{fill:var(--enemy);opacity:.85}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.sea{stroke-dasharray:2 6;stroke-width:2.6}
+  .march.lure{stroke:var(--advance);stroke-width:2.4;stroke-dasharray:8 5;opacity:.9}
+  .march.spy{stroke:var(--advance);stroke-width:1.7;stroke-dasharray:2 4;opacity:.85}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .siege{fill:none;stroke:var(--enemy);stroke-width:1.6;stroke-dasharray:2 4}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.lure):not(.spy):not(.sea){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回南北朝征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>萨</span><span>水</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>萨水之战</h1>
+    <div class="sub">隋大业八年(612)　　<i>高句丽 乙支文德</i> 御 <b>隋炀帝 · 宇文述 于仲文</b>　·　诱敌深入 · 坚壁清野 · 半渡而歼</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 萨水覆师</button>
+    <button data-p="1">隋百万征辽 · 围辽东不下</button>
+    <button data-p="2">别遣九军 · 渡鸭绿趋平壤</button>
+    <button data-p="3">乙支诈降 · 诱敌深入坚壁清野</button>
+    <button data-p="4">粮尽疲退 · 萨水半渡掩击</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="萨水之战形势图,西起辽东城(辽阳)、东北至萨水(清川江),含隋与高句丽以辽水为界之疆域、辽水鸭绿江萨水大同江诸水与黄海;示隋炀帝发兵百余万亲征、围辽东城久攻不下,别遣宇文述于仲文九军三十万五千渡鸭绿江直趋平壤,高句丽大将乙支文德诈降察虚实、一日七败佯退诱敌深入、坚壁清野疲之,隋军深入至平壤城下三十里而粮尽疲退,及萨水半渡,乙支文德纵兵掩击,隋军大溃,三十万五千仅还二千七百">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:隋据辽西·中原(西沿,红),高句丽据辽东与朝鲜半岛(东·大部,青),约以辽水为界 ══ -->
+    <path d="M 0,0 L 176,0 C 168,120 160,240 152,360 C 148,430 150,520 160,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path d="M 176,0 L 1000,0 L 1000,640 L 160,640 C 150,520 148,430 152,360 C 160,240 168,120 176,0 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 176,0 C 168,120 160,240 152,360 C 148,430 150,520 160,640"/>
+    <text class="realm q" x="30" y="300" font-size="23" transform="rotate(-88 30 300)">隋 · 辽西</text>
+    <text class="cname s" x="52" y="150" style="fill:var(--enemy);opacity:.6">河西·出兵地</text>
+    <text class="realm j" x="560" y="150" font-size="30">高句丽(辽东)</text>
+    <text class="cname s" x="612" y="176" style="fill:var(--advance);opacity:.55">乙支文德 · 保平壤 · 坚壁清野之地</text>
+
+    <!-- ══ 山脉:辽东丘陵·千山,及朝鲜北界山地 ══ -->
+    <path class="mtn fill" d="M 336,214 L 350,188 L 362,204 L 378,176 L 392,200 L 406,180 L 418,206 Z"/>
+    <path class="mtn" d="M 344,206 l 11,-17 l 10,12 l 13,-17 l 11,14"/>
+    <text class="mname" x="342" y="234" style="font-size:10px">辽东丘陵·千山</text>
+    <path class="mtn fill" d="M 636,222 L 650,194 L 662,212 L 678,182 L 692,208 L 706,186 L 720,214 Z"/>
+    <path class="mtn" d="M 646,214 l 11,-18 l 10,12 l 13,-18 l 11,15"/>
+    <text class="mname" x="642" y="242" style="font-size:10px">妙香山·北界</text>
+    <path class="mtn fill" d="M 860,250 L 872,226 L 884,242 L 898,216 L 912,240 L 924,220 L 936,244 Z"/>
+    <text class="mname" x="862" y="270" style="font-size:9.5px">狼林·萨水源</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 辽水(辽河):自北南下,注辽东湾,隋、丽之天堑,隋军渡辽入辽东 -->
+    <path class="river" stroke-width="5" d="M 162,20 C 150,120 142,220 150,300 C 154,340 150,388 152,430"/>
+    <!-- 辽泽:辽河下游泥淖 -->
+    <path class="marsh" d="M 128,384 C 112,402 120,428 144,438 C 172,450 208,444 220,428 C 230,414 224,392 204,384 C 180,374 148,370 128,384 Z"/>
+    <text class="cname s" x="150" y="416" style="opacity:.82;font-size:10px">辽　泽</text>
+    <!-- 鸭绿江:自东北向西南入海,隋九军渡此深入 -->
+    <path class="river" stroke-width="4.2" d="M 644,178 C 604,222 556,286 521,326 C 500,348 484,358 470,366"/>
+    <!-- 萨水(清川江):自东北狼林山南下,经安州西南入海,决战之川 -->
+    <path class="river" stroke-width="4" d="M 931,310 C 894,338 856,368 818,392 C 776,404 736,410 706,412"/>
+    <!-- 大同江:自东经平壤西南入海 -->
+    <path class="river" stroke-width="3.4" d="M 910,491 C 866,498 826,502 787,504 C 748,508 720,520 695,540"/>
+    <text class="rname" x="176" y="200" transform="rotate(84 176 200)">辽 水</text>
+    <text class="rname" x="556" y="268" transform="rotate(46 556 268)" style="font-size:12px">鸭 绿 江</text>
+    <text class="rname" x="846" y="352" transform="rotate(34 846 352)" style="font-size:13px;fill:#3f6068">萨水·清川江</text>
+    <text class="rname" x="826" y="512" transform="rotate(-6 826 512)" style="font-size:11px">大同江</text>
+
+    <!-- 黄海·西朝鲜湾 -->
+    <path class="sea" d="M 0,440 C 150,452 300,470 430,430 C 458,410 470,388 480,372 C 540,392 600,404 650,418 C 690,430 720,468 735,520 C 744,556 748,595 750,640 L 0,640 Z"/>
+    <path class="coast" d="M 0,440 C 150,452 300,470 430,430 C 458,410 470,388 480,372 C 540,392 600,404 650,418 C 690,430 720,468 735,520 C 744,556 748,595 750,640"/>
+    <text class="rname" x="230" y="560" style="font-size:12.5px;opacity:.85">黄　海 · 西朝鲜湾</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="liaodong"><circle cx="275" cy="128" r="6.5"/><text class="cname" x="286" y="124">辽东城<tspan class="cname s" dx="2">(辽阳)</tspan></text></g>
+      <g class="city" data-city="wugu"><circle cx="451" cy="268" r="5"/><text class="cname" x="461" y="264">乌骨城</text></g>
+      <g class="city cap" data-city="pyongyang"><circle cx="787" cy="504" r="6.5"/><text class="cname" x="700" y="522">平壤<tspan class="cname s" dx="2">(高丽都)</tspan></text></g>
+      <g class="city" data-city="anju"><circle cx="779" cy="405" r="4.5"/><text class="cname s" x="726" y="400">安州(萨水口)</text></g>
+    </g>
+
+    <!-- 涿郡(图外·西):隋军集结出发地 -->
+    <g transform="translate(6,96)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,6 L 34,14"/>
+      <text class="mlabel q" x="0" y="-6" style="font-size:10px">⟵ 涿郡 · 幽州</text>
+      <text class="cname s" x="0" y="30" style="fill:var(--enemy);font-size:9.5px">隋军集结出发(今北京,图外西)</text>
+    </g>
+    <!-- 东莱·登州(图外·南):来护儿水军来路 -->
+    <g transform="translate(560,632)">
+      <path class="march q sea" marker-end="url(#aq)" d="M 8,6 L 30,-18"/>
+      <text class="mlabel q" x="-40" y="20" style="font-size:10px">↑ 东莱 · 来护儿舟师</text>
+      <text class="cname s" x="-40" y="34" style="fill:var(--enemy);font-size:9px">渡海来路(图外南·山东)</text>
+    </g>
+
+    <!-- ══ 全图 · 萨水覆师 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 44,110 C 120,132 190,132 265,130"/>
+      <text class="mlabel q" x="150" y="106">炀帝亲征,围辽东城</text>
+      <circle class="siege" cx="275" cy="128" r="13"/>
+      <path class="march q" marker-end="url(#aq)" d="M 285,140 C 380,200 460,260 521,320 C 620,400 700,452 758,486"/>
+      <text class="mlabel q" x="360" y="300">别遣九军渡鸭绿,直趋平壤</text>
+      <path class="march lure" marker-end="url(#aj)" d="M 560,344 C 636,404 700,448 752,482"/>
+      <text class="mlabel j" x="560" y="392">乙支文德一日七败,佯退诱之</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 780,494 C 800,456 806,428 808,400 C 720,352 600,340 528,330"/>
+      <circle class="star" cx="810" cy="398" r="11"/>
+      <text class="mlabel r" x="640" y="356">粮尽疲退,萨水半渡</text>
+      <text class="mlabel j" x="826" y="376">纵兵掩击,大溃</text>
+      <text class="anno" x="470" y="470">九军三十万五千,生还辽东者仅二千七百</text>
+    </g>
+
+    <!-- ══ 阶段一:隋百万征辽 · 围辽东不下 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 40,108 C 118,130 190,132 266,130"/>
+      <text class="mlabel q" x="120" y="100">炀帝发兵百十三万余(号二百万),亲征</text>
+      <text class="anno" x="120" y="118">自涿郡东出,填辽泽以济师</text>
+      <circle class="siege" cx="275" cy="128" r="15"/>
+      <rect class="camp" x="269" y="150" width="10" height="10" transform="rotate(45 274 155)"/>
+      <text class="mlabel q" x="238" y="184">主力围辽东城,昼夜攻之</text>
+      <text class="anno" x="238" y="202">城将陷辄诈降,帝令『军事进止皆须奏闻』,</text>
+      <text class="anno" x="238" y="218">往返稽留,屡失战机,久攻不下</text>
+      <text class="mlabel j" x="360" y="128">高句丽婴城固守,辽东岿然</text>
+    </g>
+
+    <!-- ══ 阶段二:别遣九军 · 渡鸭绿趋平壤 ══ -->
+    <g id="ph2" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 288,142 C 360,192 420,232 448,262"/>
+      <text class="mlabel q" x="300" y="176">炀帝别遣宇文述、于仲文等</text>
+      <text class="mlabel q" x="300" y="192" style="font-size:10.5px">率九军三十万五千</text>
+      <path class="march q" marker-end="url(#aq)" d="M 458,278 C 500,312 512,320 521,326 C 600,392 680,440 752,482"/>
+      <text class="mlabel q" x="470" y="342">渡鸭绿江,直趋平壤</text>
+      <rect class="camp" x="754" y="478" width="10" height="10" transform="rotate(45 759 483)"/>
+      <text class="anno" x="524" y="378">人赍百日粮,负担既重,弃粟于道</text>
+      <!-- 来护儿水军先攻平壤,中伏大败 -->
+      <path class="march q sea" marker-end="url(#aq)" d="M 588,610 C 660,566 730,532 782,510"/>
+      <text class="mlabel q" x="588" y="600">来护儿舟师先入,欲会攻平壤</text>
+      <g class="cut" transform="translate(806,516)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="812" y="536">水军入外郭中伏,大败先归 ✕</text>
+    </g>
+
+    <!-- ══ 阶段三:乙支诈降 · 诱敌深入坚壁清野 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 乙支文德诈降入隋营察虚实 -->
+      <path class="march spy" marker-end="url(#aj)" d="M 770,494 C 680,444 600,388 536,336"/>
+      <text class="mlabel j" x="556" y="316">乙支文德诈降入隋营,察其虚实</text>
+      <text class="anno" x="536" y="352">见士卒面有饥色,知其粮乏,定诱疲之计</text>
+      <text class="anno" x="300" y="300">于仲文欲执之,慰抚使刘士龙止之,纵还</text>
+      <!-- 一日七败佯退,诱隋深入 -->
+      <path class="march lure" marker-end="url(#aj)" d="M 540,340 C 616,400 686,446 748,484"/>
+      <text class="mlabel j" x="548" y="430">且战且退,一日七败(佯败)</text>
+      <path class="march q" marker-end="url(#aq)" d="M 532,332 C 606,392 676,438 744,480" style="opacity:.55"/>
+      <text class="mlabel q" x="612" y="470">隋军骄而轻进,深入至平壤城下三十里</text>
+      <!-- 坚壁清野 -->
+      <g class="scorch" transform="translate(600,372)"><circle r="7"/><line x1="-4.5" y1="-4.5" x2="4.5" y2="4.5"/><line x1="-4.5" y1="4.5" x2="4.5" y2="-4.5"/></g>
+      <g class="scorch" transform="translate(662,412)"><circle r="7"/><line x1="-4.5" y1="-4.5" x2="4.5" y2="4.5"/><line x1="-4.5" y1="4.5" x2="4.5" y2="-4.5"/></g>
+      <g class="scorch" transform="translate(716,448)"><circle r="7"/><line x1="-4.5" y1="-4.5" x2="4.5" y2="4.5"/><line x1="-4.5" y1="4.5" x2="4.5" y2="-4.5"/></g>
+      <text class="slabel2" x="576" y="500">坚壁清野,野无所掠,隋军馈运不继</text>
+      <text class="anno" x="620" y="516">乙支文德遗诗讥之:『战胜功既高,知足愿云止』</text>
+    </g>
+
+    <!-- ══ 阶段四:粮尽疲退 · 萨水半渡掩击 ══ -->
+    <g id="ph4" class="ph">
+      <text class="mlabel r" x="700" y="540">平壤城坚不可猝下,粮尽疲惫,宇文述惧而引还</text>
+      <!-- 隋军自平壤退,至萨水半渡 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 782,494 C 802,458 808,430 810,402"/>
+      <text class="mlabel r" x="812" y="452">隋军且退且战,军至萨水</text>
+      <!-- 半渡:红军渡萨水,金环决战 -->
+      <circle class="star" cx="810" cy="398" r="13"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 806,392 C 760,362 700,346 640,338"/>
+      <text class="mlabel r" x="600" y="330">半渡之际</text>
+      <!-- 乙支文德纵兵从后掩击 -->
+      <path class="march j" marker-end="url(#aj)" d="M 890,330 C 862,352 840,370 822,388"/>
+      <path class="march j" marker-end="url(#aj)" d="M 858,452 C 842,432 828,414 818,404"/>
+      <text class="mlabel j" x="836" y="326">乙支文德纵兵从后掩击</text>
+      <!-- 溺:争渡溺死 -->
+      <g class="drown">
+        <circle cx="804" cy="410" r="3"/><circle cx="818" cy="404" r="2.6"/><circle cx="812" cy="418" r="2.4"/><circle cx="796" cy="400" r="2.4"/><circle cx="826" cy="414" r="2.2"/>
+      </g>
+      <text class="mlabel j" x="800" y="440">隋军大溃,争渡溺死,被杀无数</text>
+      <!-- 残兵溃走辽东 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 636,336 C 520,326 400,272 288,142" style="opacity:.75"/>
+      <text class="anno" x="360" y="240">残兵一日一夜奔四百五十里,走还辽东</text>
+      <text class="mlabel r" x="300" y="150">九军三十万五千,生还者仅二千七百</text>
+    </g>
+
+    <g class="compass" transform="translate(946,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>隋军(九军·主力)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>高句丽军(乙支文德)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.4" stroke-dasharray="8 5"/></svg>诈降·佯退诱敌</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>隋军溃退(萨水)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#7a5a23" stroke-width="1.5"/><line x1="4" y1="4" x2="12" y2="12" stroke="#7a5a23" stroke-width="2.2"/><line x1="4" y1="12" x2="12" y2="4" stroke="#7a5a23" stroke-width="2.2"/></svg>坚壁清野</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>萨水半渡掩击·决战</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="2 3"/></svg>围城(辽东)</span>
+    <span class="item"><svg width="16" height="16"><rect x="4" y="4" width="8" height="8" transform="rotate(45 8 8)" fill="#9a2b1e" opacity=".9"/></svg>隋军大营</span>
+    <span class="item"><svg width="28" height="14"><path d="M 2,12 L 8,3 L 12,8 L 16,2 L 22,12 Z" fill="rgba(92,79,56,.3)" stroke="#5c4f38" stroke-width="1"/><line x1="0" y1="13" x2="28" y2="13" stroke="#5f7f88" stroke-width="1.8"/></svg>山·河·海</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>隋</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>高句丽</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 诱敌深入 · 坚壁清野 · 半渡而歼</h3>
+    <div class="lead">何以三十万五千之众一朝尽覆 —— 非力战之功,实诱其深、竭其食、乘其半渡而歼之</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="覆隋机理示意:隋九军三十万五千深入,乙支文德诈降察虚实、一日七败佯退诱其深入平壤城下、坚壁清野使无所掠,隋军粮尽疲退,及萨水半渡,乙支纵兵掩击,仅还二千七百">
+      <!-- 左:隋九军深入 -->
+      <text x="24" y="26" fill="#9a2b1e" font-size="12.5" font-weight="700">隋九军 · 三十万五千 —— 骄而轻进,人赍百日粮而重难自负</text>
+      <!-- 深入之红箭,渐远渐疲 -->
+      <path d="M 40,60 C 260,60 440,60 560,62" fill="none" stroke="#9a2b1e" stroke-width="4" opacity=".9"/>
+      <path d="M 560,62 L 548,56 L 548,68 Z" fill="#9a2b1e"/>
+      <text x="44" y="50" fill="#9a2b1e" font-size="10.5" font-weight="700">渡鸭绿 · 趋平壤 →</text>
+      <!-- 佯退诱敌之青虚线,牵其东南深入 -->
+      <path d="M 120,88 C 300,92 460,92 552,84" fill="none" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="8 5"/>
+      <path d="M 552,84 L 540,80 L 542,92 Z" fill="#1f4e54"/>
+      <text x="150" y="112" fill="#1f4e54" font-size="10.5" font-weight="700">诈降察虚实 · 一日七败佯退,诱之深入</text>
+      <!-- 坚壁清野:青✕串,示无所掠 -->
+      <g stroke="#7a5a23" stroke-width="1.6" fill="none">
+        <g transform="translate(220,132)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+        <g transform="translate(320,132)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+        <g transform="translate(420,132)"><circle r="6"/><line x1="-4" y1="-4" x2="4" y2="4"/><line x1="-4" y1="4" x2="4" y2="-4"/></g>
+      </g>
+      <text x="150" y="156" fill="#7a5a23" font-size="10.5" font-weight="700">坚壁清野 · 野无所掠,馈运不继</text>
+      <!-- 平壤节点 -->
+      <circle cx="580" cy="62" r="5" fill="#e9dec4" stroke="#2b2418" stroke-width="1.6"/>
+      <text x="566" y="40" fill="#2b2418" font-size="11" font-weight="700">平壤城下三十里</text>
+      <text x="560" y="178" fill="#5c4f38" font-size="10" font-style="italic">城坚不可猝下,粮尽疲退 ↓</text>
+      <!-- 萨水:决战之川,直立青带 -->
+      <path d="M 430,110 C 425,150 425,190 430,224" fill="none" stroke="#5f7f88" stroke-width="6" opacity=".55"/>
+      <text x="392" y="210" fill="#3f6068" font-size="11" font-weight="700" transform="rotate(-84 392 210)">萨水(清川江)</text>
+      <!-- 回撤褐箭,横穿萨水,半渡处金环+青掩击 -->
+      <path d="M 580,90 C 540,140 500,170 452,182" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/>
+      <text x="470" y="200" fill="#7a5a23" font-size="10.5" font-weight="700">疲退 · 军至萨水半渡</text>
+      <circle cx="430" cy="182" r="14" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <path d="M 370,150 C 392,162 410,172 424,180" fill="none" stroke="#1f4e54" stroke-width="2.6"/>
+      <path d="M 424,180 L 412,178 L 418,188 Z" fill="#1f4e54"/>
+      <text x="300" y="138" fill="#1f4e54" font-size="10.5" font-weight="700">纵兵从后掩击 ↘</text>
+      <!-- 出口:仅还二千七百 -->
+      <path d="M 416,190 C 300,208 180,214 96,218" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 6"/>
+      <path d="M 100,218 L 112,214 L 110,224 Z" fill="#7a5a23"/>
+      <text x="30" y="234" fill="#9a2b1e" font-size="11" font-weight="700">生还辽东者 · 仅二千七百</text>
+    </svg>
+    <p class="intro">隋炀帝倾天下之力,发兵百余万首征高句丽,然主力顿于辽东坚城之下,别遣之九军又<b>深入千里而无粮以继</b>。乙支文德之奇,不在两阵相当之力战,而在<b>使敌『深入而无所得』、复乘其疲退半渡而歼之</b>:先诈降以窥其虚实,知隋军已乏食;乃一日七败佯退,诱其骄进至平壤城下;坚壁清野,使三十万之众悬于城外而无所掠。隋军粮尽疲惫、平壤不可猝下,遂引还——退师半渡萨水,乙支纵兵掩其后,一战而九军尽覆。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>诱敌深入 · 坚壁清野</h4>
+        <p>乙支文德诈降入隋营,佯为请和而实察其虚实,见士卒面有饥色,遂定『疲之』之计。既还,且战且退,一日七败(皆佯败),诱隋军骄而轻进,自鸭绿江深入至平壤城下三十里;而所过之地坚壁清野,焚积聚、空郊野,使隋军深入而无所掠,负担百日之粮又弃于道。军愈进则食愈乏,乙支复遗于仲文诗『神策究天文,妙算穷地理;战胜功既高,知足愿云止』以骄纵之——不战而先致敌于饥疲。</p>
+      </div>
+      <div class="c b">
+        <h4>萨水半渡 · 纵兵而歼</h4>
+        <p>平壤城坚,来护儿水军又先入外郭中伏大败,宇文述知不可猝下,粮尽疲惫,遂引军退还。军至萨水(今清川江),隋军方半渡,乙支文德纵兵从后掩击:半在水中、半在岸上,首尾不能相救,大溃自相蹂践,争渡溺死、被杀者无数。九军三十万五千,一日一夜奔四百五十里走还辽东,生还者仅二千七百人,资储器械荡然。首征高句丽以惨败终,隋由是国力大损、民怨沸腾,遂为隋末大乱、隋亡之张本。</p>
+      </div>
+    </div>
+    <p class="kicker">故覆隋九军者,<b>非高句丽之力能胜三十万,实诱敌深入、坚壁清野、半渡而歼之效</b>:诈降察虚实以知其乏食,佯退清野以竭其粮而致其退,乘其半渡萨水而掩其不备。<b>三十万五千之众尽于一水,生还者仅二千七百</b>——炀帝三征高句丽皆无功,而首征之覆师实肇其祸;辽东未拔、萨水一败,隋室由盛而衰,天下遂乱,兴替系焉。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,地望按今地经纬度作线性(墨卡托)投影:<b>x=70+(经度−122.2)×205,y=590−(纬度−38.5)×165</b>,几何力求近实:辽水自北南下注辽东湾(黄海),隋据辽西(河西)、高句丽据辽东与朝鲜半岛,约以辽水为界,以点划『约界』标之,非实有画界;鸭绿江自东北向西南入海,萨水(清川江)在其东南、平壤之北。涿郡(隋军集结出发地,今北京,约116.4E,远在图外西)、东莱·登州(来护儿水军来路,今山东,图外南),皆以边箭示之。依《隋书·炀帝纪》《隋书·于仲文传》《隋书·宇文述传》《隋书·来护儿传》《三国史记·乙支文德传》及《资治通鉴》卷一八一绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:辽东城(隋主力围而不下,今辽宁辽阳,约123.20E/41.30N)、乌骨城(鸭绿江北要塞,今辽宁凤城一带,约124.06E/40.45N)、鸭绿江渡(隋九军深入之口,约124.40E/40.10N)、平壤(高句丽都,隋军深入至城下三十里,约125.70E/39.02N)、萨水—安州(决战地,今朝鲜清川江下游安州一带,约125.85E/39.70N;安州约125.66E/39.62N)。萨水即今清川江(朝鲜语 청천강),下游经安州西南注西朝鲜湾(黄海)。</p>
+    <p><span class="n">注三</span>兵额与战况本《隋书》《资治通鉴》:大业八年(612)炀帝首征高句丽,总集『百十三万三千八百人,号二百万』于涿郡,亲征;主力围辽东城,以帝令『凡军事进止皆须奏闻』,诸将不得专断,城将下辄诈降、往返奏请而失机,久攻不下。别遣宇文述、于仲文、荆元恒、薛世雄、辛世雄、张瑾、赵孝才、崔弘昇、卫文昇等九军,凡三十万五千,自泸河、怀远二镇出,渡鸭绿江趋平壤,欲与来护儿水军会攻其城。及萨水之败,九军生还辽东者惟二千七百人,资储器械巨万计,失亡荡尽。</p>
+    <p><span class="n">注四</span>制胜之枢在『诱敌深入·坚壁清野·半渡而歼』(图中青色诈降·佯退、褐色坚壁清野✕、褐色溃退、金色半渡决战):乙支文德诈降入营察隋虚实,见其乏食,乃一日七败佯退,诱隋深入平壤城下三十里而坚壁清野以疲之。于仲文得炀帝密旨『若遇高元(高句丽王)及文德来者,必擒之』,乙支来降本可执,慰抚使刘士龙固止之,遂纵还,既而悔追不及——此为隋失一大机。隋军粮尽疲退,及萨水半济,乙支纵兵掩击,遂覆其众。</p>
+    <p><span class="n">注五</span>『萨水筑坝决水』之异说:后世小说、民间传说有乙支文德于萨水上流筑堤蓄水、俟隋军半渡决堤以水淹之说,颇为流行;然《隋书》《三国史记》《资治通鉴》皆但言『军半济,(高句丽)自后击其后军』『半渡而击』,并无决水灌军之载。决坝之说盖后人附会,今图从正史,作『半渡纵兵掩击』,决坝一说附记于此,以俟考。又来护儿以舟师自东莱泛海先至,入平壤外郭中伏大败、引还,故宇文述至城下已无水军可恃,此亦其退因之一。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"萨水覆师",d:"隋大业八年(612)正月 — 七月",p:["隋炀帝以高句丽不臣,大业八年(612)首征之,总集百十三万余众(号二百万)于涿郡,亲统东征。主力渡辽水围辽东城(今辽阳),然帝令『凡军事进止皆须奏闻』,束缚诸将,城将下辄诈降而往返稽留,竟久攻不下。","炀帝乃别遣宇文述、于仲文等率九军三十万五千,渡鸭绿江直趋平壤,欲与来护儿水军会攻其城。高句丽大将乙支文德诈降察其虚实,见隋军乏食,乃一日七败佯退、坚壁清野以诱之,隋军深入至平壤城下三十里而粮尽疲惫;及引军退还,军至萨水半渡,乙支纵兵从后掩击,隋军大溃,争渡溺死、被杀无数——九军三十万五千,生还辽东者仅二千七百人。首征高句丽惨败,隋由是国力大损,遂启隋末之乱。"]},
+  "1":{t:"隋百万征辽 · 围辽东不下",d:"大业八年(612)正月 — 六月",p:["炀帝以高句丽拒命,大业八年正月下诏亲征,总集诸军百十三万三千八百人于涿郡,号二百万,馈运者倍之。二月引军东出,填辽泽以济师,渡辽水,主力进围辽东城,昼夜攻之。","然帝耻於一城,又戒诸将:『凡军事进止,皆须奏闻,毋得专擅。』每城将陷,守者辄诈降请命,诸将不敢乘势急取,驰奏请旨,比报至则守备复固,如是者再三,遂旷日持久、屡失战机,辽东城岿然不下。举国之师顿于坚城之下,而东征之期已迫。"]},
+  "2":{t:"别遣九军 · 渡鸭绿趋平壤",d:"大业八年(612)六月",p:["辽东既不下,炀帝乃别遣左翊卫大将军宇文述、右翊卫大将军于仲文,并荆元恒、薛世雄、辛世雄、张瑾、赵孝才、崔弘昇、卫文昇等九军,凡三十万五千,自泸河、怀远二镇出,东渡鸭绿江,直趋平壤,期与来护儿水军会攻其都。","九军渡辽时人马皆给百日之粮,又赍排甲、枪矟、衣资、戎具、火幕,人别三石以上,重莫能胜;军中令『遗弃米粟者斩』,士卒不堪其重,夜掘坑埋弃之,才行及中路,粮已将尽。来护儿别以舟师自东莱泛海先趋平壤,入其外郭,中高句丽之伏,大败而还——水军既折,宇文述孤军深入矣。"]},
+  "3":{t:"乙支诈降 · 诱敌深入坚壁清野",d:"大业八年(612)六 — 七月",p:["高句丽遣大将乙支文德诣隋营诈降,实欲觇其虚实。于仲文先奉炀帝密旨『若遇高元及文德来者,必擒之』,欲执文德;尚书右丞、慰抚使刘士龙固止之,仲文遂纵文德还,既而悔之,遣人绐召不返。乙支既觇隋军士卒面有饥色,知其粮乏,乃定诱敌疲之之计。","乙支文德且战且退,一日之中七战七北(皆佯败),诱隋军骄而轻进,渡萨水,深入至平壤城下三十里,依山为营;而所过坚壁清野,焚其积聚、空其郊野,使隋军深入而无所掠,兼程之粮又弃于道，士卒饥疲。乙支复遗于仲文诗曰:『神策究天文,妙算穷地理;战胜功既高,知足愿云止。』以骄之、讽之。宇文述见士卒疲敝、平壤城险不可猝拔,又乏食,始有退意。"]},
+  "4":{t:"粮尽疲退 · 萨水半渡掩击",d:"大业八年(612)七月",p:["宇文述以士卒疲弊、平壤城坚仓卒难下,又粮储将尽、来护儿水军已败,遂与诸将谋,引军退还。乙支文德遣使伪约『若旋师者,当奉高元朝行在所』,述等因得为辞而退;方军还,四面钞击,述等且战且行。","秋七月,隋军至萨水(今清川江),方半渡,乙支文德纵兵奋击其后军,右屯卫将军辛世雄战死,诸军俱溃,半在水中、半在岸上,不可复制,争渡溺死、被杀者无算。一日一夜奔还鸭绿水,行四百五十里;九军渡辽凡三十万五千,及还至辽东城者,惟二千七百人,资储器械巨万计,失亡荡尽。炀帝大怒,锁系宇文述等以归。首征高句丽以覆师终,天下骚动,征役不息,民怨沸腾——隋末大乱、隋室之亡,实肇于此。"]}
+};
+const CITY={
+  liaodong:{t:"辽东城",d:"高句丽辽东第一重镇,今辽宁辽阳(约123.20E/41.30N)",p:["隋炀帝亲统主力渡辽水围之。以帝令『军事进止皆须奏闻』,守者将陷辄诈降,诸将驰奏请旨而失机,昼夜攻之竟不能下。举国之师顿于此城，东征之期遂误——首征之败,已伏于辽东城下。"]},
+  wugu:{t:"乌骨城",d:"鸭绿江北要塞,今辽宁凤城一带(约124.06E/40.45N)",p:["鸭绿江北之高句丽重镇,为辽东通往平壤陆道所经。宇文述、于仲文九军自辽东趋鸭绿,道经此地;后炀帝三征时唐军亦尝议由乌骨南下薄平壤。"]},
+  pyongyang:{t:"平壤",d:"高句丽都城,今朝鲜平壤(约125.70E/39.02N)",p:["隋九军深入之极点。乙支文德佯退诱隋军至城下三十里,依山坚守;来护儿水军先入外郭中伏大败。城险兵坚、隋军乏食不可猝下,宇文述遂引还——退师半渡萨水而覆。"]},
+  anju:{t:"安州 · 萨水口",d:"决战地,今朝鲜清川江下游安州一带(约125.85E/39.70N)",p:["萨水即今清川江,下游经安州西南注黄海,为平壤北面之天堑、隋军往返必渡之川。大业八年七月,隋军退师至此半渡,乙支文德纵兵从后掩击,九军三十万五千一朝尽覆,生还者仅二千七百——高句丽存亡、隋室兴衰之枢。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
