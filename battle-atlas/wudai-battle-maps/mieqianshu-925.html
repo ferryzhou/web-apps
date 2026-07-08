@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>后唐灭前蜀 · 郭崇韬长驱 · 同光三年(925)· 出散关循故道 · 七旬灭国</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.2vw,44px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 望风降附:蜀北守将纷纷开城,青色降旗 */
+  .surr line{stroke:var(--advance);stroke-width:1.5}
+  .surr path{fill:var(--advance);opacity:.85}
+  .dlabel{fill:var(--advance);font-size:10.5px;font-weight:700;letter-spacing:.03em}
+  /* 天险 记号:剑门蜀北门户,唐军轻取 */
+  .pass{fill:rgba(92,79,56,.2);stroke:var(--ink2);stroke-width:1.2;stroke-linejoin:round}
+  .plabel{fill:var(--ret);font-size:11px;font-weight:700;letter-spacing:.03em}
+  /* 七十日之计 */
+  .tally rect{fill:rgba(156,122,44,.10);stroke:var(--gold);stroke-width:1.4}
+  .tally .big{fill:var(--gold);font-family:"Ma Shan Zheng",serif;font-size:29px;letter-spacing:.04em}
+  .tally .cap{fill:var(--ink2);font-size:10.5px;font-weight:700;letter-spacing:.08em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(31,78,84,.06),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.9s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>七</span><span>旬</span><span>灭</span><span>蜀</span></div>
+  <header>
+    <h1>后唐灭前蜀·郭崇韬长驱</h1>
+    <div class="sub">唐同光三年(925)　后唐 <i>魏王李继岌·招讨使郭崇韬</i> 将六万伐 <b>前蜀 后主王衍</b>　·　出散关循故道嘉陵江 · 长驱七旬灭国</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 长驱灭蜀</button>
+    <button data-p="1">前蜀荒淫内腐 · 遣郭崇韬伐蜀</button>
+    <button data-p="2">出散关循故道 · 破威武拔凤兴三泉</button>
+    <button data-p="3">蜀北望风崩溃 · 轻取剑门天险</button>
+    <button data-p="4">长驱逼成都 · 王衍出降 · 七旬灭蜀</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="后唐灭前蜀之战形势图,含后唐(关中)与前蜀(西川)约以秦岭大散关为界、嘉陵江故道涪江岷江诸水、剑门山天险,及自凤翔出师、出大散关循故道嘉陵江长驱破威武凤兴三泉、蜀北守军望风崩溃、轻取剑门天险、逼成都王衍舆榇出降之路">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:前蜀据西川(南·大部),后唐自关中(北)南下,约以秦岭大散关一线为界 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,66 C 850,74 700,86 620,98 C 560,108 500,118 400,128 C 260,140 120,150 0,158 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,158 C 120,150 260,140 400,128 C 500,118 560,108 620,98 C 700,86 850,74 1000,66 L 1000,640 L 0,640 Z" fill="url(#qinHatch)"/>
+    <path class="border" d="M 0,158 C 120,150 260,140 400,128 C 500,118 560,108 620,98 C 700,86 850,74 1000,66"/>
+    <text class="realm j" x="742" y="50" font-size="24">后 唐(关中)</text>
+    <text class="cname s" x="742" y="70" style="fill:var(--advance);opacity:.7">庄宗都洛阳 · 自凤翔出师</text>
+    <text class="realm q" x="60" y="430" font-size="34">前 蜀(西川)</text>
+    <text class="cname s" x="66" y="454" style="fill:var(--enemy);opacity:.7">王衍都成都 · 荒淫不恤国政</text>
+
+    <!-- ══ 山脉 ══ -->
+    <!-- 秦岭:后唐前蜀之界,大散关为入蜀门户 -->
+    <path class="mtn fill" d="M 210,140 L 232,104 L 250,124 L 274,90 L 296,120 L 320,92 L 342,122 L 366,96 L 388,126 Z"/>
+    <path class="mtn" d="M 430,120 l 20,-30 l 16,20 l 22,-30 l 18,26 l 20,-28 l 18,26"/>
+    <path class="mtn fill" d="M 660,86 L 682,54 L 700,74 L 724,44 L 746,72 L 768,50 L 788,78 Z"/>
+    <text class="mname" x="250" y="96" transform="rotate(-8 250 96)">秦　岭</text>
+    <text class="mname" x="690" y="42" style="font-size:10px">陇　山</text>
+    <!-- 剑门山:蜀北天险,大剑小剑七十二峰,唐军过之 -->
+    <path class="mtn fill" d="M 358,378 L 376,344 L 390,362 L 406,332 L 422,358 L 438,336 L 452,362 Z"/>
+    <path class="mtn" d="M 366,366 l 12,-20 l 10,13 l 13,-20 l 11,16 l 12,-18"/>
+    <text class="mname" x="356" y="398" style="font-size:10.5px">剑 门 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 嘉陵江(故道·散关道所循):自散关南出,历凤州兴州利州,折东南趋阆中 -->
+    <path class="river" stroke-width="4" d="M 636,102 C 600,132 574,158 552,178 C 520,205 500,240 486,266 C 470,300 460,318 456,332 C 468,378 512,410 600,438 C 680,464 760,470 820,470"/>
+    <!-- 涪江:自江油南下经绵州,东南趋三台遂宁 -->
+    <path class="river" stroke-width="2.8" d="M 296,398 C 276,428 262,448 257,458 C 242,486 300,520 372,548"/>
+    <!-- 岷江:自都江堰南下,经成都西,趋南 -->
+    <path class="river" stroke-width="3" d="M 116,452 C 128,498 138,532 150,562 C 158,588 162,604 166,620"/>
+    <text class="rname" x="560" y="212" transform="rotate(40 560 212)" style="font-size:11.5px">嘉陵江·故道</text>
+    <text class="rname" x="690" y="458" style="font-size:11px">嘉陵江</text>
+    <text class="rname" x="288" y="500" transform="rotate(70 288 500)" style="font-size:10.5px">涪江</text>
+    <text class="rname" x="104" y="520" transform="rotate(78 104 520)" style="font-size:10.5px">岷江</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="chengdu"><circle cx="150" cy="560" r="6.5"/><text class="cname" x="162" y="564">成都<tspan class="cname s" dx="2">(前蜀都·王衍降)</tspan></text></g>
+      <g class="city" data-city="hanzhou"><circle cx="187" cy="518" r="4.5"/><text class="cname" x="199" y="514">汉州<tspan class="cname s" dx="2">(广汉)</tspan></text></g>
+      <g class="city" data-city="mianzhou"><circle cx="257" cy="455" r="5"/><text class="cname" x="269" y="451">绵州<tspan class="cname s" dx="2">(绵阳)</tspan></text></g>
+      <g class="city" data-city="zizhou"><circle cx="328" cy="503" r="3.5"/><text class="cname s" x="340" y="507">梓州(宋光葆献五州)</text></g>
+      <g class="city" data-city="jianmen"><circle cx="405" cy="356" r="5.5"/><text class="cname" x="415" y="352">剑门<tspan class="cname s" dx="2">(剑阁·蜀北天险)</tspan></text></g>
+      <g class="city" data-city="lizhou"><circle cx="456" cy="330" r="5"/><text class="cname" x="466" y="326">利州<tspan class="cname s" dx="2">(广元)</tspan></text></g>
+      <g class="city" data-city="sanquan"><circle cx="486" cy="264" r="5"/><text class="cname" x="496" y="260">三泉<tspan class="cname s" dx="2">(阳平关·大战)</tspan></text></g>
+      <g class="city" data-city="xingzhou"><circle cx="514" cy="208" r="4.5"/><text class="cname" x="524" y="204">兴州<tspan class="cname s" dx="2">(略阳)</tspan></text></g>
+      <g class="city" data-city="chengzhou"><circle cx="430" cy="150" r="3.5"/><text class="cname s" x="386" y="146" style="text-anchor:end">成州</text></g>
+      <g class="city" data-city="fengzhou"><circle cx="566" cy="156" r="4.5"/><text class="cname" x="576" y="152">凤州<tspan class="cname s" dx="2">(凤县)</tspan></text></g>
+      <g class="city" data-city="weiwu"><circle cx="604" cy="124" r="4"/><text class="cname s" x="614" y="120">威武城</text></g>
+      <g class="city" data-city="dasan"><circle cx="640" cy="90" r="5.5"/><text class="cname" x="650" y="86">大散关<tspan class="cname s" dx="2">(入蜀门户)</tspan></text></g>
+    </g>
+
+    <!-- 凤翔(图外·北):后唐出师之地 -->
+    <g transform="translate(676,6)">
+      <path class="march j" marker-end="url(#aj)" d="M 8,26 C 2,18 -20,10 -38,6" style="opacity:0"/>
+      <text class="mlabel j" x="10" y="14" style="font-size:10px">凤翔 出师 ↙</text>
+      <text class="cname s" x="10" y="28" style="fill:var(--advance);font-size:9.5px">后唐发兵地(图外北)</text>
+    </g>
+
+    <!-- ══════════ 全图 · 长驱灭蜀 ══════════ -->
+    <g id="phAll" class="ph">
+      <!-- 凤翔→大散关 引兵入蜀 -->
+      <path class="march j" marker-end="url(#aj)" d="M 690,30 C 672,50 656,70 644,86"/>
+      <!-- 长驱南下主脉:散关→威武→凤州→兴州→三泉→利州→剑门→绵州→汉州→成都 -->
+      <path class="march j" marker-end="url(#aj)" d="M 640,98 C 612,124 588,146 566,160 C 540,186 522,200 514,212 C 500,236 490,254 486,266 C 470,300 460,320 456,334 C 436,346 420,352 405,360 C 350,402 290,442 257,460 C 222,490 196,510 187,522 C 172,536 158,552 152,560"/>
+      <text class="mlabel j" x="512" y="150" transform="rotate(38 512 150)">六万之众 · 循故道嘉陵江长驱</text>
+      <circle class="star" cx="486" cy="264" r="8"/>
+      <text class="anno" x="500" y="292">三泉:康延孝大破蜀军三万</text>
+      <circle class="star" cx="405" cy="356" r="8"/>
+      <text class="plabel" x="300" y="336">剑门天险 · 唐军轻取</text>
+      <circle class="star" cx="150" cy="560" r="12"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 158,544 C 168,522 174,506 176,492"/>
+      <text class="mlabel r" x="180" y="486">王衍舆榇衔璧出降</text>
+      <g class="surr" transform="translate(566,140)"><line x1="0" y1="0" x2="0" y2="-15"/><path d="M0,-15 L12,-11 L0,-7 Z"/></g>
+      <g class="surr" transform="translate(514,192)"><line x1="0" y1="0" x2="0" y2="-15"/><path d="M0,-15 L12,-11 L0,-7 Z"/></g>
+      <text class="dlabel" x="360" y="230">蜀北守军望风崩溃 · 纷纷降附</text>
+      <g class="tally" transform="translate(690,486)"><rect x="0" y="0" width="150" height="86" rx="3"/><text class="big" x="16" y="42">七十日</text><text class="cap" x="16" y="64">出师至灭前蜀</text><text class="cap" x="16" y="80" style="fill:var(--enemy)">立国十八年而亡</text></g>
+    </g>
+
+    <!-- ══════════ 阶段一:前蜀荒淫内腐 · 遣郭崇韬伐蜀 ══════════ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 690,30 C 674,48 660,66 646,84"/>
+      <text class="mlabel j" x="656" y="46" style="font-size:10.5px">魏王李继岌都统 · 郭崇韬实统兵六万</text>
+      <path class="march j" marker-end="url(#aj)" d="M 640,100 C 628,112 618,122 610,128"/>
+      <text class="mlabel j" x="612" y="150">同光三年九月 · 出凤翔趋大散关</text>
+      <text class="anno" x="120" y="500">前蜀后主王衍:奢靡荒淫,好游宴、营宫室,委政宦竖,不恤军国</text>
+      <text class="anno" x="150" y="524">名将王宗弼等观望自保,兵骄将惰,北鄙空虚</text>
+      <text class="mlabel q" x="80" y="392">后唐乘其内腐,大举伐蜀</text>
+      <rect class="camp" x="146" y="556" width="9" height="9" transform="rotate(45 150 560)"/>
+    </g>
+
+    <!-- ══════════ 阶段二:出散关循故道 · 破威武拔凤兴三泉 ══════════ -->
+    <g id="ph2" class="ph">
+      <!-- 入散关,循故道破威武、下凤州兴州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 640,98 C 616,120 598,138 604,124 C 588,146 574,158 566,162 C 542,188 524,202 514,214 C 500,238 490,256 486,268"/>
+      <text class="mlabel j" x="560" y="138">入大散关 · 破威武城</text>
+      <!-- 蜀北守将望风降 -->
+      <g class="surr" transform="translate(566,140)"><line x1="0" y1="0" x2="0" y2="-15"/><path d="M0,-15 L12,-11 L0,-7 Z"/></g>
+      <text class="dlabel" x="576" y="176">凤州·故镇守将降</text>
+      <g class="surr" transform="translate(514,192)"><line x1="0" y1="0" x2="0" y2="-15"/><path d="M0,-15 L12,-11 L0,-7 Z"/></g>
+      <text class="dlabel" x="524" y="188">兴州刺史弃城遁</text>
+      <g class="surr" transform="translate(430,136)"><line x1="0" y1="0" x2="0" y2="-14"/><path d="M0,-14 L11,-10 L0,-7 Z"/></g>
+      <text class="dlabel" x="386" y="132" style="text-anchor:end">成州弃城</text>
+      <!-- 王衍方北巡至利州,遣三万迎战三泉 -->
+      <rect class="camp" x="452" y="326" width="9" height="9" transform="rotate(45 456 330)"/>
+      <text class="mlabel q" x="466" y="352">王衍北巡至利州,遣王宗勋等三万拒战</text>
+      <path class="march q" marker-end="url(#aq)" d="M 462,322 C 476,302 484,284 488,272"/>
+      <circle class="star" cx="486" cy="264" r="8.5"/>
+      <text class="mlabel r" x="500" y="256">十月:康延孝大破蜀军于三泉,斩首五千</text>
+    </g>
+
+    <!-- ══════════ 阶段三:蜀北望风崩溃 · 轻取剑门天险 ══════════ -->
+    <g id="ph3" class="ph">
+      <!-- 王衍闻败奔还成都,断桔柏浮桥 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 452,336 C 400,388 300,448 200,510 C 178,524 162,544 154,554"/>
+      <text class="mlabel r" x="250" y="470">王衍闻败,弃军奔归成都,断桔柏津浮桥</text>
+      <!-- 唐前锋昼夜兼行取利州,修桥进兵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 486,272 C 474,296 464,314 458,326"/>
+      <text class="mlabel j" x="464" y="308">李绍琛五千为锋,昼夜兼行取利州</text>
+      <text class="dlabel" x="470" y="342">王宗弼弃利州遁</text>
+      <!-- 过剑门天险,轻取 -->
+      <path class="march j" marker-end="url(#aj)" d="M 452,340 C 438,346 422,352 410,358"/>
+      <g class="pass" transform="translate(405,356)"><path d="M -20,10 L -8,-14 L 0,2 L 8,-16 L 20,10 Z"/></g>
+      <circle class="star" cx="405" cy="356" r="9"/>
+      <text class="plabel" x="240" y="360">剑门天险:蜀不能守,唐军修浮桥、逾险轻取</text>
+      <text class="anno" x="300" y="422">宋光葆以梓、绵、剑、龙、普五州降</text>
+      <g class="surr" transform="translate(328,488)"><line x1="0" y1="0" x2="0" y2="-14"/><path d="M0,-14 L11,-10 L0,-7 Z"/></g>
+    </g>
+
+    <!-- ══════════ 阶段四:长驱逼成都 · 王衍出降 · 七旬灭蜀 ══════════ -->
+    <g id="ph4" class="ph">
+      <!-- 过剑门,克绵州汉州,直逼成都 -->
+      <path class="march j" marker-end="url(#aj)" d="M 405,362 C 350,404 290,444 257,460 C 222,490 196,510 187,522 C 172,536 158,552 152,560"/>
+      <text class="mlabel j" x="270" y="486">克绵州·汉州,长驱直逼成都</text>
+      <!-- 王宗弼劫王衍以成都降 -->
+      <circle class="star" cx="150" cy="560" r="12"/>
+      <text class="mlabel q" x="40" y="600">王宗弼劫王衍以成都降,谋自保西川(旋为郭崇韬所诛)</text>
+      <!-- 王衍舆榇衔璧出降于升仙桥 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 158,546 C 168,524 175,508 178,494"/>
+      <text class="mlabel r" x="182" y="490">十一月:王衍白衣衔璧、舆榇出降于升仙桥</text>
+      <rect class="camp" x="146" y="556" width="9" height="9" transform="rotate(45 150 560)"/>
+      <g class="tally" transform="translate(680,470)"><rect x="0" y="0" width="156" height="90" rx="3"/><text class="big" x="16" y="44">七旬灭国</text><text class="cap" x="16" y="66">九月出师 → 十一月蜀亡</text><text class="cap" x="16" y="82" style="fill:var(--enemy)">凡七十日 · 前蜀遂灭</text></g>
+    </g>
+
+    <g class="compass" transform="translate(930,120)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>后唐军(长驱南下)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>前蜀军</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>蜀败走·王衍出降</span>
+    <span class="item"><svg width="16" height="18"><line x1="3" y1="1" x2="3" y2="17" stroke="#1f4e54" stroke-width="1.5"/><path d="M3,1 L14,5 L3,8 Z" fill="#1f4e54"/></svg>望风降附</span>
+    <span class="item"><svg width="30" height="16"><path d="M 3,14 L 9,2 L 13,8 L 17,0 L 23,14 Z" fill="rgba(92,79,56,.2)" stroke="#5c4f38" stroke-width="1.1"/></svg>剑门天险(轻取)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战·克城</span>
+    <span class="item"><svg width="10" height="10"><rect x="1" y="1" width="8" height="8" transform="rotate(45 5 5)" fill="#9a2b1e"/></svg>营垒</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>前蜀</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>后唐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>释要 · 长驱入蜀 · 七旬灭国</h3>
+    <div class="lead">蜀之亡,不亡于一战之力,而亡于内腐已极、天险不守——师出七十日而国灭</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="决胜示意:前蜀王衍荒淫内腐、守军无斗志,后唐乘之遣郭崇韬六万出大散关循故道嘉陵江长驱,蜀北望风崩溃、剑门天险不守,唐军轻取直逼成都,王衍出降,七十日灭前蜀">
+      <!-- 上:前蜀内腐 -->
+      <text x="26" y="26" fill="#9a2b1e" font-size="13" font-weight="700">前蜀 · 王衍荒淫内腐(不恤国政 · 守将观望)</text>
+      <line x1="24" y1="36" x2="470" y2="36" stroke="#9a2b1e" stroke-width="2.2" opacity=".45"/>
+      <!-- 后唐出师节点 -->
+      <circle cx="120" cy="70" r="6" fill="#e9dec4" stroke="#2b2418" stroke-width="1.8"/>
+      <text x="110" y="60" fill="#2b2418" font-size="11" font-weight="700" text-anchor="middle">凤翔·出师</text>
+      <text x="110" y="92" fill="#1f4e54" font-size="10.5" text-anchor="middle">郭崇韬 六万</text>
+      <!-- 长驱大弧线(青),经散关—剑门—成都 -->
+      <path d="M 126,74 C 220,96 300,110 360,120 C 470,138 560,150 620,168" fill="none" stroke="#1f4e54" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 612,162 L 626,168 L 614,178 Z" fill="#1f4e54"/>
+      <text x="300" y="104" fill="#1f4e54" font-size="11.5" font-weight="700">出散关 · 循故道嘉陵江 · 长驱</text>
+      <!-- 关隘节点:大散关 -->
+      <g transform="translate(300,124)"><path d="M -14,8 L -5,-10 L 0,0 L 5,-12 L 14,8 Z" fill="rgba(92,79,56,.22)" stroke="#5c4f38" stroke-width="1.1"/></g>
+      <text x="300" y="150" fill="#5c4f38" font-size="10" text-anchor="middle">大散关</text>
+      <!-- 望风崩溃 -->
+      <g transform="translate(430,138)"><line x1="0" y1="0" x2="0" y2="-15" stroke="#1f4e54" stroke-width="1.5"/><path d="M0,-15 L12,-11 L0,-7 Z" fill="#1f4e54"/></g>
+      <text x="446" y="132" fill="#1f4e54" font-size="10.5" font-weight="700">蜀北守军望风降附</text>
+      <!-- 剑门天险 不守 -->
+      <g transform="translate(556,150)"><path d="M -16,9 L -6,-13 L 0,0 L 6,-15 L 16,9 Z" fill="rgba(92,79,56,.22)" stroke="#5c4f38" stroke-width="1.2"/></g>
+      <path d="M 546,140 L 566,160 M 566,140 L 546,160" stroke="#1f4e54" stroke-width="2" opacity=".8"/>
+      <text x="556" y="182" fill="#7a5a23" font-size="10.5" font-weight="700" text-anchor="middle">剑门天险 · 不守而下</text>
+      <!-- 成都节点 -->
+      <circle cx="626" cy="172" r="8" fill="#e9dec4" stroke="#2b2418" stroke-width="2"/>
+      <circle cx="626" cy="172" r="15" fill="none" stroke="#9c7a2c" stroke-width="2"/>
+      <text x="642" y="176" fill="#2b2418" font-size="11.5" font-weight="700">成都</text>
+      <text x="642" y="192" fill="#9a2b1e" font-size="10.5" font-weight="700">王衍舆榇出降</text>
+      <!-- 右:七十日 tally -->
+      <rect x="690" y="60" width="150" height="130" rx="4" fill="rgba(156,122,44,.10)" stroke="#9c7a2c" stroke-width="1.5"/>
+      <text x="765" y="104" fill="#9c7a2c" font-family="Ma Shan Zheng,serif" font-size="30" text-anchor="middle">七十日</text>
+      <text x="765" y="132" fill="#5c4f38" font-size="11" font-weight="700" text-anchor="middle">出师 → 灭国</text>
+      <text x="765" y="156" fill="#5c4f38" font-size="10.5" text-anchor="middle">势如破竹</text>
+      <text x="765" y="176" fill="#9a2b1e" font-size="10.5" font-weight="700" text-anchor="middle">前蜀立国十八年</text>
+    </svg>
+    <p class="intro">同光三年,后唐已并河北、灭后梁,中原大定;而<b>前蜀后主王衍奢靡荒淫、委政宦竖、不恤军国</b>,名将王宗弼等拥兵观望、志在自保,北鄙空虚。庄宗乃乘其内腐,以魏王李继岌为都统、枢密使郭崇韬为招讨(实统全军),将兵六万伐蜀。蜀之亡,机不在唐兵之众,而在蜀政之已腐。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>唐之长驱(郭崇韬之速)</h4>
+        <p>九月出凤翔,出大散关,循故道、傍嘉陵江水陆并进:破威武城,拔凤州、兴州;康延孝(李绍琛)为锋,大破蜀三万于三泉,昼夜兼行取利州,修桔柏浮桥而进,逾剑门天险,克绵州、汉州,直逼成都。一路势如破竹,不与蜀主力久战,唯以速取胜——所谓「长驱」者此也。</p>
+      </div>
+      <div class="c b">
+        <h4>蜀之瓦解(望风而溃)</h4>
+        <p>蜀北诸州守将闻唐师至,或望风迎降、或弃城遁去;王衍北巡至利州,遣兵三万拒战,一败于三泉即弃军奔还成都、断桥自守。剑门乃蜀北天险,而竟无重兵能守,唐军轻越之。守将王宗弼终劫王衍以城降,谋自保而不得,反为郭崇韬所诛。</p>
+      </div>
+    </div>
+    <p class="kicker">故前蜀之灭,<b>非唐兵之独强,实蜀政之自坏</b>:内腐则守军无斗志、望风崩溃,天险则无兵可守、拱手授人。郭崇韬长驱七十日,兵不血刃者半,而立国十八年之前蜀遂亡。然崇韬功高震主,旋为宦官所谗,死于蜀中,蜀地复乱——<b>灭蜀之速,反为后唐祸乱之始</b>。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(轻墨卡托)投影:x=85+(经度−103.7)·175,y=606−(纬度−30.3)·129;几何关系力求近实——大散关在东北(入蜀门户),循嘉陵江故道西南下经凤州、兴州、三泉、利州,折西南逾剑门山,历绵州、汉州而抵成都(西南)。后唐出师地凤翔(约107.4E/34.5N)远在图北之外,以图外边注示之,不入投影窗以免挤压蜀北战场。秦岭、剑门山、嘉陵江、涪江、岷江及唐蜀疆界经简化描绘,点划「约界」以秦岭大散关一线为限,非实有画界。据《旧五代史·唐庄宗纪/郭崇韬传》《新五代史·前蜀世家》《资治通鉴》卷二七三—二七四约略绘出。</p>
+    <p><span class="n">注二</span>地望与经纬:大散关(今陕西宝鸡南,约106.9E/34.3N)、威武城(故道·凤州境)、凤州(今陕西凤县,约106.5E/33.9N)、兴州(今陕西略阳,约106.15E/33.3N)、成州(今甘肃成县,约105.7E/33.8N,弃城)、三泉(今陕西宁强西北阳平关一带,约106.0E/32.95N,三泉大战)、利州(今四川广元,约105.84E/32.43N)、剑门·剑州(今四川剑阁,约105.55E/32.25N,蜀北天险)、绵州(今四川绵阳,约104.68E/31.47N)、汉州(今四川广汉,约104.28E/30.98N)、梓州(今四川三台)、成都(前蜀都,约104.07E/30.66N)。诸地相对方位为示意,非实测里距。</p>
+    <p><span class="n">注三</span>制胜之枢在「乘腐长驱」,非在决战:前蜀后主王衍奢靡荒淫、营宫室、耽游宴,委政于宦官宋光嗣等,将骄卒惰,北境空虚;后唐乘之。同光三年九月,庄宗以魏王李继岌为西川四面行营都统、枢密使郭崇韬为东北面行营都招讨制置使(李继岌名义主帅,郭崇韬实为统帅),将兵六万自凤翔发,出大散关伐蜀。行军皆由陆路,傍嘉陵江故道(散关道)水陆并进,非漕运决胜,故本图不设金色粮道。</p>
+    <p><span class="n">注四</span>崩溃与天险:唐军入散关,破威武城,凤州及故镇守将降,兴州、成州刺史弃城遁。王衍方北巡,率众至利州,遣王宗勋、王宗俨、王宗昱为三招讨,将兵三万迎战;十月,李绍琛(即康延孝,后唐赐名)大破之于三泉,斩首五千。王衍闻败弃军南奔成都、断桔柏津浮桥。李绍琛以五千为锋,昼夜兼行取利州,王宗弼弃城遁;唐军修浮桥,逾剑门,克绵州、汉州。剑门为蜀北天险,而蜀无重兵坚守,唐军轻取之——史家所以叹蜀之易亡也。宋光葆以梓、绵、剑、龙、普五州降。</p>
+    <p><span class="n">注五</span>出降与七十日之数:十一月,判六军事王宗弼自成都举兵,劫王衍及后妃百官,举成都以降,冀邀后唐授以西川节钺而自保;郭崇韬以其反覆不可信,收而诛之。王衍白衣、衔璧、舆榇(素车草绳)出降于成都北五里之升仙桥。自九月出师至十一月灭蜀,凡约七十日(《资治通鉴》或作「七十五日」,以出师至克成都计;本图取「七十日」为约数,并存异说),立国十八年之前蜀遂亡。其后郭崇韬功高,为宦官李从袭等谗构,寻见杀于蜀中;蜀地旋乱(康延孝据蜀反,为任圜所擒),灭蜀之速,反伏后唐倾覆之机。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"长驱灭蜀",d:"唐同光三年(925)九月 — 十一月",p:["后唐既灭后梁、并河北,中原大定;而前蜀后主王衍奢靡荒淫、委政宦竖、不恤军国,名将王宗弼等拥兵观望,北鄙空虚。同光三年九月,庄宗以魏王李继岌为西川四面行营都统、枢密使郭崇韬为招讨制置使(实统全军),将兵六万自凤翔伐蜀。","唐军出大散关,循故道、傍嘉陵江长驱:破威武城,拔凤州、兴州,蜀北守将望风降遁;康延孝大破蜀军三万于三泉,取利州,逾剑门天险,克绵州、汉州,直逼成都。王衍白衣衔璧、舆榇出降。自出师至灭蜀凡约七十日,立国十八年之前蜀遂亡。"]},
+  "1":{t:"前蜀荒淫内腐 · 遣郭崇韬伐蜀",d:"同光三年(925)九月 · 出师",p:["前蜀后主王衍嗣位以来,大营宫室、耽于游宴,委政于宦官宋光嗣等,赋敛烦重、将骄卒惰,北境守备空虚;权臣王宗弼等拥兵自重、志在观望。国政日坏,唐人乘之。","庄宗李存勖以中原新定,谋取两川,命长子魏王李继岌充西川四面行营都统、枢密使郭崇韬充东北面行营都招讨制置使,将兵六万,九月自凤翔发,出大散关入蜀。李继岌为名义主帅,而军事实决于郭崇韬。"]},
+  "2":{t:"出散关循故道 · 破威武拔凤兴三泉",d:"同光三年(925)十月",p:["唐军入大散关,循故道、傍嘉陵江水陆并进,破威武城。凤州及故镇守将相继迎降,兴州、成州刺史弃城遁去;蜀之北面守军望风崩溃,唐师不战而下数州。","时王衍方北巡,率众至利州,遣王宗勋、王宗俨、王宗昱为三招讨,将兵三万迎战。十月,前锋康延孝(赐名李绍琛)大破蜀军于三泉,斩首五千,蜀军丧胆。蜀北门户至此洞开。"]},
+  "3":{t:"蜀北望风崩溃 · 轻取剑门天险",d:"同光三年(925)十月末 — 十一月",p:["王衍闻三泉之败,弃军奔归成都,断桔柏津浮桥以自固;守利州之判六军事王宗弼亦弃城遁走。李绍琛以五千为锋,昼夜兼行取利州,修复浮桥而进。","剑门(剑阁)为蜀北天险,大剑小剑七十二峰,一夫当关之地;然蜀无重兵能守,唐军逾之如履平地,轻取剑门。宋光葆以梓、绵、剑、龙、普五州降。蜀之天险与州郡俱失,成都遂无所蔽。"]},
+  "4":{t:"长驱逼成都 · 王衍出降 · 七旬灭蜀",d:"同光三年(925)十一月",p:["唐军过剑门,克绵州、汉州,长驱直逼成都。判六军事王宗弼自成都举兵,劫王衍及后妃百官,举城降唐,冀邀西川节钺以自保;郭崇韬以其反覆不可信,收而诛之。","十一月,王衍白衣、衔璧、舆榇(素车草绳),出降于成都北五里之升仙桥。自九月出师至此凡约七十日,立国十八年之前蜀遂亡。然郭崇韬功高震主,旋为宦官所谗,见杀于蜀中,蜀地复乱——灭蜀之速,反为后唐祸乱之始。"]}
+};
+const CITY={
+  chengdu:{t:"成都",d:"前蜀都城,今四川成都(约104.07E/30.66N)",p:["前蜀后主王衍所都。唐军逾剑门、克绵汉,长驱逼之。王宗弼劫王衍以城降,寻为郭崇韬所诛;王衍白衣衔璧、舆榇出降于城北升仙桥,前蜀遂亡。"]},
+  hanzhou:{t:"汉州",d:"成都东北屏障,今四川广汉",p:["唐军过剑门、克绵州后所下,距成都甚近。汉州既失,成都门户洞开,王衍降在旦夕。"]},
+  mianzhou:{t:"绵州",d:"涪江要冲,今四川绵阳",p:["蜀北重镇,当涪江之口。唐军逾剑门天险后克之,遂沿平川长驱南下汉州、成都。宋光葆献五州,绵州与焉。"]},
+  zizhou:{t:"梓州",d:"东川治,今四川三台",p:["蜀东川节度所在。唐军入蜀,宋光葆举梓、绵、剑、龙、普五州降——蜀之州郡望风瓦解之一例。"]},
+  jianmen:{t:"剑门(剑州)",d:"蜀北天险,今四川剑阁(约105.55E/32.25N)",p:["大剑山、小剑山七十二峰,栈道钩连,「一夫当关,万夫莫开」,为蜀北第一门户。然前蜀无重兵坚守,唐军修桔柏浮桥、昼夜兼行逾之,轻取剑门——天险不守,史家所以叹蜀之易亡。"]},
+  lizhou:{t:"利州",d:"嘉陵江渡口,今四川广元(约105.84E/32.43N)",p:["王衍北巡至此,遣三万拒战于三泉,败;闻败乃弃军南奔成都,断桔柏津浮桥以缓唐师。守将王宗弼旋亦弃城遁。李绍琛以五千为锋,昼夜兼行取之,修桥而进。"]},
+  sanquan:{t:"三泉",d:"今陕西宁强西北阳平关一带(约106.0E/32.95N)",p:["嘉陵江上游要地。十月,前锋康延孝(李绍琛)大破王宗勋所将蜀军三万于此,斩首五千。三泉一战,蜀北主力瓦解,唐军遂长驱无阻。"]},
+  xingzhou:{t:"兴州",d:"今陕西略阳(约106.15E/33.3N)",p:["嘉陵江故道要冲。唐军循故道南下,兴州刺史弃城遁去——蜀北守军望风崩溃之一。"]},
+  chengzhou:{t:"成州",d:"今甘肃成县(约105.7E/33.8N)",p:["蜀西北边州。唐师至,刺史弃城遁走,不战而下——见前蜀北鄙守备之虚。"]},
+  fengzhou:{t:"凤州",d:"故道南口,今陕西凤县(约106.5E/33.9N)",p:["大散关内、故道南口之要州。唐军破威武城后,凤州及故镇守将相继迎降,蜀北门户遂启。"]},
+  weiwu:{t:"威武城",d:"故道要塞,凤州境内",p:["前蜀所置扼守故道之城栅。唐军出大散关首破之,乃循嘉陵江故道长驱而下凤、兴。"]},
+  dasan:{t:"大散关",d:"入蜀门户,今陕西宝鸡南(约106.9E/34.3N)",p:["秦岭要隘,关中入蜀之门户,故道(散关道)所出。九月唐军自凤翔出此关伐蜀,循嘉陵江上游南下——长驱入蜀之始。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
