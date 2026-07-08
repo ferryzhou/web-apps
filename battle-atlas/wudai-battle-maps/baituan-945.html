@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>白团卫村之战 · 开运二年(945)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--wind:#8f7a4a;--fire:#c8641e;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 晋营:掘堑筑垒、埋鹿角为行营,被围之孤营 */
+  .jcamp{fill:rgba(31,78,84,.10);stroke:var(--advance);stroke-width:1.8}
+  .abatis{stroke:var(--advance);stroke-width:1.4;fill:none;opacity:.9;stroke-linecap:round}
+  /* 断水绝饷:朱色截断记号(井随穿随崩) */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .well circle.w{fill:none;stroke:var(--water);stroke-width:1.5}
+  /* 大风飞沙:东北风,顺风扬尘纵火 */
+  .wind{fill:none;stroke:var(--wind);stroke-width:1.7;opacity:.7;stroke-linecap:round}
+  .wlabel{fill:var(--wind);font-size:11px;font-weight:700;letter-spacing:.06em}
+  .flame{stroke:var(--paper);stroke-width:.5}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.thin{stroke-width:2.2}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1100;stroke-dashoffset:1100;animation:draw 1.8s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>白</span><span>团</span><span>卫</span><span>村</span></div>
+  <header>
+    <h1>白团卫村之战</h1>
+    <div class="sub">后晋开运二年(945) · 亦称阳城之战　<i>后晋 杜重威·李守贞·符彦卿</i> 大破 <b>契丹 辽太宗耶律德光</b>　·　被围绝水 · 乘风死战 · 反破契丹</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 反败为胜</button>
+    <button data-p="1">① 契丹南侵 · 晋军北上迎战</button>
+    <button data-p="2">② 白团卫村扎营 · 契丹围之断水</button>
+    <button data-p="3">③ 军中乏水 · 东北大风 · 契丹欲纵火</button>
+    <button data-p="4">④ 晋军乘风死战 · 大破契丹 · 德光北遁</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="白团卫村之战(阳城之战,945)形势图,含后晋河北与契丹幽云约界、太行山、滹沱唐河易水诸川,及泰州满城遂城白团卫村阳城定州镇州等地;青为后晋军(杜重威李守贞符彦卿),朱为契丹军(辽太宗耶律德光);示晋军北上取三城、契丹八万反攻、晋军退保白团卫村埋鹿角为行营被四面围之断水绝饷、穿井随崩军中乏水、东北大风契丹欲乘风纵火、晋诸将乘风逆击置之死地率骑万余突出横冲、契丹大溃而耶律德光乘骆驼北遁、晋军退保定州之势">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8f7a4a"/></marker>
+    </defs>
+
+    <!-- ══ 约界:后晋据河北(南·中,青),契丹据幽云(北,朱),约界在幽云南缘 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,64 C 700,48 400,54 0,60 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,60 C 400,54 700,48 1000,64 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,60 C 400,54 700,48 1000,64"/>
+    <text class="realm q" x="96" y="34" font-size="22">契 丹(幽云)</text>
+    <text class="cname s" x="98" y="52" style="fill:var(--enemy);opacity:.6">辽太宗自幽州南下</text>
+    <text class="realm j" x="70" y="200" font-size="27">后 晋(河北)</text>
+    <text class="cname s" x="72" y="222" style="fill:var(--advance);opacity:.6">出帝石重贵 · 称孙不称臣</text>
+
+    <!-- ══ 山脉:太行山东麓,河北平原之西壁 ══ -->
+    <path class="mtn fill" d="M 20,360 L 44,336 L 30,318 L 52,296 L 34,276 L 54,254 L 36,236 L 56,214 L 40,196 L 62,176 L 76,214 L 60,236 L 78,258 L 64,282 L 82,306 L 66,332 L 84,358 L 60,390 Z"/>
+    <path class="mtn" d="M 46,300 l 14,-20 l -8,-10 M 50,250 l 12,-18 l -8,-10 M 54,210 l 12,-18"/>
+    <text class="mname" x="30" y="470" transform="rotate(-78 30 470)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 易水·拒马河:北境,近三关,契丹南下所出 -->
+    <path class="river" stroke-width="2.8" d="M 40,150 C 240,138 460,146 660,160 C 800,168 900,172 1000,176"/>
+    <!-- 唐河(沙河):自太行东南来,经定州而东,白团卫村营在其南旷野 -->
+    <path class="river" stroke-width="3.2" d="M 44,300 C 180,320 340,344 444,354 C 540,363 640,362 720,354 C 840,344 920,346 1000,350"/>
+    <!-- 滹沱河:南境大川,经镇州(真定)东流 -->
+    <path class="river" stroke-width="4.2" d="M 0,552 C 120,556 200,562 259,566 C 380,570 520,564 660,552 C 800,542 900,540 1000,536"/>
+    <text class="rname" x="150" y="140" style="font-size:11px">易水 · 拒马河</text>
+    <text class="rname" x="150" y="332" transform="rotate(6 150 332)" style="font-size:11px">唐河(沙河)</text>
+    <text class="rname" x="330" y="560" style="font-size:13px">滹 沱 河</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="suicheng"><circle cx="668" cy="72" r="4.5"/><text class="cname" x="678" y="68">遂城<tspan class="cname s" dx="2">(徐水西)</tspan></text></g>
+      <g class="city" data-city="mancheng"><circle cx="589" cy="111" r="4.5"/><text class="cname" x="530" y="106">满城</text></g>
+      <g class="city" data-city="taizhou"><circle cx="668" cy="212" r="4.5"/><text class="cname" x="678" y="208">泰州<tspan class="cname s" dx="2">(清苑北)</tspan></text></g>
+      <g class="city" data-city="yangcheng"><circle cx="545" cy="318" r="3.5"/><text class="cname s" x="500" y="312">阳城</text></g>
+      <g class="city" data-city="baituan"><circle cx="589" cy="408" r="6.5"/><text class="cname" x="600" y="404">白团卫村</text></g>
+      <g class="city" data-city="dingzhou"><circle cx="444" cy="357" r="5.5"/><text class="cname" x="392" y="374">定州<tspan class="cname s" dx="2">(义武军)</tspan></text></g>
+      <g class="city" data-city="zhenzhou"><circle cx="259" cy="565" r="5.5"/><text class="cname" x="200" y="560">镇州<tspan class="cname s" dx="2">(真定)</tspan></text></g>
+    </g>
+
+    <!-- 幽州(图外·北) -->
+    <g transform="translate(760,6)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,4 L 0,30"/>
+      <text class="mlabel q" x="8" y="16" style="font-size:10px">幽州 · 契丹(图外北) ↓</text>
+      <text class="cname s" x="8" y="30" style="fill:var(--enemy);font-size:9.5px">辽南京 · 南下之基</text>
+    </g>
+    <!-- 汴梁(图外·南) -->
+    <g transform="translate(300,612)">
+      <path class="march j" marker-end="url(#aj)" d="M 40,20 L 40,-2"/>
+      <text class="mlabel j" x="52" y="14" style="font-size:10px">↑ 汴梁 · 后晋都(图外南)</text>
+    </g>
+
+    <!-- ══ 全图 · 反败为胜 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 760,44 C 720,120 680,220 630,320"/>
+      <text class="mlabel q" x="648" y="150">契丹主耶律德光将八万骑南侵</text>
+      <path class="march j" marker-end="url(#aj)" d="M 448,352 C 520,300 600,240 640,180"/>
+      <text class="mlabel j" x="452" y="300">杜重威率大军北出,拔泰州·满城·遂城</text>
+      <path class="march j thin" marker-end="url(#aj)" d="M 636,200 C 616,280 600,340 593,398"/>
+      <text class="anno" x="602" y="300">既畏其众,南退白团卫村,被围绝水</text>
+      <circle class="star" cx="589" cy="408" r="12"/>
+      <text class="anno" x="330" y="470">东北大风起,晋军乘风死战,反破契丹</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 590,396 C 640,300 700,180 748,60"/>
+      <text class="mlabel r" x="700" y="240">耶律德光乘骆驼北遁</text>
+    </g>
+
+    <!-- ══ ① 契丹南侵 · 晋军北上迎战 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 760,44 C 726,110 700,170 686,210"/>
+      <text class="mlabel q" x="700" y="120">契丹连岁南寇 · 正月败于榆林店而退</text>
+      <!-- 晋军自定镇北上取三城 -->
+      <path class="march j" marker-end="url(#aj)" d="M 448,350 C 520,300 588,250 640,214"/>
+      <text class="mlabel j" x="300" y="330">杜重威为北面行营都招讨使,率大军北出</text>
+      <path class="march j thin" marker-end="url(#aj)" d="M 660,206 C 630,170 610,140 596,120"/>
+      <path class="march j thin" marker-end="url(#aj)" d="M 676,204 C 690,160 682,110 672,82"/>
+      <rect class="camp" x="664" y="208" width="9" height="9" transform="rotate(45 668 212)" fill="#1f4e54"/>
+      <rect class="camp" x="585" y="107" width="9" height="9" transform="rotate(45 589 111)" fill="#1f4e54"/>
+      <rect class="camp" x="664" y="68" width="9" height="9" transform="rotate(45 668 72)" fill="#1f4e54"/>
+      <text class="mlabel j" x="510" y="164">连拔泰州·满城·遂城,逼契丹南界</text>
+      <text class="anno" x="300" y="255">李守贞·符彦卿·张彦泽·皇甫遇皆为副</text>
+    </g>
+
+    <!-- ══ ② 白团卫村扎营 · 契丹围之断水 ══ -->
+    <g id="ph2" class="ph">
+      <!-- 契丹八万反攻南下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 700,90 C 680,180 650,280 616,362"/>
+      <text class="mlabel q" x="628" y="160">契丹主自将八万铁鹞骑,倍道反攻</text>
+      <!-- 晋军自三城南退白团卫村 -->
+      <path class="march j" marker-end="url(#aj)" d="M 620,140 C 606,240 598,320 593,392"/>
+      <text class="mlabel j" x="452" y="220">杜重威惧,引军南退白团卫村</text>
+      <!-- 晋营:掘堑筑垒·埋鹿角为行营(被围孤营) -->
+      <rect class="jcamp" x="561" y="384" width="56" height="48" rx="3"/>
+      <g class="abatis">
+        <path d="M 561,392 l -8,-5 M 561,404 l -9,0 M 561,416 l -8,5"/>
+        <path d="M 617,392 l 8,-5 M 617,404 l 9,0 M 617,416 l 8,5"/>
+        <path d="M 572,384 l -4,-8 M 589,384 l 0,-9 M 606,384 l 4,-8"/>
+        <path d="M 572,432 l -4,8 M 589,432 l 0,9 M 606,432 l 4,8"/>
+      </g>
+      <text class="mlabel j" x="470" y="452">埋鹿角为行营,掘堑筑垒自固</text>
+      <!-- 契丹四面围之 -->
+      <path class="march q thin" marker-end="url(#aq)" d="M 589,338 C 589,352 589,362 589,374"/>
+      <path class="march q thin" marker-end="url(#aq)" d="M 668,408 C 648,408 636,408 626,408"/>
+      <path class="march q thin" marker-end="url(#aq)" d="M 589,486 C 589,470 589,458 589,448"/>
+      <path class="march q thin" marker-end="url(#aq)" d="M 508,408 C 528,408 540,408 550,408"/>
+      <text class="mlabel q" x="628" y="486">契丹大军四面围之</text>
+      <!-- 断饷道 -->
+      <g class="cut" transform="translate(520,470)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="360" y="490">断其饷道 ✕</text>
+      <!-- 断水源 -->
+      <g class="cut" transform="translate(648,360)"><circle r="7"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <text class="clabel" x="656" y="356">绝其水源 ✕</text>
+    </g>
+
+    <!-- ══ ③ 军中乏水 · 东北大风 · 契丹欲纵火 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 孤营仍被围 -->
+      <rect class="jcamp" x="561" y="384" width="56" height="48" rx="3"/>
+      <!-- 穿井随崩·军中乏水 -->
+      <g class="well">
+        <circle class="w" cx="576" cy="400" r="4"/><circle class="w" cx="602" cy="398" r="4"/><circle class="w" cx="588" cy="418" r="4"/>
+      </g>
+      <g class="cut" transform="translate(576,400)"><circle r="6"/><line x1="-4.2" y1="-4.2" x2="4.2" y2="4.2"/><line x1="-4.2" y1="4.2" x2="4.2" y2="-4.2"/></g>
+      <g class="cut" transform="translate(602,398)"><circle r="6"/><line x1="-4.2" y1="-4.2" x2="4.2" y2="4.2"/><line x1="-4.2" y1="4.2" x2="4.2" y2="-4.2"/></g>
+      <text class="clabel" x="470" y="452">穿井取水,井随穿随崩,军中乏水 ✕</text>
+      <!-- 东北大风:自东北(右上)向西南吹,飞沙拔木 -->
+      <g class="wind">
+        <path marker-end="url(#aw)" d="M 900,120 C 800,160 700,210 620,270"/>
+        <path marker-end="url(#aw)" d="M 940,180 C 840,230 740,290 660,350"/>
+        <path marker-end="url(#aw)" d="M 900,240 C 820,300 720,360 650,410"/>
+        <path d="M 860,150 l -10,14 l 16,-2" style="opacity:.5"/>
+        <path d="M 880,210 l -10,14 l 16,-2" style="opacity:.5"/>
+      </g>
+      <text class="wlabel" x="742" y="120" transform="rotate(28 742 120)">东北大风大起 · 飞沙拔木 · 天地昏暗</text>
+      <!-- 契丹顺风纵火扬尘,铁鹞下马拔鹿角,直逼中军 -->
+      <path class="flame" d="M 632,380 C 622,392 624,404 630,410 C 626,402 632,396 631,388 C 635,393 639,398 638,406 C 644,401 644,390 632,380 Z" fill="var(--fire)"/>
+      <path class="flame" d="M 620,388 C 611,398 613,408 618,413 C 614,406 619,401 618,394 C 621,398 625,402 624,409 C 630,404 630,394 620,388 Z" fill="var(--gold)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 690,330 C 660,352 636,370 618,388"/>
+      <text class="mlabel q" x="636" y="322">契丹主命铁鹞下马拔鹿角,顺风纵火扬尘</text>
+      <text class="anno" x="452" y="352">直逼中军大帐;杜重威闭垒,议俟风止而战</text>
+    </g>
+
+    <!-- ══ ④ 晋军乘风死战 · 大破契丹 · 德光北遁 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 大风仍作(背景,不参与描画动画) -->
+      <g class="wind" style="opacity:.4">
+        <path d="M 900,150 C 800,200 700,260 630,320"/>
+        <path d="M 930,210 C 840,260 740,320 668,372"/>
+      </g>
+      <!-- 晋营 -->
+      <rect class="jcamp" x="561" y="384" width="56" height="48" rx="3"/>
+      <!-- 乘风置死地反冲:诸将率骑万余,冒风沙逆风突出,横冲契丹阵(KEY) -->
+      <path class="march j" marker-end="url(#aj)" d="M 604,388 C 640,344 686,300 728,262"/>
+      <path class="march j" marker-end="url(#aj)" d="M 612,398 C 668,376 726,354 786,336"/>
+      <path class="march j" marker-end="url(#aj)" d="M 600,384 C 628,340 656,300 680,268"/>
+      <text class="mlabel j" x="540" y="332">李守贞·药元福·符彦卿乘风逆击</text>
+      <text class="anno" x="560" y="316">『置之死地而后生』,率骑万余冒沙突出</text>
+      <circle class="star" cx="589" cy="408" r="12"/>
+      <!-- 契丹阵乱大溃 -->
+      <g class="camp">
+        <rect x="724" y="256" width="9" height="9" transform="rotate(45 728 260)"/>
+        <rect x="782" y="330" width="9" height="9" transform="rotate(45 786 334)"/>
+        <rect x="676" y="262" width="9" height="9" transform="rotate(45 680 266)"/>
+      </g>
+      <text class="mlabel r" x="740" y="248">契丹阵乱大溃 ⃫</text>
+      <text class="anno" x="600" y="440">会风向亦转,烟尘反扑,契丹不意晋军敢出</text>
+      <!-- 耶律德光乘骆驼北遁 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 730,258 C 748,180 754,110 750,52"/>
+      <text class="mlabel r" x="756" y="150">耶律德光弃奚车,乘骆驼北遁</text>
+      <!-- 晋军退保定州 -->
+      <path class="march j thin" marker-end="url(#aj)" d="M 578,404 C 540,392 500,376 460,364"/>
+      <text class="mlabel j" x="360" y="392">后晋军威大振,旋亦退保定州</text>
+    </g>
+
+    <g class="compass" transform="translate(944,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>后晋军(杜重威·诸将)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>契丹军(辽太宗·八万)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>契丹北遁</span>
+    <span class="item"><svg width="20" height="16"><rect x="3" y="3" width="14" height="10" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><path d="M3,6 l-2,-1 M17,6 l2,-1" stroke="#1f4e54" stroke-width="1.2"/></svg>晋营·埋鹿角</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断水·绝饷·崩井</span>
+    <span class="item"><svg width="34" height="12"><path d="M 32,2 C 22,5 12,9 4,10" fill="none" stroke="#8f7a4a" stroke-width="1.7" opacity=".75"/></svg>东北大风飞沙</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>决战</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>后晋(河北)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>契丹(幽云)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 被围绝水 · 乘风死战</h3>
+    <div class="lead">何以陷死地而反胜 —— 契丹恃风纵火,晋军乘风逆击,置之死地而后生</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:晋军退保白团卫村,四面被围、断水乏井,已入死地;契丹更挟东北大风欲顺风纵火焚营;晋诸将不待风止,乘风逆击、率骑万余突出横冲,契丹恃风而骄、阵乱大溃">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 被围绝水(死地)</text>
+      <text x="330" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 东北大风 · 契丹纵火</text>
+      <text x="672" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 乘风逆击 · 断阵</text>
+
+      <!-- ① 被围绝水 -->
+      <rect x="70" y="70" width="70" height="56" rx="3" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.8"/>
+      <text x="78" y="102" fill="#1f4e54" font-size="10.5" font-weight="700">晋 孤 营</text>
+      <g stroke="#9a2b1e" stroke-width="1.6" fill="none" opacity=".85">
+        <path d="M 105,58 l 0,-10 M 148,98 l 12,0 M 105,138 l 0,10 M 62,98 l -12,0" marker-end="url(#aq)"/>
+      </g>
+      <text x="60" y="150" fill="#9a2b1e" font-size="10" font-weight="700">契丹四面围之</text>
+      <g><circle cx="105" cy="98" r="9" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="99" y1="92" x2="111" y2="104" stroke="#9a2b1e" stroke-width="2.4"/><line x1="99" y1="104" x2="111" y2="92" stroke="#9a2b1e" stroke-width="2.4"/></g>
+      <text x="46" y="180" fill="#9a2b1e" font-size="10" font-weight="700">断水绝饷 · 穿井随崩 ✕</text>
+      <text x="46" y="198" fill="#5c4f38" font-size="10" font-style="italic">人马饥渴,士气动摇,已在死地</text>
+
+      <!-- ② 东北大风·纵火 -->
+      <g stroke="#8f7a4a" stroke-width="1.8" fill="none" opacity=".8">
+        <path d="M 560,70 C 500,90 440,116 396,146" marker-end="url(#aw)"/>
+        <path d="M 574,104 C 512,126 452,152 410,178" marker-end="url(#aw)"/>
+      </g>
+      <text x="404" y="66" fill="#8f7a4a" font-size="10.5" font-weight="700">东北大风 → 飞沙蔽天</text>
+      <path d="M 372,150 C 362,162 364,176 371,183 C 366,174 373,168 372,159 C 377,165 382,171 381,180 C 388,174 388,161 372,150 Z" fill="#c8641e" stroke="#e9dec4" stroke-width=".5"/>
+      <text x="330" y="205" fill="#9a2b1e" font-size="10.5" font-weight="700">契丹顺风纵火扬尘,下马拔鹿角</text>
+      <text x="330" y="222" fill="#5c4f38" font-size="10" font-style="italic">恃风而骄,以为坐困可擒</text>
+
+      <!-- ③ 乘风逆击·断阵 -->
+      <rect x="646" y="150" width="40" height="34" rx="2" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/>
+      <text x="648" y="200" fill="#1f4e54" font-size="9.5" font-weight="700">晋营</text>
+      <path d="M 686,166 C 730,140 772,112 806,86" fill="none" stroke="#1f4e54" stroke-width="4" marker-end="url(#aj)"/>
+      <path d="M 680,158 C 720,124 756,98 786,74" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="640" y="128" fill="#1f4e54" font-size="10.5" font-weight="700">逆风突出,率骑万余横冲</text>
+      <g fill="#9a2b1e" opacity=".82"><circle cx="792" cy="70" r="4"/><circle cx="808" cy="76" r="4"/><circle cx="780" cy="88" r="4"/><circle cx="812" cy="94" r="4"/></g>
+      <line x1="768" y1="66" x2="820" y2="104" stroke="#7a5a23" stroke-width="2" stroke-dasharray="3 4"/>
+      <text x="748" y="118" fill="#9a2b1e" font-size="10" font-weight="700">阵乱 → 大溃</text>
+      <text x="646" y="222" fill="#9a2b1e" font-size="10" font-style="italic">会风向旋转,烟尘反扑,德光乘骆驼北走</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 210,110 L 258,110" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+      <path d="M 600,150 L 632,150" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".55"/>
+    </svg>
+    <p class="intro">白团卫村之役,晋军退保孤营,契丹八万四面围之,<b>断其饷道、绝其水源</b>,穿井取水而井随穿随崩,人马饥渴、士气动摇,已陷死地。契丹更挟<b>东北大风</b>、欲顺风纵火扬尘以焚之——晋军之危,至此极矣。然危之极,正机之所伏:胜负不在角其兵众,而在能否反用此风。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>晋军 · 乘风死战(奇)</h4>
+        <p>杜重威闭垒,议欲俟风止而后战;而李守贞、药元福、符彦卿、皇甫遇诸将以为「风沙之惨,彼我皆然;今我在死地,坐守必毙,不若乘风纵击、出其不意」。遂不待风止,率精骑万余,冒飞沙自营垒突出、逆风横冲契丹之阵——以必死之气,破恃胜之敌,置之死地而后生。</p>
+      </div>
+      <div class="c b">
+        <h4>契丹 · 恃风纵火(骄)</h4>
+        <p>契丹恃众围之、又挟大风,顺风纵火扬尘,命铁鹞下马拔鹿角、直逼中军,以为晋军坐困、必可生擒。骄而不备,殊不虞晋骑之敢出;会风向旋转、烟尘反扑,阵势大乱、首尾不能相救,八万之众一朝溃走,耶律德光弃奚车、乘骆驼狼狈北遁。</p>
+      </div>
+    </div>
+    <p class="kicker">同一大风,契丹恃之而骄、晋军乘之而奋:<b>恃者取败,乘者得志</b>。故白团卫之胜,不在兵之众寡,而在「<b>被围绝水而能乘风死战、反破契丹</b>」——因敌之所恃以为吾利,置之死地而后生之谓也。惜乎明年杜重威降于契丹、后晋遂亡,此一战之威,竟成回光耳。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=140+(经度−114.30)×440,y=643−(纬度−38.00)×560),几何关系力求近实:白团卫村居中,泰州·满城·遂城在其北,定州在西北(晋军后方),镇州(真定)在西南,幽州在极北(契丹据,图外)、汴梁在极南(后晋都,图外)。太行山、易水·拒马、唐河、滹沱诸水略绘。晋与契丹约界(幽云南缘)以点划晕染示意,非实有画界。据《旧五代史·晋出帝纪、杜重威传》《辽史·太宗纪》《资治通鉴》卷二八四绘出。</p>
+    <p><span class="n">注二</span>今地考:白团卫村约在今河北安国一带(一说定州境,约115.3°E、38.4°N),阳城在其北(今保定清苑、望都间),二名互见,故是役兼称「白团卫村之战」「阳城之战」;白团卫村、阳城确址史无定说,姑依旧志系之。泰州(五代置,治今清苑北)、满城(今满城)、遂城(今徐水西)为杜重威北出所拔三城;定州为义武军治(今定州)、晋军之后方;镇州即成德军真定(今正定),滹沱河所经。幽州为契丹南京、南下之基;汴梁为后晋都,并置图外。</p>
+    <p><span class="n">注三</span>制胜之枢在「被围绝水而乘风死战」(图中朱 ✕ 为断水绝饷、崩井,青箭为逆风突出):晋军退保白团卫村,契丹八万四面围之,断饷绝水,穿井随崩、人马饥渴,已入死地。会东北大风飞沙,契丹欲顺风纵火焚营;而李守贞、药元福、符彦卿等不待风止,反乘风逆击,率骑万余冒沙突出、横冲其阵。契丹恃风而骄、不虞晋军之出,仓卒阵乱(一说风向旋转、烟尘反扑),遂大溃。置之死地而后生、因敌之利而反用之,此其所以胜。</p>
+    <p><span class="n">注四</span>史事互异,并存以俟考:(一)契丹兵数,《通鉴》《辽史》多称八万铁鹞骑,他书或云十余万,盖号称之数。(二)主帅杜重威身为都招讨使而闭垒欲俟风止,力战决胜者实李守贞、药元福、符彦卿、皇甫遇诸将,《旧五代史》诸传叙功小异。(三)德光遁走,《辽史·太宗纪》讳其败,《通鉴》则载其弃奚车、乘骆驼北走,狼狈可知。是役晋军虽大捷,而明年(开运三年,946)杜重威率军再北伐,溃于滹沱、中渡桥,举众降契丹,后晋遂亡——白团卫之威,竟成回光返照。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"反败为胜 · 白团卫村",d:"后晋开运二年(945)三月",p:["契丹自晋高祖时连年南侵。开运二年三月,后晋北面行营都招讨使杜重威,将李守贞、符彦卿、张彦泽、皇甫遇等大军北出,拔泰州、满城、遂城三城。契丹主耶律德光自将铁鹞八万骑南下反攻,晋军畏其众,南退白团卫村,埋鹿角为行营。","契丹四面围之,断其饷道、绝其水源;军中穿井取水,井随穿随崩,人马饥渴。是夜东北大风大起,飞沙拔木;契丹欲乘风纵火以焚晋营。危急之际,李守贞、药元福、符彦卿力主『乘风逆击、置之死地而后生』,率精骑万余冒风沙突出,横冲契丹之阵——契丹不意晋军敢出,大溃,耶律德光乘骆驼北遁。"]},
+  "1":{t:"契丹南侵 · 晋军北上迎战",d:"开运二年(945)正—三月",p:["晋出帝石重贵即位,对契丹『称孙不称臣』,耶律德光怒,连岁发兵南寇。二年正月,契丹前锋为晋军败于榆林店,引众北退。","三月,晋以杜重威为北面行营都招讨使,李守贞、符彦卿、张彦泽、皇甫遇等副之,率大军自定、镇之间北出,进拔泰州,又下满城、遂城,直逼契丹南界,军势方张。"]},
+  "2":{t:"白团卫村扎营 · 契丹围之断水",d:"开运二年(945)三月",p:["契丹主耶律德光闻晋军深入,自将精骑八万(『铁鹞』)倍道南下反攻。杜重威惧其众,不敢逆战,引军南退至白团卫村,掘堑筑垒、埋鹿角为行营以自固。","契丹大军四面围之,断其饷道,又绝其水源。营在旷野,旁无大川;晋军穿井取水,而井随穿随崩,汲道又为契丹所据,军中乏水,人马饥渴,士气动摇。"]},
+  "3":{t:"军中乏水 · 东北大风 · 契丹欲纵火",d:"开运二年(945)三月 · 是夜至旦",p:["是夜,东北风大起,飞沙拔木,天地昏暗,新穿之井随崩,乏水益甚。契丹主乘风势,命铁鹞四面下马,拔去晋军鹿角,顺风纵火扬尘,鼓噪进攻,直逼中军大帐。","杜重威闭垒自守,议欲俟风止而后战。诸将以为『风沙之惨,彼我皆然;今我在死地,不若乘风纵击、出其不意』;李守贞曰『众寡不敌,而风沙之内不辨眉睫,当以勇胜』,遂决意逆风而出。"]},
+  "4":{t:"晋军乘风死战 · 大破契丹 · 德光北遁",d:"开运二年(945)三月",p:["药元福、符彦卿、皇甫遇等率精骑万余,不待风止,冒飞沙自营垒突出,逆风横冲契丹之阵。契丹方恃风纵火、不意晋军敢出,阵势大乱;会风向亦转,烟尘反扑契丹,晋诸军相继奋击,契丹遂大溃。","耶律德光弃其奚车,乘骆驼仓皇北走,契丹军死伤甚众,委弃铠仗不可胜计。后晋一时军威大振,晋军亦引还,退保定州。(然明年〔946〕主帅杜重威降契丹,后晋遂亡,此为后话。)"]}
+};
+const CITY={
+  baituan:{t:"白团卫村",d:"决战地,今河北安国一带(约115.3E,38.4N)",p:["晋军被围之孤营。杜重威退屯于此,埋鹿角为行营。契丹四面围之、断水绝饷,军中穿井随崩而乏水;东北大风起,契丹欲乘风纵火,晋诸将乘风逆击、置之死地,率骑万余突出横冲,大破契丹。以在阳城之南,是役又名『阳城之战』。"]},
+  yangcheng:{t:"阳城",d:"白团卫村之北,今保定清苑、望都间",p:["白团卫村在阳城之南,故是役亦称『阳城之战』。阳城确址史家小异,姑系于此。"]},
+  dingzhou:{t:"定州",d:"晋军后方重镇,今河北定州(约114.99E,38.51N)",p:["义武军治所,晋军北上之基、退还之保。白团卫村既捷,晋军旋引兵退保定州。"]},
+  zhenzhou:{t:"镇州(恒州)",d:"成德军治真定,今河北正定(约114.57E,38.14N)",p:["河北南部重镇,滹沱河所经。晋军主力集结于定、镇之间而后北出。次年(946)晋军再北伐,即溃于滹沱、中渡桥,杜重威举军降契丹。"]},
+  taizhou:{t:"泰州",d:"晋军先取之城,今河北清苑北一带",p:["五代所置,杜重威北出所拔三城之一,逼契丹南界。"]},
+  mancheng:{t:"满城",d:"今河北满城(约115.32E,38.95N)",p:["杜重威北出所拔三城之一。"]},
+  suicheng:{t:"遂城",d:"今河北徐水西遂城,近后世宋辽三关",p:["杜重威北出所拔三城之一,当契丹南下之冲。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

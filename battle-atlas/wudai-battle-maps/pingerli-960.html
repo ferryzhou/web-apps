@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宋初削平二李 · 各个击破(960)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .pass{fill:var(--ink2);opacity:.9}
+  .passlabel{fill:var(--ink2);font-size:10.5px;font-weight:700;letter-spacing:.06em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .burn text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .fiveq{font-size:11.5px;line-height:1.85;color:var(--ink2);text-align:justify;margin-bottom:11px;border:1px dashed rgba(110,93,60,.5);padding:9px 11px;background:rgba(255,250,235,.35)}
+  .explain .fiveq b{color:var(--advance)}
+  .explain .fiveq .q{color:var(--enemy);font-weight:700}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>各</span><span>个</span><span>击</span><span>破</span></div>
+  <header>
+    <h1>宋初削平二李 · 各个击破</h1>
+    <div class="sub">建隆元年(960)　　<i>北宋 太祖 赵匡胤</i>(两度亲征) 分讨 <b>李筠(潞州·北)</b> 与 <b>李重进(扬州·南)</b>,<em>北汉 刘钧</em> 援李筠而败　·　二叛不相为谋 · 亲征速决 · 各个击破</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 削平二李</button>
+    <button data-p="1">① 李筠北叛 · 结北汉南下</button>
+    <button data-p="2">② 亲征破李筠于泽州</button>
+    <button data-p="3">③ 李重进南叛 · 扬州反</button>
+    <button data-p="4">④ 复亲征 · 渡淮克扬州</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="宋初平李筠李重进之乱形势图,含北宋北汉及二叛疆界、黄河淮河长江、汴梁潞州泽州洛阳扬州晋阳诸地及太行山,示李筠据潞州陷泽州结北汉南下、赵匡胤先遣继亲征过太行破李筠于泽州李筠自焚、李重进据扬州反谋结李筠为翟守珣所泄不能合势、赵匡胤复亲征渡淮克扬州李重进举族自焚、二叛先后各个击破">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:北宋据中原(中·南·东),北汉据河东(西北·图外晋阳),二叛各据一隅:李筠昭义(潞泽)、李重进淮南(扬州) ══ -->
+    <path d="M 0,0 H 1000 V 640 H 0 Z" fill="url(#jinHatch)"/>
+    <!-- 北汉(河东):图外北·西北隅 -->
+    <path d="M 0,0 L 250,0 C 244,54 214,104 182,140 C 132,178 60,182 0,192 Z" fill="url(#fqinHatch)"/>
+    <!-- 昭义(李筠):潞州—泽州一隅 -->
+    <path d="M 118,116 C 152,104 214,110 240,140 C 256,176 240,242 200,272 C 158,288 116,266 106,220 C 100,176 100,140 118,116 Z" fill="url(#qinHatch)"/>
+    <!-- 淮南(李重进):扬州一隅·滨江 -->
+    <path d="M 812,468 C 900,462 1000,466 1000,466 L 1000,640 L 772,640 C 778,588 794,522 812,468 Z" fill="url(#qinHatch)"/>
+    <!-- 约界 -->
+    <path class="border" d="M 0,192 C 60,182 132,178 182,140 C 214,104 244,54 250,0"/>
+    <path class="border" d="M 118,116 C 152,104 214,110 240,140 C 256,176 240,242 200,272 C 158,288 116,266 106,220 C 100,176 100,140 118,116"/>
+    <path class="border" d="M 812,468 C 900,462 1000,466 1000,466"/>
+    <text class="realm f" x="24" y="70" font-size="22">北 汉</text>
+    <text class="cname s" x="24" y="90" style="fill:var(--qin);opacity:.75">刘钧 · 河东(晋阳图外北)</text>
+    <text class="realm q" x="118" y="200" font-size="17" style="letter-spacing:.18em">昭义</text>
+    <text class="cname s" x="112" y="218" style="fill:var(--enemy);opacity:.7">李筠</text>
+    <text class="realm j" x="560" y="180" font-size="34">大 宋(中原)</text>
+    <text class="realm q" x="828" y="560" font-size="17" style="letter-spacing:.18em">淮南</text>
+    <text class="cname s" x="828" y="578" style="fill:var(--enemy);opacity:.7">李重进</text>
+
+    <!-- ══ 太行山:分河东与中原,李筠潞泽在其险 ══ -->
+    <path class="mtn fill" d="M 236,150 L 250,120 L 262,138 L 276,110 L 290,138 L 262,168 Z"/>
+    <path class="mtn" d="M 242,158 l 12,-30 l 10,16 l 14,-26 l 11,20"/>
+    <path class="mtn fill" d="M 244,250 L 258,220 L 270,238 L 284,212 L 298,238 L 270,268 Z"/>
+    <path class="mtn" d="M 250,258 l 12,-28 l 10,16 l 14,-24 l 11,18"/>
+    <text class="mname" x="304" y="200" transform="rotate(80 304 200)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 黄河:自西东流,洛阳汴梁在其南 -->
+    <path class="river" stroke-width="5" d="M 0,300 C 150,290 300,276 460,272 C 640,268 820,262 1000,250"/>
+    <!-- 淮河:宋军渡此以趋扬州 -->
+    <path class="river" stroke-width="4" d="M 430,410 C 600,430 780,450 1000,468"/>
+    <!-- 长江:东南界,扬州滨其北 -->
+    <path class="river" stroke-width="5" d="M 700,640 C 780,600 880,586 1000,590"/>
+    <text class="rname" x="170" y="292" style="font-size:13px">黄 　 河</text>
+    <text class="rname" x="640" y="440" transform="rotate(6 640 440)" style="font-size:12px">淮 　 河</text>
+    <text class="rname" x="820" y="612" transform="rotate(-4 820 612)" style="font-size:12px">长 　 江</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="luzhou"><circle cx="194" cy="150" r="5.5"/><text class="cname" x="204" y="146">潞州<tspan class="cname s" dx="2">(上党·长治·李筠)</tspan></text></g>
+      <g class="city" data-city="zezhou"><circle cx="165" cy="224" r="6"/><text class="cname" x="175" y="228">泽州<tspan class="cname s" dx="2">(晋城·李筠败死)</tspan></text></g>
+      <g class="city" data-city="luoyang"><circle cx="120" cy="313" r="4.5"/><text class="cname" x="130" y="330">洛阳<tspan class="cname s" dx="2">(李筠南向之的)</tspan></text></g>
+      <g class="city cap" data-city="bianliang"><circle cx="327" cy="300" r="7"/><text class="cname" x="337" y="296">汴梁<tspan class="cname s" dx="2">(开封·宋都·亲征所自)</tspan></text></g>
+      <g class="city" data-city="yangzhou"><circle cx="901" cy="560" r="6"/><text class="cname" x="815" y="554">扬州<tspan class="cname s" dx="2">(淮南·李重进)</tspan></text></g>
+    </g>
+
+    <!-- 晋阳·北汉(图外·西北,援李筠) -->
+    <g class="city" data-city="jinyang" transform="translate(131,4)">
+      <path class="march qin" marker-start="url(#af)" d="M 0,30 L 0,6"/>
+      <circle cx="0" cy="18" r="4" style="fill:var(--paper);stroke:var(--qin);stroke-width:1.6"/>
+      <text class="cname s" x="8" y="14" style="fill:var(--qin);font-size:10px">晋阳·北汉(图外北)</text>
+      <text class="cname s" x="8" y="27" style="fill:var(--qin);font-size:9.5px">↑ 刘钧遣兵援李筠</text>
+    </g>
+
+    <!-- ══ 全图 · 削平二李 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 李筠:潞州→泽州→南向洛汴 -->
+      <path class="march q" marker-end="url(#aq)" d="M 190,160 C 178,182 172,204 168,216"/>
+      <path class="march q" marker-end="url(#aq)" d="M 168,232 C 200,268 250,290 296,306"/>
+      <text class="mlabel q" x="180" y="330">李筠据潞州·陷泽州,南向图洛·汴</text>
+      <!-- 北汉援(purple dashed) -->
+      <path class="march qin" marker-end="url(#af)" d="M 138,26 C 150,66 168,110 186,142"/>
+      <text class="mlabel f" x="60" y="120">北汉刘钧援李筠</text>
+      <!-- 宋亲征一:汴→泽州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 320,292 C 268,268 218,248 180,232"/>
+      <text class="mlabel j" x="220" y="256">太祖亲征其一 · 过太行破李筠</text>
+      <!-- 宋亲征二:汴→渡淮→扬州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 335,308 C 500,360 700,450 888,548"/>
+      <text class="mlabel j" x="470" y="392">太祖亲征其二 · 渡淮克扬州</text>
+      <!-- 李重进据扬州 -->
+      <rect class="camp" x="895" y="554" width="11" height="11" transform="rotate(45 900.5 559.5)"/>
+      <text class="mlabel q" x="770" y="602">李重进据扬州反</text>
+      <!-- 二叛不相为谋(断链) -->
+      <path d="M 240,250 C 420,340 640,440 800,530" fill="none" stroke="#7a5a23" stroke-width="1.6" stroke-dasharray="2 9" opacity=".7"/>
+      <g transform="translate(520,392)"><line x1="-7" y1="-7" x2="7" y2="7" stroke="#9a2b1e" stroke-width="2.6"/><line x1="-7" y1="7" x2="7" y2="-7" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text class="anno" x="430" y="380" style="fill:var(--enemy)">二叛一北一南,不能合势</text>
+      <!-- 会战·自焚 -->
+      <circle class="star" cx="165" cy="224" r="11"/>
+      <g class="burn" transform="translate(165,224)"><text x="0" y="5" text-anchor="middle" fill="#9a2b1e" font-size="13">焚</text></g>
+      <circle class="star" cx="901" cy="560" r="12"/>
+      <g class="burn" transform="translate(901,560)"><text x="0" y="5" text-anchor="middle" fill="#9a2b1e" font-size="14">焚</text></g>
+    </g>
+
+    <!-- ══ ① 李筠北叛 · 结北汉南下 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 190,160 C 178,182 172,202 168,216"/>
+      <text class="mlabel q" x="204" y="188">昭义节度使李筠拒命,据潞州举兵</text>
+      <path class="march q" marker-end="url(#aq)" d="M 168,232 C 190,262 226,282 262,296"/>
+      <text class="mlabel q" x="210" y="288">陷泽州,南下欲取洛阳·汴</text>
+      <!-- 北汉援 -->
+      <path class="march qin" marker-end="url(#af)" d="M 138,26 C 150,66 168,110 186,142"/>
+      <text class="mlabel f" x="46" y="132">北汉刘钧遣兵合李筠</text>
+      <rect class="camp" x="189" y="145" width="10" height="10" transform="rotate(45 194 150)"/>
+      <text class="anno" x="120" y="352">李筠联北汉,声势颇张,直指宋之腹心</text>
+    </g>
+
+    <!-- ══ ② 亲征破李筠于泽州 ══ -->
+    <g id="ph2" class="ph">
+      <!-- 先遣 -->
+      <path class="march j" marker-end="url(#aj)" d="M 318,294 C 266,272 214,254 180,236"/>
+      <text class="mlabel j" x="230" y="272">石守信·高怀德先讨</text>
+      <text class="mlabel j" x="230" y="288">慕容延钊·王全斌继合,长平大破之</text>
+      <!-- 亲征 -->
+      <path class="march j" marker-end="url(#aj)" d="M 330,306 C 280,290 230,270 186,246"/>
+      <text class="mlabel j" x="250" y="322">太祖亲征,过太行·天井关</text>
+      <!-- 天井关碍口 -->
+      <path class="pass" d="M 235,250 l 7,-11 l 7,11 z"/>
+      <text class="passlabel" x="248" y="248">天井关(碍口)</text>
+      <!-- 泽州南大破 -->
+      <circle class="star" cx="165" cy="224" r="10"/>
+      <text class="mlabel j" x="60" y="200">泽州南大破李筠·北汉三万联军</text>
+      <!-- 李筠退保泽州·城破自焚 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 174,208 C 172,180 168,150 176,124"/>
+      <text class="mlabel r" x="182" y="128">李筠退保泽州,城破自焚死</text>
+      <g class="burn" transform="translate(165,224)"><text x="0" y="5" text-anchor="middle" fill="#9a2b1e" font-size="13">焚</text></g>
+      <!-- 北汉败退 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 158,214 C 148,150 148,86 144,26"/>
+      <text class="mlabel r" x="90" y="70">北汉援军亦败退</text>
+    </g>
+
+    <!-- ══ ③ 李重进南叛 · 扬州反 ══ -->
+    <g id="ph3" class="ph">
+      <rect class="camp" x="895" y="554" width="12" height="12" transform="rotate(45 901 560)"/>
+      <text class="mlabel q" x="740" y="600">淮南节度使李重进(郭威甥)据扬州反</text>
+      <!-- 谋结李筠(未果) -->
+      <path class="march q rout" marker-end="url(#aq)" d="M 888,548 C 720,470 500,380 300,280 C 270,264 240,254 216,248" style="opacity:.8"/>
+      <text class="mlabel q" x="470" y="470">遣翟守珣往结李筠,欲南北呼应</text>
+      <!-- 泄谋·断链 -->
+      <g transform="translate(430,410)"><line x1="-8" y1="-8" x2="8" y2="8" stroke="#9a2b1e" stroke-width="2.8"/><line x1="-8" y1="8" x2="8" y2="-8" stroke="#9a2b1e" stroke-width="2.8"/></g>
+      <text class="anno" x="330" y="404" style="fill:var(--enemy)">翟守珣反以谋泄于宋</text>
+      <text class="anno" x="330" y="420" style="fill:var(--enemy)">太祖使其缓重进之兵</text>
+      <text class="mlabel q" x="470" y="360">李筠已灭,重进迟疑失机</text>
+      <text class="anno" x="470" y="376">二叛卒不能合,坐待各个击破</text>
+    </g>
+
+    <!-- ══ ④ 复亲征 · 渡淮克扬州 ══ -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 335,308 C 500,356 680,432 830,502"/>
+      <text class="mlabel j" x="380" y="392">石守信·王审琦讨之,太祖复亲征</text>
+      <!-- 渡淮 -->
+      <path class="pass" d="M 690,437 l 8,-12 l 8,12 z"/>
+      <text class="passlabel" x="704" y="435">渡淮</text>
+      <path class="march j" marker-end="url(#aj)" d="M 838,506 C 862,522 880,538 892,550"/>
+      <text class="mlabel j" x="700" y="520">十一月渡淮围扬州</text>
+      <!-- 克城·举族自焚 -->
+      <circle class="star" cx="901" cy="560" r="12"/>
+      <g class="burn" transform="translate(901,560)"><text x="0" y="5" text-anchor="middle" fill="#9a2b1e" font-size="14">焚</text></g>
+      <text class="mlabel q" x="730" y="600">克之,李重进举族自焚死</text>
+      <text class="anno" x="730" y="616">党羽亲信数百人皆搜斩——淮南平</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>北宋 · 赵匡胤(两度亲征)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>二叛(李筠·李重进)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>北汉(援李筠)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>叛军败溃·自焚</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·会战</span>
+    <span class="item"><svg width="16" height="16"><line x1="3" y1="3" x2="13" y2="13" stroke="#9a2b1e" stroke-width="2.6"/><line x1="3" y1="13" x2="13" y2="3" stroke="#9a2b1e" stroke-width="2.6"/></svg>二叛不能合势</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>北宋</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>二叛</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>北汉</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 两叛不相为谋,亲征各个击破</h3>
+    <div class="lead">何以新朝一岁而两叛皆平 —— 不在后勤之绝,而在二叛不能合势、亲征速决各个击破</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="削平二李逻辑图:李筠据潞州在北、李重进据扬州在南,二叛欲南北呼应而不能合势(翟守珣泄谋、太祖缓其兵);赵匡胤两度亲征,先破李筠于泽州、后克扬州擒李重进,先后各个击破,新朝根基遂固,乃议先南后北之统一">
+      <!-- 左:李筠(北) -->
+      <g><circle cx="120" cy="70" r="42" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.6"/><text x="120" y="60" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">李筠·潞州(北)</text><text x="120" y="78" text-anchor="middle" fill="#5c4f38" font-size="9.5">结北汉·南图洛汴</text><text x="120" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">五·六月先叛</text></g>
+      <!-- 右:李重进(南) -->
+      <g><circle cx="120" cy="185" r="42" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.6"/><text x="120" y="178" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">李重进·扬州(南)</text><text x="120" y="196" text-anchor="middle" fill="#5c4f38" font-size="9.5">据淮南·十一月后叛</text></g>
+      <!-- 呼应断链 -->
+      <path d="M 120,112 L 120,143" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="4 4"/>
+      <g transform="translate(120,127)"><line x1="-8" y1="-8" x2="8" y2="8" stroke="#9a2b1e" stroke-width="2.6"/><line x1="-8" y1="8" x2="8" y2="-8" stroke="#9a2b1e" stroke-width="2.6"/></g>
+      <text x="150" y="124" fill="#9a2b1e" font-size="10" font-weight="700">欲南北呼应而不能</text>
+      <text x="150" y="138" fill="#5c4f38" font-size="9">翟守珣泄谋·太祖缓其兵</text>
+      <!-- 中:亲征各个击破 -->
+      <g><circle cx="430" cy="127" r="52" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.8"/><text x="430" y="118" text-anchor="middle" fill="#1f4e54" font-size="14" font-weight="700">太祖亲征</text><text x="430" y="137" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">各个击破</text><text x="430" y="154" text-anchor="middle" fill="#5c4f38" font-size="9.5">速决·先北后南</text></g>
+      <path d="M 164,70 C 260,70 320,100 384,116" fill="none" stroke="#1f4e54" stroke-width="2.2"/><path d="M 378,111 L 392,117 L 377,122 Z" fill="#1f4e54"/>
+      <path d="M 164,185 C 260,185 320,155 384,138" fill="none" stroke="#1f4e54" stroke-width="2.2"/><path d="M 377,132 L 392,137 L 378,143 Z" fill="#1f4e54"/>
+      <!-- 右:二捷 -->
+      <g><rect x="540" y="46" width="150" height="46" rx="4" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.4"/><text x="615" y="66" text-anchor="middle" fill="#9c7a2c" font-size="11.5" font-weight="700">泽州破李筠</text><text x="615" y="82" text-anchor="middle" fill="#9a2b1e" font-size="9.5">城破·自焚(六月)</text></g>
+      <g><rect x="540" y="162" width="150" height="46" rx="4" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.4"/><text x="615" y="182" text-anchor="middle" fill="#9c7a2c" font-size="11.5" font-weight="700">扬州擒李重进</text><text x="615" y="198" text-anchor="middle" fill="#9a2b1e" font-size="9.5">举族·自焚(十一月)</text></g>
+      <path d="M 484,110 C 508,96 520,86 538,76" fill="none" stroke="#9c7a2c" stroke-width="2"/><path d="M 534,71 L 544,73 L 538,82 Z" fill="#9c7a2c"/>
+      <path d="M 484,144 C 508,158 520,168 538,178" fill="none" stroke="#9c7a2c" stroke-width="2"/><path d="M 538,172 L 544,181 L 534,183 Z" fill="#9c7a2c"/>
+      <!-- 果 -->
+      <g><rect x="716" y="104" width="128" height="46" rx="4" fill="rgba(43,36,24,.08)" stroke="#2b2418" stroke-width="1.4"/><text x="780" y="124" text-anchor="middle" fill="#2b2418" font-size="11.5" font-weight="700">中央集权立</text><text x="780" y="140" text-anchor="middle" fill="#5c4f38" font-size="9">乃议先南后北</text></g>
+      <path d="M 692,127 L 714,127" fill="none" stroke="#2b2418" stroke-width="1.8"/><path d="M 710,123 L 720,127 L 710,131 Z" fill="#2b2418"/>
+    </svg>
+    <div class="fiveq">
+      <span class="q">五问速答 ·</span>
+      <b>①谁与谁战</b>:北宋太祖赵匡胤(亲征) 对 后周旧方镇李筠(潞州)、李重进(扬州)二股叛藩,北汉刘钧援李筠。
+      <b>②何时何地</b>:建隆元年(960)——五·六月破李筠于泽州(晋城),十一月克李重进于扬州。
+      <b>③因何而战</b>:赵匡胤陈桥兵变代周,后周旧镇不服,先后举兵;新朝须削平以立中央集权。
+      <b>④何以致胜</b>:二叛一北一南、不相为谋(翟守珣泄谋、太祖缓重进之兵),赵匡胤两度亲征、速战速决,分别扑灭——各个击破,非以后勤。
+      <b>⑤果与影响</b>:两叛皆平,新朝根基遂固,遂议「先南后北」之统一大略。
+    </div>
+    <p class="intro">建隆元年正月,赵匡胤陈桥驿黄袍加身,代后周而建宋。旧后周方镇心怀不服者二人先后举叛:昭义节度使<b>李筠</b>据潞州(上党)、联北汉南下;淮南节度使<b>李重进</b>据扬州而反。二叛若能南北合势、同时并举,则新朝腹背受敌、势甚危殆。然事之关键,正在<b>二叛终不能合</b>——一前一后,遂为赵匡胤所各个击破。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>先北 · 泽州破李筠</h4>
+        <p>李筠先叛,据潞州、陷泽州,结北汉刘钧南下。赵匡胤先遣石守信、高怀德往讨,长平大破之,继而亲征,过太行天井关之险,于泽州南大破李筠及北汉三万联军。李筠退保泽州,城破自焚死,北汉援军亦败退。自叛至平,不过两月。</p>
+      </div>
+      <div class="c b">
+        <h4>后南 · 扬州擒李重进</h4>
+        <p>李重进本欲遣翟守珣结李筠、南北呼应,守珣反以谋泄于宋,赵匡胤复令其缓重进之兵。及李筠已灭,重进迟疑失机,孤军无援。太祖复亲征,渡淮围扬州,顷刻城破,重进举族自焚死。二叛不相为谋,遂先后见扑。</p>
+      </div>
+    </div>
+    <p class="kicker">故宋初之定,不在一战一城之得失,而在<b>二叛不能合势、亲征速决各个击破</b>:李筠北、李重进南,一先一后而不能呼应;赵匡胤两度亲征、速战速决,分别扑灭之。制胜之枢在<b>速度与各个击破</b>,非在断敌粮道——故本图不画粮道(见注)。内患既除,中央集权得立,赵匡胤乃与赵普定「先南后北」之略,为其后统一之始。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=120+(经度−112.45)×112,y=300−(纬度−34.80)×108),几何关系力求近实:李筠据潞州、泽州在西北太行之险,宋都汴梁居中,洛阳在其西,李重进据扬州在东南滨江,北汉晋阳在西北出图外(以上缘箭头示之)。黄河、淮河、长江及疆界经简化描绘。潞州(上党)今山西长治,泽州今山西晋城,天井关(太行陉碍口)在泽州南,洛阳今河南洛阳,汴梁今河南开封,扬州今江苏扬州,晋阳今山西太原。据《宋史·太祖纪》《旧五代史》、李焘《续资治通鉴长编》卷一及《资治通鉴》后事约略绘出。</p>
+    <p><span class="n">注二</span>不画粮道之故:此役之决胜要素在<b>速度与各个击破</b>,而非后勤之绝。二叛一北一南、时间一前一后而不能合势,赵匡胤两度亲征、速战速决,先破李筠、后擒李重进,分别扑灭。故本图不设金色粮道动脉,亦无断粮之朱色 ✕；图中朱色 ✕ 所标者,乃「二叛欲南北呼应而不能合」之意(翟守珣泄谋、太祖缓其兵),非断粮道。此与前晋灭亡(中渡断粮)之制胜之枢迥异,谨别之。</p>
+    <p><span class="n">注三</span>三方各有所出:李筠据潞州在北,联北汉(晋阳)南下;李重进据扬州在南;赵匡胤自汴梁两度亲征,一西北趋泽州、一东南渡淮趋扬州。图中入向:李筠(红)自北向南,李重进(红)据东南,北汉(紫·虚线)自图外西北南下援李筠,宋军(青)自汴梁分向两叛,叛军败溃自焚以褐色虚线示之。</p>
+    <p><span class="n">注四</span>异说与余事:李筠(初名荣,避周世宗讳改筠)先叛,时在建隆元年四·五月起兵、六月泽州城破自焚;李重进九·十月起兵、十一月扬州城破自焚,同岁而两平。翟守珣一节见《长编》,重进遣其结李筠而守珣潜告于宋,太祖厚赂使缓重进之谋,故二叛不能同举——此「各个击破」之所由成,史家多重之。李重进乃后周太祖郭威之甥,以宗室懿亲而反,尤见新朝代周之际方镇离心。太行天井关等险要位置为示意,非精测。「先南后北」之议成于建隆二年雪夜赵普之对,系于两叛既平之后,图中列为余绪。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"削平二李 · 各个击破",d:"建隆元年(960)",p:["建隆元年正月,赵匡胤陈桥驿黄袍加身,代后周建宋。旧后周方镇不服者二人先后叛:昭义节度使李筠据潞州(上党),联北汉刘钧南下,欲取洛阳、汴;淮南节度使李重进(郭威甥)据扬州反。","二叛一北一南、一先一后而不能合势——赵匡胤遂各个击破:先命石守信、高怀德讨李筠,继而亲征,过太行破之于泽州南,李筠退保泽州、城破自焚(五、六月),北汉援军亦败退;复命石守信、王审琦讨李重进,再度亲征,十一月渡淮围扬州克之,李重进举族自焚。两叛皆平,中央集权得立,乃议『先南后北』之统一。"]},
+  "1":{t:"① 李筠北叛 · 结北汉南下",d:"建隆元年(960)四·五月",p:["昭义节度使李筠,后周宿将,倨傲难制,不服赵匡胤代周,遂据潞州(上党,今山西长治)举兵拒命。","李筠遣兵陷泽州(晋城),又结北汉主刘钧,得其助兵,声势颇张,南下欲取洛阳、汴,直指宋之腹心。北汉自晋阳(图外北)出兵与之合。此为二叛之先发者。"]},
+  "2":{t:"② 亲征破李筠于泽州",d:"建隆元年(960)五·六月",p:["赵匡胤先遣石守信、高怀德往讨,继遣慕容延钊、王全斌合兵,于长平大破李筠,斩获甚众。","太祖旋亲征,过太行天井关之险,与诸将会师,于泽州之南大破李筠及北汉三万联军。李筠退保泽州,宋军攻拔其城,李筠自焚而死;北汉援军亦败退。七月宋军围潞州,李筠子守节举城降——北叛遂平,前后不过两月。"]},
+  "3":{t:"③ 李重进南叛 · 扬州反",d:"建隆元年(960)九·十月",p:["淮南节度使李重进,后周太祖郭威外甥、宗室懿亲,握重兵据扬州(淮南),亦不服新朝。太祖欲徙其镇青州,重进不悦,遂据扬州反。","重进本遣幕僚翟守珣往结李筠,欲南北呼应、同时并举;守珣反以其谋密告于宋,太祖厚赂使缓重进之兵。及李筠已灭,重进迟疑失机、孤军无援——二叛卒不能合势,坐待各个击破。"]},
+  "4":{t:"④ 复亲征 · 渡淮克扬州",d:"建隆元年(960)十·十一月",p:["太祖命石守信、王审琦、李处耘等率军往讨李重进,旋复亲征。宋军渡淮而南,进围扬州。","石守信遣使奏请太祖亲临观城破,太祖驰至扬州城下,顷刻拔之。李重进举族自焚死,党羽亲信数百人皆搜捕斩杀。淮南平——二叛皆定,同岁而两靖,宋初中央集权之基遂立,乃与赵普定『先南后北』统一之略。"]}
+};
+const CITY={
+  luzhou:{t:"潞州(上党·长治)",d:"李筠据以举兵,今山西长治",p:["昭义节度使李筠治所。李筠不服赵匡胤代周,据潞州举兵拒命,联北汉南下,为宋初二叛之先发者。七月城降(其子守节),北叛遂平。地在太行之险,为河东出中原之孔道。"]},
+  zezhou:{t:"泽州(晋城)",d:"李筠败死之地,今山西晋城",p:["李筠陷此,又退保于此。赵匡胤亲征,过太行天井关,于泽州南大破李筠及北汉三万联军;李筠退保泽州,城破自焚而死——削平北叛之决战地。"]},
+  luoyang:{t:"洛阳",d:"李筠南向之目标,今河南洛阳",p:["李筠据潞泽南下,声言欲取洛阳、汴,直指宋之腹心。赵匡胤亲征先破之于泽州,李筠未能南出太行,洛汴之危遂解。"]},
+  bianliang:{t:"汴梁(开封)",d:"北宋都城·亲征所自,今河南开封",p:["赵匡胤陈桥兵变即于此代周称帝,建宋。二叛既起,太祖两度自汴亲征:一西北趋泽州破李筠,一东南渡淮克扬州擒李重进。速决各个击破,新朝根基遂固。"]},
+  yangzhou:{t:"扬州(淮南)",d:"李重进据以反,今江苏扬州",p:["淮南节度使李重进(郭威甥)治所。重进据此反,本欲结李筠南北呼应,谋为翟守珣所泄而失机。太祖复亲征、渡淮围之,顷刻城破,重进举族自焚死,淮南平——南叛之终局。"]},
+  jinyang:{t:"晋阳(太原)·北汉",d:"北汉刘钧据地,今山西太原(图外北)",p:["北汉主刘钧据晋阳,应李筠之约,遣兵南下相助,欲乘宋初未定而扰之。泽州之战,北汉三万联军为宋军所破,援军败退——第三方助叛而无功。晋阳在图外西北,以上缘箭头示其入向。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

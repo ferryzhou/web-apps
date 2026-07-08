@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>契丹灭后晋 · 中渡之降(946–947)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 晋军·粮道归路:金色串珠动脉,自汴梁经相州输饷中渡 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 断粮道:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  /* 举众降旗:后晋主力一朝解甲 */
+  .surrflag .pole{stroke:var(--ink2);stroke-width:2}
+  .surrflag .cloth{fill:rgba(154,43,30,.9);stroke:#6f1f16;stroke-width:1}
+  .surrflag text{fill:#f3e6c8;font-family:"Ma Shan Zheng",serif;font-size:15px}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>中</span><span>渡</span><span>之</span><span>降</span></div>
+  <header>
+    <h1>契丹灭后晋 · 中渡之降</h1>
+    <div class="sub">后晋开运三年至辽大同元年(946–947)　　<b>契丹 辽太宗 耶律德光</b> 灭 <i>后晋 出帝 石重贵</i>(帅 杜重威·李守贞),<em>河东 刘知远</em> 乘虚立后汉　·　主帅怀贰 · 举军而降 · 长驱灭晋</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 举军灭晋</button>
+    <button data-p="1">① 诱敌 · 晋主力北上御辽</button>
+    <button data-p="2">② 中渡对峙 · 绕后断粮</button>
+    <button data-p="3">③ 杜重威举众降</button>
+    <button data-p="4">④ 长驱入汴 · 晋亡 · 北撤</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="契丹灭后晋中渡之降形势图,含契丹后晋河东三方疆界、滹沱河黄河、幽州瀛州恒州中渡桥栾城相州汴梁晋阳诸地,示契丹诱晋军深入、杜重威率主力屯中渡、契丹绕后断粮围之、杜重威举众降、契丹长驱入汴晋亡、耶律德光纵掠北撤病死栾城、刘知远晋阳建后汉">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:契丹据幽云(北),后晋据中原(中·南),河东刘知远据晋阳(西) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,74 C 760,60 500,56 300,72 C 200,66 100,64 0,68 Z" fill="url(#qinHatch)"/>
+    <path d="M 300,72 C 500,56 760,60 1000,74 L 1000,640 L 300,640 C 306,420 302,220 300,72 Z" fill="url(#jinHatch)"/>
+    <path d="M 0,68 C 100,64 200,66 300,72 C 302,220 306,420 300,640 L 0,640 Z" fill="url(#fqinHatch)"/>
+    <!-- 契丹·后晋约界(幽云一线) -->
+    <path class="border" d="M 0,68 C 100,64 200,66 300,72 C 500,56 760,60 1000,74"/>
+    <!-- 河东·中原约界(太行一线) -->
+    <path class="border" d="M 300,72 C 302,220 306,420 300,640"/>
+    <text class="realm q" x="150" y="42" font-size="24">契 丹(辽)</text>
+    <text class="cname s" x="150" y="60" style="fill:var(--enemy);opacity:.7">幽 云 十 六 州</text>
+    <text class="realm f" x="34" y="360" font-size="22">河 东</text>
+    <text class="cname s" x="34" y="380" style="fill:var(--qin);opacity:.75">刘知远(后汉)</text>
+    <text class="realm j" x="600" y="330" font-size="30">后 晋(中原)</text>
+
+    <!-- ══ 山脉:太行山,分河东与河北 ══ -->
+    <path class="mtn fill" d="M 286,150 L 300,120 L 312,138 L 326,110 L 340,138 L 354,116 L 366,146 L 300,180 Z"/>
+    <path class="mtn" d="M 292,170 l 12,-30 l 10,16 l 14,-26 l 11,20 l 13,-24"/>
+    <path class="mtn fill" d="M 288,300 L 302,270 L 314,288 L 328,260 L 342,288 L 356,266 L 368,296 L 300,330 Z"/>
+    <path class="mtn" d="M 294,320 l 12,-28 l 10,16 l 14,-24 l 11,18 l 13,-22"/>
+    <text class="mname" x="266" y="240" transform="rotate(90 266 240)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 滹沱河:自太行东出,过恒州(正定)、中渡桥,东流趋沧瀛 -->
+    <path class="river" stroke-width="4" d="M 300,150 C 380,150 450,146 500,142 C 540,140 560,146 588,158 C 660,180 740,196 900,214"/>
+    <!-- 黄河:自西东流,汴梁在其南岸 -->
+    <path class="river" stroke-width="5" d="M 40,470 C 200,478 340,486 462,502 C 600,514 760,512 1000,520"/>
+    <!-- 漳水:自太行东出,过相州 -->
+    <path class="river" stroke-width="2.4" style="opacity:.7" d="M 300,352 C 360,360 420,366 470,372 C 560,384 660,388 760,392"/>
+    <text class="rname" x="640" y="188" transform="rotate(9 640 188)" style="font-size:12px">滹 沱 河</text>
+    <text class="rname" x="150" y="470" style="font-size:13px">黄 　 河</text>
+    <text class="rname" x="600" y="382" style="font-size:10px;opacity:.75">漳 水</text>
+
+    <!-- ══ 晋军·粮道归路:金色串珠动脉,自汴梁经相州输饷中渡,为晋军命脉 ══ -->
+    <path class="supply band" d="M 462,530 C 468,470 470,420 473,380 C 477,300 492,208 516,150"/>
+    <path class="supply core" d="M 462,530 C 468,470 470,420 473,380 C 477,300 492,208 516,150"/>
+    <g class="grain">
+      <rect x="459" y="470" width="7" height="7" transform="rotate(45 462.5 473.5)"/>
+      <rect x="466" y="405" width="7" height="7" transform="rotate(45 469.5 408.5)"/>
+      <rect x="476" y="300" width="7" height="7" transform="rotate(45 479.5 303.5)"/>
+      <rect x="497" y="215" width="7" height="7" transform="rotate(45 500.5 218.5)"/>
+    </g>
+    <text class="slabel" x="378" y="300">晋军 · 粮道归路</text>
+    <text class="slabel" x="378" y="314" style="font-size:9.5px;opacity:.85">自汴梁经相州北输之命脉</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="yingzhou"><circle cx="735" cy="92" r="4.5"/><text class="cname" x="745" y="88">瀛州<tspan class="cname s" dx="2">(河间·诱敌)</tspan></text></g>
+      <g class="city" data-city="hengzhou"><circle cx="500" cy="116" r="5"/><text class="cname" x="404" y="110">恒州<tspan class="cname s" dx="2">(镇州·正定)</tspan></text></g>
+      <g class="city" data-city="zhongdu"><circle cx="520" cy="140" r="6.5"/><text class="cname" x="530" y="136">中渡桥<tspan class="cname s" dx="2">(滹沱河)</tspan></text></g>
+      <g class="city" data-city="luancheng"><circle cx="536" cy="172" r="5"/><text class="cname" x="546" y="176">栾城<tspan class="cname s" dx="2">(杀胡林)</tspan></text></g>
+      <g class="city" data-city="xiangzhou"><circle cx="473" cy="375" r="4.5"/><text class="cname" x="483" y="372">相州<tspan class="cname s" dx="2">(安阳)</tspan></text></g>
+      <g class="city cap" data-city="bianliang"><circle cx="462" cy="542" r="7"/><text class="cname" x="472" y="546">汴梁<tspan class="cname s" dx="2">(开封·晋都)</tspan></text></g>
+      <g class="city" data-city="jinyang"><circle cx="200" cy="160" r="5.5"/><text class="cname" x="150" y="154">晋阳<tspan class="cname s" dx="2">(太原)</tspan></text></g>
+    </g>
+
+    <!-- 幽州(图外·北,契丹南下之基) -->
+    <g transform="translate(690,6)">
+      <path class="march q" marker-end="url(#aq)" d="M 0,4 L 0,30"/>
+      <text class="mlabel q" x="8" y="14" style="font-size:10px">幽州·南京(图外北)</text>
+      <text class="cname s" x="8" y="28" style="fill:var(--enemy);font-size:9.5px">↓ 辽太宗 耶律德光 大举南下</text>
+    </g>
+
+    <!-- ══ 全图 · 举军灭晋 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 700,40 C 690,66 700,98 720,96 C 640,118 580,130 534,138"/>
+      <text class="mlabel q" x="600" y="78">契丹佯败诱敌,晋军深入</text>
+      <path class="march j" marker-end="url(#aj)" d="M 462,532 C 470,440 480,270 512,150"/>
+      <text class="mlabel j" x="352" y="220">杜重威率晋主力(号三十万)北上御辽</text>
+      <path class="march q" marker-end="url(#aq)" d="M 528,150 C 500,290 478,430 466,530"/>
+      <text class="mlabel q" x="540" y="420">举众既降,契丹长驱入汴</text>
+      <!-- 中渡:举军降 -->
+      <circle class="star" cx="520" cy="140" r="9"/>
+      <g class="surrflag" transform="translate(556,108)"><line class="pole" x1="0" y1="6" x2="0" y2="-24"/><path class="cloth" d="M0,-24 L26,-20 L21,-11 L26,-2 L0,-6 Z"/><text x="4" y="-9">降</text></g>
+      <!-- 汴梁:晋亡·终 -->
+      <circle class="star" cx="462" cy="542" r="12"/>
+      <g class="endmark" transform="translate(462,542)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <!-- 北撤·死栾城 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 458,528 C 490,400 512,250 528,182"/>
+      <text class="mlabel r" x="330" y="470">德光纵掠北撤,病死栾城</text>
+      <!-- 刘知远 -->
+      <path class="march qin" marker-end="url(#af)" d="M 214,168 C 300,220 380,380 452,520"/>
+      <text class="mlabel f" x="210" y="440">刘知远乘虚,晋阳称帝入汴,建后汉</text>
+    </g>
+
+    <!-- ══ ① 诱敌 · 晋主力北上御辽 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 700,44 C 692,68 704,86 724,90"/>
+      <text class="mlabel q" x="640" y="66">德光遣赵延寿等据瀛州为诱</text>
+      <path class="march q rout" marker-end="url(#aq)" d="M 726,98 C 700,112 660,120 600,128"/>
+      <text class="mlabel q" x="560" y="118">佯败诱晋军深入</text>
+      <path class="march j" marker-end="url(#aj)" d="M 462,532 C 470,450 478,340 486,240"/>
+      <path class="march j" marker-end="url(#aj)" d="M 488,232 C 496,200 504,170 514,150"/>
+      <text class="mlabel j" x="350" y="330">出帝遣主帅杜重威·李守贞</text>
+      <text class="mlabel j" x="350" y="346">率晋军主力(号三十万)自汴北上御辽</text>
+      <rect class="camp j" x="516" y="136" width="9" height="9" transform="rotate(45 520 140)"/>
+      <text class="anno" x="440" y="118">张彦泽前锋争中渡桥,焚桥之半</text>
+    </g>
+
+    <!-- ══ ② 中渡对峙 · 绕后断粮 ══ -->
+    <g id="ph2" class="ph">
+      <rect class="camp j" x="516" y="136" width="10" height="10" transform="rotate(45 521 141)"/>
+      <text class="mlabel j" x="410" y="128">杜重威屯中渡,隔滹沱河与契丹对峙</text>
+      <path class="march q" marker-end="url(#aq)" d="M 640,110 C 600,120 560,130 534,138"/>
+      <text class="mlabel q" x="560" y="102">契丹主力临河</text>
+      <!-- 契丹绕出晋军之后:红色包抄 -->
+      <path class="march q" marker-end="url(#aq)" d="M 588,158 C 640,220 600,340 512,300 C 470,282 470,240 480,214"/>
+      <text class="mlabel q" x="556" y="268">契丹遣骑绕出晋军之后</text>
+      <!-- 断粮道归路 -->
+      <g class="cut" transform="translate(486,236)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="330" y="230">断其粮道与归路 ✕</text>
+      <text class="anno" x="360" y="252">晋军被围于中渡,粮尽危急</text>
+    </g>
+
+    <!-- ══ ③ 杜重威举众降 ══ -->
+    <g id="ph3" class="ph">
+      <rect class="camp j" x="516" y="136" width="10" height="10" transform="rotate(45 521 141)"/>
+      <text class="mlabel j" x="360" y="122">杜重威素怀异志,欲效石敬瑭自立</text>
+      <path class="march q" marker-end="url(#aq)" d="M 588,158 C 600,190 580,214 552,214"/>
+      <text class="anno" x="446" y="206">暗与契丹密谋</text>
+      <!-- 举众降旗 -->
+      <circle class="star" cx="520" cy="140" r="10"/>
+      <g class="surrflag" transform="translate(560,104)"><line class="pole" x1="0" y1="8" x2="0" y2="-28"/><path class="cloth" d="M0,-28 L30,-23 L24,-12 L30,-1 L0,-6 Z"/><text x="5" y="-11">降</text></g>
+      <text class="mlabel q" x="392" y="164">率晋军主力举众投降契丹</text>
+      <text class="anno" x="392" y="182">数万之众一朝解甲,恸哭震野;晋主力尽失</text>
+    </g>
+
+    <!-- ══ ④ 长驱入汴 · 晋亡 · 北撤 ══ -->
+    <g id="ph4" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 522,152 C 500,250 484,360 470,470 C 468,494 466,514 465,530"/>
+      <text class="mlabel q" x="360" y="410">契丹长驱南下,直入汴梁</text>
+      <circle class="star" cx="462" cy="542" r="12"/>
+      <g class="endmark" transform="translate(462,542)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <text class="mlabel q" x="332" y="560">晋出帝奉表出降,举族被掳北迁——后晋亡</text>
+      <text class="anno" x="332" y="576">947正月 德光入汴,改国号「辽」,称帝汴上</text>
+      <!-- 纵掠打草谷 -->
+      <text class="clabel" x="560" y="460">契丹纵兵『打草谷』,中原大乱,群起反抗</text>
+      <!-- 北撤·死栾城 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 458,528 C 490,420 512,260 530,184"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 532,166 C 560,110 630,66 704,40"/>
+      <g class="endmark" transform="translate(536,172)"><circle r="10" fill="none" stroke="#7a5a23" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="13">死</text></g>
+      <text class="mlabel r" x="556" y="204">德光北撤,病死栾城杀胡林</text>
+      <!-- 刘知远 -->
+      <path class="march qin" marker-end="url(#af)" d="M 214,170 C 306,224 384,384 452,522"/>
+      <text class="mlabel f" x="150" y="250">河东节度使刘知远</text>
+      <text class="mlabel f" x="150" y="266">乘中原空虚,晋阳称帝,入汴建后汉</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>契丹军(南下·长驱)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>后晋军(北上御辽)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>契丹北撤(德光死)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>刘知远(后汉)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>晋军·粮道归路</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>断粮道·围之</span>
+    <span class="item"><svg width="20" height="18"><line x1="4" y1="16" x2="4" y2="2" stroke="#5c4f38" stroke-width="1.6"/><path d="M4,2 L17,4 L13,8 L17,12 L4,10 Z" fill="rgba(154,43,30,.9)"/></svg>举众降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·会战</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>契丹</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>后晋</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>河东</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 主帅怀贰,举军而降</h3>
+    <div class="lead">何以后晋一朝而亡 —— 不在一战之败,而在主帅怀贰、举众而降</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="灭晋示意:契丹诱晋主力深入中渡、绕后断粮而围之;主帅杜重威怀异志、举众投降,晋主力尽失、门户洞开,契丹遂长驱入汴而晋亡;然纵掠中原、德光北撤病死,刘知远乘虚立后汉">
+      <!-- 上行:围 → 降 → 灭 -->
+      <!-- 中渡之围(青) -->
+      <g><circle cx="120" cy="80" r="34" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><text x="120" y="74" text-anchor="middle" fill="#1f4e54" font-size="13" font-weight="700">中渡之围</text><text x="120" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">绕后断粮·围之</text></g>
+      <g class="cut" transform="translate(150,50)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <path d="M 156,80 C 210,80 250,80 288,80" fill="none" stroke="#5c4f38" stroke-width="2" stroke-dasharray="5 5"/>
+      <path d="M 282,75 L 296,80 L 282,85 Z" fill="#5c4f38"/>
+      <!-- 主帅怀贰(金) -->
+      <g><circle cx="360" cy="80" r="40" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.6"/><text x="360" y="72" text-anchor="middle" fill="#9c7a2c" font-size="13" font-weight="700">主帅怀贰</text><text x="360" y="90" text-anchor="middle" fill="#5c4f38" font-size="9.5">杜重威欲效石敬瑭</text><text x="360" y="104" text-anchor="middle" fill="#5c4f38" font-size="9.5">自立</text></g>
+      <!-- 降旗 -->
+      <g transform="translate(430,44)"><line x1="0" y1="10" x2="0" y2="-16" stroke="#5c4f38" stroke-width="1.8"/><path d="M0,-16 L22,-12 L17,-5 L22,2 L0,-2 Z" fill="rgba(154,43,30,.9)"/><text x="4" y="-3" fill="#f3e6c8" font-family="Ma Shan Zheng" font-size="13">降</text></g>
+      <path d="M 402,80 C 450,80 490,80 528,80" fill="none" stroke="#9a2b1e" stroke-width="2.4"/>
+      <path d="M 522,75 L 536,80 L 522,85 Z" fill="#9a2b1e"/>
+      <text x="452" y="70" fill="#9a2b1e" font-size="10" font-weight="700">举众而降</text>
+      <text x="440" y="118" fill="#9a2b1e" font-size="9.5">数万解甲·主力尽失</text>
+      <!-- 长驱入汴·晋亡(红) -->
+      <g><circle cx="600" cy="80" r="40" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="2"/><text x="600" y="74" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">长驱入汴</text><text x="600" y="92" text-anchor="middle" fill="#9a2b1e" font-size="10">后晋亡</text></g>
+      <text x="656" y="80" fill="#9a2b1e" font-size="10.5" font-weight="700">出帝出降</text>
+      <!-- 下行:盛极而返 -->
+      <text x="30" y="176" fill="#5c4f38" font-size="11" font-weight="700" font-style="italic">然 · 灭人之国者,不能有其地：</text>
+      <g><rect x="30" y="192" width="150" height="40" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/><text x="105" y="210" text-anchor="middle" fill="#9a2b1e" font-size="11" font-weight="700">纵兵打草谷</text><text x="105" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">中原大乱·群起反抗</text></g>
+      <path d="M 184,212 L 214,212" fill="none" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 210,208 L 222,212 L 210,216 Z" fill="#7a5a23"/>
+      <g><rect x="224" y="192" width="160" height="40" rx="4" fill="rgba(122,90,35,.10)" stroke="#7a5a23" stroke-width="1.2"/><text x="304" y="210" text-anchor="middle" fill="#7a5a23" font-size="11" font-weight="700">德光北撤,病死栾城</text><text x="304" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">杀胡林·大同元年</text></g>
+      <path d="M 388,212 L 418,212" fill="none" stroke="#5c4a6e" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 414,208 L 426,212 L 414,216 Z" fill="#5c4a6e"/>
+      <g><rect x="428" y="192" width="170" height="40" rx="4" fill="rgba(92,74,110,.10)" stroke="#5c4a6e" stroke-width="1.2"/><text x="513" y="210" text-anchor="middle" fill="#5c4a6e" font-size="11" font-weight="700">刘知远乘虚而起</text><text x="513" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">晋阳称帝·入汴建后汉</text></g>
+    </svg>
+    <p class="intro">后晋非无兵:出帝倾国之师北上御辽,号三十万,主力全在杜重威、李守贞之手。契丹既不能野战屡胜(白团卫村尝大败),乃改以<b>诱、围、诱降</b>取之——佯败诱晋军深入中渡,遣骑绕出其后,断其粮道与归路而围之。晋军虽众,粮尽势穷,<b>命遂悬于主帅一念之间</b>。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>中渡之围 · 数万解甲</h4>
+        <p>杜重威率主力进至滹沱河中渡桥,与契丹隔河对峙。契丹遣轻骑绕出晋军之后,尽断其自汴梁北输之粮道与南归之路,晋军数万被围于中渡,粮尽危急。此时晋之精锐尚在、甲兵未损,所缺者唯一战之心与一将之忠。</p>
+      </div>
+      <div class="c b">
+        <h4>主帅怀贰 · 举军而降</h4>
+        <p>杜重威乃晋之姻亲、握重兵之重臣,素怀异志,欲效石敬瑭借契丹以自立。围中遂暗与契丹密谋,率晋军主力<b>举众投降</b>:数万之众一朝解甲,恸哭震野。晋之屏障与爪牙,不待攻而自去——中原门户,一夕洞开。</p>
+      </div>
+    </div>
+    <p class="kicker">故后晋之亡,非在中渡一战之败,而在<b>主帅怀贰、举众而降</b>:主力既降,契丹不战而长驱入汴,出帝奉表出降,立国十一年之后晋遂亡。然<b>灭人之国者未必能有其地</b>——契丹纵兵『打草谷』,中原群起反抗,德光不能安,北撤而病死栾城杀胡林;河东刘知远乘虚称帝入汴,遂有后汉。得之以诈,失之以暴,一岁而再易主。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=90+(经度−111.8)·150,y=600−(纬度−34.3)·125),几何关系力求近实:契丹据幽云在北(幽州图外北),晋都汴梁在南,恒州·中渡·栾城聚于滹沱河一线之北,瀛州在东北,相州居中,晋阳(河东)在西,太行山分河东与河北。江河、疆界经简化描绘。幽州今北京,瀛州今河北河间,恒州(镇州)今河北正定,中渡桥在正定南滹沱河上,栾城·杀胡林今河北栾城西北,相州今河南安阳,汴梁今河南开封,晋阳今山西太原。据《旧五代史·晋出帝纪/杜重威传》《辽史·太宗纪》《资治通鉴》卷二八五、二八六约略绘出。</p>
+    <p><span class="n">注二</span>行军皆陆路:晋军步骑自汴梁北上,契丹以骑兵为主,无水战。晋军之命脉在<b>自汴梁经相州北输之陆运粮道与南归之路</b>(图中金色粮道)。制胜之枢在断粮:契丹遣骑绕出晋军之后,尽断其粮道与归路(图中朱色 ✕),数万之众被围于中渡、粮尽势穷,而后可以诱降——故『围而困之』实为『诱而降之』之先着。</p>
+    <p><span class="n">注三</span>三方各有所出:契丹辽太宗耶律德光自幽州(南京,图外北)大举南下,以降将赵延寿、瀛州(河间)之众为诱,佯败诱晋军深入;后晋出帝石重贵遣主帅杜重威、李守贞率主力(号三十万)自汴梁北上御辽;河东节度使刘知远据晋阳(太原),坐观成败,及契丹北撤乃乘虚称帝、入汴建后汉。三方入图之向,一北、一南、一西,皆见于图。</p>
+    <p><span class="n">注四</span>异说与余事:晋军兵数史称『号三十万』,乃张大之辞,实数当少,姑存其号。杜重威(一作杜威)与李守贞、张彦泽同预降谋,张彦泽为前锋先入汴、纵暴,后为出帝旧党所诛。契丹入汴在开运三年十二月至次年正月之交,947正月耶律德光改契丹国号为『辽』、称帝于汴;是年四月北撤,先病于临城,卒于栾城杀胡林(大同元年,今河北栾城西北),辽人盐渍其尸北归,俗称『帝羓』。后晋出帝被封负义侯,举族北迁。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"举军灭晋",d:"后晋开运三年至辽大同元年(946–947)",p:["白团卫村之败后,辽太宗耶律德光谋再灭后晋。开运三年(946),用降将赵延寿及瀛州(河间)之众为诱,佯败以诱晋军深入。后晋出帝石重贵遣主帅杜重威(晋之姻亲、握重兵)、李守贞率晋军主力(号三十万)自汴梁北上御辽。","杜重威进至滹沱河中渡桥,与契丹隔河对峙;契丹遣骑绕出其后,断其粮道与归路,晋军被围于中渡,粮尽危急。重威素怀异志,遂暗与契丹密谋,率主力举众投降,数万之众一朝解甲。晋主力尽失,契丹长驱入汴,出帝奉表出降,后晋亡。然契丹纵掠中原、大乱四起,德光北撤病死栾城;刘知远乘虚于晋阳称帝、入汴,建后汉。"]},
+  "1":{t:"① 诱敌 · 晋主力北上御辽",d:"开运三年(946)冬",p:["辽太宗耶律德光鉴于白团卫村野战之败,乃改弦以诈取之:遣降将赵延寿等据瀛州(河间)一线为诱,佯败退却,诱晋军深入。","后晋出帝石重贵倾国以御,遣主帅杜重威、李守贞率晋军主力(号三十万)自汴梁北上。晋军循陆路北趋恒州(镇州),前锋张彦泽争中渡桥,契丹先据之,彦泽力战,焚桥之半,契丹稍退,晋军遂进屯滹沱河南岸。"]},
+  "2":{t:"② 中渡对峙 · 绕后断粮",d:"开运三年(946)冬",p:["杜重威率主力屯中渡桥,与契丹隔滹沱河对峙,恒州尚在晋手。契丹主力临河相拒,而制胜之要不在正面。","耶律德光遣轻骑绕出晋军之后,尽断其自汴梁北输之粮道与南归之路。晋军虽众,一朝饷绝、归途亦塞,被围于中渡,粮尽危急——甲兵未损,而势已穷。"]},
+  "3":{t:"③ 杜重威举众降",d:"开运三年(946)冬",p:["杜重威乃晋之姻亲、握重兵之重臣,素怀异志,欲效石敬瑭借契丹之力以自立。围中粮尽,遂暗与契丹密谋,潜纳降款。","一日,重威率晋军主力举众投降契丹:数万之众一朝解甲,恸哭震野。李守贞、张彦泽等同预其谋。晋之精锐、屏障爪牙尽失于不战,中原门户一夕洞开。"]},
+  "4":{t:"④ 长驱入汴 · 晋亡 · 北撤",d:"开运三年冬至辽大同元年(947)",p:["晋主力既降,契丹长驱南下,直入汴梁。出帝石重贵无兵可御,奉表出降,举族被掳北迁,后晋亡(立国十一年)。947正月,耶律德光入汴,改契丹国号为『辽』,着中原衣冠称帝于汴上。","然契丹纵兵『打草谷』,四出剽掠,中原大乱、群起反抗。德光不能自安,是年四月引军北撤,途中得病,卒于栾城杀胡林(大同元年);辽人盐渍其尸北归。河东节度使刘知远乘中原空虚,于晋阳称帝、进而入汴,建后汉——得之以诈,失之以暴,一岁再易主。"]}
+};
+const CITY={
+  yingzhou:{t:"瀛州(河间)",d:"契丹诱敌之地,今河北河间",p:["耶律德光以降将赵延寿及瀛州之众为诱,佯败退却,诱晋军深入,为『诱而后围』之发端。地在中渡东北、近契丹南境。"]},
+  hengzhou:{t:"恒州(镇州·正定)",d:"河北重镇,今河北正定",p:["镇州(恒州)为河北要冲,中渡对峙之时尚在晋手。晋军自汴北上以此为前进之的,中渡桥即在其南滹沱河上。"]},
+  zhongdu:{t:"中渡桥(滹沱河)",d:"杜重威举众降处,在今河北正定南滹沱河上",p:["晋军主力深入之极点。前锋张彦泽尝争桥、焚其半,晋军屯河南岸与契丹对峙。契丹绕出其后,断粮道与归路,围之。杜重威怀异志,遂于此率数万之众举众投降——晋主力尽失、后晋灭亡之枢,一役之关键。"]},
+  luancheng:{t:"栾城(杀胡林)",d:"耶律德光北撤病死处,今河北栾城西北",p:["947年四月,耶律德光因纵掠致中原大乱、不能安,引军北撤;先病于临城,卒于栾城之杀胡林(辽大同元年)。辽人以盐渍其尸北归,俗称『帝羓』——盛极而返、身死道途之地。"]},
+  xiangzhou:{t:"相州(安阳)",d:"中渡与汴梁间要地,今河南安阳",p:["晋军自汴梁北输粮道、契丹举降后长驱南下,皆经此。居滹沱河一线与汴梁之中途,为河北通汴之孔道。"]},
+  bianliang:{t:"汴梁(开封)",d:"后晋都城,今河南开封",p:["晋主力既降,契丹长驱直入。出帝石重贵无兵可御,奉表出降,举族被掳北迁,后晋亡。947正月耶律德光入汴,改契丹为『辽』、称帝汴上;后刘知远亦入汴建后汉——一都而一岁再易其主。"]},
+  jinyang:{t:"晋阳(太原)",d:"河东刘知远据地,今山西太原",p:["刘知远为后晋河东节度使,拥重兵据晋阳,坐观契丹灭晋而不救。及契丹纵掠、北撤,乃乘中原空虚于晋阳称帝,进而入汴,建后汉——五代第四姓,肇兴于此。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

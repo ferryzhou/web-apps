@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高平之战 · 后周显德元年(954)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(30px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.85;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.18);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.thin{stroke-width:2.2;stroke-dasharray:8 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .campj{fill:var(--advance);opacity:.9}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .ring{fill:none;stroke:var(--gold);stroke-width:2.4}
+  .wind{stroke:var(--advance);stroke-width:1.6;opacity:.75;stroke-linecap:round;fill:none}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}.explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}.explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--enemy)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}.explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--enemy)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}.explain .kicker b{color:var(--enemy)}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout){stroke-dasharray:1100;stroke-dashoffset:1100;animation:draw 1.8s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>高</span><span>平</span><span>之</span><span>战</span></div>
+  <header>
+    <h1>高平之战</h1>
+    <div class="sub">后周显德元年(954)　<i>后周世宗 柴荣</i> 亲征 大破 <b>北汉 刘崇</b> · 契丹杨衮援之　·　亲征死战 · 反败为胜</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 亲征死战</button>
+    <button data-p="1">① 刘崇乘丧联契丹南下 · 柴荣亲征</button>
+    <button data-p="2">② 巴公原会战 · 周右军先溃 · 形势危急</button>
+    <button data-p="3">③ 柴荣亲督 · 赵匡胤率禁军陷阵</button>
+    <button data-p="4">④ 大破北汉 · 斩张元徽 · 刘崇北归 · 斩逃将整军</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="高平之战形势图,含北汉(晋阳)与后周约界、太行太岳诸山、丹水沁水诸川,及晋阳潞州高平巴公原泽州等地;青为后周世宗柴荣军(赵匡胤·张永德),朱为北汉刘崇军并契丹杨衮援骑;示刘崇乘后周大丧联契丹自晋阳南下经潞州趋高平、柴荣自汴梁亲征北上泽州、会战巴公原、周右军樊爱能何徽先溃、柴荣亲冒矢石督战、赵匡胤率禁军奋勇陷阵、大破北汉斩张元徽、刘崇易服执旗数骑北归晋阳、契丹北退、战后斩逃将七十余人整肃军纪之势">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 约界:北汉据河东(晋阳,极北一隅,朱),后周据中原(泽潞及大河南北,青);刘崇乘丧南寇 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,38 C 860,45 720,55 520,80 C 360,120 180,220 0,300 Z" fill="url(#qinHatch)"/>
+    <path d="M 0,300 C 180,220 360,120 520,80 C 720,55 860,45 1000,38 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <path class="border" d="M 0,300 C 180,220 360,120 520,80 C 720,55 860,45 1000,38"/>
+    <text class="realm q" x="60" y="150" font-size="26">北 汉(河东)</text>
+    <text class="cname s" x="64" y="172" style="fill:var(--enemy);opacity:.6">都晋阳 · 世祖刘崇据十二州</text>
+    <text class="realm j" x="150" y="560" font-size="28">后 周(中原)</text>
+    <text class="cname s" x="154" y="582" style="fill:var(--advance);opacity:.6">都汴梁 · 世宗柴荣新立</text>
+
+    <!-- ══ 山脉:上党盆地东屏太行、西倚太岳,南北往来受其束 ══ -->
+    <path class="mtn fill" d="M 706,150 L 724,112 L 740,134 L 760,98 L 780,128 L 800,104 L 820,136 L 842,108 L 862,140 L 884,116 L 904,148 Z"/>
+    <path class="mtn" d="M 726,132 l 12,-18 l 12,15 l 14,-20 l 12,17 l 14,-18 l 12,16"/>
+    <text class="mname" x="756" y="176" transform="rotate(-16 756 176)">太 行 山</text>
+    <path class="mtn fill" d="M 258,236 L 274,204 L 288,224 L 306,192 L 324,220 L 342,198 L 360,226 Z"/>
+    <path class="mtn" d="M 276,220 l 12,-16 l 12,13 l 14,-18 l 12,15"/>
+    <text class="mname" x="250" y="256" style="font-size:10.5px">太 岳(乌岭)</text>
+
+    <!-- ══ 水系:丹水贯上党盆地南入沁,沁水在西 ══ -->
+    <!-- 丹水:自高平南历巴公、泽州,南注沁河 -->
+    <path class="river" stroke-width="3" d="M 512,286 C 500,330 486,384 470,436 C 456,480 440,516 428,548"/>
+    <!-- 沁水:西境自北南下 -->
+    <path class="river" stroke-width="3.4" d="M 300,150 C 312,240 316,340 322,430 C 326,494 330,548 336,590"/>
+    <text class="rname" x="438" y="470" transform="rotate(74 438 470)" style="font-size:11px">丹 水</text>
+    <text class="rname" x="300" y="410" transform="rotate(84 300 410)" style="font-size:11px">沁 水</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="jinyang"><circle cx="430" cy="60" r="5.5"/><text class="cname" x="440" y="56">晋阳<tspan class="cname s" dx="2">(北汉都·图外北)</tspan></text></g>
+      <g class="city" data-city="luzhou"><circle cx="637" cy="110" r="5.5"/><text class="cname" x="647" y="106">潞州<tspan class="cname s" dx="2">(上党)</tspan></text></g>
+      <g class="city" data-city="gaoping"><circle cx="504" cy="293" r="5.5"/><text class="cname" x="514" y="289">高平</text></g>
+      <g class="city" data-city="bagongyuan"><circle cx="490" cy="340" r="7"/><text class="cname" x="500" y="360">巴公原<tspan class="cname s" dx="2">(决战)</tspan></text></g>
+      <g class="city" data-city="zezhou"><circle cx="455" cy="434" r="5.5"/><text class="cname" x="465" y="430">泽州<tspan class="cname s" dx="2">(晋城)</tspan></text></g>
+    </g>
+
+    <!-- 晋阳·契丹(图外·北) -->
+    <g transform="translate(360,20)">
+      <path class="march q" marker-end="url(#aq)" d="M 4,4 L 30,22"/>
+      <text class="mlabel q" x="-14" y="-2" style="font-size:10px">↓ 契丹(图外·极北)</text>
+      <text class="cname s" x="-14" y="34" style="fill:var(--enemy);font-size:9.5px">杨衮率骑万余来援</text>
+    </g>
+    <!-- 汴梁(图外·东南) -->
+    <g transform="translate(902,556)">
+      <path class="march j" marker-end="url(#aj)" d="M 30,4 L 4,-6"/>
+      <text class="mlabel j" x="-8" y="26" style="font-size:10px">汴梁·后周都(图外·东南) ↗</text>
+      <text class="cname s" x="-8" y="40" style="fill:var(--advance);font-size:9.5px">柴荣力排众议,自此亲征</text>
+    </g>
+
+    <!-- ══ 全图 · 亲征死战 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 428,72 C 500,96 596,104 632,120 C 590,178 540,244 508,286"/>
+      <text class="mlabel q" x="560" y="176">刘崇率众三万余,联契丹南下趋高平</text>
+      <path class="march j" marker-end="url(#aj)" d="M 900,556 C 740,522 580,470 468,438 C 466,410 480,378 488,346"/>
+      <text class="mlabel j" x="560" y="470">柴荣亲征,自汴梁经泽州北上</text>
+      <circle class="ring" cx="490" cy="340" r="12"/>
+      <text class="anno" x="300" y="332">两军会战于巴公原,先危后振</text>
+      <text class="mlabel r" x="540" y="410">周右军先溃 →</text>
+    </g>
+
+    <!-- ══ ① 刘崇乘丧联契丹南下 · 柴荣亲征 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 428,72 C 500,96 592,102 630,118"/>
+      <text class="mlabel q" x="470" y="88">刘崇以周有大丧,谓可乘</text>
+      <path class="march q" marker-end="url(#aq)" d="M 636,124 C 600,182 548,244 512,286"/>
+      <text class="anno" x="560" y="230">围潞州不下,引兵南趋高平</text>
+      <path class="march q thin" marker-end="url(#aq)" d="M 386,44 C 420,90 452,140 476,190"/>
+      <text class="mlabel q" x="356" y="150" style="font-size:10.5px">契丹杨衮 骑万余</text>
+      <path class="march j" marker-end="url(#aj)" d="M 900,556 C 740,522 580,470 468,438"/>
+      <text class="mlabel j" x="560" y="500">柴荣不听冯道谏,决意亲征</text>
+      <path class="march j" marker-end="url(#aj)" d="M 456,424 C 470,400 484,372 490,348"/>
+      <text class="anno" x="360" y="452">自泽州北上,昼夜兼行</text>
+      <text class="mlabel q" x="470" y="316">北汉先据高平之北</text>
+    </g>
+
+    <!-- ══ ② 巴公原会战 · 周右军先溃 · 形势危急 ══ -->
+    <g id="ph2" class="ph">
+      <!-- 北汉列阵:张元徽东、杨衮西 -->
+      <rect class="camp" x="500" y="300" width="10" height="10" transform="rotate(45 505 305)"/>
+      <rect class="camp" x="454" y="300" width="10" height="10" transform="rotate(45 459 305)"/>
+      <text class="mlabel q" x="520" y="300">刘崇阵北:张元徽居东,杨衮居西</text>
+      <text class="anno" x="336" y="292">契丹见周军整,按兵观望</text>
+      <!-- 后周列阵:白重赞左、樊爱能何徽右、向训史彦超中 -->
+      <rect class="campj" x="470" y="368" width="9" height="9" transform="rotate(45 474.5 372.5)"/>
+      <rect class="campj" x="510" y="368" width="9" height="9" transform="rotate(45 514.5 372.5)"/>
+      <rect class="campj" x="490" y="378" width="9" height="9" transform="rotate(45 494.5 382.5)"/>
+      <text class="mlabel j" x="420" y="404">后周布三阵:左白重赞·李重进,右樊爱能·何徽,中向训·史彦超</text>
+      <!-- 张元徽先击周右军 -->
+      <path class="march q" marker-end="url(#aq)" d="M 500,312 C 512,330 520,346 524,360"/>
+      <text class="mlabel q" x="528" y="342">张元徽引骑先击周右军</text>
+      <!-- 周右军樊爱能何徽望敌先溃:褐虚线早溃(关键危机) -->
+      <path class="march rout" marker-end="url(#ar)" d="M 522,372 C 566,398 616,428 664,458"/>
+      <text class="mlabel r" x="560" y="452">樊爱能·何徽望敌先遁,右军溃 ✕</text>
+      <text class="anno" x="574" y="470">步卒千余解甲呼万岁降北汉</text>
+      <circle class="star" cx="512" cy="352" r="9"/>
+      <text class="mlabel r" x="360" y="356">周军一度大乱,形势危急</text>
+    </g>
+
+    <!-- ══ ③ 柴荣亲督 · 赵匡胤率禁军陷阵 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 柴荣冒矢石亲督,驰入阵中 -->
+      <circle class="ring" cx="490" cy="340" r="13"/>
+      <path class="march j" marker-end="url(#aj)" d="M 488,392 C 490,372 490,358 490,346"/>
+      <text class="mlabel j" x="360" y="404">柴荣冒矢石,自驰入阵督战</text>
+      <!-- 赵匡胤率禁军奋勇陷阵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 476,380 C 478,356 482,332 494,314"/>
+      <text class="mlabel j" x="330" y="330">赵匡胤呼「主危如此,吾属何得不致死」,率禁军陷阵</text>
+      <!-- 张永德左军弓弩夹击 -->
+      <path class="march j" marker-end="url(#aj)" d="M 452,372 C 462,352 474,332 486,318"/>
+      <text class="mlabel j" x="352" y="440">张永德以左军弓弩乘高夹击</text>
+      <!-- 风转南助之 -->
+      <g class="wind">
+        <path d="M 560,392 C 540,380 520,368 502,356"/>
+        <path d="M 566,404 C 544,394 522,384 504,374"/>
+        <path d="M 572,416 C 548,408 524,400 506,392"/>
+      </g>
+      <text class="mlabel j" x="576" y="404" style="fill:var(--advance)">时东北风转南,势益张</text>
+      <text class="anno" x="440" y="300">士气大振,反攻北汉阵</text>
+    </g>
+
+    <!-- ══ ④ 大破北汉 · 斩张元徽 · 刘崇北归 · 斩逃将整军 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 斩张元徽 -->
+      <circle class="ring" cx="500" cy="316" r="10"/>
+      <text class="mlabel j" x="512" y="308">阵斩北汉骁将张元徽,汉军夺气而崩</text>
+      <!-- 刘崇易服执旗数骑北遁归晋阳 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 486,326 C 464,252 444,166 424,74"/>
+      <text class="mlabel r" x="330" y="180">刘崇易服执旗,以数骑遁归晋阳</text>
+      <!-- 契丹按兵不战,引兵北退 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 466,322 C 424,244 388,158 366,66"/>
+      <text class="mlabel r" x="300" y="230">杨衮按兵不战,全军北退</text>
+      <!-- 柴荣乘胜进围晋阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 512,300 C 540,224 566,150 584,80"/>
+      <text class="mlabel j" x="560" y="150">乘胜进围晋阳(未克而还)</text>
+      <!-- 战后斩逃将整军 -->
+      <text class="mlabel j" x="360" y="470">战后斩樊爱能·何徽等临阵先逃者七十余人</text>
+      <text class="anno" x="360" y="490">简练禁军,擢赵匡胤;后周军力由是大振</text>
+    </g>
+
+    <g class="compass" transform="translate(120,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>后周军(柴荣·赵匡胤)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>北汉军(刘崇)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="2.2" stroke-dasharray="8 5"/></svg>契丹援骑(杨衮)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>溃退(周右军先溃·刘崇北归)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9c7a2c" stroke-width="2.4"/></svg>决战·斩将</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#9a2b1e" transform="rotate(45 7.5 7.5)"/></svg>北汉阵</span>
+    <span class="item"><svg width="16" height="16"><rect x="3" y="3" width="9" height="9" fill="#1f4e54" transform="rotate(45 7.5 7.5)"/></svg>后周阵</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#qinHatch)"/></svg>北汉(河东)</span>
+    <span class="item"><svg width="34" height="12"><rect width="34" height="12" fill="url(#jinHatch)"/></svg>后周(中原)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>制胜释要 · 亲征死战 · 反败为胜</h3>
+    <div class="lead">何以一溃之余能反破劲敌 —— 天子死战、禁军陷阵、斩逃将而军威由是振</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="制胜示意:周右军先溃形势危急,柴荣冒矢石亲督、赵匡胤率禁军陷阵而反败为胜,战后斩逃将整军而后周军威大振">
+      <text x="30" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">① 右军先溃(危)</text>
+      <text x="336" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">② 亲征死战(转)</text>
+      <text x="672" y="26" fill="#5c4f38" font-size="12" font-weight="700" letter-spacing="2">③ 斩逃将整军(振)</text>
+
+      <!-- ① 右军先溃 -->
+      <rect x="40" y="72" width="86" height="30" rx="3" fill="none" stroke="#1f4e54" stroke-width="1.6"/>
+      <text x="50" y="92" fill="#1f4e54" font-size="11" font-weight="700">周右军·樊何</text>
+      <path d="M 92,108 C 108,140 128,168 150,192" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="30" y="150" fill="#9a2b1e" font-size="10.5" font-weight="700">望敌先遁 ✕</text>
+      <text x="30" y="212" fill="#5c4f38" font-size="10" font-style="italic">步卒千余解甲降,周军大乱</text>
+      <path d="M 132,80 C 200,80 240,80 268,80" fill="none" stroke="#9a2b1e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#aq)"/>
+      <text x="150" y="72" fill="#9a2b1e" font-size="10" font-weight="700">张元徽乘之</text>
+
+      <!-- ② 亲征死战 -->
+      <circle cx="430" cy="96" r="16" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <text x="412" y="100" fill="#9c7a2c" font-size="11" font-weight="700">柴荣</text>
+      <text x="352" y="70" fill="#1f4e54" font-size="10.5" font-weight="700">冒矢石·自入阵督战</text>
+      <path d="M 400,140 C 414,124 424,112 430,102" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <path d="M 462,140 C 450,124 442,112 438,102" fill="none" stroke="#1f4e54" stroke-width="3" marker-end="url(#aj)"/>
+      <text x="326" y="162" fill="#1f4e54" font-size="10.5" font-weight="700">赵匡胤率禁军陷阵</text>
+      <text x="446" y="162" fill="#1f4e54" font-size="10.5" font-weight="700">张永德弓弩夹击</text>
+      <g stroke="#1f4e54" stroke-width="1.5" opacity=".7" fill="none">
+        <path d="M 500,150 C 478,140 456,132 436,124"/>
+        <path d="M 504,162 C 480,154 456,148 436,142"/>
+      </g>
+      <text x="486" y="188" fill="#1f4e54" font-size="10" font-weight="700">风转南 →</text>
+      <text x="330" y="212" fill="#5c4f38" font-size="10" font-style="italic">「主危如此,吾属何得不致死!」</text>
+
+      <!-- ③ 斩逃将整军 -->
+      <circle cx="716" cy="90" r="12" fill="none" stroke="#9c7a2c" stroke-width="2.4"/>
+      <line x1="710" y1="84" x2="722" y2="96" stroke="#9a2b1e" stroke-width="2"/>
+      <line x1="710" y1="96" x2="722" y2="84" stroke="#9a2b1e" stroke-width="2"/>
+      <text x="672" y="78" fill="#9a2b1e" font-size="10.5" font-weight="700">阵斩张元徽</text>
+      <path d="M 716,104 C 728,128 738,152 742,178" fill="none" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6" marker-end="url(#ar)"/>
+      <text x="748" y="150" fill="#7a5a23" font-size="10" font-weight="700">刘崇·契丹北遁</text>
+      <text x="646" y="206" fill="#9a2b1e" font-size="10.5" font-weight="700">斩逃将七十余人 · 简练禁军</text>
+      <text x="646" y="224" fill="#1f4e54" font-size="10" font-style="italic">后周军威由是大振,擢赵匡胤</text>
+
+      <!-- 段间箭头 -->
+      <path d="M 176,120 L 214,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".5"/>
+      <path d="M 566,120 L 616,120" fill="none" stroke="#5c4f38" stroke-width="1.6" marker-end="url(#aj)" opacity=".5"/>
+    </svg>
+    <p class="intro">高平之役,北汉主刘崇乘后周郭威新丧、柴荣初立,谓「周有大丧,可乘也」,联契丹南下,气焰甚盛;及会战巴公原,周<b>右军樊爱能、何徽望敌先遁,右军一溃,步卒千余解甲降敌</b>,周军一度大乱,几于覆没。以常理论,主帅新立、右翼已崩,本无复振之势——然胜负不在众寡,而在一「死」字。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>柴荣·赵匡胤 · 亲征死战(转)</h4>
+        <p>柴荣临危不惧,亲冒矢石、驰入阵中督战;宿卫将赵匡胤大呼「主危如此,吾属何得不致死!」,率禁军奋勇陷阵,张永德以左军弓弩乘高夹击。适东北风转南,势益张。以天子之身当锋镝、以禁军之锐搏死地,遂令垂溃之军气复振,反攻北汉之阵。</p>
+      </div>
+      <div class="c b">
+        <h4>刘崇 · 恃胜骄兵(危转败)</h4>
+        <p>刘崇既见周右军先溃,益轻周军,张元徽乘胜进击,不虞其死战。及周军反攻、南风助火,张元徽马倒被斩,北汉军夺气而崩。契丹杨衮初见周军整而按兵不战,至此亦全军北退。刘崇易服执旗,仅以数骑狼狈遁归晋阳。</p>
+      </div>
+    </div>
+    <p class="kicker">一溃之余而能反破劲敌者,系于天子之死战与禁军之敢陷阵;而其功之能久,则系于战后之整肃——柴荣<b>斩临阵先逃之樊爱能、何徽等七十余人</b>,又简练士卒、擢赵匡胤,后周军威由是大振。故高平之胜,非独一战之捷,实<b>柴荣立威、削平割据、统一大业之基</b>——惜其早逝未竟,终由赵匡胤承之。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作墨卡托投影(x=210+(经度−112.50)×700,y=575−(纬度−35.20)×470),几何关系力求近实:泽州在南,巴公原·高平居中(决战地),潞州在东北,晋阳远在北(图外,置于上缘,位置从略),汴梁在东南(图外,置于右下缘)。上党一带经度差甚微(泽州112.85°、潞州113.11°),为免图形过窄,横轴略作展绘,故南北方向之比例大于东西,此为示意之权宜,并此志之。太行山·太岳山、丹水·沁水皆略绘;点划「约界」依北汉、后周之界一线晕染,非实有画界。依《旧五代史·周世宗纪》《新五代史》《资治通鉴》卷二九一约略绘出。</p>
+    <p><span class="n">注二</span>今地考:高平即今山西高平,巴公原(今高平城南、泽州北之巴公一带)为决战原野;泽州即今晋城(约112.85°E,35.50°N),后周军北上所经;潞州(上党)即今长治(约113.11°E,36.19°N),刘崇南下所指、围之不克;晋阳(太原,约112.55°E,37.87°N)为北汉都、刘崇兵败所归、柴荣旋进围之地,远在图北,故作图外北缘处理;汴梁(开封,约114.30°E,34.80°N)为后周都、柴荣亲征所自,远在图东南,故作图外东南缘处理;契丹在更北,以边缘箭头示其来向。</p>
+    <p><span class="n">注三</span>制胜之枢在「亲征死战、反败为胜」(图中金环为决战·斩将,褐虚线为先溃与北遁):会战巴公原之南,周右军樊爱能、何徽望敌先怯,一触即溃,率骑先遁,步卒千余解甲降北汉,周军一度大乱。柴荣临危不惧,亲冒矢石驰入阵中督战;赵匡胤大呼「主危如此,吾属何得不致死!」,率禁军奋勇陷阵,张永德以左军弓弩夹击,会东北风转南,周军士气大振,大破北汉,阵斩骁将张元徽。刘崇易服执旗,仅以数骑遁归晋阳;契丹杨衮见周军整而按兵不战,亦引兵北退。柴荣乘胜进围晋阳,未克而还。</p>
+    <p><span class="n">注四</span>兵数与史事互异,并存以俟考:(一)北汉兵,《资治通鉴》载刘崇率众三万余(一云自将三万),契丹遣杨衮率骑万余(《辽史》作杨衮，一作杨兖)相助;后周军数史无确载,大抵与之相当而略优,图中不作众寡悬殊之绘。(二)后周布阵,《资治通鉴》卷二九一载白重赞、李重进将左军居西,樊爱能、何徽将右军居东,向训、史彦超居中,张永德将禁兵卫跸,刘词以后军继至;北汉张元徽居东、契丹杨衮居西。(三)战后柴荣斩临阵先逃之樊爱能、何徽及所部军吏七十余人,又精简禁军、简练士卒,并擢赵匡胤;后周军力由此大振,高平一战遂为柴荣削平割据、图谋统一之基,惜显德六年(959)柴荣早逝未竟,终由赵匡胤(宋太祖)承其业。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"亲征死战 · 高平决战",d:"后周显德元年(954)三月",p:["后周太祖郭威死,养子柴荣继位为世宗。北汉主刘崇据晋阳,以为「周有大丧,可乘也」,遂联契丹(杨衮率骑万余相助),自将众三万余南下攻周,欲直取潞州、图谋中原。","柴荣力排众议,不听冯道等谏,决意亲征。两军会战于高平之南巴公原。战初周右军先溃、形势危急,柴荣亲冒矢石督战、赵匡胤率禁军奋勇陷阵,遂反败为胜,大破北汉——此柴荣立威之战,为其统一大业奠基。"]},
+  "1":{t:"刘崇乘丧联契丹南下 · 柴荣亲征",d:"显德元年(954)二 — 三月",p:["郭威新丧,柴荣初立,北汉主刘崇谓有机可乘,乃遣使乞师于契丹;契丹遣武定节度使、政事令杨衮率骑万余来助。刘崇自将众三万余,自晋阳南下,围潞州(上党);潞州坚守不下,刘崇引兵南趋高平,先据战地之北。","柴荣闻北汉入寇,慨然欲自将御之。冯道等谏止,以为不宜亲行,帝不听,曰「刘崇幸我大丧、轻我年少,谓天下可取,朕不可不自往」,遂自汴梁亲征,昼夜兼行,自泽州北上以逆之。"]},
+  "2":{t:"巴公原会战 · 周右军先溃 · 形势危急",d:"显德元年三月",p:["两军列阵于巴公原:北汉刘崇阵于北,张元徽将骑居东,契丹杨衮居西;后周布三阵,白重赞、李重进将左军居西,樊爱能、何徽将右军居东,向训、史彦超居中,张永德将禁兵卫跸。契丹见周军严整,按兵观望,不即战。","战既接,张元徽引骑先击周右军。右军主将樊爱能、何徽望敌先怯,一触即溃,率骑先遁;所部步卒千余解甲呼万岁降于北汉。周军一度大乱,形势岌岌可危——柴荣新立之军,几于覆没。"]},
+  "3":{t:"柴荣亲督 · 赵匡胤率禁军陷阵",d:"显德元年三月",p:["柴荣临危不惧,见军势将溃,亲率亲兵冒矢石、驰入阵中督战。宿卫将赵匡胤大呼曰「主危如此,吾属何得不致死!」,又请张永德以左军弓弩手乘高发矢;二人各率精锐,奋勇陷阵,士皆用命。","会东北风忽转为南风,尘沙益助周军之势。赵匡胤引兵直冲北汉之阵,所向披靡;张永德弓弩夹击,箭注如雨。垂溃之周军由是士气大振,反攻北汉,战局为之一变。"]},
+  "4":{t:"大破北汉 · 斩张元徽 · 刘崇北归 · 斩逃将整军",d:"显德元年三月及战后",p:["周军奋击,北汉骁将张元徽马倒,为周军所斩;北汉军夺气,遂大溃。刘崇犹自麾赤帜以整兵,不能止,乃易服执旗,仅以数骑狼狈遁归晋阳。契丹杨衮见势已去,全军北退。柴荣乘胜进围晋阳,未能克而还。","战后,柴荣整肃军纪:斩临阵先逃之樊爱能、何徽及所部军吏七十余人,以肃三军;又精简禁军、简练士卒,擢有功之赵匡胤。后周军力由是大振。高平一战,遂为柴荣立威、削平割据、统一天下之基——惜其五年后早逝未竟,终由赵匡胤承之而建宋。"]}
+};
+const CITY={
+  jinyang:{t:"晋阳",d:"北汉都,今山西太原(约112.55E,37.87N;图外·北)",p:["北汉世祖刘崇之都。刘崇乘后周大丧,自此联契丹南下攻周。巴公原兵败,刘崇易服执旗、以数骑遁归于此;柴荣乘胜进围晋阳,未克而还。"]},
+  luzhou:{t:"潞州(上党)",d:"今山西长治(约113.11E,36.19N)",p:["后周昭义军治,刘崇南下所指、欲取以图中原。北汉围之不下,乃引兵南趋高平,遂有巴公原之战。"]},
+  gaoping:{t:"高平",d:"今山西高平(约112.92E,35.80N)",p:["战役所系之县。决战在其城南之巴公原;北汉既败,溃兵北奔,死者布满山谷,后周追斩甚众。"]},
+  bagongyuan:{t:"巴公原",d:"高平城南、泽州之北的原野(决战地)",p:["高平之战决战原野。两军列阵于此:周右军樊爱能、何徽先溃,柴荣亲冒矢石督战、赵匡胤率禁军陷阵,阵斩张元徽,大破北汉。反败为胜之枢,尽在此地。"]},
+  zezhou:{t:"泽州",d:"今山西晋城(约112.85E,35.50N)",p:["后周军自汴梁北上所经之州。柴荣亲征,昼夜兼行,自泽州进逼巴公原以逆北汉之师。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

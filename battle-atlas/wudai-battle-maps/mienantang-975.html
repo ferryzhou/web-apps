@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北宋灭南唐 · 浮梁渡江(974–975)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 宋水军·顺江运饷:金色串珠,自荆湖顺江东下,舟师自赍其粮 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.core{stroke-width:1.7;opacity:.85;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em}
+  /* 采石浮桥:本图之枢——大舰巨竹缆连舟为梁,长江天堑一朝而失 */
+  .bridge .deck{stroke:var(--advance);stroke-width:3;opacity:.95;stroke-linecap:round}
+  .bridge .cable{stroke:var(--gold);stroke-width:1.2;opacity:.85}
+  .bridge .boat{fill:var(--paper);stroke:var(--gold);stroke-width:1.2}
+  .btext{fill:var(--advance);font-weight:700;font-size:12px;letter-spacing:.06em}
+  .btext.s{fill:var(--gold);font-size:9.5px;font-weight:700;letter-spacing:.04em}
+  /* 破援:朱色火攻记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  /* 长围金陵:青色围城弧线 */
+  .siege{fill:none;stroke:var(--advance);stroke-width:2;stroke-dasharray:2 4;opacity:.9}
+  .surrflag .pole{stroke:var(--ink2);stroke-width:2}
+  .surrflag .cloth{fill:rgba(154,43,30,.9);stroke:#6f1f16;stroke-width:1}
+  .surrflag text{fill:#f3e6c8;font-family:"Ma Shan Zheng",serif;font-size:15px}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .qa{margin-top:11px;border-top:1px dashed rgba(110,93,60,.4);padding-top:9px;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px}
+  @media(max-width:560px){.qa{grid-template-columns:1fr}}
+  .qa div{font-size:11.5px;line-height:1.7;color:var(--ink2)}
+  .qa b{color:var(--advance);font-weight:700;margin-right:5px}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>浮</span><span>梁</span><span>渡</span><span>江</span></div>
+  <header>
+    <h1>北宋灭南唐 · 浮梁渡江</h1>
+    <div class="sub">宋开宝七年至八年(974–975)　　<i>北宋 曹彬·潘美</i> 灭 <b>南唐 后主 李煜(将 朱令赟)</b>,<em>吴越 钱俶</em> 自东夹击　·　樊若水献策 · 采石浮桥破天堑 · 长围下金陵 · 皖口火攻破援</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 浮梁渡江灭唐</button>
+    <button data-p="1">① 顺江东下 · 采石浮梁渡江</button>
+    <button data-p="2">② 破当涂芜湖 · 长围金陵</button>
+    <button data-p="3">③ 皖口火攻 · 破上江之援</button>
+    <button data-p="4">④ 金陵城破 · 李煜出降 · 唐亡</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="北宋灭南唐浮梁渡江形势图,含北宋南唐吴越三方疆界、长江贯穿全图,江陵荆南(图外西)、江州湖口皖口芜湖采石当涂金陵润州常州杭州诸地,示宋军自荆南顺江东下、樊若水献策于采石搭长江浮桥渡江、破当涂芜湖进围金陵、曹彬长围坚困、朱令赟率上江水军十万东下赴援为宋火攻大破于皖口、金陵外援尽绝城破李煜出降南唐亡、吴越钱俶自杭州北上取常州润州夹击">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="fqinHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:北宋据江北(北·中原·荆湖),南唐据江南(金陵),吴越据东南(杭州) ══ -->
+    <path d="M -5,-5 L 1005,-5 L 1005,70 C 760,74 620,110 560,168 C 470,215 380,275 330,352 C 300,405 255,452 210,450 C 180,448 120,452 -5,452 Z" fill="url(#jinHatch)"/>
+    <path d="M -5,452 C 120,452 180,448 210,450 C 255,452 300,405 330,352 C 380,275 470,215 560,168 C 620,110 760,74 1005,70 L 1005,72 C 940,80 905,82 900,84 L 720,645 L -5,645 Z" fill="url(#qinHatch)"/>
+    <path d="M 900,84 L 1005,92 L 1005,645 L 720,645 Z" fill="url(#fqinHatch)"/>
+    <!-- 长江约界:宋·南唐以大江为限(天堑) -->
+    <path class="border" d="M -5,452 C 120,452 180,448 210,450 C 255,452 300,405 330,352 C 380,275 470,215 560,168 C 620,110 760,74 1005,70"/>
+    <!-- 南唐·吴越约界 -->
+    <path class="border" d="M 900,84 L 720,645"/>
+    <text class="realm j" x="120" y="150" font-size="30">北 宋</text>
+    <text class="cname s" x="122" y="172" style="fill:var(--advance);opacity:.7">江北 · 中原 · 荆湖</text>
+    <text class="realm q" x="430" y="470" font-size="30">南 唐(江南)</text>
+    <text class="realm f" x="905" y="470" font-size="22" transform="rotate(90 905 470)">吴 越</text>
+    <text class="cname s" x="884" y="470" style="fill:var(--qin);opacity:.75" transform="rotate(90 884 470)">钱俶</text>
+
+    <!-- ══ 水系:长江天堑,自西(荆湖)东下,贯穿全图;南唐都金陵在江南岸 ══ -->
+    <path class="river" stroke-width="6" d="M -5,452 C 120,452 180,446 210,448 C 258,450 300,404 332,354 C 382,278 470,214 545,170 C 585,146 620,110 660,98 C 760,74 880,72 1005,70"/>
+    <!-- 支流:皖水入江(皖口),鄱阳湖口(湖口) -->
+    <path class="river" stroke-width="2.6" style="opacity:.7" d="M 325,352 C 322,392 318,430 316,470"/>
+    <path class="river" stroke-width="2.6" style="opacity:.7" d="M 190,468 C 192,508 194,548 196,590"/>
+    <text class="rname" x="120" y="430" transform="rotate(-20 120 430)">长　江</text>
+    <text class="rname" x="700" y="60" transform="rotate(-8 700 60)" style="font-size:12px">大　江</text>
+    <text class="anno" x="228" y="404" style="fill:var(--water);opacity:.85">南唐所恃 · 长江天堑</text>
+    <text class="rname" x="300" y="500" style="font-size:10px;opacity:.7">皖 水</text>
+    <text class="rname" x="176" y="540" style="font-size:10px;opacity:.7">鄱阳湖口</text>
+
+    <!-- ══ 宋水军·顺江运饷:舟师自赍其粮,顺流东下 ══ -->
+    <path class="supply core" d="M 12,448 C 120,446 180,444 210,446 C 258,448 300,402 332,352 C 382,278 462,220 535,178"/>
+    <g class="grain">
+      <rect x="120" y="442" width="6" height="6" transform="rotate(45 123 445)"/>
+      <rect x="250" y="440" width="6" height="6" transform="rotate(45 253 443)"/>
+      <rect x="332" y="345" width="6" height="6" transform="rotate(45 335 348)"/>
+      <rect x="452" y="212" width="6" height="6" transform="rotate(45 455 215)"/>
+    </g>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="jiangzhou"><circle cx="150" cy="472" r="4.5"/><text class="cname" x="128" y="490">江州<tspan class="cname s" dx="2">(九江)</tspan></text></g>
+      <g class="city" data-city="hukou"><circle cx="186" cy="468" r="4.5"/><text class="cname" x="196" y="464">湖口<tspan class="cname s" dx="2">(上江·援军出)</tspan></text></g>
+      <g class="city" data-city="wankou"><circle cx="325" cy="351" r="5.5"/><text class="cname" x="335" y="347">皖口<tspan class="cname s" dx="2">(安庆·火攻)</tspan></text></g>
+      <g class="city" data-city="wuhu"><circle cx="543" cy="228" r="4.5"/><text class="cname" x="482" y="246">芜湖</text></g>
+      <g class="city" data-city="dangtu"><circle cx="563" cy="197" r="4.5"/><text class="cname" x="573" y="212">当涂</text></g>
+      <g class="city" data-city="caishi"><circle cx="559" cy="184" r="6"/><text class="cname" x="454" y="176">采石矶<tspan class="cname s" dx="2">(浮桥渡江)</tspan></text></g>
+      <g class="city cap" data-city="jinling"><circle cx="610" cy="122" r="7"/><text class="cname" x="620" y="118">金陵<tspan class="cname s" dx="2">(江宁·南唐都)</tspan></text></g>
+      <g class="city" data-city="runzhou"><circle cx="714" cy="102" r="4.5"/><text class="cname" x="700" y="90">润州<tspan class="cname s" dx="2">(镇江)</tspan></text></g>
+      <g class="city" data-city="changzhou"><circle cx="802" cy="160" r="4.5"/><text class="cname" x="812" y="156">常州</text></g>
+      <g class="city cap" data-city="hangzhou"><circle cx="835" cy="388" r="6"/><text class="cname" x="845" y="384">杭州<tspan class="cname s" dx="2">(吴越都)</tspan></text></g>
+    </g>
+    <!-- 和州(江北·潘美渡江之基) -->
+    <g class="city" data-city="hezhou"><circle cx="524" cy="150" r="3.6" style="fill:var(--paper2);stroke:var(--advance)"/><text class="cname s" x="470" y="140" style="fill:var(--advance)">和州(江北)</text></g>
+
+    <!-- 荆南/江陵(图外·西,宋水军东下之基) -->
+    <g transform="translate(6,430)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,0 L 30,6"/>
+      <text class="mlabel j" x="0" y="-8" style="font-size:10px">⟵ 江陵·荆南(图外西)</text>
+      <text class="cname s" x="0" y="20" style="fill:var(--advance);font-size:9.5px">曹彬·潘美水陆大军顺江东下</text>
+    </g>
+
+    <!-- ══ 采石浮桥:本图之枢(全图与①皆见) ══ -->
+
+    <!-- ══ 全图 · 浮梁渡江灭唐 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 宋主力顺江东下至采石 -->
+      <path class="march j" marker-end="url(#aj)" d="M 40,446 C 140,444 200,442 240,446 C 288,450 316,398 344,352 C 392,282 468,224 534,182"/>
+      <text class="mlabel j" x="356" y="300">曹彬·潘美 顺江东下</text>
+      <!-- 采石浮桥渡江 -->
+      <g class="bridge" transform="translate(0,0)">
+        <line class="cable" x1="541" y1="153" x2="558" y2="187"/>
+        <line class="cable" x1="547" y1="150" x2="564" y2="184"/>
+        <line class="deck" x1="544" y1="152" x2="561" y2="186"/>
+        <ellipse class="boat" cx="547" cy="157" rx="6.5" ry="2.4" transform="rotate(-27 547 157)"/>
+        <ellipse class="boat" cx="550" cy="163" rx="6.5" ry="2.4" transform="rotate(-27 550 163)"/>
+        <ellipse class="boat" cx="552.5" cy="169" rx="6.5" ry="2.4" transform="rotate(-27 552.5 169)"/>
+        <ellipse class="boat" cx="555" cy="175" rx="6.5" ry="2.4" transform="rotate(-27 555 175)"/>
+        <ellipse class="boat" cx="557.5" cy="181" rx="6.5" ry="2.4" transform="rotate(-27 557.5 181)"/>
+      </g>
+      <path class="march j" marker-end="url(#aj)" d="M 528,148 L 552,178"/>
+      <text class="btext" x="590" y="150">采石浮桥</text>
+      <text class="btext s" x="590" y="163">大舰巨竹缆连舟为梁</text>
+      <!-- 渡江后进围金陵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 566,180 C 592,160 602,142 606,132"/>
+      <path class="siege" d="M 610,122 m -30,0 a 30,30 0 1,1 60,0 a 30,30 0 1,1 -60,0"/>
+      <text class="mlabel j" x="628" y="158">长围金陵(近一年)</text>
+      <!-- 曹翰攻江州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 210,452 C 190,458 172,464 158,468"/>
+      <text class="mlabel j" x="128" y="512">曹翰攻江州(九江)</text>
+      <!-- 朱令赟上江援军东下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 196,462 C 240,430 285,392 318,358"/>
+      <text class="mlabel q" x="196" y="440">朱令赟率上江水军十万东下赴援</text>
+      <!-- 皖口火攻·破援 -->
+      <g class="cut" transform="translate(330,346)"><circle r="8"/><line x1="-5.5" y1="-5.5" x2="5.5" y2="5.5"/><line x1="-5.5" y1="5.5" x2="5.5" y2="-5.5"/></g>
+      <text class="clabel" x="342" y="332">皖口火攻大破 ✕</text>
+      <path class="march rout" marker-end="url(#ar)" d="M 322,358 C 300,378 280,392 262,398"/>
+      <!-- 吴越钱俶自东夹击 -->
+      <path class="march qin" marker-end="url(#af)" d="M 828,376 C 815,300 808,230 798,172"/>
+      <path class="march qin" marker-end="url(#af)" d="M 794,162 C 770,140 745,118 724,108"/>
+      <text class="mlabel f" x="770" y="300">吴越钱俶自杭州</text>
+      <text class="mlabel f" x="770" y="315">北上取常州·润州夹击</text>
+      <!-- 金陵:终·降 -->
+      <circle class="star" cx="610" cy="122" r="12"/>
+      <g class="surrflag" transform="translate(636,96)"><line class="pole" x1="0" y1="6" x2="0" y2="-24"/><path class="cloth" d="M0,-24 L26,-20 L21,-11 L26,-2 L0,-6 Z"/><text x="4" y="-9">降</text></g>
+      <g class="endmark" transform="translate(610,122)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="14">终</text></g>
+      <text class="mlabel q" x="560" y="108">李煜出降 · 南唐亡</text>
+    </g>
+
+    <!-- ══ ① 顺江东下 · 采石浮梁渡江 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 40,446 C 140,444 210,442 250,446 C 296,450 316,398 344,352 C 392,282 466,226 532,184"/>
+      <text class="mlabel j" x="240" y="300">曹彬为帅·潘美为副,率水陆大军自荆南顺江东下</text>
+      <text class="anno" x="240" y="316">樊若水以丝绳预量采石江面,献浮梁之策</text>
+      <!-- 浮桥主景 -->
+      <g class="bridge">
+        <line class="cable" x1="541" y1="153" x2="558" y2="187"/>
+        <line class="cable" x1="547" y1="150" x2="564" y2="184"/>
+        <line class="deck" x1="544" y1="152" x2="561" y2="186"/>
+        <ellipse class="boat" cx="547" cy="157" rx="7" ry="2.6" transform="rotate(-27 547 157)"/>
+        <ellipse class="boat" cx="549.5" cy="162.5" rx="7" ry="2.6" transform="rotate(-27 549.5 162.5)"/>
+        <ellipse class="boat" cx="552" cy="168" rx="7" ry="2.6" transform="rotate(-27 552 168)"/>
+        <ellipse class="boat" cx="554.5" cy="173.5" rx="7" ry="2.6" transform="rotate(-27 554.5 173.5)"/>
+        <ellipse class="boat" cx="557" cy="179" rx="7" ry="2.6" transform="rotate(-27 557 179)"/>
+        <ellipse class="boat" cx="559.5" cy="184.5" rx="7" ry="2.6" transform="rotate(-27 559.5 184.5)"/>
+      </g>
+      <text class="btext" x="588" y="150">采石浮桥 · 浮梁渡江</text>
+      <text class="btext s" x="588" y="164">先试架于石牌镇,移缆采石</text>
+      <text class="btext s" x="588" y="177">步骑渡江如履平地</text>
+      <!-- 潘美自和州渡江 -->
+      <path class="march j" marker-end="url(#aj)" d="M 524,153 L 550,180"/>
+      <text class="mlabel j" x="470" y="128">潘美率步骑数万自和州浮桥过江</text>
+      <!-- 破当涂芜湖(初) -->
+      <path class="march j" marker-end="url(#aj)" d="M 560,190 C 556,206 550,218 546,224"/>
+      <rect class="camp" x="559" y="224" width="8" height="8" transform="rotate(45 563 228)"/>
+      <rect class="camp" x="559" y="193" width="8" height="8" transform="rotate(45 563 197)"/>
+      <text class="anno" x="464" y="262">连拔当涂·芜湖,南唐沿江戍守瓦解</text>
+    </g>
+
+    <!-- ══ ② 破当涂芜湖 · 长围金陵 ══ -->
+    <g id="ph2" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 560,182 C 570,168 586,150 600,138"/>
+      <text class="mlabel j" x="470" y="210">渡江后连破当涂·芜湖,直趋金陵</text>
+      <!-- 长围金陵 -->
+      <path class="siege" d="M 610,122 m -34,0 a 34,34 0 1,1 68,0 a 34,34 0 1,1 -68,0"/>
+      <path class="march j" marker-end="url(#aj)" d="M 590,150 C 586,140 584,132 583,126"/>
+      <path class="march j" marker-end="url(#aj)" d="M 648,148 C 652,138 654,130 652,124"/>
+      <text class="mlabel j" x="628" y="170">曹彬长围金陵,栅列城外,断其樵采</text>
+      <text class="anno" x="628" y="185">围城近一年,严戒杀掠,以待其毙</text>
+      <rect class="camp" x="606" y="118" width="9" height="9" transform="rotate(45 610.5 122.5)"/>
+      <text class="mlabel q" x="560" y="112">李煜守金陵,犹遣使入贡请缓兵</text>
+      <text class="anno" x="560" y="127">内外隔绝,唯待上江之援</text>
+    </g>
+
+    <!-- ══ ③ 皖口火攻 · 破上江之援 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 朱令赟自湖口东下 -->
+      <path class="march q" marker-end="url(#aq)" d="M 194,460 C 236,428 282,392 318,358"/>
+      <text class="mlabel q" x="200" y="436">李煜急征朱令赟率上江水军十万</text>
+      <text class="mlabel q" x="200" y="451">自湖口(上江)顺流东下赴援金陵</text>
+      <!-- 宋军拒于皖口·火攻 -->
+      <path class="march j" marker-end="url(#aj)" d="M 400,320 C 372,332 352,342 340,348"/>
+      <text class="mlabel j" x="360" y="308">宋军(刘遇·王明)拒之于皖口</text>
+      <g class="cut" transform="translate(330,347)"><circle r="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="342" y="330">皖口火攻 ✕</text>
+      <text class="anno" x="264" y="372">唐军纵火猛油,风回自焚,大溃</text>
+      <!-- 溃焚 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 322,356 C 302,374 282,388 264,394"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 328,358 C 320,382 312,404 308,424"/>
+      <g class="endmark" transform="translate(300,398)"><circle r="10" fill="none" stroke="#7a5a23" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="13">焚</text></g>
+      <text class="mlabel r" x="196" y="410">朱令赟焚死,十万之众尽没</text>
+      <text class="anno" x="196" y="425">金陵外援尽绝,坐困待毙</text>
+    </g>
+
+    <!-- ══ ④ 金陵城破 · 李煜出降 · 唐亡 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 总攻金陵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 560,182 C 578,164 596,146 604,132"/>
+      <path class="siege" d="M 610,122 m -32,0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0"/>
+      <text class="mlabel j" x="470" y="200">外援既绝,曹彬克期急攻</text>
+      <circle class="star" cx="610" cy="122" r="13"/>
+      <g class="surrflag" transform="translate(638,94)"><line class="pole" x1="0" y1="8" x2="0" y2="-28"/><path class="cloth" d="M0,-28 L30,-23 L24,-12 L30,-1 L0,-6 Z"/><text x="5" y="-11">降</text></g>
+      <g class="endmark" transform="translate(610,122)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <text class="mlabel q" x="486" y="112">975年十一月,城破,李煜肉袒出降</text>
+      <text class="anno" x="486" y="127">立国三十九年之南唐亡,江南尽入宋</text>
+      <!-- 吴越夹击 -->
+      <path class="march qin" marker-end="url(#af)" d="M 828,376 C 814,300 806,228 796,172"/>
+      <path class="march qin" marker-end="url(#af)" d="M 792,160 C 768,138 744,118 724,108"/>
+      <rect class="camp j" x="798" y="156" width="8" height="8" transform="rotate(45 802 160)"/>
+      <rect class="camp j" x="710" y="98" width="8" height="8" transform="rotate(45 714 102)"/>
+      <text class="mlabel f" x="742" y="310">吴越钱俶自杭州北上</text>
+      <text class="mlabel f" x="742" y="325">拔常州·围润州,东面夹攻</text>
+      <text class="anno" x="620" y="230">江南既平 · 吴越纳土(978)·北汉孤存 · 天下将一</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>宋军(顺江东下·渡江围城)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南唐军(上江援军)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐援溃焚(皖口)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>吴越钱俶(东面夹击)</span>
+    <span class="item"><svg width="30" height="18"><line x1="6" y1="3" x2="24" y2="15" stroke="#1f4e54" stroke-width="3"/><ellipse cx="11" cy="7" rx="5" ry="2" fill="#e9dec4" stroke="#9c7a2c" stroke-width="1" transform="rotate(-27 11 7)"/><ellipse cx="17" cy="11" rx="5" ry="2" fill="#e9dec4" stroke="#9c7a2c" stroke-width="1" transform="rotate(-27 17 11)"/></svg>采石浮桥·浮梁渡江</span>
+    <span class="item"><svg width="20" height="18"><path d="M4,15 a5,5 0 1,1 12,-6 a5,5 0 1,1 -12,6" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="2 3"/></svg>长围金陵</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>皖口火攻·破援</span>
+    <span class="item"><svg width="20" height="18"><line x1="4" y1="16" x2="4" y2="2" stroke="#5c4f38" stroke-width="1.6"/><path d="M4,2 L17,4 L13,8 L17,12 L4,10 Z" fill="rgba(154,43,30,.9)"/></svg>李煜出降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·会战</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>北宋</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>南唐</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#fqinHatch)"/></svg>吴越</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 浮梁渡江,天堑非险</h3>
+    <div class="lead">何以南唐所恃之长江天堑一朝而失 —— 不在兵不能战,而在浮梁一渡、外援尽绝</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="灭唐示意:南唐凭恃长江天堑而不设备;宋纳樊若水策,以大舰巨竹缆于采石搭长江浮桥,步骑渡江如履平地,天堑遂失;渡江后长围金陵、皖口火攻破上江之援,金陵外无救援而城破,李煜出降,江南入宋">
+      <!-- 上行:天堑 → 浮梁 → 渡江 → 围城 -->
+      <!-- 长江天堑(水) -->
+      <g><rect x="24" y="46" width="150" height="70" rx="6" fill="rgba(95,127,136,.14)" stroke="#5f7f88" stroke-width="1.6"/><text x="99" y="74" text-anchor="middle" fill="#3f5a62" font-size="13" font-weight="700">长江天堑</text><text x="99" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">南唐所恃·恃险不备</text><text x="99" y="106" text-anchor="middle" fill="#5c4f38" font-size="9.5">谓浮梁必不可成</text></g>
+      <!-- 浮梁 -->
+      <g transform="translate(200,66)"><line x1="0" y1="6" x2="34" y2="30" stroke="#1f4e54" stroke-width="3"/><ellipse cx="9" cy="12" rx="6" ry="2.2" fill="#e0d3b3" stroke="#9c7a2c" stroke-width="1" transform="rotate(-27 9 12)"/><ellipse cx="17" cy="18" rx="6" ry="2.2" fill="#e0d3b3" stroke="#9c7a2c" stroke-width="1" transform="rotate(-27 17 18)"/><ellipse cx="25" cy="24" rx="6" ry="2.2" fill="#e0d3b3" stroke="#9c7a2c" stroke-width="1" transform="rotate(-27 25 24)"/></g>
+      <text x="228" y="52" fill="#1f4e54" font-size="11" font-weight="700">采石浮桥</text>
+      <text x="212" y="118" fill="#9c7a2c" font-size="9.5">樊若水量江献策</text>
+      <path d="M 258,80 C 288,80 300,80 320,80" fill="none" stroke="#1f4e54" stroke-width="2.4"/><path d="M 314,75 L 328,80 L 314,85 Z" fill="#1f4e54"/>
+      <!-- 渡江 -->
+      <g><circle cx="378" cy="80" r="40" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><text x="378" y="74" text-anchor="middle" fill="#1f4e54" font-size="13" font-weight="700">步骑渡江</text><text x="378" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">如履平地·天堑遂失</text></g>
+      <path d="M 420,80 C 450,80 462,80 482,80" fill="none" stroke="#1f4e54" stroke-width="2.4"/><path d="M 476,75 L 490,80 L 476,85 Z" fill="#1f4e54"/>
+      <!-- 长围金陵 -->
+      <g><circle cx="536" cy="80" r="42" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.6" stroke-dasharray="3 4"/><text x="536" y="74" text-anchor="middle" fill="#1f4e54" font-size="13" font-weight="700">长围金陵</text><text x="536" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">坚困近一年</text></g>
+      <path d="M 580,80 C 610,80 622,80 642,80" fill="none" stroke="#9a2b1e" stroke-width="2.4"/><path d="M 636,75 L 650,80 L 636,85 Z" fill="#9a2b1e"/>
+      <!-- 城破·唐亡 -->
+      <g><circle cx="712" cy="80" r="44" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="2"/><text x="712" y="74" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">金陵城破</text><text x="712" y="92" text-anchor="middle" fill="#9a2b1e" font-size="10">李煜出降·唐亡</text></g>
+      <!-- 下行:破援 -->
+      <text x="24" y="176" fill="#5c4f38" font-size="11" font-weight="700" font-style="italic">而 · 长围之成,系于绝其上江之援：</text>
+      <g><rect x="24" y="192" width="168" height="40" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/><text x="108" y="210" text-anchor="middle" fill="#9a2b1e" font-size="11" font-weight="700">朱令赟上江水军十万</text><text x="108" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">自湖口东下赴援</text></g>
+      <path d="M 196,212 L 226,212" fill="none" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 222,208 L 234,212 L 222,216 Z" fill="#7a5a23"/>
+      <g><rect x="236" y="192" width="150" height="40" rx="4" fill="rgba(122,90,35,.10)" stroke="#7a5a23" stroke-width="1.2"/><text x="311" y="210" text-anchor="middle" fill="#9a2b1e" font-size="11" font-weight="700">皖口火攻</text><text x="311" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">风回自焚·令赟焚死</text></g>
+      <path d="M 390,212 L 420,212" fill="none" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 416,208 L 428,212 L 416,216 Z" fill="#7a5a23"/>
+      <g><rect x="430" y="192" width="170" height="40" rx="4" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.2"/><text x="515" y="210" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">金陵外援尽绝</text><text x="515" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">坐困待毙·遂降</text></g>
+      <g><rect x="628" y="192" width="150" height="40" rx="4" fill="rgba(92,74,110,.10)" stroke="#5c4a6e" stroke-width="1.2"/><text x="703" y="210" text-anchor="middle" fill="#5c4a6e" font-size="11" font-weight="700">吴越自东夹击</text><text x="703" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">钱俶取常·润</text></g>
+    </svg>
+    <p class="intro">南唐非无兵:金陵城坚,沿江戍守,又有上江水军十万可援。所恃者,<b>长江天堑</b>——君臣谓大江浩渺,浮梁必不可成,恃险而不设备。宋所以能灭之,不在野战屡胜,而在化天堑为坦途:纳降人<b>樊若水</b>预量江面之策,以大舰巨竹缆于采石搭成长江浮桥,步骑渡江如履平地——所恃之险一朝而失,胜负之势遂定于未战。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>浮梁渡江 · 天堑非险</h4>
+        <p>樊若水为南唐进士,不得志而降宋,预以丝绳往复量采石江面之广,并献浮梁之策。曹彬命先试架浮桥于石牌镇(江面与采石相仿),乃移巨竹缆缚数千战舰,首尾相衔,系于采石石塔。三日桥成,潘美率步骑数万自江北和州踏浮桥过江,如履平地。南唐凭恃百年之长江天堑,一渡而失。</p>
+      </div>
+      <div class="c b">
+        <h4>长围坚困 · 破援乃降</h4>
+        <p>渡江后连破当涂、芜湖,进围金陵。曹彬不亟攻而<b>长围</b>之,栅列城外、严戒杀掠,坚困近一年,以待其毙。金陵之命悬于上江之援:李煜征朱令赟率水军十万自湖口东下,宋拒之于皖口,以火攻乘风大破,令赟焚死,十万尽没。外援既绝,金陵坐困,975年十一月城破,李煜肉袒出降。</p>
+      </div>
+    </div>
+    <p class="kicker">故南唐之亡,非在一战之败,而在<b>浮梁一渡、天堑遽失</b>:宋军既得渡江,乃可长围坚困、从容破援;金陵外无救而降,立国三十九年之南唐遂灭。恃险者失于不备,善攻者化险为夷——<b>江南既平,吴越钱俶纳土(978),独北汉孤悬河东,天下将一</b>。</p>
+    <div class="qa" aria-label="五问">
+      <div><b>何时</b>宋开宝七年冬至八年冬(974冬–975.11)</div>
+      <div><b>何地</b>长江下游,采石渡江、长围金陵(今南京)</div>
+      <div><b>孰战</b>三方:北宋(曹彬·潘美)·南唐(李煜·朱令赟)·吴越(钱俶,自东夹击)</div>
+      <div><b>水陆</b>宋以舟师顺江东下(水),搭浮桥化水路为坦途而渡(陆);援军自湖口顺流(水),溃后化为陆上奔焚</div>
+      <div><b>胜负之枢</b>樊若水献策→采石浮梁破天堑→长围金陵+皖口火攻破援→外援绝而城降</div>
+      <div><b>结局</b>南唐亡,江南入宋;吴越纳土、北汉孤存,天下将一</div>
+    </div>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=150+(经度−116.00)×165,y=100−(纬度−32.19)×150),几何关系力求近实:长江自西(荆湖)东下贯图,南唐都金陵在江南岸,采石为渡江枢纽;江州·湖口(上江)在西南,皖口居中,芜湖·当涂·采石聚于金陵上游,润州·常州在东,吴越都杭州在东南。江河、疆界经简化描绘。江陵/荆南(宋水军东下之基,经度112.19)远在图外西,以左缘箭头示之。江州今江西九江,湖口今江西湖口,皖口今安徽安庆,采石矶今安徽马鞍山,当涂·芜湖今属安徽,金陵今江苏南京,润州今江苏镇江,常州今属江苏,和州今安徽和县,杭州今浙江杭州。据《宋史·曹彬传/世家南唐李煜》《续资治通鉴长编》卷十五、十六及《资治通鉴》后续所载约略绘出。</p>
+    <p><span class="n">注二</span>制胜之枢在<b>浮梁渡江</b>:南唐所恃唯长江天堑,君臣谓浮梁必不可成而不设备。宋纳南唐降人樊若水之策——樊预以丝绳量采石江面之广,又凿石窍、石浮图于江崖以备绾缆。曹彬先命郝守濬试架浮桥于石牌镇(江面与采石相仿),乃以大舰巨竹缆连数千舟为梁,移系采石石塔,三日而成;潘美率步骑数万自江北渡江如履平地(图中青色浮桥与渡江箭头)。天堑既失,渡江之后乃可长围金陵、从容破援,此一渡实为全役之关键。</p>
+    <p><span class="n">注三</span>三方入图之向,一西一东一自江南:<b>北宋</b>曹彬为主帅、潘美副之,率水陆大军自荆南(江陵,图外西)顺江东下,别遣曹翰等攻江州(九江),自西而来;<b>南唐</b>李煜守金陵(江南岸),都虞候朱令赟率上江水军十万自湖口(上江)顺流东下赴援,为宋火攻大破于皖口(图中朱色 ✕、褐色溃焚,令赟焚死),援绝而降;<b>吴越</b>钱俶为宋声援,自都城杭州(东南)北上,拔常州、进逼润州,东面夹攻(紫色虚线)。行军水陆兼具:宋主力与南唐援军皆循大江舟行,浮桥为化水为陆之枢,唐援溃后化为陆上奔焚。</p>
+    <p><span class="n">注四</span>异说与余事:朱令赟之败,《宋史》纪其"焚死"于皖口,他书或云"被擒"、部将王晖等就俘,姑从"焚死"之说而并存异辞;援军号"十万"乃张大之辞,实数当少。皖口一役或称"皖口之战",地在今安庆西南皖水入江处。曹彬长围金陵、克城之日禁杀掠、全活甚众,史称仁将。金陵城破在开宝八年(975)十一月,李煜肉袒出降,南唐亡(自937年李昪建国凡三十九年)。江南既平,吴越钱俶于太平兴国三年(978)纳土归宋;北汉独存河东,至太平兴国四年(979)乃为宋所灭,天下复一。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"浮梁渡江灭唐",d:"宋开宝七年至八年(974–975)",p:["南唐后主李煜都金陵,称臣于宋而不肯入朝;宋太祖赵匡胤谓『卧榻之侧,岂容他人鼾睡』,决意灭之。开宝七年(974)命曹彬为帅、潘美副之,率水陆大军自荆南顺江东下,别遣曹翰攻江州(九江);吴越钱俶自东面(常州·润州)配合夹击。","关键在采石:宋纳南唐降人樊若水之策,以大舰巨竹缆于采石搭成长江浮桥,步骑渡江如履平地,南唐凭恃之『长江天堑』遂失。渡江后连破当涂·芜湖,进围金陵;曹彬长围坚困近一年,严戒杀掠。南唐都虞候朱令赟率上江水军十万自湖口东下赴援,宋以火攻大破之于皖口,令赟焚死。金陵外援尽绝,975年十一月城破,李煜出降,南唐亡。江南尽入宋,唯余吴越(978纳土)与北汉。"]},
+  "1":{t:"① 顺江东下 · 采石浮梁渡江",d:"开宝七年(974)冬",p:["宋以曹彬为西南面行营都部署(主帅)、潘美为副,率水陆大军十万自荆南(江陵)沿江东下。南唐降人樊若水献浮梁之策:先前樊不得志于南唐,以钓鱼为名,乘小舟往复,以丝绳预量采石江面之广,又凿石窍以备绾缆。","曹彬命郝守濬先试架浮桥于石牌镇(其江面与采石相仿),既成,乃移巨竹缆缚数千战舰、首尾相衔,系于采石石塔,三日而桥成。潘美率步骑数万自江北和州踏浮桥过江,如履平地——南唐君臣初谓浮梁必不可成,及闻已渡,恃险之心遂夺。宋军渡江后连拔当涂、芜湖,沿江戍守瓦解。"]},
+  "2":{t:"② 破当涂芜湖 · 长围金陵",d:"开宝八年(975)春夏",p:["渡江之后,宋军连破当涂、芜湖,直趋金陵城下。曹彬不亟攻,而以长围困之:栅列城外,断其樵采出入,坚壁以待。","围城近一年,曹彬严戒诸将毋得杀掠,以收江南人心。李煜困守孤城,内外隔绝,犹遣徐铉等使宋请缓兵,不得;城中日窘,所望者唯上江之援军。"]},
+  "3":{t:"③ 皖口火攻 · 破上江之援",d:"开宝八年(975)十月",p:["金陵危急,李煜急征都虞候朱令赟率上江(湖口)水军号十万,乘大舰顺流东下赴援。舰大而江道险,行迟。","宋军(刘遇·王明等)拒之于皖口(今安庆西南皖水入江处)。唐军以猛火油纵火攻宋,忽风向逆转,火反焚唐军自身舟阵,大溃;朱令赟焚死(一云被擒),部将王晖等就俘,十万之众尽没。金陵最后之外援自此断绝,坐困待毙。"]},
+  "4":{t:"④ 金陵城破 · 李煜出降 · 唐亡",d:"开宝八年(975)十一月",p:["上江之援既没,金陵外无救援。曹彬克期急攻,975年十一月城破。李煜肉袒出降,举族入宋——自937年李昪建国,凡三十九年之南唐遂亡,江南尽入于宋。","东面,吴越钱俶为宋声援,自杭州北上,拔常州、进逼润州,夹攻南唐东境。江南既平,天下大势遂定:太平兴国三年(978)吴越钱俶纳土归宋,独北汉孤悬河东,越明年(979)亦灭——分裂之局将终,天下复归于一。"]}
+};
+const CITY={
+  jiangzhou:{t:"江州(九江)",d:"曹翰所攻,今江西九江",p:["长江中游要冲,南唐上江门户。宋别遣曹翰等自西攻江州,以断南唐上游、掩护主力东下。城久拒,克后颇有杀掠,与曹彬金陵之戒杀相映。"]},
+  hukou:{t:"湖口(上江)",d:"朱令赟援军所出,今江西湖口",p:["鄱阳湖入江之口,南唐上江水军屯集之地。金陵被围,李煜征都虞候朱令赟率水军号十万自此顺流东下赴援——南唐最后之机动兵力,系金陵存亡于一线。"]},
+  wankou:{t:"皖口(安庆)",d:"火攻破援处,今安徽安庆西南",p:["皖水入江之口。朱令赟十万援军东下,宋军拒之于此。唐军纵猛火油攻宋,风回自焚,舟阵大溃;朱令赟焚死(一云被擒),十万尽没。金陵外援尽绝之地——长围之所以能成,系于此一役。"]},
+  wuhu:{t:"芜湖",d:"宋渡江后所破,今安徽芜湖",p:["采石上游沿江重镇。宋军浮桥渡江后连破当涂、芜湖,南唐沿江戍守瓦解,进围金陵之路遂通。"]},
+  dangtu:{t:"当涂",d:"宋渡江后所破,今安徽当涂",p:["采石所在之县境,渡江后首当其冲。宋军过江即拔当涂,遂沿江东北趋金陵。"]},
+  caishi:{t:"采石矶(浮桥渡江)",d:"宋搭长江浮桥渡江处,今安徽马鞍山",p:["本役之枢。宋纳樊若水策,以大舰巨竹缆于采石搭成长江浮桥,系于江崖石塔;潘美率步骑数万自江北和州踏桥过江,如履平地。南唐所恃之长江天堑一朝而失——胜负之势定于此一渡。"]},
+  jinling:{t:"金陵(江宁·南唐都)",d:"南唐都城,李煜出降处,今江苏南京",p:["南唐都城,在长江南岸。宋军渡江后进围之,曹彬长围坚困近一年,严戒杀掠。上江之援为宋破于皖口,外援尽绝;975年十一月城破,李煜肉袒出降,南唐亡。江南尽入宋。"]},
+  runzhou:{t:"润州(镇江)",d:"南唐东境,吴越·宋夹攻之的,今江苏镇江",p:["金陵下游、长江南岸要地,南唐东面屏障。宋与吴越自东合攻,润州守将不能支,金陵右臂遂断。"]},
+  changzhou:{t:"常州",d:"吴越钱俶所攻,今江苏常州",p:["南唐东境,吴越北上首攻之地。钱俶为宋声援,自杭州出兵拔常州、进逼润州,东面夹攻南唐,分金陵之势。"]},
+  hangzhou:{t:"杭州(吴越都)",d:"吴越钱俶都城,今浙江杭州",p:["吴越国都。钱俶奉宋正朔,灭唐之役为宋声援,自杭州北上取常州、逼润州夹击。南唐既亡,吴越孤处东南,终于太平兴国三年(978)纳土归宋——不待兵而国除。"]},
+  hezhou:{t:"和州(江北)",d:"潘美渡江之基,今安徽和县",p:["长江北岸,正对采石。宋潘美所部马步军数万集结于此,俟采石浮桥成,自和州踏桥过江——渡江之北岸起点。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

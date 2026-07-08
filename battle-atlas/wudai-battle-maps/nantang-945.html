@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>南唐乘乱兼并 · 得地不守(945–952)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .surrflag .pole{stroke:var(--ink2);stroke-width:2}
+  .surrflag .cloth{fill:rgba(154,43,30,.9);stroke:#6f1f16;stroke-width:1}
+  .surrflag text{fill:#f3e6c8;font-family:"Ma Shan Zheng",serif;font-size:15px}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>乘</span><span>乱</span><span>兼</span><span>并</span></div>
+  <header>
+    <h1>南唐乘乱兼并 · 得地不守</h1>
+    <div class="sub">南唐保大二年至十年(945–952)　　<i>南唐 元宗 李璟</i>(将 查文徽·边镐) 乘 <b>闽</b>、<b>楚</b> 内乱,灭闽(945)取楚(951);然 <em>吴越</em> 夺福州、泉漳自立、湖南旋失　·　乘乱两并 · 得而不能守 · 盛极转衰</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 乘乱两并</button>
+    <button data-p="1">① 乘闽乱 · 灭闽克建州(945)</button>
+    <button data-p="2">② 闽地三分 · 得而不守</button>
+    <button data-p="3">③ 乘楚乱 · 灭楚入长沙(951)</button>
+    <button data-p="4">④ 湖南旋失 · 边镐遁走(952)</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="南唐乘闽楚内乱兼并形势图,含南唐闽楚吴越四方疆界、长江赣江湘江闽江水系、武夷山,示金陵建州福州泉州汀州漳州洪州潭州长沙朗州杭州诸地。南唐查文徽945年克建州灭闽,然福州为吴越所据、泉漳为留从效清源军自立;边镐951年入长沙灭楚尽取湖南,然952年楚旧将刘言王逵周行逢自朗州起兵逐南唐,边镐弃城遁走,湖南复失。得其地而不能守,虚耗国力,盛极而衰">
+    <defs>
+      <pattern id="tangHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="enemyHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="wuyueHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:南唐据江淮江西(北·中),闽据东南(建福泉漳),楚据湖南(西南),吴越据两浙(东) ══ -->
+    <!-- 南唐(大) -->
+    <path d="M 0,0 L 1000,0 L 1000,140 C 930,150 880,180 862,230 C 850,290 860,340 900,360 C 800,390 700,400 600,430 C 520,470 470,540 430,640 L 372,640 C 375,460 380,360 360,290 C 260,250 120,240 0,230 Z" fill="url(#tangHatch)"/>
+    <!-- 楚(西南) -->
+    <path d="M 0,230 C 120,240 260,250 360,290 C 380,360 375,460 372,640 L 0,640 Z" fill="url(#enemyHatch)"/>
+    <!-- 闽(东南) -->
+    <path d="M 430,640 C 470,540 520,470 600,430 C 700,400 800,390 900,360 L 1000,380 L 1000,640 Z" fill="url(#enemyHatch)"/>
+    <!-- 吴越(东) -->
+    <path d="M 1000,140 C 930,150 880,180 862,230 C 850,290 860,340 900,360 L 1000,380 Z" fill="url(#wuyueHatch)"/>
+    <!-- 约界 -->
+    <path class="border" d="M 0,230 C 120,240 260,250 360,290 C 380,360 375,460 372,640"/>
+    <path class="border" d="M 430,640 C 470,540 520,470 600,430 C 700,400 800,390 900,360 C 860,340 850,290 862,230 C 880,180 930,150 1000,140"/>
+    <text class="realm j" x="360" y="150" font-size="30">南 唐</text>
+    <text class="cname s" x="360" y="172" style="fill:var(--advance);opacity:.7">李璟 · 都金陵</text>
+    <text class="realm q" x="150" y="470" font-size="26">楚</text>
+    <text class="cname s" x="150" y="492" style="fill:var(--enemy);opacity:.7">马氏 · 都长沙</text>
+    <text class="realm q" x="700" y="500" font-size="26">闽</text>
+    <text class="cname s" x="700" y="522" style="fill:var(--enemy);opacity:.7">王氏 · 都福州</text>
+    <text class="realm f" x="922" y="290" font-size="20" transform="rotate(90 922 290)">吴 越</text>
+
+    <!-- ══ 山脉:武夷山,分赣(南唐)与闽 ══ -->
+    <path class="mtn fill" d="M 560,470 L 574,440 L 586,458 L 600,430 L 614,458 L 628,436 L 640,466 L 574,500 Z"/>
+    <path class="mtn" d="M 566,490 l 12,-30 l 10,16 l 14,-26 l 11,20 l 13,-24"/>
+    <path class="mtn fill" d="M 612,410 L 626,382 L 638,400 L 652,372 L 666,400 L 680,378 L 692,408 L 626,440 Z"/>
+    <path class="mtn" d="M 618,430 l 12,-28 l 10,16 l 14,-24 l 11,18 l 13,-22"/>
+    <text class="mname" x="530" y="430" transform="rotate(52 530 430)">武 夷 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 长江:自西东流,金陵在其南岸 -->
+    <path class="river" stroke-width="5" d="M 200,70 C 400,80 600,95 780,108 C 850,116 920,124 1000,132"/>
+    <!-- 赣江:自南贯洪州,北入鄱阳注江 -->
+    <path class="river" stroke-width="3" d="M 500,600 C 505,470 508,400 507,330 C 505,260 512,190 545,132"/>
+    <!-- 湘江:自南贯潭州(长沙),北注洞庭 -->
+    <path class="river" stroke-width="3" d="M 258,610 C 250,500 244,430 238,360 C 232,300 240,240 258,185"/>
+    <!-- 闽江:自建州东南流,过福州入海 -->
+    <path class="river" stroke-width="3" d="M 705,405 C 718,422 726,432 733,442 C 770,470 800,485 824,506 C 862,540 905,562 955,584"/>
+    <text class="rname" x="330" y="98" transform="rotate(4 330 98)" style="font-size:13px">长 　 江</text>
+    <text class="rname" x="516" y="250" transform="rotate(80 516 250)" style="font-size:11px">赣 水</text>
+    <text class="rname" x="214" y="270" transform="rotate(83 214 270)" style="font-size:11px">湘 水</text>
+    <text class="rname" x="850" y="548" transform="rotate(30 850 548)" style="font-size:10px;opacity:.8">闽 江</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="jinling"><circle cx="777" cy="100" r="7"/><text class="cname" x="787" y="96">金陵<tspan class="cname s" dx="2">(江宁·唐都)</tspan></text></g>
+      <g class="city" data-city="hongzhou"><circle cx="507" cy="330" r="5.5"/><text class="cname" x="517" y="326">洪州<tspan class="cname s" dx="2">(南昌·南出之基)</tspan></text></g>
+      <g class="city" data-city="jianzhou"><circle cx="733" cy="442" r="6.5"/><text class="cname" x="743" y="438">建州<tspan class="cname s" dx="2">(建瓯·灭闽主战)</tspan></text></g>
+      <g class="city cap" data-city="fuzhou"><circle cx="824" cy="507" r="6"/><text class="cname" x="834" y="503">福州<tspan class="cname s" dx="2">(闽都→吴越)</tspan></text></g>
+      <g class="city" data-city="quanzhou"><circle cx="758" cy="589" r="5"/><text class="cname" x="768" y="592">泉州<tspan class="cname s" dx="2">(留从效·清源军)</tspan></text></g>
+      <g class="city" data-city="tingzhou"><circle cx="553" cy="523" r="4.5"/><text class="cname" x="500" y="540">汀州<tspan class="cname s" dx="2">(长汀)</tspan></text></g>
+      <g class="city" data-city="zhangzhou"><circle cx="672" cy="613" r="4.5"/><text class="cname" x="620" y="628">漳州</text></g>
+      <g class="city cap" data-city="tanzhou"><circle cx="238" cy="360" r="6.5"/><text class="cname" x="150" y="356">长沙<tspan class="cname s" dx="2">(潭州·楚都)</tspan></text></g>
+      <g class="city" data-city="langzhou"><circle cx="124" cy="306" r="5"/><text class="cname" x="90" y="300">朗州<tspan class="cname s" dx="2">(常德)</tspan></text></g>
+      <g class="city cap" data-city="hangzhou"><circle cx="902" cy="222" r="6"/><text class="cname" x="820" y="218">杭州<tspan class="cname s" dx="2">(吴越都)</tspan></text></g>
+    </g>
+
+    <!-- 淮南(图外·北,后为后周所夺之伏笔) -->
+    <text class="anno" x="640" y="20" style="opacity:.7">淮南(图外北)—— 后周继夺,南唐终亡于宋</text>
+
+    <!-- ══ 全图 · 乘乱两并 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 灭闽:金陵/洪州 → 建州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 760,112 C 720,220 730,340 735,430"/>
+      <path class="march j" marker-end="url(#aj)" d="M 520,338 C 600,380 680,410 722,436"/>
+      <text class="mlabel j" x="560" y="360">查文徽 克建州 · 灭闽 945</text>
+      <!-- 灭楚:洪州 → 长沙 -->
+      <path class="march j" marker-end="url(#aj)" d="M 492,338 C 400,352 320,356 254,360"/>
+      <text class="mlabel j" x="300" y="392">边镐 入长沙 · 灭楚 951</text>
+      <!-- 吴越夺福州 -->
+      <path class="march qin" marker-end="url(#af)" d="M 895,236 C 870,320 850,420 832,494"/>
+      <text class="mlabel f" x="838" y="380">吴越据福州</text>
+      <!-- 湖南旋失:朗州 → 长沙 -->
+      <path class="march q" marker-end="url(#aq)" d="M 138,318 C 170,336 200,348 224,356"/>
+      <text class="mlabel q" x="70" y="336">楚旧将逐唐</text>
+      <!-- 边镐弃湖南遁走 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 252,368 C 330,382 420,362 494,340"/>
+      <text class="mlabel r" x="300" y="430">边镐弃城遁走 · 湖南复失 952</text>
+      <!-- 灭国星环 -->
+      <circle class="star" cx="733" cy="442" r="11"/>
+      <circle class="star" cx="238" cy="360" r="11"/>
+      <g class="surrflag" transform="translate(766,412)"><line class="pole" x1="0" y1="6" x2="0" y2="-24"/><path class="cloth" d="M0,-24 L26,-20 L21,-11 L26,-2 L0,-6 Z"/><text x="4" y="-9">降</text></g>
+      <g class="surrflag" transform="translate(268,330)"><line class="pole" x1="0" y1="6" x2="0" y2="-24"/><path class="cloth" d="M0,-24 L26,-20 L21,-11 L26,-2 L0,-6 Z"/><text x="4" y="-9">降</text></g>
+    </g>
+
+    <!-- ══ ① 乘闽乱 · 灭闽克建州(945) ══ -->
+    <g id="ph1" class="ph">
+      <!-- 闽内乱:建州(王延政·殷) vs 福州 -->
+      <path class="march q" marker-end="url(#aq)" d="M 748,458 C 790,480 810,490 820,498"/>
+      <path class="march q" marker-end="url(#aq)" d="M 818,498 C 800,486 770,466 746,450"/>
+      <text class="mlabel q" x="742" y="480">闽内乱:王延政据建州称帝(殷)</text>
+      <text class="anno" x="742" y="496">与福州相攻,朱文进·连重遇之乱,闽分崩</text>
+      <!-- 南唐两路攻建州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 762,114 C 726,230 730,350 736,428"/>
+      <text class="mlabel j" x="600" y="200">李璟命查文徽·何敬洙</text>
+      <text class="mlabel j" x="600" y="216">乘乱出兵,自江西趋建州</text>
+      <path class="march j" marker-end="url(#aj)" d="M 520,340 C 600,382 680,412 722,436"/>
+      <rect class="camp j" x="729" y="438" width="9" height="9" transform="rotate(45 733 442)"/>
+      <circle class="star" cx="733" cy="442" r="10"/>
+      <g class="surrflag" transform="translate(768,410)"><line class="pole" x1="0" y1="8" x2="0" y2="-26"/><path class="cloth" d="M0,-26 L28,-21 L22,-11 L28,-1 L0,-6 Z"/><text x="4" y="-10">降</text></g>
+      <text class="mlabel j" x="560" y="404">945年克建州,擒王延政,闽亡</text>
+    </g>
+
+    <!-- ══ ② 闽地三分 · 得而不守 ══ -->
+    <g id="ph2" class="ph">
+      <text class="mlabel j" x="470" y="470">南唐止得建·汀二州</text>
+      <rect class="camp j" x="549" y="519" width="8" height="8" transform="rotate(45 553 523)"/>
+      <rect class="camp j" x="729" y="438" width="8" height="8" transform="rotate(45 733 442)"/>
+      <!-- 吴越据福州 -->
+      <path class="march qin" marker-end="url(#af)" d="M 895,238 C 872,330 852,430 834,496"/>
+      <text class="mlabel f" x="840" y="360">吴越乘隙据福州</text>
+      <text class="anno" x="840" y="376">李仁达以福州附吴越(947)</text>
+      <!-- 边镐攻福州不克 -->
+      <path class="march j rout" marker-end="url(#ar)" d="M 740,452 C 780,472 800,484 812,496"/>
+      <text class="mlabel r" x="700" y="470">边镐攻福州不克,反退</text>
+      <!-- 泉漳自立 -->
+      <g class="cut" transform="translate(758,589)"><circle r="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="620" y="576">泉·漳:留从效清源军名附实自立</text>
+      <text class="anno" x="470" y="490">得闽而不能全有其地,反使吴越介入</text>
+    </g>
+
+    <!-- ══ ③ 乘楚乱 · 灭楚入长沙(951) ══ -->
+    <g id="ph3" class="ph">
+      <!-- 楚内乱:马氏兄弟争国 -->
+      <path class="march q" marker-end="url(#aq)" d="M 150,318 C 180,332 205,344 224,352"/>
+      <text class="mlabel q" x="60" y="352">楚马氏兄弟争国(众驹争立),内乱大起</text>
+      <!-- 边镐乘乱西出 -->
+      <path class="march j" marker-end="url(#aj)" d="M 492,336 C 400,350 320,356 254,360"/>
+      <text class="mlabel j" x="300" y="330">李璟命边镐乘乱西出</text>
+      <text class="mlabel j" x="300" y="346">自洪州趋潭州(长沙)</text>
+      <rect class="camp j" x="234" y="356" width="9" height="9" transform="rotate(45 238 360)"/>
+      <circle class="star" cx="238" cy="360" r="10"/>
+      <g class="surrflag" transform="translate(270,328)"><line class="pole" x1="0" y1="8" x2="0" y2="-26"/><path class="cloth" d="M0,-26 L28,-21 L22,-11 L28,-1 L0,-6 Z"/><text x="4" y="-10">降</text></g>
+      <text class="mlabel j" x="150" y="400">951入长沙,马希崇降,楚亡,尽取湖南</text>
+    </g>
+
+    <!-- ══ ④ 湖南旋失 · 边镐遁走(952) ══ -->
+    <g id="ph4" class="ph">
+      <!-- 楚旧将自朗州起兵 -->
+      <path class="march q" marker-end="url(#aq)" d="M 132,320 C 168,338 200,350 224,358"/>
+      <text class="mlabel q" x="60" y="292">刘言·王逵·周行逢</text>
+      <text class="mlabel q" x="60" y="308">自朗州起兵逐南唐</text>
+      <!-- 边镐弃城遁走 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 252,366 C 340,382 428,362 496,340"/>
+      <text class="mlabel r" x="300" y="420">边镐弃长沙遁走,东归洪州</text>
+      <text class="anno" x="300" y="436">得湖南亦不能守,旋复失(952)</text>
+      <g class="endmark" transform="translate(238,360)"><circle r="11" fill="none" stroke="#7a5a23" stroke-width="2"/><text x="0" y="5" text-anchor="middle" fill="#7a5a23" font-size="13">失</text></g>
+      <text class="anno" x="80" y="376">湖南复归武平军(周行逢)</text>
+      <text class="clabel" x="300" y="470">两度开疆·两度得而不守 —— 虚耗国力,盛极而衰</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>南唐军(查文徽·边镐 乘乱兼并)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>闽·楚(被灭·内乱/旧将逐唐)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>吴越(第三方·夺福州)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>南唐得而复失(退失)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·灭国</span>
+    <span class="item"><svg width="20" height="18"><line x1="4" y1="16" x2="4" y2="2" stroke="#5c4f38" stroke-width="1.6"/><path d="M4,2 L17,4 L13,8 L17,12 L4,10 Z" fill="rgba(154,43,30,.9)"/></svg>举国降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>据地自立</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#tangHatch)"/></svg>南唐</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#enemyHatch)"/></svg>闽·楚</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#wuyueHatch)"/></svg>吴越</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 乘乱两并,得而不守</h3>
+    <div class="lead">何以南唐灭两国而愈弱 —— 兼并之利,不敌根本之虚</div>
+    <svg class="schem" viewBox="0 0 860 262" role="img" aria-label="乘乱兼并示意:上线南唐乘闽乱灭闽945、然闽地三分福州入吴越泉漳自立;下线南唐乘楚乱灭楚951入长沙、然湖南952旋被楚旧将逐;两线皆得地而不能守,合流为盛极而衰,终淮南失于后周、南唐亡于宋">
+      <!-- 上线:灭闽 -->
+      <g><rect x="24" y="34" width="120" height="44" rx="5" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.4"/><text x="84" y="54" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">乘闽乱</text><text x="84" y="70" text-anchor="middle" fill="#5c4f38" font-size="9">王延政·福州相攻</text></g>
+      <path d="M 146,56 L 182,56" fill="none" stroke="#1f4e54" stroke-width="2"/><path d="M 176,51 L 190,56 L 176,61 Z" fill="#1f4e54"/>
+      <g><circle cx="240" cy="56" r="34" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.6"/><text x="240" y="52" text-anchor="middle" fill="#9c7a2c" font-size="12" font-weight="700">灭闽 945</text><text x="240" y="68" text-anchor="middle" fill="#5c4f38" font-size="9">查文徽克建州</text></g>
+      <path d="M 274,56 L 320,56" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="5 4"/><path d="M 314,51 L 328,56 L 314,61 Z" fill="#7a5a23"/>
+      <g><rect x="330" y="30" width="180" height="52" rx="5" fill="rgba(122,90,35,.10)" stroke="#7a5a23" stroke-width="1.3"/><text x="420" y="50" text-anchor="middle" fill="#7a5a23" font-size="11.5" font-weight="700">闽地三分·得而不守</text><text x="420" y="66" text-anchor="middle" fill="#5c4f38" font-size="9">福州入吴越·泉漳留从效自立</text></g>
+      <!-- 下线:灭楚 -->
+      <g><rect x="24" y="150" width="120" height="44" rx="5" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.4"/><text x="84" y="170" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">乘楚乱</text><text x="84" y="186" text-anchor="middle" fill="#5c4f38" font-size="9">马氏兄弟争国</text></g>
+      <path d="M 146,172 L 182,172" fill="none" stroke="#1f4e54" stroke-width="2"/><path d="M 176,167 L 190,172 L 176,177 Z" fill="#1f4e54"/>
+      <g><circle cx="240" cy="172" r="34" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.6"/><text x="240" y="168" text-anchor="middle" fill="#9c7a2c" font-size="12" font-weight="700">灭楚 951</text><text x="240" y="184" text-anchor="middle" fill="#5c4f38" font-size="9">边镐入长沙</text></g>
+      <path d="M 274,172 L 320,172" fill="none" stroke="#7a5a23" stroke-width="2" stroke-dasharray="5 4"/><path d="M 314,167 L 328,172 L 314,177 Z" fill="#7a5a23"/>
+      <g><rect x="330" y="146" width="180" height="52" rx="5" fill="rgba(122,90,35,.10)" stroke="#7a5a23" stroke-width="1.3"/><text x="420" y="166" text-anchor="middle" fill="#7a5a23" font-size="11.5" font-weight="700">湖南旋失·得而不守</text><text x="420" y="182" text-anchor="middle" fill="#5c4f38" font-size="9">刘言·周行逢逐唐(952)</text></g>
+      <!-- 合流 -->
+      <path d="M 510,56 C 560,56 580,90 590,114" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+      <path d="M 510,172 C 560,172 580,138 590,116" fill="none" stroke="#9a2b1e" stroke-width="1.8"/>
+      <g><circle cx="655" cy="114" r="46" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="2"/><text x="655" y="108" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">盛极而衰</text><text x="655" y="126" text-anchor="middle" fill="#5c4f38" font-size="9">疆骤广而国益虚</text></g>
+      <path d="M 701,114 L 736,114" fill="none" stroke="#9a2b1e" stroke-width="2"/><path d="M 730,109 L 744,114 L 730,119 Z" fill="#9a2b1e"/>
+      <g><text x="752" y="104" fill="#9a2b1e" font-size="10.5" font-weight="700">淮南失于后周</text><text x="752" y="122" fill="#9a2b1e" font-size="10.5" font-weight="700">终亡于宋</text></g>
+    </svg>
+    <p class="intro">南唐非无武功:元宗李璟当五代之季,独能<b>乘邻国之乱而兼并之</b>——闽以王氏内讧、建福相攻而分崩,楚以马氏兄弟争国而大乱。李璟命查文徽克建州以灭闽(945),命边镐入长沙以灭楚(951),十年之内再灭一国,疆域骤广,俨然极盛。然<b>灭人之国易,守其地难</b>:兵略上乘乱取胜,战略上却过度伸张而根本不固。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>兵略之胜 · 乘乱兼并</h4>
+        <p>制胜之枢在一个「乱」字。闽、楚皆非亡于外攻,而先溃于内争;南唐但择其敝而蹈之。查文徽自江西两路趋建州,乘王延政孤危而下之,擒之灭闽;边镐乘马氏骨肉相残,长驱入长沙,不劳血战而马希崇降。此皆<b>因敌之乱、以全取胜</b>之善局。</p>
+      </div>
+      <div class="c b">
+        <h4>战略之失 · 得而不守</h4>
+        <p>然所得旋失。灭闽而福州为吴越所据、泉漳为留从效清源军自立,南唐止得建汀,反引强邻入闽;取楚未及三年,楚旧将刘言、王逵、周行逢自朗州起兵,边镐弃长沙遁走,湖南复失。<b>地广而力分,得之不能守,徒耗国帑兵甲</b>。</p>
+      </div>
+    </div>
+    <p class="kicker">故南唐乘乱两并,看似极盛,实<b>盛极而衰</b>:闽地三分、湖南旋失,虚耗其国而未益其强。及根本既虚,乃有955年后周世宗南征,尽夺<b>淮南十四州</b>,南唐去帝号、称臣献地,一蹶不振;终于975年为宋所灭。<b>扩张之利,不敌根本之虚</b>——「得其地而不能守」六字,足为兼并者之戒。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=60+(经度−111.0)×92,y=36−(纬度−33.0)×68),几何关系力求近实:南唐据江淮·江西居北与中(金陵在北,洪州居中),闽据东南(建·福·泉·漳·汀,武夷山之东),楚据湖南居西南(长沙·朗州),吴越据两浙在东(杭州)。水系取长江(金陵南岸)、赣水(贯洪州)、湘水(贯长沙)、闽江(自建州过福州入海),武夷山分赣闽,皆经简化描绘。金陵今南京,洪州今南昌,建州今福建建瓯,福州今福州,泉州今泉州,汀州今福建长汀,漳州今漳州,长沙(潭州)今长沙,朗州今湖南常德,杭州今杭州。据《资治通鉴》卷二八四至二九〇、《新五代史·南唐世家/闽世家/楚世家》《十国春秋》约略绘出。</p>
+    <p><span class="n">注二</span>本图<b>不绘粮道</b>:两役之胜负,枢在「乘敌内乱」而非馈运,故不设金色粮道之目,以免喧宾夺主。灭闽为陆路山地进兵(江西越武夷入闽),灭楚亦以陆师西出洪潭之间,间用江湖舟运;然其成败不系于粮,而系于敌之自溃与己之能否守成,故从略。</p>
+    <p><span class="n">注三</span>四方各有其向:南唐(青,查文徽·边镐)自金陵·洪州两向出击,东南灭闽、西南灭楚;闽与楚(朱)为被灭之国,其乱皆起于内(建福相攻、马氏争国),楚旧将复自朗州起而逐唐;吴越(紫,第三方)自杭州南下乘隙据福州;南唐得而复失之退势(褐色虚线)见于边镐攻福州不克、弃长沙东遁。诸方入图之向大体如实。</p>
+    <p><span class="n">注四</span>异说与余事:边镐以纵掠失湖南人心,时号「边菩萨」实带讥意。福州本为闽将李仁达(李弘义)所据,先阳附南唐,继叛而附吴越(947),故福州之失,吴越乘其间也。泉·漳为留从效清源军所有,名义奉南唐(后奉宋)而实自立,历陈洪进至978年始纳土归宋。湖南952年南唐失后,复经刘言、王逵、周行逢递相攻夺,终归周行逢武平军,963年为宋所并。灭建州在保大三年(945)八月,擒王延政;灭楚在保大九年(951)。诸役月日,史文小有出入,姑从《通鉴》。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"乘乱两并 · 得而不守",d:"南唐保大二年至十年(945–952)",p:["南唐元宗李璟当五代之季,乘邻国内乱两度开疆:闽以王氏内讧(王延政据建州称帝、与福州相攻)而分崩,李璟命查文徽等乘乱出兵,945年克建州、擒王延政,闽亡;楚以马氏兄弟争国而大乱,李璟命边镐乘乱西出,951年入长沙、马希崇降,楚亡,尽取湖南。十年再灭一国,疆域骤广。","然得其地而不能守:灭闽而福州为吴越所据、泉漳为留从效清源军自立,南唐止得建汀,反引强邻入闽;取楚未及三年,楚旧将刘言、王逵、周行逢自朗州起兵逐唐,边镐弃长沙遁走,湖南复失。乘乱兼并看似极盛,实虚耗国力、盛极而衰——后955年淮南复失于后周,南唐终亡于宋。"]},
+  "1":{t:"① 乘闽乱 · 灭闽克建州",d:"南唐保大三年(945)",p:["闽国(都福州,王氏)内乱:王延政据建州称帝、国号殷,与福州王延曦相攻;福州复有朱文进、连重遇弑君之乱,闽分崩离析。李璟乘其敝,命枢密副使查文徽及何敬洙等,自江西两路进兵,越武夷山攻建州。","王延政孤危,建州水南一战大败;945年南唐克建州,擒王延政,立国三十六年之闽亡。此乃『因敌之乱、以全取胜』之善局——不劳大战而下一国。"]},
+  "2":{t:"② 闽地三分 · 得而不守",d:"南唐保大三年至五年(945–947)",p:["南唐灭闽而不能全有其地:福州本为闽将李仁达所据,先阳附南唐,边镐进攻福州不克,李仁达遂叛附吴越,947年福州入于吴越;泉、漳为留从效清源军所据,名义奉唐而实自立。","南唐倾力灭闽,所得仅建、汀二州,反使吴越介入东南、疆场消耗。得地不能守之弊,于闽先见——此为日后重蹈之先兆。"]},
+  "3":{t:"③ 乘楚乱 · 灭楚入长沙",d:"南唐保大九年(951)",p:["楚国(马殷所建,都长沙)马氏兄弟争国:众驹争立,骨肉相残,内乱大起。李璟复乘其乱,命边镐率师自洪州西出,趋潭州(长沙)。","951年边镐入长沙,楚主马希崇降,立国数十年之楚亡,南唐尽取湖南之地。继灭闽之后再灭一国,南唐疆域骤广,俨然十国之雄。"]},
+  "4":{t:"④ 湖南旋失 · 边镐遁走",d:"南唐保大十年(952)",p:["南唐得湖南亦不能守。边镐入长沙后,以纵掠失人心(时讥为『边菩萨』)。952年楚旧将刘言、王逵、周行逢等自朗州(常德)起兵,大举逐南唐。","边镐弃长沙城遁走、东归洪州,唐军败退,湖南复失,归于武平军(后归周行逢,963年为宋所并)。两度开疆、两度得而不守,南唐虚耗国力、盛极而衰;根本既虚,乃有955年淮南之失、终亡于宋。"]}
+};
+const CITY={
+  jinling:{t:"金陵(江宁)",d:"南唐都城,今江苏南京",p:["南唐元宗李璟之都,长江南岸。灭闽、灭楚之诏皆出于此。乘闽楚之乱两度开疆,一时称盛;然根本之地实虚,955年后淮南十四州为后周所夺,南唐去帝号称臣,975年终为宋所灭。"]},
+  hongzhou:{t:"洪州(南昌)",d:"南唐南出之基,今江西南昌",p:["南唐西境重镇(后升南都),赣水所贯。南出灭楚以此为基:边镐率师自此西趋长沙。湖南既失,边镐亦弃城东遁归此。为南唐经营东南、西南之枢纽。"]},
+  jianzhou:{t:"建州(建瓯)",d:"灭闽主战地,今福建建瓯",p:["王延政据建州称帝、国号殷,为闽末分裂之一极。武夷山之东、闽江上游。945年查文徽率南唐军越武夷攻之,克城擒王延政,闽亡——南唐灭闽之决胜地。然唐终止得建、汀,余地他属。"]},
+  fuzhou:{t:"福州(闽都→吴越)",d:"闽都,后入吴越,今福建福州",p:["王闽之都,闽江入海口。闽亡后为闽将李仁达所据,先阳附南唐,边镐进攻不克;李仁达遂叛附吴越,947年福州入于吴越。南唐灭闽而福州反资强邻——『得而不守』之显例。"]},
+  quanzhou:{t:"泉州(清源军)",d:"留从效据地,今福建泉州",p:["闽亡后泉、漳为留从效清源军所据,名义奉南唐(后奉宋)而实自立。历陈洪进,至978年始纳土归宋。南唐灭闽而泉漳自立,所得不过建汀,其地终非唐有。"]},
+  tingzhou:{t:"汀州(长汀)",d:"南唐实得之地,今福建长汀",p:["闽西山地。南唐灭闽,建、汀二州为其实得之地。与建州同为唐灭闽后所能保有者;福州入吴越、泉漳自立,唐所获实寡。"]},
+  zhangzhou:{t:"漳州",d:"清源军辖地,今福建漳州",p:["与泉州同为留从效清源军所据,名附南唐而实自立。闽东南沿海之地,唐兵力不能及,遂听其割据。"]},
+  tanzhou:{t:"长沙(潭州)",d:"楚国都城,今湖南长沙",p:["马殷所建楚国之都,湘水所贯。马氏兄弟争国、内乱大起。951年边镐乘乱率师入长沙,楚主马希崇降,楚亡,南唐尽取湖南。然边镐纵掠失心,952年楚旧将逐唐,边镐弃此城遁走,湖南复失——得而旋失之枢。"]},
+  langzhou:{t:"朗州(常德)",d:"楚旧将逐唐之基,今湖南常德",p:["湖南西北重镇。952年楚旧将刘言、王逵、周行逢等据此起兵,大举逐南唐,败其戍守,边镐弃长沙遁走。湖南遂复失,归于武平军(后周行逢领之,963年为宋并)。南唐『得地不守』之收梢在此。"]},
+  hangzhou:{t:"杭州(吴越都)",d:"吴越都城,今浙江杭州",p:["钱氏吴越之都,据两浙。南唐灭闽之际,吴越乘隙介入:纳闽将李仁达之降,947年据有福州。第三方坐收渔利,使南唐灭闽之功大打折扣——兼并者未必能独有其利。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

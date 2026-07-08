@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北宋灭南汉 · 韶州破象(970–971)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 宋军·粮道:金色串珠,自荆湖(道州)南运转饷——然本役制胜不在断粮,故无截断记号 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.20}
+  .supply.core{stroke-width:1.8;opacity:.85;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.feint{stroke:var(--advance);stroke-width:2.6;stroke-dasharray:3 6;opacity:.9}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  /* 象阵:南汉战象列阵韶州莲花峰下 */
+  .eleph{fill:rgba(154,43,30,.85);stroke:#6f1f16;stroke-width:1}
+  .elabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.06em}
+  /* 强弩:宋军集射 */
+  .bolt{stroke:var(--advance);stroke-width:1.5;stroke-linecap:round;opacity:.9}
+  /* 举国出降旗:刘鋹解甲 */
+  .surrflag .pole{stroke:var(--ink2);stroke-width:2}
+  .surrflag .cloth{fill:rgba(154,43,30,.9);stroke:#6f1f16;stroke-width:1}
+  .surrflag text{fill:#f3e6c8;font-family:"Ma Shan Zheng",serif;font-size:15px}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .qs{list-style:none;margin:0 0 11px;padding:10px 12px;border:1px dashed rgba(110,93,60,.4);background:rgba(255,250,235,.35)}
+  .explain .qs li{font-size:11.5px;line-height:1.7;color:var(--ink2);text-align:justify}
+  .explain .qs li+li{margin-top:4px}
+  .explain .qs b{color:var(--advance);font-weight:700}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.feint){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>破</span><span>象</span><span>平</span><span>南</span></div>
+  <header>
+    <h1>北宋灭南汉 · 韶州破象</h1>
+    <div class="sub">宋开宝三年至四年(970冬–971春)　　<i>北宋 潘美</i>(帅,自道州南下) 灭 <b>南汉 后主 刘鋹</b>(都统 李承渥 列象阵拒战)　·　贺州佯退诱敌 · 强弩破象阵 · 岭南六十州入宋</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 破象平南</button>
+    <button data-p="1">① 起兵南下 · 连破诸州</button>
+    <button data-p="2">② 贺州佯退 · 诱歼援军</button>
+    <button data-p="3">③ 韶州象阵 · 强弩破之</button>
+    <button data-p="4">④ 进逼广州 · 刘鋹出降</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="北宋灭南汉韶州破象形势图,含北宋(荆湖)与南汉(岭南)疆界、南岭五岭、西江北江珠江水系,道州富州贺州昭州桂州连州韶州英州广州诸地,示潘美自道州南下连破富贺昭桂连诸州、贺州佯退二十里伏兵诱歼南汉援军伍彦柔、进逼韶州李承渥列战象之阵、宋军强弩集射象群反奔自践己阵而南汉大溃、宋军长驱进逼广州、刘鋹焚府库出降南汉亡、岭南六十州入宋">
+    <defs>
+      <pattern id="hanHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="songHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:北宋据荆湖在北(道州一线),南汉据岭南在南(两广);南岭为界 ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,104 C 780,88 560,80 470,86 C 340,94 180,90 0,100 Z" fill="url(#songHatch)"/>
+    <path d="M 0,100 C 180,90 340,94 470,86 C 560,80 780,88 1000,104 L 1000,640 L 0,640 Z" fill="url(#hanHatch)"/>
+    <!-- 北宋·南汉约界(南岭一线) -->
+    <path class="border" d="M 0,100 C 180,90 340,94 470,86 C 560,80 780,88 1000,104"/>
+    <text class="realm j" x="470" y="42" font-size="26">北 宋(荆湖)</text>
+    <text class="cname s" x="470" y="62" style="fill:var(--advance);opacity:.7">太祖命潘美帅师南伐</text>
+    <text class="realm q" x="330" y="470" font-size="34">南 汉(岭南)</text>
+    <text class="cname s" x="330" y="494" style="fill:var(--enemy);opacity:.7">都兴王府(番禺)·主刘鋹</text>
+
+    <!-- ══ 南岭(五岭):分荆湖与岭南 ══ -->
+    <path class="mtn fill" d="M 236,120 L 250,92 L 262,110 L 276,84 L 290,110 L 304,88 L 316,116 L 250,148 Z"/>
+    <path class="mtn" d="M 242,138 l 12,-28 l 10,16 l 14,-24 l 11,18 l 13,-22"/>
+    <path class="mtn fill" d="M 556,116 L 570,88 L 582,106 L 596,80 L 610,106 L 624,84 L 636,112 L 570,144 Z"/>
+    <path class="mtn" d="M 562,134 l 12,-28 l 10,16 l 14,-24 l 11,18 l 13,-22"/>
+    <text class="mname" x="392" y="112">南 　 岭 (五 岭)</text>
+
+    <!-- ══ 水系:珠江水系——西江(桂江漓江)横贯广西,北江自韶州南下,汇于广州珠江口 ══ -->
+    <path class="river" stroke-width="4" d="M 127,126 C 170,190 210,240 260,300 C 380,420 560,480 700,510 C 750,520 785,528 812,536"/>
+    <path class="river" stroke-width="3.4" d="M 884,220 C 866,300 840,400 820,500 C 816,516 814,528 812,536"/>
+    <path class="river" stroke-width="5" style="opacity:.9" d="M 760,548 C 790,544 820,548 900,556"/>
+    <text class="rname" x="300" y="360" transform="rotate(20 300 360)" style="font-size:13px">西 　 江</text>
+    <text class="rname" x="838" y="380" transform="rotate(78 838 380)" style="font-size:12px">北 江</text>
+    <text class="rname" x="812" y="580" style="font-size:11px;opacity:.8">珠 江 口</text>
+
+    <!-- ══ 宋军·粮道:金色串珠,自荆湖(道州)南运转饷——本役制胜不在断粮,无截断记号(见注二) ══ -->
+    <path class="supply band" d="M 420,72 C 400,140 396,210 410,278 C 470,240 540,224 600,214 C 700,206 800,206 878,206"/>
+    <path class="supply core" d="M 420,72 C 400,140 396,210 410,278 C 470,240 540,224 600,214 C 700,206 800,206 878,206"/>
+    <g class="grain">
+      <rect x="403" y="150" width="7" height="7" transform="rotate(45 406.5 153.5)"/>
+      <rect x="406" y="248" width="7" height="7" transform="rotate(45 409.5 251.5)"/>
+      <rect x="540" y="217" width="7" height="7" transform="rotate(45 543.5 220.5)"/>
+      <rect x="720" y="203" width="7" height="7" transform="rotate(45 723.5 206.5)"/>
+    </g>
+    <text class="slabel" x="120" y="220">宋军 · 粮道(自荆湖南运)</text>
+    <text class="slabel" x="120" y="234" style="font-size:9.5px;opacity:.85">陆运转饷 · 非本役胜负所系</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="daozhou"><circle cx="428" cy="64" r="5.5"/><text class="cname" x="438" y="60">道州<tspan class="cname s" dx="2">(道县·潘美起兵)</tspan></text></g>
+      <g class="city" data-city="fuzhou"><circle cx="354" cy="204" r="4.5"/><text class="cname" x="342" y="200" text-anchor="end">富州<tspan class="cname s" dx="2">(富川)</tspan></text></g>
+      <g class="city" data-city="hezhou"><circle cx="416" cy="286" r="6"/><text class="cname" x="426" y="290">贺州<tspan class="cname s" dx="2">(贺县·佯退诱敌)</tspan></text></g>
+      <g class="city" data-city="zhaozhou"><circle cx="207" cy="244" r="4.5"/><text class="cname" x="195" y="240" text-anchor="end">昭州<tspan class="cname s" dx="2">(平乐)</tspan></text></g>
+      <g class="city" data-city="guizhou"><circle cx="127" cy="114" r="5"/><text class="cname" x="137" y="110">桂州<tspan class="cname s" dx="2">(桂林)</tspan></text></g>
+      <g class="city" data-city="lianzhou"><circle cx="607" cy="214" r="4.5"/><text class="cname" x="617" y="210">连州<tspan class="cname s" dx="2">(连县)</tspan></text></g>
+      <g class="city" data-city="shaozhou"><circle cx="888" cy="208" r="6.5"/><text class="cname" x="878" y="204" text-anchor="end">韶州<tspan class="cname s" dx="2">(韶关·象阵决战)</tspan></text></g>
+      <g class="city" data-city="yingzhou"><circle cx="842" cy="332" r="4.5"/><text class="cname" x="852" y="328">英州<tspan class="cname s" dx="2">(英德)</tspan></text></g>
+      <g class="city cap" data-city="guangzhou"><circle cx="810" cy="544" r="7.5"/><text class="cname" x="798" y="548" text-anchor="end">兴王府·番禺<tspan class="cname s" dx="2">(广州·南汉都)</tspan></text></g>
+    </g>
+
+    <!-- 汴京(图外·东北,太祖发兵之所) -->
+    <g transform="translate(470,4)">
+      <path class="march j" marker-end="url(#aj)" d="M 0,4 L -20,30"/>
+      <text class="mlabel j" x="6" y="14" style="font-size:10px">汴京·东京(图外东北)</text>
+      <text class="cname s" x="6" y="28" style="fill:var(--advance);font-size:9.5px">↙ 太祖命潘美为帅,率师伐南汉</text>
+    </g>
+
+    <!-- ══ 全图 · 破象平南 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 宋军主轴:道州→富州→贺州→连州→韶州→英州→广州 -->
+      <path class="march j" marker-end="url(#aj)" d="M 428,74 C 400,120 372,168 356,196"/>
+      <path class="march j" marker-end="url(#aj)" d="M 356,214 C 372,244 396,268 410,278"/>
+      <path class="march j" marker-end="url(#aj)" d="M 424,282 C 500,258 556,232 598,220"/>
+      <path class="march j" marker-end="url(#aj)" d="M 616,212 C 700,204 800,204 878,206"/>
+      <path class="march j" marker-end="url(#aj)" d="M 884,220 C 866,268 852,300 844,322"/>
+      <path class="march j" marker-end="url(#aj)" d="M 840,342 C 826,420 816,490 812,532"/>
+      <text class="mlabel j" x="250" y="150">潘美自道州南下</text>
+      <text class="mlabel j" x="628" y="188">连破诸州,东趋韶州</text>
+      <!-- 西取昭桂 -->
+      <path class="march j" marker-end="url(#aj)" d="M 406,286 C 320,272 250,258 222,250"/>
+      <path class="march j" marker-end="url(#aj)" d="M 200,236 C 170,196 145,150 132,124"/>
+      <text class="mlabel j" x="150" y="300">西取昭·桂</text>
+      <!-- 南汉象阵(韶州) -->
+      <circle class="star" cx="888" cy="208" r="10"/>
+      <text class="elabel" x="782" y="176">李承渥象阵拒战</text>
+      <!-- 象群反奔·大溃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 878,214 C 840,206 812,214 806,238"/>
+      <text class="mlabel r" x="770" y="252">象惊反奔,自践己阵</text>
+      <!-- 广州:降·终 -->
+      <circle class="star" cx="810" cy="544" r="12"/>
+      <g class="endmark" transform="translate(810,544)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <!-- 刘鋹焚库出降 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 820,536 C 856,520 880,500 888,476"/>
+      <g class="surrflag" transform="translate(896,452)"><line class="pole" x1="0" y1="6" x2="0" y2="-24"/><path class="cloth" d="M0,-24 L26,-20 L21,-11 L26,-2 L0,-6 Z"/><text x="4" y="-9">降</text></g>
+      <text class="mlabel r" x="700" y="600">刘鋹焚府库出降,南汉亡,得六十州</text>
+    </g>
+
+    <!-- ══ ① 起兵南下 · 连破诸州 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 428,74 C 404,124 376,172 358,198"/>
+      <text class="mlabel j" x="238" y="140">开宝三年九月,潘美为行营都部署</text>
+      <text class="anno" x="238" y="156">自道州(永州道县)南下伐南汉</text>
+      <!-- 克富州,败来援万余人 -->
+      <rect class="camp j" x="350" y="200" width="9" height="9" transform="rotate(45 354.5 204.5)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 440,300 C 400,270 372,238 360,214"/>
+      <text class="mlabel q" x="404" y="326">刘鋹遣将率万余众来援</text>
+      <path class="march j" marker-end="url(#aj)" d="M 358,214 C 374,244 398,268 410,278"/>
+      <text class="mlabel j" x="180" y="250">克富州,大败南汉援军,遂克贺州</text>
+      <!-- 西取昭桂连 -->
+      <path class="march j" marker-end="url(#aj)" d="M 406,286 C 320,272 250,258 222,250"/>
+      <path class="march j" marker-end="url(#aj)" d="M 200,236 C 170,196 145,150 132,124"/>
+      <path class="march j" marker-end="url(#aj)" d="M 424,282 C 500,258 556,232 598,220"/>
+      <text class="mlabel j" x="120" y="330">十月,连下昭·桂·连,西江诸州相继降</text>
+    </g>
+
+    <!-- ══ ② 贺州佯退 · 诱歼援军 ══ -->
+    <g id="ph2" class="ph">
+      <rect class="camp j" x="411" y="281" width="10" height="10" transform="rotate(45 416 286)"/>
+      <text class="mlabel j" x="426" y="272">宋军先声取贺州</text>
+      <!-- 南汉伍彦柔溯江来援 -->
+      <path class="march q" marker-end="url(#aq)" d="M 560,470 C 500,410 450,350 430,306"/>
+      <text class="mlabel q" x="470" y="430">南汉伍彦柔率舟师溯贺江来援</text>
+      <!-- 宋佯退二十里 -->
+      <path class="march feint" marker-end="url(#aj)" d="M 410,290 C 380,320 356,352 344,380"/>
+      <text class="mlabel j" x="250" y="378">宋师佯退二十里</text>
+      <!-- 伏兵于南乡岸 -->
+      <rect class="camp j" x="336" y="392" width="9" height="9" transform="rotate(45 340.5 396.5)"/>
+      <text class="anno" x="230" y="410">潜伏精锐于南乡岸</text>
+      <!-- 伏兵起,俘杀伍彦柔 -->
+      <path class="march j" marker-end="url(#aj)" d="M 350,392 C 380,370 404,346 420,320"/>
+      <circle class="star" cx="416" cy="286" r="10"/>
+      <text class="mlabel q" x="430" y="330">伍彦柔夜泊登岸,伏兵骤起,南汉军大乱</text>
+      <text class="anno" x="430" y="348">伍彦柔被俘见杀,贺州遂定</text>
+    </g>
+
+    <!-- ══ ③ 韶州象阵 · 强弩破之 ══ -->
+    <g id="ph3" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 616,212 C 700,204 800,204 872,206"/>
+      <text class="mlabel j" x="600" y="192">潘美东趋韶州(广州北门户)</text>
+      <!-- 李承渥列象阵于莲花峰下 -->
+      <g class="eleph" transform="translate(902,196)"><ellipse cx="0" cy="4" rx="11" ry="7"/><path d="M -9,4 q -6,4 -3,10" fill="none" stroke="#6f1f16" stroke-width="1.4"/><rect x="-6" y="-6" width="12" height="6" rx="1"/></g>
+      <g class="eleph" transform="translate(906,224)"><ellipse cx="0" cy="4" rx="11" ry="7"/><path d="M -9,4 q -6,4 -3,10" fill="none" stroke="#6f1f16" stroke-width="1.4"/><rect x="-6" y="-6" width="12" height="6" rx="1"/></g>
+      <g class="eleph" transform="translate(900,250)"><ellipse cx="0" cy="4" rx="11" ry="7"/><path d="M -9,4 q -6,4 -3,10" fill="none" stroke="#6f1f16" stroke-width="1.4"/><rect x="-6" y="-6" width="12" height="6" rx="1"/></g>
+      <text class="elabel" x="800" y="150">李承渥率十余万,列战象之阵</text>
+      <text class="anno" x="800" y="166" style="fill:var(--enemy);opacity:.85">于莲花峰(蓬华峰)下,象载甲士拒战</text>
+      <!-- 强弩集射 -->
+      <g class="bolt">
+        <line x1="820" y1="200" x2="880" y2="200"/>
+        <line x1="820" y1="214" x2="884" y2="222"/>
+        <line x1="822" y1="228" x2="882" y2="246"/>
+      </g>
+      <text class="mlabel j" x="700" y="300">宋军尽出强弩,集射象群</text>
+      <!-- 象群受创反奔,践踏己阵 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 884,222 C 852,230 828,250 822,282"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 890,244 C 872,286 858,320 852,344"/>
+      <circle class="star" cx="888" cy="208" r="11"/>
+      <text class="mlabel r" x="640" y="348">象受创反奔,践踏南汉本阵,一战大溃</text>
+      <text class="anno" x="640" y="366">承渥仅以身免,韶州破——南汉精锐尽丧</text>
+    </g>
+
+    <!-- ══ ④ 进逼广州 · 刘鋹出降 ══ -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 884,220 C 866,270 852,304 844,322"/>
+      <path class="march j" marker-end="url(#aj)" d="M 840,342 C 826,420 816,490 812,532"/>
+      <text class="mlabel j" x="712" y="300">韶州既破,宋军长驱南下</text>
+      <text class="mlabel j" x="712" y="316">经英州直逼广州</text>
+      <!-- 刘鋹焚府库宫殿 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 818,536 C 852,520 876,502 884,478"/>
+      <text class="mlabel r" x="620" y="470">刘鋹尽焚府库宫殿,遣使乞和不果</text>
+      <!-- 举国出降旗 -->
+      <circle class="star" cx="810" cy="544" r="12"/>
+      <g class="surrflag" transform="translate(892,452)"><line class="pole" x1="0" y1="8" x2="0" y2="-28"/><path class="cloth" d="M0,-28 L30,-23 L24,-12 L30,-1 L0,-6 Z"/><text x="5" y="-11">降</text></g>
+      <g class="endmark" transform="translate(810,544)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <text class="mlabel q" x="560" y="576">971年二月,刘鋹出降,南汉亡(立国五十五年)</text>
+      <text class="anno" x="560" y="594">宋得六十州、十七万户,岭南遂平</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>北宋军(潘美·南下)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="2.6" stroke-dasharray="3 6"/></svg>宋军佯退(诱敌)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南汉军(拒战·来援)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 7"/></svg>南汉溃败(象反奔·出降)</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".20"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>宋军·粮道(非决胜)</span>
+    <span class="item"><svg width="26" height="16"><ellipse cx="12" cy="9" rx="9" ry="5.5" fill="rgba(154,43,30,.85)" stroke="#6f1f16" stroke-width="1"/><rect x="7" y="1" width="10" height="5" rx="1" fill="rgba(154,43,30,.85)" stroke="#6f1f16" stroke-width="1"/></svg>南汉象阵</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·会战</span>
+    <span class="item"><svg width="20" height="18"><line x1="4" y1="16" x2="4" y2="2" stroke="#5c4f38" stroke-width="1.6"/><path d="M4,2 L17,4 L13,8 L17,12 L4,10 Z" fill="rgba(154,43,30,.9)"/></svg>举国出降</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#songHatch)"/></svg>北宋(荆湖)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#hanHatch)"/></svg>南汉(岭南)</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 强弩破象,诱敌自溃</h3>
+    <div class="lead">何以南汉恃象十万而一战即亡 —— 政乱失人 · 恃象取败 · 弩制象奔</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="灭南汉示意:南汉政乱刘鋹昏暴宦官专权,恃战象列阵于韶州;宋军潘美先以贺州佯退诱歼援军,进逼韶州以强弩集射象群,象惊反奔自践己阵而大溃,韶州破南汉精锐尽丧;宋军长驱进逼广州,刘鋹焚库出降,南汉亡岭南六十州入宋,南唐孤悬江左">
+      <!-- 上行:象阵 → 强弩 → 反奔 → 溃 -->
+      <g><circle cx="112" cy="80" r="38" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.6"/><text x="112" y="74" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">恃象列阵</text><text x="112" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">李承渥·十余万</text></g>
+      <path d="M 152,80 C 190,80 220,80 252,80" fill="none" stroke="#1f4e54" stroke-width="2.4"/>
+      <path d="M 246,75 L 260,80 L 246,85 Z" fill="#1f4e54"/>
+      <text x="168" y="70" fill="#1f4e54" font-size="10" font-weight="700">强弩集射</text>
+      <g><circle cx="316" cy="80" r="40" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><text x="316" y="74" text-anchor="middle" fill="#1f4e54" font-size="13" font-weight="700">象惊反奔</text><text x="316" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">自践本阵</text></g>
+      <path d="M 356,80 C 396,80 430,80 466,80" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="4 4"/>
+      <path d="M 460,75 L 474,80 L 460,85 Z" fill="#7a5a23"/>
+      <g><circle cx="540" cy="80" r="42" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="2"/><text x="540" y="74" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">韶州大溃</text><text x="540" y="92" text-anchor="middle" fill="#9a2b1e" font-size="10">精锐尽丧</text></g>
+      <path d="M 584,80 C 636,80 690,80 742,80" fill="none" stroke="#9a2b1e" stroke-width="2.4"/>
+      <path d="M 736,75 L 750,80 L 736,85 Z" fill="#9a2b1e"/>
+      <g transform="translate(792,52)"><line x1="0" y1="12" x2="0" y2="-16" stroke="#5c4f38" stroke-width="1.8"/><path d="M0,-16 L22,-12 L17,-5 L22,2 L0,-2 Z" fill="rgba(154,43,30,.9)"/><text x="4" y="-3" fill="#f3e6c8" font-family="Ma Shan Zheng" font-size="13">降</text></g>
+      <text x="636" y="70" fill="#9a2b1e" font-size="10" font-weight="700">长驱广州</text>
+      <!-- 下行:政乱之根与岭南既平之果 -->
+      <text x="30" y="176" fill="#5c4f38" font-size="11" font-weight="700" font-style="italic">究其根本,败象之前先败于政:</text>
+      <g><rect x="30" y="192" width="176" height="40" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/><text x="118" y="210" text-anchor="middle" fill="#9a2b1e" font-size="11" font-weight="700">刘鋹昏暴·宦官专权</text><text x="118" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">杀戮功臣·政乱失人</text></g>
+      <path d="M 210,212 L 240,212" fill="none" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 236,208 L 248,212 L 236,216 Z" fill="#7a5a23"/>
+      <g><rect x="250" y="192" width="180" height="40" rx="4" fill="rgba(31,78,84,.08)" stroke="#1f4e54" stroke-width="1.2"/><text x="340" y="210" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">贺州佯退·诱歼援军</text><text x="340" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">伍彦柔中伏见杀</text></g>
+      <path d="M 434,212 L 464,212" fill="none" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 460,208 L 472,212 L 460,216 Z" fill="#7a5a23"/>
+      <g><rect x="474" y="192" width="356" height="40" rx="4" fill="rgba(156,122,44,.10)" stroke="#9c7a2c" stroke-width="1.2"/><text x="652" y="210" text-anchor="middle" fill="#9c7a2c" font-size="11" font-weight="700">岭南六十州入宋 · 南汉亡</text><text x="652" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">十国仅存南唐·吴越·北汉,南唐孤悬江左</text></g>
+    </svg>
+    <p class="intro">南汉据岭南五十余年,末主<b>刘鋹昏暴</b>,委政宦官龚澄枢等,杀戮功臣、政乱失人。宋既平荆湖,与南汉接境于道州、贺州一线。开宝三年太祖命<b>潘美</b>为帅南伐,连破富、贺、昭、桂、连诸州,兵锋直指广州北门户韶州。都统<b>李承渥</b>聚十余万,列战象之阵于莲花峰下——象载甲士、气势汹汹,乃南汉恃以为长城之最后精锐。</p>
+    <ul class="qs">
+      <li><b>一、孰与孰战?</b>　北宋潘美(尹崇珂副)自道州南下,对南汉后主刘鋹、都统李承渥。</li>
+      <li><b>二、何时何地?</b>　970年冬至971年春(开宝三—四年);决战在韶州(今韶关)莲花峰下,终局在兴王府(广州)。</li>
+      <li><b>三、胜负之枢?</b>　强弩破象阵——宋军尽出劲弩集射象群,象惊反奔、践踏南汉本阵,一战大溃;辅以贺州佯退诱歼援军。</li>
+      <li><b>四、何以致此?</b>　南汉政乱失人、恃象为奇却不知象性易惊;宋军以弩制象、以诈诱敌,又逢敌自焚溃乱。</li>
+      <li><b>五、其果如何?</b>　刘鋹出降,南汉亡,宋得六十州、十七万户,岭南尽平;十国唯余南唐、吴越、北汉,南唐孤悬江左。</li>
+    </ul>
+    <div class="cols">
+      <div class="c a">
+        <h4>宋之谋 · 诱敌破象</h4>
+        <p>潘美用兵不徒恃力:贺州先声取之,伍彦柔来援则佯退二十里、伏精锐于南乡岸,一举歼其援军;声言顺流趋广州而实西取昭桂,守将望风弃城。及韶州象阵当前,不与象斗力而斗智,尽出强弩集射——象非可驭之兵,受创则反噬其主。以弩破象,遂拔韶州而尽歼南汉精锐。</p>
+      </div>
+      <div class="c b">
+        <h4>汉之败 · 政乱恃象</h4>
+        <p>南汉之亡,象阵之破特其表:根在刘鋹昏暴、宦官专权、杀戮功臣,国已先坏于内。恃战象列阵,看似奇兵,实则孤注——象性易惊,一乱则不可复制,反为敌资。韶州既溃,精锐尽丧,刘鋹惟焚府库宫殿、遣使乞和;和不果而宋军已至,遂举国出降。</p>
+      </div>
+    </div>
+    <p class="kicker">故北宋灭南汉,胜在<b>强弩破象·诱敌自溃</b>:南汉恃战象列阵,宋以劲弩乱射,象反奔而自践己阵,一战破韶州;刘鋹焚库出降,岭南六十州入宋。然其败之根,不在象而在政——政乱失人,虽有十万战象之众,不能救于一朝。<b>南汉既亡,十国唯余南唐、吴越、北汉;南唐孤悬江左</b>,俯仰待时而已。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性(近墨卡托)投影:x = 60 + (经度−110.0)×230,y = 570 −(纬度−23.0)×200;几何关系力求近实——北宋(荆湖)据北、道州临南岭为南伐之始,南汉(岭南)据南、都兴王府(番禺,今广州)在东南,富·贺·昭·桂·连诸州散布桂东、湘南,韶州(韶关)当广州正北为北门户,英州居其间;南岭(五岭)横亘为湘粤之界,西江(桂江—漓江)横贯广西、北江自韶州南下,俱汇于广州珠江口。江河、疆界经简化描绘。道州今湖南道县,富州今广西富川,贺州今广西贺州(贺县),昭州今广西平乐,桂州今广西桂林,连州今广东连州,韶州今广东韶关,英州今广东英德,兴王府今广东广州。据《宋史·太祖纪/潘美传》《续资治通鉴长编》卷十一《九国志》等约略绘出。</p>
+    <p><span class="n">注二</span>本役制胜不在断粮:图中金色粮道示宋军自荆湖(道州)南运转饷之陆运命脉,然南汉之败决于野战之破象阵,非在粮道被截,故不作朱色截断记号,与「中渡之降」等以断粮取胜之役异。此正见史事各有其枢:或胜于绝其饷道,或胜于制其奇兵——本役属后者。</p>
+    <p><span class="n">注三</span>破象之战:开宝三年(970)十二月,南汉都统李承渥率号十余万屯韶州城外莲花峰(一作蓬华峰)下,以驯象载甲士列于阵前。潘美命军中强弩集射象群,象受矢惊骇、掉头反奔,尽覆背上甲士、冲散本阵步卒,宋军乘势掩击,南汉军大溃,承渥仅以身免,韶州破。战象之为兵,顺则震敌、逆则噬主,一弩而形势尽反——此本图务须画出之标志性战术场面。</p>
+    <p><span class="n">注四</span>异说与余事:进军次第,史载先克富州(富川),刘鋹遣将率万余众来援,潘美败之,遂克贺州;继下昭、桂、连,西江诸州相继降;后进韶州破象阵,又下英州直逼广州。贺州佯退诱敌一节,系伍彦柔率舟师溯江来援,宋师退二十里、伏兵南乡岸,伍彦柔夜泊晓登、中伏被俘见杀。南汉兵数「十余万」「三十万」诸说,乃张大之辞,实数当少,姑存其号。刘鋹出降在开宝四年(971)二月,先尽焚府库宫殿、遣使乞和不果;南汉亡,宋得六十州、二百四十县、十七万余户,岭南遂平。刘鋹北迁,封恩赦侯。南汉立国自917年刘岩称帝至此凡五十五年。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"破象平南",d:"宋开宝三年至四年(970冬–971春)",p:["南汉据岭南五十余年,末主刘鋹昏暴,委政宦官龚澄枢等,杀戮功臣、政乱失人。宋既平荆湖,与南汉接境于道州、贺州一线。开宝三年(970)九月,太祖赵匡胤命潘美为行营诸军都部署、尹崇珂副之,率师自道州(永州道县)南下伐南汉。","宋军连破富、贺、昭、桂、连诸州:克富州,败南汉来援万余众而取贺州;贺州佯退二十里、伏兵南乡岸,诱歼援将伍彦柔;声东击西,西下昭桂,西江诸州相继降。进逼广州北门户韶州,南汉都统李承渥列战象之阵于莲花峰下拒战,宋军尽出强弩集射象群,象惊反奔、践踏本阵,南汉大溃,韶州破、精锐尽丧。宋军长驱南下,刘鋹焚府库宫殿、遣使乞和不果,971年二月出降,南汉亡,宋得六十州、十七万户,岭南尽平。"]},
+  "1":{t:"① 起兵南下 · 连破诸州",d:"开宝三年(970)九至十月",p:["宋既取荆湖,与南汉接境于道州、贺州一线。开宝三年九月,太祖命潘美为行营诸军都部署,率军自道州(今湖南永州道县)南下伐南汉。","宋军进克富州(富川);刘鋹遣将率兵万余人来援,潘美与战,大败之,遂克贺州。十月,又连下昭(平乐)、桂(桂林)、连(连州)三州,西江诸州相继降附。潘美以功进南面都部署,兵锋东指韶州。"]},
+  "2":{t:"② 贺州佯退 · 诱歼援军",d:"开宝三年(970)",p:["宋军先声取贺州。南汉遣伍彦柔率舟师溯贺江来援,潘美不与力争,佯退二十里,而潜伏精锐于南乡岸。","伍彦柔夜泊南乡,天明登岸,伏兵骤起,南汉军大乱,伍彦柔被俘见杀,援军尽覆,贺州遂定。宋军又声言顺流趋广州以为烟幕,实则西取昭、桂,守将望风弃城遁去——诱敌与声东击西并用,兵不血刃而下数州。"]},
+  "3":{t:"③ 韶州象阵 · 强弩破之",d:"开宝三年(970)十二月",p:["韶州为广州之北门户。南汉都统李承渥率号十余万屯韶州城外莲花峰(一作蓬华峰)下,驯象为兵,每象载甲士数十、皆持兵器,列象于阵前以张声势,拒宋军于此。","潘美不与象斗力:尽出军中强弩,集射象群。象受矢惊骇,掉头反奔,尽覆背上甲士、冲散本阵步卒。宋军乘势掩击,南汉军大溃,李承渥仅以身免,韶州破。此役尽歼南汉最后精锐,平岭南之路遂通——战象顺则震敌、逆则噬主,一弩而形势尽反。"]},
+  "4":{t:"④ 进逼广州 · 刘鋹出降",d:"开宝三年冬至四年(971)二月",p:["韶州既破,宋军长驱南下,经英州(英德)直逼广州。南汉主刘鋹计穷,尽焚府库、宫殿、积聚,遣使奉表乞和,宋不许。","开宝四年(971)二月,宋军兵临兴王府(番禺,今广州),刘鋹出降,南汉亡(自917年刘岩称帝凡五十五年)。宋得六十州、二百四十县、十七万余户,岭南遂平。刘鋹北迁受封。至此十国唯余南唐、吴越、北汉——南唐孤悬江左,俯仰待时。"]}
+};
+const CITY={
+  daozhou:{t:"道州(道县)",d:"潘美起兵南伐之所,今湖南永州道县",p:["宋既平荆湖,与南汉接境于道州、贺州一线。开宝三年(970)九月,太祖命潘美为帅,率军自道州南下伐南汉,为全役之发端。地在南岭之北、荆湖之南。"]},
+  fuzhou:{t:"富州(富川)",d:"宋军首克之州,今广西富川",p:["潘美南下所克第一州。克富州后,刘鋹遣将率兵万余人来援,潘美与战大败之,遂进克贺州——南伐首捷,士气大振。"]},
+  hezhou:{t:"贺州(贺县)",d:"佯退诱敌之地,今广西贺州",p:["宋军先声取之。南汉伍彦柔率舟师溯江来援,潘美佯退二十里、伏精锐于南乡岸;伍彦柔夜泊晓登,中伏被俘见杀,援军尽覆。宋又声言趋广州而实西取昭桂——诱敌、声东击西之典型。"]},
+  zhaozhou:{t:"昭州(平乐)",d:"宋军西取之州,今广西平乐",p:["宋军声言顺流趋广州为烟幕,实向西下昭州;守将望风弃城遁去。十月宋连下昭、桂、连三州,西江诸州相继降附。"]},
+  guizhou:{t:"桂州(桂林)",d:"广西重镇,今广西桂林",p:["宋声言有大军自湖南南下直抵桂州,守将闻风丧胆、弃城而遁,宋遂取之。桂州既下,西江各州相继来降,岭西大定。"]},
+  lianzhou:{t:"连州(连县)",d:"湘粤孔道,今广东连州",p:["宋军连破诸州之一,当湘粤往来之孔道。连州下后,潘美进为南面都部署,东趋韶州,直指广州北门户。"]},
+  shaozhou:{t:"韶州(韶关·象阵决战)",d:"广州北门户,象阵决战地,今广东韶关",p:["南汉都统李承渥率号十余万屯城外莲花峰(蓬华峰)下,列战象之阵拒战,象载甲士、气势汹汹。潘美命军中强弩集射象群,象惊反奔、践踏本阵,南汉大溃,承渥仅以身免,韶州破——南汉最后精锐尽丧于此,平岭南之路遂通。全役之枢、标志性一战。"]},
+  yingzhou:{t:"英州(英德)",d:"韶州广州间要地,今广东英德",p:["韶州既破,宋军长驱南下经英州直逼广州,当北江水陆之冲。象阵一溃,南汉再无可恃之兵,诸州望风瓦解。"]},
+  guangzhou:{t:"兴王府·番禺(广州)",d:"南汉都城,刘鋹出降处,今广东广州",p:["南汉都城。宋军兵临,刘鋹尽焚府库宫殿、遣使乞和不果;971年二月出降,南汉亡,立国五十五年。宋得六十州、十七万余户,岭南尽平。刘鋹北迁受封——一都而定岭南之终局。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

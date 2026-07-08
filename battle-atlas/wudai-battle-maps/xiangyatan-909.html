@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>象牙潭之战 · 周本破危全讽(909)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .lake{fill:rgba(95,127,136,.28);stroke:var(--water);stroke-width:1;opacity:.9}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .capmark text{font-family:"Ma Shan Zheng",serif;font-weight:400;fill:var(--advance)}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .qa{display:grid;gap:5px;margin:2px 0 12px;padding:9px 12px;border:1px dashed rgba(110,93,60,.45);background:rgba(255,250,235,.35);font-size:12px;line-height:1.65;color:var(--ink2)}
+  .explain .qa div{text-align:justify}
+  .explain .qa b{color:var(--advance);font-weight:700;margin-right:4px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>象</span><span>牙</span><span>潭</span><span>战</span></div>
+  <header>
+    <h1>象牙潭之战 · 杨吴定江西</h1>
+    <div class="sub">后梁开平三年(909)七月　　<i>杨吴 周本</i>(将兵七千)大破 <b>危全讽</b>(合抚·信·袁·吉四州·号十万)　·　隔潭诱渡 · 半济而击 · 以寡击众 · 一战定江西</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 一战定江西</button>
+    <button data-p="1">① 危全讽合四州兵·号十万逼洪州</button>
+    <button data-p="2">② 周本七千往救·隔潭示弱诱敌</button>
+    <button data-p="3">③ 危军渡潭·半济而击·生擒其帅</button>
+    <button data-p="4">④ 乘胜略定四州·杨吴尽有江西</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="象牙潭之战形势图,含杨吴据洪州(南昌)于北、危全讽联军据抚州信州袁州吉州于南东,赣江抚河锦江鄱阳湖诸水,示危全讽合四州兵号十万屯象牙潭进逼洪州、杨吴遣周本将七千往救隔潭列阵示弱诱敌、危军轻进渡潭半济而周本奋击大破之生擒危全讽及将士五千、乘胜略定抚信袁吉杨吴遂尽有江西之地">
+    <defs>
+      <pattern id="weiHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="wuHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:杨吴据洪州及大江以北(北),危全讽联军据抚·信·袁·吉四州(南·东) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,180 C 820,196 640,206 516,238 C 420,238 200,232 0,246 Z" fill="url(#wuHatch)"/>
+    <path d="M 0,246 C 200,232 420,238 516,238 C 640,206 820,196 1000,180 L 1000,640 L 0,640 Z" fill="url(#weiHatch)"/>
+    <!-- 杨吴·危军约界(洪·抚之间一线) -->
+    <path class="border" d="M 0,246 C 200,232 420,238 516,238 C 640,206 820,196 1000,180"/>
+    <text class="realm j" x="70" y="80" font-size="26">杨 吴(淮南)</text>
+    <text class="cname s" x="72" y="100" style="fill:var(--advance);opacity:.7">镇南军·据洪州</text>
+    <text class="realm q" x="628" y="470" font-size="26">危 全 讽 联 军</text>
+    <text class="cname s" x="630" y="490" style="fill:var(--enemy);opacity:.72">抚·信·袁·吉 四州·号十万</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 赣江:自吉州(南)北流,经洪州西,入鄱阳湖 -->
+    <path class="river" stroke-width="4.5" d="M 300,548 C 350,470 400,398 430,320 C 445,270 452,235 460,190 C 470,120 495,58 525,8"/>
+    <!-- 抚河:自抚州(南)西北流,过象牙潭,趋洪州鄱阳湖 -->
+    <path class="river" stroke-width="3.2" d="M 566,396 C 552,360 532,308 518,272 C 510,244 500,224 486,202 C 478,188 470,178 462,170"/>
+    <!-- 锦江(蜀江):自袁州东流,过高安一线(象牙潭异说所在) -->
+    <path class="river" stroke-width="2.2" style="opacity:.7" d="M 185,393 C 280,376 370,360 440,322"/>
+    <!-- 鄱阳湖 -->
+    <path class="lake" d="M 556,92 C 606,80 662,94 678,132 C 688,164 660,190 612,184 C 572,180 546,152 552,120 C 554,106 552,98 556,92 Z"/>
+    <text class="rname" x="196" y="470" transform="rotate(-63 196 470)" style="font-size:13px">赣 江</text>
+    <text class="rname" x="574" y="352" transform="rotate(66 574 352)" style="font-size:11px">抚 河</text>
+    <text class="rname" x="252" y="368" style="font-size:9.5px;opacity:.7">锦 江</text>
+    <text class="rname" x="586" y="140" style="font-size:11px;opacity:.9">鄱 阳 湖</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="hongzhou"><circle cx="455" cy="201" r="6.5"/><text class="cname" x="465" y="197">洪州<tspan class="cname s" dx="2">(南昌·杨吴据点·被攻)</tspan></text></g>
+      <g class="city cap" data-city="xiangyatan"><circle cx="516" cy="268" r="6"/><text class="cname" x="526" y="264">象牙潭<tspan class="cname s" dx="2">(洪·抚之间·决战地)</tspan></text></g>
+      <g class="city" data-city="fuzhou"><circle cx="545" cy="350" r="5.5"/><text class="cname" x="555" y="346">抚州<tspan class="cname s" dx="2">(临川·危全讽本镇)</tspan></text></g>
+      <g class="city" data-city="xinzhou"><circle cx="835" cy="248" r="5"/><text class="cname" x="775" y="238" text-anchor="end">信州<tspan class="cname s" dx="2">(上饶·危仔倡)</tspan></text></g>
+      <g class="city" data-city="yuanzhou"><circle cx="188" cy="381" r="5"/><text class="cname" x="198" y="377">袁州<tspan class="cname s" dx="2">(宜春·彭彦章)</tspan></text></g>
+      <g class="city" data-city="jizhou"><circle cx="298" cy="522" r="5"/><text class="cname" x="308" y="518">吉州<tspan class="cname s" dx="2">(吉安)</tspan></text></g>
+    </g>
+
+    <!-- 杨吴本部(图外东北,周本援军所自出) -->
+    <g transform="translate(636,6)">
+      <path class="march j" marker-end="url(#aj)" d="M 26,2 C 6,10 -8,20 -22,28"/>
+      <text class="mlabel j" x="18" y="14" style="font-size:10px">杨吴淮南本部(图外东北)</text>
+      <text class="cname s" x="18" y="28" style="fill:var(--advance);font-size:9.5px">↙ 遣周本将兵七千往救洪州</text>
+    </g>
+
+    <!-- ══ 全图 · 一战定江西 ══ -->
+    <g id="phAll" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 543,344 C 534,322 528,300 522,283"/>
+      <path class="march q" marker-end="url(#aq)" d="M 200,378 C 320,345 420,305 503,274"/>
+      <path class="march q" marker-end="url(#aq)" d="M 818,250 C 700,258 600,264 533,269"/>
+      <text class="mlabel q" x="330" y="300">危全讽合四州兵·号十万·屯象牙潭</text>
+      <path class="march q" marker-end="url(#aq)" d="M 508,260 C 492,244 478,228 464,210"/>
+      <text class="mlabel q" x="392" y="228">进逼洪州</text>
+      <path class="march j" marker-end="url(#aj)" d="M 462,208 C 478,228 492,245 504,260"/>
+      <text class="mlabel j" x="378" y="176">周本七千往救·隔潭列阵</text>
+      <!-- 半渡而溃 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 524,278 C 570,320 630,360 682,398"/>
+      <text class="mlabel r" x="602" y="356">危军半渡而溃·溺死者众</text>
+      <!-- 会战·生擒 -->
+      <circle class="star" cx="516" cy="268" r="11"/>
+      <g class="capmark" transform="translate(516,268)"><text x="0" y="5" text-anchor="middle" font-size="14">擒</text></g>
+      <!-- 乘胜略定(示意一路) -->
+      <path class="march j" marker-end="url(#aj)" d="M 512,282 C 452,345 382,442 312,510" style="opacity:.55"/>
+      <text class="mlabel j" x="330" y="466" style="opacity:.75">乘胜略定四州·尽有江西</text>
+    </g>
+
+    <!-- ══ ① 危全讽合四州兵·号十万逼洪州 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march q" marker-end="url(#aq)" d="M 543,344 C 534,322 528,300 522,283"/>
+      <path class="march q" marker-end="url(#aq)" d="M 818,250 C 700,258 600,264 533,269"/>
+      <path class="march q" marker-end="url(#aq)" d="M 200,378 C 320,345 420,305 503,274"/>
+      <path class="march q" marker-end="url(#aq)" d="M 308,512 C 380,440 450,345 511,282"/>
+      <text class="mlabel q" x="300" y="330">危全讽自号镇南军留后</text>
+      <text class="mlabel q" x="300" y="346">合抚·信·袁·吉四州兵,号十万</text>
+      <rect class="camp" x="511" y="263" width="10" height="10" transform="rotate(45 516 268)"/>
+      <path class="march q" marker-end="url(#aq)" d="M 508,260 C 492,244 478,228 464,210"/>
+      <text class="mlabel q" x="392" y="222">屯象牙潭·进逼洪州</text>
+      <text class="anno" x="466" y="185">洪州守将怖惧,杨吴危急</text>
+    </g>
+
+    <!-- ══ ② 周本七千往救·隔潭示弱诱敌 ══ -->
+    <g id="ph2" class="ph">
+      <rect class="camp" x="521" y="273" width="10" height="10" transform="rotate(45 526 278)"/>
+      <text class="mlabel q" x="536" y="296">危军临潭列阵(众)</text>
+      <path class="march j" marker-end="url(#aj)" d="M 462,208 C 478,228 492,245 504,258"/>
+      <rect class="camp j" x="497" y="253" width="9" height="9" transform="rotate(45 501.5 257.5)"/>
+      <text class="mlabel j" x="356" y="188">杨吴遣周本将兵七千往救</text>
+      <text class="mlabel j" x="356" y="204">隔潭(隔水)列阵,不与争锋</text>
+      <text class="anno" x="360" y="240">遣羸兵骂战·佯乱示弱,诱敌轻进</text>
+    </g>
+
+    <!-- ══ ③ 危军渡潭·半济而击·生擒其帅 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 危军轻进渡潭 -->
+      <path class="march q" marker-end="url(#aq)" d="M 528,280 C 520,274 514,270 508,265"/>
+      <text class="mlabel q" x="452" y="300">危军恃众轻进,争渡象牙潭</text>
+      <!-- 周本半济而击 -->
+      <path class="march j" marker-end="url(#aj)" d="M 500,256 C 507,262 512,266 517,271"/>
+      <text class="mlabel j" x="360" y="212">周本乘其半渡·立足未稳</text>
+      <text class="mlabel j" x="360" y="228">纵兵奋击</text>
+      <!-- 溃败 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 522,278 C 560,326 610,372 652,416"/>
+      <path class="march rout" marker-end="url(#ar)" d="M 526,276 C 578,300 640,320 700,332"/>
+      <text class="mlabel r" x="612" y="392">阵乱自蹂·溺死潭中者众</text>
+      <circle class="star" cx="516" cy="268" r="11"/>
+      <g class="capmark" transform="translate(516,268)"><text x="0" y="5" text-anchor="middle" font-size="15">擒</text></g>
+      <text class="mlabel j" x="352" y="312">大破之·生擒危全讽及将士五千</text>
+    </g>
+
+    <!-- ══ ④ 乘胜略定四州·杨吴尽有江西 ══ -->
+    <g id="ph4" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 520,278 C 532,300 542,322 549,343"/>
+      <path class="march j" marker-end="url(#aj)" d="M 530,266 C 640,256 740,250 822,249"/>
+      <path class="march j" marker-end="url(#aj)" d="M 505,272 C 400,310 290,348 202,378"/>
+      <path class="march j" marker-end="url(#aj)" d="M 512,282 C 452,345 382,442 310,510"/>
+      <text class="mlabel j" x="356" y="196">周本乘胜,分兵略地</text>
+      <text class="mlabel j" x="356" y="212">抚·信·袁·吉诸州望风款附</text>
+      <circle class="star" cx="516" cy="268" r="10"/>
+      <g class="endmark" transform="translate(516,268)"><text x="0" y="5" text-anchor="middle" fill="#1f4e54" font-size="13">定</text></g>
+      <text class="anno" x="612" y="510">杨吴遂尽有江西之地,东南割据之基以固</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>危全讽联军(四州合兵·号十万)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>杨吴周本军(七千·往救)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>危军半渡而溃</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>会战要地·象牙潭</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5f7f88" stroke-width="3"/></svg>江河·潭水</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#wuHatch)"/></svg>杨吴</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#weiHatch)"/></svg>危全讽联军</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 以七千当十万</h3>
+    <div class="lead">何以以寡胜众 —— 不在众寡,而在整乱与机势:隔潭诱渡,半济而击</div>
+    <div class="qa">
+      <div><b>谁战?</b>杨吴 周本(将兵七千) 对 危全讽联军(抚·信·袁·吉四州合兵,号十万;危仔倡·彭彦章等预焉)。</div>
+      <div><b>何时地?</b>后梁开平三年(909)七月,江西象牙潭 —— 在洪州(南昌)与抚州(临川)之间、临水之地。</div>
+      <div><b>缘起?</b>抚州刺史危全讽自号镇南军留后,合四州之众进攻杨吴所据之洪州,屯军象牙潭,声势号十万。</div>
+      <div><b>何以胜?</b>以寡击众:周本隔潭示弱、遣羸兵骂战诱敌,俟危军轻进半渡、阵势散乱,乘势奋击 —— 决于速战奇袭与临潭地形,非在后勤。</div>
+      <div><b>结果?</b>大破之,生擒危全讽及将士五千;乘胜略定四州,杨吴尽有江西,东南割据之基以定。</div>
+    </div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="象牙潭制胜示意:危全讽以四州乌合号十万恃众轻进,周本以七千隔潭示弱诱敌,俟危军渡潭半济阵乱、立足未稳而奋击,遂大破生擒其帅、乘胜略定四州而杨吴尽有江西">
+      <!-- 危全讽:号十万(众而不整) -->
+      <g><circle cx="118" cy="80" r="42" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.8"/><text x="118" y="70" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">危军·号十万</text><text x="118" y="88" text-anchor="middle" fill="#5c4f38" font-size="9.5">四州乌合·恃众</text><text x="118" y="102" text-anchor="middle" fill="#5c4f38" font-size="9.5">而骄·轻进</text></g>
+      <!-- 隔潭诱渡(金) -->
+      <path d="M 162,80 C 210,80 250,80 286,80" fill="none" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="5 5"/><path d="M 280,75 L 294,80 L 280,85 Z" fill="#9c7a2c"/>
+      <text x="200" y="70" fill="#9c7a2c" font-size="10" font-weight="700">诱其渡潭</text>
+      <g><circle cx="360" cy="80" r="44" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.8"/><text x="360" y="66" text-anchor="middle" fill="#9c7a2c" font-size="13" font-weight="700">隔潭示弱</text><text x="360" y="84" text-anchor="middle" fill="#5c4f38" font-size="9.5">周本七千·遣羸兵</text><text x="360" y="98" text-anchor="middle" fill="#5c4f38" font-size="9.5">骂战·佯乱诱敌</text></g>
+      <!-- 半济而击(金,decisive) -->
+      <path d="M 404,80 C 452,80 492,80 528,80" fill="none" stroke="#9c7a2c" stroke-width="2.4"/><path d="M 522,75 L 536,80 L 522,85 Z" fill="#9c7a2c"/>
+      <text x="440" y="70" fill="#9c7a2c" font-size="10" font-weight="700">乘其半渡</text>
+      <g><circle cx="602" cy="80" r="46" fill="rgba(31,78,84,.12)" stroke="#1f4e54" stroke-width="2"/><text x="602" y="66" text-anchor="middle" fill="#1f4e54" font-size="13" font-weight="700">半济而击</text><text x="602" y="84" text-anchor="middle" fill="#5c4f38" font-size="9.5">阵乱·立足未稳</text><text x="602" y="98" text-anchor="middle" fill="#5c4f38" font-size="9.5">纵兵奋击</text></g>
+      <!-- 结局 -->
+      <path d="M 650,80 C 690,80 720,80 744,80" fill="none" stroke="#1f4e54" stroke-width="2.4"/><path d="M 738,75 L 752,80 L 738,85 Z" fill="#1f4e54"/>
+      <g><circle cx="792" cy="80" r="40" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><text x="792" y="76" text-anchor="middle" fill="#1f4e54" font-size="12" font-weight="700">生擒其帅</text><text x="792" y="94" text-anchor="middle" fill="#5c4f38" font-size="9.5">定 江 西</text></g>
+      <!-- 下行:注脚 -->
+      <text x="30" y="176" fill="#5c4f38" font-size="11" font-weight="700" font-style="italic">兵不在多而在整 —— 众而不整,则众适为乱之资：</text>
+      <g><rect x="30" y="192" width="230" height="40" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/><text x="145" y="210" text-anchor="middle" fill="#9a2b1e" font-size="11" font-weight="700">危军半渡·行阵未成列</text><text x="145" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">自相蹂践·溺死潭中者众</text></g>
+      <path d="M 264,212 L 300,212" fill="none" stroke="#7a5a23" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 296,208 L 308,212 L 296,216 Z" fill="#7a5a23"/>
+      <g><rect x="312" y="192" width="230" height="40" rx="4" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.2"/><text x="427" y="210" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">周本以整击乱·全胜</text><text x="427" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">生擒危全讽及将士五千</text></g>
+      <path d="M 546,212 L 582,212" fill="none" stroke="#1f4e54" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 578,208 L 590,212 L 578,216 Z" fill="#1f4e54"/>
+      <g><rect x="594" y="192" width="236" height="40" rx="4" fill="rgba(156,122,44,.10)" stroke="#9c7a2c" stroke-width="1.2"/><text x="712" y="210" text-anchor="middle" fill="#9c7a2c" font-size="11" font-weight="700">乘胜略定抚·信·袁·吉</text><text x="712" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">杨吴尽有江西·基业以成</text></g>
+    </svg>
+    <p class="intro">开平三年(909),抚州刺史危全讽自号镇南军留后,合信州危仔倡、袁州彭彦章、吉州刺史之众,以江西诸州兵<b>号十万</b>,东指杨吴所据之洪州(南昌),屯军象牙潭,声势甚盛。杨吴当徐温、张颢之乱后,主少国疑,而所遣救兵不过<b>周本七千</b>。众寡悬绝,周本乃不与正面硬撼,而以整乱之势、机变之术制之。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>隔潭示弱 · 择敌之隙</h4>
+        <p>周本至,不争锋,隔象牙潭之水而列阵;遣羸弱之兵临潭骂战、佯为奔乱,示敌以怯。危全讽恃十万之众,见吴军若不能军,遂骄而轻之,纵兵争渡潭水以逐 —— 正堕周本诱敌之彀。兵少而阵整,择敌半渡立足未稳之隙而后动,此以寡当众之枢。</p>
+      </div>
+      <div class="c b">
+        <h4>半济而击 · 以整击乱</h4>
+        <p>俟危军<b>半渡潭中</b>、行阵未成、立足未稳,周本纵精兵奋击。众虽十万,渡水而阵乱,前不得成列、后不得为援,一冲即溃,自相蹂践,溺死于潭者甚众。周本乘胜生擒危全讽及将士五千 —— 众之为乱资,整之为胜本,于此一役见之。</p>
+      </div>
+    </div>
+    <p class="kicker">故象牙潭之胜,不在众寡而在<b>整乱与机势</b>:危全讽以十万之众,恃众而骄、轻进渡潭,阵未成列而周本已奋击于其半济之间。一战生擒其帅,乘胜略定抚·信·袁·吉四州,杨吴遂尽有江西之地。此周本成名之战、五代以少胜多之典型;而杨吴据江淮而有江西,东南割据之基,实定于此役。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=480+(经度−116.0)×180,y=340−(纬度−28.0)×205),几何关系力求近实:杨吴据洪州(南昌)在北,危全讽本镇抚州(临川)在南、信州(上饶)在东、袁州(宜春)在西、吉州(吉安)在西南,象牙潭当洪·抚之间临水之地。赣江自南(吉州)北流经洪州西入鄱阳湖,抚河自抚州西北流经象牙潭一线,锦江(蜀江)自袁州东流。江河湖泊经简化描绘。据《资治通鉴》卷二六七(后梁开平三年)、《新五代史·吴世家/周本传》《十国春秋·周本传》约略绘出。</p>
+    <p><span class="n">注二</span><b>不画粮道</b>:此役之决,不在后勤而在<b>以寡击众之诱敌半渡而击</b>与<b>临潭(临水)之地形</b>——周本兵仅七千,速战奇袭、乘危军渡潭半济、阵乱立足未稳而奋击,一战而胜,粮运非其胜负之枢,故本图不绘金色粮道、亦无断粮 ✕ 记号,以免夺其战术之要。</p>
+    <p><span class="n">注三</span>诸方所出与向背:危全讽以抚州为本,北向进攻杨吴之洪州,合信(东)、袁(西)、吉(西南)三州之兵会屯象牙潭,故联军入图之势自南、自东、自西南向北汇于潭;杨吴援军周本自淮南本部(图外东北,扬州方向)西南来救,先入洪州而后进至象牙潭 —— 全图之势,危军北指、吴军南援,交锋于洪·抚之间的象牙潭。</p>
+    <p><span class="n">注四</span>异说与考订:象牙潭今地,史无定说。本图从胡三省《通鉴》注「当在洪、抚之间」之意,系于今江西进贤一带(临抚河、近洪州)。另有系于今江西高安、上高之说(谓在锦江/蜀江上游、上高县南),图中锦江一线即示此异说所在,姑并存之。又联军「号十万」乃张大之辞,实数当少,与周本七千之比不必拘泥;生擒危全讽及将士「五千」从《通鉴》,他书或异。危全讽被擒后,杨吴主(时权归徐温)释而礼之,危仔倡则南奔投吴越。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"一战定江西 · 象牙潭之战",d:"后梁开平三年(909)七月",p:["开平三年(909),抚州刺史危全讽自号镇南军留后,联合信州危仔倡、袁州彭彦章、吉州刺史等,以江西诸州兵号十万,进攻杨吴所据之洪州(南昌),屯军象牙潭,临水列阵,声势甚盛。","杨吴遣周本将兵七千往救。周本兵少,不与争锋,隔潭列阵、遣羸兵骂战佯乱以示弱诱敌;危全讽恃众轻进,纵兵渡潭,阵势散乱。周本乘其半渡、立足未稳,纵兵奋击,大破之,生擒危全讽及将士五千,溺死者众。乘胜略定抚·信·袁·吉诸州,杨吴遂尽有江西之地,奠其割据东南之基。此为周本成名之战、以少胜多之典型。"]},
+  "1":{t:"① 危全讽合四州兵 · 号十万逼洪州",d:"后梁开平三年(909)七月",p:["抚州刺史危全讽自号镇南军留后,乘杨吴徐温、张颢之乱、主少国疑之隙,合信州危仔倡、袁州彭彦章、吉州刺史之众,以江西诸州兵号十万,东攻杨吴所据之镇南军治洪州(南昌)。","联军自南、自东、自西南汇集,屯军于象牙潭(洪·抚之间临水之地),临潭列阵,进逼洪州。洪州守将怖惧,杨吴东南危急。"]},
+  "2":{t:"② 周本七千往救 · 隔潭示弱诱敌",d:"后梁开平三年(909)七月",p:["杨吴遣周本为西南面招讨使,将兵七千往救洪州。众寡悬绝,周本至,不与危军正面争锋,隔象牙潭之水而列阵。","周本故示羸弱:遣老弱之兵临潭骂战、佯为奔乱,以怠敌骄敌。危全讽恃十万之众,见吴军若不能军,遂轻之,谋纵兵渡潭以逐 —— 正堕周本诱敌之计。"]},
+  "3":{t:"③ 危军渡潭 · 半济而击 · 生擒其帅",d:"后梁开平三年(909)七月",p:["危全讽果纵兵争渡象牙潭以逐吴军。俟危军半渡潭中、行阵未成、立足未稳,周本纵精兵奋击。","危军虽众,渡水阵乱,前不得成列、后不得为援,一冲即溃,自相蹂践,溺死于潭者甚众。周本乘胜大破之,生擒危全讽及将士五千,俘斩甚众。以七千当十万,决于半济一击。"]},
+  "4":{t:"④ 乘胜略定四州 · 杨吴尽有江西",d:"后梁开平三年(909)",p:["危全讽既擒、联军瓦解,周本乘胜分兵略地:抚州、信州、袁州、吉州诸州望风款附或次第平定,危仔倡南奔投吴越。","杨吴遂尽有江西之地。以江淮之盛而并有江西,东南割据之基以固 —— 此役实为杨吴(及其后南唐)奄有江南之关键一步,周本亦以此成名。"]}
+};
+const CITY={
+  hongzhou:{t:"洪州(南昌)",d:"杨吴镇南军治·被攻之据点,今江西南昌",p:["洪州为镇南军治所、杨吴控扼江西之重镇。危全讽自号镇南军留后,正欲取而代之,合四州兵号十万东攻洪州,屯象牙潭以逼之。杨吴遣周本将七千往救,即以洪州为前进之的,先入洪州而后进战象牙潭。"]},
+  xiangyatan:{t:"象牙潭(决战地)",d:"在洪·抚之间临水之地,今江西进贤一带(一说高安·上高)",p:["危全讽联军屯军、临潭列阵之地,亦周本以寡胜众之战场。周本隔潭示弱诱敌,俟危军轻进渡潭、半济阵乱而奋击,大破之,生擒危全讽及将士五千。今地无定说:或系进贤(近洪州、临抚河),或系高安·上高(锦江上游)。此役之枢,正在『隔潭』之水与『半济』之机。"]},
+  fuzhou:{t:"抚州(临川)",d:"危全讽本镇,今江西抚州",p:["抚州为危全讽刺史本镇。彼自号镇南军留后,即以抚州为根本,纠合诸州之兵北攻洪州。象牙潭败后,抚州亦为杨吴周本乘胜略定。"]},
+  xinzhou:{t:"信州(上饶)",d:"危仔倡据地,今江西上饶",p:["信州刺史危仔倡(危全讽之族),预危全讽之谋,合兵象牙潭。全讽败擒后,危仔倡势穷,南奔投吴越,更名元璙,为吴越所用 —— 一族分仕两国。"]},
+  yuanzhou:{t:"袁州(宜春)",d:"彭彦章据地,今江西宜春",p:["袁州刺史彭彦章,亦预危全讽联军,合兵以攻洪州。象牙潭之败,袁州随之为杨吴所定。宜春临锦江(蜀江),即象牙潭『高安·上高』异说所在之水系上游。"]},
+  jizhou:{t:"吉州(吉安)",d:"联军所出之一,今江西吉安",p:["吉州刺史亦在危全讽合兵之列,以江西诸州兵号十万。象牙潭败后,吉州望风款附,杨吴遂尽有江西 —— 赣江贯吉州而北趋洪州,为江西南北之干流。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

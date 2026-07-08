@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>清流关·滁州之战 · 间道破雄关(955–956)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.t{fill:var(--enemy);opacity:.42}.realm.z{fill:var(--advance);opacity:.42}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.z{stroke:var(--advance)}.march.t{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .march.jian{stroke:var(--advance);stroke-width:3;stroke-dasharray:2 4}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.z{fill:var(--advance)}.mlabel.t{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.z{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  .capflag .pole{stroke:var(--ink2);stroke-width:2}
+  .capflag .cloth{fill:rgba(31,78,84,.92);stroke:#123539;stroke-width:1}
+  .capflag text{fill:#f3e6c8;font-family:"Ma Shan Zheng",serif;font-size:15px}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin):not(.jian){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>清</span><span>流</span><span>破</span><span>关</span></div>
+  <header>
+    <h1>后周征淮南 · 清流关奇捷</h1>
+    <div class="sub">显德二年冬至三年春(955–956)　　后周 世宗 柴荣 命 <i>赵匡胤(前锋·殿前都虞候)</i> 略淮南,破 <b>南唐 皇甫晖·姚凤</b>(号十五万)于清流关;<em>韩令坤</em> 别取扬州　·　雄关不可正攻 · 间道绕背 · 奇兵成名</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 间道破雄关</button>
+    <button data-p="1">① 略淮南 · 唐军退屯清流关</button>
+    <button data-p="2">② 雄关对峙 · 正攻顿兵</button>
+    <button data-p="3">③ 间道绕背 · 奇袭破关</button>
+    <button data-p="4">④ 追奔滁州 · 擒晖凤 · 门户洞开</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="后周世宗征淮南清流关滁州之战形势图,含后周据淮北、南唐据淮南与江南疆界、淮河长江滁河水系、寿州清流关滁州六合扬州江宁府诸地,示后周世宗围寿州、赵匡胤前锋东略、南唐皇甫晖姚凤退屯清流关拒守、赵匡胤得乡导由间道绕出关背奇袭破唐军、追奔至滁州擒皇甫晖姚凤克滁州、韩令坤别道取扬州、淮南门户遂开">
+    <defs>
+      <pattern id="zhouHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="tangHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:后周据淮北(北),南唐据淮南与江南(中·南) ══ -->
+    <path d="M 0,0 L 1000,0 L 1000,185 C 750,175 450,180 250,195 C 160,205 80,212 0,216 Z" fill="url(#zhouHatch)"/>
+    <path d="M 0,216 C 80,212 160,205 250,195 C 450,180 750,175 1000,185 L 1000,640 L 0,640 Z" fill="url(#tangHatch)"/>
+    <!-- 后周·南唐约界(淮河一线) -->
+    <path class="border" d="M 0,216 C 80,212 160,205 250,195 C 450,180 750,175 1000,185"/>
+    <text class="realm z" x="360" y="70" font-size="30">后 周(淮北)</text>
+    <text class="cname s" x="360" y="90" style="fill:var(--advance);opacity:.7">世宗 柴荣 督军南征</text>
+    <text class="realm t" x="250" y="470" font-size="26">淮 南(唐地·周军所略)</text>
+    <text class="realm t" x="740" y="500" font-size="24">南 唐(江南)</text>
+    <text class="cname s" x="740" y="520" style="fill:var(--enemy);opacity:.7">都 江宁府(金陵)</text>
+
+    <!-- ══ 山脉:关山·清流山,清流关扼其峡口,间道穿其背 ══ -->
+    <path class="mtn fill" d="M 470,306 L 484,270 L 497,292 L 511,262 L 525,290 L 539,266 L 552,296 L 484,330 Z"/>
+    <path class="mtn" d="M 476,320 l 12,-32 l 11,18 l 14,-28 l 12,22 l 13,-24"/>
+    <path class="mtn fill" d="M 483,352 L 497,322 L 509,342 L 523,318 L 537,344 L 498,372 Z"/>
+    <path class="mtn" d="M 489,364 l 12,-28 l 11,16 l 13,-22"/>
+    <text class="mname" x="430" y="266">关 山 · 清 流 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 淮河:自西东流,寿州在其南岸,为后周·南唐之界 -->
+    <path class="river" stroke-width="5" d="M 40,220 C 180,206 320,196 460,190 C 640,183 820,184 970,190"/>
+    <text class="rname" x="150" y="200" style="font-size:13px">淮 　 河</text>
+    <!-- 长江:自西南东北流,江宁府在南岸,六合扬州在北岸 -->
+    <path class="river" stroke-width="6" d="M 520,440 C 600,418 660,398 720,388 C 800,376 880,368 960,362"/>
+    <text class="rname" x="560" y="428" style="font-size:14px" transform="rotate(-11 560 428)">长 　 江</text>
+    <!-- 滁河:自清流关东南流,过滁州,东注于长江(六合入江口) -->
+    <path class="river" stroke-width="2.6" style="opacity:.75" d="M 540,318 C 560,330 585,346 620,362 C 660,380 692,388 716,390"/>
+    <text class="rname" x="600" y="356" style="font-size:10.5px;opacity:.8" transform="rotate(20 600 356)">滁 河</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city cap" data-city="shouzhou"><circle cx="120" cy="235" r="6.5"/><text class="cname" x="130" y="231">寿州<tspan class="cname s" dx="2">(寿县·世宗围城)</tspan></text></g>
+      <g class="city" data-city="qingliuguan"><circle cx="543" cy="320" r="6.5"/><text class="cname" x="450" y="312" text-anchor="start">清流关<tspan class="cname s" dx="2">(金陵锁钥)</tspan></text></g>
+      <g class="city cap" data-city="chuzhou"><circle cx="563" cy="330" r="6"/><text class="cname" x="573" y="346">滁州<tspan class="cname s" dx="2">(清流县)</tspan></text></g>
+      <g class="city" data-city="luhe"><circle cx="719" cy="316" r="4.5"/><text class="cname" x="729" y="312">六合<tspan class="cname s" dx="2">(后拒唐援)</tspan></text></g>
+      <g class="city" data-city="yangzhou"><circle cx="880" cy="299" r="5.5"/><text class="cname" x="820" y="291" text-anchor="start">扬州<tspan class="cname s" dx="2">(韩令坤取)</tspan></text></g>
+      <g class="city cap" data-city="jiangning"><circle cx="699" cy="412" r="6"/><text class="cname" x="709" y="428">江宁府<tspan class="cname s" dx="2">(金陵·唐都)</tspan></text></g>
+    </g>
+
+    <!-- 汴京·后周(图外北,世宗督军南征之基) -->
+    <g transform="translate(330,6)">
+      <path class="march z" marker-end="url(#aj)" d="M 0,4 L 0,30"/>
+      <text class="mlabel z" x="8" y="14" style="font-size:10px">汴京 · 后周(图外北)</text>
+      <text class="cname s" x="8" y="28" style="fill:var(--advance);font-size:9.5px">↓ 世宗柴荣督大军南征,略淮南</text>
+    </g>
+
+    <!-- ══ 全图 · 间道破雄关 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 世宗围寿州 -->
+      <path class="march z" marker-end="url(#aj)" d="M 300,44 C 240,90 170,150 130,222"/>
+      <text class="mlabel z" x="150" y="150">世宗 自围寿州</text>
+      <rect class="camp z" x="116" y="231" width="9" height="9" transform="rotate(45 120.5 235.5)"/>
+      <!-- 赵匡胤前锋东略,抵清流关 -->
+      <path class="march z" marker-end="url(#aj)" d="M 360,60 C 420,140 470,240 508,296"/>
+      <text class="mlabel z" x="378" y="200">赵匡胤 率前锋东略淮南</text>
+      <!-- 唐军退屯清流关 -->
+      <path class="march t" marker-end="url(#aq)" d="M 300,300 C 400,320 470,322 522,320"/>
+      <text class="mlabel t" x="300" y="292">皇甫晖·姚凤 退屯清流关拒守</text>
+      <!-- 间道绕背 -->
+      <path class="march jian" marker-end="url(#aj)" d="M 505,300 C 496,344 522,372 552,356 C 566,346 560,332 548,324"/>
+      <text class="mlabel z" x="470" y="392" style="fill:var(--advance)">得乡导·由间道绕出关背</text>
+      <circle class="star" cx="543" cy="320" r="10"/>
+      <!-- 皇甫晖败走滁州 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 549,325 C 556,329 559,330 561,331"/>
+      <!-- 追奔滁州·擒 -->
+      <circle class="star" cx="563" cy="330" r="12"/>
+      <g class="endmark" transform="translate(563,330)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="14">擒</text></g>
+      <text class="mlabel t" x="500" y="372">追奔滁州,擒晖·凤,克滁州</text>
+      <!-- 韩令坤取扬州 -->
+      <path class="march qin" marker-end="url(#af)" d="M 400,66 C 560,120 720,210 862,290"/>
+      <text class="mlabel f" x="600" y="150">韩令坤 别道东取扬州</text>
+    </g>
+
+    <!-- ══ ① 略淮南 · 唐军退屯清流关 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march z" marker-end="url(#aj)" d="M 300,44 C 240,92 168,152 130,224"/>
+      <text class="mlabel z" x="146" y="150">世宗 督军渡淮,进围寿州</text>
+      <rect class="camp z" x="115" y="230" width="10" height="10" transform="rotate(45 120 235)"/>
+      <path class="march z" marker-end="url(#aj)" d="M 360,62 C 420,150 480,250 512,298"/>
+      <text class="mlabel z" x="378" y="210">赵匡胤 率前锋分道东略淮南</text>
+      <path class="march t" marker-end="url(#aq)" d="M 250,286 C 360,314 460,320 524,320"/>
+      <text class="mlabel t" x="240" y="278">南唐 皇甫晖·姚凤(号十五万,实约三万)</text>
+      <text class="anno" x="300" y="340">自淮上退保清流关,凭关拒周军东进</text>
+      <rect class="camp" x="539" y="316" width="9" height="9" transform="rotate(45 543.5 320.5)"/>
+    </g>
+
+    <!-- ══ ② 雄关对峙 · 正攻顿兵 ══ -->
+    <g id="ph2" class="ph">
+      <path class="march z" marker-end="url(#aj)" d="M 400,150 C 450,220 490,270 516,300"/>
+      <text class="mlabel z" x="360" y="176">赵匡胤前锋抵清流关西</text>
+      <rect class="camp" x="539" y="316" width="10" height="10" transform="rotate(45 544 321)"/>
+      <text class="mlabel t" x="452" y="300" text-anchor="end">皇甫晖列阵关下</text>
+      <circle class="star" cx="543" cy="320" r="9"/>
+      <text class="anno" x="470" y="356">清流关据山峡之口,「一夫当关」</text>
+      <text class="anno" x="470" y="372">南望长江·北控江淮,正攻则顿兵坚关</text>
+    </g>
+
+    <!-- ══ ③ 间道绕背 · 奇袭破关 ══ -->
+    <g id="ph3" class="ph">
+      <rect class="camp" x="539" y="316" width="10" height="10" transform="rotate(45 544 321)"/>
+      <text class="mlabel t" x="452" y="300" text-anchor="end">唐军犹阵关前</text>
+      <!-- 乡导·间道绕出关背 -->
+      <path class="march jian" marker-end="url(#aj)" d="M 500,298 C 484,340 500,378 540,376 C 576,374 574,344 552,326"/>
+      <text class="mlabel z" x="452" y="398">得乡导指引,夜由山间小路(间道)</text>
+      <text class="mlabel z" x="452" y="414">绕出清流关背后,出其不意</text>
+      <!-- 奇袭破关 -->
+      <circle class="star" cx="543" cy="320" r="11"/>
+      <path class="march z" marker-end="url(#aj)" d="M 553,328 C 549,325 547,323 546,322"/>
+      <text class="mlabel z" x="558" y="312">奇兵自后掩击</text>
+      <text class="anno" x="500" y="290">唐军表里受敌,一战大溃</text>
+    </g>
+
+    <!-- ══ ④ 追奔滁州 · 擒晖凤 · 门户洞开 ══ -->
+    <g id="ph4" class="ph">
+      <!-- 皇甫晖败走滁州 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 546,323 C 552,327 556,329 559,330"/>
+      <text class="mlabel r" x="430" y="392">晖大败,奔入滁州城</text>
+      <!-- 赵匡胤追奔·涉水破城 -->
+      <path class="march z" marker-end="url(#aj)" d="M 545,321 C 552,325 557,328 560,330"/>
+      <text class="mlabel z" x="430" y="288">赵匡胤追奔滁州,涉水薄城</text>
+      <circle class="star" cx="563" cy="330" r="12"/>
+      <g class="endmark" transform="translate(563,330)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="14">擒</text></g>
+      <text class="mlabel t" x="577" y="362">亲挥剑击伤皇甫晖臂,生擒晖·凤,克滁州</text>
+      <!-- 韩令坤取扬州 -->
+      <path class="march qin" marker-end="url(#af)" d="M 400,70 C 560,124 720,214 862,290"/>
+      <text class="mlabel f" x="600" y="158">韩令坤 别道东取扬州</text>
+      <!-- 六合:后拒唐援 -->
+      <path class="march z" marker-end="url(#aj)" d="M 575,336 C 630,342 680,330 710,320"/>
+      <text class="mlabel z" x="632" y="324" style="font-size:10px">寻拒唐援于六合</text>
+      <text class="anno" x="470" y="470">滁州既下,淮南西面门户洞开,唐求和割地</text>
+    </g>
+
+    <g class="compass" transform="translate(952,566)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>后周军(赵匡胤前锋·世宗)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3" stroke-dasharray="2 4"/></svg>间道绕背(奇袭)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>南唐军(皇甫晖·姚凤)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>唐军败走</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>韩令坤取扬州(别军)</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·会战</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#zhouHatch)"/></svg>后周</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#tangHatch)"/></svg>南唐</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 雄关不可正攻,间道绕背而奇兵成名</h3>
+    <div class="lead">何以坚关一战而破 —— 不在力攻,而在地形侦知与出其不意</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="清流关奇袭示意:正面强攻雄关则顿兵不拔,得乡导由间道绕出关背奇袭则一战破之;唐军表里受敌大溃,追奔滁州擒皇甫晖姚凤,滁州破而淮南门户洞开">
+      <!-- 上行:两途对比 -->
+      <text x="30" y="34" fill="#5c4f38" font-size="11.5" font-weight="700" font-style="italic">同一雄关,两途异果:</text>
+      <!-- 正攻(废) -->
+      <g><rect x="30" y="48" width="150" height="52" rx="4" fill="rgba(154,43,30,.06)" stroke="#9a2b1e" stroke-width="1.2" stroke-dasharray="4 4"/><text x="105" y="70" text-anchor="middle" fill="#9a2b1e" font-size="12" font-weight="700">正面强攻雄关</text><text x="105" y="88" text-anchor="middle" fill="#5c4f38" font-size="9.5">一夫当关·顿兵不拔</text></g>
+      <path d="M 182,74 C 210,74 232,74 256,74" fill="none" stroke="#9a2b1e" stroke-width="1.6" stroke-dasharray="4 4"/><path d="M 250,69 L 264,74 L 250,79 Z" fill="#9a2b1e"/>
+      <text x="300" y="78" fill="#9a2b1e" font-size="11" font-weight="700" text-anchor="middle">✕ 迁延</text>
+      <!-- 间道(取) -->
+      <g><circle cx="120" cy="168" r="38" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.6"/><text x="120" y="162" text-anchor="middle" fill="#1f4e54" font-size="13" font-weight="700">得乡导</text><text x="120" y="180" text-anchor="middle" fill="#5c4f38" font-size="9.5">间道绕出关背</text></g>
+      <path d="M 160,168 C 200,168 234,168 268,168" fill="none" stroke="#1f4e54" stroke-width="2.4"/><path d="M 262,163 L 276,168 L 262,173 Z" fill="#1f4e54"/>
+      <text x="214" y="158" fill="#1f4e54" font-size="10" font-weight="700" text-anchor="middle">出其不意</text>
+      <g><circle cx="330" cy="168" r="40" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.8"/><text x="330" y="162" text-anchor="middle" fill="#9c7a2c" font-size="13" font-weight="700">奇袭破关</text><text x="330" y="180" text-anchor="middle" fill="#5c4f38" font-size="9.5">表里受敌·一战大溃</text></g>
+      <path d="M 372,168 C 410,168 444,168 478,168" fill="none" stroke="#9a2b1e" stroke-width="2.4"/><path d="M 472,163 L 486,168 L 472,173 Z" fill="#9a2b1e"/>
+      <text x="424" y="158" fill="#9a2b1e" font-size="10" font-weight="700" text-anchor="middle">追奔</text>
+      <g><circle cx="540" cy="168" r="42" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="2"/><text x="540" y="162" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">擒晖·凤</text><text x="540" y="180" text-anchor="middle" fill="#5c4f38" font-size="9.5">克滁州</text></g>
+      <path d="M 584,168 C 616,168 648,168 682,168" fill="none" stroke="#9c7a2c" stroke-width="2"/><path d="M 676,163 L 690,168 L 676,173 Z" fill="#9c7a2c"/>
+      <g><rect x="692" y="146" width="150" height="44" rx="4" fill="rgba(156,122,44,.10)" stroke="#9c7a2c" stroke-width="1.4"/><text x="767" y="166" text-anchor="middle" fill="#9c7a2c" font-size="11.5" font-weight="700">淮南门户洞开</text><text x="767" y="182" text-anchor="middle" fill="#5c4f38" font-size="9.5">唐求和·割六州</text></g>
+    </svg>
+    <p class="intro">清流关据关山峡口,乃滁州西门户、江淮通金陵之孔道,号「金陵锁钥」——南望长江,北控江淮,一夫当关,正面强攻则<b>顿兵坚关、旷日不拔</b>。皇甫晖、姚凤将号十五万(实数远少)退屯于此,正欲以险阻周军之东进。赵匡胤不与雄关争锋,先<b>侦知地形、得乡导指引</b>,自山间无人行之小路绕出关背,出其不意——胜负遂决于「不攻关而破关」之一着。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>间道绕背 · 出其不意</h4>
+        <p>赵匡胤舍正面之险,得乡导(《通鉴》传其为幽州人赵普献策)指引,夜由关山背后素无人行之小径绕出清流关之后。唐军犹列阵关前,不虞奇兵自后掩至,表里受敌,一战大溃。此非力攻,乃地形侦知与奇袭胆略之功——所争者「知」与「速」,不在众寡。</p>
+      </div>
+      <div class="c b">
+        <h4>追奔擒帅 · 门户洞开</h4>
+        <p>破关之势不可止:赵匡胤追奔至滁州城下,涉水径薄其城,纵马入阵,亲挥剑击伤皇甫晖臂,生擒晖、凤,遂克滁州。此赵匡胤成名之战,显其奇略胆勇。滁州既下,淮南西面门户洞开,与韩令坤取扬州、世宗围寿州并进,周军深入,南唐惧而求和割地。</p>
+      </div>
+    </div>
+    <p class="kicker">故清流关之捷,不在兵多、不在粮足,而在<b>雄关不可正攻、间道可以绕背</b>:力攻坚关则顿兵自困,乡导间道出其后则一战破之。地形之侦知、奇袭之胆略,胜于十五万之虚号。<b>滁州破而淮南门户洞开</b>——赵匡胤由此役成名,后周经略淮南之势遂成,数年之间尽取江北十四州。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作等距圆柱(简易墨卡托)投影:x=120+(经度−116.78)×288,y=330−(纬度−32.30)×341(北为上)。几何关系力求近实:后周据淮北在北,南唐淮南居中、江南本土在南(隔长江),寿州在淮河南岸之西,清流关·滁州聚于淮南东部,清流关正在滁州西郊(相距约12公里,故图上二点甚近),六合居其东南、近入江口,扬州在东北,江宁府(金陵)在长江南岸。今地:寿州今安徽寿县,清流关今滁州西郊关山中段,滁州今安徽滁州,六合今南京六合区,扬州今江苏扬州,江宁府今江苏南京。江河、疆界经简化描绘。据《资治通鉴》卷二九二、二九三,《旧五代史·世宗纪》,《新五代史》《宋史·太祖纪》约略绘出。</p>
+    <p><span class="n">注二</span><b>行军皆陆路</b>:后周步骑自淮北渡淮南下,赵匡胤前锋沿陆路东略,决胜之着在<b>山间间道</b>(旱路小径)绕出关背;追奔滁州时「涉水径薄其城」乃涉滁水/护城河之小障,非水战。全役无舟师会战。<b>后勤非决胜</b>:此战胜负系于地形侦知与奇袭之速,非粮道之通塞,故本图不绘粮道金线——决胜要素为「险关+奇袭+胆勇」,若强以后勤为纲,反失其枢。世宗别军自围寿州,寿州久攻不下,亦见淮南攻坚之难正在地形而不在馈饷。</p>
+    <p><span class="n">注三</span><b>诸方所出与入图之向</b>:后周世宗柴荣自汴京(图外北)督大军南征,渡淮而分道——世宗自西向围寿州,赵匡胤(时为殿前都虞候)率前锋自北而东略淮南,韩令坤别道东趋取扬州(图中紫线);南唐奉化节度使皇甫晖、姚凤本守淮河中游,寿州受逼后自淮上南退,退屯清流关拒守,其国本、援兵皆出江南金陵(江宁府,图南)。三方入图之向:后周北来、南唐自南、别军东指扬州,皆见于图。</p>
+    <p><span class="n">注四</span><b>异说与史源之疑</b>:一,唐军「号十五万」乃张大之辞,皇甫晖实将约三万,姑存其号;二,《资治通鉴》所载赵匡胤微服访乡导、得赵普献间道之策,颇具传奇色彩,史家谓其记载「充满传奇」,乡导献策之详节未可尽信;三,擒皇甫晖一事,或谓实为部将白延遇所擒,后世史料归功赵匡胤以彰其功;四,赵匡胤剑伤皇甫晖之处,一作「击其首(头)」、一作「伤其臂」,诸书异文。要之,清流关一战破唐、遂克滁州为实,而其中细节多经宋人润饰,当以本纪、《通鉴》为据而存其异。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"间道破雄关 · 清流关奇捷",d:"显德二年冬至三年春(955–956)",p:["后周世宗柴荣第一次亲征淮南,略地南唐。诸将分道:世宗自围寿州,李重进、韩令坤等各当一面,赵匡胤(时为殿前都虞候)率前锋东略。南唐奉化节度使皇甫晖、姚凤将兵号十五万(实约三万),自淮上南退,屯清流关拒守——关据关山峡口,扼滁州西门户,号『金陵锁钥』,正面难攻。","赵匡胤不与雄关争锋,得乡导指引,由山间小路(间道)绕出清流关背后,出其不意,大破唐军;追奔至滁州城下,涉水薄城,亲挥剑击伤皇甫晖之臂,生擒晖、凤,遂克滁州。此赵匡胤成名之战。与韩令坤取扬州、世宗围寿州并进,淮南西面门户洞开,南唐惧而求和割地。"]},
+  "1":{t:"① 略淮南 · 唐军退屯清流关",d:"显德二年(955)冬",p:["后周世宗督大军渡淮,分道南下略淮南:世宗自率一军进围寿州(寿县),扼淮西枢纽;赵匡胤率前锋东略,直趋滁州方向。","南唐奉化节度使皇甫晖、姚凤本守淮河中游一线,寿州受逼、周军深入,乃将所部(号十五万,实约三万)自淮上南退,退保清流关。清流关在滁州西郊关山之中,南望长江、北控江淮,险要可恃,皇甫晖欲凭此关阻周军东进金陵之路。"]},
+  "2":{t:"② 雄关对峙 · 正攻顿兵",d:"显德二年(955)冬",p:["赵匡胤率前锋进抵清流关之西,皇甫晖列阵关下拒之。清流关据关山峡口,山高谷深,『一夫当关,万夫莫开』,乃江淮入金陵之必经孔道。","若正面强攻此雄关,则顿兵坚城之下,旷日难拔,徒挫锐气。破关之枢不在力攻,而在能否出唐军之不意——赵匡胤遂止兵,微服察地形、访乡导,别谋奇计。"]},
+  "3":{t:"③ 间道绕背 · 奇袭破关",d:"显德二年(955)冬",p:["赵匡胤得乡导指引(《通鉴》传为幽州人赵普献策):清流山背后有小径可通滁州,素无人行,连唐军亦不之知。乃连夜誓师,由此间道悄然而行。","周军奇兵忽出清流关之背后,唐军犹列阵关前,不虞奇兵自后掩至,表里受敌,阵势大乱,一战溃败。皇甫晖不能支,率余众奔入滁州城。地形之侦知与奇袭之速,胜于十五万之虚号——不攻关而关破。"]},
+  "4":{t:"④ 追奔滁州 · 擒晖凤 · 门户洞开",d:"显德二年冬至三年春(955–956)",p:["赵匡胤乘胜追奔至滁州城下,涉水径薄其城,迫皇甫晖出战;遂纵马驰入唐军阵中,直取皇甫晖,亲挥剑击伤其臂,生擒皇甫晖、姚凤,克滁州(一说晖实为部将白延遇所擒,史归功匡胤)。","此赵匡胤成名之战,显其奇略与胆勇。寻又拒南唐援兵于六合。滁州既下,淮南西面门户洞开;与韩令坤别道取扬州、世宗围寿州并进,后周深入江北,南唐惧而遣使求和,愿割寿、濠、泗、楚、光、海六州以请。"]}
+};
+const CITY={
+  shouzhou:{t:"寿州(寿县)",d:"世宗围城处,今安徽寿县",p:["淮西防御枢纽,南唐刘仁赡坚守。后周世宗第一次亲征即以围寿州为主攻,然城坚难下,久攻不克——正见淮南攻坚之难在地形而不在馈饷。赵匡胤破清流关、取滁州,即在世宗围寿州之时并进,分张唐之势。"]},
+  qingliuguan:{t:"清流关(金陵锁钥)",d:"决战雄关,今滁州西郊关山中段",p:["据关山峡口、滁河上游,南望长江、北控江淮,为滁州西面门户、江淮入金陵之必经孔道,号『金陵锁钥』,险峻可『一夫当关』。皇甫晖、姚凤号十五万退屯于此拒守。赵匡胤不正面强攻,得乡导由山背间道绕出关后,出其不意,一战破之——此役之关键在此。"]},
+  chuzhou:{t:"滁州(清流县)",d:"擒皇甫晖·姚凤处,今安徽滁州",p:["清流关东约十二里之州城。皇甫晖破关后奔此;赵匡胤追奔城下,涉水薄城,纵马入阵,亲挥剑击伤皇甫晖之臂,生擒晖、凤,遂克滁州。赵匡胤成名之战。滁州既下,淮南西面门户洞开,后周经略淮南之势遂成。"]},
+  luhe:{t:"六合",d:"赵匡胤后拒唐援处,今南京六合区",p:["滁州东南、近滁河入江之口。取滁州后,南唐自江南遣兵来援,赵匡胤引兵拒之于六合,遏唐援北渡,巩固淮南新得之地。为清流关—滁州战果之延续。"]},
+  yangzhou:{t:"扬州",d:"韩令坤别道取,今江苏扬州",p:["江北名都、运河枢纽。后周韩令坤别为一军,东趋淮南,乘势取扬州。与赵匡胤破清流关、取滁州东西并举,使南唐江北防线全面动摇。为本役之第三路(别军),图中以紫线示之。"]},
+  jiangning:{t:"江宁府(金陵)",d:"南唐国都,今江苏南京",p:["南唐都城,在长江南岸。清流关—滁州为其江北屏障、锁钥所在。门户既破,唐主李璟震恐,遣使奉表求和,愿割寿、濠、泗、楚、光、海六州,后又尽献江北,去帝号称国主——五代江南之衰,自淮南之失始。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>

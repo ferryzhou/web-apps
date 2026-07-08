@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北宋灭北汉 · 太原之战 · 围城打援(979)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#e9dec4;--paper2:#e0d3b3;--ink:#2b2418;--ink2:#5c4f38;--faint:#8a7c5e;--advance:#1f4e54;--advance2:#2c6b6f;--enemy:#9a2b1e;--ret:#7a5a23;--water:#5f7f88;--gold:#9c7a2c;--border:#6e5d3c;--seal:#9a2b1e;--qin:#5c4a6e;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:radial-gradient(circle at 20% 10%, #4a4334 0%, #322c20 55%, #221d14 100%);min-height:100vh;font-family:"Noto Serif SC","Songti SC","STSong","SimSun",serif;color:var(--ink);-webkit-font-smoothing:antialiased;padding:clamp(10px,3vw,40px);}
+  .frame{max-width:880px;margin:0 auto;background:linear-gradient(160deg, rgba(255,250,235,.55), rgba(0,0,0,0) 40%),radial-gradient(ellipse at 70% 20%, rgba(120,95,50,.10), rgba(0,0,0,0) 60%),radial-gradient(ellipse at 15% 85%, rgba(90,70,40,.14), rgba(0,0,0,0) 55%),var(--paper);border:3px double var(--border);outline:1px solid rgba(0,0,0,.35);box-shadow:0 20px 60px rgba(0,0,0,.55), inset 0 0 80px rgba(110,90,55,.25);padding:clamp(16px,3vw,34px);position:relative;}
+  .seal{position:absolute;top:clamp(14px,3vw,30px);right:clamp(14px,3vw,30px);width:62px;height:62px;border:2.5px solid var(--seal);border-radius:4px;transform:rotate(-5deg);opacity:.9;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;color:var(--seal);font-family:"Ma Shan Zheng",serif;box-shadow:inset 0 0 0 1px rgba(154,43,30,.35);}
+  .seal span{display:flex;align-items:center;justify-content:center;font-size:21px;line-height:1}
+  header{margin-bottom:14px;padding-right:74px}
+  h1{font-family:"Ma Shan Zheng",serif;font-weight:400;font-size:clamp(28px,5.4vw,46px);letter-spacing:.05em;color:var(--ink);}
+  .sub{margin-top:4px;font-size:clamp(12px,1.7vw,14px);color:var(--ink2);letter-spacing:.1em}
+  .sub b{color:var(--enemy);font-weight:700}.sub i{color:var(--advance);font-style:normal;font-weight:700}
+  .sub em{color:var(--qin);font-style:normal;font-weight:700}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{appearance:none;cursor:pointer;font-family:inherit;background:rgba(255,250,235,.4);color:var(--ink2);border:1px solid var(--border);border-radius:2px;padding:7px 13px;font-size:13.5px;letter-spacing:.06em;transition:all .2s;}
+  .tabs button:hover{background:rgba(255,250,235,.75)}
+  .tabs button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .mapwrap{border:1px solid var(--border);background:var(--paper2);position:relative}
+  svg.map{display:block;width:100%;height:auto}
+  .river{fill:none;stroke:var(--water);stroke-linecap:round;opacity:.85}
+  .rname{fill:var(--water);font-size:12.5px;letter-spacing:.22em;font-weight:500;opacity:.95}
+  .border{fill:none;stroke:var(--ink2);stroke-width:1.6;stroke-dasharray:1 5 7 5;opacity:.7;stroke-linecap:round}
+  .realm{font-family:"Ma Shan Zheng",serif;letter-spacing:.28em}
+  .realm.q{fill:var(--enemy);opacity:.42}.realm.j{fill:var(--advance);opacity:.42}.realm.f{fill:var(--qin);opacity:.5}
+  .mtn{fill:none;stroke:var(--ink2);stroke-width:1.2;opacity:.82;stroke-linejoin:round}
+  .mtn.fill{fill:rgba(92,79,56,.16);stroke-width:1}
+  .mname{fill:var(--ink2);font-size:11px;letter-spacing:.3em;opacity:.7;font-weight:500}
+  /* 辽之奥援:金色串珠动脉,北汉所恃惟辽援,自幽州经雁门南下入晋阳之外应命脉 */
+  .supply{fill:none;stroke:var(--gold);stroke-linecap:round}
+  .supply.band{stroke-width:7;opacity:.22}
+  .supply.core{stroke-width:1.8;opacity:.9;stroke-dasharray:0.5 5.5}
+  .grain{fill:var(--gold);stroke:var(--paper);stroke-width:.6;opacity:.95}
+  .slabel{fill:var(--gold);font-size:11.5px;font-weight:700;letter-spacing:.1em}
+  /* 打援·断外应:朱色截断记号 */
+  .cut line{stroke:var(--enemy);stroke-width:2.6;stroke-linecap:round}
+  .cut circle{fill:none;stroke:var(--enemy);stroke-width:1.6}
+  .clabel{fill:var(--enemy);font-size:11px;font-weight:700;letter-spacing:.04em}
+  .city{cursor:pointer}
+  .city circle{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:all .15s}
+  .city.cap circle{stroke-width:2}
+  .city:hover circle,.city.sel circle{fill:var(--gold);stroke:var(--ink)}
+  .cname{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+  .cname.s{font-size:11.5px;font-weight:400;fill:var(--ink2)}
+  .march{fill:none;stroke-width:3;stroke-linecap:round}
+  .march.j{stroke:var(--advance)}.march.q{stroke:var(--enemy)}
+  .march.qin{stroke:var(--qin);stroke-width:2.6;stroke-dasharray:9 5}
+  .march.rout{stroke:var(--ret);stroke-width:2.6;stroke-dasharray:3 7}
+  .mlabel{font-size:11.5px;font-weight:700}
+  .mlabel.j{fill:var(--advance)}.mlabel.q{fill:var(--enemy)}.mlabel.r{fill:var(--ret)}.mlabel.f{fill:var(--qin)}
+  .anno{font-size:11px;fill:var(--ink2);font-style:italic}
+  .camp{fill:var(--enemy);opacity:.9}
+  .camp.j{fill:var(--advance)}
+  .star{fill:none;stroke:var(--gold);stroke-width:2}
+  /* 献城降旗:刘继元出降,北汉亡 */
+  .surrflag .pole{stroke:var(--ink2);stroke-width:2}
+  .surrflag .cloth{fill:rgba(154,43,30,.9);stroke:#6f1f16;stroke-width:1}
+  .surrflag text{fill:#f3e6c8;font-family:"Ma Shan Zheng",serif;font-size:15px}
+  .endmark text{font-family:"Ma Shan Zheng",serif;font-weight:400}
+  /* 焚晋阳:龙城废为平地 */
+  .burn{fill:none;stroke:var(--enemy);stroke-width:1.8}
+  .btext{fill:var(--enemy);font-family:"Ma Shan Zheng",serif;font-size:14px}
+  .compass{opacity:.65}.compass text{fill:var(--ink2);font-size:11px;font-weight:700}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 2px 0;font-size:12.5px;color:var(--ink2)}
+  .legend .item{display:inline-flex;align-items:center;gap:6px}.legend svg{display:block}
+  .panel{margin-top:14px;border:1px solid var(--border);background:rgba(255,250,235,.5);padding:14px 16px;min-height:96px;}
+  .panel h2{font-size:17px;font-weight:700;letter-spacing:.08em;margin-bottom:3px}
+  .panel .date{font-size:11.5px;color:var(--gold);letter-spacing:.16em;margin-bottom:8px}
+  .panel p{font-size:13.5px;line-height:1.9;text-align:justify}.panel p+p{margin-top:7px}
+  .notes{margin-top:14px;border-top:1px solid rgba(110,93,60,.4);padding-top:10px}
+  .notes p{font-size:11.5px;line-height:1.75;color:var(--faint);text-align:justify}.notes p+p{margin-top:4px}
+  .notes .n{color:var(--enemy);font-weight:700;margin-right:4px}
+  .explain{margin-top:14px;border:1px solid var(--border);background:linear-gradient(rgba(156,122,44,.07),rgba(255,250,235,.4));padding:14px 16px}
+  .explain h3{font-size:15.5px;font-weight:700;letter-spacing:.08em}
+  .explain .lead{font-size:11.5px;color:var(--gold);letter-spacing:.14em;margin:2px 0 10px}
+  .explain .schem{width:100%;height:auto;display:block;margin:4px 0 12px;border:1px solid rgba(110,93,60,.3);background:var(--paper2)}
+  .explain .intro{font-size:12px;line-height:1.75;color:var(--ink2);text-align:justify;margin-bottom:11px}
+  .explain .intro b{color:var(--enemy)}
+  .explain .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.explain .cols{grid-template-columns:1fr}}
+  .explain .c{border-top:2px solid;padding-top:6px}
+  .explain .c.a{border-color:var(--advance)}.explain .c.b{border-color:var(--gold)}
+  .explain .c h4{font-size:13px;font-weight:700;margin-bottom:3px}
+  .explain .c.a h4{color:var(--advance)}.explain .c.b h4{color:var(--gold)}
+  .explain .c p{font-size:12px;line-height:1.78;text-align:justify;color:var(--ink2)}
+  .explain .kicker{margin-top:11px;font-size:12px;line-height:1.85;color:var(--ink);text-align:justify;border-top:1px dashed rgba(110,93,60,.4);padding-top:8px}
+  .explain .kicker b{color:var(--enemy)}
+  .ph{opacity:0;visibility:hidden;transition:opacity .4s}
+  body[data-ph="all"] #phAll,body[data-ph="1"] #ph1,body[data-ph="2"] #ph2,body[data-ph="3"] #ph3,body[data-ph="4"] #ph4{opacity:1;visibility:visible}
+  .ph.show .march:not(.rout):not(.qin){stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.7s ease forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){.ph.show .march{animation:none;stroke-dasharray:none;stroke-dashoffset:0}}
+  .navback{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:5px 12px;margin-bottom:14px;background:rgba(255,250,235,.42);letter-spacing:.06em;transition:all .16s;max-width:max-content}
+  .navback:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .navback:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body data-ph="all">
+<div class="frame">
+  <a class="navback" href="index.html" aria-label="返回五代十国征战图录总目">↩ 战图总目</a>
+  <div class="seal" aria-hidden="true"><span>晋</span><span>阳</span><span>之</span><span>下</span></div>
+  <header>
+    <h1>北宋灭北汉 · 太原之战</h1>
+    <div class="sub">宋太平兴国四年(979)　　<i>北宋 太宗 赵光义</i> 亲征(潘美攻城 · 郭进打援) 灭 <b>北汉 刘继元</b>(都晋阳),败 <em>辽 契丹援军</em>(耶律沙 · 敌烈)于白马岭　·　围城打援 · 先破辽救 · 孤城乃下 · 五代十国终</div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button class="on" data-p="all">全图 · 围城打援 · 灭北汉</button>
+    <button data-p="1">① 四面围晋阳 · 分扼石岭关</button>
+    <button data-p="2">② 辽援南下 · 白马岭打援</button>
+    <button data-p="3">③ 外应既绝 · 昼夜攻城</button>
+    <button data-p="4">④ 继元出降 · 焚晋阳 · 十国终</button>
+  </div>
+  <div class="mapwrap">
+  <svg class="map" viewBox="0 0 1000 640" role="img" aria-label="北宋灭北汉太原之战围城打援形势图,含辽契丹北汉北宋三方疆界、汾水滹沱河、晋阳太原石岭关白马岭雁门关镇州诸地,示宋军四面围晋阳、郭进扼石岭关、辽军耶律沙敌烈自幽州雁门南下救北汉、郭进伏击辽援于白马岭乘其半渡涧水而击大破之斩敌烈等五将、外应既绝宋军全力攻晋阳、刘继元出降北汉亡、赵光义焚毁晋阳、五代十国终">
+    <defs>
+      <pattern id="qinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="9" height="9" fill="rgba(154,43,30,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(154,43,30,.30)" stroke-width="1"/></pattern>
+      <pattern id="jinHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="9" height="9" fill="rgba(31,78,84,.07)"/><line x1="0" y1="0" x2="0" y2="9" stroke="rgba(31,78,84,.30)" stroke-width="1"/></pattern>
+      <pattern id="liaoHatch" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="rgba(92,74,110,.06)"/><line x1="0" y1="0" x2="9" y2="0" stroke="rgba(92,74,110,.30)" stroke-width="1"/></pattern>
+      <marker id="aq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a2b1e"/></marker>
+      <marker id="aj" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4e54"/></marker>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a5a23"/></marker>
+      <marker id="af" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c4a6e"/></marker>
+    </defs>
+
+    <!-- ══ 疆界:辽据代北·幽云在北,北汉据晋阳(中·孤悬),北宋据河东南·河北(中原) ══ -->
+    <!-- 北宋(中原)为底 -->
+    <path d="M 0,150 C 150,130 300,110 418,92 C 500,100 700,150 1000,120 L 1000,640 L 0,640 Z" fill="url(#jinHatch)"/>
+    <!-- 辽(契丹) 北带 -->
+    <path d="M 0,0 L 1000,0 L 1000,120 C 700,150 500,100 418,92 C 300,110 150,130 0,150 Z" fill="url(#liaoHatch)"/>
+    <!-- 北汉·孤悬之国(晋阳一隅) -->
+    <path d="M 250,600 C 240,520 250,460 300,430 C 350,340 385,220 412,110 C 440,180 470,300 478,400 C 480,470 460,540 430,570 C 380,608 300,610 250,600 Z" fill="url(#qinHatch)"/>
+    <!-- 辽·北汉约界(雁门·代北一线) -->
+    <path class="border" d="M 0,150 C 150,130 300,110 418,92 C 500,100 700,150 1000,120"/>
+    <!-- 北汉·四邻约界 -->
+    <path class="border" d="M 250,600 C 240,520 250,460 300,430 C 350,340 385,220 412,110"/>
+    <path class="border" d="M 412,110 C 440,180 470,300 478,400 C 480,470 460,540 430,570 C 380,608 300,610 250,600"/>
+    <text class="realm f" x="120" y="52" font-size="24">契 丹(辽)</text>
+    <text class="cname s" x="120" y="70" style="fill:var(--qin);opacity:.75">代北 · 云 州 · 幽云十六州</text>
+    <text class="realm q" x="300" y="510" font-size="22" style="letter-spacing:.18em">北 汉</text>
+    <text class="cname s" x="300" y="528" style="fill:var(--enemy);opacity:.7">刘继元(恃辽为奥援)</text>
+    <text class="realm j" x="700" y="300" font-size="30">北 宋(中原)</text>
+
+    <!-- ══ 山脉:系舟山(石岭关所倚,分晋阳与忻代)·太行山(东界河北) ══ -->
+    <path class="mtn fill" d="M 268,470 L 282,442 L 294,460 L 308,432 L 322,460 L 336,438 L 348,468 L 282,500 Z"/>
+    <path class="mtn" d="M 274,490 l 12,-28 l 10,16 l 14,-24 l 11,18 l 13,-22"/>
+    <text class="mname" x="238" y="470" transform="rotate(-90 238 470)" style="letter-spacing:.22em">系 舟 山</text>
+    <path class="mtn fill" d="M 560,250 L 574,222 L 586,240 L 600,212 L 614,240 L 628,218 L 640,248 L 574,280 Z"/>
+    <path class="mtn" d="M 566,270 l 12,-28 l 10,16 l 14,-24 l 11,18 l 13,-22"/>
+    <text class="mname" x="612" y="228" transform="rotate(58 612 228)">太 行 山</text>
+
+    <!-- ══ 水系 ══ -->
+    <!-- 汾水:自北而南贯晋阳 -->
+    <path class="river" stroke-width="4" d="M 356,300 C 344,360 336,430 330,500 C 327,540 325,580 322,620"/>
+    <text class="rname" x="300" y="360" transform="rotate(80 300 360)" style="font-size:12px">汾 水</text>
+    <!-- 白马岭·涧水:石岭关北,辽援半渡之涧 -->
+    <path class="river" stroke-width="2.6" style="opacity:.8" d="M 372,470 C 400,462 428,458 458,460"/>
+    <text class="rname" x="452" y="454" style="font-size:10px;opacity:.85">涧 水</text>
+    <!-- 滹沱河:出太行东流,过镇州 -->
+    <path class="river" stroke-width="4" d="M 640,430 C 720,440 800,448 990,458"/>
+    <text class="rname" x="770" y="440" style="font-size:11px">滹 沱 河</text>
+
+    <!-- ══ 辽之奥援:金色串珠动脉,北汉所恃惟辽援,自幽州经雁门南下入晋阳之外应命脉 ══ -->
+    <path class="supply band" d="M 936,26 C 720,58 540,80 425,96 C 421,200 418,336 416,446 C 400,490 362,514 336,532"/>
+    <path class="supply core" d="M 936,26 C 720,58 540,80 425,96 C 421,200 418,336 416,446 C 400,490 362,514 336,532"/>
+    <g class="grain">
+      <rect x="596" y="66" width="7" height="7" transform="rotate(45 599.5 69.5)"/>
+      <rect x="422" y="196" width="7" height="7" transform="rotate(45 425.5 199.5)"/>
+      <rect x="415" y="336" width="7" height="7" transform="rotate(45 418.5 339.5)"/>
+      <rect x="386" y="500" width="7" height="7" transform="rotate(45 389.5 503.5)"/>
+    </g>
+    <text class="slabel" x="470" y="150">辽之奥援 · 外应命脉</text>
+    <text class="slabel" x="470" y="164" style="font-size:9.5px;opacity:.85">北汉所恃惟辽援 · 自幽州经雁门入晋阳</text>
+
+    <!-- ══ 城邑 ══ -->
+    <g id="cities">
+      <g class="city" data-city="yanmen"><circle cx="418" cy="88" r="5"/><text class="cname" x="428" y="84">雁门关<tspan class="cname s" dx="2">(代州·辽援孔道)</tspan></text></g>
+      <g class="city" data-city="shiling"><circle cx="338" cy="434" r="5.5"/><text class="cname" x="348" y="424">石岭关<tspan class="cname s" dx="2">(郭进都部署·扼隘)</tspan></text></g>
+      <g class="city" data-city="baima"><circle cx="418" cy="450" r="6.5"/><text class="cname" x="428" y="446">白马岭<tspan class="cname s" dx="2">(半渡而击·破辽援)</tspan></text></g>
+      <g class="city cap" data-city="jinyang"><circle cx="325" cy="540" r="7"/><text class="cname" x="335" y="556">晋阳<tspan class="cname s" dx="2">(太原·北汉都·继元降)</tspan></text></g>
+      <g class="city" data-city="zhenzhou"><circle cx="860" cy="454" r="5"/><text class="cname" x="788" y="448">镇州<tspan class="cname s" dx="2">(正定·宋军集结)</tspan></text></g>
+    </g>
+
+    <!-- 幽州(图外·东北,辽南京,辽援所自) -->
+    <g transform="translate(928,10)">
+      <path class="march qin" marker-end="url(#af)" d="M 8,2 C -14,14 -30,22 -46,30"/>
+      <text class="mlabel f" x="-118" y="12" style="font-size:10px">幽州·辽南京(图外东北)</text>
+      <text class="cname s" x="-118" y="26" style="fill:var(--qin);font-size:9.5px">↙ 辽遣耶律沙·敌烈率援军南下救北汉</text>
+    </g>
+    <!-- 汴梁(图外·东南,宋都,太宗亲征所自) -->
+    <g transform="translate(930,624)">
+      <path class="march j" marker-end="url(#aj)" d="M 4,-2 C -18,-12 -34,-18 -50,-24"/>
+      <text class="mlabel j" x="-130" y="-14" style="font-size:10px">汴梁·宋都(图外东南)</text>
+      <text class="cname s" x="-130" y="-1" style="fill:var(--advance);font-size:9.5px">↖ 太宗赵光义亲征,经镇州西趋晋阳</text>
+    </g>
+
+    <!-- ══ 全图 · 围城打援 · 灭北汉 ══ -->
+    <g id="phAll" class="ph">
+      <!-- 太宗自镇州西进围晋阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 852,458 C 660,480 480,510 348,538"/>
+      <text class="mlabel j" x="560" y="500">太宗自镇州分兵西进,四面围晋阳</text>
+      <!-- 郭进扼石岭关 -->
+      <path class="march j" marker-end="url(#aj)" d="M 470,470 C 420,452 380,444 350,436"/>
+      <text class="mlabel j" x="300" y="410">郭进为石岭关都部署,扼隘阻辽援</text>
+      <!-- 辽援南下 -->
+      <path class="march qin" marker-end="url(#af)" d="M 882,60 C 720,120 560,200 452,300 C 438,340 430,392 424,438"/>
+      <text class="mlabel f" x="470" y="360">辽援自幽州·雁门南下救北汉</text>
+      <!-- 打援:白马岭破辽援 -->
+      <circle class="star" cx="418" cy="450" r="11"/>
+      <g class="cut" transform="translate(418,450)"><circle r="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="330" y="490">郭进破辽援于白马岭 · 外应既绝 ✕</text>
+      <!-- 辽援大败北退 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 430,442 C 520,360 660,240 872,72"/>
+      <text class="mlabel r" x="560" y="200">辽援大败,斩敌烈等五将而北遁</text>
+      <!-- 晋阳:继元降·北汉亡·终 -->
+      <circle class="star" cx="325" cy="540" r="13"/>
+      <g class="surrflag" transform="translate(276,506)"><line class="pole" x1="0" y1="6" x2="0" y2="-24"/><path class="cloth" d="M0,-24 L26,-20 L21,-11 L26,-2 L0,-6 Z"/><text x="4" y="-9">降</text></g>
+      <g class="endmark" transform="translate(325,540)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <text class="mlabel q" x="120" y="600">刘继元出降,北汉亡 —— 五代十国至此全部结束</text>
+    </g>
+
+    <!-- ══ ① 四面围晋阳 · 分扼石岭关 ══ -->
+    <g id="ph1" class="ph">
+      <path class="march j" marker-end="url(#aj)" d="M 852,458 C 680,476 520,500 400,522"/>
+      <path class="march j" marker-end="url(#aj)" d="M 400,522 C 372,528 352,532 348,536"/>
+      <text class="mlabel j" x="560" y="486">正月,太宗督师至镇州,遣潘美等四面围晋阳</text>
+      <!-- 围城:四向合围箭 -->
+      <path class="march j" marker-end="url(#aj)" d="M 250,600 C 280,580 300,566 316,552"/>
+      <path class="march j" marker-end="url(#aj)" d="M 236,486 C 272,506 296,522 314,532"/>
+      <path class="march j" marker-end="url(#aj)" d="M 396,600 C 366,580 344,564 334,552"/>
+      <text class="mlabel j" x="150" y="628">潘美等昼夜环攻,晋阳城坚未下</text>
+      <rect class="camp j" x="288" y="574" width="8" height="8" transform="rotate(45 292 578)"/>
+      <rect class="camp j" x="256" y="512" width="8" height="8" transform="rotate(45 260 516)"/>
+      <rect class="camp j" x="374" y="574" width="8" height="8" transform="rotate(45 378 578)"/>
+      <!-- 郭进扼石岭关 -->
+      <path class="march j" marker-end="url(#aj)" d="M 320,528 C 328,494 332,462 336,442"/>
+      <text class="mlabel j" x="200" y="392">分遣郭进为石岭关都部署,北扼石岭关</text>
+      <text class="anno" x="200" y="408">以绝辽援入救之孔道 —— 围城打援之先着</text>
+      <rect class="camp j" x="334" y="430" width="9" height="9" transform="rotate(45 338.5 434.5)"/>
+    </g>
+
+    <!-- ══ ② 辽援南下 · 白马岭打援 ══ -->
+    <g id="ph2" class="ph">
+      <!-- 辽援两道南下 -->
+      <path class="march qin" marker-end="url(#af)" d="M 882,60 C 700,120 540,200 452,300 C 442,340 434,398 426,438"/>
+      <text class="mlabel f" x="520" y="300">辽遣南院大王耶律沙·冀王敌烈率援军南下</text>
+      <path class="march qin" marker-end="url(#af)" d="M 418,98 C 418,200 420,320 422,436"/>
+      <text class="mlabel f" x="424" y="230">别道趋雁门·代州,直指石岭关</text>
+      <!-- 郭进伏兵 -->
+      <path class="march j" marker-end="url(#aj)" d="M 344,438 C 372,442 396,446 410,448"/>
+      <text class="mlabel j" x="250" y="424">郭进伏兵白马岭,阻涧以待</text>
+      <!-- 半渡而击 -->
+      <circle class="star" cx="418" cy="450" r="12"/>
+      <g class="cut" transform="translate(418,450)"><circle r="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="332" y="492">敌烈轻进,乘其半渡涧水而击,辽军大溃 ✕</text>
+      <text class="anno" x="332" y="508">斩敌烈等五将,俘斩万计;耶律沙赖援仅免</text>
+      <!-- 辽援北遁 -->
+      <path class="march rout" marker-end="url(#ar)" d="M 432,444 C 540,350 680,220 872,70"/>
+      <text class="mlabel r" x="560" y="170">辽援大败北遁,自是不复南救</text>
+    </g>
+
+    <!-- ══ ③ 外应既绝 · 昼夜攻城 ══ -->
+    <g id="ph3" class="ph">
+      <!-- 外应既绝:命脉断 -->
+      <g class="cut" transform="translate(418,450)"><circle r="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>
+      <text class="clabel" x="330" y="470">辽援既破 · 外应既绝 ✕</text>
+      <!-- 宋军全力环攻晋阳 -->
+      <path class="march j" marker-end="url(#aj)" d="M 246,584 C 278,566 300,554 316,546"/>
+      <path class="march j" marker-end="url(#aj)" d="M 236,486 C 274,508 298,524 314,536"/>
+      <path class="march j" marker-end="url(#aj)" d="M 400,588 C 368,572 344,558 334,550"/>
+      <path class="march j" marker-end="url(#aj)" d="M 342,440 C 336,478 332,510 328,528"/>
+      <text class="mlabel j" x="470" y="520">郭进破辽援归,宋军合势,昼夜急攻不息</text>
+      <!-- 北汉守 -->
+      <rect class="camp" x="321" y="536" width="9" height="9" transform="rotate(45 325.5 540.5)"/>
+      <text class="mlabel q" x="140" y="596">北汉外无救援 · 内则食尽 · 人心离散</text>
+      <text class="anno" x="140" y="612">城中守将相率出降,继元势穷</text>
+    </g>
+
+    <!-- ══ ④ 继元出降 · 焚晋阳 · 十国终 ══ -->
+    <g id="ph4" class="ph">
+      <circle class="star" cx="325" cy="540" r="13"/>
+      <g class="surrflag" transform="translate(272,504)"><line class="pole" x1="0" y1="8" x2="0" y2="-28"/><path class="cloth" d="M0,-28 L30,-23 L24,-12 L30,-1 L0,-6 Z"/><text x="5" y="-11">降</text></g>
+      <text class="mlabel q" x="140" y="588">五月,刘继元奉表出降 —— 北汉亡</text>
+      <text class="anno" x="140" y="604">立国二十九年·历四主;十国之末国至此而绝</text>
+      <!-- 焚晋阳 -->
+      <g class="burn" transform="translate(378,540)"><path d="M 0,8 C -6,2 -6,-6 0,-12 C 2,-4 8,-6 6,-14 C 12,-8 12,2 4,8 Z" stroke-width="1.6"/></g>
+      <text class="btext" x="392" y="546">焚晋阳 · 废龙城为平地</text>
+      <!-- 终 -->
+      <g class="endmark" transform="translate(325,540)"><text x="0" y="6" text-anchor="middle" fill="#9a2b1e" font-size="15">终</text></g>
+      <!-- 太宗乘胜北伐,败高梁河 -->
+      <path class="march j rout" marker-end="url(#ar)" d="M 340,528 C 500,420 700,240 900,80"/>
+      <text class="mlabel r" x="560" y="300">太宗旋乘胜北伐辽,败于高梁河(另一战)</text>
+    </g>
+
+    <g class="compass" transform="translate(952,596)">
+      <circle r="18" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <path d="M 0,-18 L 4,0 L 0,14 L -4,0 Z" fill="var(--ink2)"/>
+      <path d="M 0,18 L 4,0 L -4,0 Z" fill="none" stroke="var(--ink2)" stroke-width="1"/>
+      <text x="-4" y="-22">北</text>
+    </g>
+  </svg>
+  </div>
+  <div class="legend">
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#1f4e54" stroke-width="3"/></svg>北宋军(围城·打援)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#9a2b1e" stroke-width="3"/></svg>北汉军(守晋阳)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#5c4a6e" stroke-width="2.6" stroke-dasharray="9 5"/></svg>辽·契丹援军(南下救)</span>
+    <span class="item"><svg width="34" height="10"><line x1="2" y1="5" x2="32" y2="5" stroke="#7a5a23" stroke-width="2.6" stroke-dasharray="3 6"/></svg>辽援大败北遁</span>
+    <span class="item"><svg width="34" height="12"><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="6" opacity=".22"/><line x1="2" y1="6" x2="32" y2="6" stroke="#9c7a2c" stroke-width="2" stroke-dasharray="0.5 5.5"/><rect x="14" y="2.5" width="7" height="7" transform="rotate(45 17.5 6)" fill="#9c7a2c"/></svg>辽之奥援·外应命脉</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="#9a2b1e" stroke-width="1.6"/><line x1="4" y1="4" x2="12" y2="12" stroke="#9a2b1e" stroke-width="2.4"/><line x1="4" y1="12" x2="12" y2="4" stroke="#9a2b1e" stroke-width="2.4"/></svg>打援·断外应</span>
+    <span class="item"><svg width="20" height="18"><line x1="4" y1="16" x2="4" y2="2" stroke="#5c4f38" stroke-width="1.6"/><path d="M4,2 L17,4 L13,8 L17,12 L4,10 Z" fill="rgba(154,43,30,.9)"/></svg>刘继元出降</span>
+    <span class="item"><svg width="16" height="16"><circle cx="8" cy="8" r="5" fill="none" stroke="#9c7a2c" stroke-width="2"/></svg>要地·会战</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#liaoHatch)"/></svg>辽(契丹)</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#qinHatch)"/></svg>北汉</span>
+    <span class="item"><svg width="30" height="12"><rect width="30" height="12" fill="url(#jinHatch)"/></svg>北宋</span>
+  </div>
+  <div class="panel" id="panel" aria-live="polite"></div>
+  <div class="explain">
+    <h3>庙算释要 · 围城打援 · 先破辽救 · 孤城乃下</h3>
+    <div class="lead">何以晋阳久攻不下而一朝乃拔 —— 不在攻城之力,而在先断辽援之外应</div>
+    <svg class="schem" viewBox="0 0 860 250" role="img" aria-label="灭北汉示意:晋阳城坚·所恃惟辽援;宋一面围晋阳、一面遣郭进扼石岭关以打援;辽援耶律沙敌烈南下、郭进乘其半渡涧水破之于白马岭、外应既绝;宋军遂全力攻孤城、刘继元出降、北汉亡;焚晋阳、九国次第归宋而五代十国终,唯燕云未复启宋辽百年之争">
+      <!-- 上行:围 → 打援破辽 → 孤城下 -->
+      <!-- 晋阳孤城·恃辽(红) -->
+      <g><circle cx="112" cy="80" r="40" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="1.8"/><text x="112" y="74" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">晋阳城坚</text><text x="112" y="92" text-anchor="middle" fill="#5c4f38" font-size="9.5">所恃惟辽援</text></g>
+      <!-- 围 + 扼 -->
+      <path d="M 154,80 C 200,80 240,80 278,80" fill="none" stroke="#1f4e54" stroke-width="2" stroke-dasharray="5 5"/>
+      <path d="M 272,75 L 286,80 L 272,85 Z" fill="#1f4e54"/>
+      <text x="176" y="70" fill="#1f4e54" font-size="10" font-weight="700">一面围城</text>
+      <text x="168" y="118" fill="#1f4e54" font-size="9.5">一面遣郭进扼石岭关</text>
+      <!-- 白马岭打援(金) -->
+      <g><circle cx="360" cy="80" r="42" fill="rgba(156,122,44,.12)" stroke="#9c7a2c" stroke-width="1.8"/><text x="360" y="72" text-anchor="middle" fill="#9c7a2c" font-size="13" font-weight="700">白马岭打援</text><text x="360" y="90" text-anchor="middle" fill="#5c4f38" font-size="9.5">乘半渡涧水而击</text><text x="360" y="104" text-anchor="middle" fill="#5c4f38" font-size="9.5">大破辽军·斩五将</text></g>
+      <g class="cut" transform="translate(392,48)"><circle r="8"/><line x1="-5" y1="-5" x2="5" y2="5"/><line x1="-5" y1="5" x2="5" y2="-5"/></g>
+      <path d="M 404,80 C 452,80 492,80 530,80" fill="none" stroke="#7a5a23" stroke-width="2.4" stroke-dasharray="6 5"/>
+      <path d="M 524,75 L 538,80 L 524,85 Z" fill="#7a5a23"/>
+      <text x="440" y="70" fill="#7a5a23" font-size="10" font-weight="700">外应既绝</text>
+      <!-- 孤城乃下(红) -->
+      <g><circle cx="602" cy="80" r="42" fill="rgba(154,43,30,.10)" stroke="#9a2b1e" stroke-width="2"/><text x="602" y="74" text-anchor="middle" fill="#9a2b1e" font-size="13" font-weight="700">孤城乃下</text><text x="602" y="92" text-anchor="middle" fill="#9a2b1e" font-size="10">继元出降·北汉亡</text></g>
+      <text x="662" y="76" fill="#9a2b1e" font-size="10.5" font-weight="700">全力攻城</text>
+      <text x="660" y="92" fill="#5c4f38" font-size="9.5">昼夜不息</text>
+      <!-- 下行:终局 -->
+      <text x="30" y="176" fill="#5c4f38" font-size="11" font-weight="700" font-style="italic">而 · 北汉亡 = 十国终,中原复归一统：</text>
+      <g><rect x="30" y="192" width="150" height="40" rx="4" fill="rgba(154,43,30,.08)" stroke="#9a2b1e" stroke-width="1.2"/><text x="105" y="210" text-anchor="middle" fill="#9a2b1e" font-size="11" font-weight="700">焚晋阳</text><text x="105" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">废龙城为平地</text></g>
+      <path d="M 184,212 L 214,212" fill="none" stroke="#1f4e54" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 210,208 L 222,212 L 210,216 Z" fill="#1f4e54"/>
+      <g><rect x="224" y="192" width="176" height="40" rx="4" fill="rgba(31,78,84,.10)" stroke="#1f4e54" stroke-width="1.2"/><text x="312" y="210" text-anchor="middle" fill="#1f4e54" font-size="11" font-weight="700">九国次第归宋</text><text x="312" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">五代十国至此全部结束</text></g>
+      <path d="M 404,212 L 434,212" fill="none" stroke="#5c4a6e" stroke-width="1.8" stroke-dasharray="4 4"/><path d="M 430,208 L 442,212 L 430,216 Z" fill="#5c4a6e"/>
+      <g><rect x="444" y="192" width="182" height="40" rx="4" fill="rgba(92,74,110,.10)" stroke="#5c4a6e" stroke-width="1.2"/><text x="535" y="210" text-anchor="middle" fill="#5c4a6e" font-size="11" font-weight="700">唯燕云未复</text><text x="535" y="225" text-anchor="middle" fill="#5c4f38" font-size="9.5">太宗北伐败高梁河·启宋辽百年之争</text></g>
+    </svg>
+    <p class="intro"><b>五问以贯之。</b>何时:宋太平兴国四年(979)正月至五月。何地:北汉都晋阳(太原)及其北面石岭关·白马岭之涧谷。何人:北宋太宗赵光义亲征,潘美主攻晋阳、郭进为石岭关都部署以打援;北汉主刘继元守晋阳;辽遣南院大王耶律沙·冀王敌烈率援军来救。何事:宋四面围晋阳,郭进伏辽援于白马岭、乘其半渡涧水而破之,外应既绝,乃全力攻城,继元出降、北汉亡。何以决:晋阳城坚,历后周世宗、宋太祖数攻不下,所恃惟辽为奥援;胜负之枢不在攻城,而在<b>打援</b>——先破辽救,孤城乃下。</p>
+    <div class="cols">
+      <div class="c a">
+        <h4>围城 · 孤其形</h4>
+        <p>晋阳依汾水、凭坚城,后周世宗、宋太祖屡攻而不能拔,每因辽援猝至而退。太宗鉴此,一面命潘美等四面环攻、昼夜不息以困之;一面深知强攻无益,而<b>专以断援为务</b>——晋阳一日有辽援之望,则一日不可下。故围城之实,在使其成孤城。</p>
+      </div>
+      <div class="c b">
+        <h4>打援 · 断其应</h4>
+        <p>太宗分遣郭进为石岭关都部署,北扼石岭关以邀辽援。辽果遣耶律沙、敌烈南下,敌烈轻进,郭进伏兵白马岭,<b>乘其半渡涧水而击</b>,辽军首尾不能相顾,大溃,斩敌烈等五将、俘斩万计,耶律沙仅以身免。辽援既破,自是不复南顾——晋阳外应,一战而绝。</p>
+      </div>
+    </div>
+    <p class="kicker">故太原之克,非攻城之功,而在<b>围城打援</b>:先破辽救于白马岭,晋阳遂成绝援之孤城;宋军合势急攻,外无救、内食尽,守将献城,刘继元出降。太宗恶晋阳「龙城」王气、屡为割据之基,遂焚其城、废为平地。<b>北汉既亡,十国之末国以绝,五代十国至此全部结束</b>,中原南方复归一统——独燕云十六州尚在辽手;太宗乘胜北伐,败于高梁河,宋辽百年之争由是而开。得天下之全功,系于白马岭一涧之间。</p>
+  </div>
+  <div class="notes">
+    <p><span class="n">注一</span>本图为示意图,城邑按今地经纬度作线性类墨卡托投影(x=325+(经度−112.55)×265,y=540−(纬度−37.87)×320),几何关系力求近实:辽据代北·幽云在北(幽州图外东北),北汉孤悬于晋阳一隅居中,北宋据河北·中原在东南(汴梁图外东南),石岭关·白马岭在晋阳之北、当辽援南下之孔道,雁门关更北为辽援入塞之口,镇州在东为宋军集结之地。汾水贯晋阳南流,系舟山倚石岭关、太行山界河北,河渠疆界皆经简化描绘。晋阳今山西太原晋源,石岭关在今太原阳曲县北,白马岭在石岭关北一带涧谷(今阳曲·盂县间),雁门关在今山西代县,镇州(正定)今河北正定,幽州今北京,汴梁今河南开封。据《宋史·太宗纪/郭进传/潘美传》《辽史·景宗纪/耶律沙传》《续资治通鉴长编》卷二十约略绘出。</p>
+    <p><span class="n">注二</span>制胜之枢在「围城打援」:晋阳城坚,历后周世宗、宋太祖数攻不下,皆因辽援猝至而功败垂成,故北汉<b>所恃惟辽为奥援</b>(图中金色「外应命脉」)。太宗遂分兵为二:潘美等围攻晋阳,郭进为石岭关都部署专任打援。郭进乘辽军(敌烈前锋)<b>半渡涧水</b>而击之于白马岭,大破之(图中朱色 ✕ 即断外应之记),辽援既绝,晋阳乃成孤城——『破援』实为『拔城』之先着,打援为一役之核心机制。</p>
+    <p><span class="n">注三</span>三方各有所出:北宋太宗赵光义自汴梁亲征,经镇州(正定)西趋、四面围晋阳(自东南入图);北汉主刘继元据晋阳坚守,惟望辽援(居中);辽(契丹)景宗遣南院大王耶律沙、冀王敌烈率援军自幽州(南京,图外东北)南下,趋雁门·石岭关以救北汉(自东北·北入图),败于白马岭而北遁。三方入图之向,一东南、一居中、一东北,皆见于图。</p>
+    <p><span class="n">注四</span>异说与余事:辽援主帅史载为南院大王耶律沙、冀王敌烈(一作达烈/挞览),敌烈及其子华格、突吕不部节度使都敏等五将战殁于白马岭,耶律沙赖救兵得免,《辽史》与《宋史》所记斩获数略有出入,姑存其要。白马岭之战多系于是年三月,晋阳城破、继元出降在五月(公历六月);城破后太宗以晋阳数为割据之基,毁其城、焚庐舍、徙民,废太原旧城为平晋县,后另筑新城于榆次、复移并州治。北汉传四主(刘崇·刘承钧·刘继恩·刘继元)、凡二十九年而亡,为十国中最后灭亡者;宋太宗旋乘胜攻辽,败于高梁河,为另一役,不在本图。</p>
+  </div>
+</div>
+<script>
+const PH={
+  all:{t:"围城打援 · 灭北汉",d:"宋太平兴国四年(979)正月至五月",p:["北汉都晋阳(太原),城坚而恃辽为奥援,历后周世宗、宋太祖数攻不下——每因辽援猝至而退。太宗赵光义即位后决意毕其功,太平兴国四年(979)正月亲征,督师至镇州,遣潘美等四面围晋阳,而分遣郭进为石岭关都部署,北扼石岭关以邀辽援:一面围城,一面打援。","辽景宗遣南院大王耶律沙、冀王敌烈率援军自幽州、雁门南下救北汉。郭进伏兵白马岭,乘辽军半渡涧水而击,大破之,斩敌烈等五将、俘斩万计,耶律沙仅以身免。辽援既绝,晋阳成孤城;宋军合势昼夜急攻,北汉外无救、内食尽,守将献城,刘继元于五月出降,北汉亡。太宗焚晋阳、废龙城为平地——北汉既灭,五代十国至此全部结束,中原南方复归一统,唯燕云未复。"]},
+  "1":{t:"① 四面围晋阳 · 分扼石岭关",d:"太平兴国四年(979)正月",p:["太宗鉴于晋阳城坚、屡攻不下皆坏于辽援,乃定『围城打援』之策。正月亲征,督诸军至镇州(正定),遣潘美为北路都招讨、崔彦进·李汉琼·曹翰等四面环攻晋阳,昼夜不息;然深知强攻无益,城不可猝拔。","故同时分遣郭进为石岭关都部署,率兵北出,据石岭关扼其隘。石岭关当晋阳北面、辽援入救之孔道;先据此关，则辽援不得径达晋阳城下——此即『打援』之先着,围城之实在使晋阳成孤城。"]},
+  "2":{t:"② 辽援南下 · 白马岭打援",d:"太平兴国四年(979)三月",p:["北汉告急,辽景宗遣南院大王耶律沙、冀王敌烈等率援军南下入救,趋雁门、石岭关。郭进侦知,预伏精锐于石岭关北之白马岭,阻涧水以待。","辽军至涧,耶律沙欲俟后军毕集而后战,敌烈等恃勇争先,方半渡涧水,郭进纵兵掩击。辽军首尾不相顾,大溃于水中,斩敌烈及其子、都敏等五将,俘斩以万计,耶律沙赖后援仅以身免,余众北遁。辽援自是不复南救——晋阳外应,一战而绝。此白马岭之捷,为灭北汉一役制胜之枢。"]},
+  "3":{t:"③ 外应既绝 · 昼夜攻城",d:"太平兴国四年(979)三月至四月",p:["郭进破辽援于白马岭,晋阳所恃之外应既绝,遂成绝援之孤城。捷报至,太宗益督诸军并力,亲临城下督战,四面云梯、洞屋昼夜齐攻,矢石如雨,不给北汉喘息。","晋阳城中外无救援之望、内则食尽力穷,人心离散;守将马峰、郭万超等相率出降,北汉守御之势遂溃。城坚虽未即拔,而人心已去,继元困守孤城,大势已不可为。"]},
+  "4":{t:"④ 继元出降 · 焚晋阳 · 十国终",d:"太平兴国四年(979)五月",p:["外无援、内食尽,守将纷降,刘继元不欲为困兽之斗,五月(公历六月)奉表出降,晋阳开城——北汉亡。北汉传刘崇、承钧、继恩、继元四主,凡二十九年,为十国中最后灭亡之国;十国至此全绝,五代十国终,中原南方复归于一统。","太宗恶晋阳『龙城』王气、地形险固而屡为割据之基,乃下令毁太原旧城、焚其庐舍、徙其民,废为平晋县(后徙并州治于榆次、别筑新城)。一代雄城,遂为平地。太宗旋乘灭汉之威北伐辽、图复燕云,进攻幽州,败于高梁河(另一战);燕云未复,宋辽百年之争由是而开。"]}
+};
+const CITY={
+  yanmen:{t:"雁门关(代州)",d:"辽援入塞孔道,今山西代县",p:["雁门关为代北入河东之险口,辽援南下救北汉之孔道。辽军自幽云取道雁门、代州而趋石岭关,郭进邀击于其南之白马岭。关北即辽之代北、云州之境。"]},
+  shiling:{t:"石岭关(郭进都部署)",d:"扼晋阳北面之隘,今太原阳曲县北",p:["石岭关倚系舟山,当晋阳北面、辽援入救之孔道。太宗分遣郭进为石岭关都部署,先据此关,则辽援不得径达晋阳城下。围城打援之『打援』,即以此关为枢——控此隘乃能于白马岭邀破辽军。"]},
+  baima:{t:"白马岭(半渡而击)",d:"郭进破辽援处,在石岭关北一带涧谷",p:["白马岭在石岭关之北,有涧水阻隔。太平兴国四年三月,辽援耶律沙、敌烈至,敌烈等恃勇争先，方半渡涧水,郭进伏兵纵击,辽军首尾不顾、大溃于水中,斩敌烈等五将、俘斩万计,耶律沙仅以身免。此『半渡而击』一战,断晋阳外应,为灭北汉制胜之枢。"]},
+  jinyang:{t:"晋阳(太原·北汉都)",d:"刘继元降处·后焚为平地,今山西太原晋源",p:["晋阳依汾水、凭坚城,为北汉都、割据之基,后周世宗、宋太祖屡攻不下,所恃惟辽援。979年辽援既破于白马岭,晋阳成孤城,宋军昼夜急攻,外无救内食尽,刘继元五月出降,北汉亡、十国终。太宗恶其『龙城』王气,焚城、徙民,废为平晋县——一代雄城遂为平地。"]},
+  zhenzhou:{t:"镇州(正定)",d:"宋军集结·东路重镇,今河北正定",p:["镇州(真定)为河北要冲。太宗亲征,先督师至镇州为大本营,由此分兵西进、四面围晋阳,并遣郭进北出石岭关打援。宋灭北汉之诸军,多集结、转输于此。"]}
+};
+const panel=document.getElementById('panel');
+function render(o){panel.innerHTML='<h2>'+o.t+'</h2><div class="date">'+o.d+'</div>'+o.p.map(x=>'<p>'+x+'</p>').join('');}
+const tabs=[...document.querySelectorAll('.tabs button')];
+function setPhase(p){
+  document.body.dataset.ph=p;
+  tabs.forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('.city').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.ph').forEach(g=>g.classList.remove('show'));
+  const g=document.getElementById(p==='all'?'phAll':'ph'+p);
+  if(g){void g.getBoundingClientRect();g.classList.add('show');}
+  render(PH[p]);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setPhase(b.dataset.p)));
+document.querySelectorAll('.city').forEach(c=>{c.addEventListener('click',()=>{const info=CITY[c.dataset.city];if(!info)return;document.querySelectorAll('.city').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');render(info);});});
+setPhase('all');
+</script>
+</div>
+</body>
+</html>
