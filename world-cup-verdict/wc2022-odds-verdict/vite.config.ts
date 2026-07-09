@@ -5,8 +5,8 @@ import { traeBadgePlugin } from 'vite-plugin-trae-solo-badge';
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Served at https://ferryzhou.github.io/web-apps/wc2014-odds-verdict/
-  base: '/web-apps/wc2014-odds-verdict/',
+  // Served at https://ferryzhou.github.io/web-apps/world-cup-verdict/wc2022-odds-verdict/
+  base: '/web-apps/world-cup-verdict/wc2022-odds-verdict/',
   build: {
     sourcemap: 'hidden',
   },

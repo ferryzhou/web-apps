@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./wc2022-odds-verdict/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The Verdict — a cross-tournament study of how accurately pre-match betting odds predicted the outcomes of five FIFA World Cups (2010–2026), 304 matches, accuracy, calibration, favourite bias, and a strategy lab." />
+  <title>The Verdict — World Cup Odds Accuracy, 2010–2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ── Brand palette (mirrors the per-tournament apps) ──────────────────── */
+    :root {
+      --parchment: #F4EFE3;
+      --parchment-alt: #ECE5D4;
+      --parchment-deep: #E2D9C2;
+      --ink: #161512;
+      --ink-soft: #2A2722;
+      --ink-muted: #6B6357;
+      --ink-faint: #9A9081;
+      --gold: #B8893A;
+      --gold-soft: #D4B97A;
+      --gold-deep: #8C6526;
+      --pitch: #2F6B4B;
+      --pitch-soft: #5B9476;
+      --pitch-deep: #1F4A33;
+      --verdict: #A23B2E;
+      --verdict-soft: #C76A5C;
+      --verdict-deep: #72251B;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hanken Grotesk', system-ui, sans-serif;
+      background: var(--parchment);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .tnum { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+    .display { font-family: 'Fraunces', Georgia, serif; }
+    .kicker {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+    }
+    .grain { position: relative; }
+    .grain::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image: radial-gradient(rgba(22,21,18,0.05) 1px, transparent 1px);
+      background-size: 3px 3px;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .max-prose { max-width: 68ch; }
+
+    a { color: inherit; }
+
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--parchment);
+      padding: 9rem 0 6rem;
+    }
+    .hero .numeral {
+      position: absolute;
+      right: -3rem; top: 2rem;
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 34rem;
+      line-height: 1;
+      color: rgba(22,21,18,0.035);
+      user-select: none;
+      pointer-events: none;
+    }
+    .hero-kicker { color: var(--gold-deep); display: flex; align-items: center; gap: 0.75rem; }
+    .hero-kicker .bar { height: 1px; width: 2.5rem; background: var(--gold); }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: clamp(4.5rem, 12vw, 8.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-top: 2rem;
+    }
+    .hero .lede {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.3;
+      margin-top: 2rem;
+      max-width: 38ch;
+      color: var(--ink-soft);
+    }
+    .hero .intro {
+      margin-top: 1.5rem;
+      max-width: 68ch;
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: var(--ink-muted);
+    }
+    .hero-stats {
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem 3rem;
+      padding: 1.25rem 0;
+      border-top: 1px solid rgba(22,21,18,0.15);
+      border-bottom: 1px solid rgba(22,21,18,0.15);
+    }
+    .hero-stat { display: flex; flex-direction: column; }
+    .hero-stat .v {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 1.75rem;
+      line-height: 1;
+    }
+    .hero-stat .v.accent { color: var(--gold-deep); }
+    .hero-stat .l {
+      margin-top: 0.5rem;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--ink-muted);
+    }
+
+    /* ── Sections ─────────────────────────────────────────────────────────── */
+    section { padding: 5rem 0; }
+    .section-head { display: flex; align-items: center; gap: 1rem; }
+    .section-head .kicker { color: var(--ink-muted); flex-shrink: 0; }
+    .section-head .rule { height: 1px; flex: 1; background: rgba(22,21,18,0.15); }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-top: 1.5rem;
+    }
+    .section-intro {
+      margin-top: 1.5rem;
+      max-width: 68ch;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink-muted);
+    }
+
+    .alt { background: var(--parchment-alt); }
+
+    /* ── Prose ────────────────────────────────────────────────────────────── */
+    .prose p { margin-top: 1.25rem; max-width: 68ch; font-size: 1.05rem; line-height: 1.75; color: var(--ink-soft); }
+    .prose p:first-child { margin-top: 1.5rem; }
+    .prose .dropcap::first-letter {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 3.5rem;
+      line-height: 0.8;
+      float: left;
+      margin: 0.15rem 0.5rem 0 0;
+      color: var(--ink);
+    }
+    .prose strong { color: var(--ink); font-weight: 600; }
+    .prose em { font-family: 'Fraunces', serif; font-style: italic; color: var(--ink); }
+
+    /* ── Stat grid ────────────────────────────────────────────────────────── */
+    .stat-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: rgba(22,21,18,0.15);
+      border: 1px solid rgba(22,21,18,0.15);
+    }
+    .stat-cell { background: var(--parchment); padding: 1.5rem; }
+    .stat-cell .k { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--ink-muted); }
+    .stat-cell .v {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 2rem;
+      margin-top: 0.5rem;
+      line-height: 1;
+    }
+    .stat-cell .v.gold { color: var(--gold-deep); }
+    .stat-cell .v.pitch { color: var(--pitch-deep); }
+    .stat-cell .v.verdict { color: var(--verdict-deep); }
+    .stat-cell .h { margin-top: 0.5rem; font-size: 0.78rem; color: var(--ink-muted); line-height: 1.4; }
+
+    /* ── Comparative table ────────────────────────────────────────────────── */
+    .table-wrap { margin-top: 3rem; overflow-x: auto; }
+    table.cmp { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    table.cmp th, table.cmp td { padding: 0.85rem 0.75rem; text-align: right; border-bottom: 1px solid rgba(22,21,18,0.1); }
+    table.cmp th:first-child, table.cmp td:first-child { text-align: left; }
+    table.cmp thead th {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-muted);
+      border-bottom: 2px solid rgba(22,21,18,0.25);
+      font-weight: 600;
+    }
+    table.cmp tbody tr:hover { background: rgba(184,137,58,0.05); }
+    table.cmp .tnum { font-size: 0.88rem; }
+    table.cmp .name { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1rem; }
+    table.cmp .host { font-size: 0.78rem; color: var(--ink-muted); }
+    .pill {
+      display: inline-block;
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pill.pos { background: rgba(47,107,75,0.12); color: var(--pitch-deep); }
+    .pill.neg { background: rgba(162,59,46,0.12); color: var(--verdict-deep); }
+    .pill.dim { background: rgba(22,21,18,0.06); color: var(--ink-muted); }
+    .asterisk { color: var(--ink-faint); font-size: 0.72rem; }
+
+    /* ── Bar charts ───────────────────────────────────────────────────────── */
+    .bars { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .bar-row { display: grid; grid-template-columns: 5.5rem 1fr 4rem; align-items: center; gap: 1rem; }
+    .bar-row .lbl {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 1rem;
+      text-align: right;
+    }
+    .bar-track { position: relative; height: 1.75rem; background: rgba(22,21,18,0.06); }
+    .bar-fill { height: 100%; transition: width 0.6s ease; }
+    .bar-fill.gold { background: var(--gold); }
+    .bar-fill.pitch { background: var(--pitch); }
+    .bar-fill.verdict { background: var(--verdict); }
+    .bar-row .val {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .bar-row .val.pos { color: var(--pitch-deep); }
+    .bar-row .val.neg { color: var(--verdict-deep); }
+
+    /* Diverging bar (favourite bias) */
+    .div-bars { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .div-row { display: grid; grid-template-columns: 5.5rem 1fr 4rem; align-items: center; gap: 1rem; }
+    .div-row .lbl { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1rem; text-align: right; }
+    .div-track { position: relative; height: 1.75rem; background: rgba(22,21,18,0.06); }
+    .div-track .axis { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: rgba(22,21,18,0.35); }
+    .div-fill { position: absolute; top: 0; height: 100%; transition: all 0.6s ease; }
+    .div-fill.neg { right: 50%; background: var(--verdict); }
+    .div-fill.pos { left: 50%; background: var(--pitch); }
+    .div-row .val { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.9rem; }
+    .div-row .val.pos { color: var(--pitch-deep); }
+    .div-row .val.neg { color: var(--verdict-deep); }
+    .div-axis-labels { display: grid; grid-template-columns: 5.5rem 1fr 4rem; gap: 1rem; margin-top: 0.5rem; }
+    .div-axis-labels .labels { display: flex; justify-content: space-between; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--ink-muted); }
+    .chart-caption {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--ink-muted);
+      max-width: 60ch;
+    }
+
+    /* ── Strategy matrix ──────────────────────────────────────────────────── */
+    .matrix-wrap { margin-top: 3rem; overflow-x: auto; }
+    table.matrix { width: 100%; border-collapse: separate; border-spacing: 2px; font-size: 0.85rem; }
+    table.matrix th, table.matrix td { padding: 0.7rem 0.5rem; text-align: center; }
+    table.matrix th:first-child, table.matrix td:first-child { text-align: left; padding-left: 0.75rem; }
+    table.matrix thead th {
+      font-family: 'Hanken Grotesk', sans-serif;
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+    table.matrix tbody td.strat {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+    .roi-cell {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 0.82rem;
+      border-radius: 2px;
+    }
+    .roi-pos { background: rgba(47,107,75,0.14); color: var(--pitch-deep); }
+    .roi-neg { background: rgba(162,59,46,0.14); color: var(--verdict-deep); }
+    .roi-strong-pos { background: rgba(47,107,75,0.32); color: var(--pitch-deep); }
+    .roi-strong-neg { background: rgba(162,59,46,0.32); color: var(--verdict-deep); }
+    .legend { margin-top: 1.5rem; display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.78rem; color: var(--ink-muted); }
+    .legend .swatch { display: inline-block; width: 0.9rem; height: 0.9rem; border-radius: 2px; margin-right: 0.4rem; vertical-align: middle; }
+
+    /* ── Study cards ──────────────────────────────────────────────────────── */
+    .cards { margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--parchment);
+      border: 1px solid rgba(22,21,18,0.15);
+      padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(22,21,18,0.1); border-color: var(--gold); }
+    .card .year {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 2.5rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+    .card .host { font-size: 0.82rem; color: var(--ink-muted); margin-top: 0.35rem; }
+    .card .headline { margin-top: 1rem; font-size: 0.92rem; line-height: 1.5; color: var(--ink-soft); }
+    .card .mini-stats { margin-top: 1.25rem; display: flex; gap: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(22,21,18,0.1); }
+    .card .mini-stat .k { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-muted); }
+    .card .mini-stat .v { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.95rem; margin-top: 0.25rem; }
+    .card .arrow { margin-top: 1rem; font-size: 0.78rem; color: var(--gold-deep); font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; }
+    .card.fwd { background: var(--parchment-deep); }
+    .card.fwd .year { color: var(--ink-muted); }
+
+    /* ── Footer ───────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: var(--parchment);
+      padding: 5rem 0 3rem;
+    }
+    footer .kicker { color: var(--gold-soft); }
+    footer h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      line-height: 1.2;
+      margin-top: 1.5rem;
+      max-width: 40ch;
+    }
+    footer .grid {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+    }
+    footer .grid .k { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--gold-soft); }
+    footer .grid p { margin-top: 0.75rem; font-size: 0.88rem; line-height: 1.6; color: rgba(244,239,227,0.7); }
+    footer .colophon {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(244,239,227,0.15);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: rgba(244,239,227,0.5);
+    }
+    footer .colophon a { color: var(--gold-soft); text-decoration: none; }
+    footer .colophon a:hover { text-decoration: underline; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--ink-muted);
+      text-decoration: none;
+    }
+    .back-link:hover { color: var(--ink); }
+
+    @media (max-width: 640px) {
+      .hero { padding: 6rem 0 4rem; }
+      .hero .numeral { font-size: 22rem; }
+      section { padding: 3.5rem 0; }
+      .bar-row, .div-row { grid-template-columns: 4rem 1fr 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+  <header class="hero grain">
+    <span class="numeral" aria-hidden="true">5</span>
+    <div class="container">
+      <div class="hero-kicker">
+        <span class="bar"></span>
+        <span class="kicker">A cross-tournament study · FIFA World Cup 2010–2026</span>
+      </div>
+      <h1 class="display">The Verdict</h1>
+      <p class="lede">Did the bookmakers call it right — and do the same rules hold across five World Cups?</p>
+      <p class="intro">
+        We treat every pre-match betting line as a probabilistic forecast and every final whistle as ground truth.
+        Across <strong class="tnum" style="color:var(--ink)">304</strong> matches spanning five tournaments, this
+        study measures how often the market was right, where it was systematically wrong, and whether any betting
+        strategy survived the cross-examination. Each tournament has its own detailed study; this page is the
+        cross-tournament verdict.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="v tnum">5</span><span class="l">World Cups studied</span></div>
+        <div class="hero-stat"><span class="v tnum">304</span><span class="l">Matches analysed</span></div>
+        <div class="hero-stat"><span class="v tnum accent">55.1%</span><span class="l">Aggregate accuracy (settled)</span></div>
+        <div class="hero-stat"><span class="v tnum">61</span><span class="l">Draws</span></div>
+        <div class="hero-stat"><span class="v tnum">54</span><span class="l">Upsets</span></div>
+        <div class="hero-stat"><span class="v tnum">256</span><span class="l">Settled matches (2010–2022)</span></div>
+      </div>
+      <a href="../" class="back-link">← Back to all web apps</a>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════ EXECUTIVE SUMMARY ══════════════════════════════ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Cross-tournament verdict</span>
+        <span class="rule"></span>
+      </div>
+      <h2 class="section-title display">The favourite-longshot bias is not a law. It is a weather report.</h2>
+      <div class="prose">
+        <p class="dropcap">
+          Across the four settled World Cups, the favourite won <strong class="tnum">55.1%</strong> of the time —
+          141 of 256 matches. That sounds like a stable fact, but it conceals a <em>fourteen-point swing</em> in
+          accuracy between tournaments: from <strong class="tnum">45.3%</strong> in South Africa 2010 to
+          <strong class="tnum">59.4%</strong> in both Russia 2018 and Qatar 2022. The market is not equally sharp
+          every summer. Some tournaments it reads the form; others it spends a month being surprised.
+        </p>
+        <p>
+          The deeper finding is that the <em>favourite-longshot bias</em> — the textbook claim that bookmakers
+          under-rate strong favourites and over-rate outsiders — is not a constant. It <strong>inverts</strong>.
+          In 2010 favourites underperformed their quotes by <strong class="tnum">−3.1%</strong>; in 2018 they
+          overperformed by <strong class="tnum">+10.9%</strong>. The same market, the same sport, opposite
+          systematic errors four years apart. Anyone betting a single "World Cup edge" across all four tournaments
+          would have found the edge vanish in at least one of them.
+        </p>
+        <p>
+          What <em>does</em> survive the cross-examination is the <strong>confidence filter</strong>. In every
+          tournament studied, favourites priced above 60% won markedly more often than those priced barely ahead.
+          The tightest calls — where the favourite sat between 33% and 40% — were a graveyard in three of four
+          tournaments, hitting 0% in Brazil 2014 (zero for twelve). And one strategy,
+          <strong>knockout-strong</strong> (bet the favourite in knockouts when priced above 50%), was profitable
+          in all four settled tournaments — though on samples so small (two to eight bets each) that the result is
+          a hypothesis, not a licence.
+        </p>
+        <p>
+          The five studies below each tell the full story for one tournament — accuracy, Brier score, log loss,
+          calibration, and a seven-strategy lab backtested on every match. This page holds them up against each
+          other and asks which lessons travel.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ COMPARATIVE TABLE ══════════════════════════════ -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">The numbers, side by side</span>
+        <span class="rule"></span>
+      </div>
+      <h2 class="section-title display">Five tournaments, one ledger.</h2>
+      <p class="section-intro">
+        Every figure below is computed client-side from real 90-minute results with representative pre-match odds.
+        The 2026 column is marked with an asterisk — that tournament's data is illustrative (forward-looking),
+        not settled history.
+      </p>
+      <div class="table-wrap">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th>Tournament</th>
+              <th>Matches</th>
+              <th>Accuracy</th>
+              <th>Draws</th>
+              <th>Upsets</th>
+              <th>Fav. bias</th>
+              <th>Always-fav ROI</th>
+              <th>Best credible edge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="name">2010</span><br><span class="host">South Africa</span></td>
+              <td class="tnum">64</td>
+              <td class="tnum">45.3%</td>
+              <td class="tnum">18</td>
+              <td class="tnum">17</td>
+              <td><span class="pill neg tnum">−3.1%</span></td>
+              <td><span class="pill neg tnum">−17.1%</span></td>
+              <td class="tnum">Knockout-only · <span class="pill pos">+10.9%</span></td>
+            </tr>
+            <tr>
+              <td><span class="name">2014</span><br><span class="host">Brazil</span></td>
+              <td class="tnum">64</td>
+              <td class="tnum">56.3%</td>
+              <td class="tnum">14</td>
+              <td class="tnum">14</td>
+              <td><span class="pill pos tnum">+7.3%</span></td>
+              <td><span class="pill pos tnum">+1.5%</span></td>
+              <td class="tnum">Strong-fav · <span class="pill pos">+16.5%</span></td>
+            </tr>
+            <tr>
+              <td><span class="name">2018</span><br><span class="host">Russia</span></td>
+              <td class="tnum">64</td>
+              <td class="tnum">59.4%</td>
+              <td class="tnum">14</td>
+              <td class="tnum">12</td>
+              <td><span class="pill pos tnum">+10.9%</span></td>
+              <td><span class="pill pos tnum">+16.6%</span></td>
+              <td class="tnum">Knockout-only · <span class="pill pos">+30.3%</span></td>
+            </tr>
+            <tr>
+              <td><span class="name">2022</span><br><span class="host">Qatar</span></td>
+              <td class="tnum">64</td>
+              <td class="tnum">59.4%</td>
+              <td class="tnum">15</td>
+              <td class="tnum">11</td>
+              <td><span class="pill pos tnum">+5.1%</span></td>
+              <td><span class="pill pos tnum">+2.3%</span></td>
+              <td class="tnum">Skip-deadzone · <span class="pill pos">+14.6%</span></td>
+            </tr>
+            <tr style="opacity:0.7">
+              <td><span class="name">2026<span class="asterisk">*</span></span><br><span class="host">USA / Canada / Mexico</span></td>
+              <td class="tnum">48</td>
+              <td class="tnum">58.3%</td>
+              <td class="tnum">11</td>
+              <td class="tnum">9</td>
+              <td><span class="pill pos tnum">+6.4%</span></td>
+              <td><span class="pill dim tnum">+0.4%</span></td>
+              <td class="tnum">Knockout-only · <span class="pill pos">+52.9%</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="chart-caption"><span class="asterisk">*</span> 2026 figures are illustrative — plausible outcomes on plausible odds, not settled history. The tournament's full study is forward-looking.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ ACCURACY BARS ══════════════════════════════ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Accuracy</span>
+        <span class="rule"></span>
+      </div>
+      <h2 class="section-title display">A fourteen-point swing, tournament to tournament.</h2>
+      <p class="section-intro">
+        The favourite-win rate is the headline. South Africa 2010 was the market's worst summer — only 45.3% of
+        favourites delivered, and the tournament produced eighteen draws. Russia 2018 and Qatar 2022 were its best,
+        both at 59.4%. The dashed line marks the four-tournament average (55.1%).
+      </p>
+      <div class="bars" id="acc-bars">
+        <div class="bar-row">
+          <span class="lbl">2010</span>
+          <div class="bar-track"><div class="bar-fill verdict" style="width:75.5%"></div></div>
+          <span class="val tnum">45.3%</span>
+        </div>
+        <div class="bar-row">
+          <span class="lbl">2014</span>
+          <div class="bar-track"><div class="bar-fill gold" style="width:93.8%"></div></div>
+          <span class="val tnum">56.3%</span>
+        </div>
+        <div class="bar-row">
+          <span class="lbl">2018</span>
+          <div class="bar-track"><div class="bar-fill pitch" style="width:99%"></div></div>
+          <span class="val tnum">59.4%</span>
+        </div>
+        <div class="bar-row">
+          <span class="lbl">2022</span>
+          <div class="bar-track"><div class="bar-fill pitch" style="width:99%"></div></div>
+          <span class="val tnum">59.4%</span>
+        </div>
+        <div class="bar-row" style="opacity:0.65">
+          <span class="lbl">2026<span class="asterisk">*</span></span>
+          <div class="bar-track"><div class="bar-fill gold" style="width:97.2%"></div></div>
+          <span class="val tnum">58.3%</span>
+        </div>
+      </div>
+      <p class="chart-caption">Bar width is scaled so 60% maps to 100% of the track. The market is not equally sharp every summer — the same sport, the same format, and a 14-point range in how often the favourite won.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ FAVOURITE BIAS ══════════════════════════════ -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Favourite bias</span>
+        <span class="rule"></span>
+      </div>
+      <h2 class="section-title display">The signal that inverts.</h2>
+      <p class="section-intro">
+        Favourite bias is observed favourite-win rate minus the rate the odds implied. Positive (green) means
+        favourites won <em>more</em> than priced — the market under-rated them. Negative (red) means they won
+        <em>less</em> — the market over-rated them. The classic favourite-longshot bias says this should be
+        positive. Four tournaments say it can go either way.
+      </p>
+      <div class="div-bars" id="bias-bars">
+        <div class="div-row">
+          <span class="lbl">2010</span>
+          <div class="div-track">
+            <span class="axis"></span>
+            <span class="div-fill neg" style="width:15.5%"></span>
+          </div>
+          <span class="val tnum neg">−3.1%</span>
+        </div>
+        <div class="div-row">
+          <span class="lbl">2014</span>
+          <div class="div-track">
+            <span class="axis"></span>
+            <span class="div-fill pos" style="width:36.5%"></span>
+          </div>
+          <span class="val tnum pos">+7.3%</span>
+        </div>
+        <div class="div-row">
+          <span class="lbl">2018</span>
+          <div class="div-track">
+            <span class="axis"></span>
+            <span class="div-fill pos" style="width:54.5%"></span>
+          </div>
+          <span class="val tnum pos">+10.9%</span>
+        </div>
+        <div class="div-row">
+          <span class="lbl">2022</span>
+          <div class="div-track">
+            <span class="axis"></span>
+            <span class="div-fill pos" style="width:25.5%"></span>
+          </div>
+          <span class="val tnum pos">+5.1%</span>
+        </div>
+        <div class="div-row" style="opacity:0.65">
+          <span class="lbl">2026<span class="asterisk">*</span></span>
+          <div class="div-track">
+            <span class="axis"></span>
+            <span class="div-fill pos" style="width:32%"></span>
+          </div>
+          <span class="val tnum pos">+6.4%</span>
+        </div>
+      </div>
+      <div class="div-axis-labels">
+        <span></span>
+        <span class="labels"><span>−10% (over-rated)</span><span>0</span><span>+10% (under-rated)</span></span>
+        <span></span>
+      </div>
+      <p class="chart-caption">South Africa 2010 is the outlier on the left — the only tournament where favourites underperformed their quotes. Russia 2018 is the mirror image, the cleanest positive bias of the five. The "textbook" favourite-longshot bias is the average across these, not a property of any single tournament.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ STRATEGY MATRIX ══════════════════════════════ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Strategy lab</span>
+        <span class="rule"></span>
+      </div>
+      <h2 class="section-title display">Which edge travels?</h2>
+      <p class="section-intro">
+        Seven rule-based strategies, each backtested with flat 1-unit stakes across every match of every tournament.
+        Green cells are profitable; red are losses. Read down a column to see what worked that summer; read across
+        a row to see whether the rule survived all four. The 2026 column is illustrative.
+      </p>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Strategy</th>
+              <th>2010</th>
+              <th>2014</th>
+              <th>2018</th>
+              <th>2022</th>
+              <th>2026<span class="asterisk">*</span></th>
+              <th>Wins / 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="strat">Always Bet Favourite</td>
+              <td class="roi-cell roi-strong-neg">−17.1%</td>
+              <td class="roi-cell roi-pos">+1.5%</td>
+              <td class="roi-cell roi-strong-pos">+16.6%</td>
+              <td class="roi-cell roi-pos">+2.3%</td>
+              <td class="roi-cell roi-pos" style="opacity:0.65">+0.4%</td>
+              <td class="tnum" style="color:var(--ink-muted)">3 / 4</td>
+            </tr>
+            <tr>
+              <td class="strat">Knockout Only</td>
+              <td class="roi-cell roi-pos">+10.9%</td>
+              <td class="roi-cell roi-strong-neg">−15.6%</td>
+              <td class="roi-cell roi-strong-pos">+30.3%</td>
+              <td class="roi-cell roi-pos">+3.4%</td>
+              <td class="roi-cell roi-strong-pos" style="opacity:0.65">+52.9%</td>
+              <td class="tnum" style="color:var(--ink-muted)">3 / 4</td>
+            </tr>
+            <tr>
+              <td class="strat">Strong Favourites (≥50%)</td>
+              <td class="roi-cell roi-neg">−6.5%</td>
+              <td class="roi-cell roi-strong-pos">+16.5%</td>
+              <td class="roi-cell roi-pos">+3.9%</td>
+              <td class="roi-cell roi-pos">+7.1%</td>
+              <td class="roi-cell roi-strong-pos" style="opacity:0.65">+25.7%</td>
+              <td class="tnum" style="color:var(--ink-muted)">3 / 4</td>
+            </tr>
+            <tr>
+              <td class="strat">Heavy Favourites (≥60%)</td>
+              <td class="roi-cell roi-pos">+0.3%</td>
+              <td class="roi-cell roi-pos">+5.4%</td>
+              <td class="roi-cell roi-neg">−5.0%</td>
+              <td class="roi-cell roi-pos">+5.8%</td>
+              <td class="roi-cell roi-strong-pos" style="opacity:0.65">+19.1%</td>
+              <td class="tnum" style="color:var(--ink-muted)">3 / 4</td>
+            </tr>
+            <tr>
+              <td class="strat">Skip the Dead Zone</td>
+              <td class="roi-cell roi-strong-neg">−22.1%</td>
+              <td class="roi-cell roi-strong-neg">−22.4%</td>
+              <td class="roi-cell roi-pos">+13.9%</td>
+              <td class="roi-cell roi-pos">+14.6%</td>
+              <td class="roi-cell roi-pos" style="opacity:0.65">+14.0%</td>
+              <td class="tnum" style="color:var(--ink-muted)">2 / 4</td>
+            </tr>
+            <tr>
+              <td class="strat">Knockout + Strong</td>
+              <td class="roi-cell roi-strong-pos">+53.3%</td>
+              <td class="roi-cell roi-pos">+11.4%</td>
+              <td class="roi-cell roi-strong-pos">+52.5%</td>
+              <td class="roi-cell roi-strong-pos">+50.6%</td>
+              <td class="roi-cell roi-strong-pos" style="opacity:0.65">+63.6%</td>
+              <td class="tnum" style="color:var(--pitch-deep);font-weight:600">4 / 4</td>
+            </tr>
+            <tr>
+              <td class="strat">Value the Draw</td>
+              <td class="roi-cell roi-strong-neg">−44.7%</td>
+              <td class="roi-cell roi-strong-neg">−53.9%</td>
+              <td class="roi-cell roi-strong-neg">−37.7%</td>
+              <td class="roi-cell roi-pos">+16.3%</td>
+              <td class="roi-cell roi-pos" style="opacity:0.65">+7.7%</td>
+              <td class="tnum" style="color:var(--ink-muted)">1 / 4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="legend">
+        <span><span class="swatch" style="background:rgba(47,107,75,0.14)"></span>Profitable</span>
+        <span><span class="swatch" style="background:rgba(47,107,75,0.32)"></span>Strongly profitable (≥15%)</span>
+        <span><span class="swatch" style="background:rgba(162,59,46,0.14)"></span>Loss</span>
+        <span><span class="swatch" style="background:rgba(162,59,46,0.32)"></span>Heavy loss (≤−15%)</span>
+        <span style="margin-left:auto;color:var(--gold-deep)">Knockout + Strong: the only rule profitable in all four settled tournaments</span>
+      </div>
+      <p class="chart-caption" style="margin-top:1rem">
+        The caveat is in the bet counts. Knockout + Strong placed just 3, 7, 2 and 8 bets across the four settled
+        tournaments — a perfect record on a tiny sample. Always Bet Favourite placed 64 each time and finished
+        between −17.1% and +16.6%. The rule that travels most reliably is the one with the least evidence; the rule
+        with the most evidence is the most volatile. That tension is the honest finding.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ CONFIDENCE BANDS ══════════════════════════════ -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Calibration</span>
+        <span class="rule"></span>
+      </div>
+      <h2 class="section-title display">Confidence travels. The dead zone does not.</h2>
+      <p class="section-intro">
+        Grouping matches by the probability the market gave the favourite reveals which bands are stable across
+        tournaments and which swing wildly. Heavy favourites (≥60%) were reliable everywhere; the tightest calls
+        (33–40%) were a coin-flip at best and a wipeout at worst.
+      </p>
+      <div class="table-wrap">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th>Confidence band</th>
+              <th>2010</th>
+              <th>2014</th>
+              <th>2018</th>
+              <th>2022</th>
+              <th>Read-across</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">33–40% (tightest)</td>
+              <td class="tnum">25%</td>
+              <td class="tnum" style="color:var(--verdict-deep);font-weight:600">0%</td>
+              <td class="tnum">50%</td>
+              <td class="tnum">55%</td>
+              <td style="font-size:0.82rem;color:var(--ink-muted)">Graveyard in 3 of 4</td>
+            </tr>
+            <tr>
+              <td class="name">40–50%</td>
+              <td class="tnum">47%</td>
+              <td class="tnum">64%</td>
+              <td class="tnum">58%</td>
+              <td class="tnum" style="color:var(--verdict-deep);font-weight:600">37%</td>
+              <td style="font-size:0.82rem;color:var(--ink-muted)">Volatile — no stable edge</td>
+            </tr>
+            <tr>
+              <td class="name">50–60%</td>
+              <td class="tnum">50%</td>
+              <td class="tnum" style="color:var(--pitch-deep);font-weight:600">75%</td>
+              <td class="tnum">71%</td>
+              <td class="tnum">67%</td>
+              <td style="font-size:0.82rem;color:var(--ink-muted)">Sharp in 3 of 4</td>
+            </tr>
+            <tr>
+              <td class="name">60–70%</td>
+              <td class="tnum" style="color:var(--pitch-deep);font-weight:600">80%</td>
+              <td class="tnum">70%</td>
+              <td class="tnum">64%</td>
+              <td class="tnum">72%</td>
+              <td style="font-size:0.82rem;color:var(--ink-muted)">Reliable everywhere</td>
+            </tr>
+            <tr>
+              <td class="name">70–80%</td>
+              <td class="tnum">60%</td>
+              <td class="tnum" style="color:var(--pitch-deep);font-weight:600">100%</td>
+              <td class="tnum">75%</td>
+              <td class="tnum" style="color:var(--pitch-deep);font-weight:600">100%</td>
+              <td style="font-size:0.82rem;color:var(--ink-muted)">Strong favourites deliver</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="chart-caption">The 60–70% band won 64–80% of the time in all four tournaments — the most stable zone in the study. The 33–40% band never exceeded 55% and hit zero in 2014. The lesson that travels: trust heavy favourites, distrust tight calls, and treat everything in between as noise.</p>
+
+      <div class="stat-grid" style="margin-top:3.5rem">
+        <div class="stat-cell">
+          <div class="k">Best accuracy</div>
+          <div class="v gold">59.4%</div>
+          <div class="h">2018 &amp; 2022 — the market's sharpest summers</div>
+        </div>
+        <div class="stat-cell">
+          <div class="k">Worst accuracy</div>
+          <div class="v verdict">45.3%</div>
+          <div class="h">2010 — eighteen draws, favourites underperformed</div>
+        </div>
+        <div class="stat-cell">
+          <div class="k">Largest positive bias</div>
+          <div class="v pitch">+10.9%</div>
+          <div class="h">2018 — favourites overperformed their quotes</div>
+        </div>
+        <div class="stat-cell">
+          <div class="k">Only negative bias</div>
+          <div class="v verdict">−3.1%</div>
+          <div class="h">2010 — the inverted tournament</div>
+        </div>
+        <div class="stat-cell">
+          <div class="k">Strategy that always won</div>
+          <div class="v gold">4 / 4</div>
+          <div class="h">Knockout + Strong — but on 2–8 bets each</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ THE FIVE STUDIES ══════════════════════════════ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">The individual studies</span>
+        <span class="rule"></span>
+      </div>
+      <h2 class="section-title display">Five tournaments, each told in full.</h2>
+      <p class="section-intro">
+        Every study below is a standalone interactive app — the same lens, one tournament at a time. Real results,
+        representative pre-match odds, client-side analytics, and a seven-strategy backtesting lab. The 2026 study
+        is forward-looking; the rest are settled truth.
+      </p>
+      <div class="cards">
+        <a class="card" href="./wc2022-odds-verdict/">
+          <div class="year display">2022</div>
+          <div class="host">Qatar · 20 Nov – 18 Dec 2022</div>
+          <p class="headline">59.4% accuracy. A favourite-longshot signature broken by two upsets — Argentina at 80% undone by Saudi Arabia, and a quarter-final bloodbath. The dead zone was where draws piled up.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><div class="k">Accuracy</div><div class="v tnum">59.4%</div></div>
+            <div class="mini-stat"><div class="k">Fav. bias</div><div class="v tnum" style="color:var(--pitch-deep)">+5.1%</div></div>
+            <div class="mini-stat"><div class="k">Matches</div><div class="v tnum">64</div></div>
+          </div>
+          <div class="arrow">Read the study →</div>
+        </a>
+
+        <a class="card" href="./wc2018-odds-verdict/">
+          <div class="year display">2018</div>
+          <div class="host">Russia · 14 Jun – 15 Jul 2018</div>
+          <p class="headline">59.4% accuracy. The cleanest favourite-longshot bias of the modern World Cups — favourites overperformed by +10.9%, and betting every favourite turned a profit. Germany's group-stage collapse was the exception.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><div class="k">Accuracy</div><div class="v tnum">59.4%</div></div>
+            <div class="mini-stat"><div class="k">Fav. bias</div><div class="v tnum" style="color:var(--pitch-deep)">+10.9%</div></div>
+            <div class="mini-stat"><div class="k">Matches</div><div class="v tnum">64</div></div>
+          </div>
+          <div class="arrow">Read the study →</div>
+        </a>
+
+        <a class="card" href="./wc2014-odds-verdict/">
+          <div class="year display">2014</div>
+          <div class="host">Brazil · 12 Jun – 13 Jul 2014</div>
+          <p class="headline">56.3% accuracy. A bimodal market. Strong favourites delivered (70–80% band perfect), but every tight call collapsed — zero for twelve in the 33–40% band. Spain's demolition, the Mineirazo.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><div class="k">Accuracy</div><div class="v tnum">56.3%</div></div>
+            <div class="mini-stat"><div class="k">Fav. bias</div><div class="v tnum" style="color:var(--pitch-deep)">+7.3%</div></div>
+            <div class="mini-stat"><div class="k">Matches</div><div class="v tnum">64</div></div>
+          </div>
+          <div class="arrow">Read the study →</div>
+        </a>
+
+        <a class="card" href="./wc2010-odds-verdict/">
+          <div class="year display">2010</div>
+          <div class="host">South Africa · 11 Jun – 11 Jul 2010</div>
+          <p class="headline">45.3% accuracy — the lowest. An inverted favourite-longshot bias: favourites underperformed by −3.1%, and betting every favourite lost money. Eighteen draws, Spain and Germany upset in their openers.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><div class="k">Accuracy</div><div class="v tnum">45.3%</div></div>
+            <div class="mini-stat"><div class="k">Fav. bias</div><div class="v tnum" style="color:var(--verdict-deep)">−3.1%</div></div>
+            <div class="mini-stat"><div class="k">Matches</div><div class="v tnum">64</div></div>
+          </div>
+          <div class="arrow">Read the study →</div>
+        </a>
+
+        <a class="card fwd" href="./wc2026-odds-verdict/">
+          <div class="year display">2026<span class="asterisk">*</span></div>
+          <div class="host">USA / Canada / Mexico · 11 Jun – 19 Jul 2026</div>
+          <p class="headline">Forward-looking. The 2026 tournament is the first 48-team edition. This study uses an illustrative dataset — plausible outcomes on plausible odds — so the method is ready when the real results arrive. The schema is fixed; drop in real data and every metric recomputes.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><div class="k">Matches</div><div class="v tnum">48</div></div>
+            <div class="mini-stat"><div class="k">Status</div><div class="v" style="color:var(--ink-muted);font-size:0.78rem">Illustrative</div></div>
+          </div>
+          <div class="arrow">Read the study →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+  <footer class="grain">
+    <div class="container">
+      <div class="kicker">Colophon</div>
+      <h3 class="display">The verdict is only as good as the evidence behind it.</h3>
+      <div class="grid">
+        <div>
+          <div class="k">Method</div>
+          <p>Decimal odds are converted to implied probabilities, normalised by the overround to remove bookmaker margin, and scored against actual results with accuracy, Brier score, log loss and ranked probability score. Every figure is computed client-side from the embedded dataset in each study.</p>
+        </div>
+        <div>
+          <div class="k">Data</div>
+          <p>The four settled studies (2010–2022) use real 90-minute results with representative pre-match odds at a realistic ~5–7% overround. The 2026 study is illustrative — plausible outcomes on plausible odds, ready to be replaced with real data. Knockout ties level at 90 minutes are coded as draws for the 1X2 market.</p>
+        </div>
+        <div>
+          <div class="k">Scope &amp; limits</div>
+          <p>256 settled matches is enough to surface calibration patterns but not enough to settle them. Per-bucket rates carry wide intervals at the extremes; strategy ROIs on single-digit bet counts are hypotheses, not certainties. This is an analytical study, not betting advice.</p>
+        </div>
+      </div>
+      <div class="colophon">
+        <span>The Verdict · A World Cup Odds Accuracy Study, 2010–2026</span>
+        <span class="tnum">Fraunces / Hanken Grotesk / JetBrains Mono</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
