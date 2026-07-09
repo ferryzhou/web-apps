@@ -30,7 +30,7 @@ export function Overview({ results }: OverviewProps) {
           aria-hidden
           className="pointer-events-none absolute -right-10 top-10 select-none font-display text-[34rem] font-semibold leading-none text-ink/[0.035] md:text-[42rem]"
         >
-          10
+          02
         </span>
         {/* Decorative vertical hairlines */}
         <div aria-hidden className="pointer-events-none absolute inset-0 flex justify-between px-[8%] opacity-[0.5]">
@@ -43,7 +43,7 @@ export function Overview({ results }: OverviewProps) {
           <Reveal>
             <div className="flex items-center gap-3">
               <span className="h-px w-10 bg-gold" />
-              <span className="kicker text-gold-deep">A study of prediction · FIFA World Cup 2010</span>
+              <span className="kicker text-gold-deep">A study of prediction · FIFA World Cup 2002</span>
             </div>
           </Reveal>
 
@@ -63,7 +63,7 @@ export function Overview({ results }: OverviewProps) {
             <p className="mt-6 max-w-prose text-lg leading-relaxed text-ink-muted">
               We treat every pre-match betting line as a probabilistic forecast and every
               final whistle as ground truth. Across{" "}
-              <span className="tnum text-ink">{count}</span> matches of the 2010 World Cup,
+              <span className="tnum text-ink">{count}</span> matches of the 2002 World Cup,
               this study measures how often the market was right — and exactly where it
               was wrong.
             </p>
@@ -177,18 +177,18 @@ export function Overview({ results }: OverviewProps) {
                 </span>{" "}
                 of{" "}
                 <span className="tnum font-semibold text-ink">{count}</span>{" "}
-                matches the team carrying the shortest odds went on to win. That is the
-                lowest accuracy of the World Cups studied, and accuracy alone flatters a
+                matches the team carrying the shortest odds went on to win. For a
+                tournament of upsets that is no surprise, and accuracy alone flatters a
                 forecaster. The deeper question is whether the odds were{" "}
                 <em className="font-display italic text-ink">calibrated</em> — whether a
                 side priced as a 70% chance really won seven times in ten.
               </p>
               <p>
-                On the whole, the market was overconfident rather than honest. The
-                favourite bias of{" "}
-                <span className="tnum font-semibold text-ink">−3.1%</span> is the inverse
-                of the classic favourite-longshot pattern — favourites underperformed
-                their quotes, not overperformed. The Brier score of{" "}
+                On the whole, the market was honest rather than heroic. The favourite
+                bias of{" "}
+                <span className="tnum font-semibold text-ink">+0.7%</span> is a rounding
+                error — favourites won almost exactly as often as their price implied,
+                neither over-rated nor under-rated in the aggregate. The Brier score of{" "}
                 <span className="tnum font-semibold text-ink">
                   {brierScore.toFixed(3)}
                 </span>{" "}
@@ -197,20 +197,24 @@ export function Overview({ results }: OverviewProps) {
                   {logLossScore.toFixed(3)}
                 </span>{" "}
                 still sit in the range of a competent probability forecast, but the cracks
-                run wide: tightly-matched group games produced{" "}
-                <span className="tnum font-semibold text-ink">{drawsCount}</span> draws —
-                the most of any tournament studied — and{" "}
+                show in the middle of the ground: tightly-matched group games produced{" "}
+                <span className="tnum font-semibold text-ink">{drawsCount}</span> draws
+                and{" "}
                 <span className="tnum font-semibold text-ink">{upsetsCount}</span>{" "}
-                upsets. Spain, the eventual champions, lost their opener to Switzerland;
-                Germany fell to Serbia.
+                upsets. France, the defending champions, went home without scoring a goal;
+                Argentina and Portugal followed them out at the group stage; Senegal, who
+                beat the holders in the opener, reached the last eight.
               </p>
               <p>
-                The headline lesson is an inverted favourite-longshot bias. Where 2018
-                saw favourites overperform their quotes, 2010 saw them underperform — the
-                market systematically over-rated favourites rather than under-rating
-                them. Only heavy confidence was rewarded: favourites priced at 60% or
-                higher delivered, everything below a coin-flip or worse. The Calibration
-                Lab lays the inversion bare.
+                The headline lesson is that honesty in the aggregate can coexist with
+                carnage in the margins. A favourite bias of +0.7% says the market, taken
+                as a whole, priced the tournament almost exactly right — yet only 51.6%
+                of favourites won and twelve were beaten outright. The truth is unevenly
+                distributed: clear favourites, priced at 60% or higher, converted 14 of
+                15 and were the one zone where confidence was earned; below that line, in
+                the tight group games and the extra-time-littered knockouts, the market
+                had no edge at all. The Calibration Lab shows where the honesty held and
+                where it broke.
               </p>
             </div>
           </Reveal>

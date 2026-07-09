@@ -106,23 +106,24 @@ export function CalibrationLab({ results }: Props) {
           <div className="flex h-full flex-col justify-center border border-ink/15 bg-ink p-8 text-parchment">
             <div className="kicker text-gold-soft">Interpretation</div>
             <p className="mt-4 font-display text-2xl font-medium leading-snug">
-              An <span className="text-gold-soft">inverted</span> favourite-longshot bias
-              — favourites underperformed.
+              An <span className="text-gold-soft">honest</span> market, undone in the
+              middle.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-parchment/70">
-              Clear favourites — priced above 60% — mostly delivered, the 60–70% band
-              converting at 80%. But below that line the market was overconfident: the
-              33–40% band won just 25% of the time and the 40–50% band 47%. That is the
-              inverse of the textbook favourite-longshot bias — the market over-rated
-              favourites rather than under-rating them. Spain, the eventual champions,
-              lost their opener to Switzerland as a 1.30 favourite; Germany fell to Serbia
-              at 1.40. Eighteen draws filled the gaps. Netted across 64 matches, the
+              Clear favourites, priced at 60% or higher, delivered 14 of 15 — France's
+              opening defeat to Senegal was the lone blemish at the top of the market.
+              Below that line the honesty broke down: the 33–40% band won just 25% of the
+              time and the 40–50% band 40%, the stretch where Argentina and Portugal were
+              unseated in the groups and France finished goalless and out. South Korea
+              rode two level-at-ninety draws past Italy and Spain to a semi-final no one
+              had priced; Senegal, who beat the holders in the opener, reached the last
+              eight. Nineteen draws filled the gaps. Netted across 64 matches, the
               aggregate favourite bias of{" "}
               <span className="tnum text-gold-soft">
                 {biasPct >= 0 ? "+" : ""}{biasPct.toFixed(1)}%
               </span>{" "}
-              is negative — the only tournament studied where favourites won less often
-              than their price implied.
+              is a rounding error — the market was honest in the round, even as the
+              tournament was cruel in the detail.
             </p>
           </div>
         </Reveal>

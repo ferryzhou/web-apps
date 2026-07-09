@@ -57,6 +57,24 @@ jobs:
           npm ci
           npm run build
 
+      - name: Install & build the WC2006 Vite app
+        working-directory: world-cup-verdict/wc2006-odds-verdict
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install & build the WC2002 Vite app
+        working-directory: world-cup-verdict/wc2002-odds-verdict
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install & build the WC1998 Vite app
+        working-directory: world-cup-verdict/wc1998-odds-verdict
+        run: |
+          npm ci
+          npm run build
+
       - name: Assemble site
         run: |
           mkdir _site
@@ -70,6 +88,9 @@ jobs:
             --exclude='world-cup-verdict/wc2018-odds-verdict/dist' \
             --exclude='world-cup-verdict/wc2014-odds-verdict/dist' \
             --exclude='world-cup-verdict/wc2010-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc2006-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc2002-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc1998-odds-verdict/dist' \
             ./ _site/
           # Overlay the built Vite apps at their served paths.
           cp -a world-cup-verdict/wc2026-odds-verdict/dist/. _site/world-cup-verdict/wc2026-odds-verdict/
@@ -77,6 +98,9 @@ jobs:
           cp -a world-cup-verdict/wc2018-odds-verdict/dist/. _site/world-cup-verdict/wc2018-odds-verdict/
           cp -a world-cup-verdict/wc2014-odds-verdict/dist/. _site/world-cup-verdict/wc2014-odds-verdict/
           cp -a world-cup-verdict/wc2010-odds-verdict/dist/. _site/world-cup-verdict/wc2010-odds-verdict/
+          cp -a world-cup-verdict/wc2006-odds-verdict/dist/. _site/world-cup-verdict/wc2006-odds-verdict/
+          cp -a world-cup-verdict/wc2002-odds-verdict/dist/. _site/world-cup-verdict/wc2002-odds-verdict/
+          cp -a world-cup-verdict/wc1998-odds-verdict/dist/. _site/world-cup-verdict/wc1998-odds-verdict/
           # GitHub Pages needs an index.html at the root (landing page already has one).
           test -f _site/index.html
 

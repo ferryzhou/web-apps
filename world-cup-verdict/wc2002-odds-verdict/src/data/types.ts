@@ -1,4 +1,4 @@
-// Core domain types for the WC2010 odds-accuracy study.
+// Core domain types for the WC2002 odds-accuracy study.
 // A single Match record is the ground unit; every metric in the app is
 // derived from these fields at runtime.
 
