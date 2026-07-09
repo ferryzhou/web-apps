@@ -1,4 +1,4 @@
-// Strategy backtesting for the WC2010 odds study.
+// Strategy backtesting for the WC2002 odds study.
 //
 // A strategy is a simple rule: given a match's analysis (odds-derived
 // probabilities + stage + result), decide whether to place a bet and on which
@@ -93,7 +93,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "The baseline. Back the outcome with the highest normalised probability in all 64 matches, flat 1 unit each time.",
     insight:
-      "Establishes the floor — and in 2010 the floor was a loss. Favourites won only 45.3% of the time, the lowest of the World Cups studied, and the baseline bled money. The market was overconfident in favourites.",
+      "Establishes the floor — and in 2002 the floor was a loss. Favourites won only 51.6% of the time, and the baseline bled money at −12.1%. The market was honest in aggregate, but honesty is no defence against twelve upsets and nineteen draws.",
     decide: (a) => betFavourite(a),
   },
   {
@@ -103,7 +103,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "Back the favourite in every knockout match, from the Round of 16 through the final. Sit out the group stage entirely.",
     insight:
-      "Knockout accuracy was far sharper than the group stage (75% vs 42%). The group stage was a swamp of draws and upsets; the knockouts, save the semifinal and final, were where favourites delivered.",
+      "Knockout accuracy was no sharper than the group stage (50% vs 52%) — the reverse of the usual pattern. The Round of 16 alone went 3 for 8, three ties level at ninety minutes; the filter bled −20.0%, the worst of any strategy.",
     decide: (a) => (isKnockout(a) ? betFavourite(a) : null),
   },
   {
@@ -113,7 +113,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "Back the favourite, but only when its normalised probability is 50% or higher. Skip the coin-flips.",
     insight:
-      "Above 50% the favourite won only 50% of the time — a coin-flip. The 50–60% band offered no edge in 2010; only the heaviest favourites cleared their price.",
+      "Above 50% the favourite won 74% of the time, but the 50–60% band was a true coin-flip at 50%. The edge came entirely from the heavy end; the filter cleared +7.8% on the back of the 60%+ zone.",
     decide: (a) => (a.favoriteProb >= 0.5 ? betFavourite(a) : null),
   },
   {
@@ -123,7 +123,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "Back the favourite only when its normalised probability is 60% or higher — the high-confidence zone.",
     insight:
-      "The 60–70% band converted at 80% — the one zone where confidence was earned. Above 60% was the only place favourites reliably beat their quote in an otherwise inverted tournament.",
+      "The 60–70% band converted at 92% and the two matches priced above 70% both won — 14 of 15 in all. This was the one zone where confidence was earned, and the only filter to clear +20%, returning +27.3%.",
     decide: (a) => (a.favoriteProb >= 0.6 ? betFavourite(a) : null),
   },
   {
@@ -133,7 +133,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "Back the favourite in every match except where its probability lands in the 40–50% 'dead zone' — the tightest calls where draws and upsets pile up.",
     insight:
-      "The 33–40% bucket won just 25% of the time and the 40–50% bucket 47%. Filtering the dead zone left 47 bets still losing money — the rot was everywhere below 60%.",
+      "The 33–40% bucket won just 25% of the time and the 40–50% bucket 40%. Filtering the dead zone left 39 bets still losing money at −6.7% — the rot ran from the coin-flips down, and only the heavy end held.",
     decide: (a) =>
       a.favoriteProb >= 0.4 && a.favoriteProb < 0.5 ? null : betFavourite(a),
   },
@@ -144,7 +144,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "Back the favourite in knockouts, but only when its probability is ≥ 50%. Combines the stage filter with the confidence filter.",
     insight:
-      "Two edges — knockout sharpness and the >50% filter — stack, but in 2010 only three bets qualified and all three won. A perfect record on a tiny sample: high conviction, very wide error bars.",
+      "Two edges — the knockout stage and the ≥50% filter — stack to nine bets and six hits, landing dead on break-even. The knockout filter hurt more than it helped: three level-at-ninety ties and the third-place upset cancelled the winners.",
     decide: (a) =>
       isKnockout(a) && a.favoriteProb >= 0.5 ? betFavourite(a) : null,
   },
@@ -155,7 +155,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "A contrarian play: when the favourite is priced barely ahead (40–50%), back the draw instead. Exploits the pile-up of stalemates in tight matches.",
     insight:
-      "The dead zone produced draws, but not enough: 3 wins from 17 bets. With favourites winning only 47% of the 40–50% band, the draw was the right instinct at the wrong price.",
+      "The dead zone produced draws — nine of them from 25 bets, enough to clear +12.0%. With favourites winning only 40% of the 40–50% band, backing the draw was the rare contrarian instinct that paid.",
     decide: (a) =>
       a.favoriteProb >= 0.4 && a.favoriteProb < 0.5
         ? { outcome: "D", odds: a.match.oddsDraw }

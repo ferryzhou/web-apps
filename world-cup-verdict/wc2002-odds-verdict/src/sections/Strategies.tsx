@@ -204,8 +204,9 @@ export function Strategies({ results }: Props) {
             <div className="kicker text-gold-soft">The betting verdict</div>
             <p className="mt-4 max-w-prose font-display text-2xl font-medium leading-snug">
               Bet every favourite and you{" "}
-              <span className="text-verdict-soft">lose money</span> — the market over-rated
-              favourites in 2010. The edge lives in the filters.
+              <span className="text-verdict-soft">lose money</span> — twelve upsets and
+              nineteen draws saw to that, not market arrogance. The edge lives at the top
+              of the price.
             </p>
             <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
               <VerdictStat
@@ -232,13 +233,15 @@ export function Strategies({ results }: Props) {
             </div>
             <p className="mt-8 max-w-prose text-sm leading-relaxed text-parchment/60">
               <span className="font-semibold text-parchment/80">Caveat.</span> This is a
-              64-match sample. Strategies built on as few as three bets carry wide error
-              bars — a single upset swings ROI by double digits. The knockout-strong
-              filter returned +53.3% on just three bets, but the knockout-only signal (16
-              bets, +10.9%) is the sturdiest edge in an otherwise hostile tournament.
-              Heavy favourites broke even; everything else lost. Real confidence needs
-              hundreds of matches. Treat these results as a demonstration of method, not a
-              licence to print money.
+              64-match sample. Strategies built on as few as nine bets carry wide error
+              bars — a single upset swings ROI by double digits. The heavy-favourite
+              filter is the standout: +27.3% on 15 bets, both the best return and the
+              most credible at a usable sample. Value-draw cleared +12.0% on 25 bets by
+              backing the stalemates the middle of the ground kept producing.
+              Knockout-only bled −20.0% — the knockouts were where the upsets clustered,
+              not where favourites delivered. Real confidence needs hundreds of matches.
+              Treat these results as a demonstration of method, not a licence to print
+              money.
             </p>
           </div>
         </div>

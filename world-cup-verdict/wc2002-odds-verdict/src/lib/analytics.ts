@@ -1,4 +1,4 @@
-// Pure-TS analytics for the WC2010 odds-accuracy study.
+// Pure-TS analytics for the WC2002 odds-accuracy study.
 // All metrics here are derived from the `Match` records — no I/O, no globals.
 // Anything shown in the UI is computed by `analyzeStudy(matches)`.
 

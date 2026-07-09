@@ -34,7 +34,7 @@ export function Nav() {
             The Verdict
           </span>
           <span className="hidden text-[0.62rem] uppercase tracking-kicker text-ink-muted sm:inline">
-            WC2010
+            WC2002
           </span>
         </a>
 

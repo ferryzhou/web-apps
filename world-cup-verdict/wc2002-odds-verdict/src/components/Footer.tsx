@@ -28,7 +28,7 @@ export function Footer() {
             <div>
               <div className="kicker text-gold-soft">Data</div>
               <p className="mt-3 text-sm leading-relaxed text-parchment/70">
-                The 2010 World Cup ran 11 June – 11 July 2010 in South Africa. This study
+                The 2002 World Cup ran 31 May – 30 June 2002 in South Korea and Japan. This study
                 covers all 64 matches, group stage through the final. The embedded dataset
                 is{" "}
                 <span className="text-gold-soft">real results with representative pre-match odds</span> —
@@ -52,7 +52,7 @@ export function Footer() {
 
         <Reveal delay={0.1}>
           <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-parchment/15 pt-6 text-xs uppercase tracking-kicker text-parchment/50 sm:flex-row sm:items-center">
-            <span>The Verdict · A World Cup 2010 Odds Accuracy Study</span>
+            <span>The Verdict · A World Cup 2002 Odds Accuracy Study</span>
             <span className="tnum">Fraunces / Hanken Grotesk / JetBrains Mono</span>
           </div>
         </Reveal>

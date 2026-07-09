@@ -39,7 +39,7 @@ export function ResultsDashboard({ results }: Props) {
         <ChartCard
           kicker="By stage"
           title="Accuracy by tournament stage"
-          caption="Green bars beat the tournament average (dashed); gold bars fall below it. The group stage was a swamp — 42% accuracy and eighteen draws. The knockouts sharpened to 75% through the quarter-finals, then both semifinals and the final went against the favourite."
+          caption="Green bars beat the tournament average (dashed); gold bars fall below it. The group stage ran at 52% with fourteen draws; the Round of 16 collapsed to 38% as three ties went to extra time; the quarter-finals split two and two. Both semi-finals and the final went to the favourite — only the third-place match went against the grain."
           delay={0}
         >
           <StageAccuracyChart data={byStage} overallAccuracy={accuracy} />
