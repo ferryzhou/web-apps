@@ -25,34 +25,34 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: wc2026-odds-verdict/package-lock.json
+          cache-dependency-path: world-cup-verdict/wc2026-odds-verdict/package-lock.json
 
       - name: Install & build the WC2026 Vite app
-        working-directory: wc2026-odds-verdict
+        working-directory: world-cup-verdict/wc2026-odds-verdict
         run: |
           npm ci
           npm run build
 
       - name: Install & build the WC2022 Vite app
-        working-directory: wc2022-odds-verdict
+        working-directory: world-cup-verdict/wc2022-odds-verdict
         run: |
           npm ci
           npm run build
 
       - name: Install & build the WC2018 Vite app
-        working-directory: wc2018-odds-verdict
+        working-directory: world-cup-verdict/wc2018-odds-verdict
         run: |
           npm ci
           npm run build
 
       - name: Install & build the WC2014 Vite app
-        working-directory: wc2014-odds-verdict
+        working-directory: world-cup-verdict/wc2014-odds-verdict
         run: |
           npm ci
           npm run build
 
       - name: Install & build the WC2010 Vite app
-        working-directory: wc2010-odds-verdict
+        working-directory: world-cup-verdict/wc2010-odds-verdict
         run: |
           npm ci
           npm run build
@@ -65,18 +65,18 @@ jobs:
             --exclude='_site' \
             --exclude='.git' \
             --exclude='node_modules' \
-            --exclude='wc2026-odds-verdict/dist' \
-            --exclude='wc2022-odds-verdict/dist' \
-            --exclude='wc2018-odds-verdict/dist' \
-            --exclude='wc2014-odds-verdict/dist' \
-            --exclude='wc2010-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc2026-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc2022-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc2018-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc2014-odds-verdict/dist' \
+            --exclude='world-cup-verdict/wc2010-odds-verdict/dist' \
             ./ _site/
           # Overlay the built Vite apps at their served paths.
-          cp -a wc2026-odds-verdict/dist/. _site/wc2026-odds-verdict/
-          cp -a wc2022-odds-verdict/dist/. _site/wc2022-odds-verdict/
-          cp -a wc2018-odds-verdict/dist/. _site/wc2018-odds-verdict/
-          cp -a wc2014-odds-verdict/dist/. _site/wc2014-odds-verdict/
-          cp -a wc2010-odds-verdict/dist/. _site/wc2010-odds-verdict/
+          cp -a world-cup-verdict/wc2026-odds-verdict/dist/. _site/world-cup-verdict/wc2026-odds-verdict/
+          cp -a world-cup-verdict/wc2022-odds-verdict/dist/. _site/world-cup-verdict/wc2022-odds-verdict/
+          cp -a world-cup-verdict/wc2018-odds-verdict/dist/. _site/world-cup-verdict/wc2018-odds-verdict/
+          cp -a world-cup-verdict/wc2014-odds-verdict/dist/. _site/world-cup-verdict/wc2014-odds-verdict/
+          cp -a world-cup-verdict/wc2010-odds-verdict/dist/. _site/world-cup-verdict/wc2010-odds-verdict/
           # GitHub Pages needs an index.html at the root (landing page already has one).
           test -f _site/index.html
 
