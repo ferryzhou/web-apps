@@ -113,6 +113,12 @@ _UPGRADE_NOISE = ('spray', 'decal', 'mount', 'skin')
 # Per-player build-order entries are capped so the payload stays small.
 _BUILD_ORDER_LIMIT = 45
 
+# Cap on minimap position samples sent to the client (uniformly downsampled
+# beyond this). Keeps the payload bounded on long games.
+_MINIMAP_MOVE_CAP = 20000
+# Positions from SUnitPositionsEvent are stored at 1/4 resolution.
+_POSITION_SCALE = 4
+
 
 def _loop_to_seconds(loop, speed_factor):
     return round(loop / LOOPS_PER_GAME_SECOND / speed_factor)
@@ -124,14 +130,17 @@ def _is_noise(name, blocklist):
 
 
 def _analyze_tracker(archive, protocol, speed_factor, player_ids):
-    """Extract time-series + build orders from the replay tracker stream.
+    """Extract analytics + minimap data from the replay tracker stream.
 
     The tracker stream (VersionedDecoder, build-stable) carries periodic
-    per-player score snapshots plus unit/upgrade events. Returns a dict keyed
-    by player id. Degrades gracefully to empty analytics when a replay predates
-    tracker events or the stream can't be read.
+    per-player score snapshots, unit/upgrade events, and unit positions. Returns
+    ``{'analytics': {...}, 'minimap': {...}}``. Degrades gracefully to empty
+    payloads when a replay predates tracker events or the stream can't be read.
     """
-    empty = {'available': False, 'series': {}, 'build_order': {}}
+    empty = {
+        'analytics': {'available': False, 'series': {}, 'build_order': {}},
+        'minimap': {'available': False},
+    }
     try:
         raw = archive.read_file('replay.tracker.events')
     except Exception:
@@ -144,6 +153,12 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
     supply_now = {pid: 0 for pid in player_ids}   # latest food used, for labels
     init_tags = set()                             # unit tags seen starting
 
+    # Minimap state: unit metadata (lifetime + owner) and positional samples.
+    units = {}                 # tag -> {pid, structure, born_t, died_t}
+    births = []                # (t, tag, x, y) fallback if no position stream
+    pos_moves = []             # (t, tag, x, y) from SUnitPositionsEvent
+    deaths = []                # (t, tag)
+
     def add_build(pid, loop, name, kind):
         if pid not in build or len(build[pid]) >= _BUILD_ORDER_LIMIT:
             return
@@ -153,6 +168,14 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
             'name': name,
             'kind': kind,
         })
+
+    def add_unit(ev, loop, structure):
+        tag = ev.get('m_unitTagIndex')
+        pid = ev.get('m_controlPlayerId')
+        units[tag] = {'pid': pid, 'structure': structure,
+                      'born_t': _loop_to_seconds(loop, speed_factor), 'died_t': None}
+        births.append((_loop_to_seconds(loop, speed_factor), tag,
+                       ev.get('m_x', 0) * _POSITION_SCALE, ev.get('m_y', 0) * _POSITION_SCALE))
 
     try:
         events = protocol.decode_replay_tracker_events(raw)
@@ -184,18 +207,37 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 pid = ev.get('m_controlPlayerId')
                 unit = _text(ev.get('m_unitTypeName'))
                 init_tags.add(ev.get('m_unitTagIndex'))
+                add_unit(ev, loop, structure=True)
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'structure')
 
             elif name.endswith('SUnitBornEvent'):
-                # Skip the completion of something we already logged at init,
-                # and the starting units that exist at loop 0.
-                if ev.get('m_unitTagIndex') in init_tags or loop == 0:
+                is_completion = ev.get('m_unitTagIndex') in init_tags
+                if not is_completion:
+                    # A genuinely new unit (not the completion of an init'd one).
+                    add_unit(ev, loop, structure=False)
+                # Skip build-order noise: init completions and the loop-0 start.
+                if is_completion or loop == 0:
                     continue
                 pid = ev.get('m_controlPlayerId')
                 unit = _text(ev.get('m_unitTypeName'))
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'unit')
+
+            elif name.endswith('SUnitDiedEvent'):
+                tag = ev.get('m_unitTagIndex')
+                if tag in units:
+                    units[tag]['died_t'] = _loop_to_seconds(loop, speed_factor)
+                    deaths.append((_loop_to_seconds(loop, speed_factor), tag))
+
+            elif name.endswith('SUnitPositionsEvent'):
+                t = _loop_to_seconds(loop, speed_factor)
+                items = ev.get('m_items', []) or []
+                idx = ev.get('m_firstUnitIndex', 0)
+                for i in range(0, len(items) - 2, 3):
+                    idx += items[i]
+                    pos_moves.append((t, idx, items[i + 1] * _POSITION_SCALE,
+                                      items[i + 2] * _POSITION_SCALE))
 
             elif name.endswith('SUpgradeEvent'):
                 pid = ev.get('m_playerId')
@@ -209,10 +251,50 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
     # Keep only players that actually produced stats, and sort build orders.
     for pid in build:
         build[pid].sort(key=lambda e: e['t'])
-    return {
+    analytics = {
         'available': any(series[pid] for pid in series),
         'series': {str(pid): rows for pid, rows in series.items() if rows},
         'build_order': {str(pid): b for pid, b in build.items() if b},
+    }
+    return {
+        'analytics': analytics,
+        'minimap': _build_minimap(units, births, pos_moves, deaths),
+    }
+
+
+def _build_minimap(units, births, pos_moves, deaths):
+    """Assemble a compact, self-consistent minimap-playback payload.
+
+    All positions come from a single source (the SUnitPositionsEvent stream when
+    present, else unit birth positions) so they share one coordinate scale; the
+    client auto-fits the bounds, making the absolute scale irrelevant. Only
+    units with known lifetime/owner (from born/died events) are included.
+    """
+    use_positions = len(pos_moves) > len(births)
+    raw = pos_moves if use_positions else births
+    moves = [m for m in raw if m[1] in units]     # keep tags we can attribute
+    if not moves:
+        return {'available': False}
+
+    # Downsample uniformly if the stream is very long.
+    if len(moves) > _MINIMAP_MOVE_CAP:
+        stride = (len(moves) + _MINIMAP_MOVE_CAP - 1) // _MINIMAP_MOVE_CAP
+        moves = moves[::stride]
+
+    seen = set(m[1] for m in moves)
+    min_x = min(m[2] for m in moves); max_x = max(m[2] for m in moves)
+    min_y = min(m[3] for m in moves); max_y = max(m[3] for m in moves)
+
+    return {
+        'available': True,
+        'source': 'positions' if use_positions else 'births',
+        'bounds': [min_x, min_y, max_x, max_y],
+        # tag -> [pid, structure(0/1), born_t, died_t(-1 if survived)]
+        'units': {str(tag): [u['pid'] or 0, 1 if u['structure'] else 0,
+                             u['born_t'], u['died_t'] if u['died_t'] is not None else -1]
+                  for tag, u in units.items() if tag in seen},
+        'moves': [[m[0], str(m[1]), m[2], m[3]] for m in moves],
+        'deaths': [[t, str(tag)] for t, tag in deaths if tag in seen],
     }
 
 
@@ -257,11 +339,12 @@ def summarize(replay_bytes):
                 toon.get('m_id', 0)) if toon.get('m_id') else None,
         })
 
-    analytics = _analyze_tracker(archive, protocol, speed_factor,
-                                 {p['player_id'] for p in players})
+    tracker = _analyze_tracker(archive, protocol, speed_factor,
+                               {p['player_id'] for p in players})
 
     return {
-        'analytics': analytics,
+        'analytics': tracker['analytics'],
+        'minimap': tracker['minimap'],
         'map_name': _text(details.get('m_title')),
         'players': players,
         'played_at_utc': _filetime_to_iso(
