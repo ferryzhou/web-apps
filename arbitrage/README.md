@@ -17,8 +17,4 @@ different prices in different places — consolidated under a single hub
   maturation ladder, closing line value, and an interactive crossover simulator
   (capped arb income vs Kelly-compounded value edge, Monte Carlo).
 
-Companion app (separate folder): `../betting-odds-aggregator/` — multi-source
-timestamped odds for a single World Cup game with an arbitrage scanner, strategy
-simulator, and minute-level in-play replay via The Odds API.
-
 Everything is single-file HTML+JS; open any `index.html` directly.
