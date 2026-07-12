@@ -231,6 +231,32 @@
   .build-row .n .kind.structure { color: var(--terran); }
   .analytics-note { color: var(--text-dim); font-size: 0.78rem; margin-top: 0.9rem; text-align: center; }
 
+  /* Minimap playback */
+  .playback { display: none; margin-top: 1.6rem; }
+  .playback.show { display: block; animation: rise .35s ease; }
+  .mm-wrap {
+    position: relative; background: #0a0f18;
+    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  }
+  .mm-wrap canvas { display: block; width: 100%; height: auto; }
+  .mm-controls {
+    display: flex; align-items: center; gap: 0.7rem; margin-top: 0.7rem; flex-wrap: wrap;
+  }
+  .mm-btn {
+    flex: 0 0 auto; width: 40px; height: 34px; border-radius: 8px;
+    background: var(--bg-panel-2); color: var(--text); border: 1px solid var(--border);
+    font-size: 1rem; cursor: pointer; display: grid; place-items: center;
+  }
+  .mm-btn:hover { border-color: var(--accent); }
+  .mm-scrub { flex: 1 1 180px; accent-color: var(--accent); cursor: pointer; height: 6px; }
+  .mm-time { font-variant-numeric: tabular-nums; color: var(--text-dim); font-size: 0.86rem; min-width: 92px; text-align: center; }
+  .mm-speed { display: flex; gap: 0.25rem; }
+  .mm-speed button {
+    padding: 0.25rem 0.5rem; border-radius: 7px; font-size: 0.78rem; cursor: pointer;
+    background: var(--bg-panel-2); color: var(--text-dim); border: 1px solid var(--border);
+  }
+  .mm-speed button.active { color: var(--text); border-color: var(--accent); background: rgba(77,163,255,0.12); }
+
   @media (max-width: 620px) {
     .charts, .build-cols { grid-template-columns: 1fr; }
   }
@@ -288,6 +314,18 @@
     <p class="analytics-note" id="analyticsNote"></p>
   </section>
 
+  <section class="playback" id="playback" aria-live="polite">
+    <div class="section-title">Replay Playback — 2D minimap</div>
+    <div class="mm-wrap"><canvas id="mmCanvas" role="img" aria-label="Top-down minimap of unit movement"></canvas></div>
+    <div class="mm-controls">
+      <button class="mm-btn" id="mmPlay" aria-label="Play or pause">▶</button>
+      <input type="range" class="mm-scrub" id="mmScrub" min="0" max="1000" value="0" aria-label="Scrub through the game">
+      <span class="mm-time" id="mmTime">0:00 / 0:00</span>
+      <div class="mm-speed" id="mmSpeed"></div>
+    </div>
+    <p class="analytics-note" id="mmNote"></p>
+  </section>
+
   <footer class="page">
     <p>Decoding by the vendored <a href="https://github.com/Blizzard/s2protocol" rel="noopener">s2protocol</a> + mpyq via <a href="https://pyodide.org" rel="noopener">Pyodide</a>. Part of the <a href="../index.html">Web Apps Collection</a>.</p>
   </footer>
@@ -317,9 +355,10 @@
   const $ = (id) => document.getElementById(id);
   const drop = $("drop"), fileInput = $("file");
   const statusEl = $("status"), statusText = $("statusText");
-  const errorEl = $("error"), card = $("card"), analyticsEl = $("analytics");
+  const errorEl = $("error"), card = $("card"), analyticsEl = $("analytics"), playbackEl = $("playback");
 
   let pyodidePromise = null;
+  let mmPlayer = null;   // active minimap player (destroyed on each new replay)
   let busy = false;
 
   // ---- helpers ----
@@ -336,6 +375,8 @@
     errorEl.classList.remove("show");
     card.classList.remove("show");
     analyticsEl.classList.remove("show");
+    playbackEl.classList.remove("show");
+    if (mmPlayer) { mmPlayer.destroy(); mmPlayer = null; }
   }
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (c) =>
@@ -484,6 +525,7 @@ json.dumps(sc2_summary.summarize(_data))
 
     card.classList.add("show");
     renderAnalytics(data);
+    renderMinimap(data);
   }
 
   // ---- analytics: charts + build order ----
@@ -647,6 +689,154 @@ json.dumps(sc2_summary.summarize(_data))
       tip.style.opacity = 1;
     });
     svg.addEventListener("mouseleave", hide);
+  }
+
+  // ---- minimap playback ----
+  const MM_SPEEDS = [1, 2, 4, 8];
+  const MM_FLASH = 1.2;         // seconds a death flash lingers
+  const NEUTRAL_COLOR = "#8b97ab";
+
+  function renderMinimap(data) {
+    const mm = data.minimap;
+    if (!mm || !mm.available || !mm.moves || !mm.moves.length) {
+      playbackEl.classList.remove("show");
+      return;
+    }
+    const colorForPid = {};
+    (data.players || []).forEach((p, i) => { colorForPid[p.player_id] = chartColor(p.color, i); });
+
+    // Group per-unit position samples (moves are globally time-sorted → per-unit too).
+    const units = new Map();
+    for (const tag in mm.units) {
+      const m = mm.units[tag];
+      units.set(tag, { pid: m[0], structure: m[1], born: m[2], died: m[3],
+        color: colorForPid[m[0]] || NEUTRAL_COLOR, moves: [] });
+    }
+    for (const mv of mm.moves) {
+      const u = units.get(mv[1]);
+      if (u) u.moves.push([mv[0], mv[2], mv[3]]);
+    }
+    for (const [tag, u] of units) if (!u.moves.length) units.delete(tag);
+
+    mmPlayer = createMinimapPlayer(units, mm.bounds, data.duration_seconds || 1);
+    const src = mm.source === "positions" ? "unit position updates" : "unit spawn points";
+    $("mmNote").textContent =
+      "Top-down playback reconstructed from " + src + " in the replay tracker. " +
+      "Dots are units, squares are structures, coloured by player; rings mark deaths. " +
+      "Positions are approximate — this isn't the game engine.";
+    playbackEl.classList.add("show");
+  }
+
+  function createMinimapPlayer(units, bounds, duration) {
+    const canvas = $("mmCanvas"), ctx = canvas.getContext("2d");
+    const playBtn = $("mmPlay"), scrub = $("mmScrub"), timeEl = $("mmTime"), speedEl = $("mmSpeed");
+    const [minX, minY, maxX, maxY] = bounds;
+    const wWorld = Math.max(1, maxX - minX), hWorld = Math.max(1, maxY - minY);
+
+    let t = 0, playing = false, speed = 1, raf = 0, lastTs = 0, cssW = 0, cssH = 0;
+
+    // speed buttons
+    speedEl.innerHTML = MM_SPEEDS.map((s) =>
+      `<button data-s="${s}"${s === 1 ? ' class="active"' : ""}>${s}×</button>`).join("");
+
+    function fit() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cssW = Math.max(200, rect.width);
+      cssH = Math.round(cssW * Math.min(1, Math.max(0.5, hWorld / wWorld)));
+      canvas.style.height = cssH + "px";
+      canvas.width = Math.round(cssW * dpr);
+      canvas.height = Math.round(cssH * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+    const PAD = 10;
+    function sx(x) { return PAD + ((x - minX) / wWorld) * (cssW - 2 * PAD); }
+    function sy(y) { return PAD + ((maxY - y) / hWorld) * (cssH - 2 * PAD); }  // flip: game y is up
+
+    // last position sample at or before time tt (binary search)
+    function posAt(u, tt) {
+      const a = u.moves;
+      if (!a.length || a[0][0] > tt) return null;
+      let lo = 0, hi = a.length - 1, ans = 0;
+      while (lo <= hi) { const mid = (lo + hi) >> 1; if (a[mid][0] <= tt) { ans = mid; lo = mid + 1; } else hi = mid - 1; }
+      return a[ans];
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, cssW, cssH);
+      // subtle grid
+      ctx.strokeStyle = "rgba(255,255,255,0.05)"; ctx.lineWidth = 1;
+      for (let i = 1; i < 4; i++) {
+        const gx = PAD + (i / 4) * (cssW - 2 * PAD), gy = PAD + (i / 4) * (cssH - 2 * PAD);
+        ctx.beginPath(); ctx.moveTo(gx, PAD); ctx.lineTo(gx, cssH - PAD); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(PAD, gy); ctx.lineTo(cssW - PAD, gy); ctx.stroke();
+      }
+      for (const u of units.values()) {
+        if (u.born > t) continue;
+        const dead = u.died >= 0 && t >= u.died;
+        if (dead) {
+          const dt = t - u.died;
+          if (dt <= MM_FLASH) {
+            const p = posAt(u, u.died); if (!p) continue;
+            const r = 3 + dt * 9, alpha = 1 - dt / MM_FLASH;
+            ctx.strokeStyle = `rgba(255,90,90,${alpha.toFixed(3)})`; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.arc(sx(p[1]), sy(p[2]), r, 0, 6.2832); ctx.stroke();
+          }
+          continue;
+        }
+        const p = posAt(u, t); if (!p) continue;
+        const x = sx(p[1]), y = sy(p[2]);
+        ctx.fillStyle = u.color;
+        if (u.structure) {
+          ctx.fillRect(x - 3, y - 3, 6, 6);
+          ctx.strokeStyle = "rgba(0,0,0,0.5)"; ctx.lineWidth = 1; ctx.strokeRect(x - 3, y - 3, 6, 6);
+        } else {
+          ctx.beginPath(); ctx.arc(x, y, 2.6, 0, 6.2832); ctx.fill();
+        }
+      }
+    }
+
+    function fmt(s) { const m = Math.floor(s / 60); return m + ":" + String(Math.floor(s % 60)).padStart(2, "0"); }
+    function updateUI() {
+      scrub.value = Math.round((t / duration) * 1000);
+      timeEl.textContent = fmt(t) + " / " + fmt(duration);
+    }
+    function setPlaying(v) {
+      playing = v; playBtn.textContent = v ? "❚❚" : "▶";
+      if (v) { lastTs = 0; raf = requestAnimationFrame(step); }
+      else if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    }
+    function step(ts) {
+      if (!playing) return;
+      if (lastTs) { t += ((ts - lastTs) / 1000) * speed; }
+      lastTs = ts;
+      if (t >= duration) { t = duration; setPlaying(false); }
+      draw(); updateUI();
+      if (playing) raf = requestAnimationFrame(step);
+    }
+
+    // events
+    const onPlay = () => { if (t >= duration) t = 0; setPlaying(!playing); };
+    const onScrub = () => { t = (scrub.value / 1000) * duration; draw(); updateUI(); };
+    const onSpeed = (e) => {
+      const b = e.target.closest("button[data-s]"); if (!b) return;
+      speed = +b.dataset.s;
+      speedEl.querySelectorAll("button").forEach((x) => x.classList.toggle("active", x === b));
+    };
+    playBtn.addEventListener("click", onPlay);
+    scrub.addEventListener("input", () => { if (playing) setPlaying(false); onScrub(); });
+    speedEl.addEventListener("click", onSpeed);
+    const ro = new ResizeObserver(fit); ro.observe(canvas.parentElement);
+
+    fit(); updateUI();
+    return {
+      destroy() {
+        setPlaying(false); ro.disconnect();
+        playBtn.removeEventListener("click", onPlay);
+        speedEl.removeEventListener("click", onSpeed);
+      },
+    };
   }
 
   // ---- events ----

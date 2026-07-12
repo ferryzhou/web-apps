@@ -26,8 +26,17 @@ Hostable on GitHub Pages (or any static host) with no backend.
 - **Build order** per player: a timestamped list of structures, units and
   upgrades with the supply count when each item began.
 
-Analytics come from `replay.tracker.events`, which very old replays (pre-2013)
-don't contain; the dashboard hides itself gracefully when that stream is
+**2D minimap playback**
+
+- A top-down animated minimap with play/pause, a scrubber, and 1–8× speed.
+  Units are dots and structures are squares (coloured by player); deaths show as
+  fading rings. Positions come from the tracker's unit-position stream (unit
+  spawn points as a fallback), and the map bounds are auto-fit — so playback is
+  internally consistent without needing the map file. It's an approximation of
+  where things happened, not the game engine.
+
+All of the above come from `replay.tracker.events`, which very old replays
+(pre-2013) don't contain; each section hides itself gracefully when its data is
 absent.
 
 ## How it works
@@ -72,11 +81,20 @@ vendor/
 1. **Match card** — ✅
 2. **Analytics dashboard** — economy/supply/army/worker graphs + build orders
    from the tracker-event stream. ✅
-3. **2D minimap playback** — animate unit positions/deaths on a top-down map
-   with a scrubber (uses `SUnitPositionsEvent` / `SUnitDiedEvent`).
+3. **2D minimap playback** — animated top-down unit movement/deaths with a
+   scrubber (uses `SUnitPositionsEvent`, `SUnitBornEvent`, `SUnitDiedEvent`). ✅
 4. **APM & game-event analytics** — needs the build-specific game-event stream,
    so more `protocolNNNNN.py` versions get vendored for accurate per-build
    decoding.
+
+### Known limitation of the minimap
+
+The tracker's coordinate scale can't be validated against a real replay in the
+build sandbox, so positions are auto-fit rather than tied to true map cells, and
+the `SUnitPositionsEvent` index→unit mapping follows the common sc2reader
+convention. It looks right on synthetic data and reconstructed streams; a check
+against varied real replays (Zerg morphs, co-op, archon) is the natural
+follow-up.
 
 ## Development notes
 
