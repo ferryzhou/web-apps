@@ -34,6 +34,10 @@ Hostable on GitHub Pages (or any static host) with no backend.
   spawn points as a fallback), and the map bounds are auto-fit — so playback is
   internally consistent without needing the map file. It's an approximation of
   where things happened, not the game engine.
+- A **live stats HUD** under the map shows each player's supply, army value,
+  income, banked resources, and worker count **at the current playhead**, so you
+  can watch the economy and army swing as the game unfolds. (Sourced from the
+  same tracker score samples as the analytics charts, ~every 10 seconds.)
 
 All of the above come from `replay.tracker.events`, which very old replays
 (pre-2013) don't contain; each section hides itself gracefully when its data is

@@ -239,6 +239,22 @@
     border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
   }
   .mm-wrap canvas { display: block; width: 100%; height: auto; }
+  /* live stats HUD synced to the playhead */
+  .mm-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-top: 0.7rem;
+  }
+  .mm-pstat {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.55rem 0.7rem;
+  }
+  .mm-pname { display: flex; align-items: center; gap: 0.4rem; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .mm-pname .dot { width: 10px; height: 10px; border-radius: 3px; flex: 0 0 auto; }
+  .mm-pname small { color: var(--text-dim); font-weight: 400; }
+  .mm-chips { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; }
+  .mm-chip { display: flex; flex-direction: column; line-height: 1.15; }
+  .mm-chip .k { font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
+  .mm-chip .v { font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
   .mm-controls {
     display: flex; align-items: center; gap: 0.7rem; margin-top: 0.7rem; flex-wrap: wrap;
   }
@@ -317,6 +333,7 @@
   <section class="playback" id="playback" aria-live="polite">
     <div class="section-title">Replay Playback — 2D minimap</div>
     <div class="mm-wrap"><canvas id="mmCanvas" role="img" aria-label="Top-down minimap of unit movement"></canvas></div>
+    <div class="mm-stats" id="mmStats"></div>
     <div class="mm-controls">
       <button class="mm-btn" id="mmPlay" aria-label="Play or pause">▶</button>
       <input type="range" class="mm-scrub" id="mmScrub" min="0" max="1000" value="0" aria-label="Scrub through the game">
@@ -718,7 +735,15 @@ json.dumps(sc2_summary.summarize(_data))
     }
     for (const [tag, u] of units) if (!u.moves.length) units.delete(tag);
 
-    mmPlayer = createMinimapPlayer(units, mm.bounds, data.duration_seconds || 1);
+    // Per-player stat time-series (from the analytics tracker samples) so the
+    // HUD can show supply/army/economy at the current playhead.
+    const series = (data.analytics && data.analytics.series) || {};
+    const statsPlayers = (data.players || [])
+      .filter((p) => series[p.player_id] && series[p.player_id].length)
+      .map((p) => ({ name: p.name, race: p.race,
+        color: colorForPid[p.player_id] || NEUTRAL_COLOR, rows: series[p.player_id] }));
+
+    mmPlayer = createMinimapPlayer(units, mm.bounds, data.duration_seconds || 1, statsPlayers);
     const src = mm.source === "positions" ? "unit position updates" : "unit spawn points";
     $("mmNote").textContent =
       "Top-down playback reconstructed from " + src + " in the replay tracker. " +
@@ -727,9 +752,10 @@ json.dumps(sc2_summary.summarize(_data))
     playbackEl.classList.add("show");
   }
 
-  function createMinimapPlayer(units, bounds, duration) {
+  function createMinimapPlayer(units, bounds, duration, statsPlayers) {
     const canvas = $("mmCanvas"), ctx = canvas.getContext("2d");
     const playBtn = $("mmPlay"), scrub = $("mmScrub"), timeEl = $("mmTime"), speedEl = $("mmSpeed");
+    const statsEl = $("mmStats");
     const [minX, minY, maxX, maxY] = bounds;
     const wWorld = Math.max(1, maxX - minX), hWorld = Math.max(1, maxY - minY);
 
@@ -738,6 +764,43 @@ json.dumps(sc2_summary.summarize(_data))
     // speed buttons
     speedEl.innerHTML = MM_SPEEDS.map((s) =>
       `<button data-s="${s}"${s === 1 ? ' class="active"' : ""}>${s}×</button>`).join("");
+
+    // live stats HUD (supply / army / economy at the current playhead)
+    statsPlayers = statsPlayers || [];
+    statsEl.style.display = statsPlayers.length ? "grid" : "none";
+    const CHIPS = [["Supply", "supply"], ["Army", "army"], ["Income", "income"], ["Bank", "bank"], ["Workers", "workers"]];
+    const chipRefs = statsPlayers.map((p) => {
+      const col = document.createElement("div");
+      col.className = "mm-pstat";
+      col.innerHTML = `<div class="mm-pname"><span class="dot" style="background:${p.color}"></span>` +
+        `${escapeHtml(p.name)} <small>${escapeHtml(p.race || "")}</small></div>` +
+        `<div class="mm-chips">` +
+        CHIPS.map(([label, key]) => `<div class="mm-chip"><span class="k">${label}</span><span class="v" data-f="${key}">—</span></div>`).join("") +
+        `</div>`;
+      statsEl.appendChild(col);
+      const refs = {};
+      CHIPS.forEach(([, key]) => { refs[key] = col.querySelector(`[data-f="${key}"]`); });
+      return refs;
+    });
+
+    function rowAt(rows, tt) {
+      if (!rows.length) return null;
+      if (rows[0].t > tt) return rows[0];
+      let lo = 0, hi = rows.length - 1, ans = 0;
+      while (lo <= hi) { const mid = (lo + hi) >> 1; if (rows[mid].t <= tt) { ans = mid; lo = mid + 1; } else hi = mid - 1; }
+      return rows[ans];
+    }
+    function updateStats() {
+      statsPlayers.forEach((p, i) => {
+        const r = rowAt(p.rows, t), c = chipRefs[i];
+        if (!r) return;
+        c.supply.textContent = (r.supply_used || 0) + "/" + (r.supply_made || 0);
+        c.army.textContent = fmtShort(r.army_value || 0);
+        c.income.textContent = fmtShort((r.income_min || 0) + (r.income_gas || 0));
+        c.bank.textContent = fmtShort((r.unspent_min || 0) + (r.unspent_gas || 0));
+        c.workers.textContent = (r.workers || 0);
+      });
+    }
 
     function fit() {
       const rect = canvas.parentElement.getBoundingClientRect();
@@ -795,6 +858,7 @@ json.dumps(sc2_summary.summarize(_data))
           ctx.beginPath(); ctx.arc(x, y, 2.6, 0, 6.2832); ctx.fill();
         }
       }
+      updateStats();
     }
 
     function fmt(s) { const m = Math.floor(s / 60); return m + ":" + String(Math.floor(s % 60)).padStart(2, "0"); }
