@@ -116,8 +116,13 @@ _BUILD_ORDER_LIMIT = 45
 # Cap on minimap position samples sent to the client (uniformly downsampled
 # beyond this). Keeps the payload bounded on long games.
 _MINIMAP_MOVE_CAP = 20000
-# Positions from SUnitPositionsEvent are stored at 1/4 resolution.
-_POSITION_SCALE = 4
+
+# Units that flood the minimap without being meaningful to watch: creep tumors
+# (a bot can lay thousands), larva/eggs, and short-lived spawns. Filtered so the
+# map stays readable. Note: units that only ever appear via morph (many Zerg
+# combat units hatch from eggs via SUnitTypeChangeEvent) are not tracked yet.
+_MINIMAP_NOISE = ('creeptumor', 'larva', 'egg', 'broodling', 'locust',
+                  'interceptor', 'cocoon')
 
 
 def _loop_to_seconds(loop, speed_factor):
@@ -153,11 +158,13 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
     supply_now = {pid: 0 for pid in player_ids}   # latest food used, for labels
     init_tags = set()                             # unit tags seen starting
 
-    # Minimap state: unit metadata (lifetime + owner) and positional samples.
-    units = {}                 # tag -> {pid, structure, born_t, died_t}
-    births = []                # (t, tag, x, y) fallback if no position stream
-    pos_moves = []             # (t, tag, x, y) from SUnitPositionsEvent
-    deaths = []                # (t, tag)
+    # Minimap state. A single unit tag-index is reused across the game (tag
+    # recycling), so we track discrete instances instead of one record per
+    # index: `live` maps an index to the instance currently occupying it, and
+    # any previous occupant is closed when a new one is born there. This keeps
+    # dead units from lingering forever on the map.
+    instances = []             # each: {pid, structure, born_t, died_t, x, y, moves}
+    live = {}                  # index -> current open instance
 
     def add_build(pid, loop, name, kind):
         if pid not in build or len(build[pid]) >= _BUILD_ORDER_LIMIT:
@@ -169,13 +176,20 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
             'kind': kind,
         })
 
-    def add_unit(ev, loop, structure):
-        tag = ev.get('m_unitTagIndex')
-        pid = ev.get('m_controlPlayerId')
-        units[tag] = {'pid': pid, 'structure': structure,
-                      'born_t': _loop_to_seconds(loop, speed_factor), 'died_t': None}
-        births.append((_loop_to_seconds(loop, speed_factor), tag,
-                       ev.get('m_x', 0) * _POSITION_SCALE, ev.get('m_y', 0) * _POSITION_SCALE))
+    def mm_close(index, t):
+        inst = live.pop(index, None)
+        if inst is not None and inst['died_t'] is None:
+            inst['died_t'] = t
+
+    def mm_open(ev, loop, structure):
+        index = ev.get('m_unitTagIndex')
+        t = _loop_to_seconds(loop, speed_factor)
+        mm_close(index, t)     # whatever held this index is gone
+        inst = {'pid': ev.get('m_controlPlayerId') or 0,
+                'structure': 1 if structure else 0, 'born_t': t, 'died_t': None,
+                'x': ev.get('m_x', 0), 'y': ev.get('m_y', 0), 'moves': []}
+        live[index] = inst
+        instances.append(inst)
 
     try:
         events = protocol.decode_replay_tracker_events(raw)
@@ -206,29 +220,31 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
             elif name.endswith('SUnitInitEvent'):
                 pid = ev.get('m_controlPlayerId')
                 unit = _text(ev.get('m_unitTypeName'))
-                init_tags.add(ev.get('m_unitTagIndex'))
-                add_unit(ev, loop, structure=True)
+                # Key by (index, recycle): a tag index is reused across the game,
+                # so index alone would mis-flag a recycled unit as a completion.
+                init_tags.add((ev.get('m_unitTagIndex'), ev.get('m_unitTagRecycle')))
+                if not _is_noise(unit, _MINIMAP_NOISE):
+                    mm_open(ev, loop, structure=True)
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'structure')
 
             elif name.endswith('SUnitBornEvent'):
-                is_completion = ev.get('m_unitTagIndex') in init_tags
-                if not is_completion:
+                is_completion = (ev.get('m_unitTagIndex'),
+                                 ev.get('m_unitTagRecycle')) in init_tags
+                unit = _text(ev.get('m_unitTypeName'))
+                if not is_completion and not _is_noise(unit, _MINIMAP_NOISE):
                     # A genuinely new unit (not the completion of an init'd one).
-                    add_unit(ev, loop, structure=False)
+                    mm_open(ev, loop, structure=False)
                 # Skip build-order noise: init completions and the loop-0 start.
                 if is_completion or loop == 0:
                     continue
                 pid = ev.get('m_controlPlayerId')
-                unit = _text(ev.get('m_unitTypeName'))
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'unit')
 
             elif name.endswith('SUnitDiedEvent'):
-                tag = ev.get('m_unitTagIndex')
-                if tag in units:
-                    units[tag]['died_t'] = _loop_to_seconds(loop, speed_factor)
-                    deaths.append((_loop_to_seconds(loop, speed_factor), tag))
+                mm_close(ev.get('m_unitTagIndex'),
+                         _loop_to_seconds(loop, speed_factor))
 
             elif name.endswith('SUnitPositionsEvent'):
                 t = _loop_to_seconds(loop, speed_factor)
@@ -236,8 +252,9 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 idx = ev.get('m_firstUnitIndex', 0)
                 for i in range(0, len(items) - 2, 3):
                     idx += items[i]
-                    pos_moves.append((t, idx, items[i + 1] * _POSITION_SCALE,
-                                      items[i + 2] * _POSITION_SCALE))
+                    inst = live.get(idx)
+                    if inst is not None:
+                        inst['moves'].append((t, items[i + 1], items[i + 2]))
 
             elif name.endswith('SUpgradeEvent'):
                 pid = ev.get('m_playerId')
@@ -258,43 +275,48 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
     }
     return {
         'analytics': analytics,
-        'minimap': _build_minimap(units, births, pos_moves, deaths),
+        'minimap': _build_minimap(instances),
     }
 
 
-def _build_minimap(units, births, pos_moves, deaths):
-    """Assemble a compact, self-consistent minimap-playback payload.
+def _build_minimap(instances):
+    """Assemble a compact minimap-playback payload from tracked unit instances.
 
-    All positions come from a single source (the SUnitPositionsEvent stream when
-    present, else unit birth positions) so they share one coordinate scale; the
-    client auto-fits the bounds, making the absolute scale irrelevant. Only
-    units with known lifetime/owner (from born/died events) are included.
+    Each instance carries its birth point plus any position samples, all in one
+    coordinate space; the client auto-fits the bounds, so the absolute map scale
+    is irrelevant. Birth points are always kept (so stationary units/structures
+    appear); the higher-volume position samples are downsampled if very long.
     """
-    use_positions = len(pos_moves) > len(births)
-    raw = pos_moves if use_positions else births
-    moves = [m for m in raw if m[1] in units]     # keep tags we can attribute
-    if not moves:
+    if not instances:
         return {'available': False}
 
-    # Downsample uniformly if the stream is very long.
-    if len(moves) > _MINIMAP_MOVE_CAP:
-        stride = (len(moves) + _MINIMAP_MOVE_CAP - 1) // _MINIMAP_MOVE_CAP
-        moves = moves[::stride]
+    births = []      # (t, id, x, y) -- always kept
+    positions = []   # (t, id, x, y) -- downsampled if huge
+    has_positions = False
+    for i, inst in enumerate(instances):
+        births.append((inst['born_t'], i, inst['x'], inst['y']))
+        for (t, x, y) in inst['moves']:
+            positions.append((t, i, x, y))
+            has_positions = True
 
-    seen = set(m[1] for m in moves)
+    if len(positions) > _MINIMAP_MOVE_CAP:
+        stride = (len(positions) + _MINIMAP_MOVE_CAP - 1) // _MINIMAP_MOVE_CAP
+        positions = positions[::stride]
+
+    moves = births + positions
+    moves.sort(key=lambda m: m[0])
     min_x = min(m[2] for m in moves); max_x = max(m[2] for m in moves)
     min_y = min(m[3] for m in moves); max_y = max(m[3] for m in moves)
 
     return {
         'available': True,
-        'source': 'positions' if use_positions else 'births',
+        'source': 'positions' if has_positions else 'births',
         'bounds': [min_x, min_y, max_x, max_y],
-        # tag -> [pid, structure(0/1), born_t, died_t(-1 if survived)]
-        'units': {str(tag): [u['pid'] or 0, 1 if u['structure'] else 0,
-                             u['born_t'], u['died_t'] if u['died_t'] is not None else -1]
-                  for tag, u in units.items() if tag in seen},
+        # id -> [pid, structure(0/1), born_t, died_t(-1 if survived)]
+        'units': {str(i): [inst['pid'], inst['structure'], inst['born_t'],
+                           inst['died_t'] if inst['died_t'] is not None else -1]
+                  for i, inst in enumerate(instances)},
         'moves': [[m[0], str(m[1]), m[2], m[3]] for m in moves],
-        'deaths': [[t, str(tag)] for t, tag in deaths if tag in seen],
     }
 
 

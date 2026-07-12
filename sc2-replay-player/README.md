@@ -87,14 +87,26 @@ vendor/
    so more `protocolNNNNN.py` versions get vendored for accurate per-build
    decoding.
 
-### Known limitation of the minimap
+### Minimap details & limitations
 
-The tracker's coordinate scale can't be validated against a real replay in the
-build sandbox, so positions are auto-fit rather than tied to true map cells, and
-the `SUnitPositionsEvent` index→unit mapping follows the common sc2reader
-convention. It looks right on synthetic data and reconstructed streams; a check
-against varied real replays (Zerg morphs, co-op, archon) is the natural
-follow-up.
+The minimap has been validated against a real 40-minute ladder replay: bases sit
+in map corners, neutral mineral fields trace the familiar arcs at each
+expansion, and armies move and thin out over the game. A few things worth
+knowing:
+
+- **Spawned/temporary units are filtered** (creep tumors, larva, eggs,
+  broodlings, locusts, interceptors) — a single creep-spreading bot can lay
+  thousands of tumors, which otherwise bury the map in dots.
+- **Tag recycling is handled.** SC2 reuses a unit's tag index after it dies, so
+  units are tracked as discrete instances (keyed by index + recycle) and a dead
+  unit is retired the moment its index is reborn — dead units don't linger.
+- **Morph-only units aren't shown yet.** Many Zerg combat units hatch from eggs
+  via `SUnitTypeChangeEvent` rather than a birth event, so they aren't tracked
+  on the minimap in this version (workers, queens, overlords, and most
+  Protoss/Terran units, which do fire birth events, are).
+- Positions are auto-fit rather than tied to true map cells (no map file is
+  needed), so the map is an approximation of where things happened — not the
+  game engine.
 
 ## Development notes
 
