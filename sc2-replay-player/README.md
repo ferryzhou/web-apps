@@ -7,13 +7,28 @@ your browser**; nothing is ever uploaded.
 
 Hostable on GitHub Pages (or any static host) with no backend.
 
-## What it shows today (match-card tier)
+## What it shows today
+
+**Match card**
 
 - Map name and matchup (e.g. `TvZ`)
 - Each player: name, race, colour, win/loss, and human-vs-AI
 - Team grouping (1v1 shown as a clean "vs" layout; team/FFA games grouped)
 - Game length (real time), date played, game speed, and client version
 - Battle.net handle per human player
+
+**Analytics dashboard** (from the tracker-event stream)
+
+- Time-series charts, one line per player: **supply**, **income**
+  (resources collected / min), **army value**, and **worker count** — each a
+  small-multiple with its own axis, a legend, direct end-labels, and a hover
+  crosshair/tooltip.
+- **Build order** per player: a timestamped list of structures, units and
+  upgrades with the supply count when each item began.
+
+Analytics come from `replay.tracker.events`, which very old replays (pre-2013)
+don't contain; the dashboard hides itself gracefully when that stream is
+absent.
 
 ## How it works
 
@@ -32,9 +47,11 @@ This app decodes that data in the browser using:
   the app stays self-contained and offline-capable (the PyPI builds aren't
   installable via Pyodide's `micropip`).
 
-The match card relies only on s2protocol's *VersionedDecoder* streams (replay
-header + details), which are stable across game builds, so a single recent
-protocol version decodes the vast majority of replays.
+The match card **and** the analytics all rely only on s2protocol's
+*VersionedDecoder* streams (replay header, details, and tracker events), which
+are stable across game builds, so a single recent protocol version decodes the
+vast majority of replays. (APM, which needs the build-specific game-event
+stream, is intentionally left for a later phase.)
 
 ### `vendor/` layout
 
@@ -52,14 +69,14 @@ vendor/
 
 ## Roadmap (phased)
 
-1. **Match card** — this tier. ✅
-2. **Analytics dashboard** — resources/supply/APM graphs, build orders and
-   upgrade timings from the tracker-event stream.
+1. **Match card** — ✅
+2. **Analytics dashboard** — economy/supply/army/worker graphs + build orders
+   from the tracker-event stream. ✅
 3. **2D minimap playback** — animate unit positions/deaths on a top-down map
-   with a scrubber.
-
-Tiers 2–3 need build-specific decoding for some streams; more `protocolNNNNN.py`
-versions will be vendored as those land.
+   with a scrubber (uses `SUnitPositionsEvent` / `SUnitDiedEvent`).
+4. **APM & game-event analytics** — needs the build-specific game-event stream,
+   so more `protocolNNNNN.py` versions get vendored for accurate per-build
+   decoding.
 
 ## Development notes
 

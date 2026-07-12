@@ -173,6 +173,68 @@
     color: var(--text-dim); font-size: 0.78rem; text-align: center;
   }
 
+  /* Analytics */
+  .analytics { display: none; margin-top: 1.8rem; }
+  .analytics.show { display: block; animation: rise .35s ease; }
+  .section-title {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-dim); margin: 1.6rem 0 0.8rem; font-weight: 700;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.4rem; }
+  .legend .item { display: flex; align-items: center; gap: 0.45rem; font-size: 0.88rem; color: var(--text); }
+  .legend .dot { width: 12px; height: 12px; border-radius: 3px; flex: 0 0 auto; }
+  .legend .item small { color: var(--text-dim); }
+
+  .charts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+  .chart {
+    position: relative; background: var(--bg-panel);
+    border: 1px solid var(--border); border-radius: 12px; padding: 0.7rem 0.7rem 0.4rem;
+  }
+  .chart h4 { font-size: 0.85rem; font-weight: 600; color: var(--text); margin: 0 0 0.2rem 0.2rem; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart .grid-line { stroke: var(--border); stroke-width: 1; }
+  .chart .axis-text { fill: var(--text-dim); font-size: 9px; }
+  .chart .series-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .chart .end-label { font-size: 9px; font-weight: 700; }
+  .chart .crosshair { stroke: var(--text-dim); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; }
+  .chart .hover-dot { opacity: 0; }
+  .chart .tooltip {
+    position: absolute; pointer-events: none; opacity: 0; transform: translate(-50%, -120%);
+    background: #0a0f18; border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.4rem 0.55rem; font-size: 0.76rem; color: var(--text);
+    white-space: nowrap; z-index: 5; box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+  }
+  .chart .tooltip .tt-time { color: var(--text-dim); margin-bottom: 2px; }
+  .chart .tooltip .tt-row { display: flex; align-items: center; gap: 0.4rem; }
+  .chart .tooltip .tt-row .dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  .build-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+  .build-col {
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .build-col .head {
+    padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border);
+    font-weight: 600; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .build-col .head .dot { width: 10px; height: 10px; border-radius: 3px; }
+  .build-list { max-height: 340px; overflow-y: auto; }
+  .build-row {
+    display: grid; grid-template-columns: 3rem 2.2rem 1fr; gap: 0.4rem;
+    padding: 0.28rem 0.8rem; font-size: 0.84rem; align-items: baseline;
+  }
+  .build-row:nth-child(even) { background: rgba(255,255,255,0.02); }
+  .build-row .t { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+  .build-row .s { color: var(--text-dim); font-variant-numeric: tabular-nums; text-align: right; }
+  .build-row .n .kind { font-size: 0.7rem; color: var(--text-dim); }
+  .build-row .n .kind.upgrade { color: var(--protoss); }
+  .build-row .n .kind.structure { color: var(--terran); }
+  .analytics-note { color: var(--text-dim); font-size: 0.78rem; margin-top: 0.9rem; text-align: center; }
+
+  @media (max-width: 620px) {
+    .charts, .build-cols { grid-template-columns: 1fr; }
+  }
+
   footer.page { text-align: center; margin-top: 2.5rem; color: var(--text-dim); font-size: 0.82rem; }
   footer.page a { color: var(--accent); text-decoration: none; }
   footer.page a:hover { text-decoration: underline; }
@@ -217,6 +279,15 @@
     <div class="foot" id="foot"></div>
   </section>
 
+  <section class="analytics" id="analytics" aria-live="polite">
+    <div class="section-title">Economy &amp; Production</div>
+    <div class="legend" id="chartLegend"></div>
+    <div class="charts" id="charts"></div>
+    <div class="section-title">Build Order</div>
+    <div class="build-cols" id="buildOrder"></div>
+    <p class="analytics-note" id="analyticsNote"></p>
+  </section>
+
   <footer class="page">
     <p>Decoding by the vendored <a href="https://github.com/Blizzard/s2protocol" rel="noopener">s2protocol</a> + mpyq via <a href="https://pyodide.org" rel="noopener">Pyodide</a>. Part of the <a href="../index.html">Web Apps Collection</a>.</p>
   </footer>
@@ -246,7 +317,7 @@
   const $ = (id) => document.getElementById(id);
   const drop = $("drop"), fileInput = $("file");
   const statusEl = $("status"), statusText = $("statusText");
-  const errorEl = $("error"), card = $("card");
+  const errorEl = $("error"), card = $("card"), analyticsEl = $("analytics");
 
   let pyodidePromise = null;
   let busy = false;
@@ -264,6 +335,7 @@
   function clearOutput() {
     errorEl.classList.remove("show");
     card.classList.remove("show");
+    analyticsEl.classList.remove("show");
   }
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (c) =>
@@ -411,6 +483,170 @@ json.dumps(sc2_summary.summarize(_data))
       (data.is_blizzard_map ? " · official map" : "");
 
     card.classList.add("show");
+    renderAnalytics(data);
+  }
+
+  // ---- analytics: charts + build order ----
+  function fmtClock(sec) {
+    const m = Math.floor(sec / 60), s = Math.round(sec) % 60;
+    return m + ":" + String(s).padStart(2, "0");
+  }
+  // Keep a player's own colour but lift very dark ones so lines read on the dark surface.
+  function chartColor(hex, i) {
+    const fallback = ["#4da3ff", "#f2c14e", "#a259c4", "#35c46a"];
+    const m = /^#?([0-9a-f]{6})$/i.exec(hex || "");
+    if (!m) return fallback[i % fallback.length];
+    let r = parseInt(m[1].slice(0, 2), 16), g = parseInt(m[1].slice(2, 4), 16), b = parseInt(m[1].slice(4, 6), 16);
+    const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    if (lum < 0.22) { const f = 0.22 / Math.max(lum, 0.03); r = Math.min(255, r * f + 36); g = Math.min(255, g * f + 36); b = Math.min(255, b * f + 36); }
+    return `rgb(${r | 0},${g | 0},${b | 0})`;
+  }
+  function niceMax(v) {
+    if (v <= 0) return 1;
+    const pow = Math.pow(10, Math.floor(Math.log10(v))), n = v / pow;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * pow;
+  }
+
+  function renderAnalytics(data) {
+    const a = data.analytics;
+    const chartsEl = $("charts"), legendEl = $("chartLegend"), buildEl = $("buildOrder"), noteEl = $("analyticsNote");
+    chartsEl.innerHTML = ""; legendEl.innerHTML = ""; buildEl.innerHTML = "";
+    if (!a || !a.available) { analyticsEl.classList.remove("show"); return; }
+
+    const byId = {}; (data.players || []).forEach((p) => { byId[p.player_id] = p; });
+    const plist = Object.keys(a.series).map((id, i) => {
+      const p = byId[id] || { name: "Player " + id, race: "Unknown" };
+      return { id, player: p, color: chartColor(p.color, i), rows: a.series[id] };
+    });
+
+    legendEl.innerHTML = plist.map((pl) =>
+      `<div class="item"><span class="dot" style="background:${pl.color}"></span>${escapeHtml(pl.player.name)} <small>${escapeHtml(pl.player.race)}</small></div>`
+    ).join("");
+
+    let xMax = data.duration_seconds || 0;
+    plist.forEach((pl) => pl.rows.forEach((r) => { if (r.t > xMax) xMax = r.t; }));
+    xMax = Math.max(xMax, 1);
+
+    const defs = [
+      { title: "Supply (food used)", get: (r) => r.supply_used },
+      { title: "Income (collected / min)", get: (r) => r.income_min + r.income_gas },
+      { title: "Army value (resources)", get: (r) => r.army_value },
+      { title: "Workers", get: (r) => r.workers },
+    ];
+    defs.forEach((c) => {
+      const series = plist.map((pl) => ({
+        label: pl.player.name, color: pl.color,
+        points: pl.rows.map((r) => ({ x: r.t, y: c.get(r) || 0 })),
+      }));
+      chartsEl.appendChild(buildLineChart(c.title, series, xMax));
+    });
+
+    buildEl.innerHTML = plist.map((pl) => {
+      const bo = a.build_order[pl.id] || [];
+      const rows = bo.length ? bo.map((e) =>
+        `<div class="build-row"><span class="t">${fmtClock(e.t)}</span><span class="s">${e.supply}</span>` +
+        `<span class="n">${escapeHtml(e.name)}${e.kind !== "unit" ? ` <span class="kind ${escapeHtml(e.kind)}">${e.kind === "upgrade" ? "▲ upg" : "▪ bld"}</span>` : ""}</span></div>`
+      ).join("") : `<div class="build-row"><span class="n" style="color:var(--text-dim)">No production data.</span></div>`;
+      return `<div class="build-col"><div class="head"><span class="dot" style="background:${pl.color}"></span>` +
+        `${escapeHtml(pl.player.name)} <small style="color:var(--text-dim);font-weight:400">· ${escapeHtml(pl.player.race)}</small></div>` +
+        `<div class="build-list">${rows}</div></div>`;
+    }).join("");
+
+    noteEl.textContent = "In-game clock; supply column is food used when each item began. " +
+      "Build order merges structures, units and upgrades (some spawned/temporary units are filtered).";
+    analyticsEl.classList.add("show");
+  }
+
+  // Build a single small-multiple line chart (one y-axis, one line per player).
+  function buildLineChart(title, series, xMax) {
+    const W = 300, H = 172, PL = 34, PR = 56, PT = 12, PB = 22;
+    let rawMax = 0;
+    series.forEach((s) => s.points.forEach((p) => { if (p.y > rawMax) rawMax = p.y; }));
+    const yMax = niceMax(rawMax * 1.08);
+    const xs = (x) => PL + (x / xMax) * (W - PL - PR);
+    const ys = (y) => H - PB - (y / yMax) * (H - PT - PB);
+
+    // gridlines + y labels
+    let svg = "";
+    for (let i = 0; i <= 4; i++) {
+      const v = (yMax * i) / 4, y = ys(v);
+      svg += `<line class="grid-line" x1="${PL}" y1="${y.toFixed(1)}" x2="${W - PR}" y2="${y.toFixed(1)}"/>`;
+      svg += `<text class="axis-text" x="${PL - 4}" y="${(y + 3).toFixed(1)}" text-anchor="end">${fmtShort(v)}</text>`;
+    }
+    // x ticks
+    const steps = [30, 60, 120, 180, 300, 600, 900];
+    const step = steps.find((s) => xMax / s <= 6) || 1200;
+    for (let t = 0; t <= xMax; t += step) {
+      svg += `<text class="axis-text" x="${xs(t).toFixed(1)}" y="${H - 6}" text-anchor="middle">${fmtClock(t)}</text>`;
+    }
+    // series paths
+    const ends = [];
+    series.forEach((s) => {
+      if (!s.points.length) return;
+      const d = s.points.map((p, i) => (i ? "L" : "M") + xs(p.x).toFixed(1) + " " + ys(p.y).toFixed(1)).join(" ");
+      svg += `<path class="series-line" d="${d}" stroke="${s.color}"/>`;
+      const last = s.points[s.points.length - 1];
+      ends.push({ x: xs(last.x), y: ys(last.y), color: s.color, label: shortName(s.label) });
+    });
+    // end labels, spread vertically so overlapping lines don't overprint
+    ends.sort((a, b) => a.y - b.y);
+    const GAP = 11;
+    for (let i = 1; i < ends.length; i++) {
+      if (ends[i].y - ends[i - 1].y < GAP) ends[i].y = ends[i - 1].y + GAP;
+    }
+    const overflow = ends.length && ends[ends.length - 1].y - (H - PB);
+    if (overflow > 0) ends.forEach((e) => (e.y -= overflow));
+    ends.forEach((e) => {
+      svg += `<text class="end-label" x="${(e.x + 4).toFixed(1)}" y="${(e.y + 3).toFixed(1)}" fill="${e.color}">${escapeHtml(e.label)}</text>`;
+    });
+    // hover elements
+    svg += `<line class="crosshair" y1="${PT}" y2="${H - PB}"/>`;
+    series.forEach((s) => { svg += `<circle class="hover-dot" r="3.5" fill="${s.color}" stroke="#0a0f18" stroke-width="1"/>`; });
+
+    const el = document.createElement("div");
+    el.className = "chart";
+    el.innerHTML = `<h4>${escapeHtml(title)}</h4>` +
+      `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${escapeHtml(title)} over time">${svg}</svg>` +
+      `<div class="tooltip"></div>`;
+
+    wireHover(el, series, { W, H, PL, PR, PT, PB, xs, ys, xMax });
+    return el;
+  }
+  function fmtShort(v) {
+    v = Math.round(v);
+    return v >= 1000 ? (v / 1000).toFixed(v >= 10000 ? 0 : 1) + "k" : String(v);
+  }
+  function shortName(n) { return n.length > 9 ? n.slice(0, 8) + "…" : n; }
+
+  function wireHover(el, series, geo) {
+    const svg = el.querySelector("svg"), tip = el.querySelector(".tooltip");
+    const cross = el.querySelector(".crosshair");
+    const dots = el.querySelectorAll(".hover-dot");
+    const hide = () => { tip.style.opacity = 0; cross.style.opacity = 0; dots.forEach((d) => (d.style.opacity = 0)); };
+    svg.addEventListener("mousemove", (e) => {
+      const r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      const vbX = ((e.clientX - r.left) / r.width) * geo.W;
+      const t = Math.max(0, Math.min(geo.xMax, ((vbX - geo.PL) / (geo.W - geo.PL - geo.PR)) * geo.xMax));
+      const px = geo.xs(t);
+      cross.setAttribute("x1", px.toFixed(1)); cross.setAttribute("x2", px.toFixed(1)); cross.style.opacity = 1;
+      let rowsHtml = "", shownT = null;
+      series.forEach((s, i) => {
+        if (!s.points.length) { dots[i].style.opacity = 0; return; }
+        let best = s.points[0];
+        for (const p of s.points) if (Math.abs(p.x - t) < Math.abs(best.x - t)) best = p;
+        shownT = best.x;
+        const dx = geo.xs(best.x), dy = geo.ys(best.y);
+        dots[i].setAttribute("cx", dx.toFixed(1)); dots[i].setAttribute("cy", dy.toFixed(1)); dots[i].style.opacity = 1;
+        rowsHtml += `<div class="tt-row"><span class="dot" style="background:${s.color}"></span>${escapeHtml(s.label)}: <strong>${Math.round(best.y)}</strong></div>`;
+      });
+      tip.innerHTML = `<div class="tt-time">${fmtClock(shownT == null ? t : shownT)}</div>${rowsHtml}`;
+      const chartRect = el.getBoundingClientRect();
+      tip.style.left = (r.left - chartRect.left + (px / geo.W) * r.width) + "px";
+      tip.style.top = ((geo.PT / geo.H) * r.height + (r.top - chartRect.top)) + "px";
+      tip.style.opacity = 1;
+    });
+    svg.addEventListener("mouseleave", hide);
   }
 
   // ---- events ----
