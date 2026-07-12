@@ -100,10 +100,15 @@ knowing:
 - **Tag recycling is handled.** SC2 reuses a unit's tag index after it dies, so
   units are tracked as discrete instances (keyed by index + recycle) and a dead
   unit is retired the moment its index is reborn — dead units don't linger.
-- **Morph-only units aren't shown yet.** Many Zerg combat units hatch from eggs
-  via `SUnitTypeChangeEvent` rather than a birth event, so they aren't tracked
-  on the minimap in this version (workers, queens, overlords, and most
-  Protoss/Terran units, which do fire birth events, are).
+- **Morphed units are shown.** Units produced from eggs (drones, zerglings,
+  roaches, queens, …) fire their own `SUnitBornEvent` when they hatch — the egg
+  is a separate transient tag that reverts to larva — so they're tracked like
+  any other unit. In-place morphs (Overlord→Overseer, Roach→Ravager,
+  Hatchery→Lair, Gateway→WarpGate) keep the same tag index, so the instance
+  stays on the map through the change. On the test replay, every one of the
+  1,095 tracked units reaches its type via a birth/init event — none are
+  reachable only through a type-change — so nothing is missing. (A morphed unit
+  keeps its pre-morph dot/square glyph, which for a minimap is immaterial.)
 - Positions are auto-fit rather than tied to true map cells (no map file is
   needed), so the map is an approximation of where things happened — not the
   game engine.
