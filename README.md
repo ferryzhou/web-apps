@@ -12,7 +12,6 @@ A collection of small, focused web applications and tools.
 - **[光影与救赎 · 基督徒影评辑录](https://ferryzhou.github.io/web-apps/christian-film-reviews/)** - A curated anthology of Christian film criticism in Chinese — film readings by 王书亚（王怡）, 石衡潭, 刘小枫, and 齐宏伟, each with an original paraphrased summary, a typographic poster card, and a link to the source essay.
 - **[华夏历代征战图录 · Dynastic Battle Atlas](https://ferryzhou.github.io/web-apps/battle-atlas/)** - A unified portal to ten same-style interactive campaign atlases spanning Chinese history — Spring &amp; Autumn / Warring States, Qin–Chu, Han, Three Kingdoms, Eastern Jin, Tang, Song, Mongol-Yuan, Ming, and Qing (158 battles across 10 eras, 春秋 to 清).
 - **[Chinese Historical Map](https://ferryzhou.github.io/web-apps/chinese-history-map/)** - Interactive timeline-based visualization of Chinese dynasties and kingdoms with detailed historical information, key events, and notable figures.
-- **[桓温第三次北伐 · Huan Wen's Third Northern Expedition](https://ferryzhou.github.io/web-apps/huan-wen-northern-expedition/)** - Interactive Leaflet map of Huan Wen's 369 CE campaign against Former Yan — the advance, the Huangong Canal, and the rout at the Battle of Fangtou, with a clickable timeline.
 
 ## Development
 
