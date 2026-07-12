@@ -99,6 +99,123 @@ def _game_speed(archive, protocol, base_build):
     return 4  # Faster (ladder default)
 
 
+# Food/supply is stored as a 4096x fixed-point integer in the score data.
+_SUPPLY_FIXED_POINT = 4096
+
+# Spawned/temporary units that just add noise to a build order.
+_BUILD_NOISE = (
+    'larva', 'egg', 'broodling', 'locust', 'interceptor', 'cocoon',
+    'creeptumor', 'autoturret', 'infestedterran', 'mothershipcore.',
+)
+# Non-meaningful "upgrades" (emote sprays, decals, internal flags).
+_UPGRADE_NOISE = ('spray', 'decal', 'mount', 'skin')
+
+# Per-player build-order entries are capped so the payload stays small.
+_BUILD_ORDER_LIMIT = 45
+
+
+def _loop_to_seconds(loop, speed_factor):
+    return round(loop / LOOPS_PER_GAME_SECOND / speed_factor)
+
+
+def _is_noise(name, blocklist):
+    low = name.lower()
+    return any(tok in low for tok in blocklist)
+
+
+def _analyze_tracker(archive, protocol, speed_factor, player_ids):
+    """Extract time-series + build orders from the replay tracker stream.
+
+    The tracker stream (VersionedDecoder, build-stable) carries periodic
+    per-player score snapshots plus unit/upgrade events. Returns a dict keyed
+    by player id. Degrades gracefully to empty analytics when a replay predates
+    tracker events or the stream can't be read.
+    """
+    empty = {'available': False, 'series': {}, 'build_order': {}}
+    try:
+        raw = archive.read_file('replay.tracker.events')
+    except Exception:
+        return empty
+    if not raw:
+        return empty
+
+    series = {pid: [] for pid in player_ids}
+    build = {pid: [] for pid in player_ids}
+    supply_now = {pid: 0 for pid in player_ids}   # latest food used, for labels
+    init_tags = set()                             # unit tags seen starting
+
+    def add_build(pid, loop, name, kind):
+        if pid not in build or len(build[pid]) >= _BUILD_ORDER_LIMIT:
+            return
+        build[pid].append({
+            't': _loop_to_seconds(loop, speed_factor),
+            'supply': supply_now.get(pid, 0),
+            'name': name,
+            'kind': kind,
+        })
+
+    try:
+        events = protocol.decode_replay_tracker_events(raw)
+        for ev in events:
+            name = ev.get('_event', '')
+            loop = ev.get('_gameloop', 0)
+
+            if name.endswith('SPlayerStatsEvent'):
+                pid = ev.get('m_playerId')
+                if pid not in series:
+                    continue
+                s = ev.get('m_stats', {}) or {}
+                food_used = s.get('m_scoreValueFoodUsed', 0) // _SUPPLY_FIXED_POINT
+                supply_now[pid] = food_used
+                series[pid].append({
+                    't': _loop_to_seconds(loop, speed_factor),
+                    'supply_used': food_used,
+                    'supply_made': s.get('m_scoreValueFoodMade', 0) // _SUPPLY_FIXED_POINT,
+                    'income_min': s.get('m_scoreValueMineralsCollectionRate', 0),
+                    'income_gas': s.get('m_scoreValueVespeneCollectionRate', 0),
+                    'workers': s.get('m_scoreValueWorkersActiveCount', 0),
+                    'army_value': (s.get('m_scoreValueMineralsUsedCurrentArmy', 0)
+                                   + s.get('m_scoreValueVespeneUsedCurrentArmy', 0)),
+                    'unspent_min': s.get('m_scoreValueMineralsCurrent', 0),
+                    'unspent_gas': s.get('m_scoreValueVespeneCurrent', 0),
+                })
+
+            elif name.endswith('SUnitInitEvent'):
+                pid = ev.get('m_controlPlayerId')
+                unit = _text(ev.get('m_unitTypeName'))
+                init_tags.add(ev.get('m_unitTagIndex'))
+                if not _is_noise(unit, _BUILD_NOISE):
+                    add_build(pid, loop, unit, 'structure')
+
+            elif name.endswith('SUnitBornEvent'):
+                # Skip the completion of something we already logged at init,
+                # and the starting units that exist at loop 0.
+                if ev.get('m_unitTagIndex') in init_tags or loop == 0:
+                    continue
+                pid = ev.get('m_controlPlayerId')
+                unit = _text(ev.get('m_unitTypeName'))
+                if not _is_noise(unit, _BUILD_NOISE):
+                    add_build(pid, loop, unit, 'unit')
+
+            elif name.endswith('SUpgradeEvent'):
+                pid = ev.get('m_playerId')
+                up = _text(ev.get('m_upgradeTypeName'))
+                if ev.get('m_count', 1) > 0 and not _is_noise(up, _UPGRADE_NOISE):
+                    add_build(pid, loop, up, 'upgrade')
+    except Exception:
+        # Partial data is still useful; return whatever decoded cleanly.
+        pass
+
+    # Keep only players that actually produced stats, and sort build orders.
+    for pid in build:
+        build[pid].sort(key=lambda e: e['t'])
+    return {
+        'available': any(series[pid] for pid in series),
+        'series': {str(pid): rows for pid, rows in series.items() if rows},
+        'build_order': {str(pid): b for pid, b in build.items() if b},
+    }
+
+
 def summarize(replay_bytes):
     """Decode a replay and return a JSON-serializable summary dict."""
     archive = mpyq.MPQArchive(BytesIO(replay_bytes), listfile=False)
@@ -121,9 +238,12 @@ def summarize(replay_bytes):
     real_seconds = game_seconds / speed_factor
 
     players = []
-    for p in details.get('m_playerList', []) or []:
+    for i, p in enumerate(details.get('m_playerList', []) or []):
         toon = p.get('m_toon') or {}
         players.append({
+            # Tracker events reference players by a 1-based id; for standard
+            # games this matches the player's slot order in the details list.
+            'player_id': i + 1,
             'name': _text(p.get('m_name')),
             'race': _normalize_race(p.get('m_race')),
             'result': _result_label(p.get('m_result')),
@@ -137,7 +257,11 @@ def summarize(replay_bytes):
                 toon.get('m_id', 0)) if toon.get('m_id') else None,
         })
 
+    analytics = _analyze_tracker(archive, protocol, speed_factor,
+                                 {p['player_id'] for p in players})
+
     return {
+        'analytics': analytics,
         'map_name': _text(details.get('m_title')),
         'players': players,
         'played_at_utc': _filetime_to_iso(
