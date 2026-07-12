@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC2 Replay Player — Match Summary</title>
+<meta name="description" content="Drop a StarCraft II .SC2Replay file to see the match summary. Runs entirely in your browser — nothing is uploaded.">
+<style>
+  :root {
+    --bg: #0c1119;
+    --bg-panel: #131b28;
+    --bg-panel-2: #1a2434;
+    --border: #26344a;
+    --text: #e6edf6;
+    --text-dim: #93a4bd;
+    --accent: #4da3ff;
+    --accent-glow: rgba(77, 163, 255, 0.25);
+    --terran: #4a90d9;
+    --protoss: #f2c14e;
+    --zerg: #a259c4;
+    --win: #35c46a;
+    --loss: #e05561;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+    background: radial-gradient(1200px 600px at 50% -10%, #16233b 0%, var(--bg) 55%);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.55;
+    padding: 2rem 1rem 4rem;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+
+  header.page { text-align: center; margin-bottom: 2rem; }
+  header.page h1 {
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #7bc0ff, #cfa6ff);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header.page p { color: var(--text-dim); margin-top: 0.4rem; font-size: 0.98rem; }
+  header.page .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+  header.page .back:hover { text-decoration: underline; }
+
+  /* Dropzone */
+  .drop {
+    display: block;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-panel);
+    padding: 2.6rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .2s, background .2s, box-shadow .2s;
+  }
+  .drop:hover, .drop.dragover {
+    border-color: var(--accent);
+    background: var(--bg-panel-2);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+  }
+  .drop .icon { font-size: 2.4rem; }
+  .drop h2 { font-size: 1.15rem; margin: 0.6rem 0 0.3rem; font-weight: 600; }
+  .drop p { color: var(--text-dim); font-size: 0.9rem; }
+  .drop input { display: none; }
+
+  .note {
+    margin-top: 1rem; text-align: center;
+    color: var(--text-dim); font-size: 0.82rem;
+  }
+  .note strong { color: var(--text); }
+
+  /* Status / spinner */
+  .status {
+    margin-top: 1.4rem; text-align: center;
+    color: var(--text-dim); font-size: 0.95rem;
+    display: none; align-items: center; justify-content: center; gap: 0.6rem;
+  }
+  .status.show { display: flex; }
+  .spinner {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid var(--border); border-top-color: var(--accent);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error {
+    display: none; margin-top: 1.2rem; padding: 1rem 1.2rem;
+    border: 1px solid var(--loss); border-radius: var(--radius);
+    background: rgba(224, 85, 97, 0.08); color: #ffb4ba; font-size: 0.92rem;
+  }
+  .error.show { display: block; }
+
+  /* Result card */
+  .card {
+    display: none; margin-top: 1.8rem;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .card.show { display: block; animation: rise .35s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .card .map {
+    padding: 1.3rem 1.5rem;
+    background: linear-gradient(120deg, #1c2942, #141d2c);
+    border-bottom: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem;
+  }
+  .card .map h2 { font-size: 1.35rem; }
+  .card .map .matchup { color: var(--accent); font-weight: 600; font-size: 1rem; }
+
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 1.4rem;
+    padding: 0.9rem 1.5rem; border-bottom: 1px solid var(--border);
+    color: var(--text-dim); font-size: 0.86rem;
+  }
+  .meta div span { color: var(--text); font-weight: 600; }
+
+  .teams { padding: 0.6rem 1rem 1.1rem; }
+  .team-label {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--text-dim); padding: 0.9rem 0.6rem 0.4rem;
+  }
+  .vs {
+    text-align: center; color: var(--text-dim);
+    font-size: 0.8rem; letter-spacing: 2px; margin: 0.5rem 0;
+  }
+
+  .player {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.7rem 0.7rem; border-radius: 10px;
+  }
+  .player + .player { margin-top: 0.3rem; }
+  .player:hover { background: var(--bg-panel-2); }
+  .swatch {
+    width: 6px; align-self: stretch; min-height: 34px;
+    border-radius: 3px; flex: 0 0 auto;
+  }
+  .race-badge {
+    width: 38px; height: 38px; flex: 0 0 auto;
+    border-radius: 9px; display: grid; place-items: center;
+    font-weight: 800; font-size: 1.1rem; color: #0c1119;
+  }
+  .race-Terran  { background: var(--terran); }
+  .race-Protoss { background: var(--protoss); }
+  .race-Zerg    { background: var(--zerg); }
+  .race-Unknown, .race-Random { background: var(--text-dim); }
+
+  .pinfo { flex: 1 1 auto; min-width: 0; }
+  .pinfo .name {
+    font-weight: 600; font-size: 1.02rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .pinfo .sub { color: var(--text-dim); font-size: 0.82rem; }
+  .tag {
+    font-size: 0.68rem; padding: 1px 6px; border-radius: 6px;
+    background: var(--bg-panel-2); color: var(--text-dim);
+    border: 1px solid var(--border); margin-left: 0.4rem; vertical-align: middle;
+  }
+
+  .result {
+    flex: 0 0 auto; font-weight: 700; font-size: 0.8rem;
+    padding: 0.25rem 0.7rem; border-radius: 999px; letter-spacing: 0.5px;
+  }
+  .result.Win  { background: rgba(53,196,106,0.15); color: var(--win); border: 1px solid rgba(53,196,106,0.4); }
+  .result.Loss { background: rgba(224,85,97,0.12); color: var(--loss); border: 1px solid rgba(224,85,97,0.35); }
+  .result.Unknown { background: var(--bg-panel-2); color: var(--text-dim); border: 1px solid var(--border); }
+
+  .card .foot {
+    padding: 0.7rem 1.5rem; border-top: 1px solid var(--border);
+    color: var(--text-dim); font-size: 0.78rem; text-align: center;
+  }
+
+  footer.page { text-align: center; margin-top: 2.5rem; color: var(--text-dim); font-size: 0.82rem; }
+  footer.page a { color: var(--accent); text-decoration: none; }
+  footer.page a:hover { text-decoration: underline; }
+
+  @media (max-width: 520px) {
+    .meta { gap: 0.9rem; }
+    .race-badge { width: 32px; height: 32px; font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="page">
+    <a class="back" href="../index.html">← Web Apps Collection</a>
+    <h1>StarCraft II Replay Player</h1>
+    <p>Drop a <code>.SC2Replay</code> file to read the match summary — players, races, result, map, and length.</p>
+  </header>
+
+  <label class="drop" id="drop" for="file" tabindex="0" role="button" aria-label="Choose or drop a replay file">
+    <div class="icon" aria-hidden="true">🎮</div>
+    <h2>Drop a replay here, or click to browse</h2>
+    <p>Standard <code>.SC2Replay</code> files from StarCraft II</p>
+    <input type="file" id="file" accept=".SC2Replay,.s2replay" />
+  </label>
+
+  <p class="note">🔒 <strong>Private by design.</strong> Your replay is parsed locally in your browser and never uploaded anywhere.</p>
+
+  <div class="status" id="status" role="status" aria-live="polite">
+    <span class="spinner" aria-hidden="true"></span>
+    <span id="statusText">Loading…</span>
+  </div>
+
+  <div class="error" id="error" role="alert"></div>
+
+  <section class="card" id="card" aria-live="polite">
+    <div class="map">
+      <h2 id="mapName"></h2>
+      <span class="matchup" id="matchup"></span>
+    </div>
+    <div class="meta" id="meta"></div>
+    <div class="teams" id="teams"></div>
+    <div class="foot" id="foot"></div>
+  </section>
+
+  <footer class="page">
+    <p>Decoding by the vendored <a href="https://github.com/Blizzard/s2protocol" rel="noopener">s2protocol</a> + mpyq via <a href="https://pyodide.org" rel="noopener">Pyodide</a>. Part of the <a href="../index.html">Web Apps Collection</a>.</p>
+  </footer>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  // ---- config ----
+  const PYODIDE_VERSION = "0.26.4";
+  const PYODIDE_BASE = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
+  // Vendored parser files, relative to ./vendor/ . Order irrelevant (importlib resolves).
+  const VENDOR_FILES = [
+    "mpyq.py",
+    "sc2_summary.py",
+    "s2protocol/__init__.py",
+    "s2protocol/compat.py",
+    "s2protocol/decoders.py",
+    "s2protocol/versions/__init__.py",
+    "s2protocol/versions/protocol97425.py",
+    "s2protocol/versions/protocol97364.py",
+  ];
+  const RACE_GLYPH = { Terran: "T", Protoss: "P", Zerg: "Z", Random: "R", Unknown: "?" };
+
+  // ---- elements ----
+  const $ = (id) => document.getElementById(id);
+  const drop = $("drop"), fileInput = $("file");
+  const statusEl = $("status"), statusText = $("statusText");
+  const errorEl = $("error"), card = $("card");
+
+  let pyodidePromise = null;
+  let busy = false;
+
+  // ---- helpers ----
+  function setStatus(msg) {
+    if (msg) { statusText.textContent = msg; statusEl.classList.add("show"); }
+    else { statusEl.classList.remove("show"); }
+  }
+  function showError(msg) {
+    errorEl.textContent = msg;
+    errorEl.classList.add("show");
+    setStatus(null);
+  }
+  function clearOutput() {
+    errorEl.classList.remove("show");
+    card.classList.remove("show");
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+  function fmtDuration(sec) {
+    sec = Math.max(0, Math.round(sec || 0));
+    const m = Math.floor(sec / 60), s = sec % 60;
+    return `${m}m ${String(s).padStart(2, "0")}s`;
+  }
+  function fmtDate(iso) {
+    if (!iso) return "Unknown date";
+    const d = new Date(iso);
+    if (isNaN(d)) return "Unknown date";
+    return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+  }
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src; s.onload = resolve;
+      s.onerror = () => reject(new Error("Failed to load " + src));
+      document.head.appendChild(s);
+    });
+  }
+
+  // ---- pyodide bootstrap (once) ----
+  async function getPyodide() {
+    if (pyodidePromise) return pyodidePromise;
+    pyodidePromise = (async () => {
+      setStatus("Loading Python runtime… (first time only, ~10 MB)");
+      await loadScript(PYODIDE_BASE + "pyodide.js");
+      const pyodide = await loadPyodide({ indexURL: PYODIDE_BASE });
+
+      setStatus("Loading replay parser…");
+      // Create the vendored package tree inside Pyodide's virtual filesystem.
+      const FS = pyodide.FS;
+      for (const dir of ["/vendor", "/vendor/s2protocol", "/vendor/s2protocol/versions"]) {
+        try { FS.mkdir(dir); } catch (e) { /* exists */ }
+      }
+      await Promise.all(VENDOR_FILES.map(async (rel) => {
+        const resp = await fetch("vendor/" + rel);
+        if (!resp.ok) throw new Error(`Could not load parser file: vendor/${rel} (${resp.status})`);
+        FS.writeFile("/vendor/" + rel, await resp.text());
+      }));
+      pyodide.runPython("import sys\nif '/vendor' not in sys.path: sys.path.insert(0, '/vendor')\nimport sc2_summary");
+      return pyodide;
+    })();
+    return pyodidePromise;
+  }
+
+  // ---- parse a replay File ----
+  async function handleFile(file) {
+    if (busy) return;
+    if (!file) return;
+    if (!/\.s2?replay$/i.test(file.name) && !/\.SC2Replay$/i.test(file.name)) {
+      showError("That doesn't look like a StarCraft II replay. Please choose a .SC2Replay file.");
+      return;
+    }
+    busy = true;
+    clearOutput();
+    try {
+      const pyodide = await getPyodide();
+      setStatus(`Reading ${file.name}…`);
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      pyodide.FS.writeFile("/replay.SC2Replay", bytes);
+
+      setStatus("Decoding replay…");
+      const json = await pyodide.runPythonAsync(`
+import json, sc2_summary
+with open('/replay.SC2Replay', 'rb') as f:
+    _data = f.read()
+json.dumps(sc2_summary.summarize(_data))
+`);
+      render(JSON.parse(json));
+      setStatus(null);
+    } catch (err) {
+      console.error(err);
+      const msg = String(err && err.message || err);
+      // Surface the most useful line of a Python traceback.
+      const py = msg.match(/(?:Error|Exception):\s*(.+)$/m);
+      showError("Couldn't decode this replay: " + (py ? py[1] : msg.split("\n").pop()));
+    } finally {
+      busy = false;
+    }
+  }
+
+  // ---- render the match card ----
+  function render(data) {
+    const players = data.players || [];
+    const humans = players.filter((p) => p.is_human);
+    const matchup = (humans.length ? humans : players)
+      .map((p) => (RACE_GLYPH[p.race] || "?")).join("v");
+
+    $("mapName").textContent = data.map_name || "Unknown map";
+    $("matchup").textContent = matchup ? matchup : "";
+
+    $("meta").innerHTML = [
+      ["Length", fmtDuration(data.duration_seconds)],
+      ["Played", fmtDate(data.played_at_utc)],
+      ["Speed", data.game_speed || "—"],
+      ["Version", data.game_version || "—"],
+    ].map(([k, v]) => `<div>${k}: <span>${escapeHtml(v)}</span></div>`).join("");
+
+    // Group by team; teams with a single-per-side get a clean "vs" layout.
+    const teams = {};
+    players.forEach((p) => {
+      const t = (p.team === null || p.team === undefined) ? "?" : p.team;
+      (teams[t] = teams[t] || []).push(p);
+    });
+    const teamKeys = Object.keys(teams);
+
+    const playerRow = (p) => {
+      const race = p.race || "Unknown";
+      const tags = [];
+      if (!p.is_human) tags.push("AI");
+      const swatch = p.color ? `background:${escapeHtml(p.color)}` : "background:var(--border)";
+      const sub = p.handle ? escapeHtml(p.handle) : (p.is_human ? "Human" : "Computer");
+      return `
+        <div class="player">
+          <div class="swatch" style="${swatch}"></div>
+          <div class="race-badge race-${escapeHtml(race)}" title="${escapeHtml(race)}">${RACE_GLYPH[race] || "?"}</div>
+          <div class="pinfo">
+            <div class="name">${escapeHtml(p.name || "—")}${tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>
+            <div class="sub">${escapeHtml(race)} · ${sub}</div>
+          </div>
+          <div class="result ${escapeHtml(p.result)}">${escapeHtml(p.result)}</div>
+        </div>`;
+    };
+
+    let html = "";
+    if (teamKeys.length === 2) {
+      html += teams[teamKeys[0]].map(playerRow).join("");
+      html += `<div class="vs">— VS —</div>`;
+      html += teams[teamKeys[1]].map(playerRow).join("");
+    } else {
+      teamKeys.forEach((k) => {
+        html += `<div class="team-label">Team ${escapeHtml(k)}</div>`;
+        html += teams[k].map(playerRow).join("");
+      });
+    }
+    $("teams").innerHTML = html;
+
+    $("foot").textContent =
+      `${data.game_loops || 0} game loops · base build ${data.base_build || "?"}` +
+      (data.is_blizzard_map ? " · official map" : "");
+
+    card.classList.add("show");
+  }
+
+  // ---- events ----
+  fileInput.addEventListener("change", (e) => handleFile(e.target.files[0]));
+  drop.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); }
+  });
+  ["dragenter", "dragover"].forEach((ev) =>
+    drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("dragover"); }));
+  ["dragleave", "drop"].forEach((ev) =>
+    drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("dragover"); }));
+  drop.addEventListener("drop", (e) => {
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (f) handleFile(f);
+  });
+})();
+</script>
+</body>
+</html>
