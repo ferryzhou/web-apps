@@ -38,6 +38,9 @@ Hostable on GitHub Pages (or any static host) with no backend.
   income, banked resources, and worker count **at the current playhead**, so you
   can watch the economy and army swing as the game unfolds. (Sourced from the
   same tracker score samples as the analytics charts, ~every 10 seconds.)
+- A **live army composition** line lists each player's current army by unit type
+  and count (e.g. `73 Stalker`, `12 Overlord · 9 Queen`), tallied from the units
+  alive at that moment — so you can see the army mix change through the game.
 
 All of the above come from `replay.tracker.events`, which very old replays
 (pre-2013) don't contain; each section hides itself gracefully when its data is

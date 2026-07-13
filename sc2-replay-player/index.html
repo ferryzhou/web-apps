@@ -254,6 +254,12 @@
   .mm-chip { display: flex; flex-direction: column; line-height: 1.15; }
   .mm-chip .k { font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
   .mm-chip .v { font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .mm-comp { display: flex; flex-wrap: wrap; gap: 0.25rem 0.35rem; margin-top: 0.5rem; }
+  .mm-u {
+    font-size: 0.75rem; color: var(--text-dim); background: var(--bg-panel-2);
+    border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px;
+  }
+  .mm-u b { color: var(--text); font-variant-numeric: tabular-nums; }
 
   .mm-controls {
     display: flex; align-items: center; gap: 0.7rem; margin-top: 0.7rem; flex-wrap: wrap;
@@ -713,6 +719,8 @@ json.dumps(sc2_summary.summarize(_data))
   const MM_FLASH = 1.2;         // seconds a death flash lingers
   const NEUTRAL_COLOR = "#8b97ab";
   const MM_UNIT_R = { 1: 1.7, 2: 2.4, 3: 3.3, 4: 4.6 };  // dot radius by size tier
+  const MM_WORKERS = new Set(["Drone", "Probe", "SCV", "MULE"]);
+  const MM_COMP_LIMIT = 12;   // max unit types shown per player in the composition
 
   function renderMinimap(data) {
     const mm = data.minimap;
@@ -724,10 +732,13 @@ json.dumps(sc2_summary.summarize(_data))
     (data.players || []).forEach((p, i) => { colorForPid[p.player_id] = chartColor(p.color, i); });
 
     // Group per-unit position samples (moves are globally time-sorted → per-unit too).
+    const types = mm.types || [];
     const units = new Map();
     for (const tag in mm.units) {
       const m = mm.units[tag];
+      const type = types[m[5]] || "";
       units.set(tag, { pid: m[0], structure: m[1], born: m[2], died: m[3], size: m[4] || 2,
+        type, isWorker: MM_WORKERS.has(type),
         color: colorForPid[m[0]] || NEUTRAL_COLOR, moves: [] });
     }
     for (const mv of mm.moves) {
@@ -741,7 +752,7 @@ json.dumps(sc2_summary.summarize(_data))
     const series = (data.analytics && data.analytics.series) || {};
     const statsPlayers = (data.players || [])
       .filter((p) => series[p.player_id] && series[p.player_id].length)
-      .map((p) => ({ name: p.name, race: p.race,
+      .map((p) => ({ name: p.name, race: p.race, pid: p.player_id,
         color: colorForPid[p.player_id] || NEUTRAL_COLOR, rows: series[p.player_id] }));
 
     mmPlayer = createMinimapPlayer(units, mm.bounds, data.duration_seconds || 1, statsPlayers);
@@ -777,12 +788,30 @@ json.dumps(sc2_summary.summarize(_data))
         `${escapeHtml(p.name)} <small>${escapeHtml(p.race || "")}</small></div>` +
         `<div class="mm-chips">` +
         CHIPS.map(([label, key]) => `<div class="mm-chip"><span class="k">${label}</span><span class="v" data-f="${key}">—</span></div>`).join("") +
-        `</div>`;
+        `</div><div class="mm-comp"></div>`;
       statsEl.appendChild(col);
       const refs = {};
       CHIPS.forEach(([, key]) => { refs[key] = col.querySelector(`[data-f="${key}"]`); });
+      refs._comp = col.querySelector(".mm-comp");
       return refs;
     });
+    const compSig = statsPlayers.map(() => null);   // last-rendered composition per player
+
+    // Rebuild the per-player army-composition pills only when the counts change.
+    function updateComposition(comp) {
+      statsPlayers.forEach((p, i) => {
+        const counts = comp[p.pid];
+        const entries = counts
+          ? Object.keys(counts).map((k) => [k, counts[k]]).sort((a, b) => b[1] - a[1]).slice(0, MM_COMP_LIMIT)
+          : [];
+        const sig = entries.map((e) => e[0] + e[1]).join(",");
+        if (sig === compSig[i]) return;
+        compSig[i] = sig;
+        chipRefs[i]._comp.innerHTML = entries.length
+          ? entries.map(([tp, n]) => `<span class="mm-u"><b>${n}</b> ${escapeHtml(tp)}</span>`).join("")
+          : `<span class="mm-u" style="opacity:.55">no army</span>`;
+      });
+    }
 
     function rowAt(rows, tt) {
       if (!rows.length) return null;
@@ -844,6 +873,7 @@ json.dumps(sc2_summary.summarize(_data))
         ctx.beginPath(); ctx.moveTo(gx, PAD); ctx.lineTo(gx, cssH - PAD); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(PAD, gy); ctx.lineTo(cssW - PAD, gy); ctx.stroke();
       }
+      const comp = {};   // pid -> {type: count} of alive army units this frame
       for (const u of units.values()) {
         if (u.born > t) continue;
         const dead = u.died >= 0 && t >= u.died;
@@ -873,9 +903,14 @@ json.dumps(sc2_summary.summarize(_data))
           if (u.size >= 3) {  // outline big units so they stand out
             ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.5)"; ctx.stroke();
           }
+          if (!u.isWorker) {  // tally army composition for the HUD
+            let c = comp[u.pid] || (comp[u.pid] = {});
+            c[u.type] = (c[u.type] || 0) + 1;
+          }
         }
       }
       updateStats();
+      updateComposition(comp);
     }
 
     function fmt(s) { const m = Math.floor(s / 60); return m + ":" + String(Math.floor(s % 60)).padStart(2, "0"); }

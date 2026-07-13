@@ -194,6 +194,27 @@ def _unit_size(name):
     return 2
 
 
+# Merge state/mode variants of a unit onto one display name so the composition
+# readout counts e.g. sieged tanks and tanks together.
+_TYPE_MERGE_PREFIXES = ('Viking', 'Liberator', 'WidowMine', 'WarpPrism',
+                        'Overlord', 'Overseer', 'Lurker', 'Baneling',
+                        'SiegeTank', 'Hellion', 'Ravager', 'Roach', 'Infestor',
+                        'Zergling', 'Drone', 'SwarmHost')
+_TYPE_SUFFIXES = ('Burrowed', 'Sieged', 'Lowered', 'Flying', 'Uprooted',
+                  'Phasing', 'Transport', 'Assault', 'Fighter', 'MP')
+
+
+def _norm_type(name):
+    """Normalize a unit type name to a display name (variants merged)."""
+    for pre in _TYPE_MERGE_PREFIXES:
+        if name.startswith(pre):
+            return pre
+    for suf in _TYPE_SUFFIXES:
+        if name.endswith(suf) and len(name) > len(suf) + 2:
+            name = name[:-len(suf)]
+    return name
+
+
 def _analyze_tracker(archive, protocol, speed_factor, player_ids):
     """Extract analytics + minimap data from the replay tracker stream.
 
@@ -241,12 +262,13 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
         if inst is not None and inst['died_t'] is None:
             inst['died_t'] = t
 
-    def mm_open(ev, loop, structure, size):
+    def mm_open(ev, loop, name):
         index = ev.get('m_unitTagIndex')
         t = _loop_to_seconds(loop, speed_factor)
         mm_close(index, t)     # whatever held this index is gone
         inst = {'pid': ev.get('m_controlPlayerId') or 0,
-                'structure': 1 if structure else 0, 'size': size,
+                'structure': 1 if _is_building(name) else 0,
+                'size': _unit_size(name), 'type': _norm_type(name),
                 'born_t': t, 'died_t': None,
                 'x': ev.get('m_x', 0), 'y': ev.get('m_y', 0), 'moves': []}
         live[index] = inst
@@ -285,7 +307,7 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 # so index alone would mis-flag a recycled unit as a completion.
                 init_tags.add((ev.get('m_unitTagIndex'), ev.get('m_unitTagRecycle')))
                 if not _is_minimap_noise(unit):
-                    mm_open(ev, loop, structure=_is_building(unit), size=_unit_size(unit))
+                    mm_open(ev, loop, unit)
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'structure')
 
@@ -295,7 +317,7 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 unit = _text(ev.get('m_unitTypeName'))
                 if not is_completion and not _is_minimap_noise(unit):
                     # A genuinely new unit (not the completion of an init'd one).
-                    mm_open(ev, loop, structure=_is_building(unit), size=_unit_size(unit))
+                    mm_open(ev, loop, unit)
                 # Skip build-order noise: init completions and the loop-0 start.
                 if is_completion or loop == 0:
                     continue
@@ -312,6 +334,7 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                     new = _text(ev.get('m_unitTypeName'))
                     inst['structure'] = 1 if _is_building(new) else 0
                     inst['size'] = _unit_size(new)
+                    inst['type'] = _norm_type(new)
 
             elif name.endswith('SUnitDiedEvent'):
                 mm_close(ev.get('m_unitTagIndex'),
@@ -379,15 +402,31 @@ def _build_minimap(instances):
     min_x = min(m[2] for m in moves); max_x = max(m[2] for m in moves)
     min_y = min(m[3] for m in moves); max_y = max(m[3] for m in moves)
 
+    # Intern type names so each unit only carries a small index.
+    type_list = []
+    type_index = {}
+
+    def tidx(tp):
+        i = type_index.get(tp)
+        if i is None:
+            i = len(type_list)
+            type_index[tp] = i
+            type_list.append(tp)
+        return i
+
+    # id -> [pid, structure(0/1), born_t, died_t(-1 if survived), size(1-4), typeIdx]
+    units = {}
+    for i, inst in enumerate(instances):
+        units[str(i)] = [inst['pid'], inst['structure'], inst['born_t'],
+                         inst['died_t'] if inst['died_t'] is not None else -1,
+                         inst['size'], tidx(inst['type'])]
+
     return {
         'available': True,
         'source': 'positions' if has_positions else 'births',
         'bounds': [min_x, min_y, max_x, max_y],
-        # id -> [pid, structure(0/1), born_t, died_t(-1 if survived), size(1-4)]
-        'units': {str(i): [inst['pid'], inst['structure'], inst['born_t'],
-                           inst['died_t'] if inst['died_t'] is not None else -1,
-                           inst['size']]
-                  for i, inst in enumerate(instances)},
+        'types': type_list,
+        'units': units,
         'moves': [[m[0], str(m[1]), m[2], m[3]] for m in moves],
     }
 
