@@ -255,7 +255,9 @@
   .mm-chip .k { font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
   .mm-chip .v { font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
   .mm-chip .v .gas { color: #4fd18a; }                      /* vespene gas */
-  .mm-chip .v .sep { color: var(--text-dim); font-weight: 400; margin: 0 1px; }
+  .mm-chip .v .rz { display: inline-flex; align-items: center; }
+  .mm-chip .v .rz + .rz { margin-left: 6px; }
+  .mm-chip .v .ri { margin-right: 2px; }
   .mm-comp { display: flex; flex-wrap: wrap; gap: 0.25rem 0.35rem; margin-top: 0.5rem; }
   .mm-u {
     display: inline-flex; align-items: center; gap: 3px;
@@ -685,9 +687,19 @@ json.dumps(sc2_summary.summarize(_data))
     v = Math.round(v);
     return v >= 1000 ? (v / 1000).toFixed(v >= 10000 ? 0 : 1) + "k" : String(v);
   }
-  // "minerals / gas" with the gas figure tinted green (SC2 convention).
+  // Small inline icons: a blue mineral crystal and a green vespene droplet.
+  const MINERAL_ICON =
+    '<svg class="ri" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">' +
+    '<path d="M6 1 L10 4.5 L6 11 L2 4.5 Z" fill="#5ab0ff"/>' +
+    '<path d="M6 1 L2 4.5 L6 4.5 Z" fill="#9ad3ff"/></svg>';
+  const GAS_ICON =
+    '<svg class="ri" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">' +
+    '<path d="M6 1 C 9 5 9 8.5 6 11 C 3 8.5 3 5 6 1 Z" fill="#4fd18a"/></svg>';
+
+  // Minerals then gas, each labelled by its icon (gas figure also tinted green).
   function minGas(min, gas) {
-    return fmtShort(min || 0) + '<span class="sep">/</span><span class="gas">' + fmtShort(gas || 0) + "</span>";
+    return '<span class="rz">' + MINERAL_ICON + fmtShort(min || 0) + '</span>' +
+      '<span class="rz"><span class="gas">' + GAS_ICON + fmtShort(gas || 0) + "</span></span>";
   }
   function shortName(n) { return n.length > 9 ? n.slice(0, 8) + "…" : n; }
 
@@ -797,8 +809,8 @@ json.dumps(sc2_summary.summarize(_data))
     $("mmNote").textContent =
       "Top-down playback reconstructed from " + src + " in the replay tracker. " +
       "Circles are ground units, triangles are air, squares are structures (bigger = " +
-      "bigger unit), coloured by player; rings mark deaths. Income/Bank are shown as " +
-      "minerals / gas (gas in green). Positions are approximate — not the game engine.";
+      "bigger unit), coloured by player; rings mark deaths. Income/Bank show minerals " +
+      "(blue crystal) and gas (green). Positions are approximate — not the game engine.";
     playbackEl.classList.add("show");
   }
 
