@@ -254,6 +254,8 @@
   .mm-chip { display: flex; flex-direction: column; line-height: 1.15; }
   .mm-chip .k { font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
   .mm-chip .v { font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .mm-chip .v .gas { color: #4fd18a; }                      /* vespene gas */
+  .mm-chip .v .sep { color: var(--text-dim); font-weight: 400; margin: 0 1px; }
   .mm-comp { display: flex; flex-wrap: wrap; gap: 0.25rem 0.35rem; margin-top: 0.5rem; }
   .mm-u {
     display: inline-flex; align-items: center; gap: 3px;
@@ -683,6 +685,10 @@ json.dumps(sc2_summary.summarize(_data))
     v = Math.round(v);
     return v >= 1000 ? (v / 1000).toFixed(v >= 10000 ? 0 : 1) + "k" : String(v);
   }
+  // "minerals / gas" with the gas figure tinted green (SC2 convention).
+  function minGas(min, gas) {
+    return fmtShort(min || 0) + '<span class="sep">/</span><span class="gas">' + fmtShort(gas || 0) + "</span>";
+  }
   function shortName(n) { return n.length > 9 ? n.slice(0, 8) + "…" : n; }
 
   function wireHover(el, series, geo) {
@@ -791,8 +797,8 @@ json.dumps(sc2_summary.summarize(_data))
     $("mmNote").textContent =
       "Top-down playback reconstructed from " + src + " in the replay tracker. " +
       "Circles are ground units, triangles are air, squares are structures (bigger = " +
-      "bigger unit), coloured by player; rings mark deaths. The composition list below " +
-      "keys each unit type to its marker. Positions are approximate — not the game engine.";
+      "bigger unit), coloured by player; rings mark deaths. Income/Bank are shown as " +
+      "minerals / gas (gas in green). Positions are approximate — not the game engine.";
     playbackEl.classList.add("show");
   }
 
@@ -859,8 +865,8 @@ json.dumps(sc2_summary.summarize(_data))
         if (!r) return;
         c.supply.textContent = (r.supply_used || 0) + "/" + (r.supply_made || 0);
         c.army.textContent = fmtShort(r.army_value || 0);
-        c.income.textContent = fmtShort((r.income_min || 0) + (r.income_gas || 0));
-        c.bank.textContent = fmtShort((r.unspent_min || 0) + (r.unspent_gas || 0));
+        c.income.innerHTML = minGas(r.income_min, r.income_gas);
+        c.bank.innerHTML = minGas(r.unspent_min, r.unspent_gas);
         c.workers.textContent = (r.workers || 0);
       });
     }
