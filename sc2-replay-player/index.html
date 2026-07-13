@@ -712,6 +712,7 @@ json.dumps(sc2_summary.summarize(_data))
   const MM_SPEEDS = [1, 2, 4, 8];
   const MM_FLASH = 1.2;         // seconds a death flash lingers
   const NEUTRAL_COLOR = "#8b97ab";
+  const MM_UNIT_R = { 1: 1.7, 2: 2.4, 3: 3.3, 4: 4.6 };  // dot radius by size tier
 
   function renderMinimap(data) {
     const mm = data.minimap;
@@ -726,7 +727,7 @@ json.dumps(sc2_summary.summarize(_data))
     const units = new Map();
     for (const tag in mm.units) {
       const m = mm.units[tag];
-      units.set(tag, { pid: m[0], structure: m[1], born: m[2], died: m[3],
+      units.set(tag, { pid: m[0], structure: m[1], born: m[2], died: m[3], size: m[4] || 2,
         color: colorForPid[m[0]] || NEUTRAL_COLOR, moves: [] });
     }
     for (const mv of mm.moves) {
@@ -747,8 +748,8 @@ json.dumps(sc2_summary.summarize(_data))
     const src = mm.source === "positions" ? "unit position updates" : "unit spawn points";
     $("mmNote").textContent =
       "Top-down playback reconstructed from " + src + " in the replay tracker. " +
-      "Dots are units, squares are structures, coloured by player; rings mark deaths. " +
-      "Positions are approximate — this isn't the game engine.";
+      "Dots are units (bigger dot = bigger unit), squares are structures, coloured " +
+      "by player; rings mark deaths. Positions are approximate — this isn't the game engine.";
     playbackEl.classList.add("show");
   }
 
@@ -858,8 +859,12 @@ json.dumps(sc2_summary.summarize(_data))
           ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)";
           ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);
         } else {
-          // units: small solid dots
-          ctx.beginPath(); ctx.arc(x, y, 2.2, 0, 6.2832); ctx.fill();
+          // units: dots sized by unit tier (lings small, ultralisks big)
+          const r = MM_UNIT_R[u.size] || 2.4;
+          ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+          if (u.size >= 3) {  // outline big units so they stand out
+            ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.5)"; ctx.stroke();
+          }
         }
       }
       updateStats();
