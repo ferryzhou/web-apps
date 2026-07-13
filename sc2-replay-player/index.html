@@ -256,10 +256,12 @@
   .mm-chip .v { font-size: 0.95rem; font-weight: 700; font-variant-numeric: tabular-nums; }
   .mm-comp { display: flex; flex-wrap: wrap; gap: 0.25rem 0.35rem; margin-top: 0.5rem; }
   .mm-u {
+    display: inline-flex; align-items: center; gap: 3px;
     font-size: 0.75rem; color: var(--text-dim); background: var(--bg-panel-2);
-    border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px;
+    border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px 1px 3px;
   }
   .mm-u b { color: var(--text); font-variant-numeric: tabular-nums; }
+  .mm-u .mm-g { flex: 0 0 auto; display: block; }
 
   .mm-controls {
     display: flex; align-items: center; gap: 0.7rem; margin-top: 0.7rem; flex-wrap: wrap;
@@ -721,6 +723,35 @@ json.dumps(sc2_summary.summarize(_data))
   const MM_UNIT_R = { 1: 1.7, 2: 2.4, 3: 3.3, 4: 4.6 };  // dot radius by size tier
   const MM_WORKERS = new Set(["Drone", "Probe", "SCV", "MULE"]);
   const MM_COMP_LIMIT = 12;   // max unit types shown per player in the composition
+  // Air units (normalized type names, lower-cased) — drawn as triangles vs. ground circles.
+  const MM_AIR = new Set([
+    "overlord", "overseer", "mutalisk", "corruptor", "broodlord", "viper", "leviathan",
+    "phoenix", "oracle", "voidray", "carrier", "tempest", "warpprism", "mothership", "observer",
+    "medivac", "viking", "banshee", "raven", "liberator", "battlecruiser",
+  ]);
+
+  // Trace a unit marker path: upward triangle for air, circle for ground.
+  function unitShape(ctx, x, y, r, isAir) {
+    ctx.beginPath();
+    if (isAir) {
+      ctx.moveTo(x, y - r * 1.2);
+      ctx.lineTo(x - r * 1.05, y + r * 0.85);
+      ctx.lineTo(x + r * 1.05, y + r * 0.85);
+      ctx.closePath();
+    } else {
+      ctx.arc(x, y, r, 0, 6.2832);
+    }
+  }
+
+  // Small inline-SVG legend glyph mirroring a unit's map marker (shape+size+colour).
+  function compGlyph(color, size, air) {
+    const S = 14, c = S / 2, r = 2.8 + size * 0.9;
+    const outline = size >= 3 ? ' stroke="rgba(255,255,255,0.6)" stroke-width="1"' : "";
+    const shape = air
+      ? `<polygon points="${c},${(c - r * 1.15).toFixed(1)} ${(c - r).toFixed(1)},${(c + r * 0.8).toFixed(1)} ${(c + r).toFixed(1)},${(c + r * 0.8).toFixed(1)}" fill="${color}"${outline}/>`
+      : `<circle cx="${c}" cy="${c}" r="${r.toFixed(1)}" fill="${color}"${outline}/>`;
+    return `<svg class="mm-g" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" aria-hidden="true">${shape}</svg>`;
+  }
 
   function renderMinimap(data) {
     const mm = data.minimap;
@@ -738,7 +769,7 @@ json.dumps(sc2_summary.summarize(_data))
       const m = mm.units[tag];
       const type = types[m[5]] || "";
       units.set(tag, { pid: m[0], structure: m[1], born: m[2], died: m[3], size: m[4] || 2,
-        type, isWorker: MM_WORKERS.has(type),
+        type, isWorker: MM_WORKERS.has(type), isAir: MM_AIR.has(type.toLowerCase()),
         color: colorForPid[m[0]] || NEUTRAL_COLOR, moves: [] });
     }
     for (const mv of mm.moves) {
@@ -759,8 +790,9 @@ json.dumps(sc2_summary.summarize(_data))
     const src = mm.source === "positions" ? "unit position updates" : "unit spawn points";
     $("mmNote").textContent =
       "Top-down playback reconstructed from " + src + " in the replay tracker. " +
-      "Dots are units (bigger dot = bigger unit), squares are structures, coloured " +
-      "by player; rings mark deaths. Positions are approximate — this isn't the game engine.";
+      "Circles are ground units, triangles are air, squares are structures (bigger = " +
+      "bigger unit), coloured by player; rings mark deaths. The composition list below " +
+      "keys each unit type to its marker. Positions are approximate — not the game engine.";
     playbackEl.classList.add("show");
   }
 
@@ -802,13 +834,14 @@ json.dumps(sc2_summary.summarize(_data))
       statsPlayers.forEach((p, i) => {
         const counts = comp[p.pid];
         const entries = counts
-          ? Object.keys(counts).map((k) => [k, counts[k]]).sort((a, b) => b[1] - a[1]).slice(0, MM_COMP_LIMIT)
+          ? Object.keys(counts).map((k) => [k, counts[k]]).sort((a, b) => b[1].n - a[1].n).slice(0, MM_COMP_LIMIT)
           : [];
-        const sig = entries.map((e) => e[0] + e[1]).join(",");
+        const sig = entries.map((e) => e[0] + e[1].n).join(",");
         if (sig === compSig[i]) return;
         compSig[i] = sig;
         chipRefs[i]._comp.innerHTML = entries.length
-          ? entries.map(([tp, n]) => `<span class="mm-u"><b>${n}</b> ${escapeHtml(tp)}</span>`).join("")
+          ? entries.map(([tp, e]) =>
+              `<span class="mm-u">${compGlyph(p.color, e.size, e.air)}<b>${e.n}</b> ${escapeHtml(tp)}</span>`).join("")
           : `<span class="mm-u" style="opacity:.55">no army</span>`;
       });
     }
@@ -897,15 +930,16 @@ json.dumps(sc2_summary.summarize(_data))
           ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)";
           ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);
         } else {
-          // units: dots sized by unit tier (lings small, ultralisks big)
+          // units sized by tier; air units are triangles, ground units circles
           const r = MM_UNIT_R[u.size] || 2.4;
-          ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+          unitShape(ctx, x, y, r, u.isAir);
+          ctx.fill();
           if (u.size >= 3) {  // outline big units so they stand out
             ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.5)"; ctx.stroke();
           }
           if (!u.isWorker) {  // tally army composition for the HUD
             let c = comp[u.pid] || (comp[u.pid] = {});
-            c[u.type] = (c[u.type] || 0) + 1;
+            (c[u.type] || (c[u.type] = { n: 0, size: u.size, air: u.isAir })).n++;
           }
         }
       }
