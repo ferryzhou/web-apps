@@ -852,10 +852,14 @@ json.dumps(sc2_summary.summarize(_data))
         const x = sx(p[1]), y = sy(p[2]);
         ctx.fillStyle = u.color;
         if (u.structure) {
-          ctx.fillRect(x - 3, y - 3, 6, 6);
-          ctx.strokeStyle = "rgba(0,0,0,0.5)"; ctx.lineWidth = 1; ctx.strokeRect(x - 3, y - 3, 6, 6);
+          // buildings: larger bright-edged squares so bases read as landmarks
+          const h = 3.6;
+          ctx.fillRect(x - h, y - h, 2 * h, 2 * h);
+          ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)";
+          ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);
         } else {
-          ctx.beginPath(); ctx.arc(x, y, 2.6, 0, 6.2832); ctx.fill();
+          // units: small solid dots
+          ctx.beginPath(); ctx.arc(x, y, 2.2, 0, 6.2832); ctx.fill();
         }
       }
       updateStats();
