@@ -102,6 +102,10 @@ knowing:
   building list), not by which tracker event created them — so warp-ins and
   trained units that fire an init event still render as unit dots, and only
   actual structures show as squares.
+- **Unit dots are sized by unit type** (small tier for workers/lings up to a
+  massive tier for ultralisks/thors/colossi/capital ships), so a swarm of small
+  units reads differently from a handful of big ones. Size updates on in-place
+  morphs (e.g. Roach→Ravager, Corruptor→Brood Lord).
 - **Spawned/temporary units are filtered** (creep tumors, larva, eggs,
   broodlings, locusts, interceptors, and AI rally beacons) — a single
   creep-spreading bot can lay thousands of tumors, which otherwise bury the map

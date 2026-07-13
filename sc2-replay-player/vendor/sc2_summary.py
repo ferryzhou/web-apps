@@ -170,6 +170,30 @@ def _is_building(name):
     return any(low.startswith(b) for b in _BUILDINGS)
 
 
+# Rough visual-size tiers for army/worker units so the minimap can draw a ball
+# of lings differently from a handful of ultralisks. Matched as a prefix;
+# anything unlisted is "medium". (Buildings get a tier too but it's unused.)
+_SIZE_SMALL = ('probe', 'scv', 'drone', 'zergling', 'baneling', 'marine',
+               'reaper', 'zealot', 'adept', 'widowmine', 'mule', 'changeling')
+_SIZE_LARGE = ('siegetank', 'immortal', 'disruptor', 'ravager', 'lurker',
+               'warpprism', 'medivac', 'overlord', 'overseer', 'raven',
+               'banshee', 'liberator', 'viking', 'hellbat', 'archon', 'infestor')
+_SIZE_MASSIVE = ('thor', 'ultralisk', 'colossus', 'broodlord', 'carrier',
+                 'battlecruiser', 'tempest', 'mothership', 'leviathan')
+
+
+def _unit_size(name):
+    """Return a size tier 1 (small) .. 4 (massive) for a unit type name."""
+    low = name.lower()
+    if any(low.startswith(s) for s in _SIZE_MASSIVE):
+        return 4
+    if any(low.startswith(s) for s in _SIZE_LARGE):
+        return 3
+    if any(low.startswith(s) for s in _SIZE_SMALL):
+        return 1
+    return 2
+
+
 def _analyze_tracker(archive, protocol, speed_factor, player_ids):
     """Extract analytics + minimap data from the replay tracker stream.
 
@@ -217,12 +241,13 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
         if inst is not None and inst['died_t'] is None:
             inst['died_t'] = t
 
-    def mm_open(ev, loop, structure):
+    def mm_open(ev, loop, structure, size):
         index = ev.get('m_unitTagIndex')
         t = _loop_to_seconds(loop, speed_factor)
         mm_close(index, t)     # whatever held this index is gone
         inst = {'pid': ev.get('m_controlPlayerId') or 0,
-                'structure': 1 if structure else 0, 'born_t': t, 'died_t': None,
+                'structure': 1 if structure else 0, 'size': size,
+                'born_t': t, 'died_t': None,
                 'x': ev.get('m_x', 0), 'y': ev.get('m_y', 0), 'moves': []}
         live[index] = inst
         instances.append(inst)
@@ -260,7 +285,7 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 # so index alone would mis-flag a recycled unit as a completion.
                 init_tags.add((ev.get('m_unitTagIndex'), ev.get('m_unitTagRecycle')))
                 if not _is_minimap_noise(unit):
-                    mm_open(ev, loop, structure=_is_building(unit))
+                    mm_open(ev, loop, structure=_is_building(unit), size=_unit_size(unit))
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'structure')
 
@@ -270,13 +295,23 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 unit = _text(ev.get('m_unitTypeName'))
                 if not is_completion and not _is_minimap_noise(unit):
                     # A genuinely new unit (not the completion of an init'd one).
-                    mm_open(ev, loop, structure=_is_building(unit))
+                    mm_open(ev, loop, structure=_is_building(unit), size=_unit_size(unit))
                 # Skip build-order noise: init completions and the loop-0 start.
                 if is_completion or loop == 0:
                     continue
                 pid = ev.get('m_controlPlayerId')
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'unit')
+
+            elif name.endswith('SUnitTypeChangeEvent'):
+                # A unit morphed in place (Roach->Ravager, Overlord->Overseer,
+                # Hatchery->Lair, ...): keep the same instance but refresh its
+                # size/shape from the new type.
+                inst = live.get(ev.get('m_unitTagIndex'))
+                if inst is not None:
+                    new = _text(ev.get('m_unitTypeName'))
+                    inst['structure'] = 1 if _is_building(new) else 0
+                    inst['size'] = _unit_size(new)
 
             elif name.endswith('SUnitDiedEvent'):
                 mm_close(ev.get('m_unitTagIndex'),
@@ -348,9 +383,10 @@ def _build_minimap(instances):
         'available': True,
         'source': 'positions' if has_positions else 'births',
         'bounds': [min_x, min_y, max_x, max_y],
-        # id -> [pid, structure(0/1), born_t, died_t(-1 if survived)]
+        # id -> [pid, structure(0/1), born_t, died_t(-1 if survived), size(1-4)]
         'units': {str(i): [inst['pid'], inst['structure'], inst['born_t'],
-                           inst['died_t'] if inst['died_t'] is not None else -1]
+                           inst['died_t'] if inst['died_t'] is not None else -1,
+                           inst['size']]
                   for i, inst in enumerate(instances)},
         'moves': [[m[0], str(m[1]), m[2], m[3]] for m in moves],
     }
