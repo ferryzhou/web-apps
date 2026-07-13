@@ -119,10 +119,33 @@ _MINIMAP_MOVE_CAP = 20000
 
 # Units that flood the minimap without being meaningful to watch: creep tumors
 # (a bot can lay thousands), larva/eggs, and short-lived spawns. Filtered so the
-# map stays readable. Note: units that only ever appear via morph (many Zerg
-# combat units hatch from eggs via SUnitTypeChangeEvent) are not tracked yet.
+# map stays readable.
 _MINIMAP_NOISE = ('creeptumor', 'larva', 'egg', 'broodling', 'locust',
                   'interceptor', 'cocoon')
+
+# Building type names (base names; matched as a prefix so variants like
+# OrbitalCommandFlying, SupplyDepotLowered, SpineCrawlerUprooted are covered).
+# Used to draw structures vs. units correctly regardless of whether the unit
+# arrived via an init event (buildings) or an init event that is really a
+# warp-in/train (e.g. Protoss Stalkers also fire init events).
+_BUILDINGS = frozenset([
+    # Terran
+    'commandcenter', 'orbitalcommand', 'planetaryfortress', 'supplydepot',
+    'refinery', 'barracks', 'engineeringbay', 'bunker', 'missileturret',
+    'sensortower', 'factory', 'ghostacademy', 'starport', 'armory',
+    'fusioncore', 'techlab', 'reactor',
+    # Protoss
+    'nexus', 'pylon', 'assimilator', 'gateway', 'warpgate', 'forge',
+    'cyberneticscore', 'photoncannon', 'shieldbattery', 'roboticsfacility',
+    'stargate', 'twilightcouncil', 'templararchive', 'darkshrine',
+    'roboticsbay', 'fleetbeacon',
+    # Zerg
+    'hatchery', 'lair', 'hive', 'extractor', 'spawningpool',
+    'evolutionchamber', 'roachwarren', 'banelingnest', 'spinecrawler',
+    'sporecrawler', 'hydraliskden', 'lurkerden', 'greaterspire', 'spire',
+    'nydusnetwork', 'nyduscanal', 'infestationpit', 'ultraliskcavern',
+    'creeptumor',
+])
 
 
 def _loop_to_seconds(loop, speed_factor):
@@ -132,6 +155,19 @@ def _loop_to_seconds(loop, speed_factor):
 def _is_noise(name, blocklist):
     low = name.lower()
     return any(tok in low for tok in blocklist)
+
+
+def _is_minimap_noise(name):
+    # AI rally markers (BeaconArmy, BeaconDefend, ...) aren't real units; the
+    # FleetBeacon building does not start with "beacon", so it's unaffected.
+    if name.lower().startswith('beacon'):
+        return True
+    return _is_noise(name, _MINIMAP_NOISE)
+
+
+def _is_building(name):
+    low = name.lower()
+    return any(low.startswith(b) for b in _BUILDINGS)
 
 
 def _analyze_tracker(archive, protocol, speed_factor, player_ids):
@@ -223,8 +259,8 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 # Key by (index, recycle): a tag index is reused across the game,
                 # so index alone would mis-flag a recycled unit as a completion.
                 init_tags.add((ev.get('m_unitTagIndex'), ev.get('m_unitTagRecycle')))
-                if not _is_noise(unit, _MINIMAP_NOISE):
-                    mm_open(ev, loop, structure=True)
+                if not _is_minimap_noise(unit):
+                    mm_open(ev, loop, structure=_is_building(unit))
                 if not _is_noise(unit, _BUILD_NOISE):
                     add_build(pid, loop, unit, 'structure')
 
@@ -232,9 +268,9 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 is_completion = (ev.get('m_unitTagIndex'),
                                  ev.get('m_unitTagRecycle')) in init_tags
                 unit = _text(ev.get('m_unitTypeName'))
-                if not is_completion and not _is_noise(unit, _MINIMAP_NOISE):
+                if not is_completion and not _is_minimap_noise(unit):
                     # A genuinely new unit (not the completion of an init'd one).
-                    mm_open(ev, loop, structure=False)
+                    mm_open(ev, loop, structure=_is_building(unit))
                 # Skip build-order noise: init completions and the loop-0 start.
                 if is_completion or loop == 0:
                     continue

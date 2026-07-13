@@ -98,9 +98,14 @@ in map corners, neutral mineral fields trace the familiar arcs at each
 expansion, and armies move and thin out over the game. A few things worth
 knowing:
 
+- **Buildings vs. units** are told apart by unit type name (against SC2's
+  building list), not by which tracker event created them — so warp-ins and
+  trained units that fire an init event still render as unit dots, and only
+  actual structures show as squares.
 - **Spawned/temporary units are filtered** (creep tumors, larva, eggs,
-  broodlings, locusts, interceptors) — a single creep-spreading bot can lay
-  thousands of tumors, which otherwise bury the map in dots.
+  broodlings, locusts, interceptors, and AI rally beacons) — a single
+  creep-spreading bot can lay thousands of tumors, which otherwise bury the map
+  in dots.
 - **Tag recycling is handled.** SC2 reuses a unit's tag index after it dies, so
   units are tracked as discrete instances (keyed by index + recycle) and a dead
   unit is retired the moment its index is reborn — dead units don't linger.
