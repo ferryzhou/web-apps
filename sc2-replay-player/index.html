@@ -818,13 +818,21 @@ json.dumps(sc2_summary.summarize(_data))
     function sx(x) { return PAD + ((x - minX) / wWorld) * (cssW - 2 * PAD); }
     function sy(y) { return PAD + ((maxY - y) / hWorld) * (cssH - 2 * PAD); }  // flip: game y is up
 
-    // last position sample at or before time tt (binary search)
+    // Interpolated [x, y] at time tt. Position samples are ~12s apart, so we
+    // lerp between the bracketing samples instead of holding-then-teleporting,
+    // which is what made playback look frozen-then-jumpy.
     function posAt(u, tt) {
       const a = u.moves;
-      if (!a.length || a[0][0] > tt) return null;
+      if (!a.length) return null;
+      if (a[0][0] >= tt) return [a[0][1], a[0][2]];   // before first sample
       let lo = 0, hi = a.length - 1, ans = 0;
       while (lo <= hi) { const mid = (lo + hi) >> 1; if (a[mid][0] <= tt) { ans = mid; lo = mid + 1; } else hi = mid - 1; }
-      return a[ans];
+      const p0 = a[ans];
+      if (ans >= a.length - 1) return [p0[1], p0[2]];  // after last sample: hold
+      const p1 = a[ans + 1], span = p1[0] - p0[0];
+      if (span <= 0) return [p0[1], p0[2]];
+      const f = (tt - p0[0]) / span;
+      return [p0[1] + (p1[1] - p0[1]) * f, p0[2] + (p1[2] - p0[2]) * f];
     }
 
     function draw() {
@@ -845,12 +853,12 @@ json.dumps(sc2_summary.summarize(_data))
             const p = posAt(u, u.died); if (!p) continue;
             const r = 3 + dt * 9, alpha = 1 - dt / MM_FLASH;
             ctx.strokeStyle = `rgba(255,90,90,${alpha.toFixed(3)})`; ctx.lineWidth = 2;
-            ctx.beginPath(); ctx.arc(sx(p[1]), sy(p[2]), r, 0, 6.2832); ctx.stroke();
+            ctx.beginPath(); ctx.arc(sx(p[0]), sy(p[1]), r, 0, 6.2832); ctx.stroke();
           }
           continue;
         }
         const p = posAt(u, t); if (!p) continue;
-        const x = sx(p[1]), y = sy(p[2]);
+        const x = sx(p[0]), y = sy(p[1]);
         ctx.fillStyle = u.color;
         if (u.structure) {
           // buildings: larger bright-edged squares so bases read as landmarks

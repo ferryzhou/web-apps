@@ -125,6 +125,13 @@ knowing:
 - Positions are auto-fit rather than tied to true map cells (no map file is
   needed), so the map is an approximation of where things happened — not the
   game engine.
+- **Movement is interpolated.** The tracker reports unit positions only about
+  every ~12 seconds, so playback lerps each unit between its samples rather than
+  teleporting it — otherwise units freeze then jump.
+- **Idle units (especially workers) barely move.** The position stream is
+  dominated by units that travel the map (army); mining workers are reported
+  rarely, so they stay near their base. That reflects the tracker data, not a
+  playback bug.
 
 ## Development notes
 
