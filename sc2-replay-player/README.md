@@ -43,10 +43,11 @@ Hostable on GitHub Pages (or any static host) with no backend.
   the same for **buildings** (e.g. `24 Pylon · 12 WarpGate · 2 Nexus`), both
   tallied from what's alive at that moment — so you can see the army and base mix
   change through the game. Each entry shows a small **per-type icon** and the
-  count, with the full type name on hover. The icons are original hand-drawn
-  schematic silhouettes (inline SVG, filled in the player's colour) — not game
-  art, so the app stays fully offline. Types without an icon yet fall back to a
-  shape badge (circle / triangle / square) plus a shorthand code.
+  count, with the full type name on hover. Icons come from
+  [game-icons.net](https://game-icons.net) (CC BY 3.0), recoloured to each
+  player's colour and vendored into `icons.js` so the app stays fully offline.
+  Types without an icon fall back to a shape badge (circle / triangle / square)
+  plus a shorthand code.
 
 All of the above come from `replay.tracker.events`, which very old replays
 (pre-2013) don't contain; each section hides itself gracefully when its data is
@@ -152,3 +153,16 @@ knowing:
   e.g. `python3 -m http.server` from the repo root, then visit
   `/sc2-replay-player/`.
 - No build step, no dependencies to install.
+
+## Credits
+
+- **Unit / building icons:** [game-icons.net](https://game-icons.net), licensed
+  under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), by Lorc,
+  Delapouite, John Colburn, Felbrigg, Skoll, Carl Olsen, Sbed and other
+  game-icons.net contributors. The icons are **recoloured and resized** for this
+  app and vendored (via the [Iconify](https://iconify.design) JSON packaging)
+  into `icons.js`; the app fetches nothing at runtime.
+- Replay decoding: [s2protocol](https://github.com/Blizzard/s2protocol) (MIT) and
+  [mpyq](https://github.com/eagleflo/mpyq) (BSD) — see `vendor/NOTICE.md`.
+- StarCraft II is a trademark of Blizzard Entertainment; this project is
+  unaffiliated fan tooling and contains no Blizzard assets.
