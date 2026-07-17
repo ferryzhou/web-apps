@@ -363,10 +363,11 @@
   </section>
 
   <footer class="page">
-    <p>Decoding by the vendored <a href="https://github.com/Blizzard/s2protocol" rel="noopener">s2protocol</a> + mpyq via <a href="https://pyodide.org" rel="noopener">Pyodide</a>. Part of the <a href="../index.html">Web Apps Collection</a>.</p>
+    <p>Decoding by the vendored <a href="https://github.com/Blizzard/s2protocol" rel="noopener">s2protocol</a> + mpyq via <a href="https://pyodide.org" rel="noopener">Pyodide</a>. Unit icons from <a href="https://game-icons.net" rel="noopener">game-icons.net</a> (<a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>). Part of the <a href="../index.html">Web Apps Collection</a>.</p>
   </footer>
 </div>
 
+<script src="icons.js"></script>
 <script>
 (() => {
   "use strict";
@@ -819,114 +820,15 @@ json.dumps(sc2_summary.summarize(_data))
     return MM_ABBR[name] || name.replace(/[^A-Z]/g, "").slice(0, 3) || name.slice(0, 3);
   }
 
-  // Original schematic silhouettes (24x24), drawn with both fill and stroke set
-  // to the player colour so thin "line" paths render as strokes and closed
-  // shapes fill. Not game art — hand-drawn, fully offline. Types without an
-  // entry fall back to the shape+shorthand badge.
-  const MM_ICONS = {
-    // Terran units
-    Marine: '<circle cx="9" cy="6" r="3"/><rect x="6" y="9" width="7" height="10" rx="2"/><rect x="12" y="10" width="8" height="2.4" rx="1"/>',
-    Marauder: '<circle cx="9" cy="6" r="3"/><rect x="4" y="9" width="10" height="10" rx="2"/><rect x="13" y="9" width="4" height="5" rx="1"/>',
-    Reaper: '<circle cx="10" cy="6" r="3"/><rect x="7" y="9" width="7" height="9" rx="2"/><path d="M14 9l6 3-6 2z"/>',
-    Ghost: '<circle cx="11" cy="5" r="2.5"/><rect x="9" y="7" width="4" height="12" rx="1"/><rect x="5" y="11" width="14" height="2" rx="1"/>',
-    Hellion: '<path d="M3 15l6-3h8l4 3-4 3H8z"/><circle cx="8" cy="18" r="1.8"/><circle cx="16" cy="18" r="1.8"/>',
-    Cyclone: '<rect x="5" y="11" width="14" height="6" rx="3"/><circle cx="8" cy="18" r="1.6"/><circle cx="16" cy="18" r="1.6"/><rect x="10" y="6" width="4" height="5"/>',
-    SiegeTank: '<rect x="4" y="12" width="16" height="5" rx="2"/><rect x="8" y="8" width="7" height="4" rx="1"/><rect x="14" y="9" width="8" height="2" rx="1"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/>',
-    Thor: '<rect x="7" y="3" width="10" height="9" rx="1"/><rect x="4" y="12" width="6" height="8" rx="1"/><rect x="14" y="12" width="6" height="8" rx="1"/>',
-    Viking: '<path d="M12 3l3 7h6l-4 3 2 7-7-4-7 4 2-7-4-3h6z"/>',
-    Medivac: '<path d="M4 12a8 5 0 0116 0 8 5 0 01-16 0z"/><rect x="10" y="6" width="4" height="6" rx="1"/>',
-    Liberator: '<path d="M12 4l4 6 4 2-4 2-4 2-4-2-4-2 4-2z"/>',
-    Banshee: '<path d="M4 13l8-4 8 4-8 3z"/><rect x="10" y="5" width="4" height="4" rx="1"/>',
-    Raven: '<path d="M12 5l7 6-7 3-7-3z"/><rect x="10" y="14" width="4" height="4"/>',
-    Battlecruiser: '<path d="M3 12l4-3h10l4 3-4 3H7z"/><rect x="9" y="5" width="6" height="4" rx="1"/>',
-    WidowMine: '<path d="M5 17a7 5 0 0114 0z"/><path d="M9 12l-2-4M15 12l2-4M12 11V6"/>',
-    // Protoss units
-    Zealot: '<path d="M5 4l7 8-7 8h3l6-7 6 7h3l-7-8 7-8h-3l-6 7-6-7z"/>',
-    Stalker: '<ellipse cx="12" cy="8" rx="5" ry="3"/><path d="M9 10L5 20M11 11l-1 9M13 11l1 9M15 10l4 10"/>',
-    Sentry: '<circle cx="12" cy="11" r="6"/><circle cx="12" cy="11" r="2"/>',
-    Adept: '<circle cx="11" cy="5" r="2.5"/><rect x="9" y="7" width="4" height="12" rx="1"/><path d="M15 4v15"/>',
-    Immortal: '<rect x="5" y="6" width="14" height="8" rx="3"/><path d="M8 14l-2 6M16 14l2 6"/>',
-    Colossus: '<rect x="8" y="3" width="8" height="6" rx="2"/><path d="M9 9L4 20M12 9v11M15 9l5 11"/>',
-    Disruptor: '<circle cx="12" cy="12" r="6"/><path d="M12 6v12M6 12h12"/>',
-    HighTemplar: '<path d="M12 3l5 7H7z"/><rect x="8" y="10" width="8" height="9" rx="2"/>',
-    DarkTemplar: '<rect x="8" y="8" width="6" height="11" rx="2"/><path d="M14 8l5-5"/>',
-    Archon: '<path d="M12 2l4 10-4 10-4-10z"/><path d="M2 12l10-4 10 4-10 4z"/>',
-    Observer: '<circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M4 12H2M22 12h-2"/>',
-    WarpPrism: '<path d="M12 4l8 8-8 8-8-8z"/>',
-    Phoenix: '<path d="M12 7l8 3-4 2 4 4-8-3-8 3 4-4-4-2z"/>',
-    VoidRay: '<path d="M12 3l4 14-4 4-4-4z"/>',
-    Oracle: '<path d="M4 12a8 5 0 0116 0z"/><circle cx="12" cy="12" r="2"/>',
-    Carrier: '<path d="M3 11l5-3h8l5 3-5 3H8z"/><circle cx="7" cy="17" r="1.4"/><circle cx="12" cy="18" r="1.4"/><circle cx="17" cy="17" r="1.4"/>',
-    Tempest: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
-    Mothership: '<ellipse cx="12" cy="12" rx="9" ry="5"/><path d="M12 7V3"/>',
-    // Zerg units
-    Zergling: '<path d="M6 15a5 5 0 0110 0z"/><path d="M7 12L4 8M17 12l3-4"/>',
-    Baneling: '<circle cx="12" cy="13" r="6"/><path d="M8 8L6 4M16 8l2-4M12 7V3"/>',
-    Roach: '<ellipse cx="12" cy="13" rx="7" ry="5"/><path d="M7 10L4 7M17 10l3-3"/>',
-    Ravager: '<ellipse cx="12" cy="14" rx="7" ry="5"/><path d="M9 9L7 4M15 9l2-5M12 8V3"/>',
-    Hydralisk: '<path d="M9 20V11a3 3 0 016 0v9z"/><path d="M12 11l4-8"/><circle cx="12" cy="6" r="2"/>',
-    Lurker: '<ellipse cx="12" cy="15" rx="7" ry="4"/><path d="M8 12L5 5M12 11V4M16 12l3-7"/>',
-    Mutalisk: '<path d="M12 8L3 5l5 5-5 5 9-3 9 3-5-5 5-5z"/>',
-    Corruptor: '<path d="M12 7L4 5l4 5-4 5 8-2 8 2-4-5 4-5z"/>',
-    BroodLord: '<path d="M12 6L2 4l5 6-5 6 10-3 10 3-5-6 5-6z"/>',
-    Ultralisk: '<ellipse cx="12" cy="14" rx="9" ry="6"/><path d="M6 9L2 4M18 9l4-5"/>',
-    Infestor: '<ellipse cx="12" cy="14" rx="7" ry="5"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/>',
-    Viper: '<path d="M4 17q3-9 8-6t8-4"/><circle cx="19" cy="7" r="2"/>',
-    Queen: '<ellipse cx="12" cy="14" rx="5" ry="7"/><circle cx="12" cy="5" r="2.5"/>',
-    Overlord: '<ellipse cx="12" cy="10" rx="9" ry="6"/><path d="M6 15l-1 5M12 16v5M18 15l1 5"/>',
-    Overseer: '<ellipse cx="12" cy="12" rx="8" ry="6"/><path d="M12 2v6"/><circle cx="12" cy="12" r="2"/>',
-    // Buildings — Protoss
-    Nexus: '<path d="M4 20v-5a8 8 0 0116 0v5z"/><circle cx="12" cy="8" r="4"/>',
-    Pylon: '<path d="M12 2l7 9-7 3-7-3z"/><path d="M9 14h6l-1 6h-4z"/>',
-    Gateway: '<path d="M4 20V11a8 8 0 0116 0v9h-4v-8a4 4 0 00-8 0v8z"/>',
-    WarpGate: '<path fill-rule="evenodd" d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 5a4 4 0 110 8 4 4 0 010-8z"/>',
-    Forge: '<rect x="4" y="9" width="16" height="11" rx="1"/><rect x="7" y="5" width="6" height="4"/>',
-    CyberneticsCore: '<rect x="5" y="7" width="14" height="13" rx="2"/><circle cx="12" cy="13" r="3"/>',
-    PhotonCannon: '<rect x="9" y="12" width="6" height="8" rx="1"/><circle cx="12" cy="9" r="4"/>',
-    ShieldBattery: '<rect x="7" y="5" width="10" height="15" rx="2"/><rect x="10" y="2" width="4" height="3"/>',
-    TwilightCouncil: '<rect x="5" y="8" width="14" height="12" rx="1"/><path d="M12 3l5 5H7z"/>',
-    TemplarArchive: '<rect x="6" y="9" width="12" height="11"/><path d="M12 3l7 6H5z"/>',
-    DarkShrine: '<path d="M12 3l8 9-8 9-8-9z"/>',
-    RoboticsFacility: '<rect x="4" y="9" width="16" height="11" rx="2"/><rect x="9" y="12" width="6" height="5"/>',
-    RoboticsBay: '<rect x="4" y="9" width="16" height="11" rx="2"/><circle cx="12" cy="14" r="3"/>',
-    Stargate: '<path fill-rule="evenodd" d="M12 3a9 9 0 100 18 9 9 0 000-18zm0 4a5 5 0 110 10 5 5 0 010-10z"/>',
-    FleetBeacon: '<circle cx="12" cy="9" r="5"/><rect x="10" y="14" width="4" height="6"/>',
-    Assimilator: '<ellipse cx="12" cy="16" rx="8" ry="4"/><path d="M9 16V8a3 3 0 016 0v8z"/>',
-    // Buildings — Terran
-    CommandCenter: '<rect x="4" y="11" width="16" height="9" rx="1"/><rect x="7" y="6" width="10" height="5" rx="1"/>',
-    OrbitalCommand: '<rect x="4" y="11" width="16" height="9" rx="1"/><circle cx="12" cy="8" r="4"/>',
-    PlanetaryFortress: '<rect x="4" y="11" width="16" height="9" rx="1"/><path d="M8 8l4-3 4 3v3H8z"/>',
-    SupplyDepot: '<rect x="4" y="11" width="16" height="9" rx="2"/><path d="M4 11l8-5 8 5z"/>',
-    Barracks: '<rect x="4" y="8" width="16" height="12" rx="1"/><rect x="9" y="4" width="6" height="4"/>',
-    Factory: '<rect x="4" y="11" width="16" height="9"/><path d="M4 11l4-4 4 4 4-4 4 4z"/>',
-    Starport: '<rect x="5" y="11" width="14" height="9" rx="1"/><path d="M12 4l6 7H6z"/>',
-    EngineeringBay: '<rect x="5" y="9" width="14" height="11" rx="1"/><circle cx="12" cy="6" r="2"/>',
-    Armory: '<rect x="5" y="9" width="14" height="11" rx="1"/><rect x="9" y="5" width="6" height="4"/>',
-    Bunker: '<path d="M3 20v-5a9 6 0 0118 0v5z"/><rect x="10" y="13" width="4" height="3"/>',
-    MissileTurret: '<rect x="9" y="12" width="6" height="8" rx="1"/><circle cx="12" cy="9" r="4"/>',
-    Refinery: '<ellipse cx="12" cy="16" rx="8" ry="4"/><path d="M9 16V8a3 3 0 016 0v8z"/>',
-    // Buildings — Zerg
-    Hatchery: '<ellipse cx="12" cy="14" rx="9" ry="6"/><circle cx="12" cy="10" r="3"/>',
-    Lair: '<ellipse cx="12" cy="14" rx="9" ry="6"/><circle cx="12" cy="10" r="3"/><path d="M6 9L4 6M18 9l2-3"/>',
-    Hive: '<ellipse cx="12" cy="14" rx="9" ry="6"/><circle cx="12" cy="9" r="4"/><path d="M5 10L2 6M19 10l3-4"/>',
-    SpawningPool: '<ellipse cx="12" cy="14" rx="8" ry="5"/><ellipse cx="12" cy="13" rx="4" ry="2.5"/>',
-    EvolutionChamber: '<path d="M5 20a7 6 0 0114 0z"/><circle cx="12" cy="8" r="4"/>',
-    Extractor: '<ellipse cx="12" cy="16" rx="8" ry="4"/><path d="M9 16V8a3 3 0 016 0v8z"/>',
-    RoachWarren: '<ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="9" cy="12" r="1.4"/><circle cx="15" cy="12" r="1.4"/>',
-    BanelingNest: '<ellipse cx="12" cy="14" rx="8" ry="6"/><circle cx="12" cy="12" r="2"/>',
-    HydraliskDen: '<path d="M4 20a8 8 0 0116 0z"/><path d="M9 12V9a3 3 0 016 0v3"/>',
-    LurkerDen: '<path d="M4 20a8 8 0 0116 0z"/><path d="M8 12L6 8M16 12l2-4"/>',
-    Spire: '<path d="M12 2l4 10-4 3-4-3z"/><rect x="9" y="15" width="6" height="5"/>',
-    GreaterSpire: '<path d="M12 2l4 10-4 3-4-3z"/><rect x="9" y="15" width="6" height="5"/><path d="M8 8L5 6M16 8l3-2"/>',
-    NydusNetwork: '<path fill-rule="evenodd" d="M12 4a8 8 0 100 16 8 8 0 000-16zm0 4a4 4 0 110 8 4 4 0 010-8z"/>',
-    InfestationPit: '<ellipse cx="12" cy="15" rx="9" ry="5"/><ellipse cx="12" cy="14" rx="4" ry="2"/>',
-    UltraliskCavern: '<ellipse cx="12" cy="15" rx="9" ry="6"/><path d="M7 10L3 6M17 10l4-4"/>',
-  };
+  // Per-type icons from game-icons.net (CC BY 3.0), loaded from icons.js and
+  // recoloured to each player's colour. Types without an icon fall back to the
+  // shape + shorthand badge.
+  const MM_ICONS = window.SC2_ICONS || {};
   function unitIcon(type, color) {
-    const g = MM_ICONS[type];
-    if (!g) return null;
-    return `<svg class="mm-ico" width="17" height="17" viewBox="0 0 24 24" fill="${color}" stroke="${color}" ` +
-      `stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">${g}</svg>`;
+    const e = MM_ICONS[type];
+    if (!e) return null;
+    return `<svg class="mm-ico" width="17" height="17" viewBox="0 0 ${e[1]} ${e[2]}" ` +
+      `style="color:${color}" aria-hidden="true">${e[0]}</svg>`;
   }
 
   function renderMinimap(data) {
