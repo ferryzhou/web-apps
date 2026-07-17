@@ -270,6 +270,7 @@
     border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px 1px 3px;
   }
   .mm-u b { color: var(--text); font-variant-numeric: tabular-nums; }
+  .mm-u .mm-code { color: var(--text-dim); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3px; }
   .mm-u .mm-g { flex: 0 0 auto; display: block; }
 
   .mm-controls {
@@ -786,6 +787,37 @@ json.dumps(sc2_summary.summarize(_data))
     return `<svg class="mm-g" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" aria-hidden="true">${g}</svg>`;
   }
 
+  // Compact, collision-free shorthand per type (community-style); full name on
+  // hover. Falls back to capital letters / first three chars for anything new.
+  const MM_ABBR = {
+    // Zerg units
+    Zergling: "Ling", Baneling: "Bane", Roach: "Rch", Ravager: "Rav", Hydralisk: "Hyd",
+    Lurker: "Lurk", Mutalisk: "Muta", Corruptor: "Corr", BroodLord: "BL", Ultralisk: "Ultra",
+    Infestor: "Infr", SwarmHost: "SH", Viper: "Vipr", Queen: "Qn", Overlord: "Ovl", Overseer: "Ovs",
+    // Protoss units
+    Zealot: "Zlt", Adept: "Adp", Stalker: "Stlk", Sentry: "Sntr", HighTemplar: "HT", DarkTemplar: "DT",
+    Archon: "Arch", Immortal: "Immo", Colossus: "Colo", Disruptor: "Disr", Observer: "Obs",
+    WarpPrism: "WP", Phoenix: "Phnx", Oracle: "Orcl", VoidRay: "VR", Carrier: "Carr", Tempest: "Tmp", Mothership: "MS",
+    // Terran units
+    Marine: "Mar", Marauder: "Mrdr", Reaper: "Rpr", Ghost: "Ghst", Hellion: "Hel", Cyclone: "Cyc",
+    SiegeTank: "Tank", Thor: "Thor", Viking: "Vik", Medivac: "Mvc", Liberator: "Lib", Banshee: "Bnsh",
+    Raven: "Rvn", Battlecruiser: "BC", WidowMine: "Mine",
+    // Buildings
+    Nexus: "Nex", Pylon: "Pyl", Assimilator: "Gas", Gateway: "Gate", WarpGate: "WG", Forge: "Frg",
+    CyberneticsCore: "Cyber", PhotonCannon: "Cann", ShieldBattery: "Batt", RoboticsFacility: "Robo",
+    Stargate: "SG", TwilightCouncil: "Twi", TemplarArchive: "Tmpl", DarkShrine: "Shrn", RoboticsBay: "RBay", FleetBeacon: "Fleet",
+    CommandCenter: "CC", OrbitalCommand: "Orb", PlanetaryFortress: "PF", SupplyDepot: "Depot", Refinery: "Gas",
+    Barracks: "Rax", Factory: "Fac", Starport: "Port", EngineeringBay: "EBay", Armory: "Arm",
+    Bunker: "Bnk", MissileTurret: "Turr", SensorTower: "Sensor",
+    Hatchery: "Hatch", Lair: "Lair", Hive: "Hive", Extractor: "Gas", SpawningPool: "Pool",
+    EvolutionChamber: "Evo", RoachWarren: "RWar", BanelingNest: "BNest", SpineCrawler: "Spine",
+    SporeCrawler: "Spore", HydraliskDen: "HDen", LurkerDen: "LDen", Spire: "Spire", GreaterSpire: "GSpire",
+    NydusNetwork: "Nydus", InfestationPit: "Pit", UltraliskCavern: "UCav",
+  };
+  function abbrev(name) {
+    return MM_ABBR[name] || name.replace(/[^A-Z]/g, "").slice(0, 3) || name.slice(0, 3);
+  }
+
   function renderMinimap(data) {
     const mm = data.minimap;
     if (!mm || !mm.available || !mm.moves || !mm.moves.length) {
@@ -874,7 +906,7 @@ json.dumps(sc2_summary.summarize(_data))
       el._sig = sig;
       el.innerHTML = entries.length
         ? entries.map(([tp, e]) =>
-            `<span class="mm-u">${compGlyph(color, e.size, e.shape)}<b>${e.n}</b> ${escapeHtml(tp)}</span>`).join("")
+            `<span class="mm-u" title="${escapeHtml(tp)}">${compGlyph(color, e.size, e.shape)}<b>${e.n}</b><span class="mm-code">${escapeHtml(abbrev(tp))}</span></span>`).join("")
         : `<span class="mm-u" style="opacity:.5">—</span>`;
     }
     function updateComposition(comp, bcomp) {
