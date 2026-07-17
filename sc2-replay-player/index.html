@@ -739,6 +739,7 @@ json.dumps(sc2_summary.summarize(_data))
   const MM_FLASH = 1.2;         // seconds a death flash lingers
   const NEUTRAL_COLOR = "#8b97ab";
   const MM_UNIT_R = { 1: 1.7, 2: 2.4, 3: 3.3, 4: 4.6 };  // dot radius by size tier
+  const MM_BLD_H = { 1: 2.6, 2: 3.7, 3: 5.2 };            // building square half-size by footprint
   const MM_WORKERS = new Set(["Drone", "Probe", "SCV", "MULE"]);
   const MM_COMP_LIMIT = 12;   // max unit types shown per player in the composition
   // Air units (normalized type names, lower-cased) — drawn as triangles vs. ground circles.
@@ -942,8 +943,8 @@ json.dumps(sc2_summary.summarize(_data))
         const x = sx(p[0]), y = sy(p[1]);
         ctx.fillStyle = u.color;
         if (u.structure) {
-          // buildings: larger bright-edged squares so bases read as landmarks
-          const h = 3.6;
+          // buildings: bright-edged squares sized by footprint (town halls big)
+          const h = MM_BLD_H[u.size] || 3.7;
           ctx.fillRect(x - h, y - h, 2 * h, 2 * h);
           ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)";
           ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);

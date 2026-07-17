@@ -106,11 +106,12 @@ knowing:
   trained units that fire an init event still render as unit dots, and only
   actual structures show as squares.
 - **Unit markers encode type.** Ground units are circles, air units are
-  triangles, and structures are squares; each is sized by a tier (small tier for
-  workers/lings up to a massive tier for ultralisks/thors/colossi/capital
-  ships). Size/shape update on in-place morphs (e.g. Roach→Ravager,
-  Corruptor→Brood Lord). The army-composition list keys each unit type to its
-  marker with a matching glyph, so you can read the map.
+  triangles, and structures are squares; each is sized by a tier (units: small
+  for workers/lings up to massive for ultralisks/thors/capital ships;
+  buildings: by footprint, so 5×5 town halls anchor bases as large squares and
+  2×2 depots/pylons stay small). Size/shape update on in-place morphs (e.g.
+  Roach→Ravager, Hatchery→Lair). The army-composition list keys each unit type
+  to its marker with a matching glyph, so you can read the map.
 - **Spawned/temporary units are filtered** (creep tumors, larva, eggs,
   broodlings, locusts, interceptors, and AI rally beacons) — a single
   creep-spreading bot can lay thousands of tumors, which otherwise bury the map
