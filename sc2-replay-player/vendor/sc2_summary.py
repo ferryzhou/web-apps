@@ -194,6 +194,29 @@ def _unit_size(name):
     return 2
 
 
+# Building footprint tiers: 1 small (2x2: depots, pylons, turrets, add-ons),
+# 3 large (5x5 town halls), 2 medium (3x3 production/tech) for everything else.
+_BLD_SMALL = ('supplydepot', 'pylon', 'missileturret', 'sensortower', 'bunker',
+              'photoncannon', 'shieldbattery', 'spinecrawler', 'sporecrawler',
+              'darkshrine', 'techlab', 'reactor')
+_BLD_LARGE = ('commandcenter', 'orbitalcommand', 'planetaryfortress', 'nexus',
+              'hatchery', 'lair', 'hive')
+
+
+def _building_size(name):
+    low = name.lower()
+    if any(low.startswith(b) for b in _BLD_LARGE):
+        return 3
+    if any(low.startswith(b) for b in _BLD_SMALL):
+        return 1
+    return 2
+
+
+def _marker_size(name):
+    """Size tier for the map marker: footprint for buildings, else unit size."""
+    return _building_size(name) if _is_building(name) else _unit_size(name)
+
+
 # Merge state/mode variants of a unit onto one display name so the composition
 # readout counts e.g. sieged tanks and tanks together.
 _TYPE_MERGE_PREFIXES = ('Viking', 'Liberator', 'WidowMine', 'WarpPrism',
@@ -268,7 +291,7 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
         mm_close(index, t)     # whatever held this index is gone
         inst = {'pid': ev.get('m_controlPlayerId') or 0,
                 'structure': 1 if _is_building(name) else 0,
-                'size': _unit_size(name), 'type': _norm_type(name),
+                'size': _marker_size(name), 'type': _norm_type(name),
                 'born_t': t, 'died_t': None,
                 'x': ev.get('m_x', 0), 'y': ev.get('m_y', 0), 'moves': []}
         live[index] = inst
@@ -333,7 +356,7 @@ def _analyze_tracker(archive, protocol, speed_factor, player_ids):
                 if inst is not None:
                     new = _text(ev.get('m_unitTypeName'))
                     inst['structure'] = 1 if _is_building(new) else 0
-                    inst['size'] = _unit_size(new)
+                    inst['size'] = _marker_size(new)
                     inst['type'] = _norm_type(new)
 
             elif name.endswith('SUnitDiedEvent'):
