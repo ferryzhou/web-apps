@@ -258,7 +258,12 @@
   .mm-chip .v .rz { display: inline-flex; align-items: center; }
   .mm-chip .v .rz + .rz { margin-left: 6px; }
   .mm-chip .v .ri { margin-right: 2px; }
-  .mm-comp { display: flex; flex-wrap: wrap; gap: 0.25rem 0.35rem; margin-top: 0.5rem; }
+  .mm-crow { display: flex; gap: 0.45rem; align-items: baseline; margin-top: 0.45rem; }
+  .mm-crow .mm-lbl {
+    flex: 0 0 auto; width: 2.3rem; font-size: 0.62rem; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--text-dim); padding-top: 2px;
+  }
+  .mm-comp { display: flex; flex-wrap: wrap; gap: 0.25rem 0.35rem; flex: 1 1 auto; }
   .mm-u {
     display: inline-flex; align-items: center; gap: 3px;
     font-size: 0.75rem; color: var(--text-dim); background: var(--bg-panel-2);
@@ -762,14 +767,23 @@ json.dumps(sc2_summary.summarize(_data))
     }
   }
 
-  // Small inline-SVG legend glyph mirroring a unit's map marker (shape+size+colour).
-  function compGlyph(color, size, air) {
-    const S = 14, c = S / 2, r = 2.8 + size * 0.9;
+  // Small inline-SVG legend glyph mirroring a map marker: circle (ground),
+  // triangle (air), or square (building), sized by tier and coloured by player.
+  function compGlyph(color, size, shape) {
+    const S = 14, c = S / 2;
     const outline = size >= 3 ? ' stroke="rgba(255,255,255,0.6)" stroke-width="1"' : "";
-    const shape = air
-      ? `<polygon points="${c},${(c - r * 1.15).toFixed(1)} ${(c - r).toFixed(1)},${(c + r * 0.8).toFixed(1)} ${(c + r).toFixed(1)},${(c + r * 0.8).toFixed(1)}" fill="${color}"${outline}/>`
-      : `<circle cx="${c}" cy="${c}" r="${r.toFixed(1)}" fill="${color}"${outline}/>`;
-    return `<svg class="mm-g" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" aria-hidden="true">${shape}</svg>`;
+    let g;
+    if (shape === "building") {
+      const h = 2.4 + size * 1.2;
+      g = `<rect x="${(c - h).toFixed(1)}" y="${(c - h).toFixed(1)}" width="${(2 * h).toFixed(1)}" height="${(2 * h).toFixed(1)}" fill="${color}"${outline}/>`;
+    } else if (shape === "air") {
+      const r = 2.8 + size * 0.9;
+      g = `<polygon points="${c},${(c - r * 1.15).toFixed(1)} ${(c - r).toFixed(1)},${(c + r * 0.8).toFixed(1)} ${(c + r).toFixed(1)},${(c + r * 0.8).toFixed(1)}" fill="${color}"${outline}/>`;
+    } else {
+      const r = 2.8 + size * 0.9;
+      g = `<circle cx="${c}" cy="${c}" r="${r.toFixed(1)}" fill="${color}"${outline}/>`;
+    }
+    return `<svg class="mm-g" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" aria-hidden="true">${g}</svg>`;
   }
 
   function renderMinimap(data) {
@@ -839,29 +853,34 @@ json.dumps(sc2_summary.summarize(_data))
         `${escapeHtml(p.name)} <small>${escapeHtml(p.race || "")}</small></div>` +
         `<div class="mm-chips">` +
         CHIPS.map(([label, key]) => `<div class="mm-chip"><span class="k">${label}</span><span class="v" data-f="${key}">—</span></div>`).join("") +
-        `</div><div class="mm-comp"></div>`;
+        `</div>` +
+        `<div class="mm-crow"><span class="mm-lbl">Army</span><div class="mm-comp" data-l="army"></div></div>` +
+        `<div class="mm-crow"><span class="mm-lbl">Bld</span><div class="mm-comp" data-l="bld"></div></div>`;
       statsEl.appendChild(col);
       const refs = {};
       CHIPS.forEach(([, key]) => { refs[key] = col.querySelector(`[data-f="${key}"]`); });
-      refs._comp = col.querySelector(".mm-comp");
+      refs._army = col.querySelector('[data-l="army"]');
+      refs._bld = col.querySelector('[data-l="bld"]');
       return refs;
     });
-    const compSig = statsPlayers.map(() => null);   // last-rendered composition per player
 
-    // Rebuild the per-player army-composition pills only when the counts change.
-    function updateComposition(comp) {
+    // Rebuild a composition list (pills) only when its counts change.
+    function renderComp(el, color, counts) {
+      const entries = counts
+        ? Object.keys(counts).map((k) => [k, counts[k]]).sort((a, b) => b[1].n - a[1].n).slice(0, MM_COMP_LIMIT)
+        : [];
+      const sig = entries.map((e) => e[0] + e[1].n).join(",");
+      if (sig === el._sig) return;
+      el._sig = sig;
+      el.innerHTML = entries.length
+        ? entries.map(([tp, e]) =>
+            `<span class="mm-u">${compGlyph(color, e.size, e.shape)}<b>${e.n}</b> ${escapeHtml(tp)}</span>`).join("")
+        : `<span class="mm-u" style="opacity:.5">—</span>`;
+    }
+    function updateComposition(comp, bcomp) {
       statsPlayers.forEach((p, i) => {
-        const counts = comp[p.pid];
-        const entries = counts
-          ? Object.keys(counts).map((k) => [k, counts[k]]).sort((a, b) => b[1].n - a[1].n).slice(0, MM_COMP_LIMIT)
-          : [];
-        const sig = entries.map((e) => e[0] + e[1].n).join(",");
-        if (sig === compSig[i]) return;
-        compSig[i] = sig;
-        chipRefs[i]._comp.innerHTML = entries.length
-          ? entries.map(([tp, e]) =>
-              `<span class="mm-u">${compGlyph(p.color, e.size, e.air)}<b>${e.n}</b> ${escapeHtml(tp)}</span>`).join("")
-          : `<span class="mm-u" style="opacity:.55">no army</span>`;
+        renderComp(chipRefs[i]._army, p.color, comp[p.pid]);
+        renderComp(chipRefs[i]._bld, p.color, bcomp[p.pid]);
       });
     }
 
@@ -925,7 +944,7 @@ json.dumps(sc2_summary.summarize(_data))
         ctx.beginPath(); ctx.moveTo(gx, PAD); ctx.lineTo(gx, cssH - PAD); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(PAD, gy); ctx.lineTo(cssW - PAD, gy); ctx.stroke();
       }
-      const comp = {};   // pid -> {type: count} of alive army units this frame
+      const comp = {}, bcomp = {};   // pid -> {type: {n,size,shape}} army / buildings alive
       for (const u of units.values()) {
         if (u.born > t) continue;
         const dead = u.died >= 0 && t >= u.died;
@@ -948,6 +967,8 @@ json.dumps(sc2_summary.summarize(_data))
           ctx.fillRect(x - h, y - h, 2 * h, 2 * h);
           ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)";
           ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);
+          let bc = bcomp[u.pid] || (bcomp[u.pid] = {});   // tally buildings
+          (bc[u.type] || (bc[u.type] = { n: 0, size: u.size, shape: "building" })).n++;
         } else {
           // units sized by tier; air units are triangles, ground units circles
           const r = MM_UNIT_R[u.size] || 2.4;
@@ -958,12 +979,12 @@ json.dumps(sc2_summary.summarize(_data))
           }
           if (!u.isWorker) {  // tally army composition for the HUD
             let c = comp[u.pid] || (comp[u.pid] = {});
-            (c[u.type] || (c[u.type] = { n: 0, size: u.size, air: u.isAir })).n++;
+            (c[u.type] || (c[u.type] = { n: 0, size: u.size, shape: u.isAir ? "air" : "ground" })).n++;
           }
         }
       }
       updateStats();
-      updateComposition(comp);
+      updateComposition(comp, bcomp);
     }
 
     function fmt(s) { const m = Math.floor(s / 60); return m + ":" + String(Math.floor(s % 60)).padStart(2, "0"); }
