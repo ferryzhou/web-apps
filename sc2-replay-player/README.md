@@ -42,8 +42,10 @@ Hostable on GitHub Pages (or any static host) with no backend.
   and count (e.g. `73 Stalker`, `12 Overlord · 9 Queen`), and a second line does
   the same for **buildings** (e.g. `24 Pylon · 12 WarpGate · 2 Nexus`), both
   tallied from what's alive at that moment — so you can see the army and base mix
-  change through the game. Each entry is prefixed with a glyph matching its map
-  marker.
+  change through the game. Each entry is a compact badge: a glyph matching its
+  map marker (circle / triangle / square) plus a short shorthand code and the
+  count, with the full type name on hover. (Pictorial per-type sprites would
+  require embedding game art, so this stays a lightweight, offline shorthand.)
 
 All of the above come from `replay.tracker.events`, which very old replays
 (pre-2013) don't contain; each section hides itself gracefully when its data is
