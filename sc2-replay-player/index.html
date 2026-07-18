@@ -342,9 +342,6 @@
     <div class="section-title">Economy &amp; Production</div>
     <div class="legend" id="chartLegend"></div>
     <div class="charts" id="charts"></div>
-    <div class="section-title">Build Order</div>
-    <div class="build-cols" id="buildOrder"></div>
-    <p class="analytics-note" id="analyticsNote"></p>
   </section>
 
   <section class="playback" id="playback" aria-live="polite">
@@ -358,6 +355,12 @@
       <div class="mm-speed" id="mmSpeed"></div>
     </div>
     <p class="analytics-note" id="mmNote"></p>
+  </section>
+
+  <section class="analytics" id="buildOrderSection" aria-live="polite">
+    <div class="section-title">Build Order</div>
+    <div class="build-cols" id="buildOrder"></div>
+    <p class="analytics-note" id="analyticsNote"></p>
   </section>
 
   <footer class="page">
@@ -390,6 +393,7 @@
   const drop = $("drop"), fileInput = $("file");
   const statusEl = $("status"), statusText = $("statusText");
   const errorEl = $("error"), card = $("card"), analyticsEl = $("analytics"), playbackEl = $("playback");
+  const buildOrderEl = $("buildOrderSection");
 
   let pyodidePromise = null;
   let mmPlayer = null;   // active minimap player (destroyed on each new replay)
@@ -409,6 +413,7 @@
     errorEl.classList.remove("show");
     card.classList.remove("show");
     analyticsEl.classList.remove("show");
+    buildOrderEl.classList.remove("show");
     playbackEl.classList.remove("show");
     if (mmPlayer) { mmPlayer.destroy(); mmPlayer = null; }
   }
@@ -587,7 +592,7 @@ json.dumps(sc2_summary.summarize(_data))
     const a = data.analytics;
     const chartsEl = $("charts"), legendEl = $("chartLegend"), buildEl = $("buildOrder"), noteEl = $("analyticsNote");
     chartsEl.innerHTML = ""; legendEl.innerHTML = ""; buildEl.innerHTML = "";
-    if (!a || !a.available) { analyticsEl.classList.remove("show"); return; }
+    if (!a || !a.available) { analyticsEl.classList.remove("show"); buildOrderEl.classList.remove("show"); return; }
 
     const byId = {}; (data.players || []).forEach((p) => { byId[p.player_id] = p; });
     const plist = Object.keys(a.series).map((id, i) => {
@@ -631,6 +636,7 @@ json.dumps(sc2_summary.summarize(_data))
     noteEl.textContent = "In-game clock; supply column is food used when each item began. " +
       "Build order merges structures, units and upgrades (some spawned/temporary units are filtered).";
     analyticsEl.classList.add("show");
+    buildOrderEl.classList.add("show");
   }
 
   // Build a single small-multiple line chart (one y-axis, one line per player).
