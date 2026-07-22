@@ -19,7 +19,8 @@ Hostable on GitHub Pages (or any static host) with no backend.
 
 **Analytics dashboard** (from the tracker-event stream)
 
-- Time-series charts, one line per player: **supply**, **income**
+- Time-series charts, one line per player: **supply**, **army supply**
+  (total supply minus workers — each worker costs exactly 1 supply), **income**
   (resources collected / min), **army value**, and **worker count** — each a
   small-multiple with its own axis, a legend, direct end-labels, and a hover
   crosshair/tooltip.

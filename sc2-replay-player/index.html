@@ -610,6 +610,8 @@ json.dumps(sc2_summary.summarize(_data))
 
     const defs = [
       { title: "Supply (food used)", get: (r) => r.supply_used },
+      // Workers cost exactly 1 supply each, so total − workers = army supply.
+      { title: "Army supply", get: (r) => Math.max(0, (r.supply_used || 0) - (r.workers || 0)) },
       { title: "Income (collected / min)", get: (r) => r.income_min + r.income_gas },
       { title: "Army value (resources)", get: (r) => r.army_value },
       { title: "Workers", get: (r) => r.workers },
