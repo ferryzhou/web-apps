@@ -33,7 +33,7 @@ export function ResultsDashboard({ results }: Props) {
           The aggregate <span className="italic text-gold-deep">verdict</span>.
         </>
       }
-      intro="One match is anecdote; forty-eight is evidence. These charts aggregate every forecast and result to show where the market was sharp, where it drifted, and how the story built over the tournament."
+      intro="One match is anecdote; fifty-two is evidence. These charts aggregate every forecast and result to show where the market was sharp, where it drifted, and how the story built over the tournament."
     >
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <ChartCard

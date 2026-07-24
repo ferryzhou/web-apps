@@ -148,7 +148,7 @@ export function Overview({ results }: OverviewProps) {
               label="Matches"
               value={count}
               accent="pitch"
-              hint={`${drawsCount} draws, ${upsetsCount} upsets. Group stage through Round of 16.`}
+              hint={`${drawsCount} draws, ${upsetsCount} upsets. Group stage through the final.`}
               delay={0.2}
             />
           </div>
@@ -201,7 +201,8 @@ export function Overview({ results }: OverviewProps) {
               </p>
               <p>
                 The headline lesson is the favourite-longshot tension. Aggregated across
-                the tournament, favourites won slightly more often than their price
+                the tournament — now complete, from the opening match to Spain lifting
+                the trophy — favourites won markedly more often than their price
                 implied and longshots less often — the classic signature of a market that
                 under-rates strong favourites and over-rates outsiders. The twist sits in
                 the tightest matches: where the favourite was priced barely ahead, draws

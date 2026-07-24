@@ -29,7 +29,7 @@ export function Strategies({ results }: Props) {
           Turning the verdict into <span className="italic text-gold-deep">bets</span>.
         </>
       }
-      intro="The accuracy study tells us where the market is sharp and where it slips. The strategy lab turns each insight into a simple, rule-based betting strategy and backtests it across all 48 matches with a flat 1-unit stake. ROI is profit divided by total staked — the honest bottom line."
+      intro="The accuracy study tells us where the market is sharp and where it slips. The strategy lab turns each insight into a simple, rule-based betting strategy and backtests it across all 52 matches with a flat 1-unit stake. ROI is profit divided by total staked — the honest bottom line."
     >
       {/* Method note */}
       <Reveal>
@@ -232,9 +232,9 @@ export function Strategies({ results }: Props) {
             </div>
             <p className="mt-8 max-w-prose text-sm leading-relaxed text-parchment/60">
               <span className="font-semibold text-parchment/80">Caveat.</span> This
-              is an illustrative 48-match sample. Strategies built on as few as seven
+              is an illustrative 52-match sample. Strategies built on as few as seven
               bets carry wide error bars — a single upset swings ROI by double
-              digits. The knockout filter is the sturdiest signal (12 bets, +52.9%),
+              digits. The knockout filter is the sturdiest signal (16 bets, +74.1%),
               but real confidence needs hundreds of matches. Treat these results as a
               demonstration of method, not a licence to print money.
             </p>
