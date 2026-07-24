@@ -28,13 +28,14 @@ export function Footer() {
             <div>
               <div className="kicker text-gold-soft">Data</div>
               <p className="mt-3 text-sm leading-relaxed text-parchment/70">
-                The 2026 World Cup runs 11 June – 19 July 2026. This study covers completed
-                matches through the Round of 16. The embedded dataset is a{" "}
+                The 2026 World Cup ran 11 June – 19 July 2026 and is complete: Spain beat
+                Argentina 1–0 after extra time in the final. This study covers the full
+                arc, group stage through the final. The embedded dataset is a{" "}
                 <span className="text-gold-soft">representative, illustrative sample</span> —
-                plausible odds and outcomes chosen to exercise a realistic spread of
-                favourites, draws and upsets. The schema is fixed, so real results can be
-                dropped into <span className="tnum">src/data/matches.ts</span> and every
-                metric recomputes automatically.
+                plausible odds, with the semi-finals onward mirroring the real bracket.
+                The schema is fixed, so full real results can be dropped into{" "}
+                <span className="tnum">src/data/matches.ts</span> and every metric
+                recomputes automatically.
               </p>
             </div>
             <div>

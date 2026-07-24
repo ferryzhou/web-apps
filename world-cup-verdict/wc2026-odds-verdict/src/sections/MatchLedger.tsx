@@ -16,7 +16,7 @@ type SortKey = "date" | "favProb" | "brier" | "logLoss";
 type SortDir = "asc" | "desc";
 type CorrectnessFilter = "All" | "Correct" | "Upset";
 
-const STAGES: (Stage | "All")[] = ["All", "Group", "R32", "R16"];
+const STAGES: (Stage | "All")[] = ["All", "Group", "R32", "R16", "SF", "3rd", "Final"];
 
 export function MatchLedger({ results }: Props) {
   const { analyses } = results;

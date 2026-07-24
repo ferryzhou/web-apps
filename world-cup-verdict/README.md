@@ -1,7 +1,7 @@
 # The Verdict · World Cup Odds Accuracy
 
 A cross-tournament study of how accurately pre-match betting odds predicted the
-outcomes of eight FIFA World Cups (1998–2026, 496 matches) — accuracy,
+outcomes of eight FIFA World Cups (1998–2026, 500 matches) — accuracy,
 calibration, favourite bias, and a strategy lab.
 
 - `index.html` — the portal tying the eight editions together.

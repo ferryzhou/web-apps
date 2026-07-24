@@ -18,8 +18,8 @@ export function CalibrationLab({ results }: Props) {
   const biasTone = biasPct >= 0 ? "pitch" : "verdict";
   const biasText =
     biasPct >= 0
-      ? "Favourites outperformed their price — the market slightly under-rated them."
-      : "Favourites underperformed their price — the market slightly over-rated them.";
+      ? "Favourites outperformed their price — the market under-rated them."
+      : "Favourites underperformed their price — the market over-rated them.";
 
   return (
     <Section
@@ -62,7 +62,7 @@ export function CalibrationLab({ results }: Props) {
                 <div className="flex items-center justify-between text-xs uppercase tracking-kicker text-ink-muted">
                   <span>0%</span>
                   <span>bias = observed − predicted</span>
-                  <span>±10%</span>
+                  <span>±12%</span>
                 </div>
                 <div className="relative mt-2 h-3 w-full bg-ink/10">
                   {/* centre line */}
@@ -70,8 +70,8 @@ export function CalibrationLab({ results }: Props) {
                   <span
                     className={`absolute top-0 h-full ${biasTone === "pitch" ? "bg-pitch" : "bg-verdict"}`}
                     style={{
-                      left: biasPct >= 0 ? "50%" : `${50 + biasPct * 5}%`,
-                      width: `${Math.abs(biasPct) * 5}%`,
+                      left: biasPct >= 0 ? "50%" : `${Math.max(50 + (biasPct * 50) / 12, 0)}%`,
+                      width: `${Math.min((Math.abs(biasPct) * 50) / 12, 50)}%`,
                     }}
                   />
                 </div>
@@ -114,12 +114,13 @@ export function CalibrationLab({ results }: Props) {
               quote, and every side priced above 70% converted. That is the textbook
               favourite-longshot bias: the market under-rates strong favourites. But in
               the tightest matches, where the favourite was priced barely ahead, the
-              pattern flipped — draws and upsets piled up and these sides won just a third
-              of the time. Netted across 48 matches, the aggregate favourite bias of{" "}
+              pattern flipped — draws and upsets piled up and these sides won barely four
+              times in ten. Netted across all 52 matches of the completed tournament, the
+              aggregate favourite bias of{" "}
               <span className="tnum text-gold-soft">
                 {biasPct >= 0 ? "+" : ""}{biasPct.toFixed(1)}%
               </span>{" "}
-              is small but systematic, the kind of signal that only surfaces across many
+              is large and systematic, the kind of signal that only surfaces across many
               matches.
             </p>
           </div>

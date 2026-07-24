@@ -3,18 +3,23 @@ import type { Match } from "./types";
 // ─────────────────────────────────────────────────────────────────────────────
 // FIFA World Cup 2026 — representative match dataset
 // ─────────────────────────────────────────────────────────────────────────────
-// The 2026 tournament runs 11 Jun – 19 Jul 2026 across USA / Canada / Mexico.
-// As of the study cut-off the group stage and early knockouts are complete.
+// The 2026 tournament ran 11 Jun – 19 Jul 2026 across USA / Canada / Mexico and
+// is now complete: Spain beat Argentina 1–0 after extra time in the final.
 //
 // IMPORTANT: This is an ILLUSTRATIVE, REPRESENTATIVE dataset hand-assembled for
-// the study. Decimal odds are plausible bookmaker-style figures; results are
-// plausible outcomes chosen to exercise a realistic spread of favorites, draws
-// and upsets. The schema matches `Match`, so real results can be dropped in
-// without touching any code — the analytics recompute automatically.
+// the study. Decimal odds are plausible bookmaker-style figures; group-stage and
+// early-knockout results are plausible outcomes chosen to exercise a realistic
+// spread of favorites, draws and upsets. From the semi-finals onward the
+// outcomes mirror the real tournament: Spain 2–0 France and Argentina 2–1
+// England in the semis, England over France in the third-place match, and
+// Spain 1–0 Argentina (a.e.t.) in the final. The schema matches `Match`, so
+// full real results can be dropped in without touching any code — the
+// analytics recompute automatically.
 //
-// 48 matches: 36 group stage + 8 Round of 32 + 4 Round of 16.
-// Knockout bracket is internally consistent: every R16 participant won its R32
-// tie, and no knockout ends in a draw (extra time / pens resolved as a result).
+// 52 matches: 36 group stage + 8 Round of 32 + 4 Round of 16 + 2 semi-finals
+// + 3rd place + final. The knockout bracket is internally consistent: every
+// participant won its previous tie, and no knockout ends in a draw (extra
+// time / pens resolved as a result).
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const matches: Match[] = [
@@ -68,7 +73,17 @@ export const matches: Match[] = [
 
   // ── Round of 16 (4) ─────────────────────────────────────────────────────────
   { id: "K09", stage: "R16", date: "2026-07-04", homeTeam: "France", awayTeam: "USA", oddsHome: 1.70, oddsDraw: 3.45, oddsAway: 4.85, result: "H", scoreHome: 2, scoreAway: 1 },
-  { id: "K10", stage: "R16", date: "2026-07-04", homeTeam: "Spain", awayTeam: "Brazil", oddsHome: 2.55, oddsDraw: 3.20, oddsAway: 2.75, result: "A", scoreHome: 1, scoreAway: 2 },
+  { id: "K10", stage: "R16", date: "2026-07-04", homeTeam: "Spain", awayTeam: "Brazil", oddsHome: 2.55, oddsDraw: 3.20, oddsAway: 2.75, result: "H", scoreHome: 2, scoreAway: 1 },
   { id: "K11", stage: "R16", date: "2026-07-05", homeTeam: "Argentina", awayTeam: "Colombia", oddsHome: 1.85, oddsDraw: 3.40, oddsAway: 4.25, result: "H", scoreHome: 1, scoreAway: 0 },
   { id: "K12", stage: "R16", date: "2026-07-05", homeTeam: "England", awayTeam: "Portugal", oddsHome: 2.30, oddsDraw: 3.20, oddsAway: 3.05, result: "H", scoreHome: 2, scoreAway: 1 },
+
+  // ── Semi-finals (2) — outcomes mirror the real tournament ──────────────────
+  { id: "K13", stage: "SF", date: "2026-07-14", homeTeam: "Spain", awayTeam: "France", oddsHome: 2.20, oddsDraw: 3.30, oddsAway: 3.25, result: "H", scoreHome: 2, scoreAway: 0 },
+  { id: "K14", stage: "SF", date: "2026-07-15", homeTeam: "Argentina", awayTeam: "England", oddsHome: 2.25, oddsDraw: 3.25, oddsAway: 3.20, result: "H", scoreHome: 2, scoreAway: 1 },
+
+  // ── Third place & Final — outcomes mirror the real tournament ──────────────
+  { id: "K15", stage: "3rd", date: "2026-07-18", homeTeam: "France", awayTeam: "England", oddsHome: 2.55, oddsDraw: 3.60, oddsAway: 2.70, result: "A", scoreHome: 4, scoreAway: 6 },
+  // Final was 0–0 after 90' and decided in extra time; per the convention
+  // above it is recorded as the resolved result.
+  { id: "K16", stage: "Final", date: "2026-07-19", homeTeam: "Spain", awayTeam: "Argentina", oddsHome: 2.50, oddsDraw: 3.00, oddsAway: 3.10, result: "H", scoreHome: 1, scoreAway: 0 },
 ];

@@ -91,9 +91,9 @@ export const STRATEGIES: Strategy[] = [
     name: "Always Bet Favourite",
     tagline: "Bet the favourite, every match",
     description:
-      "The baseline. Back the outcome with the highest normalised probability in all 48 matches, flat 1 unit each time.",
+      "The baseline. Back the outcome with the highest normalised probability in all 52 matches, flat 1 unit each time.",
     insight:
-      "Establishes the floor. Favourites won 58.3% of the time — the question is whether that hit rate clears the odds.",
+      "Establishes the floor. Favourites won 61.5% of the time — the question is whether that hit rate clears the odds.",
     decide: (a) => betFavourite(a),
   },
   {
@@ -101,9 +101,9 @@ export const STRATEGIES: Strategy[] = [
     name: "Knockout Only",
     tagline: "Bet the favourite, but only in the knockouts",
     description:
-      "Back the favourite in R32 and R16 only. Sit out the group stage entirely.",
+      "Back the favourite in every knockout round, R32 through the final. Sit out the group stage entirely.",
     insight:
-      "Knockout accuracy was 83% vs 50% in the group stage — the market is far sharper when teams are evenly motivated and there are no dead rubbers.",
+      "Knockout accuracy was 88% vs 50% in the group stage — the market is far sharper when teams are evenly motivated and there are no dead rubbers.",
     decide: (a) => (isKnockout(a) ? betFavourite(a) : null),
   },
   {
@@ -113,7 +113,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "Back the favourite, but only when its normalised probability is 50% or higher. Skip the coin-flips.",
     insight:
-      "Above 50% the favourite overperformed its quote; below 50% it underperformed. The 50% line is where the calibration curve crosses the diagonal.",
+      "Above 50% the favourite comfortably beat its quote; in the 40–50% dead zone it fell short. The 50% line is where the calibration curve breaks upward.",
     decide: (a) => (a.favoriteProb >= 0.5 ? betFavourite(a) : null),
   },
   {
@@ -133,7 +133,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "Back the favourite in every match except where its probability lands in the 40–50% 'dead zone' — the tightest calls where draws and upsets pile up.",
     insight:
-      "In the 40–50% bucket favourites won just a third of the time. Filtering out exactly that band removes the market's worst calls while keeping the rest.",
+      "In the 40–50% bucket favourites won just 41% of the time. Filtering out exactly that band removes the market's worst calls while keeping the rest.",
     decide: (a) =>
       a.favoriteProb >= 0.4 && a.favoriteProb < 0.5 ? null : betFavourite(a),
   },
@@ -155,7 +155,7 @@ export const STRATEGIES: Strategy[] = [
     description:
       "A contrarian play: when the favourite is priced barely ahead (40–50%), back the draw instead. Exploits the pile-up of stalemates in tight matches.",
     insight:
-      "The dead zone produced a disproportionate share of draws. The draw price in these matches often carried value the favourite price did not.",
+      "The dead zone produced a disproportionate share of draws. Over the full tournament the draw price still fell just short of covering — the one insight that did not pay.",
     decide: (a) =>
       a.favoriteProb >= 0.4 && a.favoriteProb < 0.5
         ? { outcome: "D", odds: a.match.oddsDraw }

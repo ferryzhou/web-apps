@@ -21,7 +21,7 @@ const { matches } = await import("file://" + path.resolve(tmp));
 fs.unlinkSync(tmp);
 
 // ── Analytics (reimplemented from src/lib/analytics.ts) ──────────────────────
-const STAGE_ORDER = ["Group", "R16", "QF", "SF", "3rd", "Final"];
+const STAGE_ORDER = ["Group", "R32", "R16", "QF", "SF", "3rd", "Final"];
 const CONFIDENCE = [
   { label: "33–40%", lo: 0.333, hi: 0.4 },
   { label: "40–50%", lo: 0.4, hi: 0.5 },
