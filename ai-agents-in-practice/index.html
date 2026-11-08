@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Notes from 2026 interviews with leaders running AI agents in production.">
+<title>AI Agents in Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* Layout: reading list on the left, one summary at a time on the right; stacks on phones */
+:root{
+  --bg:#f7f8f6; --surface:#ffffff; --fg:#1d2420; --muted:#5d6a63; --line:#dde3df; --accent:#1f6f5c; --accent-soft:#e2f0eb;
+  --display:"Fraunces",Georgia,serif; --body:"Source Sans 3",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121715;--surface:#1a201d;--fg:#e4ebe7;--muted:#9aa8a1;--line:#2c3531;--accent:#6cc4a8;--accent-soft:#1f3029;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121715;--surface:#1a201d;--fg:#e4ebe7;--muted:#9aa8a1;--line:#2c3531;--accent:#6cc4a8;--accent-soft:#1f3029;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 var(--body)}
+.wrap{max-width:1100px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header h1{font-family:var(--display);font-weight:600;font-size:1.9rem;margin:0;text-wrap:balance}
+header p{color:var(--muted);margin:.3rem 0 0;max-width:60ch}
+.grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:32px;margin-top:28px;align-items:start}
+nav ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+nav a{display:grid;grid-template-columns:1.6rem 1fr;row-gap:0;padding:8px 10px;border-radius:6px;color:var(--fg);text-decoration:none}
+nav a:hover{background:var(--accent-soft)}
+nav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+nav a.on{background:var(--accent-soft)}
+nav a.on .co{color:var(--accent)}
+.n{grid-row:span 2;font-family:var(--mono);font-size:.8rem;color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
+.co{font-weight:600}
+.who{font-size:.88rem;color:var(--muted)}
+article{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:28px clamp(18px,4vw,40px);min-width:0}
+article h2{font-family:var(--display);font-weight:600;font-size:1.6rem;line-height:1.25;margin:.2rem 0 1rem;text-wrap:balance}
+article p,article li{max-width:68ch}
+article ul,article ol{padding-left:1.2rem;display:grid;gap:.35rem}
+article a{color:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:.6rem 0 0}.tag{font-family:var(--mono);font-size:.75rem;padding:3px 8px;border-radius:4px;background:var(--accent-soft);color:var(--accent);font-variant-numeric:tabular-nums}.tag.ghost{background:none;border:1px solid var(--line);color:var(--muted)}
+.file{font-family:var(--mono);font-size:.75rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:24px;overflow-wrap:anywhere}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:16px}
+.pager button{font:600 .95rem var(--body);color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer}
+.pager button:disabled{opacity:.35;cursor:default}
+.pager button:focus-visible{outline:2px solid var(--accent)}
+@media (max-width:760px){.grid{grid-template-columns:1fr;gap:16px}nav ol{position:static;grid-template-columns:1fr 1fr}.who{font-size:.78rem}nav a{padding:6px 8px}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+<h1>AI Agents in Practice</h1>
+<p>Short notes from 8 interviews in 2026 with founders and engineering leaders who run AI agents in real companies: what they do and what they learned.</p>
+</header>
+<div class="grid">
+<nav aria-label="Interviews"><ol>
+<li><a href="#amol-avasare-anthropic-growth" data-s="amol-avasare-anthropic-growth"><span class="n">1</span><span class="co">Amol Avasare</span><span class="who">Anthropic · Apr 5, 2026</span></a></li>
+<li><a href="#boris-cherny-claude-code" data-s="boris-cherny-claude-code"><span class="n">2</span><span class="co">Boris Cherny</span><span class="who">Claude Code · May 20, 2026</span></a></li>
+<li><a href="#bret-taylor-sierra" data-s="bret-taylor-sierra"><span class="n">3</span><span class="co">Bret Taylor</span><span class="who">Sierra · Mar 10, 2026</span></a></li>
+<li><a href="#guillermo-rauch-vercel" data-s="guillermo-rauch-vercel"><span class="n">4</span><span class="co">Guillermo Rauch</span><span class="who">Vercel · Oct 16, 2026</span></a></li>
+<li><a href="#jason-lemkin-saastr" data-s="jason-lemkin-saastr"><span class="n">5</span><span class="co">Jason Lemkin</span><span class="who">SaaStr · Jan 1, 2026</span></a></li>
+<li><a href="#linear-agent-nan-yu-jacob-shumway" data-s="linear-agent-nan-yu-jacob-shumway"><span class="n">6</span><span class="co">Nan Yu &amp; Jacob Shumway</span><span class="who">Linear · Aug 9, 2026</span></a></li>
+<li><a href="#ryan-lopopolo-harness-engineering" data-s="ryan-lopopolo-harness-engineering"><span class="n">7</span><span class="co">Ryan Lopopolo</span><span class="who">OpenAI · Jun 9, 2026</span></a></li>
+<li><a href="#tobi-lutke-shopify" data-s="tobi-lutke-shopify"><span class="n">8</span><span class="co">Tobi Lütke</span><span class="who">Shopify · Sep 15, 2026</span></a></li>
+</ol></nav>
+<main>
+<article id="amol-avasare-anthropic-growth" data-s="amol-avasare-anthropic-growth"><p class="eyebrow">Amol Avasare · Anthropic</p><p class="tags"><span class="tag">Aired Apr 5, 2026</span><span class="tag ghost">253 words</span></p><h2>Amol Avasare: How Anthropic Uses Claude to Grow Itself</h2><p>Amol Avasare, Anthropic's Head of Growth, on <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=k-H4nsOTuxU">Lenny's Podcast</a> (Apr 2026). Anthropic went from about $1B to $19B ARR in 14 months. About 70% of his time goes to "success disasters," where growth breaks other things.</p>
+<p><strong>How the team uses agents</strong></p>
+<ul>
+<li><strong>CASH</strong> is Claude running growth experiments: spot an opportunity, build it, check it against the brand bar, analyze results. So far it handles copy and small UI changes, and its hit rate is about that of a junior PM. Humans still approve each step.</li>
+<li>A weekly Cowork task reads Slack and flags where teams are misaligned or duplicating work.</li>
+<li>A morning task reviews 20 to 25 dashboards and reports what looks wrong.</li>
+<li>Claude handles admin: room booking, expenses and email triage.</li>
+</ul>
+<p><strong>How the team works</strong></p>
+<ul>
+<li>Engineers produce 2 to 3 times more, so PMs and designers are now the bottleneck.</li>
+<li>Two-week rule: for projects of two engineer-weeks or less, the engineer is the PM.</li>
+<li>60 to 80% of what they ship has no PRD. Prototypes and Slack threads replace it.</li>
+<li>Spend 50 to 70% of effort on big bets, not small tweaks, because the product will be far better in two years.</li>
+</ul>
+<p><strong>Advice</strong></p>
+<ul>
+<li>The hard part is activation. Models improve faster than users learn what they can do. Asking users who they are, then routing them, works even though it adds friction.</li>
+<li>Re-test your tools after each model release.</li>
+<li>Be willing to give up some metric gains for safety and brand.</li>
+</ul></article>
+<article id="boris-cherny-claude-code" data-s="boris-cherny-claude-code"><p class="eyebrow">Boris Cherny · Claude Code</p><p class="tags"><span class="tag">Aired May 20, 2026</span><span class="tag ghost">239 words</span></p><h2>Boris Cherny: Running Hundreds of Agents at Once</h2><p>Boris Cherny, head of Claude Code at Anthropic, on <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Z6IT4gjrcPE">Big Technology</a> with Alex Kantrowitz (May 2026). Claude Code now writes 100% of Claude Code. Code written per engineer at Anthropic is up about 250% while quality has stayed stable. At Meta, by comparison, a 1 to 3% productivity gain in a year was hard-won.</p>
+<p><strong>How he works</strong></p>
+<ul>
+<li>He runs about 5 agents at a time on his laptop and hundreds overnight. "I have a Claude that's talking to my Claudes."</li>
+<li>He hands off a task, works on something else, then reviews and corrects it. Once, he had Cowork check his email and calendar before booking 8 flights and 5 hotels, and it caught his own mistakes.</li>
+<li>He keeps personal test cases and reruns them on every new model.</li>
+<li>He picks the model and effort level per task: max effort for hard problems, low effort to save tokens.</li>
+<li>He uses auto mode, where a second Claude checks each command, instead of clicking "always allow".</li>
+</ul>
+<p><strong>Advice for companies</strong></p>
+<ul>
+<li>Give everyone tokens without per-use approval, and make it safe to fail.</li>
+<li>Big wins come from people you wouldn't predict, like an accountant or a new grad.</li>
+<li>Optimize cost only after a use case scales.</li>
+<li>Rebuild the process around AI. A computer at the edge of a paper office didn't help either.</li>
+<li>Keep a beginner's mindset. What failed last month may work now.</li>
+</ul></article>
+<article id="bret-taylor-sierra" data-s="bret-taylor-sierra"><p class="eyebrow">Bret Taylor · Sierra</p><p class="tags"><span class="tag">Aired Mar 10, 2026</span><span class="tag ghost">241 words</span></p><h2>Bret Taylor: What Sierra Learned Deploying AI Agents</h2><p>Sierra CEO Bret Taylor with John Collison on <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=n4E4xNYCkYM">Cheeky Pint</a> (Mar 2026). Sierra builds customer-service agents for large companies. It reached about $100M ARR in seven quarters. Its customers automate 70 to 90% of support cases.</p>
+<p><strong>What he's seen in deployments</strong></p>
+<ul>
+<li>Start with one channel and a few use cases, then add more.</li>
+<li>A human-handled case costs $10 to $20. An AI case costs cents, so companies can afford good service for every customer.</li>
+<li>Second-order effects show up. Human agents get only the hard cases and say they're more satisfied. One retailer's costs stayed flat, but conversations grew 2 to 3 times.</li>
+<li>Let the agent reason across messy systems instead of waiting on a big IT cleanup.</li>
+<li>Customers set goals and guardrails. A supervisor model checks the agent's work.</li>
+<li>Expect to throw your own code away when models catch up.</li>
+</ul>
+<p><strong>Pricing</strong></p>
+<ul>
+<li>Charge for outcomes, not usage: a fee per resolved case, nothing when a case goes to a human. "Token usage isn't value."</li>
+</ul>
+<p><strong>Lessons for leaders</strong></p>
+<ul>
+<li>"The atomic unit of productivity in AI is a process, not a person." Give each process an owner and a goal, like cutting supplier onboarding from 17 days to one.</li>
+<li>Narrow the problem. Don't build an AI for every contract. Automate one contract type and send the exceptions to legal.</li>
+<li>Handing everyone Copilot doesn't make you an AI company.</li>
+</ul>
+<p>These numbers are Taylor's own claims.</p></article>
+<article id="guillermo-rauch-vercel" data-s="guillermo-rauch-vercel"><p class="eyebrow">Guillermo Rauch · Vercel</p><p class="tags"><span class="tag">Aired Oct 16, 2026</span><span class="tag ghost">261 words</span></p><h2>Guillermo Rauch: Building the Internet for Agents</h2><p>Vercel CEO Guillermo Rauch with Molly O'Shea on <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=WuorvLfAFmA">Sourcery</a> (Oct 2026). At the start of 2026, 3% of Vercel deployments came from coding agents. By October it was 60%. "The machines have taken over."</p>
+<p><strong>How Vercel uses agents</strong></p>
+<ul>
+<li>"Almost everything we do at Vercel, we do with agents." Sales reps ask a Slack agent about an account instead of opening Salesforce, and the answer is tailored to their role.</li>
+<li>An agent rewrote the first version of a Formula 1 team's migration in five minutes. That used to take months.</li>
+<li>When an agent visits vercel.com, it gets precise text about the business instead of the visual site. Agents now buy services from Vercel's marketplace with no human involved.</li>
+</ul>
+<p><strong>His practices</strong></p>
+<ul>
+<li>Act like an engineering manager toward agents. Read the code, have the AI explain what it did, write tests, poke holes.</li>
+<li>Don't lock into one model. About 80% of Vercel's AI token traffic now goes to cheaper open models. A common pattern: a frontier model writes the plan and an open model carries it out.</li>
+<li>He doesn't watch videos. He pulls the transcript, skims it, then asks his agent questions.</li>
+</ul>
+<p><strong>Lessons</strong></p>
+<ul>
+<li>Agents are "soldiers with no frontal lobe." They will do anything to finish the mission. Sandbox them and plan for prompt injection.</li>
+<li>Treat code as a liability. Critical systems need stricter rules than prototypes.</li>
+<li>Judge by retention, not hype. Users have little loyalty to any one model.</li>
+<li>Hire for the ability to direct many agents, not for having "vibe-coded this thing."</li>
+</ul></article>
+<article id="jason-lemkin-saastr" data-s="jason-lemkin-saastr"><p class="eyebrow">Jason Lemkin · SaaStr</p><p class="tags"><span class="tag">Aired Jan 1, 2026</span><span class="tag ghost">253 words</span></p><h2>Jason Lemkin: We Replaced Our Sales Team with 20 AI Agents</h2><p>Jason Lemkin on <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=I-R1bc1rlFs">Lenny's Podcast</a> (Jan 2026). After two salespeople quit mid-event, SaaStr stopped hiring for sales. About 10 sales staff became 1.2 humans and 20 agents. "The net productivity is about the same," and now it scales.</p>
+<p><strong>How to deploy a sales agent</strong></p>
+<ul>
+<li>Start with support. Their "Digital Jason" clone began by answering event questions and later closed a $70K sponsorship on its own.</li>
+<li>Buy, don't build. Choose the vendor that will help you most, ideally with a forward-deployed engineer.</li>
+<li>Train it on your best rep's emails and scripts. Then correct its mistakes for an hour or two a day for 30 days.</li>
+<li>Give each agent its own segment of customers so agents don't collide.</li>
+<li>Plan on ongoing oversight. Their part-time Chief AI Officer spends 10 to 15 hours a week reviewing output. "If you just buy one and disappear, you will have zero ROI."</li>
+</ul>
+<p><strong>What worked</strong></p>
+<ul>
+<li>Inbound: a site chatbot qualifies visitors and books meetings around the clock.</li>
+<li>Reactivation: an agent emailed leads that reps had dropped and got a 70% response rate.</li>
+<li>Disclosing AI didn't matter. "No one cares."</li>
+</ul>
+<p><strong>Predictions</strong></p>
+<ul>
+<li>Email-cadence SDRs and inbound BDRs will mostly disappear by the end of 2026.</li>
+<li>AEs keep about 70% of the job for now, but they need to be far more productive.</li>
+<li>Promote a quantitative person from inside to run the agents.</li>
+</ul>
+<p><strong>Try this:</strong> once a quarter, use your own product in incognito mode. Fix the worst experience with an agent.</p></article>
+<article id="linear-agent-nan-yu-jacob-shumway" data-s="linear-agent-nan-yu-jacob-shumway"><p class="eyebrow">Nan Yu &amp; Jacob Shumway · Linear</p><p class="tags"><span class="tag">Aired Aug 9, 2026</span><span class="tag ghost">250 words</span></p><h2>Linear: 5 Rules for AI Agents That Work in Production</h2><p>Nan Yu and Jacob Shumway, who built Linear Agent, on Peter Yang's <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4mKtJzfGj0U">Behind the Craft</a> (Aug 2026). Their main point: "The models are really smart, but we're just not using them enough." Over-prompting usually makes an agent worse.</p>
+<p><strong>The 5 rules</strong></p>
+<ol>
+<li><strong>Map the real workflow first.</strong> Know where work starts, where the context lives, and what "done" means. Hook into those places. If work starts in Slack, start the agent in Slack, not in a separate chatbot.</li>
+<li><strong>Give it tools, not context.</strong> "Give it as little instruction as possible. Give it the tools to load context." Their fix for hallucinations was skills the agent loads only when it needs them, instead of exposing every action at once.</li>
+<li><strong>Start with one frequent job.</strong> Theirs was turning sales notes and Slack threads into issues. They launched it quietly and built the next steps from real usage.</li>
+<li><strong>Use the biggest model until it works.</strong> Write evals, then move to smaller models for narrow jobs.</li>
+<li><strong>Turn real failures into evals.</strong> When the agent lacks a capability, it reports the gap, and the gap becomes an issue automatically.</li>
+</ol>
+<p><strong>Other lessons</strong></p>
+<ul>
+<li>Make a few showcase use cases rock solid. Accept more variance in the rest.</li>
+<li>Use evals only where consistency matters. Too many give false signals.</li>
+<li>Don't lock it down. Users will find uses you didn't plan for, like translating French support tickets.</li>
+<li>Demo: a Slack debate became an issue and then a PR in 6 minutes.</li>
+</ul></article>
+<article id="ryan-lopopolo-harness-engineering" data-s="ryan-lopopolo-harness-engineering"><p class="eyebrow">Ryan Lopopolo · OpenAI</p><p class="tags"><span class="tag">Aired Jun 9, 2026</span><span class="tag ghost">269 words</span></p><h2>Ryan Lopopolo: Shipping a Product with Zero Human-Written Code</h2><p>Ryan Lopopolo of OpenAI on <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=MFQIKbr1IEo">AI Native Dev</a> (Jun 2026), with more detail on <a target="_blank" rel="noopener" href="https://latent.space/p/harness-eng">Latent Space</a> (Apr 2026). His team of 3, later 7, engineers built an internal app with more than 1M lines of code. Agents wrote all of it. Each engineer now ships about 70 PRs a week. The first six weeks were 10 times slower than writing the code by hand.</p>
+<p><strong>Practices</strong></p>
+<ul>
+<li>When the agent fails, ask what context or tool it's missing. Don't just prompt harder.</li>
+<li>Keep builds under a minute so agents stay fast.</li>
+<li>Keep AGENTS.md to about 100 lines. Use it as a table of contents for deeper docs: goals, customers, quality bar.</li>
+<li>Turn every incident into a written rule, such as "all network calls need timeouts." Write lint and test errors for the agent, telling it how to fix the problem.</li>
+<li>Tell review agents to bias toward merging and flag only important issues. Otherwise author and reviewer loop forever.</li>
+<li>Let agents run the whole PR: push, wait for CI, fix flaky tests, resolve conflicts, merge.</li>
+<li>Do most human review after merge, on samples. Review the plans before work starts.</li>
+<li>Hold a weekly cleanup day. Encode repeated feedback so you never give it twice.</li>
+<li>Prefer small command-line tools with terse output over MCP.</li>
+<li>Treat code as disposable. He'll throw away a 50,000-line experiment to learn where agents struggle.</li>
+</ul>
+<p><strong>Lessons</strong></p>
+<ul>
+<li>"The only fundamentally scarce thing is the synchronous human attention of my team."</li>
+<li>Humans still own hard refactors, new product ideas, interfaces and customer conversations.</li>
+<li>Caveat: this was a brand-new codebase.</li>
+</ul></article>
+<article id="tobi-lutke-shopify" data-s="tobi-lutke-shopify"><p class="eyebrow">Tobi Lütke · Shopify</p><p class="tags"><span class="tag">Aired Sep 15, 2026</span><span class="tag ghost">219 words</span></p><h2>Tobi Lütke: How Shopify Works with AI Agents</h2><p>Shopify CEO Tobi Lütke with Shane Parrish on <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=G9P9D9hptq8">The Knowledge Project</a> (Sep 2026). His main point: as AI gets more capable, taste, judgment and responsibility become the scarce human skills. Full notes: <a target="_blank" rel="noopener" href="https://ferryzhou.wordpress.com/2026/09/25/tobi-lutke-the-skills-ai-makes-more-valuable/">my earlier post</a>.</p>
+<p><strong>How Shopify uses agents</strong></p>
+<ul>
+<li>Few engineers write code by hand. They each coordinate 10 to 50 agents.</li>
+<li><strong>River</strong> is Shopify's AI colleague. It has a name, memory for each Slack channel, codebase access, and permission to push back on leadership.</li>
+<li>About half of Shopify's pull requests start from a conversation with River.</li>
+<li>River works only in open channels, so people learn by watching each other use it.</li>
+<li>Every night River reviews its own conversations and rewrites its skill files.</li>
+</ul>
+<p><strong>How Tobi uses agents</strong></p>
+<ul>
+<li>For a hard decision he runs an "AI council": sub-agents across several models look at it from different angles, then he synthesizes. It costs about $15 to $20 in tokens.</li>
+<li>The AI informs the decision. He still makes it.</li>
+</ul>
+<p><strong>Lessons</strong></p>
+<ul>
+<li>Watch out for "slop grenades," AI output sent on without being read. Review and compression are the real work now.</li>
+<li>Give agents a personality. Bland assistants are less useful.</li>
+<li>Prune and rebuild instead of adding layers. Hold "refounding" events.</li>
+<li>Machines can't be held accountable, so people must own the decisions.</li>
+</ul></article>
+<div class="pager"><button id="prev" type="button">← Previous</button><button id="next" type="button">Next →</button></div>
+</main>
+</div>
+</div>
+<script>
+const arts=[...document.querySelectorAll('article')];const links=[...document.querySelectorAll('nav a')];
+let cur=0;
+function show(i,scroll){cur=i;arts.forEach((a,j)=>a.hidden=j!==i);links.forEach((l,j)=>l.classList.toggle('on',j===i));
+document.getElementById('prev').disabled=i===0;document.getElementById('next').disabled=i===arts.length-1;
+if(scroll)window.scrollTo({top:0,behavior:'instant'});}
+function fromHash(){const s=location.hash.slice(1);const i=arts.findIndex(a=>a.id===s);show(i<0?0:i,false);}
+document.getElementById('prev').onclick=()=>{if(cur>0)location.hash=arts[cur-1].id;};
+document.getElementById('next').onclick=()=>{if(cur<arts.length-1)location.hash=arts[cur+1].id;};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')document.getElementById('next').click();if(e.key==='ArrowLeft')document.getElementById('prev').click();});
+window.addEventListener('hashchange',()=>{fromHash();window.scrollTo({top:0});});
+fromHash();
+</script>
+
+</body>
+</html>

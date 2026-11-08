@@ -6,6 +6,7 @@ A collection of small, focused web applications and tools.
 
 ## Apps
 
+- **[AI Agents in Practice](https://ferryzhou.github.io/web-apps/ai-agents-in-practice/)** - Short notes from 8 interviews in 2026 with founders and engineering leaders who run AI agents in real companies: what they do with agents and what they learned.
 - **[Value Lab](https://ferryzhou.github.io/web-apps/value-lab/)** - Can prediction beat the market? The evidence across betting, prediction markets, equities and commodities, the practitioner playbook (closing line value, Kelly, market-as-prior), and tools for proving an edge is skill rather than luck.
 - **[Arbitrage Suite](https://ferryzhou.github.io/web-apps/arbitrage/)** - Profit from unequal prices, end to end: a strategy lab (taxonomy, screening framework, edge calculator, plan generator), betting-market case studies with the full published record, and a live cross-venue spread monitor on free public APIs.
 - **[The Verdict · World Cup Odds Accuracy](https://ferryzhou.github.io/web-apps/world-cup-verdict/)** - A cross-tournament study of how accurately pre-match betting odds predicted the outcomes of eight FIFA World Cups (1998–2026, 496 matches) — accuracy, calibration, favourite bias, and a strategy lab, plus a per-tournament breakdown for each edition.
