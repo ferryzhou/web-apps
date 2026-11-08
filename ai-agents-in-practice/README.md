@@ -1,7 +1,8 @@
 # AI Agents in Practice
 
-Short notes from 14 interviews in 2026 with founders and engineering leaders who run AI agents in real companies: Amol Avasare and Fiona Fung (Anthropic), Boris Cherny (Claude Code), Bret Taylor (Sierra), Dan Shipper (Every), Eric Glyman and Geoff Charles (Ramp), Guillermo Rauch (Vercel), Jason Lemkin (SaaStr), John Kim (Sendbird), Nan Yu & Jacob Shumway (Linear), Ryan Lopopolo (OpenAI), Sebastian Siemiatkowski (Klarna) and Tobi Lütke (Shopify).
+Real stories of AI agents solving problems, shipping features and moving business numbers, from 14 founders and engineering leaders (Anthropic, OpenAI, Shopify, Vercel, Ramp, Klarna, Sierra, Linear, SaaStr, Every, Sendbird).
 
-Each summary links to the original video and lists what the guest does with agents and what they learned. Numbers are the guests' own claims.
+- `index.html` lists each person with their headline stories, filterable by type (solved a problem, built a feature, launched something, moved a metric).
+- `people/<slug>.html` combines everything that person said in 2026: agent stories with sources, consolidated learnings, every interview with a YouTube link, and notes from the main interview.
 
-Single self-contained `index.html`, no build step. Use the list or the arrow keys to move between interviews; each one has its own `#anchor` link.
+Static HTML with a shared `style.css`, no build step at deploy time. The pages are generated from per-person JSON research files kept outside this repo. Numbers are the guests' own claims unless a source says otherwise.
