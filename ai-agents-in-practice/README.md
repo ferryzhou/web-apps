@@ -1,6 +1,6 @@
 # AI Agents in Practice
 
-Real stories of AI agents solving problems, shipping features and moving business numbers, from 14 founders and engineering leaders (Anthropic, OpenAI, Shopify, Vercel, Ramp, Klarna, Sierra, Linear, SaaStr, Every, Sendbird).
+Real stories of AI agents solving problems, shipping features and moving business numbers, from 20 founders, engineering leaders and hands-on developers (37signals/Rails, Datasette, Ghostty/Superlogical, OpenClaw, Flask/Earendil, Gas Town, Anthropic, OpenAI, Shopify, Vercel, Ramp, Klarna, Sierra, Linear, SaaStr, Every, Sendbird).
 
 - `index.html` (Latest): every interview across all people, newest first, grouped by month, with what was new in each one.
 - `archive.html` (All people): each person's latest view and headline stories, filterable by story type.
