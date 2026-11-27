@@ -117,10 +117,40 @@ knowing:
   2×2 depots/pylons stay small). Size/shape update on in-place morphs (e.g.
   Roach→Ravager, Hatchery→Lair). The army-composition list keys each unit type
   to its marker with a matching glyph, so you can read the map.
-- **Spawned/temporary units are filtered** (creep tumors, larva, eggs,
-  broodlings, locusts, interceptors, and AI rally beacons) — a single
-  creep-spreading bot can lay thousands of tumors, which otherwise bury the map
-  in dots.
+- **Terrain elevation & ramps (`maps.js`).** Bundled multi-tier elevation
+  presets (low ground, mid-ground expansion shelves, high-ground mains, cliff
+  rims, and stepped ramps) cover 12 popular 1v1 ladder maps (Alcyone, Site
+  Delta, Oceanborn, Post-Youth, Crimson Court, Ghost River, Goldenaura,
+  Equilibrium, Amphion, Dynasty, Gresvan, King Sejong Station) and normalize
+  automatically into each replay's bounds. Unknown maps fall back to
+  schematically inferred high-ground main plateaus & ramps.
+- **Map details rendered from tracker objects.** Neutral mineral patches (cyan
+  crystals, gold for rich minerals), vespene geysers (green vents, hidden once
+  capped by a refinery/assimilator/extractor), Xel'Naga watchtowers (diamonds
+  with dashed sensor rings that light up in the controlling player's color),
+  destructible rocks (shattering when broken), Zerg creep spread (deduplicated
+  from Hatcheries and Creep Tumors), and base territory rings all render with
+  toggleable map layers (`Terrain`, `Map features`, `Creep & bases`, `Trails`).
+- **Buildings under construction** are tracked via `SUnitInitEvent` →
+  `SUnitDoneEvent` and render as dashed translucent squares with a rising
+  construction-progress fill until completion.
+- **More accurate unit positions & movement.**
+  - Exact death coordinates (`m_x`, `m_y`) from `SUnitDiedEvent` are recorded
+    so units that march into combat between the ~12-second position ticks move
+    to and die at the actual battle location.
+  - Sub-second timestamps (`0.01s`) and per-unit move deduplication keep
+    trajectories tight without losing endpoints during downsampling.
+  - Clamped C¹ cubic Hermite spline interpolation keeps movement continuous in
+    both position and velocity across waypoints without stop-and-go freezing or
+    overshoot on direction reversals.
+  - Legacy HotS (2.x) 1/4-tile `SUnitPositionsEvent` coordinates are
+    auto-detected and scaled cleanly.
+- **Synced analytics & timeline markers.** Economy charts show a live playhead
+  line (click any chart or build-order row to seek), the scrubber marks major
+  battles, expansions, and base kills, hovering the minimap inspects units under
+  the cursor, and keyboard shortcuts (`Space`, `←`/`→`) control playback.
+- **Built-in sample replay.** A "Try sample replay" button loads a synthetic
+  13-minute TvZ match immediately without uploading a file or loading Pyodide.
 - **Tag recycling is handled.** SC2 reuses a unit's tag index after it dies, so
   units are tracked as discrete instances (keyed by index + recycle) and a dead
   unit is retired the moment its index is reborn — dead units don't linger.
@@ -129,20 +159,10 @@ knowing:
   is a separate transient tag that reverts to larva — so they're tracked like
   any other unit. In-place morphs (Overlord→Overseer, Roach→Ravager,
   Hatchery→Lair, Gateway→WarpGate) keep the same tag index, so the instance
-  stays on the map through the change. On the test replay, every one of the
-  1,095 tracked units reaches its type via a birth/init event — none are
-  reachable only through a type-change — so nothing is missing. (A morphed unit
-  keeps its pre-morph dot/square glyph, which for a minimap is immaterial.)
-- Positions are auto-fit rather than tied to true map cells (no map file is
-  needed), so the map is an approximation of where things happened — not the
-  game engine.
-- **Movement is interpolated.** The tracker reports unit positions only about
-  every ~12 seconds, so playback lerps each unit between its samples rather than
-  teleporting it — otherwise units freeze then jump.
-- **Idle units (especially workers) barely move.** The position stream is
-  dominated by units that travel the map (army); mining workers are reported
-  rarely, so they stay near their base. That reflects the tracker data, not a
-  playback bug.
+  stays on the map through the change.
+- Positions are auto-fit with a preserved 1:1 aspect ratio rather than tied to
+  true map terrain files (no `.SC2Map` file is needed), so the map is an
+  approximation of where things happened — not the game engine.
 
 ## Development notes
 

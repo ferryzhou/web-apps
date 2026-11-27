@@ -222,8 +222,12 @@
   .build-row {
     display: grid; grid-template-columns: 3rem 2.2rem 1fr; gap: 0.4rem;
     padding: 0.28rem 0.8rem; font-size: 0.84rem; align-items: baseline;
+    cursor: pointer; transition: background .12s, opacity .15s;
   }
   .build-row:nth-child(even) { background: rgba(255,255,255,0.02); }
+  .build-row:hover { background: rgba(77,163,255,0.1); }
+  .build-row.future { opacity: 0.45; }
+  .build-row.now { background: rgba(77,163,255,0.16); border-left: 2px solid var(--accent); padding-left: calc(0.8rem - 2px); }
   .build-row .t { color: var(--text-dim); font-variant-numeric: tabular-nums; }
   .build-row .s { color: var(--text-dim); font-variant-numeric: tabular-nums; text-align: right; }
   .build-row .n .kind { font-size: 0.7rem; color: var(--text-dim); }
@@ -231,14 +235,60 @@
   .build-row .n .kind.structure { color: var(--terran); }
   .analytics-note { color: var(--text-dim); font-size: 0.78rem; margin-top: 0.9rem; text-align: center; }
 
+  .chart svg { cursor: pointer; }
+  .chart .playhead { stroke: var(--accent); stroke-width: 1.5; opacity: 0.85; pointer-events: none; }
+
+  /* Sample replay button */
+  .sample-row { display: flex; justify-content: center; margin-top: 0.9rem; }
+  .sample-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.86rem; font-weight: 600;
+    background: var(--bg-panel-2); color: var(--text);
+    border: 1px solid var(--border); cursor: pointer;
+    transition: border-color .18s, background .18s, box-shadow .18s;
+  }
+  .sample-btn:hover {
+    border-color: var(--accent);
+    background: rgba(77, 163, 255, 0.12);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .sample-btn .tag-mini {
+    font-size: 0.72rem; font-weight: 500; color: var(--text-dim);
+  }
+
   /* Minimap playback */
   .playback { display: none; margin-top: 1.6rem; }
   .playback.show { display: block; animation: rise .35s ease; }
+  .mm-bar {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 0.5rem; margin-bottom: 0.55rem;
+  }
+  .mm-toggles { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .mm-tog {
+    padding: 0.22rem 0.6rem; border-radius: 999px; font-size: 0.75rem; cursor: pointer;
+    background: var(--bg-panel); color: var(--text-dim); border: 1px solid var(--border);
+    transition: border-color .15s, color .15s, background .15s;
+  }
+  .mm-tog.active { color: var(--text); border-color: var(--accent); background: rgba(77,163,255,0.12); }
+  .mm-key {
+    display: flex; flex-wrap: wrap; gap: 0.55rem; font-size: 0.72rem; color: var(--text-dim);
+  }
+  .mm-key span { display: inline-flex; align-items: center; gap: 3px; }
   .mm-wrap {
-    position: relative; background: #0a0f18;
+    position: relative; background: #080d16;
     border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
   }
-  .mm-wrap canvas { display: block; width: 100%; height: auto; }
+  .mm-wrap canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
+  .mm-tip {
+    position: absolute; pointer-events: none; opacity: 0;
+    background: rgba(10, 15, 24, 0.94); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.32rem 0.55rem; font-size: 0.75rem;
+    color: var(--text); white-space: nowrap; z-index: 6;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.55); transform: translate(-50%, -125%);
+    transition: opacity .1s;
+  }
+  .mm-tip .t-sub { color: var(--text-dim); font-size: 0.7rem; }
+
   /* live stats HUD synced to the playhead */
   .mm-stats {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-top: 0.7rem;
@@ -281,7 +331,18 @@
     font-size: 1rem; cursor: pointer; display: grid; place-items: center;
   }
   .mm-btn:hover { border-color: var(--accent); }
-  .mm-scrub { flex: 1 1 180px; accent-color: var(--accent); cursor: pointer; height: 6px; }
+  .mm-scrub-box { flex: 1 1 200px; position: relative; padding: 8px 0 4px; }
+  .mm-scrub { width: 100%; accent-color: var(--accent); cursor: pointer; height: 6px; display: block; }
+  .mm-events { position: relative; height: 14px; margin-top: 2px; }
+  .mm-ev {
+    position: absolute; top: 2px; width: 8px; height: 8px; border-radius: 50%;
+    transform: translateX(-50%); cursor: pointer; border: 1px solid rgba(10,15,24,0.9);
+    transition: transform .12s;
+  }
+  .mm-ev:hover { transform: translateX(-50%) scale(1.45); z-index: 3; }
+  .mm-ev.battle { background: #f85149; box-shadow: 0 0 6px rgba(248,81,73,0.65); }
+  .mm-ev.basekill { background: #fb923c; border-radius: 2px; width: 9px; height: 9px; }
+  .mm-ev.expand { width: 6px; height: 6px; top: 3px; opacity: 0.85; }
   .mm-time { font-variant-numeric: tabular-nums; color: var(--text-dim); font-size: 0.86rem; min-width: 92px; text-align: center; }
   .mm-speed { display: flex; gap: 0.25rem; }
   .mm-speed button {
@@ -291,7 +352,7 @@
   .mm-speed button.active { color: var(--text); border-color: var(--accent); background: rgba(77,163,255,0.12); }
 
   @media (max-width: 620px) {
-    .charts, .build-cols { grid-template-columns: 1fr; }
+    .charts, .build-cols, .mm-stats { grid-template-columns: 1fr; }
   }
 
   footer.page { text-align: center; margin-top: 2.5rem; color: var(--text-dim); font-size: 0.82rem; }
@@ -318,6 +379,10 @@
     <p>Standard <code>.SC2Replay</code> files from StarCraft II</p>
     <input type="file" id="file" accept=".SC2Replay,.s2replay" />
   </label>
+
+  <div class="sample-row">
+    <button type="button" class="sample-btn" id="sampleBtn">▶ Try sample replay <span class="tag-mini">TvZ · Alcyone LE</span></button>
+  </div>
 
   <p class="note">🔒 <strong>Private by design.</strong> Your replay is parsed locally in your browser and never uploaded anywhere.</p>
 
@@ -346,11 +411,34 @@
 
   <section class="playback" id="playback" aria-live="polite">
     <div class="section-title">Replay Playback — 2D minimap</div>
-    <div class="mm-wrap"><canvas id="mmCanvas" role="img" aria-label="Top-down minimap of unit movement"></canvas></div>
+    <div class="mm-bar">
+      <div class="mm-toggles" id="mmToggles">
+        <button type="button" class="mm-tog active" data-layer="terrain">Terrain</button>
+        <button type="button" class="mm-tog active" data-layer="features">Map features</button>
+        <button type="button" class="mm-tog active" data-layer="territory">Creep &amp; bases</button>
+        <button type="button" class="mm-tog active" data-layer="trails">Trails</button>
+      </div>
+      <div class="mm-key" aria-hidden="true">
+        <span>● Ground</span>
+        <span>▲ Air</span>
+        <span>■ Building</span>
+        <span style="color:#6c93c9">▓ High ground</span>
+        <span style="color:#9bb6db">≡ Ramp</span>
+        <span style="color:#5dd3ff">◆ Minerals</span>
+        <span style="color:#4fd18a">◉ Gas</span>
+      </div>
+    </div>
+    <div class="mm-wrap">
+      <canvas id="mmCanvas" role="img" aria-label="Top-down minimap of unit movement"></canvas>
+      <div class="mm-tip" id="mmTip"></div>
+    </div>
     <div class="mm-stats" id="mmStats"></div>
     <div class="mm-controls">
       <button class="mm-btn" id="mmPlay" aria-label="Play or pause">▶</button>
-      <input type="range" class="mm-scrub" id="mmScrub" min="0" max="1000" value="0" aria-label="Scrub through the game">
+      <div class="mm-scrub-box">
+        <input type="range" class="mm-scrub" id="mmScrub" min="0" max="1000" value="0" aria-label="Scrub through the game">
+        <div class="mm-events" id="mmEvents"></div>
+      </div>
       <span class="mm-time" id="mmTime">0:00 / 0:00</span>
       <div class="mm-speed" id="mmSpeed"></div>
     </div>
@@ -368,6 +456,7 @@
   </footer>
 </div>
 
+<script src="maps.js"></script>
 <script>
 (() => {
   "use strict";
@@ -397,6 +486,9 @@
 
   let pyodidePromise = null;
   let mmPlayer = null;   // active minimap player (destroyed on each new replay)
+  let chartSync = [];    // [{ line, xs, xMax }] synced to minimap playhead
+  let buildRowRefs = []; // [{ el, t }] synced to minimap playhead
+  let lastBuildSyncSec = -1;
   let busy = false;
 
   // ---- helpers ----
@@ -415,7 +507,31 @@
     analyticsEl.classList.remove("show");
     buildOrderEl.classList.remove("show");
     playbackEl.classList.remove("show");
+    chartSync = [];
+    buildRowRefs = [];
+    lastBuildSyncSec = -1;
     if (mmPlayer) { mmPlayer.destroy(); mmPlayer = null; }
+  }
+  function syncPlayhead(tt) {
+    for (const c of chartSync) {
+      const px = c.xs(Math.max(0, Math.min(c.xMax, tt)));
+      c.line.setAttribute("x1", px.toFixed(1));
+      c.line.setAttribute("x2", px.toFixed(1));
+    }
+    const sec = Math.floor(tt);
+    if (sec === lastBuildSyncSec || !buildRowRefs.length) return;
+    lastBuildSyncSec = sec;
+    // Highlight past/current/future build order items per player column
+    for (const col of buildRowRefs) {
+      let lastPast = -1;
+      for (let i = 0; i < col.length; i++) {
+        if (col[i].t <= tt + 0.5) lastPast = i;
+      }
+      for (let i = 0; i < col.length; i++) {
+        col[i].el.classList.toggle("future", i > lastPast);
+        col[i].el.classList.toggle("now", i === lastPast);
+      }
+    }
   }
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (c) =>
@@ -592,6 +708,7 @@ json.dumps(sc2_summary.summarize(_data))
     const a = data.analytics;
     const chartsEl = $("charts"), legendEl = $("chartLegend"), buildEl = $("buildOrder"), noteEl = $("analyticsNote");
     chartsEl.innerHTML = ""; legendEl.innerHTML = ""; buildEl.innerHTML = "";
+    chartSync = []; buildRowRefs = []; lastBuildSyncSec = -1;
     if (!a || !a.available) { analyticsEl.classList.remove("show"); buildOrderEl.classList.remove("show"); return; }
 
     const byId = {}; (data.players || []).forEach((p) => { byId[p.player_id] = p; });
@@ -627,7 +744,7 @@ json.dumps(sc2_summary.summarize(_data))
     buildEl.innerHTML = plist.map((pl) => {
       const bo = a.build_order[pl.id] || [];
       const rows = bo.length ? bo.map((e) =>
-        `<div class="build-row"><span class="t">${fmtClock(e.t)}</span><span class="s">${e.supply}</span>` +
+        `<div class="build-row" data-t="${e.t}"><span class="t">${fmtClock(e.t)}</span><span class="s">${e.supply}</span>` +
         `<span class="n">${escapeHtml(e.name)}${e.kind !== "unit" ? ` <span class="kind ${escapeHtml(e.kind)}">${e.kind === "upgrade" ? "▲ upg" : "▪ bld"}</span>` : ""}</span></div>`
       ).join("") : `<div class="build-row"><span class="n" style="color:var(--text-dim)">No production data.</span></div>`;
       return `<div class="build-col"><div class="head"><span class="dot" style="background:${pl.color}"></span>` +
@@ -635,7 +752,17 @@ json.dumps(sc2_summary.summarize(_data))
         `<div class="build-list">${rows}</div></div>`;
     }).join("");
 
-    noteEl.textContent = "In-game clock; supply column is food used when each item began. " +
+    buildEl.querySelectorAll(".build-col").forEach((colEl) => {
+      const refs = [];
+      colEl.querySelectorAll(".build-row[data-t]").forEach((rowEl) => {
+        const rt = Number(rowEl.dataset.t);
+        refs.push({ el: rowEl, t: rt });
+        rowEl.addEventListener("click", () => { if (mmPlayer) mmPlayer.seek(rt); });
+      });
+      if (refs.length) buildRowRefs.push(refs);
+    });
+
+    noteEl.textContent = "In-game clock; click any chart or build-order row to jump the minimap playhead. " +
       "Build order merges structures, units and upgrades (some spawned/temporary units are filtered).";
     analyticsEl.classList.add("show");
     buildOrderEl.classList.add("show");
@@ -683,7 +810,8 @@ json.dumps(sc2_summary.summarize(_data))
     ends.forEach((e) => {
       svg += `<text class="end-label" x="${(e.x + 4).toFixed(1)}" y="${(e.y + 3).toFixed(1)}" fill="${e.color}">${escapeHtml(e.label)}</text>`;
     });
-    // hover elements
+    // playhead + hover elements
+    svg += `<line class="playhead" x1="${PL}" x2="${PL}" y1="${PT}" y2="${H - PB}"/>`;
     svg += `<line class="crosshair" y1="${PT}" y2="${H - PB}"/>`;
     series.forEach((s) => { svg += `<circle class="hover-dot" r="3.5" fill="${s.color}" stroke="#0a0f18" stroke-width="1"/>`; });
 
@@ -693,6 +821,7 @@ json.dumps(sc2_summary.summarize(_data))
       `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${escapeHtml(title)} over time">${svg}</svg>` +
       `<div class="tooltip"></div>`;
 
+    chartSync.push({ line: el.querySelector(".playhead"), xs, xMax });
     wireHover(el, series, { W, H, PL, PR, PT, PB, xs, ys, xMax });
     return el;
   }
@@ -721,11 +850,16 @@ json.dumps(sc2_summary.summarize(_data))
     const cross = el.querySelector(".crosshair");
     const dots = el.querySelectorAll(".hover-dot");
     const hide = () => { tip.style.opacity = 0; cross.style.opacity = 0; dots.forEach((d) => (d.style.opacity = 0)); };
-    svg.addEventListener("mousemove", (e) => {
+    const timeFromEvent = (e) => {
       const r = svg.getBoundingClientRect();
-      if (!r.width) return;
+      if (!r.width) return null;
       const vbX = ((e.clientX - r.left) / r.width) * geo.W;
-      const t = Math.max(0, Math.min(geo.xMax, ((vbX - geo.PL) / (geo.W - geo.PL - geo.PR)) * geo.xMax));
+      return { r, t: Math.max(0, Math.min(geo.xMax, ((vbX - geo.PL) / (geo.W - geo.PL - geo.PR)) * geo.xMax)) };
+    };
+    svg.addEventListener("mousemove", (e) => {
+      const hit = timeFromEvent(e);
+      if (!hit) return;
+      const { r, t } = hit;
       const px = geo.xs(t);
       cross.setAttribute("x1", px.toFixed(1)); cross.setAttribute("x2", px.toFixed(1)); cross.style.opacity = 1;
       let rowsHtml = "", shownT = null;
@@ -744,31 +878,50 @@ json.dumps(sc2_summary.summarize(_data))
       tip.style.top = ((geo.PT / geo.H) * r.height + (r.top - chartRect.top)) + "px";
       tip.style.opacity = 1;
     });
+    svg.addEventListener("click", (e) => {
+      const hit = timeFromEvent(e);
+      if (hit && mmPlayer) mmPlayer.seek(hit.t);
+    });
     svg.addEventListener("mouseleave", hide);
   }
 
   // ---- minimap playback ----
   const MM_SPEEDS = [1, 2, 4, 8];
-  const MM_FLASH = 1.2;         // seconds a death flash lingers
+  const MM_FLASH = 1.4;         // seconds a death flash lingers
   const NEUTRAL_COLOR = "#8b97ab";
-  const MM_UNIT_R = { 1: 1.7, 2: 2.4, 3: 3.3, 4: 4.6 };  // dot radius by size tier
-  const MM_BLD_H = { 1: 2.6, 2: 3.7, 3: 5.2 };            // building square half-size by footprint
+  const MM_UNIT_R = { 1: 1.8, 2: 2.5, 3: 3.4, 4: 4.8 };  // dot radius by size tier
+  const MM_BLD_H = { 1: 2.7, 2: 3.8, 3: 5.5 };            // building square half-size by footprint
   const MM_WORKERS = new Set(["Drone", "Probe", "SCV", "MULE"]);
   const MM_COMP_LIMIT = 12;   // max unit types shown per player in the composition
-  // Air units (normalized type names, lower-cased) — drawn as triangles vs. ground circles.
   const MM_AIR = new Set([
     "overlord", "overseer", "mutalisk", "corruptor", "broodlord", "viper", "leviathan",
     "phoenix", "oracle", "voidray", "carrier", "tempest", "warpprism", "mothership", "observer",
     "medivac", "viking", "banshee", "raven", "liberator", "battlecruiser",
   ]);
+  const MM_TOWNHALLS = new Set([
+    "commandcenter", "orbitalcommand", "planetaryfortress", "nexus", "hatchery", "lair", "hive",
+  ]);
+  const MM_GAS_BLDS = new Set(["refinery", "assimilator", "extractor"]);
 
-  // Trace a unit marker path: upward triangle for air, circle for ground.
-  function unitShape(ctx, x, y, r, isAir) {
+  function featureKind(type) {
+    const low = (type || "").toLowerCase();
+    if (low.includes("richmineral") || low.includes("labmineral")) return "rich_mineral";
+    if (low.includes("mineralfield") || low.includes("mineral")) return "mineral";
+    if (low.includes("vespenegeyser") || low.includes("platformgeyser") || low.includes("geyser")) return "geyser";
+    if (low.includes("xelnaga")) return "tower";
+    if (low.startsWith("destructible") || low.startsWith("collapsible") || low.startsWith("unbuildable")) return "rock";
+    return null;
+  }
+
+  // Trace a unit marker path: directional triangle for air, circle for ground.
+  function unitShape(ctx, x, y, r, isAir, angle) {
     ctx.beginPath();
     if (isAir) {
-      ctx.moveTo(x, y - r * 1.2);
-      ctx.lineTo(x - r * 1.05, y + r * 0.85);
-      ctx.lineTo(x + r * 1.05, y + r * 0.85);
+      const a = angle == null ? -Math.PI / 2 : angle;
+      const ca = Math.cos(a), sa = Math.sin(a);
+      const px = (lx, ly) => [x + lx * ca - ly * sa, y + lx * sa + ly * ca];
+      const p0 = px(r * 1.25, 0), p1 = px(-r * 0.9, -r * 0.95), p2 = px(-r * 0.9, r * 0.95);
+      ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.lineTo(p2[0], p2[1]);
       ctx.closePath();
     } else {
       ctx.arc(x, y, r, 0, 6.2832);
@@ -794,14 +947,17 @@ json.dumps(sc2_summary.summarize(_data))
     return `<svg class="mm-g" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}" aria-hidden="true">${g}</svg>`;
   }
 
-  function renderMinimap(data) {
+  function renderMinimap(data, startAt) {
     const mm = data.minimap;
     if (!mm || !mm.available || !mm.moves || !mm.moves.length) {
       playbackEl.classList.remove("show");
       return;
     }
-    const colorForPid = {};
-    (data.players || []).forEach((p, i) => { colorForPid[p.player_id] = chartColor(p.color, i); });
+    const colorForPid = {}, nameForPid = {};
+    (data.players || []).forEach((p, i) => {
+      colorForPid[p.player_id] = chartColor(p.color, i);
+      nameForPid[p.player_id] = p.name;
+    });
 
     // Group per-unit position samples (moves are globally time-sorted → per-unit too).
     const types = mm.types || [];
@@ -809,9 +965,20 @@ json.dumps(sc2_summary.summarize(_data))
     for (const tag in mm.units) {
       const m = mm.units[tag];
       const type = types[m[5]] || "";
-      units.set(tag, { pid: m[0], structure: m[1], born: m[2], died: m[3], size: m[4] || 2,
-        type, isWorker: MM_WORKERS.has(type), isAir: MM_AIR.has(type.toLowerCase()),
-        color: colorForPid[m[0]] || NEUTRAL_COLOR, moves: [] });
+      const low = type.toLowerCase();
+      const feat = m[0] === 0 ? featureKind(type) : null;
+      const done = (m.length >= 7 && m[6] != null && m[6] >= 0) ? m[6] : m[2];
+      units.set(tag, {
+        pid: m[0], structure: m[1], born: m[2], died: m[3], done, size: m[4] || 2,
+        type, feature: feat,
+        isTownHall: MM_TOWNHALLS.has(low),
+        isGasBld: MM_GAS_BLDS.has(low),
+        isWorker: MM_WORKERS.has(type),
+        isAir: MM_AIR.has(low),
+        color: colorForPid[m[0]] || NEUTRAL_COLOR,
+        owner: nameForPid[m[0]] || "Neutral",
+        moves: [],
+      });
     }
     for (const mv of mm.moves) {
       const u = units.get(mv[1]);
@@ -819,38 +986,136 @@ json.dumps(sc2_summary.summarize(_data))
     }
     for (const [tag, u] of units) if (!u.moves.length) units.delete(tag);
 
-    // Per-player stat time-series (from the analytics tracker samples) so the
-    // HUD can show supply/army/economy at the current playhead.
     const series = (data.analytics && data.analytics.series) || {};
     const statsPlayers = (data.players || [])
       .filter((p) => series[p.player_id] && series[p.player_id].length)
-      .map((p) => ({ name: p.name, race: p.race, pid: p.player_id,
-        color: colorForPid[p.player_id] || NEUTRAL_COLOR, rows: series[p.player_id] }));
+      .map((p) => ({
+        name: p.name, race: p.race, pid: p.player_id,
+        color: colorForPid[p.player_id] || NEUTRAL_COLOR, rows: series[p.player_id],
+      }));
 
-    mmPlayer = createMinimapPlayer(units, mm.bounds, data.duration_seconds || 1, statsPlayers);
-    const src = mm.source === "positions" ? "unit position updates" : "unit spawn points";
+    const presetTerrain = mm.terrain || (window.lookupMapTerrain ? window.lookupMapTerrain(data.map_name, mm.bounds) : null);
+    mmPlayer = createMinimapPlayer(
+      units, mm.bounds, data.duration_seconds || 1, statsPlayers, mm.creep || [], presetTerrain, startAt || 0
+    );
+    const src = mm.source === "positions" ? "unit position updates + exact death coordinates" : "unit spawn points";
+    const terrNote = presetTerrain
+      ? `Terrain: ${presetTerrain.name || data.map_name} preset (elevation tiers & ramps).`
+      : "High-ground main plateaus & ramps are schematically inferred from base positions (map not in preset library).";
     $("mmNote").textContent =
-      "Top-down playback reconstructed from " + src + " in the replay tracker. " +
-      "Circles are ground units, triangles are air, squares are structures (bigger = " +
-      "bigger unit), coloured by player; rings mark deaths. Income/Bank show minerals " +
-      "(blue crystal) and gas (green). Positions are approximate — not the game engine.";
+      "Top-down playback reconstructed from " + src + " in the replay tracker. " + terrNote + " " +
+      "Click timeline markers, charts, or build-order rows to jump; Space plays/pauses, ←/→ steps ±5s.";
     playbackEl.classList.add("show");
   }
 
-  function createMinimapPlayer(units, bounds, duration, statsPlayers) {
+  function createMinimapPlayer(units, bounds, duration, statsPlayers, creepNodes, terrainData, startAt) {
     const canvas = $("mmCanvas"), ctx = canvas.getContext("2d");
+    const tipEl = $("mmTip"), eventsEl = $("mmEvents"), togglesEl = $("mmToggles");
     const playBtn = $("mmPlay"), scrub = $("mmScrub"), timeEl = $("mmTime"), speedEl = $("mmSpeed");
     const statsEl = $("mmStats");
     const [minX, minY, maxX, maxY] = bounds;
     const wWorld = Math.max(1, maxX - minX), hWorld = Math.max(1, maxY - minY);
 
-    let t = 0, playing = false, speed = 1, raf = 0, lastTs = 0, cssW = 0, cssH = 0;
+    let t = Math.max(0, Math.min(duration, startAt || 0));
+    let playing = false, speed = startAt ? 4 : 1, raf = 0, lastTs = 0;
+    let cssW = 0, cssH = 0, scale = 1, ox = 0, oy = 0;
+    let hoverPt = null;
+    const layers = { terrain: true, features: true, territory: true, trails: true };
+
+    // Separate neutral features from player units for clean Z-ordering
+    const features = [], playerUnits = [];
+    for (const u of units.values()) {
+      if (u.feature) features.push(u);
+      else playerUnits.push(u);
+    }
+
+    // If no explicit map terrain is supplied (e.g. arbitrary .SC2Replay),
+    // schematically infer high-ground main plateaus and a ramp toward the
+    // natural/center so elevation context is still readable.
+    function inferTerrain() {
+      const mains = playerUnits.filter((u) => u.pid > 0 && u.isTownHall && u.born <= 5);
+      if (!mains.length) return null;
+      const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+      const plateaus = [], ramps = [];
+      for (const m of mains) {
+        const mx = m.moves[0][1], my = m.moves[0][2];
+        // Rounded octagon plateau around starting town hall
+        const r = 17, poly = [];
+        for (let k = 0; k < 8; k++) {
+          const a = (k / 8) * Math.PI * 2 + Math.PI / 8;
+          poly.push([mx + Math.cos(a) * r, my + Math.sin(a) * r]);
+        }
+        plateaus.push({ level: 2, poly });
+        // Ramp pointing toward map center
+        const ang = Math.atan2(cy - my, cx - mx);
+        const ux = Math.cos(ang), uy = Math.sin(ang), px = -uy, py = ux;
+        const rIn = 12, rOut = 21, hw = 4.2;
+        const fx = mx + ux * rOut, fy = my + uy * rOut;
+        const tx = mx + ux * rIn, ty = my + uy * rIn;
+        ramps.push({
+          level: 2,
+          from: [fx, fy], to: [tx, ty],
+          poly: [
+            [fx + px * hw, fy + py * hw], [fx - px * hw, fy - py * hw],
+            [tx - px * hw, ty - py * hw], [tx + px * hw, ty + py * hw],
+          ],
+        });
+      }
+      return { plateaus, ramps, inferred: true };
+    }
+    const terrain = terrainData || inferTerrain();
+
+    // Build timeline event markers (battles, base kills, expansions)
+    const timelineEvents = [];
+    const deaths = [];
+    for (const u of playerUnits) {
+      if (u.pid > 0 && u.isTownHall && u.born > 25) {
+        timelineEvents.push({ t: u.born, kind: "expand", color: u.color, label: `${fmtClock(u.born)} · ${u.owner} expansion (${u.type})` });
+      }
+      if (u.pid > 0 && u.isTownHall && u.died >= 0) {
+        timelineEvents.push({ t: u.died, kind: "basekill", color: "#fb923c", label: `${fmtClock(u.died)} · ${u.owner} ${u.type} destroyed` });
+      }
+      if (u.pid > 0 && u.died >= 0 && !u.structure) deaths.push(u.died);
+    }
+    deaths.sort((a, b) => a - b);
+    // Sliding 12s window to detect major battles
+    const battles = [];
+    let i = 0;
+    while (i < deaths.length) {
+      let j = i;
+      while (j < deaths.length && deaths[j] - deaths[i] <= 12) j++;
+      const count = j - i;
+      if (count >= 10) {
+        const midT = deaths[i + (count >> 1)];
+        if (battles.length && midT - battles[battles.length - 1].t < 28) {
+          if (count > battles[battles.length - 1].count) battles[battles.length - 1] = { t: midT, count };
+        } else {
+          battles.push({ t: midT, count });
+        }
+        i = j;
+      } else {
+        i++;
+      }
+    }
+    battles.sort((a, b) => b.count - a.count).slice(0, 6).forEach((b) => {
+      timelineEvents.push({ t: b.t, kind: "battle", color: "#f85149", label: `${fmtClock(b.t)} · Battle (${b.count} units lost)` });
+    });
+
+    eventsEl.innerHTML = timelineEvents.map((ev) => {
+      const pct = Math.max(0.5, Math.min(99.5, (ev.t / duration) * 100));
+      const style = ev.kind === "expand" ? `left:${pct.toFixed(2)}%;background:${ev.color}` : `left:${pct.toFixed(2)}%`;
+      return `<div class="mm-ev ${ev.kind}" data-t="${ev.t}" style="${style}" title="${escapeHtml(ev.label)}"></div>`;
+    }).join("");
+
+    // Reset toggle button states
+    togglesEl.querySelectorAll("button[data-layer]").forEach((b) => b.classList.add("active"));
 
     // speed buttons
     speedEl.innerHTML = MM_SPEEDS.map((s) =>
-      `<button data-s="${s}"${s === 1 ? ' class="active"' : ""}>${s}×</button>`).join("");
+      `<button data-s="${s}"${s === speed ? ' class="active"' : ""}>${s}×</button>`).join("");
 
     // live stats HUD (supply / army / economy at the current playhead)
+    statsEl.innerHTML = "";
     statsPlayers = statsPlayers || [];
     statsEl.style.display = statsPlayers.length ? "grid" : "none";
     const CHIPS = [["Supply", "supply"], ["Army", "army"], ["Income", "income"], ["Bank", "bank"], ["Workers", "workers"]];
@@ -872,7 +1137,6 @@ json.dumps(sc2_summary.summarize(_data))
       return refs;
     });
 
-    // Rebuild a composition list (pills) only when its counts change.
     function renderComp(el, color, counts) {
       const entries = counts
         ? Object.keys(counts).map((k) => [k, counts[k]]).sort((a, b) => b[1].n - a[1].n).slice(0, MM_COMP_LIMIT)
@@ -902,7 +1166,8 @@ json.dumps(sc2_summary.summarize(_data))
     function updateStats() {
       statsPlayers.forEach((p, i) => {
         const r = rowAt(p.rows, t), c = chipRefs[i];
-        if (!r) return;
+        if (!r || c._row === r) return;
+        c._row = r;
         c.supply.textContent = (r.supply_used || 0) + "/" + (r.supply_made || 0);
         c.army.textContent = fmtShort(r.army_value || 0);
         c.income.innerHTML = minGas(r.income_min, r.income_gas);
@@ -911,88 +1176,492 @@ json.dumps(sc2_summary.summarize(_data))
       });
     }
 
+    const PAD = 18;
     function fit() {
       const rect = canvas.parentElement.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      cssW = Math.max(200, rect.width);
-      cssH = Math.round(cssW * Math.min(1, Math.max(0.5, hWorld / wWorld)));
+      cssW = Math.max(220, rect.width);
+      // Preserve true 1:1 world aspect ratio cleanly within [0.55, 0.95] of width
+      cssH = Math.round(cssW * Math.min(0.95, Math.max(0.55, hWorld / wWorld)));
+      scale = Math.min((cssW - 2 * PAD) / wWorld, (cssH - 2 * PAD) / hWorld);
+      ox = (cssW - wWorld * scale) / 2;
+      oy = (cssH - hWorld * scale) / 2;
       canvas.style.height = cssH + "px";
       canvas.width = Math.round(cssW * dpr);
       canvas.height = Math.round(cssH * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       draw();
     }
-    const PAD = 10;
-    function sx(x) { return PAD + ((x - minX) / wWorld) * (cssW - 2 * PAD); }
-    function sy(y) { return PAD + ((maxY - y) / hWorld) * (cssH - 2 * PAD); }  // flip: game y is up
+    function sx(x) { return ox + (x - minX) * scale; }
+    function sy(y) { return oy + (maxY - y) * scale; }  // flip: game y is up
 
-    // Interpolated [x, y] at time tt. Position samples are ~12s apart, so we
-    // lerp between the bracketing samples instead of holding-then-teleporting,
-    // which is what made playback look frozen-then-jumpy.
+    // Clamped tangent velocity for monotone-friendly C1 cubic Hermite splines:
+    // prevents overshoot on reversals and bulges across unequal time gaps.
+    function clampedSlope(vPrev, vNext) {
+      if (vPrev * vNext <= 0) return 0;
+      const avg = 0.5 * (vPrev + vNext);
+      const lim = 1.5 * Math.min(Math.abs(vPrev), Math.abs(vNext));
+      return Math.max(-lim, Math.min(lim, avg));
+    }
+
+    // Smooth C1 cubic Hermite interpolation between position samples.
+    // Continuous position & velocity across waypoints with zero stop-and-go
+    // freezing and zero overshoot on direction changes.
     function posAt(u, tt) {
       const a = u.moves;
       if (!a.length) return null;
-      if (a[0][0] >= tt) return [a[0][1], a[0][2]];   // before first sample
+      if (a[0][0] >= tt) return [a[0][1], a[0][2], null];
       let lo = 0, hi = a.length - 1, ans = 0;
       while (lo <= hi) { const mid = (lo + hi) >> 1; if (a[mid][0] <= tt) { ans = mid; lo = mid + 1; } else hi = mid - 1; }
       const p0 = a[ans];
-      if (ans >= a.length - 1) return [p0[1], p0[2]];  // after last sample: hold
-      const p1 = a[ans + 1], span = p1[0] - p0[0];
-      if (span <= 0) return [p0[1], p0[2]];
-      const f = (tt - p0[0]) / span;
-      return [p0[1] + (p1[1] - p0[1]) * f, p0[2] + (p1[2] - p0[2]) * f];
+      if (ans >= a.length - 1) return [p0[1], p0[2], null];
+      const p1 = a[ans + 1], dt = p1[0] - p0[0];
+      if (dt <= 0) return [p0[1], p0[2], null];
+      const dx = p1[1] - p0[1], dy = p1[2] - p0[2];
+      if (dx * dx + dy * dy < 0.0025) return [p0[1], p0[2], null];
+
+      const vx = dx / dt, vy = dy / dt;
+      let mx0 = vx, my0 = vy, mx1 = vx, my1 = vy;
+      if (ans > 0) {
+        const pm = a[ans - 1], dtm = p0[0] - pm[0];
+        if (dtm > 0) {
+          mx0 = clampedSlope((p0[1] - pm[1]) / dtm, vx);
+          my0 = clampedSlope((p0[2] - pm[2]) / dtm, vy);
+        }
+      }
+      if (ans + 2 < a.length) {
+        const pp = a[ans + 2], dtp = pp[0] - p1[0];
+        if (dtp > 0) {
+          mx1 = clampedSlope(vx, (pp[1] - p1[1]) / dtp);
+          my1 = clampedSlope(vy, (pp[2] - p1[2]) / dtp);
+        }
+      }
+
+      const f = (tt - p0[0]) / dt, f2 = f * f, f3 = f2 * f;
+      const h00 = 2 * f3 - 3 * f2 + 1;
+      const h10 = f3 - 2 * f2 + f;
+      const h01 = -2 * f3 + 3 * f2;
+      const h11 = f3 - f2;
+      const tx0 = mx0 * dt, ty0 = my0 * dt, tx1 = mx1 * dt, ty1 = my1 * dt;
+      const x = h00 * p0[1] + h10 * tx0 + h01 * p1[1] + h11 * tx1;
+      const y = h00 * p0[2] + h10 * ty0 + h01 * p1[2] + h11 * ty1;
+
+      const d00 = 6 * f2 - 6 * f, d10 = 3 * f2 - 4 * f + 1, d01 = -d00, d11 = 3 * f2 - 2 * f;
+      const dxd = d00 * p0[1] + d10 * tx0 + d01 * p1[1] + d11 * tx1;
+      const dyd = d00 * p0[2] + d10 * ty0 + d01 * p1[2] + d11 * ty1;
+      const angle = (dxd * dxd + dyd * dyd > 1e-4) ? Math.atan2(-dyd, dxd) : Math.atan2(-dy, dx);
+      return [x, y, angle];
     }
+
+    function tracePoly(poly) {
+      ctx.beginPath();
+      for (let k = 0; k < poly.length; k++) {
+        const px = sx(poly[k][0]), py = sy(poly[k][1]);
+        if (k === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    }
+
+    function drawTerrain() {
+      if (!terrain) return;
+      const fx = ox, fy = oy, fw = wWorld * scale, fh = hWorld * scale;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(fx, fy, fw, fh);
+      ctx.clip();
+
+      // Elevation palette: level 0 = low valley, 1 = mid shelf, 2 = high ground
+      const FILLS = { 1: "#16263f", 2: "#22385a" };
+      const RIMS = { 1: "rgba(132, 172, 222, 0.36)", 2: "rgba(182, 216, 255, 0.54)" };
+      const SHADOWS = { 1: "rgba(4, 8, 16, 0.45)", 2: "rgba(4, 8, 16, 0.62)" };
+
+      // Draw plateaus from lowest tier to highest tier
+      for (const lvl of [1, 2]) {
+        for (const p of (terrain.plateaus || [])) {
+          if (p.level !== lvl) continue;
+          // Cliff drop shadow (offset down-right for 3D relief)
+          ctx.save();
+          ctx.translate(2.5, 3.5);
+          tracePoly(p.poly);
+          ctx.fillStyle = SHADOWS[lvl];
+          ctx.fill();
+          ctx.restore();
+
+          // Plateau surface + cliff rim
+          tracePoly(p.poly);
+          ctx.fillStyle = FILLS[lvl];
+          ctx.fill();
+          ctx.lineWidth = lvl === 2 ? 1.6 : 1.25;
+          ctx.strokeStyle = RIMS[lvl];
+          ctx.stroke();
+        }
+      }
+
+      // Draw ramps cutting cleanly across cliff rims with gradient + step lines
+      for (const rm of (terrain.ramps || [])) {
+        const x0 = sx(rm.from[0]), y0 = sy(rm.from[1]);
+        const x1 = sx(rm.to[0]), y1 = sy(rm.to[1]);
+        const lowCol = rm.level === 2 ? FILLS[1] : "#0c1524";
+        const hiCol = rm.level === 2 ? FILLS[2] : FILLS[1];
+        const g = ctx.createLinearGradient(x0, y0, x1, y1);
+        g.addColorStop(0, lowCol);
+        g.addColorStop(1, hiCol);
+
+        tracePoly(rm.poly);
+        ctx.fillStyle = g;
+        ctx.fill();
+
+        // Step lines perpendicular to ramp slope (from low -> high)
+        ctx.save();
+        tracePoly(rm.poly);
+        ctx.clip();
+        const rdx = x1 - x0, rdy = y1 - y0, rlen = Math.hypot(rdx, rdy) || 1;
+        const nx = -rdy / rlen, ny = rdx / rlen;
+        ctx.strokeStyle = "rgba(195, 222, 255, 0.28)";
+        ctx.lineWidth = 1;
+        for (let s = 1; s <= 4; s++) {
+          const frac = s / 5;
+          const cx = x0 + rdx * frac, cy = y0 + rdy * frac;
+          ctx.beginPath();
+          ctx.moveTo(cx - nx * 24, cy - ny * 24);
+          ctx.lineTo(cx + nx * 24, cy + ny * 24);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Subtle ramp side rails (poly[0]->poly[3] and poly[1]->poly[2])
+        if (rm.poly.length === 4) {
+          ctx.strokeStyle = "rgba(170, 206, 248, 0.45)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(sx(rm.poly[0][0]), sy(rm.poly[0][1]));
+          ctx.lineTo(sx(rm.poly[3][0]), sy(rm.poly[3][1]));
+          ctx.moveTo(sx(rm.poly[1][0]), sy(rm.poly[1][1]));
+          ctx.lineTo(sx(rm.poly[2][0]), sy(rm.poly[2][1]));
+          ctx.stroke();
+        }
+      }
+
+      ctx.restore();
+    }
+
+    function drawBackdrop() {
+      // Subtle radial tactical terrain backdrop
+      const grad = ctx.createRadialGradient(cssW * 0.5, cssH * 0.5, cssW * 0.08, cssW * 0.5, cssH * 0.5, cssW * 0.72);
+      grad.addColorStop(0, "#0d1626");
+      grad.addColorStop(1, "#070c14");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, cssW, cssH);
+
+      // Terrain elevation plateaus & ramps
+      if (layers.terrain) drawTerrain();
+
+      // Map playfield frame
+      const fx = ox, fy = oy, fw = wWorld * scale, fh = hWorld * scale;
+      ctx.strokeStyle = "rgba(147, 164, 189, 0.22)";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(fx + 0.5, fy + 0.5, fw - 1, fh - 1);
+
+      // Tactical 4x4 sector grid + subtle axis labels
+      ctx.strokeStyle = "rgba(255,255,255,0.05)";
+      ctx.fillStyle = "rgba(147,164,189,0.4)";
+      ctx.font = "9px ui-monospace, SFMono-Regular, Menlo, monospace";
+      const cols = ["A", "B", "C", "D"];
+      for (let i = 1; i < 4; i++) {
+        const gx = fx + (i / 4) * fw, gy = fy + (i / 4) * fh;
+        ctx.beginPath(); ctx.moveTo(gx, fy); ctx.lineTo(gx, fy + fh); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(fx, gy); ctx.lineTo(fx + fw, gy); ctx.stroke();
+      }
+      ctx.textAlign = "center";
+      for (let i = 0; i < 4; i++) {
+        ctx.fillText(cols[i], fx + ((i + 0.5) / 4) * fw, fy - 5);
+      }
+      ctx.textAlign = "right";
+      for (let i = 0; i < 4; i++) {
+        ctx.fillText(String(i + 1), fx - 5, fy + ((i + 0.5) / 4) * fh + 3);
+      }
+    }
+
+    function drawCreepAndTerritory(liveTownHalls) {
+      // 1. Zerg creep spread
+      if (creepNodes && creepNodes.length) {
+        ctx.save();
+        for (const c of creepNodes) {
+          const [born, died, cx, cy, cr] = c;
+          if (born > t) continue;
+          let growth = Math.min(1, (t - born) / 16);
+          if (died >= 0 && t >= died) {
+            const fade = 1 - (t - died) / 10;
+            if (fade <= 0) continue;
+            growth *= fade;
+          }
+          const rx = sx(cx), ry = sy(cy), rad = Math.max(4, cr * scale * growth);
+          const g = ctx.createRadialGradient(rx, ry, rad * 0.15, rx, ry, rad);
+          g.addColorStop(0, "rgba(139, 76, 179, 0.24)");
+          g.addColorStop(0.65, "rgba(116, 54, 158, 0.14)");
+          g.addColorStop(1, "rgba(116, 54, 158, 0)");
+          ctx.fillStyle = g;
+          ctx.beginPath(); ctx.arc(rx, ry, rad, 0, 6.2832); ctx.fill();
+        }
+        ctx.restore();
+      }
+      // 2. Town-hall territory ambient glow & expansion ring
+      for (const th of liveTownHalls) {
+        const rad = 11.5 * scale;
+        ctx.save();
+        ctx.globalAlpha = th.building ? 0.12 : 0.2;
+        ctx.strokeStyle = th.color;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.arc(th.x, th.y, rad, 0, 6.2832); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = th.building ? 0.04 : 0.08;
+        ctx.fillStyle = th.color;
+        ctx.beginPath(); ctx.arc(th.x, th.y, rad, 0, 6.2832); ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function drawFeatures(liveArmies, liveGasBlds) {
+      for (const f of features) {
+        if (f.born > t) continue;
+        if (f.died >= 0 && t >= f.died) {
+          // Destructible rocks shatter flash
+          if (f.feature === "rock" && t - f.died <= 2.0) {
+            const p = f.moves[0];
+            const dt = t - f.died, alpha = 1 - dt / 2.0;
+            ctx.strokeStyle = `rgba(180,155,120,${alpha.toFixed(3)})`;
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.arc(sx(p[1]), sy(p[2]), 4 + dt * 7, 0, 6.2832); ctx.stroke();
+          }
+          continue;
+        }
+        const p = f.moves[0];
+        const x = sx(p[1]), y = sy(p[2]);
+        if (f.feature === "mineral" || f.feature === "rich_mineral") {
+          ctx.fillStyle = f.feature === "rich_mineral" ? "#f5b841" : "#53c9ff";
+          ctx.beginPath();
+          ctx.moveTo(x, y - 2.3); ctx.lineTo(x + 2.6, y); ctx.lineTo(x, y + 2.3); ctx.lineTo(x - 2.6, y);
+          ctx.closePath();
+          ctx.fill();
+        } else if (f.feature === "geyser") {
+          // Hide raw geyser if a refinery/extractor/assimilator sits on top
+          let capped = false;
+          for (const g of liveGasBlds) {
+            if (Math.hypot(g.wx - p[1], g.wy - p[2]) < 4) { capped = true; break; }
+          }
+          if (!capped) {
+            ctx.fillStyle = "rgba(63, 214, 134, 0.25)";
+            ctx.beginPath(); ctx.arc(x, y, 4.2, 0, 6.2832); ctx.fill();
+            ctx.strokeStyle = "#4fd18a"; ctx.lineWidth = 1.2;
+            ctx.beginPath(); ctx.arc(x, y, 2.7, 0, 6.2832); ctx.stroke();
+          }
+        } else if (f.feature === "tower") {
+          // Detect nearest player unit within 13 tiles for watchtower control ring
+          let ctrlColor = null, bestD = 13;
+          for (const a of liveArmies) {
+            const d = Math.hypot(a.wx - p[1], a.wy - p[2]);
+            if (d < bestD) { bestD = d; ctrlColor = a.color; }
+          }
+          const sensorR = 16 * scale;
+          ctx.save();
+          ctx.strokeStyle = ctrlColor || "rgba(226, 232, 240, 0.22)";
+          ctx.globalAlpha = ctrlColor ? 0.35 : 0.22;
+          ctx.lineWidth = 1;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath(); ctx.arc(x, y, sensorR, 0, 6.2832); ctx.stroke();
+          ctx.restore();
+          ctx.fillStyle = ctrlColor || "#cbd5e1";
+          ctx.beginPath();
+          ctx.moveTo(x, y - 4.4); ctx.lineTo(x + 4.4, y); ctx.lineTo(x, y + 4.4); ctx.lineTo(x - 4.4, y);
+          ctx.closePath();
+          ctx.fill();
+          ctx.strokeStyle = "#0a0f18"; ctx.lineWidth = 1; ctx.stroke();
+        } else if (f.feature === "rock") {
+          ctx.fillStyle = "#5b554c";
+          ctx.strokeStyle = "rgba(255,255,255,0.22)";
+          ctx.lineWidth = 1;
+          ctx.fillRect(x - 4.5, y - 3.5, 9, 7);
+          ctx.strokeRect(x - 4.5, y - 3.5, 9, 7);
+        }
+      }
+    }
+
+    let lastRenderedItems = []; // for hover hit-testing
 
     function draw() {
       ctx.clearRect(0, 0, cssW, cssH);
-      // subtle grid
-      ctx.strokeStyle = "rgba(255,255,255,0.05)"; ctx.lineWidth = 1;
-      for (let i = 1; i < 4; i++) {
-        const gx = PAD + (i / 4) * (cssW - 2 * PAD), gy = PAD + (i / 4) * (cssH - 2 * PAD);
-        ctx.beginPath(); ctx.moveTo(gx, PAD); ctx.lineTo(gx, cssH - PAD); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(PAD, gy); ctx.lineTo(cssW - PAD, gy); ctx.stroke();
-      }
-      const comp = {}, bcomp = {};   // pid -> {type: {n,size,shape}} army / buildings alive
-      for (const u of units.values()) {
+      drawBackdrop();
+
+      const comp = {}, bcomp = {};
+      const liveTownHalls = [], liveGasBlds = [], liveBuildings = [];
+      const liveGround = [], liveAir = [], deathFlashes = [];
+
+      for (const u of playerUnits) {
         if (u.born > t) continue;
         const dead = u.died >= 0 && t >= u.died;
         if (dead) {
           const dt = t - u.died;
           if (dt <= MM_FLASH) {
-            const p = posAt(u, u.died); if (!p) continue;
-            const r = 3 + dt * 9, alpha = 1 - dt / MM_FLASH;
-            ctx.strokeStyle = `rgba(255,90,90,${alpha.toFixed(3)})`; ctx.lineWidth = 2;
-            ctx.beginPath(); ctx.arc(sx(p[0]), sy(p[1]), r, 0, 6.2832); ctx.stroke();
+            const p = posAt(u, u.died);
+            if (p) deathFlashes.push({ x: sx(p[0]), y: sy(p[1]), dt, big: u.isTownHall || u.size >= 3 });
           }
           continue;
         }
         const p = posAt(u, t); if (!p) continue;
         const x = sx(p[0]), y = sy(p[1]);
-        ctx.fillStyle = u.color;
+        const item = { u, x, y, wx: p[0], wy: p[1], angle: p[2] };
+
         if (u.structure) {
-          // buildings: bright-edged squares sized by footprint (town halls big)
-          const h = MM_BLD_H[u.size] || 3.7;
-          ctx.fillRect(x - h, y - h, 2 * h, 2 * h);
-          ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.55)";
-          ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);
-          let bc = bcomp[u.pid] || (bcomp[u.pid] = {});   // tally buildings
+          const building = u.done > u.born && t < u.done;
+          item.building = building;
+          item.prog = building ? Math.max(0, Math.min(1, (t - u.born) / (u.done - u.born))) : 1;
+          liveBuildings.push(item);
+          if (u.isTownHall) liveTownHalls.push({ x, y, color: u.color, building });
+          if (u.isGasBld) liveGasBlds.push(item);
+          let bc = bcomp[u.pid] || (bcomp[u.pid] = {});
           (bc[u.type] || (bc[u.type] = { n: 0, size: u.size, shape: "building" })).n++;
         } else {
-          // units sized by tier; air units are triangles, ground units circles
-          const r = MM_UNIT_R[u.size] || 2.4;
-          unitShape(ctx, x, y, r, u.isAir);
-          ctx.fill();
-          if (u.size >= 3) {  // outline big units so they stand out
-            ctx.lineWidth = 1; ctx.strokeStyle = "rgba(255,255,255,0.5)"; ctx.stroke();
-          }
-          if (!u.isWorker) {  // tally army composition for the HUD
+          if (u.isAir) liveAir.push(item);
+          else liveGround.push(item);
+          if (!u.isWorker && u.pid > 0) {
             let c = comp[u.pid] || (comp[u.pid] = {});
             (c[u.type] || (c[u.type] = { n: 0, size: u.size, shape: u.isAir ? "air" : "ground" })).n++;
           }
         }
       }
+
+      // Layer 1: Creep & base territory
+      if (layers.territory) drawCreepAndTerritory(liveTownHalls);
+
+      // Layer 2: Neutral map features
+      if (layers.features) drawFeatures(liveGround.concat(liveAir), liveGasBlds);
+
+      // Layer 3: Smooth curved movement trails behind moving army units
+      if (layers.trails) {
+        ctx.save();
+        ctx.lineWidth = 1.25;
+        ctx.lineCap = "round";
+        for (const list of [liveGround, liveAir]) {
+          for (const item of list) {
+            if (item.u.isWorker || item.angle == null) continue;
+            const p1 = posAt(item.u, Math.max(item.u.born, t - 2));
+            const p2 = posAt(item.u, Math.max(item.u.born, t - 4.5));
+            const p3 = posAt(item.u, Math.max(item.u.born, t - 7));
+            if (!p1 || !p2 || !p3) continue;
+            const x3 = sx(p3[0]), y3 = sy(p3[1]);
+            if (Math.hypot(item.x - x3, item.y - y3) < 2.2) continue;
+            ctx.strokeStyle = item.u.color;
+            ctx.globalAlpha = 0.28;
+            ctx.beginPath();
+            ctx.moveTo(x3, y3);
+            ctx.lineTo(sx(p2[0]), sy(p2[1]));
+            ctx.lineTo(sx(p1[0]), sy(p1[1]));
+            ctx.lineTo(item.x, item.y);
+            ctx.stroke();
+          }
+        }
+        ctx.restore();
+      }
+
+      // Layer 4: Buildings (including under-construction progress fill)
+      for (const item of liveBuildings) {
+        const { u, x, y, building, prog } = item;
+        const h = MM_BLD_H[u.size] || 3.8;
+        if (building) {
+          ctx.save();
+          ctx.fillStyle = u.color;
+          ctx.globalAlpha = 0.22;
+          ctx.fillRect(x - h, y - h, 2 * h, 2 * h);
+          // Rising progress fill
+          const fh = 2 * h * prog;
+          ctx.globalAlpha = 0.65;
+          ctx.fillRect(x - h, y + h - fh, 2 * h, fh);
+          ctx.globalAlpha = 0.85;
+          ctx.lineWidth = 1; ctx.strokeStyle = "#ffffff";
+          ctx.setLineDash([2, 2]);
+          ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);
+          ctx.restore();
+        } else {
+          ctx.fillStyle = u.color;
+          ctx.fillRect(x - h, y - h, 2 * h, 2 * h);
+          ctx.lineWidth = u.isTownHall ? 1.3 : 1;
+          ctx.strokeStyle = u.isTownHall ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.5)";
+          ctx.strokeRect(x - h + 0.5, y - h + 0.5, 2 * h - 1, 2 * h - 1);
+        }
+      }
+
+      // Layer 5: Ground units, then Air units on top
+      for (const list of [liveGround, liveAir]) {
+        for (const item of list) {
+          const { u, x, y, angle } = item;
+          const r = MM_UNIT_R[u.size] || 2.5;
+          ctx.fillStyle = u.color;
+          unitShape(ctx, x, y, r, u.isAir, angle);
+          ctx.fill();
+          if (u.size >= 3 || u.isAir) {
+            ctx.lineWidth = 0.9;
+            ctx.strokeStyle = u.size >= 3 ? "rgba(255,255,255,0.65)" : "rgba(10,15,24,0.7)";
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Layer 6: Death rings
+      for (const f of deathFlashes) {
+        const r = (f.big ? 5 : 3) + f.dt * (f.big ? 13 : 9);
+        const alpha = 1 - f.dt / MM_FLASH;
+        ctx.strokeStyle = f.big ? `rgba(251,146,60,${alpha.toFixed(3)})` : `rgba(255,90,90,${alpha.toFixed(3)})`;
+        ctx.lineWidth = f.big ? 2.5 : 1.8;
+        ctx.beginPath(); ctx.arc(f.x, f.y, r, 0, 6.2832); ctx.stroke();
+      }
+
+      // Save for hover tooltip
+      lastRenderedItems = liveAir.concat(liveGround, liveBuildings);
+      if (hoverPt) drawHoverReticle();
+
       updateStats();
       updateComposition(comp, bcomp);
+      syncPlayhead(t);
+    }
+
+    function drawHoverReticle() {
+      if (!hoverPt) return;
+      const { mx, my } = hoverPt;
+      const nearby = [];
+      for (const item of lastRenderedItems) {
+        if (Math.hypot(item.x - mx, item.y - my) <= 13) nearby.push(item);
+      }
+      if (!nearby.length && layers.features) {
+        for (const f of features) {
+          if (f.born > t || (f.died >= 0 && t >= f.died)) continue;
+          const p = f.moves[0], fx = sx(p[1]), fy = sy(p[2]);
+          if (Math.hypot(fx - mx, fy - my) <= 12) nearby.push({ u: f, x: fx, y: fy });
+        }
+      }
+      if (!nearby.length) { tipEl.style.opacity = 0; return; }
+
+      // Subtle hover ring on canvas
+      ctx.save();
+      ctx.strokeStyle = "rgba(255,255,255,0.45)";
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(mx, my, 12, 0, 6.2832); ctx.stroke();
+      ctx.restore();
+
+      // Tally unit types near cursor
+      const tally = new Map();
+      for (const it of nearby) {
+        const key = it.u.owner + " · " + it.u.type;
+        tally.set(key, (tally.get(key) || 0) + 1);
+      }
+      const rows = [...tally.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4);
+      tipEl.innerHTML = rows.map(([k, n]) =>
+        `<div>${n > 1 ? `<strong>${n}×</strong> ` : ""}${escapeHtml(k)}</div>`
+      ).join("");
+      tipEl.style.left = Math.max(48, Math.min(cssW - 48, mx)) + "px";
+      tipEl.style.top = Math.max(36, my) + "px";
+      tipEl.style.opacity = 1;
     }
 
     function fmt(s) { const m = Math.floor(s / 60); return m + ":" + String(Math.floor(s % 60)).padStart(2, "0"); }
@@ -1013,31 +1682,437 @@ json.dumps(sc2_summary.summarize(_data))
       draw(); updateUI();
       if (playing) raf = requestAnimationFrame(step);
     }
+    function seek(newT) {
+      t = Math.max(0, Math.min(duration, newT));
+      draw(); updateUI();
+    }
 
     // events
     const onPlay = () => { if (t >= duration) t = 0; setPlaying(!playing); };
-    const onScrub = () => { t = (scrub.value / 1000) * duration; draw(); updateUI(); };
+    const onScrub = () => { if (playing) setPlaying(false); seek((scrub.value / 1000) * duration); };
     const onSpeed = (e) => {
       const b = e.target.closest("button[data-s]"); if (!b) return;
       speed = +b.dataset.s;
       speedEl.querySelectorAll("button").forEach((x) => x.classList.toggle("active", x === b));
     };
+    const onToggle = (e) => {
+      const b = e.target.closest("button[data-layer]"); if (!b) return;
+      const k = b.dataset.layer;
+      layers[k] = !layers[k];
+      b.classList.toggle("active", layers[k]);
+      draw();
+    };
+    const onEventClick = (e) => {
+      const m = e.target.closest(".mm-ev[data-t]"); if (!m) return;
+      if (playing) setPlaying(false);
+      seek(Number(m.dataset.t));
+    };
+    const onMouseMove = (e) => {
+      const r = canvas.getBoundingClientRect();
+      hoverPt = { mx: e.clientX - r.left, my: e.clientY - r.top };
+      draw();
+    };
+    const onMouseLeave = () => { hoverPt = null; tipEl.style.opacity = 0; draw(); };
+    const onKeyDown = (e) => {
+      if (e.target && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName)) return;
+      if (!playbackEl.classList.contains("show")) return;
+      if (e.code === "Space") { e.preventDefault(); onPlay(); }
+      else if (e.code === "ArrowRight") { e.preventDefault(); seek(t + 5); }
+      else if (e.code === "ArrowLeft") { e.preventDefault(); seek(t - 5); }
+    };
+
     playBtn.addEventListener("click", onPlay);
-    scrub.addEventListener("input", () => { if (playing) setPlaying(false); onScrub(); });
+    scrub.addEventListener("input", onScrub);
     speedEl.addEventListener("click", onSpeed);
+    togglesEl.addEventListener("click", onToggle);
+    eventsEl.addEventListener("click", onEventClick);
+    canvas.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("keydown", onKeyDown);
     const ro = new ResizeObserver(fit); ro.observe(canvas.parentElement);
 
     fit(); updateUI();
     return {
+      seek,
       destroy() {
         setPlaying(false); ro.disconnect();
         playBtn.removeEventListener("click", onPlay);
+        scrub.removeEventListener("input", onScrub);
         speedEl.removeEventListener("click", onSpeed);
+        togglesEl.removeEventListener("click", onToggle);
+        eventsEl.removeEventListener("click", onEventClick);
+        canvas.removeEventListener("mousemove", onMouseMove);
+        canvas.removeEventListener("mouseleave", onMouseLeave);
+        window.removeEventListener("keydown", onKeyDown);
+      },
+    };
+  }
+
+  // ---- Built-in synthetic sample replay (exact sc2_summary schema) ----
+  function buildSampleReplay() {
+    let seed = 421337;
+    const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    const jitter = (s) => (rand() - 0.5) * 2 * s;
+    const DUR = 780; // 13m 00s
+
+    const types = [], typeIdx = {};
+    const tidx = (name) => {
+      if (typeIdx[name] === undefined) { typeIdx[name] = types.length; types.push(name); }
+      return typeIdx[name];
+    };
+    const units = {}, moves = [], creep = [];
+    let nextId = 1;
+
+    function addUnit(pid, structure, born, died, size, type, path, done) {
+      const id = String(nextId++);
+      units[id] = [pid, structure ? 1 : 0, born, died, size, tidx(type), done == null ? born : done];
+      for (const [tt, x, y] of path) {
+        moves.push([tt, id, Math.round(x * 10) / 10, Math.round(y * 10) / 10]);
+      }
+    }
+
+    // 1. Neutral map features: 8 bases (mineral arcs + 2 geysers each), 2 gold bases, 2 Xel'Naga watchtowers, destructible rocks
+    const bases = [
+      [26, 28, -1, -1, false], [54, 24, 0, -1, false], [24, 66, -1, 0, false], [76, 48, 0, -1, false],
+      [154, 132, 1, 1, false], [126, 136, 0, 1, false], [156, 94, 1, 0, false], [104, 112, 0, 1, false],
+      [26, 128, -1, 1, true], [154, 32, 1, -1, true], // corner rich-mineral bases
+    ];
+    for (const [bx, by, dx, dy, rich] of bases) {
+      const baseAngle = Math.atan2(dy, dx);
+      for (let i = -3.5; i <= 3.5; i += 1) {
+        const ang = baseAngle + i * 0.22;
+        addUnit(0, false, 0, -1, 1, rich ? "RichMineralField" : "MineralField",
+          [[0, bx + Math.cos(ang) * 9.5, by + Math.sin(ang) * 9.5]]);
+      }
+      // 2 Vespene Geysers flanking the mineral arc
+      for (const side of [-1, 1]) {
+        const ang = baseAngle + side * 1.15;
+        addUnit(0, false, 0, -1, 2, "VespeneGeyser",
+          [[0, bx + Math.cos(ang) * 9.8, by + Math.sin(ang) * 9.8]]);
+      }
+    }
+    // 2 Xel'Naga Watchtowers controlling center flanks
+    addUnit(0, false, 0, -1, 3, "XelNagaTower", [[0, 68, 98]]);
+    addUnit(0, false, 0, -1, 3, "XelNagaTower", [[0, 112, 62]]);
+    // Destructible Rocks at backdoor / 3rd-base chokes (Terran breaks one at 390s)
+    addUnit(0, false, 0, 392, 2, "DestructibleRockEx1", [[0, 44, 72]]);
+    addUnit(0, false, 0, -1, 2, "DestructibleRockEx1", [[0, 136, 88]]);
+    addUnit(0, false, 0, -1, 2, "DestructibleRockEx1", [[0, 88, 36]]);
+    addUnit(0, false, 0, -1, 2, "DestructibleRockEx1", [[0, 92, 124]]);
+
+    // 2. Terran buildings (pid 1, bottom-left) with realistic build times (done_t)
+    const tBlds = [
+      [0, -1, 3, "OrbitalCommand", 26, 28, 0],
+      [22, -1, 1, "SupplyDepot", 38, 34, 43], [42, -1, 2, "Barracks", 42, 30, 88], [48, -1, 2, "Refinery", 19, 34, 69],
+      [102, -1, 3, "OrbitalCommand", 54, 24, 173], [122, -1, 1, "SupplyDepot", 46, 36, 143], [138, -1, 2, "Factory", 36, 40, 181],
+      [155, -1, 2, "Refinery", 22, 19, 176], [184, -1, 2, "Starport", 30, 44, 220], [204, -1, 2, "Barracks", 44, 42, 250],
+      [214, -1, 2, "Barracks", 50, 40, 260], [230, -1, 1, "Bunker", 64, 34, 259], [246, -1, 2, "EngineeringBay", 20, 42, 271],
+      [250, -1, 2, "EngineeringBay", 25, 46, 275], [270, -1, 3, "OrbitalCommand", 24, 66, 341], [295, -1, 2, "Refinery", 60, 16, 316],
+      [310, -1, 1, "SupplyDepot", 58, 36, 331], [320, -1, 1, "SupplyDepot", 62, 32, 341], [335, -1, 2, "Barracks", 38, 50, 381],
+      [345, -1, 2, "Barracks", 44, 52, 391], [360, -1, 2, "Factory", 32, 54, 403], [385, -1, 2, "Armory", 18, 50, 431],
+      [410, -1, 1, "MissileTurret", 20, 22, 428], [415, -1, 1, "MissileTurret", 54, 15, 433], [440, -1, 1, "SupplyDepot", 34, 62, 461],
+      [460, -1, 3, "PlanetaryFortress", 76, 48, 531], [480, -1, 1, "MissileTurret", 76, 56, 498], [495, -1, 1, "SupplyDepot", 40, 62, 516],
+      [520, -1, 2, "Barracks", 52, 48, 566], [540, -1, 1, "SupplyDepot", 46, 62, 561], [580, -1, 1, "SupplyDepot", 52, 62, 601],
+    ];
+    for (const [b, d, sz, tp, x, y, dn] of tBlds) addUnit(1, true, b, d, sz, tp, [[b, x, y]], dn);
+
+    // 3. Zerg buildings (pid 2, top-right) + dynamic Creep spread
+    const zBlds = [
+      [0, -1, 3, "Hive", 154, 132, 0],
+      [54, -1, 3, "Hatchery", 126, 136, 125], [65, -1, 2, "SpawningPool", 146, 122, 111], [74, -1, 2, "Extractor", 160, 124, 95],
+      [175, -1, 3, "Hatchery", 156, 94, 246], [210, -1, 2, "BanelingNest", 138, 124, 253], [235, -1, 2, "EvolutionChamber", 142, 118, 260],
+      [240, -1, 2, "EvolutionChamber", 136, 118, 265], [260, -1, 1, "SporeCrawler", 158, 138, 281], [265, -1, 1, "SporeCrawler", 122, 142, 286],
+      [285, -1, 2, "Extractor", 118, 142, 306], [310, -1, 2, "HydraliskDen", 144, 138, 339], [340, 682, 3, "Hatchery", 104, 112, 411],
+      [370, 675, 1, "SporeCrawler", 100, 118, 391], [375, 672, 1, "SpineCrawler", 96, 108, 411], [430, -1, 2, "Extractor", 164, 98, 451],
+      [485, -1, 2, "LurkerDen", 140, 132, 542], [530, -1, 1, "SporeCrawler", 162, 92, 551], [550, 765, 1, "SpineCrawler", 120, 124, 586],
+    ];
+    for (const [b, d, sz, tp, x, y, dn] of zBlds) addUnit(2, true, b, d, sz, tp, [[b, x, y]], dn);
+
+    // Zerg creep nodes (Hatcheries + advancing Creep Tumors towards center)
+    creep.push([0, -1, 154, 132, 13], [110, -1, 126, 136, 13], [230, -1, 156, 94, 13], [390, 682, 104, 112, 13]);
+    const tumors = [
+      [155, -1, 136, 122], [195, -1, 122, 118], [235, -1, 142, 106], [270, -1, 114, 108],
+      [310, -1, 132, 94], [350, 670, 102, 98], [390, 660, 92, 90], [430, 650, 116, 84],
+      [470, 645, 86, 82], [510, 640, 104, 74], [550, 640, 96, 86],
+    ];
+    for (const [b, d, cx, cy] of tumors) creep.push([b, d, cx, cy, 10]);
+
+    // 4. Workers (mining oscillation between mineral line and town hall!)
+    const tBases = [[26, 28, -5, -5], [54, 24, 0, -6], [24, 66, -6, 0], [76, 48, 0, -6]];
+    const zBases = [[154, 132, 5, 5], [126, 136, 0, 6], [156, 94, 6, 0], [104, 112, 0, 6]];
+    function workerPath(born, died, bx, by, mx, my) {
+      const end = died >= 0 ? died : DUR;
+      const pts = [[born, bx + jitter(3), by + jitter(3)]];
+      let cur = born + 12 + rand() * 8;
+      let toMin = true;
+      while (cur < end - 6) {
+        pts.push([Math.round(cur), (toMin ? bx + mx : bx) + jitter(3.2), (toMin ? by + my : by) + jitter(3.2)]);
+        toMin = !toMin;
+        cur += 14 + rand() * 8;
+      }
+      if (died >= 0) pts.push([died, bx + mx * 0.5 + jitter(4), by + my * 0.5 + jitter(4)]);
+      return pts;
+    }
+    for (let i = 0; i < 66; i++) {
+      const born = i < 12 ? 0 : Math.min(540, 14 + (i - 12) * 9);
+      const bIdx = i < 20 ? 0 : i < 38 ? 1 : i < 54 ? 2 : 3;
+      const [bx, by, mx, my] = tBases[bIdx];
+      const died = (i >= 54 && i < 60) ? 555 + (i - 54) * 3 : -1;
+      addUnit(1, false, born, died, 1, "SCV", workerPath(born, died, bx, by, mx, my));
+    }
+    for (let i = 0; i < 74; i++) {
+      const born = i < 12 ? 0 : Math.min(520, 12 + (i - 12) * 7.8);
+      const bIdx = i < 20 ? 0 : i < 38 ? 1 : i < 56 ? 2 : 3;
+      const [bx, by, mx, my] = zBases[bIdx];
+      let died = -1;
+      if (bIdx === 0 && i >= 14 && i < 19) died = 322 + (i - 14) * 2;
+      else if (bIdx === 2 && i >= 48 && i < 54) died = 485 + (i - 48) * 2;
+      else if (bIdx === 3 && i >= 58) died = 652 + (i - 58) * 1.8;
+      addUnit(2, false, born, died, 1, "Drone", workerPath(born, died, bx, by, mx, my));
+    }
+
+    function makePath(born, died, waypoints, spread = 4.5) {
+      const endT = died >= 0 ? died : DUR;
+      const out = [[born, waypoints[0][1] + jitter(spread * 0.7), waypoints[0][2] + jitter(spread * 0.7)]];
+      for (const [wt, wx, wy] of waypoints) {
+        if (wt <= born + 1) continue;
+        if (wt > endT) break;
+        out.push([wt, wx + jitter(spread), wy + jitter(spread)]);
+      }
+      if (died >= 0 && out[out.length - 1][0] < died) {
+        const last = out[out.length - 1];
+        out.push([died, last[1] + jitter(3), last[2] + jitter(3)]);
+      }
+      return out;
+    }
+
+    // 5. Early Reaper scout + Zerg Watchtower ling
+    addUnit(1, false, 95, 178, 1, "Reaper", [
+      [95, 42, 30], [110, 74, 62], [125, 108, 104], [140, 128, 126],
+      [155, 146, 122], [168, 132, 130], [178, 122, 126],
+    ]);
+    // Zerg scout lings holding Xel'Naga watchtowers early-mid game
+    addUnit(2, false, 135, 385, 1, "Zergling", [[135, 146, 122], [165, 112, 62], [385, 112, 62]]);
+    addUnit(2, false, 140, 405, 1, "Zergling", [[140, 146, 122], [178, 68, 98], [405, 68, 98]]);
+
+    // 6. Overlords & Overseers
+    const ovSpots = [
+      [130, 106], [96, 76], [70, 96], [142, 68], [166, 118], [116, 148],
+      [164, 142], [108, 138], [86, 120], [134, 84],
+    ];
+    ovSpots.forEach(([ox, oy], idx) => {
+      const born = idx === 0 ? 0 : 40 + idx * 48;
+      const died = idx === 1 ? 395 : idx === 2 ? 590 : -1;
+      const tp = idx >= 7 ? "Overseer" : "Overlord";
+      addUnit(2, false, born, died, 3, tp, [
+        [born, 150, 128], [born + 35, ox, oy], [Math.min(DUR, born + 160), ox + jitter(4), oy + jitter(4)],
+      ]);
+    });
+
+    // 7. Terran Medivac Drop #1 (290s -> Zerg main at 320s)
+    for (let m = 0; m < 2; m++) {
+      addUnit(1, false, 240 + m * 15, m === 0 ? 355 : -1, 3, "Medivac",
+        makePath(240 + m * 15, m === 0 ? 355 : -1, [
+          [240, 34, 44], [270, 56, 46], [292, 92, 32], [308, 142, 48],
+          [320, 162, 124], [335, 158, 132], [352, 144, 116], [385, 86, 74], [520, 96, 86], [640, 108, 108], [750, 132, 126],
+        ], 3));
+    }
+    for (let i = 0; i < 14; i++) {
+      const born = 220 + i * 4, died = 330 + Math.floor(rand() * 26);
+      addUnit(1, false, born, died, 1, "Marine",
+        makePath(born, died, [
+          [born, 46, 38], [288, 90, 34], [312, 158, 116], [322, 156, 132], [340, 150, 126], [died, 146, 124],
+        ], 4));
+    }
+
+    // 8. Terran Main Army waves
+    const tArmySpec = [
+      ...Array.from({ length: 24 }, (_, i) => ({ tp: "Marine", sz: 1, born: 260 + i * 5, died: i < 16 ? 415 + (i % 12) * 3 : 665 + (i % 6) * 4, wave: 1 })),
+      ...Array.from({ length: 8 }, (_, i) => ({ tp: "Marauder", sz: 2, born: 280 + i * 12, died: i < 4 ? 430 + i * 5 : 675 + i * 3, wave: 1 })),
+      ...Array.from({ length: 4 }, (_, i) => ({ tp: "SiegeTank", sz: 3, born: 260 + i * 35, died: i === 0 ? 442 : -1, wave: 1 })),
+      ...Array.from({ length: 4 }, (_, i) => ({ tp: "Medivac", sz: 3, born: 295 + i * 32, died: i === 0 ? 668 : -1, wave: 1 })),
+      ...Array.from({ length: 34 }, (_, i) => ({ tp: "Marine", sz: 1, born: 430 + i * 7, died: i < 14 ? 645 + (i % 10) * 3 : -1, wave: 2 })),
+      ...Array.from({ length: 14 }, (_, i) => ({ tp: "Marauder", sz: 2, born: 445 + i * 14, died: i < 5 ? 658 + i * 4 : -1, wave: 2 })),
+      ...Array.from({ length: 6 }, (_, i) => ({ tp: "SiegeTank", sz: 3, born: 455 + i * 36, died: i < 2 ? 670 + i * 8 : -1, wave: 2 })),
+      ...Array.from({ length: 4 }, (_, i) => ({ tp: "WidowMine", sz: 1, born: 420 + i * 40, died: i < 2 ? 648 + i * 6 : -1, wave: 2 })),
+      ...Array.from({ length: 5 }, (_, i) => ({ tp: "Liberator", sz: 3, born: 530 + i * 34, died: i === 0 ? 676 : -1, wave: 2 })),
+      ...Array.from({ length: 3 }, (_, i) => ({ tp: "Thor", sz: 4, born: 575 + i * 48, died: -1, wave: 2 })),
+      ...Array.from({ length: 3 }, (_, i) => ({ tp: "Medivac", sz: 3, born: 490 + i * 45, died: -1, wave: 2 })),
+    ];
+    const tWave1Path = [
+      [260, 56, 38], [320, 66, 52], [370, 78, 66], [410, 90, 80], [440, 88, 78],
+      [480, 76, 60], [540, 84, 72], [600, 94, 92], [645, 102, 106], [685, 108, 114],
+      [725, 124, 122], [760, 134, 130], [780, 140, 132],
+    ];
+    const tWave2Path = [
+      [430, 58, 42], [490, 74, 58], [545, 86, 74], [600, 96, 94], [645, 104, 108],
+      [685, 112, 114], [725, 128, 124], [760, 138, 130], [780, 144, 132],
+    ];
+    for (const u of tArmySpec) {
+      addUnit(1, false, u.born, u.died, u.sz, u.tp,
+        makePath(u.born, u.died, u.wave === 1 ? tWave1Path : tWave2Path, 6.2));
+    }
+
+    // 9. Zerg Army
+    const zQueens = [[148, 126], [128, 130], [150, 96], [108, 114], [136, 116], [122, 122]];
+    zQueens.forEach(([qx, qy], i) => {
+      const born = 105 + i * 38, died = i === 3 ? 672 : i === 5 ? 748 : -1;
+      addUnit(2, false, born, died, 2, "Queen", [[born, qx, qy], [Math.min(DUR, born + 200), qx + jitter(4), qy + jitter(4)]]);
+    });
+    const zWave1Path = [
+      [140, 124, 126], [240, 116, 116], [320, 148, 128], [360, 110, 104],
+      [405, 94, 84], [435, 90, 80], [475, 106, 98], [535, 114, 104],
+      [615, 106, 110], [655, 104, 108], [710, 126, 124], [755, 136, 130], [780, 142, 132],
+    ];
+    const zWave2Path = [
+      [440, 124, 124], [510, 112, 106], [580, 106, 108], [635, 104, 108],
+      [675, 110, 114], [715, 126, 124], [755, 136, 130], [780, 144, 132],
+    ];
+    const zArmySpec = [
+      ...Array.from({ length: 36 }, (_, i) => ({ tp: "Zergling", sz: 1, born: 130 + i * 7, died: i < 16 ? 415 + (i % 10) * 3 : 635 + (i % 12) * 3, wave: 1 })),
+      ...Array.from({ length: 18 }, (_, i) => ({ tp: "Baneling", sz: 1, born: 290 + i * 10, died: i < 10 ? 422 + (i % 6) * 3 : 644 + (i % 8) * 3, wave: 1 })),
+      ...Array.from({ length: 16 }, (_, i) => ({ tp: "Hydralisk", sz: 2, born: 345 + i * 11, died: i < 6 ? 440 + i * 4 : 662 + (i % 8) * 4, wave: 1 })),
+      ...Array.from({ length: 30 }, (_, i) => ({ tp: "Zergling", sz: 1, born: 460 + i * 8, died: i < 22 ? 650 + (i % 12) * 3 : 745 + (i % 6) * 4, wave: 2 })),
+      ...Array.from({ length: 16 }, (_, i) => ({ tp: "Baneling", sz: 1, born: 485 + i * 12, died: i < 12 ? 656 + (i % 8) * 3 : 748 + (i % 4) * 5, wave: 2 })),
+      ...Array.from({ length: 18 }, (_, i) => ({ tp: "Hydralisk", sz: 2, born: 470 + i * 12, died: i < 10 ? 668 + (i % 7) * 4 : 755 + (i % 6) * 3, wave: 2 })),
+      ...Array.from({ length: 8 }, (_, i) => ({ tp: "Lurker", sz: 3, born: 535 + i * 22, died: i < 4 ? 674 + i * 5 : i < 6 ? 758 + i * 2 : -1, wave: 2 })),
+      ...Array.from({ length: 3 }, (_, i) => ({ tp: "Viper", sz: 3, born: 590 + i * 35, died: i === 0 ? 678 : -1, wave: 2 })),
+    ];
+    for (const u of zArmySpec) {
+      addUnit(2, false, u.born, u.died, u.sz, u.tp,
+        makePath(u.born, u.died, u.wave === 1 ? zWave1Path : zWave2Path, 7.2));
+    }
+    // Ling run-by to Terran 4th at 540s
+    for (let i = 0; i < 10; i++) {
+      const born = 505 + i * 2, died = 562 + i * 1.5;
+      addUnit(2, false, born, died, 1, "Zergling",
+        makePath(born, died, [[born, 148, 94], [525, 118, 66], [545, 84, 52], [558, 76, 48], [died, 74, 46]], 3));
+    }
+    moves.sort((a, b) => a[0] - b[0]);
+
+    // 10. Economy & production time-series (every 10s)
+    const series1 = [], series2 = [];
+    for (let tt = 0; tt <= DUR; tt += 10) {
+      const p = tt / DUR;
+      let w1 = Math.min(66, Math.round(12 + tt * 0.115 - (tt > 550 && tt < 610 ? 5 : 0)));
+      let w2 = Math.min(76, Math.round(12 + tt * 0.145 - (tt > 325 && tt < 370 ? 5 : 0) - (tt > 485 && tt < 530 ? 6 : 0) - (tt > 655 ? Math.min(26, (tt - 655) * 0.22) : 0)));
+      const dip420 = (tt >= 415 && tt <= 470) ? Math.sin(((tt - 415) / 55) * Math.PI) : 0;
+      const dip650 = (tt >= 640 && tt <= 710) ? Math.sin(((tt - 640) / 70) * Math.PI) : 0;
+      let a1 = Math.max(0, Math.round(Math.max(0, (tt - 85) * 0.21) - dip420 * 24 - dip650 * 28));
+      let a2 = Math.max(0, Math.round(Math.max(0, (tt - 95) * 0.23) - dip420 * 28 - dip650 * 48 - (tt > 690 ? (tt - 690) * 0.65 : 0)));
+      const s1 = Math.min(200, w1 + a1), s2 = Math.min(200, w2 + a2);
+      series1.push({
+        t: tt, supply_used: s1, supply_made: Math.min(200, Math.max(15, Math.ceil((s1 + 12) / 8) * 8)),
+        income_min: Math.round(w1 * 38 + (tt > 120 ? 220 : 0)),
+        income_gas: Math.round(Math.min(680, Math.max(0, (tt - 50) * 1.15))),
+        workers: w1, army_value: Math.round(a1 * 72 + (tt > 480 ? 600 : 0)),
+        unspent_min: Math.round(140 + 260 * Math.abs(Math.sin(tt * 0.035)) + (p > 0.75 ? 420 : 0)),
+        unspent_gas: Math.round(60 + 180 * Math.abs(Math.cos(tt * 0.028))),
+      });
+      series2.push({
+        t: tt, supply_used: s2, supply_made: Math.min(200, Math.max(14, Math.ceil((s2 + 10) / 8) * 8)),
+        income_min: Math.round(w2 * 39),
+        income_gas: Math.round(Math.min(760, Math.max(0, (tt - 75) * 1.25 - (tt > 670 ? (tt - 670) * 2.5 : 0)))),
+        workers: w2, army_value: Math.round(a2 * 64 + (tt > 530 && tt < 710 ? 550 : 0)),
+        unspent_min: Math.round(160 + 310 * Math.abs(Math.sin(tt * 0.04 + 1))),
+        unspent_gas: Math.round(80 + 210 * Math.abs(Math.cos(tt * 0.03 + 0.5))),
+      });
+    }
+
+    const bo1 = [
+      { t: 22, supply: 14, name: "SupplyDepot", kind: "structure" },
+      { t: 42, supply: 16, name: "Barracks", kind: "structure" },
+      { t: 48, supply: 16, name: "Refinery", kind: "structure" },
+      { t: 92, supply: 19, name: "Reaper", kind: "unit" },
+      { t: 102, supply: 20, name: "CommandCenter", kind: "structure" },
+      { t: 108, supply: 20, name: "OrbitalCommand", kind: "structure" },
+      { t: 122, supply: 22, name: "SupplyDepot", kind: "structure" },
+      { t: 138, supply: 24, name: "Factory", kind: "structure" },
+      { t: 155, supply: 28, name: "Refinery", kind: "structure" },
+      { t: 184, supply: 34, name: "Starport", kind: "structure" },
+      { t: 204, supply: 40, name: "Barracks", kind: "structure" },
+      { t: 214, supply: 42, name: "Barracks", kind: "structure" },
+      { t: 222, supply: 44, name: "Stimpack", kind: "upgrade" },
+      { t: 238, supply: 48, name: "Medivac", kind: "unit" },
+      { t: 246, supply: 52, name: "EngineeringBay", kind: "structure" },
+      { t: 262, supply: 58, name: "SiegeTank", kind: "unit" },
+      { t: 270, supply: 62, name: "CommandCenter", kind: "structure" },
+      { t: 288, supply: 68, name: "TerranInfantryWeaponsLevel1", kind: "upgrade" },
+      { t: 292, supply: 70, name: "TerranInfantryArmorsLevel1", kind: "upgrade" },
+      { t: 318, supply: 80, name: "ShieldWall", kind: "upgrade" },
+      { t: 360, supply: 96, name: "Factory", kind: "structure" },
+      { t: 385, supply: 106, name: "Armory", kind: "structure" },
+      { t: 460, supply: 128, name: "PlanetaryFortress", kind: "structure" },
+      { t: 472, supply: 132, name: "TerranInfantryWeaponsLevel2", kind: "upgrade" },
+      { t: 530, supply: 148, name: "Liberator", kind: "unit" },
+      { t: 575, supply: 162, name: "Thor", kind: "unit" },
+      { t: 620, supply: 176, name: "TerranInfantryWeaponsLevel3", kind: "upgrade" },
+    ];
+    const bo2 = [
+      { t: 14, supply: 13, name: "Overlord", kind: "unit" },
+      { t: 54, supply: 16, name: "Hatchery", kind: "structure" },
+      { t: 65, supply: 18, name: "SpawningPool", kind: "structure" },
+      { t: 74, supply: 17, name: "Extractor", kind: "structure" },
+      { t: 106, supply: 20, name: "Queen", kind: "unit" },
+      { t: 112, supply: 22, name: "Zergling", kind: "unit" },
+      { t: 124, supply: 26, name: "zerglingmovementspeed", kind: "upgrade" },
+      { t: 175, supply: 32, name: "Hatchery", kind: "structure" },
+      { t: 210, supply: 44, name: "BanelingNest", kind: "structure" },
+      { t: 235, supply: 52, name: "EvolutionChamber", kind: "structure" },
+      { t: 240, supply: 54, name: "EvolutionChamber", kind: "structure" },
+      { t: 264, supply: 62, name: "Lair", kind: "structure" },
+      { t: 282, supply: 68, name: "ZergMeleeWeaponsLevel1", kind: "upgrade" },
+      { t: 286, supply: 70, name: "ZergGroundArmorsLevel1", kind: "upgrade" },
+      { t: 310, supply: 78, name: "HydraliskDen", kind: "structure" },
+      { t: 340, supply: 88, name: "Hatchery", kind: "structure" },
+      { t: 356, supply: 96, name: "CentrificalHooks", kind: "upgrade" },
+      { t: 382, supply: 108, name: "EvolveGroovedSpines", kind: "upgrade" },
+      { t: 448, supply: 132, name: "Hive", kind: "structure" },
+      { t: 485, supply: 148, name: "LurkerDen", kind: "structure" },
+      { t: 535, supply: 164, name: "Lurker", kind: "unit" },
+      { t: 560, supply: 172, name: "AdaptiveTalons", kind: "upgrade" },
+      { t: 590, supply: 182, name: "Viper", kind: "unit" },
+    ];
+
+    return {
+      map_name: "Alcyone LE (Sample)",
+      players: [
+        { player_id: 1, name: "Maru", race: "Terran", result: "Win", team: 0, color: "#3b82f6", is_human: true, handle: "3-S2-1-482910" },
+        { player_id: 2, name: "Serral", race: "Zerg", result: "Loss", team: 1, color: "#ef4444", is_human: true, handle: "2-S2-1-913402" },
+      ],
+      played_at_utc: "2026-11-20T18:42:00Z",
+      game_version: "5.0.14.93333",
+      base_build: 93333,
+      game_speed: "Faster",
+      game_loops: Math.round(DUR * 16 * 1.4),
+      duration_seconds: DUR,
+      is_blizzard_map: true,
+      analytics: {
+        available: true,
+        series: { "1": series1, "2": series2 },
+        build_order: { "1": bo1, "2": bo2 },
+      },
+      minimap: {
+        available: true,
+        source: "positions",
+        bounds: [10, 10, 172, 152],
+        types,
+        units,
+        moves,
+        creep,
       },
     };
   }
 
   // ---- events ----
+  $("sampleBtn").addEventListener("click", () => {
+    if (busy) return;
+    clearOutput();
+    const data = buildSampleReplay();
+    render(data);
+    if (mmPlayer) mmPlayer.seek(390);
+    playbackEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
   fileInput.addEventListener("change", (e) => handleFile(e.target.files[0]));
   drop.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); }
