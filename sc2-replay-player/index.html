@@ -1253,73 +1253,214 @@ json.dumps(sc2_summary.summarize(_data))
       return [x, y, angle];
     }
 
-    function tracePoly(poly) {
+    // Smooth polygon corners via Chaikin subdivision while keeping map-border
+    // vertices pinned, plus subtle deterministic cliff sculpting on interior edges.
+    function smoothCliffPoly(poly, passes) {
+      const eps = Math.max(wWorld, hWorld) * 0.006;
+      const onEdge = (p) =>
+        Math.abs(p[0] - minX) < eps || Math.abs(p[0] - maxX) < eps ||
+        Math.abs(p[1] - minY) < eps || Math.abs(p[1] - maxY) < eps;
+      let pts = poly;
+      // Add subtle midpoint sculpting on long interior edges before smoothing
+      const sculpted = [];
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i], b = pts[(i + 1) % pts.length];
+        sculpted.push(a);
+        if (!onEdge(a) || !onEdge(b)) {
+          const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy);
+          if (len > wWorld * 0.07) {
+            const mx = (a[0] + b[0]) * 0.5, my = (a[1] + b[1]) * 0.5;
+            const h = Math.sin(mx * 0.37 + my * 0.53) * Math.cos(mx * 0.19 - my * 0.41);
+            const off = h * Math.min(len * 0.09, wWorld * 0.014);
+            sculpted.push([mx - (dy / len) * off, my + (dx / len) * off]);
+          }
+        }
+      }
+      pts = sculpted;
+      for (let pass = 0; pass < (passes || 2); pass++) {
+        const next = [];
+        for (let i = 0; i < pts.length; i++) {
+          const a = pts[i], b = pts[(i + 1) % pts.length];
+          if (onEdge(a) && onEdge(b)) { next.push(a); continue; }
+          next.push([a[0] * 0.75 + b[0] * 0.25, a[1] * 0.75 + b[1] * 0.25]);
+          next.push([a[0] * 0.25 + b[0] * 0.75, a[1] * 0.25 + b[1] * 0.75]);
+        }
+        pts = next;
+      }
+      return pts;
+    }
+
+    // Build a cached 180x180 directional-hillshaded relief heightfield + smoothed
+    // vector paths so we get both 3D relief shading AND retina-sharp cliff
+    // boundaries and unmistakable stepped ramps.
+    let terrainCache = null, terrainCacheKey = null;
+    function buildTerrainCache(terr) {
+      if (!terr) return null;
+      const W = 180, H = Math.max(96, Math.round(W * (hWorld / wWorld)));
+      const mask = document.createElement("canvas");
+      mask.width = W; mask.height = H;
+      const mctx = mask.getContext("2d");
+      const tx = (x) => ((x - minX) / wWorld) * W;
+      const ty = (y) => ((maxY - y) / hWorld) * H;
+      const trace = (poly) => {
+        mctx.beginPath();
+        for (let k = 0; k < poly.length; k++) {
+          const px = tx(poly[k][0]), py = ty(poly[k][1]);
+          if (k === 0) mctx.moveTo(px, py); else mctx.lineTo(px, py);
+        }
+        mctx.closePath();
+      };
+
+      const smChasms = (terr.chasms || []).map((c) => smoothCliffPoly(c, 2));
+      const smPlateaus = (terr.plateaus || []).map((p) => ({ level: p.level, poly: smoothCliffPoly(p.poly, 2) }));
+      const smPillars = (terr.pillars || []).map((k) => smoothCliffPoly(k, 2));
+
+      // R = elevation (18 chasm, 72 low, 144 mid, 218 high, 248 pillar), G = tag (128 chasm, 255 pillar), B = ramp (255)
+      mctx.fillStyle = "rgb(72, 0, 0)";
+      mctx.fillRect(0, 0, W, H);
+
+      for (const c of smChasms) { trace(c); mctx.fillStyle = "rgb(18, 128, 0)"; mctx.fill(); }
+      for (const lvl of [1, 2]) {
+        for (const p of smPlateaus) {
+          if (p.level !== lvl) continue;
+          trace(p.poly); mctx.fillStyle = lvl === 1 ? "rgb(144, 0, 0)" : "rgb(218, 0, 0)"; mctx.fill();
+        }
+      }
+      for (const k of smPillars) { trace(k); mctx.fillStyle = "rgb(248, 255, 0)"; mctx.fill(); }
+      for (const rm of (terr.ramps || [])) {
+        const x0 = tx(rm.from[0]), y0 = ty(rm.from[1]), x1 = tx(rm.to[0]), y1 = ty(rm.to[1]);
+        const g = mctx.createLinearGradient(x0, y0, x1, y1);
+        g.addColorStop(0, rm.level === 2 ? "rgb(144, 0, 255)" : "rgb(72, 0, 255)");
+        g.addColorStop(1, rm.level === 2 ? "rgb(218, 0, 255)" : "rgb(144, 0, 255)");
+        trace(rm.poly); mctx.fillStyle = g; mctx.fill();
+      }
+
+      const raw = mctx.getImageData(0, 0, W, H).data;
+      const elev = new Float32Array(W * H);
+      for (let i = 0; i < W * H; i++) elev[i] = raw[i * 4] / 255;
+
+      const hField = new Float32Array(W * H);
+      for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+          let sum = 0, cnt = 0;
+          for (let dy = -1; dy <= 1; dy++) {
+            const yy = y + dy; if (yy < 0 || yy >= H) continue;
+            for (let dx = -1; dx <= 1; dx++) {
+              const xx = x + dx; if (xx < 0 || xx >= W) continue;
+              const w = (dx === 0 && dy === 0) ? 2 : 1;
+              sum += elev[yy * W + xx] * w; cnt += w;
+            }
+          }
+          hField[y * W + x] = sum / cnt;
+        }
+      }
+
+      const out = mctx.createImageData(W, H);
+      const dst = out.data;
+      for (let y = 0; y < H; y++) {
+        const ym = Math.max(0, y - 1), yp = Math.min(H - 1, y + 1);
+        for (let x = 0; x < W; x++) {
+          const xm = Math.max(0, x - 1), xp = Math.min(W - 1, x + 1);
+          const idx = y * W + x, p4 = idx * 4;
+          const h = hField[idx];
+          const gx = hField[y * W + xp] - hField[y * W + xm];
+          const gy = hField[yp * W + x] - hField[ym * W + x];
+          const slope = Math.hypot(gx, gy);
+          const shade = (-gx * 0.72 - gy * 0.72);
+          const tagG = raw[p4 + 1], isRamp = raw[p4 + 2] > 120;
+          const isPillar = tagG > 200, isChasm = tagG > 80 && tagG < 180;
+          const grain = (((Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 1) - 0.5) * 4;
+
+          let r, g, b;
+          if (isChasm) { r = 6; g = 10; b = 18; }
+          else if (isPillar) { r = 40; g = 49; b = 65; }
+          else if (h < 0.42) { r = 12; g = 22; b = 37; }
+          else if (h < 0.70) { r = 22; g = 39; b = 63; }
+          else { r = 34; g = 58; b = 92; }
+
+          if (!isRamp && slope > 0.055) {
+            const cliffDark = Math.min(1, slope * 3.2) * 14;
+            r = r - cliffDark + shade * 145;
+            g = g - cliffDark + shade * 175;
+            b = b - cliffDark + shade * 220;
+          } else {
+            r += grain + shade * 28;
+            g += grain + shade * 32;
+            b += grain + shade * 40;
+          }
+
+          dst[p4]     = Math.max(0, Math.min(255, r));
+          dst[p4 + 1] = Math.max(0, Math.min(255, g));
+          dst[p4 + 2] = Math.max(0, Math.min(255, b));
+          dst[p4 + 3] = 255;
+        }
+      }
+      mctx.putImageData(out, 0, 0);
+      return { img: mask, smChasms, smPlateaus, smPillars, ramps: terr.ramps || [] };
+    }
+
+    function traceWorldPoly(poly) {
       ctx.beginPath();
       for (let k = 0; k < poly.length; k++) {
         const px = sx(poly[k][0]), py = sy(poly[k][1]);
-        if (k === 0) ctx.moveTo(px, py);
-        else ctx.lineTo(px, py);
+        if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
       }
       ctx.closePath();
     }
 
     function drawTerrain() {
       if (!terrain) return;
+      if (terrainCacheKey !== terrain) {
+        terrainCache = buildTerrainCache(terrain);
+        terrainCacheKey = terrain;
+      }
+      if (!terrainCache) return;
       const fx = ox, fy = oy, fw = wWorld * scale, fh = hWorld * scale;
       ctx.save();
-      ctx.beginPath();
-      ctx.rect(fx, fy, fw, fh);
-      ctx.clip();
+      ctx.beginPath(); ctx.rect(fx, fy, fw, fh); ctx.clip();
 
-      // Elevation palette: level 0 = low valley, 1 = mid shelf, 2 = high ground
-      const FILLS = { 1: "#16263f", 2: "#22385a" };
-      const RIMS = { 1: "rgba(132, 172, 222, 0.36)", 2: "rgba(182, 216, 255, 0.54)" };
-      const SHADOWS = { 1: "rgba(4, 8, 16, 0.45)", 2: "rgba(4, 8, 16, 0.62)" };
+      // 1. Blit hillshaded elevation relief
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(terrainCache.img, fx, fy, fw, fh);
 
-      // Draw plateaus from lowest tier to highest tier
+      // 2. Crisp cliff boundary outlines around plateaus, chasms & pillars
+      for (const c of terrainCache.smChasms) {
+        traceWorldPoly(c);
+        ctx.strokeStyle = "rgba(88, 120, 165, 0.32)"; ctx.lineWidth = 1; ctx.stroke();
+      }
       for (const lvl of [1, 2]) {
-        for (const p of (terrain.plateaus || [])) {
+        for (const p of terrainCache.smPlateaus) {
           if (p.level !== lvl) continue;
-          // Cliff drop shadow (offset down-right for 3D relief)
-          ctx.save();
-          ctx.translate(2.5, 3.5);
-          tracePoly(p.poly);
-          ctx.fillStyle = SHADOWS[lvl];
-          ctx.fill();
-          ctx.restore();
-
-          // Plateau surface + cliff rim
-          tracePoly(p.poly);
-          ctx.fillStyle = FILLS[lvl];
-          ctx.fill();
-          ctx.lineWidth = lvl === 2 ? 1.6 : 1.25;
-          ctx.strokeStyle = RIMS[lvl];
+          traceWorldPoly(p.poly);
+          ctx.strokeStyle = lvl === 2 ? "rgba(195, 226, 255, 0.56)" : "rgba(148, 188, 236, 0.40)";
+          ctx.lineWidth = lvl === 2 ? 1.5 : 1.15;
           ctx.stroke();
         }
       }
+      for (const k of terrainCache.smPillars) {
+        traceWorldPoly(k);
+        ctx.strokeStyle = "rgba(180, 200, 225, 0.45)"; ctx.lineWidth = 1.2; ctx.stroke();
+      }
 
-      // Draw ramps cutting cleanly across cliff rims with gradient + step lines
-      for (const rm of (terrain.ramps || [])) {
+      // 3. Crisp stepped ramps drawn cleanly over the cliff boundaries
+      for (const rm of terrainCache.ramps) {
         const x0 = sx(rm.from[0]), y0 = sy(rm.from[1]);
         const x1 = sx(rm.to[0]), y1 = sy(rm.to[1]);
-        const lowCol = rm.level === 2 ? FILLS[1] : "#0c1524";
-        const hiCol = rm.level === 2 ? FILLS[2] : FILLS[1];
         const g = ctx.createLinearGradient(x0, y0, x1, y1);
-        g.addColorStop(0, lowCol);
-        g.addColorStop(1, hiCol);
-
-        tracePoly(rm.poly);
+        g.addColorStop(0, rm.level === 2 ? "#182b47" : "#0e192b");
+        g.addColorStop(1, rm.level === 2 ? "#2a4770" : "#1c3252");
+        traceWorldPoly(rm.poly);
         ctx.fillStyle = g;
         ctx.fill();
 
-        // Step lines perpendicular to ramp slope (from low -> high)
+        // High-contrast perpendicular step bars (low -> high)
         ctx.save();
-        tracePoly(rm.poly);
+        traceWorldPoly(rm.poly);
         ctx.clip();
         const rdx = x1 - x0, rdy = y1 - y0, rlen = Math.hypot(rdx, rdy) || 1;
         const nx = -rdy / rlen, ny = rdx / rlen;
-        ctx.strokeStyle = "rgba(195, 222, 255, 0.28)";
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(218, 238, 255, 0.52)";
+        ctx.lineWidth = 1.25;
         for (let s = 1; s <= 4; s++) {
           const frac = s / 5;
           const cx = x0 + rdx * frac, cy = y0 + rdy * frac;
@@ -1330,10 +1471,10 @@ json.dumps(sc2_summary.summarize(_data))
         }
         ctx.restore();
 
-        // Subtle ramp side rails (poly[0]->poly[3] and poly[1]->poly[2])
+        // Bright ramp side walls framing the choke
         if (rm.poly.length === 4) {
-          ctx.strokeStyle = "rgba(170, 206, 248, 0.45)";
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = "rgba(204, 230, 255, 0.78)";
+          ctx.lineWidth = 1.6;
           ctx.beginPath();
           ctx.moveTo(sx(rm.poly[0][0]), sy(rm.poly[0][1]));
           ctx.lineTo(sx(rm.poly[3][0]), sy(rm.poly[3][1]));
