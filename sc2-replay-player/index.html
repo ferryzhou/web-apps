@@ -28,120 +28,150 @@
     background: radial-gradient(1200px 600px at 50% -10%, #16233b 0%, var(--bg) 55%);
     color: var(--text);
     min-height: 100vh;
-    line-height: 1.55;
-    padding: 2rem 1rem 4rem;
+    line-height: 1.5;
+    padding: 0.9rem 1rem 3rem;
   }
   .wrap { max-width: 860px; margin: 0 auto; }
 
-  header.page { text-align: center; margin-bottom: 2rem; }
+  /* Compact single-row page header */
+  header.page {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.5rem 0.9rem;
+    margin-bottom: 0.85rem; padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(38, 52, 74, 0.55);
+  }
+  header.page .head-left { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
   header.page h1 {
-    font-size: clamp(1.6rem, 4vw, 2.3rem);
-    letter-spacing: 0.5px;
+    font-size: clamp(1.1rem, 2.8vw, 1.32rem);
+    letter-spacing: 0.3px;
     background: linear-gradient(90deg, #7bc0ff, #cfa6ff);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  header.page p { color: var(--text-dim); margin-top: 0.4rem; font-size: 0.98rem; }
-  header.page .back { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-size: 0.9rem; }
-  header.page .back:hover { text-decoration: underline; }
+  header.page .back {
+    color: var(--text-dim); text-decoration: none; font-size: 0.8rem;
+    padding: 0.2rem 0.55rem; border-radius: 7px;
+    border: 1px solid var(--border); background: var(--bg-panel);
+  }
+  header.page .back:hover { color: var(--text); border-color: var(--accent); }
+  header.page .head-right { display: flex; align-items: center; gap: 0.55rem; }
+  .privacy-pill {
+    font-size: 0.74rem; color: var(--text-dim);
+    padding: 0.2rem 0.55rem; border-radius: 999px;
+    background: rgba(19, 27, 40, 0.75); border: 1px solid var(--border);
+  }
 
-  /* Dropzone */
+  /* Dropzone (expands before load, collapses to slim 1-line bar once a replay is loaded) */
+  .upload-box { margin-bottom: 0.75rem; }
   .drop {
     display: block;
-    border: 2px dashed var(--border);
-    border-radius: var(--radius);
+    border: 1.5px dashed var(--border);
+    border-radius: 12px;
     background: var(--bg-panel);
-    padding: 2.6rem 1.5rem;
+    padding: 1.65rem 1.2rem;
     text-align: center;
     cursor: pointer;
-    transition: border-color .2s, background .2s, box-shadow .2s;
+    transition: border-color .2s, background .2s, box-shadow .2s, padding .2s;
   }
   .drop:hover, .drop.dragover {
     border-color: var(--accent);
     background: var(--bg-panel-2);
-    box-shadow: 0 0 0 4px var(--accent-glow);
+    box-shadow: 0 0 0 3px var(--accent-glow);
   }
-  .drop .icon { font-size: 2.4rem; }
-  .drop h2 { font-size: 1.15rem; margin: 0.6rem 0 0.3rem; font-weight: 600; }
-  .drop p { color: var(--text-dim); font-size: 0.9rem; }
+  .drop .icon { font-size: 1.7rem; line-height: 1; }
+  .drop h2 { font-size: 1rem; margin: 0.4rem 0 0.2rem; font-weight: 600; }
+  .drop p { color: var(--text-dim); font-size: 0.84rem; }
   .drop input { display: none; }
 
-  .note {
-    margin-top: 1rem; text-align: center;
-    color: var(--text-dim); font-size: 0.82rem;
+  .wrap.loaded .upload-box {
+    display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap;
+    margin-bottom: 0.65rem;
   }
-  .note strong { color: var(--text); }
+  .wrap.loaded .drop {
+    flex: 1 1 220px; display: flex; align-items: center; gap: 0.55rem;
+    padding: 0.42rem 0.8rem; text-align: left; border-radius: 10px;
+  }
+  .wrap.loaded .drop .icon { font-size: 1rem; }
+  .wrap.loaded .drop h2 { font-size: 0.82rem; margin: 0; font-weight: 600; }
+  .wrap.loaded .drop p { display: none; }
+  .wrap.loaded .sample-row { margin-top: 0; }
+  .wrap.loaded .sample-btn { padding: 0.42rem 0.8rem; font-size: 0.8rem; }
 
   /* Status / spinner */
   .status {
-    margin-top: 1.4rem; text-align: center;
-    color: var(--text-dim); font-size: 0.95rem;
+    margin-top: 0.9rem; text-align: center;
+    color: var(--text-dim); font-size: 0.9rem;
     display: none; align-items: center; justify-content: center; gap: 0.6rem;
   }
   .status.show { display: flex; }
   .spinner {
-    width: 18px; height: 18px; border-radius: 50%;
+    width: 16px; height: 16px; border-radius: 50%;
     border: 2px solid var(--border); border-top-color: var(--accent);
     animation: spin 0.8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   .error {
-    display: none; margin-top: 1.2rem; padding: 1rem 1.2rem;
-    border: 1px solid var(--loss); border-radius: var(--radius);
-    background: rgba(224, 85, 97, 0.08); color: #ffb4ba; font-size: 0.92rem;
+    display: none; margin-top: 0.8rem; padding: 0.8rem 1rem;
+    border: 1px solid var(--loss); border-radius: 10px;
+    background: rgba(224, 85, 97, 0.08); color: #ffb4ba; font-size: 0.88rem;
   }
   .error.show { display: block; }
 
-  /* Result card */
+  /* Compact match summary strip */
   .card {
-    display: none; margin-top: 1.8rem;
+    display: none; margin-top: 0.25rem;
     background: var(--bg-panel); border: 1px solid var(--border);
-    border-radius: var(--radius); overflow: hidden;
+    border-radius: 12px; overflow: hidden;
   }
-  .card.show { display: block; animation: rise .35s ease; }
-  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .card.show { display: block; animation: rise .25s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
   .card .map {
-    padding: 1.3rem 1.5rem;
-    background: linear-gradient(120deg, #1c2942, #141d2c);
+    padding: 0.55rem 0.9rem;
+    background: linear-gradient(120deg, #1b2840, #131c2b);
     border-bottom: 1px solid var(--border);
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 0.35rem 0.8rem;
   }
-  .card .map h2 { font-size: 1.35rem; }
-  .card .map .matchup { color: var(--accent); font-weight: 600; font-size: 1rem; }
+  .card .map-left { display: flex; align-items: baseline; gap: 0.55rem; flex-wrap: wrap; }
+  .card .map h2 { font-size: 1.02rem; font-weight: 700; }
+  .card .map .matchup {
+    color: var(--accent); font-weight: 700; font-size: 0.78rem;
+    padding: 0.08rem 0.45rem; border-radius: 999px;
+    background: rgba(77, 163, 255, 0.12); border: 1px solid rgba(77, 163, 255, 0.3);
+  }
 
   .meta {
-    display: flex; flex-wrap: wrap; gap: 1.4rem;
-    padding: 0.9rem 1.5rem; border-bottom: 1px solid var(--border);
-    color: var(--text-dim); font-size: 0.86rem;
+    display: flex; flex-wrap: wrap; gap: 0.35rem 0.75rem;
+    color: var(--text-dim); font-size: 0.76rem;
   }
   .meta div span { color: var(--text); font-weight: 600; }
 
-  .teams { padding: 0.6rem 1rem 1.1rem; }
+  .teams { padding: 0.45rem 0.75rem; }
+  .teams.v2 { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.4rem; }
   .team-label {
-    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
-    color: var(--text-dim); padding: 0.9rem 0.6rem 0.4rem;
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--text-dim); padding: 0.35rem 0.4rem 0.15rem;
   }
   .vs {
     text-align: center; color: var(--text-dim);
-    font-size: 0.8rem; letter-spacing: 2px; margin: 0.5rem 0;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; padding: 0 0.25rem;
   }
 
   .player {
-    display: flex; align-items: center; gap: 0.9rem;
-    padding: 0.7rem 0.7rem; border-radius: 10px;
+    display: flex; align-items: center; gap: 0.55rem;
+    padding: 0.32rem 0.45rem; border-radius: 8px; min-width: 0;
   }
-  .player + .player { margin-top: 0.3rem; }
   .player:hover { background: var(--bg-panel-2); }
   .swatch {
-    width: 6px; align-self: stretch; min-height: 34px;
+    width: 4px; align-self: stretch; min-height: 24px;
     border-radius: 3px; flex: 0 0 auto;
   }
   .race-badge {
-    width: 38px; height: 38px; flex: 0 0 auto;
-    border-radius: 9px; display: grid; place-items: center;
-    font-weight: 800; font-size: 1.1rem; color: #0c1119;
+    width: 26px; height: 26px; flex: 0 0 auto;
+    border-radius: 7px; display: grid; place-items: center;
+    font-weight: 800; font-size: 0.82rem; color: #0c1119;
   }
   .race-Terran  { background: var(--terran); }
   .race-Protoss { background: var(--protoss); }
@@ -150,39 +180,53 @@
 
   .pinfo { flex: 1 1 auto; min-width: 0; }
   .pinfo .name {
-    font-weight: 600; font-size: 1.02rem;
+    font-weight: 600; font-size: 0.88rem; line-height: 1.2;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .pinfo .sub { color: var(--text-dim); font-size: 0.82rem; }
+  .pinfo .sub { color: var(--text-dim); font-size: 0.72rem; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tag {
-    font-size: 0.68rem; padding: 1px 6px; border-radius: 6px;
+    font-size: 0.64rem; padding: 0 5px; border-radius: 5px;
     background: var(--bg-panel-2); color: var(--text-dim);
-    border: 1px solid var(--border); margin-left: 0.4rem; vertical-align: middle;
+    border: 1px solid var(--border); margin-left: 0.35rem; vertical-align: middle;
   }
 
   .result {
-    flex: 0 0 auto; font-weight: 700; font-size: 0.8rem;
-    padding: 0.25rem 0.7rem; border-radius: 999px; letter-spacing: 0.5px;
+    flex: 0 0 auto; font-weight: 700; font-size: 0.68rem;
+    padding: 0.14rem 0.5rem; border-radius: 999px; letter-spacing: 0.4px;
   }
   .result.Win  { background: rgba(53,196,106,0.15); color: var(--win); border: 1px solid rgba(53,196,106,0.4); }
   .result.Loss { background: rgba(224,85,97,0.12); color: var(--loss); border: 1px solid rgba(224,85,97,0.35); }
   .result.Unknown { background: var(--bg-panel-2); color: var(--text-dim); border: 1px solid var(--border); }
 
-  .card .foot {
-    padding: 0.7rem 1.5rem; border-top: 1px solid var(--border);
-    color: var(--text-dim); font-size: 0.78rem; text-align: center;
+  /* Tabs */
+  .tabs {
+    display: none; margin-top: 0.75rem; padding: 0.25rem;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 12px; gap: 0.25rem;
   }
+  .tabs.show { display: flex; }
+  .tab {
+    flex: 1 1 0; padding: 0.48rem 0.7rem;
+    border: 1px solid transparent; border-radius: 9px;
+    background: transparent; color: var(--text-dim);
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .tab:hover:not(:disabled) { color: var(--text); background: rgba(255,255,255,0.03); }
+  .tab.active {
+    color: var(--text); background: var(--bg-panel-2);
+    border-color: rgba(77, 163, 255, 0.45);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+  }
+  .tab:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .tab-panel { display: none; margin-top: 0.75rem; }
+  .tab-panel.active { display: block; animation: rise .2s ease; }
 
   /* Analytics */
-  .analytics { display: none; margin-top: 1.8rem; }
-  .analytics.show { display: block; animation: rise .35s ease; }
-  .section-title {
-    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px;
-    color: var(--text-dim); margin: 1.6rem 0 0.8rem; font-weight: 700;
-  }
-  .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.4rem; }
-  .legend .item { display: flex; align-items: center; gap: 0.45rem; font-size: 0.88rem; color: var(--text); }
-  .legend .dot { width: 12px; height: 12px; border-radius: 3px; flex: 0 0 auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-bottom: 0.55rem; }
+  .legend .item { display: flex; align-items: center; gap: 0.45rem; font-size: 0.86rem; color: var(--text); }
+  .legend .dot { width: 11px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
   .legend .item small { color: var(--text-dim); }
 
   .charts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
@@ -257,8 +301,6 @@
   }
 
   /* Minimap playback */
-  .playback { display: none; margin-top: 1.6rem; }
-  .playback.show { display: block; animation: rise .35s ease; }
   .mm-bar {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
     gap: 0.5rem; margin-bottom: 0.55rem;
@@ -278,7 +320,48 @@
     position: relative; background: #080d16;
     border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
   }
-  .mm-wrap canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
+  .mm-hud {
+    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.5rem;
+    padding: 0.3rem 0.55rem;
+    background: linear-gradient(180deg, rgba(16, 25, 42, 0.96), rgba(10, 16, 28, 0.88));
+    border-bottom: 1px solid rgba(147, 164, 189, 0.16);
+    font-size: 0.72rem;
+  }
+  .mm-hud.hidden { display: none; }
+  .mm-hclock {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.84rem; font-weight: 700; font-variant-numeric: tabular-nums;
+    color: var(--text); background: rgba(77, 163, 255, 0.12);
+    border: 1px solid rgba(77, 163, 255, 0.32); border-radius: 6px;
+    padding: 0.18rem 0.45rem; white-space: nowrap; text-align: center; min-width: 46px;
+  }
+  .mm-hrows { display: flex; flex-direction: column; gap: 0.14rem; min-width: 0; overflow-x: auto; }
+  .mm-hp {
+    display: flex; align-items: center; gap: 0.5rem;
+    min-width: 0; line-height: 1.25; white-space: nowrap;
+  }
+  .mm-hp-top {
+    flex: 0 0 88px; display: flex; align-items: center; gap: 0.3rem;
+    font-weight: 700; font-size: 0.76rem; min-width: 0;
+  }
+  .mm-hp-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mm-hp-bar { width: 3.5px; height: 11px; border-radius: 2px; flex: 0 0 auto; }
+  .mm-hp-race {
+    font-size: 0.6rem; font-weight: 800; padding: 0 3.5px; border-radius: 3px; flex: 0 0 auto;
+    background: rgba(255,255,255,0.08); color: var(--text-dim);
+  }
+  .mm-hp-vals {
+    display: flex; flex-wrap: nowrap; align-items: center; gap: 0.55rem;
+    color: var(--text-dim); font-size: 0.71rem; font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .mm-hp-vals b { color: var(--text); font-weight: 700; }
+  .mm-hp-vals .gas { color: #4fd18a; }
+  .mm-hp-vals .rz { display: inline-flex; align-items: center; }
+  .mm-hp-vals .rz + .rz { margin-left: 4px; }
+  .mm-hp-vals .ri { margin-right: 2px; }
+  .mm-stage { position: relative; }
+  .mm-stage canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
   .mm-tip {
     position: absolute; pointer-events: none; opacity: 0;
     background: rgba(10, 15, 24, 0.94); border: 1px solid var(--border);
@@ -323,7 +406,9 @@
   .mm-u .mm-g { flex: 0 0 auto; display: block; }
 
   .mm-controls {
-    display: flex; align-items: center; gap: 0.7rem; margin-top: 0.7rem; flex-wrap: wrap;
+    display: flex; align-items: center; gap: 0.7rem; margin-top: 0.6rem; flex-wrap: wrap;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.45rem 0.7rem;
   }
   .mm-btn {
     flex: 0 0 auto; width: 40px; height: 34px; border-radius: 8px;
@@ -352,39 +437,38 @@
   .mm-speed button.active { color: var(--text); border-color: var(--accent); background: rgba(77,163,255,0.12); }
 
   @media (max-width: 620px) {
-    .charts, .build-cols, .mm-stats { grid-template-columns: 1fr; }
+    .charts, .build-cols, .mm-stats, .teams.v2 { grid-template-columns: 1fr; }
+    .teams.v2 .vs { display: none; }
   }
 
-  footer.page { text-align: center; margin-top: 2.5rem; color: var(--text-dim); font-size: 0.82rem; }
+  footer.page { text-align: center; margin-top: 2rem; color: var(--text-dim); font-size: 0.78rem; }
   footer.page a { color: var(--accent); text-decoration: none; }
   footer.page a:hover { text-decoration: underline; }
-
-  @media (max-width: 520px) {
-    .meta { gap: 0.9rem; }
-    .race-badge { width: 32px; height: 32px; font-size: 0.95rem; }
-  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" id="appWrap">
   <header class="page">
-    <a class="back" href="../index.html">← Web Apps Collection</a>
-    <h1>StarCraft II Replay Player</h1>
-    <p>Drop a <code>.SC2Replay</code> file to read the match summary — players, races, result, map, and length.</p>
+    <div class="head-left">
+      <a class="back" href="../index.html">← Apps</a>
+      <h1>SC2 Replay Player</h1>
+    </div>
+    <div class="head-right">
+      <span class="privacy-pill" title="Parsed locally in your browser — nothing is uploaded">🔒 Local only</span>
+    </div>
   </header>
 
-  <label class="drop" id="drop" for="file" tabindex="0" role="button" aria-label="Choose or drop a replay file">
-    <div class="icon" aria-hidden="true">🎮</div>
-    <h2>Drop a replay here, or click to browse</h2>
-    <p>Standard <code>.SC2Replay</code> files from StarCraft II</p>
-    <input type="file" id="file" accept=".SC2Replay,.s2replay" />
-  </label>
-
-  <div class="sample-row">
-    <button type="button" class="sample-btn" id="sampleBtn">▶ Try sample replay <span class="tag-mini">TvZ · Alcyone LE</span></button>
+  <div class="upload-box">
+    <label class="drop" id="drop" for="file" tabindex="0" role="button" aria-label="Choose or drop a replay file">
+      <div class="icon" aria-hidden="true">🎮</div>
+      <h2>Drop a <code>.SC2Replay</code> file or click to browse</h2>
+      <p>Parsed locally in your browser — nothing is uploaded</p>
+      <input type="file" id="file" accept=".SC2Replay,.s2replay" />
+    </label>
+    <div class="sample-row">
+      <button type="button" class="sample-btn" id="sampleBtn">▶ Try sample <span class="tag-mini">TvZ · Alcyone LE</span></button>
+    </div>
   </div>
-
-  <p class="note">🔒 <strong>Private by design.</strong> Your replay is parsed locally in your browser and never uploaded anywhere.</p>
 
   <div class="status" id="status" role="status" aria-live="polite">
     <span class="spinner" aria-hidden="true"></span>
@@ -394,25 +478,26 @@
   <div class="error" id="error" role="alert"></div>
 
   <section class="card" id="card" aria-live="polite">
-    <div class="map">
-      <h2 id="mapName"></h2>
-      <span class="matchup" id="matchup"></span>
+    <div class="map" id="mapRow">
+      <div class="map-left">
+        <h2 id="mapName"></h2>
+        <span class="matchup" id="matchup"></span>
+      </div>
+      <div class="meta" id="meta"></div>
     </div>
-    <div class="meta" id="meta"></div>
     <div class="teams" id="teams"></div>
-    <div class="foot" id="foot"></div>
   </section>
 
-  <section class="analytics" id="analytics" aria-live="polite">
-    <div class="section-title">Economy &amp; Production</div>
-    <div class="legend" id="chartLegend"></div>
-    <div class="charts" id="charts"></div>
-  </section>
+  <nav class="tabs" id="replayTabs" role="tablist" aria-label="Replay views">
+    <button type="button" class="tab active" role="tab" data-tab="playback" aria-selected="true">Replay Playback</button>
+    <button type="button" class="tab" role="tab" data-tab="plots" aria-selected="false">Plots</button>
+    <button type="button" class="tab" role="tab" data-tab="build" aria-selected="false">Build Order</button>
+  </nav>
 
-  <section class="playback" id="playback" aria-live="polite">
-    <div class="section-title">Replay Playback — 2D minimap</div>
+  <section class="tab-panel active" id="playback" data-panel="playback" role="tabpanel" aria-live="polite">
     <div class="mm-bar">
       <div class="mm-toggles" id="mmToggles">
+        <button type="button" class="mm-tog active" data-layer="hud">HUD</button>
         <button type="button" class="mm-tog active" data-layer="terrain">Terrain</button>
         <button type="button" class="mm-tog active" data-layer="features">Map features</button>
         <button type="button" class="mm-tog active" data-layer="territory">Creep &amp; bases</button>
@@ -429,10 +514,12 @@
       </div>
     </div>
     <div class="mm-wrap">
-      <canvas id="mmCanvas" role="img" aria-label="Top-down minimap of unit movement"></canvas>
-      <div class="mm-tip" id="mmTip"></div>
+      <div class="mm-hud" id="mmHud"></div>
+      <div class="mm-stage">
+        <canvas id="mmCanvas" role="img" aria-label="Top-down minimap of unit movement"></canvas>
+        <div class="mm-tip" id="mmTip"></div>
+      </div>
     </div>
-    <div class="mm-stats" id="mmStats"></div>
     <div class="mm-controls">
       <button class="mm-btn" id="mmPlay" aria-label="Play or pause">▶</button>
       <div class="mm-scrub-box">
@@ -442,11 +529,16 @@
       <span class="mm-time" id="mmTime">0:00 / 0:00</span>
       <div class="mm-speed" id="mmSpeed"></div>
     </div>
+    <div class="mm-stats" id="mmStats"></div>
     <p class="analytics-note" id="mmNote"></p>
   </section>
 
-  <section class="analytics" id="buildOrderSection" aria-live="polite">
-    <div class="section-title">Build Order</div>
+  <section class="tab-panel" id="analytics" data-panel="plots" role="tabpanel" aria-live="polite">
+    <div class="legend" id="chartLegend"></div>
+    <div class="charts" id="charts"></div>
+  </section>
+
+  <section class="tab-panel" id="buildOrderSection" data-panel="build" role="tabpanel" aria-live="polite">
     <div class="build-cols" id="buildOrder"></div>
     <p class="analytics-note" id="analyticsNote"></p>
   </section>
@@ -479,17 +571,40 @@
 
   // ---- elements ----
   const $ = (id) => document.getElementById(id);
-  const drop = $("drop"), fileInput = $("file");
+  const appWrap = $("appWrap"), drop = $("drop"), fileInput = $("file");
   const statusEl = $("status"), statusText = $("statusText");
-  const errorEl = $("error"), card = $("card"), analyticsEl = $("analytics"), playbackEl = $("playback");
-  const buildOrderEl = $("buildOrderSection");
+  const errorEl = $("error"), card = $("card"), tabsEl = $("replayTabs");
+  const analyticsEl = $("analytics"), playbackEl = $("playback"), buildOrderEl = $("buildOrderSection");
+  const tabPanels = { playback: playbackEl, plots: analyticsEl, build: buildOrderEl };
 
   let pyodidePromise = null;
   let mmPlayer = null;   // active minimap player (destroyed on each new replay)
   let chartSync = [];    // [{ line, xs, xMax }] synced to minimap playhead
   let buildRowRefs = []; // [{ el, t }] synced to minimap playhead
   let lastBuildSyncSec = -1;
+  let activeTab = "playback";
   let busy = false;
+
+  function setTab(name) {
+    if (!tabPanels[name]) return;
+    activeTab = name;
+    tabsEl.querySelectorAll(".tab[data-tab]").forEach((b) => {
+      const on = b.dataset.tab === name;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    Object.entries(tabPanels).forEach(([k, el]) => {
+      el.classList.toggle("active", k === name);
+    });
+    if (name === "playback" && mmPlayer && mmPlayer.fit) {
+      requestAnimationFrame(() => mmPlayer.fit());
+    }
+  }
+  tabsEl.addEventListener("click", (e) => {
+    const b = e.target.closest(".tab[data-tab]");
+    if (!b || b.disabled) return;
+    setTab(b.dataset.tab);
+  });
 
   // ---- helpers ----
   function setStatus(msg) {
@@ -504,9 +619,9 @@
   function clearOutput() {
     errorEl.classList.remove("show");
     card.classList.remove("show");
-    analyticsEl.classList.remove("show");
-    buildOrderEl.classList.remove("show");
-    playbackEl.classList.remove("show");
+    tabsEl.classList.remove("show");
+    appWrap.classList.remove("loaded");
+    Object.values(tabPanels).forEach((el) => el.classList.remove("active"));
     chartSync = [];
     buildRowRefs = [];
     lastBuildSyncSec = -1;
@@ -630,18 +745,19 @@ json.dumps(sc2_summary.summarize(_data))
 
     $("meta").innerHTML = [
       ["Length", fmtDuration(data.duration_seconds)],
-      ["Played", fmtDate(data.played_at_utc)],
       ["Speed", data.game_speed || "—"],
-      ["Version", data.game_version || "—"],
-    ].map(([k, v]) => `<div>${k}: <span>${escapeHtml(v)}</span></div>`).join("");
+      ["v", data.game_version || "—"],
+      ["Played", fmtDate(data.played_at_utc)],
+    ].map(([k, v]) => `<div>${k === "v" ? "" : k + ": "}<span>${escapeHtml(k === "v" ? "v" + v : v)}</span></div>`).join("");
 
-    // Group by team; teams with a single-per-side get a clean "vs" layout.
+    // Group by team; 1v1 gets a compact horizontal 2-column strip.
     const teams = {};
     players.forEach((p) => {
       const t = (p.team === null || p.team === undefined) ? "?" : p.team;
       (teams[t] = teams[t] || []).push(p);
     });
     const teamKeys = Object.keys(teams);
+    const is1v1 = teamKeys.length === 2 && teams[teamKeys[0]].length === 1 && teams[teamKeys[1]].length === 1;
 
     const playerRow = (p) => {
       const race = p.race || "Unknown";
@@ -661,10 +777,12 @@ json.dumps(sc2_summary.summarize(_data))
         </div>`;
     };
 
+    const teamsEl = $("teams");
+    teamsEl.classList.toggle("v2", is1v1);
     let html = "";
     if (teamKeys.length === 2) {
       html += teams[teamKeys[0]].map(playerRow).join("");
-      html += `<div class="vs">— VS —</div>`;
+      html += `<div class="vs">VS</div>`;
       html += teams[teamKeys[1]].map(playerRow).join("");
     } else {
       teamKeys.forEach((k) => {
@@ -672,13 +790,21 @@ json.dumps(sc2_summary.summarize(_data))
         html += teams[k].map(playerRow).join("");
       });
     }
-    $("teams").innerHTML = html;
+    teamsEl.innerHTML = html;
 
-    $("foot").textContent =
+    $("mapRow").title =
       `${data.game_loops || 0} game loops · base build ${data.base_build || "?"}` +
       (data.is_blizzard_map ? " · official map" : "");
 
+    appWrap.classList.add("loaded");
     card.classList.add("show");
+    const hasAnalytics = !!(data.analytics && data.analytics.available);
+    const hasMinimap = !!(data.minimap && data.minimap.available && data.minimap.moves && data.minimap.moves.length);
+    tabsEl.querySelector('[data-tab="playback"]').disabled = !hasMinimap;
+    tabsEl.querySelector('[data-tab="plots"]').disabled = !hasAnalytics;
+    tabsEl.querySelector('[data-tab="build"]').disabled = !hasAnalytics;
+    tabsEl.classList.toggle("show", hasMinimap || hasAnalytics);
+    setTab(hasMinimap ? "playback" : (hasAnalytics ? "plots" : "playback"));
     renderAnalytics(data);
     renderMinimap(data);
   }
@@ -709,7 +835,7 @@ json.dumps(sc2_summary.summarize(_data))
     const chartsEl = $("charts"), legendEl = $("chartLegend"), buildEl = $("buildOrder"), noteEl = $("analyticsNote");
     chartsEl.innerHTML = ""; legendEl.innerHTML = ""; buildEl.innerHTML = "";
     chartSync = []; buildRowRefs = []; lastBuildSyncSec = -1;
-    if (!a || !a.available) { analyticsEl.classList.remove("show"); buildOrderEl.classList.remove("show"); return; }
+    if (!a || !a.available) return;
 
     const byId = {}; (data.players || []).forEach((p) => { byId[p.player_id] = p; });
     const plist = Object.keys(a.series).map((id, i) => {
@@ -757,15 +883,13 @@ json.dumps(sc2_summary.summarize(_data))
       colEl.querySelectorAll(".build-row[data-t]").forEach((rowEl) => {
         const rt = Number(rowEl.dataset.t);
         refs.push({ el: rowEl, t: rt });
-        rowEl.addEventListener("click", () => { if (mmPlayer) mmPlayer.seek(rt); });
+        rowEl.addEventListener("click", () => { if (mmPlayer) { mmPlayer.seek(rt); setTab("playback"); } });
       });
       if (refs.length) buildRowRefs.push(refs);
     });
 
-    noteEl.textContent = "In-game clock; click any chart or build-order row to jump the minimap playhead. " +
+    noteEl.textContent = "In-game clock; click any build-order row to jump straight to that moment in Replay Playback. " +
       "Build order merges structures, units and upgrades (some spawned/temporary units are filtered).";
-    analyticsEl.classList.add("show");
-    buildOrderEl.classList.add("show");
   }
 
   // Build a single small-multiple line chart (one y-axis, one line per player).
@@ -1010,7 +1134,7 @@ json.dumps(sc2_summary.summarize(_data))
 
   function createMinimapPlayer(units, bounds, duration, statsPlayers, creepNodes, terrainData, startAt) {
     const canvas = $("mmCanvas"), ctx = canvas.getContext("2d");
-    const tipEl = $("mmTip"), eventsEl = $("mmEvents"), togglesEl = $("mmToggles");
+    const tipEl = $("mmTip"), eventsEl = $("mmEvents"), togglesEl = $("mmToggles"), hudEl = $("mmHud");
     const playBtn = $("mmPlay"), scrub = $("mmScrub"), timeEl = $("mmTime"), speedEl = $("mmSpeed");
     const statsEl = $("mmStats");
     const [minX, minY, maxX, maxY] = bounds;
@@ -1020,7 +1144,7 @@ json.dumps(sc2_summary.summarize(_data))
     let playing = false, speed = startAt ? 4 : 1, raf = 0, lastTs = 0;
     let cssW = 0, cssH = 0, scale = 1, ox = 0, oy = 0;
     let hoverPt = null;
-    const layers = { terrain: true, features: true, territory: true, trails: true };
+    const layers = { hud: true, terrain: true, features: true, territory: true, trails: true };
 
     // Separate neutral features from player units for clean Z-ordering
     const features = [], playerUnits = [];
@@ -1114,7 +1238,43 @@ json.dumps(sc2_summary.summarize(_data))
     speedEl.innerHTML = MM_SPEEDS.map((s) =>
       `<button data-s="${s}"${s === speed ? ' class="active"' : ""}>${s}×</button>`).join("");
 
-    // live stats HUD (supply / army / economy at the current playhead)
+    // Compact 2-line on-map HUD (time on the left, one player per line)
+    hudEl.innerHTML = "";
+    hudEl.classList.remove("hidden");
+    let hudClockEl = null;
+    const hudRefs = [];
+    if (statsPlayers.length) {
+      hudClockEl = document.createElement("div");
+      hudClockEl.className = "mm-hclock";
+      hudClockEl.textContent = "0:00";
+      const rowsEl = document.createElement("div");
+      rowsEl.className = "mm-hrows";
+      statsPlayers.forEach((p) => {
+        const slot = document.createElement("div");
+        slot.className = "mm-hp";
+        const rg = RACE_GLYPH[p.race] || "?";
+        slot.innerHTML =
+          `<div class="mm-hp-top"><span class="mm-hp-bar" style="background:${p.color}"></span>` +
+          `<span class="mm-hp-name">${escapeHtml(p.name)}</span><span class="mm-hp-race">${rg}</span></div>` +
+          `<div class="mm-hp-vals">` +
+          `<span>Sup <b data-h="supply">—</b></span>` +
+          `<span>Army <b data-h="army">—</b></span>` +
+          `<span>Wkr <b data-h="workers">—</b></span>` +
+          `<span data-h="income">—</span></div>`;
+        rowsEl.appendChild(slot);
+        hudRefs.push({
+          supply: slot.querySelector('[data-h="supply"]'),
+          army: slot.querySelector('[data-h="army"]'),
+          workers: slot.querySelector('[data-h="workers"]'),
+          income: slot.querySelector('[data-h="income"]'),
+        });
+      });
+      hudEl.append(hudClockEl, rowsEl);
+    } else {
+      hudEl.classList.add("hidden");
+    }
+
+    // live stats HUD below the controls (full breakdown + army/building composition)
     statsEl.innerHTML = "";
     statsPlayers = statsPlayers || [];
     statsEl.style.display = statsPlayers.length ? "grid" : "none";
@@ -1156,23 +1316,52 @@ json.dumps(sc2_summary.summarize(_data))
       });
     }
 
-    function rowAt(rows, tt) {
+    // Players whose workers appear in unit born/died events — for them the
+    // worker count is exact per frame; others fall back to snapshot rows.
+    const hasTrackedWorkers = {};
+    for (const u of playerUnits)
+      if (!u.structure && u.isWorker && u.type !== "MULE" && u.pid > 0) hasTrackedWorkers[u.pid] = true;
+
+    // SC2 only writes player stats every ~7s, so interpolate linearly between
+    // consecutive snapshots to keep the numbers moving smoothly.
+    const STAT_FIELDS = ["supply_used", "supply_made", "army_value", "income_min", "income_gas",
+                         "unspent_min", "unspent_gas", "workers"];
+    function statsAt(rows, tt) {
       if (!rows.length) return null;
-      if (rows[0].t > tt) return rows[0];
-      let lo = 0, hi = rows.length - 1, ans = 0;
-      while (lo <= hi) { const mid = (lo + hi) >> 1; if (rows[mid].t <= tt) { ans = mid; lo = mid + 1; } else hi = mid - 1; }
-      return rows[ans];
+      if (tt <= rows[0].t) return rows[0];
+      const last = rows[rows.length - 1];
+      if (tt >= last.t) return last;
+      let lo = 0, hi = rows.length - 1;
+      while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (rows[mid].t <= tt) lo = mid; else hi = mid; }
+      const a = rows[lo], b = rows[hi], k = (tt - a.t) / ((b.t - a.t) || 1), out = {};
+      for (const f of STAT_FIELDS) out[f] = Math.round((a[f] || 0) + ((b[f] || 0) - (a[f] || 0)) * k);
+      return out;
     }
-    function updateStats() {
+    function setText(el, val, html) {
+      if (!el || el._v === val) return;
+      el._v = val;
+      if (html) el.innerHTML = val; else el.textContent = val;
+    }
+    function updateStats(liveWorkers) {
       statsPlayers.forEach((p, i) => {
-        const r = rowAt(p.rows, t), c = chipRefs[i];
-        if (!r || c._row === r) return;
-        c._row = r;
-        c.supply.textContent = (r.supply_used || 0) + "/" + (r.supply_made || 0);
-        c.army.textContent = fmtShort(r.army_value || 0);
-        c.income.innerHTML = minGas(r.income_min, r.income_gas);
-        c.bank.innerHTML = minGas(r.unspent_min, r.unspent_gas);
-        c.workers.textContent = (r.workers || 0);
+        const r = statsAt(p.rows, t), c = chipRefs[i], h = hudRefs[i];
+        if (!r) return;
+        const used = r.supply_used || 0;
+        const sup = used + "/" + Math.max(used, r.supply_made || 0);
+        const army = fmtShort(r.army_value || 0);
+        const inc = minGas(r.income_min, r.income_gas);
+        const wkr = String(hasTrackedWorkers[p.pid] ? (liveWorkers[p.pid] || 0) : (r.workers || 0));
+        setText(c.supply, sup);
+        setText(c.army, army);
+        setText(c.income, inc, true);
+        setText(c.bank, minGas(r.unspent_min, r.unspent_gas), true);
+        setText(c.workers, wkr);
+        if (h) {
+          setText(h.supply, sup);
+          setText(h.army, army);
+          setText(h.workers, wkr);
+          setText(h.income, inc, true);
+        }
       });
     }
 
@@ -1637,7 +1826,7 @@ json.dumps(sc2_summary.summarize(_data))
 
       const comp = {}, bcomp = {};
       const liveTownHalls = [], liveGasBlds = [], liveBuildings = [];
-      const liveGround = [], liveAir = [], deathFlashes = [];
+      const liveGround = [], liveAir = [], deathFlashes = [], liveWorkers = {};
 
       for (const u of playerUnits) {
         if (u.born > t) continue;
@@ -1650,6 +1839,8 @@ json.dumps(sc2_summary.summarize(_data))
           }
           continue;
         }
+        if (!u.structure && u.isWorker && u.type !== "MULE" && u.pid > 0)
+          liveWorkers[u.pid] = (liveWorkers[u.pid] || 0) + 1;
         const p = posAt(u, t); if (!p) continue;
         const x = sx(p[0]), y = sy(p[1]);
         const item = { u, x, y, wx: p[0], wy: p[1], angle: p[2] };
@@ -1762,7 +1953,7 @@ json.dumps(sc2_summary.summarize(_data))
       lastRenderedItems = liveAir.concat(liveGround, liveBuildings);
       if (hoverPt) drawHoverReticle();
 
-      updateStats();
+      updateStats(liveWorkers);
       updateComposition(comp, bcomp);
       syncPlayhead(t);
     }
@@ -1808,7 +1999,9 @@ json.dumps(sc2_summary.summarize(_data))
     function fmt(s) { const m = Math.floor(s / 60); return m + ":" + String(Math.floor(s % 60)).padStart(2, "0"); }
     function updateUI() {
       scrub.value = Math.round((t / duration) * 1000);
-      timeEl.textContent = fmt(t) + " / " + fmt(duration);
+      const cur = fmt(t);
+      timeEl.textContent = cur + " / " + fmt(duration);
+      if (hudClockEl) hudClockEl.textContent = cur;
     }
     function setPlaying(v) {
       playing = v; playBtn.textContent = v ? "❚❚" : "▶";
@@ -1841,6 +2034,7 @@ json.dumps(sc2_summary.summarize(_data))
       const k = b.dataset.layer;
       layers[k] = !layers[k];
       b.classList.toggle("active", layers[k]);
+      if (k === "hud") { hudEl.classList.toggle("hidden", !layers.hud || !statsPlayers.length); return; }
       draw();
     };
     const onEventClick = (e) => {
@@ -1856,7 +2050,7 @@ json.dumps(sc2_summary.summarize(_data))
     const onMouseLeave = () => { hoverPt = null; tipEl.style.opacity = 0; draw(); };
     const onKeyDown = (e) => {
       if (e.target && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(e.target.tagName)) return;
-      if (!playbackEl.classList.contains("show")) return;
+      if (!playbackEl.classList.contains("active")) return;
       if (e.code === "Space") { e.preventDefault(); onPlay(); }
       else if (e.code === "ArrowRight") { e.preventDefault(); seek(t + 5); }
       else if (e.code === "ArrowLeft") { e.preventDefault(); seek(t - 5); }
@@ -1875,6 +2069,7 @@ json.dumps(sc2_summary.summarize(_data))
     fit(); updateUI();
     return {
       seek,
+      fit,
       destroy() {
         setPlaying(false); ro.disconnect();
         playBtn.removeEventListener("click", onPlay);
